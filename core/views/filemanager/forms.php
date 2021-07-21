@@ -1,28 +1,9 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
 <?php if($mode > 1) : ?><?php include_once $theView->getIncludePath('common/buttons.php'); ?><?php endif; ?>
-
-<div class="fpcm ui-hidden" id="fpcm-dialog-files-rename">
-    <div class="row py-2">
-        <?php $theView->textInput('newFilenameDialog')
-            ->setText('FILE_LIST_FILENAME')
-            ->setValue('')
-            ->setIcon('edit'); ?>
-    </div>    
-</div>
-
-<div class="fpcm ui-hidden" id="fpcm-dialog-files-alttext">
-    <div class="row py-2">
-        <?php $theView->textInput('altTextDialog')
-            ->setText('FILE_LIST_ALTTEXT')
-            ->setValue('')
-            ->setIcon('edit'); ?>
-    </div>    
-</div>
-
 <div class="fpcm ui-hidden" id="fpcm-dialog-files-properties">
 
     <div class="row mb-3 g-0">
-        <label class="col-form-label col-3 me-3">
+        <label class="col-form-label col-12 col-md-3 me-3">
             <?php $theView->icon('calendar-alt', 'far')->setSize('lg'); ?>
             <?php $theView->write('FILE_LIST_UPLOAD_DATE'); ?>
         </label>
@@ -30,7 +11,7 @@
     </div>
 
     <div class="row mb-3 g-0">
-        <label class="col-form-label col-3 me-3">
+        <label class="col-form-label col-12 col-md-3 me-3">
             <?php $theView->icon('user')->setSize('lg'); ?>
             <?php $theView->write('FILE_LIST_UPLOAD_BY'); ?>
         </label>
@@ -38,7 +19,7 @@
     </div>
 
     <div class="row mb-3 g-0">
-        <label class="col-form-label col-3 me-3">
+        <label class="col-form-label col-12 col-md-3 me-3">
             <?php $theView->icon('weight')->setSize('lg'); ?>
             <?php $theView->write('FILE_LIST_FILESIZE'); ?>
         </label>
@@ -46,7 +27,7 @@
     </div>
 
     <div class="row mb-3 g-0">
-        <label class="col-form-label col-3 me-3">
+        <label class="col-form-label col-12 col-md-3 me-3">
             <?php $theView->icon('expand-arrows-alt')->setSize('lg'); ?>
             <?php $theView->write('FILE_LIST_RESOLUTION'); ?>
         </label>
@@ -54,7 +35,7 @@
     </div>
 
     <div class="row mb-3 g-0">
-        <label class="col-form-label col-3 me-3">
+        <label class="col-form-label col-12 col-md-3 me-3">
             <?php $theView->icon('file-alt ')->setSize('lg'); ?>
             <?php $theView->write('FILE_LIST_FILETYPE'); ?>
         </label>
@@ -62,15 +43,15 @@
     </div>
 
     <div class="row mb-3 g-0">
-        <label class="col-form-label col-3 me-3">
+        <label class="col-form-label col-12 col-md-3 me-3">
             <?php $theView->icon('hashtag')->setSize('lg'); ?>
             <?php $theView->write('FILE_LIST_FILEHASH'); ?>
         </label>
-        <div class="col align-self-center" id="fpcm-dialog-files-properties-filehash"></div>
+        <div class="col align-self-center fpcm-ui-ellipsis" id="fpcm-dialog-files-properties-filehash"></div>
     </div>
 
     <div class="row g-0">
-        <label class="col-form-label col-3 me-3">
+        <label class="col-form-label col-12 col-md-3 me-3">
             <?php $theView->icon('copyright')->setSize('lg'); ?>
             <?php $theView->write('FILE_LIST_FILECREDITS'); ?>
         </label>

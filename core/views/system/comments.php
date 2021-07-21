@@ -78,11 +78,10 @@
 
     <div class="row my-2">
         <div class="col-12 col-md-6">
-        <?php $theView->textInput('comments_markspam_commentcount')
+        <?php $theView->numberInput('comments_markspam_commentcount')
                 ->setText('SYSTEM_OPTIONS_COMMENT_MARKSPAM_PASTCHECK')
                 ->setValue($globalConfig->comments_markspam_commentcount)
-                ->setMaxlenght(5)
-                ->setClass('fpcm-ui-spinner'); ?>
+                ->setMaxlenght(5); ?>
         </div>
     </div>
 </fieldset>

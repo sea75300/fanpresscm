@@ -140,7 +140,7 @@ class categorylist extends \fpcm\controller\abstracts\controller implements \fpc
                         ->setOptions($rolls)
                         ->setIsMultiple(true)
                         ->setSelected([])
-                        ->setClass('col-12 col-sm-6 col-md-9')
+                        ->setClass('col-12 col-sm-6 col-md-4')
                         ->setText('CATEGORIES_ROLLS')
                         ->setIcon('users'),
                 ),

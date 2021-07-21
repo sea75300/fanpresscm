@@ -81,7 +81,7 @@ class select extends helper {
 
         $label = '';
         if ($this->prependLabel) {
-            $label = "<div class=\"input-group mb-3\"><label title=\"{$this->text}\" class=\"col-form-label {$this->labelClass}{$this->getLabelSize()}\" for=\"{$this->id}\">{$this->getIconString()}{$this->getDescriptionTextString()}</label>";
+            $label = "<div class=\"input-group mb-3\"><label title=\"{$this->text}\" class=\"col-form-label pe-3 {$this->labelClass}{$this->getLabelSize()}\" for=\"{$this->id}\">{$this->getIconString()}{$this->getDescriptionTextString()}</label>";
         }
         
         return $label.implode(' ', [

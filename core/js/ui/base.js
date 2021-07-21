@@ -11,6 +11,7 @@ if (fpcm === undefined) {
 fpcm.ui = {
 
     _intVars: {},
+    _autocompletes: {},
 
     init: function() {
 
@@ -38,16 +39,8 @@ fpcm.ui = {
         fpcm.ui.showMessages();
 
         fpcm.ui.initJqUiWidgets();
-//        fpcm.ui.spinner('input.fpcm-ui-spinner');
 //        fpcm.ui.datepicker('input.fpcm-ui-datetime-picker');
-//        fpcm.ui.accordion('.fpcm-tabs-accordion');
-//        fpcm.ui.initDateTimeMasks();
-//
-//        fpcm.dom.fromClass('fpcm-navigation-noclick').click(function () {
-//            fpcm.ui_loader.hide();
-//            return false;
-//        });
-//
+        fpcm.ui.initDateTimeMasks();
 
 //
 //        fpcm.dom.fromClass('fpcm-loader').click(function () {
@@ -72,14 +65,6 @@ fpcm.ui = {
     },
 
     initJqUiWidgets: function () {
-
-//        fpcm.dom.fromClass('fpcm-ui-button.fpcm-ui-button-confirm').unbind('click');
-//
-//        fpcm.ui.mainToolbar = fpcm.ui.controlgroup('#fpcm-ui-toolbar div.fpcm-ui-toolbar', {
-//            onlyVisible: true
-//        });
-//
-//        fpcm.ui.assignControlgroups();
 //
 //        fpcm.dom.fromClass('fpcm-ui-button.fpcm-ui-button-confirm').click(function() {
 //
@@ -452,8 +437,6 @@ fpcm.ui = {
                     _btn.disabled = _obj.disabled;
                 }
 
-                debugger;
-
                 if (_obj.click == undefined && _obj.clickClose == undefined) {
                     _footer.appendChild(_btn);
                     continue;
@@ -496,14 +479,14 @@ fpcm.ui = {
     
     autocomplete: function(_elemClassId, _params) {
 
+        if (fpcm.ui._autocompletes[_elemClassId]) {
+            return true;
+        }
+
         let _opt = {};
 
         if (_params.source === undefined) {
             _params.source = [];
-        }
-
-        if (fpcm.vars.ui.autocompletes === undefined) {
-            fpcm.vars.ui.autocompletes = [];
         }
         
         _opt.data = _params.source === undefined || !_params.source instanceof Array ? [] : _params.source;
@@ -513,11 +496,6 @@ fpcm.ui = {
         _opt.onSelectItem = function (_el) {
             _acDdEl.value = _el.value;
         };
-
-        if (!_params.source instanceof Array) {
-            fpcm.vars.ui.autocompletes[_elemClassId];
-            return true;
-        }
         
         if (_params.minLength !== undefined) {
             _opt.treshold = _params.minLength;
@@ -531,14 +509,19 @@ fpcm.ui = {
             _opt.showValue = _params.showValue;
         }
 
+        if ( _params.source instanceof Array ) {
+            fpcm.ui._autocompletes[_elemClassId] = new Autocomplete(_acDdEl, _opt);
+            return true;
+        }
+
         _opt.onInput = function (_val) {
 
-            if ( _params.source instanceof Array || _val.length < this.treshold || !fpcm.vars.ui.autocompletes[_elemClassId] ) {
-                fpcm.vars.ui.autocompletes[_elemClassId].setData([]);
+            if ( _val.length < this.treshold || !fpcm.vars.ui.autocompletes[_elemClassId] ) {
+                fpcm.ui._autocompletes[_elemClassId].setData([]);
                 return false;
             }
             
-            fpcm.vars.ui.autocompletes[_elemClassId].setData([]);
+            fpcm.ui._autocompletes[_elemClassId].setData([]);
 
             fpcm.ajax.get(_params.source + '&term=' + _val, {
                 quiet: true,
@@ -555,7 +538,7 @@ fpcm.ui = {
             return false;
         };
 
-        fpcm.vars.ui.autocompletes[_elemClassId] = new Autocomplete(_acDdEl, _opt);
+        fpcm.ui._autocompletes[_elemClassId] = new Autocomplete(_acDdEl, _opt);
     },
     
     getDialogSizes: function(el, scale_factor) {
@@ -812,13 +795,19 @@ fpcm.ui = {
             return false;
         }
         
-        fpcm.ui.autocomplete('#system_dtmask', {
-            source: fpcm.vars.jsvars.dtMasks
-        });
-
-        fpcm.ui.autocomplete('#usermetasystem_dtmask', {
-            source: fpcm.vars.jsvars.dtMasks
-        });
+        if (fpcm.dom.fromId('#system_dtmask').length) {
+            fpcm.ui.autocomplete('#system_dtmask', {
+                source: fpcm.vars.jsvars.dtMasks,
+                minLength: 1
+            });
+        }
+        
+        if (fpcm.dom.fromId('#datasystem_dtmask').length) {
+            fpcm.ui.autocomplete('#datasystem_dtmask', {
+                source: fpcm.vars.jsvars.dtMasks,
+                minLength: 1
+            });
+        }
     },
     
     initTabsScroll: function(elemClassId, isResize) {

@@ -59,17 +59,7 @@ fpcm.editor = {
         });
 
         fpcm.dom.fromClass('fpcm-editor-articleimage').fancybox();
-//
-//        fpcm.ui.spinner('input.fpcm-ui-spinner-hour', {
-//            min: 0,
-//            max: 23
-//        });
-//
-//        fpcm.ui.spinner('input.fpcm-ui-spinner-minutes', {
-//            min: 0,
-//            max: 59
-//        });
-//
+
 //        fpcm.dom.fromId('insertarticleimg').click(function () {
 //            fpcm.editor.showFileManager(3);
 //            return false;

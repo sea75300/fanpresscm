@@ -104,7 +104,7 @@
 
     <div class="row my-2">
     <?php if ($secret !== false && $qrCode !== false) : ?>
-        <div class="col-12 col-md align-self-center">
+        <div class="col-12 col-md-6 align-self-center">
             <div id="user_profile_image_buttons">
                 <?php $theView->textInput('data[authCodeConfirm]', 'authCodeConfirm')
                     ->setValue('')
@@ -119,7 +119,7 @@
             </div>
 
         </div>
-        <div class="col-12 col-md align-self-center mb-3">
+        <div class="col-12 col-md-auto align-self-center mb-3">
             <?php $theView->linkButton('openQr')
                     ->setUrl($qrCode)
                     ->setClass('fpcm ui-link-fancybox')

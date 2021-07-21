@@ -22,7 +22,6 @@ fpcm.options = {
             });
         });
 
-        fpcm.system.checkForUpdates();
         
         fpcm.ui.selectmenu('#smtp_enabled', {
             change: function( event, _item ) {
@@ -32,6 +31,13 @@ fpcm.options = {
                 return true;
             }
         });
+
+        fpcm.dom.fromId('file_thumb_size').on('change', function (_ev) {
+            fpcm.dom.fromId('fpcm-thumb-preview').width(this.value).height(this.value);
+            
+        });
+
+        fpcm.system.checkForUpdates();
 
     }
 };

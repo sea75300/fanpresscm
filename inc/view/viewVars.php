@@ -76,6 +76,7 @@ namespace fpcm\view;
  * @method helper\submitButton      submitButton(string $name , string $id)
  * @method helper\tabItem           tabItem(string $name , string $id)
  * @method helper\textInput         textInput(string $name , string $id)
+ * @method helper\numberInput       numberInput(string $name , string $id)
  * @method helper\textarea          textarea(string $name , string $id)
  */
 class viewVars {

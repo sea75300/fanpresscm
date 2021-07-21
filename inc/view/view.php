@@ -1024,7 +1024,7 @@ class view {
     /**
      * Add path for default forms.php view file
      * @param string str
-     * @since 4.6-dev
+     * @since 5.0-dev
      */
     public function includeForms(string $str)
     {

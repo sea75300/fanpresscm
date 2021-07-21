@@ -26,7 +26,7 @@ class button extends helper {
     /**
      * Is primary button
      * @var bool
-     * @since 4.6-dev
+     * @since 5.0-dev
      */
     protected $primary = false;
 
@@ -75,7 +75,7 @@ class button extends helper {
      * Set button to primary
      * @param bool $primary
      * @return $this
-     * @since 4.6-dev
+     * @since 5.0-dev
      */
     public function setPrimary(bool $primary = true)
     {

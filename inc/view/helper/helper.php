@@ -29,7 +29,7 @@ abstract class helper {
     /**
      * Ement aria config
      * @var array
-     * @since 4.6-dev
+     * @since 5.0-dev
      */
     protected $aria = [];
 

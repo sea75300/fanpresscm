@@ -314,7 +314,7 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller imp
                     ->setOptions($this->categories)
                     ->setText('TEMPLATE_ARTICLE_CATEGORYTEXTS')
                     ->setIcon('tags')
-                    ->setClass('col-12 col-sm-6 col-md-9')
+                    ->setClass('col-12 col-sm-6 col-md-8')
                     ->setSelected([])
         );
 

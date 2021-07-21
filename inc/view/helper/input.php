@@ -80,7 +80,7 @@ abstract class input extends helper {
 
         $description = $this->placeholder !== true ? $this->getDescriptionTextString() : '';
         if ($this->getIconString() || trim($description)) {
-            $description = "<label title=\"{$this->text}\" class=\"col-form-label {$this->getLabelSize()}\" for=\"{$this->id}\">{$this->getIconString()}{$description}</label>";
+            $description = "<label title=\"{$this->text}\" class=\"col-form-label pe-3 {$this->getLabelSize()}\" for=\"{$this->id}\">{$this->getIconString()}{$description}</label>";
         }
 
         return $wrapperStart . $description . $input . $wrapperEnd;
@@ -206,6 +206,16 @@ abstract class input extends helper {
     }
 
     /**
+     * Append attributes to input element
+     * @return string
+     * @since 5.0-dev
+     */
+    protected function appendAttributes() : string
+    {
+        return '';
+    }
+
+    /**
      * Fetch string for element attributes
      * @return string
      */
@@ -220,7 +230,8 @@ abstract class input extends helper {
             $this->getAutoFocusedString(),
             $this->getPlaceholderString(),
             $this->getPatternString(),
-            $this->getDataString()
+            $this->getDataString(),
+            $this->appendAttributes()
         ]);
     }
 

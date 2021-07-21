@@ -36,7 +36,7 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="fpcm-notify-menu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <?php $theView->icon('envelope')->setClass('fpcm-navicon')->setSize('lg'); ?>                
-                        <?php $theView->write('PROFILE_MENU_NOTIFICATIONS'); ?>
+                        <span class="d-none d-md-inline"><?php $theView->write('PROFILE_MENU_NOTIFICATIONS'); ?></span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="fpcm-notify-menu">
                         <?php if ($theView->notificationString) : ?>

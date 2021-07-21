@@ -20,11 +20,10 @@
 
     <div class="row my-2">
         <div class="col-12 col-md-6">
-        <?php $theView->textInput('system_loginfailed_locked')
+        <?php $theView->numberInput('system_loginfailed_locked')
                 ->setText('SYSTEM_OPTIONS_LOGIN_MAXATTEMPTS')
                 ->setValue($globalConfig->system_loginfailed_locked)
-                ->setMaxlenght(5)
-                ->setClass('fpcm-ui-spinner'); ?>
+                ->setMaxlenght(5); ?>
         </div>
     </div>
 

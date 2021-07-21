@@ -68,11 +68,11 @@
             <div class="row">
                 
                 <div class="col align-self-center">
-                    <?php $theView->textInput('article[postponehour]')->setText('')->setClass('fpcm-ui-spinner-hour')->setValue($theView->dateText($postponedTimer, 'H')); ?>
+                    <?php $theView->numberInput('article[postponehour]')->setText('')->setMin(0)->setMax(23)->setValue($theView->dateText($postponedTimer, 'H')); ?>
                 </div>
 
                 <div class="col align-self-center">            
-                    <?php $theView->textInput('article[postponeminute]')->setText('')->setClass('fpcm-ui-spinner-minutes')->setValue($theView->dateText($postponedTimer, 'i')); ?>
+                    <?php $theView->numberInput('article[postponeminute]')->setText('')->setMin(0)->setMax(59)->setValue($theView->dateText($postponedTimer, 'i')); ?>
                 </div>
             </div>
         </div>

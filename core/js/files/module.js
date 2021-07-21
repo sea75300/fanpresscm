@@ -73,11 +73,6 @@ fpcm.filemanager = {
         }
     },
     
-    closeRenameDialog: function() {
-        fpcm.dom.fromId('newfilename').val('');
-        fpcm.dom.fromId('newFilenameDialog').val('');
-    },
-    
     initInsertButtons: function () {
 
         fpcm.dom.fromClass('fpcm-filelist-tinymce-thumb').unbind('click');
@@ -164,17 +159,23 @@ fpcm.filemanager = {
                 console.log('FILE_LIST_RENAME_NEWNAME');
                 return false;
             }
-
-            var selectedFile = fpcm.dom.fromTag(this).data('file');
-            fpcm.dom.fromId('newFilenameDialog').val(fpcm.dom.fromTag(this).data('oldname'));
+            
+            var _docname = this.dataset.file;
 
             fpcm.ui.dialog({
                 id: 'files-rename',
-                title: fpcm.ui.translate('FILE_LIST_RENAME_NEWNAME'),
+                title: 'FILE_LIST_RENAME_NEWNAME',
                 closeButton: true,
+                content: fpcm.ui.getTextInput({
+                    name: 'newFilenameDialog',
+                    text: fpcm.ui.translate('FILE_LIST_FILENAME'),
+                    icon: 'edit',
+                    value: this.dataset.oldname,
+                    placeholder: this.dataset.oldname
+                }),
                 dlButtons: [
                     {
-                        text: fpcm.ui.translate('GLOBAL_SAVE'),
+                        text: 'GLOBAL_SAVE',
                         icon: "save",
                         clickClose: true,
                         primary: true,
@@ -182,11 +183,10 @@ fpcm.filemanager = {
                             fpcm.ajax.post('files/rename', {
                                 data: {
                                     newName: fpcm.dom.fromId('newFilenameDialog').val(),
-                                    oldName: selectedFile
+                                    oldName: _docname
                                 },
                                 execDone: function (result) {
                                     fpcm.ui.addMessage(result);
-                                    fpcm.filemanager.closeRenameDialog();
                                     fpcm.filemanager.reloadFiles();
                                 }
                             });
@@ -216,13 +216,19 @@ fpcm.filemanager = {
         fpcm.dom.fromClass('fpcm-filelist-link-alttext').unbind('click');
         fpcm.dom.fromClass('fpcm-filelist-link-alttext').click(function () {
 
-        var selectedFile = fpcm.dom.fromTag(this).data('file');
-        fpcm.dom.fromId('altTextDialog').val(fpcm.dom.fromTag(this).data('alttext'));
+        var _docname = this.dataset.file;
 
         fpcm.ui.dialog({
             id: 'files-alttext',
             title: 'FILE_LIST_ALTTEXT',
             closeButton: true,
+                content: fpcm.ui.getTextInput({
+                    name: 'altTextDialog',
+                    text: fpcm.ui.translate('FILE_LIST_ALTTEXT'),
+                    icon: 'edit',
+                    value: this.dataset.alttext,
+                    placeholder: this.dataset.alttext
+                }),
             dlButtons: [
                 {
                     text: fpcm.ui.translate('GLOBAL_SAVE'),
@@ -232,12 +238,11 @@ fpcm.filemanager = {
                     click: function() {
                         fpcm.ajax.post('files/alttext', {
                             data: {
-                                file: selectedFile,
+                                file: _docname,
                                 alttext: fpcm.dom.fromId('altTextDialog').val()
                             },
                             execDone: function (result) {
                                 fpcm.ui.addMessage(result);
-                                fpcm.dom.fromId('altTextDialog').val('');
                                 fpcm.filemanager.reloadFiles();
                             }
                         });

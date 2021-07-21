@@ -281,6 +281,7 @@ $lang = array (
   'FILE_LIST_SMILEYADD' => 'Smiley hinzufügen',
   'FILE_LIST_SMILEYCODE' => 'Smiley-Code',
   'FILE_LIST_SMILEYEDIT' => 'Smiley bearbeiten',
+  'FILE_LIST_THUMB_SIZE' => 'Thumbnail-Größe',
   'FILE_LIST_UPLOADDROP' => 'Dateien zum Hochladen hier ablegen',
   'FILE_LIST_UPLOADFORM' => 'Dateien hochladen',
   'FILE_LIST_UPLOADSELECTED' => 'Zum Hochladen ausgewählte Dateien',

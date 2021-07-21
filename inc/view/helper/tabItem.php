@@ -20,13 +20,13 @@ class tabItem extends helper {
 
     /**
      * @var int Tab state active
-     * @since 4.6-dev
+     * @since 5.0-dev
      */
     const STATE_ACTIVE = 1;
 
     /**
      * @var int Tab state disabled
-     * @since 4.6-dev
+     * @since 5.0-dev
      */
     const STATE_DISABLED = 2;
     
@@ -51,7 +51,7 @@ class tabItem extends helper {
     /**
      * Tab status
      * @var int
-     * @since 4.6-dev
+     * @since 5.0-dev
      */
     protected $state = 011;
 
@@ -102,7 +102,7 @@ class tabItem extends helper {
      * 
      * @param int $state
      * @return $this
-     * @since 4.6-dev
+     * @since 5.0-dev
      */
     public function setState(int $state)
     {
@@ -165,7 +165,7 @@ class tabItem extends helper {
     /**
      * Return active state of tab
      * @return bool
-     * @since 4.6-dev
+     * @since 5.0-dev
      */
     final public function isActive() : bool
     {

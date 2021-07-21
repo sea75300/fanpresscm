@@ -105,28 +105,19 @@
 
     <div class="row my-2">
         <div class="col-12 col-md-6">
-        <?php $theView->textInput('file_img_thumb_width')
-                ->setText('SYSTEM_OPTIONS_NEWSSHOWMAXIMGSIZEWIDTH')
-                ->setValue($globalConfig->file_img_thumb_width)
+        <?php $theView->numberInput('file_thumb_size')
+                ->setText('FILE_LIST_THUMB_SIZE')
+                ->setValue($globalConfig->file_thumb_size)
                 ->setMaxlenght(5)
-                ->setClass('fpcm-ui-spinner'); ?>
+                ->setMin(50)
+                ->setMax(400); ?>
         </div>
     </div>
 
     <div class="row my-2">
-        <div class="col-12 col-md-6">
-        <?php $theView->textInput('file_img_thumb_height')
-                ->setText('SYSTEM_OPTIONS_NEWSSHOWMAXIMGSIZEHEIGHT')
-                ->setValue($globalConfig->file_img_thumb_height)
-                ->setMaxlenght(5)
-                ->setClass('fpcm-ui-spinner'); ?>
+        <div class="col-12 col-md-6 justify-content-center text-center">
+            <img id="fpcm-thumb-preview" title="<?php $theView->write('GLOBAL_PREVIEW'); ?>" class="mb-3 rounded bg-info" src="<?php print $theView->themePath; ?>logo.svg" role="presentation" style="width:<?php print $globalConfig->file_thumb_size; ?>px;height: <?php print $globalConfig->file_thumb_size; ?>px;">
         </div>
     </div>
 
-    <div class="row my-2">
-        <div class="col-12 col-md-6">
-            <img title="<?php $theView->write('GLOBAL_PREVIEW'); ?>" class="mb-3 rounded bg-info" src="<?php print $theView->themePath; ?>logo.svg" role="presentation" style="width:<?php print $globalConfig->file_img_thumb_width; ?>px;height: <?php print $globalConfig->file_img_thumb_height; ?>px;">
-        </div>
-    </div>
-    
 </fieldset>

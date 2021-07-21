@@ -25,14 +25,14 @@ abstract class radiocheck extends helper {
     /**
      * Inline element
      * @var bool
-     * @since 4.6-dev
+     * @since 5.0-dev
      */
     protected $inline = false;
 
     /**
      * Switch element
      * @var bool
-     * @since 4.6-dev
+     * @since 5.0-dev
      */
     protected $switch = false;
 
@@ -68,7 +68,7 @@ abstract class radiocheck extends helper {
      * Set check to inline element
      * @param bool $inline
      * @return $this
-     * @since 4.6-dev
+     * @since 5.0-dev
      */
     public function setInline(bool $inline)
     {
@@ -80,7 +80,7 @@ abstract class radiocheck extends helper {
      * Set switch element
      * @param bool $inline
      * @return $this
-     * @since 4.6-dev
+     * @since 5.0-dev
      */
     public function setSwitch(bool $switch) {
         $this->switch = $switch;
