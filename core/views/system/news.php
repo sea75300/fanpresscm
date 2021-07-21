@@ -91,8 +91,7 @@
                 ->setValue($globalConfig->articles_archive_datelimit ? $theView->dateText($globalConfig->articles_archive_datelimit, 'Y-m-d') : '')
                 ->setText('SYSTEM_OPTIONS_NEWS_ARCHIVELIMIT')
                 ->setPlaceholder($theView->translate('SYSTEM_OPTIONS_NEWS_ARCHIVELIMIT_EMPTY'))
-                ->setData(['maxDate' => '-3m'])
-                ->setDisplaySizesDefault(); ?>
+                ->setData(['maxDate' => '-3m']); ?>
         </div>
     </div>
 </fieldset>

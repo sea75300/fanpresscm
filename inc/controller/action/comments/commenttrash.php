@@ -93,6 +93,12 @@ class commenttrash extends \fpcm\controller\abstracts\controller implements \fpc
         ]);
 
         $this->initDataView();
+        
+        $this->view->addTabs('comments', [
+            (new \fpcm\view\helper\tabItem('tabs-comments-trash'))
+                ->setText('ARTICLES_TRASH')
+                ->setFile($this->getViewPath() . '.php')
+        ]);
     }
     
     protected function getDataViewCols()

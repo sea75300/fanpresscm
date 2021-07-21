@@ -47,8 +47,7 @@ class articlelisttrash extends \fpcm\controller\abstracts\controller implements 
         $this->isTrash = true;
         
         $this->initActionObjects();
-        
-        $this->view->assign('tabHeadline', 'ARTICLES_TRASH');
+
         $this->view->addAjaxPageToken('clearTrash');
         $this->view->setFormAction('articles/trash');
         $this->view->addJsFiles(['articles/trash.js']);
@@ -68,6 +67,10 @@ class articlelisttrash extends \fpcm\controller\abstracts\controller implements 
 
         $this->initDataView();
         $this->view->addDataView($this->dataView);
+        
+        $this->view->addTabs('articles', [
+            (new \fpcm\view\helper\tabItem('articles'))->setText('ARTICLES_TRASH')->setFile('articles/listouter.php')
+        ]);
     }
 
 }

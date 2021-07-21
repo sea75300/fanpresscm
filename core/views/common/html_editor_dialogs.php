@@ -168,8 +168,7 @@
                 ->setMaxlenght(7)
                 ->setText('EDITOR_INSERTCOLOR_HEXCODE')
                 ->setIcon('eye-dropper')
-                ->setSize('lg')
-                ->setDisplaySizes(['12', '10'], ['12', '2']); ?>
+                ->setSize('lg'); ?>
     </div>    
 
     <div class="row g-0 py-2">

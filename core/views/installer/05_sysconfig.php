@@ -37,8 +37,7 @@
             <?php $theView->textInput('conf[system_dtmask]')
                 ->setValue('d.m.Y H:i:s')                                        
                 ->setText('SYSTEM_OPTIONS_DATETIMEMASK')
-                ->setDisplaySizesDefault()
-                ->setFieldSize(['xs' => 4, 'md' => 2]); ?>
+                ->setDisplaySizesDefault(); ?>
 
                 <div class="col align-self-center">
                     <?php $theView->shorthelpButton('dtmask')->setText('SYSTEM_OPTIONS_DATETIMEMASK_HELP')->setUrl('http://php.net/manual/function.date.php'); ?>
