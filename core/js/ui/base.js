@@ -894,6 +894,7 @@ fpcm.ui = {
         fpcm.ui.dialog({
             title: 'GLOBAL_CONFIRM',
             content: fpcm.ui.translate('CONFIRM_MESSAGE'),
+            size: '',
             dlButtons: [
                 {
                     text: 'GLOBAL_YES',
