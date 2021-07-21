@@ -269,10 +269,7 @@ fpcm.articles = {
                             }, true);
                         }
                     });
-                    fpcm.dom.fromTag(this).dialog("close");
-                },
-                clickNoDefault: true
-                
+                }                
             });
 
             return false;
@@ -315,10 +312,7 @@ fpcm.articles = {
                         }, true);
                     }
                 });
-
-                fpcm.dom.fromTag(this).dialog("close");
-            },
-            clickNoDefault: true
+            }
 
         });
 

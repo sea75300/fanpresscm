@@ -338,10 +338,7 @@ fpcm.filemanager = {
             }
 
             fpcm.ui.confirmDialog({
-                clickNoDefault: true,
                 clickYes: function () {
-
-                    fpcm.dom.fromTag(this).dialog( "close" );
                     fpcm.ajax.post('files/delete', {
                         dataType: 'json',
                         data: {

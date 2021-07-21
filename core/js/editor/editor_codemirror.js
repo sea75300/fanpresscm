@@ -424,7 +424,6 @@ if (fpcm.editor) {
                 fpcm.dom.fromId('color_mode1').prop( "checked", true );
                 fpcm.dom.fromId('color_mode2').prop( "checked", false );
                 fpcm.ui.controlgroup('#fpcm-ui-editor-color-controlgroup', 'refresh');
-                fpcm.dom.fromTag(this).dialog( "close" );
             }
         });
     };
@@ -469,7 +468,6 @@ if (fpcm.editor) {
             insertAction: function() {
                 var item = fpcm.dom.fromId('tpldraft').val();
                 if (!ui.value) {
-                    fpcm.dom.fromTag(this).dialog( "close" );
                     return false;
                 }
 

@@ -180,16 +180,24 @@ fpcm.system = {
             list.initWidgets(dialogIdCom);
         }
 
+        let _content = '';
+        if (_params.fields !== undefined) {
+            for (var _i in _params.fields) {
+                _content += _params.fields[_i];
+            }
+        }
+
         fpcm.ui.dialog({
             id: dialogId,
             title: 'GLOBAL_EDIT_SELECTED',
             closeButton: true,
+            content: _content ? _content : undefined,
             dlButtons: [
                 {
                     text: 'GLOBAL_SAVE',
                     icon: "save",
                     primary: true,
-                    closeButton: true,
+                    clickClose: true,
                     click: function () {
 
                         fpcm.ui.confirmDialog({
@@ -246,11 +254,13 @@ fpcm.system = {
         if (!params.onSuccess) {
             params.onSuccess = function () {
                 
-                if (!fpcm.vars.jsvars.massEdit || !fpcm.vars.jsvars.massEdit.relocateParams) {
-                    window.location.reload();
+                if (fpcm.vars.jsvars.massEdit === undefined || !fpcm.vars.jsvars.massEdit.relocateParams === undefined) {
+                    setTimeout(function () {
+                        window.location.reload();
+                    }, 1000);
                     return;
                 }
-                
+
                 fpcm.ui.relocate(window.location.href + fpcm.vars.jsvars.massEdit.relocateParams);
             };
         }
@@ -323,11 +333,7 @@ fpcm.system = {
 
                     }
                 });
-
-                fpcm.dom.fromTag(this).dialog("close");
-            },
-            clickNoDefault: true
-
+            }
         });
 
         return false;

@@ -314,6 +314,10 @@ fpcm.ui = {
     
     dialog: function(params) {
 
+        if (params.clickClose !== undefined) {
+            console.error('params.clickClose is an undefined param for fpcm.ui.dialog()!');
+        }
+
         if (params.title === undefined) {
             params.title = '';
         }
@@ -321,73 +325,6 @@ fpcm.ui = {
         if (params.id === undefined) {
             params.id = (new Date()).getTime();
         }
-//
-//        if (params.dlWidth === undefined) {
-//            var size = fpcm.ui.getDialogSizes();
-//            params.dlWidth = size.width;
-//        }
-//
-//        if (params.modal === undefined) {
-//            params.modal = true;
-//        }
-//
-//        if (params.resizable === undefined) {
-//            params.resizable = false;
-//        }
-//        
-//        var dialogId = 'fpcm-dialog-'+  params.id;
-//        if (params.content !== undefined) {
-//            fpcm.dom.appendHtml('#fpcm-body', '<div class="fpcm-ui-dialog-layer fpcm-editor-dialog" id="' + dialogId + '">' +  params.content + '</div>');
-//        }
-//
-//        var el = fpcm.dom.fromId(dialogId);
-//        if (!el.length) {
-//            return false;
-//        }
-//
-//        var dlParams = {};
-//        dlParams.width    = params.dlWidth;        
-//        dlParams.modal    = params.modal;
-//        dlParams.resizable= params.resizable;
-//        dlParams.title    = params.title;
-//        dlParams.buttons  = params.dlButtons;
-//        dlParams.open     = params.dlOnOpen;
-//        dlParams.close    = params.dlOnClose;
-//        
-//        if (params.dlHeight !== undefined) {
-//            dlParams.height   = params.dlHeight;            
-//        }
-//        
-//        if (params.dlMinWidth !== undefined) {
-//            dlParams.minWidth   = params.dlMinWidth;
-//        }
-//        
-//        if (params.dlMinHeight !== undefined) {
-//            dlParams.minHeight   = params.dlMinHeight;            
-//        }
-//        
-//        if (params.dlMaxWidth !== undefined) {
-//            dlParams.maxWidth   = params.dlMaxWidth;            
-//        }
-//        
-//        if (params.dlMaxHeight !== undefined) {
-//            dlParams.maxHeight   = params.dlMaxHeight;            
-//        }
-//        
-//        if (params.dlPosition !== undefined) {
-//            dlParams.position   = params.dlPosition; 
-//        }
-//        
-//        if (params.onCreate) {
-//            dlParams.create = params.onCreate;
-//        }
-//        
-//        if (params.onResize !== undefined) {
-//            dlParams.resize   = params.onResize; 
-//        }
-//
-//        dlParams.show = true;
-//        dlParams.hide = true;
 
         let _dlgId = 'fpcm-dialog-' + params.id;
         let _btnbase = 'fpcm-ui-dlgbtn-' + params.id + '-';
@@ -416,21 +353,6 @@ fpcm.ui = {
                 clickClose: true
             });
             
-        }
-
-        let _buttons = '';
-        if (params.dlButtons !== undefined) {
-            
-            for (var _idx in params.dlButtons) {
-
-                if (params.dlButtons[_idx] == undefined) {
-                    continue;
-                }
-
-                let _obj = params.dlButtons[_idx];                
-                _buttons += _str = '<button type="button" id="' + _btnbase + _idx + '" class="btn' + (_obj.primary ? ' btn-primary' : '') + (_obj.class ? ' ' + _obj.class : '') + '" >' + (_obj.icon ? fpcm.ui.getIcon(_obj.icon) : '') + ' <span class="fpcm-ui-label ps-1">' + fpcm.ui.translate(_obj.text) + '</span> </button>';
-            }
-
         }
 
         if (params.url) {
@@ -463,6 +385,10 @@ fpcm.ui = {
         if (params.size === undefined) {
             params.size = 'lg';
         }
+        
+        if (params.content === undefined) {
+            params.content = '';
+        }
 
         if (!fpcm.dom.fromId(_dlgId).length) {            
             let _modal = fpcm.vars.ui.dialogTpl;
@@ -475,7 +401,7 @@ fpcm.ui = {
                   .replace('{$modalClass}', params.modalClass)
                   .replace('{$modalBodyClass}', params.modalBodyClass)
                   .replace('{$size}', params.size ? 'modal-' + params.size : '')
-                  .replace('{$buttons}', _buttons));
+                  .replace('{$buttons}', ''));
         }
 
         let _domEl = document.getElementById(_dlgId);
@@ -504,8 +430,10 @@ fpcm.ui = {
         }
 
         _bsObj.toggle(_domEl);
-
         if (params.dlButtons !== undefined) {
+            
+            let _footer = document.querySelector('#' + _dlgId + ' div.modal-footer');
+            _footer.innerHTML = '';
             
             for (var _idx in params.dlButtons) {
 
@@ -513,14 +441,25 @@ fpcm.ui = {
                     continue;
                 }
 
-                let _obj = params.dlButtons[_idx];
+                let _obj = params.dlButtons[_idx];                
+                let _btn = document.createElement('button');
+
+                _btn.type = 'button';
+                _btn.className = 'btn' + (_obj.primary ? ' btn-primary' : '') + (_obj.class ? ' ' + _obj.class : '');
+                _btn.innerHTML = (_obj.icon ? fpcm.ui.getIcon(_obj.icon) + ' <span class="fpcm-ui-label ps-1">' : '') + fpcm.ui.translate(_obj.text) + (_obj.icon ? '</span>' : '');
+                
+                if (_obj.disabled !== undefined) {
+                    _btn.disabled = _obj.disabled;
+                }
+
+                debugger;
+
                 if (_obj.click == undefined && _obj.clickClose == undefined) {
+                    _footer.appendChild(_btn);
                     continue;
                 }
 
-                let _domEL = fpcm.dom.fromId(_btnbase + _idx);
-                _domEL.unbind('click');
-                _domEL.click(function () {
+                _btn.onclick = function () {
                     
                     try {
                         
@@ -543,12 +482,16 @@ fpcm.ui = {
                         
                     }
                     
-                });
-            }
-            
-            
-        }
+                };
 
+                _footer.appendChild(_btn);
+                if (_obj.primary || _obj.autofocus) {
+                    _btn.focus();
+                }
+
+            }
+
+        }
     },
     
     autocomplete: function(_elemClassId, _params) {

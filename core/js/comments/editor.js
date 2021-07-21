@@ -21,7 +21,6 @@ fpcm.editor = {
             var cid = fpcm.dom.fromTag(event.currentTarget).data('commentid');
 
             fpcm.ui.confirmDialog({
-                clickNoDefault: true,
                 clickYes: function () {
                     fpcm.ajax.post('comments/lockip', {
                         dataType: 'json',
@@ -32,8 +31,6 @@ fpcm.editor = {
                             fpcm.ui.addMessage(result);
                         }
                     });
-                    
-                    fpcm.dom.fromTag(this).dialog("close");
                 }
             });
 

@@ -268,6 +268,9 @@ class commentedit extends \fpcm\controller\abstracts\controller implements \fpcm
         $this->comment->setName($commentData['name']);
         $this->comment->setEmail($commentData['email']);
         $this->comment->setWebsite(filter_var($commentData['website'], FILTER_SANITIZE_URL));
+        if ( filter_var(str_replace('*', 1, $commentData['ipaddr']), FILTER_VALIDATE_IP, [ 'flags' => FILTER_FLAG_IPV4 | FILTER_FLAG_IPV6 ]) ) {
+            $this->comment->setIpaddress($commentData['ipaddr']);
+        }
 
         if ($this->permissions->comment->approve) {
             $this->comment->setApproved(isset($commentData['approved']) ? true : false);

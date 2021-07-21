@@ -294,7 +294,7 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller imp
                     ->setOptions($this->yesNoChangeList)
                     ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
                     ->setText('EDITOR_COMMENTS')
-                    ->setIcon('comments', 'fra')
+                    ->setIcon('comments', 'far')
             );
         }
         
@@ -307,6 +307,16 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller imp
                     ->setIcon('archive')
             );
         }
+        
+        $fields[] = new \fpcm\components\masseditField(
+                (new \fpcm\view\helper\select('categories[]'))
+                    ->setIsMultiple(true)
+                    ->setOptions($this->categories)
+                    ->setText('TEMPLATE_ARTICLE_CATEGORYTEXTS')
+                    ->setIcon('tags')
+                    ->setClass('col-12 col-sm-6 col-md-9')
+                    ->setSelected([])
+        );
 
         $this->assignFields($fields);
     }

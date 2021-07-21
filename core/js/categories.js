@@ -14,19 +14,17 @@ fpcm.categories = {
     init: function () {        
 
         fpcm.dom.fromId('massEdit').click(function () {
-            
-            var fieldIconPath = fpcm.vars.jsvars.masseditFields.fieldIconPath;
-            var fieldRolls = fpcm.vars.jsvars.masseditFields.fieldRolls;
-
-
-            fpcm.dom.appendHtml(
-                '#fpcm-body',
-                '<div id="fpcm-dialog-categories-massedit"  class="fpcm ui-hidden">' + fieldIconPath + fieldRolls + '</div>'
-            );
 
             fpcm.system.initMassEditDialog('categories/massedit', 'categories-massedit', fpcm.categories, {
                 multipleSelect: 'rolls',
                 multipleSelectField: 'groups',
+                fields: fpcm.vars.jsvars.masseditFields
+            });
+
+            fpcm.dom.fromId('rolls').selectize({
+                placeholder: fpcm.ui.translate('CATEGORIES_ROLLS'),
+                searchField: ['text', 'value'],
+                plugins: ['remove_button']
             });
 
             return false;
@@ -39,16 +37,6 @@ fpcm.categories = {
 
         fpcm.dataview.render(dvName, {
             onRenderAfter: fpcm.ui.assignCheckboxes
-        });
-
-    },
-    
-    initWidgets: function () {
-
-        fpcm.dom.fromId('rolls').selectize({
-            placeholder: fpcm.ui.translate('CATEGORIES_ROLLS'),
-            searchField: ['text', 'value'],
-            plugins: ['remove_button']
         });
 
     },

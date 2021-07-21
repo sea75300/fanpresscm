@@ -1,6 +1,6 @@
 <?php /* @var $theView fpcm\view\viewVars */ ?>
 <!-- Link einfügen -->  
-<div class="fpcm ui-hidden fpcm-editor-dialog" id="fpcm-dialog-editor-html-insertlink">
+<div class="fpcm ui-hidden" id="fpcm-dialog-editor-html-insertlink">
     <div class="row py-2">
         <?php $theView->textInput('links[url]', 'linksurl')
                 ->setType('url')
@@ -26,7 +26,7 @@
 </div>
 
 <!-- Bild einfügen -->  
-<div class="fpcm ui-hidden fpcm-editor-dialog" id="fpcm-dialog-editor-html-insertimage">
+<div class="fpcm ui-hidden" id="fpcm-dialog-editor-html-insertimage">
     <div class="row py-2">
         <?php $theView->textInput('images[path]', 'imagespath')
                 ->setType('url')
@@ -52,7 +52,7 @@
 </div>
 
 <!-- Tabelle einfügen -->  
-<div class="fpcm ui-hidden fpcm-editor-dialog" id="fpcm-dialog-editor-html-inserttable">
+<div class="fpcm ui-hidden" id="fpcm-dialog-editor-html-inserttable">
     <div class="row py-2">
         <?php $theView->textInput('table[rows]', 'tablerows')
                 ->setValue(1)->setMaxlenght(5)
@@ -70,7 +70,7 @@
 </div>
 
 <!-- Liste einfügen -->  
-<div class="fpcm ui-hidden fpcm-editor-dialog" id="fpcm-dialog-editor-html-insertlist">
+<div class="fpcm ui-hidden" id="fpcm-dialog-editor-html-insertlist">
     <div class="row py-2">
         <?php $theView->textInput('list[rows]', 'listrows')
                 ->setValue(1)->setMaxlenght(5)
@@ -88,7 +88,7 @@
 </div>
 
 <!-- Player einfügen -->  
-<div class="fpcm ui-hidden fpcm-editor-dialog" id="fpcm-dialog-editor-html-insertmedia">
+<div class="fpcm ui-hidden" id="fpcm-dialog-editor-html-insertmedia">
     
     <div class="row py-2">
         <div class="col-12 col-md-8 px-0">
@@ -159,7 +159,7 @@
 </div>
 
 <!-- Farben einfügen -->
-<div class="fpcm ui-hidden fpcm-editor-dialog" id="fpcm-dialog-editor-html-insertcolor">
+<div class="fpcm ui-hidden" id="fpcm-dialog-editor-html-insertcolor">
     
     <div class="row py-2">
         <?php $theView->textInput('colorhexcode')
@@ -187,13 +187,13 @@
 </div>
 
 <!-- Smiley einfügen -->
-<div class="fpcm ui-hidden fpcm-editor-dialog" id="fpcm-dialog-editor-html-insertsmileys"></div>
+<div class="fpcm ui-hidden" id="fpcm-dialog-editor-html-insertsmileys"></div>
 
 <!-- Symbol einfügen -->
-<div class="fpcm ui-hidden fpcm-editor-dialog" id="fpcm-dialog-editor-html-insertsymbol"></div>
+<div class="fpcm ui-hidden" id="fpcm-dialog-editor-html-insertsymbol"></div>
 
 <!-- Vorlage einfügen -->
-<div class="fpcm ui-hidden fpcm-editor-dialog" id="fpcm-dialog-editor-html-insertquote">
+<div class="fpcm ui-hidden" id="fpcm-dialog-editor-html-insertquote">
     <div class="row g-0 py-2">
         <div class="col-12 fpcm-ui-padding-md-bottom">
             <label for="quotetext">

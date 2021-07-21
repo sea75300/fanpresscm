@@ -46,7 +46,7 @@ final class masseditField {
     public function __toString()
     {
         return implode('', [
-            "<div class=\"row my-2\">",
+            "<div class=\"row\">",
             $this->field,
             "</div>"
         ]);

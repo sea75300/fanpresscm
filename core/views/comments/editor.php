@@ -31,6 +31,14 @@
                     ->setSize('lg'); ?>                
             </div>
             
+            <div class="row g-0">
+            <?php $theView->textInput('comment[ipaddr]')
+                    ->setText('COMMMENT_IPADDRESS')
+                    ->setValue($comment->getIpaddress())
+                    ->setIcon('globe')
+                    ->setSize('lg'); ?>                
+            </div>
+            
             <div class="row g-0">                
                 <div class="col-form-label col-12 col-sm-6 col-md-3">
                     <?php $theView->icon('exclamation-circle'); ?> <span class="fpcm-ui-label ps-1"> <?php $theView->write('COMMMENT_STATUS'); ?></span>
