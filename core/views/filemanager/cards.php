@@ -20,9 +20,9 @@
             <?php if (file_exists($file->getFileManagerThumbnail())) : ?>
                 <img class="card-img-top rounded-top overflow-hidden" style="max-height: <?php print $thumbsize; ?>" loading="lazy" src="<?php print $file->getFileManagerThumbnailUrl(); ?>" title="<?php print $file->getFileName(); ?>">
             <?php else : ?>
-                <div class="card-img-top text-center rounded-top h-75 my-3">
+                <div class="card-img-top text-center rounded-top w-100 h-auto my-3" style="max-height: <?php print $thumbsize; ?>">
                     <div class="row g-0 h-100">
-                        <div class="col align-self-center" style="height: <?php print $thumbsize; ?>">
+                        <div class="col align-self-center">
                             <?php $theView->icon('file-image fa-inverse', 'far')->setStack('square')->setSize('3x'); ?>
                         </div>
                     </div>

@@ -20,7 +20,7 @@
                 <?php if (file_exists($file->getFileManagerThumbnail())) : ?>
                     <img class="img-fluid rounded-start" loading="lazy" src="<?php print $file->getFileManagerThumbnailUrl(); ?>" title="<?php print $file->getFileName(); ?>" width="<?php print $thumbsize; ?>" height="<?php print $thumbsize; ?>">
                 <?php else : ?>
-                    <div class="text-center" style="width:<?php print FPCM_FILEMANAGER_THUMBS; ?>px;">
+                    <div class="text-center" style="width:<?php print $thumbsize; ?>;">
                         <?php $theView->icon('file-image fa-inverse', 'far')->setStack('square')->setSize('3x'); ?>
                     </div>
                 <?php endif; ?>

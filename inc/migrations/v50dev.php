@@ -49,7 +49,7 @@ class v50dev extends migration {
      */
     protected function getNewVersion() : string
     {
-        return '4.5.0-dev';
+        return '5.0.0-dev';
     }
 
     

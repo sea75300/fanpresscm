@@ -310,6 +310,8 @@ final class imagelist extends \fpcm\model\abstracts\filelist {
         if (!count($folderFiles)) {
             return false;
         }
+        
+        $thumbSize = $this->config->file_thumb_size;
 
         foreach ($folderFiles as $folderFile) {
 
@@ -327,10 +329,10 @@ final class imagelist extends \fpcm\model\abstracts\filelist {
                 $phpImgWsp = \PHPImageWorkshop\ImageWorkshop::initFromPath($folderFile);
                 $phpImgWsp->cropToAspectRatio(
                     \PHPImageWorkshop\Core\ImageWorkshopLayer::UNIT_PIXEL,
-                    FPCM_FILEMANAGER_THUMBS, FPCM_FILEMANAGER_THUMBS, 0, 0, 'MM'
+                    $thumbSize, $thumbSize, 0, 0, 'MM'
                 );
 
-                $phpImgWsp->resizeInPixel(FPCM_FILEMANAGER_THUMBS, FPCM_FILEMANAGER_THUMBS);
+                $phpImgWsp->resizeInPixel($thumbSize, $thumbSize);
                 $phpImgWsp->save(dirname($image->getFileManagerThumbnail()), basename($image->getFileManagerThumbnail()));
             } catch (\Exception $exc) {
                 trigger_error('Error while creating filemanager thumbnail '.$image->getFileManagerThumbnail().PHP_EOL.$exc->getMessage());
