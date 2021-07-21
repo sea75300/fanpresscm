@@ -98,7 +98,7 @@ fpcm.fileuploader = {
     createFileListItem: function (_params, _file, _addUploadButton, _addCancelButton) {
         
         let html = '<div class="row my-3 py-2 template-upload fpcm ui-background-white-50p fpcm-ui-border-radius-all">';
-        html += '   <div class="col-12 col-sm-auto fpcm-ui-center jqupload-row-buttons align-self-center">';
+        html += '   <div class="col-auto fpcm-ui-center jqupload-row-buttons align-self-center">';
 
         if (_addUploadButton) {
             html += fpcm.vars.jsvars.uploadListButtons.start.replace('{{id}}', (new Date).getTime());
@@ -109,10 +109,10 @@ fpcm.fileuploader = {
         }
 
         html += '   </div>';
-        html += '   <div class="col-12 col-md align-self-center fpcm-ui-ellipsis pt-3 pt-sm-0">';
+        html += '   <div class="col align-self-center fpcm-ui-ellipsis">';
         html += '       <span class="name">' + _file.name + '</span> (<span class="size">' + _params.formatFileSize(_file.size) + '</span>)';
         html += '   </div>';
-        html += '   <div class="col-12 col-md align-self-center fpcm-ui-ellipsis pt-3 pt-sm-0">';
+        html += '   <div class="col align-self-center fpcm-ui-ellipsis">';
         html += '       <span class="error fpcm text-danger"> ' + (_file.error ? fpcm.ui.translate('SAVE_FAILED_UPLOAD_GEN').replace('{{uploadMsg}}', _file.error) : '') + '</span>';
         html += '   </div>';
         html += '</div>';

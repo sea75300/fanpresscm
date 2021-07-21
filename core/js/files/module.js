@@ -356,6 +356,7 @@ fpcm.filemanager = {
                                 fpcm.ui.addMessage(value, i == 1 ? true : false);
                             });
 
+                            fpcm.dom.fromId('fpcm-select-all').prop('checked', false);
                             fpcm.filemanager.reloadFiles();
                         }
                     });

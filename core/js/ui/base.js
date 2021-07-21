@@ -65,20 +65,20 @@ fpcm.ui = {
     },
 
     initJqUiWidgets: function () {
-//
-//        fpcm.dom.fromClass('fpcm-ui-button.fpcm-ui-button-confirm').click(function() {
-//
-//            fpcm.ui_loader.hide();
-//            if (!confirm(fpcm.ui.translate('CONFIRM_MESSAGE'))) {
-//                fpcm.ui_loader.hide();
-//                return false;
-//            }
-//            
-//            if (!fpcm.dom.fromTag(this).data('hidespinner')) {
-//                fpcm.ui_loader.show();
-//            }
-//
-//        });
+
+        fpcm.dom.fromClass('fpcm-ui-button.fpcm-ui-button-confirm').click(function() {
+
+            fpcm.ui_loader.hide();
+            if (!confirm(fpcm.ui.translate('CONFIRM_MESSAGE'))) {
+                fpcm.ui_loader.hide();
+                return false;
+            }
+            
+            if (!fpcm.dom.fromTag(this).data('hidespinner')) {
+                fpcm.ui_loader.show();
+            }
+
+        });
 //
 //        fpcm.ui.selectmenu('.fpcm-ui-input-select');
 
@@ -573,48 +573,13 @@ fpcm.ui = {
             return false;
         }
 
-        var msg = null;
-        var msgBoxid = null;
-        var _css = ' alert d-flex align-items-center alert-dismissible fade show position-absolute top-50 start-50 translate-middle';
+        for (var _i in window.fpcm.vars.ui.messages) {
 
-        for (var i = 0; i < window.fpcm.vars.ui.messages.length; i++) {
-
-            msg = fpcm.vars.ui.messages[i];
-            msgBoxid = 'msgbox-' + msg.id;
-            if (fpcm.dom.fromId(msgBoxid).length > 0) {
+            if (fpcm.vars.ui.messages[_i] === undefined) {
                 continue;
             }
 
-            if (msg.webnotify) {
-                fpcm.ui_notify.show({
-                    body: msg.txt,
-                });
-                
-                continue;
-            }
-
-            if (msg.type == 'info' || msg.type == 'notice') {
-                _css += ' ui-msg-fadeout';
-            }
-
-            if (msg.type == 'error') {
-                msg.type = 'danger';
-            }
-
-            if (msg.type == 'neutral') {
-                msg.type = 'warning';
-            }
-
-            if (msg.type == 'notice') {
-                msg.type = 'success';
-            }
-
-            msgCode  = '<div class="fpcm ui-message shadow alert-' + msg.type + _css + '" role="alert">';
-            msgCode += fpcm.ui.getIcon(msg.icon, { size: '2x' });
-            msgCode += '<div class="mx-3">' + msg.txt + '</div>';
-            msgCode += '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="' + fpcm.ui.translate('GLOBAL_CLOSE') + '"></button>';
-            msgCode += '</div>';
-            fpcm.dom.appendHtml('#fpcm-body', msgCode);
+            fpcm.ui.createMessageBox(fpcm.vars.ui.messages[_i])
         }
 
     },
@@ -627,6 +592,7 @@ fpcm.ui = {
 
         if (fpcm.vars.ui.messages === undefined || _clear) {
             fpcm.vars.ui.messages = [];
+            fpcm.dom.fromClass('fpcm.ui-message').remove();
         }
         
         if (!value.icon) {
@@ -654,9 +620,50 @@ fpcm.ui = {
             value.txt = value.txtComplete;
         }
 
-        fpcm.vars.ui.messages.push(value);
-        fpcm.ui.showMessages();
+        fpcm.ui.createMessageBox(value);
+    },
+    
+    createMessageBox: function(_msg)
+    {
+        var _css = ' alert d-flex align-items-center alert-dismissible fade show position-fixed top-50 start-50 translate-middle';
+        
+        _mbxId = 'msgbox-' + _msg.id;
+        if (fpcm.dom.fromId(_mbxId).length > 0) {
+            return true;
+        }
 
+        if (_msg.webnotify) {
+            fpcm.ui_notify.show({
+                body: _msg.txt,
+            });
+
+            return true;
+        }
+
+        if (_msg.type == 'info' || _msg.type == 'notice') {
+            _css += ' ui-msg-fadeout';
+        }
+
+        if (_msg.type == 'error') {
+            _msg.type = 'danger';
+        }
+
+        if (_msg.type == 'neutral') {
+            _msg.type = 'warning';
+        }
+
+        if (_msg.type == 'notice') {
+            _msg.type = 'success';
+        }
+
+        _msgCode  = '<div class="fpcm ui-message shadow alert-' + _msg.type + _css + '" role="alert">';
+        _msgCode += fpcm.ui.getIcon(_msg.icon, { size: '2x' });
+        _msgCode += '<div class="mx-3">' + _msg.txt + '</div>';
+        _msgCode += '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="' + fpcm.ui.translate('GLOBAL_CLOSE') + '"></button>';
+        _msgCode += '</div>';
+
+        fpcm.dom.appendHtml('#fpcm-body', _msgCode);
+        return true;
     },
     
     removeLoaderClass: function(elemId) {
