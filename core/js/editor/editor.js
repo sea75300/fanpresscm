@@ -121,13 +121,25 @@ fpcm.editor = {
                             icon: 'copy',
                             click: function () {
                                 
-                                let _el = fpcm.dom.fromId('fpcm-editor-shotlink');
-                                if (!_el.length) {
-                                    return true;
+                                if (!result.permalink) {
+                                    let _domEl = document.createElement('input');
+                                    _domEl.type = 'hidden';
+                                    _domEl.id = 'fpcm-editor-shotlink';
+                                    _domEl.value = result.shortend;
+                                    document.appendChild(_domEl);
                                 }
 
-                                _el.select();
+                                let _el = fpcm.dom.fromId('fpcm-editor-shotlink');
+                                 if (!_el.length) {
+                                     return true;
+                                 }
+
+                                 _el.select();
                                 document.execCommand('copy');
+                                if (!result.permalink) {
+                                    fpcm.dom.fromId('fpcm-editor-shotlink').remove();
+                                }                                
+
                             }
                         }]
                     };
