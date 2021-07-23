@@ -14,20 +14,27 @@ fpcm.templates = {
         });
 
         fpcm.ui_tabs.render('#fpcm-tabs-templates', {
-            beforeLoad: function(event, ui) {
-                fpcm.ui_loader.show();
-                ui.jqXHR.done(function(result) {
-                    fpcm.ui_loader.hide();
+
+            emptyPanel: true,
+
+            onEmptyPanelBefore: function(_ui) {
+
+                if (fpcm.templates.editorInstance === undefined) {
                     return true;
-                });
+                }
+                
+                fpcm.templates.editorInstance.toTextarea();
+                return true;
             },
-            load: function( event, ui ) {
+
+            onRenderHtmlAfter: function( _ui ) {
+
                 fpcm.templates.editorInstance = fpcm.editor_codemirror.create({
                    editorId  : 'tpleditor',
-                   elementId : 'content_' + ui.tab.attr('data-tplId')
+                   elementId : 'content_' + _ui.target.dataset.tplid
                 });
                 
-                fpcm.dom.fromTag('a.fpcm-ui-template-tags').click(function() {
+                fpcm.dom.fromTag('button.fpcm-ui-template-tags').click(function() {
 
                     var tag = fpcm.dom.fromTag(this).attr('data-tag');
                     var doc = fpcm.templates.editorInstance.doc;
@@ -51,22 +58,8 @@ fpcm.templates = {
                     return false;
                 });
 
-                
-                fpcm.ui.assignControlgroups();
-
                 return true;
-            },
-            addMainToobarToggleAfter: function( event, ui ) {
-                if (ui.oldTab.attr('data-noempty')) {
-                    return true;
-                }
-
-                ui.oldPanel.empty();
-            },
-            addTabScroll: true,
-            addMainToobarToggle: true,
-            saveActiveTab: true,
-            active: fpcm.vars.jsvars.activeTab
+            }
         });
 
         fpcm.dom.fromId('showpreview').click(function () {

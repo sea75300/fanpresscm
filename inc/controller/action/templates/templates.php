@@ -60,88 +60,10 @@ implements \fpcm\controller\interfaces\isAccessible,
      */
     public function process()
     {
-        $tabs = [
-            (new \fpcm\view\helper\tabItem('tpl-article'))
-                ->setText('TEMPLATE_HL_ARTICLES')
-                ->setUrl(\fpcm\classes\tools::getFullControllerLink('ajax/templates/fetch', [
-                    'tpl' => \fpcm\model\pubtemplates\article::TEMPLATE_ID
-                ]))
-                ->setData(['toolbar-buttons' => 1, 'tplId' => \fpcm\model\pubtemplates\article::TEMPLATE_ID])
-                ->setDataViewId('')
-                ->setWrapper(false),
-
-        ];
-        
-        if ($this->config->articles_template_active != $this->config->article_template_active) {
-            $tabs[] = (new \fpcm\view\helper\tabItem('tpl-articleSingle'))
-                ->setText('TEMPLATE_HL_ARTICLE_SINGLE')
-                ->setUrl(\fpcm\classes\tools::getFullControllerLink('ajax/templates/fetch', [
-                    'tpl' => \fpcm\model\pubtemplates\article::TEMPLATE_ID_SINGLE
-                ]))
-                ->setData(['toolbar-buttons' => 1, 'tplId' => \fpcm\model\pubtemplates\article::TEMPLATE_ID_SINGLE])
-                ->setDataViewId('')
-                ->setWrapper(false);
-        }
-        
-        $tabs = array_merge($tabs, [
-            (new \fpcm\view\helper\tabItem('tpl-comment'))
-                ->setText('TEMPLATE_HL_COMMENTS')
-                ->setUrl(\fpcm\classes\tools::getFullControllerLink('ajax/templates/fetch', [''
-                    . 'tpl' => \fpcm\model\pubtemplates\comment::TEMPLATE_ID
-                ]))
-                ->setData(['toolbar-buttons' => 1, 'tplId' => \fpcm\model\pubtemplates\comment::TEMPLATE_ID])
-                ->setDataViewId('')
-                ->setWrapper(false),
-
-            (new \fpcm\view\helper\tabItem('tpl-commentForm'))
-                ->setText('TEMPLATE_HL_COMMENTFORM')
-                ->setUrl(\fpcm\classes\tools::getFullControllerLink('ajax/templates/fetch', [
-                    'tpl' => \fpcm\model\pubtemplates\commentform::TEMPLATE_ID
-                ]))
-                ->setData(['toolbar-buttons' => 1, 'tplId' => \fpcm\model\pubtemplates\commentform::TEMPLATE_ID])
-                ->setDataViewId('')
-                ->setWrapper(false),
-            (new \fpcm\view\helper\tabItem('tpl-shareButtons'))
-                ->setText('TEMPLATE_HL_SHAREBUTTONS')
-                ->setUrl(\fpcm\classes\tools::getFullControllerLink('ajax/templates/fetch', [
-                    'tpl' => \fpcm\model\pubtemplates\sharebuttons::TEMPLATE_ID
-                ]))
-                ->setData(['toolbar-buttons' => 1, 'tplId' => \fpcm\model\pubtemplates\sharebuttons::TEMPLATE_ID])
-                ->setDataViewId('')
-                ->setWrapper(false),
-
-            (new \fpcm\view\helper\tabItem('tpl-latestNews'))
-                ->setText('TEMPLATE_HL_LATESTNEWS')
-                ->setUrl(\fpcm\classes\tools::getFullControllerLink('ajax/templates/fetch', [
-                    'tpl' => \fpcm\model\pubtemplates\latestnews::TEMPLATE_ID
-                ]))
-                ->setData(['toolbar-buttons' => 1, 'tplId' => \fpcm\model\pubtemplates\latestnews::TEMPLATE_ID])
-                ->setDataViewId('')
-                ->setWrapper(false),
-
-            (new \fpcm\view\helper\tabItem('tpl-tweet'))
-                ->setText('TEMPLATE_HL_TWEET')
-                ->setUrl(\fpcm\classes\tools::getFullControllerLink('ajax/templates/fetch', [
-                    'tpl' => \fpcm\model\pubtemplates\tweet::TEMPLATE_ID
-                ]))
-                ->setData(['toolbar-buttons' => 2, 'tplId' => \fpcm\model\pubtemplates\tweet::TEMPLATE_ID])
-                ->setDataViewId('')
-                ->setWrapper(false),
-        ]);
-        
-        if ($this->permissions->system->drafts) {
-            $tabs[] = (new \fpcm\view\helper\tabItem('tpl-editor-templates'))
-                    ->setText('TEMPLATE_HL_DRAFTS')
-                    ->setUrl('#tab-article-editor-templates')
-                    ->setData(['toolbar-buttons' => 3, 'noEmpty' => true])
-                    ->setDataViewId('')
-                    ->setWrapper(false);
-        }
 
         /* @var $uploader \fpcm\components\fileupload\jqupload */
         $uploader = \fpcm\components\components::getFileUploader();
-        
-        $this->view->setActiveTab($this->getActiveTab());
+
         $this->view->addJsVars(array_merge([
             'templateId' => 1,
             'uploadDest' => 'drafts'
@@ -158,9 +80,7 @@ implements \fpcm\controller\interfaces\isAccessible,
             return false;
         }
 
-        $this->view->setViewVars(array_merge([
-            'tabs' => $tabs,
-        ], $uploader->getViewVars() ));
+        $this->view->setViewVars( $uploader->getViewVars() );
 
         $this->initDataView();
 
@@ -171,9 +91,100 @@ implements \fpcm\controller\interfaces\isAccessible,
             (new \fpcm\view\helper\saveButton('saveTemplates', 'save2'))->setClass('fpcm-ui-maintoolbarbuttons-tab2 fpcm-ui-button-confirm fpcm-ui-hidden'),
             (new \fpcm\view\helper\deleteButton('fileDelete'))->setClass('fpcm-ui-maintoolbarbuttons-tab3 fpcm-ui-button-confirm fpcm-ui-hidden')
         ]);
-
+        
+        $this->initTabs();
         $this->view->render();
     }
+
+    /**
+     * 
+     * @return boolean
+     */
+    private function initTabs()
+    {
+        $tabs = [
+            (new \fpcm\view\helper\tabItem('tpl-article'))
+                ->setText('TEMPLATE_HL_ARTICLES')
+                ->setUrl(\fpcm\classes\tools::getFullControllerLink('ajax/templates/fetch', [
+                    'tpl' => \fpcm\model\pubtemplates\article::TEMPLATE_ID
+                ]))
+                ->setData(['tplId' => \fpcm\model\pubtemplates\article::TEMPLATE_ID])
+                ->setTabToolbar(1)
+                ->setDataViewId(''),
+
+        ];
+        
+        if ($this->config->articles_template_active != $this->config->article_template_active) {
+            $tabs[] = (new \fpcm\view\helper\tabItem('tpl-articleSingle'))
+                ->setText('TEMPLATE_HL_ARTICLE_SINGLE')
+                ->setUrl(\fpcm\classes\tools::getFullControllerLink('ajax/templates/fetch', [
+                    'tpl' => \fpcm\model\pubtemplates\article::TEMPLATE_ID_SINGLE
+                ]))
+                ->setData(['tplId' => \fpcm\model\pubtemplates\article::TEMPLATE_ID_SINGLE])
+                ->setTabToolbar(1)
+                ->setDataViewId('');
+        }
+        
+        $tabs = array_merge($tabs, [
+            (new \fpcm\view\helper\tabItem('tpl-comment'))
+                ->setText('TEMPLATE_HL_COMMENTS')
+                ->setUrl(\fpcm\classes\tools::getFullControllerLink('ajax/templates/fetch', [''
+                    . 'tpl' => \fpcm\model\pubtemplates\comment::TEMPLATE_ID
+                ]))
+                ->setData(['tplId' => \fpcm\model\pubtemplates\comment::TEMPLATE_ID])
+                ->setTabToolbar(1)
+                ->setDataViewId(''),
+
+            (new \fpcm\view\helper\tabItem('tpl-commentForm'))
+                ->setText('TEMPLATE_HL_COMMENTFORM')
+                ->setUrl(\fpcm\classes\tools::getFullControllerLink('ajax/templates/fetch', [
+                    'tpl' => \fpcm\model\pubtemplates\commentform::TEMPLATE_ID
+                ]))
+                ->setData(['tplId' => \fpcm\model\pubtemplates\commentform::TEMPLATE_ID])
+                ->setTabToolbar(1)
+                ->setDataViewId(''),
+
+            (new \fpcm\view\helper\tabItem('tpl-shareButtons'))
+                ->setText('TEMPLATE_HL_SHAREBUTTONS')
+                ->setUrl(\fpcm\classes\tools::getFullControllerLink('ajax/templates/fetch', [
+                    'tpl' => \fpcm\model\pubtemplates\sharebuttons::TEMPLATE_ID
+                ]))
+                ->setData(['tplId' => \fpcm\model\pubtemplates\sharebuttons::TEMPLATE_ID])
+                ->setTabToolbar(1)
+                ->setDataViewId(''),
+
+            (new \fpcm\view\helper\tabItem('tpl-latestNews'))
+                ->setText('TEMPLATE_HL_LATESTNEWS')
+                ->setUrl(\fpcm\classes\tools::getFullControllerLink('ajax/templates/fetch', [
+                    'tpl' => \fpcm\model\pubtemplates\latestnews::TEMPLATE_ID
+                ]))
+                ->setData(['tplId' => \fpcm\model\pubtemplates\latestnews::TEMPLATE_ID])
+                ->setTabToolbar(1)
+                ->setDataViewId(''),
+
+            (new \fpcm\view\helper\tabItem('tpl-tweet'))
+                ->setText('TEMPLATE_HL_TWEET')
+                ->setUrl(\fpcm\classes\tools::getFullControllerLink('ajax/templates/fetch', [
+                    'tpl' => \fpcm\model\pubtemplates\tweet::TEMPLATE_ID
+                ]))
+                ->setData(['tplId' => \fpcm\model\pubtemplates\tweet::TEMPLATE_ID])
+                ->setTabToolbar(2)
+                ->setDataViewId(''),
+        ]);
+        
+        if ($this->permissions->system->drafts) {
+            $tabs[] = (new \fpcm\view\helper\tabItem('tpl-editor-templates'))
+                    ->setText('TEMPLATE_HL_DRAFTS')
+                    ->setFile( $this->getViewPath() )
+                    ->setData(['noEmpty' => true])
+                    ->setTabToolbar(3)
+                    ->setDataViewId('');
+        }
+
+        $this->view->addTabs('fpcm-tabs-templates', $tabs, '', $this->getActiveTab());
+        return true;
+    }
+
 
     /**
      * 
@@ -334,5 +345,3 @@ implements \fpcm\controller\interfaces\isAccessible,
         return true;
     }
 }
-
-?>

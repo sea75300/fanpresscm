@@ -117,6 +117,9 @@ fpcm.ui = {
     },
     
     assignControlgroups: function() {
+        
+        console.warn('fpcm.ui.assignControlgroups is deprecated with the usage of bootstrap.');
+        
         fpcm.ui.controlgroup('div.fpcm-ui-controlgroup', {
             onlyVisible: false
         });
