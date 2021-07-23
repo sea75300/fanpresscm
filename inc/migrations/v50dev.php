@@ -27,6 +27,10 @@ class v50dev extends migration {
     {
         $conf = $this->getConfig();
 
+        if ($conf->file_thumb_size !== null) {
+            return true;
+        }
+
         $this->output('Convert old thumbnail setting to \fpcm\model\system\config::::file_thumb_size');
         
         $conf->setNewConfig([
