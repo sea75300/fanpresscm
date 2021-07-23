@@ -18,11 +18,11 @@ fpcm.import = {
                 fpcm.dom.fromId('fpcm-ui-csv-fields-select').empty();
                 fpcm.dom.fromId('fpcm-ui-csv-fields-list').empty();
 
-                if (!fpcm.vars.jsvars.fields[ui.item.value.replace('\\', '_')]) {
+                if (!fpcm.vars.jsvars.fields[ui.value.replace('\\', '_')]) {
                     return false;
                 }
                 
-                let fields = fpcm.vars.jsvars.fields[ui.item.value.replace('\\', '_')];
+                let fields = fpcm.vars.jsvars.fields[ui.value.replace('\\', '_')];
                 
                 for (var item in fields) {
                     fpcm.dom.appendHtml(

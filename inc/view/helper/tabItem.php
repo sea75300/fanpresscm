@@ -96,7 +96,7 @@ class tabItem extends helper {
         $this->url = '#';
         $this->file = $file;
         
-        if (substr($this->file, 0, -4) !== '.php') {
+        if (substr($this->file, -4) !== '.php') {
             $this->file .= '.php';
         }
 
