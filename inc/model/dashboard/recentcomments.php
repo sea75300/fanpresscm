@@ -119,11 +119,13 @@ class recentcomments extends \fpcm\model\abstracts\dashcontainer implements \fpc
         $userlist = new \fpcm\model\users\userList();
         $users = array_flip($userlist->getUsersNameList());
 
+        $createStr = $this->language->translate('GLOBAL_LASTCHANGE');
+        
         $content = [];
         $content[] = '<div>';
         foreach ($comments as $comment) {
 
-            $createInfo = $this->language->translate('COMMMENT_LASTCHANGE', array(
+            $createInfo = $this->language->translate('GLOBAL_USER_ON_TIME', array(
                 '{{username}}' => isset($users[$comment->getChangeuser()]) ? $users[$comment->getChangeuser()] : $this->language->translate('GLOBAL_NOTFOUND'),
                 '{{time}}' => date($this->config->system_dtmask, $comment->getChangetime())
             ));
@@ -141,7 +143,7 @@ class recentcomments extends \fpcm\model\abstracts\dashcontainer implements \fpc
             $content[] = '  <div class="col align-self-center">';
             $content[] = '  <div class="fpcm-ui-ellipsis">';
             $content[] = '  <strong>' . (new \fpcm\view\helper\escape(strip_tags($comment->getName()))) . '</strong> @ ' . (new \fpcm\view\helper\dateText($comment->getCreatetime())) . '<br>';
-            $content[] = '  <span>' . $createInfo . '</span>';
+            $content[] = '  <span>' . $createStr . ': ' . $createInfo . '</span>';
             $content[] = '  </div></div>';
             $content[] = '  <div class="col-auto fpcm-ui-metabox px-4 align-self-center">';
 

@@ -162,7 +162,7 @@ fpcm.editor = {
              return false;
         });
 
-        fpcm.dom.fromTag('input.fpcm-ui-editor-metainfo-checkbox').click(function () {
+        fpcm.dom.fromTag('.fpcm-ui-editor-metainfo-checkbox').on('change', function () {
             fpcm.dom.fromTag('span.fpcm-ui-editor-metainfo-' + fpcm.dom.fromTag(this).data('icon')).toggleClass('fpcm-ui-status-1 fpcm-ui-status-0');
             return true;
         });

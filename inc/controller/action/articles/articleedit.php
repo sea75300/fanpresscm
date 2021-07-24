@@ -165,12 +165,12 @@ class articleedit extends articlebase {
         $createUser = isset($users[$this->article->getCreateuser()]) ? $users[$this->article->getCreateuser()] : null;
         $changeUser = isset($users[$this->article->getChangeuser()]) ? $users[$this->article->getChangeuser()] : null;
 
-        $this->view->assign('createInfo', $this->language->translate('EDITOR_AUTHOREDIT', [
+        $this->view->assign('createInfo', $this->language->translate('GLOBAL_USER_ON_TIME', [
             '{{username}}' => $createUser ? $createUser->getDisplayname() : $this->language->translate('GLOBAL_NOTFOUND'),
             '{{time}}'     => new \fpcm\view\helper\dateText($this->article->getCreatetime())           
         ]));
 
-        $this->view->assign('changeInfo', $this->language->translate('EDITOR_LASTEDIT', [
+        $this->view->assign('changeInfo', $this->language->translate('GLOBAL_USER_ON_TIME', [
             '{{username}}' => $changeUser ? $changeUser->getDisplayname() : $this->language->translate('GLOBAL_NOTFOUND'),
             '{{time}}'     => new \fpcm\view\helper\dateText($this->article->getChangetime())
         ]));

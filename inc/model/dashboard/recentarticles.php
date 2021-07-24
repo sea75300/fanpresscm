@@ -121,10 +121,12 @@ class recentarticles extends \fpcm\model\abstracts\dashcontainer implements \fpc
         $content = [];
         $content[] = '<div>';
         
+        $createStr = $this->language->translate('GLOBAL_AUTHOR_EDITOR');
+        
         /* @var $article \fpcm\model\articles\article */
         foreach ($articles as $article) {
 
-            $createInfo = $this->language->translate('EDITOR_AUTHOREDIT', array(
+            $createInfo = $this->language->translate('GLOBAL_USER_ON_TIME', array(
                 '{{username}}' => isset($users[$article->getCreateuser()]) ? $users[$article->getCreateuser()] : $this->language->translate('GLOBAL_NOTFOUND'),
                 '{{time}}' => date($this->config->system_dtmask, $article->getCreatetime())
             ));
@@ -138,7 +140,7 @@ class recentarticles extends \fpcm\model\abstracts\dashcontainer implements \fpc
             $content[] = '  <div class="col align-self-center">';
             $content[] = '  <div class="fpcm-ui-ellipsis">';
             $content[] = '  <strong>' . (new \fpcm\view\helper\escape(strip_tags(rtrim($article->getTitle(), '.!?')))) . '</strong><br>';
-            $content[] = '  <span>' . $createInfo . '</span>';
+            $content[] = '  <span>' . $createStr . ': ' . $createInfo . '</span>';
             $content[] = '  </div></div>';
             $content[] = '  <div class="col-auto fpcm-ui-metabox px-4 align-self-center">';
             $content[] = $article->getStatusIconPinned();

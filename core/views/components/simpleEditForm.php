@@ -6,7 +6,7 @@
         <?php foreach ($formFields as $field) : ?>
             <div class="row">
                 <?php if ($field instanceof \fpcm\components\fieldGroup) : ?>
-                    <div class="col-form-label col-12 col-sm-6 col-md-3">
+                    <div class="col-form-label col-12 col-sm-6 col-md-4">
                         <?php if ($field->getIcon() !== null) : print $field->getIcon(); endif; ?> 
                         <span class="fpcm-ui-label ps-1"> <?php $theView->write($field->getDescr()); ?></span>
                     </div>

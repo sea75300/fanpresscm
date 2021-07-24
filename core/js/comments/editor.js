@@ -15,6 +15,11 @@ fpcm.editor = {
         fpcm.editor[fpcm.vars.jsvars.editorInitFunction].call();
         fpcm.editor.initToolbar();
 
+        fpcm.ui.autocomplete('#commentarticle', {
+            source: fpcm.vars.ajaxActionPath + 'autocomplete&src=articles',
+            minLength: 3
+        });
+
         fpcm.dom.fromId('btnLockIp').unbind('click');
         fpcm.dom.fromId('btnLockIp').click(function (event, ui) {
 
@@ -33,9 +38,6 @@ fpcm.editor = {
                     });
                 }
             });
-
-
-
 
             return false;
         });

@@ -5,7 +5,7 @@
     <div class="row mb-3 g-0">
         <label class="col-form-label col-12 col-md-3 me-3">
             <?php $theView->icon('calendar-alt', 'far')->setSize('lg'); ?>
-            <?php $theView->write('FILE_LIST_UPLOAD_DATE'); ?>
+            <?php $theView->write('GLOBAL_LASTCHANGE'); ?>
         </label>
         <div class="col align-self-center" id="fpcm-dialog-files-properties-filetime"></div>
     </div>

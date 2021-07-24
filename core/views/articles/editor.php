@@ -14,15 +14,23 @@
     <div class="row g-0">
         <div class="col-12 my-2">
             <fieldset>
-                <legend><?php $theView->write('SYSTEM_HL_OPTIONS_GENERAL'); ?></legend>
-                
-                <div class="mx-2">
+                <div class="row">
                     <?php $theView->textInput('article[title]')->setValue($article->getTitle())->setText('ARTICLE_LIST_TITLE')->setPlaceholder(true)->setAutoFocused(true); ?>
                 </div>
-                
-                <div class="mx-2 fpcm-ui-editor-categories">
-                    <?php $theView->select('article[categories][]')->setIsMultiple(true)->setOptions($categories)->setSelected($article->getCategories()); ?>                    
+
+                <div class="row">
+                    <div class="col-12 <?php if ($editorMode) : ?>col-md-8 col-lg-9<?php endif; ?> fpcm-ui-editor-categories">
+                        <?php $theView->select('article[categories][]')->setIsMultiple(true)->setOptions($categories)->setSelected($article->getCategories()); ?>                    
+                    </div>
+                    <?php if ($editorMode) : ?>
+                    <div class="col-12 col-sm-auto flex-grow-1">
+                        <div class="d-flex justify-content-center justify-content-md-end">
+                            <?php print implode(PHP_EOL, $article->getMetaDataStatusIcons($showDraftStatus, $commentEnabledGlobal, $showArchiveStatus)); ?>
+                        </div>
+                    </div>
+                    <?php endif; ?>
                 </div>
+                
             </fieldset>
         </div>
     </div>
@@ -31,7 +39,35 @@
 <?php include \fpcm\components\components::getArticleEditor()->getEditorTemplate(); ?>
     
 <?php if ($editorMode) : ?>
-    <?php include $theView->getIncludePath('articles/times.php'); ?>
+
+<fieldset class="my-2">
+    <legend class="fpcm-ui-font-small"><?php $theView->write('GLOBAL_METADATA'); ?></legend>
+
+    <div class="row g-0 my-2 fpcm-ui-font-small">
+        <div class="col-12 col-md-6">
+            
+            <div class="row mb-1">
+                <div class="col-auto">
+                    <?php $theView->icon('calendar')->setSize('lg'); ?>
+                    <strong><?php $theView->write('GLOBAL_AUTHOR_EDITOR'); ?>:</strong>
+                </div>
+                <div class="col">
+                    <?php print $createInfo; ?>
+                </div>
+            </div>
+            
+            <div class="row mb-1">
+                <div class="col-auto">
+                    <?php $theView->icon('clock', 'far')->setSize('lg'); ?> 
+                    <strong><?php $theView->write('GLOBAL_LASTCHANGE'); ?>:</strong>
+                </div>
+                <div class="col">
+                    <?php print $changeInfo; ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</fieldset>
 <?php endif; ?>
 
 <?php if ($showComments) : ?>

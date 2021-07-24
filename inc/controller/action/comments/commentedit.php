@@ -174,7 +174,7 @@ class commentedit extends \fpcm\controller\abstracts\controller implements \fpcm
             $changeUser = new \fpcm\model\users\author($this->comment->getChangeuser());
 
             $this->view->assign(
-                'changeInfo', $this->language->translate('COMMMENT_LASTCHANGE2', array(
+                'changeInfo', $this->language->translate('GLOBAL_USER_ON_TIME', array(
                     '{{username}}' => $changeUser->exists() ? $changeUser->getDisplayname() : $this->language->translate('GLOBAL_NOTFOUND'),
                     '{{time}}' => date($this->config->system_dtmask, $this->comment->getChangetime())
             )));
@@ -187,13 +187,15 @@ class commentedit extends \fpcm\controller\abstracts\controller implements \fpcm
         $buttons     = [];
         $buttons[]   = (new \fpcm\view\helper\saveButton('commentSave'))->setClass($hiddenClass)->setPrimary();
         
+        $showArticleIdField = false;
         if ($this->mode === 1) {
             $article     = new \fpcm\model\articles\article($this->comment->getArticleid());
             $articleList = new \fpcm\model\articles\articlelist();
             $articleList->checkEditPermissions($article);
-
             if ($article->exists()) {
-
+                
+                $showArticleIdField = false;
+                
                 if ($article->getEditPermission()) {
                     $buttons[] = (new \fpcm\view\helper\editButton('editArticle'))->setUrlbyObject($article)->setText('COMMENTS_EDITARTICLE');
                 }
@@ -201,9 +203,12 @@ class commentedit extends \fpcm\controller\abstracts\controller implements \fpcm
                 $buttons[] = (new \fpcm\view\helper\openButton('commentfe'))->setUrlbyObject($this->comment)->setTarget('_blank');           
             }
             else {
+                $showArticleIdField = true;
                 $this->view->addErrorMessage('LOAD_FAILED_COMMENT_ARTICLE');
             }
         }
+        
+        $this->view->assign('showArticleIdField', $showArticleIdField && $this->permissions->comment->move);
 
         $buttons[] = (new \fpcm\view\helper\linkButton('whoisIp'))->setUrl("http://www.whois.com/whois/{$this->comment->getIpaddress()}")->setTarget('_blank')->setText('Whois')->setIcon('home')->setClass($hiddenClass)->setRel('noreferrer,noopener,external');
 
@@ -261,10 +266,6 @@ class commentedit extends \fpcm\controller\abstracts\controller implements \fpcm
         $this->comment->setText($commentData['text']);
         unset($commentData['text']);
 
-        foreach ($commentData as &$value) {
-            $value = $this->request->filter($value, [\fpcm\model\http\request::FILTER_STRIPTAGS, \fpcm\model\http\request::FILTER_HTMLENTITIES]);
-        }
-
         $this->comment->setName($commentData['name']);
         $this->comment->setEmail($commentData['email']);
         $this->comment->setWebsite(filter_var($commentData['website'], FILTER_SANITIZE_URL));
@@ -283,6 +284,10 @@ class commentedit extends \fpcm\controller\abstracts\controller implements \fpcm
 
         $this->comment->setChangetime(time());
         $this->comment->setChangeuser($this->session->getUserId());
+        
+        if ($this->mode === 1 && $this->permissions->comment->move && $commentData['article'] != $this->comment->getArticleid()) {
+            $this->comment->setArticleid((int) $commentData['article']);
+        }
 
         $this->view->addJsVars([ 'reloadList' => $this->mode === 2 ? true : false ]);
 

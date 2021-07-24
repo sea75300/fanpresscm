@@ -1,9 +1,10 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
+<?php /* @var $comment fpcm\model\comments\comment */ ?>
 <?php if($commentsMode === 2) : ?><div class="d-none"><?php include_once $theView->getIncludePath('common/buttons.php'); ?></div><?php endif; ?>
 <fieldset class="ms-0">
     <div class="row my-2">
         <div class="col-12 col-md-6">
-            
+
             <div class="row g-0">
             <?php $theView->textInput('comment[name]')
                     ->setText('COMMMENT_AUTHOR')
@@ -39,8 +40,18 @@
                     ->setSize('lg'); ?>                
             </div>
             
+            <div class="row g-0 <?php if($commentsMode === 2 || !$showArticleIdField) : ?>d-none<?php endif; ?>">
+            <?php $theView->textInput('comment[article]')
+                    ->setText('COMMMENT_MOVE')
+                    ->setValue($comment->getArticleid())
+                    ->setMaxlenght(20)
+                    ->setIcon('clipboard')
+                    ->setSize('lg')
+                    ->setClass('fpcm-ui-input-articleid'); ?>                
+            </div>
+            
             <div class="row g-0">                
-                <div class="col-form-label col-12 col-sm-6 col-md-3">
+                <div class="col-form-label col-12 col-sm-6 col-md-4">
                     <?php $theView->icon('exclamation-circle'); ?> <span class="fpcm-ui-label ps-1"> <?php $theView->write('COMMMENT_STATUS'); ?></span>
                 </div>
 
@@ -59,12 +70,12 @@
 <fieldset class="my-2">
     <legend class="fpcm-ui-font-small"><?php $theView->write('GLOBAL_METADATA'); ?></legend>
 
-    <div class="row my-2 fpcm-ui-font-small">
+    <div class="row g-0 my-2 fpcm-ui-font-small">
         <div class="col-12 col-md-6">
             
-            <div class="row g-0 mb-1">
-                <div class="col-12 col-sm-6 col-md-3">
-                    <?php $theView->icon('calendar'); ?>
+            <div class="row mb-1">
+                <div class="col-auto">
+                    <?php $theView->icon('calendar')->setSize('lg'); ?>
                     <strong><?php $theView->write('COMMMENT_CREATEDATE'); ?>:</strong>
                 </div>
                 <div class="col">
@@ -72,23 +83,13 @@
                 </div>
             </div>
             
-            <div class="row g-0 mb-1">
-                <div class="col-12 col-sm-6 col-md-3">
-                    <?php $theView->icon('clock', 'far'); ?> 
-                    <strong><?php $theView->write('COMMMENT_LASTCHANGE'); ?>:</strong>
+            <div class="row mb-1">
+                <div class="col-auto">
+                    <?php $theView->icon('clock', 'far')->setSize('lg'); ?> 
+                    <strong><?php $theView->write('GLOBAL_LASTCHANGE'); ?>:</strong>
                 </div>
                 <div class="col">
                     <?php print $changeInfo; ?>
-                </div>
-            </div>
-            
-            <div class="row g-0 mb-1">
-                <div class="col-12 col-sm-6 col-md-3">
-                    <?php $theView->icon('globe'); ?> 
-                    <strong><?php $theView->write('COMMMENT_IPADDRESS'); ?>:</strong>
-                </div>
-                <div class="col">
-                    <?php print $comment->getIpaddress(); ?>
                 </div>
             </div>
         </div>
