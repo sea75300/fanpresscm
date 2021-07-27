@@ -19,7 +19,8 @@ class dropdown extends helper {
 
     use traits\iconHelper,
         traits\labelFieldSize,
-        traits\selectedHelper;
+        traits\selectedHelper,
+        traits\escapeHelper;
 
     /**
      * Select options
@@ -108,8 +109,19 @@ class dropdown extends helper {
         }
 
         foreach ($options as $key => $value) {
-            $this->value = $this->escapeVal($value, ENT_QUOTES);
-            $key = $this->escapeVal($key, ENT_QUOTES);
+
+            $href = '#';
+
+            if (!is_array($value)) {
+                $this->value = $this->escapeVal($value, ENT_QUOTES);
+                $this->value = $value;
+            }
+            elseif (is_array($value) && isset ($value['href'])) {
+                $href = $value['href'];
+                $this->value = $value['value'];
+            }
+            
+            $key = $this->escapeVal($key, ENT_QUOTES);                
             
             $class = '';
             if ($this->value == $this->selected) {
@@ -117,10 +129,10 @@ class dropdown extends helper {
                 $this->text = $key;
             }            
 
-            $this->returnString[] = "<li><a class=\"dropdown-item {$class}\">{$this->language->translate($key)}</a></li>";
+            $this->returnString[] = "<li><a href=\"{$href}\" class=\"dropdown-item {$class}\">{$this->language->translate($key)}</a></li>";
         }
 
-        return;
+        return implode(PHP_EOL, $this->returnString);
     }
 
 }

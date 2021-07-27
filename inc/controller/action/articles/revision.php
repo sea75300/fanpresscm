@@ -155,19 +155,24 @@ implements \fpcm\controller\interfaces\isAccessible,
         $this->view->addJsVars([
             'articleId' => $this->aid
         ]);
-
-        $this->view->addJsFiles(['articles/revisions.js']);
         
         $revision = [];
 
         array_map(function ($value) use (&$revision) {
-            $revision[(string) new \fpcm\view\helper\dateText($value)] = $value;
+            $revision[(string) new \fpcm\view\helper\dateText($value)] = [
+                'href' => $this->getControllerLink('articles/revision', [
+                    'aid' => $this->aid,
+                    'rid' => $value
+                ]),
+                'value' => $value
+            ];
+
         }, array_keys($this->article->getRevisions()));
         
         $this->view->addButtons([
-//            (new \fpcm\view\helper\dropdown('revisionList'))
-//                ->setOptions($revision)
-//                ->setSelected($this->rid),
+            (new \fpcm\view\helper\dropdown('revisionList'))
+                ->setOptions($revision)
+                ->setSelected($this->rid),
             (new \fpcm\view\helper\linkButton('backToArticel'))
                 ->setUrl($this->article->getEditLink().'&rg=3')
                 ->setText('EDITOR_BACKTOCURRENT')
