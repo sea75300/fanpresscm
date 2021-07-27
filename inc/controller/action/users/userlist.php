@@ -216,7 +216,7 @@ class userlist extends \fpcm\controller\abstracts\controller implements \fpcm\co
         
         $dataView->addColumns([
             (new \fpcm\components\dataView\column('select', ''))->setSize(1)->setAlign('center'),
-            (new \fpcm\components\dataView\column('button', ''))->setSize(2)->setAlign('center'),
+            (new \fpcm\components\dataView\column('button', ''))->setSize('auto')->setAlign('center'),
             (new \fpcm\components\dataView\column('username', 'GLOBAL_USERNAME'))->setSize(3),
             (new \fpcm\components\dataView\column('email', 'GLOBAL_EMAIL'))->setSize(3),
             (new \fpcm\components\dataView\column('registered', 'USERS_REGISTEREDTIME'))->setSize(2)->setAlign('center'),
@@ -245,7 +245,7 @@ class userlist extends \fpcm\controller\abstracts\controller implements \fpcm\co
                     new \fpcm\components\dataView\rowCol('email', '', 'd-none d-lg-block'),
                     new \fpcm\components\dataView\rowCol('registered', '', 'd-none d-lg-block'),
                     new \fpcm\components\dataView\rowCol('metadata', '', 'd-none d-lg-block'),
-                ]
+                ], 'bg-secondary text-light'
             ));
             
             /* @var $user \fpcm\model\users\author */
@@ -259,15 +259,13 @@ class userlist extends \fpcm\controller\abstracts\controller implements \fpcm\co
                 $this->chartItemColors[$user->getDisplayname()] = \fpcm\components\charts\chartItem::getRandomColor();
 
                 $metadata = [
-                    (new \fpcm\view\helper\badge('art'.$userId))->setValue($count)->setText('USERS_ARTICLE_COUNT')->setIcon('book')->setClass('fpcm-ui-badge-userarticles'),
+                    (new \fpcm\view\helper\badge('art'.$userId))->setValue($count)->setText('USERS_ARTICLE_COUNT')->setIcon('book'),
                     (new \fpcm\view\helper\icon('user-slash fa-inverse'))->setText('USERS_DISABLED')->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $user->getDisabled())->setStack('square')
                 ];
                 
                 $buttons = [
-                    '<div class="fpcm-ui-controlgroup">',
                     (new \fpcm\view\helper\editButton('useredit'.$userId))->setUrlbyObject($user),
                     (new \fpcm\view\helper\linkButton('usermail'.$userId))->setUrl('mailto:'.$user->getEmail())->setIcon('envelope')->setIconOnly(true)->setText('GLOBAL_WRITEMAIL'),
-                    '</div>'
                 ];
 
                 $dataView->addRow(
@@ -277,7 +275,7 @@ class userlist extends \fpcm\controller\abstracts\controller implements \fpcm\co
                         new \fpcm\components\dataView\rowCol('username', new \fpcm\view\helper\escape($user->getDisplayname()) ),
                         new \fpcm\components\dataView\rowCol('email', new \fpcm\view\helper\escape($user->getEmail())),
                         new \fpcm\components\dataView\rowCol('registered', new \fpcm\view\helper\dateText($user->getRegistertime())),
-                        new \fpcm\components\dataView\rowCol('metadata', implode('', $metadata), 'fpcm-ui-metabox fpcm-ui-dataview-align-center', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
+                        new \fpcm\components\dataView\rowCol('metadata', implode('', $metadata), 'fs-5 flex-grow-1', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
                     ]
                 ));
 

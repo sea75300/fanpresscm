@@ -110,7 +110,7 @@ implements \fpcm\controller\interfaces\isAccessible,
             (new \fpcm\components\dataView\column('ipaddress', 'IPLIST_IPADDRESS'))->setSize(4),
             (new \fpcm\components\dataView\column('user', 'LOGS_LIST_USER'))->setSize(2),
             (new \fpcm\components\dataView\column('time', 'IPLIST_IPTIME'))->setSize(2),
-            (new \fpcm\components\dataView\column('metadata', '')),
+            (new \fpcm\components\dataView\column('metadata', ''))->setAlign('center'),
         ];
     }
 
@@ -146,7 +146,7 @@ implements \fpcm\controller\interfaces\isAccessible,
             new \fpcm\components\dataView\rowCol('ipaddress', new \fpcm\view\helper\escape($item->getIpaddress()) ),
             new \fpcm\components\dataView\rowCol('user', new \fpcm\view\helper\escape($userName) ),
             new \fpcm\components\dataView\rowCol('time', new \fpcm\view\helper\dateText($item->getIptime()) ),
-            new \fpcm\components\dataView\rowCol('metadata', implode('', $metaData), 'fpcm-ui-metabox fpcm-ui-dataview-align-center', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT ),
+            new \fpcm\components\dataView\rowCol('metadata', implode('', $metaData), 'fs-5', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT ),
         ]);
     }
 

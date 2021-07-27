@@ -18,6 +18,8 @@ namespace fpcm\view\helper;
  */
 final class dateTimeInput extends input {
 
+    use traits\minMaxHelper;
+    
     const DEFAULT_CLASS = 'fpcm-ui-datetime-picker';
 
     /**
@@ -27,8 +29,9 @@ final class dateTimeInput extends input {
     protected function init()
     {
         parent::init();
-        $this->type = 'text';
+        $this->type = 'date';
         $this->class .= ' '.self::DEFAULT_CLASS;
+        $this->setPlaceholder( date('Y-m-d') );
     }
 
     /**

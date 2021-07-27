@@ -36,7 +36,7 @@ class badge extends helper {
      */
     protected function init()
     {
-        $this->class = 'fpcm-ui-badge';
+        $this->class = 'fpcm-ui-badge badge p-2';
     }
 
 }

@@ -101,7 +101,7 @@ class itemlist extends \fpcm\controller\abstracts\controller implements \fpcm\co
             (new \fpcm\components\dataView\column('button', ''))->setSize(1)->setAlign('center'),
             (new \fpcm\components\dataView\column('subject', 'WORDBAN_NAME'))->setSize(4),
             (new \fpcm\components\dataView\column('replacement', 'WORDBAN_REPLACEMENT_TEXT'))->setSize(4),
-            (new \fpcm\components\dataView\column('metadata', '')),
+            (new \fpcm\components\dataView\column('metadata', ''))->setAlign('center'),
         ];
     }
 
@@ -123,7 +123,7 @@ class itemlist extends \fpcm\controller\abstracts\controller implements \fpcm\co
             new \fpcm\components\dataView\rowCol('button', (new \fpcm\view\helper\editButton('editItem'))->setUrlbyObject($item), '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
             new \fpcm\components\dataView\rowCol('subject', new \fpcm\view\helper\escape($item->getSearchtext())),
             new \fpcm\components\dataView\rowCol('replacement', new \fpcm\view\helper\escape($item->getReplacementtext())),
-            new \fpcm\components\dataView\rowCol('metadata', implode('', $metaData), 'fpcm-ui-metabox fpcm-ui-dataview-align-center', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
+            new \fpcm\components\dataView\rowCol('metadata', implode('', $metaData), 'fs-5', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
         ]);
     }
 

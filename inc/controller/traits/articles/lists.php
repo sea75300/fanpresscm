@@ -147,7 +147,7 @@ trait lists {
                         new \fpcm\components\dataView\rowCol('title', $titleStr),
                         new \fpcm\components\dataView\rowCol('categories', '', 'd-none d-lg-block'),
                         new \fpcm\components\dataView\rowCol('metadata', '', 'd-none d-lg-block'),
-                    ]
+                    ], 'bg-secondary text-light'
             ));
 
             foreach ($articles as $articleId => $article) {
@@ -190,7 +190,7 @@ trait lists {
                             new \fpcm\components\dataView\rowCol('button', $buttons, 'fpcm-ui-dataview-align-center fpcm-ui-font-small', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
                             new \fpcm\components\dataView\rowCol('title', implode(PHP_EOL, $title), 'fpcm-ui-ellipsis'),
                             new \fpcm\components\dataView\rowCol('categories', wordwrap(implode(', ', $article->getCategories()), 50, '<br>')),
-                            new \fpcm\components\dataView\rowCol('metadata', implode('', $metaDataIcons), 'fpcm-ui-metabox fpcm-ui-dataview-align-center', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
+                            new \fpcm\components\dataView\rowCol('metadata', implode('', $metaDataIcons), 'fs-5', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
                         ])
                 );
             }
@@ -210,7 +210,7 @@ trait lists {
        
         $privateUnapproved = $countItem !== null && $countItem->getPrivateUnapprovedComments() ? true : false;
 
-        $badge->setClass(($privateUnapproved ? 'fpcm-ui-badge-red fpcm-ui-badge-comments' : 'fpcm-ui-badge-comments'))
+        $badge->setClass(($privateUnapproved ? 'bg-danger' : 'fpcm-ui-badge-comments'))
                 ->setText(($privateUnapproved ? 'ARTICLE_LIST_COMMENTNOTICE' : 'COMMMENT_HEADLINE'))
                 ->setValue($countItem !== null ? $countItem->getComments() : 0)
                 ->setIcon('comments');
@@ -245,16 +245,16 @@ trait lists {
         $notFound = $this->language->translate('GLOBAL_NOTFOUND');
 
         return implode('', [
-            '<span class="fpcm-ui-font-small fpcm-ui-block fpcm-ui-">',
-            new \fpcm\view\helper\icon('calendar'),
-            $this->language->translate('EDITOR_AUTHOREDIT', [
+            '<span class="fpcm-ui-font-small fpcm-ui-block">',
+            (new \fpcm\view\helper\icon('calendar'))->setText('GLOBAL_AUTHOR_EDITOR'),
+            $this->language->translate('GLOBAL_USER_ON_TIME', [
                 '{{username}}' => isset($createuser[0]) ? $createuser[0] : $notFound,
                 '{{time}}' => new \fpcm\view\helper\dateText($article->getCreatetime())
             ]),
             '</span>',
             '<span class="fpcm-ui-font-small fpcm-ui-block">',
-            new \fpcm\view\helper\icon('clock', 'far'),
-            $this->language->translate('EDITOR_LASTEDIT', [
+            (new \fpcm\view\helper\icon('clock', 'far'))->setText('GLOBAL_LASTCHANGE'),
+            $this->language->translate('GLOBAL_USER_ON_TIME', [
                 '{{username}}' => isset($changeuser[0]) ? $changeuser[0] : $notFound,
                 '{{time}}' => new \fpcm\view\helper\dateText($article->getChangetime())
             ]),

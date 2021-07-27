@@ -204,13 +204,10 @@ div.row {
     float: left;
 }
 
-span.fpcm-ui-badge,
 .fpcm-ui-float-right {
     float: right;
 }
 
-span.fpcm-ui-badge.fpcm-ui-badge-comments,
-span.fpcm-ui-badge.fpcm-ui-badge-userarticles,
 .fpcm-ui-float-none {
     float: none;
 }
@@ -219,7 +216,6 @@ span.fpcm-ui-badge.fpcm-ui-badge-userarticles,
     clear: both;
 }
 
-span.fpcm-ui-badge,
 #fpcm-filemanager-upload-drop h4:before,
 div.fileupload-progress.in,
 .fpcm-ui-progressbar-label,
@@ -229,8 +225,6 @@ div.fileupload-progress.in,
     display: block;
 }
 
-span.fpcm-ui-badge.fpcm-ui-badge-comments,
-span.fpcm-ui-badge.fpcm-ui-badge-userarticles,
 .fpcm-ui-input-wrapper,
 .fpcm-ui-inline-block,
 .fpcm.ui-inline-block {
@@ -354,14 +348,6 @@ div.fileupload-progress.in {
 /* ------ Badge styles */
 span.fpcm-ui-badge {
     z-index: 999;
-}
-
-span.fpcm-ui-badge.fpcm-ui-badge-comments,
-span.fpcm-ui-badge.fpcm-ui-badge-userarticles {
-    font-size: 0.9em;
-    min-width: 4em;
-    line-height: 2em;
-    padding: 0em 0.5em;
 }
 
 div.fpcm-ui-editor-metabox span.fpcm-ui-editor-metainfo {

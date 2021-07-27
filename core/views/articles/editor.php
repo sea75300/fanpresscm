@@ -24,7 +24,7 @@
                     </div>
                     <?php if ($editorMode) : ?>
                     <div class="col-12 col-sm-auto flex-grow-1">
-                        <div class="d-flex justify-content-center justify-content-md-end">
+                        <div class="d-flex justify-content-center justify-content-md-end fs-5">
                             <?php print implode(PHP_EOL, $article->getMetaDataStatusIcons($showDraftStatus, $commentEnabledGlobal, $showArchiveStatus)); ?>
                         </div>
                     </div>

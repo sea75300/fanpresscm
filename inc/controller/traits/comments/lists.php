@@ -294,7 +294,7 @@ trait lists {
                 new \fpcm\components\dataView\rowCol('name', $comment->getName(), 'fpcm-ui-ellipsis'),
                 new \fpcm\components\dataView\rowCol('email', $comment->getEmail(), 'fpcm-ui-ellipsis'),
                 new \fpcm\components\dataView\rowCol('create', new \fpcm\view\helper\dateText($comment->getCreatetime()), 'fpcm-ui-ellipsis'),
-                new \fpcm\components\dataView\rowCol('metadata', implode('', $comment->getMetaDataStatusIcons()), 'fpcm-ui-metabox fpcm-ui-dataview-align-center', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
+                new \fpcm\components\dataView\rowCol('metadata', implode('', $comment->getMetaDataStatusIcons()), 'fs-5', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
             ]));
         }
 

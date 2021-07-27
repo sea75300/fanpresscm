@@ -94,16 +94,11 @@ dl {
 
 legend {
     font-size: 1.25rem;
-}
-
-legend,
-span.fpcm-ui-badge {
-    padding: 0.3rem;
+    padding: 0.25rem 0.5rem;
 }
 
 h2,
 h3,
-span.fpcm-ui-badge,
 .fpcm-dashboard-container h3,
 .fpcm.ui-border-radius-all,
 .fpcm-ui-border-radius-all {
