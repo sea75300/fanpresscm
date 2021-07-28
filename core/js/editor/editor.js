@@ -60,16 +60,16 @@ fpcm.editor = {
 
         fpcm.dom.fromClass('fpcm-editor-articleimage').fancybox();
 
-//        fpcm.dom.fromId('insertarticleimg').click(function () {
-//            fpcm.editor.showFileManager(3);
-//            return false;
-//        });
-//
-//        fpcm.dom.fromId('insertposterimg').click(function () {
-//            fpcm.editor.showFileManager(4);
-//            return false;
-//        });
-//
+        fpcm.dom.fromId('insertarticleimg').click(function () {
+            fpcm.editor.showFileManager(3);
+            return false;
+        });
+
+        fpcm.dom.fromId('insertposterimg').click(function () {
+            fpcm.editor.showFileManager(4);
+            return false;
+        });
+
         fpcm.ui.autocomplete('#articleimagepath', {
             source: fpcm.vars.ajaxActionPath + 'autocomplete&src=editorfiles',
             minLength: 3
@@ -79,24 +79,23 @@ fpcm.editor = {
             source: fpcm.vars.ajaxActionPath + 'autocomplete&src=articlesources',
             minLength: 3
         });
-//
-//        fpcm.editor.tweetTextInput = fpcm.dom.fromId('articletweettxt');
-//        fpcm.ui.selectmenu('#twitterReplacements', {
-//            change: function( event, ui ) {
-//
-//                if (ui.item.value) {
-//                    var currentText = fpcm.editor.tweetTextInput.val();
-//                    var currentpos = fpcm.dom.fromTag(fpcm.editor.tweetTextInput).prop('selectionStart');
-//                    fpcm.editor.tweetTextInput.val(currentText.substring(0, currentpos) + ui.item.value +  currentText.substring(currentpos));
-//                }
-//
-//                this.selectedIndex = 0;
-//                fpcm.dom.fromTag(this).selectmenu('refresh');
-//                return false;
-//            }
-//        });
-//        
-//
+
+        fpcm.editor.tweetTextInput = fpcm.dom.fromId('articletweettxt');
+        fpcm.ui.selectmenu('#twitterReplacements', {
+            change: function( event, ui ) {
+
+                if (ui.value) {
+                    var currentText = fpcm.editor.tweetTextInput.val();
+                    var currentpos = fpcm.dom.fromTag(fpcm.editor.tweetTextInput).prop('selectionStart');
+                    fpcm.editor.tweetTextInput.val(currentText.substring(0, currentpos) + ui.value +  currentText.substring(currentpos));
+                }
+
+                this.selectedIndex = 0;
+                return false;
+            }
+        });
+        
+
         if (!fpcm.vars.jsvars.articleId) {
             return true;
         }

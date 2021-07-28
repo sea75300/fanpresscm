@@ -112,12 +112,8 @@ fpcm.filemanager = {
         if (fpcm.vars.jsvars.fmgrMode === 3) {
             fpcm.dom.fromClass('fpcm-filelist-articleimage').click(function () {
 
-                var url   = fpcm.dom.fromTag(this).attr('href');
-                parent.document.getElementById('articleimagepath').value  = url;
-                var dialogEl = window.parent.fpcm.dom.fromId("fpcm-dialog-editor-html-filemanager");
-
-                dialogEl.dialog('close');
-                dialogEl.empty();
+                parent.document.getElementById('articleimagepath').value  = fpcm.dom.fromTag(this).attr('href');
+                fpcm.ui.closeDialog('fpcm-dialog-editor-html-filemanager', true);
                 return false;
             });
 
@@ -129,20 +125,13 @@ fpcm.filemanager = {
             fpcm.dom.fromClass('fpcm-filelist-tinymce-thumb').click(function () {
                 var url   = fpcm.dom.fromTag(this).attr('href');
                 parent.document.getElementById('mediaposter').value  = url;
-                var dialogEl = window.parent.fpcm.dom.fromId("fpcm-dialog-editor-html-filemanager");
-
-                dialogEl.dialog('close');
-                dialogEl.empty();
+                fpcm.ui.closeDialog('fpcm-dialog-editor-html-filemanager', true);
                 return false;
             });
 
             fpcm.dom.fromClass('fpcm-filelist-tinymce-full').click(function () {
-                var url   = fpcm.dom.fromTag(this).attr('href');
-                parent.document.getElementById('mediaposter').value  = url;
-                var dialogEl = window.parent.fpcm.dom.fromId("fpcm-dialog-editor-html-filemanager");
-
-                dialogEl.dialog('close');
-                dialogEl.empty();
+                parent.document.getElementById('mediaposter').value  = fpcm.dom.fromTag(this).attr('href');
+                fpcm.ui.closeDialog('fpcm-dialog-editor-html-filemanager', true);
                 return false;
             });
         }

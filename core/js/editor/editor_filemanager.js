@@ -16,13 +16,11 @@ if (fpcm.editor !== undefined) {
             fmgrMode = fpcm.vars.jsvars.filemanagerMode;
         }
 
-        var size = fpcm.ui.getDialogSizes(top, 0.75);
-
-        fpcm.dom.appendHtml('#fpcm-dialog-editor-html-filemanager', '<iframe id="fpcm-dialog-editor-html-filemanager-frame" class="fpcm-ui-full-width" src="' + fpcm.vars.jsvars.filemanagerUrl + fmgrMode + '"></iframe>');
         fpcm.ui.dialog({
             id: 'editor-html-filemanager',
             title: 'HL_FILES_MNG',
             closeButton: true,
+            url: fpcm.vars.jsvars.filemanagerUrl + fmgrMode,
             dlButtons: [
                 {
                     text: 'FILE_LIST_INSERTGALLERY',
