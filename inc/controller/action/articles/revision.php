@@ -159,13 +159,15 @@ implements \fpcm\controller\interfaces\isAccessible,
         $revision = [];
 
         array_map(function ($value) use (&$revision) {
-            $revision[(string) new \fpcm\view\helper\dateText($value)] = [
-                'href' => $this->getControllerLink('articles/revision', [
+            
+            $ddI = new \fpcm\view\helper\dropdownItem();
+            $ddI->setUrl($this->getControllerLink('articles/revision', [
                     'aid' => $this->aid,
                     'rid' => $value
-                ]),
-                'value' => $value
-            ];
+            ]));
+            $ddI->setValue($value);
+            $ddI->setText((string) new \fpcm\view\helper\dateText($value));
+            $revision[] = $ddI;
 
         }, array_keys($this->article->getRevisions()));
         

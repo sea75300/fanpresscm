@@ -107,29 +107,19 @@ class dropdown extends helper {
         if (!is_array($options)) {
             return '';
         }
-
+        
         foreach ($options as $key => $value) {
-
-            $href = '#';
-
-            if (!is_array($value)) {
-                $this->value = $this->escapeVal($value, ENT_QUOTES);
-                $this->value = $value;
-            }
-            elseif (is_array($value) && isset ($value['href'])) {
-                $href = $value['href'];
-                $this->value = $value['value'];
-            }
             
-            $key = $this->escapeVal($key, ENT_QUOTES);                
-            
-            $class = '';
-            if ($this->value == $this->selected) {
-                $class = 'active';
-                $this->text = $key;
+            if (! $value instanceof dropdownItem) {
+                $value = (new dropdownItem())->setText($key)->setValue($value);
+            }         
+
+            if ($value->getValue() == $this->selected) {
+                $value->setClass('active');
+                $this->text = $value->getText();
             }            
 
-            $this->returnString[] = "<li><a href=\"{$href}\" class=\"dropdown-item {$class}\">{$this->language->translate($key)}</a></li>";
+            $this->returnString[] = (string) $value;
         }
 
         return implode(PHP_EOL, $this->returnString);
