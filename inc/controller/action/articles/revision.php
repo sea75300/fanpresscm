@@ -194,22 +194,22 @@ implements \fpcm\controller\interfaces\isAccessible,
             $this->revision->getChangeuser(),
         ]);
         
-        $this->view->assign('articleCreate', $this->language->translate('EDITOR_AUTHOREDIT', [
+        $this->view->assign('articleCreate', $this->language->translate('GLOBAL_USER_ON_TIME', [
             '{{username}}' => isset($users[$this->article->getCreateuser()]) ? $users[$this->article->getCreateuser()]->getDisplayname() : $this->language->translate('GLOBAL_NOTFOUND'),
             '{{time}}'     => new \fpcm\view\helper\dateText($this->article->getCreatetime())           
         ]));
 
-        $this->view->assign('articleChange', $this->language->translate('EDITOR_LASTEDIT', [
+        $this->view->assign('articleChange', $this->language->translate('GLOBAL_USER_ON_TIME', [
             '{{username}}' => isset($users[$this->article->getChangeuser()]) ? $users[$this->article->getChangeuser()]->getDisplayname() : $this->language->translate('GLOBAL_NOTFOUND'),
             '{{time}}'     => new \fpcm\view\helper\dateText($this->article->getChangetime())
         ]));
         
-        $this->view->assign('revisionCreate', $this->language->translate('EDITOR_AUTHOREDIT', [
+        $this->view->assign('revisionCreate', $this->language->translate('GLOBAL_USER_ON_TIME', [
             '{{username}}' => isset($users[$this->revision->getCreateuser()]) ? $users[$this->revision->getCreateuser()]->getDisplayname() : $this->language->translate('GLOBAL_NOTFOUND'),
             '{{time}}'     => new \fpcm\view\helper\dateText($this->revision->getCreatetime())           
         ]));
 
-        $this->view->assign('revisionChange', $this->language->translate('EDITOR_LASTEDIT', [
+        $this->view->assign('revisionChange', $this->language->translate('GLOBAL_USER_ON_TIME', [
             '{{username}}' => isset($users[$this->revision->getChangeuser()]) ? $users[$this->revision->getChangeuser()]->getDisplayname() : $this->language->translate('GLOBAL_NOTFOUND'),
             '{{time}}'     => new \fpcm\view\helper\dateText($this->revision->getChangetime())
         ]));
