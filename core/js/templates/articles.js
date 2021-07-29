@@ -13,7 +13,7 @@ fpcm.templates_articles = {
            elementId : 'templatecode'
         });
 
-        fpcm.dom.fromTag('div.CodeMirror').addClass('fpcm-ui-full-view-min-height');
+        fpcm.dom.fromTag('div.CodeMirror').addClass('vw-100 vh-100');
     }
 
 };

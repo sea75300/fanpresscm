@@ -97,7 +97,6 @@ fpcm.editor_codemirror = {
             matchBrackets    : true,
             autoCloseTags    : true,
             id               : config.editorId,
-            value            : document.documentElement.innerHTML,
             mode             : "text/html",            
             theme            : 'fpcm',
             matchTags        : {
@@ -429,9 +428,7 @@ if (fpcm.editor) {
     };
     
     fpcm.editor.insertDrafts = function () {
-        
-        var sizeLarge = fpcm.ui.getDialogSizes();
-        
+
         fpcm.ui.insertDialog({
             id: 'editor-html-insertdraft',
             title: 'EDITOR_HTML_BUTTONS_ARTICLETPL',

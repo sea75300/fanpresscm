@@ -261,9 +261,6 @@ fpcm.editor = {
         });
 
         fpcm.editor.initCodeMirrorAutosave();
-        
-        var sizeSmall = fpcm.ui.getDialogSizes(top, 0.35);
-        var sizeLarge = fpcm.ui.getDialogSizes();
 
     },
 

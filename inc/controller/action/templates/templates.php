@@ -175,10 +175,12 @@ implements \fpcm\controller\interfaces\isAccessible,
         if ($this->permissions->system->drafts) {
             $tabs[] = (new \fpcm\view\helper\tabItem('tpl-editor-templates'))
                     ->setText('TEMPLATE_HL_DRAFTS')
-                    ->setFile( $this->getViewPath() )
+                    ->setUrl(\fpcm\classes\tools::getFullControllerLink('ajax/templates/fetch', [
+                        'tpl' => \fpcm\model\pubtemplates\tweet::TEMPLATE_ID
+                    ]))
                     ->setData(['noEmpty' => true])
                     ->setTabToolbar(3)
-                    ->setDataViewId('');
+                    ->setDataViewId('draftfiles');
         }
 
         $this->view->addTabs('fpcm-tabs-templates', $tabs, '', $this->getActiveTab());

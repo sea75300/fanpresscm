@@ -12,11 +12,9 @@ fpcm.imageEditor = {
 
     initEditorDialog: function(_param) {
 
-        let sizes = fpcm.ui.getDialogSizes(top, 0.80);
-
         fpcm.ui.dialog({
             id: 'files-editor',
-            title: fpcm.ui.translate('FILE_LIST_EDIT'),
+            title: 'FILE_LIST_EDIT',
             class: 'modal-fullscreen',
             content: '<div class="m-2"><img id="fpcm-dialog-files-imgeditor" class="d-block fpcm ui-full-view-max-width-100p" src="' + _param.data.url + '"></div>',
             closeButton: true,

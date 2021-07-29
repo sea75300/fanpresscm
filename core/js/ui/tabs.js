@@ -127,6 +127,14 @@ fpcm.ui_tabs = {
 
 
             });
+
+            _el.addEventListener('shown.bs.tab', function (_ev) {
+
+                if (typeof params.onRenderHtmlBefore === 'function') {
+                    params.onTabShowAfter(_ev);
+                }
+
+            });
         });
 
         if (fpcm.vars.jsvars.activeTab === undefined || fpcm.vars.jsvars.activeTab < 0) {

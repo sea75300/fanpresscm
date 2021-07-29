@@ -120,11 +120,6 @@ div.mce-fpcm-ui-emoticons-panel {
     height: auto !important;
 }
 
-/* ------ CodeMirror */
-.CodeMirror {
-    height: 50vh !important;
-}
-
 /* ------ Selectize.js */
 .selectize-input.items {
     border-radius: 5px !important;
