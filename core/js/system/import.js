@@ -27,7 +27,7 @@ fpcm.import = {
                 for (var item in fields) {
                     fpcm.dom.appendHtml(
                         '#fpcm-ui-csv-fields-select',
-                        '<li class="mb-1 mx-0 p-2 fpcm-ui-background-white-100 fpcm-ui-border-grey-medium fpcm-ui-border-radius-all" id="csv_field_' + fields[item] + '">' + fpcm.ui.translate(item) + '</li>'
+                        '<li class="mb-1 mx-0 p-2 fpcm-ui-background-white-100 border-secondary rounded" id="csv_field_' + fields[item] + '">' + fpcm.ui.translate(item) + '</li>'
                     )
                 }
 

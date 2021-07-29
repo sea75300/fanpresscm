@@ -177,7 +177,6 @@ class userlist extends \fpcm\controller\abstracts\controller implements \fpcm\co
         
         $chart->setValues($chartItem);
         $this->view->assign('userArticles', $chart);
-        $this->view->setActiveTab($this->getActiveTab());
 
         $this->view->addJsVars([
             'chartData' => $chart
@@ -245,7 +244,7 @@ class userlist extends \fpcm\controller\abstracts\controller implements \fpcm\co
                     new \fpcm\components\dataView\rowCol('email', '', 'd-none d-lg-block'),
                     new \fpcm\components\dataView\rowCol('registered', '', 'd-none d-lg-block'),
                     new \fpcm\components\dataView\rowCol('metadata', '', 'd-none d-lg-block'),
-                ], 'bg-secondary text-light'
+                ], '', true
             ));
             
             /* @var $user \fpcm\model\users\author */
@@ -306,7 +305,6 @@ class userlist extends \fpcm\controller\abstracts\controller implements \fpcm\co
         foreach($rolls AS $descr => $rollId) {
 
             $buttons = [
-                '<div class="fpcm-ui-controlgroup">',
                 (new \fpcm\view\helper\editButton('rollEditBtn'.$rollId))->setUrl(\fpcm\classes\tools::getFullControllerLink('users/editroll', [
                     'id' => $rollId
                 ]))
@@ -319,11 +317,9 @@ class userlist extends \fpcm\controller\abstracts\controller implements \fpcm\co
                     ->setIconOnly(true)
                     ->setText('USERS_ROLLS_PERMISSIONS')
                     ->setClass('fpcm ui-rolls-edit')
-                        ->setData(['type' => 'iframe']);
+                    ->setData(['type' => 'iframe']);
             }
             
-            $buttons[] = '</div>';
-
             $dataView->addRow(
                 new \fpcm\components\dataView\row([
                     new \fpcm\components\dataView\rowCol('select', (new \fpcm\view\helper\radiobutton('rollids', 'rollids'.$rollId))->setValue($rollId)->setReadonly($rollId <= 3), '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),

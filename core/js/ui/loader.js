@@ -17,16 +17,16 @@ fpcm.ui_loader = {
         }
         
         var html = [
-            '<div id="fpcm-loader" class="row g-0 fpcm-ui-position-fixed fpcm-ui-position-left-0 fpcm-ui-position-right-0 fpcm-ui-position-bottom-0 fpcm-ui-position-top-0 align-self-center">',
-            '   <div class="fpcm fpcm-ui-position-absolute fpcm-ui-position-top-0 ui-background-black-75p ui-blurring fpcm-ui-full-width fpcm-ui-full-height"></div>',
-            '   <div class="fpcm-ui-position-relative fpcm-ui-align-center fpcm-loader-icon">\n\n',
+            '<div id="fpcm-loader">',
+            '   <div class="position-fixed top-50 start-50 translate-middle fpcm-loader-icon">\n\n',
                 fpcm.ui.getIcon('spinner', {
                     stack: 'circle',
-                    spinner: 'spinner fa-inverse',
+                    spinner: 'spin fa-inverse',
                     size: _message ? 'lg' : '2x',
                 }),
-                (_message ? '<span class="fpcm ui-label">' + _message + '</span>' : ''),
+                (_message ? '<span class="fpcm ui-label ms-3">' + _message + '</span>' : ''),
             '   </div>',
+            '   <div class="modal-backdrop show ui-blurring"></div>',
             '</div>'            
         ];
 

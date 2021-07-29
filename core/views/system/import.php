@@ -1,10 +1,10 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
 
-<div class="row">
+<div class="row g-0">
     <div class="col-12">
-        <fieldset class="fpcm-ui-margin-none-left fpcm-ui-margin-none-right fpcm-ui-margin-md-top">
+        <fieldset>
             <legend><?php $theView->write('GLOBAL_INFO'); ?></legend>
-            <?php $theView->write('IMPORT_NOTICE_UTF8'); ?>
+            <p class="px-3"><?php $theView->write('IMPORT_NOTICE_UTF8'); ?></p>
         </fieldset>
     </div>
 </div>
@@ -46,20 +46,23 @@
             </div>
 
             <div class="row my-2">
+                    <div class="col-form-label col-12 col-sm-6 col-md-4 align-self-center">
 
-                    <label title="<?php $theView->write('HL_OPTIONS'); ?>" class="align-self-center col-12 col-sm-6 col-md-3">
-                        <?php $theView->icon('cog')->setSize('lg'); ?> <span class="fpcm-ui-label"><?php $theView->write('HL_OPTIONS'); ?></span>
-                    </label>                
+                        <?php $theView->icon('cog'); ?>
+                        <span class="fpcm-ui-label ps-1"><?php $theView->write('HL_OPTIONS'); ?></span>
+                        
+                    </div>
 
-                    <div class="col-12 col-sm-6 col-md-9 align-self-center px-0">
+                    <div class="col align-self-center">
+                        <?php $theView->checkbox('import_first')
+                                ->setValue('1')
+                                ->setText('IMPORT_EXCLUDE_FIRST')
+                                ->setSelected(true)
+                                ->setSwitch(true); ?>
 
-                        <div class="col-12 fpcm ui-element-min-height-md fpcm-ui-input-wrapper-inner fpcm-ui-border-grey-medium fpcm-ui-border-radius-all">
-                            <?php $theView->checkbox('import_first')->setValue('1')->setText('IMPORT_EXCLUDE_FIRST')->setSelected(true); ?>
-                        </div>
+                    </div>
+            </div>            
 
-                    </div>            
-
-            </div>
         </fieldset>        
         
         <div class="row my-2"> 

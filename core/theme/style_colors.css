@@ -27,19 +27,14 @@ ins {
     color: #2779aa;
 }
 
-h3,
-div.fpcm-ui-dataview div.fpcm-ui-dataview-head,
-div.fpcm-ui-dataview div.fpcm-ui-dataview-subhead,
 .bg-primary,
 .btn-primary,
 .form-check-input:checked {
     background-color: #0d6efd;
 }
 
-h3,
-div.fpcm-ui-dataview div.fpcm-ui-dataview-head,
-div.fpcm-ui-dataview div.fpcm-ui-dataview-subhead {
-    color: #fff;
+h3 {
+    color: #0d6efd;
 }
 
 h3.fpcm.dashboard-container.headline {
@@ -70,14 +65,12 @@ h3.fpcm.dashboard-container.headline span.fpcm-ui-icon {
 }
 
 div.fpcm.ui-files-card div.fpcm.ui-files-item:nth-child(odd),
-div.fpcm.ui-files-list:nth-child(odd) div.fpcm.ui-files-item,
-div.fpcm-ui-dataview div.fpcm-ui-dataview-row {
+div.fpcm.ui-files-list:nth-child(odd) div.fpcm.ui-files-item {
     background: rgba(254,254,254,0.7);
 }
 
 div.fpcm.ui-files-card div.fpcm.ui-files-item:nth-child(even),
-div.fpcm.ui-files-list:nth-child(even) div.fpcm.ui-files-item,
-div.fpcm-ui-dataview div.fpcm-ui-dataview-row:nth-child(even) {
+div.fpcm.ui-files-list:nth-child(even) div.fpcm.ui-files-item {
     background: rgba(254,254,254,0.5);
 }
 
@@ -134,10 +127,6 @@ legend {
 
 span.fpcm-ui-badge.fpcm-ui-badge-red {
     background: #cc0000;
-}
-
-#fpcm-loader > div.fpcm-loader-icon {
-    color: #0073ea !important;
 }
 
 @keyframes fpcm-loader-glow {
@@ -202,8 +191,7 @@ div.fpcm.ui-files-card div.fpcm.ui-files-item:active,
 div.fpcm.ui-files-list div.fpcm.ui-files-item:hover,
 div.fpcm.ui-files-list div.fpcm.ui-files-item:focus,
 div.fpcm.ui-files-list div.fpcm.ui-files-item:active,
-div.fpcm-ui-dataview div.fpcm-ui-dataview-row:hover ,
-div.fpcm-ui-dataview div.fpcm-ui-dataview-row:nth-child(even):hover {
+div.fpcm-ui-dataview div.row:hover {
     background: rgba(255, 239, 143, 0.5);
 }
 
@@ -229,23 +217,4 @@ div.row.fpcm-ui-dataview-row.fpcm-ui-logs-warning
 div.row.fpcm-ui-dataview-row.fpcm-ui-logs-deprecation-warning
 {
     border-left: 5px solid #c3c3c3;
-}
-
-.fpcm-ui-progressbar-label,
-.fpcm.ui-progressbar-label {
-    /*background: rgba(255, 255, 255, 0.9);*/
-}
-
-input[type=checkbox][disabled] + label:before,
-input[type=radio][disabled] + label:before,
-input[type=checkbox][readonly] + label:before,
-input[type=radio][readonly] + label:before  {
-    color: #c3c3c3;
-}
-
-input[type=checkbox]:hover + label:before,
-input[type=checkbox]:focus + label:before,
-input[type=radio]:hover + label:before,
-input[type=radio]:focus + label:before {
-    text-shadow: #e3e3e3 0 0 4px;
 }

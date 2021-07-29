@@ -1,7 +1,7 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
 <?php /* @var $tab \fpcm\view\helper\tabItem */ ?>
 <?php if (!isset($tabsInline) || !$tabsInline) : ?>
-<div class="fpcm-content-wrapper">
+<div class="fpcm content-wrapper">
 <?php endif; ?>
     <div class="fpcm ui-tabs-wrapper <?php print $tabsClass; ?>" id="<?php print $tabsId; ?>">
         <ul class="nav nav-tabs flex-column flex-sm-row" role="tablist">

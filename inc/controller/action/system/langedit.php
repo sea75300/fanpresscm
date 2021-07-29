@@ -69,7 +69,10 @@ implements \fpcm\controller\interfaces\isAccessible,
         $this->view->addButtons([
             (new \fpcm\view\helper\saveButton('save')),
             (new \fpcm\view\helper\button('new'))->setText('Neue Variable')->setIcon('plus'),
-            (new \fpcm\view\helper\select('langselect'))->setOptions(array_flip($this->language->getLanguages()))->setSelected($this->langObj->getLangCode()),
+            (new \fpcm\view\helper\select('langselect'))
+                ->setOptions(array_flip($this->language->getLanguages()))
+                ->setSelected($this->langObj->getLangCode())
+                ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED),
             (new \fpcm\view\helper\submitButton('selectLang'))->setText('GLOBAL_OK')
         ]);
         

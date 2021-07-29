@@ -249,6 +249,8 @@ abstract class helper {
      */
     protected function getClassString()
     {
+        $this->class = array_unique(explode(' ', $this->class));
+        $this->class = implode(' ', $this->class);
         return "class=\"{$this->class}\"";
     }
 

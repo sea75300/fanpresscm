@@ -13,28 +13,15 @@ div.fpcm-ui-dataview-subhead {
     padding: 0.15em;
 }
 
-div.fpcm-ui-dataview div.fpcm-ui-dataview-subhead,
-div.fpcm-ui-dataview div.fpcm-ui-dataview-row {
+div.fpcm-ui-dataview div.subhead,
+div.fpcm-ui-dataview div.row {
     line-height: 1.5em;
-    padding: 0.35em 0;
 }
 
 div.fpcm-ui-dataview-head,
 div.fpcm-ui-dataview-subhead {
     font-family: Raleway, 'Droid Sans', sans-serif !important;
     line-height: 1.8em !important;
-}
-
-@media (min-width: 1024px) {
-    div.fpcm-ui-dataview-size-05 {
-        -ms-flex: 0 0 4.166666666%;
-        flex: 0 0 4.166666666%;
-        max-width: 4.166666666%;
-    }
-}
-
-div.fpcm-ui-dataview-col-value {
-    padding-right: 0.5em;
 }
 
 @media (max-width: 1024px) {

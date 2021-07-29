@@ -102,7 +102,6 @@ trait dataView {
             $tabs = $this->getDataViewTabs();
             if (count($tabs)) {
                 $this->view->addTabs('tabs-'.$this->getDataViewName(), $tabs);
-                $this->view->assign('hideTabBackground', true);
             }
         }
         

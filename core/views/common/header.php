@@ -19,7 +19,7 @@
 
         <?php include_once $theView->getIncludePath('common/messagesTpl.php'); ?>
         
-        <div class="fpcm-ui-wrapper">
+        <div class="fpcm ui-wrapper">
 
             <?php if ($theView->formActionTarget) : ?><form method="post" action="<?php print $theView->formActionTarget; ?>" enctype="multipart/form-data" id="fpcm-ui-form"><?php endif; ?>
 

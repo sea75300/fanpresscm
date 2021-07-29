@@ -119,37 +119,8 @@ label,
 }
 
 .fpcm-ui-margin-md-all,
-.fpcm-ui-margin-md-top,
-.fpcm-body.fpcm-content-nobuttons div.fpcm-content-wrapper {
+.fpcm-ui-margin-md-top {
     margin-top: 0.5em;
-}
-
-.fpcm-ui-margin-lg-bottom {
-    margin-bottom: 1em;
-}
-
-.fpcm-ui-margin-lg-top {
-    margin-top: 1em;
-}
-
-.fpcm-ui-margin-lg-left {
-    margin-left: 1em;
-}
-
-.fpcm-ui-margin-lg-right {
-    margin-right: 1em;
-}
-
-.fpcm-ui-margin-none {
-    margin: 0;
-}
-
-.fpcm-ui-margin-none-left {
-    margin-left: 0 !important;
-}
-
-.fpcm-ui-margin-none-right {
-    margin-right: 0 !important;
 }
 
 .fpcm-ui-margin-center {
@@ -163,15 +134,6 @@ div.row {
 }
 
 /* ------ Positions */
-.fpcm-ui-position-fixed {
-    position: fixed;
-}
-
-.fpcm-ui-position-relative {
-    position: relative;
-}
-
-.fpcm-ui-position-absolute,
 .fpcm-editor-select,
 .fpcm-editor-dialog iframe {
     position: absolute;
@@ -357,16 +319,15 @@ div.fpcm-ui-editor-metabox span.fpcm-ui-editor-metainfo {
 /* ------ General classes and ids */
 
 #fpcm-loader {
-    z-index : 9999;
     display : none;
+}
+
+#fpcm-loader > div:first-child {
+    z-index : 9999;
 }
 
 #fpcm-loader > div.fpcm-loader-icon {
     top: calc(50vh - 2em);
-}
-
-#fpcm-loader > div.fpcm-loader-icon > span.fpcm.ui-label {
-    margin-left: 0.5rem;
 }
 
 div.fpcm-ui-datepicker-inputwrapper {
