@@ -80,9 +80,11 @@ fpcm.dataview = {
             return;
         }
 
+        var _notFound       = row.isNotFound === true ? true : false;
+
         var rowId           = id + '-dataview-row-' + index;
         var baseclass       = row.isheadline ? 'fpcm-ui-dataview-subhead bg-secondary text-light' : 'fpcm-ui-background-transition';
-        baseclass          += row.isNotFound ? ' fpcm-ui-dataview-notfound' : '';
+        baseclass          += _notFound ? ' fpcm-ui-dataview-notfound' : '';
 
         row.class           = baseclass + (row.class ? ' ' + row.class : '');
 
@@ -102,8 +104,8 @@ fpcm.dataview = {
             var colId = rowId + '-dataview-rowcol-' + rowCol.name + index;
 
             var style       = rowColumn.class 
-                            + fpcm.dataview.getAlignString(rowColumn.align)
-                            + fpcm.dataview.getSizeString(rowColumn)
+                            + ( _notFound === true ? ' text-start' : fpcm.dataview.getAlignString(rowColumn.align) )
+                            + ( _notFound === true ? ' col' : fpcm.dataview.getSizeString(rowColumn) )
                             + ' fpcm-ui-dataview-type' 
                             + rowCol.type + ' align-self-center my-1'
                             + (rowCol.class ? ' ' + rowCol.class : '');
@@ -167,10 +169,6 @@ fpcm.dataview = {
     },
     
     getSizeString: function(item) {
-
-        if (item.isNotFound) {
-            return 'col-12';
-        }
 
         if (!item.size) {
             return 'col';
