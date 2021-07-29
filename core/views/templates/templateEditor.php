@@ -10,7 +10,7 @@
     <div class="col-12">
         <fieldset>
             <legend><?php $theView->write('GLOBAL_INFO'); ?></legend>
-            <?php $theView->write('TEMPLATE_NOTES'); ?>
+            <p class="mx-2"><?php $theView->write('TEMPLATE_NOTES'); ?></p>
         </fieldset>
     </div>
 </div>
