@@ -34,9 +34,9 @@
                                 ->setData(['tag' => $tag]); ?>
                         <?php print $tag; ?>
                     </dt>
-                    <dd<?php if (!isset($attributes[$tag])) : ?> class="pb-2"<?php endif; ?>><?php print $descr; ?></dd>
+                    <dd<?php if (!isset($attributes[$tag])) : ?> class="pb-2 border-bottom border-secondary"<?php endif; ?>><?php print $descr; ?></dd>
                     <?php if (isset($attributes[$tag])) : ?>
-                    <dd class="fpcm-ui-font-small pb-2"><?php $theView->write('TEMPLATE_ATTRIBUTES') ?>: <?php print implode(', ', $attributes[$tag]); ?></dd>
+                    <dd class="fpcm-ui-font-small pb-2 border-bottom border-secondary"><?php $theView->write('TEMPLATE_ATTRIBUTES') ?>: <?php print implode(', ', $attributes[$tag]); ?></dd>
                     <?php endif; ?>
                 <?php endforeach; ?>
                 </dl>
