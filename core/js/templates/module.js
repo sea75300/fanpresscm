@@ -37,6 +37,8 @@ fpcm.templates = {
                        editorId  : 'tpleditor' + _ui.target.dataset.tplid,
                        elementId : 'content_' + _ui.target.dataset.tplid
                     });
+                    
+                    fpcm.templates.editorInstance.setSize('100%', '100vh');
 
                 } catch (_e) {
                     fpcm.dom.assignHtml(_ev.target.dataset.bsTarget, 'Error init error\r\n' + _e);
