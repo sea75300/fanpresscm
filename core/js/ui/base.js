@@ -79,11 +79,7 @@ fpcm.ui = {
             }
 
         });
-//
-//        fpcm.ui.selectmenu('.fpcm-ui-input-select');
 
-//        fpcm.ui.assignCheckboxes();
-//        fpcm.ui.articleActionsOkButton();
         fpcm.ui.initPager();
     },
     

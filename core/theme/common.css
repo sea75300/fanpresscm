@@ -120,3 +120,11 @@ h3,
 .navbar-toggler {
     box-shadow: none !important;
 }
+
+* [draggable=true] {
+    cursor: move;
+}
+
+* [draggable=false] {
+    cursor: not-allowed;
+}

@@ -191,13 +191,21 @@ fpcm.dom = {
         return true;
     },
     
-    findElementInDialogFrame: function (_root, _element, _frame) {
+    findElementInDialogFrame: function (_root, _element, _frame)
+    {
         
         if (!_frame) {
             _frame = 0;
         }
         
         return fpcm.dom.fromTag(_root._dialog.getElementsByTagName('iframe')[_frame]).contents().find(_element);
+    },
+    
+    bindEvent: function (_element, _ob, _callback)
+    {
+        fpcm.dom.fromTag(_element).bind(_ob, function (_event) {
+            _callback(_event);
+        });
     }
 
 };

@@ -11,7 +11,7 @@
         </div>
         
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#fpcm-navigation-menu" aria-controls="fpcm-navigation-menu" aria-expanded="false" aria-label="<?php $theView->write('NAVIGATION_SHOW'); ?>">
-            <?php $theView->icon('bars'); ?>
+            <?php $theView->icon('bars')->setClass('py-2'); ?>
         </button>
 
         <div class="collapse navbar-collapse" id="fpcm-navigation-menu">
