@@ -241,6 +241,8 @@ fpcm.editor = {
            extraKeys : fpcm.editor_codemirror.defaultShortKeys
         });
         
+        fpcm.editor.cmInstance.setSize('100%', '50vh');
+        
         fpcm.editor.cmInstance.on('paste', function(instance, event) {
                 
             if (event.clipboardData === undefined) {

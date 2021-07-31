@@ -136,7 +136,7 @@ class updatecheck extends \fpcm\model\abstracts\dashcontainer implements \fpcm\m
             ]);
         } else {
             $iconClass = 'check';
-            $statusClass = 'fpcm-dashboard-updates-current fpcm-ui-color-blue-light';
+            $statusClass = 'fpcm-dashboard-updates-current text-success';
             $statusText = 'UPDATE_VERSIONCHECK_CURRENT';
         }
 
@@ -163,7 +163,7 @@ class updatecheck extends \fpcm\model\abstracts\dashcontainer implements \fpcm\m
             return true;
         }
 
-        $this->renderTable('check', 'fpcm-dashboard-updates-current fpcm-ui-color-blue-light', 'UPDATE_MODULECHECK_CURRENT');
+        $this->renderTable('check', 'fpcm-dashboard-updates-current text-success', 'UPDATE_MODULECHECK_CURRENT');
     }
 
     /**

@@ -209,7 +209,7 @@ function fpcmDebugOutput()
     $html[] = 'Base directory: ' . \fpcm\classes\dirs::getFullDirPath('');
     $html[] = 'Execution time: ' . fpcm\classes\timer::cal() . ' sec';
     $html[] = 'Database queries: ' . \fpcm\classes\loader::getObject('\fpcm\classes\database')->getQueryCount();
-    print '<div class="fpcm-debug-data d-none d-md-block p-2">' . implode("<br>\n", $html) . '</div>' . PHP_EOL . PHP_EOL;
+    print '<div class="fpcm-debug-data row row-cols-1 row-cols-md-5 text-light bg-dark p-2 fs-6"><div class="col text-center">' . implode('</div><div class="col text-center">', $html) . '</div></div>' . PHP_EOL . PHP_EOL;
 }
 
 /**

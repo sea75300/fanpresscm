@@ -993,6 +993,10 @@ fpcm.ui = {
         }
         
         dialogParams.closeButton = true;
+        
+        if (params.content) {
+            dialogParams.content = params.content;
+        }
 
         return fpcm.ui.dialog(dialogParams);
     },

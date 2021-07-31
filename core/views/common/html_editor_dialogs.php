@@ -172,7 +172,7 @@
     </div>    
 
     <div class="row g-0 py-2">
-        <div class="col-12 fpcm-dialog-editor-colors fpcm-ui-center fpcm-ui-editor-metabox"></div>
+        <div class="col-12 fpcm-dialog-editor-colors fpcm-ui-center"></div>
     </div>
     
     <div class="row g-0 py-2">
@@ -184,12 +184,6 @@
         </div>
     </div>
 </div>
-
-<!-- Smiley einfügen -->
-<div class="fpcm ui-hidden" id="fpcm-dialog-editor-html-insertsmileys"></div>
-
-<!-- Symbol einfügen -->
-<div class="fpcm ui-hidden" id="fpcm-dialog-editor-html-insertsymbol"></div>
 
 <!-- Vorlage einfügen -->
 <div class="fpcm ui-hidden" id="fpcm-dialog-editor-html-insertquote">

@@ -191,6 +191,10 @@ class articleedit extends articlebase {
             $this->view->addButton((new \fpcm\view\helper\linkButton('articleimg'))->setUrl($this->article->getImagepath())->setText('EDITOR_ARTICLEIMAGE_SHOW')->setIcon('image')->setIconOnly(true)->setClass('fpcm-editor-articleimage fpcm-ui-maintoolbarbuttons-tab1'));
         }
 
+        if ($this->permissions->article->delete && !$this->request->fromGET('rev')) {
+            $this->view->addButton((new \fpcm\view\helper\deleteButton('articleDelete'))->setClass('fpcm-ui-maintoolbarbuttons-tab1 fpcm-ui-button-confirm')->setReadonly($this->article->isInEdit()));
+        }
+
         $shares = (new \fpcm\model\shares\shares())->getByArticleId($this->article->getId());
 
         $this->view->assign('shares', $shares);
@@ -226,10 +230,6 @@ class articleedit extends articlebase {
             }
 
             $this->initCommentMassEditForm(2);
-        }
-
-        if ($this->permissions->article->delete && !$this->request->fromGET('rev')) {
-            $this->view->addButton((new \fpcm\view\helper\deleteButton('articleDelete'))->setClass('fpcm-ui-maintoolbarbuttons-tab1 fpcm-ui-button-confirm')->setReadonly($this->article->isInEdit()));
         }
 
         $this->view->assign('currentUserId', $this->session->getUserId());

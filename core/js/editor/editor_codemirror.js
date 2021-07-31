@@ -346,19 +346,17 @@ if (fpcm.editor) {
         fpcm.ui.insertDialog({
             id: 'editor-html-insertsmileys',
             title: 'EDITOR_INSERTSMILEY',
-            dlOnOpen: function () {
+            dlOnOpen: function (_ui, _bso) {
                 fpcm.ajax.exec('editor/smileys', {
                     quiet: true,
-                    execDone: function (result) {
-                        fpcm.dom.fromId('fpcm-dialog-editor-html-insertsmileys').append(result);
+                    execDone: function (_result) {
+                        _ui.querySelector('.modal-body').innerHTML = _result;
+                        fpcm.dom.fromClass('fpcm-editor-htmlsmiley').unbind('click');
                         fpcm.dom.fromClass('fpcm-editor-htmlsmiley').click(function() {
                             fpcm.editor.insert(' ' + fpcm.dom.fromTag(this).data('smileycode') + ' ', '');
                         });
                     }
                 });
-            },
-            dlOnClose: function() {
-                fpcm.dom.fromTag(this).empty();
             }
         });        
 
@@ -366,12 +364,12 @@ if (fpcm.editor) {
     
     fpcm.editor.insertSymbol = function () {
 
-        var el = fpcm.ui.insertDialog({
+        fpcm.ui.insertDialog({
             id: 'editor-html-insertsymbol',
-            title: 'EDITOR_INSERTSYMBOL'
+            title: 'EDITOR_INSERTSYMBOL',
+            content: nkorgJSCharMap.createList()
         });
 
-        nkorgJSCharMap.createList('#' + el.attr('id'));
         nkorgJSCharMap.addClickEvent(function() {
             fpcm.editor.insert(fpcm.dom.fromTag(this).data('code'), '');
             return false;
