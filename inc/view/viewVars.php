@@ -78,6 +78,7 @@ namespace fpcm\view;
  * @method helper\textInput         textInput(string $name , string $id)
  * @method helper\numberInput       numberInput(string $name , string $id)
  * @method helper\textarea          textarea(string $name , string $id)
+ * @method helper\dropdown          dropdown(string $name , string $id)
  */
 class viewVars {
 

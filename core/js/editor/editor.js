@@ -13,6 +13,8 @@ if (fpcm === undefined) {
 fpcm.editor = {
 
     init: function() {
+        
+        fpcm.editor.initToolbar();
 
         fpcm.ui_tabs.render('#tabs-editor', {
             initDataViewOnRenderAfter: function () {

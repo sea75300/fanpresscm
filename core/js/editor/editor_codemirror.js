@@ -160,46 +160,17 @@ if (fpcm.editor) {
             }
         });
 
-        fpcm.ui.selectmenu('#fpcm-editor-styles', {
-            select: function( event, ui ) {
-                if (!ui.item.value) {
-                    return false;
-                }
-
-                fpcm.editor.insert(' class="' + ui.item.value + '"', '');
-            },
-            change: function( event, ui ) {            
-                fpcm.dom.resetValuesByIdsSelect(['fpcm-editor-styles']);
-            }
-        });
-
-        fpcm.ui.selectmenu('#fpcm-editor-fontsizes', {
-            select: function( event, ui ) {
-                if (!ui.item.value) {
-                    return false;
-                }
-
-                fpcm.editor.insertFontsize(ui.item.value);
-            },
-            change: function( event, ui ) {            
-                fpcm.dom.resetValuesByIdsSelect(['fpcm-editor-fontsizes']);
-            }
-        });
-
+        fpcm.dom.fromClass('fpcm-editor-html-click').unbind('click');
         fpcm.dom.fromClass('fpcm-editor-html-click').click(function() {
 
-            var el      = fpcm.dom.fromTag(this);
-            var tag     = el.data('htmltag');
-            var action  = el.data('action');
-
-            if (tag && !action) {
-                fpcm.editor.insert('<' + tag + '>', '</' + tag + '>');
+            if (this.dataset.htmltag && !this.dataset.action) {
+                fpcm.editor.insert('<' + this.dataset.htmltag + '>', '</' + this.dataset.htmltag + '>');
             }
-            else if (action && tag) {
-                fpcm.editor[action].call(this, tag);
+            else if (this.dataset.action && this.dataset.htmltag) {
+                fpcm.editor[this.dataset.action].call(this, this.dataset.htmltag);
             }
-            else if (action) {
-                fpcm.editor[action].call();
+            else if (this.dataset.action) {
+                fpcm.editor[this.dataset.action].call();
             }
 
             return false;
@@ -333,6 +304,10 @@ if (fpcm.editor) {
     fpcm.editor.insertAlignTags = function(aligndes) {
         aTag = '<p style=\"text-align:' + aligndes + ';\">';
         fpcm.editor.insert(aTag, '</p>');
+    };
+
+    fpcm.editor.insertStyle = function(_vaö) {
+        fpcm.editor.insert(' class="' + _vaö + '"', '');
     };
     
     fpcm.editor.insertList = function (listtype) {

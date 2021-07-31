@@ -11,16 +11,13 @@ a, a:visited, a.fpcm-link
 i, em,
 span.fpcm-ui-button-shorthelp,
 div.fpcm-ui-inline-loader,
+.cm-s-fpcm.CodeMirror,
 .fpcm-ui-color-grey-dark {
     color: #454545;
 }
 
-h1 span:nth-child(odd) {
+h1 {
     color: #00aded;
-}
-
-.cm-s-mdn-like.CodeMirror {
-    color: #fefefe !important;
 }
 
 ins {
@@ -29,17 +26,13 @@ ins {
 
 .bg-primary,
 .btn-primary,
-.form-check-input:checked {
+.form-check-input:checked,
+span.fpcm-ui-badge {
     background-color: #0d6efd;
 }
 
 h3 {
     color: #0d6efd;
-}
-
-h3.fpcm.dashboard-container.headline {
-    background: none;
-    color: #0073ea;
 }
 
 h3.fpcm.dashboard-container.headline span.fpcm-ui-icon {
@@ -91,10 +84,6 @@ span.fpcm-ui-booltext-yes {
     color:#3399ff;
 }
 
-span.fpcm-ui-badge  {
-    background-color: #3399ff;
-}
-
 .fpcm.ui-color-font-grey,
 span.fpcm-ui-update-icons span.fpcm-ui-update-iconstatus.fpcm-ui-update-iconstatus-spinner {
     color: #aaaaaa;
@@ -125,10 +114,6 @@ legend {
     background-color: #0073ea;
 }
 
-span.fpcm-ui-badge.fpcm-ui-badge-red {
-    background: #cc0000;
-}
-
 @keyframes fpcm-loader-glow {
   from { text-shadow: none; }
   to { text-shadow: 0 0 25px #0073ea; }
@@ -137,8 +122,6 @@ span.fpcm-ui-badge.fpcm-ui-badge-red {
 #fpcm-loader > div.fpcm-loader-icon > span:first-child {
     animation: fpcm-loader-glow 1.5s infinite alternate;
 }
-
-/* ------ Main navigation menu */
 
 .nav-link
 {
@@ -160,8 +143,6 @@ span.fpcm-ui-badge.fpcm-ui-badge-red {
 .navbar-toggler:active {
     color: #fff;
 }
-
-/* ------ Forms styles */
 
 textarea,
 .fpcm-ui-background-white-100 {

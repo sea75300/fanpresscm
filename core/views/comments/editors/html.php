@@ -1,40 +1,39 @@
+<?php /* @var $theView fpcm\view\viewVars */ ?>
 <?php include $theView->getIncludePath('comments/editors/html_dialogs.php'); ?>
-
-<div class="row ui-widget-content ui-corner-all ui-state-normal p-2 fpcm-ui-border-radius-top">
+<div class="row">
     
-    <div class="fpcm-ui-controlgroup fpcm-ui-editor-buttons">
+    <div class="btn-toolbar" role="toolbar" aria-label="<?php $theView->write('TEMPLATE_EDITOR'); ?>">
+        
+        <div class="btn-group me-1 mb-1" role="group" aria-label="<?php $theView->write('TEMPLATE_EDITOR'); ?>">
 
         <?php if (count($editorStyles)) : ?>
-        <select class="fpcm-ui-input-select" id="fpcm-editor-styles">
-            <option value=""><?php $theView->write('EDITOR_SELECTSTYLES'); ?></option>
-            <?php foreach ($editorStyles as $description => $tag) : ?>
-            <option class="fpcm-editor-select-click fpcm-editor-cssclick" value="<?php print $tag; ?>"><?php print $description; ?></option>
-            <?php endforeach; ?>
-        </select>
+            <?php $theView->dropdown('editor-styles')->setOptions($editorStyles)->setText('EDITOR_SELECTSTYLES')->setSelected(''); ?>
         <?php endif; ?>
 
-        <select class="fpcm-ui-input-select" id="fpcm-editor-paragraphs">
-            <option value=""><?php $theView->write('EDITOR_PARAGRAPH'); ?></option>
-            <?php foreach ($editorParagraphs as $descr => $tag) : ?>
-            <option class="fpcm-editor-select-click fpcm-editor-html-click" value="<?php print $tag; ?>"><?php print $descr; ?></option>
-            <?php endforeach; ?>
-        </select>
+        <?php if (count($editorParagraphs)) : ?>
+            <?php $theView->dropdown('editor-paragraphs')->setOptions($editorParagraphs)->setText('EDITOR_PARAGRAPH'); ?>
+        <?php endif; ?>
 
-        <select class="fpcm-ui-input-select" id="fpcm-editor-fontsizes">
-            <option value=""><?php $theView->write('EDITOR_SELECTFS'); ?></option>
-            <?php foreach ($editorFontsizes as $editorFontsize) : ?>
-            <option class="fpcm-editor-htmlfontsize" value="<?php print $editorFontsize; ?>"><?php print $editorFontsize; ?>pt</option>
-            <?php endforeach; ?>
-        </select>
+        <?php if (count($editorFontsizes)) : ?>
+            <?php $theView->dropdown('editor-fontsizes')->setOptions($editorFontsizes)->setText('EDITOR_SELECTFS'); ?>
+        <?php endif; ?>
+        </div>
 
-        <?php foreach ($editorButtons as $editorButton) : ?>
-            <?php print $editorButton->setClass('fpcm-editor-html-click')->setIconOnly(true); ?>
-        <?php endforeach; ?>
-    </div>                
+        <div class="btn-group me-1 mb-1" role="group" aria-label="<?php $theView->write('TEMPLATE_EDITOR'); ?>">
+            <?php foreach ($editorButtons as $editorButton) : ?>
+                <?php if ($editorButton instanceof \fpcm\view\helper\toolbarSeperator) : ?>
+                    <?php print $editorButton; ?>
+                <?php else : ?>
+                    <?php print $editorButton->setClass('fpcm-editor-html-click')->setIconOnly(true); ?>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        </div>
+    </div>
+    
 </div>
 
-<div style="font-size: <?php print $editorDefaultFontsize; ?>">
-    <?php $theView->textarea('comment[text]')->setClass('fpcm-ui-full-width')->setValue($comment->getText(), ENT_QUOTES); ?>
+<div class="row">
+    <div style="font-size: <?php print $editorDefaultFontsize; ?>">
+        <?php $theView->textarea('comment[text]')->setClass('fpcm-ui-full-width')->setValue($comment->getText(), ENT_QUOTES); ?>
+    </div>
 </div>
-
-<div class="fpcm ui-hidden" id="fpcm-dialog-editor-html-filemanager"></div>

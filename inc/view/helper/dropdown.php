@@ -111,7 +111,7 @@ class dropdown extends helper {
         foreach ($options as $key => $value) {
             
             if (! $value instanceof dropdownItem) {
-                $value = (new dropdownItem())->setText($key)->setValue($value);
+                $value = (new dropdownItem(md5(uniqid('ddi').$key.$value) ))->setText($key)->setValue($value);
             }         
 
             if ($value->getValue() == $this->selected) {

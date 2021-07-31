@@ -16,62 +16,22 @@ namespace fpcm\view\helper;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @since 5.0-dev
  */
-class dropdownItem {
+class dropdownItem extends helper {
 
     use traits\valueHelper,
         traits\urlHelper;
 
     /**
-     * Item text
-     * @var string
+     * Optional init function
+     * @return void
      */
-    protected $text;
-
-    /**
-     * Item class
-     * @var string
-     */
-    protected $class;
-
-    /**
-     * Language object
-     * @var \fpcm\classes\language
-     */
-    protected $language;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
+    protected function init()
     {
         $this->url = '#';
         $this->class = 'dropdown-item';
-        $this->language = \fpcm\classes\loader::getObject('\fpcm\classes\language');        
     }
 
-    /**
-     * Set dropdown item text
-     * @param string $text
-     * @return $this
-     */
-    public function setText(string $text)
-    {
-        $this->text = $text;
-        return $this;
-    }
-
-    /**
-     * Set dropdown item css class
-     * @param string $text
-     * @return $this
-     */
-    public function setClass(string $class)
-    {
-        $this->class .= ' ' . $class;
-        return $this;
-    }
-
-    /**
+        /**
      * Return item value
      * @return string
      */
@@ -90,14 +50,13 @@ class dropdownItem {
     }
 
     /**
-     * @ignore
+     * Return item string
      * @return string
      */
-    public function __toString()
-    {
-        return "<li><a href=\"{$this->url}\" class=\"{$this->class}\">{$this->language->translate($this->text)}</a></li>";
+    protected function getString(): string
+    {        
+        return "<li><a href=\"{$this->url}\" {$this->getClassString()} {$this->getDataString()} >{$this->language->translate($this->text)}</a></li>";
     }
-
 
 }
 
