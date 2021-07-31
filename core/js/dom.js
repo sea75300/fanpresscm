@@ -162,7 +162,7 @@ fpcm.dom = {
                 continue;
             }
             
-            fpcm.dom.fromId(_el).prop('checked', _value).checkboxradio('refresh');
+            fpcm.dom.fromId(_el).prop('checked', _value);
         }
 
         return true;
@@ -185,7 +185,7 @@ fpcm.dom = {
                 continue;
             }
 
-            fpcm.dom.fromId(_el).val('').prop('selectedIndex', _value).selectmenu('refresh');
+            fpcm.dom.fromId(_el).val('').prop('selectedIndex', _value);
         }
 
         return true;

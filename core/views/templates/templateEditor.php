@@ -25,8 +25,8 @@
                 <dl class="fpcm-ui-monospace">
                 <?php foreach ($replacements as $tag => $descr) : ?>
                     <dt class="pb-2">
-                        <?php $theView->button('in'. trim('$tag', '{}'))
-                                ->setText($descr)
+                        <?php $theView->button('in'. trim($tag, '{}'))
+                                ->setText(strip_tags($descr))
                                 ->setIconOnly(true)
                                 ->setIcon('plus-square')
                                 ->setSize('lg')

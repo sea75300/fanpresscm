@@ -147,19 +147,6 @@ if (fpcm.editor) {
     
     fpcm.editor.initToolbar = function () {
 
-        fpcm.ui.selectmenu('#fpcm-editor-paragraphs', {
-            select: function( event, ui ) {
-                if (!ui.item.value) {
-                    return false;
-                }
-
-                fpcm.editor.insert('<' + ui.item.value + '>', '</' + ui.item.value + '>');
-            },
-            change: function( event, ui ) {            
-                fpcm.dom.resetValuesByIdsSelect(['fpcm-editor-paragraphs']);
-            }
-        });
-
         fpcm.dom.fromClass('fpcm-editor-html-click').unbind('click');
         fpcm.dom.fromClass('fpcm-editor-html-click').click(function() {
 
@@ -175,28 +162,6 @@ if (fpcm.editor) {
 
             return false;
         });
-
-        var colorsEl = fpcm.dom.fromId('fpcm-dialog-editor-html-insertcolor').find('div.fpcm-dialog-editor-colors');
-        if (colorsEl.length) {
-
-            let icon = fpcm.ui.getIcon('square', {
-                prefix: 'fas',
-                size: '2x',
-                class: 'pb-2'
-            });
-
-            for (var i = 0;i < fpcm.vars.jsvars.editorConfig.colors.length; i++) {
-                colorsEl.append(fpcm.dom.fromTag(icon).css('color', fpcm.vars.jsvars.editorConfig.colors[i]).data('color', fpcm.vars.jsvars.editorConfig.colors[i]));
-                if ((i+1) % 10 == 0) {
-                    colorsEl.append('<br>');
-                }
-            }
-
-            fpcm.dom.fromTag('div.fpcm-dialog-editor-colors span').click(function() {
-                fpcm.dom.fromId('colorhexcode').val(fpcm.dom.fromTag(this).data('color'));
-            });
-
-        }
 
         return true;
     };
@@ -382,11 +347,6 @@ if (fpcm.editor) {
         fpcm.ui.insertDialog({
             id: 'editor-html-insertcolor',
             title: 'EDITOR_INSERTCOLOR',
-            onCreate: function (event, ui) {
-                fpcm.ui.controlgroup('#fpcm-ui-editor-color-controlgroup', {
-                    onlyVisible: false
-                });
-            },
             insertAction: function() {
                 var mode    = fpcm.dom.fromClass('fpcm-ui-editor-colormode:checked').val();
                 var color   = fpcm.dom.fromId('colorhexcode').val();
@@ -395,7 +355,33 @@ if (fpcm.editor) {
                 fpcm.dom.fromId('colorhexcode').val('');
                 fpcm.dom.fromId('color_mode1').prop( "checked", true );
                 fpcm.dom.fromId('color_mode2').prop( "checked", false );
-                fpcm.ui.controlgroup('#fpcm-ui-editor-color-controlgroup', 'refresh');
+            },
+            dlOnOpen: function () {
+
+                var colorsEl = fpcm.dom.fromId('fpcm-dialog-editor-html-insertcolor').find('div.fpcm-dialog-editor-colors');
+                colorsEl.empty();
+                
+                if (colorsEl.length) {
+
+                    let icon = fpcm.ui.getIcon('square', {
+                        prefix: 'fas',
+                        size: '2x',
+                        class: 'pb-2'
+                    });
+
+                    for (var i = 0;i < fpcm.vars.jsvars.editorConfig.colors.length; i++) {
+                        colorsEl.append(fpcm.dom.fromTag(icon).css('color', fpcm.vars.jsvars.editorConfig.colors[i]).data('color', fpcm.vars.jsvars.editorConfig.colors[i]));
+                        if ((i+1) % 10 == 0) {
+                            colorsEl.append('<br>');
+                        }
+                    }
+
+                    fpcm.dom.fromTag('div.fpcm-dialog-editor-colors span').unbind('click');
+                    fpcm.dom.fromTag('div.fpcm-dialog-editor-colors span').click(function() {
+                        fpcm.dom.fromId('colorhexcode').val(fpcm.dom.fromTag(this).data('color'));
+                    });
+
+                }   
             }
         });
     };
@@ -627,6 +613,7 @@ if (fpcm.editor) {
             dlOnClose: function () {
                 fpcm.dom.resetValuesByIdsString(['quotetext', 'quotesrc']);
                 fpcm.dom.resetValuesByIdsChecked(['quotetype1', 'quotetype2']);
+                fpcm.dom.fromId('quotetype1').prop( "checked", true );
             },
             insertAction: function() {
                 var values = {
