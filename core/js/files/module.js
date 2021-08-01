@@ -491,6 +491,7 @@ fpcm.filemanager = {
             var sDlg = fpcm.ui.dialog({
                 id: 'files-search',
                 title: 'ARTICLES_SEARCH',
+                closeButton: true,
                 dlButtons: [
                     {
                         text: fpcm.ui.translate('ARTICLE_SEARCH_START'),
@@ -508,14 +509,10 @@ fpcm.filemanager = {
                     {
                         text: fpcm.ui.translate('ARTICLE_SEARCH_RESET'),
                         icon: "undo" ,                        
+                        clickClose: true,
                         click: function() {
                             fpcm.ui.relocate('self');
                         }
-                    },                    
-                    {
-                        text: 'GLOBAL_CLOSE',
-                        icon: 'times',
-                        clickClose: true
                     }  
                 ],
                 dlOnOpen: function( event, ui ) {

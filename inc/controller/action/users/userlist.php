@@ -215,11 +215,11 @@ class userlist extends \fpcm\controller\abstracts\controller implements \fpcm\co
         
         $dataView->addColumns([
             (new \fpcm\components\dataView\column('select', ''))->setSize(1)->setAlign('center'),
-            (new \fpcm\components\dataView\column('button', ''))->setSize('auto')->setAlign('center'),
+            (new \fpcm\components\dataView\column('button', '', 'flex-grow-1'))->setSize('auto')->setAlign('center'),
             (new \fpcm\components\dataView\column('username', 'GLOBAL_USERNAME'))->setSize(3),
             (new \fpcm\components\dataView\column('email', 'GLOBAL_EMAIL'))->setSize(3),
             (new \fpcm\components\dataView\column('registered', 'USERS_REGISTEREDTIME'))->setSize(2)->setAlign('center'),
-            (new \fpcm\components\dataView\column('metadata', ''))->setAlign('center'),
+            (new \fpcm\components\dataView\column('metadata', '', 'flex-grow-1'))->setSize('auto')->setAlign('center'),
         ]);
 
         $articleCount = $this->articleList->countArticlesByUsers();
@@ -238,7 +238,7 @@ class userlist extends \fpcm\controller\abstracts\controller implements \fpcm\co
             
             $dataView->addRow(
                 new \fpcm\components\dataView\row([
-                    new \fpcm\components\dataView\rowCol('select', '', '', 'd-none d-lg-block'),
+                    new \fpcm\components\dataView\rowCol('select', '', 'd-none d-lg-block'),
                     new \fpcm\components\dataView\rowCol('button', '', 'd-none d-lg-block'),
                     new \fpcm\components\dataView\rowCol('username', $title),
                     new \fpcm\components\dataView\rowCol('email', '', 'd-none d-lg-block'),
@@ -274,7 +274,7 @@ class userlist extends \fpcm\controller\abstracts\controller implements \fpcm\co
                         new \fpcm\components\dataView\rowCol('username', new \fpcm\view\helper\escape($user->getDisplayname()) ),
                         new \fpcm\components\dataView\rowCol('email', new \fpcm\view\helper\escape($user->getEmail())),
                         new \fpcm\components\dataView\rowCol('registered', new \fpcm\view\helper\dateText($user->getRegistertime())),
-                        new \fpcm\components\dataView\rowCol('metadata', implode('', $metadata), 'fs-5 flex-grow-1', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
+                        new \fpcm\components\dataView\rowCol('metadata', implode('', $metadata), 'fs-5', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
                     ]
                 ));
 

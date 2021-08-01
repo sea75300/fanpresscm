@@ -6,7 +6,7 @@
 </div>
 <?php endif; ?>
 
-<div class="row g-0 my-2">
+<div class="row g-0 py-2">
     <div class="col-12">
         <fieldset>
             <legend><?php $theView->write('GLOBAL_INFO'); ?></legend>

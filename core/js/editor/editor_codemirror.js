@@ -277,20 +277,71 @@ if (fpcm.editor) {
     
     fpcm.editor.insertList = function (listtype) {
 
-        fpcm.ui.spinner('#listrows', {
-            min: 1,
-        });
-
-        fpcm.ui.autocomplete('#listtype', {
-            source: (listtype === 'ol' ? ['decimal', 'decimal-leading-zero', 'lower-roman', 'upper-roman', 'lower-latin', 'upper-latin'] : ['disc', 'circle', 'square']),
-        });
-
         fpcm.ui.insertDialog({
             id: 'editor-html-insertlist',
             title: 'EDITOR_HTML_BUTTONS_LIST' + listtype.toUpperCase(),
             dlOnClose: function() {
                 fpcm.dom.fromId('listrows').val('1');
                 fpcm.dom.fromId('listtype').val('');
+            },
+            dlOnOpen: function() {
+
+                var _src = [];
+                
+                if (listtype == 'ol') {
+                    
+                    _src = [
+                        {
+                            value: 'decimal',
+                            label: 'decimal'
+                        },
+                        {
+                            value: 'decimal-leading-zero',
+                            label: 'decimal-leading-zero'
+                        },
+                        {
+                            value: 'lower-roman',
+                            label: 'lower-roman'
+                        },
+                        {
+                            value: 'upper-roman',
+                            label: 'upper-roman'
+                        },
+                        {
+                            value: 'lower-latin',
+                            label: 'lower-latin'
+                        },
+                        {
+                            value: 'upper-latin',
+                            label: 'upper-latin'
+                        },
+                    ];
+                }
+                else {
+                    _src = [
+                        {
+                            value: 'disc',
+                            label: 'disc'
+                        },
+                        {
+                            value: 'circle',
+                            label: 'circle'
+                        },
+                        {
+                            value: 'square',
+                            label: 'square'
+                        },
+                    ];
+                }
+
+                if (fpcm.ui._autocompletes['#listtype'] !== undefined) {
+                    fpcm.ui._autocompletes['#listtype'].setData(_src);
+                    return false;
+                }
+
+                fpcm.ui.autocomplete('#listtype', {
+                    source: _src
+                });
             },
             insertAction: function() {
                 var rowCount = fpcm.dom.fromId('listrows').val();
@@ -470,14 +521,6 @@ if (fpcm.editor) {
     
     fpcm.editor.insertTable = function () {
 
-        fpcm.ui.spinner('#tablerows', {
-            min: 1
-        });
-
-        fpcm.ui.spinner('#tablecols', {
-            min: 1
-        });
-        
         fpcm.ui.insertDialog({
             id: 'editor-html-inserttable',
             title: 'EDITOR_INSERTTABLE',

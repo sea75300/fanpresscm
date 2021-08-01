@@ -160,7 +160,7 @@ implements \fpcm\controller\interfaces\isAccessible,
 
         array_map(function ($value) use (&$revision) {
             
-            $ddI = new \fpcm\view\helper\dropdownItem();
+            $ddI = new \fpcm\view\helper\dropdownItem('rv-'.$value);
             $ddI->setUrl($this->getControllerLink('articles/revision', [
                     'aid' => $this->aid,
                     'rid' => $value

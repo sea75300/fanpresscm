@@ -54,15 +54,19 @@
 <!-- Tabelle einfügen -->  
 <div class="d-none" id="fpcm-dialog-editor-html-inserttable">
     <div class="row py-2">
-        <?php $theView->textInput('table[rows]', 'tablerows')
-                ->setValue(1)->setMaxlenght(5)
+        <?php $theView->numberInput('table[rows]', 'tablerows')
+                ->setValue(1)
+                ->setMin(1)
+                ->setMaxlenght(5)
                 ->setText('EDITOR_INSERTTABLE_ROWS')
                 ->setIcon('arrow-down')
                 ->setSize('lg'); ?>
     </div>
     <div class="row py-2">
-        <?php $theView->textInput('table[rows]', 'tablecols')
-                ->setValue(1)->setMaxlenght(5)
+        <?php $theView->numberInput('table[rows]', 'tablecols')
+                ->setValue(1)
+                ->setMaxlenght(5)
+                ->setMin(1)
                 ->setText('EDITOR_INSERTTABLE_COLS')
                 ->setIcon('arrow-right')
                 ->setSize('lg'); ?>
@@ -72,8 +76,9 @@
 <!-- Liste einfügen -->  
 <div class="d-none" id="fpcm-dialog-editor-html-insertlist">
     <div class="row py-2">
-        <?php $theView->textInput('list[rows]', 'listrows')
-                ->setValue(1)->setMaxlenght(5)
+        <?php $theView->numberInput('list[rows]', 'listrows')
+                ->setValue(1)
+                ->setMaxlenght(5)
                 ->setText('EDITOR_INSERTTABLE_ROWS')
                 ->setIcon('keyboard')
                 ->setSize('lg'); ?>

@@ -16,9 +16,7 @@ fpcm.ui = {
     init: function() {
 
         fpcm.ui.mainToolbar = fpcm.dom.fromId('#fpcm-ui-toolbar');
-        fpcm.dom.fromClass('fpcm.ui-link-fancybox').fancybox();
-        fpcm.dom.fromClass('fpcm.ui-message');
-        fpcm.dom.fromTag("button[data-fn]").click(function (_e) {
+        fpcm.dom.bindClick('button[data-fn]', function (_e) {
 
             _e.preventDefault();
 
@@ -34,7 +32,7 @@ fpcm.ui = {
             
             fpcm[_fn[0]][_fn[1]](_e, this, _args);
             return false;
-        });
+        })
 
         fpcm.ui.showMessages();
 
@@ -62,6 +60,7 @@ fpcm.ui = {
 //            fpcm.dom.setFocus(fpcm.vars.jsvars.fieldAutoFocus);
 //        }
 
+        fpcm.dom.fromClass('fpcm.ui-link-fancybox').fancybox();
     },
 
     initJqUiWidgets: function () {
@@ -154,20 +153,14 @@ fpcm.ui = {
     },
     
     tabs: function(_elemClassId, params) {
-        console.warn('fpcm.ui.tabs is deprecated as of version 4.6-dev. Use fpcm.ui_tabs.render instead.')
+        console.warn('fpcm.ui.tabs is deprecated as of version 5.0-dev. Use fpcm.ui_tabs.render instead.')
         fpcm.ui_tabs.render(_elemClassId, params);
     },
 
     spinner: function(elemClassId, params) {
         
-        var el = fpcm.dom.fromTag(elemClassId);
-        if (!el.length) {
-            return;
-        }
-
-        if (params === undefined) params = {};
-
-        el.spinner(params);
+        console.warn('fpcm.ui.spinner is deprecated as of version 5.0-dev. Use numberInput view helper instead.');
+        return false;
     },
 
     datepicker: function(elemClassId, params) {
@@ -397,6 +390,7 @@ fpcm.ui = {
         let _bsObj = new bootstrap.Modal(_domEl);
         
         if (!params.keepDom) {
+            
             _domEl.addEventListener('hidden.bs.modal', function (event) {
                  _bsObj.dispose(_domEl);
                  fpcm.dom.fromId(_dlgId).remove();
@@ -404,17 +398,23 @@ fpcm.ui = {
                 if (params.dlOnClose) {
                     params.dlOnClose(this, _bsObj);
                 }
+            }, {
+                once: true
             });
         }
         else if (params.dlOnClose) {
             _domEl.addEventListener('hidden.bs.modal', function (event) {
                 params.dlOnClose(this, _bsObj);                 
+            }, {
+                once: true
             });
         }
         
         if (params.dlOnOpen) {
             _domEl.addEventListener('show.bs.modal', function (event) {
                 params.dlOnOpen(this, _bsObj);
+            }, {
+                once: true
             });
         }
 
@@ -1056,7 +1056,7 @@ fpcm.ui = {
         return (new Date()).getMilliseconds() + Math.random().toString(36).substr(2, 9) + (descr ? descr : '');
     },
     
-    /* deprecated about to remove in fpcm 4.6 or later! */
+    /* deprecated about to remove in fpcm 5.0 or later! */
     setFocus: function(elemId) {
         console.warn('fpcm.ui.setFocus is deprecated and will be removed shortly. Use fpcm.dom.setFocus instead!');
         fpcm.dom.setFocus(elemId);

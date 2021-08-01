@@ -51,7 +51,7 @@ fpcm.dataview = {
         obj.lines       = fpcm.dom.fromId(obj.rowsId);
 
         jQuery.each(obj.columns, function (index, column) {
-            let _style = column.class + fpcm.dataview.getAlignString(column.align, 'md', 'text-center') + 
+            let _style = (column.class ? column.class + ' ' : '') + fpcm.dataview.getAlignString(column.align, 'md', 'text-center') + 
                      ' align-self-center py-0 py-md-1 ' + 
                      fpcm.dataview.getSizeString(column) +
                      (!column.descr ? ' d-none d-lg-block' : '');
@@ -103,7 +103,7 @@ fpcm.dataview = {
 
             var colId = rowId + '-dataview-rowcol-' + rowCol.name + index;
 
-            var style       = rowColumn.class 
+            var style       = ( rowColumn.class ? rowColumn.class + ' ' : '') 
                             + ( _notFound === true ? ' text-start' : fpcm.dataview.getAlignString(rowColumn.align) )
                             + ( _notFound === true ? ' col' : fpcm.dataview.getSizeString(rowColumn) )
                             + ' fpcm-ui-dataview-type' 

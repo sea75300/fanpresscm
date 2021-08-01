@@ -7,6 +7,7 @@
                 <?php $theView->textInput('data[displayname]')
                     ->setValue($author->getDisplayName())
                     ->setAutocomplete(false)
+                    ->setAutoFocused(true)
                     ->setText('USERS_DISPLAYNAME')
                     ->setIcon('signature'); ?>
         </div>

@@ -107,7 +107,7 @@ fpcm.system = {
             content: fpcm.ui.translate('SESSION_TIMEOUT'),
             dlButtons: buttons = [
                 {
-                    text: fpcm.ui.translate('GLOBAL_YES'),
+                    text: 'GLOBAL_YES',
                     icon: "check",
                     clickClose: true,
                     click: function () {
@@ -115,7 +115,7 @@ fpcm.system = {
                     }
                 },
                 {
-                    text: fpcm.ui.translate('GLOBAL_NO'),
+                    text: 'GLOBAL_NO',
                     icon: "times",
                     clickClose: true,
                     click: function () {
