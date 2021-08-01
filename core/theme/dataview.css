@@ -23,12 +23,3 @@ div.fpcm-ui-dataview-subhead {
     font-family: Raleway, 'Droid Sans', sans-serif !important;
     line-height: 1.8em !important;
 }
-
-@media (max-width: 1024px) {
-
-    div.fpcm-ui-dataview-head > *,
-    div.fpcm-ui-dataview-subhead > * {
-        text-align: center;
-    }
-
-}

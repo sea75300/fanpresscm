@@ -90,8 +90,11 @@
         <?php $theView->dateTimeInput('articles_archive_datelimit')
                 ->setValue($globalConfig->articles_archive_datelimit ? $theView->dateText($globalConfig->articles_archive_datelimit, 'Y-m-d') : '')
                 ->setText('SYSTEM_OPTIONS_NEWS_ARCHIVELIMIT')
-                ->setPlaceholder($theView->translate('SYSTEM_OPTIONS_NEWS_ARCHIVELIMIT_EMPTY'))
                 ->setData(['maxDate' => '-3m']); ?>
+        </div>
+        <div class="col-auto align-self-center mx-3 mb-3">
+            <?php $theView->shorthelpButton('dtmask')
+                    ->setText('SYSTEM_OPTIONS_NEWS_ARCHIVELIMIT_EMPTY'); ?>                    
         </div>
     </div>
 </fieldset>

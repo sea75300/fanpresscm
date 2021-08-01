@@ -22,7 +22,6 @@ fpcm.options = {
             });
         });
 
-        
         fpcm.ui.selectmenu('#smtp_enabled', {
             change: function( event, _item ) {
                 var status = (_item.value == 1 ? false : true);
@@ -32,9 +31,10 @@ fpcm.options = {
             }
         });
 
-        fpcm.dom.fromId('file_thumb_size').on('change', function (_ev) {
-            fpcm.dom.fromId('fpcm-thumb-preview').width(this.value).height(this.value);
-            
+        fpcm.dom.bindEvent('#file_thumb_size', 'change', function (_ev) {
+            let _par = fpcm.dom.fromId('fpcm-thumb-preview');
+            _par.find('img').width(_ev.target.value).height(_ev.target.value);
+            _par.find('figcaption > span').text(_ev.target.value);
         });
 
         fpcm.system.checkForUpdates();

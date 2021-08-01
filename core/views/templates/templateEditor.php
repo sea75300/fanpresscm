@@ -1,12 +1,12 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
 <?php if (!$isWritable) : ?>
-<div class="row py-2">
+<div class="row pb-2">
     <div class="col-auto align-self-center"><?php $theView->icon('lock')->setSize('2x')->setClass('text-danger'); ?></div>
     <div class="col-auto align-self-center"><?php $theView->write('TEMPLATE_NOT_WRITABLE'); ?></div>
 </div>
 <?php endif; ?>
 
-<div class="row g-0 py-2">
+<div class="row g-0 pb-2">
     <div class="col-12">
         <fieldset>
             <legend><?php $theView->write('GLOBAL_INFO'); ?></legend>
