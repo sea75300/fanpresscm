@@ -19,8 +19,8 @@ fpcm.langedit = {
             fpcm.ui.dialog({
                 id: 'langform-new',
                 title: 'New language variable ',
-                content: '<input typer="text" id="fpcm-langedit-newvar" class="fpcm-ui-full-width fpcm-ui-input fpcm-ui-input-text mb-2" placeholder="Variable name"><br>\n\
-                          <input typer="text" id="fpcm-langedit-newval" class="fpcm-ui-full-width fpcm-ui-input fpcm-ui-input-text" placeholder="Variable value">',
+                content: '<input typer="text" id="fpcm-langedit-newvar" class="form-control mb-1" placeholder="Variable name"><br>\n\
+                          <input typer="text" id="fpcm-langedit-newval" class="form-control" placeholder="Variable value">',
                 closeButton: true,
                 dlButtons: [
                     {

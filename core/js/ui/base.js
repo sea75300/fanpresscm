@@ -334,7 +334,8 @@ fpcm.ui = {
             params.dlButtons.push({
                 text: 'GLOBAL_CLOSE',
                 icon: 'times',
-                clickClose: true
+                clickClose: true,
+                class: 'btn-outline-secondary'
             });
             
         }
@@ -348,6 +349,10 @@ fpcm.ui = {
             
             params.class = 'modal-fullscreen';
             params.modalBodyClass = 'overflow-hidden';
+        }
+
+        if (params.image) {
+            params.content = '<img src = "' + params.image + '" role="presentation" / >';
         }
         
         if (params.class === undefined) {

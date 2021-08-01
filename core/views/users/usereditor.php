@@ -122,7 +122,7 @@
         <div class="col-12 col-md-auto align-self-center mb-3">
             <?php $theView->linkButton('openQr')
                     ->setUrl($qrCode)
-                    ->setClass('fpcm ui-link-fancybox')
+                    ->setClass('fpcm ui-link-qrcode')
                     ->setIcon('qrcode'); ?>
         </div>                        
     <?php else: ?>

@@ -203,9 +203,15 @@ fpcm.dom = {
     
     bindEvent: function (_element, _ob, _callback)
     {
+        fpcm.dom.fromTag(_element).unbind(_ob);
         fpcm.dom.fromTag(_element).bind(_ob, function (_event) {
-            _callback(_event);
+            return _callback(_event);
         });
+    },
+    
+    bindClick: function (_element, _callback)
+    {
+        fpcm.dom.bindEvent(_element, 'click', _callback);
     }
 
 };

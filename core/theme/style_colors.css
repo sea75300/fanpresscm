@@ -20,16 +20,14 @@ h1 {
     color: #00aded;
 }
 
-h3 {
+h3,
+ins,
+.text-primary {
     color: #0d6efd;
 }
 
 h3.fpcm.dashboard-container.headline span.fpcm-ui-icon {
     color: #000;
-}
-
-ins {
-    color: #2779aa;
 }
 
 .bg-primary,
@@ -39,21 +37,14 @@ span.fpcm-ui-badge {
     background-color: #0d6efd;
 }
 
+.border-primary {
+    border-color: #0d6efd;
+}
+
 .fpcm.ui-background-white-50p,
-.fpcm-ui-background-white-50p,
 .nav-tabs .nav-link,
 .fpcm.ui-navigation .dropdown-menu {
     background: rgba(255,255,255,0.75);
-
-}
-
-.fpcm.ui-background-white-90p,
-.fpcm-ui-background-white-90p {
-    background: rgba(255,255,255,0.90);
-}
-
-.fpcm.ui-background-black-75p {
-    background: rgba(0,0,0,0.75);
 
 }
 

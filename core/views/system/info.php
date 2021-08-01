@@ -13,7 +13,7 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-12">
+    <div class="col-12 mb-3">
         <h3 class="my-3"><?php $theView->write('HL_HELP_LICENCE'); ?></h3>
         <?php print nl2br($theView->escapeVal($licence)); ?>
     </div>

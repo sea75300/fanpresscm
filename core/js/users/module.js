@@ -18,11 +18,7 @@ fpcm.users = {
         });
 
         if (fpcm.dataview.exists('userlist')) {
-            fpcm.dataview.render('userlist', {
-                onRenderAfter: function() {
-                    fpcm.ui.assignControlgroups();
-                }
-            });
+            fpcm.dataview.render('userlist');
         };
         
         if (fpcm.dataview.exists('rollslist')) {
@@ -37,19 +33,15 @@ fpcm.users = {
                             id: 'edit-permissions',
                             url: this.attributes.href.value,
                             title: 'HL_OPTIONS_PERMISSIONS',
+                            closeButton: true,
                             dlButtons: [
                                 {
                                     text: 'GLOBAL_SAVE',
                                     icon: "check",
+                                    primary: true,
                                     click: function () {
                                         fpcm.dom.fromId('fpcm-dialog-edit-permissions-frame').contents().find('#btnPermissionsSave').click();
                                     },
-                                    primary: true
-                                },
-                                {
-                                    text: 'GLOBAL_CLOSE',
-                                    icon: "times",
-                                    clickClose: true
                                 }
                             ]
                         });
@@ -81,6 +73,7 @@ fpcm.users = {
                     text: 'GLOBAL_OK',
                     icon: "check",
                     closeClick: true,
+                    primary: true,
                     click: function() {
                         fpcm.ui.confirmDialog({
                             clickYes: function() {

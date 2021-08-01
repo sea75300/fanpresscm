@@ -29,4 +29,6 @@
 
 
 </div>
+<?php else : ?>
+<div class="mb-3"></div>
 <?php endif; ?>
