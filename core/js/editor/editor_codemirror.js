@@ -204,19 +204,16 @@ if (fpcm.editor) {
         }
 
         fpcm.editor.insert(fpcm.editor.getGalleryReplacement(_values), fpcm.vars.jsvars.editorGalleryTagEnd);
-        
-        var dialogEl = window.parent.fpcm.dom.fromId("fpcm-dialog-editor-html-filemanager");
-        dialogEl.dialog('close');
-        dialogEl.empty();
 
-        window.parent.fpcm.dom.fromId("fpcm-dialog-editor-html-insertimage").dialog('close');
+        fpcm.ui.closeDialog('fpcm-dialog-editor-html-filemanager', true);        
+        fpcm.ui.closeDialog('fpcm-dialog-editor-html-insertimage');
         return false;
     };
 
     fpcm.editor._insertToFields = function (url, title) {
         
         if (!url || !title) {
-            self.fpcm.dom.fromId("fpcm-dialog-editor-html-filemanager").dialog('close').empty();
+            fpcm.ui.closeDialog('fpcm-dialog-editor-html-filemanager');
             return false;
         }
 
@@ -236,7 +233,7 @@ if (fpcm.editor) {
             self.document.getElementById(titleField).value  = title;
         }
 
-        self.fpcm.dom.fromId("fpcm-dialog-editor-html-filemanager").dialog('close').empty();
+        fpcm.ui.closeDialog('fpcm-dialog-editor-html-filemanager');        
         return true;
     };
 
@@ -422,9 +419,6 @@ if (fpcm.editor) {
 
                     for (var i = 0;i < fpcm.vars.jsvars.editorConfig.colors.length; i++) {
                         colorsEl.append(fpcm.dom.fromTag(icon).css('color', fpcm.vars.jsvars.editorConfig.colors[i]).data('color', fpcm.vars.jsvars.editorConfig.colors[i]));
-                        if ((i+1) % 10 == 0) {
-                            colorsEl.append('<br>');
-                        }
                     }
 
                     fpcm.dom.fromTag('div.fpcm-dialog-editor-colors span').unbind('click');
@@ -442,7 +436,8 @@ if (fpcm.editor) {
         fpcm.ui.insertDialog({
             id: 'editor-html-insertdraft',
             title: 'EDITOR_HTML_BUTTONS_ARTICLETPL',
-            onCreate: function () {
+            dlOnOpen: function() {
+
                 fpcm.ui.selectmenu('#tpldraft',{
                     change: function( event, ui ) {
 
@@ -467,21 +462,17 @@ if (fpcm.editor) {
                         return false;
                     }
                 });
+
             },
             dlOnClose: function() {
                 fpcm.dom.fromId('fpcm-dialog-editor-html-insertdraft-preview').empty();
                 fpcm.dom.resetValuesByIdsSelect(['tpldraft']);
             },
             insertAction: function() {
-                var item = fpcm.dom.fromId('tpldraft').val();
-                if (!ui.value) {
-                    return false;
-                }
-
                 fpcm.ajax.exec('editor/draft', {
                     dataType: 'json',
                     data    : {
-                        path: ui.value
+                        path: fpcm.dom.fromId('tpldraft').val()
                     },
                     execDone: function (result) {
                         fpcm.editor.cmInstance.doc.setValue(result.data);
@@ -505,6 +496,14 @@ if (fpcm.editor) {
                     fpcm.dom.assignHtml('#fpcm-dialog-editor-html-insertmedia-preview', '<div class="col-12 col-md-10 my-3">' + data.aTag + data.eTag +'</div>');
                 }
             }],
+            dlOnOpen: function() {
+
+                fpcm.dom.fromId('insertposterimg').click(function () {
+                    fpcm.editor.showFileManager(4);
+                    return false;
+                });
+
+            },
             dlOnClose: function() {
                 fpcm.dom.resetValuesByIdsString(['mediapath', 'mediapath2', 'mediaposter']);
                 fpcm.dom.resetValuesByIdsChecked(['autoplay', 'mediatypev']);

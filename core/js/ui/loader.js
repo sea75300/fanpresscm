@@ -23,6 +23,7 @@ fpcm.ui_loader = {
                     stack: 'circle',
                     spinner: 'spin fa-inverse',
                     size: _message ? 'lg' : '2x',
+                    class: 'text-primary'
                 }),
                 (_message ? '<span class="fpcm ui-label ms-3">' + _message + '</span>' : ''),
             '   </div>',

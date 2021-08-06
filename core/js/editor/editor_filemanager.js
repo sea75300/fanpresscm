@@ -26,29 +26,29 @@ if (fpcm.editor !== undefined) {
                     text: 'FILE_LIST_INSERTGALLERY',
                     icon: "images",
                     disabled: fpcm.editor.insertGalleryDisabled(fmgrMode),
-                    click: function() {
-                        fpcm.dom.fromTag(this).children('#fpcm-dialog-editor-html-filemanager-frame').contents().find('#insertGallery').click();
+                    click: function(_ui) {
+                        fpcm.dom.findElementInDialogFrame(_ui, '#insertGallery').click();
                     }
                 },
                 {
                     text: 'ARTICLES_SEARCH',
                     icon: "search",
-                    click: function() {
-                        fpcm.dom.fromTag(this).children('#fpcm-dialog-editor-html-filemanager-frame').contents().find('#opensearch').click();
+                    click: function(_ui) {
+                        fpcm.dom.findElementInDialogFrame(_ui, '#opensearch').click();
                     }
                 },
                 {
                     text: 'FILE_LIST_NEWTHUMBS',
                     icon: "image",
-                    click: function() {
-                        fpcm.dom.fromTag(this).children('#fpcm-dialog-editor-html-filemanager-frame').contents().find('#createThumbs').click();
+                    click: function(_ui) {
+                        fpcm.dom.findElementInDialogFrame(_ui, '#createThumbs').click();
                     }
                 },
                 {
                     text: 'GLOBAL_DELETE',
                     icon: "trash",
-                    click: function() {
-                        fpcm.dom.fromTag(this).children('#fpcm-dialog-editor-html-filemanager-frame').contents().find('#deleteFiles').click();
+                    click: function(_ui) {
+                        fpcm.dom.findElementInDialogFrame(_ui, '#deleteFiles').click();
                     }
                 }                            
             ]

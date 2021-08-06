@@ -430,12 +430,25 @@ fpcm.ui = {
                     continue;
                 }
 
-                let _obj = params.dlButtons[_idx];                
+                let _obj = params.dlButtons[_idx];
+                
+                if (_obj.showLabel === undefined) {
+                    _obj.showLabel = true;
+                }                
+                
                 let _btn = document.createElement('button');
 
                 _btn.type = 'button';
                 _btn.className = 'btn' + (_obj.primary ? ' btn-primary' : '') + (_obj.class ? ' ' + _obj.class : '');
-                _btn.innerHTML = (_obj.icon ? fpcm.ui.getIcon(_obj.icon) + ' <span class="fpcm-ui-label ps-1">' : '') + fpcm.ui.translate(_obj.text) + (_obj.icon ? '</span>' : '');
+                
+                if (!_obj.showLabel) {
+                    _btn.innerHTML = fpcm.ui.getIcon(_obj.icon);
+                    _btn.title = fpcm.ui.translate(_obj.text);
+                }
+                else {
+                    _btn.innerHTML = (_obj.icon ? fpcm.ui.getIcon(_obj.icon) + ' <span class="fpcm-ui-label ps-1">' : '') + fpcm.ui.translate(_obj.text) + (_obj.icon ? '</span>' : '');
+                }
+                
                 
                 if (_obj.disabled !== undefined) {
                     _btn.disabled = _obj.disabled;
@@ -963,6 +976,14 @@ fpcm.ui = {
 
         dialogParams.dlButtons = params.dlButtons ? params.dlButtons : [];
 
+        if (params.fileManagerAction) {
+            dialogParams.dlButtons.push({
+                text: 'HL_FILES_MNG',
+                icon: "folder-open",
+                click: params.fileManagerAction
+            });
+        }
+
         if (params.insertAction) {
             dialogParams.dlButtons.push({
                 text: 'GLOBAL_INSERT',
@@ -972,14 +993,6 @@ fpcm.ui = {
                 primary: true
             });
         }
-
-        if (params.fileManagerAction) {
-            dialogParams.dlButtons.push({
-                text: 'HL_FILES_MNG',
-                icon: "folder-open",
-                click: params.fileManagerAction
-            });
-        }
          
         if (params.dlOnOpen) {
             dialogParams.dlOnOpen = params.dlOnOpen;
@@ -987,10 +1000,6 @@ fpcm.ui = {
         
         if (params.dlOnClose) {
             dialogParams.dlOnClose = params.dlOnClose;
-        }
-        
-        if (params.onCreate) {
-            dialogParams.onCreate = params.onCreate;
         }
         
         dialogParams.closeButton = true;

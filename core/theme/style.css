@@ -326,10 +326,6 @@ div.fpcm-ui-editor-metabox span.fpcm-ui-editor-metainfo {
     z-index : 9999;
 }
 
-#fpcm-loader > div.fpcm-loader-icon {
-    top: calc(50vh - 2em);
-}
-
 div.fpcm-ui-datepicker-inputwrapper {
     max-width: 200px;
 }

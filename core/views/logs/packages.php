@@ -1,6 +1,6 @@
 <?php /* @var $theView fpcm\view\viewVars */ ?>
 <?php if (!count($items)) : ?>
-<p class="px-2"><?php $theView->icon('copy', 'far')->setSize('lg')->setStack('ban text-danger')->setStackTop(true); ?> <?php $theView->write('GLOBAL_NOTFOUND2'); ?></p>
+<p class="p-2"><?php $theView->icon('copy', 'far')->setSize('lg')->setStack('ban text-danger')->setStackTop(true); ?> <?php $theView->write('GLOBAL_NOTFOUND2'); ?></p>
 <?php else : ?>
 <div class="accordion" id="fpcm-pkgmgr-log-acc">
     <?php foreach ($items as $key => $value) : ?>

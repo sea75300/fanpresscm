@@ -36,6 +36,7 @@ fpcm.imageEditor = {
                 {
                     text: 'FILE_LIST_EDIT_RESIZE',
                     icon: "expand-arrows-alt",
+                    showLabel: false,
                     click: function() {
                         var _cropBox = fpcm.filemanager.cropper.getCropBoxData();
                         if (!_cropBox.width || !_cropBox.height) {
@@ -127,6 +128,13 @@ fpcm.imageEditor = {
                         fpcm.filemanager.cropper.setDragMode("crop");
                     }
                 },
+                {                   
+                    text: 'GLOBAL_RESET',
+                    icon: "undo" ,                        
+                    click: function() {
+                        fpcm.filemanager.cropper.reset();
+                    }
+                },
                 {
                     text: 'GLOBAL_SAVE',
                     icon: "save",                        
@@ -148,13 +156,6 @@ fpcm.imageEditor = {
                             });
 
                         }, _param.data.mime);
-                    }
-                },
-                {                   
-                    text: 'GLOBAL_RESET',
-                    icon: "undo" ,                        
-                    click: function() {
-                        fpcm.filemanager.cropper.reset();
                     }
                 }
             ]

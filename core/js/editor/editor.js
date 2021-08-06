@@ -67,11 +67,6 @@ fpcm.editor = {
             return false;
         });
 
-        fpcm.dom.fromId('insertposterimg').click(function () {
-            fpcm.editor.showFileManager(4);
-            return false;
-        });
-
         fpcm.ui.autocomplete('#articleimagepath', {
             source: fpcm.vars.ajaxActionPath + 'autocomplete&src=editorfiles',
             minLength: 3
