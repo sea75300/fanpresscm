@@ -30,11 +30,14 @@ h3.fpcm.dashboard-container.headline span.fpcm-ui-icon {
     color: #000;
 }
 
-.bg-primary,
 .btn-primary,
 .form-check-input:checked,
 span.fpcm-ui-badge {
     background-color: #0d6efd;
+}
+
+.bg-primary {
+    background-color: #0d6efd !important;
 }
 
 .border-primary {
