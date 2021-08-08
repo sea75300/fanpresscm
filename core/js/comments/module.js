@@ -34,7 +34,6 @@ fpcm.comments = {
             fpcm.dataview.render('commenttrash', {
                 onRenderAfter: function() {
                     fpcm.ui.assignCheckboxes();
-                    fpcm.ui.assignControlgroups();
                 }
             });
             
@@ -45,7 +44,6 @@ fpcm.comments = {
             fpcm.dataview.render('commentlist', {
                 onRenderAfter: function() {
                     fpcm.ui.assignCheckboxes();
-                    fpcm.ui.assignControlgroups();
                 }
             });
         }
@@ -165,7 +163,6 @@ fpcm.comments = {
                 fpcm.dataview.updateAndRender(result.dataViewName, {
                     onRenderAfter: function () {
                         fpcm.ui.assignCheckboxes();
-                        fpcm.ui.assignControlgroups();
                     }
                 });
                 fpcm.dom.fromId('opensearch').addClass('btn-primary');

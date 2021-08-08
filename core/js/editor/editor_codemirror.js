@@ -205,15 +205,15 @@ if (fpcm.editor) {
 
         fpcm.editor.insert(fpcm.editor.getGalleryReplacement(_values), fpcm.vars.jsvars.editorGalleryTagEnd);
 
-        fpcm.ui.closeDialog('fpcm-dialog-editor-html-filemanager', true);        
-        fpcm.ui.closeDialog('fpcm-dialog-editor-html-insertimage');
+        fpcm.ui.closeDialog('editor-html-filemanager', true);        
+        fpcm.ui.closeDialog('editor-html-insertimage');
         return false;
     };
 
     fpcm.editor._insertToFields = function (url, title) {
         
         if (!url || !title) {
-            fpcm.ui.closeDialog('fpcm-dialog-editor-html-filemanager');
+            fpcm.ui.closeDialog('editor-html-filemanager');
             return false;
         }
 
@@ -233,7 +233,7 @@ if (fpcm.editor) {
             self.document.getElementById(titleField).value  = title;
         }
 
-        fpcm.ui.closeDialog('fpcm-dialog-editor-html-filemanager');        
+        fpcm.ui.closeDialog('editor-html-filemanager');        
         return true;
     };
 
@@ -471,12 +471,12 @@ if (fpcm.editor) {
             insertAction: function() {
                 fpcm.ajax.exec('editor/draft', {
                     dataType: 'json',
-                    data    : {
+                    quiet: false,
+                    data: {
                         path: fpcm.dom.fromId('tpldraft').val()
                     },
                     execDone: function (result) {
                         fpcm.editor.cmInstance.doc.setValue(result.data);
-                        fpcm.dom.fromId('fpcm-dialog-editor-html-insertdraft').dialog('close');
                     }
                 });
             }
@@ -638,11 +638,6 @@ if (fpcm.editor) {
         });
     };
     
-    fpcm.editor.insertReadMore = function () {
-        console.warn('fpcm.editor.insertReadMore is deprecated as of FPCM 4.4, use fpcm.editor.insertPageBreak instead');
-        fpcm.editor.insert('<readmore>', '</readmore>');
-    };
-    
     fpcm.editor.insertPageBreak = function () {
         fpcm.editor.insert('<p>' + fpcm.vars.jsvars.editorConfig.pageBreakVar, '</p>');
     };
@@ -687,17 +682,13 @@ if (fpcm.editor) {
     };
     
     fpcm.editor.restoreSave = function () {
+
         if (!confirm(fpcm.ui.translate('CONFIRM_MESSAGE'))) {
             return false;
         }
         
-        var isDisabled = (fpcm.vars.jsvars.autoSaveStorage === null ? true : false);
-
-        fpcm.ui.button('#editor-html-buttonrestore',
-        {
-            disabled: isDisabled
-        },
-        function () {
+        let _disabled = (fpcm.vars.jsvars.autoSaveStorage === null ? true : false);        
+        fpcm.dom.fromId('editor-html-buttonrestore').prop(_disabled)-click(function () {
 
             fpcm.vars.jsvars.autoSaveStorage = localStorage.getItem(fpcm.vars.jsvars.editorConfig.autosavePref);
             fpcm.editor.cmInstance.setValue(fpcm.vars.jsvars.autoSaveStorage);

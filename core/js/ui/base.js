@@ -16,28 +16,27 @@ fpcm.ui = {
     init: function() {
 
         fpcm.ui.mainToolbar = fpcm.dom.fromId('#fpcm-ui-toolbar');
-        fpcm.dom.bindClick('button[data-fn]', function (_e) {
+        fpcm.dom.bindClick('button[data-fn]', function (_event, _callee) {
 
-            _e.preventDefault();
+            _event.preventDefault();
 
-            let _fn = this.dataset['fn'].split('.');
+            let _fn = _callee.dataset.fn.split('.');
             if (! typeof fpcm[_fn[0]][_fn[1]] == 'function') {
                 return false;
             }
             
             let _args = null;
-            if (this.dataset['fn-arg']) {
-                _args = this.dataset['fn-arg'];
+            if (_callee.dataset.fnArg) {
+                _args = _callee.dataset.fnArg;
             }
             
-            fpcm[_fn[0]][_fn[1]](_e, this, _args);
+            fpcm[_fn[0]][_fn[1]](_event, _callee, _args);
             return false;
         })
 
         fpcm.ui.showMessages();
 
         fpcm.ui.initJqUiWidgets();
-//        fpcm.ui.datepicker('input.fpcm-ui-datetime-picker');
         fpcm.ui.initDateTimeMasks();
 
 //
@@ -51,14 +50,16 @@ fpcm.ui = {
 //            fpcm.ui_loader.show();
 //        });
 //        
-//        fpcm.dom.fromId('fpcm-ui-form').submit(function () {
-//            fpcm.ui_loader.show();
-//            return true;
-//        });
-//        
-//        if (fpcm.vars.jsvars.fieldAutoFocus) {
-//            fpcm.dom.setFocus(fpcm.vars.jsvars.fieldAutoFocus);
-//        }
+
+        fpcm.dom.bindEvent('#fpcm-ui-form', 'submit', function () {
+            fpcm.ui_loader.show();
+            return true;            
+        }, false);
+
+        if (fpcm.vars.jsvars.navigationActive) {
+            fpcm.dom.fromId(fpcm.vars.jsvars.navigationActive).find('a.nav-link').addClass('active');
+            
+        }
 
         fpcm.dom.fromClass('fpcm.ui-link-fancybox').fancybox();
     },
@@ -111,15 +112,6 @@ fpcm.ui = {
 
     },
     
-    assignControlgroups: function() {
-        
-        console.warn('fpcm.ui.assignControlgroups is deprecated with the usage of bootstrap.');
-        
-        fpcm.ui.controlgroup('div.fpcm-ui-controlgroup', {
-            onlyVisible: false
-        });
-    },
-    
     assignCheckboxes: function() {
         
         var checkboxAll = fpcm.dom.fromId('fpcm-select-all');
@@ -150,50 +142,6 @@ fpcm.ui = {
             var el2 = fpcm.dom.fromClass('fpcm-ui-list-checkbox-subitem' + fpcm.dom.fromTag(this).val());
             el2.prop('checked', ( fpcm.dom.fromTag(this).prop('checked') ? true : false ));
         });
-    },
-    
-    tabs: function(_elemClassId, params) {
-        console.warn('fpcm.ui.tabs is deprecated as of version 5.0-dev. Use fpcm.ui_tabs.render instead.')
-        fpcm.ui_tabs.render(_elemClassId, params);
-    },
-
-    spinner: function(elemClassId, params) {
-        
-        console.warn('fpcm.ui.spinner is deprecated as of version 5.0-dev. Use numberInput view helper instead.');
-        return false;
-    },
-
-    datepicker: function(elemClassId, params) {
-
-        var el = fpcm.dom.fromTag(elemClassId);
-        if (!el.length) {
-            return;
-        }
-
-        if (params === undefined) {
-            params = {};
-        }
-
-        params.showButtonPanel   = true,
-        params.showOtherMonths   = true,
-        params.selectOtherMonths = true,
-        params.monthNames        = fpcm.vars.ui.lang.calendar.months;
-        params.dayNames          = fpcm.vars.ui.lang.calendar.days;
-        params.dayNamesShort     = fpcm.vars.ui.lang.calendar.daysShort;
-        params.dayNamesMin       = fpcm.vars.ui.lang.calendar.daysShort;
-        params.firstDay          = 1;
-        params.dateFormat        = "yy-mm-dd";
-
-        var elData = el.data();
-        if (elData.mindate) {
-            params.minDate = elData.mindate;
-        }
-
-        if (elData.maxdate) {
-            params.maxDate = elData.maxdate;
-        }
-
-        el.datepicker(params);
     },
 
     selectmenu: function(_elemClassId, _params) {
@@ -240,44 +188,6 @@ fpcm.ui = {
         }
         
         el.click(onClick);
-    },
-    
-    controlgroup: function(elemClassId, params) {
-      
-//        if (params === undefined) {
-//            params = {};
-//        }
-//
-//        var el = fpcm.dom.fromTag(elemClassId);
-//        if (!el.length) {
-//            return false;
-//        }
-//
-//        var elResult = el.controlgroup(params);
-//        if (params.removeLeftBorderRadius) {
-//            elResult.find('.ui-controlgroup-item').first().removeClass('ui-corner-left');
-//        }
-//
-//        if (params.removeRightBorderRadius) {
-//            elResult.find('.ui-controlgroup-item').first().removeClass('ui-corner-right');
-//        }
-//        
-//        return elResult;
-    },
-    
-    button: function(elemClassId, params, onClick) {
-
-        if (params === undefined) {
-            params = {};
-        }
-
-        fpcm.dom.fromTag(elemClassId).button(params);
-        
-        if (onClick === undefined) {
-            return;
-        }
-        
-        fpcm.dom.fromTag(elemClassId).click(onClick);
     },
     
     progressbar: function(elemClassId, params){
@@ -506,8 +416,14 @@ fpcm.ui = {
         
         var _domEl = false;
         var _bsObj = false;
+        
+        _id = 'fpcm-dialog-' + _id;
+        
+        console.log(_id);
 
         _domEl = _parent ? window.parent.document.getElementById(_id) : document.getElementById(_id);
+        debugger;
+        
         if (!_domEl) {
             console.warn('Item ' + _id + ' not found!');
             return false;
@@ -1064,36 +980,5 @@ fpcm.ui = {
     getUniqueID: function (descr) {
         return (new Date()).getMilliseconds() + Math.random().toString(36).substr(2, 9) + (descr ? descr : '');
     },
-    
-    /* deprecated about to remove in fpcm 5.0 or later! */
-    setFocus: function(elemId) {
-        console.warn('fpcm.ui.setFocus is deprecated and will be removed shortly. Use fpcm.dom.setFocus instead!');
-        fpcm.dom.setFocus(elemId);
-    },
-
-    assignHtml: function(elemId, data) {
-        console.warn('fpcm.ui.assignHtml is deprecated and will be removed shortly. Use fpcm.dom.assignHtml instead!');
-        fpcm.dom.assignHtml(elemId, data);
-    },
-    
-    assignText: function(elemId, data) {
-        console.warn('fpcm.ui.assignText is deprecated and will be removed shortly. Use fpcm.dom.assignText instead!');
-        fpcm.dom.assignText(elemId, data);
-    },
-    
-    appendHtml: function(elemId, data) {
-        console.warn('fpcm.ui.appendHtml is deprecated and will be removed shortly. Use fpcm.dom.appendHtml instead!');
-        fpcm.dom.appendHtml(elemId, data);
-    },
-    
-    prependHtml: function(elemId, data) {
-        console.warn('fpcm.ui.prependHtml is deprecated and will be removed shortly. Use fpcm.dom.prependHtml instead!');
-        fpcm.dom.prependHtml(elemId, data);
-    },
-    
-    isReadonly: function(elemId, state) {
-        console.warn('fpcm.ui.isReadonly is deprecated and will be removed shortly. Use fpcm.dom.isReadonly instead!');
-        fpcm.dom.isReadonly(elemId, state);
-    }
 
 };

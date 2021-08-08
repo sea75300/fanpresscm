@@ -1,6 +1,6 @@
 <?php /* @var $theView fpcm\view\viewVars */ ?>
 <?php if (!empty($topDescription)) : ?>
-<div class="row g-0 py-2 fpcm ui-background-white-50p">
+<div class="row g-0 pb-2 fpcm ui-background-white-50p">
     <div class="col-12">
         <fieldset>
             <legend><?php $theView->write('GLOBAL_INFO'); ?></legend>

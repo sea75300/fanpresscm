@@ -201,11 +201,19 @@ fpcm.dom = {
         return fpcm.dom.fromTag(_root._dialog.getElementsByTagName('iframe')[_frame]).contents().find(_element);
     },
     
-    bindEvent: function (_element, _ob, _callback)
+    bindEvent: function (_element, _ob, _callback, _unbind)
     {
-        fpcm.dom.fromTag(_element).unbind(_ob);
-        fpcm.dom.fromTag(_element).bind(_ob, function (_event) {
-            return _callback(_event);
+        if (_unbind === true || _unbind === undefined) {
+            fpcm.dom.fromTag(_element).unbind(_ob);
+        }
+
+        fpcm.dom.fromTag(_element).bind(_ob, function (_event, _selecto, _data, _handler) {
+            
+            if (_handler === undefined) {
+                _handler = false;
+            }
+            
+            return _callback(_event, this, _selecto, _data, _handler);
         });
     },
     

@@ -19,7 +19,6 @@ fpcm.editor = {
         fpcm.ui_tabs.render('#tabs-editor', {
             initDataViewOnRenderAfter: function () {
                 fpcm.ui.assignCheckboxes();
-                fpcm.ui.assignControlgroups(),
                 fpcm.editor.initCommentListActions();
             }
         });
@@ -220,9 +219,7 @@ fpcm.editor = {
             }
 
             localStorage.setItem(fpcm.vars.jsvars.editorConfig.autosavePref, editorValue);
-            fpcm.ui.button('#editor-html-buttonrestore', {
-                disabled: false
-            });
+            fpcm.dom.fromId('editor-html-buttonrestore').prop('disabled', false);
             
         }, 30000);
 

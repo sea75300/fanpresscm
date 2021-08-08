@@ -15,7 +15,6 @@ fpcm.articles_trash = {
         fpcm.dataview.render('articlelist', {
             onRenderAfter: function() {
                 fpcm.ui.assignCheckboxes();
-                fpcm.ui.assignControlgroups();
             }
         });
 

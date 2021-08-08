@@ -113,7 +113,7 @@ fpcm.filemanager = {
             fpcm.dom.fromClass('fpcm-filelist-articleimage').click(function () {
 
                 parent.document.getElementById('articleimagepath').value  = fpcm.dom.fromTag(this).attr('href');
-                fpcm.ui.closeDialog('fpcm-dialog-editor-html-filemanager', true);
+                fpcm.ui.closeDialog('editor-html-filemanager', true);
                 return false;
             });
 
@@ -125,13 +125,13 @@ fpcm.filemanager = {
             fpcm.dom.fromClass('fpcm-filelist-tinymce-thumb').click(function () {
                 var url   = fpcm.dom.fromTag(this).attr('href');
                 parent.document.getElementById('mediaposter').value  = url;
-                fpcm.ui.closeDialog('fpcm-dialog-editor-html-filemanager', true);
+                fpcm.ui.closeDialog('editor-html-filemanager', true);
                 return false;
             });
 
             fpcm.dom.fromClass('fpcm-filelist-tinymce-full').click(function () {
                 parent.document.getElementById('mediaposter').value  = fpcm.dom.fromTag(this).attr('href');
-                fpcm.ui.closeDialog('fpcm-dialog-editor-html-filemanager', true);
+                fpcm.ui.closeDialog('editor-html-filemanager', true);
                 return false;
             });
         }

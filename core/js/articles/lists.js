@@ -134,7 +134,6 @@ fpcm.articles = {
             module: 'articles',
             onRenderDataViewAfter: function () {
                 fpcm.ui.assignCheckboxes();
-                fpcm.ui.assignControlgroups();
                 fpcm.articles.clearArticleCache();
                 fpcm.articles.deleteSingleArticle();
             },
