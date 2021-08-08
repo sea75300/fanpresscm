@@ -43,7 +43,7 @@ class dashboard extends \fpcm\controller\abstracts\controller implements \fpcm\c
     public function process()
     {
         $this->view->addJsLangVars(['DASHBOARD_LOADING']);
-        $this->view->addJsFiles(['dashboard.js']);
+        $this->view->addJsFiles(['dashboard.js', 'ui/dnd.js']);
 
         $buttons = [];
         $buttons[] = (new \fpcm\view\helper\linkButton('openProfile'))

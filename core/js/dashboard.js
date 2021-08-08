@@ -65,20 +65,16 @@ fpcm.dashboard = {
     
     initDraggable: function () {7
 
-        var _source;
-
-        fpcm.dom.bindEvent(
-            '.fpcm.dashboard-container-wrapper',
-            'dragover',
-            function (_event) {
-                _event.preventDefault();
-            }
-        );
-
-        fpcm.dom.bindEvent(
-            '.fpcm.dashboard-container-wrapper',
-            'drop',
-            function (_event) {
+        fpcm.ui_dnd.initDnd({
+            dragElement: '.fpcm.dashboard-container-wrapper',
+            dropZone: '.fpcm.dashboard-container-wrapper',
+            dragStartElement: '.fpcm.dashboard-container-wrapper',
+            dragoverCallback: function(_event) {
+                _event.preventDefault();                
+                fpcm.dom.fromTag(_event.target).parent('.card').addClass('border border-warning border-4');
+            },
+           
+           dropCallback: function (_event) {
                 
                 let _target = _event.currentTarget;
                 let _tmpOldS = parseInt(_source.dataset.cpos);
@@ -117,18 +113,12 @@ fpcm.dashboard = {
                     execDone: fpcm.dashboard.load,
                     quiet: true
                 });                
-            }
-        );
-
-        fpcm.dom.bindEvent(
-            '.fpcm.dashboard-container-wrapper',
-            'dragstart',
-            function (_event) {
+            },
+            dragstartCallback: function (_event) {
                 _event.target.style.opacity = .5;
                 _source = _event.target;
-                
             }
-        );
+        });
 
     }
 

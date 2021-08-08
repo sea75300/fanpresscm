@@ -2,7 +2,9 @@
 <?php /* @var $tab \fpcm\view\helper\tabItem */ ?>
 <div class="fpcm ui-tabs-wrapper <?php print $tabsClass; ?>" id="<?php print $tabsId; ?>">
     <ul class="nav nav-tabs flex-column flex-sm-row border-bottom border-primary border-5" role="tablist">
-        <?php foreach ($tabs as $tabIdx => $tab) : ?><?php print $tab->setSaveIndex($tabIdx); ?><?php endforeach; ?>
+    <?php foreach ($tabs as $tabIdx => $tab) : ?>
+        <?php print $tab->setSaveIndex($tabIdx); ?>
+    <?php endforeach; ?>
     </ul>    
 
     <div class="tab-content <?php if (!isset($hideTabBackground)) : ?>fpcm ui-background-white-50p<?php endif; ?>">
