@@ -1,6 +1,6 @@
 <?php /* @var $theView fpcm\view\viewVars */ /* @var $file fpcm\model\files\image */ ?>
 <div class="navbar">
-    <div class="nav-item me-1">
+    <div class="nav-item me-2">
         <?php $theView->checkbox('filenames[]', 'cb_'. md5($file->getFilename()))->setClass('fpcm-ui-list-checkbox')->setValue(base64_encode($file->getFilename()))->setData(['gallery' => $file->getFilename()]); ?>
     </div>
     <?php if (in_array($mode, [2, 4]) && $file->existsFolder()) : ?>                    

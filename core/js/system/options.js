@@ -27,6 +27,7 @@ fpcm.options = {
                 var status = (_item.value == 1 ? false : true);
                 fpcm.dom.isReadonly('input.fpcm-ui-options-smtp-input', status);
                 fpcm.dom.fromId('smtp_settingsencr').prop('disabled', status);
+                fpcm.dom.fromId('btnSmtp_settingspass-toggle').prop('disabled', status);
                 return true;
             }
         });

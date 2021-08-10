@@ -140,7 +140,7 @@ implements \fpcm\controller\interfaces\isAccessible,
         }
 
         $this->view->assign('smtpActive', $smtpActive);
-        $this->view->addJsFiles(['options.js', 'systemcheck.js']);
+        $this->view->addJsFiles(['system/options.js', 'systemcheck.js']);
         $this->view->addJsVars([
             'runSysCheck' => $this->syscheck,
             'dtMasks' => $this->getDateTimeMasks()

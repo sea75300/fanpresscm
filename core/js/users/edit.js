@@ -13,11 +13,14 @@ fpcm.useredit = {
 
     init: function () {
 
-        fpcm.dom.bindClick('.fpcm.ui-link-qrcode', function(_ui) {
+        fpcm.dom.bindClick('#openQr', function(_ui) {
 
             fpcm.ui.dialog({
                 image: _ui.delegateTarget.href,
-                class: 'text-center'
+                title: _ui.delegateTarget.innerText,
+                class: 'text-center',
+                size: 'sm',
+                closeButton: true
             });
             
             return false;

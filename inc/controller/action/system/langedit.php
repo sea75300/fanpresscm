@@ -80,7 +80,7 @@ implements \fpcm\controller\interfaces\isAccessible,
         
         $this->view->setFormAction('system/langedit');
         $this->view->assign('langVars', $fullLang);
-        $this->view->addJsFiles(['langedit.js']);
+        $this->view->addJsFiles(['system/langedit.js']);
         $this->view->render();
     }
 
