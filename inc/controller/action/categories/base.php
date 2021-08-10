@@ -79,7 +79,7 @@ implements \fpcm\controller\interfaces\isAccessible, \fpcm\controller\interfaces
                     ->setType('url')
                     ->setText('CATEGORIES_ICON_PATH')
                     ->setIcon('link'),
-            new \fpcm\components\fieldGroup($checkFields, 'CATEGORIES_ROLLS', new \fpcm\view\helper\icon('users'))
+            new \fpcm\components\fieldGroup($checkFields, 'CATEGORIES_ROLLS', new \fpcm\view\helper\icon('user-tag'))
         ]);
 
         $this->view->render();

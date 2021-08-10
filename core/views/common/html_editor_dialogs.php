@@ -2,7 +2,7 @@
 <!-- Link einfügen -->  
 <div class="d-none" id="fpcm-dialog-editor-html-insertlink">
     <div class="row">
-        <?php $theView->textInput('links[url]', 'linksurl')
+        <?php $theView->textInput('links[url]')
                 ->setType('url')
                 ->setValue('')
                 ->setText('EDITOR_LINKURL')
@@ -10,19 +10,22 @@
                 ->setSize('lg') ?>
     </div>
     <div class="row">
-        <?php $theView->textInput('links[text]', 'linkstext')
+        <?php $theView->textInput('links[text]')
                 ->setText('EDITOR_LINKTXT')
                 ->setIcon('keyboard')
                 ->setSize('lg'); ?>
     </div>   
     <div class="row">            
-        <?php $theView->select('links[target]', 'linkstarget')->setOptions($targets)->setText('EDITOR_LINKTARGET')->setIcon('window-restore')->setSize('lg'); ?>
+        <?php $theView->select('links[target]')->setOptions($targets)->setText('EDITOR_LINKTARGET')->setIcon('window-restore')->setSize('lg'); ?>
     </div>
     <?php if (count($cssClasses)) : ?>
     <div class="row">            
-        <?php $theView->select('links[css]', 'linkscss')->setOptions($cssClasses)->setText('EDITOR_CSS_CLASS')->setIcon('paint-roller')->setSize('lg'); ?>
+        <?php $theView->select('links[css]')->setOptions($cssClasses)->setText('EDITOR_CSS_CLASS')->setIcon('paint-roller')->setSize('lg'); ?>
     </div>
     <?php endif; ?>
+    <div class="row">            
+        <?php $theView->textInput('links[rel]')->setText('EDITOR_LINKREL')->setIcon('cog')->setSize('lg'); ?>
+    </div>
 </div>
 
 <!-- Bild einfügen -->  

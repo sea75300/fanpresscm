@@ -210,9 +210,9 @@ if (fpcm.editor) {
         return false;
     };
 
-    fpcm.editor._insertToFields = function (url, title) {
+    fpcm.editor._insertToFields = function (_url, _title, _rel) {
         
-        if (!url || !title) {
+        if (!_url || !_title) {
             fpcm.ui.closeDialog('editor-html-filemanager');
             return false;
         }
@@ -221,16 +221,22 @@ if (fpcm.editor) {
             case 1 :
                 var urlField = 'linksurl';
                 var titleField = 'linkstext';
+                var relField = 'linksrel';
                 break;                
             case 2 :
                 var urlField = 'imagespath';
                 var titleField = 'imagesalt';
+                var relField = false;
                 break;
         }
 
         if (urlField && titleField) {
-            self.document.getElementById(urlField).value = url;
-            self.document.getElementById(titleField).value  = title;
+            self.document.getElementById(urlField).value = _url;
+            self.document.getElementById(titleField).value  = _title;
+        }
+
+        if (relField && _rel) {
+            self.document.getElementById(relField).value  = _rel;
         }
 
         fpcm.ui.closeDialog('editor-html-filemanager');        
@@ -620,13 +626,14 @@ if (fpcm.editor) {
             },
             insertAction: function() {
                 
-                let _formData = fpcm.dom.getValuesFromIds(['linksurl', 'linkstext', 'linkstarget', 'linkscss']);
+                let _formData = fpcm.dom.getValuesFromIds(['linksurl', 'linkstext', 'linkstarget', 'linkscss', 'linksrel']);
 
                 var linkEl = fpcm.editor.getLinkData(
                     _formData.linksurl,
                     _formData.linkstext,
                     _formData.linkstarget,
-                    _formData.linkscss ? _formData.linkscss : '',
+                    _formData.linkscss,
+                    _formData.linksrel
                 );
 
                 fpcm.editor.insert(linkEl.aTag, linkEl.eTag);
@@ -716,21 +723,24 @@ if (fpcm.editor) {
         }
     }
     
-    fpcm.editor.getLinkData = function (url, text, target, cssClass) {
+    fpcm.editor.getLinkData = function (_url, _text, _target, _cssClass, _rel) {
 
-        if (target != "") {
-            aTag = '<a href=\"' + url + '"\ target=\"' + target + '\"';
-            if(cssClass) { aTag = aTag + ' class=\"'+ cssClass +'\"'; }
-            aTag = aTag + '>' + text ;
+        aTag = '<a href=\"' + _url + '\"';
+
+        if(_target) {
+            aTag = aTag + ' target=\"'+ _target +'\"';
         }
-        else {
-            aTag = '<a href=\"' + url + '\"';
-            if(cssClass) { aTag = aTag + ' class=\"'+ cssClass +'\"'; }
-            aTag = aTag + '>' + text ;
+
+        if(_cssClass) {
+            aTag = aTag + ' class=\"'+ _cssClass +'\"';
+        }
+
+        if(_rel) {
+            aTag = aTag + ' rel=\"'+ _rel +'\"';
         }
 
         return {
-            aTag: aTag,
+            aTag: aTag + '>' + _text,
             eTag: '</a>'
         }
     };

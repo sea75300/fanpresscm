@@ -200,6 +200,7 @@ $lang = array (
   'EDITOR_INSERTTABLE' => 'Tabelle einfügen',
   'EDITOR_INSERTTABLE_COLS' => 'Anzahl Spalten',
   'EDITOR_INSERTTABLE_ROWS' => 'Anzahl Zeilen',
+  'EDITOR_LINKREL' => 'Beziehung',
   'EDITOR_LINKTARGET' => 'Ziel',
   'EDITOR_LINKTXT' => 'Text',
   'EDITOR_LINKURL' => 'URL',
