@@ -23,16 +23,54 @@ fpcm.import = {
                 }
                 
                 let fields = fpcm.vars.jsvars.fields[ui.value.replace('\\', '_')];
-                
+
+                let _i = 0;
                 for (var item in fields) {
+                    _i++;
                     fpcm.dom.appendHtml(
                         '#fpcm-ui-csv-fields-select',
-                        '<li class="mb-1 mx-0 p-2 fpcm-ui-background-white-100 border-secondary rounded" id="csv_field_' + fields[item] + '">' + fpcm.ui.translate(item) + '</li>'
+                        '<li class="list-group-item" id="csv_field_' + fields[item] + '" draggable="true" data-index="' + _i + '">' + fpcm.ui.translate(item) + '</li>'
                     )
                 }
 
-                fpcm.dom.fromClass('fpcm-ui-csv-fields').sortable({
-                    connectWith: 'ul.fpcm-ui-csv-fields'
+//                fpcm.dom.fromClass('fpcm-ui-csv-fields').sortable({
+//                    connectWith: 'ul.fpcm-ui-csv-fields'
+//                });
+
+                fpcm.ui_dnd.initDnd({
+                    dragElement: '#fpcm-ui-csv-fields-list',
+                    dragStartElement: '#fpcm-ui-csv-fields-select li.list-group-item',
+                    dropZone: '#fpcm-ui-csv-fields-list',
+                    dropCallback: function (_event) {
+                        fpcm.dom.fromTag(_source).appendTo(_event.currentTarget).removeClass('border border-warning border-4');
+                        fpcm.dom.fromTag(_event.currentTarget).removeClass('border border-warning border-4');
+                    },
+                    dragstartCallback: function (_event) {
+                        _source = _event.target;
+                    },
+                    dragoverCallback: function (_event) {
+                        _event.preventDefault();                
+                        fpcm.dom.fromTag(_event.currentTarget).addClass('border border-warning border-4');                        
+                        
+                    },
+                });
+
+                fpcm.ui_dnd.initDnd({
+                    dragElement: '#fpcm-ui-csv-fields-select',
+                    dragStartElement: '#fpcm-ui-csv-fields-list li.list-group-item',
+                    dropZone: '#fpcm-ui-csv-fields-select',
+                    dropCallback: function (_event) {
+                        fpcm.dom.fromTag(_source).appendTo(_event.currentTarget).removeClass('border border-warning border-4');
+                        fpcm.dom.fromTag(_event.currentTarget).removeClass('border border-warning border-4');
+                    },
+                    dragstartCallback: function (_event) {
+                        _source = _event.target;
+                    },
+                    dragoverCallback: function (_event) {
+                        _event.preventDefault();                
+                        fpcm.dom.fromTag(_event.currentTarget).addClass('border border-warning border-4');                        
+                        
+                    },
                 });
 
                 return false;

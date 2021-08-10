@@ -61,7 +61,7 @@
                                 ->setSwitch(true); ?>
 
                     </div>
-            </div>            
+            </div>
 
         </fieldset>        
         
@@ -71,7 +71,7 @@
 
                 <fieldset>
                     <legend><?php $theView->write('IMPORT_FIELDS_OBJECT'); ?></legend>
-                    <ul class="fpcm-ui-list-style-none p-0 fpcm-ui-csv-fields" id="fpcm-ui-csv-fields-select"></ul>
+                    <ul class="list-group fpcm-ui-csv-fields" id="fpcm-ui-csv-fields-select"></ul>
                 </fieldset>
 
             </div>
@@ -85,7 +85,7 @@
 
                 <fieldset>
                     <legend><?php $theView->write('IMPORT_FIELDS_CSV'); ?></legend>
-                    <ul class="fpcm-ui-list-style-none p-0 fpcm-ui-csv-fields" id="fpcm-ui-csv-fields-list"></ul>
+                    <ul class="list-group fpcm-ui-csv-fields" id="fpcm-ui-csv-fields-list"></ul>
                 </fieldset>
 
             </div>

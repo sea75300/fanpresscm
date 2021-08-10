@@ -67,8 +67,8 @@ fpcm.dashboard = {
 
         fpcm.ui_dnd.initDnd({
             dragElement: '.fpcm.dashboard-container-wrapper',
-            dropZone: '.fpcm.dashboard-container-wrapper',
             dragStartElement: '.fpcm.dashboard-container-wrapper',
+            dropZone: '.fpcm.dashboard-container-wrapper',
             dragoverCallback: function(_event) {
                 _event.preventDefault();                
                 fpcm.dom.fromTag(_event.target).parent('.card').addClass('border border-warning border-4');
