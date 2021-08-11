@@ -27,26 +27,42 @@ fpcm.ui_dnd = {
         }
 
         fpcm.dom.bindEvent(
-            _params.dragElement,
-            'dragover',
-            function (_event) {
-                _params.dragoverCallback(_event);
-            }
-        );
-
-        fpcm.dom.bindEvent(
             _params.dropZone,
             'drop',
-            function (_event) {
-                _params.dropCallback(_event);
+            function (_event, _ui) {
+                _params.dropCallback(_event, _ui);
             }
         );
 
         fpcm.dom.bindEvent(
             _params.dragStartElement,
             'dragstart',
-            function (_event) {
-                _params.dragstartCallback(_event);
+            function (_event, _ui) {
+                _params.dragstartCallback(_event, _ui);
+            }
+        );
+
+        fpcm.dom.bindEvent(
+            _params.dragElement,
+            'dragenter',
+            function (_event, _ui) {
+                _params.dragenterCallback(_event, _ui);
+            }
+        );
+
+        fpcm.dom.bindEvent(
+            _params.dragElement,
+            'dragleave',
+            function (_event, _ui) {
+                _params.dragleaveCallback(_event, _ui);
+            }
+        );
+
+        fpcm.dom.bindEvent(
+            _params.dragElement,
+            'dragover',
+            function (_event, _ui) {
+                _params.dragoverCallback(_event, _ui);
             }
         );
 

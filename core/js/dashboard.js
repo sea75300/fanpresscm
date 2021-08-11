@@ -66,17 +66,22 @@ fpcm.dashboard = {
     initDraggable: function () {7
 
         fpcm.ui_dnd.initDnd({
-            dragElement: '.fpcm.dashboard-container-wrapper',
-            dragStartElement: '.fpcm.dashboard-container-wrapper',
-            dropZone: '.fpcm.dashboard-container-wrapper',
-            dragoverCallback: function(_event) {
-                _event.preventDefault();                
-                fpcm.dom.fromTag(_event.target).parent('.card').addClass('border border-warning border-4');
+            dragElement: 'div.fpcm.dashboard-container-wrapper',
+            dragStartElement: 'div.fpcm.dashboard-container-wrapper',
+            dropZone: 'div.fpcm.dashboard-container-wrapper',
+            dragoverCallback: function(_event, _ui) {
+                _event.preventDefault();
+                
+                if (_event.delegateTarget.id == _source.id) {
+                    return false;
+                }
+
+
             },
            
-           dropCallback: function (_event) {
-                
-                let _target = _event.currentTarget;
+           dropCallback: function (_event, _ui) {
+
+                let _target = _event.delegateTarget;
                 let _tmpOldS = parseInt(_source.dataset.cpos);
 
                 _source.dataset.cpos = _target.dataset.cpos;
@@ -114,9 +119,24 @@ fpcm.dashboard = {
                     quiet: true
                 });                
             },
-            dragstartCallback: function (_event) {
-                _event.target.style.opacity = .5;
+            dragstartCallback: function (_event, _ui) {
                 _source = _event.target;
+                _source.classList.add('text-muted');
+            },
+            dragenterCallback: function (_event, _ui) {
+                _event.preventDefault();        
+                
+                if (_event.delegateTarget.classList.contains('text-muted')) {
+                    return false;
+                }
+                
+                if ( _event.target.classList.contains('ui-dropzone') ) {
+                    _event.target.classList.add('border-success');
+                }                
+            },
+            dragleaveCallback: function (_event, _ui) {
+                _event.preventDefault();              
+                _event.target.classList.remove('border-success');
             }
         });
 
