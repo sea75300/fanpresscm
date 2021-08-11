@@ -29,49 +29,19 @@ fpcm.import = {
                     _i++;
                     fpcm.dom.appendHtml(
                         '#fpcm-ui-csv-fields-select',
-                        '<li class="list-group-item" id="csv_field_' + fields[item] + '" draggable="true" data-index="' + _i + '">' + fpcm.ui.translate(item) + '</li>'
+                        '<li class="list-group-item" id="csv_field_' + fields[item] + '" draggable="true" data-index="' + _i + '" data-fname="' + fields[item] + '">' + fpcm.ui.translate(item) + '</li>'
                     )
                 }
 
-//                fpcm.dom.fromClass('fpcm-ui-csv-fields').sortable({
-//                    connectWith: 'ul.fpcm-ui-csv-fields'
-//                });
+                fpcm.import._initDnd(
+                    '#fpcm-ui-csv-fields-list',
+                    '#fpcm-ui-csv-fields-select li.list-group-item'
+                );
 
-                fpcm.ui_dnd.initDnd({
-                    dragElement: '#fpcm-ui-csv-fields-list',
-                    dragStartElement: '#fpcm-ui-csv-fields-select li.list-group-item',
-                    dropZone: '#fpcm-ui-csv-fields-list',
-                    dropCallback: function (_event) {
-                        fpcm.dom.fromTag(_source).appendTo(_event.currentTarget).removeClass('border border-warning border-4');
-                        fpcm.dom.fromTag(_event.currentTarget).removeClass('border border-warning border-4');
-                    },
-                    dragstartCallback: function (_event) {
-                        _source = _event.target;
-                    },
-                    dragoverCallback: function (_event) {
-                        _event.preventDefault();                
-                        fpcm.dom.fromTag(_event.currentTarget).addClass('border border-warning border-4');                        
-                        
-                    },
-                });
-
-                fpcm.ui_dnd.initDnd({
-                    dragElement: '#fpcm-ui-csv-fields-select',
-                    dragStartElement: '#fpcm-ui-csv-fields-list li.list-group-item',
-                    dropZone: '#fpcm-ui-csv-fields-select',
-                    dropCallback: function (_event) {
-                        fpcm.dom.fromTag(_source).appendTo(_event.currentTarget).removeClass('border border-warning border-4');
-                        fpcm.dom.fromTag(_event.currentTarget).removeClass('border border-warning border-4');
-                    },
-                    dragstartCallback: function (_event) {
-                        _source = _event.target;
-                    },
-                    dragoverCallback: function (_event) {
-                        _event.preventDefault();                
-                        fpcm.dom.fromTag(_event.currentTarget).addClass('border border-warning border-4');                        
-                        
-                    },
-                });
+                fpcm.import._initDnd(
+                    '#fpcm-ui-csv-fields-select',
+                    '#fpcm-ui-csv-fields-list li.list-group-item'
+                );
 
                 return false;
             }
@@ -150,7 +120,7 @@ fpcm.import = {
                                 delim: fpcm.dom.fromId('import_delimiter').val(),
                                 enclo: fpcm.dom.fromId('import_enclosure').val(),
                                 skipfirst: fpcm.dom.fromId('import_first').prop('checked'),
-                                fields: fpcm.dom.fromId('fpcm-ui-csv-fields-list').sortable('toArray')
+                                fields: fpcm.import._getFields()
                             },
                             start: true,
                             unique: fpcm.vars.jsvars.unique,
@@ -263,6 +233,7 @@ fpcm.import = {
     
     _checkPreconditions: function() {
         
+        
         if (!fpcm.dom.fromId('import_filename').val()) {
             fpcm.ui.addMessage({
                type: 'error',
@@ -271,16 +242,7 @@ fpcm.import = {
             return false;
         }
 
-        if (!fpcm.dom.fromId('fpcm-ui-csv-fields-list').find('li').length) {
-            fpcm.ui.addMessage({
-               type: 'error',
-               txt: 'IMPORT_MSG_INVALIDIMPORTTYPE_NONE'
-            });
-            return false;
-        }
-
-        let _fields = fpcm.dom.fromId('fpcm-ui-csv-fields-list').sortable('toArray');
-        if (!_fields.length) {
+        if (!fpcm.import._getFields().length) {
             fpcm.ui.addMessage({
                type: 'error',
                txt: 'IMPORT_MSG_NOFIELDS'
@@ -328,6 +290,54 @@ fpcm.import = {
         });        
 
         return false;
+    },
+    
+    _getFields: function () {
+
+        let _fselect = fpcm.dom.fromId('fpcm-ui-csv-fields-list').find('li');
+        let _fields = [];
+
+        if (!_fselect.length) {
+            fpcm.ui.addMessage({
+               type: 'error',
+               txt: 'IMPORT_MSG_INVALIDIMPORTTYPE_NONE'
+            });
+
+            return _fields;
+        }
+
+        for (var i = 0; i < _fselect.length; i++) {
+            _fields.push(_fselect[i].dataset.fname);
+        }
+
+        return _fields;
+    },
+    
+    _initDnd: function (_dragElement, _dragStartElement) {
+        fpcm.ui_dnd.initDnd({
+            dragElement: _dragElement,
+            dragStartElement: _dragStartElement,
+            dropZone: _dragElement,
+
+            dropCallback: function (_event, _ui) {
+                fpcm.dom.fromTag(_source).appendTo(_event.currentTarget);        
+                _event.delegateTarget.classList.remove('border');
+                _event.delegateTarget.classList.remove('border-success');
+            },
+            dragstartCallback: function (_event, _ui) {
+                _source = _event.target;
+            },
+            dragenterCallback: function (_event, _ui) {
+                _event.preventDefault();        
+                _event.delegateTarget.classList.add('border');
+                _event.delegateTarget.classList.add('border-success');
+            },
+            dragleaveCallback: function (_event, _ui) {
+                _event.preventDefault();              
+                _event.delegateTarget.classList.remove('border');
+                _event.delegateTarget.classList.remove('border-success');
+            }
+        });
     }
 
 };

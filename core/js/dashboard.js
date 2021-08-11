@@ -69,55 +69,45 @@ fpcm.dashboard = {
             dragElement: 'div.fpcm.dashboard-container-wrapper',
             dragStartElement: 'div.fpcm.dashboard-container-wrapper',
             dropZone: 'div.fpcm.dashboard-container-wrapper',
-            dragoverCallback: function(_event, _ui) {
-                _event.preventDefault();
-                
-                if (_event.delegateTarget.id == _source.id) {
-                    return false;
-                }
+            dropCallback: function (_event, _ui) {
 
+                 let _target = _event.delegateTarget;
+                 let _tmpOldS = parseInt(_source.dataset.cpos);
 
-            },
-           
-           dropCallback: function (_event, _ui) {
+                 _source.dataset.cpos = _target.dataset.cpos;
+                 if (_target.dataset.cpos === '{{max}}') {
+                     _target.dataset.cpos = fpcm.dom.fromClass('fpcm.dashboard-container-wrapper').length;
+                 }
 
-                let _target = _event.delegateTarget;
-                let _tmpOldS = parseInt(_source.dataset.cpos);
+                 if (_target.dataset.cpos > _tmpOldS) {
+                     _target.dataset.cpos = parseInt(_target.dataset.cpos) - 1;
+                     fpcm.dom.fromTag(_event.currentTarget).after(_source);
+                 }
+                 else {
+                     fpcm.dom.fromTag(_event.currentTarget).before(_source);
+                     _target.dataset.cpos = parseInt(_target.dataset.cpos) + 1;
+                 }
 
-                _source.dataset.cpos = _target.dataset.cpos;
-                if (_target.dataset.cpos === '{{max}}') {
-                    _target.dataset.cpos = fpcm.dom.fromClass('fpcm.dashboard-container-wrapper').length;
-                }
+                 var _containers = fpcm.dom.fromClass('fpcm.dashboard-container-wrapper');                
+                 var _saveItems = {};
 
-                if (_target.dataset.cpos > _tmpOldS) {
-                    _target.dataset.cpos = parseInt(_target.dataset.cpos) - 1;
-                    fpcm.dom.fromTag(_event.currentTarget).after(_source);
-                }
-                else {
-                    fpcm.dom.fromTag(_event.currentTarget).before(_source);
-                    _target.dataset.cpos = parseInt(_target.dataset.cpos) + 1;
-                }
-                  
-                var _containers = fpcm.dom.fromClass('fpcm.dashboard-container-wrapper');                
-                var _saveItems = {};
+                 for (var _i = 0; _i < _containers.length; _i++) {
 
-                for (var _i = 0; _i < _containers.length; _i++) {
-                    
-                    if (!_containers[_i]) {
-                        continue;
-                    }
-                    
-                    _saveItems[ _containers[_i].dataset.cname ] = _i + 1;
-                }
+                     if (!_containers[_i]) {
+                         continue;
+                     }
 
-                fpcm.ajax.post('setconfig', {
-                    data: {
-                        var: 'dashboardpos',
-                        value: _saveItems
-                    },
-                    execDone: fpcm.dashboard.load,
-                    quiet: true
-                });                
+                     _saveItems[ _containers[_i].dataset.cname ] = _i + 1;
+                 }
+
+                 fpcm.ajax.post('setconfig', {
+                     data: {
+                         var: 'dashboardpos',
+                         value: _saveItems
+                     },
+                     execDone: fpcm.dashboard.load,
+                     quiet: true
+                 });                
             },
             dragstartCallback: function (_event, _ui) {
                 _source = _event.target;
@@ -125,11 +115,11 @@ fpcm.dashboard = {
             },
             dragenterCallback: function (_event, _ui) {
                 _event.preventDefault();        
-                
+
                 if (_event.delegateTarget.classList.contains('text-muted')) {
                     return false;
                 }
-                
+
                 if ( _event.target.classList.contains('ui-dropzone') ) {
                     _event.target.classList.add('border-success');
                 }                

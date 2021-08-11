@@ -50,7 +50,7 @@ implements \fpcm\controller\interfaces\isAccessible, \fpcm\controller\interfaces
     public function process()
     {
         $this->view->addButton(new \fpcm\view\helper\saveButton('categorySave'));
-        $this->view->addJsFiles(['categories.js']);
+        $this->view->addJsFiles(['system/categories.js']);
         $this->view->addTabs('fpcm-category-tabs', [
             (new \fpcm\view\helper\tabItem('tabs-category'))
                 ->setText($this->tabHeadline)

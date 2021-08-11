@@ -104,7 +104,7 @@ class categorylist extends \fpcm\controller\abstracts\controller implements \fpc
         $this->countReadOnly = $this->itemsCount < 2 ? true : false;
         $this->initDataView();
 
-        $this->view->addJsFiles(['categories.js']);
+        $this->view->addJsFiles(['system/categories.js']);
 
         $this->view->addFromLibrary(
             'selectize_js',

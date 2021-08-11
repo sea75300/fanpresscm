@@ -23,6 +23,14 @@ fpcm.ui_dnd = {
         if (!_params.dragoverCallback) {
             _params.dragoverCallback = function (_event) {
                 _event.preventDefault();
+                
+                if (_source === undefined) {
+                    return false;
+                }
+                
+                if (_event.delegateTarget.id == _source.id) {
+                    return false;
+                }
             }
         }
 
