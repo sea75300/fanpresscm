@@ -451,7 +451,6 @@ fpcm.filemanager = {
                 return false;
             },
             selectAction: function( event, ui ) {
-                debugger;
                 fpcm.filemanager.reloadFiles(ui.value);
             }
         });

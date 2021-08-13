@@ -160,9 +160,7 @@ div.row {
 }
 
 /* ------ General floats and displays */
-.fpcm-ui-float-left,
-.fpcm-ui-progressbar-label,
-.fpcm.ui-progressbar-label {
+.fpcm-ui-float-left {
     float: left;
 }
 
@@ -180,8 +178,6 @@ div.row {
 
 #fpcm-filemanager-upload-drop h4:before,
 div.fileupload-progress.in,
-.fpcm-ui-progressbar-label,
-.fpcm.ui-progressbar-label,
 .fpcm-ui-block,
 .fpcm.ui-block {
     display: block;
@@ -396,17 +392,8 @@ img.fpcm-ui-smileylist-preview {
     cursor: pointer;
 }
 
-.fpcm-ui-progressbar,
-.fpcm.ui-progressbar {
-    margin: 0 auto;
-    overflow: hidden;
-    min-height: 35px;
-    position: relative;
-}
-
-.fpcm-ui-progressbar-label,
-.fpcm.ui-progressbar-label {
-    font-size: 0.8rem;
+.fpcm-ui-progressbar {
+    height: 35px;
 }
 
 .fpcm-ui-border-radius-all {

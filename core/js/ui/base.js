@@ -37,19 +37,7 @@ fpcm.ui = {
         fpcm.ui.showMessages();
 
         fpcm.ui.initJqUiWidgets();
-        fpcm.ui.initDateTimeMasks();
-
-//
-//        fpcm.dom.fromClass('fpcm-loader').click(function () {
-//
-//            var el = fpcm.dom.fromTag(this);
-//            if (el.hasClass('fpcm-navigation-noclick') || el.data('hidespinner')) {
-//                return false;
-//            }
-//
-//            fpcm.ui_loader.show();
-//        });
-//        
+        fpcm.ui.initDateTimeMasks();       
 
         fpcm.dom.bindEvent('#fpcm-ui-form', 'submit', function () {
             fpcm.ui_loader.show();
@@ -91,57 +79,35 @@ fpcm.ui = {
         return fpcm.vars.ui.lang[langVar] === undefined ? false : true;
     },
     
-    articleActionsOkButton: function () {
-
-        var el = fpcm.dom.fromClass('fpcm-ui-articleactions-ok');
-
-        el.unbind('click');
-        el.click(function () {
-
-            for (var object in fpcm) {
-                if (typeof fpcm[object].assignActions === 'function' && fpcm[object].assignActions() === -1) {
-                    return false;
-                }
-            }
-
-            if (!confirm(fpcm.ui.translate('CONFIRM_MESSAGE'))) {
-                return false;
-            }
-
-        });
-
-    },
-    
     assignCheckboxes: function() {
         
-        var checkboxAll = fpcm.dom.fromId('fpcm-select-all');
-        if (!checkboxAll.length) {
+        var _cbxAll = fpcm.dom.fromId('fpcm-select-all');
+        if (!_cbxAll.length) {
             return false;
         }
 
-        checkboxAll.unbind('click');
-        checkboxAll.click(function() {
-            
-            var el0 = fpcm.dom.fromClass('fpcm-ui-list-checkbox-sub');
-            el0.prop('checked', false);
-            
-            var el1 = fpcm.dom.fromClass('fpcm-ui-list-checkbox');
-            el1.prop('checked', (
-                fpcm.dom.fromTag(this).prop('checked') ? true : false
+        fpcm.dom.bindClick(_cbxAll, function(_event, _ui) {
+
+            fpcm.dom.fromClass('fpcm-ui-list-checkbox-sub').prop('checked', false);
+            fpcm.dom.fromClass('fpcm-ui-list-checkbox').prop('checked', (                    
+                _ui.checked ? true : false
             ));
 
         });
 
-        var checkboxSub = fpcm.dom.fromClass('fpcm-ui-list-checkbox-sub');
-        if (!checkboxSub.length) {
+        var _cbxSub = fpcm.dom.fromClass('fpcm-ui-list-checkbox-sub');
+        if (!_cbxSub.length) {
             return false;
         }
 
-        checkboxSub.unbind('click');
-        checkboxSub.click(function() {
-            var el2 = fpcm.dom.fromClass('fpcm-ui-list-checkbox-subitem' + fpcm.dom.fromTag(this).val());
-            el2.prop('checked', ( fpcm.dom.fromTag(this).prop('checked') ? true : false ));
+        fpcm.dom.bindClick(_cbxSub, function(_event, _ui) {
+
+            fpcm.dom.fromClass('fpcm-ui-list-checkbox-subitem' + _ui.value).prop('checked', (                    
+                _ui.checked ? true : false
+            ));
+
         });
+
     },
 
     selectmenu: function(_elemClassId, _params) {
@@ -166,37 +132,46 @@ fpcm.ui = {
 
     },
     
-    checkboxradio: function(elemClassId, params, onClick) {
+    progressbar: function(_cid, _params){
 
-        var el = fpcm.dom.fromTag(elemClassId);
-        if (!el.length) {
-            return;
+        if (_params === undefined) {
+            _params = {};
         }
 
-        if (params === undefined) {
-            params = {};
+        let _el = fpcm.dom.fromId('fpcm-progress-' + _cid).find('div.progress-bar').get(0);
+        if (!_el) {
+            return false;
         }
+
+        if (_params.min === undefined) {
+            _params.min = 0;
+        }
+
+        if (_params.max === undefined) {
+            _params.max = 0;
+        }
+
+        if (_params.value === undefined) {
+            _params.value = 0;
+        }
+
+        if (_params.label === undefined) {
+            _params.label = '';
+        }
+
+        _el.setAttribute('ariaValuenow', _params.value);
+        _el.setAttribute('ariaValuemax', _params.max);
+        _el.setAttribute('ariaValuemin', _params.min);
+        _el.innerText = _params.label;
+        _el.style.width = (_params.value * 100 / _params.max) + '%';
         
-        if (params.icon === undefined) {
-            params.icon = true;
+        if (_el.label && !_el.classList.contains('p-2')) {
+            _el.classList.add('p-2');
         }
 
-        el.checkboxradio(params);
-
-        if (onClick === undefined) {
-            return;
+        if (_params.animated && !_el.classList.contains('progress-bar-animated')) {
+            _el.classList.add('progress-bar-animated');
         }
-        
-        el.click(onClick);
-    },
-    
-    progressbar: function(elemClassId, params){
-
-        if (params === undefined) {
-            params = {};
-        }
-
-        return fpcm.dom.fromTag(elemClassId).progressbar(params);
     },
     
     dialog: function(params) {
@@ -419,10 +394,7 @@ fpcm.ui = {
         
         _id = 'fpcm-dialog-' + _id;
         
-        console.log(_id);
-
         _domEl = _parent ? window.parent.document.getElementById(_id) : document.getElementById(_id);
-        debugger;
         
         if (!_domEl) {
             console.warn('Item ' + _id + ' not found!');

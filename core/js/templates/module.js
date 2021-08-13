@@ -81,8 +81,6 @@ fpcm.templates = {
         
         fpcm.dom.fromClass('fpcm-articletemplates-edit').click(function() {
 
-            debugger;
-
             fpcm.ui_loader.hide();
             fpcm.ui.dialog({
                 title: 'TEMPLATE_HL_DRAFTS_EDIT',
