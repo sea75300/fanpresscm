@@ -30,9 +30,6 @@
                         <?php $theView->icon('question-circle')->setSize('lg'); ?>
                     </a>                
                 </li>
-                <li class="nav-item">
-
-                </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="fpcm-notify-menu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <?php $theView->icon('envelope')->setClass('fpcm-navicon')->setSize('lg'); ?>                

@@ -78,6 +78,11 @@ final class navigationList implements \ArrayAccess {
             return false;
         }
         
+        if ($id == $area) {
+            $this->data[$area] = [];
+            return true;
+        }
+        
         unset($this->data[$area][$id]);
         return true;
     }

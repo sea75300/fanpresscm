@@ -121,7 +121,10 @@ class navigation extends \fpcm\model\abstracts\staticModel {
         $this->addTrashItem();
         $this->addUtilitiesItem();
 
-        return $this->events->trigger('navigation\add', $this->navList);
+        $return = $this->events->trigger('navigation\add', $this->navList);
+        $this->addAfterItems($return);
+        
+        return $return;
     }
 
     /**
@@ -181,10 +184,40 @@ class navigation extends \fpcm\model\abstracts\staticModel {
         $this->navList->add(
             navigationItem::AREA_TRASH,
             (new navigationItem())->setUrl('#')->setDescription('Werkzeuge')
-            ->setIcon('tools')->setId('nav-id-utilities')
-            ->setClass('fpcm-navigation-noclick')->setSubmenu($submenu)
+            ->setIcon('tools')
+            ->setId('nav-id-utilities')
+            ->setClass('fpcm-navigation-noclick')
+            ->setSubmenu($submenu)
         );
 
+        return true;
+    }
+    
+    /**
+     * Adjust maximum leght of main menu
+     * @param navigationList $list
+     * @return boolean
+     * @since 5.0-dev
+     */
+    private function addAfterItems(&$list)
+    {
+        $items = $list[navigationItem::AREA_AFTER] ?? [];
+        
+        if (!count($items)) {
+            return true;
+        }
+        
+        $list->remove(navigationItem::AREA_AFTER, navigationItem::AREA_AFTER);
+
+        $niObj = (new navigationItem())
+                ->setUrl('#')
+                ->setDescription('GLOBAL_EXTENDED')
+                ->setSubmenu($items)
+                ->setIcon('angle-double-down');
+        
+        $list->add(navigationItem::AREA_AFTER, $niObj);
+
+//        $list[navigationItem::AREA_AFTER] = $niObj;
         return true;
     }
 
