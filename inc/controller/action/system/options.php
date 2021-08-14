@@ -217,7 +217,7 @@ implements \fpcm\controller\interfaces\isAccessible,
                 ->setTabToolbar(2)
         ];
 
-        $this->view->addTabs('options', $tabs, '', $this->syscheck ? count($tabs)-1 : $this->getActiveTab());
+        $this->view->addTabs('options', $tabs, 'fpcm ui-tabs-function-autoinit', $this->syscheck ? count($tabs)-1 : $this->getActiveTab());
     }
 
 

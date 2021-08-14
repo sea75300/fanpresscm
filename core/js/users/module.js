@@ -13,10 +13,6 @@ fpcm.users = {
 
     init: function() {
 
-        fpcm.dom.fromId('btnDeleteUser').click(function() {
-            return fpcm.users.initMoveDeleteArticles();
-        });
-
         if (fpcm.dataview.exists('userlist')) {
             fpcm.dataview.render('userlist');
         };

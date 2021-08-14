@@ -14,8 +14,7 @@ fpcm.modulelist = {
     init: function() {
 
         fpcm.system.checkForUpdates();
-        fpcm.ui_tabs.render('#modulemgr',
-        {
+        fpcm.ui_tabs.render('#modulemgr', {
             initDataViewOnRenderAfter: fpcm.modulelist.initButtons,
         });
 
@@ -23,13 +22,12 @@ fpcm.modulelist = {
     
     initButtons: function () {
 
-        fpcm.dom.fromTag('a.fpcm-ui-modulelist-action-local-update').unbind('click');
-        fpcm.dom.fromTag('a.fpcm-ui-modulelist-action-local-update').click(function() {
-            var destUrl = fpcm.dom.fromTag(this).attr('href');
+        fpcm.dom.bindClick('a.fpcm-ui-modulelist-action-local-update', function(_ui) {
+            var _url = _ui.delegateTarget.href;
             fpcm.ui.confirmDialog({
                 clickNoDefault: true,
                 clickYes: function () {
-                    fpcm.ui.relocate(destUrl);
+                    fpcm.ui.relocate(_url);
                     return false;
                 }
             });
@@ -37,17 +35,16 @@ fpcm.modulelist = {
             return false;
         });
 
-        fpcm.dom.fromTag('button.fpcm-ui-modulelist-action-local').unbind('click');
-        fpcm.dom.fromTag('button.fpcm-ui-modulelist-action-local').click(function() {
+        fpcm.dom.bindClick('button.fpcm-ui-modulelist-action-local', function(_ui) {
             
-            var btnEl = fpcm.dom.fromTag(this);
+            var btnEl = _ui.delegateTarget;
 
             var params = {
-                action: btnEl.data('action'),
-                key: btnEl.data('key'),
+                action: btnEl.dataset.action,
+                key: btnEl.dataset.key,
             };
 
-            var fromDir = btnEl.data('dir');
+            var fromDir = btnEl.dataset.dir;
             if (fromDir) {
                 params.fromDir = fromDir;
             }
@@ -88,14 +85,11 @@ fpcm.modulelist = {
             });
         });
 
-        fpcm.dom.fromTag('a.fpcm-ui-modulelist-info').unbind('click');
-        fpcm.dom.fromTag('a.fpcm-ui-modulelist-info').click(function(event) {
-
-            var btnEl = fpcm.dom.fromTag(this);
+        fpcm.dom.bindClick('a.fpcm-ui-modulelist-info', function(_ui) {
             fpcm.ui.dialog({
                 id: 'modulelist-infos',
                 title: 'MODULES_LIST_INFORMATIONS',
-                url: btnEl.attr('href'),
+                url: _ui.delegateTarget.href,
                 closeButton: true
             });
             

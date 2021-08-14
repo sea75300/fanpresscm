@@ -79,8 +79,8 @@ fpcm.system = {
 
             return false;
         });
-
-        fpcm.dom.fromId('genPasswd').click(function () {
+        
+        fpcm.dom.bindClick('#genPasswd', function () {
             fpcm.system.generatePasswdString();
             fpcm.ui.showCurrentPasswordConfirmation();
             return false;

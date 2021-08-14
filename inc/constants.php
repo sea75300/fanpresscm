@@ -103,14 +103,6 @@ if (!defined('FPCM_CACHEMODULE_DEBUG')) {
     define('FPCM_CACHEMODULE_DEBUG', false);
 }
 
-if (!defined('FPCM_NOJSCSSPHP_FILESIZE_HEADER')) {
-    /**
-     * Dateigröße in style.php und script.php nicht als Header mitschicken
-     * @since 3.4
-     */
-    define('FPCM_NOJSCSSPHP_FILESIZE_HEADER', false);
-}
-
 if (!defined('FPCM_ARTICLE_LOCKED_INTERVAL')) {
     /**
      * Interval um Artikel auf "In Bearbeitung" zu setzten bzw. zu prüfen

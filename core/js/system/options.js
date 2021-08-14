@@ -12,8 +12,6 @@ fpcm.options = {
 
     init: function () {
 
-        fpcm.ui_tabs.render('#options');
-
         fpcm.dom.fromId('syschecksubmitstats').click(function () {
             fpcm.ajax.post('syscheck', {
                 data: {

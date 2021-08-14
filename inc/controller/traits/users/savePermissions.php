@@ -65,8 +65,6 @@ trait savePermissions {
     
     protected function assignToView() : bool
     {
-        $this->view->addJsFiles(['permissions.js']);
-
         $this->view->assign('rollId', $this->rollId);
         $this->view->assign('permissions', $this->permissionObj->getPermissionData());
         return true;
