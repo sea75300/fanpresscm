@@ -228,7 +228,11 @@ class main extends \fpcm\controller\abstracts\controller {
                     ? \fpcm\view\helper\tabItem::STATE_ACTIVE
                     : \fpcm\view\helper\tabItem::STATE_DISABLED;
 
-            $tabs[] = (new \fpcm\view\helper\tabItem($value['tpl']))->setFile('installer/'.$value['tpl'])->setText($value['descr'])->setState($state);
+            $tabs[] = (new \fpcm\view\helper\tabItem($value['tpl']))
+                    ->setFile('installer/'.$value['tpl'])
+                    ->setText($value['descr'])
+                    ->setState($state)
+                    ->setPreload($id === $this->step);
         }
         
         

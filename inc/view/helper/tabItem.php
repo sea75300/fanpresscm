@@ -56,6 +56,13 @@ class tabItem extends helper {
     protected $state = 011;
 
     /**
+     * Preload tab item
+     * @var bool
+     * @since 5.0-dev
+     */
+    protected $preload = true;
+
+    /**
      * Optional init function
      * @return void
      * @ignore
@@ -159,6 +166,17 @@ class tabItem extends helper {
     }
 
     /**
+     * Set preload status of tab
+     * @param bool $preload
+     * @return $this
+     * @since 5.0-dev
+     */
+    public function setPreload(bool $preload) {
+        $this->preload = $preload;
+        return $this;
+    }
+    
+    /**
      * Get item ID
      * @return string
      */
@@ -175,6 +193,16 @@ class tabItem extends helper {
     final public function isActive() : bool
     {
         return $this->state === self::STATE_ACTIVE;
+    }
+
+    /**
+     * Return preload state of tab
+     * @return bool
+     * @since 5.0-dev
+     */
+    final public function canPreload() : bool
+    {
+        return $this->preload;
     }
 
     /**
