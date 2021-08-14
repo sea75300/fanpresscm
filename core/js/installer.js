@@ -13,10 +13,7 @@ fpcm.installer = {
     currentDbFileIndex: 0,
 
     init: function() {
-
-        fpcm.installer.initUi();
-        fpcm.installer.initDatabase(1, 0);
-        
+        fpcm.installer.initDatabase(1, 0);        
         jQuery('button.fpcm-installer-next-4').hide();
     },
 
@@ -62,7 +59,7 @@ fpcm.installer = {
             return false;
         }
 
-        var _progress = fpcm.ui.progressbar('.fpcm-installer-dbtables', {
+        fpcm.ui.progressbar('dbtables', {
             max: fpcm.vars.jsvars.sqlFilesCount,
             value: _current
         });
@@ -85,13 +82,16 @@ fpcm.installer = {
                 if (result.data.html) {
                     for (var i in result.data.html) {
                         let item = result.data.html[i];                    
-                        fpcm.dom.appendHtml('#fpcm-installer-execlist', '<div class="row g-0 py-2"><div class="col-12" id="installer-tabs-' + item.tab + '">' + fpcm.ui.getIcon(item.icon, {
+                        fpcm.dom.appendHtml('#fpcm-installer-execlist', '<li class="list-group-item" id="installer-tabs-' + item.tab + '">' + fpcm.ui.getIcon(item.icon, {
                             class: item.class
-                        }) + fpcm.ui.translate('INSTALLER_CREATETABLES_STEP').replace('{{tablename}}', item.tab) + '</div></div>');
+                        }) + fpcm.ui.translate('INSTALLER_CREATETABLES_STEP').replace('{{tablename}}', item.tab) + '</li>');
                     }
                 }
                 
-                _progress.progressbar('option', 'value', result.current);
+                fpcm.ui.progressbar('dbtables', {
+                    max: fpcm.vars.jsvars.sqlFilesCount,
+                    value: result.current
+                });
 
                 if (result.current >= fpcm.vars.jsvars.sqlFilesCount && !result.next) {
                     fpcm.dom.fromClass('fpcm-ui-progressbar-label').hide();
@@ -105,32 +105,6 @@ fpcm.installer = {
         });
 
 
-    },
-
-    initUi: function() {
-
-        fpcm.ui_tabs.render('#fpcm-tabs-installer', {
-            /*disabled: fpcm.vars.jsvars.disabledTabs,
-            active  : fpcm.vars.jsvars.activeTab,*/
-            beforeActivate: function( event, ui ) {
-                
-                var backLink = ui.newTab.find('a').attr('data-backlink');
-                if (!backLink) {
-                    return false;
-                }
-
-                fpcm.ui.relocate(backLink);
-            }
-        });
-        
-        jQuery('#btnSubmitNext.fpcm-installer-next-3').click(function() {        
-            fpcm.installer.checkDBData();
-            return false;
-        });
-
-        if (fpcm.vars.jsvars.activeTab == 0) {
-            return true;
-        }
-
     }
+
 };

@@ -83,8 +83,19 @@ class button extends helper {
         return $this;
     }
 
+    /**
+     * Bind function to button click
+     * @param string $func
+     * @param type $args
+     * @return $this
+     * @since 5.0-dev
+     */
     final public function setOnClick(string $func, $args = null)
     {
+        if (!$func) {
+            return $this;
+        }
+        
         $this->data['fn'] = $func;
         $this->data['fn-arg'] = $args;
         return $this;

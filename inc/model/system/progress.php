@@ -75,7 +75,7 @@ class progress implements \JsonSerializable {
             return;
         }
         
-        $this->maxExec = round(((int) $ini) * 0.8, 0, PHP_ROUND_HALF_DOWN);
+        $this->maxExec = 3; //round(((int) $ini) * 0.8, 0, PHP_ROUND_HALF_DOWN);
     }
 
     /**

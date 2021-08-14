@@ -51,52 +51,39 @@ class main extends \fpcm\controller\abstracts\controller {
      *
      * @var array
      */
-    protected $subTemplates = array(
-        1 => '01_selectlang',
-        2 => '02_syscheck',
-        3 => '03_dbdata',
-        4 => '04_createtables',
-        5 => '05_sysconfig',
-        6 => '06_firstuser',
-        7 => '07_finalize'
-    );
-
-    /**
-     *
-     * @var array
-     */
-    protected $subTabs = [
-        '01_selectlang' => [
-            'icon' => 'language',
+    protected $tabsDef = [
+        1 => [
+            'tpl' => '01_selectlang',
             'descr' => 'INSTALLER_LANGUAGE_SELECT',
             'back' => 1
         ],
-        '02_syscheck' => [
-            'icon' => 'medkit',
+        2 => [
+            'tpl' => '02_syscheck',
             'descr' => 'INSTALLER_SYSCHECK',
             'back' => 2
         ],
-        '03_dbdata' => [
-            'icon' => 'database',
+        3 => [
+            'tpl' => '03_dbdata',
             'descr' => 'INSTALLER_DBCONNECTION',
             'back' => 3
         ],
-        '04_createtables' => [
-            'icon' => 'table',
+        4 => [
+            'tpl' => '04_createtables',
             'descr' => 'INSTALLER_CREATETABLES',
             'back' => 4
         ],
-        '05_sysconfig' => [
-            'icon' => 'cog',
+        5 => [
+            'tpl' => '05_sysconfig',
             'descr' => 'INSTALLER_SYSTEMCONFIG',
             'back' => 5
         ],
-        '06_firstuser' => [
-            'icon' => 'user-plus',
+        6 => [
+            'tpl' => '06_firstuser',
             'descr' => 'INSTALLER_ADMINUSER',
             'back' => 6
         ],
-        '07_finalize' => [
+        7 => [
+            'tpl' => '07_finalize',
             'icon' => 'check-square',
             'descr' => 'INSTALLER_FINALIZE',
             'back' => false
@@ -165,20 +152,15 @@ class main extends \fpcm\controller\abstracts\controller {
 
     public function process()
     {
-        $maxStep = max(array_keys($this->subTemplates));
-
-        if ($this->step > $maxStep) {
+        $tabCount = count(array_keys($this->tabsDef));
+        
+        if ($this->step > $tabCount) {
             $this->view = new \fpcm\view\error('Undefined installer step!');
             $this->view->render();
             exit;
         }
 
-        $disabledTabs = array_keys(array_keys($this->subTemplates));
-        $disabledTabs = array_slice($disabledTabs, ($this->step === 1 ? 1 : $this->step), $maxStep);
-
         $this->view->addJsVars([
-            'disabledTabs' => $disabledTabs,
-            'activeTab' => $this->step === 1 ? 0 : $this->step - 1,
             'noRefresh' => true
         ]);
 
@@ -190,27 +172,16 @@ class main extends \fpcm\controller\abstracts\controller {
             'INSTALLER_CREATETABLES_HEAD'
         ]);
         
-        $this->view->showHeaderFooter(\fpcm\view\view::INCLUDE_HEADER_SIMPLE);
-        $this->view->assign('tabCounter', 1);
-        $this->view->assign('subTabs', $this->subTabs);
-        $this->view->assign('subTemplate', $this->subTemplates[$this->step]);
-        $this->view->assign('maxStep', $maxStep);
-        $this->view->assign('step', $this->step + 1);
-        $this->view->assign('languages', array_flip($this->language->getLanguages()));
-        $this->view->addJsFiles(['{$coreJs}installer.js', '{$coreJs}systemcheck.js', \fpcm\classes\loader::libGetFileUrl('nkorg/passgen/passgen.js')]);
+        $prevStep = $this->step - 1;
+        $nextStep = $this->step + 1;
 
-        if (method_exists($this, 'runAfterStep' . ($this->step - 1))) {
-            call_user_func(array($this, 'runAfterStep' . ($this->step - 1)));
+        if (method_exists($this, 'runAfterStep' . $prevStep)) {
+            call_user_func([$this, 'runAfterStep' . $prevStep]);
         }
 
         if (method_exists($this, 'runStep' . $this->step)) {
-            call_user_func(array($this, 'runStep' . $this->step));
+            call_user_func([$this, 'runStep' . $this->step]);
         }
-
-        $this->view->setFormAction('installer', [
-            'step' => $this->step + 1,
-            'language' => $this->langCode
-        ]);
 
         $buttons = [];
         if ($this->showReloadBtn) {
@@ -219,13 +190,50 @@ class main extends \fpcm\controller\abstracts\controller {
                 'language' => $this->step > 1 ? $this->langCode : ''
             ]))->setIcon('sync');
         }
-        elseif ($this->step < count($this->subTemplates)) {
-            $buttons[] = (new \fpcm\view\helper\submitButton('submitNext'))->setText('GLOBAL_NEXT')->setClass('fpcm-installer-next-'.$this->step)->setIcon('chevron-circle-right');
+        elseif ($this->step < $tabCount) {
+            
+            $fn = $this->step === 3 ? 'installer.checkDBData' : 0;            
+            $buttons[] = (new \fpcm\view\helper\submitButton('submitNext'))
+                ->setText('GLOBAL_NEXT')
+                ->setClass('fpcm-installer-next-'.$this->step)
+                ->setIcon('chevron-circle-right')
+                ->setOnClick($fn);
         }
 
         $this->view->addButtons($buttons);
-        $this->view->showPageToken(false);
+
+        $this->view->setFormAction('installer', [
+            'step' => $nextStep,
+            'language' => $this->langCode
+        ]);
+        
+        
+        $this->initTabs();
+        
+        $this->view->showHeaderFooter(\fpcm\view\view::INCLUDE_HEADER_SIMPLE);
+        $this->view->assign('languages', array_flip($this->language->getLanguages()));
+        $this->view->addJsFiles(['{$coreJs}installer.js', '{$coreJs}systemcheck.js']);
+        $this->view->addFromLibrary('nkorg/passgen', ['passgen.js']);
+        $this->view->showPageToken(true);
         $this->view->render();
+    }
+    
+    private function initTabs()
+    {
+        $tabs = [];
+        foreach ($this->tabsDef as $id => $value) {
+            
+            
+            $state  = $id === $this->step
+                    ? \fpcm\view\helper\tabItem::STATE_ACTIVE
+                    : \fpcm\view\helper\tabItem::STATE_DISABLED;
+
+            $tabs[] = (new \fpcm\view\helper\tabItem($value['tpl']))->setFile('installer/'.$value['tpl'])->setText($value['descr'])->setState($state);
+        }
+        
+        
+        $this->view->addTabs('installer', $tabs, 'fpcm ui-tabs-function-autoinit', ($this->step - 1));
+        $this->view->setViewPath($this->getViewPath());
     }
 
     /**
@@ -284,7 +292,7 @@ class main extends \fpcm\controller\abstracts\controller {
             'sqlFilesCount' => count(\fpcm\classes\database::getTableFiles()),
         ));
         
-        $this->view->assign('progressbarName', 'fpcm-installer-dbtables');
+        $this->view->assign('progressbarName', 'dbtables');
     }
 
     /**
@@ -295,6 +303,10 @@ class main extends \fpcm\controller\abstracts\controller {
         if ($this->request->fromGET('cserr') !== null) {
             $this->view->addErrorMessage('SAVE_FAILED_OPTIONS');
         }
+
+        $this->view->addJsVars(array(
+            'dtMasks' => $this->getDateTimeMasks()
+        ));
 
         $this->view->assign('timezoneAreas', $this->getTimeZonesAreas());
         $this->view->assign('systemModes', [
