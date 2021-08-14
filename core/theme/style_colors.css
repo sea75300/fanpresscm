@@ -143,16 +143,20 @@ div.fpcm-ui-dataview div.row:hover {
     background: rgba(255, 239, 143, 0.5);
 }
 
-.fpcm-ui-input-text:invalid,
-.fpcm-ui-input-text:required,
+
+.fpcm-ui-input:invalid,
+.fpcm-ui-input:required {
+    background-color: rgba(51, 170, 51, .1);
+}
+
 div.row.fpcm-ui-dataview-row.fpcm-ui-logs-error {
-    border-left: 5px solid #cc0000;
+    border-left: 5px solid var(--bs-danger);
 }
 
 div.row.fpcm-ui-dataview-row.fpcm-ui-logs-warning {
-    border-left: 5px solid #FAD42E;
+    border-left: 5px solid var(--bs-warning);
 }
 
 div.row.fpcm-ui-dataview-row.fpcm-ui-logs-deprecation-warning {
-    border-left: 5px solid #c3c3c3;
+    border-left: 5px solid var(--bs-gray);
 }

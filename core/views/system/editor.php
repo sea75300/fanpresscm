@@ -3,7 +3,7 @@
     <legend><?php $theView->write('SYSTEM_OPTIONS_NEWS_EDITOR_SETTINGS'); ?></legend>
 
     <div class="row my-2">
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-8">
                 <?php $theView->select('system_editor')
                     ->setText('SYSTEM_OPTIONS_NEWS_EDITOR')
                     ->setOptions($editors)
@@ -14,7 +14,7 @@
     </div>
 
     <div class="row my-2">
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-8">
         <?php $theView->select('system_editor_fontsize')
             ->setText('SYSTEM_OPTIONS_NEWS_EDITOR_FONTSIZE')
                 ->setOptions($defaultFontsizes)
@@ -25,7 +25,7 @@
 
 
     <div class="row my-2">
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-8">
         <?php $theView->boolSelect('articles_revisions')
                 ->setText('SYSTEM_OPTIONS_REVISIONS_ENABLED')
                 ->setSelected($globalConfig->articles_revisions); ?>
@@ -34,7 +34,7 @@
 
 
     <div class="row my-2">
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-8">
             <?php $theView->select('articles_revisions_limit')
                     ->setText('SYSTEM_OPTIONS_NEWS_REVISIONS_LIMIT')
                     ->setOptions($theView->translate('SYSTEM_OPTIONS_NEWS_REVISIONS_LIMIT_LIST'))
@@ -45,7 +45,7 @@
 
 
     <div class="row my-2">
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-8">
             <?php $theView->boolSelect('articles_imageedit_persistence')
                     ->setText('SYSTEM_OPTIONS_NEWS_EDITOR_IMGTOOLS')
                     ->setSelected($globalConfig->articles_imageedit_persistence); ?>
@@ -58,7 +58,7 @@
     <legend><?php $theView->write('SYSTEM_OPTIONS_NEWS_EDITOR_CSS'); ?></legend>
 
     <div class="row">
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-8">
                 <?php $theView->textarea('system_editor_css')
                         ->setValue($globalConfig->system_editor_css, ENT_QUOTES)
                         ->setClass('fpcm ui-textarea-medium ui-textarea-noresize w-100'); ?>
@@ -70,7 +70,7 @@
 <fieldset class="mb-2">
     <legend><?php $theView->write('HL_FILES_MNG'); ?></legend>                       
     <div class="row my-2">
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-8">
         <?php $theView->boolSelect('file_subfolders')
                 ->setText('SYSTEM_OPTIONS_NEWS_SUBFOLDERS')
                 ->setSelected($globalConfig->file_subfolders); ?>
@@ -79,7 +79,7 @@
 
 
     <div class="row my-2">
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-8">
         <?php $theView->select('file_list_limit')
                 ->setText('SYSTEM_OPTIONS_FILEMANAGER_LIMIT')
                 ->setOptions($articleLimitListAcp)
@@ -90,7 +90,7 @@
 
 
     <div class="row my-2">
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-8">
             <?php $theView->select('file_view')
                     ->setText('SYSTEM_OPTIONS_FILEMANAGER_VIEW')
                     ->setOptions($filemanagerViews)
@@ -104,7 +104,7 @@
     <legend><?php $theView->write('SYSTEM_OPTIONS_NEWSSHOWIMGTHUMBSIZE'); ?></legend>
 
     <div class="row my-2">
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-8">
         <?php $theView->rangeInput('file_thumb_size')
                 ->setText('FILE_LIST_THUMB_SIZE')
                 ->setClass('d-flex col-sm-6 col-md-4 mt-2')

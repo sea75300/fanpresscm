@@ -47,7 +47,7 @@
     <legend><?php $theView->write('SYSTEM_OPTIONS_TWITTER_CREDENTIALS'); ?></legend>
 
     <div class="row my-2">
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-8">
         <?php $theView->textInput('twitter_data[consumer_key]')
             ->setValue($globalConfig->twitter_data->consumer_key)
             ->setText('SYSTEM_OPTIONS_TWITTER_CONSUMER_KEY'); ?>
@@ -55,7 +55,7 @@
     </div>
 
     <div class="row my-2">
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-8">
         <?php $theView->textInput('twitter_data[consumer_secret]')
             ->setValue($globalConfig->twitter_data->consumer_secret)
             ->setText('SYSTEM_OPTIONS_TWITTER_CONSUMER_SECRET'); ?>
@@ -63,7 +63,7 @@
     </div>
 
     <div class="row my-2">
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-8">
         <?php $theView->textInput('twitter_data[user_token]')
             ->setValue($globalConfig->twitter_data->user_token)
             ->setText('SYSTEM_OPTIONS_TWITTER_USER_TOKEN'); ?>
@@ -71,7 +71,7 @@
     </div>
 
     <div class="row my-2">
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-8">
         <?php $theView->textInput('twitter_data[user_secret]')
             ->setValue($globalConfig->twitter_data->user_secret)
             ->setText('SYSTEM_OPTIONS_TWITTER_USER_SECRET'); ?>

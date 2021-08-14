@@ -77,6 +77,7 @@ class preview extends \fpcm\controller\abstracts\controller implements \fpcm\con
                 return;
         }
 
+        $this->view->assign('isArchive', false);
         $this->view->assign('showToolbars', false);
         $this->view->assign('hideDebug', true);
         $this->view->assign('systemMode', 1);

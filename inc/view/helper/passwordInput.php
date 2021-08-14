@@ -34,7 +34,8 @@ final class passwordInput extends input {
                         ->setText('PASSWORD_TOGGLE')
                         ->setIconOnly(true)
                         ->setClass('btn-secondary fpcm ui-put-pass-toggle')
-                        ->setOnClick('system.togglePasswordField');
+                        ->setOnClick('system.togglePasswordField')
+                        ->setReadonly($this->readonly);
 
         return true;
     }

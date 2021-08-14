@@ -3,7 +3,7 @@
     <legend><?php $theView->write('SYSTEM_HL_OPTIONS_GENERAL'); ?></legend>
 
     <div class="row my-2">
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-8">
                 <?php $theView->textInput('system_email')
                     ->setValue($globalConfig->system_email)                                        
                     ->setText('GLOBAL_EMAIL')
@@ -13,7 +13,7 @@
     </div>
 
     <div class="row my-2">
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-8">
                 <?php $theView->textInput('system_url')
                     ->setValue($globalConfig->system_url)                                        
                     ->setText('SYSTEM_OPTIONS_URL')
@@ -22,7 +22,7 @@
     </div>
 
     <div class="row my-2">
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-8">
             <div class="row g-0">
                 <?php $theView->textInput('system_dtmask')
                     ->setValue($globalConfig->system_dtmask)                                        
@@ -37,7 +37,7 @@
     </div>
 
     <div class="row my-2">
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-8">
                 <?php $theView->select('system_timezone')
                         ->setText('SYSTEM_OPTIONS_TIMEZONE')
                         ->setOptions($timezoneAreas)
@@ -48,7 +48,7 @@
 
 
     <div class="row my-2">
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-8">
         <?php $theView->select('system_lang')
                 ->setText('SYSTEM_OPTIONS_LANG')
                 ->setOptions($languages)
@@ -59,7 +59,7 @@
 
 
     <div class="row my-2">
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-8">
             <?php $theView->select('articles_acp_limit')
                     ->setText('SYSTEM_OPTIONS_ACPARTICLES_LIMIT')
                     ->setOptions($articleLimitListAcp)
@@ -70,7 +70,7 @@
 
 
     <div class="row my-2">
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-8">
             <?php $theView->select('system_cache_timeout')
                     ->setText('SYSTEM_OPTIONS_CACHETIMEOUT')
                     ->setOptions($theView->translate('SYSTEM_OPTIONS_CACHETIMEOUT_INTERVAL'))
@@ -81,7 +81,7 @@
 
 
     <div class="row my-2">
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-8">
                 <?php $theView->select('system_trash_cleanup')
                         ->setText('SYSTEM_OPTIONS_TRASH_CLEANUP_DAYS')
                         ->setOptions($theView->translate('SYSTEM_OPTIONS_TRASH_CLEANUP_DAYS_LIST'))
@@ -95,7 +95,7 @@
     <legend><?php $theView->write('HL_FRONTEND'); ?></legend>
 
     <div class="row my-2">
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-8">
             <?php $theView->textInput('system_css_path')
                     ->setValue($globalConfig->system_css_path, ENT_QUOTES)
                     ->setText($theView->translate('SYSTEM_OPTIONS_STYLESHEET'))
@@ -106,13 +106,13 @@
 
 
     <div class="row my-2">
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-8">
         <?php $theView->select('system_mode')->setText('SYSTEM_OPTIONS_USEMODE')->setOptions($systemModes)->setSelected($globalConfig->system_mode)->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
         </div>
     </div>
 
     <div class="row my-2">
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-8">
             <div class="row g-0">
                 <?php $theView->boolSelect('system_loader_jquery')
                         ->setText('SYSTEM_OPTIONS_INCLUDEJQUERY')

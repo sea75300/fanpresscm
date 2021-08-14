@@ -45,7 +45,7 @@ fpcm.ui = {
         }, false);
 
         if (fpcm.vars.jsvars.navigationActive) {
-            fpcm.dom.fromId(fpcm.vars.jsvars.navigationActive).find('a.nav-link').addClass('active');
+            fpcm.dom.fromId(fpcm.vars.jsvars.navigationActive + ' > a.nav-link').addClass('active');
             
         }
 

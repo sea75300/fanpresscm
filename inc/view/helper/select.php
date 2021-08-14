@@ -238,6 +238,15 @@ class select extends helper {
         return implode(PHP_EOL, $this->returnString);
     }
 
+    /**
+     * Return class string
+     * @return string
+     */
+    protected function getReadonlyString()
+    {
+        return $this->readonly ? "disabled" : '';
+    }
+
 }
 
 ?>
