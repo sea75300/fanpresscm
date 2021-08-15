@@ -16,7 +16,7 @@
         </div>
     <?php elseif ($file->existsFolder()): ?>
         <div class="nav-item <?php print $buttonClasses; ?>">
-            <?php $theView->linkButton(uniqid('imgurl'))->setUrl($file->getImageUrl())->setText('FILE_LIST_OPEN_FULL')->setClass('fpcm link-fancybox')->setIcon('search-plus')->setIconOnly(true)->setTarget('_blank'); ?>
+            <?php $theView->linkButton(uniqid('imgurl'))->setUrl($file->getImageUrl())->setText('FILE_LIST_OPEN_FULL')->setClass('fpcm link-fancybox')->setIcon('search-plus')->setIconOnly(true)->setTarget('_blank')->setData(['fancybox' => 'group']); ?>
         </div>
         <?php endif; ?>
     <?php if ($theView->permissions->uploads->rename && $file->existsFolder()) : ?>
