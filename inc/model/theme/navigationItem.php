@@ -102,7 +102,7 @@ class navigationItem extends \fpcm\model\abstracts\staticModel {
         $this->config = \fpcm\classes\loader::getObject('\fpcm\model\system\config');
         $this->language = \fpcm\classes\loader::getObject('\fpcm\classes\language');
 
-        $this->id = uniqid('fpcm-nav-item');
+        $this->id = uniqid('fpcm-nav-item-');
         $this->currentModule = \fpcm\classes\tools::getNavigationActiveCheckStr();
     }
 
@@ -255,7 +255,7 @@ class navigationItem extends \fpcm\model\abstracts\staticModel {
      */
     public function setId($id)
     {
-        $this->id = $id;
+        $this->id = 'fpcm-nav-item-' . $id;
         return $this;
     }
 
@@ -311,8 +311,12 @@ class navigationItem extends \fpcm\model\abstracts\staticModel {
      * Status zurückgeben, ob Ziel aktiv ist
      * @return bool
      */
-    public function isActive()
+    public function isActive(string $id = '')
     {
+        if ($this->getId() === 'fpcm-nav-item-' . $id) {
+            return true;
+        }
+        
         return ( substr($this->url, 0, strlen($this->currentModule)) === $this->currentModule ? true : false );
     }
 
@@ -330,38 +334,22 @@ class navigationItem extends \fpcm\model\abstracts\staticModel {
      * @param bool $accessible
      * @return $this
      */
-    public function setAccessible(bool $accessible) {
+    public function setAccessible(bool $accessible)
+    {
         $this->accessible = $accessible;
         return $this;
     }
-    
-    /**
-     * @ignore
-     * @return array
-     */
-    public function __sleep()
-    {
-        $this->config = null;
-        $this->language = null;
-
-        return ['description', 'url', 'icon', 'class', 'id', 'parent', 'accessible', 'permission', 'submenu', 'spacer', 'wrapperClass'];
-    }
 
     /**
-     * @ignore
-     * @return void
+     * Get navigation item css string
+     * @param type $active
+     * @return string
+     * @since 5.0-dev
      */
-    public function __wakeup()
-    {
-        $this->config = \fpcm\classes\loader::getObject('\fpcm\model\system\config');
-        $this->language = \fpcm\classes\loader::getObject('\fpcm\classes\language');
-        $this->currentModule = \fpcm\classes\tools::getNavigationActiveCheckStr();
-    }
-
-    public function getDefaultCss() : string
+    public function getDefaultCss($active = '') : string
     {
         $css = [];
-        if ($this->isActive()) {
+        if ($this->isActive($active)) {
             $css[] = 'active';
         }
 

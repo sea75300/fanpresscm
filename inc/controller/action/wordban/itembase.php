@@ -13,32 +13,14 @@ abstract class itembase extends \fpcm\controller\abstracts\controller
 implements \fpcm\controller\interfaces\isAccessible,
            \fpcm\controller\interfaces\requestFunctions {
 
-    use \fpcm\controller\traits\common\simpleEditForm;
+    use \fpcm\controller\traits\common\simpleEditForm,
+        \fpcm\controller\traits\theme\nav\texts;
     
     /**
      *
      * @var \fpcm\model\wordban\item
      */
     protected $item;
-
-    /**
-     * 
-     * @return bool
-     */
-    public function isAccessible(): bool
-    {
-        return $this->permissions->system->wordban;
-    }
-
-    protected function getHelpLink()
-    {
-        return 'HL_OPTIONS_WORDBAN';
-    }
-
-    protected function getActiveNavigationElement()
-    {
-        return 'submenu-itemnav-item-wordban';
-    }
 
     public function process()
     {

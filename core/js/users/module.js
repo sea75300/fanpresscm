@@ -25,7 +25,7 @@ fpcm.users = {
                     _el.unbind('click');
                     _el.click(function (_ev) {
                         _ev.preventDefault();
-                        fpcm.ui.dialog({
+                        fpcm.ui_dialogs.create({
                             id: 'edit-permissions',
                             url: this.attributes.href.value,
                             title: 'HL_OPTIONS_PERMISSIONS',
@@ -60,7 +60,7 @@ fpcm.users = {
         }
 
         fpcm.ui_loader.hide();
-        fpcm.ui.dialog({
+        fpcm.ui_dialogs.create({
             id: 'users-select-delete',
             title: 'USERS_ARTICLES_SELECT',
             closeButton: true,
@@ -71,7 +71,7 @@ fpcm.users = {
                     closeClick: true,
                     primary: true,
                     click: function() {
-                        fpcm.ui.confirmDialog({
+                        fpcm.ui_dialogs.confirmDlg({
                             clickYes: function() {
                                 fpcm.users.continueDelete = true;
                                 fpcm.dom.fromId('btnDeleteUser').trigger('click');

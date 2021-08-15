@@ -25,7 +25,7 @@ fpcm.editor = {
 
             var cid = fpcm.dom.fromTag(event.currentTarget).data('commentid');
 
-            fpcm.ui.confirmDialog({
+            fpcm.ui_dialogs.confirmDlg({
                 clickYes: function () {
                     fpcm.ajax.post('comments/lockip', {
                         dataType: 'json',

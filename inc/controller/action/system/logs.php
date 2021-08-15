@@ -57,9 +57,6 @@ class logs extends \fpcm\controller\abstracts\controller implements \fpcm\contro
         
 
         $this->view->addTabs('tabs-logs', $this->events->trigger('logs\addToList', $this->logs) );
-
-        //$this->view->addDataView(new \fpcm\components\dataView\dataView('logs', false));
-
         $this->view->addJsFiles(['logs.js']);
         $this->view->addJsLangVars(['LOGS_CLEARED_LOG_OK', 'LOGS_CLEARED_LOG_FAILED', 'FILE_LIST_FILESIZE']);
         $this->view->addJsVars([

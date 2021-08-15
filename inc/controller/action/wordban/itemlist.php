@@ -15,31 +15,14 @@ namespace fpcm\controller\action\wordban;
  */
 class itemlist extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\isAccessible {
 
-    use \fpcm\controller\traits\common\dataView;
+    use \fpcm\controller\traits\common\dataView,
+        \fpcm\controller\traits\theme\nav\texts;
 
     /**
      *
      * @var \fpcm\model\wordban\items
      */
     protected $list;
-
-    /**
-     * 
-     * @return bool
-     */
-    public function isAccessible(): bool
-    {
-        return $this->permissions->system->wordban;
-    }
-
-    /**
-     * 
-     * @return string
-     */
-    protected function getHelpLink()
-    {
-        return 'HL_OPTIONS_WORDBAN';
-    }
 
     /**
      * 

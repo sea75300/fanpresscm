@@ -104,7 +104,7 @@ fpcm.import = {
             fpcm.dom.fromId('fpcm-ui-csv-upload').addClass('fpcm ui-hidden');
             fpcm.dom.fromId('fpcm-ui-csv-settings').addClass('fpcm ui-hidden');
             
-            fpcm.ui.confirmDialog({
+            fpcm.ui_dialogs.confirmDlg({
                 clickYes: function () {
                     fpcm.worker.postMessage({
                         namespace: 'import',
@@ -279,7 +279,7 @@ fpcm.import = {
 
         html = html.join('\n');
 
-        fpcm.ui.dialog({
+        fpcm.ui_dialogs.create({
             title: 'GLOBAL_PREVIEW',
             dialogId: 'csv-import-preview',
             content: html,

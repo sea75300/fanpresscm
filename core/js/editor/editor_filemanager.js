@@ -16,7 +16,7 @@ if (fpcm.editor !== undefined) {
             fmgrMode = fpcm.vars.jsvars.filemanagerMode;
         }
 
-        fpcm.ui.dialog({
+        fpcm.ui_dialogs.create({
             id: 'editor-html-filemanager',
             title: 'HL_FILES_MNG',
             closeButton: true,

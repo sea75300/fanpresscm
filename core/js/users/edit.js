@@ -15,7 +15,7 @@ fpcm.useredit = {
 
         fpcm.dom.bindClick('#openQr', function(_ui) {
 
-            fpcm.ui.dialog({
+            fpcm.ui_dialogs.create({
                 image: _ui.delegateTarget.href,
                 title: _ui.delegateTarget.innerText,
                 class: 'text-center',

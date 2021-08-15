@@ -70,7 +70,7 @@ class commentedit extends \fpcm\controller\abstracts\controller implements \fpcm
      */
     protected function getActiveNavigationElement()
     {
-        return 'itemnav-item-editcomments';
+        return 'editcomments';
     }
 
     /**

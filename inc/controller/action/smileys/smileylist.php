@@ -9,33 +9,17 @@
 
 namespace fpcm\controller\action\smileys;
 
-class smileylist extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\isAccessible {
+class smileylist extends \fpcm\controller\abstracts\controller
+implements \fpcm\controller\interfaces\isAccessible {
 
-    use \fpcm\controller\traits\common\dataView;
+    use \fpcm\controller\traits\common\dataView,
+        \fpcm\controller\traits\theme\nav\smileys;
     
     /**
      * Smiley-Liste
      * @var \fpcm\model\files\smileylist
      */
     protected $smileyList;
-
-    /**
-     * 
-     * @return bool
-     */
-    public function isAccessible(): bool
-    {
-        return $this->permissions->system->smileys;
-    }
-
-    /**
-     * 
-     * @return string
-     */
-    protected function getHelpLink()
-    {
-        return 'HL_OPTIONS_SMILEYS';
-    }
 
     /**
      * 

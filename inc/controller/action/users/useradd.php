@@ -17,16 +17,6 @@ class useradd extends userbase {
      */
     protected $author;
 
-    protected function getHelpLink()
-    {
-        return 'HL_OPTIONS_USERS';
-    }
-
-    protected function getActiveNavigationElement()
-    {
-        return 'submenu-itemnav-item-users';
-    }   
-
     public function process()
     {
         parent::process();

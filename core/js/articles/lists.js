@@ -73,7 +73,7 @@ fpcm.articles = {
 
         fpcm.dom.fromId('opensearch').click(function () {
 
-            var sDlg = fpcm.ui.dialog({
+            var sDlg = fpcm.ui_dialogs.create({
                 id: 'articles-search',
                 title: 'ARTICLES_SEARCH',
                 closeButton: true,
@@ -173,7 +173,7 @@ fpcm.articles = {
     
     articleActionsTweet: function() {
 
-        fpcm.ui.confirmDialog({
+        fpcm.ui_dialogs.confirmDlg({
             clickNoDefault: true,
             clickYes: function() {
                 let ids = fpcm.ui.getCheckboxCheckedValues('.fpcm-ui-list-checkbox');
@@ -244,7 +244,7 @@ fpcm.articles = {
 
             var articleId = fpcm.dom.fromTag(this).data('articleid');
             
-            fpcm.ui.confirmDialog({
+            fpcm.ui_dialogs.confirmDlg({
                 
                 clickYes: function () {
                     fpcm.ajax.exec('articles/delete', {
@@ -284,7 +284,7 @@ fpcm.articles = {
             return false;
         }
 
-        fpcm.ui.confirmDialog({
+        fpcm.ui_dialogs.confirmDlg({
 
             clickYes: function () {
                 fpcm.ajax.exec('articles/delete', {

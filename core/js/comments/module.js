@@ -93,7 +93,7 @@ fpcm.comments = {
         fpcm.dom.fromId('opensearch').unbind('click');
         fpcm.dom.fromId('opensearch').click(function () {
 
-            fpcm.ui.dialog({
+            fpcm.ui_dialogs.create({
                 id: 'comments-search',
                 title: 'ARTICLES_SEARCH',
                 closeButton: true,

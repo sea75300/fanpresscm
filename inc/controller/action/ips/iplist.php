@@ -17,7 +17,8 @@ class iplist extends \fpcm\controller\abstracts\controller
 implements \fpcm\controller\interfaces\isAccessible,
            \fpcm\controller\interfaces\requestFunctions {
 
-    use \fpcm\controller\traits\common\dataView;
+    use \fpcm\controller\traits\common\dataView,
+        \fpcm\controller\traits\theme\nav\ips;
 
     /**
      *
@@ -31,32 +32,6 @@ implements \fpcm\controller\interfaces\isAccessible,
      */
     private $notfoundStr = '';
 
-    /**
-     * 
-     * @return bool
-     */
-    public function isAccessible(): bool
-    {
-        return $this->permissions->system->ipaddr;
-    }
-
-    /**
-     * 
-     * @return string
-     */
-    protected function getHelpLink()
-    {
-        return 'HL_OPTIONS_IPBLOCKING';
-    }
-
-    /**
-     * 
-     * @return string
-     */
-    protected function getActiveNavigationElement()
-    {
-        return 'submenu-itemnav-item-ips';
-    }
 
     /**
      * Request-Handler

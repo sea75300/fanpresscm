@@ -150,7 +150,7 @@ fpcm.editor = {
                         _par.url = result.shortend;
                     }
 
-                    fpcm.ui.dialog(_par);
+                    fpcm.ui_dialogs.create(_par);
                 }
             });
 
@@ -165,21 +165,12 @@ fpcm.editor = {
     
     showCommentLayer: function(_url) {
 
-        fpcm.ui.dialog({
+        fpcm.ui_dialogs.create({
             id: 'editor-comments',
             title: 'COMMENTS_EDIT',
             url: _url,
             closeButton: true,
             dlButtons  : [
-                {
-                    text: 'GLOBAL_SAVE',
-                    icon: "save",
-                    primary: true,
-                    click: function(_ui) {
-                        fpcm.dom.findElementInDialogFrame(_ui, '#btnCommentSave').click();
-                        fpcm.ui_tabs.show('#tabs-editor', 2);
-                    }
-                },
                 {
                     text: 'COMMMENT_LOCKIP',
                     icon: "lock",
@@ -195,7 +186,16 @@ fpcm.editor = {
                         let _el = fpcm.dom.findElementInDialogFrame(_ui, '#whoisIp');
                         window.open(_el[0].href, '_blank', 'width=700,height=500,scrollbars=yes,resizable=yes,');
                     }
-                }                           
+                },
+                {
+                    text: 'GLOBAL_SAVE',
+                    icon: "save",
+                    primary: true,
+                    click: function(_ui) {
+                        fpcm.dom.findElementInDialogFrame(_ui, '#btnCommentSave').click();
+                        fpcm.ui_tabs.show('#tabs-editor', 2);
+                    }
+                }
             ]
         });
         

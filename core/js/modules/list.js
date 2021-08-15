@@ -24,7 +24,7 @@ fpcm.modulelist = {
 
         fpcm.dom.bindClick('a.fpcm-ui-modulelist-action-local-update', function(_ui) {
             var _url = _ui.delegateTarget.href;
-            fpcm.ui.confirmDialog({
+            fpcm.ui_dialogs.confirmDlg({
                 clickNoDefault: true,
                 clickYes: function () {
                     fpcm.ui.relocate(_url);
@@ -49,7 +49,7 @@ fpcm.modulelist = {
                 params.fromDir = fromDir;
             }
 
-            fpcm.ui.confirmDialog({                
+            fpcm.ui_dialogs.confirmDlg({                
                 clickYes: function () {
                     fpcm.ajax.post('modules/exec', {
                         data: params,
@@ -86,7 +86,7 @@ fpcm.modulelist = {
         });
 
         fpcm.dom.bindClick('a.fpcm-ui-modulelist-info', function(_ui) {
-            fpcm.ui.dialog({
+            fpcm.ui_dialogs.create({
                 id: 'modulelist-infos',
                 title: 'MODULES_LIST_INFORMATIONS',
                 url: _ui.delegateTarget.href,

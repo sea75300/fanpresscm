@@ -102,7 +102,7 @@ fpcm.system = {
             }
         });
 
-        fpcm.ui.dialog({
+        fpcm.ui_dialogs.create({
             id: 'sessioncheck',
             content: fpcm.ui.translate('SESSION_TIMEOUT'),
             dlButtons: buttons = [
@@ -187,7 +187,7 @@ fpcm.system = {
             }
         }
 
-        fpcm.ui.dialog({
+        fpcm.ui_dialogs.create({
             id: dialogId,
             title: 'GLOBAL_EDIT_SELECTED',
             closeButton: true,
@@ -200,7 +200,7 @@ fpcm.system = {
                     clickClose: true,
                     click: function () {
 
-                        fpcm.ui.confirmDialog({
+                        fpcm.ui_dialogs.confirmDlg({
                             defaultYes: true,
                             clickYes: function () {
 
@@ -304,7 +304,7 @@ fpcm.system = {
 
     emptyTrash: function (_params) {
 
-        fpcm.ui.confirmDialog({
+        fpcm.ui_dialogs.confirmDlg({
 
             clickYes: function () {
                 
@@ -353,7 +353,7 @@ fpcm.system = {
                 },
                 execDone: function (result) {
 
-                    fpcm.ui.dialog({
+                    fpcm.ui_dialogs.create({
                         id: 'help',
                         title: 'HL_HELP',
                         content: result,

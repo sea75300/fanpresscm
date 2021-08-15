@@ -16,7 +16,7 @@ fpcm.langedit = {
         fpcm.dom.fromId('btnNew').unbind('click');
         fpcm.dom.fromId('btnNew').click(function() {
 
-            fpcm.ui.dialog({
+            fpcm.ui_dialogs.create({
                 id: 'langform-new',
                 title: 'New language variable ',
                 content: '<input typer="text" id="fpcm-langedit-newvar" class="form-control mb-1" placeholder="Variable name"><br>\n\
@@ -66,7 +66,7 @@ fpcm.langedit = {
                 '<textarea class="fpcm-ui-full-width fpcm-ui-full-height" id="' + newTextid + '">' + fpcm.dom.fromId(oldTextId).val() + '</textarea>'
             ];
 
-            fpcm.ui.dialog({
+            fpcm.ui_dialogs.create({
                 id: 'langform-' + data.dest,
                 title: 'Edit language var: ' + data.var,
                 content: content.join('\n'),

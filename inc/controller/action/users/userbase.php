@@ -12,7 +12,8 @@ namespace fpcm\controller\action\users;
 class userbase extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\isAccessible {
 
     use \fpcm\controller\traits\common\timezone,
-        \fpcm\controller\traits\users\authorImages;
+        \fpcm\controller\traits\users\authorImages,
+        \fpcm\controller\traits\theme\nav\users;
 
     /**
      *
@@ -32,29 +33,6 @@ class userbase extends \fpcm\controller\abstracts\controller implements \fpcm\co
      */
     protected $showExtended = false;
 
-    public function isAccessible(): bool
-    {
-        return $this->permissions->system->users;
-    }
-
-    /**
-     * 
-     * @return string
-     */
-    protected function getActiveNavigationElement()
-    {
-        return 'submenu-itemnav-item-users';
-    }
-
-    /**
-     * 
-     * @return string
-     */
-    protected function getHelpLink()
-    {
-        return 'HL_OPTIONS_USERS';
-    }
-
     /**
      * 
      * @return string
@@ -62,6 +40,15 @@ class userbase extends \fpcm\controller\abstracts\controller implements \fpcm\co
     protected function getViewPath() : string
     {
         return 'users/usereditor';
+    }
+
+    /**
+     * 
+     * @return bool
+     */
+    public function isAccessible(): bool
+    {
+        return $this->permissions->system->users;
     }
 
     /**

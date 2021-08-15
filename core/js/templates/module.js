@@ -82,7 +82,7 @@ fpcm.templates = {
         fpcm.dom.fromClass('fpcm-articletemplates-edit').click(function() {
 
             fpcm.ui_loader.hide();
-            fpcm.ui.dialog({
+            fpcm.ui_dialogs.create({
                 title: 'TEMPLATE_HL_DRAFTS_EDIT',
                 url: this.attributes.href.value,
                 closeButton: true,
@@ -114,7 +114,7 @@ fpcm.templates = {
                 tplid  : fpcm.dom.fromId('templateid').val()
             },
             execDone: function() {
-                fpcm.ui.dialog({
+                fpcm.ui_dialogs.create({
                     id: 'templatepreview-layer',
                     closeButton: true,
                     url: fpcm.vars.actionPath + 'templates/preview&tid=' + fpcm.dom.fromId('templateid').val()

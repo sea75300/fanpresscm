@@ -686,7 +686,11 @@ class view {
             $this->defaultViewVars->currentUser = $this->session->getCurrentUser();
             $this->defaultViewVars->loginTime = $this->session->getLogin();
             $this->defaultViewVars->navigation = (new \fpcm\model\theme\navigation())->render();
-            $this->defaultViewVars->navigationActiveModule = \fpcm\classes\tools::getNavigationActiveCheckStr();
+            
+            if (!trim($this->defaultViewVars->navigationActiveModule)) {
+                $this->defaultViewVars->navigationActiveModule = \fpcm\classes\tools::getNavigationActiveCheckStr();
+            }
+            
             $this->defaultViewVars->loggedIn = true;
             $this->defaultViewVars->permissions = \fpcm\classes\loader::getObject('\fpcm\model\permissions\permissions');
         }
@@ -851,8 +855,9 @@ class view {
         if (!trim($elementId)) {
             return false;
         }
-
-        $this->jsVars['navigationActive'] = (string) $elementId;
+        
+        $this->defaultViewVars->navigationActiveModule = $elementId;
+        return true;
     }
 
     /**

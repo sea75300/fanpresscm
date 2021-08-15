@@ -11,7 +11,8 @@ namespace fpcm\controller\action\smileys;
 
 abstract class smileybase extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\isAccessible {
 
-    use \fpcm\controller\traits\common\simpleEditForm;
+    use \fpcm\controller\traits\common\simpleEditForm,
+        \fpcm\controller\traits\theme\nav\smileys;
     
     /**
      *
@@ -24,25 +25,6 @@ abstract class smileybase extends \fpcm\controller\abstracts\controller implemen
      * @var int
      */
     protected $id;
-
-    /**
-     * 
-     * @return bool
-     */
-    public function isAccessible(): bool
-    {
-        return $this->permissions->system->smileys;
-    }
-
-    final protected function getHelpLink()
-    {
-        return 'HL_OPTIONS_SMILEYS';
-    }
-
-    final protected function getActiveNavigationElement()
-    {
-        return 'submenu-itemnav-item-smileys';
-    }
 
     public function request()
     {

@@ -20,11 +20,11 @@
 
             <?php foreach ($ng as $area => $ni) : ?>   
 
-                <li class="nav-item mx-2 <?php if ($ni->hasSubmenu()) : ?>dropdown<?php endif; ?>"  id="item<?php print $ni->getId(); ?>">
-                    <a class="fpcm ui-navigation-l1 dropdown-item nav-link fpcm nav-level-1 text-center <?php print $ni->getDefaultCss(); ?>"
+                <li class="nav-item mx-2 <?php if ($ni->hasSubmenu()) : ?>dropdown<?php endif; ?>"  id="<?php print $ni->getId(); ?>">
+                    <a class="fpcm ui-navigation-l1 dropdown-item nav-link fpcm nav-level-1 text-center <?php print $ni->getDefaultCss($theView->navigationActiveModule); ?>"
                        href="<?php print $ni->getFullUrl(); ?>"
                        <?php if ($ni->hasSubmenu()) : ?> role="button" data-bs-toggle="dropdown" aria-expanded="false"<?php endif; ?>
-                       <?php if ($ni->isActive()) : ?>aria-current="page"<?php endif; ?>>
+                       <?php if ($ni->isActive($theView->navigationActiveModule)) : ?>aria-current="page"<?php endif; ?>>
                         
                         <span class="d-block"><?php print $ni->getIcon(); ?></span>
                         <span class="fpcm nav-text"><?php print $ni->getDescription(); ?></span>
@@ -35,12 +35,10 @@
                     <ul class="dropdown-menu shadow fpcm ui-blurring" aria-labelledby="item<?php print $ni->getId(); ?>">
                         
                         <?php foreach ($ni->getSubmenu() as $si) : ?>
-                        
-                        
-                        <li id="submenu-item<?php print $si->getId(); ?>">
-                            <a class="dropdown-item nav-link <?php print $si->getDefaultCss(); ?>"
+                        <li id="<?php print $si->getId(); ?>">
+                            <a class="dropdown-item nav-link <?php print $si->getDefaultCss($theView->navigationActiveModule); ?>"
                                href="<?php print $si->getFullUrl(); ?>"
-                               <?php if ($ni->isActive()) : ?>aria-current="true"<?php endif; ?>>
+                               <?php if ($ni->isActive($theView->navigationActiveModule)) : ?>aria-current="true"<?php endif; ?>>
                                 <?php print $si->getIcon(); ?>
                                 <?php print $si->getDescription(); ?>
                             </a>

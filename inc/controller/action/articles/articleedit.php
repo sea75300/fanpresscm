@@ -45,7 +45,7 @@ class articleedit extends articlebase {
      */
     protected function getActiveNavigationElement()
     {
-        return 'itemnav-id-editnews';
+        return 'editnews';
     }
 
     /**

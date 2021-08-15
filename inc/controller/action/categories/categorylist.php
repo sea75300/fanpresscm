@@ -15,7 +15,8 @@ namespace fpcm\controller\action\categories;
  */
 class categorylist extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\isAccessible {
 
-    use \fpcm\controller\traits\common\dataView;
+    use \fpcm\controller\traits\common\dataView,
+        \fpcm\controller\traits\theme\nav\categories;
 
     /**
      *
@@ -37,29 +38,11 @@ class categorylist extends \fpcm\controller\abstracts\controller implements \fpc
 
     /**
      * 
-     * @return bool
-     */
-    public function isAccessible(): bool
-    {
-        return $this->permissions->system->categories;
-    }
-
-    /**
-     * 
      * @return string
      */
     protected function getViewPath() : string
     {
         return 'components/dataview';
-    }
-
-    /**
-     * 
-     * @return string
-     */
-    protected function getHelpLink()
-    {
-        return 'HL_CATEGORIES_MNG';
     }
 
     /**

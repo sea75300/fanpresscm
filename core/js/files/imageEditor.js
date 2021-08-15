@@ -12,7 +12,7 @@ fpcm.imageEditor = {
 
     initEditorDialog: function(_param) {
 
-        fpcm.ui.dialog({
+        fpcm.ui_dialogs.create({
             id: 'files-editor',
             title: 'FILE_LIST_EDIT',
             class: 'modal-fullscreen',
@@ -57,7 +57,7 @@ fpcm.imageEditor = {
                             placeholder: fpcm.ui.translate('SYSTEM_OPTIONS_NEWSSHOWMAXIMGSIZEHEIGHT'),
                         });
 
-                        fpcm.ui.dialog({
+                        fpcm.ui_dialogs.create({
                             id: 'files-editor_prop',
                             title: fpcm.ui.translate('FILE_LIST_EDIT_RESIZE'),
                             closeButton: true,
@@ -130,7 +130,8 @@ fpcm.imageEditor = {
                 },
                 {                   
                     text: 'GLOBAL_RESET',
-                    icon: "undo" ,                        
+                    icon: "undo" ,
+                    showLabel: false,
                     click: function() {
                         fpcm.filemanager.cropper.reset();
                     }

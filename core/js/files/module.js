@@ -151,7 +151,7 @@ fpcm.filemanager = {
             
             var _docname = this.dataset.file;
 
-            fpcm.ui.dialog({
+            fpcm.ui_dialogs.create({
                 id: 'files-rename',
                 title: 'FILE_LIST_RENAME_NEWNAME',
                 closeButton: true,
@@ -207,7 +207,7 @@ fpcm.filemanager = {
 
         var _docname = this.dataset.file;
 
-        fpcm.ui.dialog({
+        fpcm.ui_dialogs.create({
             id: 'files-alttext',
             title: 'FILE_LIST_ALTTEXT',
             closeButton: true,
@@ -256,7 +256,7 @@ fpcm.filemanager = {
             var filename = el.data('filename');
             var path = el.data('file');
 
-            fpcm.ui.confirmDialog({
+            fpcm.ui_dialogs.confirmDlg({
                 clickNoDefault: true,
                 clickYes: function () {
 
@@ -331,7 +331,7 @@ fpcm.filemanager = {
                 return false;
             }
 
-            fpcm.ui.confirmDialog({
+            fpcm.ui_dialogs.confirmDlg({
                 clickYes: function () {
                     fpcm.ajax.post('files/delete', {
                         dataType: 'json',
@@ -375,7 +375,7 @@ fpcm.filemanager = {
             
             var el = fpcm.dom.fromTag(this);
 
-            fpcm.ui.dialog({
+            fpcm.ui_dialogs.create({
                 id: 'files-properties',
                 title: fpcm.ui.translate('GLOBAL_PROPERTIES'),
                 closeButton: true,
@@ -487,7 +487,7 @@ fpcm.filemanager = {
 
         fpcm.dom.fromId('opensearch').click(function () {
 
-            var sDlg = fpcm.ui.dialog({
+            fpcm.ui_dialogs.create({
                 id: 'files-search',
                 title: 'ARTICLES_SEARCH',
                 closeButton: true,

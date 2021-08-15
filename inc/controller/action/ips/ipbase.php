@@ -16,7 +16,8 @@ namespace fpcm\controller\action\ips;
 abstract class ipbase extends \fpcm\controller\abstracts\controller
 implements \fpcm\controller\interfaces\isAccessible, \fpcm\controller\interfaces\requestFunctions {
 
-    use \fpcm\controller\traits\common\simpleEditForm;
+    use \fpcm\controller\traits\common\simpleEditForm,
+        \fpcm\controller\traits\theme\nav\ips;
     
     /**
      * Ip-Adress-Objekt
@@ -29,25 +30,6 @@ implements \fpcm\controller\interfaces\isAccessible, \fpcm\controller\interfaces
      * @var \fpcm\model\ips\ipaddress
      */
     protected $ipaddress;
-
-    /**
-     * 
-     * @return bool
-     */
-    public function isAccessible(): bool
-    {
-        return $this->permissions->system->ipaddr;
-    }
-
-    protected function getHelpLink()
-    {
-        return 'HL_OPTIONS_IPBLOCKING';
-    }
-
-    protected function getActiveNavigationElement()
-    {
-        return 'submenu-itemnav-item-ips';
-    }
 
     public function request()
     {

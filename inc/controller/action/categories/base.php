@@ -16,7 +16,8 @@ namespace fpcm\controller\action\categories;
 class base extends \fpcm\controller\abstracts\controller
 implements \fpcm\controller\interfaces\isAccessible, \fpcm\controller\interfaces\requestFunctions {
 
-    use \fpcm\controller\traits\common\simpleEditForm;
+    use \fpcm\controller\traits\common\simpleEditForm,
+        \fpcm\controller\traits\theme\nav\categories;
     
     /**
      *
@@ -27,25 +28,6 @@ implements \fpcm\controller\interfaces\isAccessible, \fpcm\controller\interfaces
     protected $saveMessage = 'added';
 
     protected $tabHeadline = 'CATEGORIES_ADD';
-
-    /**
-     * 
-     * @return bool
-     */
-    public function isAccessible(): bool
-    {
-        return $this->permissions->system->categories;
-    }
-
-    protected function getHelpLink()
-    {
-        return 'HL_CATEGORIES_MNG';
-    }
-
-    protected function getActiveNavigationElement()
-    {
-        return 'submenu-itemnav-item-categories';
-    }
 
     public function process()
     {

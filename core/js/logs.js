@@ -45,7 +45,7 @@ fpcm.logs = {
             
             var elData = fpcm.dom.fromTag(this).data();
             
-            fpcm.ui.confirmDialog({
+            fpcm.ui_dialogs.confirmDlg({
                 clickNoDefault: true,
                 clickYes: function () {
                     fpcm.logs.clearLogs(fpcm.vars.jsvars.currentLog);

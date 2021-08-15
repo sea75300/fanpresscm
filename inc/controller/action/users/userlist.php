@@ -11,6 +11,8 @@ namespace fpcm\controller\action\users;
 
 class userlist extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\isAccessible {
 
+    use \fpcm\controller\traits\theme\nav\users;
+    
     /**
      *
      * @var \fpcm\model\users\userList
@@ -50,18 +52,13 @@ class userlist extends \fpcm\controller\abstracts\controller implements \fpcm\co
         return 'users/userlist';
     }
 
+    /**
+     * 
+     * @return bool
+     */
     public function isAccessible(): bool
     {
         return $this->permissions->system->users;
-    }
-
-    /**
-     * 
-     * @return string
-     */
-    protected function getHelpLink()
-    {
-        return 'HL_OPTIONS_USERS';
     }
 
     /**
