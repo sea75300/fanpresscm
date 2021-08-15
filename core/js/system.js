@@ -356,8 +356,10 @@ fpcm.system = {
                     fpcm.ui_dialogs.create({
                         id: 'help',
                         title: 'HL_HELP',
+                        size: 'xl',
                         content: result,
-                        closeButton: true
+                        closeButton: true,
+                        headlines: true
                     });
                 }
             });

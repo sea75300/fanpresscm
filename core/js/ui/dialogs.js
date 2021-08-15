@@ -97,7 +97,7 @@ fpcm.ui_dialogs = {
             let _modal = fpcm.vars.ui.dialogTpl;
 
             fpcm.dom.appendHtml('#fpcm-body', _modal.replace('{$title}', fpcm.ui.translate(_params.title))
-                  .replace('{$id}', _dlgId)
+                  .replace(/\{\$id\}/g, _dlgId)
                   .replace('{$opener}', _params.opener)
                   .replace('{$content}', _params.content)
                   .replace('{$class}', _params.class)
@@ -213,6 +213,35 @@ fpcm.ui_dialogs = {
             }
 
         }
+        
+        if (!_params.headlines) {
+            return true;
+        }
+        
+        let _headlines = fpcm.dom.fromTag(_domEl).find('h3');
+        if (!_headlines.length) {
+            return true;
+        }
+
+        let _links = [];
+        for (var i = 0, max = _headlines.length; i < max; i++) {
+            
+            let _hl = _headlines[i];
+            
+            _hl.id = _dlgId + '-hl-' + i;
+            
+            _links.push('<li class="nav-item"><a class="nav-link" href="#' + _hl.id + '">' + _hl.innerText + '</a></li>');            
+        }
+
+        fpcm.dom.fromId(_dlgId + '-navbar').find('ul').append(_links.join('')).removeClass('d-none');
+        fpcm.dom.fromId(_dlgId + '-navbar').removeClass('d-none');
+
+        var dataSpyList = [].slice.call(document.querySelectorAll('#' + _dlgId + ' [data-bs-spy="scroll"]'))
+        dataSpyList.forEach(function (dataSpyEl) {
+            bootstrap.ScrollSpy.getOrCreateInstance(dataSpyEl).refresh();
+        });
+        
+        
     },
     
     confirmDlg: function(_params) {

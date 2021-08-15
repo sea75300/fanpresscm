@@ -5,7 +5,10 @@
                 <h5 class="modal-title" id="exampleModalLabel">{$title}</h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body {$modalBodyClass}">
+            <nav id="{$id}-navbar" class="navbar navbar-light bg-white d-none">
+                <ul class="nav nav-pills px-2" role="tablist"></u>
+            </nav>
+            <div class="modal-body position-relative {$modalBodyClass}" data-bs-spy="scroll" data-bs-target="#{$id}-navbar" data-bs-offset="0">
                 {$content}
             </div>
             <div class="modal-footer">
