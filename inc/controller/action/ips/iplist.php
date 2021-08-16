@@ -67,7 +67,7 @@ implements \fpcm\controller\interfaces\isAccessible,
         $this->view->setFormAction('ips/list');
         $this->view->addJsFiles(['ipadresses.js']);
         $this->view->addButtons([
-            (new \fpcm\view\helper\linkButton('addnew'))->setUrl(\fpcm\classes\tools::getFullControllerLink('ips/add'))->setText('IPLIST_ADDIP')->setIcon('globe')->setClass('fpcm-loader'),
+            (new \fpcm\view\helper\linkButton('addnew'))->setUrl(\fpcm\classes\tools::getFullControllerLink('ips/add'))->setText('GLOBAL_NEW')->setIcon('globe')->setClass('fpcm-loader'),
             (new \fpcm\view\helper\deleteButton('delete'))->setClass('fpcm-ui-button-confirm')
         ]);
         $this->view->render();

@@ -5,15 +5,6 @@ input, select, textarea, option, button {
     font-size: 1em;
 }
 
-input[type=text][readonly],
-input[type=number][readonly],
-input[type=url][readonly],
-input[type=email][readonly],
-input[type=datetime-local][readonly],
-input[type=date][readonly],
-input[type=time][readonly],
-input[type=password][readonly],
-textarea[readonly],
 .fpcm-ui-readonly {
     opacity: 0.35;
 }

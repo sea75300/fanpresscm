@@ -92,9 +92,12 @@ span.fpcm-ui-update-icons span.fpcm-ui-update-iconstatus.fpcm-ui-update-iconstat
 }
 
 legend,
+.navbar-toggler:hover,
+.navbar-toggler:focus,
+.navbar-toggler:active,
 #fpcm-loader > div.fpcm-loader-icon > span.fpcm.ui-label,
 #fpcm-loader > div.fpcm-loader-icon > span.fpcm.ui-label * {
-    color: #fff;
+    color: #fefefe;
 }
 
 @keyframes fpcm-loader-glow {
@@ -113,14 +116,7 @@ legend,
     background-color: var(--bs-primary);
 }
 
-.navbar-toggler:hover,
-.navbar-toggler:focus,
-.navbar-toggler:active {
-    color: #fff;
-}
-
-textarea,
-.fpcm-ui-background-white-100 {
+textarea {
     background: #fefefe;
 }
 

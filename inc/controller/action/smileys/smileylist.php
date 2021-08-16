@@ -63,7 +63,7 @@ implements \fpcm\controller\interfaces\isAccessible {
         $this->initDataView();
 
         $this->view->addButtons([
-            (new \fpcm\view\helper\linkButton('addSmiley'))->setText('FILE_LIST_SMILEYADD')->setUrl(\fpcm\classes\tools::getFullControllerLink('smileys/add'))->setClass('fpcm-loader')->setIcon('plus'),
+            (new \fpcm\view\helper\linkButton('addSmiley'))->setText('GLOBAL_NEW')->setUrl(\fpcm\classes\tools::getFullControllerLink('smileys/add'))->setIcon('plus'),
             (new \fpcm\view\helper\deleteButton('deleteSmiley'))->setClass('fpcm-ui-button-confirm')
         ]);
         

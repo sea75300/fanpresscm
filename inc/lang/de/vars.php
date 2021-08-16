@@ -310,6 +310,7 @@ $lang = array (
   'GLOBAL_INSERT' => 'Einfügen',
   'GLOBAL_LASTCHANGE' => 'Zuletzt geändert',
   'GLOBAL_METADATA' => 'Metainformationen',
+  'GLOBAL_NEW' => 'Neu',
   'GLOBAL_NEXT' => 'Weiter',
   'GLOBAL_NO' => 'Nein',
   'GLOBAL_NOCHANGE' => 'Keine Änderungen durchgeführt',
