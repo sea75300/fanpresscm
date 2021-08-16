@@ -10,7 +10,7 @@ if (fpcm === undefined) {
 
 fpcm.articles_trash = {
 
-    initAfter: function() {
+    init: function() {
 
         fpcm.dataview.render('articlelist', {
             onRenderAfter: function() {
@@ -18,23 +18,6 @@ fpcm.articles_trash = {
             }
         });
 
-    },
-    
-    assignActions: function() {
-        
-        var action = fpcm.dom.fromId('action').val();
-
-        if (action == 'trash') {
-            fpcm.articles_trash.emptyTrash();
-            return -1;
-        }
-
-        if (action == 'restore') {
-            fpcm.articles_trash.restoreFromTrash();
-            return -1;
-        }
-
-        return true;
     },
 
     emptyTrash: function() {
@@ -62,10 +45,6 @@ fpcm.articles_trash = {
 
         return true;
 
-    },
-    
-    resetActionsMenu: function () {
-        fpcm.dom.resetValuesByIdsSelect('action');
-        return true;
     }
+
 };

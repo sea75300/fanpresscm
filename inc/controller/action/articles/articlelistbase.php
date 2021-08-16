@@ -126,7 +126,7 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller imp
 
         $buttons[] = (new \fpcm\view\helper\button('opensearch', 'opensearch'))->setText('ARTICLES_SEARCH')->setIcon('search')->setIconOnly(true);
         $buttons[] = (new \fpcm\view\helper\select('action'))->setOptions($this->articleActions);
-        $buttons[] = (new \fpcm\view\helper\submitButton('doAction'))->setText('GLOBAL_OK')->setClass('fpcm-ui-articleactions-ok')->setIcon('check')->setIconOnly(true)->setData(['hidespinner' => true]);
+        $buttons[] = (new \fpcm\view\helper\submitButton('doAction'))->setText('GLOBAL_OK')->setIcon('check')->setIconOnly(true)->setData(['hidespinner' => true])->setClass('fpcm-ui-button-confirm');
         
         $this->view->addPager((new \fpcm\view\helper\pager($this->listAction, $this->page, 1, $this->config->articles_acp_limit, 1)));
         $this->view->addButtons($buttons);

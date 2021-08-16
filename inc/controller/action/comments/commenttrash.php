@@ -87,18 +87,23 @@ class commenttrash extends \fpcm\controller\abstracts\controller implements \fpc
         $this->view->addJsFiles(['comments/module.js']);
 
         $this->view->addButtons([    
-            (new \fpcm\view\helper\select('action'))->setOptions(['ARTICLE_LIST_RESTOREARTICLE' => 'restoreFromTrash', 'ARTICLE_LIST_EMPTYTRASH' => 'emptyTrash']),
-            (new \fpcm\view\helper\submitButton('doAction'))->setIcon('check')->setText('GLOBAL_OK')->setIconOnly(true)->setClass('fpcm-ui-articleactions-ok')
-
+            (new \fpcm\view\helper\button('restoreFromTrash'))
+                ->setIcon('trash-restore')
+                ->setText('ARTICLE_LIST_RESTOREARTICLE')
+                ->setOnClick('comments.restoreFromTrash'),
+            (new \fpcm\view\helper\button('emptyTrash'))
+                ->setIcon('trash')
+                ->setText('ARTICLE_LIST_EMPTYTRASH')
+                ->setOnClick('comments.emptyTrash')
         ]);
-
-        $this->initDataView();
         
         $this->view->addTabs('comments', [
             (new \fpcm\view\helper\tabItem('tabs-comments-trash'))
                 ->setText('ARTICLES_TRASH')
                 ->setFile($this->getViewPath() . '.php')
         ]);
+
+        $this->initDataView();
     }
     
     protected function getDataViewCols()
