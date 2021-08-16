@@ -60,7 +60,7 @@ class articlelisttrash extends \fpcm\controller\abstracts\controller implements 
                 ->setText('ARTICLE_LIST_RESTOREARTICLE')
                 ->setOnClick('articles_trash.restoreFromTrash'),
             (new \fpcm\view\helper\button('emptyTrash'))
-                ->setIcon('trash')
+                ->setIcon('recycle')
                 ->setText('ARTICLE_LIST_EMPTYTRASH')
                 ->setOnClick('articles_trash.emptyTrash')
         ]);        

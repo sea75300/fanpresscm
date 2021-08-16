@@ -5,7 +5,7 @@
     </div>
     <?php if (in_array($mode, [2, 4]) && $file->existsFolder()) : ?>                    
         <div class="nav-item <?php print $buttonClasses; ?>">
-            <?php $theView->linkButton(uniqid('thumbsurl'))->setUrl($file->getThumbnailUrl())->setText('FILE_LIST_INSERT_THUMB')->setClass('fpcm-filelist-tinymce-thumb')->setIcon('plus-square ', 'far')->setIconOnly(true)->setData(['imgtext' => $file->getAltText() ? $file->getAltText() : $file->getFilename()]); ?>
+            <?php $theView->linkButton(uniqid('thumbsurl'))->setUrl($file->getThumbnailUrl())->setText('FILE_LIST_INSERT_THUMB')->setClass('fpcm-filelist-tinymce-thumb')->setIcon('plus-square', 'far')->setIconOnly(true)->setData(['imgtext' => $file->getAltText() ? $file->getAltText() : $file->getFilename()]); ?>
         </div>
         <div class="nav-item <?php print $buttonClasses; ?>">
             <?php $theView->linkButton(uniqid('imgsurl'))->setUrl($file->getImageUrl())->setText('FILE_LIST_INSERT_FULL')->setClass('fpcm-filelist-tinymce-full')->setIcon('plus-square')->setIconOnly(true)->setData(['imgtext' => $file->getAltText() ? $file->getAltText() : $file->getFilename()]); ?>
@@ -16,7 +16,7 @@
         </div>
     <?php elseif ($file->existsFolder()): ?>
         <div class="nav-item <?php print $buttonClasses; ?>">
-            <?php $theView->linkButton(uniqid('imgurl'))->setUrl($file->getImageUrl())->setText('FILE_LIST_OPEN_FULL')->setClass('fpcm link-fancybox')->setIcon('search-plus')->setIconOnly(true)->setTarget('_blank')->setData(['fancybox' => 'group']); ?>
+            <?php $theView->linkButton(uniqid('imgurl'))->setUrl($file->getImageUrl())->setText('FILE_LIST_OPEN_FULL')->setClass('fpcm link-fancybox')->setIcon('cloud')->setIconOnly(true)->setTarget('_blank')->setData(['fancybox' => 'group']); ?>
         </div>
         <?php endif; ?>
     <?php if ($theView->permissions->uploads->rename && $file->existsFolder()) : ?>

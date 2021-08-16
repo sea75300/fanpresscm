@@ -125,8 +125,30 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller imp
         }
 
         $buttons[] = (new \fpcm\view\helper\button('opensearch', 'opensearch'))->setText('ARTICLES_SEARCH')->setIcon('search')->setIconOnly(true);
-        $buttons[] = (new \fpcm\view\helper\select('action'))->setOptions($this->articleActions);
-        $buttons[] = (new \fpcm\view\helper\submitButton('doAction'))->setText('GLOBAL_OK')->setIcon('check')->setIconOnly(true)->setData(['hidespinner' => true])->setClass('fpcm-ui-button-confirm');
+        
+        $tweet = new \fpcm\model\system\twitter();
+
+        if ($tweet->checkRequirements() && $tweet->checkConnection()) {
+            $buttons[] = (new \fpcm\view\helper\button('newtweet'))
+                    ->setText('ARTICLE_LIST_NEWTWEET')
+                    ->setIcon('twitter', 'fab')
+                    ->setIconOnly(true)
+                    ->setOnClick('articles.articleActionsTweet');
+        }
+
+        $buttons[] = (new \fpcm\view\helper\button('articlecache'))
+                ->setText('ARTICLES_CACHE_CLEAR')
+                ->setIcon('hdd')
+                ->setIconOnly(true)
+                ->setOnClick('articles.clearMultipleArticleCache');
+
+        if ($this->permissions->article && $this->permissions->article->delete) {
+            $buttons[] = (new \fpcm\view\helper\button('delete'))
+                    ->setText('GLOBAL_DELETE')
+                    ->setIcon('trash')
+                    ->setIconOnly(true)
+                    ->setOnClick('articles.deleteMultipleArticle');
+        }
         
         $this->view->addPager((new \fpcm\view\helper\pager($this->listAction, $this->page, 1, $this->config->articles_acp_limit, 1)));
         $this->view->addButtons($buttons);
@@ -156,16 +178,6 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller imp
     {
         if (!$this->permissions) {
             return false;
-        }
-
-        $tweet = new \fpcm\model\system\twitter();
-
-        if ($tweet->checkRequirements() && $tweet->checkConnection()) {
-            $this->articleActions['ARTICLE_LIST_NEWTWEET'] = 'newtweet';
-        }
-
-        if ($this->permissions->article && $this->permissions->article->delete) {
-            $this->articleActions['GLOBAL_DELETE'] = 'delete';
         }
 
         $this->articleActions['ARTICLES_CACHE_CLEAR'] = 'articlecache';

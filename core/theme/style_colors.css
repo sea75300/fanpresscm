@@ -12,7 +12,8 @@ i, em,
 span.fpcm-ui-button-shorthelp,
 div.fpcm-ui-inline-loader,
 .cm-s-fpcm.CodeMirror,
-.fpcm-ui-color-grey-dark {
+.fpcm-ui-color-grey-dark,
+a.nav-link {
     color: #454545;
 }
 
@@ -22,8 +23,9 @@ h1 {
 
 h3,
 ins,
-.text-primary {
-    color: #0d6efd;
+.text-primary,
+a.fpcm.ui-nav-link.nav-link.active {
+    color: var(--bs-primary);
 }
 
 h3.fpcm.dashboard-container.headline span.fpcm-ui-icon {
@@ -33,20 +35,19 @@ h3.fpcm.dashboard-container.headline span.fpcm-ui-icon {
 .btn-primary,
 .form-check-input:checked,
 span.fpcm-ui-badge {
-    background-color: #0d6efd;
+    background-color: var(--bs-primary);
 }
 
 .bg-primary {
-    background-color: #0d6efd !important;
+    background-color: var(--bs-primary) !important;
 }
 
 .border-primary {
-    border-color: #0d6efd;
+    border-color: var(--bs-primary);
 }
 
 .fpcm.ui-background-white-50p {
-    background: rgba(255,255,255,0.75);
-
+    background: rgba(255,255,255,0.5);
 }
 
 div.fpcm.ui-files-card div.fpcm.ui-files-item:nth-child(odd),
@@ -98,26 +99,18 @@ legend,
 
 @keyframes fpcm-loader-glow {
   from { text-shadow: none; }
-  to { text-shadow: 0 0 25px #0073ea; }
+  to { text-shadow: 0 0 25px var(--bs-primary); }
 }
 
 #fpcm-loader > div.fpcm-loader-icon > span:first-child {
     animation: fpcm-loader-glow 1.5s infinite alternate;
 }
 
-.nav-link {
-    color: #362b36;
-}
-
 legend,
 .navbar-toggler:hover,
 .navbar-toggler:focus,
-.navbar-toggler:active,
-.dropdown-item.active,
-.dropdown-item:active,
-.dropdown-menu-dark .dropdown-item:active,
-.dropdown-menu-dark .dropdown-item.active {
-    background-color: #0073ea;
+.navbar-toggler:active {
+    background-color: var(--bs-primary);
 }
 
 .navbar-toggler:hover,
@@ -137,10 +130,11 @@ div.fpcm.ui-files-card div.fpcm.ui-files-item:active,
 div.fpcm.ui-files-list div.fpcm.ui-files-item:hover,
 div.fpcm.ui-files-list div.fpcm.ui-files-item:focus,
 div.fpcm.ui-files-list div.fpcm.ui-files-item:active,
-div.fpcm-ui-dataview div.row:hover {
+div.fpcm-ui-dataview div.row:hover,
+a.fpcm.ui-nav-link.nav-link:hover,
+.dropdown-item:focus, .dropdown-item:hover {
     background: rgba(255, 239, 143, 0.5);
 }
-
 
 .fpcm-ui-input:invalid,
 .fpcm-ui-input:required {

@@ -169,38 +169,6 @@ fpcm.ui = {
         }
     },
     
-    closeDialog: function(_id, _parent) {
-        
-        if (!_id) {
-            return false;
-        }
-
-        if (!_parent) {
-            _parent = false;
-        }
-        
-        var _domEl = false;
-        var _bsObj = false;
-        
-        _id = 'fpcm-dialog-' + _id;
-        
-        _domEl = _parent ? window.parent.document.getElementById(_id) : document.getElementById(_id);
-        
-        if (!_domEl) {
-            console.warn('Item ' + _id + ' not found!');
-            return false;
-        }
-        
-        _bsObj = _parent ? window.parent.bootstrap.Modal.getOrCreateInstance(_domEl) : window.bootstrap.Modal.getOrCreateInstance(_domEl);
-        if (!_bsObj) {
-            console.warn('Failed to create bootstrap item instance for ' + _id + '!');
-            return false;
-        }
-
-        _bsObj.toggle(_domEl);
-        return true;
-    },
-    
     autocomplete: function(_elemClassId, _params) {
 
         if (fpcm.ui._autocompletes[_elemClassId]) {

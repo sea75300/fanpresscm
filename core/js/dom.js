@@ -225,6 +225,16 @@ fpcm.dom = {
         return true;
     },
     
+    resetCheckboxesByClass: function(_class, _value) {
+        
+        if (_value === undefined) {
+            _value = false;
+        }
+        
+        fpcm.dom.fromClass(_class).prop('checked', _value);
+        return true;
+    },
+    
     findElementInDialogFrame: function (_root, _element, _frame)
     {
         

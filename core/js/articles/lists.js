@@ -43,32 +43,6 @@ fpcm.articles = {
         });
     },
     
-    assignActions: function() {
-        
-        var action = fpcm.dom.fromId('action').val();
-
-        if (action == 'newtweet') {
-            fpcm.articles.articleActionsTweet();
-            return -1;
-        }
-
-        if (action == 'articlecache') {
-            fpcm.system.clearCache({
-                cache: fpcm.vars.jsvars.artCacheMod,
-                objid: 0
-            });
-            fpcm.articles.resetActionsMenu();
-            return -1;
-        }
-
-        if (action == 'delete') {
-            fpcm.articles.deleteMultipleArticle();
-            return -1;
-        }
-
-        return true;
-    },
-    
     initArticleSearch: function() {
 
         fpcm.dom.fromId('opensearch').click(function () {
@@ -183,6 +157,8 @@ fpcm.articles = {
                 }
 
                 fpcm.articles.execNewTweet(ids);
+                fpcm.dom.resetCheckboxesByClass('fpcm-ui-list-checkbox');
+                
             }
         });
 
@@ -309,6 +285,8 @@ fpcm.articles = {
                             txt: 'DELETE_FAILED_ARTICLE',
                             type: 'error',
                         }, true);
+                        
+                        fpcm.dom.resetCheckboxesByClass('fpcm-ui-list-checkbox');
                     }
                 });
             }
@@ -317,6 +295,16 @@ fpcm.articles = {
 
         return true;
 
+    },
+
+    clearMultipleArticleCache: function() {
+
+        fpcm.system.clearCache({
+            cache: fpcm.vars.jsvars.artCacheMod,
+            objid: 0
+        });
+        
+        fpcm.dom.resetCheckboxesByClass('fpcm-ui-list-checkbox');
     },
     
     resetActionsMenu: function () {

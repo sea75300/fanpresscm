@@ -205,15 +205,15 @@ if (fpcm.editor) {
 
         fpcm.editor.insert(fpcm.editor.getGalleryReplacement(_values), fpcm.vars.jsvars.editorGalleryTagEnd);
 
-        fpcm.ui.closeDialog('editor-html-filemanager', true);        
-        fpcm.ui.closeDialog('editor-html-insertimage');
+        fpcm.ui_dialogs.close('editor-html-filemanager', true);        
+        fpcm.ui_dialogs.close('editor-html-insertimage');
         return false;
     };
 
     fpcm.editor._insertToFields = function (_url, _title, _rel) {
         
         if (!_url || !_title) {
-            fpcm.ui.closeDialog('editor-html-filemanager');
+            fpcm.ui_dialogs.close('editor-html-filemanager');
             return false;
         }
 
@@ -239,7 +239,7 @@ if (fpcm.editor) {
             self.document.getElementById(relField).value  = _rel;
         }
 
-        fpcm.ui.closeDialog('editor-html-filemanager');        
+        fpcm.ui_dialogs.close('editor-html-filemanager');        
         return true;
     };
 

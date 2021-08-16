@@ -92,7 +92,7 @@ class commenttrash extends \fpcm\controller\abstracts\controller implements \fpc
                 ->setText('ARTICLE_LIST_RESTOREARTICLE')
                 ->setOnClick('comments.restoreFromTrash'),
             (new \fpcm\view\helper\button('emptyTrash'))
-                ->setIcon('trash')
+                ->setIcon('recycle')
                 ->setText('ARTICLE_LIST_EMPTYTRASH')
                 ->setOnClick('comments.emptyTrash')
         ]);
