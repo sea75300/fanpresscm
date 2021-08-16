@@ -21,7 +21,7 @@
             <?php foreach ($ng as $area => $ni) : ?>   
 
                 <li class="nav-item <?php if ($ni->hasSubmenu()) : ?>dropdown<?php endif; ?>"  id="<?php print $ni->getId(); ?>">
-                    <a class="nav-link text-center py-3 px-3 fpcm ui-nav-link <?php print $ni->getDefaultCss($theView->navigationActiveModule); ?>"
+                    <a class="nav-link text-center p-3 fpcm ui-nav-link <?php print $ni->getDefaultCss($theView->navigationActiveModule); ?>"
                        href="<?php print $ni->getFullUrl(); ?>"
                        <?php if ($ni->hasSubmenu()) : ?> role="button" data-bs-toggle="dropdown" aria-expanded="false"<?php endif; ?>
                        <?php if ($ni->isActive($theView->navigationActiveModule)) : ?>aria-current="page"<?php endif; ?>>

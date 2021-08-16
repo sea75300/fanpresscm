@@ -19,5 +19,7 @@
 
         <?php if ($theView->formActionTarget) : ?><form method="post" action="<?php print $theView->formActionTarget; ?>" enctype="multipart/form-data" id="fpcm-ui-form"><?php endif; ?>
 
+        <?php if ($theView->navigation && $theView->loggedIn) : ?>
         <div class="row fpcm-ui-full-view-height">
             <div class="col-12 px-0">
+        <?php endif; ?>

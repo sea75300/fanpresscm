@@ -17,18 +17,18 @@
         </header>
 
         <?php if ($twoFactorAuth) : ?>
-        <div class="row">
+        <div class="row g-0">
             <?php $theView->textInput('login[authcode]')->setText('LOGIN_AUTHCODE')
                     ->setMaxlenght(6)->setPlaceholder(true)->setAutocomplete(false)
                     ->setAutoFocused(true)->setWrapper(true)->setClass('fpcm-ui-monospace'); ?>
             <?php $theView->hiddenInput('login[formData]')->setValue($formData); ?>
         </div>
         <?php else : ?>
-        <div class="row">
+        <div class="row g-0">
             <?php $theView->textInput($userNameField)->setText('GLOBAL_USERNAME')->setPlaceholder(true)->setAutocomplete(false)->setAutoFocused(true)->setWrapper(true); ?>
         </div>
 
-        <div class="row">
+        <div class="row g-0">
             <?php if ($resetPasswort) : ?>
                 <?php $theView->textInput('email')->setType('email')->setText('GLOBAL_EMAIL')->setPlaceholder(true)->setAutocomplete(false)->setWrapper(true); ?>
             <?php else : ?>
@@ -38,12 +38,12 @@
         <?php endif; ?>
 
         <?php if ($resetPasswort) : ?>
-        <div class="row">
+        <div class="row g-0">
             <?php print $captcha->createPluginTextInput(); ?>
         </div>
         <?php endif; ?>
 
-        <div class="fpcm ui-align-center my-2">
+        <div class="row row-cols-auto gap-2 justify-content-center">
         <?php if ($resetPasswort) : ?>
             <?php $theView->submitButton('reset')->setText('GLOBAL_OK')->setIcon('check')->setPrimary(); ?>
             <?php $theView->linkButton('loginback')->setText('GLOBAL_BACK')->setUrl($theView->controllerLink('system/login'))->setIcon('chevron-circle-left'); ?>
