@@ -4,16 +4,16 @@
     
     <div class="container-fluid justify-content-start">
     <?php if ($theView->buttons) : ?>
-        <div class="navbar me-auto d-flex">
+        <div class="navbar me-auto d-flex gap-1">
         <?php foreach ($theView->buttons as $button) : ?>
             <?php $button->setClass('shadow-sm'); ?>
-            <div class="nav-item nav-item-left mx-1 align-self-center">
+            <div class="nav-item nav-item-left align-self-center">
                 <?php print $button; ?>
             </div>
         <?php endforeach; ?>
         </div>
     <?php endif; ?>
-        <div class="navbar ms-auto">
+        <div class="navbar ms-auto gap-1">
             <?php if ($theView->toolbarItemRight) : ?>
             <div class="nav-item">
                 <?php print $theView->toolbarItemRight; ?>
