@@ -48,7 +48,7 @@ fpcm.ui.getCheckboxCheckedValues = function(id) {
 }
 
 fpcm.ui.getValuesByClass = function(_class, _indexed) {        
-    console.warn('fpcm.ui.getValuesByClass is deprecated as of version 5.0-dev; use fpcm.dom.getCheckboxCheckedValues instead.');
+    console.warn('fpcm.ui.getValuesByClass is deprecated as of version 5.0-dev; use fpcm.dom.getValuesByClass instead.');
     return fpcm.dom.getValuesByClass(_class, _indexed);
 }
 

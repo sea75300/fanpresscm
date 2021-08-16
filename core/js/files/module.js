@@ -15,11 +15,10 @@ fpcm.filemanager = {
     init: function() {
         
         fpcm.ui_tabs.render('#files', {
-            
+            reload: true,
             onRenderHtmlAfter: function () {
                 fpcm.filemanager.initListActions();
             }
-
         });
 
         if (fpcm.ui.langvarExists('ARTICLES_SEARCH')) {
@@ -42,10 +41,7 @@ fpcm.filemanager = {
                             var: 'file_view',
                             value: _ui.value
                         },
-                        execDone: function() {
-                            fpcm.filemanager.reloadFiles();
-                            fpcm.dom.fromId('opensearch').removeClass('btn-primary');
-                        }
+                        execDone: fpcm.filemanager.reloadFiles
                     });
                 }
             });            
@@ -292,7 +288,7 @@ fpcm.filemanager = {
 
         el.click(function (event, ui) {
             
-            var items = fpcm.ui.getCheckboxCheckedValues('.fpcm-ui-list-checkbox');
+            var items = fpcm.dom.getCheckboxCheckedValues('.fpcm-ui-list-checkbox');
             if (!items || !items.length) {
                 return false;
             }
@@ -326,7 +322,7 @@ fpcm.filemanager = {
         el.unbind('click');
         el.click(function (event, ui) {
             
-            var items = fpcm.ui.getCheckboxCheckedValues('.fpcm-ui-list-checkbox');
+            var items = fpcm.dom.getCheckboxCheckedValues('.fpcm-ui-list-checkbox');
             if (!items || !items.length) {
                 return false;
             }
@@ -499,8 +495,8 @@ fpcm.filemanager = {
                         clickClose: true,
                         click: function(_ui, _bsObj) {               
                             
-                            var sParams = fpcm.ui.getValuesByClass('fpcm-files-search-input');                            
-                            sParams.combinations = fpcm.ui.getValuesByClass('fpcm-ui-input-select-filessearch-combination');
+                            var sParams = fpcm.dom.getValuesByClass('fpcm-files-search-input');                            
+                            sParams.combinations = fpcm.dom.getValuesByClass('fpcm-ui-input-select-filessearch-combination');
 
                             fpcm.filemanager.startFilesSearch(sParams);
                         }
@@ -535,7 +531,6 @@ fpcm.filemanager = {
         }
 
         fpcm.filemanager.reloadFiles(1, sParams);
-        fpcm.dom.fromId('opensearch').addClass('btn-primary');
     },
     
     runFileIndexUpdate: function () {

@@ -138,6 +138,5 @@ fpcm.moduleinstaller = {
         }); 
         
         fpcm.dom.fromId('runUpdateNext').removeClass('fpcm ui-hidden');
-        fpcm.ui.controlgroup(fpcm.ui.mainToolbar, 'refresh');
     }
 };

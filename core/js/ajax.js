@@ -227,14 +227,10 @@ fpcm.ajax = {
                 });
                 
                 if (_params.filter) {
-//                    fpcm.ui.mainToolbar.find('.fpcm-ui-pager-element').addClass('fpcm-ui-hidden');
-//                    fpcm.ui.controlgroup(fpcm.ui.mainToolbar, 'refresh');
-                    fpcm.dom.fromId('opensearch').addClass('btn-primary');
+                    fpcm.ui.mainToolbar.find('.fpcm-ui-pager-element').addClass('fpcm-ui-hidden');
                 }
                 else if (result.pager && !_params.filter) {
-//                    fpcm.ui.mainToolbar.find('.fpcm-ui-pager-element').removeClass('fpcm-ui-hidden');
-//                    fpcm.ui.controlgroup(fpcm.ui.mainToolbar, 'refresh');
-                    fpcm.dom.fromId('opensearch').removeClass('btn-primary');
+                    fpcm.ui.mainToolbar.find('.fpcm-ui-pager-element').removeClass('fpcm-ui-hidden');
                     
                     fpcm.vars.jsvars.pager.currentPage = result.pager.currentPage;
                     fpcm.vars.jsvars.pager.maxPages = result.pager.maxPages;

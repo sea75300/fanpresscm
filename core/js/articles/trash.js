@@ -49,7 +49,7 @@ fpcm.articles_trash = {
 
     restoreFromTrash: function() {
 
-        var ids = fpcm.ui.getCheckboxCheckedValues('.fpcm-ui-list-checkbox');
+        var ids = fpcm.dom.getCheckboxCheckedValues('.fpcm-ui-list-checkbox');
         if (ids.length == 0) {
             fpcm.ui_loader.hide();
             return false;
@@ -65,7 +65,7 @@ fpcm.articles_trash = {
     },
     
     resetActionsMenu: function () {
-        fpcm.ui.resetSelectMenuSelection('action');
+        fpcm.dom.resetValuesByIdsSelect('action');
         return true;
     }
 };

@@ -204,14 +204,14 @@ fpcm.system = {
                             defaultYes: true,
                             clickYes: function () {
 
-                                var objectIDs = fpcm.ui.getCheckboxCheckedValues('.fpcm-ui-list-checkbox');
+                                var objectIDs = fpcm.dom.getCheckboxCheckedValues('.fpcm-ui-list-checkbox');
                                 if (objectIDs.length == 0) {
                                     fpcm.ui_loader.hide();
                                     return false;
                                 }
 
                                 var params = {
-                                    fields: fpcm.ui.getValuesByClass('fpcm-ui-input-massedit'),
+                                    fields: fpcm.dom.getValuesByClass('fpcm-ui-input-massedit'),
                                     ids: fpcm.ajax.toJSON(objectIDs),
                                 };
 
@@ -315,7 +315,7 @@ fpcm.system = {
                     },
                     execDone: function (result) {
 
-                        fpcm.ui.resetSelectMenuSelection('action');
+                        fpcm.dom.resetValuesByIdsSelect('action');
 
                         if (!result.msg && !result.code) {
                             fpcm.ajax.showAjaxErrorMessage();

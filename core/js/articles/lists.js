@@ -85,8 +85,8 @@ fpcm.articles = {
                         clickClose: true,
                         click: function() {                            
                             let _filter = {};
-                            _filter = fpcm.ui.getValuesByClass('fpcm-articles-search-input');
-                            _filter.combinations = fpcm.ui.getValuesByClass('fpcm-ui-input-select-articlesearch-combination');
+                            _filter = fpcm.dom.getValuesByClass('fpcm-articles-search-input');
+                            _filter.combinations = fpcm.dom.getValuesByClass('fpcm-ui-input-select-articlesearch-combination');
 
                             if (((new Date()).getTime() - fpcm.vars.jsvars.articlesLastSearch) < 10000) {
                                 fpcm.ui.addMessage({
@@ -176,7 +176,7 @@ fpcm.articles = {
         fpcm.ui_dialogs.confirmDlg({
             clickNoDefault: true,
             clickYes: function() {
-                let ids = fpcm.ui.getCheckboxCheckedValues('.fpcm-ui-list-checkbox');
+                let ids = fpcm.dom.getCheckboxCheckedValues('.fpcm-ui-list-checkbox');
                 if (ids.length == 0) {
                     fpcm.ui_loader.hide();
                     return false;
@@ -278,7 +278,7 @@ fpcm.articles = {
 
     deleteMultipleArticle: function() {
 
-        var articleIds = fpcm.ui.getCheckboxCheckedValues('.fpcm-ui-list-checkbox');
+        var articleIds = fpcm.dom.getCheckboxCheckedValues('.fpcm-ui-list-checkbox');
         if (articleIds.length == 0) {
             fpcm.ui_loader.hide();
             return false;
@@ -320,7 +320,7 @@ fpcm.articles = {
     },
     
     resetActionsMenu: function () {
-        fpcm.ui.resetSelectMenuSelection('action');
+        fpcm.dom.resetValuesByIdsSelect('action');
         return true;
     }
 };

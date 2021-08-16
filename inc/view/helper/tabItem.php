@@ -225,17 +225,16 @@ class tabItem extends helper {
         $this->data['bs-target'] = '#fpcm-tab-'.$this->id.'-pane';
         $this->data['bs-toggle'] = 'tab';
 
+        $css = 'fpcm ui-background-white-50p ';
+
         switch ($this->state) {
             case self::STATE_ACTIVE :
-                $css = 'active';
+                $css .= 'active';
                 $this->setAria(['current' => 'page']);                
                 break;
             case self::STATE_DISABLED :
-                $css = 'disabled';
+                $css .= 'disabled';
                 $this->setAria(['disabled' => 'true']);                
-                break;
-            default:
-                $css = '';
                 break;
         }
 

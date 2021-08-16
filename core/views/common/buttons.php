@@ -1,6 +1,6 @@
 <?php /* @var $theView fpcm\view\viewVars */ ?>
 <?php if ($theView->buttons || $theView->pager) : ?>
-<div class="navbar navbar-dark fpcm ui-background-white-50p mb-3" id="fpcm-ui-toolbar">
+<div class="navbar navbar-dark bg-secondary" id="fpcm-ui-toolbar">
     
     <div class="container-fluid justify-content-start">
     <?php if ($theView->buttons) : ?>

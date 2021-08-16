@@ -141,10 +141,6 @@ class filelist extends \fpcm\controller\abstracts\controller implements \fpcm\co
             $buttons[] = (new \fpcm\view\helper\deleteButton('deleteFiles', 'deleteFiles'))->setClass('fpcm-ui-maintoolbarbuttons-tab1');
         }
 
-        if ($this->permissions->uploads->add) {
-            $buttons[] = (new \fpcm\view\helper\button('fmgrUploadBack'))->setText('GLOBAL_BACK')->setIcon('chevron-circle-left')->setClass('fpcm-ui-maintoolbarbuttons-tab2 fpcm-ui-hidden');
-        }
-
         if ($this->mode === 1) {
             $buttons[] = (new \fpcm\view\helper\select('listView'))
                     ->setOptions(\fpcm\components\components::getFilemanagerViews())
@@ -152,6 +148,10 @@ class filelist extends \fpcm\controller\abstracts\controller implements \fpcm\co
                     ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
                     ->setSelected($this->config->file_view)
                     ->setClass('fpcm-ui-maintoolbarbuttons-tab1');
+        }
+
+        if ($this->permissions->uploads->add) {
+            $buttons[] = (new \fpcm\view\helper\button('fmgrUploadBack'))->setText('GLOBAL_BACK')->setIcon('chevron-circle-left')->setClass('fpcm-ui-maintoolbarbuttons-tab2 fpcm-ui-hidden');
         }
 
         $this->view->addButtons($buttons);

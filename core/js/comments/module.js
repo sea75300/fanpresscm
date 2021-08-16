@@ -107,10 +107,10 @@ fpcm.comments = {
                             
                             var sParams = {
                                 mode: fpcm.vars.jsvars.articleSearchMode,
-                                filter: fpcm.ui.getValuesByClass('fpcm-comments-search-input')
+                                filter: fpcm.dom.getValuesByClass('fpcm-comments-search-input')
                             };
                             
-                            sParams.filter.combinations = fpcm.ui.getValuesByClass('fpcm-ui-input-select-commentsearch-combination');
+                            sParams.filter.combinations = fpcm.dom.getValuesByClass('fpcm-ui-input-select-commentsearch-combination');
 
                             fpcm.comments.startCommentSearch(sParams);
                         }
@@ -158,14 +158,12 @@ fpcm.comments = {
                 }
 
                 fpcm.ui.mainToolbar.find('.fpcm-ui-pager-element').addClass('fpcm-ui-hidden');
-                fpcm.ui.controlgroup(fpcm.ui.mainToolbar, 'refresh');
                 fpcm.vars.jsvars.dataviews[result.dataViewName] = result.dataViewVars;
                 fpcm.dataview.updateAndRender(result.dataViewName, {
                     onRenderAfter: function () {
                         fpcm.ui.assignCheckboxes();
                     }
                 });
-                fpcm.dom.fromId('opensearch').addClass('btn-primary');
             }
         });
 
@@ -184,7 +182,7 @@ fpcm.comments = {
 
     restoreFromTrash: function() {
 
-        var ids = fpcm.ui.getCheckboxCheckedValues('.fpcm-ui-list-checkbox');
+        var ids = fpcm.dom.getCheckboxCheckedValues('.fpcm-ui-list-checkbox');
         if (ids.length == 0) {
             fpcm.ui_loader.hide();
             return false;

@@ -44,9 +44,7 @@ span.fpcm-ui-badge {
     border-color: #0d6efd;
 }
 
-.fpcm.ui-background-white-50p,
-.nav-tabs .nav-link,
-.fpcm.ui-navigation .dropdown-menu {
+.fpcm.ui-background-white-50p {
     background: rgba(255,255,255,0.75);
 
 }
@@ -146,7 +144,7 @@ div.fpcm-ui-dataview div.row:hover {
 
 .fpcm-ui-input:invalid,
 .fpcm-ui-input:required {
-    background-color: rgba(51, 170, 51, .1);
+    background-color: rgba(220, 53, 69, .1);
 }
 
 div.row.fpcm-ui-dataview-row.fpcm-ui-logs-error {

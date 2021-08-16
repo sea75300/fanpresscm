@@ -8,7 +8,7 @@
             <nav id="{$id}-navbar" class="navbar navbar-light bg-white d-none">
                 <ul class="nav nav-pills px-2" role="tablist"></u>
             </nav>
-            <div class="modal-body position-relative {$modalBodyClass}" data-bs-spy="scroll" data-bs-target="#{$id}-navbar" data-bs-offset="0">
+            <div class="modal-body position-relative p-2 {$modalBodyClass}" data-bs-spy="scroll" data-bs-target="#{$id}-navbar" data-bs-offset="0">
                 {$content}
             </div>
             <div class="modal-footer">
