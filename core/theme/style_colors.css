@@ -126,9 +126,7 @@ div.fpcm.ui-files-card div.fpcm.ui-files-item:active,
 div.fpcm.ui-files-list div.fpcm.ui-files-item:hover,
 div.fpcm.ui-files-list div.fpcm.ui-files-item:focus,
 div.fpcm.ui-files-list div.fpcm.ui-files-item:active,
-div.fpcm-ui-dataview div.row:hover,
-a.fpcm.ui-nav-link.nav-link:hover,
-.dropdown-item:focus, .dropdown-item:hover {
+div.fpcm-ui-dataview div.row:hover {
     background: rgba(255, 239, 143, 0.5);
 }
 

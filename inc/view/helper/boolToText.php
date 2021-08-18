@@ -32,8 +32,8 @@ final class boolToText extends helper {
                 $this->setText('GLOBAL_YES');
             }
 
+            $this->setClass('text-success');
             $this->setIcon('check-square');
-            $this->setClass('fpcm-ui-booltext-yes');
             
         } else {
 
@@ -41,7 +41,7 @@ final class boolToText extends helper {
                 $this->setText('GLOBAL_NO');
             }
 
-            $this->setClass('fpcm-ui-booltext-no');
+            $this->setClass('text-danger');
             $this->setIcon('minus-square');
         }
 

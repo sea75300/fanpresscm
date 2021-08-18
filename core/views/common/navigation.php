@@ -1,16 +1,10 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
 <?php if ($theView->navigation && $theView->loggedIn) : ?>
-<nav class="navbar navbar-expand-xxl py-0 fpcm ui-background-white-50p ui-navigation" id="fpcm-navigation">
+<nav class="navbar navbar-expand-xl py-0 fpcm ui-background-white-50p ui-navigation" id="fpcm-navigation">
 
     <div class="container-fluid">
-        
-        <div class="navbar-brand">
-            <!-- FanPress CM News System <?php print $theView->version; ?> -->                
-            <img src="<?php print $theView->themePath; ?>logo.svg" role="presentation" alt="FanPress CM News System <?php print $theView->version; ?>">
-            <h1 class="d-none">FanPress CM News System</h1>
-        </div>
-        
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#fpcm-navigation-menu" aria-controls="fpcm-navigation-menu" aria-expanded="false" aria-label="<?php $theView->write('NAVIGATION_SHOW'); ?>">
+
+        <button class="navbar-toggler my-2 my-xl-0" type="button" data-bs-toggle="collapse" data-bs-target="#fpcm-navigation-menu" aria-controls="fpcm-navigation-menu" aria-expanded="false" aria-label="<?php $theView->write('NAVIGATION_SHOW'); ?>">
             <?php $theView->icon('bars')->setClass('py-2'); ?>
         </button>
 
@@ -27,7 +21,7 @@
                        <?php if ($ni->isActive($theView->navigationActiveModule)) : ?>aria-current="page"<?php endif; ?>>
                         
                         <span class="d-block"><?php print $ni->getIcon(); ?></span>
-                        <span class="fpcm nav-text"><?php print $ni->getDescription(); ?></span>
+                        <span class="fpcm nav-text text-nowrap"><?php print $ni->getDescription(); ?></span>
                     </a>
                     
                     <?php if ($ni->hasSubmenu()) : ?>

@@ -1,9 +1,13 @@
 <?php /* @var $theView fpcm\view\viewVars */ ?>
 <?php if ($theView->loggedIn) : ?>
-<nav class="navbar navbar-expand navbar-dark bg-dark ui-navigation py-2 py-lg-0" id="fpcm-top-menu">
-    <div class="container-fluid">
+<nav class="navbar navbar-expand navbar-dark bg-dark ui-navigation" id="fpcm-top-menu">
+    <div class="container-fluid g-0">
         
-        <div class="navbar-brand"></div>
+        <div class="navbar-brand bg-light bg-gradient px-3 me-0">
+            <!-- FanPress CM News System <?php print $theView->version; ?> -->                
+            <img src="<?php print $theView->themePath; ?>logo.svg" role="presentation" alt="FanPress CM News System <?php print $theView->version; ?>">
+            <h1 class="d-none">FanPress CM News System</h1>
+        </div>
         
         <div class="align-items-end">
             <ul class="navbar-nav mr-auto">
@@ -48,7 +52,7 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="fpcm-profile-menu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <?php $theView->icon('user-circle')->setClass('fpcm-navicon')->setSize('lg'); ?>                
-                        <?php $theView->write('PROFILE_MENU_LOGGEDINAS',  ['{{username}}' => $theView->currentUser->getDisplayName()]); ?>
+                        <span class="d-none d-md-inline"><?php $theView->write('PROFILE_MENU_LOGGEDINAS',  ['{{username}}' => $theView->currentUser->getDisplayName()]); ?></span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" aria-labelledby="fpcm-profile-menu">
                         <li>
