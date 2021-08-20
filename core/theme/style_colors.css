@@ -1,4 +1,8 @@
 /* ------ General colors */
+:root {
+  --bs-primary: #0073ea;
+}
+
 body {
     background-image: url(bgmain.svg);
     background-color: #ebe7f2;
@@ -9,7 +13,7 @@ body {
 body,
 a, a:visited, a.fpcm-link
 i, em,
-span.fpcm-ui-button-shorthelp,
+span.fpcm.ui-button-shorthelp,
 div.fpcm-ui-inline-loader,
 .cm-s-fpcm.CodeMirror,
 .fpcm-ui-color-grey-dark,
@@ -17,10 +21,7 @@ a.nav-link {
     color: #454545;
 }
 
-h1 {
-    color: #00aded;
-}
-
+h1,
 h3,
 ins,
 .text-primary,
@@ -43,21 +44,21 @@ span.fpcm-ui-badge {
 }
 
 .border-primary {
-    border-color: var(--bs-primary);
+    border-color: var(--bs-primary) !important;
 }
 
 .fpcm.ui-background-white-50p {
-    background: rgba(255,255,255,0.5);
+    background: rgba(var(--bs-white-rgb), 0.5);
 }
 
 div.fpcm.ui-files-card div.fpcm.ui-files-item:nth-child(odd),
 div.fpcm.ui-files-list:nth-child(odd) div.fpcm.ui-files-item {
-    background: rgba(254,254,254,0.7);
+    background: rgba( var(--bs-light-rgb), 0.66);
 }
 
 div.fpcm.ui-files-card div.fpcm.ui-files-item:nth-child(even),
 div.fpcm.ui-files-list:nth-child(even) div.fpcm.ui-files-item {
-    background: rgba(254,254,254,0.5);
+    background: rgba( var(--bs-light-rgb), 0.33);
 }
 
 .fpcm-dashboard-updates-checkerror {
@@ -66,7 +67,7 @@ div.fpcm.ui-files-list:nth-child(even) div.fpcm.ui-files-item {
 
 .fpcm.ui-color-blue-light,
 span.fpcm-ui-editor-metainfo,
-span.fpcm-ui-button-shorthelp:hover,
+span.fpcm.ui-button-shorthelp:hover,
 span.fpcm-ui-booltext-yes {
     color:#3399ff;
 }
@@ -97,7 +98,7 @@ legend,
 .navbar-toggler:active,
 #fpcm-loader > div.fpcm-loader-icon > span.fpcm.ui-label,
 #fpcm-loader > div.fpcm-loader-icon > span.fpcm.ui-label * {
-    color: #fefefe;
+    color: var(--bs-light);
 }
 
 @keyframes fpcm-loader-glow {
@@ -117,7 +118,7 @@ legend,
 }
 
 textarea {
-    background: #fefefe;
+    background: var(--bs-light-rgb);
 }
 
 div.fpcm.ui-files-card div.fpcm.ui-files-item:hover,

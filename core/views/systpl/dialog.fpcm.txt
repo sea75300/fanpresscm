@@ -1,4 +1,4 @@
-<div class="modal {$modalClass}" id="{$id}" tabindex="-1" aria-labelledby="{$opener}" aria-hidden="true">
+<div class="modal fade {$modalClass}" id="{$id}" tabindex="-1" aria-labelledby="{$opener}" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable {$size} {$class}">
         <div class="modal-content shadow">
             <div class="modal-header bg-primary text-white">

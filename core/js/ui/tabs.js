@@ -81,6 +81,7 @@ fpcm.ui_tabs = {
                              : false; 
 
                 fpcm.ajax.get(_ev.target.href, {
+                    quiet: _ev.target.dataset.ajaxQuiet ? true : false,
                     execDone: function (_result) {
 
                         if (!_result instanceof Object || !_tabList) {

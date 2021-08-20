@@ -86,7 +86,9 @@ class filelist extends \fpcm\controller\abstracts\controller implements \fpcm\co
             'currentModule' => $this->request->getModule(),
             'filesLastSearch' => 0,
             'checkboxRefresh' => true,
-            'uploadDest' => 'default'
+            'uploadDest' => 'default',
+            'thumbsize' => $this->config->file_thumb_size . 'px',
+            'loaderTpl' => file_get_contents(\fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'systpl/fmloader.fpcm.txt'))
         ], $uploader->getJsVars() ));
 
         $this->view->addJsLangVars(array_merge([
@@ -162,6 +164,7 @@ class filelist extends \fpcm\controller\abstracts\controller implements \fpcm\co
                 ->setText('FILE_LIST_AVAILABLE')
                 ->setTabToolbar(1)
                 ->setUrl(\fpcm\classes\tools::getControllerLink('ajax/files/lists', [ 'mode' => $this->mode ]) )
+                ->setData(['ajax-quiet' => true])
         ];
         
         if ($this->permissions->uploads->add) {

@@ -3,9 +3,9 @@
 <nav class="navbar navbar-expand navbar-dark bg-dark ui-navigation" id="fpcm-top-menu">
     <div class="container-fluid g-0">
         
-        <div class="navbar-brand bg-light bg-gradient px-3 me-0">
+        <div class="navbar-brand px-3 me-0">
             <!-- FanPress CM News System <?php print $theView->version; ?> -->                
-            <img src="<?php print $theView->themePath; ?>logo.svg" role="presentation" alt="FanPress CM News System <?php print $theView->version; ?>">
+            <img src="<?php print $theView->themePath; ?>logo_w.svg" role="presentation" alt="FanPress CM News System <?php print $theView->version; ?>" class="border-bottom border-5 border-primary">
             <h1 class="d-none">FanPress CM News System</h1>
         </div>
         

@@ -455,6 +455,8 @@ fpcm.filemanager = {
 
     reloadFiles: function (_page, _filter) {
 
+        fpcm.dom.assignHtml('#fpcm-tab-files-list-pane', fpcm.vars.jsvars.loaderTpl.replace(/\{\$thumbsize\}/g, fpcm.vars.jsvars.thumbsize));
+
         if (!_page) {
             _page = 1;
         }
@@ -462,6 +464,7 @@ fpcm.filemanager = {
          if (_filter) {
             fpcm.vars.jsvars.filesLastSearch = (new Date()).getTime();
         }
+
 
         fpcm.ajax.getItemList({
             module: 'files',
@@ -481,7 +484,7 @@ fpcm.filemanager = {
     
     initFilesSearch: function() {
 
-        fpcm.dom.fromId('opensearch').click(function () {
+        fpcm.dom.bindClick('#opensearch', function () {
 
             fpcm.ui_dialogs.create({
                 id: 'files-search',

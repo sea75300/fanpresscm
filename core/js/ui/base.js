@@ -45,6 +45,23 @@ fpcm.ui = {
         }, false);
 
         fpcm.dom.fromClass('fpcm.ui-link-fancybox').fancybox();
+
+        fpcm.ui.initShorthelpTooltips();
+    },
+
+    initShorthelpTooltips: function(_) {
+
+        let _domEl = document.getElementsByClassName('fpcm ui-button-shorthelp');
+        if (!_domEl.length) {
+            return true;
+        }
+        
+        for (var i = 0; i < _domEl.length; i++) {
+            new bootstrap.Tooltip(_domEl[i], {
+                placement: 'auto'
+            });
+        }    
+
     },
 
     initJqUiWidgets: function () {

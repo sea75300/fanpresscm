@@ -1,0 +1,128 @@
+<div class="card-group fpcm ui-files-card">
+      
+    <div class="card my-2 mx-sm-2 rounded fpcm ui-files-item ui-background-transition">
+
+        <div class="card-img-top placeholder w-100 min" style="width: {$thumbsize}; height: {$thumbsize};"></div>
+
+        <div class="card-body">
+
+            <div class="placeholder-glow">
+                <p class="card-title text-center placeholder w-75">&nbsp;</p>
+                <div class="card-text placeholder w-25">&nbsp;</div>
+            </div>
+
+            <div class="navbar row-cols-4 gap-1 g-0">
+                <div class="col">
+                    <button type="button" class="btn btn-light shadow-sm disabled placeholder w-100"></button>
+                </div>
+                <div class="col">
+                    <button type="button" class="btn btn-light shadow-sm disabled placeholder w-100"></button>
+                </div>
+                <div class="col">
+                    <button type="button" class="btn btn-light shadow-sm disabled placeholder w-100"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+      
+    <div class="card my-2 mx-sm-2 rounded fpcm ui-files-item ui-background-transition">
+
+        <div class="card-img-top placeholder w-100 min" style="width: {$thumbsize}; height: {$thumbsize};"></div>
+
+        <div class="card-body">
+
+            <div class="placeholder-glow">
+                <p class="card-title text-center placeholder w-75">&nbsp;</p>
+                <div class="card-text placeholder w-25">&nbsp;</div>
+            </div>
+
+            <div class="navbar row-cols-4 gap-1 g-0">
+                <div class="col">
+                    <button type="button" class="btn btn-light shadow-sm disabled placeholder w-100"></button>
+                </div>
+                <div class="col">
+                    <button type="button" class="btn btn-light shadow-sm disabled placeholder w-100"></button>
+                </div>
+                <div class="col">
+                    <button type="button" class="btn btn-light shadow-sm disabled placeholder w-100"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+      
+    <div class="card my-2 mx-sm-2 rounded fpcm ui-files-item ui-background-transition">
+
+        <div class="card-img-top placeholder w-100 min" style="width: {$thumbsize}; height: {$thumbsize};"></div>
+
+        <div class="card-body">
+
+            <div class="placeholder-glow">
+                <p class="card-title text-center placeholder w-75">&nbsp;</p>
+                <div class="card-text placeholder w-25">&nbsp;</div>
+            </div>
+
+            <div class="navbar row-cols-4 gap-1 g-0">
+                <div class="col">
+                    <button type="button" class="btn btn-light shadow-sm disabled placeholder w-100"></button>
+                </div>
+                <div class="col">
+                    <button type="button" class="btn btn-light shadow-sm disabled placeholder w-100"></button>
+                </div>
+                <div class="col">
+                    <button type="button" class="btn btn-light shadow-sm disabled placeholder w-100"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+      
+    <div class="card my-2 mx-sm-2 rounded fpcm ui-files-item ui-background-transition">
+
+        <div class="card-img-top placeholder w-100 min" style="width: {$thumbsize}; height: {$thumbsize};"></div>
+
+        <div class="card-body">
+
+            <div class="placeholder-glow">
+                <p class="card-title text-center placeholder w-75">&nbsp;</p>
+                <div class="card-text placeholder w-25">&nbsp;</div>
+            </div>
+
+            <div class="navbar row-cols-4 gap-1 g-0">
+                <div class="col">
+                    <button type="button" class="btn btn-light shadow-sm disabled placeholder w-100"></button>
+                </div>
+                <div class="col">
+                    <button type="button" class="btn btn-light shadow-sm disabled placeholder w-100"></button>
+                </div>
+                <div class="col">
+                    <button type="button" class="btn btn-light shadow-sm disabled placeholder w-100"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+      
+    <div class="card my-2 mx-sm-2 rounded fpcm ui-files-item ui-background-transition">
+
+        <div class="card-img-top placeholder w-100 min" style="width: {$thumbsize}; height: {$thumbsize};"></div>
+
+        <div class="card-body">
+
+            <div class="placeholder-glow">
+                <p class="card-title text-center placeholder w-75">&nbsp;</p>
+                <div class="card-text placeholder w-25">&nbsp;</div>
+            </div>
+
+            <div class="navbar row-cols-4 gap-1 g-0">
+                <div class="col">
+                    <button type="button" class="btn btn-light shadow-sm disabled placeholder w-100"></button>
+                </div>
+                <div class="col">
+                    <button type="button" class="btn btn-light shadow-sm disabled placeholder w-100"></button>
+                </div>
+                <div class="col">
+                    <button type="button" class="btn btn-light shadow-sm disabled placeholder w-100"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

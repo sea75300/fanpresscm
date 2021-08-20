@@ -4,7 +4,7 @@
 
     <div class="container-fluid">
 
-        <button class="navbar-toggler my-2 my-xl-0" type="button" data-bs-toggle="collapse" data-bs-target="#fpcm-navigation-menu" aria-controls="fpcm-navigation-menu" aria-expanded="false" aria-label="<?php $theView->write('NAVIGATION_SHOW'); ?>">
+        <button class="navbar-toggler my-2 my-xl-0 mx-auto" type="button" data-bs-toggle="collapse" data-bs-target="#fpcm-navigation-menu" aria-controls="fpcm-navigation-menu" aria-expanded="false" aria-label="<?php $theView->write('NAVIGATION_SHOW'); ?>">
             <?php $theView->icon('bars')->setClass('py-2'); ?>
         </button>
 
