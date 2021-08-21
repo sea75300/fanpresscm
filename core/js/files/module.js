@@ -281,12 +281,7 @@ fpcm.filemanager = {
 
     initNewThumbButton: function() {
 
-        var el = fpcm.dom.fromId('createThumbs');
-        if (!el.length) {
-            return false;
-        }
-
-        el.click(function (event, ui) {
+        fpcm.dom.bindClick('#btnCreateThumbs', function (event, ui) {
             
             var items = fpcm.dom.getCheckboxCheckedValues('.fpcm-ui-list-checkbox');
             if (!items || !items.length) {
@@ -308,19 +303,13 @@ fpcm.filemanager = {
             });
 
             return false;
-        })
+        });
 
     },
 
     initDeleteMultipleButton: function() {
 
-        var el = fpcm.dom.fromId('deleteFiles');
-        if (!el.length) {
-            return false;
-        }
-
-        el.unbind('click');
-        el.click(function (event, ui) {
+        fpcm.dom.bindClick('#btnDeleteFiles', function () {
             
             var items = fpcm.dom.getCheckboxCheckedValues('.fpcm-ui-list-checkbox');
             if (!items || !items.length) {
