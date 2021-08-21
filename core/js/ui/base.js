@@ -262,15 +262,17 @@ fpcm.ui = {
             return false;
         }
 
+        _boxes = '';
         for (var _i in window.fpcm.vars.ui.messages) {
 
             if (fpcm.vars.ui.messages[_i] === undefined) {
                 continue;
             }
 
-            fpcm.ui.createMessageBox(fpcm.vars.ui.messages[_i])
+            _boxes += fpcm.ui.createMessageBox(fpcm.vars.ui.messages[_i]);
         }
 
+        fpcm.ui.appendMessageToBody(_boxes);
     },
     
     addMessage: function(value, _clear) {
@@ -308,13 +310,13 @@ fpcm.ui = {
         else if (value.txtComplete) {
             value.txt = value.txtComplete;
         }
-
-        fpcm.ui.createMessageBox(value);
+;
+        fpcm.ui.appendMessageToBody(fpcm.ui.createMessageBox(value));
     },
     
     createMessageBox: function(_msg)
     {
-        var _css = ' alert d-flex align-items-center alert-dismissible fade show position-fixed top-50 start-50 translate-middle';
+        var _css = ' toast';
         
         _mbxId = 'msgbox-' + _msg.id;
         if (fpcm.dom.fromId(_mbxId).length > 0) {
@@ -328,10 +330,8 @@ fpcm.ui = {
 
             return true;
         }
-
-        if (_msg.type == 'info' || _msg.type == 'notice') {
-            _css += ' ui-msg-fadeout';
-        }
+        
+        _msg.cbtn = '';
 
         if (_msg.type == 'error') {
             _msg.type = 'danger';
@@ -343,16 +343,32 @@ fpcm.ui = {
 
         if (_msg.type == 'notice') {
             _msg.type = 'success';
+            _msg.cbtn = 'btn-close-white';
         }
 
-        _msgCode  = '<div class="fpcm ui-message shadow alert-' + _msg.type + _css + '" role="alert">';
-        _msgCode += fpcm.ui.getIcon(_msg.icon, { size: '2x' });
-        _msgCode += '<div class="mx-3">' + _msg.txt + '</div>';
-        _msgCode += '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="' + fpcm.ui.translate('GLOBAL_CLOSE') + '"></button>';
-        _msgCode += '</div>';
+        _msgCode = '   <div class="fpcm ui-message shadow ' + _css + '" role="alert" aria-live="assertive" aria-atomic="true">';
+        _msgCode += '   <div class="toast-header text-white bg-'  + _msg.type +'">';
+        _msgCode += fpcm.ui.getIcon(_msg.icon);
+        _msgCode += '   <span class="d-inline-block w-100"></span>';
+        _msgCode += '   <button type="button" class="btn-close '+_msg.cbtn+'" data-bs-dismiss="toast" aria-label="' + fpcm.ui.translate('GLOBAL_CLOSE') + '"></button>';
+        _msgCode += '   </div>';
+        _msgCode += '       <div class="toast-body">';
+        _msgCode += '           <div class="mx-3">' + _msg.txt + '</div>';
+        _msgCode += '       </div>';
+        _msgCode += '   </div>';
 
-        fpcm.dom.appendHtml('#fpcm-body', _msgCode);
-        return true;
+        return _msgCode;
+    },
+    
+    appendMessageToBody: function(_boxes)
+    {
+        fpcm.dom.appendHtml('#fpcm-body', '<div class="toast-container position-fixed top-0 end-0 p-3">' + _boxes + '</div>');
+
+        let _el = document.getElementsByClassName('fpcm ui-message');
+        for (var i = 0; i < _el.length; i++) {
+            var toast = new bootstrap.Toast(_el[i]);
+            toast.show();        
+        }
     },
 
     createIFrame: function(params) {
