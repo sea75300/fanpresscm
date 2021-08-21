@@ -257,16 +257,16 @@ ul.fpcm-ui-csv-fields {
 
 div.fileupload-progress.fpcm-ui-fade {
     opacity: 0;
-    -webkit-transition: opacity .15s linear;
-    -o-transition: opacity .15s linear;
     transition: opacity .15s linear;
 }
 
 div.fileupload-progress.in {
     opacity: 1;
-    -webkit-transition: opacity .15s linear;
-    -o-transition: opacity .15s linear;
     transition: opacity .15s linear;
+}
+
+.fpcm.ui-background-transition {
+    transition: background-color 0.5s ease;
 }
 
 /* ------ Badge styles */

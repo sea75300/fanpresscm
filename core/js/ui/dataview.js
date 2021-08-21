@@ -80,7 +80,7 @@ fpcm.dataview = {
         var _notFound       = row.isNotFound === true ? true : false;
 
         var rowId           = id + '-dataview-row-' + index;
-        var baseclass       = row.isheadline ? 'fpcm-ui-dataview-subhead bg-secondary bg-gradient text-light' : 'fpcm-ui-background-transition';
+        var baseclass       = row.isheadline ? 'fpcm-ui-dataview-subhead bg-secondary bg-gradient text-light' : 'fpcm ui-background-transition';
         baseclass          += _notFound ? ' fpcm-ui-dataview-notfound' : '';
 
         row.class           = baseclass + (row.class ? ' ' + row.class : '');

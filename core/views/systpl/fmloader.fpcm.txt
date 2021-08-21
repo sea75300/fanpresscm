@@ -1,6 +1,6 @@
 <div class="card-group fpcm ui-files-card">
       
-    <div class="card my-2 mx-sm-2 rounded fpcm ui-files-item ui-background-transition">
+    <div class="card my-2 mx-sm-2 rounded">
 
         <div class="card-img-top placeholder w-100 min" style="width: {$thumbsize}; height: {$thumbsize};"></div>
 
@@ -25,7 +25,7 @@
         </div>
     </div>
       
-    <div class="card my-2 mx-sm-2 rounded fpcm ui-files-item ui-background-transition">
+    <div class="card my-2 mx-sm-2 rounded">
 
         <div class="card-img-top placeholder w-100 min" style="width: {$thumbsize}; height: {$thumbsize};"></div>
 
@@ -50,7 +50,7 @@
         </div>
     </div>
       
-    <div class="card my-2 mx-sm-2 rounded fpcm ui-files-item ui-background-transition">
+    <div class="card my-2 mx-sm-2 rounded">
 
         <div class="card-img-top placeholder w-100 min" style="width: {$thumbsize}; height: {$thumbsize};"></div>
 
@@ -75,7 +75,7 @@
         </div>
     </div>
       
-    <div class="card my-2 mx-sm-2 rounded fpcm ui-files-item ui-background-transition">
+    <div class="card my-2 mx-sm-2 rounded">
 
         <div class="card-img-top placeholder w-100 min" style="width: {$thumbsize}; height: {$thumbsize};"></div>
 
@@ -100,7 +100,7 @@
         </div>
     </div>
       
-    <div class="card my-2 mx-sm-2 rounded fpcm ui-files-item ui-background-transition">
+    <div class="card my-2 mx-sm-2 rounded">
 
         <div class="card-img-top placeholder w-100 min" style="width: {$thumbsize}; height: {$thumbsize};"></div>
 

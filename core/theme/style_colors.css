@@ -24,7 +24,9 @@ h1,
 h3,
 ins,
 .text-primary,
-a.fpcm.ui-nav-link.nav-link.active {
+a.fpcm.ui-nav-link.nav-link.active,
+span.fpcm.ui-button-shorthelp:hover,
+span.fpcm-ui-editor-metainfo {
     color: var(--bs-primary);
 }
 
@@ -64,10 +66,7 @@ div.fpcm.ui-files-list:nth-child(even) div.fpcm.ui-files-item {
     color: #666666;
 }
 
-.fpcm.ui-color-blue-light,
-span.fpcm-ui-editor-metainfo,
-span.fpcm.ui-button-shorthelp:hover,
-span.fpcm-ui-booltext-yes {
+.fpcm.ui-color-blue-light {
     color:#3399ff;
 }
 
@@ -77,18 +76,12 @@ span.fpcm-ui-update-icons span.fpcm-ui-update-iconstatus.fpcm-ui-update-iconstat
 }
 
 del,
-.fpcm-ui-important-text,
-span.fpcm-ui-booltext-no {
+.fpcm-ui-important-text {
     color: #cc0000;
 }
 
 span.fpcm-ui-update-icons span.fpcm-ui-update-iconstatus.fpcm-ui-update-iconstatus-0 {
     color: transparent;
-}
-
-.fpcm-ui-background-transition,
-.fpcm.ui-background-transition {
-    transition: background-color 0.35s ease;
 }
 
 legend,
