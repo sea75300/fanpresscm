@@ -771,6 +771,17 @@ Help language file
             kann nötig werden, wenn zum Beispiel Bots (Spam, Suchmaschinen etc.) häufig ihre IP-Adresse wechseln.</li>
         </ul>
         
+        <h3>Sperren einrichten</h3>
+
+        <ul>
+            <li>Um eine <strong>einzelne</strong> IP-Adresse (z. B. 192.168.1.2) zu sperren, trage diese komplett in das Feld <em>IP-Adresse</em> ein.</li>
+            <li>Um <strong>mehrere IP-Adressen bzw. einen Bereich</strong> zu sperren (z. B. 192.168.2.1, 192.168.2.11, 192.168.2.111), ersetzte die 
+                entsprechenden Stellen Zahl(en) durch einen <em>*</em> (z. B. 192.168.2.* oder 192.168.*.*) und trage dies in das Feld <em>IP-Adresse</em> ein.</li>
+            <li>Für IPv6-Adressen (aa11::22bb:cc33:d4d4:e5e5) gehen analog vor, ersetze hier die Stellen zwischen den Doppelpunkten.</li>
+        </ul>
+
+        <h3>Aktionen</h3>
+        
         <dl>
             <dt>Keine Kommentare schreiben</dt>
             <dd class="pb-2">Der Besucher mit der angegebenen IP-Adresse kann keine
