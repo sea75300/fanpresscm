@@ -31,21 +31,13 @@ fpcm.comments = {
         }
         
         if (fpcm.dataview.exists('commenttrash')) {
-            fpcm.dataview.render('commenttrash', {
-                onRenderAfter: function() {
-                    fpcm.ui.assignCheckboxes();
-                }
-            });
+            fpcm.dataview.render('commenttrash');
             
             return true;
         }
         
         if (fpcm.dataview.exists('commentlist')) {
-            fpcm.dataview.render('commentlist', {
-                onRenderAfter: function() {
-                    fpcm.ui.assignCheckboxes();
-                }
-            });
+            fpcm.dataview.render('commentlist');
         }
         
     },
@@ -159,11 +151,7 @@ fpcm.comments = {
 
                 fpcm.ui.mainToolbar.find('.fpcm-ui-pager-element').addClass('fpcm-ui-hidden');
                 fpcm.vars.jsvars.dataviews[result.dataViewName] = result.dataViewVars;
-                fpcm.dataview.updateAndRender(result.dataViewName, {
-                    onRenderAfter: function () {
-                        fpcm.ui.assignCheckboxes();
-                    }
-                });
+                fpcm.dataview.updateAndRender(result.dataViewName);
             }
         });
 

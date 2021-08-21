@@ -18,7 +18,6 @@ fpcm.editor = {
 
         fpcm.ui_tabs.render('#tabs-editor', {
             initDataViewOnRenderAfter: function () {
-                fpcm.ui.assignCheckboxes();
                 fpcm.editor.initCommentListActions();
             }
         });

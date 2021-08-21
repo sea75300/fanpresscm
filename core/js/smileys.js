@@ -14,11 +14,7 @@ fpcm.smileys = {
     init: function () {
 
         if (fpcm.dataview && fpcm.dataview.exists('smileys')) {
-            fpcm.dataview.render('smileys', {
-                onRenderAfter: function() {
-                    fpcm.ui.assignCheckboxes();
-                }
-            });
+            fpcm.dataview.render('smileys');
         }
 
         if (fpcm.vars.jsvars.files) {            

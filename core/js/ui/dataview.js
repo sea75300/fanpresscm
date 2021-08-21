@@ -66,6 +66,8 @@ fpcm.dataview = {
             params.onRenderAfter.call();
         }
         
+        fpcm.ui.assignCheckboxes();
+        
         fpcm.vars.jsvars.dataviews[id].dataViewHeight = fpcm.dom.fromId(obj.fullId).height() + 'px';
         fpcm.dom.fromId(obj.fullId).find('div.row.placeholder-wave').remove();
         

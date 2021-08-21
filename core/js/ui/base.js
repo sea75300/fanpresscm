@@ -93,7 +93,7 @@ fpcm.ui = {
     
     assignCheckboxes: function() {
         
-        var _cbxAll = fpcm.dom.fromId('fpcm-select-all');
+        var _cbxAll = fpcm.dom.fromClass('fpcm-select-all');
         if (!_cbxAll.length) {
             return false;
         }

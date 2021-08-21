@@ -1,7 +1,7 @@
 /**
  * FanPress CM Article list Namespace
  * @article Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2015-2018, Stefan Seehafer
+ * @copyright (c) 2015-2021, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 if (fpcm === undefined) {
@@ -11,13 +11,7 @@ if (fpcm === undefined) {
 fpcm.articles_trash = {
 
     init: function() {
-
-        fpcm.dataview.render('articlelist', {
-            onRenderAfter: function() {
-                fpcm.ui.assignCheckboxes();
-            }
-        });
-
+        fpcm.dataview.render('articlelist');
     },
 
     emptyTrash: function() {

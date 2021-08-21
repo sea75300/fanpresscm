@@ -107,7 +107,6 @@ fpcm.articles = {
             page: _params.page !== undefined ? parseInt(_params.page) : 1,
             module: 'articles',
             onRenderDataViewAfter: function () {
-                fpcm.ui.assignCheckboxes();
                 fpcm.articles.clearArticleCache();
                 fpcm.articles.deleteSingleArticle();
             },
