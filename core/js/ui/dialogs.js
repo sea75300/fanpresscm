@@ -138,6 +138,14 @@ fpcm.ui_dialogs = {
                 once: true
             });
         }
+        
+        if (_params.dlOnOpenAfter) {
+            _domEl.addEventListener('shown.bs.modal', function (event) {
+                _params.dlOnOpenAfter(this, _bsObj);
+            }, {
+                once: true
+            });
+        }
 
         _bsObj.toggle(_domEl);
         if (_params.dlButtons !== undefined) {
@@ -240,8 +248,7 @@ fpcm.ui_dialogs = {
         dataSpyList.forEach(function (dataSpyEl) {
             bootstrap.ScrollSpy.getOrCreateInstance(dataSpyEl).refresh();
         });
-        
-        
+
     },
     
     confirmDlg: function(_params) {

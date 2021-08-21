@@ -183,7 +183,6 @@ div.fileupload-progress.in,
     display: block;
 }
 
-.fpcm-ui-input-wrapper,
 .fpcm-ui-inline-block,
 .fpcm.ui-inline-block {
     display: inline-block;
@@ -216,17 +215,10 @@ div.fileupload-progress.in,
 /* ------ Widths and heights */
 .fpcm.ui-full-width,
 .fpcm-ui-full-width,
-.fpcm-ui-input-wrapper,
-.fpcm-ui-input-wrapper input,
 .fpcm-ui-progressbar,
 .fpcm-editor-dialog iframe,
 .fpcm-editor-select a {
     width: 100%;
-}
-
-#fpcm-dialog-help,
-#mainhelp {
-    width: 100% !important;
 }
 
 .fpcm-ui-full-height {
@@ -235,36 +227,6 @@ div.fileupload-progress.in,
 
 .fpcm-ui-full-view-height {
     height: 100vh;
-}
-
-.fpcm.ui-full-view-max-width-100p {
-    max-width: 100%;
-}
-
-.fpcm.ui-full-view-min-width-100p {
-    min-width: 100%;
-}
-
-.fpcm-ui-full-view-min-height {
-    min-height: 100vh !important;
-}
-
-.fpcm-ui-full-min-height {
-    height: auto;
-    min-height: 100%;
-}
-
-.fpcm-quarter-width {
-    width: 25%;
-}
-
-.fpcm-half-width {
-    width: 50% !important;
-}
-
-div.fpcm-ui-inline-loader {
-    height: 50vh;
-    max-height: 1024px;
 }
 
 ul.fpcm-ui-csv-fields {
@@ -282,6 +244,10 @@ ul.fpcm-ui-csv-fields {
 
 .fpcm.ui-blurring {
     backdrop-filter: blur(5px);
+}
+
+.fpcm.ui-invert-1 {
+    filter: invert(1);
 }
 
 .fpcm.ui-status-075,

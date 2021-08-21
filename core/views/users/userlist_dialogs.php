@@ -13,5 +13,3 @@
                 ->setOptions($usersListSelect); ?>
     </div>
 </div>
-
-<div class="fpcm ui-hidden" id="fpcm-dialog-users-permissions-edit"></div>

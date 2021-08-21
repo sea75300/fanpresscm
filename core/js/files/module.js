@@ -472,7 +472,7 @@ fpcm.filemanager = {
             mode: fpcm.vars.jsvars.fmgrMode,
             page: _page,
             filter: _filter ? _filter : null,
-            loader: fpcm.dom.fromTag('div.fpcm-ui-inline-loader').length ? false : true,
+            loader: false,
             dataType: 'html',
             onAssignHtmlAfter: function () {
                 fpcm.filemanager.initListActions(true);

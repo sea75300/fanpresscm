@@ -35,7 +35,6 @@ fpcm.dataview = {
             return false;
         }
 
-        var spinner     = fpcm.dom.fromId('fpcm-dataview-' + id + '-spinner');
         var obj         = fpcm.vars.jsvars.dataviews[id];
         var style       = '';
 
@@ -68,10 +67,8 @@ fpcm.dataview = {
         }
         
         fpcm.vars.jsvars.dataviews[id].dataViewHeight = fpcm.dom.fromId(obj.fullId).height() + 'px';
-
-        if (spinner) {
-            spinner.remove();
-        }
+        fpcm.dom.fromId(obj.fullId).find('div.row.placeholder-wave').remove();
+        
     },
 
     addRow: function(id, index, row, obj) {

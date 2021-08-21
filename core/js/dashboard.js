@@ -14,10 +14,7 @@ fpcm.dashboard = {
     onDone: {},
 
     init: function () {
-        fpcm.dashboard.load();
-    },
-    
-    load: function () {
+
         fpcm.ajax.exec('dashboard', {
             quiet: true,
             execDone: function(result) {
@@ -39,8 +36,7 @@ fpcm.dashboard = {
                 
                 return false;
             }
-        });
-
+        });        
     },
     
     forceUpdate: function () {
@@ -105,7 +101,7 @@ fpcm.dashboard = {
                          var: 'dashboardpos',
                          value: _saveItems
                      },
-                     execDone: fpcm.dashboard.load,
+                     execDone: fpcm.dashboard.init,
                      quiet: true
                  });                
             },

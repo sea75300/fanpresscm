@@ -4,8 +4,10 @@
     <div class="container-fluid g-0">
         
         <div class="navbar-brand px-3 me-0">
-            <!-- FanPress CM News System <?php print $theView->version; ?> -->                
-            <img src="<?php print $theView->themePath; ?>logo_w.svg" role="presentation" alt="FanPress CM News System <?php print $theView->version; ?>" class="border-bottom border-5 border-primary">
+            <!-- FanPress CM News System <?php print $theView->version; ?> -->
+            <div class="border-bottom border-5 border-primary d-inline-block">
+                <img src="<?php print $theView->themePath; ?>logo.svg" role="presentation" alt="FanPress CM News System <?php print $theView->version; ?>" class="fpcm ui-invert-1">
+            </div>
             <h1 class="d-none">FanPress CM News System</h1>
         </div>
         

@@ -88,7 +88,7 @@ class filelist extends \fpcm\controller\abstracts\controller implements \fpcm\co
             'checkboxRefresh' => true,
             'uploadDest' => 'default',
             'thumbsize' => $this->config->file_thumb_size . 'px',
-            'loaderTpl' => file_get_contents(\fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'systpl/fmloader.fpcm.txt'))
+            'loaderTpl' => new \fpcm\model\files\jsViewTemplate('fmloader')
         ], $uploader->getJsVars() ));
 
         $this->view->addJsLangVars(array_merge([

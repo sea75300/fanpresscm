@@ -33,8 +33,7 @@ fpcm.installer = {
             },
             async: false,
             execDone: function (res) {
-                
-                jQuery('#fpcm-messages').empty();
+
                 if (res === '1' || res === 1) {
                     jQuery('#fpcm-ui-form').submit();
                     return true;

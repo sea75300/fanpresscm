@@ -769,7 +769,7 @@ class view {
                                             ->setPlaceholder('{{placeholder}}')->setMaxlenght('255')
                                             ->setWrapper(false)->setDisplaySizesDefault()
                     ],
-                    'dialogTpl' => file_get_contents(\fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'systpl/dialog.fpcm.txt'))
+                    'dialogTpl' => new \fpcm\model\files\jsViewTemplate('dialog')
                 ],
                 'jsvars' => $this->jsVars,
                 'actionPath' => \fpcm\classes\tools::getFullControllerLink(''),

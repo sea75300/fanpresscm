@@ -1,6 +1,6 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
 <div class="position-absolute top-50 start-50 translate-middle col-12 col-md-8 col-lg-6 col-xl-4">
-    <div class="shadow rounded p-4 fpcm ui-background-white-50p ui-blurring">
+    <div class="shadow-lg rounded p-4 fpcm ui-background-white-50p ui-blurring">
 
         <header>
             <div class="row g-0 mb-3">

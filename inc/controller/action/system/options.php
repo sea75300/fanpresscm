@@ -135,10 +135,6 @@ implements \fpcm\controller\interfaces\isAccessible,
             $smtpActive = $mail->checkSmtp();
         }
 
-        if ($smtpActive && $this->buttonClicked('configSave') && $this->mailSettingsChanged) {
-            $this->view->addNoticeMessage('SYSTEM_OPTIONS_EMAIL_ACTIVE');
-        }
-
         $this->view->assign('smtpActive', $smtpActive);
         $this->view->addJsFiles(['system/options.js', 'systemcheck.js']);
         $this->view->addJsVars([
@@ -254,6 +250,10 @@ implements \fpcm\controller\interfaces\isAccessible,
         if (!$this->config->update()) {
             $this->view->addErrorMessage('SAVE_FAILED_OPTIONS');
             return false;
+        }
+        
+        if ($this->config->smtp_enabled && $this->mailSettingsChanged && (new \fpcm\classes\email('', '', ''))->checkSmtp()) {
+            $this->view->addNoticeMessage('SYSTEM_OPTIONS_EMAIL_ACTIVE', [], true);
         }
 
         $this->view->addNoticeMessage('SAVE_SUCCESS_OPTIONS');

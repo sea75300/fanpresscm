@@ -16,15 +16,14 @@ fpcm.imageEditor = {
             id: 'files-editor',
             title: 'FILE_LIST_EDIT',
             class: 'modal-fullscreen',
-            content: '<div class="m-2"><img id="fpcm-dialog-files-imgeditor" class="d-block fpcm ui-full-view-max-width-100p" src="' + _param.data.url + '"></div>',
+            content: '<div class="m-2"><img id="fpcm-dialog-files-imgeditor" class="d-block mw-100" src="' + _param.data.url + '"></div>',
             closeButton: true,
-            dlOnOpen: function() {
+            dlOnOpenAfter: function() {
 
-                let imgEL = fpcm.dom.fromId('fpcm-dialog-files-imgeditor');
-                imgEL.attr('src', fpcm.dom.fromTag(this).attr('href'));
-                fpcm.filemanager.cropper = new Cropper(imgEL[0], {
-                    autoCrop: false
-                });
+                fpcm.filemanager.cropper = new Cropper(document.getElementById('fpcm-dialog-files-imgeditor'), {
+                        autoCrop: false
+                    }
+                );
 
                 return true;
             },
