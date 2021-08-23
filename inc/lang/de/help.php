@@ -302,9 +302,12 @@ Help language file
     </chapter>
     <chapter ref="HL_FILES_MNG">
         <![CDATA[
+        
         <p>Im <b>Dateimanager</b> kannst du Grafiken hochladen, welche du in deinen Artikeln verwenden willst. Eine vereinfachte Ansicht lässt
             sich auch direkt aus dem Artikel-Editor heraus aufrufen. Er zeigt neben einem Vorschau-Bild noch einige zusätzliche Informationen zur
             hochgeladenen Datei an.</p>
+
+        <h3>Aktionen</h3>
 
         <dl>
             <dt>Suche und Filter:</dt>
@@ -333,6 +336,34 @@ Help language file
             <dt>Karten / Liste:</dt>
             <dd class="pb-2">Über diese Auswahl kann die Darstellung des Dateimanagers angepasst werden,
             die Optionen können auch über die Systemeinstellungen bzw. das Profil angepasst werden.</dd>
+        </dl>
+        
+        <h3>Eigenschaften</h3>
+
+        <dl>
+            <dt>Zuletzt geändert:</dt>
+            <dd class="pb-2">Zeitpunkt der letzten Änderung bzw. des Uploads</dd>
+            <dt>Hochgeladen von:</dt>
+            <dd class="pb-2">Benutzer der Uploads</dd>
+            <dt>Dateigröße:</dt>
+            <dd class="pb-2">Dateigröße der Grafik</dd>
+            <dt>Auflösung:</dt>
+            <dd class="pb-2">Größe der Grafike in Pixel (Breite mal Höhe)</dd>
+            <dt>MIME-Typ:</dt>
+            <dd class="pb-2">Internet Media Type der Datei</dd>
+            <dt>Dateihash:</dt>
+            <dd class="pb-2">SHA-256-Hash der Datei</dd>
+            <dt>Credits:</dt>
+            <dd class="pb-2">IPTC-Daten der Grafik</dd>
+        </dl>
+
+        <h3>Ansichten</h3>
+
+        <dl>
+            <dt>Karten:</dt>
+            <dd class="pb-2">Diese Ansicht stellt die hochgeladenen Grafiken nebeneinander dar.</dd>
+            <dt>Liste:</dt>
+            <dd class="pb-2">Diese Ansicht stellt die hochgeladenen Grafiken in einer Liste untereinander dar.</dd>
         </dl>
         ]]>
     </chapter>

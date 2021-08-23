@@ -43,7 +43,7 @@ fpcm.dataview = {
         obj.rowsId      = obj.fullId + '-rows';
 
         obj.wrapper     = fpcm.dom.fromId(obj.fullId).addClass('fpcm-ui-dataview');
-        obj.wrapper.append('<div class="row bg-primary bg-gradient text-light py-1" id="' + obj.headId + '"></div>');
+        obj.wrapper.append('<div class="row bg-primary text-light py-1" id="' + obj.headId + '"></div>');
         obj.wrapper.append('<div class="fpcm-ui-dataview-rows" id="' + obj.rowsId + '"></div>');
         
         obj.headline    = fpcm.dom.fromId(obj.headId);
@@ -82,7 +82,7 @@ fpcm.dataview = {
         var _notFound       = row.isNotFound === true ? true : false;
 
         var rowId           = id + '-dataview-row-' + index;
-        var baseclass       = row.isheadline ? 'fpcm-ui-dataview-subhead bg-secondary bg-gradient text-light' : 'fpcm ui-background-transition';
+        var baseclass       = row.isheadline ? 'fpcm-ui-dataview-subhead bg-secondary text-light' : 'fpcm ui-background-transition';
         baseclass          += _notFound ? ' fpcm-ui-dataview-notfound' : '';
 
         row.class           = baseclass + (row.class ? ' ' + row.class : '');

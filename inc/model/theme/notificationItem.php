@@ -55,7 +55,7 @@ class notificationItem {
 
         $this->id = trim($id) ? trim($id) : uniqid('fpcm-notification-item');
         $this->callback = $callback;
-        $this->class = 'nav-link'.(trim($class) ? ' '.$class : '');
+        $this->class = 'dropdown-item'.(trim($class) ? ' '.$class : '');
     }
 
     /**

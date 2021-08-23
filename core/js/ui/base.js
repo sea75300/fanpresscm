@@ -47,6 +47,8 @@ fpcm.ui = {
         fpcm.dom.fromClass('fpcm.ui-link-fancybox').fancybox();
 
         fpcm.ui.initShorthelpTooltips();
+        fpcm.ui.tabs('.fpcm-ui-tabs-general');
+        
     },
 
     initShorthelpTooltips: function(_) {

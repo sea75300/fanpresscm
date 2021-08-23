@@ -136,6 +136,7 @@ fpcm.system = {
 
         fpcm.ajax.post('refresh', {
             quiet: true,
+            async: true,
             data: {
                 articleId: fpcm.vars.jsvars.articleId
             },

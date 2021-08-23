@@ -1,6 +1,6 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
 <?php if (!empty($descriptions['top'])) : ?>
-<div class="row g-0">
+<div class="row g-0  border-5 border-top border-primary">
     <div class="col-12">
         <div class="m-3">
             <?php $theView->button('topDescr')

@@ -7,9 +7,7 @@
         <div class="navbar me-auto d-flex gap-1">
         <?php foreach ($theView->buttons as $button) : ?>
             <?php $button->setClass('shadow-sm'); ?>
-            <div class="nav-item nav-item-left align-self-center">
                 <?php print $button; ?>
-            </div>
         <?php endforeach; ?>
         </div>
     <?php endif; ?>

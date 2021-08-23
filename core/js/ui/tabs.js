@@ -161,8 +161,8 @@ fpcm.ui_tabs = {
             return true;
         }
 
-        fpcm.ui.mainToolbar.find('.fpcm-ui-maintoolbarbuttons-tab'+ _active.dataset.toolbarButtons).removeClass('fpcm-ui-hidden').parent('div').addClass('mx-1');        
-        fpcm.ui.mainToolbar.find('.fpcm-ui-maintoolbarbuttons-tab'+ _prev.dataset.toolbarButtons).addClass('fpcm-ui-hidden').parent('div').removeClass('mx-1');
+        fpcm.ui.mainToolbar.find('.fpcm-ui-maintoolbarbuttons-tab'+ _active.dataset.toolbarButtons).removeClass('fpcm-ui-hidden');        
+        fpcm.ui.mainToolbar.find('.fpcm-ui-maintoolbarbuttons-tab'+ _prev.dataset.toolbarButtons).addClass('fpcm-ui-hidden');
         
     },
     

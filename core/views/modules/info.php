@@ -1,5 +1,5 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
-<div>
+<div class="border-5 border-top border-primary">
     <div class="row py-3">
         <div class="col-12 col-sm-6 col-lg-3">
             <b><?php $theView->write('MODULES_LIST_NAME'); ?>:</b>

@@ -5,7 +5,7 @@
         <div id="fpcm-dataview-userlist"></div>
     </div>
 
-    <div class="col-12 col-lg-3 d-none d-lg-block">
+    <div class="col-12 col-lg-3 d-none d-lg-block mt-3">
         <?php print $userArticles; ?>
     </div>
 </div>

@@ -420,3 +420,26 @@ ul.fpcm-ui-list-style-none {
 div.fpcm.ui-message {
     z-index: 9999 !important;
 }
+
+#fpcm-ui-toolbar .form-select {
+    display: inline-block;
+    width: auto;
+}
+
+/* ------ Forms common */
+.fpcm-ui-readonly {
+    opacity: 0.35;
+}
+
+textarea.fpcm-ui-textarea-medium,
+textarea.fpcm.ui-textarea-medium {
+    min-height: 25vh;
+}
+
+textarea.fpcm.ui-textarea-noresize {
+    resize: none;
+}
+
+.fpcm-ui-box-sizing-none {
+    box-sizing: initial !important;
+}

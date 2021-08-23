@@ -75,12 +75,12 @@ fpcm.dashboard = {
                      _target.dataset.cpos = fpcm.dom.fromClass('fpcm.dashboard-container-wrapper').length;
                  }
 
-                 if (_target.dataset.cpos > _tmpOldS) {
+                 if (_event.clientX <= _event.delegateTarget.clientWidth / 2 || _event.clientY <= _event.delegateTarget.clientHeight / 2 ) {
+                     fpcm.dom.fromTag(_event.currentTarget).before(_source);
                      _target.dataset.cpos = parseInt(_target.dataset.cpos) - 1;
-                     fpcm.dom.fromTag(_event.currentTarget).after(_source);
                  }
                  else {
-                     fpcm.dom.fromTag(_event.currentTarget).before(_source);
+                     fpcm.dom.fromTag(_event.currentTarget).after(_source);
                      _target.dataset.cpos = parseInt(_target.dataset.cpos) + 1;
                  }
 

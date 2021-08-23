@@ -8,12 +8,24 @@ if (fpcm === undefined) {
     var fpcm = {}
 }
 
+fpcm.ui.tabs = function(_elemClassId, params) {
+    
+    if (!fpcm.dom.fromTag(_elemClassId).length) {
+        return false;
+    }
+    
+    console.warn('fpcm.ui.tabs is deprecated as of version 5.0-dev; use fpcm.ui_tabs.render instead.');
+    fpcm.dom.fromTag(_elemClassId).addClass('fpcm ui-tabs-wrapper');
+    fpcm.dom.fromTag(_elemClassId + ' > ul').addClass('nav nav-tabs border-bottom border-warning border-5');
+    fpcm.dom.fromTag(_elemClassId + ' > ul > li').addClass('nav-item');
+    fpcm.dom.fromTag(_elemClassId + ' > ul > li > a').addClass('nav-link fpcm ui-background-white-50p active');
+    fpcm.dom.fromTag(_elemClassId + ' > div').addClass('fpcm ui-background-white-50p');
+    fpcm.dom.fromTag(_elemClassId).prepend('<div class="alert alert-danger" role="alert">fpcm.ui.tabs is deprecated as of version 5.0-dev; use fpcm.ui_tabs.render instead.</div>');
+    
+}
+
 fpcm.ui.assignControlgroups = function() {
     console.warn('fpcm.ui.assignControlgroups is deprecated as of version 5.0-dev; use fpcm.ui_tabs.render instead.');
-}
-    
-fpcm.ui.tabs = function(_elemClassId, params) {
-    console.warn('fpcm.ui.tabs is deprecated as of version 5.0-dev; use fpcm.ui_tabs.render instead.');
 }
 
 fpcm.ui.spinner = function(elemClassId, params) {

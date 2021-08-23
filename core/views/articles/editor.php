@@ -1,5 +1,5 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
-<div>
+<div class="border-top border-5 border-primary">
     <?php if ( trim($rollCodex) ) : ?>
     <div class="row g-0">
         <div class="col-12 my-2">

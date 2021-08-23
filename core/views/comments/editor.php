@@ -1,69 +1,71 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
 <?php /* @var $comment fpcm\model\comments\comment */ ?>
-<?php if($commentsMode === 2) : ?><div class="d-none"><?php include_once $theView->getIncludePath('common/buttons.php'); ?></div><?php endif; ?>
-<fieldset class="ms-0">
-    <div class="row my-2">
-        <div class="col-12 col-md-6">
+<div class="border-top border-5 border-primary">
+    <?php if($commentsMode === 2) : ?><div class="d-none"><?php include_once $theView->getIncludePath('common/buttons.php'); ?></div><?php endif; ?>
+    <fieldset class="ms-0">
+        <div class="row my-2">
+            <div class="col-12 col-md-6">
 
-            <div class="row g-0">
-            <?php $theView->textInput('comment[name]')
-                    ->setText('COMMMENT_AUTHOR')
-                    ->setValue($comment->getName())
-                    ->setIcon('signature')
-                    ->setSize('lg')
-                    ->setAutoFocused(true); ?>
-            </div>
-            
-            <div class="row g-0">
-            <?php $theView->textInput('comment[email]')
-                    ->setText('GLOBAL_EMAIL')
-                    ->setValue($comment->getEmail())
-                    ->setType('email')
-                    ->setIcon('at')
-                    ->setSize('lg'); ?>
-            </div>
-            
-            <div class="row g-0">
-            <?php $theView->textInput('comment[website]')
-                    ->setText('COMMMENT_WEBSITE')
-                    ->setValue($comment->getWebsite())
-                    ->setType('url')
-                    ->setIcon('home')
-                    ->setSize('lg'); ?>                
-            </div>
-            
-            <div class="row g-0">
-            <?php $theView->textInput('comment[ipaddr]')
-                    ->setText('COMMMENT_IPADDRESS')
-                    ->setValue($comment->getIpaddress())
-                    ->setIcon('globe')
-                    ->setSize('lg'); ?>                
-            </div>
-            
-            <div class="row g-0 <?php if($commentsMode === 2 || !$showArticleIdField) : ?>d-none<?php endif; ?>">
-            <?php $theView->textInput('comment[article]')
-                    ->setText('COMMMENT_MOVE')
-                    ->setValue($comment->getArticleid())
-                    ->setMaxlenght(20)
-                    ->setIcon('clipboard')
-                    ->setSize('lg')
-                    ->setClass('fpcm-ui-input-articleid'); ?>                
-            </div>
-            
-            <div class="row g-0">                
-                <div class="col-form-label col-12 col-sm-6 col-md-4">
-                    <?php $theView->icon('exclamation-circle'); ?> <span class="fpcm-ui-label ps-1"> <?php $theView->write('COMMMENT_STATUS'); ?></span>
+                <div class="row g-0">
+                <?php $theView->textInput('comment[name]')
+                        ->setText('COMMMENT_AUTHOR')
+                        ->setValue($comment->getName())
+                        ->setIcon('signature')
+                        ->setSize('lg')
+                        ->setAutoFocused(true); ?>
                 </div>
 
-                <div class="col">
-                    <?php $theView->checkbox('comment[spam]', 'spam')->setText('COMMMENT_SPAM')->setReadonly(!$theView->permissions->comment->approve)->setSelected($comment->getSpammer())->setClass('fpcm-ui-comments-status')->setSwitch(true); ?>
-                    <?php $theView->checkbox('comment[approved]', 'approved')->setText('COMMMENT_APPROVE')->setReadonly(!$theView->permissions->comment->approve)->setSelected($comment->getApproved())->setClass('fpcm-ui-comments-status')->setSwitch(true); ?>
-                    <?php $theView->checkbox('comment[private]', 'private')->setReadonly(!$theView->permissions->comment->private)->setText('COMMMENT_PRIVATE')->setSelected($comment->getPrivate())->setClass('fpcm-ui-comments-status')->setSwitch(true); ?>
+                <div class="row g-0">
+                <?php $theView->textInput('comment[email]')
+                        ->setText('GLOBAL_EMAIL')
+                        ->setValue($comment->getEmail())
+                        ->setType('email')
+                        ->setIcon('at')
+                        ->setSize('lg'); ?>
+                </div>
+
+                <div class="row g-0">
+                <?php $theView->textInput('comment[website]')
+                        ->setText('COMMMENT_WEBSITE')
+                        ->setValue($comment->getWebsite())
+                        ->setType('url')
+                        ->setIcon('home')
+                        ->setSize('lg'); ?>                
+                </div>
+
+                <div class="row g-0">
+                <?php $theView->textInput('comment[ipaddr]')
+                        ->setText('COMMMENT_IPADDRESS')
+                        ->setValue($comment->getIpaddress())
+                        ->setIcon('globe')
+                        ->setSize('lg'); ?>                
+                </div>
+
+                <div class="row g-0 <?php if($commentsMode === 2 || !$showArticleIdField) : ?>d-none<?php endif; ?>">
+                <?php $theView->textInput('comment[article]')
+                        ->setText('COMMMENT_MOVE')
+                        ->setValue($comment->getArticleid())
+                        ->setMaxlenght(20)
+                        ->setIcon('clipboard')
+                        ->setSize('lg')
+                        ->setClass('fpcm-ui-input-articleid'); ?>                
+                </div>
+
+                <div class="row g-0">                
+                    <div class="col-form-label col-12 col-sm-6 col-md-4">
+                        <?php $theView->icon('exclamation-circle'); ?> <span class="fpcm-ui-label ps-1"> <?php $theView->write('COMMMENT_STATUS'); ?></span>
+                    </div>
+
+                    <div class="col">
+                        <?php $theView->checkbox('comment[spam]', 'spam')->setText('COMMMENT_SPAM')->setReadonly(!$theView->permissions->comment->approve)->setSelected($comment->getSpammer())->setClass('fpcm-ui-comments-status')->setSwitch(true); ?>
+                        <?php $theView->checkbox('comment[approved]', 'approved')->setText('COMMMENT_APPROVE')->setReadonly(!$theView->permissions->comment->approve)->setSelected($comment->getApproved())->setClass('fpcm-ui-comments-status')->setSwitch(true); ?>
+                        <?php $theView->checkbox('comment[private]', 'private')->setReadonly(!$theView->permissions->comment->private)->setText('COMMMENT_PRIVATE')->setSelected($comment->getPrivate())->setClass('fpcm-ui-comments-status')->setSwitch(true); ?>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</fieldset>
+    </fieldset>
+</div>
 
 <?php include \fpcm\components\components::getArticleEditor()->getCommentEditorTemplate(); ?>
 

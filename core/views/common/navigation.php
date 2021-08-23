@@ -30,7 +30,7 @@
                         
                         <?php foreach ($ni->getSubmenu() as $si) : ?>
                         <li id="<?php print $si->getId(); ?>">
-                            <a class="dropdown-item nav-link <?php print $si->getDefaultCss($theView->navigationActiveModule); ?>"
+                            <a class="dropdown-item nav-link px-2 <?php print $si->getDefaultCss($theView->navigationActiveModule); ?>"
                                href="<?php print $si->getFullUrl(); ?>"
                                <?php if ($ni->isActive($theView->navigationActiveModule)) : ?>aria-current="true"<?php endif; ?>>
                                 <?php print $si->getIcon(); ?>

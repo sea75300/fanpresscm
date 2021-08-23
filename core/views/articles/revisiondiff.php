@@ -1,6 +1,6 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
 
-<div class="row g-0">
+<div class="row g-0 border-5 border-top border-primary">
     <div class="col-12 fpcm-ui-ellipsis">    
     <?php if (trim($diffResultTitle)) : ?>
         <div class="m-2">
