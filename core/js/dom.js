@@ -252,7 +252,7 @@ fpcm.dom = {
         }
 
         fpcm.dom.fromTag(_element).bind(_ob, function (_event, _selecto, _data, _handler) {
-            
+
             if (_handler === undefined) {
                 _handler = false;
             }

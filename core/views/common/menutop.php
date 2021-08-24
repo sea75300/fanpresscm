@@ -6,7 +6,7 @@
         <div class="navbar-brand px-3 me-0">
             <!-- FanPress CM News System <?php print $theView->version; ?> -->
             <div class="border-bottom border-5 border-info d-inline-block">
-                <img src="<?php print $theView->themePath; ?>logo.svg" role="presentation" alt="FanPress CM News System <?php print $theView->version; ?>" class="fpcm ui-invert-1">
+                <img src="<?php print $theView->themePath; ?>logo.svg" alt="FanPress CM News System <?php print $theView->version; ?>" class="fpcm ui-invert-1">
             </div>
             <h1 class="d-none">FanPress CM News System</h1>
         </div>
@@ -19,11 +19,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a  id="fpcm-clear-cache"
-                        href="#"
-                        class="nav-link" 
-                        title="<?php $theView->write('GLOBAL_CACHE_CLEAR'); ?>"
-                        data-fn="system.clearCache">
+                    <a id="fpcm-clear-cache" href="#" class="nav-link" title="<?php $theView->write('GLOBAL_CACHE_CLEAR'); ?>">
                         <?php $theView->icon('hdd')->setSize('lg') ?>
                     </a>
                 </li>
@@ -34,7 +30,12 @@
                         data-ref="<?php print $theView->helpLink['ref']; ?>" 
                         data-chapter="<?php print $theView->helpLink['chapter']; ?>">
                         <?php $theView->icon('question-circle')->setSize('lg'); ?>
-                    </a>                
+                    </a>
+                    
+                    
+                    <a id="fpcm-help-open" href="#fpcm-offcanvas-help" class="nav-link d-none" title="<?php $theView->write('HELP_BTN_OPEN'); ?>" role="button" data-bs-toggle="offcanvas">
+                        <?php $theView->icon('question-circle')->setSize('lg'); ?>
+                    </a>
                 </li>
                 <li class="nav-item dropdown me-2">
                     <a class="nav-link dropdown-toggle" href="#" id="fpcm-notify-menu" role="button" data-bs-toggle="dropdown" aria-expanded="false">

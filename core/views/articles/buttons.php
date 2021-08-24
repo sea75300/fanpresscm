@@ -57,7 +57,6 @@
             <div class="col-12 col-md-8">
                     <?php $theView->dateTimeInput('article[postponedate]')
                         ->setText('EDITOR_POSTPONED_DATE')
-                        ->setPlaceholder((string) $theView->dateText($postponedTimer, 'Y-m-d'))
                         ->setValue($theView->dateText($postponedTimer, 'Y-m-d'))
                         ->setIcon('calendar-plus')
                         ->setSize('lg')

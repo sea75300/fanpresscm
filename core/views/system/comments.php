@@ -80,8 +80,7 @@
         <div class="col-12 col-md-8">
         <?php $theView->numberInput('comments_markspam_commentcount')
                 ->setText('SYSTEM_OPTIONS_COMMENT_MARKSPAM_PASTCHECK')
-                ->setValue($globalConfig->comments_markspam_commentcount)
-                ->setMaxlenght(5); ?>
+                ->setValue($globalConfig->comments_markspam_commentcount); ?>
         </div>
     </div>
 </fieldset>

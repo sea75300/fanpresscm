@@ -31,7 +31,8 @@ final class dateTimeInput extends input {
         parent::init();
         $this->type = 'date';
         $this->class .= ' '.self::DEFAULT_CLASS;
-        $this->setPlaceholder( date('Y-m-d') );
+        $this->maxlenght = '';
+        $this->setPlaceholder('');
     }
 
     /**

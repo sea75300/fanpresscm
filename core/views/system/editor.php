@@ -109,7 +109,6 @@
                 ->setText('FILE_LIST_THUMB_SIZE')
                 ->setClass('d-flex col-sm-6 col-md-4 mt-2')
                 ->setValue($globalConfig->file_thumb_size)
-                ->setMaxlenght(5)
                 ->setStep(50)
                 ->setMin(50)
                 ->setMax(400); ?>

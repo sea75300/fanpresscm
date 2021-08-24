@@ -23,10 +23,7 @@ fpcm.system = {
 
         fpcm.system.initPasswordFieldActions();
         fpcm.system.showHelpDialog();
-        
-        let ccEL = fpcm.dom.fromId('fpcm-clear-cache');
-        ccEL.unbind('click');
-        ccEL.click(function () {
+        fpcm.dom.bindClick('#fpcm-clear-cache', function () {
             return fpcm.system.clearCache();
         });
     },
@@ -367,6 +364,57 @@ fpcm.system = {
 
             return false;
         });
+
+//        var _domEl = document.getElementById('fpcm-offcanvas-help')
+//        if (!_domEl) {
+//            return false;
+//        }
+//        
+//        
+//        _domEl.addEventListener('hide.bs.offcanvas', function () {
+//            this.children[1].innerHTML = '';
+//        });
+//
+//        _domEl.addEventListener('show.bs.offcanvas', function () {
+//            
+//            var _self = this;
+//            
+//            fpcm.ajax.get('help', {
+//                
+//                quiet: true,
+//                data: {
+//                    ref: this.dataset.ref,
+//                    chapter: this.dataset.chapter
+//                },
+//                execDone: function (_result) {
+//
+//                    _self.children[2].innerHTML = _result;
+//
+//                    let _headlines = fpcm.dom.fromTag(_self.children[2]).find('h3');;
+//                    if (!_headlines.length) {
+//                        return true;
+//                    }
+//
+//                    let _links = [];
+//                    for (var i = 0, max = _headlines.length; i < max; i++) {
+//
+//                        let _hl = _headlines[i];
+//
+//                        _hl.id = 'fpcm-help-hl-' + i;
+//
+//                        _links.push('<li class="nav-item w-100"><a class="nav-link" href="#' + _hl.id + '">' + _hl.innerText + '</a></li>');            
+//                    }
+//
+//                    _self.children[1].innerHTML = '<nav class="navbar navbar-light bg-white d-block"><ul class="nav nav-pills" role="tablist">' +_links.join('') + '</u></nav>';
+//                    _self.children[1].classList.remove('d-none');
+//
+//                    var spys = [].slice.call(document.querySelectorAll('#fpcm-offcanvas-help > [data-bs-spy="scroll"]'))
+//                    spys.forEach(function (_el) {
+//                        bootstrap.ScrollSpy.getOrCreateInstance(_el).refresh();
+//                    });
+//                }
+//            });
+//        });
 
     },
 

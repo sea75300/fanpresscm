@@ -29,10 +29,8 @@
         <div class="col-12 col-md-8">
             <?php $theView->dateTimeInput('datefrom')
                     ->setClass('fpcm-articles-search-input fpcm-ui-full-width-date')
-                    ->setMaxlenght(10)
                     ->setText('ARTICLE_SEARCH_DATE_FROM')
-                    ->setPlaceholder(true)
-                    ->setData(['mindate' => $searchMinDate]); ?>
+                    ->setMin($searchMinDate); ?>
         </div>
     </div>    
 
@@ -48,9 +46,7 @@
         <div class="col-12 col-md-8">
             <?php $theView->dateTimeInput('dateto')
                     ->setClass('fpcm-articles-search-input fpcm-ui-full-width-date')
-                    ->setMaxlenght(10)
-                    ->setText('ARTICLE_SEARCH_DATE_TO')
-                    ->setPlaceholder(true); ?>
+                    ->setText('ARTICLE_SEARCH_DATE_TO'); ?>
         </div>
     </div>    
  

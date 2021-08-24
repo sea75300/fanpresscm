@@ -29,9 +29,7 @@
         <div class="col-12 col-md-8">
             <?php $theView->dateTimeInput('datefrom')
                     ->setClass('fpcm-comments-search-input fpcm-ui-full-width-date')
-                    ->setMaxlenght(10)
-                    ->setText('ARTICLE_SEARCH_DATE_FROM')
-                    ->setPlaceholder(true); ?>
+                    ->setText('ARTICLE_SEARCH_DATE_FROM'); ?>
         </div>
     </div>
 
@@ -47,9 +45,7 @@
         <div class="col-12 col-md-8">
             <?php $theView->dateTimeInput('dateto')
                     ->setClass('fpcm-comments-search-input fpcm-ui-full-width-date')
-                    ->setMaxlenght(10)
-                    ->setText('ARTICLE_SEARCH_DATE_TO')
-                    ->setPlaceholder(true); ?>
+                    ->setText('ARTICLE_SEARCH_DATE_TO'); ?>
         </div>
     </div>
 
@@ -114,7 +110,7 @@
         </div>
 
         <div class="col-12 col-md-8">
-            <?php $theView->numberInput('articleId')->setClass('fpcm-comments-search-input fpcm-ui-input-articleid')->setMaxlenght(20)->setText('COMMMENT_SEARCH_ARTICLE')->setPlaceholder(true); ?>
+            <?php $theView->numberInput('articleId')->setClass('fpcm-comments-search-input fpcm-ui-input-articleid')->setText('COMMMENT_SEARCH_ARTICLE')->setPlaceholder(true); ?>
         </div>
     </div>
 

@@ -221,7 +221,7 @@ fpcm.ui_dialogs = {
             }
 
         }
-        
+
         if (!_params.headlines) {
             return true;
         }

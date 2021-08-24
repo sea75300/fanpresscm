@@ -70,8 +70,10 @@ abstract class input extends helper {
 
         $wrapperStart = "<div class=\"input-group mb-3\">";
         $wrapperEnd = "</div>";
+        
+        $mlstr = $this->maxlenght ? "maxlength=\"{$this->maxlenght}\"" : '';
 
-        $input = "<input type=\"{$this->type}\" maxlength=\"{$this->maxlenght}\" {$this->getAttributeStrings()}>";
+        $input = "<input type=\"{$this->type}\" {$mlstr} {$this->getAttributeStrings()}>";
         $this->appendItems($input);
 
         if (!$this->text) {

@@ -27,6 +27,7 @@ final class numberInput extends input {
     {
         parent::init();
         $this->type = 'number';
+        $this->maxlenght = '';
     }
 
 

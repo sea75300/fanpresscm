@@ -86,7 +86,6 @@
         <div class="col-12 col-md-3 my-2 my-md-0">
             <?php $theView->dateTimeInput('datefrom')
                     ->setClass('fpcm-files-search-input fpcm-ui-full-width-date')
-                    ->setMaxlenght(10)
                     ->setText('ARTICLE_SEARCH_DATE_FROM')
                     ->setPlaceholder(true)
                     ->setWrapper(true); ?>
@@ -105,7 +104,6 @@
         <div class="col-12 col-md-3 my-2 my-md-0">
             <?php $theView->dateTimeInput('dateto')
                     ->setClass('fpcm-files-search-input fpcm-ui-full-width-date')
-                    ->setMaxlenght(10)
                     ->setText('ARTICLE_SEARCH_DATE_TO')
                     ->setPlaceholder(true)
                     ->setWrapper(true); ?>

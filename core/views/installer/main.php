@@ -5,7 +5,7 @@
 
             <div class="navbar-brand">
                 <!-- FanPress CM News System <?php print $theView->version; ?> -->                
-                <img src="<?php print $theView->themePath; ?>logo.svg" role="presentation" alt="FanPress CM News System <?php print $theView->version; ?>">
+                <img class="border-bottom border-5 border-info" src="<?php print $theView->themePath; ?>logo.svg" role="presentation" alt="FanPress CM News System <?php print $theView->version; ?>">
                 <h1 class="d-none">FanPress CM News System</h1>
             </div>
 

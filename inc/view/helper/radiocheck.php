@@ -98,14 +98,7 @@ abstract class radiocheck extends helper {
         $wrapStart = $this->text ? '<div class="form-check '.($this->inline ? 'form-check-inline' : '') . ($this->switch ? 'form-switch' : '').' ' . $this->wrapperClass . '  ">' : '';
         $wrapEnd   = $this->text ? '</div>' : '';
 
-        $inEL = "<input type=\"{$this->type}\"" .
-                $this->getNameIdString() .
-                $this->getClassString() .
-                $this->getReadonlyString() .
-                $this->getValueString() .
-                $this->getDataString() .
-                $this->getSelectedString() .
-                ">";
+        $inEL = "<input type=\"{$this->type}\" {$this->getNameIdString()} {$this->getClassString()} {$this->getReadonlyString()} {$this->getValueString()} {$this->getDataString()} {$this->getSelectedString()}>";
         
         $inLa = '';
         if ($this->text) {

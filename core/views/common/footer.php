@@ -18,10 +18,10 @@
                         <b><?php $theView->write('VERSION'); ?>:</b>&nbsp;<?php print $theView->version; ?>                        
                     </div>
                 </div>
-            </div>
-
+            </div>         
+            
         </div>
-
+        <?php //include_once 'helplayer.php'; ?>
         <?php include_once 'jsfilesbtm.php'; ?>
     </body>
 </html>

@@ -60,7 +60,6 @@
         <?php $theView->numberInput('table[rows]', 'tablerows')
                 ->setValue(1)
                 ->setMin(1)
-                ->setMaxlenght(5)
                 ->setText('EDITOR_INSERTTABLE_ROWS')
                 ->setIcon('arrow-down')
                 ->setSize('lg'); ?>
@@ -68,7 +67,6 @@
     <div class="row">
         <?php $theView->numberInput('table[rows]', 'tablecols')
                 ->setValue(1)
-                ->setMaxlenght(5)
                 ->setMin(1)
                 ->setText('EDITOR_INSERTTABLE_COLS')
                 ->setIcon('arrow-right')
@@ -81,7 +79,6 @@
     <div class="row">
         <?php $theView->numberInput('list[rows]', 'listrows')
                 ->setValue(1)
-                ->setMaxlenght(5)
                 ->setText('EDITOR_INSERTTABLE_ROWS')
                 ->setIcon('keyboard')
                 ->setSize('lg'); ?>
@@ -205,7 +202,6 @@
         <?php $theView->textInput('colorhexcode')
                 ->setValue('#000000')
                 ->setType('color')
-                ->setMaxlenght(7)
                 ->setText('EDITOR_INSERTCOLOR_HEXCODE')
                 ->setIcon('eye-dropper')
                 ->setSize('lg')

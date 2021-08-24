@@ -6,7 +6,7 @@
             <div class="row g-0 mb-3">
                 <!-- FanPress CM News System <?php print $theView->version; ?> -->
                 <div class="col-auto">
-                    <img src="<?php print $theView->themePath; ?>logo.svg" role="presentation" alt="FanPress CM News System <?php print $theView->version; ?>">
+                    <img class="border-bottom border-5 border-info" src="<?php print $theView->themePath; ?>logo.svg" role="presentation" alt="FanPress CM News System <?php print $theView->version; ?>">
                 </div>
                 <div class="col align-self-center">
                     <h1 class="d-none d-xl-block fs-3">FanPress CM News System</h1>
