@@ -23,6 +23,7 @@
                         <?php $theView->icon('hdd')->setSize('lg') ?>
                     </a>
                 </li>
+                <?php if ($theView->helpLink['ref'] !== null && $theView->helpLink['chapter'] !== null) : ?>
                 <li class="nav-item">
                     <a class="nav-link fpcm ui-help-dialog" 
                         href="#"
@@ -32,6 +33,7 @@
                         <?php $theView->icon('question-circle')->setSize('lg'); ?>
                     </a>
                 </li>
+                <?php endif; ?>
                 <li class="nav-item dropdown me-2">
                     <a class="nav-link dropdown-toggle" href="#" id="fpcm-notify-menu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <?php $theView->icon('envelope')->setClass('fpcm-navicon')->setSize('lg'); ?>                
