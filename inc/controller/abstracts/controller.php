@@ -604,12 +604,17 @@ class controller implements \fpcm\controller\interfaces\controller {
             \fpcm\model\http\request::PARAM_REGEX => '/([A-Za-z0-9\_]{3,})/',
             \fpcm\model\http\request::PARAM_REGEX_REPLACE => '$0'
         ]);
+        
+        fpcmLogSystem(__METHOD__);
+        fpcmLogSystem($actionName);
+        fpcmLogSystem($actionFrom);
 
         if (property_exists($this, $actionFrom)) {
             $this->{$actionFrom} = $actionName;
         }
         
         $fn = trim($prefix.$actionName);
+        fpcmLogSystem($fn);
         if (!method_exists($this, $fn)) {
             trigger_error('Request for undefined function '.$fn.' in '. get_called_class(), E_USER_WARNING);
             return self::ERROR_PROCESS_BYPARAMS;

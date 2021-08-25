@@ -261,9 +261,13 @@ fpcm.dom = {
         });
     },
     
-    bindClick: function (_element, _callback)
+    bindClick: function (_element, _callback, _unbind)
     {
-        fpcm.dom.bindEvent(_element, 'click', _callback);
+        if (_unbind === undefined) {
+            _unbind = true;
+        }
+        
+        fpcm.dom.bindEvent(_element, 'click', _callback, _unbind);
     }
 
 };

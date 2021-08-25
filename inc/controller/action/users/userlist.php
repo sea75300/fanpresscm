@@ -265,6 +265,28 @@ class userlist extends \fpcm\controller\abstracts\controller implements \fpcm\co
                     (new \fpcm\view\helper\editButton('useredit'.$userId))->setUrlbyObject($user),
                     (new \fpcm\view\helper\linkButton('usermail'.$userId))->setUrl('mailto:'.$user->getEmail())->setIcon('envelope')->setIconOnly(true)->setText('GLOBAL_WRITEMAIL'),
                 ];
+                
+                if ($user->getDisabled()) {
+                    $buttons[] = (new \fpcm\view\helper\submitButton(uniqid('enableUser')))
+                        ->setText('GLOBAL_ENABLE')
+                        ->setClass('fpcm ui-userlist-actione')
+                        ->setIcon('user-check')
+                        ->setIconOnly(true)
+                        ->setData(['oid' => $userId, 'fn' => 'enableUser']);
+                }
+                else {
+                    $buttons[] = (new \fpcm\view\helper\submitButton(uniqid('disableUser')))
+                        ->setText('GLOBAL_DISABLE')
+                        ->setClass('fpcm ui-userlist-actione')
+                        ->setIcon('user-lock')
+                        ->setIconOnly(true)
+                        ->setData(['oid' => $userId, 'fn' => 'disableUser']);
+                }
+                
+                $buttons[] = (new \fpcm\view\helper\deleteButton(uniqid('deleteUser')))
+                        ->setClass('fpcm ui-userlist-action-delete')
+                        ->setIconOnly(true)
+                        ->setData(['oid' => $userId, 'fn' => 'deleteUser']);
 
                 $dataView->addRow(
                     new \fpcm\components\dataView\row([

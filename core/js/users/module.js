@@ -14,20 +14,40 @@ fpcm.users = {
     init: function() {
 
         if (fpcm.dataview.exists('userlist')) {
-            fpcm.dataview.render('userlist');
+            fpcm.dataview.render('userlist', {
+                onRenderAfter: function () {
+                    fpcm.dom.bindClick('.fpcm.ui-userlist-actione', function (_ev, _ui) {
+
+                        fpcm.ajax.execFunction('users/actions', _ui.dataset.fn, {
+                            data:  {
+                                oid: _ui.dataset.oid
+                            },
+                            execDone: function (_result) {
+                                console.log(_result);
+                            }
+                        });
+                        
+                        return false;
+
+                    });
+
+                    fpcm.dom.bindClick('.fpcm.ui-userlist-action-delete', function (_ev, _ui) {
+                        fpcm.users.initMoveDeleteArticles(_ui);                       
+                        return false;
+                    });
+                }
+            });
         };
         
         if (fpcm.dataview.exists('rollslist')) {
             fpcm.dataview.render('rollslist', {
                 onRenderAfter: function() {
-                    
-                    let _el = fpcm.dom.fromClass('fpcm.ui-rolls-edit');
-                    _el.unbind('click');
-                    _el.click(function (_ev) {
+
+                    fpcm.dom.bindClick('.fpcm.ui-rolls-edit', function (_ev, _ui) {
                         _ev.preventDefault();
                         fpcm.ui_dialogs.create({
                             id: 'edit-permissions',
-                            url: this.attributes.href.value,
+                            url: _ui.attributes.href.value,
                             title: 'HL_OPTIONS_PERMISSIONS',
                             closeButton: true,
                             dlButtons: [
@@ -53,13 +73,8 @@ fpcm.users = {
         }
     },
     
-    initMoveDeleteArticles: function() {
+    initMoveDeleteArticles: function(_ui) {
 
-        if (fpcm.users.continueDelete) {
-            return true;
-        }
-
-        fpcm.ui_loader.hide();
         fpcm.ui_dialogs.create({
             id: 'users-select-delete',
             title: 'USERS_ARTICLES_SELECT',
@@ -71,10 +86,19 @@ fpcm.users = {
                     closeClick: true,
                     primary: true,
                     click: function() {
+
                         fpcm.ui_dialogs.confirm({
                             clickYes: function() {
-                                fpcm.users.continueDelete = true;
-                                fpcm.dom.fromId('btnDeleteUser').trigger('click');
+                                fpcm.ajax.execFunction('users/actions', _ui.dataset.fn, {
+                                    data:  {
+                                        oid: _ui.dataset.oid,
+                                        moveAction: fpcm.dom.fromId('articlesaction').val(),
+                                        moveTo: fpcm.dom.fromId('articlesuser').val()
+                                    },
+                                    execDone: function (_result) {
+                                        console.log(_result);
+                                    }
+                                });
                             }
                         });
                     }
@@ -83,7 +107,6 @@ fpcm.users = {
             dlOnClose: function (event, ui) {
                 fpcm.dom.fromId('articlesaction').val('');
                 fpcm.dom.fromId('articlesuser').val('');
-                fpcm.ui_loader.hide();
             }
         });
 

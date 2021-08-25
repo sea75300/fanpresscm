@@ -4,6 +4,7 @@ ajax/cache: ajax/common/cache
 ajax/autocomplete: ajax/common/autocomplete
 ajax/clearTrash: ajax/common/clearTrash
 ajax/setconfig: ajax/common/setConfig
+ajax/users/actions: ajax/users/actions
 ajax/logs/clear: ajax/logs/clear
 ajax/logs/reload: ajax/logs/reload
 ajax/files/lists: ajax/files/filelist
