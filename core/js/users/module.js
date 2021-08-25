@@ -71,7 +71,7 @@ fpcm.users = {
                     closeClick: true,
                     primary: true,
                     click: function() {
-                        fpcm.ui_dialogs.confirmDlg({
+                        fpcm.ui_dialogs.confirm({
                             clickYes: function() {
                                 fpcm.users.continueDelete = true;
                                 fpcm.dom.fromId('btnDeleteUser').trigger('click');

@@ -118,7 +118,7 @@ class filelist extends \fpcm\controller\abstracts\controller implements \fpcm\co
         $this->view->addJsFiles(array_merge( $jsFiles, $uploader->getJsFiles() ));
         $this->view->addJsFilesLate($uploader->getJsFilesLate());
         $this->view->setViewVars(array_merge([
-            'searchUsers' => ['ARTICLE_SEARCH_USER' => -1] + (new \fpcm\model\users\userList)->getUsersNameList(),
+            'searchUsers' =>  ['' => -1] + (new \fpcm\model\users\userList)->getUsersNameList(),
             'mode' => $this->mode,
             'hasFiles' => $hasFiles,
         ], $uploader->getViewVars() ));

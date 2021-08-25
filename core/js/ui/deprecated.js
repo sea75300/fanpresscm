@@ -20,7 +20,7 @@ fpcm.ui.tabs = function(_elemClassId, params) {
     fpcm.dom.fromTag(_elemClassId + ' > ul > li').addClass('nav-item');
     fpcm.dom.fromTag(_elemClassId + ' > ul > li > a').addClass('nav-link fpcm ui-background-white-50p active');
     fpcm.dom.fromTag(_elemClassId + ' > div').addClass('fpcm ui-background-white-50p');
-    fpcm.dom.fromTag(_elemClassId).prepend('<div class="alert alert-danger" role="alert">fpcm.ui.tabs is deprecated as of version 5.0-dev; use fpcm.ui_tabs.render instead.</div>');
+    fpcm.dom.fromTag(_elemClassId).prepend('<div class="alert alert-danger" role="alert">This view uses old tab create methodes. Use the \fpcm\view\view::addTabs function and fpcm.ui_tabs.render instead for propper function.</div>');
     
 }
 
@@ -44,7 +44,7 @@ fpcm.ui.button = function(elemClassId, params, onClick) {
     console.warn('fpcm.ui.button is deprecated as of version 5.0-dev.');
 }
 
-fpcm.ui.updateMainToolbar = function(elemClassId, params, onClick) {
+fpcm.ui.updateMainToolbar = function(elemClassId, params, onClick) {    
     console.warn('fpcm.ui.updateMainToolbar is deprecated as of version 5.0-dev.');
 }
 
@@ -70,13 +70,13 @@ fpcm.ui.dialog = function(params) {
 }
    
 fpcm.ui.confirmDialog = function(params) {
-    console.warn('fpcm.ui.confirmDialog is deprecated as of version 5.0-dev; use fpcm.ui_dialogs.confirmDlg instead.');
-    fpcm.ui_dialogs.confirmDlg(params);
+    console.warn('fpcm.ui.confirmDialog is deprecated as of version 5.0-dev; use fpcm.ui_dialogs.confirm instead.');
+    fpcm.ui_dialogs.confirm(params);
 }
 
 fpcm.ui.insertDialog = function(params) {
-    console.warn('fpcm.ui.insertDialog is deprecated as of version 5.0-dev; use fpcm.ui_dialogs.insertDlg instead.');
-    fpcm.ui_dialogs.insertDlg(params);
+    console.warn('fpcm.ui.insertDialog is deprecated as of version 5.0-dev; use fpcm.ui_dialogs.insert instead.');
+    fpcm.ui_dialogs.insert(params);
 }
 
 fpcm.ui.getDialogSizes =function(el, scale_factor) {

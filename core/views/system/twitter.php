@@ -19,7 +19,7 @@
             </div>
         </div>
         <div class="col-auto align-self-center mx-3">
-            <?php $theView->shorthelpButton('twittercon')->setText('HL_HELP')->setUrl('#')->setData(['ref' => urlencode(base64_encode('SYSTEM_OPTIONS_TWITTER_CONNECTION'))])->setClass('fpcm-ui-help-dialog'); ?>
+            <?php $theView->shorthelpButton('twittercon')->setText('HL_HELP')->setUrl('#')->setData(['ref' => urlencode(base64_encode('SYSTEM_OPTIONS_TWITTER_CONNECTION'))])->setClass('ui-help-dialog'); ?>
         </div>
     </div>
 </fieldset>

@@ -280,7 +280,7 @@ if (fpcm.editor) {
     
     fpcm.editor.insertList = function (listtype) {
 
-        fpcm.ui_dialogs.insertDlg({
+        fpcm.ui_dialogs.insert({
             id: 'editor-html-insertlist',
             title: 'EDITOR_HTML_BUTTONS_LIST' + listtype.toUpperCase(),
             dlOnClose: function() {
@@ -362,7 +362,7 @@ if (fpcm.editor) {
     
     fpcm.editor.insertSmilies = function () {
         
-        fpcm.ui_dialogs.insertDlg({
+        fpcm.ui_dialogs.insert({
             id: 'editor-html-insertsmileys',
             title: 'EDITOR_INSERTSMILEY',
             dlOnOpen: function (_ui, _bso) {
@@ -383,7 +383,7 @@ if (fpcm.editor) {
     
     fpcm.editor.insertSymbol = function () {
 
-        fpcm.ui_dialogs.insertDlg({
+        fpcm.ui_dialogs.insert({
             id: 'editor-html-insertsymbol',
             title: 'EDITOR_INSERTSYMBOL',
             content: nkorgJSCharMap.createList()
@@ -398,7 +398,7 @@ if (fpcm.editor) {
     
     fpcm.editor.insertColor = function () {
 
-        fpcm.ui_dialogs.insertDlg({
+        fpcm.ui_dialogs.insert({
             id: 'editor-html-insertcolor',
             title: 'EDITOR_INSERTCOLOR',
             insertAction: function() {
@@ -439,7 +439,7 @@ if (fpcm.editor) {
     
     fpcm.editor.insertDrafts = function () {
 
-        fpcm.ui_dialogs.insertDlg({
+        fpcm.ui_dialogs.insert({
             id: 'editor-html-insertdraft',
             title: 'EDITOR_HTML_BUTTONS_ARTICLETPL',
             dlOnOpen: function() {
@@ -491,7 +491,7 @@ if (fpcm.editor) {
     
     fpcm.editor.insertMedia = function () {
         
-        fpcm.ui_dialogs.insertDlg({
+        fpcm.ui_dialogs.insert({
             id: 'editor-html-insertmedia',
             title: 'EDITOR_INSERTMEDIA',
             dlButtons: [{
@@ -526,7 +526,7 @@ if (fpcm.editor) {
     
     fpcm.editor.insertTable = function () {
 
-        fpcm.ui_dialogs.insertDlg({
+        fpcm.ui_dialogs.insert({
             id: 'editor-html-inserttable',
             title: 'EDITOR_INSERTTABLE',
             dlOnClose: function() {
@@ -551,7 +551,7 @@ if (fpcm.editor) {
     
     fpcm.editor.insertPicture = function () {
 
-        fpcm.ui_dialogs.insertDlg({
+        fpcm.ui_dialogs.insert({
             id: 'editor-html-insertimage',
             title: 'EDITOR_INSERTPIC',
             dlButtons: [{
@@ -598,7 +598,7 @@ if (fpcm.editor) {
     
     fpcm.editor.insertLink = function() {
 
-        fpcm.ui_dialogs.insertDlg({
+        fpcm.ui_dialogs.insert({
             id: 'editor-html-insertlink',
             title: 'EDITOR_INSERTLINK',
             dlOnOpen: function () {
@@ -651,7 +651,7 @@ if (fpcm.editor) {
 
     fpcm.editor.insertQuote = function () {
 
-        fpcm.ui_dialogs.insertDlg({
+        fpcm.ui_dialogs.insert({
             id: 'editor-html-insertquote',
             title: 'EDITOR_HTML_BUTTONS_QUOTE',
             dlOnClose: function () {

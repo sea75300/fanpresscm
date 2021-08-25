@@ -2,169 +2,183 @@
 <div class="fpcm ui-hidden" id="fpcm-dialog-articles-search">
 
     <div class="row">
+
+        <div class="col-12 col-md-9">
+            <?php $theView->textInput('text')->setClass('fpcm-articles-search-input')->setMaxlenght(255)->setText('ARTICLE_SEARCH_TEXT')->setPlaceholder(true)->setWrapper(true); ?>
+        </div>
         
-        <div class="col-12 col-md-4">
+        <div class="col-12 col-md-3">
             <?php $theView->select('searchtype')
                     ->setOptions($searchTypes)
                     ->setClass('fpcm-articles-search-input fpcm-ui-input-select-articlesearch')
                     ->setSelected(fpcm\model\articles\search::TYPE_COMBINED)
                     ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
         </div>
-
-        <div class="col-12 col-md-8">
-            <?php $theView->textInput('text')->setClass('fpcm-articles-search-input')->setMaxlenght(255)->setText('ARTICLE_SEARCH_TEXT')->setPlaceholder(true)->setWrapper(true); ?>
-        </div>
     </div>    
 
     <div class="row">
+
+        <div class="col-12 col-md-9">
+            <?php $theView->dateTimeInput('datefrom')
+                    ->setClass('fpcm-articles-search-input fpcm-ui-full-width-date')
+                    ->setText('ARTICLE_SEARCH_DATE_FROM')
+                    ->setMin($searchMinDate); ?>
+        </div>
         
-        <div class="col-12 col-md-4">
+        <div class="col-12 col-md-3">
             <?php $theView->select('combinationDatefrom')
                     ->setOptions($searchCombination)
                     ->setClass('fpcm-ui-input-select-articlesearch-combination')
                     ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED)
                     ->setData(['']); ?>
         </div>
-
-        <div class="col-12 col-md-8">
-            <?php $theView->dateTimeInput('datefrom')
-                    ->setClass('fpcm-articles-search-input fpcm-ui-full-width-date')
-                    ->setText('ARTICLE_SEARCH_DATE_FROM')
-                    ->setMin($searchMinDate); ?>
-        </div>
     </div>    
 
     <div class="row">
+
+        <div class="col-12 col-md-9">
+            <?php $theView->dateTimeInput('dateto')
+                    ->setClass('fpcm-articles-search-input fpcm-ui-full-width-date')
+                    ->setText('ARTICLE_SEARCH_DATE_TO'); ?>
+        </div>
         
-        <div class="col-12 col-md-4">
+        <div class="col-12 col-md-3">
             <?php $theView->select('combinationDateto')
                     ->setOptions($searchCombination)
                     ->setClass('fpcm-ui-input-select-articlesearch-combination')
                     ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
         </div>
-
-        <div class="col-12 col-md-8">
-            <?php $theView->dateTimeInput('dateto')
-                    ->setClass('fpcm-articles-search-input fpcm-ui-full-width-date')
-                    ->setText('ARTICLE_SEARCH_DATE_TO'); ?>
-        </div>
     </div>    
  
-    <div class="row mb-3">
+    <div class="row">
+
+        <div class="col-12 col-md-9">
+            <?php $theView->select('userid')
+                    ->setOptions($searchUsers)
+                    ->setText('ARTICLE_SEARCH_USER')
+                    ->prependLabel()
+                    ->setClass('fpcm-articles-search-input fpcm-ui-input-select-articlesearch')
+                    ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
+        </div>
         
-        <div class="col-12 col-md-4">
+        <div class="col-12 col-md-3">
             <?php $theView->select('combinationUserid')
                     ->setOptions($searchCombination)
                     ->setClass('fpcm-ui-input-select-articlesearch-combination')
                     ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
         </div>
+    </div>
 
-        <div class="col-12 col-md-8">
-            <?php $theView->select('userid')
-                    ->setOptions($searchUsers)
+    <div class="row">
+
+        <div class="col-12 col-md-9">
+            <?php $theView->select('categoryid')
+                    ->setOptions($searchCategories)
+                    ->setText('ARTICLE_SEARCH_CATEGORY')
+                    ->prependLabel()
                     ->setClass('fpcm-articles-search-input fpcm-ui-input-select-articlesearch')
                     ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
         </div>
-    </div>
-
-    <div class="row mb-3">
         
-        <div class="col-12 col-md-4">
+        <div class="col-12 col-md-3">
             <?php $theView->select('combinationCategoryid')
                     ->setOptions($searchCombination)
                     ->setClass('fpcm-ui-input-select-articlesearch-combination')
                     ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
         </div>
+    </div>
 
-        <div class="col-12 col-md-8">
-            <?php $theView->select('categoryid')
-                    ->setOptions($searchCategories)
+    <div class="row">
+
+        <div class="col-12 col-md-9">
+            <?php $theView->select('pinned')
+                    ->setOptions($searchPinned)
+                    ->setText('ARTICLE_SEARCH_PINNED')
+                    ->prependLabel()
                     ->setClass('fpcm-articles-search-input fpcm-ui-input-select-articlesearch')
                     ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
         </div>
-    </div>
-
-    <div class="row mb-3">
         
-        <div class="col-12 col-md-4">
+        <div class="col-12 col-md-3">
             <?php $theView->select('combinationPinned')
                     ->setOptions($searchCombination)
                     ->setClass('fpcm-ui-input-select-articlesearch-combination')
                     ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
         </div>
+    </div>
 
-        <div class="col-12 col-md-8">
-            <?php $theView->select('pinned')
-                    ->setOptions($searchPinned)
+    <div class="row">
+
+        <div class="col-12 col-md-9">
+            <?php $theView->select('postponed')
+                    ->setOptions($searchPostponed)
+                    ->setText('ARTICLE_SEARCH_POSTPONED')
+                    ->prependLabel()
                     ->setClass('fpcm-articles-search-input fpcm-ui-input-select-articlesearch')
                     ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
         </div>
-    </div>
-
-    <div class="row mb-3">
         
-        <div class="col-12 col-md-4">
+        <div class="col-12 col-md-3">
             <?php $theView->select('combinationPostponed')
                     ->setOptions($searchCombination)
                     ->setClass('fpcm-ui-input-select-articlesearch-combination')
                     ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
         </div>
+    </div>
 
-        <div class="col-12 col-md-8">
-            <?php $theView->select('postponed')
-                    ->setOptions($searchPostponed)
+    <div class="row">
+
+        <div class="col-12 col-md-9">
+            <?php $theView->select('comments')
+                    ->setOptions($searchComments)
+                    ->setText('ARTICLE_SEARCH_COMMENTS')
+                    ->prependLabel()
                     ->setClass('fpcm-articles-search-input fpcm-ui-input-select-articlesearch')
                     ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
         </div>
-    </div>
-
-    <div class="row mb-3">
         
-        <div class="col-12 col-md-4">
+        <div class="col-12 col-md-3">
             <?php $theView->select('combinationComments')
                     ->setOptions($searchCombination)
                     ->setClass('fpcm-ui-input-select-articlesearch-combination')
                     ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
         </div>
+    </div>
 
-        <div class="col-12 col-md-8">
-            <?php $theView->select('comments')
-                    ->setOptions($searchComments)
+    <div class="row">
+
+        <div class="col-12 col-md-9">
+            <?php $theView->select('approval')
+                    ->setOptions($searchApproval)
+                    ->setText('ARTICLE_SEARCH_APPROVAL')
+                    ->prependLabel()
                     ->setClass('fpcm-articles-search-input fpcm-ui-input-select-articlesearch')
                     ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
         </div>
-    </div>
-
-    <div class="row mb-3">
         
-        <div class="col-12 col-md-4">
+        <div class="col-12 col-md-3">
             <?php $theView->select('combinationApproval')
                     ->setOptions($searchCombination)
                     ->setClass('fpcm-ui-input-select-articlesearch-combination')
                     ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
         </div>
+    </div>
 
-        <div class="col-12 col-md-8">
-            <?php $theView->select('approval')
-                    ->setOptions($searchApproval)
+    <div class="row">
+
+        <div class="col-12 col-md-9">
+            <?php $theView->select('draft')
+                    ->setOptions($searchDraft)
+                    ->setText('ARTICLE_SEARCH_DRAFT')
+                    ->prependLabel()
                     ->setClass('fpcm-articles-search-input fpcm-ui-input-select-articlesearch')
                     ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
         </div>
-    </div>
-
-    <div class="row mb-3">
         
-        <div class="col-12 col-md-4">
+        <div class="col-12 col-md-3">
             <?php $theView->select('combinationDraft')
                     ->setOptions($searchCombination)
                     ->setClass('fpcm-ui-input-select-articlesearch-combination')
-                    ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
-        </div>
-
-        <div class="col-12 col-md-8">
-            <?php $theView->select('draft')
-                    ->setOptions($searchDraft)
-                    ->setClass('fpcm-articles-search-input fpcm-ui-input-select-articlesearch')
                     ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
         </div>
     </div>

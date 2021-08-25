@@ -193,8 +193,8 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller imp
      */
     private function initSearchForm()
     {
-        $this->view->assign('searchUsers', ['ARTICLE_SEARCH_USER' => -1] + $this->users);
-        $this->view->assign('searchCategories', ['ARTICLE_SEARCH_CATEGORY' => -1] + $this->categories);
+        $this->view->assign('searchUsers', ['' => -1] + $this->users);
+        $this->view->assign('searchCategories', ['' => -1] + $this->categories);
         
         $this->assignSearchFromVars();
 
@@ -206,31 +206,31 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller imp
         ]);
 
         $this->view->assign('searchPinned', [
-            'ARTICLE_SEARCH_PINNED' => -1,
+            '' => -1,
             'GLOBAL_YES' => 1,
             'GLOBAL_NO' => 0
         ]);
 
         $this->view->assign('searchPostponed', [
-            'ARTICLE_SEARCH_POSTPONED' => -1,
+            '' => -1,
             'GLOBAL_YES' => 1,
             'GLOBAL_NO' => 0
         ]);
 
         $this->view->assign('searchComments', [
-            'ARTICLE_SEARCH_COMMENTS' => -1,
+            '' => -1,
             'GLOBAL_YES' => 1,
             'GLOBAL_NO' => 0
         ]);
 
         $this->view->assign('searchApproval', [
-            'ARTICLE_SEARCH_APPROVAL' => -1,
+            '' => -1,
             'GLOBAL_YES' => 1,
             'GLOBAL_NO' => 0
         ]);
 
         $this->view->assign('searchDraft', [
-            'ARTICLE_SEARCH_DRAFT' => -1,
+            '' => -1,
             'GLOBAL_YES' => 1,
             'GLOBAL_NO' => 0
         ]);

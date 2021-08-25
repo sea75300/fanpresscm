@@ -252,7 +252,7 @@ fpcm.filemanager = {
             var filename = el.data('filename');
             var path = el.data('file');
 
-            fpcm.ui_dialogs.confirmDlg({
+            fpcm.ui_dialogs.confirm({
                 clickNoDefault: true,
                 clickYes: function () {
 
@@ -316,7 +316,7 @@ fpcm.filemanager = {
                 return false;
             }
 
-            fpcm.ui_dialogs.confirmDlg({
+            fpcm.ui_dialogs.confirm({
                 clickYes: function () {
                     fpcm.ajax.post('files/delete', {
                         dataType: 'json',

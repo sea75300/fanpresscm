@@ -21,7 +21,7 @@
             </div>         
             
         </div>
-        <?php //include_once 'helplayer.php'; ?>
+
         <?php include_once 'jsfilesbtm.php'; ?>
     </body>
 </html>

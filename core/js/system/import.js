@@ -104,7 +104,7 @@ fpcm.import = {
             fpcm.dom.fromId('fpcm-ui-csv-upload').addClass('fpcm ui-hidden');
             fpcm.dom.fromId('fpcm-ui-csv-settings').addClass('fpcm ui-hidden');
             
-            fpcm.ui_dialogs.confirmDlg({
+            fpcm.ui_dialogs.confirm({
                 clickYes: function () {
                     fpcm.worker.postMessage({
                         namespace: 'import',

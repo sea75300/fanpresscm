@@ -146,7 +146,7 @@ fpcm.articles = {
     
     articleActionsTweet: function() {
 
-        fpcm.ui_dialogs.confirmDlg({
+        fpcm.ui_dialogs.confirm({
             clickNoDefault: true,
             clickYes: function() {
                 let ids = fpcm.dom.getCheckboxCheckedValues('.fpcm-ui-list-checkbox');
@@ -219,7 +219,7 @@ fpcm.articles = {
 
             var articleId = fpcm.dom.fromTag(this).data('articleid');
             
-            fpcm.ui_dialogs.confirmDlg({
+            fpcm.ui_dialogs.confirm({
                 
                 clickYes: function () {
                     fpcm.ajax.exec('articles/delete', {
@@ -259,7 +259,7 @@ fpcm.articles = {
             return false;
         }
 
-        fpcm.ui_dialogs.confirmDlg({
+        fpcm.ui_dialogs.confirm({
 
             clickYes: function () {
                 fpcm.ajax.exec('articles/delete', {

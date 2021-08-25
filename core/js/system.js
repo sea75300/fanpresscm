@@ -198,7 +198,7 @@ fpcm.system = {
                     clickClose: true,
                     click: function () {
 
-                        fpcm.ui_dialogs.confirmDlg({
+                        fpcm.ui_dialogs.confirm({
                             defaultYes: true,
                             clickYes: function () {
 
@@ -302,7 +302,7 @@ fpcm.system = {
 
     emptyTrash: function (_params) {
 
-        fpcm.ui_dialogs.confirmDlg({
+        fpcm.ui_dialogs.confirm({
 
             clickYes: function () {
                 
@@ -339,82 +339,30 @@ fpcm.system = {
 
     showHelpDialog: function () {
 
-        fpcm.dom.fromClass('fpcm-ui-help-dialog').click(function () {
-            var el = fpcm.dom.fromTag(this);
+        fpcm.dom.bindClick('a.fpcm.ui-help-dialog', function (_event, _ui) {
 
             fpcm.ajax.get('help', {
                 
                 quiet: true,
                 data: {
-                    ref: el.data('ref'),
-                    chapter: el.data('chapter'),
+                    ref: _ui.dataset.ref,
+                    chapter: _ui.dataset.chapter,
                 },
-                execDone: function (result) {
+                execDone: function (_result) {
 
                     fpcm.ui_dialogs.create({
                         id: 'help',
                         title: 'HL_HELP',
                         size: 'xl',
-                        content: result,
+                        content: _result,
                         closeButton: true,
                         headlines: true
                     });
                 }
             });
-
+            
             return false;
         });
-
-//        var _domEl = document.getElementById('fpcm-offcanvas-help')
-//        if (!_domEl) {
-//            return false;
-//        }
-//        
-//        
-//        _domEl.addEventListener('hide.bs.offcanvas', function () {
-//            this.children[1].innerHTML = '';
-//        });
-//
-//        _domEl.addEventListener('show.bs.offcanvas', function () {
-//            
-//            var _self = this;
-//            
-//            fpcm.ajax.get('help', {
-//                
-//                quiet: true,
-//                data: {
-//                    ref: this.dataset.ref,
-//                    chapter: this.dataset.chapter
-//                },
-//                execDone: function (_result) {
-//
-//                    _self.children[2].innerHTML = _result;
-//
-//                    let _headlines = fpcm.dom.fromTag(_self.children[2]).find('h3');;
-//                    if (!_headlines.length) {
-//                        return true;
-//                    }
-//
-//                    let _links = [];
-//                    for (var i = 0, max = _headlines.length; i < max; i++) {
-//
-//                        let _hl = _headlines[i];
-//
-//                        _hl.id = 'fpcm-help-hl-' + i;
-//
-//                        _links.push('<li class="nav-item w-100"><a class="nav-link" href="#' + _hl.id + '">' + _hl.innerText + '</a></li>');            
-//                    }
-//
-//                    _self.children[1].innerHTML = '<nav class="navbar navbar-light bg-white d-block"><ul class="nav nav-pills" role="tablist">' +_links.join('') + '</u></nav>';
-//                    _self.children[1].classList.remove('d-none');
-//
-//                    var spys = [].slice.call(document.querySelectorAll('#fpcm-offcanvas-help > [data-bs-spy="scroll"]'))
-//                    spys.forEach(function (_el) {
-//                        bootstrap.ScrollSpy.getOrCreateInstance(_el).refresh();
-//                    });
-//                }
-//            });
-//        });
 
     },
 

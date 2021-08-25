@@ -57,14 +57,6 @@ class dashboard extends \fpcm\controller\abstracts\controller implements \fpcm\c
                     ->setIcon('sync')
                     ->setText('SYSCHECK_COMPLETE');
         }
-        
-        $this->notifications->addNotification( 
-            new \fpcm\model\theme\notificationItem(
-                (new \fpcm\view\helper\icon('times'))
-                    ->setText('12345')
-                    
-            )
-        );
 
         $this->view->addButtons($buttons);
     }

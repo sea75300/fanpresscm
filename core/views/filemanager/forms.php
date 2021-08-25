@@ -65,66 +65,64 @@
 <div class="fpcm ui-hidden" id="fpcm-dialog-files-search">
 
     <div class="row mb-2">
-        
-        <div class="col-12 col-md-4 my-2 my-md-0"></div>
-
-        <div class="col-12 col-md-8 my-2 my-md-0">
+        <div class="col-12 col-md-9 my-2 my-md-0">
             <?php $theView->textInput('filename')->setText('FILE_LIST_SEARCHTEXT')->setMaxlenght(255)->setPlaceholder(true)->setWrapper(true)->setClass('fpcm-files-search-input'); ?>
         </div>
+        <div class="col-12 col-md-3"></div>
     </div>
 
     <div class="row mb-2">
+
+        <div class="col-12 col-md-9">
+            <?php $theView->dateTimeInput('datefrom')
+                    ->setClass('fpcm-files-search-input fpcm-ui-full-width-date')
+                    ->setText('ARTICLE_SEARCH_DATE_FROM')
+                    ->setWrapper(true); ?>
+        </div>
         
-        <div class="col-12 col-md-4 my-2 my-md-0">
+        <div class="col-12 col-md-3">
             <?php $theView->select('combinationDatefrom')
                     ->setOptions($searchCombination)
                     ->setClass('fpcm-ui-input-select-filessearch-combination')
                     ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED)
                     ->setData(['']); ?>
         </div>
-
-        <div class="col-12 col-md-3 my-2 my-md-0">
-            <?php $theView->dateTimeInput('datefrom')
-                    ->setClass('fpcm-files-search-input fpcm-ui-full-width-date')
-                    ->setText('ARTICLE_SEARCH_DATE_FROM')
-                    ->setPlaceholder(true)
-                    ->setWrapper(true); ?>
-        </div>
     </div>
 
     <div class="row mb-2">
+        <div class="col-12 col-md-9">
+            <?php $theView->dateTimeInput('dateto')
+                    ->setClass('fpcm-files-search-input fpcm-ui-full-width-date')
+                    ->setText('ARTICLE_SEARCH_DATE_TO')
+                    ->setWrapper(true); ?>
+        </div>
         
-        <div class="col-12 col-md-4 my-2 my-md-0">
+        <div class="col-12 col-md-3">
             <?php $theView->select('combinationDateto')
                     ->setOptions($searchCombination)
                     ->setClass('fpcm-ui-input-select-filessearch-combination')
                     ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
         </div>
 
-        <div class="col-12 col-md-3 my-2 my-md-0">
-            <?php $theView->dateTimeInput('dateto')
-                    ->setClass('fpcm-files-search-input fpcm-ui-full-width-date')
-                    ->setText('ARTICLE_SEARCH_DATE_TO')
-                    ->setPlaceholder(true)
-                    ->setWrapper(true); ?>
-        </div>
     </div>
 
     <div class="row mb-2">
+        <div class="col-12 col-md-9">
+            <?php $theView->select('userid')
+                    ->setOptions($searchUsers)
+                    ->setText('ARTICLE_SEARCH_USER')
+                    ->prependLabel()
+                    ->setClass('fpcm-files-search-input fpcm-ui-input-select-filessearch')
+                    ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
+        </div>
         
-        <div class="col-12 col-md-4 my-2 my-md-0">
+        <div class="col-12 col-md-3">
             <?php $theView->select('combinationUserid')
                     ->setOptions($searchCombination)
                     ->setClass('fpcm-ui-input-select-filessearch-combination')
                     ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
         </div>
 
-        <div class="col-12 col-md-8 my-2 my-md-0">
-            <?php $theView->select('userid')
-                    ->setOptions($searchUsers)
-                    ->setClass('fpcm-files-search-input fpcm-ui-input-select-filessearch')
-                    ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
-        </div>
     </div>
 
 </div>

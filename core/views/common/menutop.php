@@ -24,16 +24,11 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link fpcm-ui-help-dialog" 
-                        id="fpcm-show-help"
-                        href="#" title="<?php $theView->write('HELP_BTN_OPEN'); ?>"
+                    <a class="nav-link fpcm ui-help-dialog" 
+                        href="#"
+                        title="<?php $theView->write('HELP_BTN_OPEN'); ?>"
                         data-ref="<?php print $theView->helpLink['ref']; ?>" 
                         data-chapter="<?php print $theView->helpLink['chapter']; ?>">
-                        <?php $theView->icon('question-circle')->setSize('lg'); ?>
-                    </a>
-                    
-                    
-                    <a id="fpcm-help-open" href="#fpcm-offcanvas-help" class="nav-link d-none" title="<?php $theView->write('HELP_BTN_OPEN'); ?>" role="button" data-bs-toggle="offcanvas">
                         <?php $theView->icon('question-circle')->setSize('lg'); ?>
                     </a>
                 </li>

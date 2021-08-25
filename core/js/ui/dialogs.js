@@ -251,7 +251,7 @@ fpcm.ui_dialogs = {
 
     },
     
-    confirmDlg: function(_params) {
+    confirm: function(_params) {
 
         if (_params.defaultYes === undefined && _params.defaultNo === undefined) {
             _params.defaultYes = true;
@@ -270,7 +270,7 @@ fpcm.ui_dialogs = {
                     text: 'GLOBAL_YES',
                     icon: "check",
                     click: _params.clickYes,
-                    primary: _params.defaultYes ? true : false,
+                    class: 'btn-success',
                     clickClose: true
                 },
                 {
@@ -278,6 +278,7 @@ fpcm.ui_dialogs = {
                     icon: "times",
                     click: _params.clickNo,
                     primary: _params.defaultNo ? true : false,
+                    class: 'btn-outline-danger',
                     clickClose: _params.clickNoDefault
                 }
             ]
@@ -285,7 +286,7 @@ fpcm.ui_dialogs = {
 
     },
     
-    insertDlg: function(_params) {
+    insert: function(_params) {
 
         var _var = {
             id: _params.id,

@@ -123,19 +123,19 @@ class commentlist extends \fpcm\controller\abstracts\controller implements \fpcm
         ]);
 
         $this->view->assign('searchApproval', array(
-            'COMMMENT_APPROVE' => -1,
+            '' => -1,
             'GLOBAL_YES' => 1,
             'GLOBAL_NO' => 0
         ));
 
         $this->view->assign('searchSpam', array(
-            'COMMMENT_SPAM' => -1,
+            '' => -1,
             'GLOBAL_YES' => 1,
             'GLOBAL_NO' => 0
         ));
 
         $this->view->assign('searchPrivate', array(
-            'COMMMENT_PRIVATE' => -1,
+            '' => -1,
             'GLOBAL_YES' => 1,
             'GLOBAL_NO' => 0
         ));
