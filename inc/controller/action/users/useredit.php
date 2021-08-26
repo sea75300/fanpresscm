@@ -94,7 +94,7 @@ class useredit extends userbase {
         ];
         
         if ($this->userId != $this->session->getUserId()) {
-            $buttons[] = (new \fpcm\view\helper\checkbox('data[passInfoUser]'))->setText('USERS_PASSWORD_SENDUSERINFO');
+            $buttons[] = (new \fpcm\view\helper\checkbox('data[passInfoUser]'))->setText('USERS_PASSWORD_SENDUSERINFO')->setSwitch(true)->setWrapperClass('ms-2 mb-0 mt-1');
         }
 
         $this->view->addButtons($buttons);

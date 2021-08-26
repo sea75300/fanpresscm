@@ -23,7 +23,7 @@ class useradd extends userbase {
         
         $this->view->addButtons([
             (new \fpcm\view\helper\saveButton('userSave'))->setPrimary(),
-            (new \fpcm\view\helper\checkbox('data[passInfoUser]'))->setText('USERS_SENDUSERINFO')
+            (new \fpcm\view\helper\checkbox('data[passInfoUser]'))->setText('USERS_SENDUSERINFO')->setSwitch(true)->setWrapperClass('ms-2 mb-0 mt-1')
         ]);
         $this->view->setFormAction('users/add');
         $this->view->assign('showDisableButton', false);
