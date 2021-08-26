@@ -57,22 +57,22 @@ class actions extends \fpcm\controller\abstracts\ajaxController implements \fpcm
     protected function processDisableUser()
     {
         if (!$this->permissions->system->users) {
-            return new \fpcm\view\message('SAVE_FAILED_USER_DISABLE', \fpcm\view\message::TYPE_ERROR);
+            return new \fpcm\view\message($this->language->translate('SAVE_FAILED_USER_DISABLE'), \fpcm\view\message::TYPE_ERROR);
         }
         
         if ($this->oid === $this->session->getUserId()) {
-            return new \fpcm\view\message('SAVE_FAILED_USER_DISABLE_OWN', \fpcm\view\message::TYPE_ERROR);
+            return new \fpcm\view\message($this->language->translate('SAVE_FAILED_USER_DISABLE_OWN'), \fpcm\view\message::TYPE_ERROR);
         }
         
         if ((new \fpcm\model\users\userList)->countActiveUsers() == 1) {
-            return new \fpcm\view\message('SAVE_FAILED_USER_DISABLE_LAST', \fpcm\view\message::TYPE_ERROR);
+            return new \fpcm\view\message($this->language->translate('SAVE_FAILED_USER_DISABLE_LAST'), \fpcm\view\message::TYPE_ERROR);
         }
 
         if (!(new \fpcm\model\users\author($this->oid))->disable()) {
-            return new \fpcm\view\message('SAVE_FAILED_USER_DISABLE', \fpcm\view\message::TYPE_ERROR);
+            return new \fpcm\view\message($this->language->translate('SAVE_FAILED_USER_DISABLE'), \fpcm\view\message::TYPE_ERROR);
         }
 
-        return new \fpcm\view\message('SAVE_SUCCESS_USER_DISABLE', \fpcm\view\message::TYPE_NOTICE);
+        return new \fpcm\view\message($this->language->translate('SAVE_SUCCESS_USER_DISABLE'), \fpcm\view\message::TYPE_NOTICE);
     }
 
     /**
@@ -82,18 +82,18 @@ class actions extends \fpcm\controller\abstracts\ajaxController implements \fpcm
     protected function processEnableUser()
     {
         if (!$this->permissions->system->users) {
-            return new \fpcm\view\message('SAVE_FAILED_USER_ENABLE', \fpcm\view\message::TYPE_ERROR);
+            return new \fpcm\view\message($this->language->translate('SAVE_FAILED_USER_ENABLE'), \fpcm\view\message::TYPE_ERROR);
         }
         
         if ($this->oid === $this->session->getUserId()) {
-            return new \fpcm\view\message('SAVE_SUCCESS_USER_ENABLE', \fpcm\view\message::TYPE_ERROR);
+            return new \fpcm\view\message($this->language->translate('SAVE_SUCCESS_USER_ENABLE'), \fpcm\view\message::TYPE_ERROR);
         }
 
         if (!(new \fpcm\model\users\author($this->oid))->enable()) {
-            return new \fpcm\view\message('SAVE_FAILED_USER_ENABLE', \fpcm\view\message::TYPE_ERROR);        
+            return new \fpcm\view\message($this->language->translate('SAVE_FAILED_USER_ENABLE'), \fpcm\view\message::TYPE_ERROR);        
         }
 
-        return new \fpcm\view\message('SAVE_SUCCESS_USER_ENABLE', \fpcm\view\message::TYPE_NOTICE);
+        return new \fpcm\view\message($this->language->translate('SAVE_SUCCESS_USER_ENABLE'), \fpcm\view\message::TYPE_NOTICE);
     }
 
     /**
@@ -103,15 +103,15 @@ class actions extends \fpcm\controller\abstracts\ajaxController implements \fpcm
     protected function processDeleteUser()
     {
         if (!$this->permissions->system->users) {
-            return new \fpcm\view\message('DELETE_FAILED_USERS', \fpcm\view\message::TYPE_ERROR);
+            return new \fpcm\view\message($this->language->translate('DELETE_FAILED_USERS'), \fpcm\view\message::TYPE_ERROR);
         }
         
         if ($this->oid === $this->session->getUserId()) {
-            return new \fpcm\view\message('DELETE_FAILED_USERS_OWN', \fpcm\view\message::TYPE_ERROR);
+            return new \fpcm\view\message($this->language->translate('DELETE_FAILED_USERS_OWN'), \fpcm\view\message::TYPE_ERROR);
         }
         
         if ((new \fpcm\model\users\userList)->countActiveUsers() == 1) {
-            return new \fpcm\view\message('DELETE_FAILED_USERS_LAST', \fpcm\view\message::TYPE_ERROR);
+            return new \fpcm\view\message($this->language->translate('DELETE_FAILED_USERS_LAST'), \fpcm\view\message::TYPE_ERROR);
         }
         
         $moveTo = $this->request->fromPOST('moveTo', [
@@ -120,39 +120,64 @@ class actions extends \fpcm\controller\abstracts\ajaxController implements \fpcm
         
         $moveAction = $this->request->fromPOST('moveAction');
         
-        if (!$moveAction) {
-            
-            fpcmLogSystem("(\fpcm\model\users\author({$this->oid}))->delete()");
-            
-//            if (!(new \fpcm\model\users\author($this->oid))->delete()) {
-//                return new \fpcm\view\message('DELETE_FAILED_USERS', \fpcm\view\message::TYPE_ERROR);
-//            }
+        if (!$moveAction) {            
+            if (!(new \fpcm\model\users\author($this->oid))->delete()) {
+                return new \fpcm\view\message($this->language->translate('DELETE_FAILED_USERS'), \fpcm\view\message::TYPE_ERROR);
+            }
 
-            return new \fpcm\view\message('DELETE_SUCCESS_USERS', \fpcm\view\message::TYPE_NOTICE);
+            return new \fpcm\view\message($this->language->translate('DELETE_SUCCESS_USERS'), \fpcm\view\message::TYPE_NOTICE);
         }
         
         if (!in_array($moveAction, ['move', 'delete']) || ($moveAction === 'move' && !$moveTo)) {
-            return new \fpcm\view\message('DELETE_FAILED_USERSARTICLES', \fpcm\view\message::TYPE_ERROR);            
+            return new \fpcm\view\message($this->language->translate('DELETE_FAILED_USERSARTICLES'), \fpcm\view\message::TYPE_ERROR);            
         }
         
         if (!(new \fpcm\model\users\author($this->oid))->delete()) {
-            return new \fpcm\view\message('DELETE_FAILED_USERS', \fpcm\view\message::TYPE_ERROR);
+            return new \fpcm\view\message($this->language->translate('DELETE_FAILED_USERS'), \fpcm\view\message::TYPE_ERROR);
         }
 
 
         $articleList = new \fpcm\model\articles\articlelist();
         switch ($moveAction) {
             case 'move' :
-                fpcmLogSystem("articleList->moveArticlesToUser({$this->oid}, {$moveTo});");
-//                $articleList->moveArticlesToUser($this->oid, $moveTo);
+                $articleList->moveArticlesToUser($this->oid, $moveTo);
                 break;
             case 'delete' :
-                fpcmLogSystem("articleList->deleteArticlesByUser({$this->oid});");
-//                $articleList->deleteArticlesByUser($this->oid);
+                $articleList->deleteArticlesByUser($this->oid);
                 break;
         }
         
-        return new \fpcm\view\message('DELETE_SUCCESS_USERS', \fpcm\view\message::TYPE_NOTICE);
+        return new \fpcm\view\message($this->language->translate('DELETE_SUCCESS_USERS'), \fpcm\view\message::TYPE_NOTICE);
+    }
+
+    /**
+     * Benutzer löschen
+     * @return bool
+     */
+    protected function processDeleteRoll()
+    {
+        if (!$this->permissions->system->rolls) {
+            return new \fpcm\view\message($this->language->translate('DELETE_FAILED_ROLL'), \fpcm\view\message::TYPE_ERROR);
+        }
+        
+        if ($this->oid <= 3) {
+            return new \fpcm\view\message($this->language->translate('DELETE_FAILED_ROLL'), \fpcm\view\message::TYPE_ERROR);
+        }
+        
+        if ($this->oid === $this->session->getCurrentUser()->getRoll()) {
+            return new \fpcm\view\message($this->language->translate('DELETE_FAILED_ROLL_OWN'), \fpcm\view\message::TYPE_ERROR);
+        }
+        
+        $count = (new \fpcm\model\users\userRollList)->getUserRolls();
+        if (count($count) == 1) {
+            return new \fpcm\view\message($this->language->translate('DELETE_FAILED_ROLL_LAST'), \fpcm\view\message::TYPE_ERROR);
+        }
+        
+        if (!(new \fpcm\model\users\userRoll($this->oid))->delete()) {
+            return new \fpcm\view\message($this->language->translate('DELETE_FAILED_ROLL'), \fpcm\view\message::TYPE_ERROR);
+        }
+
+        return new \fpcm\view\message($this->language->translate('DELETE_SUCCESS_ROLL'), \fpcm\view\message::TYPE_NOTICE);
     }
 
 }

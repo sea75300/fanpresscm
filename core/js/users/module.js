@@ -17,18 +17,7 @@ fpcm.users = {
             fpcm.dataview.render('userlist', {
                 onRenderAfter: function () {
                     fpcm.dom.bindClick('.fpcm.ui-userlist-actione', function (_ev, _ui) {
-
-                        fpcm.ajax.execFunction('users/actions', _ui.dataset.fn, {
-                            data:  {
-                                oid: _ui.dataset.oid
-                            },
-                            execDone: function (_result) {
-                                console.log(_result);
-                            }
-                        });
-                        
-                        return false;
-
+                        return fpcm.users._confirmExec(_ui);
                     });
 
                     fpcm.dom.bindClick('.fpcm.ui-userlist-action-delete', function (_ev, _ui) {
@@ -64,6 +53,10 @@ fpcm.users = {
                         
                         return false;
                     });
+
+                    fpcm.dom.bindClick('.fpcm.ui-rollslist-action-delete', function (_ev, _ui) {
+                        return fpcm.users._confirmExec(_ui);
+                    });
                 }
             });
         };
@@ -86,21 +79,8 @@ fpcm.users = {
                     closeClick: true,
                     primary: true,
                     click: function() {
-
-                        fpcm.ui_dialogs.confirm({
-                            clickYes: function() {
-                                fpcm.ajax.execFunction('users/actions', _ui.dataset.fn, {
-                                    data:  {
-                                        oid: _ui.dataset.oid,
-                                        moveAction: fpcm.dom.fromId('articlesaction').val(),
-                                        moveTo: fpcm.dom.fromId('articlesuser').val()
-                                    },
-                                    execDone: function (_result) {
-                                        console.log(_result);
-                                    }
-                                });
-                            }
-                        });
+                        fpcm.ui_dialogs.close('users-select-delete');
+                        fpcm.users._confirmExec(_ui);
                     }
                 }
             ],
@@ -112,5 +92,28 @@ fpcm.users = {
 
         return false;
 
+    },
+    
+    _confirmExec: function (_ui) {
+        fpcm.ui_dialogs.confirm({
+            clickYes: function () {
+                fpcm.ajax.execFunction('users/actions', _ui.dataset.fn, {
+                    data:  {
+                        oid: _ui.dataset.oid
+                    },
+                    pageToken: 'users/actions',
+                    execDone: function (_result) {
+                        fpcm.ui.addMessage(_result);
+                        if (_result.type === 'success') {
+                            setTimeout(function () {
+                                window.location.reload();
+                            }, 1000);
+                        }
+                    }
+                });   
+            }
+        });
+        
+        return false;
     }
 };

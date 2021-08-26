@@ -2,7 +2,7 @@
 /* @var $theView \fpcm\view\viewVars */
 /* @var $userRoll \fpcm\model\users\userRoll */
 ?>
-<div class="row">
+<div class="row border-top border-5 border-primary">
     <div class="col-12">
         <fieldset class="my-3">
 

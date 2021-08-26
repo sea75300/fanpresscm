@@ -247,7 +247,11 @@ fpcm.dom = {
     
     bindEvent: function (_element, _ob, _callback, _unbind)
     {
-        if (_unbind === true || _unbind === undefined) {
+        if (_unbind === undefined) {
+            _unbind = true;
+        }
+
+        if (_unbind === true) {
             fpcm.dom.fromTag(_element).unbind(_ob);
         }
 
@@ -267,7 +271,7 @@ fpcm.dom = {
             _unbind = true;
         }
         
-        fpcm.dom.bindEvent(_element, 'click', _callback, _unbind);
+        return fpcm.dom.bindEvent(_element, 'click', _callback, _unbind);
     }
 
 };

@@ -82,7 +82,7 @@ class permissions extends \fpcm\controller\abstracts\controller implements \fpcm
             (new \fpcm\view\helper\tabItem('permissions-group'))
                 ->setText('USERS_EDIT_PERMISSION', ['rollname' => $this->language->translate($this->roll->getRollName())])
                 ->setFile($this->getViewPath() . '.php')
-        ]);
+        ], 'm-2');
 
         $this->view->render();
     }
