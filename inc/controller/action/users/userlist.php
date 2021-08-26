@@ -234,7 +234,7 @@ class userlist extends \fpcm\controller\abstracts\controller implements \fpcm\co
                         ->setIcon('user-check')
                         ->setIconOnly(true)
                         ->setReadonly($noRb)
-                        ->setData(['oid' => $userId, 'fn' => 'enableUser']);
+                        ->setData(['oid' => $userId, 'fn' => 'enableUser', 'dest' => 'confirmExec']);
                 }
                 else {
                     $buttons[] = (new \fpcm\view\helper\submitButton(uniqid('disableUser')))
@@ -243,14 +243,14 @@ class userlist extends \fpcm\controller\abstracts\controller implements \fpcm\co
                         ->setIcon('user-lock')
                         ->setIconOnly(true)
                         ->setReadonly($noRb)
-                        ->setData(['oid' => $userId, 'fn' => 'disableUser']);
+                        ->setData(['oid' => $userId, 'fn' => 'disableUser', 'dest' => 'confirmExec']);
                 }
                 
                 $buttons[] = (new \fpcm\view\helper\deleteButton(uniqid('deleteUser')))
-                        ->setClass('fpcm ui-userlist-action-delete')
+                        ->setClass('fpcm ui-userlist-actione')
                         ->setIconOnly(true)
                         ->setReadonly($noRb)
-                        ->setData(['oid' => $userId, 'fn' => 'deleteUser']);
+                        ->setData(['oid' => $userId, 'fn' => 'deleteUser', 'dest' => 'moveDeleteArticles']);
 
                 $dataView->addRow(
                     new \fpcm\components\dataView\row([

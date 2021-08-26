@@ -131,11 +131,6 @@ class actions extends \fpcm\controller\abstracts\ajaxController implements \fpcm
         if (!in_array($moveAction, ['move', 'delete']) || ($moveAction === 'move' && !$moveTo)) {
             return new \fpcm\view\message($this->language->translate('DELETE_FAILED_USERSARTICLES'), \fpcm\view\message::TYPE_ERROR);            
         }
-        
-        if (!(new \fpcm\model\users\author($this->oid))->delete()) {
-            return new \fpcm\view\message($this->language->translate('DELETE_FAILED_USERS'), \fpcm\view\message::TYPE_ERROR);
-        }
-
 
         $articleList = new \fpcm\model\articles\articlelist();
         switch ($moveAction) {
@@ -145,6 +140,10 @@ class actions extends \fpcm\controller\abstracts\ajaxController implements \fpcm
             case 'delete' :
                 $articleList->deleteArticlesByUser($this->oid);
                 break;
+        }
+
+        if (!(new \fpcm\model\users\author($this->oid))->delete()) {
+            return new \fpcm\view\message($this->language->translate('DELETE_FAILED_USERS'), \fpcm\view\message::TYPE_ERROR);
         }
         
         return new \fpcm\view\message($this->language->translate('DELETE_SUCCESS_USERS'), \fpcm\view\message::TYPE_NOTICE);
