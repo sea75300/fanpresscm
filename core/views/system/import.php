@@ -76,7 +76,7 @@
 
             </div>
 
-            <div class="col-2 px-0 d-none d-lg-block align-self-center fpcm ui-align-center ui-color-font-grey">
+            <div class="col-2 px-0 d-none d-lg-block align-self-center fpcm text-center ui-color-font-grey">
                 <?php $theView->icon('chevron-right')->setSize('3x'); ?>
                 
             </div>

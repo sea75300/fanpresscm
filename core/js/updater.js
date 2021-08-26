@@ -91,7 +91,7 @@ fpcm.updater = {
                     fpcm.updater[afterFunc].call();
                 }
 
-                statusEl.addClass('fa-check fpcm-ui-editor-metainfo fpcm ui-status-075');
+                statusEl.addClass('fa-check fpcm-ui-editor-metainfo opacity-75');
                 if (!fpcm.updater.elements[fpcm.updater.currentIdx]) {
                     return false;
                 }

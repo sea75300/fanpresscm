@@ -199,15 +199,15 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController implements \fp
         
         $buttons = [];        
         if (!$item->isInstallable()) {
-            $buttons[] = (new \fpcm\view\helper\icon('project-diagram'))->setText('MODULES_FAILED_DEPENCIES')->setClass('fpcm-ui-padding-lg-right fpcm-ui-important-text')->setSize('lg');
+            $buttons[] = (new \fpcm\view\helper\icon('project-diagram'))->setText('MODULES_FAILED_DEPENCIES')->setClass('pe-3 fpcm-ui-important-text')->setSize('lg');
         }
 
         if (!$item->hasFilesListFile()) {
-            $buttons[] = (new \fpcm\view\helper\icon('exclamation-triangle'))->setText('UPDATE_VERSIONCECK_FILETXT_ERR2')->setClass('fpcm-ui-padding-lg-right fpcm-ui-important-text')->setSize('lg');
+            $buttons[] = (new \fpcm\view\helper\icon('exclamation-triangle'))->setText('UPDATE_VERSIONCECK_FILETXT_ERR2')->setClass('pe-3 fpcm-ui-important-text')->setSize('lg');
         }
 
         if (!$item->isWritable()) {
-            $buttons[] = (new \fpcm\view\helper\icon('times-circle'))->setText('MODULES_FAILED_FSWRITE')->setClass('fpcm-ui-padding-lg-right fpcm-ui-important-text')->setSize('lg');
+            $buttons[] = (new \fpcm\view\helper\icon('times-circle'))->setText('MODULES_FAILED_FSWRITE')->setClass('pe-3 fpcm-ui-important-text')->setSize('lg');
         }
 
         $buttons[] = (new \fpcm\view\helper\linkButton('info'.$hash))
@@ -300,7 +300,7 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController implements \fp
         
         $buttons = [];        
         if (!$item->isInstallable()) {
-            $buttons[] = (new \fpcm\view\helper\icon('project-diagram'))->setText('MODULES_FAILED_DEPENCIES')->setClass('fpcm-ui-padding-lg-right fpcm-ui-important-text');
+            $buttons[] = (new \fpcm\view\helper\icon('project-diagram'))->setText('MODULES_FAILED_DEPENCIES')->setClass('pe-3 fpcm-ui-important-text');
         }
 
         $buttons[] = (new \fpcm\view\helper\linkButton('info'.$hash))

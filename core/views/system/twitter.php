@@ -5,7 +5,7 @@
     <div class="row my-2">
         <div class="col-auto">
         <?php if ($twitterIsActive) : ?>
-            <?php $theView->icon('twitter', 'fab')->setStack('check fpcm-ui-editor-metainfo fpcm ui-status-075')->setSize('lg')->setStackTop(true); ?>
+            <?php $theView->icon('twitter', 'fab')->setStack('check fpcm-ui-editor-metainfo opacity-75')->setSize('lg')->setStackTop(true); ?>
             <?php $theView->write('SYSTEM_OPTIONS_TWITTER_ACTIVE', ['{{screenname}}' => $twitterScreenName]); ?>
         <?php endif; ?>
         </div>

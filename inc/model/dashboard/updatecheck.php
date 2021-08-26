@@ -67,7 +67,7 @@ class updatecheck extends \fpcm\model\abstracts\dashcontainer implements \fpcm\m
         $this->getModuleUpdateStatus();
 
         $this->tableContent[] = implode(PHP_EOL, [
-            '<div class="row g-0 py-3 fpcm ui-align-center">',
+            '<div class="row g-0 py-3 fpcm text-center">',
             '<div class="col align-self-center">'.$this->language->translate('UPDATE_VERSIONCHECK_NOTES').'</div>',
             '</div>'
         ]);

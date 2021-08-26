@@ -131,8 +131,8 @@ class recentarticles extends \fpcm\model\abstracts\dashcontainer implements \fpc
                 '{{time}}' => date($this->config->system_dtmask, $article->getCreatetime())
             ));
 
-            $content[] = '<div class="row fpcm-ui-font-small fpcm-ui-padding-md-tb">';
-            $content[] = '  <div class="col-12 col-md-auto px-3 fpcm-ui-center">';
+            $content[] = '<div class="row fpcm-ui-font-small py-2">';
+            $content[] = '  <div class="col-12 col-md-auto px-3 text-center">';
             $content[] = (string) (new \fpcm\view\helper\openButton('openBtn'))->setUrlbyObject($article)->setTarget('_blank');
             $content[] = (string) (new \fpcm\view\helper\editButton('editBtn'))->setUrlbyObject($article)->setReadonly($article->getEditPermission() ? false : true);
             $content[] = '  </div>';

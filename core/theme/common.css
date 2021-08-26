@@ -95,14 +95,6 @@ legend {
     padding: 0.25rem 0.5rem;
 }
 
-h2,
-h3,
-.fpcm-dashboard-container h3,
-.fpcm.ui-border-radius-all,
-.fpcm-ui-border-radius-all {
-    border-radius: 5px !important;
-}
-
 .navbar-toggler {
     box-shadow: none !important;
 }

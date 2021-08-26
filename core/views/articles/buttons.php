@@ -153,7 +153,7 @@
         <div class="row g-0">
             <div class="col-2 col-lg-1"><?php print $share->getIcon(); ?></div>
             <div class="col-6 col-lg-2 align-self-center"><?php print $share->getDescription(); ?>:</div>
-            <div class="col-4 col-lg-1 align-self-center fpcm-ui-center"><?php print $share->getSharecount(); ?></div>
+            <div class="col-4 col-lg-1 align-self-center text-center"><?php print $share->getSharecount(); ?></div>
             <div class="col-12 col-lg-auto align-self-center"><?php $theView->icon('clock', 'far')->setText('EDITOR_SHARES_LAST'); ?> <?php $theView->dateText($share->getLastshare()); ?></div>
         </div>
         <?php endforeach; ?>

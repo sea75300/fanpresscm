@@ -7,156 +7,10 @@ label,
     text-overflow: ellipsis;
 }
 
-.fpcm.ui-align-left,
-.fpcm-ui-align-left {
-    text-align:left;
-}
-
-.fpcm.ui-align-right,
-.fpcm-ui-align-right {
-    text-align:right;
-}
-
-.fpcm.ui-align-justify,
-.fpcm-ui-align-justify {
-    text-align:justify;
-}
-
-.fpcm.ui-align-center,
-.fpcm-ui-center,
-.fpcm-ui-align-center {
-    text-align: center;
-}
-
 /* ------ Paddings and margins */
-.fpcm-ui-padding-none-left {
-    padding-left: 0;
-}
-
-.fpcm-ui-padding-none-right {
-    padding-right: 0;
-}
-
-.fpcm-ui-padding-none-lr {
-    padding-left: 0;
-    padding-right: 0;
-}
-
-.fpcm-ui-padding-none {
-    padding: 0em;
-}
-
-.fpcm-ui-padding-md-all {
-    padding: 0.5em;
-}
-
-.fpcm-ui-padding-md-lr {
-    padding-left: 0.5em;
-    padding-right: 0.5em;
-}
-
-.fpcm-ui-padding-md-tb {
-    padding-top: 0.5em;
-    padding-bottom: 0.5em;
-}
-
-.fpcm-ui-padding-md-left {
-    padding-left: 0.5em;
-}
-
-.fpcm-ui-padding-md-right {
-    padding-right: 0.5em;
-}
-
-.fpcm-ui-padding-md-top {
-    padding-top: 0.5em;
-}
-
-.fpcm-ui-padding-md-bottom {
-    padding-bottom: 0.5em;
-}
-
-.fpcm-ui-padding-lg-lr {
-    padding-left: 1em;
-    padding-right: 1em;
-}
-
-.fpcm-ui-padding-lg-tb {
-    padding-top: 1em;
-    padding-bottom: 1em;
-}
-
-.fpcm-ui-padding-lg-left {
-    padding-left: 1em;
-}
-
-.fpcm-ui-padding-lg-right {
-    padding-right: 1em;
-}
-
-.fpcm-ui-padding-lg-top {
-    padding-top: 1em;
-}
-
-.fpcm-ui-padding-lg-bottom {
-    padding-bottom: 1em;
-}
-
-.fpcm-ui-margin-md-all,
-.fpcm-ui-margin-md-bottom {
-    margin-bottom: 0.5em;
-}
-
-.fpcm-ui-margin-md-all,
-.fpcm-ui-margin-md-left,
-#twitterReplacements-button {
-    margin-left: 0.5em;
-}
-
-.fpcm-ui-margin-md-all,
-.fpcm-ui-margin-md-right {
-    margin-right: 0.5em;
-}
-
-.fpcm-ui-margin-md-all,
-.fpcm-ui-margin-md-top {
-    margin-top: 0.5em;
-}
-
-.fpcm-ui-margin-center {
-    margin-left: auto;
-    margin-right: auto;
-}
-
 div.row {
     margin-left: 0;
     margin-right: 0;
-}
-
-/* ------ Positions */
-.fpcm-editor-select,
-.fpcm-editor-dialog iframe {
-    position: absolute;
-}
-
-.fpcm-ui-position-top-0,
-.fpcm-ui-position-absolute-0 {
-    top: 0px;
-}
-
-.fpcm-ui-position-bottom-0,
-.fpcm-ui-position-absolute-0 {
-    bottom: 0px;
-}
-
-.fpcm-ui-position-left-0,
-.fpcm-ui-position-absolute-0 {
-    left: 0px;
-}
-
-.fpcm-ui-position-right-0,
-.fpcm-ui-position-absolute-0 {
-    right: 0px;
 }
 
 /* ------ General floats and displays */
@@ -189,8 +43,7 @@ div.fileupload-progress.in,
 }
 
 .fpcm.ui-hidden,
-.fpcm-ui-hidden,
-.fpcm-editor-select {
+.fpcm-ui-hidden {
     display: none;
 }
 
@@ -215,9 +68,7 @@ div.fileupload-progress.in,
 /* ------ Widths and heights */
 .fpcm.ui-full-width,
 .fpcm-ui-full-width,
-.fpcm-ui-progressbar,
-.fpcm-editor-dialog iframe,
-.fpcm-editor-select a {
+.fpcm-ui-progressbar {
     width: 100%;
 }
 
@@ -248,11 +99,6 @@ ul.fpcm-ui-csv-fields {
 
 .fpcm.ui-invert-1 {
     filter: invert(1);
-}
-
-.fpcm.ui-status-075,
-.fpcm-ui-status-075 {
-    opacity: 0.75;
 }
 
 div.fileupload-progress.fpcm-ui-fade {
@@ -288,60 +134,13 @@ div.fpcm-ui-editor-metabox span.fpcm-ui-editor-metainfo {
     z-index : 9999;
 }
 
-div.fpcm-ui-datepicker-inputwrapper {
-    max-width: 200px;
-}
-
-.fpcm-ui-inner-wrapper {
-    margin: 0.5em;
-}
-
 .fpcm-ui-font-small {
     font-size: 0.85em;
-}
-
-.fpcm-ui-tabs-general {
-    overflow: hidden;
-}
-
-.fpcm-tabs-scroll {
-    overflow: auto;
-    padding-bottom: 0.2em;
-}
-
-.fpcm-editor-dialog iframe {
-    border: 0;
-    margin: 0;
-    padding: 0;
-    height:100%;
-    bottom: 0px;
-    top: 0px;
-    left: 0px;
 }
 
 #fpcm-dialog-editor-shortlink iframe {
     height:50px;
     min-height:50px;
-}
-
-.fpcm-editor-dialog h2 {
-    margin:0px 0px 5px 0px;
-}
-
-.fpcm-editor-select {
-    min-width: 125px !important;
-    max-width: 250px;
-    padding: 0.4em;
-    z-index: 525;
-}
-
-.fpcm-editor-select a {
-    line-height: 1.4em;
-    font-weight: normal;
-}
-
-#fpcm-dialog-editor-html-insertsmileys {
-    line-height: 25px;
 }
 
 li.fpcm-ui-smileylist-preview {
@@ -360,30 +159,6 @@ img.fpcm-ui-smileylist-preview {
 
 .fpcm-ui-progressbar {
     height: 35px;
-}
-
-.fpcm-ui-border-radius-all {
-    border-radius: 5px;
-}
-
-.fpcm-ui-border-radius-right {
-    border-radius: 0 5px 5px 0;
-}
-
-.fpcm-ui-border-radius-left {
-    border-radius: 5px 0 0 5px;
-}
-
-.fpcm-ui-border-radius-top {
-    border-radius: 5px 5px 0 0;
-}
-
-.fpcm-ui-border-radius-bottom {
-    border-radius: 0 0 5px 5px;
-}
-
-.fpcm.ui-border-radius-none {
-    border-radius: 0;
 }
 
 div.fpcm-filelist-thumb-box img {

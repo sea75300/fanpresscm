@@ -97,8 +97,8 @@ fpcm.fileuploader = {
     
     createFileListItem: function (_params, _file, _addUploadButton, _addCancelButton) {
         
-        let html = '<div class="row my-3 py-2 template-upload fpcm ui-background-white-50p fpcm-ui-border-radius-all">';
-        html += '   <div class="col-auto fpcm-ui-center jqupload-row-buttons align-self-center">';
+        let html = '<div class="template-upload row my-3 py-2 fpcm ui-background-white-50p rounded shadow-sm">';
+        html += '   <div class="col-auto text-center jqupload-row-buttons align-self-center">';
 
         if (_addUploadButton) {
             html += fpcm.vars.jsvars.uploadListButtons.start.replace('{{id}}', (new Date).getTime());

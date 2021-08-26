@@ -128,7 +128,7 @@
     <?php else: ?>
         <div class="col-12 col-md align-self-center">
             <div class="m-3" id="user_profile_image_buttons">
-            <?php $theView->icon('user-secret')->setStack('check fpcm-ui-editor-metainfo fpcm ui-status-075')->setSize('lg')->setStackTop(true); ?>
+            <?php $theView->icon('user-secret')->setStack('check fpcm-ui-editor-metainfo opacity-75')->setSize('lg')->setStackTop(true); ?>
             <?php $theView->write('USERS_AUTHTOKEN_ACTIVE'); ?>
             </div>
 

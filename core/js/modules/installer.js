@@ -96,7 +96,7 @@ fpcm.moduleinstaller = {
                     fpcm.moduleinstaller[afterFunc].call();
                 }
 
-                statusEl.addClass('fa-check fpcm-ui-editor-metainfo fpcm ui-status-075');
+                statusEl.addClass('fa-check fpcm-ui-editor-metainfo opacity-75');
                 if (!fpcm.moduleinstaller.elements[fpcm.moduleinstaller.currentIdx]) {
                     return false;
                 }
