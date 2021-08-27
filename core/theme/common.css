@@ -1,9 +1,14 @@
 @import url(droid_sans/stylesheet.css);
 @import url(raleway/stylesheet.css);
 
+:root {
+  --bs-font-sans-serif: 'Droid Sans', sans-serif ;
+}
+
 /* ------ General common styles */
 
 body {
+    font-family: var(--bs-font-sans-serif);
     font-size: 12pt;
     margin:0;
     padding:0;
@@ -27,11 +32,11 @@ select,
 textarea,
 option,
 button {
-    font-family: 'Droid Sans', sans-serif !important;
+    font-family: 'Droid Sans', sans-serif;
 }
 
 .fpcm-ui-monospace {
-    font: 1em 'Courier New', monospace !important;
+    font: 1em var(--bs-font-monospace) !important;
 }
 
 h1,

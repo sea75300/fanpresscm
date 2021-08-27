@@ -30,10 +30,7 @@ div.row {
     clear: both;
 }
 
-#fpcm-filemanager-upload-drop h4:before,
-div.fileupload-progress.in,
-.fpcm-ui-block,
-.fpcm.ui-block {
+div.fileupload-progress.in {
     display: block;
 }
 
@@ -134,6 +131,7 @@ div.fpcm-ui-editor-metabox span.fpcm-ui-editor-metainfo {
     z-index : 9999;
 }
 
+.fpcm.ui-font-small,
 .fpcm-ui-font-small {
     font-size: 0.85em;
 }

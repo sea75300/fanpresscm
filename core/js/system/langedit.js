@@ -63,7 +63,7 @@ fpcm.langedit = {
             var descrId = 'lang_descr_' + data.dest;
 
             var content = [
-                '<textarea class="fpcm-ui-full-width fpcm-ui-full-height" id="' + newTextid + '">' + fpcm.dom.fromId(oldTextId).val() + '</textarea>'
+                '<textarea class="w-100 h-100 border-0 fpcm ui-textarea-noresize" id="' + newTextid + '">' + fpcm.dom.fromId(oldTextId).val() + '</textarea>'
             ];
 
             fpcm.ui_dialogs.create({

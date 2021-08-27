@@ -2,11 +2,14 @@
 :root {
   --bs-primary: #0073ea;
   --bs-red: #cc0000;
+  --bs-body-color: #454545;
+  --fpcm-blue-light: #3399ff;
+  --fpcm-grey-light: #ebe7f2;
 }
 
 body {
     background-image: url(bgmain.svg);
-    background-color: #ebe7f2;
+    background-color: var(--fpcm-grey-light);
     background-size: cover;
     background-attachment: fixed;
 }
@@ -18,7 +21,7 @@ span.fpcm.ui-button-shorthelp,
 .cm-s-fpcm.CodeMirror,
 .fpcm-ui-color-grey-dark,
 a.nav-link {
-    color: #454545;
+    color: var(--bs-body-color);
 }
 
 h1,
@@ -64,7 +67,7 @@ div.fpcm.ui-files-list:nth-child(even) div.fpcm.ui-files-item {
 }
 
 .fpcm.ui-color-blue-light {
-    color:#3399ff;
+    color: var(--fpcm-blue-light);
 }
 
 .fpcm.ui-color-font-grey,
@@ -138,5 +141,5 @@ div.row.fpcm-ui-dataview-row.fpcm-ui-logs-deprecation-warning {
 }
 
 #fpcm-ui-toolbar .form-select {
-    background-color: #f9fafb;
+    background-color: var(--bs-gray-100);
 }

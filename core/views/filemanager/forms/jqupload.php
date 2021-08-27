@@ -30,7 +30,7 @@
             <div class="col-12 col-md-9 col-md-6">
                 <div class="row align-self-center">        
                     <div id="fpcm-filemanager-upload-drop" class="col-12 bg-light">
-                        <h4 class="text-center"><?php $theView->icon('file-upload')->setSize('4x')->setClass('opacity-75'); ?><br><?php $theView->write('FILE_LIST_UPLOADDROP'); ?></h4>
+                        <h4 class="text-center d-block"><?php $theView->icon('file-upload')->setSize('4x')->setClass('opacity-75'); ?><br><?php $theView->write('FILE_LIST_UPLOADDROP'); ?></h4>
                     </div>
                 </div>
             </div>
