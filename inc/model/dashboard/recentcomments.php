@@ -134,7 +134,7 @@ class recentcomments extends \fpcm\model\abstracts\dashcontainer implements \fpc
                 $createInfo = '';
             }
 
-            $content[] = '<div class="row fpcm-ui-font-small py-2">';
+            $content[] = '<div class="row fpcm-ui-font-small py-1">';
             $content[] = '  <div class="col-12 col-md-auto px-3 text-center">';
             $content[] = (string) (new \fpcm\view\helper\openButton('openBtn'))->setUrlbyObject($comment)->setTarget('_blank');
             $content[] = (string) (new \fpcm\view\helper\editButton('editBtn'))->setUrlbyObject($comment, '&mode=1')->setReadonly($comment->getEditPermission() ? false : true);

@@ -106,19 +106,16 @@
     <div class="row my-2">
     <?php if ($secret !== false && $qrCode !== false) : ?>
         <div class="col-12 col-md-6 align-self-center">
-            <div id="user_profile_image_buttons">
-                <?php $theView->textInput('data[authCodeConfirm]', 'authCodeConfirm')
-                    ->setValue('')
-                    ->setMaxlenght(6)
-                    ->setAutocomplete(false)
-                    ->setText('USERS_AUTHTOKEN_SAVE2')
-                    ->setLabelClass('pe-3')
-                    ->setIcon('exclamation-triangle text-danger')
-                    ->setSize('lg'); ?>                    
+            <?php $theView->textInput('data[authCodeConfirm]', 'authCodeConfirm')
+                ->setValue('')
+                ->setMaxlenght(6)
+                ->setAutocomplete(false)
+                ->setText('USERS_AUTHTOKEN_SAVE2')
+                ->setLabelClass('pe-3')
+                ->setIcon('exclamation-triangle text-danger')
+                ->setSize('lg'); ?>                    
 
-                <?php $theView->hiddenInput('data[authSecret]', 'authSecret')->setValue($secret); ?>
-            </div>
-
+            <?php $theView->hiddenInput('data[authSecret]', 'authSecret')->setValue($secret); ?>
         </div>
         <div class="col-12 col-md-auto align-self-center mb-3">
             <?php $theView->linkButton('openQr')
@@ -126,14 +123,11 @@
                     ->setIcon('qrcode'); ?>
         </div>                        
     <?php else: ?>
-        <div class="col-12 col-md align-self-center">
-            <div class="m-3" id="user_profile_image_buttons">
+        <div class="col-12 col-md-6 align-self-center">
             <?php $theView->icon('user-secret')->setStack('check fpcm-ui-editor-metainfo opacity-75')->setSize('lg')->setStackTop(true); ?>
             <?php $theView->write('USERS_AUTHTOKEN_ACTIVE'); ?>
-            </div>
-
         </div>
-        <div class="col-12 col-md align-self-center">
+        <div class="col-12 col-md-auto align-self-center">
             <?php $theView->checkbox('disable2Fa')->setText('GLOBAL_DISABLE'); ?>
         </div>
     <?php endif; ?>

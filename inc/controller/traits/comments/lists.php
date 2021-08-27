@@ -166,9 +166,7 @@ trait lists {
         if ($mode === 1 && $this->permissions->comment->move) {
             $fields[] = new \fpcm\components\masseditField(
                 (new \fpcm\view\helper\textInput('moveToArticle'))
-                    ->setText('')
-                    ->setMaxlenght(20)
-                    ->setWrapper(false)
+                    ->setClass('fpcm-ui-input-articleid')
                     ->setText('COMMMENT_MOVE')
                     ->setIcon('clipboard')
             );

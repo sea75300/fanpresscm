@@ -70,9 +70,9 @@ fpcm.comments = {
         return -1;
     },
 
-    initWidgets: function(dialogId) {
+    initWidgets: function() {
 
-        fpcm.ui.autocomplete('.fpcm-ui-input-articleid', {
+        fpcm.ui.autocomplete('#moveToArticle', {
             source: fpcm.vars.ajaxActionPath + 'autocomplete&src=articles',
             minLength: 3
         });
@@ -118,12 +118,13 @@ fpcm.comments = {
                 ],
                 dlOnOpen: function() {
                     fpcm.dom.fromId('text').focus();
+                },
+                dlOnOpenAfter: function() {            
+                    fpcm.ui.autocomplete('#articleId', {
+                        source: fpcm.vars.ajaxActionPath + 'autocomplete&src=articles',
+                        minLength: 3
+                    });
                 }
-            });
-            
-            fpcm.ui.autocomplete('#articleId', {
-                source: fpcm.vars.ajaxActionPath + 'autocomplete&src=articles',
-                minLength: 3
             });
 
             return false;

@@ -130,7 +130,7 @@ class updatecheck extends \fpcm\model\abstracts\dashcontainer implements \fpcm\m
             ]);
         } elseif ($this->systemCheckresult === \fpcm\model\abstracts\remoteModel::FURLOPEN_ERROR) {
             $iconClass = 'exclamation-triangle';
-            $statusClass = 'fpcm-dashboard-updates-checkerror';
+            $statusClass = 'text-secondary';
             $statusText = $this->language->translate('UPDATE_NOTAUTOCHECK', [
                 '{{btn}}' => (string) (new \fpcm\view\helper\linkButton('chckmanual'))->setText('PACKAGES_MANUALCHECK')->setIcon('external-link-square-alt ')->setUrl(\fpcm\classes\baseconfig::$updateServerManualLink)->setTarget('_blank')->setRel('noreferrer,noopener,external'),
             ]);
@@ -151,7 +151,7 @@ class updatecheck extends \fpcm\model\abstracts\dashcontainer implements \fpcm\m
     {
         $modulesUpdater = new \fpcm\model\updater\modules();
         if (!\fpcm\classes\baseconfig::canConnect() || !count($modulesUpdater->getData())) {
-            $this->renderTable('exclamation-triangle', 'fpcm-dashboard-updates-checkerror', 'UPDATE_MODULECHECK_FAILED');
+            $this->renderTable('exclamation-triangle', 'text-secondary', 'UPDATE_MODULECHECK_FAILED');
             return false;
         }
 

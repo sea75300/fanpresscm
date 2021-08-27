@@ -109,7 +109,7 @@
     <div class="row">
 
         <div class="col-12 col-md-9">
-            <?php $theView->numberInput('articleId')
+            <?php $theView->textInput('articleId')
                     ->setClass('fpcm-comments-search-input fpcm-ui-input-articleid')
                     ->setText('COMMMENT_SEARCH_ARTICLE')
                     ->setPlaceholder('0'); ?>

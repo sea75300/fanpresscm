@@ -174,10 +174,6 @@ fpcm.system = {
 
         var dialogIdCom = '#fpcm-dialog-' + dialogId;
 
-        if (typeof list.initWidgets === 'function') {
-            list.initWidgets(dialogIdCom);
-        }
-
         let _content = '';
         if (_params.fields !== undefined) {
             for (var _i in _params.fields) {
@@ -233,6 +229,11 @@ fpcm.system = {
                     }
                 }
             ],
+            dlOnOpenAfter: function() {
+                if (typeof list.initWidgets === 'function') {
+                    list.initWidgets();
+                }
+            },
             dlOnClose: function (event, ui) {
                 
                 let catEl = fpcm.dom.fromId('categories');

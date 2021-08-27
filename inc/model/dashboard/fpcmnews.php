@@ -97,7 +97,7 @@ class fpcmnews extends \fpcm\model\abstracts\dashcontainer {
                 break;
             }
 
-            $content[] = '<div class="row fpcm-ui-font-small py-2">';
+            $content[] = '<div class="row fpcm-ui-font-small py-1">';
             $content[] = $this->get2ColRowSmallLeftAuto(
                 (new \fpcm\view\helper\openButton(uniqid('fpcmNews')))->setUrl(strip_tags($item->link))->setTarget('_blank')->setRel('external'),
                 '<strong>' . (new \fpcm\view\helper\escape(strip_tags($item->title))) . '</strong><br><span>' . (new \fpcm\view\helper\dateText(strtotime($item->pubDate))) . '</span>',

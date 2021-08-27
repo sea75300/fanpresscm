@@ -1,6 +1,7 @@
 /* ------ General colors */
 :root {
   --bs-primary: #0073ea;
+  --bs-red: #cc0000;
 }
 
 body {
@@ -31,7 +32,7 @@ span.fpcm-ui-editor-metainfo {
 }
 
 h3.fpcm.dashboard-container.headline span.fpcm-ui-icon {
-    color: #000;
+    color: var(--bs-dark);
 }
 
 .btn-primary,
@@ -62,22 +63,18 @@ div.fpcm.ui-files-list:nth-child(even) div.fpcm.ui-files-item {
     background: rgba( var(--bs-light-rgb), 0.33);
 }
 
-.fpcm-dashboard-updates-checkerror {
-    color: #666666;
-}
-
 .fpcm.ui-color-blue-light {
     color:#3399ff;
 }
 
 .fpcm.ui-color-font-grey,
 span.fpcm-ui-update-icons span.fpcm-ui-update-iconstatus.fpcm-ui-update-iconstatus-spinner {
-    color: #aaaaaa;
+    color: var(--bs-gray-500);
 }
 
 del,
 .fpcm-ui-important-text {
-    color: #cc0000 !important;
+    color: var(--bs-red) !important;
 }
 
 span.fpcm-ui-update-icons span.fpcm-ui-update-iconstatus.fpcm-ui-update-iconstatus-0 {
