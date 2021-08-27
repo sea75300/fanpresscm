@@ -2,7 +2,7 @@
 <?php if($mode > 1) : ?><?php include_once $theView->getIncludePath('common/buttons.php'); ?><?php endif; ?>
 <div class="fpcm ui-hidden" id="fpcm-dialog-files-properties">
 
-    <div class="row mb-3 g-0">
+    <div class="row mb-2 g-0">
         <label class="col-form-label col-12 col-md-3 me-3">
             <?php $theView->icon('calendar-alt', 'far')->setSize('lg'); ?>
             <?php $theView->write('GLOBAL_LASTCHANGE'); ?>
@@ -10,7 +10,7 @@
         <div class="col align-self-center" id="fpcm-dialog-files-properties-filetime"></div>
     </div>
 
-    <div class="row mb-3 g-0">
+    <div class="row mb-2 g-0">
         <label class="col-form-label col-12 col-md-3 me-3">
             <?php $theView->icon('user')->setSize('lg'); ?>
             <?php $theView->write('FILE_LIST_UPLOAD_BY'); ?>
@@ -18,7 +18,7 @@
         <div class="col align-self-center" id="fpcm-dialog-files-properties-fileuser"></div>
     </div>
 
-    <div class="row mb-3 g-0">
+    <div class="row mb-2 g-0">
         <label class="col-form-label col-12 col-md-3 me-3">
             <?php $theView->icon('weight')->setSize('lg'); ?>
             <?php $theView->write('FILE_LIST_FILESIZE'); ?>
@@ -26,7 +26,7 @@
         <div class="col align-self-center" id="fpcm-dialog-files-properties-filesize"></div>
     </div>
 
-    <div class="row mb-3 g-0">
+    <div class="row mb-2 g-0">
         <label class="col-form-label col-12 col-md-3 me-3">
             <?php $theView->icon('expand-arrows-alt')->setSize('lg'); ?>
             <?php $theView->write('FILE_LIST_RESOLUTION'); ?>
@@ -34,7 +34,7 @@
         <div class="col align-self-center" id="fpcm-dialog-files-properties-resulution"></div>
     </div>
 
-    <div class="row mb-3 g-0">
+    <div class="row mb-2 g-0">
         <label class="col-form-label col-12 col-md-3 me-3">
             <?php $theView->icon('file-alt ')->setSize('lg'); ?>
             <?php $theView->write('FILE_LIST_FILETYPE'); ?>
@@ -42,7 +42,7 @@
         <div class="col align-self-center" id="fpcm-dialog-files-properties-filemime"></div>
     </div>
 
-    <div class="row mb-3 g-0">
+    <div class="row mb-2 g-0">
         <label class="col-form-label col-12 col-md-3 me-3">
             <?php $theView->icon('hashtag')->setSize('lg'); ?>
             <?php $theView->write('FILE_LIST_FILEHASH'); ?>

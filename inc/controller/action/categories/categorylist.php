@@ -40,15 +40,6 @@ class categorylist extends \fpcm\controller\abstracts\controller implements \fpc
      * 
      * @return string
      */
-    protected function getViewPath() : string
-    {
-        return 'components/dataview';
-    }
-
-    /**
-     * 
-     * @return string
-     */
     protected function getDataViewName()
     {
         return 'categorylist';
@@ -60,8 +51,6 @@ class categorylist extends \fpcm\controller\abstracts\controller implements \fpc
      */
     public function request()
     {
-        $this->list = new \fpcm\model\categories\categoryList();
-        $this->rollList = new \fpcm\model\users\userRollList();
 
         if ($this->request->hasMessage('added')) {
             $this->view->addNoticeMessage('SAVE_SUCCESS_ADDCATEGORY');
@@ -70,6 +59,9 @@ class categorylist extends \fpcm\controller\abstracts\controller implements \fpc
         if ($this->request->hasMessage('edited')) {
             $this->view->addNoticeMessage('SAVE_SUCCESS_EDITCATEGORY');
         }
+
+        $this->list = new \fpcm\model\categories\categoryList();
+        $this->rollList = new \fpcm\model\users\userRollList();
 
         $this->delete();
         return true;
@@ -101,7 +93,7 @@ class categorylist extends \fpcm\controller\abstracts\controller implements \fpc
         $this->view->setFormAction('categories/list');
 
         $this->view->addButtons([
-            (new \fpcm\view\helper\linkButton('addnew'))->setUrl(\fpcm\classes\tools::getFullControllerLink('categories/add'))->setText('GLOBAL_NEW')->setIcon('tag')->setClass('fpcm-loader'),
+            (new \fpcm\view\helper\linkButton('addnew'))->setUrl(\fpcm\classes\tools::getFullControllerLink('categories/add'))->setText('GLOBAL_NEW')->setIcon('tag'),
             (new \fpcm\view\helper\button('massEdit', 'massEdit'))->setText('GLOBAL_EDIT')->setIcon('edit')->setIconOnly(true),
             (new \fpcm\view\helper\deleteButton('delete'))->setClass('fpcm-ui-button-confirm')
         ]);

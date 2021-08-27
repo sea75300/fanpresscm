@@ -10,13 +10,14 @@ namespace fpcm\controller\action\wordban;
 /**
  * Wordban item list controller
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2021, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class itemlist extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\isAccessible {
+class itemlist extends \fpcm\controller\abstracts\controller
+implements \fpcm\controller\interfaces\isAccessible,
+           \fpcm\controller\interfaces\requestFunctions {
 
-    use \fpcm\controller\traits\common\dataView,
-        \fpcm\controller\traits\theme\nav\texts;
+    use \fpcm\controller\traits\common\dataView, \fpcm\controller\traits\theme\nav\texts;
 
     /**
      *
@@ -30,7 +31,6 @@ class itemlist extends \fpcm\controller\abstracts\controller implements \fpcm\co
      */
     public function request()
     {
-        $this->list = new \fpcm\model\wordban\items();
 
         if ($this->request->hasMessage('added')) {
             $this->view->addNoticeMessage('SAVE_SUCCESS_WORDBAN');
@@ -40,7 +40,6 @@ class itemlist extends \fpcm\controller\abstracts\controller implements \fpcm\co
             $this->view->addNoticeMessage('SAVE_SUCCESS_WORDBAN');
         }
 
-        $this->delete();
         return true;
     }
 
@@ -50,17 +49,17 @@ class itemlist extends \fpcm\controller\abstracts\controller implements \fpcm\co
      */
     public function process()
     {
+        $this->list = new \fpcm\model\wordban\items();
         $this->items = $this->list->getItems();
         $this->initDataView();
-        
+
         $this->view->setFormAction('wordban/list');
         $this->view->addJsFiles(['texts.js']);
         $this->view->addButtons([
-            (new \fpcm\view\helper\linkButton('addnew'))->setUrl(\fpcm\classes\tools::getFullControllerLink('wordban/add'))->setText('GLOBAL_NEW')->setIcon('ban')->setClass('fpcm-loader'),
+            (new \fpcm\view\helper\linkButton('addnew'))->setUrl(\fpcm\classes\tools::getFullControllerLink('wordban/add'))->setText('GLOBAL_NEW')->setIcon('ban'),
             (new \fpcm\view\helper\deleteButton('delete'))->setClass('fpcm-ui-button-confirm')
         ]);
         
-        $this->view->render();
         return true;
     }
 
@@ -116,16 +115,12 @@ class itemlist extends \fpcm\controller\abstracts\controller implements \fpcm\co
             (new \fpcm\view\helper\tabItem('tabs-'.$this->getDataViewName().'-list'))
                 ->setText('HL_OPTIONS_WORDBAN')
                 ->setFile('components/dataview__inline.php')
-                ->setState(\fpcm\view\helper\tabItem::STATE_ACTIVE)
         ];
     }
     
-    private function delete()
+    protected function onDelete()
     {
-        if (!$this->buttonClicked('delete')) {
-            return false;
-        }
-        
+
         if (!$this->checkPageToken()) {
             $this->view->addErrorMessage('CSRF_INVALID');
             return true;

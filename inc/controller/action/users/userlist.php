@@ -113,7 +113,7 @@ class userlist extends \fpcm\controller\abstracts\controller implements \fpcm\co
         $this->view->setFormAction('users/list');
 
         $buttons = [
-            (new \fpcm\view\helper\linkButton('addUser'))->setUrl(\fpcm\classes\tools::getFullControllerLink('users/add'))->setText('GLOBAL_NEW')->setClass('fpcm-loader fpcm-ui-maintoolbarbuttons-tab1')->setIcon('user-plus'),
+            (new \fpcm\view\helper\linkButton('addUser'))->setUrl(\fpcm\classes\tools::getFullControllerLink('users/add'))->setText('GLOBAL_NEW')->setClass('fpcm-ui-maintoolbarbuttons-tab1')->setIcon('user-plus'),
         ];
         
         if ($this->permissions->system->rolls) {

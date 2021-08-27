@@ -36,7 +36,13 @@ class items extends \fpcm\model\abstracts\tablelist {
      */
     public function getItems()
     {
-        $list = $this->dbcon->fetch($this->dbcon->select($this->table), true);
+        $obj = new \fpcm\model\dbal\selectParams($this->table);
+        $obj->setFetchAll(true);
+        
+        $list = $this->dbcon->selectFetch($obj);
+        if (!$list) {
+            return [];
+        }
 
         $res = [];
         foreach ($list as $item) {
