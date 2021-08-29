@@ -55,6 +55,7 @@ fpcm.filemanager = {
 
     initListActions: function (_hideLoader) {
         fpcm.ui.assignCheckboxes();
+        fpcm.ui.initLightbox();
         fpcm.filemanager.initPagination();
         fpcm.filemanager.initInsertButtons();
         fpcm.filemanager.initRenameButtons();
@@ -62,8 +63,6 @@ fpcm.filemanager = {
         fpcm.filemanager.initDeleteButtons();
         fpcm.filemanager.initAltTextButtons();
         fpcm.filemanager.initPropertiesButton();
-        fpcm.filemanager.initPagination();
-        fpcm.dom.fromClass('fpcm.link-fancybox').fancybox();
         if (_hideLoader === true) {
             fpcm.ui_loader.hide();
         }

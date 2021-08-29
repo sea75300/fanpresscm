@@ -44,11 +44,10 @@ fpcm.ui = {
             return true;            
         }, false);
 
-        fpcm.dom.fromClass('fpcm.ui-link-fancybox').fancybox();
-
         fpcm.ui.initShorthelpTooltips();
-        fpcm.ui.tabs('.fpcm-ui-tabs-general');
+        fpcm.ui.initLightbox();
         
+        fpcm.ui.tabs('.fpcm-ui-tabs-general');
     },
 
     initShorthelpTooltips: function(_) {
@@ -83,6 +82,19 @@ fpcm.ui = {
         });
 
         fpcm.ui.initPager();
+    },
+    
+    initLightbox: function() {
+
+        fpcm.dom.fromClass('fpcm.ui-link-fancybox').fancybox({
+            buttons: [
+                "zoom",
+                "fullScreen",
+                "download",
+                "close"
+              ]
+        });
+
     },
     
     translate: function(langVar) {
