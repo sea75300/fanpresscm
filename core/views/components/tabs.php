@@ -12,7 +12,7 @@
 
         <div id="fpcm-tab-<?php print $tab->getId(); ?>-pane" class="tab-pane fade <?php if ($tab->isActive()) : ?>show active<?php endif; ?>" role="tabpanel" aria-labelledby="fpcm-tab-<?php print $tab->getId(); ?>">
             <?php if ($tab->getFile() && $tab->canPreload()) : ?>
-                <?php include $theView->getIncludePath($tab->getFile()); ?>
+                <?php include $tab->getFile(); ?>
             <?php endif; ?>
         </div>
     <?php endforeach; ?>

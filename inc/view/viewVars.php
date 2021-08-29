@@ -143,12 +143,6 @@ class viewVars {
      */
     public function getIncludePath($view) : string
     {
-        if (substr($view, 0, 2) === '{$') {
-            return \fpcm\classes\tools::strReplaceArray($view, [
-                \fpcm\view\view::PATH_COMPONENTS => \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'components' . DIRECTORY_SEPARATOR)
-            ]);
-        }
-        
         $path = realpath(\fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, $view));
         if (!trim($path) || strpos($path, \fpcm\classes\dirs::getFullDirPath('') ) !== 0 || !file_exists($path)) {
             trigger_error('Include view path ' . $view . ' does not exists');

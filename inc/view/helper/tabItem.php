@@ -49,6 +49,13 @@ class tabItem extends helper {
     protected $dataViewId = '';
 
     /**
+     * Module key
+     * @var string
+     * @since 5.0.-dev
+     */
+    protected $modulekey = '';
+
+    /**
      * Tab status
      * @var int
      * @since 5.0-dev
@@ -100,12 +107,23 @@ class tabItem extends helper {
      */
     public function setFile(string $file) 
     {
+        if (substr($file, 0, 2) === '{$') {
+            $file = \fpcm\classes\tools::strReplaceArray($file, [
+                \fpcm\view\view::PATH_COMPONENTS => \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'components' . DIRECTORY_SEPARATOR),
+                \fpcm\view\view::PATH_MODULE => $this->modulekey ? \fpcm\module\module::getTemplateDirByKey($this->modulekey, DIRECTORY_SEPARATOR) : '',
+            ]);
+        }
+        
+        if (substr($file, -4) !== '.php') {
+            $file .= '.php';
+        }
+
+        if (!file_exists($file)) {
+            $file = realpath(\fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, $file));
+        }
+
         $this->url = '#';
         $this->file = $file;
-        
-        if (substr($this->file, -4) !== '.php') {
-            $this->file .= '.php';
-        }
 
         return $this;
     }
@@ -119,6 +137,18 @@ class tabItem extends helper {
     public function setState(int $state)
     {
         $this->state = $state;
+        return $this;
+    }
+
+    /**
+     * 
+     * @param string $modulekey
+     * @return $this
+     * @since 5.0-dev
+     */
+    public function setModulekey(string $modulekey)
+    {
+        $this->modulekey = $modulekey;
         return $this;
     }
 

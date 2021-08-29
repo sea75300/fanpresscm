@@ -27,6 +27,7 @@ class view {
     const ROOTURL_UNIQUE = '{$unique}';
 
     const PATH_COMPONENTS = '{$components}';
+    const PATH_MODULE = '{$module}';
 
     const JS_FILETYP_URL  = 0b100;
     const JS_FILETYP_FILE = 0b010;
