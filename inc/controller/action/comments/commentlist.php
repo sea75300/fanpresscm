@@ -91,7 +91,7 @@ class commentlist extends \fpcm\controller\abstracts\controller implements \fpcm
         $this->view->addButton((new \fpcm\view\helper\button('opensearch', 'opensearch'))->setText('ARTICLES_SEARCH')->setIcon('search')->setIconOnly(true));
 
         if ($this->permissions->comment->delete) {
-            $this->view->addButton((new \fpcm\view\helper\deleteButton('deleteComment'))->setClass('fpcm-ui-button-confirm'));
+            $this->view->addButton((new \fpcm\view\helper\deleteButton('deleteComment'))->setClass('fpcm ui-button-confirm'));
         }
 
         $this->initDataView();

@@ -75,7 +75,7 @@ class backups extends \fpcm\controller\abstracts\controller implements \fpcm\con
     {
         $isPg = \fpcm\classes\loader::getObject('\fpcm\classes\database')->getDbtype() === \fpcm\classes\database::DBTYPE_POSTGRES;
         
-        $this->view->addButton((new \fpcm\view\helper\deleteButton('delete'))->setClass('fpcm-ui-button-confirm')->setReadonly($isPg));
+        $this->view->addButton((new \fpcm\view\helper\deleteButton('delete'))->setClass('fpcm ui-button-confirm')->setReadonly($isPg));
         $this->view->addJsFiles(['backups.js']);
 
         if ($isPg) {

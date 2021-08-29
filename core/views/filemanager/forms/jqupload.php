@@ -1,8 +1,8 @@
 <?php /* @var $theView fpcm\view\viewVars */ ?>
 <div class="border-top border-5 border-primary">
     <div id="fileupload" class="fileupload-processing">
-        <div class="row">
-            <div class="col-12">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-9 col-md-6">
                 <div class="fileupload-progress fpcm-ui-fade fpcm-ui-hidden my-3">
                     <div class="fpcm-ui-progressbar progress active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
                         <div class="ui-progressbar-value progress-bar progress-bar-success" style="width:0%;"></div>

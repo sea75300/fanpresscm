@@ -96,6 +96,6 @@
     <legend><?php $theView->write('HL_DASHBOARD'); ?></legend>
 
     <div class="m-2">        
-        <?php $theView->submitButton('resetDashboardSettings')->setText('USERS_META_RESET_DASHBOARD')->setIcon('undo'); ?>
+        <?php $theView->submitButton('resetDashboardSettings')->setText('USERS_META_RESET_DASHBOARD')->setIcon('undo')->setClass('fpcm ui-button-confirm'); ?>
     </div>
 </fieldset>

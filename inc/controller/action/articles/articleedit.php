@@ -192,7 +192,7 @@ class articleedit extends articlebase {
         }
 
         if ($this->permissions->article->delete && !$this->request->fromGET('rev')) {
-            $this->view->addButton((new \fpcm\view\helper\deleteButton('articleDelete'))->setClass('fpcm-ui-maintoolbarbuttons-tab1 fpcm-ui-button-confirm')->setReadonly($this->article->isInEdit()));
+            $this->view->addButton((new \fpcm\view\helper\deleteButton('articleDelete'))->setClass('fpcm-ui-maintoolbarbuttons-tab1 fpcm ui-button-confirm')->setReadonly($this->article->isInEdit()));
         }
 
         $shares = (new \fpcm\model\shares\shares())->getByArticleId($this->article->getId());
@@ -202,7 +202,7 @@ class articleedit extends articlebase {
         
         if ($this->permissions->article->revisions) {
             $this->view->addButton((new \fpcm\view\helper\submitButton('articleRevisionRestore'))->setText('EDITOR_REVISION_RESTORE')->setIcon('undo')->setReadonly($this->article->isInEdit())->setClass('fpcm-ui-maintoolbarbuttons-tab3 fpcm-ui-hidden'));
-            $this->view->addButton((new \fpcm\view\helper\deleteButton('revisionDelete'))->setClass('fpcm-ui-maintoolbarbuttons-tab3 fpcm-ui-hidden fpcm-ui-button-confirm')->setText('EDITOR_REVISION_DELETE'));
+            $this->view->addButton((new \fpcm\view\helper\deleteButton('revisionDelete'))->setClass('fpcm-ui-maintoolbarbuttons-tab3 fpcm-ui-hidden fpcm ui-button-confirm')->setText('EDITOR_REVISION_DELETE'));
         }
 
         $this->view->render();
@@ -226,7 +226,7 @@ class articleedit extends articlebase {
             }
 
             if ($this->permissions->comment->delete) {
-                $this->view->addButton((new \fpcm\view\helper\deleteButton('deleteComment'))->setClass('fpcm-ui-button-confirm fpcm-ui-maintoolbarbuttons-tab2 fpcm-ui-hidden fpcm-ui-button-confirm')->setText('EDITOR_COMMENTS_DELETE'));
+                $this->view->addButton((new \fpcm\view\helper\deleteButton('deleteComment'))->setClass('fpcm ui-button-confirm fpcm-ui-maintoolbarbuttons-tab2 fpcm-ui-hidden')->setText('EDITOR_COMMENTS_DELETE'));
             }
 
             $this->initCommentMassEditForm(2);

@@ -68,7 +68,7 @@ fpcm.ui = {
 
     initJqUiWidgets: function () {
 
-        fpcm.dom.bindClick('.fpcm-ui-button-confirm', function() {
+        fpcm.dom.bindClick('.fpcm.ui-button-confirm', function() {
 
             fpcm.ui_loader.hide();
             if (!confirm(fpcm.ui.translate('CONFIRM_MESSAGE'))) {

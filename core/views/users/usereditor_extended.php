@@ -9,7 +9,7 @@
                 <?php $theView->button('addFile')->setText('FILE_FORM_FILEADD')->setIcon('plus'); ?>
                 <?php $theView->submitButton('uploadFile')->setText('FILE_FORM_UPLOADSTART')->setIcon('upload'); ?>
                 <?php $theView->resetButton('cancelUpload')->setText('FILE_FORM_UPLOADCANCEL')->setIcon('ban'); ?>
-                <?php if ($avatar) : ?><?php $theView->deleteButton('fileDelete')->setClass('fpcm-ui-button-confirm'); ?><?php endif; ?>
+                <?php if ($avatar) : ?><?php $theView->deleteButton('fileDelete')->setClass('fpcm ui-button-confirm'); ?><?php endif; ?>
                 <input type="file" name="files" class="fpcm-ui-fileinput-select fpcm-ui-hidden">
             </div>
 

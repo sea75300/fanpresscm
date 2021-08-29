@@ -30,20 +30,6 @@ div.row {
     clear: both;
 }
 
-div.fileupload-progress.in {
-    display: block;
-}
-
-.fpcm-ui-inline-block,
-.fpcm.ui-inline-block {
-    display: inline-block;
-}
-
-.fpcm.ui-hidden,
-.fpcm-ui-hidden {
-    display: none;
-}
-
 /* ------ General borders */
 .fpcm-ui-border-none-top {
     border-top: none;
@@ -215,4 +201,13 @@ textarea.fpcm.ui-textarea-noresize {
 
 .fpcm-ui-box-sizing-none {
     box-sizing: initial !important;
+}
+
+div.fileupload-progress.in {
+    display: block;
+}
+
+.fpcm.ui-hidden,
+.fpcm-ui-hidden {
+    display: none !important;
 }

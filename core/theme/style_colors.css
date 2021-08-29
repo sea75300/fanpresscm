@@ -40,6 +40,7 @@ h3.fpcm.dashboard-container.headline span.fpcm-ui-icon {
 
 .btn-primary,
 .form-check-input:checked,
+.progress-bar,
 span.fpcm-ui-badge {
     background-color: var(--bs-primary);
 }

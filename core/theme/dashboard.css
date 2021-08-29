@@ -33,7 +33,3 @@ div.fpcm.dashboard-container .content {
 div.fpcm.dashboard-container .content .fpcm-ui-font-small {
     line-height: 1.25em;
 }
-
-.fpcm-dashboard-container span.fpcm-dashboard-container-move {
-    cursor: move;
-}

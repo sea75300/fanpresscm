@@ -166,9 +166,9 @@ class filelist extends \fpcm\controller\abstracts\controller implements \fpcm\co
         $tabs = [
             (new \fpcm\view\helper\tabItem('files-list'))
                 ->setText('FILE_LIST_AVAILABLE')
+                ->setData(['ajax-quiet' => true])
                 ->setTabToolbar(1)
                 ->setUrl(\fpcm\classes\tools::getControllerLink('ajax/files/lists', [ 'mode' => $this->mode ]) )
-                ->setData(['ajax-quiet' => true])
         ];
         
         if ($this->permissions->uploads->add) {
