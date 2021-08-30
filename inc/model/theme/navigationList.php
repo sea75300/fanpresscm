@@ -16,7 +16,7 @@ namespace fpcm\model\theme;
  * @package fpcm\model\theme
  * @since 4.5
  */
-final class navigationList implements \ArrayAccess {
+final class navigationList {
 
     /**
      * Item list
@@ -91,58 +91,13 @@ final class navigationList implements \ArrayAccess {
      * Fetch item list
      * @return array
      */
-    public function fetch() : array
+    public function fetch(string $str = '') : array
     {
-        return $this->data;
-    }
-
-    /**
-     * Offset exists
-     * @param string $offset
-     * @return bool
-     */
-    public function offsetExists($offset): bool
-    {
-        return isset($this->data[$offset]);
-    }
-
-    /**
-     * Returns offet value
-     * @param string $offset
-     * @return navigationItem
-     */
-    public function offsetGet($offset)
-    {
-        return $this->data[$offset];
-    }
-
-    /**
-     * Set offset to value
-     * @param type $offset
-     * @param \fpcm\model\theme\navigationItem $value
-     * @return void
-     * @see navigationList::add
-     */
-    public function offsetSet($offset, $value): void
-    {
-        if (!$value instanceof navigationItem) {
-            trigger_error('Item added to mńavigation list must be an instance of "\fpcm\model\theme\navigationItem".');
-            return;
+        if (trim($str)) {
+            return $this->data[$str];
         }
         
-        $this->add($offset, $value);
-        return;
-    }
-
-    /**
-     * Unset offset
-     * @param string $offset
-     * @return void
-     * @ignore
-     */
-    public function offsetUnset($offset): void
-    {
-        return;
+        return $this->data;
     }
     
     /**

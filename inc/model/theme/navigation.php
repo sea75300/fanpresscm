@@ -202,7 +202,7 @@ class navigation extends \fpcm\model\abstracts\staticModel {
      */
     private function addAfterItems(&$list)
     {
-        $items = $list[navigationItem::AREA_AFTER] ?? [];
+        $items = $list->fetch(navigationItem::AREA_AFTER);
         
         if (!count($items)) {
             return true;
@@ -217,8 +217,6 @@ class navigation extends \fpcm\model\abstracts\staticModel {
                 ->setIcon('angle-double-down');
         
         $list->add(navigationItem::AREA_AFTER, $niObj);
-
-//        $list[navigationItem::AREA_AFTER] = $niObj;
         return true;
     }
 
