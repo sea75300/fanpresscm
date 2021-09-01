@@ -120,7 +120,7 @@ implements \fpcm\controller\interfaces\isAccessible, \fpcm\controller\interfaces
 
         $this->view->addButton(new \fpcm\view\helper\saveButton('save'));
         $this->view->addTabs('-module'.$this->module->getKey(), [
-            (new \fpcm\view\helper\tabItem('configure-modul'.$this->module->getKey()))->setFile('modules/configure.php')->setText('SYSTEM_HL_OPTIONS_GENERAL')
+            (new \fpcm\view\helper\tabItem('configure-modul'.$this->module->getKey()))->setFile($this->getViewPath())->setText('SYSTEM_HL_OPTIONS_GENERAL')
         ]);
         $this->view->render();
     }
