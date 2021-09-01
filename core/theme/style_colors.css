@@ -153,3 +153,16 @@ div.row.fpcm-ui-dataview-row.fpcm-ui-logs-deprecation-warning {
 #fpcm-ui-toolbar .form-select {
     background-color: var(--bs-gray-100);
 }
+
+
+div.fpcm.ui-logs-error {
+    border-left: 10px solid var(--bs-danger) !important;
+}
+
+div.fpcm.ui-logs-warning {
+    border-left: 10px solid var(--bs-warning) !important;
+}
+
+div.fpcm.ui-logs-deprecation-warning {
+    border-left: 10px solid var(--bs-gray) !important;
+}
