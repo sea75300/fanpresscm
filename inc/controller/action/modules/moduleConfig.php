@@ -26,6 +26,11 @@ implements \fpcm\controller\interfaces\isAccessible, \fpcm\controller\interfaces
      */
     protected $useLegacy = 0;
 
+    protected function getViewPath(): string
+    {
+        return 'modules/configure';
+    }
+
     /**
      * 
      * @return bool
@@ -46,7 +51,6 @@ implements \fpcm\controller\interfaces\isAccessible, \fpcm\controller\interfaces
             return false;
         }
 
-        $this->view = new \fpcm\view\view('', false);
         return true;
     }
 
@@ -185,7 +189,7 @@ implements \fpcm\controller\interfaces\isAccessible, \fpcm\controller\interfaces
             return true;
         }
 
-        if (!$this->module->prepareSaveOptions($options) || !$this->module->setOptions($options)) {
+        if (!$this->module->setOptions($options)) {
             $this->view->addErrorMessage('SAVE_FAILED_OPTIONS');
             return true;
         }
