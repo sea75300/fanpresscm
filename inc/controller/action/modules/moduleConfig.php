@@ -26,6 +26,10 @@ implements \fpcm\controller\interfaces\isAccessible, \fpcm\controller\interfaces
      */
     protected $useLegacy = 0;
 
+    /**
+     * 
+     * @return string
+     */
     protected function getViewPath(): string
     {
         return 'modules/configure';
