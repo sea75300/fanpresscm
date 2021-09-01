@@ -287,6 +287,7 @@ $lang = array (
   'FILE_LIST_UPLOAD_BY' => 'Hochgeladen von',
   'FILE_LIST_UPLOAD_NOTFOUND' => 'Die zugehörige Datei wurde im Upload-Ordner nicht gefunden!',
   'FILE_NOT_WRITABLE' => 'Die ausgewählte Datei ist nicht beschreibbar, bitte prüfe die Berechtigungen auf dem Server.',
+  'GLOBAL_ACTIONS' => 'Aktionen',
   'GLOBAL_ACTION_PERFORM' => 'Auszuführende Aktion',
   'GLOBAL_ADMINISTRATOR' => 'Administrator',
   'GLOBAL_AUTHOR' => 'Autor',

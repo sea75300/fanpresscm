@@ -1,6 +1,6 @@
 /* ------ General colors */
 :root {
-  --bs-primary: #0073ea;
+  --bs-primary: #0073ea;;
   --bs-red: #cc0000;
   --bs-body-color: #454545;
   --fpcm-blue-light: #3399ff;
@@ -53,8 +53,16 @@ span.fpcm-ui-badge {
     border-color: var(--bs-primary) !important;
 }
 
+.fpcm.ui-background-white-0 {
+    background: none;
+}
+
 .fpcm.ui-background-white-50p {
     background: rgba(var(--bs-white-rgb), 0.5);
+}
+
+.fpcm.ui-background-blue-75 {
+    background: rgba(var(--bs-primary-rgb), 0.75);
 }
 
 div.fpcm.ui-files-card div.fpcm.ui-files-item:nth-child(odd),
@@ -77,7 +85,8 @@ span.fpcm-ui-update-icons span.fpcm-ui-update-iconstatus.fpcm-ui-update-iconstat
 }
 
 del,
-.fpcm-ui-important-text {
+.fpcm-ui-important-text,
+.fpcm.ui-important-text {
     color: var(--bs-red) !important;
 }
 

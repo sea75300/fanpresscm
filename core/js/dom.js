@@ -261,7 +261,8 @@ fpcm.dom = {
                 _handler = false;
             }
             
-            return _callback(_event, this, _selecto, _data, _handler);
+            _callback(_event, this, _selecto, _data, _handler);
+            return false;
         });
     },
     
@@ -271,7 +272,8 @@ fpcm.dom = {
             _unbind = true;
         }
         
-        return fpcm.dom.bindEvent(_element, 'click', _callback, _unbind);
+        fpcm.dom.bindEvent(_element, 'click', _callback, _unbind);
+        return false;
     }
 
 };

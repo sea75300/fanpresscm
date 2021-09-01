@@ -1,17 +1,17 @@
 <div class="modal fade {$modalClass}" id="{$id}" tabindex="-1" aria-labelledby="{$opener}" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable {$size} {$class}">
-        <div class="modal-content shadow">
-            <div class="modal-header bg-primary text-white">
+        <div class="modal-content shadow fpcm ui-background-white-0">
+            <div class="modal-header text-white fpcm ui-background-blue-75">
                 <h5 class="modal-title" id="exampleModalLabel">{$title}</h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <nav id="{$id}-navbar" class="navbar navbar-light bg-white d-none">
                 <ul class="nav nav-pills px-2" role="tablist"></u>
             </nav>
-            <div class="modal-body position-relative p-2 {$modalBodyClass}" data-bs-spy="scroll" data-bs-target="#{$id}-navbar" data-bs-offset="0">
+            <div class="modal-body bg-white position-relative p-2 {$modalBodyClass}" data-bs-spy="scroll" data-bs-target="#{$id}-navbar" data-bs-offset="0">
                 {$content}
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer bg-white">
                 {$buttons}
             </div>
         </div>

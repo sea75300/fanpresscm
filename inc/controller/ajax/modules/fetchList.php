@@ -149,9 +149,9 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController implements \fp
     private function getColsLocal()
     {
         return [
-            (new \fpcm\components\dataView\column('buttons', ''))->setAlign('center')->setSize(3),
-            (new \fpcm\components\dataView\column('description', 'MODULES_LIST_NAME'))->setAlign('center')->setSize(4),
-            (new \fpcm\components\dataView\column('key', 'MODULES_LIST_KEY'))->setAlign('center')->setSize(4),
+            (new \fpcm\components\dataView\column('buttons', 'GLOBAL_ACTIONS'))->setAlign('right')->setSize(2),
+            (new \fpcm\components\dataView\column('description', 'MODULES_LIST_NAME'))->setSize(6),
+            (new \fpcm\components\dataView\column('key', 'MODULES_LIST_KEY'))->setSize(3),
             (new \fpcm\components\dataView\column('version', 'MODULES_LIST_VERSION_LOCAL'))->setAlign('center')->setSize(1)
         ];
     }
@@ -163,9 +163,9 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController implements \fp
     private function getColsRemote()
     {
         return [
-            (new \fpcm\components\dataView\column('buttons', ''))->setAlign('center')->setSize(3),
-            (new \fpcm\components\dataView\column('description', 'MODULES_LIST_NAME'))->setAlign('center')->setSize(4),
-            (new \fpcm\components\dataView\column('key', 'MODULES_LIST_KEY'))->setAlign('center')->setSize(4),
+            (new \fpcm\components\dataView\column('buttons', 'GLOBAL_ACTIONS'))->setAlign('right')->setSize(2),
+            (new \fpcm\components\dataView\column('description', 'MODULES_LIST_NAME'))->setSize(6),
+            (new \fpcm\components\dataView\column('key', 'MODULES_LIST_KEY'))->setSize(3),
             (new \fpcm\components\dataView\column('version', 'MODULES_LIST_VERSION_REMOTE'))->setAlign('center')->setSize(1)
         ];
     }
@@ -199,15 +199,15 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController implements \fp
         
         $buttons = [];        
         if (!$item->isInstallable()) {
-            $buttons[] = (new \fpcm\view\helper\icon('project-diagram'))->setText('MODULES_FAILED_DEPENCIES')->setClass('pe-3 fpcm-ui-important-text')->setSize('lg');
+            $buttons[] = (new \fpcm\view\helper\icon('project-diagram'))->setText('MODULES_FAILED_DEPENCIES')->setClass('pe-3 text-danger')->setSize('lg');
         }
 
         if (!$item->hasFilesListFile()) {
-            $buttons[] = (new \fpcm\view\helper\icon('exclamation-triangle'))->setText('UPDATE_VERSIONCECK_FILETXT_ERR2')->setClass('pe-3 fpcm-ui-important-text')->setSize('lg');
+            $buttons[] = (new \fpcm\view\helper\icon('exclamation-triangle'))->setText('UPDATE_VERSIONCECK_FILETXT_ERR2')->setClass('pe-3 text-danger')->setSize('lg');
         }
 
         if (!$item->isWritable()) {
-            $buttons[] = (new \fpcm\view\helper\icon('times-circle'))->setText('MODULES_FAILED_FSWRITE')->setClass('pe-3 fpcm-ui-important-text')->setSize('lg');
+            $buttons[] = (new \fpcm\view\helper\icon('times-circle'))->setText('MODULES_FAILED_FSWRITE')->setClass('pe-3 text-danger')->setSize('lg');
         }
 
         $buttons[] = (new \fpcm\view\helper\linkButton('info'.$hash))
@@ -276,7 +276,7 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController implements \fp
             }            
         }
 
-        $class = ($hasUpdates ? 'fpcm-ui-important-text' : '');
+        $class = ($hasUpdates ? 'text-danger' : '');
         
         return new \fpcm\components\dataView\row([
             new \fpcm\components\dataView\rowCol('buttons', implode('', $buttons)),
@@ -300,7 +300,7 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController implements \fp
         
         $buttons = [];        
         if (!$item->isInstallable()) {
-            $buttons[] = (new \fpcm\view\helper\icon('project-diagram'))->setText('MODULES_FAILED_DEPENCIES')->setClass('pe-3 fpcm-ui-important-text');
+            $buttons[] = (new \fpcm\view\helper\icon('project-diagram'))->setText('MODULES_FAILED_DEPENCIES')->setClass('pe-3 text-danger');
         }
 
         $buttons[] = (new \fpcm\view\helper\linkButton('info'.$hash))
