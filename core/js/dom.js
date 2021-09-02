@@ -245,7 +245,7 @@ fpcm.dom = {
         return fpcm.dom.fromTag(_root._dialog.getElementsByTagName('iframe')[_frame]).contents().find(_element);
     },
     
-    bindEvent: function (_element, _ob, _callback, _unbind)
+    bindEvent: function (_element, _ob, _callback, _unbind, _return)
     {
         if (_unbind === undefined) {
             _unbind = true;
@@ -261,18 +261,26 @@ fpcm.dom = {
                 _handler = false;
             }
             
-            _callback(_event, this, _selecto, _data, _handler);
+            let _res = _callback(_event, this, _selecto, _data, _handler);
+            if (_return) {
+                return _res;
+            }
+            
             return false;
         });
     },
     
-    bindClick: function (_element, _callback, _unbind)
+    bindClick: function (_element, _callback, _unbind, _return)
     {
         if (_unbind === undefined) {
             _unbind = true;
         }
         
-        fpcm.dom.bindEvent(_element, 'click', _callback, _unbind);
+        let _res = fpcm.dom.bindEvent(_element, 'click', _callback, _unbind);
+        if (_return) {
+            return _res;
+        }
+
         return false;
     }
 

@@ -184,12 +184,10 @@ fpcm.filemanager = {
     },
     
     initEditButtons: function() {
-
-        fpcm.dom.fromClass('fpcm-filelist-link-edit').unbind('click');
-        fpcm.dom.fromClass('fpcm-filelist-link-edit').click(function () {
+        fpcm.dom.bindClick('.fpcm-filelist-link-edit', function (_e, _ui) {
             fpcm.imageEditor.initEditorDialog({
                 afterUpload: fpcm.filemanager.reloadFiles,
-                data: fpcm.dom.fromTag(this).data()
+                data: _ui.dataset
             });
             return false;
         });
@@ -197,43 +195,39 @@ fpcm.filemanager = {
 
     initAltTextButtons: function() {
 
-        fpcm.dom.fromClass('fpcm-filelist-link-alttext').unbind('click');
-        fpcm.dom.fromClass('fpcm-filelist-link-alttext').click(function () {
-
-        var _docname = this.dataset.file;
-
-        fpcm.ui_dialogs.create({
-            id: 'files-alttext',
-            title: 'FILE_LIST_ALTTEXT',
-            closeButton: true,
-                content: fpcm.ui.getTextInput({
-                    name: 'altTextDialog',
-                    text: fpcm.ui.translate('FILE_LIST_ALTTEXT'),
-                    icon: 'edit',
-                    value: this.dataset.alttext,
-                    placeholder: this.dataset.alttext
-                }),
-            dlButtons: [
-                {
-                    text: fpcm.ui.translate('GLOBAL_SAVE'),
-                    icon: "save",
-                    clickClose: true,
-                    clickClose: true,
-                    click: function() {
-                        fpcm.ajax.post('files/alttext', {
-                            data: {
-                                file: _docname,
-                                alttext: fpcm.dom.fromId('altTextDialog').val()
-                            },
-                            execDone: function (result) {
-                                fpcm.ui.addMessage(result);
-                                fpcm.filemanager.reloadFiles();
-                            }
-                        });
+        fpcm.dom.bindClick('.fpcm-filelist-link-alttext', function (_e, _ui) {
+            fpcm.ui_dialogs.create({
+                id: 'files-alttext',
+                title: 'FILE_LIST_ALTTEXT',
+                closeButton: true,
+                    content: fpcm.ui.getTextInput({
+                        name: 'altTextDialog',
+                        text: fpcm.ui.translate('FILE_LIST_ALTTEXT'),
+                        icon: 'edit',
+                        value: _ui.dataset.alttext,
+                        placeholder: _ui.dataset.alttext
+                    }),
+                dlButtons: [
+                    {
+                        text: fpcm.ui.translate('GLOBAL_SAVE'),
+                        icon: "save",
+                        clickClose: true,
+                        clickClose: true,
+                        click: function() {
+                            fpcm.ajax.post('files/alttext', {
+                                data: {
+                                    file: _ui.dataset.file,
+                                    alttext: fpcm.dom.fromId('altTextDialog').val()
+                                },
+                                execDone: function (result) {
+                                    fpcm.ui.addMessage(result);
+                                    fpcm.filemanager.reloadFiles();
+                                }
+                            });
+                        }
                     }
-                }
-            ]
-        });     
+                ]
+            });     
 
 
 
@@ -244,13 +238,7 @@ fpcm.filemanager = {
 
     initDeleteButtons: function() {
 
-        fpcm.dom.fromClass('fpcm-filelist-delete').unbind('click');
-        fpcm.dom.fromClass('fpcm-filelist-delete').click(function () {
-
-            var el = fpcm.dom.fromTag(this);
-            var filename = el.data('filename');
-            var path = el.data('file');
-
+        fpcm.dom.bindClick('.fpcm-filelist-delete',function (_e, _ui) {
             fpcm.ui_dialogs.confirm({
                 clickNoDefault: true,
                 clickYes: function () {
@@ -258,11 +246,11 @@ fpcm.filemanager = {
                     fpcm.ajax.post('files/delete', {
                         dataType: 'json',
                         data: {
-                            filename: path
+                            filename: _ui.dataset.file
                         },
                         execDone: function (result) {
 
-                            result.txt.replace('{{filenames}}', filename);
+                            result.txt.replace('{{filenames}}', _ui.dataset.filename);
                             fpcm.ui.addMessage(result);
 
                             fpcm.filemanager.reloadFiles();
@@ -276,6 +264,7 @@ fpcm.filemanager = {
 
             return false;  
         });
+        
     },
 
     initNewThumbButton: function() {
@@ -345,20 +334,17 @@ fpcm.filemanager = {
 
     initPropertiesButton: function() {
 
-        fpcm.filemanager.propertiesDialog = [
-            'filetime',
-            'fileuser',
-            'filesize',
-            'resulution',
-            'filehash',
-            'filemime',
-            'credits'
-        ];
+        fpcm.filemanager.propertiesDialog = {
+            filetime: '',
+            fileuser: '',
+            filesize: '',
+            resulution: '',
+            filehash: '',
+            filemime: '',
+            credits: ''
+        };
 
-        fpcm.dom.fromClass('fpcm-filelist-properties').click(function () {
-            
-            var el = fpcm.dom.fromTag(this);
-
+        fpcm.dom.bindClick('.fpcm-filelist-properties', function (_e, _ui) {
             fpcm.ui_dialogs.create({
                 id: 'files-properties',
                 title: fpcm.ui.translate('GLOBAL_PROPERTIES'),
@@ -367,18 +353,18 @@ fpcm.filemanager = {
 
                     var titleTxt = '';
                     var titleHtml = '';
+                    
+                    for (var _prop in fpcm.filemanager.propertiesDialog) {
 
-                    jQuery.each(fpcm.filemanager.propertiesDialog, function (idx, prop) {
-                        
-                        switch (prop) {
+                        switch (_prop) {
                             case 'resulution' :
-                                titleTxt = el.data('fileresx') + ' X ' + el.data('fileresy') + ' ' + fpcm.ui.translate('FILE_LIST_RESOLUTION_PIXEL');
-                                titleHtml = el.data('fileresx') + fpcm.ui.getIcon('times') + el.data('fileresy') + ' ' + fpcm.ui.translate('FILE_LIST_RESOLUTION_PIXEL');
-                                fpcm.dom.fromId('fpcm-dialog-files-properties-' + prop).attr('title', titleTxt).html(titleHtml);
+                                titleTxt = _ui.dataset.fileresx + ' X ' + _ui.dataset.fileresy + ' ' + fpcm.ui.translate('FILE_LIST_RESOLUTION_PIXEL');
+                                titleHtml = _ui.dataset.fileresx + fpcm.ui.getIcon('times') + _ui.dataset.fileresy + ' ' + fpcm.ui.translate('FILE_LIST_RESOLUTION_PIXEL');
+                                fpcm.dom.fromId('fpcm-dialog-files-properties-' + _prop).attr('title', titleTxt).html(titleHtml);
                                 break;
                             default:
-                                titleTxt = el.data('' + prop);
-                                titleHtml = el.data('' + prop);
+                                titleTxt = _ui.dataset[_prop];
+                                titleHtml = _ui.dataset[_prop];
                                 break;
                         }
 
@@ -387,19 +373,21 @@ fpcm.filemanager = {
                             titleHtml = '&nbsp';
                         }
 
-                        fpcm.dom.fromId('fpcm-dialog-files-properties-' + prop).html(titleHtml).attr('title', el.data('' + prop));
-                    });
+                        fpcm.dom.fromId('fpcm-dialog-files-properties-' + _prop).html(titleHtml).attr('title', _ui.dataset[_prop]);
+                        
+                    }
                 },
                 dlOnClose: function() {
-                    jQuery.each(fpcm.filemanager.propertiesDialog, function (idx, prop) {
-                        fpcm.dom.fromId('fpcm-dialog-files-properties-' + prop).empty().attr('title', '');
-                    });
+                    for (var _prop in fpcm.filemanager.propertiesDialog) {
+                        fpcm.dom.fromId('fpcm-dialog-files-properties-' + _prop).empty().attr('title', fpcm.filemanager.propertiesDialog[_prop]);
+                    };
                 }
             })
             
 
             return false;
         });
+
     },
     
     initPagination: function() {

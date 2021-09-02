@@ -41,8 +41,8 @@ fpcm.ui = {
 
         fpcm.dom.bindEvent('#fpcm-ui-form', 'submit', function () {
             fpcm.ui_loader.show();
-            return true;            
-        }, false);
+            return true;
+        }, false, true);
 
         fpcm.ui.initShorthelpTooltips();
         fpcm.ui.initLightbox();

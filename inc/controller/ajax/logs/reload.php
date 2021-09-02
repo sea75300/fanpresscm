@@ -261,7 +261,7 @@ class reload extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
     private function getColsGeneric() : array
     {
         return [
-            (new \fpcm\components\dataView\column('time', 'LOGS_LIST_TIME', 'ps-2'))->setSize(2),
+            (new \fpcm\components\dataView\column('time', 'LOGS_LIST_TIME'))->setSize(2),
             (new \fpcm\components\dataView\column('text', 'LOGS_LIST_TEXT'))->setSize(10),
         ];
     }
@@ -273,12 +273,13 @@ class reload extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
     private function getColsSessions() : array
     {
         return [
-            (new \fpcm\components\dataView\column('user', 'LOGS_LIST_USER', 'px-2'))->setSize(2),
-            (new \fpcm\components\dataView\column('ipaddress', 'LOGS_LIST_IPADDRESS', 'px-2'))->setSize(2),
-            (new \fpcm\components\dataView\column('login', 'LOGS_LIST_LOGIN', 'px-2'))->setSize(2),
-            (new \fpcm\components\dataView\column('logout', 'LOGS_LIST_LOGOUT', 'px-2'))->setSize(2),
-            (new \fpcm\components\dataView\column('external', 'GLOBAL_EXTERNAL', 'px-2'))->setSize(1)->setAlign('center'),
-            (new \fpcm\components\dataView\column('useragent', 'LOGS_LIST_USERAGENT', 'px-2'))->setSize(3)->setAlign('center'),
+            (new \fpcm\components\dataView\column('sessionid', 'LOGS_LIST_SESSIONID'))->setSize(4),
+            (new \fpcm\components\dataView\column('user', 'LOGS_LIST_USER'))->setSize(1),
+            (new \fpcm\components\dataView\column('ipaddress', 'LOGS_LIST_IPADDRESS'))->setSize(2),
+            (new \fpcm\components\dataView\column('login', 'LOGS_LIST_LOGIN'))->setSize(1),
+            (new \fpcm\components\dataView\column('logout', 'LOGS_LIST_LOGOUT'))->setSize(1),
+            (new \fpcm\components\dataView\column('useragent', 'LOGS_LIST_USERAGENT'))->setSize(2),
+            (new \fpcm\components\dataView\column('external', 'GLOBAL_EXTERNAL', 'flex-grow-1'))->setSize('auto ')->setAlign('center'),
         ];
     }
 
@@ -329,12 +330,13 @@ class reload extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
         $username = isset($this->userList[$item->getUserId()]) ? $this->userList[$item->getUserId()]->getDisplayName() : $this->notfoundStr;
 
         return new \fpcm\components\dataView\row([
+            new \fpcm\components\dataView\rowCol('sessionid', new \fpcm\view\helper\escape($item->getSessionId()), 'text-truncate'),
             new \fpcm\components\dataView\rowCol('user', new \fpcm\view\helper\escape($username)),
             new \fpcm\components\dataView\rowCol('ipaddress', new \fpcm\view\helper\escape($item->getIp())),
             new \fpcm\components\dataView\rowCol('login', new \fpcm\view\helper\dateText($item->getLogin())),
             new \fpcm\components\dataView\rowCol('logout', ($item->getLogout() ? new \fpcm\view\helper\dateText($item->getLogout()) : $this->sessionTimeoutStr)),
+            new \fpcm\components\dataView\rowCol('useragent', new \fpcm\view\helper\escape($item->getUseragent())),
             new \fpcm\components\dataView\rowCol('external', (new \fpcm\view\helper\boolToText(uniqid('sessext')))->setValue($item->getExternal())),
-            new \fpcm\components\dataView\rowCol('useragent', new \fpcm\view\helper\escape($item->getUseragent()))
         ]);
     }
 

@@ -466,6 +466,7 @@ $lang = array (
   'LOGS_LIST_IPADDRESS' => 'IP-Adresse',
   'LOGS_LIST_LOGIN' => 'Login am',
   'LOGS_LIST_LOGOUT' => 'Logout am',
+  'LOGS_LIST_SESSIONID' => 'Kennung',
   'LOGS_LIST_TEXT' => 'Protokolldaten',
   'LOGS_LIST_TIME' => 'Zeit',
   'LOGS_LIST_TIMEOUT' => 'Session-Timeout',
