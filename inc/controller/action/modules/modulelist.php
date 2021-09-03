@@ -126,6 +126,7 @@ class modulelist extends \fpcm\controller\abstracts\controller implements \fpcm\
                 ->setData(['dataview-list' => 'modulesRemote']),            
         ];
         
+        $this->view->includeForms('modules');
         $this->view->addTabs('modulemgr', $this->tabs);
         $this->initUpload();
         return true;

@@ -16,6 +16,12 @@ div.fpcm.ui-tabs-wrapper > ul.nav.nav-tabs li.nav-item:last-child {
     margin-right: 0;
 }
 
+div.fpcm.offcanvas-large {
+    min-width: 400px;
+    width: 33%;
+    max-width: 994px;
+}
+
 /* ------ TinyMCE */
 td.fpcm-tinymce-emoticons img {
     padding: 0.5em !important;

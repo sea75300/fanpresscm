@@ -118,7 +118,7 @@ final class components {
      */
     public static function getjQuery() : string
     {
-        return \fpcm\classes\dirs::getLibUrl('jquery/jquery-3.5.1.min.js');
+        return \fpcm\classes\dirs::getLibUrl('jquery/jquery-3.6.0.min.js');
     }
 
 }

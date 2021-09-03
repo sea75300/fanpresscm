@@ -32,6 +32,7 @@ ajax/packagemgr/moduleInstaller: ajax/packagemgr/moduleInstaller
 ajax/packagemgr/unzcp: ajax/packagemgr/moduleExtractCopy
 ajax/modules/exec: ajax/modules/execAction
 ajax/modules/fetch: ajax/modules/fetchList
+ajax/modules/info: ajax/modules/moduleInfo
 ajax/installer/checkdb: ajax/installer/checkdb
 ajax/installer/initdb: ajax/installer/initdb
 ajax/comments/search: ajax/comments/search

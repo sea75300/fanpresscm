@@ -10,7 +10,7 @@
                 ->setIcon('chevron-down')
                 ->setPrimary(); ?>
 
-            <div class="collapse mt-3" id="topDescrCollapse">
+            <div class="collapse" id="topDescrCollapse">
                 <div class="card card-body">
                     <div class="row g-0">
                         <div class="col-12">

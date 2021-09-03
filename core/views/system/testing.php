@@ -15,7 +15,7 @@
         <link rel="stylesheet prefetch" type="text/css" href="http://debian10-vbox/fanpress4_bs/lib/font-awesome/css/all.min.css">
         <link rel="stylesheet prefetch" type="text/css" href="http://debian10-vbox/fanpress4_bs/core/theme/style.php">
 
-        <script src="http://debian10-vbox/fanpress4_bs/lib/jquery/jquery-3.5.1.min.js" rel="prefetch"></script>
+        <script src="http://debian10-vbox/fanpress4_bs/lib/jquery/jquery-3.6.0.min.js" rel="prefetch"></script>
         <script src="http://debian10-vbox/fanpress4_bs/lib/bootstrap/js/bootstrap.bundle.min.js" rel="prefetch"></script>
         <script src="http://debian10-vbox/fanpress4_bs/lib/bs-autocomplete/autocomplete.js" rel="prefetch"></script>
         <script src="http://debian10-vbox/fanpress4_bs/lib/fancybox/jquery.fancybox.min.js" rel="prefetch"></script>

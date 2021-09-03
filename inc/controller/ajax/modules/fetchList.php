@@ -210,12 +210,18 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController implements \fp
             $buttons[] = (new \fpcm\view\helper\icon('times-circle'))->setText('MODULES_FAILED_FSWRITE')->setClass('pe-3 text-danger')->setSize('lg');
         }
 
-        $buttons[] = (new \fpcm\view\helper\linkButton('info'.$hash))
-                            ->setText('MODULES_LIST_INFORMATIONS')
-                            ->setIcon('info-circle')
-                            ->setClass('fpcm-ui-modulelist-info')
-                            ->setIconOnly(true)
-                            ->setUrl($this->getControllerLink('modules/info', ['key' => $item->getKey()]));
+        $buttons[] = (new \fpcm\view\helper\button('info'.$hash))
+            ->setText('MODULES_LIST_INFORMATIONS')
+            ->setIcon('info-circle')
+            ->setIconOnly(true)
+            ->setData([
+                'bs-toggle' => 'offcanvas',
+                'bs-target' => '#offcanvasInfo',
+                'key' => $item->getKey()
+            ])
+            ->setAria([
+                'bs-controls' => 'offcanvasInfo',
+            ]);      
 
         $hasUpdates = $this->permissions->modules->install && $item->hasUpdates();
         $hasLocalUpdates = $this->permissions->modules->install && $item->hasLocalUpdates();
@@ -302,13 +308,20 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController implements \fp
         if (!$item->isInstallable()) {
             $buttons[] = (new \fpcm\view\helper\icon('project-diagram'))->setText('MODULES_FAILED_DEPENCIES')->setClass('pe-3 text-danger');
         }
-
-        $buttons[] = (new \fpcm\view\helper\linkButton('info'.$hash))
-                    ->setText('MODULES_LIST_INFORMATIONS')
-                    ->setIcon('info-circle')
-                    ->setClass('fpcm-ui-modulelist-info')
-                    ->setIconOnly(true)
-                    ->setUrl($this->getControllerLink('modules/info', ['key' => $item->getKey(), 'repo' => 1]));
+        
+        $buttons[] = (new \fpcm\view\helper\button('info'.$hash))
+            ->setText('MODULES_LIST_INFORMATIONS')
+            ->setIcon('info-circle')
+            ->setIconOnly(true)
+            ->setData([
+                'bs-toggle' => 'offcanvas',
+                'bs-target' => '#offcanvasInfo',
+                'key' => $item->getKey(),
+                'repo' => 1
+            ])
+            ->setAria([
+                'bs-controls' => 'offcanvasInfo',
+            ]);
 
         if ($this->permissions->modules->install && !in_array($item->getKey(), $this->installed) ) {
             $buttons[] = (new \fpcm\view\helper\linkButton('install'.$hash))

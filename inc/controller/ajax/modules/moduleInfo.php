@@ -1,14 +1,14 @@
 <?php
 
-namespace fpcm\controller\action\modules;
+namespace fpcm\controller\ajax\modules;
 
 /**
  * Module details info controller
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2021, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class moduleInfo extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\isAccessible {
+class moduleInfo extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
 
     /**
      *
@@ -27,6 +27,15 @@ class moduleInfo extends \fpcm\controller\abstracts\controller implements \fpcm\
      * @var bool
      */
     protected $repo = true;
+
+    /**
+     * 
+     * @return string
+     */
+    protected function getViewPath(): string
+    {
+        return 'modules/info';
+    }
 
     /**
      * 
@@ -71,13 +80,8 @@ class moduleInfo extends \fpcm\controller\abstracts\controller implements \fpcm\
         if (!$this->module) {
             return false;
         }
-        
-        $this->view = new \fpcm\view\view();
-        $this->view->showHeaderFooter(\fpcm\view\view::INCLUDE_HEADER_SIMPLE);
-        $this->view->addTabs('moduleInfo', [
-            (new \fpcm\view\helper\tabItem('info-first'))->setText('MODULES_LIST_INFORMATIONS')->setFile('modules/info.php')
-        ], 'm-2');
 
+        $this->view->showHeaderFooter(\fpcm\view\view::INCLUDE_HEADER_NONE);
         $config = $this->module->getConfig();
                                         
         $this->view->addJsFiles(['modules/info.js']);
