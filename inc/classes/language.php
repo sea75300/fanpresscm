@@ -333,8 +333,15 @@ final class language {
      * @return array
      * @since 4.4
      */
-    public function getAll() : array
+    public function getAll(bool $force = false) : array
     {
+        if ($force) {
+            $GLOBALS['langdata'] = [];
+            $this->init();
+
+            return $GLOBALS['langdata'];
+        }
+        
         return $GLOBALS['langdata'];
     }
 

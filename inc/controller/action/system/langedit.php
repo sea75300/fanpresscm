@@ -55,11 +55,10 @@ implements \fpcm\controller\interfaces\isAccessible,
         $this->view->addTabs('langedit', [
             (new \fpcm\view\helper\tabItem('editor'))->setText('Language variable editor')->setFile('system/langedit.php'), 
         ]);
-        
 
         $this->cache->cleanup('system/langcache' . strtoupper($this->langObj->getLangCode()));
         
-        $fullLang = $this->langObj->getAll();
+        $fullLang = $this->langObj->getAll(true);
 
         array_walk($fullLang, function (&$value, $index) use ($skipVal) {
             $value = strpos(strtoupper($index), 'MODULE_') !== FALSE ? $skipVal : $value;
