@@ -22,8 +22,8 @@ fpcm.articles = {
         });
 
         fpcm.articles.initArticleSearch();
-
-        fpcm.dom.fromId('massEdit').click(function () {
+        
+        fpcm.dom.bindClick('#massEdit', function (_e, _ui) {
 
             fpcm.system.initMassEditDialog('articles/massedit', 'articles-massedit', fpcm.articles, {
                 onSuccess: function () {
@@ -39,15 +39,15 @@ fpcm.articles = {
                 plugins: ['remove_button']
             });
 
-            return false;
         });
+
     },
     
     initArticleSearch: function() {
+        
+        fpcm.dom.bindClick('#opensearch', function (_e, _ui) {
 
-        fpcm.dom.fromId('opensearch').click(function () {
-
-            var sDlg = fpcm.ui_dialogs.create({
+            fpcm.ui_dialogs.create({
                 id: 'articles-search',
                 title: 'ARTICLES_SEARCH',
                 closeButton: true,
@@ -91,9 +91,7 @@ fpcm.articles = {
                 }
             });
 
-            return false;
         });
-
     },
     
     loadArticles: function(_params) {
@@ -194,31 +192,21 @@ fpcm.articles = {
 
     clearArticleCache: function() {
         
-        fpcm.dom.fromClass('fpcm-article-cache-clear').unbind('click');
-        fpcm.dom.fromClass('fpcm-article-cache-clear').click(function() {
-            
-            var obj = fpcm.dom.fromTag(this);
-            
-            var cache = obj.data('cache') ? obj.data('cache') : '';
-            var objid = obj.data('objid') ? obj.data('objid') : 0;
+        fpcm.dom.bindClick('.fpcm-article-cache-clear', function (_e, _ui) {
 
             fpcm.system.clearCache({
-                cache: cache,
-                objid: objid
+                cache: _ui.dataset.cache ? _ui.dataset.cache : '',
+                objid: _ui.dataset.objid ? _ui.dataset.objid : 0
             });
-            
-            return false;
+
         });
 
     },
 
     deleteSingleArticle: function() {
         
-        fpcm.dom.fromClass('fpcm-ui-button-delete-article-single').unbind('click');
-        fpcm.dom.fromClass('fpcm-ui-button-delete-article-single').click(function() {
+        fpcm.dom.bindClick('.fpcm-ui-button-delete-article-single', function (_e, _ui) {
 
-            var articleId = fpcm.dom.fromTag(this).data('articleid');
-            
             fpcm.ui_dialogs.confirm({
                 
                 clickYes: function () {
@@ -226,7 +214,7 @@ fpcm.articles = {
                         dataType: 'json',
                         pageToken: 'articles/delete',
                         data: {
-                            id: articleId
+                            id: _ui.dataset.articleid
                         },
                         execDone: function (result) {
 
@@ -246,9 +234,7 @@ fpcm.articles = {
                 }                
             });
 
-            return false;
         });
-
     },
 
     deleteMultipleArticle: function() {
