@@ -618,6 +618,30 @@ if (fpcm.editor) {
                         });
                     }
                 });
+                
+                
+                fpcm.ui.autocomplete('#linksrel', {
+                    source: [{
+                        value: 'external',
+                        label: 'external',
+                    },
+                    {
+                        value: 'nofollow',
+                        label: 'nofollow',
+                    },
+                    {
+                        value: 'noopener',
+                        label: 'noopener',
+                    },
+                    {
+                        value: 'noreferrer',
+                        label: 'noreferrer',
+                    }],
+                    minLength: 2,
+                    select: function( event, ui ) {
+                        fpcm.dom.fromId('linkstext').val(ui.item.label);
+                    }
+                });
 
             },
             dlOnClose: function () {

@@ -134,6 +134,10 @@ class filelist extends \fpcm\controller\abstracts\controller implements \fpcm\co
         if ($this->mode === 2) {
             $buttons[] = (new \fpcm\view\helper\submitButton('insertGallery', 'insertGallery'))->setText('FILE_LIST_INSERTGALLERY')->setIcon('images', 'far')->setIconOnly(true)->setClass('fpcm-ui-maintoolbarbuttons-tab1');
         }
+        
+        if ($this->mode > 1) {
+            $this->view->assign('toolbarClass', 'd-none');
+        }
 
         if ($this->permissions->uploads->thumbs) {
             $buttons[] = (new \fpcm\view\helper\submitButton('createThumbs'))
@@ -154,10 +158,10 @@ class filelist extends \fpcm\controller\abstracts\controller implements \fpcm\co
                     ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
                     ->setSelected($this->config->file_view)
                     ->setClass('fpcm-ui-maintoolbarbuttons-tab1');
-        }
 
-        if ($this->permissions->uploads->add) {
-            $buttons[] = (new \fpcm\view\helper\button('fmgrUploadBack'))->setText('GLOBAL_BACK')->setIcon('chevron-circle-left')->setClass('fpcm-ui-maintoolbarbuttons-tab2 fpcm-ui-hidden');
+            if ($this->permissions->uploads->add) {
+                $buttons[] = (new \fpcm\view\helper\button('fmgrUploadBack'))->setText('GLOBAL_BACK')->setIcon('chevron-circle-left')->setClass('fpcm-ui-maintoolbarbuttons-tab2 fpcm-ui-hidden');
+            }
         }
 
         $this->view->addButtons($buttons);
