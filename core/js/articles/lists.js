@@ -78,7 +78,7 @@ fpcm.articles = {
                         }
                     },                    
                     {
-                        text: fpcm.ui.translate('ARTICLE_SEARCH_RESET'),
+                        text: fpcm.ui.translate('GLOBAL_RESET'),
                         icon: "undo" ,
                         clickClose: true,
                         click: function() {

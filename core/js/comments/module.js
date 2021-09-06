@@ -108,7 +108,7 @@ fpcm.comments = {
                         }
                     },                    
                     {
-                        text: 'ARTICLE_SEARCH_RESET',
+                        text: 'GLOBAL_RESET',
                         icon: "undo" ,
                         clickClose: true,
                         click: function() {
