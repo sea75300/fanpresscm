@@ -235,7 +235,7 @@ class userlist extends \fpcm\controller\abstracts\controller implements \fpcm\co
 
                 $metadata = [
                     (new \fpcm\view\helper\badge('art'.$userId))->setValue($count)->setText('USERS_ARTICLE_COUNT')->setIcon('book'),
-                    (new \fpcm\view\helper\icon('user-slash fa-inverse'))->setText('USERS_DISABLED')->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $user->getDisabled())->setStack('square')
+                    (new \fpcm\view\helper\icon('user-slash'))->setText('USERS_DISABLED')->setClass('ms-1 fpcm-ui-editor-metainfo fpcm-ui-status-' . $user->getDisabled())
                 ];
                 
                 $buttons = [
