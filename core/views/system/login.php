@@ -19,20 +19,19 @@
         <?php if ($twoFactorAuth) : ?>
         <div class="row g-0">
             <?php $theView->textInput('login[authcode]')->setText('LOGIN_AUTHCODE')
-                    ->setMaxlenght(6)->setPlaceholder(true)->setAutocomplete(false)
-                    ->setAutoFocused(true)->setWrapper(true)->setClass('fpcm-ui-monospace'); ?>
+                    ->setMaxlenght(6)->setPlaceholder(true)->setAutocomplete(false)->setAutoFocused(true)->setClass('fpcm-ui-monospace'); ?>
             <?php $theView->hiddenInput('login[formData]')->setValue($formData); ?>
         </div>
         <?php else : ?>
         <div class="row g-0">
-            <?php $theView->textInput($userNameField)->setText('GLOBAL_USERNAME')->setPlaceholder(true)->setAutocomplete(false)->setAutoFocused(true)->setWrapper(true); ?>
+            <?php $theView->textInput($userNameField)->setText('GLOBAL_USERNAME')->setPlaceholder(true)->setAutocomplete(false)->setAutoFocused(true); ?>
         </div>
 
         <div class="row g-0">
             <?php if ($resetPasswort) : ?>
-                <?php $theView->textInput('email')->setType('email')->setText('GLOBAL_EMAIL')->setPlaceholder(true)->setAutocomplete(false)->setWrapper(true); ?>
+                <?php $theView->textInput('email')->setType('email')->setText('GLOBAL_EMAIL')->setPlaceholder(true)->setAutocomplete(false); ?>
             <?php else : ?>
-                <?php $theView->passwordInput('login[password]')->setText('GLOBAL_PASSWORD')->setPlaceholder(true)->setAutocomplete(false)->setWrapper(true); ?>
+                <?php $theView->passwordInput('login[password]')->setText('GLOBAL_PASSWORD')->setPlaceholder(true)->setAutocomplete(false); ?>
             <?php endif; ?>
         </div>
         <?php endif; ?>

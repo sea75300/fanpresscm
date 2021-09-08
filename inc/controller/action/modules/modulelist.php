@@ -125,10 +125,11 @@ class modulelist extends \fpcm\controller\abstracts\controller implements \fpcm\
                 ->setUrl(\fpcm\classes\tools::getControllerLink('ajax/modules/fetch', ['mode' => 'remote']))
                 ->setData(['dataview-list' => 'modulesRemote']),            
         ];
+
+        $this->initUpload();
         
         $this->view->includeForms('modules');
         $this->view->addTabs('modulemgr', $this->tabs);
-        $this->initUpload();
         return true;
     }
 

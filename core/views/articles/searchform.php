@@ -4,7 +4,7 @@
     <div class="row">
 
         <div class="col-12 col-md-9">
-            <?php $theView->textInput('text')->setClass('fpcm-articles-search-input')->setMaxlenght(255)->setText('ARTICLE_SEARCH_TEXT')->setPlaceholder(true)->setWrapper(true); ?>
+            <?php $theView->textInput('text')->setClass('fpcm-articles-search-input')->setMaxlenght(255)->setText('ARTICLE_SEARCH_TEXT')->setPlaceholder($theView->translate('ARTICLE_SEARCH_TEXT')); ?>
         </div>
         
         <div class="col-12 col-md-3">
@@ -56,7 +56,6 @@
             <?php $theView->select('userid')
                     ->setOptions($searchUsers)
                     ->setText('ARTICLE_SEARCH_USER')
-                    ->prependLabel()
                     ->setClass('fpcm-articles-search-input fpcm-ui-input-select-articlesearch')
                     ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
         </div>
@@ -75,7 +74,6 @@
             <?php $theView->select('categoryid')
                     ->setOptions($searchCategories)
                     ->setText('ARTICLE_SEARCH_CATEGORY')
-                    ->prependLabel()
                     ->setClass('fpcm-articles-search-input fpcm-ui-input-select-articlesearch')
                     ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
         </div>
@@ -94,7 +92,6 @@
             <?php $theView->select('pinned')
                     ->setOptions($searchPinned)
                     ->setText('ARTICLE_SEARCH_PINNED')
-                    ->prependLabel()
                     ->setClass('fpcm-articles-search-input fpcm-ui-input-select-articlesearch')
                     ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
         </div>
@@ -113,7 +110,6 @@
             <?php $theView->select('postponed')
                     ->setOptions($searchPostponed)
                     ->setText('ARTICLE_SEARCH_POSTPONED')
-                    ->prependLabel()
                     ->setClass('fpcm-articles-search-input fpcm-ui-input-select-articlesearch')
                     ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
         </div>
@@ -132,7 +128,6 @@
             <?php $theView->select('comments')
                     ->setOptions($searchComments)
                     ->setText('ARTICLE_SEARCH_COMMENTS')
-                    ->prependLabel()
                     ->setClass('fpcm-articles-search-input fpcm-ui-input-select-articlesearch')
                     ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
         </div>
@@ -151,7 +146,6 @@
             <?php $theView->select('approval')
                     ->setOptions($searchApproval)
                     ->setText('ARTICLE_SEARCH_APPROVAL')
-                    ->prependLabel()
                     ->setClass('fpcm-articles-search-input fpcm-ui-input-select-articlesearch')
                     ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
         </div>
@@ -170,7 +164,6 @@
             <?php $theView->select('draft')
                     ->setOptions($searchDraft)
                     ->setText('ARTICLE_SEARCH_DRAFT')
-                    ->prependLabel()
                     ->setClass('fpcm-articles-search-input fpcm-ui-input-select-articlesearch')
                     ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
         </div>

@@ -171,9 +171,7 @@ class navigation extends \fpcm\model\abstracts\staticModel {
         
         $submenu = [];
 
-        if (defined('FPCM_CSV_IMPORT') && FPCM_CSV_IMPORT) {
-            $submenu[] = (new navigationItem())->setUrl('system/import')->setDescription('IMPORT_MAIN')->setIcon('file-import');
-        }
+        $submenu[] = (new navigationItem())->setUrl('system/import')->setDescription('IMPORT_MAIN')->setIcon('file-import');
 
         if (FPCM_DEBUG && defined('FPCM_LANG_XML')) {
             $submenu[] = (new navigationItem())->setUrl('system/langedit')->setDescription('Language Editor')->setIcon('language');

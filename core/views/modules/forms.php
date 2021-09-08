@@ -1,5 +1,5 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
-<div class="offcanvas offcanvas-end fpcm offcanvas-large" tabindex="-1" id="offcanvasInfo" aria-labelledby="offcanvasInfoLabel">
+<div class="offcanvas offcanvas-end fpcm offcanvas-large" tabindex="-1" id="offcanvasInfo" aria-labelledby="offcanvasInfoLabel" data-bs-scroll="true">
     <div class="offcanvas-header text-white bg-primary">
         <h5 class="offcanvas-title" id="offcanvasInfoLabel"><?php $theView->icon('plug'); ?> <?php $theView->write('MODULES_LIST_INFORMATIONS'); ?></h5>
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="<?php $theView->write('GLOBAL_CLOSE'); ?>"></button>

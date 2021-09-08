@@ -105,6 +105,9 @@ class userlist extends \fpcm\controller\abstracts\controller implements \fpcm\co
         $this->view->assign('usersListSelect', $this->userList->getUsersNameList());
         
         $chart = new \fpcm\components\charts\chart('pie', 'userArticles');
+        $chart->addOptions('legend', [
+            'position' => 'bottom'
+        ]);
         $this->view->addCssFiles($chart->getCssFiles());
         
         $this->view->addJsFiles(array_merge(['users/module.js'], $chart->getJsFiles()));
@@ -114,11 +117,23 @@ class userlist extends \fpcm\controller\abstracts\controller implements \fpcm\co
 
         $buttons = [
             (new \fpcm\view\helper\linkButton('addUser'))->setUrl(\fpcm\classes\tools::getFullControllerLink('users/add'))->setText('GLOBAL_NEW')->setClass('fpcm-ui-maintoolbarbuttons-tab1')->setIcon('user-plus'),
+            (new \fpcm\view\helper\button('userStats'))
+                ->setText('USERS_STATS_ARTICLE')
+                ->setIcon('chart-pie')
+                ->setClass('fpcm-ui-maintoolbarbuttons-tab1')
+                ->setData([
+                    'bs-toggle' => 'offcanvas',
+                    'bs-target' => '#offcanvasUserStats'
+                ])
+                ->setAria([
+                    'bs-controls' => 'offcanvasUserStats',
+                ])
         ];
         
         if ($this->permissions->system->rolls) {
             $buttons[] = (new \fpcm\view\helper\linkButton('addRoll'))->setUrl(\fpcm\classes\tools::getFullControllerLink('users/addroll'))->setText('GLOBAL_NEW')->setClass('fpcm-ui-maintoolbarbuttons-tab2 fpcm-ui-hidden')->setIcon('user-tag');
         }
+        
 
         $this->view->addButtons($buttons);
         $this->createUsersView();
@@ -143,6 +158,7 @@ class userlist extends \fpcm\controller\abstracts\controller implements \fpcm\co
             'chartData' => $chart
         ]);
         
+        $this->view->includeForms('users');
         $this->view->addAjaxPageToken('users/actions');
         $this->view->render();
         return true;
@@ -327,13 +343,13 @@ class userlist extends \fpcm\controller\abstracts\controller implements \fpcm\co
         $tabs = [];
         $tabs[] = (new \fpcm\view\helper\tabItem('users'))
                 ->setText('USERS_LIST')
-                ->setFile($this->getViewPath() . '.php')
+                ->setFile($this->getViewPath())
                 ->setTabToolbar(1);
         
         if ($this->permissions->system->rolls) {
             $tabs[] = (new \fpcm\view\helper\tabItem('rolls'))
                     ->setText('USERS_LIST_ROLLS')
-                    ->setFile('users/rollslist.php')
+                    ->setFile('users/rollslist')
                     ->setTabToolbar(2);
         }
         

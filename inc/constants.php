@@ -198,11 +198,3 @@ if (!defined('FPCM_DB_PERSISTENT')) {
      */
     define('FPCM_DB_PERSISTENT', true);
 }
-
-if (!defined('FPCM_CSV_IMPORT')) {
-    /**
-     * Enable CSV import
-     * @since 4.5
-     */
-    define('FPCM_CSV_IMPORT', false);
-}

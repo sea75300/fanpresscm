@@ -66,7 +66,7 @@
 
     <div class="row mb-2">
         <div class="col-12 col-md-9 my-2 my-md-0">
-            <?php $theView->textInput('filename')->setText('FILE_LIST_SEARCHTEXT')->setMaxlenght(255)->setPlaceholder(true)->setWrapper(true)->setClass('fpcm-files-search-input'); ?>
+            <?php $theView->textInput('filename')->setText('FILE_LIST_SEARCHTEXT')->setMaxlenght(255)->setPlaceholder(true)->setClass('fpcm-files-search-input'); ?>
         </div>
         <div class="col-12 col-md-3"></div>
     </div>
@@ -76,8 +76,7 @@
         <div class="col-12 col-md-9">
             <?php $theView->dateTimeInput('datefrom')
                     ->setClass('fpcm-files-search-input fpcm-ui-full-width-date')
-                    ->setText('ARTICLE_SEARCH_DATE_FROM')
-                    ->setWrapper(true); ?>
+                    ->setText('ARTICLE_SEARCH_DATE_FROM'); ?>
         </div>
         
         <div class="col-12 col-md-3">
@@ -93,8 +92,7 @@
         <div class="col-12 col-md-9">
             <?php $theView->dateTimeInput('dateto')
                     ->setClass('fpcm-files-search-input fpcm-ui-full-width-date')
-                    ->setText('ARTICLE_SEARCH_DATE_TO')
-                    ->setWrapper(true); ?>
+                    ->setText('ARTICLE_SEARCH_DATE_TO'); ?>
         </div>
         
         <div class="col-12 col-md-3">
@@ -111,7 +109,6 @@
             <?php $theView->select('userid')
                     ->setOptions($searchUsers)
                     ->setText('ARTICLE_SEARCH_USER')
-                    ->prependLabel()
                     ->setClass('fpcm-files-search-input fpcm-ui-input-select-filessearch')
                     ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
         </div>

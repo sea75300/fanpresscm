@@ -55,7 +55,6 @@
             <?php $theView->select('spam')
                     ->setOptions($searchSpam)
                     ->setText('COMMMENT_SPAM')
-                    ->prependLabel()
                     ->setClass('fpcm-comments-search-input fpcm-ui-input-select-commentsearch')
                     ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
         </div>
@@ -74,7 +73,6 @@
             <?php $theView->select('approved')
                     ->setOptions($searchApproval)
                     ->setText('COMMMENT_APPROVE')
-                    ->prependLabel()
                     ->setClass('fpcm-comments-search-input fpcm-ui-input-select-commentsearch')
                     ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
         </div>
@@ -93,7 +91,6 @@
             <?php $theView->select('private')
                     ->setOptions($searchPrivate)
                     ->setText('COMMMENT_PRIVATE')
-                    ->prependLabel()
                     ->setClass('fpcm-comments-search-input fpcm-ui-input-select-commentsearch')
                     ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
         </div>

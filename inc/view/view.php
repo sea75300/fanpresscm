@@ -768,7 +768,7 @@ class view {
                         'input' => (string) (new helper\textInput('{{name}}', '{{id}}'))->setValue('{{value}}')
                                             ->setText('{{text}}')->setClass('{{class}}')->setType('{{type}}')
                                             ->setPlaceholder('{{placeholder}}')->setMaxlenght('255')
-                                            ->setWrapper(false)->setDisplaySizesDefault()
+                                            ->setDisplaySizesDefault()
                     ],
                     'dialogTpl' => new \fpcm\model\files\jsViewTemplate('dialog')
                 ],
