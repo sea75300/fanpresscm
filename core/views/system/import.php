@@ -13,13 +13,13 @@
     <?php include $theView->getIncludePath('components/progress.php'); ?>
 </div>
 
-<div class="row py-2">
+<div class="row py-2 row-cols-2">
 
-    <div class="col-12 col-md-6 mb-2 mb-md-0" id="fpcm-ui-csv-upload">
+    <div class="col" id="fpcm-ui-csv-upload">
         <?php include $uploadTemplatePath; ?>
     </div>    
 
-    <div class="col-12 col-md-6" id="fpcm-ui-csv-settings">
+    <div class="col" id="fpcm-ui-csv-settings">
         
         <fieldset>
             <legend><?php $theView->write('SYSTEM_HL_OPTIONS_GENERAL'); ?></legend>

@@ -39,10 +39,10 @@ fpcm.ui = {
         fpcm.ui.initJqUiWidgets();
         fpcm.ui.initDateTimeMasks();       
 
-        fpcm.dom.bindEvent('#fpcm-ui-form', 'submit', function () {
-            fpcm.ui_loader.show();
-            return true;
-        }, false, true);
+//        fpcm.dom.bindEvent('#fpcm-ui-form', 'submit', function () {
+//            fpcm.ui_loader.show();
+//            return true;
+//        }, false, true);
 
         fpcm.ui.initShorthelpTooltips();
         fpcm.ui.initLightbox();
@@ -78,8 +78,10 @@ fpcm.ui = {
             if (!fpcm.dom.fromTag(this).data('hidespinner')) {
                 fpcm.ui_loader.show();
             }
+            
+            return true;
 
-        });
+        }, false, true);
 
         fpcm.ui.initPager();
     },

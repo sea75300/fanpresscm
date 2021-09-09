@@ -176,13 +176,13 @@ class filelist extends \fpcm\controller\abstracts\controller implements \fpcm\co
         ];
         
         if ($this->permissions->uploads->add) {
-            
-            $path = str_replace(\fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS), '', $uploader->getTemplate());
+
+            $this->view->assign('uploadFormPath', $uploader->getTemplate());
             
             $tabs[] = (new \fpcm\view\helper\tabItem('upload'))
                     ->setText('FILE_LIST_UPLOADFORM')
                     ->setTabToolbar(2)
-                    ->setFile($path);
+                    ->setFile('filemanager/upload');
             
         }
 

@@ -276,7 +276,7 @@ fpcm.dom = {
             _unbind = true;
         }
         
-        let _res = fpcm.dom.bindEvent(_element, 'click', _callback, _unbind);
+        let _res = fpcm.dom.bindEvent(_element, 'click', _callback, _unbind, _return);
         if (_return) {
             return _res;
         }
