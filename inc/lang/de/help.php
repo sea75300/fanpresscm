@@ -1149,7 +1149,7 @@ Help language file
         
         ]]>
     </chapter>
-    <chapter ref="SYSTEM_OPTIONS_TWITTER_CONNECTION">
+    <chapter ref="SYSTEM_HL_OPTIONS_TWITTER">
         <![CDATA[
         <p>FanPress CM bietet dir die Möglichkeit, beim Schreiben/ Aktualisieren eines Artikels automatisch einen Tweet bei Twitter
             erzeugen zu lassen.</p>

@@ -188,7 +188,7 @@ implements \fpcm\controller\interfaces\isAccessible,
                 ->setTabToolbar(1)
             ,
             (new \fpcm\view\helper\tabItem('comments'))
-                ->setText('SYSTEM_HL_OPTIONS_COMMENTS')                
+                ->setText('COMMMENT_HEADLINE')                
                 ->setFile('system/comments.php')
                 ->setTabToolbar(1)
             ,

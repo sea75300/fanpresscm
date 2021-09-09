@@ -97,11 +97,7 @@
                     ->setSelected($globalConfig->file_view)
                     ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
         </div>
-    </div>                     
-</fieldset>
-
-<fieldset class="mb-2">
-    <legend><?php $theView->write('SYSTEM_OPTIONS_NEWSSHOWIMGTHUMBSIZE'); ?></legend>
+    </div>
 
     <div class="row my-2">
         <div class="col-12 col-md-8">
@@ -116,12 +112,19 @@
     </div>
 
     <div class="row my-2">
-        <div class="col-12 col-md-6 justify-content-center text-center">
-            <figure class="figure" id="fpcm-thumb-preview">
-                <img title="<?php $theView->write('GLOBAL_PREVIEW'); ?>" class="rounded bg-info" src="<?php print $theView->themePath; ?>logo.svg" role="presentation" style="width:<?php print $globalConfig->file_thumb_size; ?>px;height: <?php print $globalConfig->file_thumb_size; ?>px;">
-                <figcaption class="figure-caption text-end"><span><?php print $theView->escapeVal($globalConfig->file_thumb_size); ?></span> <?php $theView->write('FILE_LIST_RESOLUTION_PIXEL') ?></figcaption>
-            </figure>
+        <div class="col-12 col-md-8">
+            <div class="row g-0">
+                <div class="col-12 col-sm-6 col-md-4">&nbsp;</div>
+                <div class="col-auto justify-content-center">
+                    <figure class="figure" id="fpcm-thumb-preview">
+                        <img title="<?php $theView->write('GLOBAL_PREVIEW'); ?>" class="img-thumbnail" src="<?php print $theView->themePath; ?>logo.svg" role="presentation" style="width:<?php print $globalConfig->file_thumb_size; ?>px;height: <?php print $globalConfig->file_thumb_size; ?>px;">
+                        <figcaption class="figure-caption text-end"><span><?php print $theView->escapeVal($globalConfig->file_thumb_size); ?></span> <?php $theView->write('FILE_LIST_RESOLUTION_PIXEL') ?></figcaption>
+                    </figure>
+                </div>
+            </div>
+            
         </div>
+        
+        
     </div>
-
 </fieldset>
