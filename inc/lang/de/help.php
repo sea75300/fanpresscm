@@ -386,12 +386,16 @@ Help language file
             <dd class="pb-2">E-Mail-Adresse für Benachrichtigungen, ein neu gesetztes Passwort etc.</dd>
             <dt>Aktuelles Passwort zur Bestätigung eingeben:</dt>
             <dd class="pb-2">Zur Änderung des Passwortes und bestimmter anderer Einstellungen ist eine Bestätigung per Passwort nötig.</dd>
-            <dt>Zwei-Faktor-Authentifizierung:</strong> (optional)</dt>
-            <dd class="pb-2">Die Zwei-Faktor-Authentifizierung bietet einen zusätzlichen Schutz deines Logins gegen Fishing, Bots und ähnliches. Die Nutzung ist
-            optional und kann durch einen Administrator bei Bedarf aktiviert werden. Der zweite Faktor zum Login wird mittels der App "Google Authenticator" auf deinem Smartphone
-            realisiert. Zur Aktivierung der Zwei-Faktor-Authentifizierung scanne den angezeigten QR-Code mit deinem Smartphone mit der App. Trage im Anschluss den ersten Zahlencode
-            in das Eingabefeld ein und speicher den Vorgang.</dd>
         </dl>
+
+        <h3>Zwei-Faktor-Authentifizierung (optional)</h3>
+        
+        <p>Die Zwei-Faktor-Authentifizierung bietet einen zusätzlichen Schutz deines Logins gegen Fishing, Bots und ähnliches. Die Nutzung ist
+        optional und kann durch einen Administrator bei Bedarf aktiviert werden. Der zweite Faktor zum Login wird mittels der App "Google Authenticator" auf deinem Smartphone
+        realisiert. </p>
+        
+        <p>Zur Aktivierung der Zwei-Faktor-Authentifizierung scanne den angezeigten QR-Code mit deinem Smartphone mit der App. Trage im Anschluss den ersten Zahlencode
+        in das Eingabefeld ein und speicher den Vorgang..</p>
 
         <h3>Erweitert</h3>
         <dl>
@@ -681,8 +685,8 @@ Help language file
             löschen zu lassen. Wurde ein Benutzer gelöscht, so wird bei allen verweisen auf den Benutzer angezeigt, dass er
             nicht gefunden wurde.</li>
             <li>Über den Button <strong>E-Mail verfassen</strong> kann aus dem von euch festgelegten Standard-E-Mail-Programm eine Nachricht versendet werden.</li>
-        </ul>
-
+        </ul>      
+        
         <h3>Benutzer-Rollen</h3>
         
         <p>Ein Benutzer ist immer Mitglied einer Rolle, über deren Berechtigungen der Zugriff des Benutzers auf bestimmte Funktionen

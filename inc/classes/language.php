@@ -77,6 +77,10 @@ final class language {
             trigger_error('Try to load undefined language: ' . $langCode);
             return false;
         }
+        
+        if ($langCode && $this->langCode !== $langCode) {
+            $GLOBALS['langdata'] = [];
+        }
 
         $this->langCode = $langCode;
         $this->init();
@@ -101,6 +105,9 @@ final class language {
 
         $this->langList[$this->langCode] = file_get_contents($confFile);
         $this->helpFile = $this->langPath . '/help.php';
+        if (!file_exists($this->helpFile)) {
+            $this->helpFile = dirs::getIncDirPath('lang' . DIRECTORY_SEPARATOR . FPCM_DEFAULT_LANGUAGE_CODE . DIRECTORY_SEPARATOR . '/help.php');
+        }
 
         $this->cache = loader::getObject('\fpcm\classes\cache');
         $cacheName = 'system/langcache' . strtoupper($this->langCode);

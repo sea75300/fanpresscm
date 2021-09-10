@@ -102,7 +102,7 @@
 <?php if ($twoFaAuth) : ?>
 <fieldset class="mb-2">
     <legend><?php $theView->write('SYSTEM_OPTIONS_LOGIN_TWOFACTORAUTH'); ?></legend>
-
+    
     <div class="row my-2">
     <?php if ($secret !== false && $qrCode !== false) : ?>
         <div class="col-12 col-md-6 align-self-center">
@@ -110,7 +110,8 @@
                 ->setValue('')
                 ->setMaxlenght(6)
                 ->setAutocomplete(false)
-                ->setText('USERS_AUTHTOKEN_SAVE2')
+                ->setText('USERS_AUTHTOKEN_SAVE')
+                ->setPlaceholder($theView->translate('LOGIN_AUTHCODE'))
                 ->setLabelClass('pe-3')
                 ->setIcon('exclamation-triangle text-danger')
                 ->setSize('lg'); ?>                    
