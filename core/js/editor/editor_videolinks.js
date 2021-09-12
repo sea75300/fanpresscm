@@ -32,7 +32,23 @@ fpcm.editor_videolinks = {
     },
 
     createFrame: function (url, returnOnly) {
-        return fpcm.editor.insertIFrame(url, ['width="500"', 'height="300"', 'frameborder="0"', 'allowfullscreen'], returnOnly);
+        
+        if (url === undefined) {
+            url = 'http://';
+        }
+
+        var code = fpcm.ui.createIFrame({
+            src: url,
+            options: ['width="500"', 'height="300"', 'frameborder="0"', 'allowfullscreen'],
+            id: 'fpcm-articletext-videoframe-' + fpcm.ui.getUniqueID()
+        });
+
+        if (!returnOnly) {
+            fpcm.editor.insert(code, '');
+            return true;
+        }
+
+        return code;
     }
 
 };

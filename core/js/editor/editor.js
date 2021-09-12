@@ -299,25 +299,6 @@ fpcm.editor = {
         });
 
     },
-
-    insertIFrame: function(url, params, returnOnly) {
-        
-        if (url === undefined) {
-            url = 'http://';
-        }
-        
-        if (params === undefined) {
-            params = [];
-        }
-
-        var code = '<iframe src="' + url + '" class="fpcm-articletext-iframe" ' + params.join(' ') + '></iframe>';
-        if (!returnOnly) {
-            fpcm.editor.insert(code, '');
-            return true;
-        }
-
-        return code;
-    },
     
     getGalleryReplacement: function (_values) {
         return fpcm.vars.jsvars.editorGalleryTagStart.replace(

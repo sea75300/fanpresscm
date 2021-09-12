@@ -396,10 +396,15 @@ fpcm.ui = {
         if (!params.id) {
             params.id = fpcm.ui.getUniqueID();
         }
+      
+        if (!params.options) {
+            params.options = [];
+        }
 
-        params.style = params.style ? 'style="' + params.style + '"' : '';
+        params.style = params.style ? ' style="' + params.style + '"' : '';
+        params.options = params.options.length ? ' ' + params.options.join(' ') : '';
 
-        return '<iframe src="' + params.src + '" id="' + params.id + '" class="' + params.classes + '" ' + params.style + '></iframe>';
+        return '<iframe src="' + params.src + '" id="' + params.id + '" class="' + params.classes + '"' + params.style + params.options + '></iframe>';
     },
 
     getIcon: function(_icon, _params) {
