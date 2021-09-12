@@ -138,7 +138,6 @@ class filelist extends \fpcm\controller\abstracts\ajaxController implements \fpc
         $this->initViewAssigns($list, $userList->getUsersAll(), $pagerData);
         $this->initPermissions();
 
-        $this->view->assign('buttonClasses', $this->getListView() === 'cards' ? 'my-1' : 'm-1' );
         $this->view->assign('showPager', $this->showPager);
         $this->view->assign('thumbsize', $this->config->file_thumb_size . 'px');
         $this->view->render();

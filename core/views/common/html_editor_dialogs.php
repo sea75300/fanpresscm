@@ -213,7 +213,8 @@
         <div class="col-12 fpcm-dialog-editor-colors text-center"></div>
     </div>
     
-    <div class="row my-2 row-cols-1 row-cols-sm-2">
+    <div class="row my-2 row-cols-1 row-cols-sm-4">
+        <div class="col">&nbsp;</div>
         <div class="col">
             <div class="d-flex justify-content-center">
                 <?php $theView->radiobutton('color_mode', 'color_mode1')
@@ -235,6 +236,7 @@
                         ->setSwitch(true); ?>                
             </div>
         </div>
+        <div class="col">&nbsp;</div>
     </div>
 </div>
 
@@ -259,7 +261,8 @@
                 ->setSize('lg'); ?>
     </div>   
     
-    <div class="row my-2 row-cols-1 row-cols-sm-2">
+    <div class="row my-2 row-cols-1 row-cols-sm-4">
+        <div class="col">&nbsp;</div>
         <div class="col">
             <div class="d-flex justify-content-center">
                 <?php $theView->radiobutton('quote[type]', 'quotetype1')
@@ -279,5 +282,6 @@
                         ->setSwitch(true); ?>                
             </div>
         </div>
+        <div class="col">&nbsp;</div>
     </div>    
 </div>

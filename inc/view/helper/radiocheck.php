@@ -95,13 +95,13 @@ abstract class radiocheck extends helper {
     {
         $labelClass = ' form-check-label '.$this->labelClass;
         
-        $wrapStart = $this->text ? '<div class="form-check '.($this->inline ? 'form-check-inline' : '') . ($this->switch ? 'form-switch' : '').' ' . $this->wrapperClass . '  ">' : '';
-        $wrapEnd   = $this->text ? '</div>' : '';
+        $wrapStart = $this->text && !$this->iconOnly ? '<div class="form-check '. ( $this->inline ? 'form-check-inline' : '') . ($this->switch ? 'form-switch' : '').' ' . $this->wrapperClass . '  ">' : '';
+        $wrapEnd   = $this->text && !$this->iconOnly ? '</div>' : '';
 
         $inEL = "<input type=\"{$this->type}\" {$this->getNameIdString()} {$this->getClassString()} {$this->getReadonlyString()} {$this->getValueString()} {$this->getDataString()} {$this->getSelectedString()}>";
-        
+
         $inLa = '';
-        if ($this->text) {
+        if ($this->text && !$this->iconOnly) {
             $inLa = "<label for=\"{$this->id}\" class=\"{$labelClass}\">" .
                     $this->getIconString() .
                     ( $this->iconOnly ? '' : $this->getDescriptionTextString() ) .
