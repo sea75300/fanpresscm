@@ -9,7 +9,9 @@ fpcm.templates = {
     
     init: function() {
 
-        fpcm.dataview.render('draftfiles');
+        if (fpcm.dataview.exists('draftfiles')) {
+            fpcm.dataview.render('draftfiles');
+        }
 
         fpcm.ui_tabs.render('#fpcm-tabs-templates', {
 
@@ -74,17 +76,14 @@ fpcm.templates = {
             }
         });
 
-        fpcm.dom.fromId('showpreview').click(function () {
-            fpcm.templates.saveTemplatePreview();
-            return false;
-        });
-        
-        fpcm.dom.fromClass('fpcm-articletemplates-edit').click(function() {
+        fpcm.dom.bindClick('#showpreview', fpcm.templates.saveTemplatePreview);
+
+        fpcm.dom.bindClick('.fpcm-articletemplates-edit', function(_ev, _ui) {
 
             fpcm.ui_loader.hide();
             fpcm.ui_dialogs.create({
                 title: 'TEMPLATE_HL_DRAFTS_EDIT',
-                url: this.attributes.href.value,
+                url: _ui.attributes.href.value,
                 closeButton: true,
                 dlButtons : [
                     {
