@@ -38,7 +38,7 @@ fpcm.updater = {
             var: el.data('var'),
         };
 
-        el.parent().parent().removeClass('fpcm-ui-status-0').addClass('fpcm-ui-status-1');
+        el.parent().parent().removeClass('opacity-25').addClass('opacity-100');
         var descrEl = el.parent().parent().find('.fpcm-ui-updater-descr');
         
         if (params.var && fpcm.vars.jsvars.pkgdata.update[params.var]) {
@@ -91,7 +91,7 @@ fpcm.updater = {
                     fpcm.updater[afterFunc].call();
                 }
 
-                statusEl.addClass('fa-check fpcm-ui-editor-metainfo opacity-75');
+                statusEl.addClass('fa-check fpcm-ui-editor-metainfo opacity-100');
                 if (!fpcm.updater.elements[fpcm.updater.currentIdx]) {
                     return false;
                 }

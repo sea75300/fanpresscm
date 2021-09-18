@@ -644,6 +644,27 @@ class image extends \fpcm\model\abstracts\file implements \fpcm\model\interfaces
     }
 
     /**
+     * Return properties array
+     * @param string $userName
+     * @return array
+     * @since 5.0.0-a1
+     */
+    public function getPropertiesArray(string $userName) : array
+    {
+        return [
+            'filename' => $this->getFilename(),
+            'filetime' => (string) new \fpcm\view\helper\dateText($this->getFiletime()),
+            'fileuser' => $userName,
+            'filesize' => \fpcm\classes\tools::calcSize($this->getFilesize()),
+            'fileresx' => $this->getWidth(),
+            'fileresy' => $this->getHeight(),
+            'filehash' => $this->getFileHash(),
+            'filemime' => $this->getMimetype(),
+            'credits' => $this->getIptcStr()  
+        ];
+    }
+
+    /**
      * Check if file extension and file type is valid
      * @param string $ext
      * @param string $type

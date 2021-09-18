@@ -61,8 +61,11 @@ fpcm.ui_dialogs = {
                 classes: 'w-100 h-100'
             });
             
-            _params.class = 'modal-fullscreen';
-            _params.modalBodyClass = 'overflow-hidden';
+            if (!_params.useSize) {
+                _params.class = 'modal-fullscreen';
+            }
+
+            _params.modalBodyClass = 'overflow-hidden' + (_params.modalBodyClass ? ' ' + _params.modalBodyClass : '');
         }
 
         if (_params.image) {

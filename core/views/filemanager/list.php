@@ -18,13 +18,13 @@
             <div class="card shadow-sm w-100 my-2 fpcm ui-files-item ui-background-transition">
                 <div class="row g-0">
                     <div class="col-auto align-self-center">
-                    <?php if (file_exists($file->getFileManagerThumbnail())) : ?>
-                        <img class="img-fluid rounded-start" loading="lazy" src="<?php print $file->getFileManagerThumbnailUrl(); ?>" title="<?php print $file->getFileName(); ?>" width="<?php print $thumbsize; ?>" height="<?php print $thumbsize; ?>">
-                    <?php else : ?>
-                        <div class="text-center" style="width:<?php print $thumbsize; ?>;">
-                            <?php $theView->icon('file-image fa-inverse', 'far')->setStack('square')->setSize('3x'); ?>
-                        </div>
-                    <?php endif; ?>
+                        <a href="<?php print $file->getImageUrl(); ?>" class="fpcm ui-link-fancybox">
+                        <?php if (file_exists($file->getFileManagerThumbnail())) : ?>
+                            <img class="img-fluid rounded-start" loading="lazy" src="<?php print $file->getFileManagerThumbnailUrl(); ?>" title="<?php print $file->getFileName(); ?>" width="<?php print $thumbsize; ?>" height="<?php print $thumbsize; ?>">
+                        <?php else : ?>
+                            <img class="img-fluid rounded-start p-5" loading="lazy" src="<?php print fpcm\classes\loader::libGetFileUrl('font-awesome/svg/image.svg'); ?>" title="<?php print $file->getFileName(); ?>" width="<?php print $thumbsize; ?>" height="<?php print $thumbsize; ?>">
+                        <?php endif; ?>
+                        </a>
                     </div>
                     <div class="col-auto align-self-center">
                         <div class="card-body">

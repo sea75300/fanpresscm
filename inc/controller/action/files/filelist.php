@@ -101,7 +101,7 @@ class filelist extends \fpcm\controller\abstracts\controller implements \fpcm\co
             'SYSTEM_OPTIONS_NEWSSHOWMAXIMGSIZEHEIGHT',
             'SYSTEM_OPTIONS_NEWSSHOWMAXIMGSIZEWIDTH',
             'FILE_LIST_EDIT_RESIZE_NOTICE', 'FILE_LIST_ALTTEXT',
-            'FILE_LIST_ALTTEXT', 'FILE_LIST_FILENAME'
+            'FILE_LIST_ALTTEXT', 'FILE_LIST_FILENAME', 'MSG_FILES_CREATETHUMBS'
         ], $uploader->getJsLangVars()));
 
         if (!trim($uploader->getTemplate()) || !realpath($uploader->getTemplate())) {
@@ -128,7 +128,7 @@ class filelist extends \fpcm\controller\abstracts\controller implements \fpcm\co
 
         $buttons = [
             new \fpcm\view\helper\wrapper('div', 'btn btn-light', (new \fpcm\view\helper\checkbox('fpcm-select-all'))->setText('GLOBAL_SELECTALL')->setIconOnly(true)->setWrapperClass('fpcm-ui-maintoolbarbuttons-tab1')->setClass('fpcm-select-all') ),
-            (new \fpcm\view\helper\button('opensearch', 'opensearch'))->setText('ARTICLES_SEARCH')->setIcon('search')->setIconOnly(true)->setClass('fpcm-ui-maintoolbarbuttons-tab1')
+            (new \fpcm\view\helper\button('opensearch'))->setText('ARTICLES_SEARCH')->setIcon('search')->setIconOnly(true)->setClass('fpcm-ui-maintoolbarbuttons-tab1')
         ];
 
         if ($this->mode === 2) {

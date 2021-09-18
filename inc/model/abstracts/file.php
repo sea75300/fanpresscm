@@ -481,4 +481,14 @@ abstract class file {
         return strtolower($ext);        
     }
 
+    /**
+     * Return hash based on filename
+     * @return string
+     * @since 5.0.0-a1
+     */
+    public function getFileNameHash() : string
+    {
+        return tools::getHash($this->filename);
+    }
+
 }

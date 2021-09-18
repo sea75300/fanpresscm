@@ -233,6 +233,7 @@ fpcm.ui = {
             fpcm.dom.fromClass('fpcm-ui-list-checkbox').prop('checked', function (_i, _old) {
                 return !_old;
             });
+            return true;
         });
 
         if (!fpcm.dom.fromClass('fpcm-ui-list-checkbox-sub').length) {

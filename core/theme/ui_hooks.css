@@ -22,6 +22,10 @@ div.fpcm.offcanvas-large {
     max-width: 994px;
 }
 
+.vh-75 {
+    height: 75vh;
+}
+
 /* ------ TinyMCE */
 td.fpcm-tinymce-emoticons img {
     padding: 0.5em !important;

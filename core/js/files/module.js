@@ -277,6 +277,8 @@ fpcm.filemanager = {
             }
 
             fpcm.ajax.post('files/createthumbs', {
+                async: true,
+                loaderMsg: fpcm.ui.translate('MSG_FILES_CREATETHUMBS'),
                 data: {
                     items: items
                 },
@@ -460,7 +462,7 @@ fpcm.filemanager = {
     
     initFilesSearch: function() {
 
-        fpcm.dom.bindClick('#opensearch', function () {
+        fpcm.dom.bindClick('#btnOpenSearch', function () {
 
             fpcm.ui_dialogs.create({
                 id: 'files-search',

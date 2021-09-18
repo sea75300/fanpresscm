@@ -10,48 +10,56 @@ if (fpcm === undefined) {
 
 if (fpcm.editor !== undefined) {
 
-    fpcm.editor.showFileManager = function(fmgrMode) {
+    fpcm.editor.showFileManager = function(_mode) {
 
-        if (fmgrMode === undefined) {
-            fmgrMode = fpcm.vars.jsvars.filemanagerMode;
+        if (_mode === undefined) {
+            _mode = fpcm.vars.jsvars.filemanagerMode;
+        }
+
+        let _btns = [,
+            {
+                text: 'ARTICLES_SEARCH',
+                icon: "search",
+                click: function(_ui) {
+                    fpcm.dom.findElementInDialogFrame(_ui, '#btnOpenSearch').click();
+                }
+            },
+            {
+                text: 'FILE_LIST_NEWTHUMBS',
+                icon: "image",
+                click: function(_ui) {
+                    fpcm.dom.findElementInDialogFrame(_ui, '#btnCreateThumbs').click();
+                }
+            },
+            {
+                text: 'GLOBAL_DELETE',
+                icon: "trash",
+                click: function(_ui) {
+                    fpcm.dom.findElementInDialogFrame(_ui, '#btnDeleteFiles').click();
+                }
+            }                            
+        ];
+        
+        if (!fpcm.editor.insertGalleryDisabled(_mode)) {
+            _btns.unshift(
+            {
+                text: 'FILE_LIST_INSERTGALLERY',
+                icon: "images",
+                click: function(_ui) {
+                    fpcm.dom.findElementInDialogFrame(_ui, '#insertGallery').click();
+                }
+            });
         }
 
         fpcm.ui_dialogs.create({
             id: 'editor-html-filemanager',
             title: 'HL_FILES_MNG',
             closeButton: true,
-            url: fpcm.vars.jsvars.filemanagerUrl + fmgrMode,
-            dlButtons: [
-                {
-                    text: 'FILE_LIST_INSERTGALLERY',
-                    icon: "images",
-                    disabled: fpcm.editor.insertGalleryDisabled(fmgrMode),
-                    click: function(_ui) {
-                        fpcm.dom.findElementInDialogFrame(_ui, '#insertGallery').click();
-                    }
-                },
-                {
-                    text: 'ARTICLES_SEARCH',
-                    icon: "search",
-                    click: function(_ui) {
-                        fpcm.dom.findElementInDialogFrame(_ui, '#opensearch').click();
-                    }
-                },
-                {
-                    text: 'FILE_LIST_NEWTHUMBS',
-                    icon: "image",
-                    click: function(_ui) {
-                        fpcm.dom.findElementInDialogFrame(_ui, '#createThumbs').click();
-                    }
-                },
-                {
-                    text: 'GLOBAL_DELETE',
-                    icon: "trash",
-                    click: function(_ui) {
-                        fpcm.dom.findElementInDialogFrame(_ui, '#deleteFiles').click();
-                    }
-                }                            
-            ]
+            url: fpcm.vars.jsvars.filemanagerUrl + _mode,
+            useSize: true,
+            size: 'xl modal-fullscreen-lg-down',
+            modalBodyClass: 'vh-75',
+            dlButtons: _btns
         });   
     };
 

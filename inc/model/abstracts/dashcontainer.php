@@ -223,7 +223,7 @@ abstract class dashcontainer extends model implements \fpcm\model\interfaces\das
         $html[] = '<div id="fpcm-dashboard-container-' . $this->getName() . '" class="fpcm dashboard-container-wrapper col-12 col-md-' . $this->getWidth() . '  vh-25" data-cname="' . $this->getName() . '" data-cpos="' . $pos . '" draggable="true">';
         $html[] = ' <div class="card m-1 shadow-sm fpcm dashboard-container ui-background-white-50p ui-blurrin ui-dropzone">';
         $html[] = '     <div class="card-body pt-1 ps-1 pe-1 pb-2 ui-align-ellipsis">';
-        $html[] = '         <h3 class="card-title fpcm dashboard-container headline m-2 fs-5 w-100" title="' . strip_tags($this->language->translate($this->getHeadline())) . '">';
+        $html[] = '         <h3 class="card-title fpcm dashboard-container headline m-2 fs-5" title="' . strip_tags($this->language->translate($this->getHeadline())) . '">';
         $html[] = '             <span class="d-inline-block text-truncate w-100">' . $this->language->translate($this->getHeadline()) . '</span> ';
         $html[] = '         </h3>';
         $html[] = '         <div class="card-text fpcm dashboard-container content">' . $this->getContent() . '</div>';

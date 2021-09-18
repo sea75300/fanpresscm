@@ -18,14 +18,11 @@ fpcm.ui_loader = {
         
         var html = [
             '<div id="fpcm-loader">',
-            '   <div class="position-fixed top-50 start-50 translate-middle fpcm-loader-icon">\n\n',
-                fpcm.ui.getIcon('spinner', {
-                    stack: 'circle',
-                    spinner: 'spin fa-inverse',
-                    size: _message ? 'lg' : '2x',
-                    class: 'text-primary'
-                }),
-                (_message ? '<span class="fpcm ui-label ms-3">' + _message + '</span>' : ''),
+            '   <div class="position-fixed top-50 start-50 translate-middle d-flex justify-content-center">',
+            '       <div class="spinner-grow text-warning" role="status"><span class="visually-hidden">',
+            '           <span class="visually-hidden">' + fpcm.ui.translate('GLOBAL_PLEASEWAIT') + '...</span>',
+            '       </div>',   
+            (_message ? '       <div class="text-light fpcm ui-label ms-3 align-self-center">' + _message + '</div>' : ''),
             '   </div>',
             '   <div class="modal-backdrop show ui-blurring"></div>',
             '</div>'            
@@ -38,15 +35,12 @@ fpcm.ui_loader = {
     
     hide: function () {
         
-        var el = fpcm.dom.fromId('fpcm-loader');
-        if (el.length == 0) {
+        var _el = fpcm.dom.fromId('fpcm-loader');
+        if (fpcm.dom.fromId('fpcm-loader').length == 0) {
             return true;
         }
-
-        el.fadeOut('fast', function(){
-            fpcm.dom.fromTag(this).fadeOut(100).remove();
-        });
-
+        
+        fpcm.dom.fromId('fpcm-loader').remove();
         return true;   
     }
 

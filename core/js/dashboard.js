@@ -17,6 +17,7 @@ fpcm.dashboard = {
 
         fpcm.ajax.exec('dashboard', {
             quiet: true,
+            async: true,
             execDone: function(result) {
                 fpcm.dom.assignHtml('#fpcm-dashboard-containers', result);
                 fpcm.ui.initJqUiWidgets();

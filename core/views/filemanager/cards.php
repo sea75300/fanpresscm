@@ -18,17 +18,13 @@
         <?php $i++; ?>
             <div class="card my-2 mx-sm-2 rounded fpcm ui-files-item ui-background-transition">
 
+                <a href="<?php print $file->getImageUrl(); ?>" class="fpcm ui-link-fancybox">
                 <?php if (file_exists($file->getFileManagerThumbnail())) : ?>
-                    <img class="card-img-top rounded-top overflow-hidden" loading="lazy" src="<?php print $file->getFileManagerThumbnailUrl(); ?>" title="<?php print $file->getFileName(); ?>">
+                    <img class="card-img-top rounded-top overflow-hidden" loading="lazy" src="<?php print $file->getFileManagerThumbnailUrl(); ?>" title="<?php print $file->getFileName(); ?>">                    
                 <?php else : ?>
-                    <div class="card-img-top text-center rounded-top w-100 h-100 my-3" style="max-height: <?php print $thumbsize; ?>">
-                        <div class="row g-0 h-100">
-                            <div class="col align-self-center">
-                                <?php $theView->icon('file-image fa-inverse', 'far')->setStack('square')->setSize('3x'); ?>
-                            </div>
-                        </div>
-                    </div>
+                    <img class="card-img-top rounded-top overflow-hidden p-5" loading="lazy" src="<?php print fpcm\classes\loader::libGetFileUrl('font-awesome/svg/image.svg'); ?>" title="<?php print $file->getFileName(); ?>">
                 <?php endif; ?>            
+                </a>
 
                 <div class="card-body">
                     <p class="card-title text-center"><?php print $theView->escapeVal(basename($file->getFilename())); ?></p>

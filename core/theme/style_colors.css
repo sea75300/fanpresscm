@@ -96,20 +96,17 @@ span.fpcm-ui-update-icons span.fpcm-ui-update-iconstatus.fpcm-ui-update-iconstat
 
 legend,
 .navbar-toggler:hover,
-.navbar-toggler:focus,
-.navbar-toggler:active,
-#fpcm-loader > div.fpcm-loader-icon > span.fpcm.ui-label,
-#fpcm-loader > div.fpcm-loader-icon > span.fpcm.ui-label * {
+.navbar-toggler:focus {
     color: var(--bs-light);
+}
+
+#fpcm-loader div.text-light * {
+    color: var(--bs-light) !important;    
 }
 
 @keyframes fpcm-loader-glow {
   from { text-shadow: none; }
   to { text-shadow: 0 0 25px var(--bs-primary); }
-}
-
-#fpcm-loader > div.fpcm-loader-icon > span:first-child {
-    animation: fpcm-loader-glow 1.5s infinite alternate;
 }
 
 legend,
