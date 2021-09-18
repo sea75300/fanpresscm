@@ -104,10 +104,11 @@ class userlist extends \fpcm\controller\abstracts\controller implements \fpcm\co
         
         $this->view->assign('usersListSelect', $this->userList->getUsersNameList());
         
-        $chart = new \fpcm\components\charts\chart('pie', 'userArticles');
-        $chart->addOptions('legend', [
+        $chart = new \fpcm\components\charts\chart3(\fpcm\components\charts\chart3::TYPE_PIE, 'userArticles');
+        $chart->setLegend([
             'position' => 'bottom'
         ]);
+
         $this->view->addCssFiles($chart->getCssFiles());
         
         $this->view->addJsFiles(array_merge(['users/module.js'], $chart->getJsFiles()));

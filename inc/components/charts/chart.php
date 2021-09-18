@@ -28,25 +28,25 @@ class chart implements \JsonSerializable {
      * Chart id
      * @var string
      */
-    private $id = '';
+    protected $id = '';
 
     /**
      * Charts typ
      * @var string
      */
-    private $type = '';
+    protected $type = '';
 
     /**
      * Chart data
      * @var array
      */
-    private $data = [];
+    protected $data = [];
 
     /**
      * Chart data
      * @var array
      */
-    private $options = [];
+    protected $options = [];
     
     /**
      * Constructor
@@ -63,10 +63,10 @@ class chart implements \JsonSerializable {
      * Returns list of JS files
      * @return array
      */
-    final public function getJsFiles() : array
+    public function getJsFiles() : array
     {
         return [
-            \fpcm\classes\dirs::getLibUrl('chart-js/chart.min.js'),
+            \fpcm\classes\dirs::getLibUrl('chart-js2/chart.min.js'),
             'ui/chart.js'
         ];
     }
@@ -75,9 +75,9 @@ class chart implements \JsonSerializable {
      * Returns list of CSS files
      * @return array
      */
-    final public function getCssFiles() : array
+    public function getCssFiles() : array
     {
-        return [\fpcm\classes\dirs::getLibUrl('chart-js/Chart.min.css')];
+        return [\fpcm\classes\dirs::getLibUrl('chart-js2/Chart.min.css')];
     }
 
     /**
@@ -85,7 +85,7 @@ class chart implements \JsonSerializable {
      * @param array $labels
      * @return $this
      */
-    final public function setLabels(array $labels)
+    public function setLabels(array $labels)
     {
         $this->data['labels'] = $labels;
         return $this;
@@ -97,7 +97,7 @@ class chart implements \JsonSerializable {
      * @param int $index
      * @return $this
      */
-    final public function setValues(chartItem $item, int $index = 0)
+    public function setValues(chartItem $item, int $index = 0)
     {
         $item->assignData($this->data, $index);
         return $this;
@@ -111,7 +111,7 @@ class chart implements \JsonSerializable {
      * @return $this
      * @see https://www.chartjs.org/docs/latest/configuration/
      */
-    final public function addOptions(string $var, $value)
+    public function addOptions(string $var, $value)
     {
         $this->options[$var] = $value;
         return $this;
