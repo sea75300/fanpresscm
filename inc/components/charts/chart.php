@@ -12,7 +12,7 @@ namespace fpcm\components\charts;
  * 
  * @package fpcm\components\charts
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2019, Stefan Seehafer
+ * @copyright (c) 2019-2021, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @since 4.3
  */
@@ -23,6 +23,15 @@ class chart implements \JsonSerializable {
     const TYPE_PIE = 'pie';
     const TYPE_DOUGHNUT = 'doughnut';
     const TYPE_POLAR = 'polarArea';
+    
+    /* @since 5.0.0-a1 */
+    const TYPE_BUBBLE = 'bubble';
+    
+    /* @since 5.0.0-a1 */
+    const TYPE_SCATTER = 'scatter';
+
+    /* @since 5.0.0-a1 */
+    const TYPE_RADAR = 'radar';
 
     /**
      * Chart id
@@ -47,6 +56,20 @@ class chart implements \JsonSerializable {
      * @var array
      */
     protected $options = [];
+
+    /**
+     * Chart scales
+     * @var array
+     * @since 5.0.0-a1
+     */
+    protected $scales = [
+        'x' => [
+            'beginAtZero' => true
+        ],
+        'y' => [
+            'beginAtZero' => true
+        ],
+    ];
     
     /**
      * Constructor
@@ -57,6 +80,27 @@ class chart implements \JsonSerializable {
     {
         $this->type = $type;
         $this->id = $id;
+        
+        $this->setLegend([
+            'display' => !in_array($type, [self::TYPE_BAR, self::TYPE_LINE]),
+            'position' => 'right',
+            'labels' => [
+                'boxWidth' => 25,
+                'fontSize' => 12
+            ]
+        ]);
+
+        $this->addOptions('elements', [
+            'line' => [
+                'borderWidth' => 5
+            ],
+            'bar' => [
+                'borderWidth' => 0
+            ],
+            'arc' => [
+                'borderWidth' => 0
+            ]
+        ]);
     }
 
     /**
@@ -66,7 +110,7 @@ class chart implements \JsonSerializable {
     public function getJsFiles() : array
     {
         return [
-            \fpcm\classes\dirs::getLibUrl('chart-js2/chart.min.js'),
+            \fpcm\classes\dirs::getLibUrl('chart-js/chart.min.js'),
             'ui/chart.js'
         ];
     }
@@ -77,7 +121,7 @@ class chart implements \JsonSerializable {
      */
     public function getCssFiles() : array
     {
-        return [\fpcm\classes\dirs::getLibUrl('chart-js2/Chart.min.css')];
+        return [];
     }
 
     /**
@@ -114,6 +158,33 @@ class chart implements \JsonSerializable {
     public function addOptions(string $var, $value)
     {
         $this->options[$var] = $value;
+        return $this;
+    }
+    
+    /**
+     * Set chart legend config
+     * @param string $var
+     * @param mixed $value
+     * @return $this
+     * @see https://www.chartjs.org/docs/latest/configuration/
+     * @since 5.0.0-a1
+     */
+    final public function setLegend(array $value)
+    {
+        $this->options['plugins']['legend'] = $value;
+        return $this;
+    }
+
+    /**
+     * Set charts cales
+     * @param array $scales
+     * @return $this
+     * @see https://www.chartjs.org/docs/latest/configuration/
+     * @since 5.0.0-a1
+     */
+    public function setScales(array $scales)
+    {
+        $this->scales = $scales;
         return $this;
     }
 

@@ -18,7 +18,7 @@
         <?php $i++; ?>
             <div class="card my-2 mx-sm-2 rounded fpcm ui-files-item ui-background-transition">
 
-                <a href="<?php print $file->getImageUrl(); ?>" class="fpcm ui-link-fancybox">
+                <a href="<?php print $file->getImageUrl(); ?>" class="fpcm ui-link-fancybox" data-fancybox="group">
                 <?php if (file_exists($file->getFileManagerThumbnail())) : ?>
                     <img class="card-img-top rounded-top overflow-hidden" loading="lazy" src="<?php print $file->getFileManagerThumbnailUrl(); ?>" title="<?php print $file->getFileName(); ?>">                    
                 <?php else : ?>

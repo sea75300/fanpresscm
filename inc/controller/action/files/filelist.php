@@ -68,7 +68,8 @@ class filelist extends \fpcm\controller\abstracts\controller implements \fpcm\co
         }
 
         $this->view->showHeaderFooter(\fpcm\view\view::INCLUDE_HEADER_SIMPLE);
-        $this->view->setBodyClass('fpcm-ui-hide-toolbar');
+        $this->view->setBodyClass('m-2');
+        $this->view->assign('toolbarClass', 'd-none');
         return true;
     }
 
@@ -128,15 +129,11 @@ class filelist extends \fpcm\controller\abstracts\controller implements \fpcm\co
 
         $buttons = [
             new \fpcm\view\helper\wrapper('div', 'btn btn-light', (new \fpcm\view\helper\checkbox('fpcm-select-all'))->setText('GLOBAL_SELECTALL')->setIconOnly(true)->setWrapperClass('fpcm-ui-maintoolbarbuttons-tab1')->setClass('fpcm-select-all') ),
-            (new \fpcm\view\helper\button('opensearch'))->setText('ARTICLES_SEARCH')->setIcon('search')->setIconOnly(true)->setClass('fpcm-ui-maintoolbarbuttons-tab1')
+            (new \fpcm\view\helper\button('openSearch'))->setText('ARTICLES_SEARCH')->setIcon('search')->setIconOnly(true)->setClass('fpcm-ui-maintoolbarbuttons-tab1')
         ];
 
         if ($this->mode === 2) {
-            $buttons[] = (new \fpcm\view\helper\submitButton('insertGallery', 'insertGallery'))->setText('FILE_LIST_INSERTGALLERY')->setIcon('images', 'far')->setIconOnly(true)->setClass('fpcm-ui-maintoolbarbuttons-tab1');
-        }
-        
-        if ($this->mode > 1) {
-            $this->view->assign('toolbarClass', 'd-none');
+            $buttons[] = (new \fpcm\view\helper\submitButton('insertGallery'))->setText('FILE_LIST_INSERTGALLERY')->setIcon('images', 'far')->setIconOnly(true)->setClass('fpcm-ui-maintoolbarbuttons-tab1');
         }
 
         if ($this->permissions->uploads->thumbs) {

@@ -111,7 +111,7 @@ class commentedit extends \fpcm\controller\abstracts\controller implements \fpcm
     {
         if ($this->mode === 2) {
             $this->view->showHeaderFooter(\fpcm\view\view::INCLUDE_HEADER_SIMPLE);
-            $this->view->setBodyClass('fpcm-ui-hide-toolbar');
+            $this->view->setBodyClass('m-2');
         }
         
         $editorPlugin = \fpcm\components\components::getArticleEditor();

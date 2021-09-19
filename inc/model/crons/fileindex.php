@@ -30,6 +30,7 @@ class fileindex extends \fpcm\model\abstracts\cron {
 
         $imageList = new \fpcm\model\files\imagelist();
         $imageList->updateFileIndex($user_id);
+        $imageList->createFilemanagerThumbs();
 
         return true;
     }

@@ -70,23 +70,19 @@ fpcm.filemanager = {
     
     initInsertButtons: function () {
 
-        fpcm.dom.fromClass('fpcm-filelist-tinymce-thumb').unbind('click');
-        fpcm.dom.fromClass('fpcm-filelist-tinymce-full').unbind('click');
-        fpcm.dom.fromClass('fpcm-filelist-articleimage').unbind('click');
-        fpcm.dom.fromId('insertGallery').unbind('click');
-
         if (fpcm.vars.jsvars.fmgrMode === 2) {
-            fpcm.dom.fromClass('fpcm-filelist-tinymce-thumb').click(function () {
-                parent.fpcm.editor.insertThumbByEditor(fpcm.dom.fromTag(this).attr('href'), fpcm.dom.fromTag(this).data('imgtext'));
-                return false;
-            });
 
-            fpcm.dom.fromClass('fpcm-filelist-tinymce-full').click(function () {
-                parent.fpcm.editor.insertFullByEditor(fpcm.dom.fromTag(this).attr('href'), fpcm.dom.fromTag(this).data('imgtext'));
-                return false;
+            fpcm.dom.bindClick('.fpcm-filelist-tinymce-thumb', function (_e, _ui) {                
+                parent.fpcm.editor.insertThumbByEditor(_ui.href, _ui.dataset.imgtext);
+                fpcm.ui_dialogs.close('editor-html-filemanager', true);
             });
+            
+            fpcm.dom.bindClick('.fpcm-filelist-tinymce-full', function (_e, _ui) {
+                parent.fpcm.editor.insertFullByEditor(_ui.href, _ui.dataset.imgtext);
+                fpcm.ui_dialogs.close('editor-html-filemanager', true);
+            });            
 
-            fpcm.dom.fromId('insertGallery').click(function () {
+            fpcm.dom.bindClick('#btnInsertGallery', function () {
 
                 var values = [];
                 fpcm.dom.fromClass('fpcm-ui-list-checkbox:checked').map(function (idx, item) {
@@ -105,11 +101,10 @@ fpcm.filemanager = {
         }
         
         if (fpcm.vars.jsvars.fmgrMode === 3) {
-            fpcm.dom.fromClass('fpcm-filelist-articleimage').click(function () {
-
-                parent.document.getElementById('articleimagepath').value  = fpcm.dom.fromTag(this).attr('href');
+            
+            fpcm.dom.bindClick('.fpcm-filelist-articleimage', function (_e, _ui) {
+                parent.document.getElementById('articleimagepath').value  = _ui.href;
                 fpcm.ui_dialogs.close('editor-html-filemanager', true);
-                return false;
             });
 
             return false;
@@ -117,21 +112,16 @@ fpcm.filemanager = {
         
         if (fpcm.vars.jsvars.fmgrMode === 4) {
             
-            fpcm.dom.fromClass('fpcm-filelist-tinymce-thumb').click(function () {
-                var url   = fpcm.dom.fromTag(this).attr('href');
-                parent.document.getElementById('mediaposter').value  = url;
+            fpcm.dom.bindClick('.fpcm-filelist-tinymce-thumb', function (_e, _ui) {
+                parent.document.getElementById('mediaposter').value  = _ui.href;
                 fpcm.ui_dialogs.close('editor-html-filemanager', true);
-                return false;
             });
-
-            fpcm.dom.fromClass('fpcm-filelist-tinymce-full').click(function () {
-                parent.document.getElementById('mediaposter').value  = fpcm.dom.fromTag(this).attr('href');
+            
+            fpcm.dom.bindClick('.fpcm-filelist-tinymce-full', function (_e, _ui) {
+                parent.document.getElementById('mediaposter').value  = _ui.href;
                 fpcm.ui_dialogs.close('editor-html-filemanager', true);
-                return false;
             });
         }
-
-
 
     },
 

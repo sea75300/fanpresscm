@@ -13,13 +13,9 @@
         <?php include_once 'vars.php'; ?>
     </head>     
 
-    <body class="fpcm-body fpcm-body-simple <?php print $theView->bodyClass; ?>" id="fpcm-body">
+    <body class="fpcm-body <?php print $theView->bodyClass; ?>" id="fpcm-body">
         
         <?php include_once $theView->getIncludePath('common/messagesTpl.php'); ?>
 
         <?php if ($theView->formActionTarget) : ?><form method="post" action="<?php print $theView->formActionTarget; ?>" enctype="multipart/form-data" id="fpcm-ui-form"><?php endif; ?>
 
-        <?php if ($theView->navigation && $theView->loggedIn) : ?>
-        <div class="row fpcm-ui-full-view-height">
-            <div class="col-12 px-0">
-        <?php endif; ?>

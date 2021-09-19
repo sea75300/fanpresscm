@@ -279,7 +279,6 @@ final class imagelist extends \fpcm\model\abstracts\filelist {
     public function createFilemanagerThumbs(?array $folderFiles = null) : bool
     {
         include_once \fpcm\classes\loader::libGetFilePath('PHPImageWorkshop');
-
         if ($folderFiles === null) {
             $folderFiles = $this->getFolderList();
         }
