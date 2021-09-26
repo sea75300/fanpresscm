@@ -242,6 +242,7 @@ final class pkg extends \fpcm\model\abstracts\cli {
         $this->output('-- Finished.' . PHP_EOL);
 
         $this->output('Perform system cleanup after update...');
+        $pkg->cleanupFiles();
         $pkg->cleanup();
         $this->output('-- Finished.' . PHP_EOL);
 
