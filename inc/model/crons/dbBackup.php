@@ -110,10 +110,6 @@ class dbBackup extends \fpcm\model\abstracts\cron {
      */
     private function doMail() : bool
     {
-        if (defined('FPCM_CRON_DBDUMP_NOMAIL') && FPCM_CRON_DBDUMP_NOMAIL) {
-            return true;
-        }
-
         fpcmLogCron('Create email notification for new Database backup');
 
         $email = new \fpcm\classes\email(
@@ -125,6 +121,11 @@ class dbBackup extends \fpcm\model\abstracts\cron {
             ))
         );
 
+        if (defined('FPCM_CRON_DBDUMP_NOMAIL') && FPCM_CRON_DBDUMP_NOMAIL) {
+            $email->submit();
+            return true;
+        }        
+        
         if (filesize($this->dumpfile) <= \fpcm\classes\baseconfig::memoryLimit(true) / 8) {
             $email->setAttachments([
                 $this->dumpfile

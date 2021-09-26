@@ -861,7 +861,7 @@ fpcm.ui = {
             source: fpcm.vars.jsvars.dtMasks
         });
 
-        fpcm.ui.autocomplete('#usermetasystem_dtmask', {
+        fpcm.ui.autocomplete('#datasystem_dtmask', {
             source: fpcm.vars.jsvars.dtMasks
         });
     },

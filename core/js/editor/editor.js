@@ -140,6 +140,34 @@ fpcm.editor = {
                         resizable: true,
                         dlButtons: [
                             {
+                                text: fpcm.ui.translate('EDITOR_ARTICLE_SHORTLINK_COPY'),
+                                icon: "ui-icon-copy",                        
+                                click: function() {
+
+                                    if (!result.permalink) {
+                                        let _domEl = document.createElement('input');
+                                        _domEl.type = 'hidden';
+                                        _domEl.id = 'fpcm-editor-shotlink';
+                                        _domEl.value = result.shortend;
+                                        document.appendChild(_domEl);
+                                    }
+
+
+                                    let _el = fpcm.dom.fromId('fpcm-editor-shotlink');
+                                     if (!_el.length) {
+                                         return true;
+                                     }
+
+                                     _el.select();
+                                    document.execCommand('copy');
+                                    if (!result.permalink) {
+                                        fpcm.dom.fromId('fpcm-editor-shotlink').remove();
+                                    }
+
+                                    fpcm.dom.fromTag(this).dialog( "close" );
+                                }
+                            },
+                            {
                                 text: fpcm.ui.translate('GLOBAL_CLOSE'),
                                 icon: "ui-icon-closethick",                        
                                 click: function() {
