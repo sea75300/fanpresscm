@@ -306,6 +306,8 @@ Help language file
             sich auch direkt aus dem Artikel-Editor heraus aufrufen. Er zeigt neben einem Vorschau-Bild noch einige zusätzliche Informationen zur
             hochgeladenen Datei an.</p>
 
+        <h3>Aktionen</h3>
+
         <dl>
             <dt>Suche und Filter:</dt>
             <dd class="pb-2">Über diesen Button kannst du mithilfe eines Dialogs die angezeigten Grafiken
@@ -334,6 +336,34 @@ Help language file
             <dd class="pb-2">Über diese Auswahl kann die Darstellung des Dateimanagers angepasst werden,
             die Optionen können auch über die Systemeinstellungen bzw. das Profil angepasst werden.</dd>
         </dl>
+        
+        <h3>Eigenschaften</h3>
+
+        <dl>
+            <dt>Zuletzt geändert:</dt>
+            <dd class="pb-2">Zeitpunkt der letzten Änderung bzw. des Uploads</dd>
+            <dt>Hochgeladen von:</dt>
+            <dd class="pb-2">Benutzer der Uploads</dd>
+            <dt>Dateigröße:</dt>
+            <dd class="pb-2">Dateigröße der Grafik</dd>
+            <dt>Auflösung:</dt>
+            <dd class="pb-2">Größe der Grafike in Pixel (Breite mal Höhe)</dd>
+            <dt>MIME-Typ:</dt>
+            <dd class="pb-2">Internet Media Type der Datei</dd>
+            <dt>Dateihash:</dt>
+            <dd class="pb-2">SHA-256-Hash der Datei</dd>
+            <dt>Credits:</dt>
+            <dd class="pb-2">IPTC-Daten der Grafik</dd>
+        </dl>
+
+        <h3>Ansichten</h3>
+
+        <dl>
+            <dt>Karten:</dt>
+            <dd class="pb-2">Diese Ansicht stellt die hochgeladenen Grafiken nebeneinander dar.</dd>
+            <dt>Liste:</dt>
+            <dd class="pb-2">Diese Ansicht stellt die hochgeladenen Grafiken in einer Liste untereinander dar.</dd>
+        </dl>
         ]]>
     </chapter>
     <chapter ref="HL_PROFILE">
@@ -355,12 +385,16 @@ Help language file
             <dd class="pb-2">E-Mail-Adresse für Benachrichtigungen, ein neu gesetztes Passwort etc.</dd>
             <dt>Aktuelles Passwort zur Bestätigung eingeben:</dt>
             <dd class="pb-2">Zur Änderung des Passwortes und bestimmter anderer Einstellungen ist eine Bestätigung per Passwort nötig.</dd>
-            <dt>Zwei-Faktor-Authentifizierung:</strong> (optional)</dt>
-            <dd class="pb-2">Die Zwei-Faktor-Authentifizierung bietet einen zusätzlichen Schutz deines Logins gegen Fishing, Bots und ähnliches. Die Nutzung ist
-            optional und kann durch einen Administrator bei Bedarf aktiviert werden. Der zweite Faktor zum Login wird mittels der App "Google Authenticator" auf deinem Smartphone
-            realisiert. Zur Aktivierung der Zwei-Faktor-Authentifizierung scanne den angezeigten QR-Code mit deinem Smartphone mit der App. Trage im Anschluss den ersten Zahlencode
-            in das Eingabefeld ein und speicher den Vorgang.</dd>
         </dl>
+
+        <h3>Zwei-Faktor-Authentifizierung (optional)</h3>
+        
+        <p>Die Zwei-Faktor-Authentifizierung bietet einen zusätzlichen Schutz deines Logins gegen Fishing, Bots und ähnliches. Die Nutzung ist
+        optional und kann durch einen Administrator bei Bedarf aktiviert werden. Der zweite Faktor zum Login wird mittels der App "Google Authenticator" auf deinem Smartphone
+        realisiert. </p>
+        
+        <p>Zur Aktivierung der Zwei-Faktor-Authentifizierung scanne den angezeigten QR-Code mit deinem Smartphone mit der App. Trage im Anschluss den ersten Zahlencode
+        in das Eingabefeld ein und speicher den Vorgang..</p>
 
         <h3>Erweitert</h3>
         <dl>
@@ -770,6 +804,17 @@ Help language file
             <li>Durch entsprechende Muster können ganze IP-Adress-Bereiche gesperrt werden, Beispiele werden sind im Editor angezeigt. Dies
             kann nötig werden, wenn zum Beispiel Bots (Spam, Suchmaschinen etc.) häufig ihre IP-Adresse wechseln.</li>
         </ul>
+        
+        <h3>Sperren einrichten</h3>
+
+        <ul>
+            <li>Um eine <strong>einzelne</strong> IP-Adresse (z. B. 192.168.1.2) zu sperren, trage diese komplett in das Feld <em>IP-Adresse</em> ein.</li>
+            <li>Um <strong>mehrere IP-Adressen bzw. einen Bereich</strong> zu sperren (z. B. 192.168.2.1, 192.168.2.11, 192.168.2.111), ersetzte die 
+                entsprechenden Stellen Zahl(en) durch einen <em>*</em> (z. B. 192.168.2.* oder 192.168.*.*) und trage dies in das Feld <em>IP-Adresse</em> ein.</li>
+            <li>Für IPv6-Adressen (aa11::22bb:cc33:d4d4:e5e5) gehen analog vor, ersetze hier die Stellen zwischen den Doppelpunkten.</li>
+        </ul>
+
+        <h3>Aktionen</h3>
         
         <dl>
             <dt>Keine Kommentare schreiben</dt>

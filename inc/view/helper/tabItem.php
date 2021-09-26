@@ -19,6 +19,18 @@ namespace fpcm\view\helper;
 class tabItem extends helper {
 
     /**
+     * @var int Tab state active
+     * @since 4.5.5
+     */
+    const STATE_ACTIVE = 1;
+
+    /**
+     * @var int Tab state disabled
+     * @since 4.5.5
+     */
+    const STATE_DISABLED = 2;
+    
+    /**
      * Url
      * @var string
      */

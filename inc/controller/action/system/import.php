@@ -22,7 +22,7 @@ implements \fpcm\controller\interfaces\isAccessible {
      */
     public function isAccessible(): bool
     {
-        return $this->permissions->system->options && defined('FPCM_CSV_IMPORT') && FPCM_CSV_IMPORT;
+        return $this->permissions->system->options;
     }
 
     /**

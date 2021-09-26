@@ -53,7 +53,7 @@ class filelist extends \fpcm\controller\abstracts\ajaxController implements \fpc
      */
     public function request()
     {
-        $this->mode = $this->request->fromPOST('mode', [
+        $this->mode = $this->request->fetchAll('mode', [
             \fpcm\model\http\request::FILTER_CASTINT
         ]);
 

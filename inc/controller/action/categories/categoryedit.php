@@ -35,7 +35,8 @@ class categoryedit extends base {
         return true;
     }
 
-    public function process() {
+    public function process()
+    {
         $this->view->setFormAction($this->category->getEditLink(), [], true);
         parent::process();
     }

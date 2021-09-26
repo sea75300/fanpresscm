@@ -101,6 +101,26 @@ set_error_handler(function($ecode, $etext, $efile, $eline)
     return true;
 });
 
+set_exception_handler(function(Throwable $ex) {
+
+    print '<pre>----- FATAL ERROR: Loading terminated :-S'.PHP_EOL.'Detailed error message is available within system error log.<pre>';
+    
+    $errorLog = dirname(__DIR__) . '/data/logs/phplog.txt';
+
+    if (file_exists($errorLog) && !is_writable($errorLog)) {
+        trigger_error($errorLog . ' is not writable');
+        return false;
+    }
+
+    file_put_contents($errorLog, json_encode([
+        'time' => date('Y-m-d H:i:s'),
+        'text' => (string) $ex,
+        'type' => 'error'
+    ]) . PHP_EOL, FILE_APPEND);
+    return true;
+    
+});
+
 /**
  * Systemlog schreiben
  * @param mixed $data
