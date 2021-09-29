@@ -43,7 +43,7 @@ fpcm.dataview = {
         obj.rowsId      = obj.fullId + '-rows';
 
         obj.wrapper     = fpcm.dom.fromId(obj.fullId).addClass('fpcm-ui-dataview');
-        obj.wrapper.append('<div class="row bg-primary text-light py-1" id="' + obj.headId + '"></div>');
+        obj.wrapper.append('<div class="row bg-primary text-light py-1 fpcm ui-dataview-head" id="' + obj.headId + '"></div>');
         obj.wrapper.append('<div class="fpcm-ui-dataview-rows" id="' + obj.rowsId + '"></div>');
         
         obj.headline    = fpcm.dom.fromId(obj.headId);
