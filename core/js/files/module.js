@@ -444,6 +444,7 @@ fpcm.filemanager = {
             dataType: 'html',
             onAssignHtmlAfter: function () {
                 fpcm.filemanager.initListActions(true);
+                fpcm.dom.fromClass('fpcm-select-all').prop('checked', false);
             }
         });
         

@@ -16,8 +16,10 @@ fpcm.crons = {
         fpcm.dataview.render('cronlist', {
             onRenderAfter: function () {
 
-                fpcm.dom.fromClass('fpcm-cronjoblist-exec').click(function () {
-                    let _data = fpcm.dom.fromTag(this).data();
+                fpcm.dom.bindClick('.fpcm-cronjoblist-exec', function (_e, _ui) {
+                    let _data = fpcm.dom.fromTag(_ui).data();
+                    
+                    _data.dest = _ui.name;
                     
                     fpcm.worker.postMessage({
                         namespace: 'crons',
@@ -26,7 +28,7 @@ fpcm.crons = {
                         param: _data
                     });
 
-                    return false;
+                    _ui.disabled = true;
                 });
                 
                 fpcm.ui.selectmenu('select', {
@@ -53,11 +55,12 @@ fpcm.crons = {
             },
             loaderMsg: fpcm.ui.translate('CRONJOB_ECEDUTING').replace('{{cjname}}', _data.cjdescr),
             execDone: function (result) {
-                
+
+                fpcm.dom.fromId(_data.dest).prop('disabled', false);
                 fpcm.worker.postMessage({
                     cmd: 'remove',
                     id: 'crons.execCronjobDemand'
-                });                
+                });
 
             },
         });

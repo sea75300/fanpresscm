@@ -163,3 +163,7 @@ div.fpcm.ui-logs-warning {
 div.fpcm.ui-logs-deprecation-warning {
     border-left: 10px solid var(--bs-gray) !important;
 }
+
+div.fpcm.ui-dataview-head .form-check-input:checked {
+    background-color: var(--bs-dark);
+}

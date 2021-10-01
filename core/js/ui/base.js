@@ -228,19 +228,18 @@ fpcm.ui = {
             return false;
         }
 
-        fpcm.dom.bindClick('.fpcm-select-all', function(_event, _ui) {
+        fpcm.dom.bindEvent('.fpcm-select-all', 'change', function(_event, _ui) {
             fpcm.dom.fromClass('fpcm-ui-list-checkbox-sub').prop('checked', false);
             fpcm.dom.fromClass('fpcm-ui-list-checkbox').prop('checked', function (_i, _old) {
                 return !_old;
             });
-            return true;
         });
 
         if (!fpcm.dom.fromClass('fpcm-ui-list-checkbox-sub').length) {
             return false;
         }
 
-        fpcm.dom.bindClick('.fpcm-ui-list-checkbox-sub', function(_event, _ui) {
+        fpcm.dom.bindEvent('.fpcm-ui-list-checkbox-sub', 'change', function(_event, _ui) {
             fpcm.dom.fromClass('fpcm-ui-list-checkbox-subitem' + _ui.value).prop('checked', function (_i, _old) {
                 return !_old;
             });
