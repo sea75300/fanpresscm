@@ -3,13 +3,13 @@
     <div class="shadow-lg rounded p-4 fpcm ui-background-white-50p ui-blurring">
 
         <header>
-            <div class="row g-0 mb-3">
+            <div class="row g-0 mb-3 text-truncate">
                 <!-- FanPress CM News System <?php print $theView->version; ?> -->
                 <div class="col-auto">
                     <img class="border-bottom border-5 border-info" src="<?php print $theView->themePath; ?>logo.svg" role="presentation" alt="FanPress CM News System <?php print $theView->version; ?>">
                 </div>
                 <div class="col align-self-center">
-                    <h1 class="d-none d-xl-block fs-3">FanPress CM News System</h1>
+                    <h1 class="d-none d-xl-block fs-3 text-end">FanPress CM News System</h1>
                 </div>
                 
             </div>
