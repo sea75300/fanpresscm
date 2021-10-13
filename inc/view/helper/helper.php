@@ -229,6 +229,7 @@ abstract class helper {
         }
         
         $this->text = self::TEXT_DEFAULT_LABEL.strtoupper(preg_replace('/([^A-Za-z0-9\_]+)/', '_', rtrim($this->name, ']')));
+        $this->text = $this->language->translate($this->text);
         return true;
     }
 

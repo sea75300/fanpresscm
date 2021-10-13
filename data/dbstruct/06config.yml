@@ -220,60 +220,60 @@ defaultvalues:
             config_name: "articles_link_urlrewrite"
             config_value: "0"
             modulekey: ""
-        articles_imageedit_persistence:
-            id: 38
-            config_name: "articles_imageedit_persistence"
-            config_value: "0"
-            modulekey: ""
         comments_template_active:
-            id: 39
+            id: 38
             config_name: "comments_template_active"
             config_value: "comments"
             modulekey: ""
         comments_flood:
-            id: 40
+            id: 39
             config_name: "comments_flood"
             config_value: "300"
             modulekey: ""
         comments_email_optional:
-            id: 41
+            id: 40
             config_name: "comments_email_optional"
             config_value: "1"
             modulekey: ""
         comments_confirm:
-            id: 42
+            id: 41
             config_name: "comments_confirm"
             config_value: "1"
             modulekey: ""
         comments_antispam_question:
-            id: 43
+            id: 42
             config_name: "comments_antispam_question"
             config_value: ""
             modulekey: ""
         comments_antispam_answer:
-            id: 44
+            id: 43
             config_name: "comments_antispam_answer"
             config_value: ""
             modulekey: ""
         comments_notify:
-            id: 45
+            id: 44
             config_name: "comments_notify"
             config_value: "0"
             modulekey: ""
         comments_markspam_commentcount:
-            id: 46
+            id: 45
             config_name: "comments_markspam_commentcount"
             config_value: "2"
             modulekey: ""
         comments_privacy_optin:
-            id: 47
+            id: 46
             config_name: "comments_privacy_optin"
             config_value: "1"
             modulekey: ""
-        file_img_thumb_width:
-            id: 48
+        file_thumb_size:
+            id: 47
             config_name: "file_thumb_size"
             config_value: "128"
+            modulekey: ""
+        file_cropper_name:
+            id: 48
+            config_name: "file_cropper_name"
+            config_value: '{{filename}}_cropped_{{date}}'
             modulekey: ""
         file_list_limit:
             id: 49

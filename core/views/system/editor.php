@@ -43,12 +43,9 @@
         </div>
     </div>
 
-
     <div class="row my-2">
         <div class="col-12 col-md-8">
-            <?php $theView->boolSelect('articles_imageedit_persistence')
-                    ->setText('SYSTEM_OPTIONS_NEWS_EDITOR_IMGTOOLS')
-                    ->setSelected($globalConfig->articles_imageedit_persistence); ?>
+            <?php $theView->textInput('file_cropper_name')->setValue($globalConfig->file_cropper_name); ?>
         </div>
     </div>
 

@@ -482,6 +482,17 @@ abstract class file {
     }
 
     /**
+     * Retrieve file name via pathinfo
+     * @param string $filename
+     * @return string
+     * @since 5.0
+     */
+    public static function retrieveFileName(string $filename) : string
+    {
+        return pathinfo($filename, PATHINFO_FILENAME);        
+    }
+
+    /**
      * Return hash based on filename
      * @return string
      * @since 5.0.0-a1

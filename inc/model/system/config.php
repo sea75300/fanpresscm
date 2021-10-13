@@ -54,7 +54,6 @@ use fpcm\model\traits\eventModuleEmpty;
  * @property int    $articles_archive_datelimit Hide articles before this date in frontend archive
  * @property int    $articles_revisions_limit Maximum number of kept articles revision
  * @property bool   $articles_link_urlrewrite Enable URL-Rewriting (ID and article will be included within article link)
- * @property bool   $articles_imageedit_persistence Save image changes from TinyMCE to server
  * 
  * @property string $comments_template_active Active comment template
  * @property int    $comments_flood Flood protection between two comments
@@ -67,11 +66,10 @@ use fpcm\model\traits\eventModuleEmpty;
  * @property bool   $comments_privacy_optin GDPR privacy opt-in
  * 
  * @property int    $file_thumb_size Thumbnail size
- * @property int    $file_img_thumb_width Thumbnail width (@deprecated 5.0-dev)
- * @property int    $file_img_thumb_height Thumbnail height (@deprecated 5.0-dev)
  * @property int    $file_list_limit Nubmer of files per page
  * @property bool   $file_subfolders Create subfolder of form YYYY-MM
  * @property string $file_view File manager view
+ * @property string $file_cropper_name Image editor file name
  * 
  * @property conf\twitterSettings  $twitter_data Twitter conenctions ettings
  * @property conf\twitterEvents    $twitter_events Events for new twitter posts
@@ -394,16 +392,16 @@ final class config extends dataset {
             $this->newConfig['comments_markspam_commentcount'] = (int) $this->newConfig['comments_markspam_commentcount'];
         }
 
-        if (isset($this->newConfig['file_img_thumb_width'])) {
-            $this->newConfig['file_img_thumb_width'] = (int) $this->newConfig['file_img_thumb_width'];
-        }
-
-        if (isset($this->newConfig['file_img_thumb_height'])) {
-            $this->newConfig['file_img_thumb_height'] = (int) $this->newConfig['file_img_thumb_height'];
+        if (isset($this->newConfig['file_thumb_size'])) {
+            $this->newConfig['file_thumb_size'] = (int) $this->newConfig['file_thumb_size'];
         }
 
         if (isset($this->newConfig['file_list_limit'])) {
             $this->newConfig['file_list_limit'] = (int) $this->newConfig['file_list_limit'];
+        }
+
+        if (isset($this->newConfig['file_cropper_name'])) {
+            $this->newConfig['file_cropper_name'] = preg_replace('/([^\{\}\_\-a-z])/i', '', $this->newConfig['file_cropper_name']);
         }
 
         if (isset($this->newConfig['system_updates_devcheck'])) {
@@ -416,10 +414,6 @@ final class config extends dataset {
 
         if (isset($this->newConfig['articles_link_urlrewrite'])) {
             $this->newConfig['articles_link_urlrewrite'] = (int) $this->newConfig['articles_link_urlrewrite'];
-        }
-
-        if (isset($this->newConfig['articles_imageedit_persistence'])) {
-            $this->newConfig['articles_imageedit_persistence'] = (int) $this->newConfig['articles_imageedit_persistence'];
         }
             
         if (isset($this->newConfig['comments_privacy_optin'])) {

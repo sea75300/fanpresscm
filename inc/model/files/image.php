@@ -665,6 +665,29 @@ class image extends \fpcm\model\abstracts\file implements \fpcm\model\interfaces
     }
 
     /**
+     * Get cropper filename string
+     * @return string
+     * @since 5.0.0-a1
+     */
+    public static function getCropperFilename(string &$filename)
+    {            
+        $repl = [
+            '{{filename}}' => self::retrieveFileName($filename),
+            '{{date}}' => date('Y-m-d'),
+            '{{datelong}}' => date('Y-m.d_H-m-s'),
+            '{{hash}}' => \fpcm\classes\tools::getHash($filename),
+            '{{userid}}' => \fpcm\classes\loader::getObject('\fpcm\model\system\session')->getUserId(),
+            '{{random}}' => mt_rand()
+        ];
+
+        $filename = str_replace(
+            array_keys($repl),
+            array_values($repl),
+            \fpcm\classes\loader::getObject('\fpcm\model\system\config')->file_cropper_name
+        ) . '.' . self::retrieveFileExtension($filename);
+    }
+
+    /**
      * Check if file extension and file type is valid
      * @param string $ext
      * @param string $type
