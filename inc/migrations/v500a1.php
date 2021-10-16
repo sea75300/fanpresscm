@@ -8,13 +8,13 @@
 namespace fpcm\migrations;
 
 /**
- * Migration to v5.0-dev
+ * Migration to v5.0.0-a1
  * 
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2021, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\migrations
- * @since 5.0-dev
+ * @since 5.0.0-a1
  * @see migration
  */
 class v500a1 extends migration {
@@ -44,39 +44,6 @@ class v500a1 extends migration {
         $res = $res && $conf->remove('articles_imageedit_persistence');
         
         return $res;
-    }
-    
-    protected function updateFileSystem(): bool
-    {
-        $files = [
-            \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_THEME, 'navigation.css'),
-            \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_THEME, 'forms.css'),
-            \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'articles/times.php'),
-            \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'categories/editor.php'),
-            \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'comments/commentedit.php'),
-            \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'filemanager/searchform.php'),
-            \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'ips/ipadd.php'),
-            \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'logs/overview.php'),
-            \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'modules/list.php'),
-            \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'smileys/editor.php'),
-            \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'templates/article_templates.php'),
-            \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'users/useradd.php'),
-            \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'users/useredit.php'),
-            \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'users/userlist_dialogs.php'),
-            \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'wordban/editor.php'),
-        ];
-        
-        array_map(function ($filename) {
-            
-            if (!file_exists($filename)) {
-                return false;
-            }
-            
-            return unlink($filename);
-
-        }, $files);
-
-        return true;
     }
 
     /**
