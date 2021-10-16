@@ -45,6 +45,39 @@ class v500a1 extends migration {
         
         return $res;
     }
+    
+    protected function updateFileSystem(): bool
+    {
+        $files = [
+            \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_THEME, 'navigation.css'),
+            \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_THEME, 'forms.css'),
+            \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'articles/times.php'),
+            \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'categories/editor.php'),
+            \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'comments/commentedit.php'),
+            \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'filemanager/searchform.php'),
+            \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'ips/ipadd.php'),
+            \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'logs/overview.php'),
+            \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'modules/list.php'),
+            \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'smileys/editor.php'),
+            \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'templates/article_templates.php'),
+            \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'users/useradd.php'),
+            \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'users/useredit.php'),
+            \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'users/userlist_dialogs.php'),
+            \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'wordban/editor.php'),
+        ];
+        
+        array_map(function ($filename) {
+            
+            if (!file_exists($filename)) {
+                return false;
+            }
+            
+            return unlink($filename);
+
+        }, $files);
+
+        return true;
+    }
 
     /**
      * Returns new version, e. g. from version.txt
