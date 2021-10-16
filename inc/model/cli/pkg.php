@@ -139,7 +139,7 @@ final class pkg extends \fpcm\model\abstracts\cli {
         }
 
         $successMod = $this->updaterMod->getData();
-        if (!$successMod) {
+        if (!count($successMod)) {
             $this->output('Unable to sync module package informations. Check error log for further information.' . PHP_EOL . 'Error Code ' . $successMod, true);
         }
 
