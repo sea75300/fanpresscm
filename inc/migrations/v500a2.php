@@ -28,21 +28,27 @@ class v500a2 extends migration {
         $files = [
             \fpcm\classes\loader::libGetFilePath('bootstrap/bootstrap-grid.min.css'),
             \fpcm\classes\loader::libGetFilePath('bootstrap/bootstrap-grid.min.css.map'),
+            \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_JS, 'articles/revisions.js'),
+            \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_JS, 'editor/editor_tinymce5.js'),
+            \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_JS, 'modules/info.js'),
+            \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_JS, 'ui/navigation.js'),
+            \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_JS, 'ui/navigation.min.js'),
+            \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_JS, 'categories.js'),
+            \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_JS, 'crons.js'),
+            \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_JS, 'permissions.js'),
+            \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_JS, 'options.js'),
+            \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_JS, 'langedit.js'),
             \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_THEME, 'navigation.css'),
             \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_THEME, 'forms.css'),
             \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'articles/times.php'),
-            \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'categories/editor.php'),
             \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'comments/commentedit.php'),
             \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'filemanager/searchform.php'),
-            \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'ips/ipadd.php'),
             \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'logs/overview.php'),
             \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'modules/list.php'),
-            \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'smileys/editor.php'),
             \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'templates/article_templates.php'),
             \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'users/useradd.php'),
             \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'users/useredit.php'),
             \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'users/userlist_dialogs.php'),
-            \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'wordban/editor.php'),
         ];
         
         array_map(function ($filename) {
@@ -56,7 +62,19 @@ class v500a2 extends migration {
         }, $files);
         
         
-        \fpcm\model\files\ops::deleteRecursive(\fpcm\classes\loader::libGetFilePath('jquery-ui'));
+        $dirs = [
+            \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'categories'),
+            \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'ips'),
+            \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'smileys'),
+            \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'wordban'),
+            \fpcm\classes\loader::libGetFilePath('jquery-ui')
+        ];
+        
+        array_map(function ($filename) {
+
+            return \fpcm\model\files\ops::deleteRecursive($filename);
+
+        }, $files);
 
         return true;
     }
