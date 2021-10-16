@@ -26,6 +26,8 @@ class v500a2 extends migration {
     protected function updateFileSystem(): bool
     {
         $files = [
+            \fpcm\classes\loader::libGetFilePath('bootstrap/bootstrap-grid.min.css'),
+            \fpcm\classes\loader::libGetFilePath('bootstrap/bootstrap-grid.min.css.map'),
             \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_THEME, 'navigation.css'),
             \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_THEME, 'forms.css'),
             \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'articles/times.php'),
@@ -52,6 +54,9 @@ class v500a2 extends migration {
             return unlink($filename);
 
         }, $files);
+        
+        
+        \fpcm\model\files\ops::deleteRecursive(\fpcm\classes\loader::libGetFilePath('jquery-ui'));
 
         return true;
     }
