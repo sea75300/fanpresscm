@@ -74,7 +74,7 @@ class v500a2 extends migration {
 
             return \fpcm\model\files\ops::deleteRecursive($filename);
 
-        }, $files);
+        }, $dirs);
 
         return true;
     }
