@@ -112,9 +112,11 @@ class tinymceEditor5 extends articleEditor {
                 'width' => '100%',
                 'min_height' => 500,
                 'file_picker_types' => ['image', 'file'],
-                'pagebreak_separator' => \fpcm\model\pubtemplates\article::PAGEBREAK_TAG
+                'pagebreak_separator' => \fpcm\model\pubtemplates\article::PAGEBREAK_TAG,
             ],
             'editorDefaultFontsize' => $this->config->system_editor_fontsize,
+            'uploadFileRoot' => \fpcm\classes\dirs::getDataUrl(\fpcm\classes\dirs::DATA_UPLOADS, ''),
+            'galleryThumbStr' => \fpcm\model\pubtemplates\article::GALLERY_TAG_THUMB,
             'editorInitFunction' => 'initTinyMce'
         ]);
     }

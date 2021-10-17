@@ -214,56 +214,50 @@ fpcm.editor = {
                 fmGallery: 'btnInsertGallery',
             };
 
+            let _filePickerButtons = [
+                {
+                    type:  'custom',
+                    name: 'fmNewThumbs',
+                    text: fpcm.ui.translate('FILE_LIST_NEWTHUMBS'),
+                    disabled: false,
+                    primary: false,
+                    align: 'start'
+                },
+                {
+                    type:  'custom',
+                    name: 'fmDelete',
+                    text: fpcm.ui.translate('GLOBAL_DELETE'),
+                    disabled: false,
+                    primary: false,
+                    align: 'start'
+                },
+                {
+                    type:  'cancel',
+                    name: 'fmClose',
+                    text: fpcm.ui.translate('GLOBAL_CLOSE'),
+                    disabled: false,
+                    primary: true
+                },                          
+            ];
+            
+            if (!fpcm.editor.insertGalleryDisabled()) {
+                _filePickerButtons.unshift({
+                    type:  'custom',
+                    name: 'fmGallery',
+                    text: fpcm.ui.translate('FILE_LIST_INSERTGALLERY'),
+                    disabled: false,
+                    primary: false,
+                    align: 'start'
+                });
+            }
+
             tinymce.activeEditor.windowManager.openUrl({
                 title: fpcm.ui.translate('HL_FILES_MNG'),
                 size: 'large',
                 url: fpcm.vars.jsvars.filemanagerUrl + fpcm.vars.jsvars.filemanagerMode,
                 id: 'fpcm-dialog-editor-tinymce-filemanager',
-                buttons: [                
-                    {
-                        type:  'custom',
-                        name: 'fmGallery',
-                        text: fpcm.ui.translate('FILE_LIST_INSERTGALLERY'),
-                        disabled: fpcm.editor.insertGalleryDisabled(),
-                        primary: false,
-                        align: 'start'
-                    },
-                    {
-                        type:  'custom',
-                        name: 'fmSearch',
-                        text: fpcm.ui.translate('ARTICLES_SEARCH'),
-                        disabled: false,
-                        primary: false,
-                        align: 'start'
-                    },
-                    {
-                        type:  'custom',
-                        name: 'fmNewThumbs',
-                        text: fpcm.ui.translate('FILE_LIST_NEWTHUMBS'),
-                        disabled: false,
-                        primary: false,
-                        align: 'start'
-                    },
-                    {
-                        type:  'custom',
-                        name: 'fmDelete',
-                        text: fpcm.ui.translate('GLOBAL_DELETE'),
-                        disabled: false,
-                        primary: false,
-                        align: 'start'
-                    },
-                    {
-                        type:  'cancel',
-                        name: 'fmClose',
-                        text: fpcm.ui.translate('GLOBAL_CLOSE'),
-                        disabled: false,
-                        primary: true
-                    },                          
-                ],
+                buttons: _filePickerButtons,
                 onAction: function(api, action) {
-
-                    console.log(api);
-                    console.log(action);
 
                     if (!fpcm.editor.filePickerActions[action.name]) {
                         return false;
@@ -347,15 +341,82 @@ fpcm.editor = {
                                     text: items[x].code,
                                     value: ' ' + items[x].code + ' ',
                                     icon: items[x].img
-                                }   
-                                );
+                                });
                             }
 
                         }
                     });
                 }
             });
+            
+            var _galleryPlaceholderClass = 'fpcm-content-gallery-placeholder';
+            
+            editor.on('ResolveName', function (e) {
+                if (e.target.nodeName === 'FIGURE' && editor.dom.hasClass(e.target, _galleryPlaceholderClass)) {
+                    e.name = 'gallery';
+                }
+            });
+            
+            editor.on('BeforeSetContent', function (e) {
 
+                let _data = e.content.match(/\[gallery\](.*)\[\/gallery\]/i);
+                if (!_data) {
+                    return true;
+                }
+
+                let _list = _data[1].split('|');
+                if (!_list.length) {
+                    return true;
+                }
+                
+                let _repl = [];
+                _repl.push('<figure role="group" class="' + _galleryPlaceholderClass + '" data-mce-placeholder="1" data-placeholder="' + _data[0] + '">');
+                
+                for (var i = 0; i < _list.length; i++) {
+
+                    if (!_list[i]) {
+                        continue;
+                    }
+
+                    let _item = _list[i].split(/(thumb:)?([a-z0-9_.\-\/]*)(:link)?/i);
+                    if (!_item || !_item.length) {
+                        continue;
+                    }
+                    
+                    let _imgurl = fpcm.vars.jsvars.uploadFileRoot + (_item[1] === fpcm.vars.jsvars.galleryThumbStr ? _item[2].replace('/', '/thumbs/') : _item[2]);
+                    _repl.push('<img src="' + _imgurl + '" class="fpcm-content-gallery-item" style="padding: 0 0.25rem;" data-mce-resize="false" data-mce-placeholder="1" />');
+                }
+
+                _repl.push('</figure>');
+                e.content = e.content.replace(_data[0], _repl.join(''));
+            });
+
+            editor.on('PreInit', function () {
+
+                editor.serializer.addNodeFilter('figure', function (_nodes) {
+
+                    if (!_nodes.length) {
+                        return true;
+                    }
+
+                    for (var i = 0; i < _nodes.length; i++) {
+
+                        if (!_nodes[i]) {
+                            continue;
+                        }
+
+                        let _node = _nodes[i];
+                        if (_node.attr('class') !== _galleryPlaceholderClass) {
+                            continue;
+                        }
+
+                        _node.value = _node.attr('data-placeholder');
+                        _node.raw = true;
+                        _node.type = 3;
+                    }
+                });
+            });
+        
         };
 
         fpcm.editor_tinymce.create(fpcm.vars.jsvars.editorConfig);

@@ -41,8 +41,7 @@ if (fpcm.editor !== undefined) {
         ];
         
         if (!fpcm.editor.insertGalleryDisabled(_mode)) {
-            _btns.unshift(
-            {
+            _btns.unshift({
                 text: 'FILE_LIST_INSERTGALLERY',
                 icon: "images",
                 click: function(_ui) {

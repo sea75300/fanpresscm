@@ -44,12 +44,14 @@ class notifications {
 
     /**
      * Notifications anzeigen
-     * @return array
+     * @return string
      */
     public function getNotificationsString()
     {
         if (!count($this->notifications)) {
-            return '';
+            $this->addNotification(new \fpcm\model\theme\notificationItem(
+                (new \fpcm\view\helper\icon('ban'))->setText('GLOBAL_NOTFOUND2')
+            ));
         }
 
         $notificationStrings = array_map([$this, 'asString'], $this->notifications);

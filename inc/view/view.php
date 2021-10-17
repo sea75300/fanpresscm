@@ -315,28 +315,28 @@ class view {
         if ($this->config->system_maintenance) {
             $this->notifications->addNotification(new \fpcm\model\theme\notificationItem(
                 (new helper\icon('lightbulb'))->setText('SYSTEM_OPTIONS_MAINTENANCE'),
-                '', '', 'fpcm-ui-important-text'
+                '', '', 'text-danger'
             ));
         }
 
         if (!\fpcm\classes\baseconfig::asyncCronjobsEnabled()) {
             $this->notifications->addNotification(new \fpcm\model\theme\notificationItem(
                 (new helper\icon('history'))->setText('SYSTEM_OPTIONS_CRONJOBS'),
-                '', '', 'fpcm-ui-important-text'
+                '', '', 'text-danger'
             ));
         }
         
         if (defined('FPCM_DEBUG') && FPCM_DEBUG) {
             $this->notifications->addNotification(new \fpcm\model\theme\notificationItem(
                 (new helper\icon('terminal'))->setText('DEBUG_MODE'),
-                '', '', 'fpcm-ui-important-text'
+                '', '', 'text-danger'
             ));
         }
         
         if (defined('FPCM_VIEW_JS_USE_MINIFIED') && FPCM_VIEW_JS_USE_MINIFIED) {
             $this->notifications->addNotification(new \fpcm\model\theme\notificationItem(
                 (new helper\icon('js', 'fab'))->setText('NOTIFICATION_EXPERIMENTAL_MINJS'),
-                '', '', 'fpcm-ui-important-text'
+                '', '', 'text-danger'
             ));
         }
 

@@ -452,13 +452,13 @@ class image extends \fpcm\model\abstracts\file implements \fpcm\model\interfaces
             $phpImgWsp = \PHPImageWorkshop\ImageWorkshop::initFromPath($this->getFullpath());
             $phpImgWsp->cropToAspectRatio(
                 \PHPImageWorkshop\Core\ImageWorkshopLayer::UNIT_PIXEL,
-                $this->config->file_img_thumb_width,
-                $this->config->file_img_thumb_height,
+                $this->config->file_thumb_size,
+                $this->config->file_thumb_size,
                 0, 0, 'MM'
             );
 
             $fullThumbPath = $this->getThumbnailFull();
-            $phpImgWsp->resizeInPixel($this->config->file_img_thumb_width, $this->config->file_img_thumb_height);
+            $phpImgWsp->resizeInPixel($this->config->file_thumb_size, $this->config->file_thumb_size);
             $phpImgWsp->save(dirname($fullThumbPath), basename($fullThumbPath), true, null, 85);
         } catch (\ErrorException $exc) {
             trigger_error('Error while creating file thumbnail '.$this->getThumbnail().PHP_EOL.$exc->getMessage());

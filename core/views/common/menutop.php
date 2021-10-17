@@ -40,13 +40,7 @@
                         <span class="d-none d-md-inline"><?php $theView->write('PROFILE_MENU_NOTIFICATIONS'); ?></span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="fpcm-notify-menu">
-                        <?php if ($theView->notificationString) : ?>
-                            <?php print $theView->notificationString; ?>
-                        <?php else : ?>
-                            <li>
-                                <?php $theView->icon('ban')->setStackTop(true); ?> <?php $theView->write('GLOBAL_NOTFOUND2'); ?>
-                            </li>
-                        <?php endif; ?>                        
+                        <?php print $theView->notificationString; ?>
                     </ul>
                 </li>
                 <li class="nav-item dropdown me-2">

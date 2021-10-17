@@ -327,8 +327,8 @@ final class article extends template {
             return $content;
         }
 
-        $w = $this->config->file_img_thumb_width;
-        $h = $this->config->file_img_thumb_height;
+        $w = $this->config->file_thumb_size;
+        $h = $this->config->file_thumb_size;
 
         $thumbLen = 6;
         $linkLen = -5;

@@ -152,6 +152,8 @@ fpcm.editor_tinymce = {
                 toolbar: config.mobileConfig.toolbar
             }
         }
+        
+        params.deprecation_warnings = false;
 
         tinymce.init(params);
     }
@@ -213,9 +215,9 @@ if (fpcm.editor) {
         if (top.tinymce.activeEditor === undefined) {
             return true;
         }
-        
-        let cont = top.tinymce.activeEditor.getContent({format: 'text'});
-        if (cont && cont.search('/gallery') != -1 ) {
+
+        let _cont = top.tinymce.activeEditor.getContent();
+        if (_cont && _cont.search('/gallery') != -1 ) {
             return true;
         }
 
