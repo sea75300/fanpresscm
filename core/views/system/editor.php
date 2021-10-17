@@ -42,18 +42,6 @@
                     ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
         </div>
     </div>
-    
-    <div class="row my-2">
-        <div class="col-12 col-md-8">
-            <div class="row g-0">
-                <?php $theView->textInput('file_cropper_name')->setValue($globalConfig->file_cropper_name); ?>
-            </div>
-        </div>
-        <div class="col-auto align-self-center mx-3 mb-3">
-            <?php $theView->shorthelpButton('cropper_name')
-                    ->setText('LABEL_FIELD_FILE_CROPPER_NAME_HELP'); ?>                    
-        </div>
-    </div>
 
 </fieldset>
 
@@ -99,6 +87,18 @@
                     ->setOptions($filemanagerViews)
                     ->setSelected($globalConfig->file_view)
                     ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
+        </div>
+    </div>
+    
+    <div class="row my-2">
+        <div class="col-12 col-md-8">
+            <div class="row g-0">
+                <?php $theView->textInput('file_cropper_name')->setValue($globalConfig->file_cropper_name); ?>
+            </div>
+        </div>
+        <div class="col-auto align-self-center mx-3 mb-3">
+            <?php $theView->shorthelpButton('cropper_name')
+                    ->setText('LABEL_FIELD_FILE_CROPPER_NAME_HELP'); ?>                    
         </div>
     </div>
 

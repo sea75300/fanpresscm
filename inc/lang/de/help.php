@@ -490,9 +490,6 @@ Help language file
             <dd class="pb-2">Revisionen, welche älter als der angegebene Wert sind, werden beim nächsten Durchlauf des
             zugehörigen Cronjobs aus der Datenbank entfernt. Wurde der Wert "Nie" ausgewählt, so bleiben alle Revisionen erhalten, bis sie
             irgendwann manuell gelöscht werden.</dd>
-            <dt>Editor - Bilder-Änderungen in TinyMCE auf Server speichern:</dt>
-            <dd class="pb-2">Werden in TinyMCE Änderungen an Bildern vorgenommen, so werden die Änderungen bei Aktivierung dieser
-            Option als neue Datei im Upload-Ordner abgelegt und können später auch im Dateimanager ausgewählt werden.</dd>
             <dt>Editor - CSS-Klassen im Editor:</dt>
             <dd class="pb-2">CSS-Klassen zur Nutzung im FanPress CM Editor. Bei den CSS-Klassen handelt es sich in der Regel
             um solche, die du auch auf deiner Webseite verwendest.</dd>
@@ -504,11 +501,19 @@ Help language file
             <dt>Dateimanager - Dateimanager-Ansicht:</dt>
             <dd class="pb-2">Über diese Option kann ausgewählt werden, ob die Dateien im Dateimanager nebeneinander als Karten
             oder untereinander in einer Listenform angezeigt werden. Die dargestellten Informationen bleiben die gleichen.</dd>
-            
-            <dt>Vorschaubild-Größe - Breite in Pixel:</dt>
-            <dd class="pb-2">Die maximale Bereite von erzeugten Thumbnails.</dd>
-            <dt>Vorschaubild-Größe - Höhe in Pixel:</dt>
-            <dd class="pb-2">Die maximale Höhe von erzeugten Thumbnails.</dd>
+            <dt>Dateimanager - Dateiname-Muster bearbeiteter Bilder:</dt>
+            <dd class="pb-2">Werden Bilder im Dateimanager oder Artikel-Editor bearbeitet, so erfolgt die Speicherung der neuen Datei
+            unter einem Namen, welcher dem eingestellten Muster entspricht. Folgende Platzhalter können verwendet werden:
+            <ul>
+                <li>{{filename}}: Dateiname</li>
+                <li>{{date}}: aktuelles Datum</li>
+                <li>{{datelong}}: aktuelles Datum mit Zeit</li>
+                <li>{{hash}}: Dateihash</li>
+                <li>{{userid}}:  Benutzer-ID</li>
+                <li>{{random}}: Zufallszahl</li>
+            </ul></dd>
+            <dt>Dateimanager - Thumbnail-Größe:</dt>
+            <dd class="pb-2">Größe von erzeugten Thumbnails.</dd>
         </dl>
 
         <h3>Artikel</h3>
