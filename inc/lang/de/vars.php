@@ -422,6 +422,7 @@ $lang = array (
   'IPLIST_NOCOMMENTS' => 'Keine Kommentare schreiben',
   'IPLIST_NOLOGIN' => 'Kein ACP-Login',
   'LABEL_FIELD_FILE_CROPPER_NAME' => 'Dateiname-Muster bearbeiteter Bilder',
+  'LABEL_FIELD_FILE_CROPPER_NAME_HELP' => '{{filename}}: Dateiname, {{date}}: aktuelles Datum, {{datelong}}: aktuelles Datum mit Zeit, {{hash}}: Dateihash, {{userid}}:  Benutzer-ID, {{random}}: Zufallszahl',
   'LABEL_FIELD_OPENQR' => 'QR-Code anzeigen',
   'LOAD_FAILED_ARTICLE' => 'Der gesuchte Artikel wurde nicht gefunden.',
   'LOAD_FAILED_ARTICLE_LIST' => 'Die gesuchte Seite wurde nicht gefunden.',
