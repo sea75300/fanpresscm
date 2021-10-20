@@ -72,6 +72,10 @@ class v500a2 extends migration {
         
         array_map(function ($filename) {
 
+            if (!file_exists($filename)) {
+                return false;
+            }
+            
             return \fpcm\model\files\ops::deleteRecursive($filename);
 
         }, $dirs);

@@ -23,7 +23,7 @@ fpcm.ui_chart = {
 
         _chartConf.options.elements = {
             line: {
-                borderWidth: 5
+                borderWidth: 0
             },
             bar: {
                 borderWidth: 0
