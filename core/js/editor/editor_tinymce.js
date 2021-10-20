@@ -143,15 +143,6 @@ fpcm.editor_tinymce = {
         if (config.emoticons_append) {
             params.emoticons_append = config.emoticons_append;
         }
-
-        if (config.mobileConfig) {
-            params.mobile = {
-                theme: 'mobile',
-                resize: 'both',
-                plugins: config.mobileConfig.plugins,
-                toolbar: config.mobileConfig.toolbar
-            }
-        }
         
         params.deprecation_warnings = false;
 
