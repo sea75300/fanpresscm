@@ -97,12 +97,16 @@ final class components {
     }
 
     /**
-     * Return jQuery libary path, generic instance
+     * Return file upload plugin object
      * @return fileupload\uploader
      * @since 4.5
      */
     public static function getFileUploader($uploader = '\\fpcm\\components\\fileupload\\jqupload') : object
     {
+        if (defined('FPCM_UPLOADER_UPPY') && FPCM_UPLOADER_UPPY) {
+            $uploader = '\fpcm\components\fileupload\uppy';
+        }
+
         $return = new $uploader();
         if (!$return instanceof fileupload\uploader) {
             return new fileupload\jqupload();

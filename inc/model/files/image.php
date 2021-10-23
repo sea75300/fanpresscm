@@ -680,9 +680,7 @@ class image extends \fpcm\model\abstracts\file implements \fpcm\model\interfaces
             '{{random}}' => mt_rand()
         ];
         
-        $pattern = \fpcm\classes\loader::getObject('\fpcm\model\system\config')->file_cropper_name;
-        fpcmLogSystem(__METHOD__ . ' ' . $pattern);
-        
+        $pattern = \fpcm\classes\loader::getObject('\fpcm\model\system\config')->file_cropper_name;        
         if (!trim($pattern)) {
             $pattern = '{{filename}}_cropped_{{date}}';
         }
