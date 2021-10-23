@@ -83,15 +83,18 @@ final class fileuploader extends \fpcm\model\abstracts\staticModel {
                 $res['error'][$key] = $fileNames[$key];
                 continue;
             }
-
-            $image->createThumbnail();
-            $image->setFiletime(time());
-            $image->setUserid($userId);
-            if (!$image->save()) {
-                trigger_error('Unable to add uploaded file to database list! ' . $fileNames[$key]);
-                $res['error'][$key] = $fileNames[$key];
-                continue;
+            
+            if (!$image->exists()) {
+                $image->createThumbnail();
+                $image->setFiletime(time());
+                $image->setUserid($userId);
+                if (!$image->save()) {
+                    trigger_error('Unable to add uploaded file to database list! ' . $fileNames[$key]);
+                    $res['error'][$key] = $fileNames[$key];
+                    continue;
+                }
             }
+
 
             $fmThumbs = new \fpcm\model\crons\fmThumbs();
             $fmThumbs->run();

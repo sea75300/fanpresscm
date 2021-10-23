@@ -65,7 +65,7 @@ implements \fpcm\controller\interfaces\isAccessible,
     public function request()
     {
 
-        $this->config = new \fpcm\model\system\config(false, false);
+        $this->config = new \fpcm\model\system\config();
 
         if ($this->request->fromGET('syscheck')) {
             $this->syscheck = $this->request->fromGET('syscheck', [

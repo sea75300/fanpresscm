@@ -39,7 +39,7 @@ final class finalizer extends \fpcm\model\abstracts\model {
         parent::__construct();
 
         $this->dbcon = new \fpcm\classes\database();
-        $this->config = new \fpcm\model\system\config(false, false);
+        $this->config = new \fpcm\model\system\config();
         $this->isCli = \fpcm\classes\baseconfig::isCli();
     }
 
