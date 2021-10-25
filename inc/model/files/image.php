@@ -679,11 +679,16 @@ class image extends \fpcm\model\abstracts\file implements \fpcm\model\interfaces
             '{{userid}}' => \fpcm\classes\loader::getObject('\fpcm\model\system\session')->getUserId(),
             '{{random}}' => mt_rand()
         ];
+        
+        $pattern = \fpcm\classes\loader::getObject('\fpcm\model\system\config')->file_cropper_name;        
+        if (!trim($pattern)) {
+            $pattern = '{{filename}}_cropped_{{date}}';
+        }
 
         $filename = str_replace(
             array_keys($repl),
             array_values($repl),
-            \fpcm\classes\loader::getObject('\fpcm\model\system\config')->file_cropper_name
+            $pattern
         ) . '.' . self::retrieveFileExtension($filename);
     }
 

@@ -93,12 +93,6 @@ final class config extends dataset {
     protected $newConfig = [];
 
     /**
-     * this->data cachen
-     * @var bool
-     */
-    protected $useCache = true;
-
-    /**
      * Benuter-Config bereits eingelesen
      * @var bool
      */
@@ -106,16 +100,14 @@ final class config extends dataset {
 
     /**
      * Konstruktor
-     * @param bool $useCache Configuration aus Cache laden
      * @return bool
      */
-    function __construct($useCache = true)
+    function __construct()
     {
         $this->table    = database::tableConfig;
         $this->dbcon    = loader::getObject('\fpcm\classes\database');
         $this->events   = loader::getObject('\fpcm\events\events');
         $this->cache    = loader::getObject('\fpcm\classes\cache');
-        $this->useCache = $useCache;
 
         if (baseconfig::installerEnabled()) {
             return false;
@@ -235,17 +227,9 @@ final class config extends dataset {
             return false;
         }
 
-        $cacheName = 'system/configuser' . $user->getId();
-
-        $userData = $this->cache->read($cacheName);
-        if ($this->cache->isExpired($cacheName) || !$this->useCache || !is_array($userData)) {
-
-            $userData = $user->getUserMeta();
-            if (!is_array($userData)) {
-                return false;
-            }
-
-            $this->cache->write($cacheName, $userData);
+        $userData = $user->getUserMeta();
+        if (!is_array($userData)) {
+            return false;
         }
 
         foreach ($userData as $key => $value) {
@@ -277,26 +261,16 @@ final class config extends dataset {
             return false;
         }
 
-        $this->cacheName = 'system/config';
-
-        if ($this->cache->isExpired($this->cacheName) || !$this->useCache) {
-
-            $obj = new \fpcm\model\dbal\selectParams($this->table);
-            $obj->setFetchAll(true);
-            foreach ($this->dbcon->selectFetch($obj) as $data) {
-                $this->data[$data->config_name] = $data->config_value;
-            }
-
-            $this->data['twitter_data'] = new conf\twitterSettings($this->data['twitter_data']);
-            $this->data['twitter_events'] = new conf\twitterEvents($this->data['twitter_events']);
-            $this->data['smtp_settings'] = new conf\smtpSettings($this->data['smtp_settings']);
-
-            $this->cache->write($this->cacheName, $this->data);
-
-            return true;
+        $obj = new \fpcm\model\dbal\selectParams($this->table);
+        $obj->setFetchAll(true);
+        foreach ($this->dbcon->selectFetch($obj) as $data) {
+            $this->data[$data->config_name] = $data->config_value;
         }
 
-        $this->data = $this->cache->read($this->cacheName);
+        $this->data['twitter_data'] = new conf\twitterSettings($this->data['twitter_data']);
+        $this->data['twitter_events'] = new conf\twitterEvents($this->data['twitter_events']);
+        $this->data['smtp_settings'] = new conf\smtpSettings($this->data['smtp_settings']);
+
         return true;
     }
 

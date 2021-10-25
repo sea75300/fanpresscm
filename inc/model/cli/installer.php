@@ -232,7 +232,7 @@ final class installer extends \fpcm\model\abstracts\cli {
             'comments_antispam_answer' => $this->conf['config']['captcha']['answer'],
         ];
 
-        $config = new \fpcm\model\system\config(false, false);
+        $config = new \fpcm\model\system\config();
         $config->setNewConfig($newconfig);
         $config->prepareDataSave();
         usleep(250000);
