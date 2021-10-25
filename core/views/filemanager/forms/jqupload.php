@@ -30,6 +30,6 @@
     </div>
 
     <div  class="row my-2" role="presentation">
-        <div class="col-12 files"></div>
+        <div class="col-12 px-0 files"></div>
     </div>
 </div>

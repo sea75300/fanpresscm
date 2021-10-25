@@ -169,7 +169,7 @@ final class tools {
      */
     public static function escapeFileName($filename) : string
     {
-        return preg_replace('/[^A-Za-z0-9_.\-]/', '', htmlentities($filename, ENT_COMPAT | ENT_HTML401));
+        return preg_replace('/[^A-Za-z0-9_.\-\(\)\ ]/', '', htmlentities($filename, ENT_COMPAT | ENT_HTML401));
     }
 
     /**

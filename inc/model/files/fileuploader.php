@@ -158,10 +158,10 @@ final class fileuploader extends \fpcm\model\abstracts\staticModel {
         $fileName = ops::getUploadPath($fileName, $this->config->file_subfolders);
 
         if ($this->config->file_subfolders) {
-            return basename(dirname($fileName)).'/'.basename($fileName);
+            return basename(dirname($fileName)).'/'.\fpcm\classes\tools::escapeFileName(basename($fileName));
         }
 
-        return basename($fileName);
+        return \fpcm\classes\tools::escapeFileName(basename($fileName));
     }
 
     /**
