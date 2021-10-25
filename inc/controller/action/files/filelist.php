@@ -128,7 +128,7 @@ class filelist extends \fpcm\controller\abstracts\controller implements \fpcm\co
         $this->initViewAssigns([], [], \fpcm\classes\tools::calcPagination(1, 1, 0, 0));
 
         $buttons = [
-            new \fpcm\view\helper\wrapper('div', 'btn btn-light', (new \fpcm\view\helper\checkbox('fpcm-select-all'))->setText('GLOBAL_SELECTALL')->setIconOnly(true)->setWrapperClass('fpcm-ui-maintoolbarbuttons-tab1')->setClass('fpcm-select-all') ),
+            new \fpcm\view\helper\wrapper('div', 'btn btn-light fpcm-ui-maintoolbarbuttons-tab1', (new \fpcm\view\helper\checkbox('fpcm-select-all'))->setText('GLOBAL_SELECTALL')->setIconOnly(true)->setClass('fpcm-select-all') ),
             (new \fpcm\view\helper\button('openSearch'))->setText('ARTICLES_SEARCH')->setIcon('search')->setIconOnly(true)->setClass('fpcm-ui-maintoolbarbuttons-tab1')
         ];
 
