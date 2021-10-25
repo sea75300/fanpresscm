@@ -45,7 +45,23 @@ if (fpcm.editor !== undefined) {
                 text: 'FILE_LIST_INSERTGALLERY',
                 icon: "images",
                 click: function(_ui) {
-                    fpcm.dom.findElementInDialogFrame(_ui, '#insertGallery').click();
+
+                    let _var = fpcm.dom.findElementInDialogFrame(_ui, '.fpcm-ui-list-checkbox:checked');
+                    if (!_var.length) {
+                        return false;
+                    } 
+                    
+                    var values = [];
+                    _var.map(function (idx, item) {
+                        values.push(item.dataset.gallery);
+                    });
+
+                    if (!values.length) {
+                        return false;
+                    }
+
+                    fpcm.editor.insertGalleryByEditor(values);
+                    return false;                    
                 }
             });
         }

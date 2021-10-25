@@ -1,5 +1,5 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
-<?php if($mode > 1) : ?><?php include_once $theView->getIncludePath('common/buttons.php'); ?><?php endif; ?>
+    <?php if($mode > 1) : ?><div class="d-none"><?php include_once $theView->getIncludePath('common/buttons.php'); ?></div><?php endif; ?>
 <div class="fpcm ui-hidden" id="fpcm-dialog-files-properties">
 
     <div class="row mb-2 g-0">

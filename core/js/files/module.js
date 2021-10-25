@@ -265,6 +265,8 @@ fpcm.filemanager = {
             if (!items || !items.length) {
                 return false;
             }
+            
+            ui.disabled = true;
 
             fpcm.ajax.post('files/createthumbs', {
                 async: true,
@@ -279,6 +281,7 @@ fpcm.filemanager = {
                     });
 
                     fpcm.filemanager.reloadFiles();
+                    ui.disabled = false;
                 }
             });
 
