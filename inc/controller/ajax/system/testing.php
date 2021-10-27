@@ -40,13 +40,7 @@ class testing extends \fpcm\controller\abstracts\ajaxController implements \fpcm
      * Controller-Processing
      */
     public function process()
-    {
-        fpcmLogSystem($_REQUEST);
-        fpcmLogSystem($_FILES);
-        
-        
-        return true;
-        
+    {        
         $current = $this->request->fromPOST('current', [
             \fpcm\model\http\request::FILTER_CASTINT
         ]);
