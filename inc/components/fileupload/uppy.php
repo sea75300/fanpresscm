@@ -94,6 +94,12 @@ final class uppy extends uploader {
     public function getViewVars(): array
     {
         
+        /* @var $no \fpcm\model\theme\notifications */
+        $no = \fpcm\classes\loader::getObject('\fpcm\model\theme\notifications');
+        $no->addNotification(new \fpcm\model\theme\notificationItem(
+            (new \fpcm\view\helper\icon('cloud-upload-alt'))->setText('Uppy file upload beta enabled!')
+        ));        
+        
         return [
             'uploadTemplatePath' => $this->getTemplate(),
             'uploadMultiple' => true
