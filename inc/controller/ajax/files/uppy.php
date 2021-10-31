@@ -38,6 +38,19 @@ class uppy extends \fpcm\controller\abstracts\ajaxController implements \fpcm\co
      */
     public function process()
     {
+        $config = $this->processByParam('process', 'dest');
+        if ($config === self::ERROR_PROCESS_BYPARAMS) {
+            $this->response->setCode('501')->addHeaders('HTTP/1.1 501 Not Implemented')->fetch();
+        }        
+
+    }
+
+    /**
+     * 
+     * @return array
+     */
+    protected function processDefault() : array
+    {
         $file = $this->request->fromFiles('file');
         if ($file === null) {
             $this->response->setCode(400)->fetch();
@@ -48,14 +61,15 @@ class uppy extends \fpcm\controller\abstracts\ajaxController implements \fpcm\co
         if (!is_uploaded_file($tmpFile)) {
             $this->response->setCode(400)->fetch();
         }
-        
-        $mime = (new \finfo)->file($tmpFile, FILEINFO_MIME_TYPE);
+
+        $mime = \fpcm\model\files\image::retrieveRealType($tmpFile);
         if (!\fpcm\model\files\image::isValidType(\fpcm\model\files\image::retrieveFileExtension($realFile), $mime)) {
             trigger_error('Unsupported filetype '.$mime.' in ' . $realFile);
             $this->response->setCode(415)->fetch();
         }
         
         $image = new \fpcm\model\files\image($realFile);
+        $image->addUploadFolder();
         if (!$image->moveUploadedFile($tmpFile)) {
             trigger_error('Unable to move uploaded to to uploader folder! ' . $realFile);
             $this->response->setCode(500)->fetch();
@@ -81,51 +95,13 @@ class uppy extends \fpcm\controller\abstracts\ajaxController implements \fpcm\co
         $this->response->setReturnData([
             'url' => $image->getImageUrl()
         ])->fetch();
-        
-//        require_once \fpcm\classes\loader::libGetFilePath('jqupload/server/fpcmUploadHandler.php');
-//
-//        $config = $this->processByParam('getConfig', 'dest');
-//        if ($config === self::ERROR_PROCESS_BYPARAMS) {
-//            $this->response->setCode('501')->addHeaders('HTTP/1.1 501 Not Implemented')->fetch();
-//        }
-//
-//        $config['script_url'] = \fpcm\classes\tools::getFullControllerLink('ajax/jqupload', [ 'dest' => $this->dest ]);
-//        
-//        new \fpcmUploadHandler($config);
-
     }
 
     /**
      * 
      * @return array
      */
-    protected function getConfigDefault() : array
-    {
-        return [
-            'upload_dir' => \fpcm\model\files\ops::getUploadPath(DIRECTORY_SEPARATOR, $this->config->file_subfolders),
-            'upload_url' => \fpcm\model\files\ops::getUploadUrl('/', $this->config->file_subfolders),
-            'accept_file_types' => \fpcm\components\fileupload\jqupload::FILETYPES_IMG,
-            'image_versions' => array(
-                'thumbnail' => array(
-                    'upload_dir' => \fpcm\model\files\ops::getUploadPath(DIRECTORY_SEPARATOR.'thumbs'.DIRECTORY_SEPARATOR),
-                    'upload_url' => \fpcm\model\files\ops::getUploadUrl('/thumbs/'),
-                    'crop' => false,
-                    'max_width' => $this->config->file_thumb_size,
-                    'max_height' => $this->config->file_thumb_size
-                )
-            ),
-            'min_width' => false,
-            'max_width' => false,
-            'min_height' => false,
-            'max_height' => false
-        ];
-    }
-
-    /**
-     * 
-     * @return array
-     */
-    protected function getConfigDrafts() : array
+    protected function processDrafts() : array
     {
         return [
             'upload_dir' => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_DRAFTS, DIRECTORY_SEPARATOR),
@@ -143,7 +119,7 @@ class uppy extends \fpcm\controller\abstracts\ajaxController implements \fpcm\co
      * 
      * @return array
      */
-    protected function getConfigCsv() : array
+    protected function processCsv() : array
     {
         $unique = \fpcm\classes\tools::getHash($this->session->getSessionId().$this->session->getUserId());
         
@@ -163,7 +139,7 @@ class uppy extends \fpcm\controller\abstracts\ajaxController implements \fpcm\co
      * 
      * @return array
      */
-    protected function getConfigModules() : array
+    protected function processModules() : array
     {
         $unique = \fpcm\classes\tools::getHash($this->session->getSessionId().$this->session->getUserId());
 

@@ -476,6 +476,17 @@ class image extends \fpcm\model\abstracts\file implements \fpcm\model\interfaces
     }
 
     /**
+     * Add upload sub folder string
+     * @return bool
+     * @since 5.0.0-a3
+     */
+    public function addUploadFolder() : bool
+    {
+        $this->fullpath = ops::getUploadPath($this->filename, $this->config->file_subfolders);
+        return true;
+    }
+
+    /**
      * Gibt Speicher-Values zurück
      * @return array
      */
@@ -713,6 +724,18 @@ class image extends \fpcm\model\abstracts\file implements \fpcm\model\interfaces
         }
 
         return in_array($type, self::$allowedTypes) && in_array($ext, self::$allowedExts) && $assigned === $type;
+    }
+    
+    /**
+     * Retrieve real file path via finfo
+     * @param string $path
+     * @return string
+     * @since 5.0.0-a3
+     */
+    public static function retrieveRealType(string $path) : string
+    {
+        $mime = (new \finfo)->file($path, FILEINFO_MIME_TYPE);
+        return trim($mime) ? $mime : '';
     }
 
 }

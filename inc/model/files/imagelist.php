@@ -282,7 +282,7 @@ final class imagelist extends \fpcm\model\abstracts\filelist {
         if ($folderFiles === null) {
             $folderFiles = $this->getFolderList();
         }
-        
+
         if (!count($folderFiles)) {
             return false;
         }

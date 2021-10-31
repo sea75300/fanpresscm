@@ -45,6 +45,7 @@ final class uppy extends uploader {
     {
         return [
             'https://releases.transloadit.com/uppy/v2.2.1/uppy.min.js',
+            'https://releases.transloadit.com/uppy/locales/v2.0.3/de_DE.min.js',
             'files/uppy.js'
         ];
     }
