@@ -15,7 +15,7 @@
         </div>
         <div class="col-12 col-sm-auto flex-grow-1 align-self-center pe-0">
             <div class="fileupload-progress fade">
-                <div class="fpcm-ui-progressbar progress active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+                <div class="fpcm-ui-progressbar progress active w-100" role="progressbar" aria-valuemin="0" aria-valuemax="100">
                     <div class="ui-progressbar-value progress-bar progress-bar-success" style="width:0%;"></div>
                 </div>
                 <div class="progress-extended fpcm ui-progressbar-label">&nbsp;</div>

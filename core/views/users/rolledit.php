@@ -27,7 +27,7 @@
                 <div class="col-12 col-md-6">
                         <?php $theView->textarea('rollcodex')
                             ->setValue($userRoll->getCodex(), ENT_QUOTES | ENT_COMPAT)
-                            ->setClass('fpcm-ui-textarea-medium fpcm-ui-full-width'); ?>                      
+                            ->setClass('fpcm-ui-textarea-medium w-100'); ?>                      
                 </div>
             </div>
         </fieldset>

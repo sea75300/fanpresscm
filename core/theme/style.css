@@ -49,18 +49,8 @@ div.row {
 }
 
 /* ------ Widths and heights */
-.fpcm.ui-full-width,
-.fpcm-ui-full-width,
-.fpcm-ui-progressbar {
+.fpcm.ui-full-width {
     width: 100%;
-}
-
-.fpcm-ui-full-height {
-    height: 100%;
-}
-
-.fpcm-ui-full-view-height {
-    height: 100vh;
 }
 
 ul.fpcm-ui-csv-fields {

@@ -34,6 +34,6 @@
 
 <div class="row">
     <div style="font-size: <?php print $editorDefaultFontsize; ?>">
-        <?php $theView->textarea('article[content]')->setClass('fpcm-ui-full-width')->setValue($article->getContent(), ENT_QUOTES); ?>
+        <?php $theView->textarea('article[content]')->setClass('w-100')->setValue($article->getContent(), ENT_QUOTES); ?>
     </div>
 </div>

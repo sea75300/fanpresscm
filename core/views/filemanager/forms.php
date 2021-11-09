@@ -75,7 +75,7 @@
 
         <div class="col-12 col-md-9">
             <?php $theView->dateTimeInput('datefrom')
-                    ->setClass('fpcm-files-search-input fpcm-ui-full-width-date')
+                    ->setClass('fpcm-files-search-input')
                     ->setText('ARTICLE_SEARCH_DATE_FROM'); ?>
         </div>
         
@@ -91,7 +91,7 @@
     <div class="row mb-2">
         <div class="col-12 col-md-9">
             <?php $theView->dateTimeInput('dateto')
-                    ->setClass('fpcm-files-search-input fpcm-ui-full-width-date')
+                    ->setClass('fpcm-files-search-input')
                     ->setText('ARTICLE_SEARCH_DATE_TO'); ?>
         </div>
         
