@@ -47,10 +47,13 @@ implements \fpcm\controller\interfaces\isAccessible {
             'IMPORT_MSG_INVALIDIMPORTTYPE_NONE', 'IMPORT_MSG_FINISHED'],
             $uploader->getJsLangVars()
         ));
+
         $this->view->addJsFiles(array_merge(['system/import.js', 'ui/dnd.js'], $uploader->getJsFiles() ));
         $this->view->addJsFilesLate($uploader->getJsFilesLate());
-
         $this->view->setViewVars($uploader->getViewVars());
+        $this->view->addFromLibrary('sortable_js/', [
+            'Sortable.min.js'
+        ]);
 
         $this->view->addTabs('import_main', [
             (new \fpcm\view\helper\tabItem('main'))->setText('IMPORT_MAIN')->setFile('system/import.php')

@@ -33,16 +33,8 @@ fpcm.import = {
                     )
                 }
 
-                fpcm.import._initDnd(
-                    '#fpcm-ui-csv-fields-list',
-                    '#fpcm-ui-csv-fields-select li.list-group-item'
-                );
-
-                fpcm.import._initDnd(
-                    '#fpcm-ui-csv-fields-select',
-                    '#fpcm-ui-csv-fields-list li.list-group-item'
-                );
-
+                fpcm.import._initDnd('fpcm-ui-csv-fields-list');
+                fpcm.import._initDnd('fpcm-ui-csv-fields-select');
                 return false;
             }
             
@@ -311,30 +303,10 @@ fpcm.import = {
         return _fields;
     },
     
-    _initDnd: function (_dragElement, _dragStartElement) {
+    _initDnd: function (_id) {
         fpcm.ui_dnd.initDnd({
-            dragElement: _dragElement,
-            dragStartElement: _dragStartElement,
-            dropZone: _dragElement,
-
-            dropCallback: function (_event, _ui) {
-                fpcm.dom.fromTag(_source).appendTo(_event.currentTarget);        
-                _event.delegateTarget.classList.remove('border');
-                _event.delegateTarget.classList.remove('border-success');
-            },
-            dragstartCallback: function (_event, _ui) {
-                _source = _event.target;
-            },
-            dragenterCallback: function (_event, _ui) {
-                _event.preventDefault();        
-                _event.delegateTarget.classList.add('border');
-                _event.delegateTarget.classList.add('border-success');
-            },
-            dragleaveCallback: function (_event, _ui) {
-                _event.preventDefault();              
-                _event.delegateTarget.classList.remove('border');
-                _event.delegateTarget.classList.remove('border-success');
-            }
+            destination: _id,
+            group: 'shared'
         });
     }
 

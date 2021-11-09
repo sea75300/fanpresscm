@@ -1,8 +1,9 @@
 @import url(droid_sans/stylesheet.css);
-@import url(raleway/stylesheet.css);
+@import url(expletus-sans/stylesheet.css);
 
 :root {
   --bs-font-sans-serif: 'Droid Sans', sans-serif ;
+  --fpcm-font-headline: 'Expletus Sans', sans-serif;
 }
 
 /* ------ General common styles */
@@ -32,7 +33,7 @@ select,
 textarea,
 option,
 button {
-    font-family: 'Droid Sans', sans-serif;
+    font-family: var(--bs-font-sans-serif);
 }
 
 .fpcm-ui-monospace {
@@ -40,8 +41,13 @@ button {
 }
 
 h1,
+div.fpcm.ui-help-content > h3,
 h3.card-title {
-    font-family: Raleway, 'Droid Sans', sans-serif !important;
+    font-family: var(--fpcm-font-headline), var(--bs-font-sans-serif) !important;
+}
+
+div.fpcm.ui-help-content h3 {
+    font-weight: 600;
 }
 
 a, a:visited, a.fpcm-link {

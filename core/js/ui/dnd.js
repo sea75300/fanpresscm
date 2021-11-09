@@ -18,61 +18,35 @@ fpcm.ui_dnd = {
             return false;
         }
 
-        var _source;
+        var _el = document.getElementById(_params.destination);
+        var _opt = {
+            animation: 300,
+            chosenClass: 'opacity-50',
+        };
+        
+        if (_params.dropCallback) {
 
-        if (!_params.dragoverCallback) {
-            _params.dragoverCallback = function (_event) {
-                _event.preventDefault();
-                
-                if (_source === undefined) {
-                    return false;
-                }
-                
-                if (_event.delegateTarget.id == _source.id) {
-                    return false;
-                }
+            _opt.onEnd = function(_event) {
+                _params.dropCallback(_event);
+                return true;
             }
+
+        }
+        
+        if (_params.moveCallback) {
+
+            _opt.onMove = function(_event) {
+                _params.moveCallback(_event);
+                return true;
+            };
+
+        }
+        
+        if (_params.group) {
+            _opt.group = _params.group;
         }
 
-        fpcm.dom.bindEvent(
-            _params.dropZone,
-            'drop',
-            function (_event, _ui) {
-                _params.dropCallback(_event, _ui);
-            }
-        );
-
-        fpcm.dom.bindEvent(
-            _params.dragStartElement,
-            'dragstart',
-            function (_event, _ui) {
-                _params.dragstartCallback(_event, _ui);
-            }
-        );
-
-        fpcm.dom.bindEvent(
-            _params.dragElement,
-            'dragenter',
-            function (_event, _ui) {
-                _params.dragenterCallback(_event, _ui);
-            }
-        );
-
-        fpcm.dom.bindEvent(
-            _params.dragElement,
-            'dragleave',
-            function (_event, _ui) {
-                _params.dragleaveCallback(_event, _ui);
-            }
-        );
-
-        fpcm.dom.bindEvent(
-            _params.dragElement,
-            'dragover',
-            function (_event, _ui) {
-                _params.dragoverCallback(_event, _ui);
-            }
-        );
+        return Sortable.create(_el, _opt);
 
     }
 

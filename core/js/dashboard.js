@@ -63,29 +63,10 @@ fpcm.dashboard = {
     initDraggable: function () {7
 
         fpcm.ui_dnd.initDnd({
-            dragElement: 'div.fpcm.dashboard-container-wrapper',
-            dragStartElement: 'div.fpcm.dashboard-container-wrapper',
-            dropZone: 'div.fpcm.dashboard-container-wrapper',
-            dropCallback: function (_event, _ui) {
+            destination: 'fpcm-dashboard-containers',
+            dropCallback: function (_event) {
 
-                 let _target = _event.delegateTarget;
-                 let _tmpOldS = parseInt(_source.dataset.cpos);
-
-                 _source.dataset.cpos = _target.dataset.cpos;
-                 if (_target.dataset.cpos === '{{max}}') {
-                     _target.dataset.cpos = fpcm.dom.fromClass('fpcm.dashboard-container-wrapper').length;
-                 }
-
-                 if (_event.clientX <= _event.delegateTarget.clientWidth / 2 || _event.clientY <= _event.delegateTarget.clientHeight / 2 ) {
-                     fpcm.dom.fromTag(_event.currentTarget).before(_source);
-                     _target.dataset.cpos = parseInt(_target.dataset.cpos) - 1;
-                 }
-                 else {
-                     fpcm.dom.fromTag(_event.currentTarget).after(_source);
-                     _target.dataset.cpos = parseInt(_target.dataset.cpos) + 1;
-                 }
-
-                 var _containers = fpcm.dom.fromClass('fpcm.dashboard-container-wrapper');                
+                 var _containers = _event.to.children;
                  var _saveItems = {};
 
                  for (var _i = 0; _i < _containers.length; _i++) {
@@ -105,25 +86,6 @@ fpcm.dashboard = {
                      execDone: fpcm.dashboard.init,
                      quiet: true
                  });                
-            },
-            dragstartCallback: function (_event, _ui) {
-                _source = _event.target;
-                _source.classList.add('text-muted');
-            },
-            dragenterCallback: function (_event, _ui) {
-                _event.preventDefault();        
-
-                if (_event.delegateTarget.classList.contains('text-muted')) {
-                    return false;
-                }
-
-                if ( _event.target.classList.contains('ui-dropzone') ) {
-                    _event.target.classList.add('border-success');
-                }                
-            },
-            dragleaveCallback: function (_event, _ui) {
-                _event.preventDefault();              
-                _event.target.classList.remove('border-success');
             }
         });
 
