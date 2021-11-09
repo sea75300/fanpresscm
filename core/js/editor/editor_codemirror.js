@@ -733,7 +733,7 @@ if (fpcm.editor) {
         var tagName = fpcm.dom.fromClass('fpcm-editor-mediatype:checked').val().replace(/[^a-z]/, '');
         let _formData = fpcm.dom.getValuesFromIds(['mediapath', 'mediaposter', 'mediapath2', 'mediaformat', 'mediaformat2', 'autoplay:checked', 'controls:checked']);
         
-        var aTag  = '<' + tagName + (_addWidth ? ' class="fpcm ui-full-width"' : '') + (_formData.controls_checked ? ' controls' : '');
+        var aTag  = '<' + tagName + (_addWidth ? ' class="fpcm-full-width"' : '') + (_formData.controls_checked ? ' controls' : '');
             aTag +=  (_formData.mediaposter ? ' poster="' + _formData.mediaposter + '"' : '') + '>';
             aTag += '<source src="' + _formData.mediapath + '"' + (_formData.mediaformat ? ' type="' + _formData.mediaformat.match(/[a-z]{5}\/{1}[a-z0-9]{3,}/) + '"' : '') + (_formData.autoplay_checked ? ' autoplay' : '') + '>';
 

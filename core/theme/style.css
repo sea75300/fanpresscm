@@ -48,11 +48,6 @@ div.row {
     border-left: none !important;
 }
 
-/* ------ Widths and heights */
-.fpcm.ui-full-width {
-    width: 100%;
-}
-
 ul.fpcm-ui-csv-fields {
     min-height: 100px;
 }
