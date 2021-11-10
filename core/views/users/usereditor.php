@@ -62,7 +62,7 @@
         </div>
     </div>
 
-    <?php if($inProfile) : ?>           
+    <?php if($inProfile) : ?>
     <div id="fpcm-ui-currentpass-box" class="row my-2 fpcm-ui-hidden">
         <div class="col-12 col-md-6">
                 <?php $theView->passwordInput('data[current_pass]')
@@ -136,6 +136,7 @@
 </fieldset>
 <?php endif; ?>
 
+<?php if(!$inProfile && $author->getId()) : ?>
 <fieldset class="my-2">
     <legend class="fpcm-ui-font-small"><?php $theView->write('GLOBAL_METADATA'); ?></legend>
 
@@ -164,3 +165,4 @@
         </div>
     </div>
 </fieldset>
+<?php endif; ?>
