@@ -135,3 +135,32 @@
     </div>
 </fieldset>
 <?php endif; ?>
+
+<fieldset class="my-2">
+    <legend class="fpcm-ui-font-small"><?php $theView->write('GLOBAL_METADATA'); ?></legend>
+
+    <div class="row g-0 my-2 fpcm-ui-font-small">
+        <div class="col-12 col-md-6">
+            
+            <div class="row mb-1 row-cols-2">
+                <div class="col">
+                    <?php $theView->icon('calendar')->setSize('lg'); ?>
+                    <strong><?php $theView->write('USERS_REGISTEREDTIME'); ?>:</strong>
+                </div>
+                <div class="col">
+                    <?php print $createInfo; ?>
+                </div>
+            </div>
+            
+            <div class="row mb-1row-cols-2">
+                <div class="col">
+                    <?php $theView->icon('clock', 'far')->setSize('lg'); ?> 
+                    <strong><?php $theView->write('GLOBAL_LASTCHANGE'); ?>:</strong>
+                </div>
+                <div class="col">
+                    <?php print $changeInfo; ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</fieldset>
