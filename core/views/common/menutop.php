@@ -6,7 +6,7 @@
         <div class="navbar-brand px-3 me-0">
             <!-- FanPress CM News System <?php print $theView->version; ?> -->
             <div class="border-bottom border-5 border-info d-inline-block">
-                <img src="<?php print $theView->themePath; ?>logo.svg" alt="FanPress CM News System <?php print $theView->version; ?>" class="fpcm ui-invert-1">
+                <a href="<?php print $theView->basePath; ?>system/dashboard"><img src="<?php print $theView->themePath; ?>logo.svg" alt="FanPress CM News System <?php print $theView->version; ?>" class="fpcm ui-invert-1"></a>
             </div>
             <h1 class="d-none">FanPress CM News System</h1>
         </div>
