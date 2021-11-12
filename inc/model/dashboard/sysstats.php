@@ -81,13 +81,13 @@ class sysstats extends \fpcm\model\abstracts\dashcontainer {
         $this->tableContent[] = $this->get2ColRow(
             (new \fpcm\view\helper\icon('thumbs-up', 'far')).' '.$this->language->translate('SYSTEM_STATS_ARTICLES_APPROVAL'),
             $this->dbStats['articles_unapproved'],
-            ($this->dbStats['articles_unapproved'] > 0 ? 'fpcm-ui-important-text' : '')
+            ($this->dbStats['articles_unapproved'] > 0 ? 'color-red' : '')
         );
 
         $this->tableContent[] = $this->get2ColRow(
             (new \fpcm\view\helper\icon('calendar-plus')).' '.$this->language->translate('SYSTEM_STATS_ARTICLES_POSTPONED'),
             $this->dbStats['articles_postponed'],
-            ($this->dbStats['articles_postponed'] > 0 ? 'fpcm-ui-important-text' : '')
+            ($this->dbStats['articles_postponed'] > 0 ? 'color-red' : '')
         );
         $this->tableContent[] = $this->get2ColRow(
             (new \fpcm\view\helper\icon('comments')).' '.$this->language->translate('SYSTEM_STATS_COMMENTS_ALL'),
@@ -97,19 +97,19 @@ class sysstats extends \fpcm\model\abstracts\dashcontainer {
         $this->tableContent[] = $this->get2ColRow(
             (new \fpcm\view\helper\icon('check-circle', 'far')).' '.$this->language->translate('SYSTEM_STATS_COMMENTS_UNAPPR'),
             $this->dbStats['comments_unapproved'],
-            ($this->dbStats['comments_unapproved'] > 0 ? 'fpcm-ui-important-text' : '')
+            ($this->dbStats['comments_unapproved'] > 0 ? 'color-red' : '')
         );          
 
         $this->tableContent[] = $this->get2ColRow(
             (new \fpcm\view\helper\icon('eye-slash')).' '.$this->language->translate('SYSTEM_STATS_COMMENTS_PRIVATE'),
             $this->dbStats['comments_private'],
-            ($this->dbStats['comments_private'] > 0 ? 'fpcm-ui-important-text' : '')
+            ($this->dbStats['comments_private'] > 0 ? 'color-red' : '')
         );          
 
         $this->tableContent[] = $this->get2ColRow(
             (new \fpcm\view\helper\icon('flag')).' '.$this->language->translate('SYSTEM_STATS_COMMENTS_SPAM'),
             $this->dbStats['comments_spam'],
-            ($this->dbStats['comments_spam'] > 0 ? 'fpcm-ui-important-text' : '')
+            ($this->dbStats['comments_spam'] > 0 ? 'color-red' : '')
         );        
 
         $this->tableContent[] = $this->get2ColRow(
