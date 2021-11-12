@@ -10,7 +10,7 @@
             <h1 class="d-none">FanPress CM News System</h1>
         </div>
 
-        <div class="navbar-nav">
+        <div class="navbar-nav me-2">
         <?php foreach ($theView->buttons as $button) : ?>
             <?php $button->setClass('shadow-sm'); ?>
             <div class="nav-item">

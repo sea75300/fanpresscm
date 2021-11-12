@@ -1,5 +1,5 @@
 <?php /* @var $theView fpcm\view\viewVars */ ?>
-<div class="row p-2 justify-content-center">
+<div class="row p-2 justify-content-center border-top border-5 border-primary">
     <div class="col-8 text-center">
         <p><?php $theView->write('INSTALLER_FINALIZE_TEXT'); ?></p>
         <?php if ($disableInstallerMsg) : ?>

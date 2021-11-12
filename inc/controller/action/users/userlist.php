@@ -117,11 +117,11 @@ class userlist extends \fpcm\controller\abstracts\controller implements \fpcm\co
         $this->view->setFormAction('users/list');
         
         $ddOpt = [
-            (new \fpcm\view\helper\dropdownItem('addUser'))->setUrl(\fpcm\classes\tools::getFullControllerLink('users/add'))->setText('Benuter anlegen')->setValue('user')->setIcon('user-plus'),
+            (new \fpcm\view\helper\dropdownItem('addUser'))->setUrl(\fpcm\classes\tools::getFullControllerLink('users/add'))->setText('USERS_ADD')->setValue('user')->setIcon('user-plus'),
         ];
         
         if ($this->permissions->system->rolls) {
-            $ddOpt[] = (new \fpcm\view\helper\dropdownItem('addRoll'))->setUrl(\fpcm\classes\tools::getFullControllerLink('users/addroll'))->setText('Gruppe anlegen')->setValue('roll')->setIcon('user-tag');
+            $ddOpt[] = (new \fpcm\view\helper\dropdownItem('addRoll'))->setUrl(\fpcm\classes\tools::getFullControllerLink('users/addroll'))->setText('USERS_ROLL_ADD')->setValue('roll')->setIcon('user-tag');
         }
 
         $this->view->addButtons([
