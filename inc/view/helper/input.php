@@ -203,7 +203,7 @@ abstract class input extends helper {
      */
     protected function getRequiredString()
     {
-        return $this->requ && !$this->value ? 'required' : '';
+        return $this->requ ? 'required' : '';
     }
 
     /**

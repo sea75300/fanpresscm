@@ -54,6 +54,7 @@ implements \fpcm\controller\interfaces\isAccessible, \fpcm\controller\interfaces
             (new \fpcm\view\helper\textInput('category[name]'))
                     ->setValue($this->category->getName())
                     ->setAutoFocused(true)
+                    ->setRequired(true)
                     ->setText('CATEGORIES_NAME')
                     ->setIcon('tag'),
             (new \fpcm\view\helper\textInput('category[iconpath]'))
