@@ -197,6 +197,16 @@ abstract class input extends helper {
     }
 
     /**
+     * Return required string
+     * @return string
+     * @since 5.0.0-a3
+     */
+    protected function getRequiredString()
+    {
+        return $this->requ && !$this->value ? 'required' : '';
+    }
+
+    /**
      * 
      * @param string $str
      * @return bool
@@ -232,6 +242,7 @@ abstract class input extends helper {
             $this->getAutoFocusedString(),
             $this->getPlaceholderString(),
             $this->getPatternString(),
+            $this->getRequiredString(),
             $this->getDataString(),
             $this->appendAttributes()
         ]);

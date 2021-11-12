@@ -75,8 +75,8 @@
     <div class="row g-0 my-2 fpcm-ui-font-small">
         <div class="col-12 col-md-6">
             
-            <div class="row mb-1">
-                <div class="col-auto">
+            <div class="row mb-1 row-cols-2">
+                <div class="col">
                     <?php $theView->icon('calendar')->setSize('lg'); ?>
                     <strong><?php $theView->write('COMMMENT_CREATEDATE'); ?>:</strong>
                 </div>
@@ -85,8 +85,8 @@
                 </div>
             </div>
             
-            <div class="row mb-1">
-                <div class="col-auto">
+            <div class="row mb-1 row-cols-2">
+                <div class="col">
                     <?php $theView->icon('clock', 'far')->setSize('lg'); ?> 
                     <strong><?php $theView->write('GLOBAL_LASTCHANGE'); ?>:</strong>
                 </div>

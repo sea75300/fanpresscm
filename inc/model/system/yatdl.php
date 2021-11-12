@@ -33,7 +33,6 @@ class yatdl extends \fpcm\model\abstracts\staticModel {
      */
     public function __construct($filePath)
     {
-        include_once \fpcm\classes\loader::libGetFilePath('spyc/Spyc.php');
         include_once \fpcm\classes\loader::libGetFilePath('nkorg');
 
         $this->parser = new \nkorg\yatdl\parser(

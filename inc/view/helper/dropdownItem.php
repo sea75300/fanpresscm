@@ -19,6 +19,7 @@ namespace fpcm\view\helper;
 class dropdownItem extends helper {
 
     use traits\valueHelper,
+        traits\iconHelper,
         traits\urlHelper;
 
     /**
@@ -55,7 +56,7 @@ class dropdownItem extends helper {
      */
     protected function getString(): string
     {        
-        return "<li><a href=\"{$this->url}\" {$this->getClassString()} {$this->getDataString()} >{$this->language->translate($this->text)}</a></li>";
+        return "<li><a href=\"{$this->url}\" {$this->getClassString()} {$this->getDataString()} >{$this->getIconString()}{$this->language->translate($this->text)}</a></li>";
     }
 
 }

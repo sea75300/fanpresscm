@@ -191,7 +191,6 @@ abstract class package {
      */
     final public function isTrustedPath()
     {
-        include_once \fpcm\classes\loader::libGetFilePath('spyc/Spyc.php');
         $trusted = \Spyc::YAMLLoad(\fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_CONFIG, 'trustedServers.yml'));
 
         if (!count($trusted)) {

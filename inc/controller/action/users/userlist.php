@@ -115,13 +115,20 @@ class userlist extends \fpcm\controller\abstracts\controller implements \fpcm\co
         $this->view->addJsLangVars(['USERS_ARTICLES_SELECT', 'HL_OPTIONS_PERMISSIONS']);
 
         $this->view->setFormAction('users/list');
+        
+        $ddOpt = [
+            (new \fpcm\view\helper\dropdownItem('addUser'))->setUrl(\fpcm\classes\tools::getFullControllerLink('users/add'))->setText('Benuter anlegen')->setValue('user')->setIcon('user-plus'),
+        ];
+        
+        if ($this->permissions->system->rolls) {
+            $ddOpt[] = (new \fpcm\view\helper\dropdownItem('addRoll'))->setUrl(\fpcm\classes\tools::getFullControllerLink('users/addroll'))->setText('Gruppe anlegen')->setValue('roll')->setIcon('user-tag');
+        }
 
-        $buttons = [
-            (new \fpcm\view\helper\linkButton('addUser'))->setUrl(\fpcm\classes\tools::getFullControllerLink('users/add'))->setText('GLOBAL_NEW')->setClass('fpcm-ui-maintoolbarbuttons-tab1')->setIcon('user-plus'),
+        $this->view->addButtons([
+            (new \fpcm\view\helper\dropdown('new'))->setText('GLOBAL_NEW')->setIcon('plus')->setOptions($ddOpt),
             (new \fpcm\view\helper\button('userStats'))
                 ->setText('USERS_STATS_ARTICLE')
                 ->setIcon('chart-pie')
-                ->setClass('fpcm-ui-maintoolbarbuttons-tab1')
                 ->setData([
                     'bs-toggle' => 'offcanvas',
                     'bs-target' => '#offcanvasUserStats'
@@ -129,14 +136,8 @@ class userlist extends \fpcm\controller\abstracts\controller implements \fpcm\co
                 ->setAria([
                     'bs-controls' => 'offcanvasUserStats',
                 ])
-        ];
-        
-        if ($this->permissions->system->rolls) {
-            $buttons[] = (new \fpcm\view\helper\linkButton('addRoll'))->setUrl(\fpcm\classes\tools::getFullControllerLink('users/addroll'))->setText('GLOBAL_NEW')->setClass('fpcm-ui-maintoolbarbuttons-tab2 fpcm-ui-hidden')->setIcon('user-tag');
-        }
-        
+        ]);
 
-        $this->view->addButtons($buttons);
         $this->createUsersView();
         
         if ($this->permissions->system->rolls) {
@@ -354,7 +355,7 @@ class userlist extends \fpcm\controller\abstracts\controller implements \fpcm\co
                     ->setTabToolbar(2);
         }
         
-        $this->view->addTabs('users', $tabs, 'ui-tabs-function-autoinit', 0);
+        $this->view->addTabs('users', $tabs, '', $this->getActiveTab());
     }
 
 }

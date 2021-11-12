@@ -81,7 +81,6 @@ final class installer extends \fpcm\model\abstracts\cli {
             $this->output('No configuration file found in ' . \fpcm\model\files\ops::removeBaseDir(\fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_CONFIG), true), true);
         }
 
-        include_once \fpcm\classes\loader::libGetFilePath('spyc/Spyc.php');
         $this->conf = \Spyc::YAMLLoad($configFile);
 
         $this->language = new \fpcm\classes\language($this->conf['config']['language']);

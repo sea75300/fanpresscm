@@ -8,6 +8,7 @@
                     ->setValue($author->getDisplayName())
                     ->setAutocomplete(false)
                     ->setAutoFocused(true)
+                    ->setRequired(true)
                     ->setText('USERS_DISPLAYNAME')
                     ->setIcon('signature'); ?>
         </div>
@@ -19,6 +20,7 @@
                     ->setValue($author->getUserName())
                     ->setReadonly((isset($inProfile) && $inProfile))
                     ->setAutocomplete(false)
+                    ->setRequired(true)
                     ->setText('GLOBAL_USERNAME')
                     ->setIcon('user'); ?>
         </div>
@@ -31,6 +33,7 @@
                     ->setAutocomplete(false)
                     ->setText('GLOBAL_PASSWORD')
                     ->setIcon('passport')
+                    ->setRequired(!$author->getId())
                     ->setPattern('^.*(?=.{6,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*$'); ?>
             </div>
         </div>
@@ -48,6 +51,7 @@
                     ->setAutocomplete(false)
                     ->setText('USERS_PASSWORD_CONFIRM')
                     ->setIcon('passport')
+                    ->setRequired(!$author->getId())
                     ->setPattern('^.*(?=.{6,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*$'); ?>
         </div>
     </div>
@@ -58,6 +62,7 @@
                     ->setType('email')
                     ->setValue($author->getEmail())
                     ->setText('GLOBAL_EMAIL')
+                    ->setRequired(true)
                     ->setIcon('at'); ?>
         </div>
     </div>

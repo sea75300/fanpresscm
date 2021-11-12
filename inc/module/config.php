@@ -43,8 +43,6 @@ class config implements \JsonSerializable {
      */
     public function __construct($moduleKey, $installed = null)
     {
-        include_once \fpcm\classes\loader::libGetFilePath('spyc/Spyc.php');
-
         $this->basePath = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_MODULES, $moduleKey);
         $this->key = $moduleKey;
 

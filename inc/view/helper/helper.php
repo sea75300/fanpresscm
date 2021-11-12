@@ -71,6 +71,13 @@ abstract class helper {
     protected $autoFocused = false;
 
     /**
+     * Element is required
+     * @var bool
+     * @since 5.0.0-a3
+     */
+    protected $requ = false;
+
+    /**
      * Element prefix
      * @var string
      */
@@ -373,6 +380,18 @@ abstract class helper {
     }
 
     /**
+     * Set required flag
+     * @param bool $required
+     * @return $this
+     * @since 5.0.0-a3
+     */
+    public function setRequired(bool $requ)
+    {
+        $this->requ = $requ;
+        return $this;
+    }
+
+    /**
      * Set button description
      * @param string $text
      * @param array $params
@@ -471,6 +490,7 @@ abstract class helper {
      * @return string
      */
     abstract protected function getString();
+
 }
 
 ?>

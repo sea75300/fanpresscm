@@ -294,8 +294,6 @@ final class baseconfig {
             }
         }
 
-        include_once loader::libGetFilePath('spyc/Spyc.php');
-
         $controller = [];
 
         $controllerFiles = glob(dirs::getDataDirPath(dirs::DATA_CONFIG, '*Controllers.yml'));
@@ -390,8 +388,6 @@ final class baseconfig {
      */
     private static function initServers()
     {
-        include_once loader::libGetFilePath('spyc/Spyc.php');
-
         $servers = \Spyc::YAMLLoad(dirs::getDataDirPath(dirs::DATA_CONFIG, 'servers.yml'));
 
         self::$updateServer = $servers['updates'];
