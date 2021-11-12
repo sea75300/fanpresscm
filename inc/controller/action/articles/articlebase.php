@@ -324,10 +324,15 @@ abstract class articlebase extends \fpcm\controller\abstracts\controller impleme
         $this->article->setChangeuser($this->session->getUserId());
 
         $this->article->enableTweetCreation(isset($data['tweet']) ? true : false);
-        $res = $this->article->getId() ? $this->article->update() : $this->article->save();
-
-        if ($res && $this->article->getId()) {
-            $this->article->createRevision();
+        if ($this->article->getId()) {
+            
+            $res = $this->article->update();
+            if ($res) {
+                $this->article->createRevision();
+            }
+        }
+        else {
+            $res = $this->article->save();
         }
 
         \fpcm\model\articles\article::addSourcesAutocomplete($this->article->getSources());

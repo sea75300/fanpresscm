@@ -45,9 +45,9 @@ class dropdown extends helper {
         $options = $this->getOptionsString($this->options);
         
         $btn = (new button($btnId))->setText($this->text)->setClass('dropdown-toggle')->setData([ 'bs-toggle' => 'dropdown' ])->setAria(['expanded' => 'false']);
-//        if (trim($this->icon)) {
-//            $btn->setIcon($this->icon);
-//        }
+        if (trim($this->icon)) {
+            $btn->setIcon($this->icon);
+        }
         
         return implode(' ', [
             "<div",
