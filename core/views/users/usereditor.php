@@ -37,10 +37,10 @@
                     ->setPattern('^.*(?=.{6,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*$'); ?>
             </div>
         </div>
-        <div class="col-auto align-self-center mx-3 mb-3">
+        <div class="col-auto align-self-center mb-3">
             <?php $theView->button('genPasswd', 'genPasswd')->setText('USERS_PASSGEN')->setIcon('key')->setIconOnly(true); ?>
         </div>
-        <div class="col-auto align-self-center mx-3 mb-3">
+        <div class="col-auto align-self-center mb-3">
             <?php $theView->shorthelpButton('dtmask')->setText('USERS_REQUIREMENTS'); ?>
         </div>
     </div>
