@@ -27,7 +27,7 @@ interface GoogleAuthenticatorInterface
      * @param string                                   $secret
      * @param float|string|int|\DateTimeInterface|null $time
      */
-    public function getCode($secret, /* \DateTimeInterface */$time = null): string;
+    public function getCode($secret, /* \DateTimeInterface */ $time = null): string;
 
     /**
      * NEXT_MAJOR: Remove this method.
