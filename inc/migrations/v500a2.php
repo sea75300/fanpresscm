@@ -39,6 +39,7 @@ class v500a2 extends migration {
             \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_JS, 'options.js'),
             \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_JS, 'langedit.js'),
             \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_THEME, 'navigation.css'),
+            \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_THEME, 'dataview.css'),
             \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_THEME, 'forms.css'),
             \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'articles/times.php'),
             \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'comments/commentedit.php'),

@@ -38,7 +38,7 @@
     <div class="row my-2">
         <div class="col-12 col-md-6">
             <div class="row g-0">
-                <?php $theView->textInput('data[system_dtmask]')
+                <?php $theView->textInput('usermeta[system_dtmask]')
                         ->setValue($author->getUserMeta('system_dtmask'))
                         ->setAutocomplete(false)
                         ->setText('SYSTEM_OPTIONS_DATETIMEMASK')

@@ -68,7 +68,10 @@ class actions extends \fpcm\controller\abstracts\ajaxController implements \fpcm
             return new \fpcm\view\message($this->language->translate('SAVE_FAILED_USER_DISABLE_LAST'), \fpcm\view\message::TYPE_ERROR);
         }
 
-        if (!(new \fpcm\model\users\author($this->oid))->disable()) {
+        $obj = new \fpcm\model\users\author($this->oid);
+        $obj->setChangeTime(time());
+        $obj->setChangeUser($this->session->getUserId());
+        if (!$obj->disable()) {
             return new \fpcm\view\message($this->language->translate('SAVE_FAILED_USER_DISABLE'), \fpcm\view\message::TYPE_ERROR);
         }
 
@@ -89,7 +92,10 @@ class actions extends \fpcm\controller\abstracts\ajaxController implements \fpcm
             return new \fpcm\view\message($this->language->translate('SAVE_SUCCESS_USER_ENABLE'), \fpcm\view\message::TYPE_ERROR);
         }
 
-        if (!(new \fpcm\model\users\author($this->oid))->enable()) {
+        $obj = new \fpcm\model\users\author($this->oid);
+        $obj->setChangeTime(time());
+        $obj->setChangeUser($this->session->getUserId());
+        if (!$obj->enable()) {
             return new \fpcm\view\message($this->language->translate('SAVE_FAILED_USER_ENABLE'), \fpcm\view\message::TYPE_ERROR);        
         }
 

@@ -519,15 +519,22 @@ fpcm.ui = {
             return false;
         }
         
-        if (fpcm.dom.fromId('#system_dtmask').length) {
+        if (fpcm.dom.fromId('system_dtmask').length) {
             fpcm.ui.autocomplete('#system_dtmask', {
                 source: fpcm.vars.jsvars.dtMasks,
                 minLength: 1
             });
         }
         
-        if (fpcm.dom.fromId('#datasystem_dtmask').length) {
+        if (fpcm.dom.fromId('datasystem_dtmask').length) {
             fpcm.ui.autocomplete('#datasystem_dtmask', {
+                source: fpcm.vars.jsvars.dtMasks,
+                minLength: 1
+            });
+        }
+        
+        if (fpcm.dom.fromId('usermetasystem_dtmask').length) {
+            fpcm.ui.autocomplete('#usermetasystem_dtmask', {
                 source: fpcm.vars.jsvars.dtMasks,
                 minLength: 1
             });

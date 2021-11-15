@@ -22,7 +22,6 @@ fpcm.profile = {
         
         fpcm.dom.fromId('dataemail').focusout(function () {
             fpcm.ui.showCurrentPasswordConfirmation();
-            
         });
 
     }

@@ -3,7 +3,7 @@
 
 :root {
   --bs-font-sans-serif: 'Droid Sans', sans-serif ;
-  --fpcm-font-headline: 'Expletus Sans', sans-serif;
+  --fpcm-font-headline: 'Expletus Sans';
 }
 
 /* ------ General common styles */
@@ -43,6 +43,11 @@ button {
 h1,
 div.fpcm.ui-help-content > h3,
 h3.card-title {
+    font-family: var(--fpcm-font-headline), var(--bs-font-sans-serif) !important;
+}
+
+div.fpcm.ui-dataview-head,
+div.fpcm-ui-dataview-subhead {
     font-family: var(--fpcm-font-headline), var(--bs-font-sans-serif) !important;
 }
 
