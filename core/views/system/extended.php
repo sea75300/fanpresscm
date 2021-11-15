@@ -10,16 +10,6 @@
 
     <div class="row my-2">
         <div class="col-12 col-md-8">
-        <?php $theView->select('system_session_length')
-                ->setOptions($theView->translate('SYSTEM_OPTIONS_SESSIONLENGHT_INTERVALS'))
-                ->setText('SYSTEM_OPTIONS_SESSIONLENGHT')
-                ->setSelected($globalConfig->system_session_length)
-                ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
-        </div>
-    </div>
-
-    <div class="row my-2">
-        <div class="col-12 col-md-8">
         <?php $theView->numberInput('system_loginfailed_locked')
                 ->setText('SYSTEM_OPTIONS_LOGIN_MAXATTEMPTS')
                 ->setValue($globalConfig->system_loginfailed_locked)

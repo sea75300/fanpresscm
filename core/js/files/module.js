@@ -426,11 +426,11 @@ fpcm.filemanager = {
 
     reloadFiles: function (_page, _filter) {
 
-        fpcm.dom.assignHtml('#fpcm-tab-files-list-pane', fpcm.vars.jsvars.loaderTpl.replace(/\{\$thumbsize\}/g, fpcm.vars.jsvars.thumbsize));
-
         if (!_page) {
-            _page = 1;
+            _page = fpcm.filemanager.getCurrentPage();
         }
+
+        fpcm.dom.assignHtml('#fpcm-tab-files-list-pane', fpcm.vars.jsvars.loaderTpl.replace(/\{\$thumbsize\}/g, fpcm.vars.jsvars.thumbsize));
         
          if (_filter) {
             fpcm.vars.jsvars.filesLastSearch = (new Date()).getTime();
@@ -517,5 +517,15 @@ fpcm.filemanager = {
             loaderMsg: fpcm.ui.translate('FILE_LIST_ADDTOINDEX')
         });
 
+    },
+    
+    getCurrentPage: function () {
+     
+        let _el = document.getElementById('pageSelect');
+        if (!_el || _el.options.length < 2 || _el.value === undefined) {
+            return 1;
+        }
+        
+        return _el.value;        
     }
 };

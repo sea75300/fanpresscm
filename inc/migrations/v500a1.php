@@ -20,10 +20,10 @@ namespace fpcm\migrations;
 class v500a1 extends migration {
 
     /**
-     * Update inedit data for articles
+     * Update system config options
      * @return bool
      */
-    protected function alterTablesAfter() : bool
+    protected function updateSystemConfig() : bool
     {
         $conf = $this->getConfig();
 

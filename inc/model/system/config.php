@@ -23,7 +23,6 @@ use fpcm\model\traits\eventModuleEmpty;
  * @property string $system_lang System language
  * @property string $system_dtmask Date time mask
  * @property bool   $system_comments_enabled Comment system enabled
- * @property int    $system_session_length ACP session lenght
  * @property bool   $system_mode Frontend mode (0 = iframe, 1= phpinclude)
  * @property string $system_css_path External CSS file path
  * @property bool   $system_show_share Enable share buttons
@@ -344,10 +343,6 @@ final class config extends dataset {
 
         if (isset($this->newConfig['system_cache_timeout'])) {
             $this->newConfig['system_cache_timeout'] = (int) $this->newConfig['system_cache_timeout'];
-        }
-
-        if (isset($this->newConfig['system_session_length'])) {
-            $this->newConfig['system_session_length'] = (int) $this->newConfig['system_session_length'];
         }
 
         if (isset($this->newConfig['comments_flood'])) {

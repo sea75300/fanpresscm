@@ -18,6 +18,12 @@ namespace fpcm\model\crons;
 final class cronlist extends \fpcm\model\abstracts\staticModel {
 
     /**
+     * DB-Verbindung
+     * @var \fpcm\classes\database
+     */
+    protected $dbcon;
+
+    /**
      * Konstruktor
      */
     public function __construct()
@@ -118,12 +124,17 @@ final class cronlist extends \fpcm\model\abstracts\staticModel {
      */
     public function getExecutableCrons()
     {
-        return $this->getResult(\fpcm\classes\loader::getObject('\fpcm\classes\database')->selectFetch(
-            (new \fpcm\model\dbal\selectParams(\fpcm\classes\database::tableCronjobs))
+        if (!$this->dbcon instanceof \fpcm\classes\database) {
+            $this->dbcon = \fpcm\classes\loader::getObject('\fpcm\classes\database');
+        }
+
+        $obj = (new \fpcm\model\dbal\selectParams(\fpcm\classes\database::tableCronjobs))
                 ->setWhere('(lastexec+execinterval) < ? AND execinterval > -1')
                 ->setParams([time()])
-                ->setFetchAll(true)
-        ), true);
+                ->setFetchAll(true);
+
+        return $this->getResult($this->dbcon->selectFetch($obj), true);        
+        
     }
 
     /**
@@ -133,11 +144,15 @@ final class cronlist extends \fpcm\model\abstracts\staticModel {
      */
     public function getAllCrons() : array
     {
-        return $this->getResult(
-            \fpcm\classes\loader::getObject('\fpcm\classes\database')->selectFetch(
-                (new \fpcm\model\dbal\selectParams(\fpcm\classes\database::tableCronjobs))
-                ->setFetchAll(true)
-        ));
+        if (!$this->dbcon instanceof \fpcm\classes\database) {
+            $this->dbcon = \fpcm\classes\loader::getObject('\fpcm\classes\database');
+        }
+
+        $obj = (new \fpcm\model\dbal\selectParams(\fpcm\classes\database::tableCronjobs))
+                ->setWhere('1=1 ' . $this->dbcon->orderBy(['isrunning DESC', 'cjname ASC']) )
+                ->setFetchAll(true);
+
+        return $this->getResult($this->dbcon->selectFetch($obj));
     }
     
     /**

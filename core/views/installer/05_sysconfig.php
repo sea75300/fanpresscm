@@ -62,16 +62,6 @@
             </div>
 
             <div class="row my-2">
-                <div class="col-12 col-md-8">
-                <?php $theView->select('conf[system_session_length]')
-                        ->setOptions($theView->translate('SYSTEM_OPTIONS_SESSIONLENGHT_INTERVALS'))
-                        ->setSelected(3600)
-                        ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
-                        ->setText('SYSTEM_OPTIONS_SESSIONLENGHT'); ?>
-                </div>
-            </div>
-
-            <div class="row my-2">
                 <div class="col-12 col-md-8">       
                 <?php $theView->select('conf[system_cache_timeout]')
                         ->setOptions($theView->translate('SYSTEM_OPTIONS_CACHETIMEOUT_INTERVAL'))

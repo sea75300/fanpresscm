@@ -226,7 +226,6 @@ final class installer extends \fpcm\model\abstracts\cli {
             'system_dtmask' => $this->conf['config']['datetimemask'],
             'system_timezone' => $this->conf['config']['timezone'],
             'system_cache_timeout' => $this->conf['config']['cachetimeout'],
-            'system_session_length' => $this->conf['config']['sessionlength'],
             'comments_antispam_question' => $this->conf['config']['captcha']['question'],
             'comments_antispam_answer' => $this->conf['config']['captcha']['answer'],
         ];

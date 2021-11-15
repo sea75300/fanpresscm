@@ -198,3 +198,11 @@ if (!defined('FPCM_DB_PERSISTENT')) {
      */
     define('FPCM_DB_PERSISTENT', true);
 }
+
+if (!defined('FPCM_USER_SESSION')) {
+    /**
+     * Default session lenght, replaces ACP setting
+     * @since 5.0.0-a3
+     */
+    define('FPCM_USER_SESSION', 3600);
+}

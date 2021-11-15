@@ -82,5 +82,14 @@ class v500a2 extends migration {
 
         return true;
     }
+
+    /**
+     * Returns new version, e. g. from version.txt
+     * @return string
+     */
+    protected function getNewVersion() : string
+    {
+        return '5.0.0-a2';
+    }
     
 }
