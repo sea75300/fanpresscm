@@ -22,10 +22,10 @@ fpcm.imageEditor = {
             scrollable: false,
             dlOnOpenAfter: function() {
 
-                fpcm.filemanager.cropper = new Cropper(document.getElementById('fpcm-dialog-files-imgeditor'), {
-                        autoCrop: false
-                    }
-                );
+                let _el = document.getElementById('fpcm-dialog-files-imgeditor');
+                fpcm.filemanager.cropper = new Cropper(_el, {
+                    autoCrop: false
+                });
 
                 return true;
             },
@@ -72,12 +72,23 @@ fpcm.imageEditor = {
                                     clickClose: true,
                                     click: function() {
                                         fpcm.vars.jsvars.cropperSizes = {
-                                            maxWidth: parseInt(fpcm.dom.fromId('fpcm-ui-files-editor-width').val()),
-                                            maxHeight: parseInt(fpcm.dom.fromId('fpcm-ui-files-editor-height').val())
+                                            width: parseInt(fpcm.dom.fromId('fpcm-ui-files-editor-width').val()),
+                                            height: parseInt(fpcm.dom.fromId('fpcm-ui-files-editor-height').val())
                                         }
                                     }
                                 }                  
-                            ]
+                            ],
+                            dlOnOpenAfter: function() {
+
+                                fpcm.dom.bindEvent('#fpcm-ui-files-editor-width', 'change', function (_e, _ui) {
+                                    fpcm.imageEditor.calcResized(_ui, 'fpcm-ui-files-editor-height', 0);
+                                });
+
+                                fpcm.dom.bindEvent('#fpcm-ui-files-editor-height', 'change', function (_e, _ui) {
+                                    fpcm.imageEditor.calcResized(_ui, 'fpcm-ui-files-editor-width', 1);
+                                });
+
+                            }
                         });
                     }
                 },
@@ -143,10 +154,12 @@ fpcm.imageEditor = {
                     clickClose: true,
                     primary: true,
                     click: function() {
-                        fpcm.filemanager.cropper.getCroppedCanvas(fpcm.vars.jsvars.cropperSizes !== undefined ? fpcm.vars.jsvars.cropperSizes : {}).toBlob((blob) => {
+
+                        let _params = fpcm.vars.jsvars.cropperSizes !== undefined ? fpcm.vars.jsvars.cropperSizes : {};
+                        fpcm.filemanager.cropper.getCroppedCanvas(_params).toBlob((_blob) => {
 
                             const formData = new FormData();
-                            formData.append('file', blob, _param.data.filename);
+                            formData.append('file', _blob, _param.data.filename);
 
                             fpcm.ajax.post('editor/imgupload', {
                                 data: formData,
@@ -160,21 +173,20 @@ fpcm.imageEditor = {
                         }, _param.data.mime);
                     }
                 },
-                
-                {                   
-                    text: 'test',
-                    showLabel: true,
-                    click: function() {
-                        
-                        var _cropBox = fpcm.filemanager.cropper.getCropBoxData();
-                        console.log(_cropBox);
-                        
-                        
-                    }
-                },
             ]
         });            
 
     },
+    
+    calcResized: function(_ui, _assignTo, _mode) {
+        
+        var _cropBox = fpcm.filemanager.cropper.getCropBoxData();
+        if (!_cropBox.width || !_cropBox.height) {
+            return false;
+        }
+
+        let _factor = _mode ? _cropBox.width / _cropBox.height : _cropBox.height / _cropBox.width;
+        fpcm.dom.fromId(_assignTo).val(Math.round(_ui.value * _factor));
+    }
 
 };
