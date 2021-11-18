@@ -95,6 +95,10 @@ fpcm.ui_dialogs = {
         if (_params.content === undefined) {
             _params.content = '';
         }
+        
+        if (_params.scrollable === undefined || _params.scrollable === true) {            
+            _params.class += ' modal-dialog-scrollable';
+        }
 
         if (!fpcm.dom.fromId(_dlgId).length) {            
             let _modal = fpcm.vars.ui.dialogTpl;

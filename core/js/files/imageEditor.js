@@ -16,8 +16,10 @@ fpcm.imageEditor = {
             id: 'files-editor',
             title: 'FILE_LIST_EDIT',
             class: 'modal-fullscreen',
-            content: '<div class="m-2"><img id="fpcm-dialog-files-imgeditor" class="d-block mw-100" src="' + _param.data.url + '"></div>',
+            modalBodyClass: 'overflow-hidden',
+            content: '<div class="m-2 mw-100 h-100 overflow-hidden"><img id="fpcm-dialog-files-imgeditor" src="' + _param.data.url + '"></div>',
             closeButton: true,
+            scrollable: false,
             dlOnOpenAfter: function() {
 
                 fpcm.filemanager.cropper = new Cropper(document.getElementById('fpcm-dialog-files-imgeditor'), {
@@ -157,7 +159,19 @@ fpcm.imageEditor = {
 
                         }, _param.data.mime);
                     }
-                }
+                },
+                
+                {                   
+                    text: 'test',
+                    showLabel: true,
+                    click: function() {
+                        
+                        var _cropBox = fpcm.filemanager.cropper.getCropBoxData();
+                        console.log(_cropBox);
+                        
+                        
+                    }
+                },
             ]
         });            
 
