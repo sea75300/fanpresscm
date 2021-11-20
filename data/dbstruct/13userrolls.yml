@@ -21,6 +21,10 @@ cols:
         length: 
         params: NOT NULL
         charset: utf8mb4
+    is_system:
+        type: bool
+        length: 
+        params: NOT NULL
 indices:
     leveltitle:
         col: leveltitle
@@ -31,11 +35,14 @@ defaultvalues:
             id: 1
             leveltitle: "GLOBAL_ADMINISTRATOR"
             codex: ""
+            is_system: 1
         2:
             id: 2
             leveltitle: "GLOBAL_EDITOR"
             codex: ""
+            is_system: 1
         3:
             id: 3
             leveltitle: "GLOBAL_AUTHOR"
             codex: "Feel free to create your content, but be aware an Admin und Editor might edit or reject an article."
+            is_system: 1

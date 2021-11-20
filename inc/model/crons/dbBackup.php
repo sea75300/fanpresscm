@@ -55,6 +55,7 @@ class dbBackup extends \fpcm\model\abstracts\cron {
         $dumpSettings['add-locks'] = false;
         $dumpSettings['extended-insert'] = false;
         $dumpSettings['no-autocommit'] = false;
+        $dumpSettings['default-character-set'] = \Ifsnop\Mysqldump\Mysqldump::UTF8MB4;
 
         fpcmLogCron('Fetch database tables for backup...');
 

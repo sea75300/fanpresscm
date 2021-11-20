@@ -33,6 +33,13 @@ class userRoll extends \fpcm\model\abstracts\dataset {
     protected $codex = '';
 
     /**
+     * System roll flag
+     * @var bool
+     * @since 5.0.0-a4
+     */
+    protected $is_system = 0;
+
+    /**
      * Wortsperren-Liste
      * @var \fpcm\model\wordban\items
      * @since 3.2.0
@@ -76,6 +83,15 @@ class userRoll extends \fpcm\model\abstracts\dataset {
         return $this->codex;
     }
 
+    /**
+     * System roll flag set
+     * @return bool
+     */
+    public function isSystemRoll(): bool
+    {
+        return (bool) $this->is_system;
+    }
+        
     /**
      * Set roll name
      * @param string $leveltitle
@@ -147,8 +163,8 @@ class userRoll extends \fpcm\model\abstracts\dataset {
      */
     public function delete()
     {
-        if ($this->id <= 3) {
-            trigger_error('Tried to delete system roll with: ' . $this->id);
+        if ($this->is_system) {
+            trigger_error('A system roll cannot be deleted, ID was ' . $this->id);
             return false;
         }
 
@@ -175,8 +191,8 @@ class userRoll extends \fpcm\model\abstracts\dataset {
      */
     public function update()
     {
-        if ($this->id <= 3 && isset($this->data['old_leveltitle']) && $this->data['old_leveltitle'] !== $this->leveltitle) {
-            trigger_error('Tried to rename system roll with id ' . $this->id);
+        if ($this->is_system && isset($this->data['old_leveltitle']) && $this->data['old_leveltitle'] !== $this->leveltitle) {
+            trigger_error('A system roll cannot be renamed, ID was ' . $this->id);
             return false;
         }
 

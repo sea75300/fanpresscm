@@ -494,7 +494,7 @@ class image extends \fpcm\model\abstracts\file implements \fpcm\model\interfaces
     {
         $values = [];
         foreach ($this->dbParams as $key) {
-            $values[$key] = ($this->$key) ? $this->$key : '';
+            $values[$key] = $this->$key ?? '';
         }
 
         return $values;

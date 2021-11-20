@@ -10,9 +10,9 @@
                 <?php $theView->textInput('rollname')
                     ->setValue($userRoll->getRollName())
                     ->setText('USERS_ROLLS_NAME')
-                    ->setRequired(true)
-                    ->setAutoFocused($userRoll->getId() && $userRoll->getId() > 3)
-                    ->setReadonly($userRoll->getId() && $userRoll->getId() <= 3); ?>
+                    ->setRequired(!$userRoll->isSystemRoll())
+                    ->setAutoFocused(!$userRoll->isSystemRoll())
+                    ->setReadonly($userRoll->isSystemRoll()); ?>
             </div>
                
         </fieldset>
