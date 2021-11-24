@@ -194,7 +194,14 @@ class view {
      * @since 4.5-b7
      */
     protected $module = null;
-    
+
+    /**
+     * Active nagivation item
+     * @var string
+     * @since 5.0.0-a4
+     */
+    protected $navigationActiveModule = '';
+
     /**
      * Konstruktor
      * @param string $viewName Viewname ohne Endung .php
@@ -686,11 +693,7 @@ class view {
 
             $this->defaultViewVars->currentUser = $this->session->getCurrentUser();
             $this->defaultViewVars->loginTime = $this->session->getLogin();
-            $this->defaultViewVars->navigation = (new \fpcm\model\theme\navigation())->render();
-            
-            if (!trim($this->defaultViewVars->navigationActiveModule)) {
-                $this->defaultViewVars->navigationActiveModule = \fpcm\classes\tools::getNavigationActiveCheckStr();
-            }
+            $this->defaultViewVars->navigation = (new \fpcm\model\theme\navigation($this->navigationActiveModule))->render();
             
             $this->defaultViewVars->loggedIn = true;
             $this->defaultViewVars->permissions = \fpcm\classes\loader::getObject('\fpcm\model\permissions\permissions');
@@ -857,7 +860,7 @@ class view {
             return false;
         }
         
-        $this->defaultViewVars->navigationActiveModule = $elementId;
+        $this->navigationActiveModule = $elementId;
         return true;
     }
 

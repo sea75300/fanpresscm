@@ -24,7 +24,16 @@ class navigation extends \fpcm\model\abstracts\staticModel {
      */
     private $navList;
 
-
+    /**
+     * Constructor
+     * @param string $activeNavItem
+     */
+    public function __construct(string $activeNavItem = '')
+    {
+        parent::__construct();
+        $this->navList = new navigationList($activeNavItem ?? \fpcm\classes\tools::getNavigationActiveCheckStr());
+    }
+    
     /**
      * Navigation rendern
      * @return array
@@ -36,42 +45,11 @@ class navigation extends \fpcm\model\abstracts\staticModel {
     }
 
     /**
-     * Berechtigungen für Zugriff auf Module prüfen
-     * @param array $navigation
-     * @return array
-     */
-    private function checkPermissions($navigation)
-    {
-        /* @var $value navigationItem */
-        foreach ($navigation as $key => $value) {
-
-            if ($value->hasSubmenu()) {
-                $value->setSubmenu($this->checkPermissions($value->getSubmenu()));
-            }
-
-            $accesible = $value->isAccessible();
-            if ($accesible !== null && !$accesible) {
-                unset($navigation[$key]);
-                continue;
-            }
-            elseif ($value->hasPermission() && $this->permissions->check($value->getPermission())) {
-                unset($navigation[$key]);
-                continue;
-            }
-
-        }
-
-        return $navigation;
-    }
-
-    /**
      * Baut Navigation auf
      * @return array
      */
     private function getNavigation()
     {
-        $this->navList = new navigationList;
-
         $this->navList->add(
             navigationItem::AREA_DASHBOARD,
             (new navigationItem())->setUrl('system/dashboard')->setDescription('HL_DASHBOARD')->setIcon('home fa-lg')

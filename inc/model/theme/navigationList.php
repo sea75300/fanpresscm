@@ -26,10 +26,19 @@ final class navigationList {
     private $data;
 
     /**
+     * Active navigation item
+     * @var string
+     * @since 5.0.0-a4
+     */
+    private $activeNavItem = '';
+
+    /**
      * @ignore
      */
-    final public function __construct()
+    final public function __construct(string $activeNavItem = '')
     {
+        $this->activeNavItem = $activeNavItem ?? \fpcm\classes\tools::getNavigationActiveCheckStr();
+
         $this->data = [
             navigationItem::AREA_DASHBOARD => [],
             navigationItem::AREA_ADDNEWS => [],
@@ -108,6 +117,7 @@ final class navigationList {
     private function checkSubmenu(navigationItem &$item) : bool
     {
         if (!$item->hasSubmenu()) {
+            $item->initDefault($this->activeNavItem);
             return true;
         }
 
@@ -117,6 +127,7 @@ final class navigationList {
                 return false;
             }
             
+            $subItem->initDefault($this->activeNavItem);
             $subItem->setIsSubmenuItem(true);
             return true;
         });
