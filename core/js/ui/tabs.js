@@ -138,11 +138,11 @@ fpcm.ui_tabs = {
             });
         });
 
-        if (fpcm.vars.jsvars.activeTab === undefined || fpcm.vars.jsvars.activeTab < 0) {
+        if (fpcm.vars.jsvars.activeTab === undefined || fpcm.vars.jsvars.activeTab < 0 || !_tb[fpcm.vars.jsvars.activeTab]) {
             fpcm.vars.jsvars.activeTab = 0;
         }
 
-        if ( fpcm.vars.jsvars.activeTab > -1 && fpcm.dom.fromTag(_tb[fpcm.vars.jsvars.activeTab]).hasClass('active') ) {
+        if (fpcm.vars.jsvars.activeTab > -1 && fpcm.dom.fromTag(_tb[fpcm.vars.jsvars.activeTab]).hasClass('active') ) {
             fpcm.dom.fromTag(_tb[fpcm.vars.jsvars.activeTab]).removeClass('active');
         }
 

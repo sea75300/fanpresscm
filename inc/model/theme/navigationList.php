@@ -111,8 +111,14 @@ final class navigationList {
             return true;
         }
 
-        $submenu = array_filter($item->getSubmenu(), function (navigationItem $subItem) {
-            return $subItem->isAccessible() === false ? false : true;
+        $submenu = array_filter($item->getSubmenu(), function (navigationItem &$subItem) {
+            
+            if ($subItem->isAccessible() === false) {
+                return false;
+            }
+            
+            $subItem->setIsSubmenuItem(true);
+            return true;
         });
 
         $item->setSubmenu($submenu);
