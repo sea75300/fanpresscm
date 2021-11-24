@@ -12,6 +12,10 @@ fpcm.imageEditor = {
 
     initEditorDialog: function(_param) {
 
+        if (fpcm.vars.jsvars.cropperSizes === undefined) {
+            fpcm.vars.jsvars.cropperSizes = {};
+        }
+
         fpcm.ui_dialogs.create({
             id: 'files-editor',
             title: 'FILE_LIST_EDIT',
@@ -32,6 +36,7 @@ fpcm.imageEditor = {
             dlOnClose: function() {
                 fpcm.dom.fromTag(this).remove();
                 fpcm.filemanager.cropper.destroy();
+                fpcm.vars.jsvars.cropperSizes = {};
             },
             dlButtons: [
                 {
@@ -154,9 +159,7 @@ fpcm.imageEditor = {
                     clickClose: true,
                     primary: true,
                     click: function() {
-
-                        let _params = fpcm.vars.jsvars.cropperSizes !== undefined ? fpcm.vars.jsvars.cropperSizes : {};
-                        fpcm.filemanager.cropper.getCroppedCanvas(_params).toBlob((_blob) => {
+                        fpcm.filemanager.cropper.getCroppedCanvas(fpcm.vars.jsvars.cropperSizes).toBlob((_blob) => {
 
                             const formData = new FormData();
                             formData.append('file', _blob, _param.data.filename);
@@ -167,6 +170,7 @@ fpcm.imageEditor = {
                                 contentType: false,
                                 execDone: function (result) {
                                     _param.afterUpload(result);
+                                    fpcm.vars.jsvars.cropperSizes = {};
                                 }
                             });
 
