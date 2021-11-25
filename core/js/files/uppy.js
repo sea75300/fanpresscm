@@ -21,7 +21,7 @@ fpcm.fileuploader = {
 
         _uppy
             .use(Uppy.FileInput, {
-                target: '.UppyInput'
+                target: '.UppyInput',
             })
             .use(Uppy.XHRUpload, { endpoint: 
                 fpcm.vars.ajaxActionPath + 'upload/uppy&dest=' + fpcm.vars.jsvars.uploadDest

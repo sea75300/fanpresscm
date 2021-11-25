@@ -33,7 +33,7 @@ final class uppy extends uploader {
     public function getCssFiles(): array
     {
         return [
-            'https://releases.transloadit.com/uppy/v2.2.1/uppy.min.css',
+             \fpcm\classes\dirs::getLibUrl('uppy/uppy.min.css'),
         ];
     }
 
@@ -43,11 +43,16 @@ final class uppy extends uploader {
      */
     public function getJsFiles(): array
     {
-        return [
-            'https://releases.transloadit.com/uppy/v2.2.1/uppy.min.js',
-            'https://releases.transloadit.com/uppy/locales/v2.0.3/de_DE.min.js',
+        $return = [
+            \fpcm\classes\dirs::getLibUrl('uppy/uppy.min.js'),
             'files/uppy.js'
         ];
+        
+        if (in_array($this->config->system_lang, ['de'])) {
+            $return[] = \fpcm\classes\dirs::getLibUrl('uppy/locales/'.$this->config->system_lang.'.js');
+        }
+
+        return $return;
     }
             
 
