@@ -47,10 +47,6 @@ final class uppy extends uploader {
             \fpcm\classes\dirs::getLibUrl('uppy/uppy.min.js'),
             'files/uppy.js'
         ];
-        
-        if (in_array($this->config->system_lang, ['de'])) {
-            $return[] = \fpcm\classes\dirs::getLibUrl('uppy/locales/'.$this->config->system_lang.'.js');
-        }
 
         return $return;
     }
