@@ -501,5 +501,17 @@ abstract class file {
     {
         return tools::getHash($this->filename);
     }
+    
+    /**
+     * Retrieve real file path via finfo
+     * @param string $path
+     * @return string
+     * @since 5.0.0-a3
+     */
+    public static function retrieveRealType(string $path) : string
+    {
+        $mime = (new \finfo)->file($path, FILEINFO_MIME_TYPE);
+        return trim($mime) ? $mime : '';
+    }
 
 }

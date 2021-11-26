@@ -15,7 +15,7 @@ namespace fpcm\model\files;
  * @package fpcm\model\files
  * @since 3.3
  */
-final class templatefile extends \fpcm\model\abstracts\file {
+final class templatefile extends \fpcm\model\abstracts\file implements \fpcm\model\interfaces\validateFileType {
 
     /**
      * Erlaubte Dateitypen
@@ -75,6 +75,20 @@ final class templatefile extends \fpcm\model\abstracts\file {
         }
 
         return true;
+    }
+
+
+    /**
+     * Check if file extension and file type is valid
+     * @param string $ext
+     * @param string $type
+     * @return bool
+     * @since 4.5
+     * @see \fpcm\model\interfaces\validateFileType
+     */
+    public static function isValidType(string $ext, string $type, array $map = []) : bool
+    {
+        return in_array($ext, self::$allowedExts) && in_array($type, self::$allowedTypes);
     }
 
 }

@@ -316,6 +316,10 @@ fpcm.filemanager = {
 
     runFileIndexUpdate: function (_params) {
         
+        if (_params === undefined) {
+            return false;
+        }
+        
         if (!_params.files || !_params.files[0] || !_params.files[0].name) {
             return false;
         }
@@ -336,6 +340,11 @@ fpcm.filemanager = {
     getAcceptTypes: function ()
     {
         return /(\.|\/)(csv)$/i;
+    },
+    
+    getAcceptTypesArr: function ()
+    {
+        return ['csv', 'text/csv'];
     }
 
 };

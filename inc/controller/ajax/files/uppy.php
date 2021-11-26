@@ -68,32 +68,32 @@ class uppy extends \fpcm\controller\abstracts\ajaxController implements \fpcm\co
             $this->response->setCode(415)->fetch();
         }
         
-        $image = new \fpcm\model\files\image($realFile);
-        $image->addUploadFolder();
-        if (!$image->moveUploadedFile($tmpFile)) {
+        $obj = new \fpcm\model\files\image($realFile);
+        $obj->addUploadFolder();
+        if (!$obj->moveUploadedFile($tmpFile)) {
             trigger_error('Unable to move uploaded to to uploader folder! ' . $realFile);
             $this->response->setCode(500)->fetch();
         }
         
-        $image->createThumbnail();
-        $image->setFiletime(time());
-        $image->setUserid($this->session->getUserId());
+        $obj->createThumbnail();
+        $obj->setFiletime(time());
+        $obj->setUserid($this->session->getUserId());
 
-        if ($image->exists()) {
+        if ($obj->exists()) {
 
-            if (!$image->update()) {
+            if (!$obj->update()) {
                 trigger_error('Unable to update uploaded file to database list! ' . $realFile);
                 $this->response->setCode(500)->fetch();
             }
 
         }
-        elseif (!$image->save()) {
+        elseif (!$obj->save()) {
             trigger_error('Unable to add uploaded file to database list! ' . $realFile);
             $this->response->setCode(500)->fetch();
         }
 
         $this->response->setReturnData([
-            'url' => $image->getImageUrl()
+            'url' => $obj->getImageUrl()
         ])->fetch();
     }
 
@@ -103,16 +103,32 @@ class uppy extends \fpcm\controller\abstracts\ajaxController implements \fpcm\co
      */
     protected function processDrafts() : array
     {
-        return [
-            'upload_dir' => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_DRAFTS, DIRECTORY_SEPARATOR),
-            'upload_url' => \fpcm\classes\dirs::getDataUrl(\fpcm\classes\dirs::DATA_DRAFTS, '/'),
-            'accept_file_types' => \fpcm\components\fileupload\jqupload::FILETYPES_DRAFTS,
-            'image_versions' => array(),
-            'min_width' => false,
-            'max_width' => false,
-            'min_height' => false,
-            'max_height' => false
-        ];
+        $file = $this->request->fromFiles('file');
+        if ($file === null) {
+            $this->response->setCode(400)->fetch();
+        }
+        
+        $realFile = $file['name'];
+        $tmpFile = $file['tmp_name'];
+        if (!is_uploaded_file($tmpFile)) {
+            $this->response->setCode(400)->fetch();
+        }
+
+        $mime = \fpcm\model\files\templatefile::retrieveRealType($tmpFile);
+        if (!\fpcm\model\files\templatefile::isValidType(\fpcm\model\files\templatefile::retrieveFileExtension($realFile), $mime)) {
+            trigger_error('Unsupported filetype '.$mime.' in ' . $realFile);
+            $this->response->setCode(415)->fetch();
+        }
+        
+        $obj = new \fpcm\model\files\templatefile($realFile);
+        if (!$obj->moveUploadedFile($tmpFile)) {
+            trigger_error('Unable to move uploaded to to uploader folder! ' . $realFile);
+            $this->response->setCode(500)->fetch();
+        }
+
+        $this->response->setReturnData([
+            'url' => $obj->getFileUrl()
+        ])->fetch();
     }
 
     /**
@@ -121,18 +137,33 @@ class uppy extends \fpcm\controller\abstracts\ajaxController implements \fpcm\co
      */
     protected function processCsv() : array
     {
-        $unique = \fpcm\classes\tools::getHash($this->session->getSessionId().$this->session->getUserId());
+        $file = $this->request->fromFiles('file');
+        if ($file === null) {
+            $this->response->setCode(400)->fetch();
+        }
         
-        return [
-            'upload_dir' => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_TEMP, DIRECTORY_SEPARATOR . $unique . DIRECTORY_SEPARATOR),
-            'upload_url' => \fpcm\classes\dirs::getDataUrl(\fpcm\classes\dirs::DATA_TEMP, '/'),
-            'accept_file_types' => \fpcm\components\fileupload\jqupload::FILETYPES_CSV,
-            'image_versions' => array(),
-            'min_width' => false,
-            'max_width' => false,
-            'min_height' => false,
-            'max_height' => false
-        ];
+        $realFile = $file['name'];
+        $tmpFile = $file['tmp_name'];
+        if (!is_uploaded_file($tmpFile)) {
+            $this->response->setCode(400)->fetch();
+        }
+
+        $mime = \fpcm\model\files\templatefile::retrieveRealType($tmpFile);
+        if (!in_array($mime, ['text/plain', 'text/csv'])) {
+            trigger_error('Unsupported filetype '.$mime.' in ' . $realFile);
+            $this->response->setCode(415)->fetch();
+        }
+
+        $unique = \fpcm\classes\tools::getHash($this->session->getSessionId().$this->session->getUserId());
+        $obj = new \fpcm\model\files\csvFile($unique, null, null);
+        if (!$obj->moveUploadedFile($tmpFile)) {
+            trigger_error('Unable to move uploaded to to uploader folder! ' . $realFile);
+            $this->response->setCode(500)->fetch();
+        }
+
+        $this->response->setReturnData([
+            'url' => \fpcm\classes\dirs::getDataUrl(\fpcm\classes\dirs::DATA_TEMP, '/'.$unique.'.csv'),
+        ])->fetch();
     }
 
     /**
@@ -141,20 +172,22 @@ class uppy extends \fpcm\controller\abstracts\ajaxController implements \fpcm\co
      */
     protected function processModules() : array
     {
-        $unique = \fpcm\classes\tools::getHash($this->session->getSessionId().$this->session->getUserId());
+        $this->response->setCode(415)->fetch();
 
-        return [
-            'upload_dir' => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_TEMP, DIRECTORY_SEPARATOR. $unique. DIRECTORY_SEPARATOR),
-            'upload_url' => \fpcm\classes\dirs::getDataUrl(\fpcm\classes\dirs::DATA_TEMP, '/'. $unique . '/'),
-            'accept_file_types' => \fpcm\components\fileupload\jqupload::FILETYPES_MODULES,
-            'max_number_of_files' => 1,
-            'image_versions' => array(),
-            'replace_dots_in_filenames' => null,
-            'min_width' => false,
-            'max_width' => false,
-            'min_height' => false,
-            'max_height' => false
-        ];
+        $unique = \fpcm\classes\tools::getHash($this->session->getSessionId().$this->session->getUserId());
+//
+//        return [
+//            'upload_dir' => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_TEMP, DIRECTORY_SEPARATOR. $unique. DIRECTORY_SEPARATOR),
+//            'upload_url' => \fpcm\classes\dirs::getDataUrl(\fpcm\classes\dirs::DATA_TEMP, '/'. $unique . '/'),
+//            'accept_file_types' => \fpcm\components\fileupload\jqupload::FILETYPES_MODULES,
+//            'max_number_of_files' => 1,
+//            'image_versions' => array(),
+//            'replace_dots_in_filenames' => null,
+//            'min_width' => false,
+//            'max_width' => false,
+//            'min_height' => false,
+//            'max_height' => false
+//        ];
     }
 
 }

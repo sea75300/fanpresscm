@@ -130,6 +130,7 @@ fpcm.filemanager = {
     runFileIndexUpdate: function (_params) {
 
         if (!_params.files || !_params.files) {
+            fpcm.ui.relocate('?module=templates/templates&rg=7');
             return false;
         }
 
@@ -147,12 +148,17 @@ fpcm.filemanager = {
             return false;
         }
 
-        fpcm.ui.relocate('self');
+        fpcm.ui.relocate('?module=templates/templates&rg=7');
     },
     
     getAcceptTypes: function ()
     {
         return /(\.|\/)(htm|html|txt)$/i;
+    },
+    
+    getAcceptTypesArr: function ()
+    {
+        return ['html', 'htm', 'txt', 'application/xhtml+xml', 'text/html', 'text/plain'];
     }
 
 };

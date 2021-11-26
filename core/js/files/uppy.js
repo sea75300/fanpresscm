@@ -15,26 +15,30 @@ fpcm.fileuploader = {
         var _uppy = new Uppy.Core({
             locale: Uppy.locales.de_DE,
             restrictions: {
-                allowedFileTypes: ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', '.jpeg', '.jpg', '.png', '.gif']
+                allowedFileTypes: fpcm.filemanager.getAcceptTypesArr
+                                ? fpcm.filemanager.getAcceptTypesArr()
+                                : ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', '.jpeg', '.jpg', '.png', '.gif']
             }
-        })
+        });
 
         _uppy
-            .use(Uppy.FileInput, {
-                target: '.UppyInput',
-            })
             .use(Uppy.XHRUpload, { endpoint: 
                 fpcm.vars.ajaxActionPath + 'upload/uppy&dest=' + fpcm.vars.jsvars.uploadDest
             })
+            .use(Uppy.FileInput, {
+                target: '#fpcm-uppy-select',
+            })
+            .use(Uppy.DragDrop, {
+                target: '#fpcm-uppy-drop-area'
+            })
             .use(Uppy.StatusBar, {
-                target: '.UppyInput-Progress',
+                target: '#fpcm-uppy-progress',
                 hideAfterFinish: true,
                 showProgressDetails: true,
                 hideUploadButton: true
-            })          
+            })
             .on('complete', function (_file, _response) {
                 fpcm.filemanager.runFileIndexUpdate();
-                fpcm.ui_tabs.show('#files', 0);
                 _uppy.reset();
             });
 

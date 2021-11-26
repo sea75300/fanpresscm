@@ -514,9 +514,11 @@ fpcm.filemanager = {
             data    : {
                 cjId: 'fileindex'
             },
-            loaderMsg: fpcm.ui.translate('FILE_LIST_ADDTOINDEX')
+            loaderMsg: fpcm.ui.translate('FILE_LIST_ADDTOINDEX'),
+            execDone: function () {
+                fpcm.ui_tabs.show('#files', 0);
+            }
         });
-
     },
     
     getCurrentPage: function () {
