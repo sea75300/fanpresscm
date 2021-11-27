@@ -18,15 +18,13 @@
 
     <body class="fpcm-body <?php print $theView->bodyClass; ?>" id="fpcm-body">
 
-        <div class="fpcm ui-wrapper">
+        <?php if ($theView->formActionTarget) : ?><form method="post" action="<?php print $theView->formActionTarget; ?>" enctype="multipart/form-data" id="fpcm-ui-form"><?php endif; ?>
 
-            <?php if ($theView->formActionTarget) : ?><form method="post" action="<?php print $theView->formActionTarget; ?>" enctype="multipart/form-data" id="fpcm-ui-form"><?php endif; ?>
+        <header>
+            <?php include_once $theView->getIncludePath('common/menutop.php'); ?>                
+            <?php include_once $theView->getIncludePath('common/navigation.php'); ?>
+        </header>
 
-            <header>
-                <?php include_once $theView->getIncludePath('common/menutop.php'); ?>                
-                <?php include_once $theView->getIncludePath('common/navigation.php'); ?>
-            </header>
+        <?php include_once $theView->getIncludePath('common/buttons.php'); ?>
 
-            <?php include_once $theView->getIncludePath('common/buttons.php'); ?>
-
-            <div class="container-fluid mx-0 px-0 px-md-2 my-2">
+        <div class="container-fluid mx-0 px-0 px-md-2 my-2">

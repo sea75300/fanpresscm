@@ -116,8 +116,8 @@ final class navigationList {
      */
     private function checkSubmenu(navigationItem &$item) : bool
     {
+        $item->initDefault($this->activeNavItem);
         if (!$item->hasSubmenu()) {
-            $item->initDefault($this->activeNavItem);
             return true;
         }
 
