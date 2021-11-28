@@ -238,23 +238,23 @@ final class imagelist extends \fpcm\model\abstracts\filelist {
         $mime = $this->finfo->file($image->getFullpath(), FILEINFO_MIME_TYPE);
 
         if (!image::isValidType(\fpcm\model\abstracts\file::retrieveFileExtension($image->getFullpath()), $mime )) {
-            trigger_error("Unsupported filetype \"{$mime}\" in \"{$file}\"");
+            trigger_error("Unsupported filetype \"{$mime}\" in \"{$image->getFullpath()}\"");
             return false;
         }
 
         if (!in_array($image->getMimetype(), image::$allowedTypes) || !in_array(strtolower($image->getExtension()), image::$allowedExts)) {
-            trigger_error("Filetype not allowed in \"{$file}\".");
+            trigger_error("Filetype not allowed in \"{$image->getFullpath()}\".");
             return false;
         }
 
         $res = $image->save();
         if (!$res && $this->dbcon->getLastQueryErrorCode() === \fpcm\drivers\sqlDriver::CODE_ERROR_UNIQUEKEY) {
-            trigger_error("Unable to save image \"{$file}\" to database, file is already indexed.");
+            trigger_error("Unable to save image \"{$image->getFullpath()}\" to database, file is already indexed.");
             return false;
         }
         
         if (!$res) {
-            trigger_error("Unable to save image \"{$file}\" to database, due to unknows reason.");
+            trigger_error("Unable to save image \"{$image->getFullpath()}\" to database, due to unknows reason.");
             return false;            
         }
 

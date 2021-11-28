@@ -117,7 +117,7 @@ class filelist extends \fpcm\controller\abstracts\ajaxController implements \fpc
             \fpcm\model\http\request::FILTER_CASTINT
         ]);
 
-        $this->filter->limit = [$this->config->file_list_limit, \fpcm\classes\tools::getPageOffset($page, $this->config->file_list_limit)];
+        $this->filter->limit = $this->showPager ? [$this->config->file_list_limit, \fpcm\classes\tools::getPageOffset($page, $this->config->file_list_limit)] : null;
         $list = $fileList->getDatabaseListByCondition($this->filter);
 
         if ($list === \fpcm\drivers\sqlDriver::CODE_ERROR_SYNTAX) {
