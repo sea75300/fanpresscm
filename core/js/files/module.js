@@ -516,7 +516,7 @@ fpcm.filemanager = {
     reloadFiles: function (_page, _filter) {
 
         if (!_page) {
-            _page = 1;
+            _page = fpcm.filemanager.getCurrentPage();
         }
         
          if (_filter) {
@@ -617,5 +617,15 @@ fpcm.filemanager = {
             loaderMsg: fpcm.ui.translate('FILE_LIST_ADDTOINDEX')
         });
 
+    },
+    
+    getCurrentPage: function () {
+     
+        let _el = document.getElementById('pageSelect');
+        if (!_el || _el.options.length < 2 || _el.value === undefined) {
+            return 1;
+        }
+        
+        return _el.value;        
     }
 };

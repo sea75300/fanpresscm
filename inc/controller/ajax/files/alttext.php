@@ -50,6 +50,7 @@ class alttext extends \fpcm\controller\abstracts\ajaxController implements \fpcm
 
         $image = new \fpcm\model\files\image($fileName);
         $image->setAltText(substr($altText, 0, 250));
+        $image->setUserid($this->session->getUserId());
         
         if ($image->exists() && $image->update()) {
             $this->response->setReturnData(new \fpcm\view\message(

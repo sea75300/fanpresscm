@@ -12,7 +12,7 @@ namespace fpcm\model\files;
  * 
  * @package fpcm\model\files
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2021, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 final class fileuploader extends \fpcm\model\abstracts\staticModel {
@@ -87,7 +87,17 @@ final class fileuploader extends \fpcm\model\abstracts\staticModel {
             $image->createThumbnail();
             $image->setFiletime(time());
             $image->setUserid($userId);
-            if (!$image->save()) {
+
+            if ($image->exists()) {
+                
+                if (!$image->update()) {
+                    trigger_error('Unable to update uploaded file to database list! ' . $fileNames[$key]);
+                    $res['error'][$key] = $fileNames[$key];
+                    continue;
+                }
+                
+            }
+            elseif (!$image->save()) {
                 trigger_error('Unable to add uploaded file to database list! ' . $fileNames[$key]);
                 $res['error'][$key] = $fileNames[$key];
                 continue;
@@ -158,10 +168,10 @@ final class fileuploader extends \fpcm\model\abstracts\staticModel {
         $fileName = ops::getUploadPath($fileName, $this->config->file_subfolders);
 
         if ($this->config->file_subfolders) {
-            return basename(dirname($fileName)).'/'.basename($fileName);
+            return basename(dirname($fileName)).'/'.\fpcm\classes\tools::escapeFileName(basename($fileName));
         }
 
-        return basename($fileName);
+        return \fpcm\classes\tools::escapeFileName(basename($fileName));
     }
 
     /**

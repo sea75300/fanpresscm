@@ -196,7 +196,8 @@ class image extends \fpcm\model\abstracts\file implements \fpcm\model\interfaces
      * @return bool
      * @since 4.3
      */
-    public function hasFileManageThumbnail() : bool {
+    public function hasFileManageThumbnail() : bool
+    {
         return file_exists($this->getFileManagerThumbnail());
     }
 
