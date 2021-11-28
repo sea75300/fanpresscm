@@ -12,7 +12,8 @@ namespace fpcm\controller\action\files;
 class filelist extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\isAccessible {
 
     use \fpcm\controller\traits\files\lists,
-        \fpcm\controller\traits\common\searchParams;
+        \fpcm\controller\traits\common\searchParams,
+        \fpcm\controller\traits\theme\viewAjaxDummy;
 
     /**
      * Dateiliste
@@ -35,15 +36,6 @@ class filelist extends \fpcm\controller\abstracts\controller implements \fpcm\co
     public function isAccessible(): bool
     {
         return $this->permissions->uploads->visible;
-    }
-
-    /**
-     * 
-     * @return string
-     */
-    protected function getViewPath() : string
-    {
-        return 'filemanager/listouter';
     }
 
     /**
@@ -126,7 +118,7 @@ class filelist extends \fpcm\controller\abstracts\controller implements \fpcm\co
         ], $uploader->getViewVars() ));
 
         $this->assignSearchFromVars();
-        $this->initViewAssigns([], [], []);
+        $this->initViewAssigns([], []);
 
         $buttons = [
             new \fpcm\view\helper\wrapper('div', 'btn btn-light fpcm-ui-maintoolbarbuttons-tab1', (new \fpcm\view\helper\checkbox('fpcm-select-all'))->setText('GLOBAL_SELECTALL')->setIconOnly(true)->setClass('fpcm-select-all') ),

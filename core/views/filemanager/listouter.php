@@ -1,1 +1,0 @@
-<?php /* @var $theView \fpcm\view\viewVars */ ?>

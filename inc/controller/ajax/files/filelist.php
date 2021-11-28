@@ -136,7 +136,7 @@ class filelist extends \fpcm\controller\abstracts\ajaxController implements \fpc
         $list = $this->events->trigger('reloadFileList', $list);
 
         $userList = new \fpcm\model\users\userList();
-        $this->initViewAssigns($list, $userList->getUsersAll(), []);
+        $this->initViewAssigns($list, $userList->getUsersAll());
         $this->initPermissions();
 
         $this->view->assign('showPager', $this->showPager);

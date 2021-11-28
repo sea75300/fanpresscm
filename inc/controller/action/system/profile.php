@@ -32,7 +32,7 @@ class profile extends \fpcm\controller\abstracts\controller implements \fpcm\con
      */
     protected function getViewPath() : string
     {
-        return 'system/profile';
+        return 'users/usereditor';
     }
 
     /**
