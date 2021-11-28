@@ -214,12 +214,24 @@ class commentedit extends \fpcm\controller\abstracts\controller implements \fpcm
         
         $this->view->assign('showArticleIdField', $showArticleIdField && $this->permissions->comment->move);
 
-        $buttons[] = (new \fpcm\view\helper\linkButton('whoisIp'))->setUrl("http://www.whois.com/whois/{$this->comment->getIpaddress()}")->setTarget('_blank')->setText('Whois')->setIcon('home')->setClass($hiddenClass)->setRel('noreferrer,noopener,external');
+        $buttons[] = (new \fpcm\view\helper\linkButton('whoisIp'))
+                ->setUrl("http://www.whois.com/whois/{$this->comment->getIpaddress()}")
+                        ->setTarget('_blank')
+                        ->setText('Whois')
+                        ->setIcon('home')
+                        ->setIconOnly(true)
+                        ->setClass($hiddenClass)
+                        ->setRel('noreferrer,noopener,external');
 
         if ($this->permissions->comment->lockip) {
-            $buttons[] = (new \fpcm\view\helper\button('lockIp'))->setText('COMMMENT_LOCKIP')->setIcon('globe')->setClass($hiddenClass)->setData([
-                'commentid' => $this->comment->getId()
-            ]);
+            $buttons[] = (new \fpcm\view\helper\button('lockIp'))
+                    ->setText('COMMMENT_LOCKIP')
+                    ->setIcon('globe')
+                    ->setClass($hiddenClass)
+                    ->setIconOnly(true)
+                    ->setData([
+                        'commentid' => $this->comment->getId()
+                    ]);
         }
 
 

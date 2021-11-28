@@ -5,13 +5,6 @@
     <?php elseif (!count($files)) : ?>
     <p class="p-3"><?php $theView->icon('images', 'far')->setStack('ban text-danger')->setSize('lg')->setStackTop(true); ?> <?php $theView->write('GLOBAL_NOTFOUND2'); ?></p>
     <?php else : ?>
-
-        <div class="row mb-1 justify-content-end">
-            <div class="col-auto">
-                <?php include $theView->getIncludePath('components/pager.php'); ?>
-            </div>
-        </div>
-
         <?php $i = 0; ?>
         <div class="card-group fpcm ui-files-card">
         <?php foreach($files AS $file) : ?>

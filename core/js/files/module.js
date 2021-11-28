@@ -16,7 +16,12 @@ fpcm.filemanager = {
         
         fpcm.ui_tabs.render('#files', {
             reload: true,
-            onRenderHtmlAfter: function () {
+            onRenderHtmlAfter: function (_event, _result) {
+
+                if (_result.data && _result.data.pager) {
+                    fpcm.vars.jsvars.pager = _result.data.pager;
+                }
+
                 fpcm.filemanager.initListActions();
             }
         });
@@ -63,9 +68,6 @@ fpcm.filemanager = {
         fpcm.filemanager.initDeleteButtons();
         fpcm.filemanager.initAltTextButtons();
         fpcm.filemanager.initPropertiesButton();
-        if (_hideLoader === true) {
-            fpcm.ui_loader.hide();
-        }
     },
     
     initInsertButtons: function () {
@@ -387,14 +389,7 @@ fpcm.filemanager = {
     
     initPagination: function() {
 
-        fpcm.vars.jsvars.pager = {
-            maxPages: 0,
-            showBackButton: true,
-            showNextButton: true
-        };
-
         fpcm.ui.initPager({
-            keepSelect: true,
             backAction: function() {
                 var link = fpcm.dom.fromTag(this).attr('href');
                 if (link === '#') {
@@ -436,7 +431,6 @@ fpcm.filemanager = {
             fpcm.vars.jsvars.filesLastSearch = (new Date()).getTime();
         }
 
-
         fpcm.ajax.getItemList({
             module: 'files',
             destination: "#fpcm-tab-files-list-pane",
@@ -444,9 +438,14 @@ fpcm.filemanager = {
             page: _page,
             filter: _filter ? _filter : null,
             loader: false,
-            dataType: 'html',
-            onAssignHtmlAfter: function () {
-                fpcm.filemanager.initListActions(true);
+            dataType: 'json',
+            onAssignHtmlAfter: function (_result) {
+
+                if (_result.data && _result.data.pager) {
+                    fpcm.vars.jsvars.pager = _result.data.pager;
+                }                
+                
+                fpcm.filemanager.initListActions();
                 fpcm.dom.fromClass('fpcm-select-all').prop('checked', false);
             }
         });

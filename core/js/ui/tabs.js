@@ -84,16 +84,17 @@ fpcm.ui_tabs = {
                     quiet: _ev.target.dataset.ajaxQuiet ? true : false,
                     execDone: function (_result) {
 
-                        if (!_result instanceof Object || !_tabList) {
+                        if (!_tabList) {
 
                             if (typeof params.onRenderHtmlBefore === 'function') {
-                                params.onRenderHtmlBefore(_ev);
+                                params.onRenderHtmlBefore(_ev, _result);
                             }                            
 
-                            fpcm.dom.assignHtml(_ev.target.dataset.bsTarget, _result);
+                            let _assignment = _result instanceof Object && _result.html ? _result.html : _result;
+                            fpcm.dom.assignHtml(_ev.target.dataset.bsTarget, _assignment);
                             
                             if (typeof params.onRenderHtmlAfter === 'function') {
-                                params.onRenderHtmlAfter(_ev);
+                                params.onRenderHtmlAfter(_ev, _result);
                             }                            
 
                             return false;

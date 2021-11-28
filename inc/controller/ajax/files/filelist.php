@@ -124,23 +124,33 @@ class filelist extends \fpcm\controller\abstracts\ajaxController implements \fpc
             $list = [];
             $this->filterError = true;
         }
-        
-        $pagerData = \fpcm\classes\tools::calcPagination(
-            $this->config->file_list_limit,
-            $page,
-            $this->showPager ? $fileList->getDatabaseCountByCondition($this->filter) : 0,
-            count($list)
-        );
 
+        $pager = new \fpcm\view\helper\pager(
+            'ajax/files/lists&mode='.$this->mode,
+            $page,
+            count($list),
+            $this->config->file_list_limit,
+            $this->showPager ? $fileList->getDatabaseCountByCondition($this->filter) : 1
+        );
+        
         $list = $this->events->trigger('reloadFileList', $list);
 
         $userList = new \fpcm\model\users\userList();
-        $this->initViewAssigns($list, $userList->getUsersAll(), $pagerData);
+        $this->initViewAssigns($list, $userList->getUsersAll(), []);
         $this->initPermissions();
 
         $this->view->assign('showPager', $this->showPager);
         $this->view->assign('thumbsize', $this->config->file_thumb_size . 'px');
-        $this->view->render();
+        
+        $responseData = new \fpcm\model\http\responseDataHtml(
+            $this->view->render(true), [
+                'pager' => $pager->getJsVars()
+        ]);
+        
+        $pager = (string) $pager;
+        $pager = null;
+
+        $this->response->setReturnData($responseData)->fetch();
     }
 
     /**

@@ -116,6 +116,7 @@ class filelist extends \fpcm\controller\abstracts\controller implements \fpcm\co
             $jsFiles[] = 'files/tinymce5Messages.js';
         }
         
+        $this->view->addPager((new \fpcm\view\helper\pager('ajax/files/lists&mode='.$this->mode, 1, 1, $this->config->file_list_limit, 1)));
         $this->view->addJsFiles(array_merge( $jsFiles, $uploader->getJsFiles() ));
         $this->view->addJsFilesLate($uploader->getJsFilesLate());
         $this->view->setViewVars(array_merge([
@@ -125,7 +126,7 @@ class filelist extends \fpcm\controller\abstracts\controller implements \fpcm\co
         ], $uploader->getViewVars() ));
 
         $this->assignSearchFromVars();
-        $this->initViewAssigns([], [], \fpcm\classes\tools::calcPagination(1, 1, 0, 0));
+        $this->initViewAssigns([], [], []);
 
         $buttons = [
             new \fpcm\view\helper\wrapper('div', 'btn btn-light fpcm-ui-maintoolbarbuttons-tab1', (new \fpcm\view\helper\checkbox('fpcm-select-all'))->setText('GLOBAL_SELECTALL')->setIconOnly(true)->setClass('fpcm-select-all') ),

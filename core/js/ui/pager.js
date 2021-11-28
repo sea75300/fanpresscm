@@ -8,7 +8,7 @@ if (fpcm === undefined) {
     var fpcm = {};
 }
 
-fpcm.ui.initPager = function(params) {
+fpcm.ui.initPager = function (params) {
 
     if (params === undefined) {
         params = {};
@@ -20,58 +20,56 @@ fpcm.ui.initPager = function(params) {
 
     var backEl = fpcm.dom.fromId('pagerBack');
     var nextEl = fpcm.dom.fromId('pagerNext');
-    var selectId    = 'pageSelect';
+    var selectId = 'pageSelect';
 
     backEl.unbind('click');
     nextEl.unbind('click');
 
-    var selectEl    = fpcm.dom.fromId(selectId);
+    var selectEl = fpcm.dom.fromId(selectId);
     selectEl.unbind('change');
 
     if (!params.backAction) {
         params.backAction = function () {
-            fpcm.dom.fromTag(this).attr('href', fpcm.vars.jsvars.pager.linkString.replace('__page__', fpcm.vars.jsvars.pager.showBackButton) );
+            fpcm.dom.fromTag(this).attr('href', fpcm.vars.jsvars.pager.linkString.replace('__page__', fpcm.vars.jsvars.pager.showBackButton));
         };
     }
 
     if (!params.nextAction) {
         params.nextAction = function () {
-            fpcm.dom.fromTag(this).attr('href', fpcm.vars.jsvars.pager.linkString.replace('__page__', fpcm.vars.jsvars.pager.showNextButton) );
+            fpcm.dom.fromTag(this).attr('href', fpcm.vars.jsvars.pager.linkString.replace('__page__', fpcm.vars.jsvars.pager.showNextButton));
         };
     }
 
     if (fpcm.vars.jsvars.pager.showBackButton) {
         backEl.removeClass('fpcm-ui-readonly');
         backEl.click(params.backAction);
-    }
-    else if (!fpcm.vars.jsvars.pager.showBackButton && backEl && !backEl.hasClass('fpcm-ui-readonly')) {
+    } else if (!fpcm.vars.jsvars.pager.showBackButton && backEl && !backEl.hasClass('fpcm-ui-readonly')) {
         backEl.addClass('fpcm-ui-readonly');
     }
 
     if (fpcm.vars.jsvars.pager.showNextButton) {
         nextEl.removeClass('fpcm-ui-readonly');
         nextEl.click(params.nextAction);
-    }
-    else if (!fpcm.vars.jsvars.pager.showNextButton && nextEl && !nextEl.hasClass('fpcm-ui-readonly')) {
+    } else if (!fpcm.vars.jsvars.pager.showNextButton && nextEl && !nextEl.hasClass('fpcm-ui-readonly')) {
         nextEl.addClass('fpcm-ui-readonly');
     }
-
+    
     if (fpcm.vars.jsvars.pager.maxPages) {
-        for(i=1; i<= fpcm.vars.jsvars.pager.maxPages; i++) {
+        for (i = 1; i <= fpcm.vars.jsvars.pager.maxPages; i++) {
             if (!params.keepSelect) {
                 selectEl.empty();
             }
 
             if (fpcm.vars.jsvars.pager.maxPages) {
-                for(i=1; i<= fpcm.vars.jsvars.pager.maxPages; i++) {
-                    selectEl.append( '<option ' + (fpcm.vars.jsvars.pager.currentPage === i ? 'selected' : '') + ' value="' + i + '">' + fpcm.ui.translate('GLOBAL_PAGER').replace('{{current}}', i).replace('{{total}}', fpcm.vars.jsvars.pager.maxPages) + '</option>');
+                for (i = 1; i <= fpcm.vars.jsvars.pager.maxPages; i++) {
+                    selectEl.append('<option ' + (fpcm.vars.jsvars.pager.currentPage === i ? 'selected' : '') + ' value="' + i + '">' + fpcm.ui.translate('GLOBAL_PAGER').replace('{{current}}', i).replace('{{total}}', fpcm.vars.jsvars.pager.maxPages) + '</option>');
                 }
             }
         }
     }
 
     if (!params.selectAction) {
-        params.selectAction = function( event, ui ) {
+        params.selectAction = function (event, ui) {
 
             if (ui.value == fpcm.vars.jsvars.pager.currentPage) {
                 return false;
@@ -90,4 +88,20 @@ fpcm.ui.initPager = function(params) {
         change: params.selectAction
     });
 
+}
+
+fpcm.ui.togglePager = function (_hidden) {
+
+    let _el = fpcm.ui.mainToolbar.find('.fpcm-ui-pager-element');
+    if (!_el.length) {
+        return false;
+    }
+
+    if (_hidden) {
+        _el.addClass('fpcm-ui-hidden');
+        return true;
+    }
+
+    _el.removeClass('fpcm-ui-hidden');
+    return true;
 }

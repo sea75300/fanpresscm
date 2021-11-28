@@ -641,8 +641,12 @@ class view {
      * Renders a set up view
      * @return bool
      */
-    public function render()
+    public function render(bool $return = false)
     {
+        if ($return) {
+            ob_start();
+        }
+        
         if (!file_exists($this->viewPath) || strpos(realpath($this->viewPath), \fpcm\classes\dirs::getFullDirPath('') ) !== 0) {
             trigger_error("View file {$this->viewName} not found in {$this->viewPath}!", E_USER_ERROR);
             exit("View file {$this->viewName} not found in {$this->viewPath}!");
@@ -673,6 +677,12 @@ class view {
 
         $this->events->trigger('view\renderAfter');
         $this->rendered = true;
+        
+        if ($return) {
+            $content = ob_get_contents();
+            ob_end_clean();
+            return $content;
+        }
 
         return true;
     }
@@ -759,6 +769,11 @@ class view {
         $this->defaultViewVars->showPageToken = $this->showPageToken;
 
         $this->jsVars['currentModule'] = $this->defaultViewVars->currentModule;
+
+        if ($this->showHeader === self::INCLUDE_HEADER_NONE) {
+            $this->assign('theView', $this->defaultViewVars);
+            return true;
+        }
 
         $this->defaultViewVars->varsJs = [
             'vars' => [
