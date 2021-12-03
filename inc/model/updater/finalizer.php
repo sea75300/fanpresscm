@@ -104,13 +104,22 @@ final class finalizer extends \fpcm\model\abstracts\model {
         if (!count($migrations)) {
             return true;
         }
+        
+        $this->cliProgress = new \fpcm\model\cli\progress(count($migrations));
+
+        $i = 1;
 
         /* @var $migration \fpcm\migrations\migration */
         foreach ($migrations as $migration) {
+            
+            $this->cliProgress->setCurrentValue($i)->output();
+            
             if (!$migration->process()) {
                 $this->output('Processing of migration '. get_class($migration).' failed!.');
                 return false;
             }
+
+            $i++;
         }
         
         return true;
