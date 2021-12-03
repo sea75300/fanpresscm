@@ -298,6 +298,8 @@ final class finalizer extends \fpcm\model\abstracts\model {
         
         $addIndeices = method_exists($this->dbcon, 'addTableIndices');
 
+        $this->cliOutput(" >> Update table structure...");
+
         $this->cliProgress = new \fpcm\model\cli\progress(count($tableFiles));
 
         $i = 1;
@@ -403,8 +405,7 @@ final class finalizer extends \fpcm\model\abstracts\model {
         
         foreach ($tables as $i => $table) {
 
-            $this->cliProgress->setCurrentValue(($i+1));
-            $this->cliProgress->output();
+            $this->cliProgress->setCurrentValue(($i+1))->output();
 
             $this->dbcon->optimize($table);
         }
