@@ -391,26 +391,11 @@ fpcm.filemanager = {
 
         fpcm.ui.initPager({
             backAction: function() {
-                var link = fpcm.dom.fromTag(this).attr('href');
-                if (link === '#') {
-                    return false;
-                }
-
-                var page = link.split('&page=');
-                fpcm.filemanager.reloadFiles((page[1] === undefined) ? 1 : page[1]);
-                return false;
+                fpcm.filemanager.reloadFiles(fpcm.vars.jsvars.pager.showBackButton);
             },
             
             nextAction: function() {
-                
-                var link = fpcm.dom.fromTag(this).attr('href');
-                if (link === '#') {
-                    return false;
-                }
-
-                var page = link.split('&page=');
-                fpcm.filemanager.reloadFiles((page[1] === undefined) ? 1 : page[1]);
-                return false;
+                fpcm.filemanager.reloadFiles(fpcm.vars.jsvars.pager.showNextButton);
             },
             selectAction: function( event, ui ) {
                 fpcm.filemanager.reloadFiles(ui.value);

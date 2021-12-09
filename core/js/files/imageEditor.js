@@ -50,14 +50,14 @@ fpcm.imageEditor = {
                         }
 
                         let inWidth = fpcm.ui.getTextInput({
-                            value: _cropBox.width,
+                            value: Math.round(_cropBox.width),
                             name: 'fpcm-ui-files-editor-width',
                             text: fpcm.ui.translate('SYSTEM_OPTIONS_NEWSSHOWMAXIMGSIZEWIDTH'),
                             placeholder: fpcm.ui.translate('SYSTEM_OPTIONS_NEWSSHOWMAXIMGSIZEWIDTH'),
                         });
 
                         let inHeight = fpcm.ui.getTextInput({
-                            value: _cropBox.height,
+                            value: Math.round(_cropBox.height),
                             name: 'fpcm-ui-files-editor-height',
                             text: fpcm.ui.translate('SYSTEM_OPTIONS_NEWSSHOWMAXIMGSIZEHEIGHT'),
                             placeholder: fpcm.ui.translate('SYSTEM_OPTIONS_NEWSSHOWMAXIMGSIZEHEIGHT'),
@@ -75,10 +75,11 @@ fpcm.imageEditor = {
                                     text: 'GLOBAL_SAVE',
                                     icon: "save",                        
                                     clickClose: true,
+                                    primary: true,
                                     click: function() {
                                         fpcm.vars.jsvars.cropperSizes = {
-                                            width: parseInt(fpcm.dom.fromId('fpcm-ui-files-editor-width').val()),
-                                            height: parseInt(fpcm.dom.fromId('fpcm-ui-files-editor-height').val())
+                                            width: Math.round(parseInt(fpcm.dom.fromId('fpcm-ui-files-editor-width').val())),
+                                            height: Math.round(parseInt(fpcm.dom.fromId('fpcm-ui-files-editor-height').val()))
                                         }
                                     }
                                 }                  
