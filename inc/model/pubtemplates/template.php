@@ -17,6 +17,10 @@ namespace fpcm\model\pubtemplates;
  * @author Stefan Seehafer <sea75300@yahoo.de>
  */
 class template extends \fpcm\model\abstracts\file {
+    
+    const FETCH_REGEX = '/\{{2}((\w*\s?)((?>\w*\=\".*\"\s?)*))\}{2}/i';
+    
+    /* const FETCH_REGEX_ALT = '/\{{2}(((ABC|DEB)\s?)((?>\w*\=\".*\"\s?)*))\}{2}/i'; */
 
     /**
      * erlaubte Template-Tags
@@ -60,6 +64,13 @@ class template extends \fpcm\model\abstracts\file {
      * @since 4.1
      */
     protected $replacementAttributesMap = [];
+
+    /**
+     * Tag matches in Template
+     * @var array
+     * @since 5.0.0-a4
+     */
+    protected $tagMatches = [];
 
     /**
      * 
@@ -416,6 +427,40 @@ class template extends \fpcm\model\abstracts\file {
         $counted = 0;
         $content = preg_replace('/\<img src\=/i', '<img '.$this->getLazyLoadingImg().' src=', $content, -1, $counted);
         return $counted;
+    }
+
+    /**
+     * 
+     * @return bool
+     * @ignore
+     */
+    protected function fetchReplaceTags() : bool
+    {
+        throw new Exception('Unfinished function');
+        
+        $res = preg_match_all(self::FETCH_REGEX, $this->content, $this->tagMatches);
+        if (!$res === false) {
+            trigger_error('Error while fetching template tags', E_USER_ERROR);
+            return false;
+        }
+
+        if ($res === 0) {
+            return false;
+        }
+        
+        $replacementData = [];
+
+        foreach ($this->tagMatches as $value) {
+            
+            list($tag, $tagName, $attriutes) = $value;
+            $func = 'parse'.$tagName;
+            if (!method_exists($this, $func)) {
+                $this->{$func}($attriutes);            
+            }
+
+            
+            
+        }
     }
 
 }
