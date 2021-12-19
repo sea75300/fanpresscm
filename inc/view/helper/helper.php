@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4
+ * FanPress CM 5
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -16,6 +16,9 @@ namespace fpcm\view\helper;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 abstract class helper {
+    
+    use traits\cssClassHelper,
+        traits\ariaHelper;
 
     /*  @since 4.3.0 */
     const TEXT_DEFAULT_LABEL = 'LABEL_FIELD_';
@@ -25,13 +28,6 @@ abstract class helper {
      * @var array
      */
     protected $data = [];
-
-    /**
-     * Ement aria config
-     * @var array
-     * @since 5.0-dev
-     */
-    protected $aria = [];
 
     /**
      * Element ID
@@ -50,12 +46,6 @@ abstract class helper {
      * @var string
      */
     protected $text = '';
-
-    /**
-     * CSS class string
-     * @var string
-     */
-    protected $class = '';
 
     /**
      * Element is readonly
@@ -241,43 +231,12 @@ abstract class helper {
     }
 
     /**
-     * Set additional css class
-     * @param string $class
-     * @return $this
-     */
-    public function setClass($class)
-    {
-        $this->class .= ' ' . $class;
-        return $this;
-    }
-
-    /**
-     * Return class string
-     * @return string
-     */
-    protected function getClassString()
-    {
-        $this->class = array_unique(explode(' ', $this->class));
-        $this->class = implode(' ', $this->class);
-        return "class=\"{$this->class}\"";
-    }
-
-    /**
      * Return class string
      * @return string
      */
     protected function getDataString()
     {
         return $this->assocArrayToString('data', $this->data);
-    }
-
-    /**
-     * Return class string
-     * @return string
-     */
-    protected function getAriaString()
-    {
-         return $this->assocArrayToString('aria', $this->aria);
     }
 
     /**
@@ -429,17 +388,6 @@ abstract class helper {
     public function setData(array $data)
     {
         $this->data = $data;
-        return $this;
-    }
-
-    /**
-     * Add array for 'data-'-params to element
-     * @param array $data
-     * @return $this
-     */
-    public function setAria(array $aria)
-    {
-        $this->aria = $aria;
         return $this;
     }
 

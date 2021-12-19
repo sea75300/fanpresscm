@@ -28,14 +28,7 @@
                                 <?php endif; ?>
 
                                 <?php if (!$file->existsFolder()) : ?>
-                                <div class="row text-danger">
-                                    <div class="col-auto text-center align-self-center">
-                                        <?php $theView->icon('images', 'far')->setStack('ban')->setStackTop(true); ?>
-                                    </div>
-                                    <div class="col align-self-center">
-                                        <?php $theView->write('FILE_LIST_UPLOAD_NOTFOUND'); ?>
-                                    </div>
-                                </div>
+                                    <?php $theView->alert('danger')->setIcon('image', 'far')->setText('FILE_LIST_UPLOAD_NOTFOUND'); ?>
                                 <?php endif; ?>
                             </div>
 

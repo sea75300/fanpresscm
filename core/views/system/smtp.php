@@ -5,8 +5,7 @@
 
     <div class="row my-2">
         <div class="col-12 col-md-8">
-            <?php $theView->icon('envelope')->setStack('check fpcm-ui-editor-metainfo opacity-75')->setSize('lg')->setStackTop(true); ?>
-            <?php $theView->write('SYSTEM_OPTIONS_EMAIL_ACTIVE'); ?>
+            <?php $theView->alert('success')->setText('SYSTEM_OPTIONS_EMAIL_ACTIVE')->setIcon('envelope')->setClass('mb-0'); ?>
         </div>
     </div>
 </fieldset>

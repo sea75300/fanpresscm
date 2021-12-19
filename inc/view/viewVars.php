@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4
+ * FanPress CM 5
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -49,6 +49,7 @@ namespace fpcm\view;
  * @property \fpcm\model\users\author $currentUser
  * @property helper\pager $pager
  * 
+ * @method helper\alert             alert(string $type)
  * @method helper\badge             badge(string $name , string $id)
  * @method helper\boolSelect        boolSelect(string $name , string $id)
  * @method helper\boolToText        boolToText(string $name , string $id)

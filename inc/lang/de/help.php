@@ -100,9 +100,6 @@ Help language file
         Rest erst durch Klick auf den "Weiterlesen"-Link. Hierzu bietet der Editor die "Seitenumbruch einfügen"-Funktion. Dies erzeugt im Artikel
         einen Eintrag der Form <pre>&lt;!-- pagebreak --&gt;</pre> welcher im Frontend in einen Weiterlesen-Link umgesetzt wird. <b>Achtung!</b> Hierfür muss
         das Template entsprechend angepasst werden.</p>
-        
-        <p>In älteren Versionen wurde hierfür das <strong>&lt;readmore&gt;</strong>-Tag verwendet. Dieses gilt seit Fanpress CM 4.4 als veraltet, wird aber
-        in der Frontend-Ausgabe vorerst weiterhin umgesetzt.</p>
 
         <p>Der Artikel-Editor kann am oberen Rand bis zu vier Tabs enthalten.</p>
 

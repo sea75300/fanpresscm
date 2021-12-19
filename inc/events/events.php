@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4
+ * FanPress CM 5
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 

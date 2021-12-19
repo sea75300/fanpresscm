@@ -1,14 +1,14 @@
 <?php
 
 /**
- * FanPress CM 4.x
+ * FanPress CM 5.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
 namespace fpcm\components;
 
 /**
- * FanPress CM 4.x component loader
+ * FanPress CM 5.x component loader
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2018-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3

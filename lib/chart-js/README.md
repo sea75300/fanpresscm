@@ -1,5 +1,7 @@
 <p align="center">
-    <img src="https://www.chartjs.org/media/logo-title.svg"><br/>
+  <a href="https://www.chartjs.org/" target="_blank">
+    <img src="https://www.chartjs.org/media/logo-title.svg" alt="https://www.chartjs.org/"><br/>
+  </a>
     Simple yet flexible JavaScript charting for designers & developers
 </p>
 
@@ -33,4 +35,4 @@ Instructions on building and testing Chart.js can be found in [the documentation
 
 ## License
 
-Chart.js is available under the [MIT license](https://opensource.org/licenses/MIT).
+Chart.js is available under the [MIT license](LICENSE.md).
