@@ -85,7 +85,7 @@ class commentlist extends \fpcm\controller\abstracts\controller implements \fpcm
         $this->view->setFormAction('comments/list');
 
         if ($this->permissions->editCommentsMass()) {
-            $this->view->addButton((new \fpcm\view\helper\button('massEdit', 'massEdit'))->setText('GLOBAL_EDIT')->setIcon('edit')->setIconOnly(true));
+            $this->view->addButton((new \fpcm\view\helper\button('massEdit', 'massEdit'))->setText('GLOBAL_EDIT')->setIcon('edit'));
         }
 
         $this->view->addButton((new \fpcm\view\helper\button('opensearch', 'opensearch'))->setText('ARTICLES_SEARCH')->setIcon('search')->setIconOnly(true));

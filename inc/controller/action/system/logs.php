@@ -67,7 +67,7 @@ class logs extends \fpcm\controller\abstracts\controller implements \fpcm\contro
             ]
         ]);
 
-        $this->view->addButton((new \fpcm\view\helper\button('cleanLogs'))->setText('LOGS_CLEARLOG')->setIcon('recycle')->setIconOnly(true));
+        $this->view->addButton((new \fpcm\view\helper\button('cleanLogs'))->setText('LOGS_CLEARLOG')->setIcon('recycle'));
 
         $this->view->render();
     }
