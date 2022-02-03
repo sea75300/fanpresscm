@@ -181,6 +181,11 @@ fpcm.system = {
             }
         }
 
+        var objectIDs = fpcm.dom.getCheckboxCheckedValues('.fpcm-ui-list-checkbox');
+        if (objectIDs.length == 0) {
+            return false;
+        }
+
         fpcm.ui_dialogs.create({
             id: dialogId,
             title: 'GLOBAL_EDIT_SELECTED',
@@ -194,15 +199,14 @@ fpcm.system = {
                     clickClose: true,
                     click: function () {
 
+                        var catEl = fpcm.dom.fromId('categories');
+                        if (catEl.length) {
+                            list.massEditCategories = catEl.val();
+                        }  
+
                         fpcm.ui_dialogs.confirm({
                             defaultYes: true,
                             clickYes: function () {
-
-                                var objectIDs = fpcm.dom.getCheckboxCheckedValues('.fpcm-ui-list-checkbox');
-                                if (objectIDs.length == 0) {
-                                    fpcm.ui_loader.hide();
-                                    return false;
-                                }
 
                                 var params = {
                                     fields: fpcm.dom.getValuesByClass('fpcm-ui-input-massedit'),
@@ -213,10 +217,8 @@ fpcm.system = {
                                     params.fields[_params.multipleSelectField] = fpcm.dom.fromId(_params.multipleSelect).val();
                                 }
                                 else {
-                                    var catEl = fpcm.dom.fromId('categories');
-                                    if (catEl) {
-                                        params.fields.categories = catEl.val();
-                                    }                                    
+                                    params.fields.categories = list.massEditCategories;
+                                    list.massEditCategories = [];
                                 }
 
                                 if (_params.onSuccess) {
@@ -235,7 +237,7 @@ fpcm.system = {
                 }
             },
             dlOnClose: function (event, ui) {
-                
+
                 let catEl = fpcm.dom.fromId('categories');
                 if (catEl[0] && catEl[0].selectize) {
                     catEl[0].selectize.clear();

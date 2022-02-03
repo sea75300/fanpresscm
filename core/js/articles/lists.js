@@ -33,14 +33,16 @@ fpcm.articles = {
                 }
             });
 
-            fpcm.dom.fromId('categories').selectize({
-                placeholder: fpcm.ui.translate('EDITOR_CATEGORIES_SEARCH'),
-                searchField: ['text', 'value'],
-                plugins: ['remove_button']
-            });
-
         });
 
+    },
+    
+    initWidgets: function() {
+        fpcm.dom.fromId('categories').selectize({
+            placeholder: fpcm.ui.translate('EDITOR_CATEGORIES_SEARCH'),
+            searchField: ['text', 'value'],
+            plugins: ['remove_button']
+        });
     },
     
     initArticleSearch: function() {
@@ -144,14 +146,14 @@ fpcm.articles = {
     
     articleActionsTweet: function() {
 
+        let ids = fpcm.dom.getCheckboxCheckedValues('.fpcm-ui-list-checkbox');
+        if (ids.length == 0) {
+            return false;
+        }
+
         fpcm.ui_dialogs.confirm({
             clickNoDefault: true,
             clickYes: function() {
-                let ids = fpcm.dom.getCheckboxCheckedValues('.fpcm-ui-list-checkbox');
-                if (ids.length == 0) {
-                    fpcm.ui_loader.hide();
-                    return false;
-                }
 
                 fpcm.articles.execNewTweet(ids);
                 fpcm.dom.resetCheckboxesByClass('fpcm-ui-list-checkbox');
