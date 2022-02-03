@@ -78,6 +78,12 @@ class module {
     protected $config;
 
     /**
+     * Module data paths handler
+     * @var paths
+     */
+    protected $paths;
+
+    /**
      * System config object
      * @var \fpcm\model\system\config
      */
@@ -223,6 +229,20 @@ class module {
     final public function getOptions() : array
     {
         return $this->systemConfig->getModuleOptions($this->mkey);
+    }
+
+    /**
+     * 
+     * @return paths
+     * @since 5.0.0-b1
+     */
+    final function fromPath() : paths
+    {
+        if (!$this->paths instanceof paths) {
+            $this->paths = new paths($this->getDataPath());
+        }
+
+        return $this->paths;
     }
 
     /**
@@ -605,6 +625,11 @@ class module {
             return false;
         }
 
+        if (!$this->createDataFolder()) {
+            trigger_error('Creation of module data folder was not successful!');
+            return false;
+        }
+
         if (!\fpcm\classes\loader::getObject('\fpcm\events\events')->trigger('modules\installAfter', $this->mkey)) {
             return false;
         }
@@ -776,6 +801,10 @@ class module {
             return false;
         }
 
+        if (!$this->removeDataFolder()) {
+            return false;
+        }
+
         if (!$this->removeConfig() && !$delete) {
             return false;
         }
@@ -901,6 +930,10 @@ class module {
             return false;
         }
 
+        if (!$this->createDataFolder()) {
+            return false;
+        }
+
         if (!$this->runMigrations()) {
             return false;
         }
@@ -915,6 +948,67 @@ class module {
 
         $this->cache->cleanup();
         return true;
+    }
+
+    /**
+     * Get module data path
+     * @return string
+     * @version 5.0.0-b1
+     */
+    final public function getDataPath() : string
+    {
+        return \fpcm\classes\dirs::getDataDirPath('module_' . $this->prefix, DIRECTORY_SEPARATOR);
+    }
+
+    /**
+     * Create module data path
+     * @return bool
+     * @version 5.0.0-b1
+     */
+    final public function createDataFolder() : bool
+    {
+        if (!$this->config->useDataFolder) {
+            return true;
+        }
+
+        if (file_exists($this->getDataPath())) {
+            fpcmLogSystem('Module data path folder aready exists: ' . $this->getDataPath());
+            return true;
+        }
+        
+        fpcmLogSystem('Create module data path ' . $this->mkey . ' : ' . $this->getDataPath());
+        
+        if (mkdir($this->getDataPath())) {
+            return true;
+        }
+
+        trigger_error('Unable to create module data path folder: ' . $this->getDataPath());
+        return false;
+    }
+
+    /**
+     * Delete module data path
+     * @return bool
+     * @version 5.0.0-b1
+     */
+    final public function removeDataFolder() : bool
+    {
+        if (!$this->config->removeDataFolder) {
+            return false;
+        }
+
+        if (!file_exists($this->getDataPath())) {
+            return true;
+        }
+        
+        fpcmLogSystem('Remove module data path ' . $this->mkey . ' : ' . $this->getDataPath());
+        
+        if (\fpcm\model\files\ops::deleteRecursive($this->getDataPath())) {
+            return true;
+        }
+
+        trigger_error('Unable to delete data path folder: ' . $this->getDataPath());
+        return false;
     }
 
     /**

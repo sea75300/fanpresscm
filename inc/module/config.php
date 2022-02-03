@@ -18,6 +18,8 @@ namespace fpcm\module;
  * @property string $version Module version
  * @property string $basePath Module base path
  * @property string $help Help item
+ * @property bool $useDataFolder Use data folder
+ * @property bool $removeDataFolder Removce data folder
  * @property array $requirements Module requirements array
  * @property array $tables Module tables data
  * @property array $configOptions Module config data
