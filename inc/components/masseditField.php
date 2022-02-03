@@ -27,7 +27,7 @@ final class masseditField {
      * @param string $class
      * @return void
      */
-    public function __construct($field, string $class = '')
+    public function __construct($field, ?string $class = '')
     {
         if (! $field instanceof \fpcm\view\helper\helper) {
             trigger_error('$field must be an object of instance \fpcm\view\helper\helper');
@@ -35,6 +35,11 @@ final class masseditField {
         }
 
         $this->field = $field;
+        
+        if ($class === null) {
+            return;
+        }
+
         $this->field->setClass('fpcm-ui-input-massedit ' . $class);
     }
 
