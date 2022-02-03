@@ -85,9 +85,8 @@ fpcm.editor = {
                     fpcm.editor.tweetTextInput.val(currentText.substring(0, currentpos) + ui.value +  currentText.substring(currentpos));
                 }
 
-                this.selectedIndex = 0;
-                return false;
-            }
+            },
+            resetAfter: true
         });
         
 

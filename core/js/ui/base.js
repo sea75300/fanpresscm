@@ -265,6 +265,10 @@ fpcm.ui = {
                     });
                 }
 
+                if (_params.resetAfter) {
+                    this.selectedIndex = 0;
+                }
+
             });
         }
 
