@@ -48,6 +48,11 @@ div.mce-fpcm-ui-emoticons-panel {
 }
 
 /* php-diff */
+
+table.diff-wrapper {
+    width: 100%;
+}
+
 .diff-wrapper.diff tbody th.sign.del {
   background: #fbe1e1;
 }
