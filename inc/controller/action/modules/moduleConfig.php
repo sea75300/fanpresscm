@@ -122,7 +122,10 @@ implements \fpcm\controller\interfaces\isAccessible, \fpcm\controller\interfaces
             $this->view->addFromModule(['moduleConfig.js'], [], $this->module->getKey());
         }
 
-        $this->view->addButton(new \fpcm\view\helper\saveButton('save'));
+        $this->view->addButtons([
+            (new \fpcm\view\helper\linkButton('backbtn'))->setText('MODULES_LIST_BACKTOLIST')->setUrl(\fpcm\classes\tools::getFullControllerLink('modules/list'))->setIcon('chevron-circle-left'),
+            (new \fpcm\view\helper\saveButton('save'))->setPrimary()
+        ]);
         $this->view->addTabs('-module'.$this->module->getKey(), [
             (new \fpcm\view\helper\tabItem('configure-modul'.$this->module->getKey()))->setFile($this->getViewPath())->setText('SYSTEM_HL_OPTIONS_GENERAL')
         ]);

@@ -655,7 +655,7 @@ class module {
         fpcmLogSystem('Update modules table with ' . $this->mkey);
 
         $values = get_object_vars($this);
-        unset($values['db'], $values['config'], $values['id'], $values['prefix'], $values['systemConfig'], $values['cache'], $values['initDb'], $values['basePath']);
+        unset($values['db'], $values['config'], $values['id'], $values['prefix'], $values['systemConfig'], $values['cache'], $values['initDb'], $values['basePath'], $values['paths']);
         $values['data'] = json_encode($this->config);
 
         $result = $fromDir
