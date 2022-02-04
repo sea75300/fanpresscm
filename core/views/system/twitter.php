@@ -18,7 +18,7 @@
                     <?php endif; ?>
                     
                 </div>
-                <div class="col-auto align-self-center">
+                <div class="col-auto align-self-center ms-2">
                     <?php $theView->shorthelpButton('twittercon')->setText('HL_HELP')->setUrl('#')->setData(['ref' => urlencode(base64_encode('SYSTEM_HL_OPTIONS_TWITTER'))])->setClass('ui-help-dialog'); ?>
                 </div>  
             </div>
