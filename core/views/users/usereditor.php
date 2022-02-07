@@ -130,8 +130,7 @@
         </div>                        
     <?php else: ?>
         <div class="col-12 col-md-6 align-self-center">
-            <?php $theView->icon('user-secret')->setStack('check fpcm-ui-editor-metainfo opacity-75')->setSize('lg')->setStackTop(true); ?>
-            <?php $theView->write('USERS_AUTHTOKEN_ACTIVE'); ?>
+            <?php $theView->alert('success')->setText('USERS_AUTHTOKEN_ACTIVE')->setIcon('user-secret'); ?>
         </div>
         <div class="col-12 col-md-auto align-self-center">
             <?php $theView->checkbox('disable2Fa')->setText('GLOBAL_DISABLE'); ?>
