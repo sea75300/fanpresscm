@@ -8,9 +8,9 @@ namespace nkorg\yatdl;
  * 
  * @package nkorg\yatdl
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2016-2020, Stefan Seehafer
+ * @copyright (c) 2016-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
- * @version YaTDL4.4
+ * @version 4.4
  * 
  * @property string $name item name
  * @property string $primarykey primary key column
@@ -19,6 +19,8 @@ namespace nkorg\yatdl;
  * 
  * @property bool $isview flag if item is view
  * @property string $query query string, only for views
+ * @property string $querymysql mysql query string, only for views
+ * @property string $querypgsql pgsql query string, only for views
  * 
  * @property array $autoincrement auto incremen setting
  * @property array $cols table column
@@ -26,7 +28,7 @@ namespace nkorg\yatdl;
  * @property array $defaultvalues table default values
  * 
  */
-class tableItem extends itemArray
+class tableItem extends item
 {
 
 }

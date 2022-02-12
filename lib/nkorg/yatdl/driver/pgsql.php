@@ -1,6 +1,6 @@
 <?php
 
-namespace nkorg\yatdl;
+namespace nkorg\yatdl\driver;
 
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'driver.php';
 
@@ -10,9 +10,9 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . 'driver.php';
  * 
  * @package nkorg\yatdl
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2016-2020, Stefan Seehafer
+ * @copyright (c) 2016-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
- * @version YaTDL4.0
+ * @version 4.0
  */
 class pgsql extends driver {
 
@@ -42,7 +42,7 @@ class pgsql extends driver {
     {
         foreach ($this->yamlArray->cols as $colName => $col) {
 
-            $col = new columnItem($col);
+            $col = new \nkorg\yatdl\columnItem($col);
             if (!$this->checkYamlColRow($colName, $col)) {
                 return false;
             }
@@ -73,7 +73,7 @@ class pgsql extends driver {
      * @param autoIncrementItem $params Auto increment params
      * @return boolean
      */
-    public function createAutoincrement(array &$sqlArray, autoIncrementItem $column)
+    public function createAutoincrement(array &$sqlArray, \nkorg\yatdl\autoIncrementItem $column)
     {
         $seqName = "{{dbpref}}_{$this->yamlArray->name}_{$column->colname}_seq";
 
@@ -113,7 +113,7 @@ class pgsql extends driver {
 
         foreach ($this->yamlArray->indices as $rowName => $row) {
 
-            $row = new indiceItem($row);
+            $row = new \nkorg\yatdl\indiceItem($row);
             if (!$this->checkYamlIndiceRow($rowName, $row)) {
                 return false;
             }

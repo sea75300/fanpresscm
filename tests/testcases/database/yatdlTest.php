@@ -28,20 +28,20 @@ class yatdlTest extends testBase {
     public function testGetArray()
     {
         $data = $this->object->getArray();
-        $this->assertTrue(is_array($data));
+        $this->assertInstanceOf('\\nkorg\\yatdl\\tableItem', $data);
 
-        $this->assertEquals('sample', $data['name']);
-        $this->assertEquals('id', $data['primarykey']);
-        $this->assertEquals('utf8', $data['charset']);
-        $this->assertEquals('InnoDB', $data['engine']);
-        $this->assertEquals('id', $data['autoincrement']['colname']);
-        $this->assertEquals(1, $data['autoincrement']['start']);
-        $this->assertTrue(is_array($data['indices']));
-        $this->assertTrue(isset($data['indices']['int_colidx']));
-        $this->assertEquals('int_col', $data['indices']['int_colidx']['col']);
-        $this->assertTrue($data['indices']['int_colidx']['isUnqiue']);
+        $this->assertEquals('sample', $data->name);
+        $this->assertEquals('id', $data->primarykey);
+        $this->assertEquals('utf8', $data->charset);
+        $this->assertEquals('InnoDB', $data->engine);
+        $this->assertEquals('id', $data->autoincrement['colname']);
+        $this->assertEquals(1, $data->autoincrement['start']);
+        $this->assertTrue(is_array($data->indices));
+        $this->assertTrue(isset($data->indices['int_colidx']));
+        $this->assertEquals('int_col', $data->indices['int_colidx']['col']);
+        $this->assertTrue($data->indices['int_colidx']['isUnqiue']);
 
-        $cols = array_keys($data['cols']);
+        $cols = array_keys($data->cols);
         foreach ($GLOBALS['check_cols'] as $col) {
             $this->assertTrue(in_array($col, $cols));
         }

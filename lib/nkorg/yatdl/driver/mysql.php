@@ -1,6 +1,6 @@
 <?php
 
-namespace nkorg\yatdl;
+namespace nkorg\yatdl\driver;
 
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'driver.php';
 
@@ -10,9 +10,9 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . 'driver.php';
  * 
  * @package nkorg\yatdl
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2016-2016-2020, Stefan Seehafer
+ * @copyright (c) 2016-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
- * @version YaTDL4.0
+ * @version 4.0
  */
 class mysql extends driver {
 
@@ -23,7 +23,7 @@ class mysql extends driver {
     public function __construct(array $types)
     {
         parent::__construct($types);
-        $this->lenghtTypes = array_merge($this->lenghtTypes, dataTypes::getLenghtTypesMySQL());
+        $this->lenghtTypes = array_merge($this->lenghtTypes, \nkorg\yatdl\dataTypes::getLenghtTypesMySQL());
     }
 
     /**
@@ -44,7 +44,7 @@ class mysql extends driver {
             return true;
         }
         
-        $aiItem = new autoIncrementItem($this->yamlArray->autoincrement);
+        $aiItem = new \nkorg\yatdl\autoIncrementItem($this->yamlArray->autoincrement);
         $sqlArray[] = ") ENGINE={$this->yamlArray->engine} DEFAULT CHARSET={$this->yamlArray->charset} AUTO_INCREMENT={$aiItem->start};";
         return true;
     }
@@ -57,7 +57,7 @@ class mysql extends driver {
     {
         foreach ($this->yamlArray->cols as $colName => $col) {
             
-            $col = new columnItem($col);
+            $col = new \nkorg\yatdl\columnItem($col);
             if (!$this->checkYamlColRow($colName, $col)) {
                 return false;
             }            
@@ -89,7 +89,7 @@ class mysql extends driver {
      * @param autoIncrementItem $params Auto increment params
      * @return boolean
      */
-    public function createAutoincrement(array &$sqlArray, autoIncrementItem $column)
+    public function createAutoincrement(array &$sqlArray, \nkorg\yatdl\autoIncrementItem $column)
     {
         $sqlArray['cols'][$column->colname] .= ' AUTO_INCREMENT';
         return true;
@@ -117,7 +117,7 @@ class mysql extends driver {
 
         foreach ($this->yamlArray->indices as $rowName => $row) {
             
-            $row = new indiceItem($row);
+            $row = new \nkorg\yatdl\indiceItem($row);
             if (!$this->checkYamlIndiceRow($rowName, $row)) {
                 return false;
             }

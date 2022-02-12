@@ -8,9 +8,9 @@ namespace nkorg\yatdl;
  * 
  * @package nkorg\yatdl
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2016-2020, Stefan Seehafer
+ * @copyright (c) 2016-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
- * @version YaTDL4.0
+ * @version 4.0
  * 
  */
 class dataTypes {

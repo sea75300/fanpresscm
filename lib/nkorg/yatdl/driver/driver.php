@@ -1,6 +1,6 @@
 <?php
 
-namespace nkorg\yatdl;
+namespace nkorg\yatdl\driver;
 
 /**
  * YaML Table Definition Language Parser Libary\n
@@ -8,9 +8,9 @@ namespace nkorg\yatdl;
  * 
  * @package nkorg\yatdl
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2016-2020, Stefan Seehafer
+ * @copyright (c) 2016-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
- * @version YaTDL4.0
+ * @version 4.0
  */
 abstract class driver {
 
@@ -46,7 +46,7 @@ abstract class driver {
      * YAML-Array setzen
      * @param type $yamlArray
      */
-    public function setYamlArray($yamlArray)
+    public function setYamlArray(\nkorg\yatdl\tableItem $yamlArray)
     {
         $this->yamlArray = $yamlArray;
     }
@@ -72,10 +72,10 @@ abstract class driver {
     /**
      * Auto Increment Angaben übersetzen
      * @param array $sqlArray SQL array data
-     * @param autoIncrementItem $params Auto increment params
+     * @param \nkorg\yatdl\autoIncrementItem $params Auto increment params
      * @return boolean
      */
-    abstract public function createAutoincrement(array &$sqlArray, autoIncrementItem $column);
+    abstract public function createAutoincrement(array &$sqlArray, \nkorg\yatdl\autoIncrementItem $column);
 
     /**
      * Primary Key angabe anlegen
@@ -92,10 +92,10 @@ abstract class driver {
     /**
      * Index-Zeile prüfen, ob alle nötigen Daten vorhanden sind
      * @param string $rowName
-     * @param indiceItem $row
+     * @param \nkorg\yatdl\indiceItem $row
      * @return boolean
      */
-    protected function checkYamlIndiceRow($rowName, indiceItem $row)
+    protected function checkYamlIndiceRow($rowName, \nkorg\yatdl\indiceItem $row)
     {
         if (!$rowName) {
             trigger_error('Invalid YAML indice row data, key must include column name!');
@@ -123,10 +123,10 @@ abstract class driver {
     /**
      * Spalten-Zeile prüfen, ob alle nötigen Daten vorhanden sind
      * @param string $colName
-     * @param columnItem $col
+     * @param \nkorg\yatdl\columnItem $col
      * @return boolean
      */
-    protected function checkYamlColRow($colName, columnItem $col)
+    protected function checkYamlColRow($colName, \nkorg\yatdl\columnItem $col)
     {
         if (!$colName) {
             trigger_error('Invalid YAML col data, key must include column name!');
