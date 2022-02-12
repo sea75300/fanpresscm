@@ -83,7 +83,7 @@ final class email {
     function __construct($to, $subject, $text, $from = false, $html = false)
     {
         $this->to = $to;
-        $this->from = $from ? $from : 'FanPress CM <fanpresscm@' . $_SERVER['HTTP_HOST'] . '>';
+        $this->from = $from ? $from : 'FanPress CM <fanpresscm@' . ($_SERVER['HTTP_HOST'] ?? 'localhost') . '>';
         $this->subject = $subject;
         $this->text = is_array($text) ? implode(PHP_EOL, $text) : $text;
         $this->html = $html;

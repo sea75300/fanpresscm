@@ -115,27 +115,25 @@ final class cache {
      */
     public function cleanup($cacheName = null)
     {
-        $isModuleCleanup = substr($cacheName, -1) === \fpcm\classes\cache::CLEAR_ALL ? true : false;
-        if ($cacheName !== null && !$isModuleCleanup) {
+        if ($cacheName === null) {
+            $cacheFiles = $this->getCacheComplete();
+        }
+        elseif (substr($cacheName, -1) === \fpcm\classes\cache::CLEAR_ALL) {
             $file = new \fpcm\model\files\cacheFile($cacheName);
             return $file->cleanup();
         }
-
-        if ($isModuleCleanup) {
+        else {
             $cacheName = strtolower(substr($cacheName, 0, -2));
             if (!defined('FPCM_CACHEMODULE_DEBUG') || !FPCM_CACHEMODULE_DEBUG) {
                 $cacheName = md5($cacheName);
             }
 
-            $cacheFiles = glob($this->basePath . DIRECTORY_SEPARATOR . $cacheName . DIRECTORY_SEPARATOR . '*' . \fpcm\model\files\cacheFile::EXTENSION_CACHE);
-        } else {
-            $cacheFiles = $this->getCacheComplete();
+            $cacheFiles = glob($this->basePath . DIRECTORY_SEPARATOR . $cacheName . DIRECTORY_SEPARATOR . '*' . \fpcm\model\files\cacheFile::EXTENSION_CACHE);            
         }
 
         if (!is_array($cacheFiles) || !count($cacheFiles)) {
             return false;
         }
-
         
         $cacheFiles = array_filter($cacheFiles, function ($cacheFile) {
             return file_exists($cacheFile) && is_writable($cacheFile);            

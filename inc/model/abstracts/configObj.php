@@ -35,6 +35,7 @@ abstract class configObj implements \ArrayAccess, \JsonSerializable {
      * Return offset value
      * @param int|string $offset
      * @return mixed
+     * #[\ReturnTypeWillChange]
      */
     public function offsetGet($offset)
     {

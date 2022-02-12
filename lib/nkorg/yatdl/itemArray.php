@@ -19,6 +19,12 @@ abstract class itemArray extends item implements \ArrayAccess
         return array_key_exists($offset, $this->data);
     }
 
+    /**
+     * 
+     * @param mixed $offset
+     * @return mixed
+     * #[\ReturnTypeWillChange]
+     */
     public function offsetGet($offset)
     {
         return $this->__get($offset);

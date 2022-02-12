@@ -375,7 +375,7 @@ class fpcmAPI {
             return false;
         }
         
-        if (!isset($param['subject'])) {
+        if (!isset($param['html'])) {
             $param['html'] = false;
         }
         

@@ -135,6 +135,7 @@ class userRoll extends \fpcm\model\abstracts\dataset {
         $params = $this->events->trigger('userroll\save', [
             'leveltitle' => $this->leveltitle,
             'codex' => $this->codex,
+            'is_system' => $this->is_system
         ]);
 
         $newId = $this->dbcon->insert($this->table, $params);

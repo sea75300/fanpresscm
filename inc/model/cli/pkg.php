@@ -79,11 +79,11 @@ final class pkg extends \fpcm\model\abstracts\cli {
         }
         
         if (!isset($this->funcParams[1])) {
-            $this->funcParams[1] = null;
+            $this->funcParams[1] = '';
         }
         
         if (!isset($this->funcParams[2])) {
-            $this->funcParams[2] = null;
+            $this->funcParams[2] = '';
         }
 
         list($action, $package, $ex) = $this->funcParams;
