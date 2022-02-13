@@ -129,15 +129,15 @@ abstract class migration {
             $this->getDB()->transaction();
         }
 
-        if (!$this->alterTablesAfter()) {
+        if (!$this->defaultAlterTables() || !$this->alterTablesAfter()) {
             return false;
         }
 
-        if (!$this->updatePermissionsAfter()) {
+        if (!$this->defaultUpdatePermissions() || !$this->updatePermissionsAfter()) {
             return false;
         }
 
-        if (!$this->updateSystemConfig()) {
+        if (!$this->defaultAddSystemOptions() || !$this->updateSystemConfig()) {
             return false;
         }
 
@@ -202,7 +202,7 @@ abstract class migration {
      */
     protected function alterTablesAfter() : bool
     {
-        return $this->defaultAlterTables();
+        return true;
     }
 
     /**
@@ -361,7 +361,7 @@ abstract class migration {
         
         $data['defaultvalues']['rows'] = array_filter($data['defaultvalues']['rows'], function ($option) use ($conf) {
             
-            if (array_key_exists($option['config_name'], $conf->getData())) {
+            if ($this->getConfig()->{$option['config_name']} !== false) {
                 $this->output("'{$option['config_name']}' already existrs, skipping");
                 return false;
             }

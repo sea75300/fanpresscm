@@ -25,12 +25,7 @@ class v500a3 extends migration {
      */
     protected function updateSystemConfig() : bool
     {
-        if (!parent::defaultAddSystemOptions()) {
-            return false;
-        }
-        
-        
-        if ($this->getConfig()->system_session_length === null) {
+        if ($this->getConfig()->system_session_length === false) {
             return true;
         }
 

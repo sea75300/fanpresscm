@@ -25,10 +25,6 @@ class v500a4 extends migration {
      */
     protected function alterTablesAfter() : bool
     {
-        if (!parent::alterTablesAfter()) {
-            return false;
-        }
-
         return $this->getDB()->update(\fpcm\classes\database::tableRoll, ['is_system'], [1], 'id <= 3');
     }
     
