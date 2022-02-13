@@ -39,8 +39,6 @@ class v500a1 extends migration {
             ]);
 
             $res = $res && $conf->update();
-            
-            $this->output("Convert code: {$res}");
         }
 
         

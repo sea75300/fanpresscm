@@ -25,6 +25,8 @@ class v500a2 extends migration {
      */
     protected function updateFileSystem(): bool
     {
+        $this->output('Remove additional outdated files...');
+
         $files = [
             \fpcm\classes\loader::libGetFilePath('bootstrap/bootstrap-grid.min.css'),
             \fpcm\classes\loader::libGetFilePath('bootstrap/bootstrap-grid.min.css.map'),

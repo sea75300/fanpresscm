@@ -270,6 +270,8 @@ abstract class migration {
         
         $addIndeices = method_exists($this->getDB(), 'addTableIndices');
 
+        $cache = new \fpcm\classes\cache();
+        
         $i = 1;
         foreach ($tableFiles as $tableFile) {
 
@@ -294,6 +296,7 @@ abstract class migration {
 
             if (!$isView &&  ( $tabExists && !$this->getDB()->addTableCols($tab) || !$this->getDB()->removeTableCols($tab) ) ) {
                 $this->output('Failed to alter table ' . $tableName . ' during update.', 2);
+                (new \fpcm\classes\cache)->cleanup($tableName . '_struct');
                 return false;
             }
 
@@ -306,6 +309,7 @@ abstract class migration {
                 }
                 elseif (!$this->getDB()->drop($tableName)) {
                     $this->output('Unable to drop table ' . $tableName . ' during update', 2);
+                    (new \fpcm\classes\cache)->cleanup($tableName . '_struct');
                     return false;
                 }
                 else {
@@ -322,6 +326,7 @@ abstract class migration {
                 fpcmLogSql("Add table {$tableName}...");
                 if (!$this->getDB()->execYaTdl($tableFile)) {
                     $this->output('Unable to create table ' . $tableName . ' during update', 2);
+                    (new \fpcm\classes\cache)->cleanup($tableName . '_struct');
                     return false;
                 }
 
@@ -331,6 +336,7 @@ abstract class migration {
                 $this->getDB()->addTableIndices($tab);
             }
           
+            (new \fpcm\classes\cache)->cleanup($tableName . '_struct');
             $i++;
         }
 
@@ -361,9 +367,8 @@ abstract class migration {
         
         $data['defaultvalues']['rows'] = array_filter($data['defaultvalues']['rows'], function ($option) use ($conf) {
             
-            if ($this->getConfig()->{$option['config_name']} !== false) {
-                $this->output("'{$option['config_name']}' already existrs, skipping");
-                return false;
+            if ($this->getConfig()->{$option['config_name']} === false) {
+                return true;
             }
             
             if ($option['config_name'] === 'smtp_setting') {
@@ -377,13 +382,12 @@ abstract class migration {
         $res = true;
         foreach ($data['defaultvalues']['rows'] as $option) {
 
-            $this->output("Update system option {$option['config_name']}...");
+            $this->output("Add system option {$option['config_name']}...");
 
             $addres = $this->getConfig()->add($option['config_name'], trim($option['config_value']));
             $this->config = null;
 
             if ($addres === -1) {
-                $this->output("{$option['config_name']} already existrs, skipping");
                 $res = $res && true;
                 continue;
             }
