@@ -102,7 +102,7 @@ final class finalizer extends \fpcm\model\abstracts\model {
             $this->cliProgress->setCurrentValue($i)->output();
             
             if (!$migration->process()) {
-                $this->output('Processing of migration '. get_class($migration).' failed!.');
+                trigger_error('Processing of migration '. get_class($migration).' failed!.', E_USER_ERROR);
                 return false;
             }
 
