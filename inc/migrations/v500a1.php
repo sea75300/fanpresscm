@@ -25,7 +25,13 @@ class v500a1 extends migration {
      */
     protected function updateSystemConfig() : bool
     {
+        if (!parent::defaultAddSystemOptions()) {
+            return false;
+        }
+        
         $conf = $this->getConfig();
+
+        $res = true;
 
         if ($conf->file_img_thumb_height !== null && $conf->file_img_thumb_width !== null) {
             $this->output('Convert old thumbnail setting to \fpcm\model\system\config::file_thumb_size');
@@ -35,14 +41,28 @@ class v500a1 extends migration {
                                     ? $conf->file_img_thumb_height
                                     : $conf->file_img_thumb_width )
             ]);
+
+            $res = $res && $conf->update();
+            
+            $this->output("Convert code: {$res}");
         }
 
-        $res = true;
-        $res = $res && $conf->update();
-        $res = $res && $conf->remove('file_img_thumb_height');
-        $res = $res && $conf->remove('file_img_thumb_width');
-        $res = $res && $conf->remove('articles_imageedit_persistence');
         
+        if ($conf->file_img_thumb_height !== null) {
+            $this->output('Remove \fpcm\model\system\config::file_img_thumb_height');
+            $res = $res && $conf->remove('file_img_thumb_height');            
+        }
+        
+        if ($conf->file_img_thumb_width !== null) {
+            $this->output('Remove \fpcm\model\system\config::file_img_thumb_width');
+            $res = $res && $conf->remove('file_img_thumb_width');            
+        }
+        
+        if ($conf->articles_imageedit_persistence !== null) {
+            $this->output('Remove \fpcm\model\system\config::articles_imageedit_persistence');
+            $res = $res && $conf->remove('articles_imageedit_persistence');            
+        }
+
         return $res;
     }
 

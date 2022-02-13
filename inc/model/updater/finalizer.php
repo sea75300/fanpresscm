@@ -89,7 +89,12 @@ final class finalizer extends \fpcm\model\abstracts\model {
 
         
         if (!count($migrations)) {
-            $migrations[] = new \fpcm\migrations\defaultAll();
+            
+            fpcmLogSystem('Executing default migration...');
+
+            $migrations = [
+                new \fpcm\migrations\defaultAll()
+            ];
         }
         
         $this->cliProgress = new \fpcm\model\cli\progress(count($migrations));

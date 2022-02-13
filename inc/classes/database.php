@@ -545,7 +545,7 @@ final class database {
     public function exec($command, array $bindParams = []) : bool
     {
         if (!trim($command)) {
-            trigger_error('Invalid SQL command detected, query was empty!');
+            trigger_error('Invalid SQL command detected, query was empty!', E_USER_ERROR);
             return false;
         }
 
@@ -559,7 +559,7 @@ final class database {
 
         $statement = $this->connection->prepare($command);
         if (!trim($statement->queryString)) {
-            trigger_error('Invalid SQL command detected, query was empty!');
+            trigger_error('Invalid SQL command detected, query was empty!', E_USER_ERROR);
             return false;
         }
 

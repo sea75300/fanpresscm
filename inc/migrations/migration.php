@@ -59,7 +59,7 @@ abstract class migration {
     final protected function getConfig() : \fpcm\model\system\config
     {
         if ( !($this->config instanceof \fpcm\model\system\config) ) {
-            $this->config = new \fpcm\model\system\config(false);
+            $this->config = new \fpcm\model\system\config();
         }
 
         return $this->config;
@@ -129,16 +129,15 @@ abstract class migration {
             $this->getDB()->transaction();
         }
 
-        if (!$this->defaultAlterTables() || !$this->alterTablesAfter()) {
+        if (!$this->alterTablesAfter()) {
             return false;
         }
 
-        ;
-        if (!$this->defaultUpdatePermissions() || !$this->updatePermissionsAfter()) {
+        if (!$this->updatePermissionsAfter()) {
             return false;
         }
 
-        if (!$this->defaultAddSystemOptions() || !$this->updateSystemConfig()) {
+        if (!$this->updateSystemConfig()) {
             return false;
         }
 
@@ -203,7 +202,7 @@ abstract class migration {
      */
     protected function alterTablesAfter() : bool
     {
-        return true;
+        return $this->defaultAlterTables();
     }
 
     /**
@@ -357,16 +356,41 @@ abstract class migration {
         if (!isset($data['defaultvalues']['rows']) || !is_array($data['defaultvalues']['rows']) || !count($data['defaultvalues']['rows'])) {
             return true;
         }
+        
+        $conf = $this->getConfig();
+        
+        $data['defaultvalues']['rows'] = array_filter($data['defaultvalues']['rows'], function ($option) use ($conf) {
+            
+            if (array_key_exists($option['config_name'], $conf->getData())) {
+                $this->output("'{$option['config_name']}' already existrs, skipping");
+                return false;
+            }
+            
+            if ($option['config_name'] === 'smtp_setting') {
+                return false;
+            }
+            
+            return true;
 
+        });
+        
         $res = true;
         foreach ($data['defaultvalues']['rows'] as $option) {
 
-            if ($option['config_name'] === 'smtp_setting') {
+            $this->output("Update system option {$option['config_name']}...");
+
+            $addres = $this->getConfig()->add($option['config_name'], trim($option['config_value']));
+            $this->config = null;
+
+            if ($addres === -1) {
+                $this->output("{$option['config_name']} already existrs, skipping");
+                $res = $res && true;
                 continue;
             }
-
-            $res = $res && $this->getConfig()->add($option['config_name'], trim($option['config_value']));
+            
+            $res = $res && $addres;
         }
+
 
         $this->output("Update system options ".($res ? 'successful' : 'failed')."...");
         return $res;
@@ -377,7 +401,7 @@ abstract class migration {
      * aktualisiert Berechtigungen
      * @return bool
      */
-    private function defaultUpdatePermissions() : bool
+    final protected function defaultUpdatePermissions() : bool
     {
         $this->output("Update permissions...");
         
@@ -413,6 +437,8 @@ abstract class migration {
             }
 
         }
+        
+        (new \fpcm\classes\cache)->cleanup();
 
         $this->output("Update permissions successful...");
         return true;
