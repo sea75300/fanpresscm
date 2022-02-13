@@ -107,6 +107,7 @@ fpcm.system = {
                     text: 'GLOBAL_YES',
                     icon: "check",
                     clickClose: true,
+                    primary: true,
                     click: function () {
                         fpcm.ui.relocate(fpcm.vars.actionPath + 'system/login');
                     }

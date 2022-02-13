@@ -246,6 +246,12 @@ final class pkg extends \fpcm\model\abstracts\cli {
         $pkg->cleanup();
         $this->output('-- Finished.' . PHP_EOL);
 
+        if (\fpcm\classes\baseconfig::canConnect()) {
+            $this->output('Refresh package data...');
+            (new \fpcm\model\crons\updateCheck())->run();
+            $this->output('-- Finished.' . PHP_EOL);
+        }
+
         $this->output('System update successful. New version: ' . \fpcm\classes\baseconfig::getVersionFromFile() . PHP_EOL);
         $this->output('Please check error log and data folder permissions.' . PHP_EOL);
         return true;
@@ -271,7 +277,7 @@ final class pkg extends \fpcm\model\abstracts\cli {
         }
 
         $this->config->init();
-        $this->output('-- Finished.' . PHP_EOL);
+        $this->output(PHP_EOL . '-- Finished.' . PHP_EOL);
         return true;
     }
 

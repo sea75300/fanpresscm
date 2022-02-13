@@ -47,10 +47,6 @@ final class finalizer extends \fpcm\model\abstracts\model {
             return false;
         }
 
-        if (\fpcm\classes\baseconfig::canConnect()) {
-            (new \fpcm\model\crons\updateCheck())->run();
-        }
-
         return true;
     }
 
@@ -96,7 +92,7 @@ final class finalizer extends \fpcm\model\abstracts\model {
                 new \fpcm\migrations\defaultAll()
             ];
         }
-        
+
         $this->cliProgress = new \fpcm\model\cli\progress(count($migrations));
 
         $i = 1;

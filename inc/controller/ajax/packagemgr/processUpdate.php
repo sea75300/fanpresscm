@@ -210,6 +210,7 @@ class processUpdate extends \fpcm\controller\abstracts\ajaxController implements
     {
         fpcmLogSystem('Update package manager logfile!');
         $this->res = $this->pkg->updateLog();
+        (new \fpcm\model\crons\updateCheck())->run();
         return;
     }
 
