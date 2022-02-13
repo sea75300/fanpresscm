@@ -179,6 +179,15 @@ final class parser {
      */
     public function getArray()
     {
+        return $this->tabData->toArray();
+    }
+
+    /**
+     * Gibt geparsten YAML-String als Array zurück
+     * @return tableItem
+     */
+    public function getTabData()
+    {
         return $this->tabData;
     }
 
@@ -321,7 +330,6 @@ final class parser {
                 return false;
             }
 
-            $this->tabData = new tableItem($this->tabData);
             return true;
         }
 

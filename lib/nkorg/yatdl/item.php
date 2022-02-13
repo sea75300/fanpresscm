@@ -24,7 +24,7 @@ abstract class item {
      * Constructor
      * @param array $data
      */
-    final public function __construct($data)
+    final public function __construct(array $data)
     {
         $this->data = $data;
     }

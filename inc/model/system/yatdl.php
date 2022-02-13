@@ -89,4 +89,14 @@ class yatdl extends \fpcm\model\abstracts\staticModel {
         return $this->parser->getArray();
     }
 
+    /**
+     * Returns parsed data as \nkorg\yatdl\tableItem instance
+     * @return \nkorg\yatdl\tableItem
+     * @since 5.0.0-b1
+     */
+    public function getTable()
+    {
+        return $this->parser->getTabData();
+    }
+
 }

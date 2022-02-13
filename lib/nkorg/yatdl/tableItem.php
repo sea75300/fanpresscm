@@ -31,4 +31,9 @@ namespace nkorg\yatdl;
 class tableItem extends item
 {
 
+    final public function toArray()
+    {
+        return $this->data;
+    }
+    
 }
