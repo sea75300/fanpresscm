@@ -902,6 +902,7 @@ class module {
         
         $crons = $this->config->crons;
         if (!is_array($crons) || !count($crons)) {
+            fpcmLogSystem('No cronjobs for ' . $this->mkey);
             return true;
         }
 
@@ -994,16 +995,19 @@ class module {
     final public function removeDataFolder() : bool
     {
         if (!$this->config->removeDataFolder) {
-            return false;
+            fpcmLogSystem('No data folder removal for ' . $this->mkey);
+            return true;
         }
 
         if (!file_exists($this->getDataPath())) {
+            fpcmLogSystem('No data folder for ' . $this->mkey);
             return true;
         }
         
         fpcmLogSystem('Remove module data path ' . $this->mkey . ' : ' . $this->getDataPath());
         
         if (\fpcm\model\files\ops::deleteRecursive($this->getDataPath())) {
+            fpcmLogSystem('Data folder removed for ' . $this->mkey);
             return true;
         }
 

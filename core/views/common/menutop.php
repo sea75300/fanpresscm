@@ -20,7 +20,7 @@
                 </li>
                 <li class="nav-item">
                     <a id="fpcm-clear-cache" href="#" class="nav-link" title="<?php $theView->write('GLOBAL_CACHE_CLEAR'); ?>">
-                        <?php $theView->icon('hdd')->setSize('lg') ?>
+                        <?php $theView->icon('recycle')->setSize('lg') ?>
                     </a>
                 </li>
                 <?php if ($theView->helpLink['ref'] !== null && $theView->helpLink['chapter'] !== null) : ?>

@@ -787,6 +787,14 @@ class view {
         }
 
         $varsJs['vars']['ui']['notifyicon'] = \fpcm\classes\dirs::getCoreUrl(\fpcm\classes\dirs::CORE_THEME, 'favicon-32x32.png');
+        $varsJs['vars']['ui']['components'] = [
+            'icon' => new helper\jsIcon(''),
+            'input' => (string) (new helper\textInput('{{name}}', '{{id}}'))->setValue('{{value}}')
+                        ->setText('{{text}}')->setClass('{{class}}')->setType('{{type}}')
+                        ->setPlaceholder('{{placeholder}}')->setMaxlenght('255')
+                        ->setDisplaySizesDefault()
+        ];
+
         $varsJs['vars']['ui']['dialogTpl'] = new \fpcm\model\files\jsViewTemplate('dialog');
         $varsJs['vars']['actionPath'] = \fpcm\classes\tools::getFullControllerLink('');
         $varsJs['vars']['ajaxActionPath'] = \fpcm\classes\tools::getFullControllerLink('ajax/');
