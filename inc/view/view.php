@@ -770,32 +770,29 @@ class view {
 
         $this->jsVars['currentModule'] = $this->defaultViewVars->currentModule;
 
-        if ($this->showHeader === self::INCLUDE_HEADER_NONE) {
-            $this->assign('theView', $this->defaultViewVars);
-            return true;
-        }
-
-        $this->defaultViewVars->varsJs = [
+        $varsJs = [
             'vars' => [
                 'ui' => [
                     'messages' => $this->messages,
                     'lang' => $this->jsLangVars,
-                    'notifyicon' => \fpcm\classes\dirs::getCoreUrl(\fpcm\classes\dirs::CORE_THEME, 'favicon-32x32.png'),
-                    'components' => [
-                        'icon' => new helper\jsIcon(''),
-                        'input' => (string) (new helper\textInput('{{name}}', '{{id}}'))->setValue('{{value}}')
-                                            ->setText('{{text}}')->setClass('{{class}}')->setType('{{type}}')
-                                            ->setPlaceholder('{{placeholder}}')->setMaxlenght('255')
-                                            ->setDisplaySizesDefault()
-                    ],
-                    'dialogTpl' => new \fpcm\model\files\jsViewTemplate('dialog')
                 ],
                 'jsvars' => $this->jsVars,
-                'actionPath' => \fpcm\classes\tools::getFullControllerLink(''),
-                'ajaxActionPath' => \fpcm\classes\tools::getFullControllerLink('ajax/'),
             ]
-        ];
+        ];        
+        
+        if ($this->showHeader === self::INCLUDE_HEADER_NONE) {
+            $this->defaultViewVars->varsJs = $varsJs;
+            $this->assign('theView', $this->defaultViewVars);
+            return true;
+        }
 
+        $varsJs['vars']['ui']['notifyicon'] = \fpcm\classes\dirs::getCoreUrl(\fpcm\classes\dirs::CORE_THEME, 'favicon-32x32.png');
+        $varsJs['vars']['ui']['dialogTpl'] = new \fpcm\model\files\jsViewTemplate('dialog');
+        $varsJs['vars']['actionPath'] = \fpcm\classes\tools::getFullControllerLink('');
+        $varsJs['vars']['ajaxActionPath'] = \fpcm\classes\tools::getFullControllerLink('ajax/');
+
+        $this->defaultViewVars->varsJs = $varsJs;
+        
         $this->prepareNotifications();
 
         /* @var $theView viewVars */
