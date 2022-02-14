@@ -32,6 +32,15 @@ implements \fpcm\controller\interfaces\isAccessible,
      */
     private $notfoundStr = '';
 
+    /**
+     * 
+     * @var array
+     */
+    private $sorts = [
+        'SYSTEM_OPTIONS_NEWS_SORTING_ORDER' => '-1',
+        'SYSTEM_OPTIONS_NEWS_ORDERASC' => 'ASC',
+        'SYSTEM_OPTIONS_NEWS_ORDERDESC' => 'DESC',
+    ];
 
     /**
      * Request-Handler
@@ -55,8 +64,13 @@ implements \fpcm\controller\interfaces\isAccessible,
      */
     public function process()
     {
+        $sort = $this->request->fromPOST('sortlist');
+        if (!in_array(strtoupper($sort), $this->sorts)) {
+            $sort = '';
+        }
+
         $userList = new \fpcm\model\users\userList();
-        $this->items = $this->ipList->getIpAll();
+        $this->items = $this->ipList->getIpAll($sort);
         $this->users = $userList->getUsersAll();
         
         $this->notfoundStr = $this->language->translate('GLOBAL_NOTFOUND');
@@ -68,8 +82,10 @@ implements \fpcm\controller\interfaces\isAccessible,
         $this->view->addJsFiles(['ipadresses.js']);
         $this->view->addButtons([
             (new \fpcm\view\helper\linkButton('addnew'))->setUrl(\fpcm\classes\tools::getFullControllerLink('ips/add'))->setText('GLOBAL_NEW')->setIcon('globe'),
-            (new \fpcm\view\helper\deleteButton('delete'))->setClass('fpcm ui-button-confirm')
+            (new \fpcm\view\helper\select('sortlist'))->setOptions($this->sorts)->setSelected($sort)->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED),
+            (new \fpcm\view\helper\deleteButton('delete'))->setClass('fpcm ui-button-confirm'),
         ]);
+
         $this->view->render();
     }
 
