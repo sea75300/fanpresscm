@@ -23,7 +23,7 @@
                         <?php $theView->icon('recycle')->setSize('lg') ?>
                     </a>
                 </li>
-                <?php if ($theView->helpLink['ref'] !== null && $theView->helpLink['chapter'] !== null) : ?>
+                <?php if ($theView->helpLink !== null && $theView->helpLink['ref'] !== null && $theView->helpLink['chapter'] !== null) : ?>
                 <li class="nav-item">
                     <a class="nav-link fpcm ui-help-dialog" 
                         href="#"
