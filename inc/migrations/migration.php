@@ -365,8 +365,8 @@ abstract class migration {
         
         $data['defaultvalues']['rows'] = array_filter($data['defaultvalues']['rows'], function ($option) use ($conf) {
             
-            if ($this->getConfig()->{$option['config_name']} !== false) {
-                return false;
+            if ($conf->{$option['config_name']} === false) {
+                return true;
             }
             
             if ($option['config_name'] === 'smtp_setting') {
@@ -380,7 +380,6 @@ abstract class migration {
         $res = true;
         foreach ($data['defaultvalues']['rows'] as $option) {
 
-            $this->output("Add system option {$option['config_name']}...");
 
             $addres = $this->getConfig()->add($option['config_name'], trim($option['config_value']));
             $this->config = null;
@@ -390,6 +389,7 @@ abstract class migration {
                 continue;
             }
             
+            $this->output("Added system option {$option['config_name']}...");
             $res = $res && $addres;
         }
 
