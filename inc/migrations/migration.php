@@ -148,8 +148,6 @@ abstract class migration {
         if (method_exists($this->getDB(), 'commit')) {
             $this->getDB()->commit();
         }
-        
-        $this->optimizeTables();
 
         $this->output('Processing of migration '.$cn.' successful.');
         return true;
@@ -367,8 +365,8 @@ abstract class migration {
         
         $data['defaultvalues']['rows'] = array_filter($data['defaultvalues']['rows'], function ($option) use ($conf) {
             
-            if ($this->getConfig()->{$option['config_name']} === false) {
-                return true;
+            if ($this->getConfig()->{$option['config_name']} !== false) {
+                return false;
             }
             
             if ($option['config_name'] === 'smtp_setting') {
@@ -453,7 +451,7 @@ abstract class migration {
      * @since 3.3
      * @return bool
      */
-    final protected function optimizeTables() : bool
+    final public function optimizeTables() : bool
     {
         $tables = \fpcm\classes\loader::getObject('\fpcm\events\events')->trigger('updaterAddOptimizeTables', [
             \fpcm\classes\database::tableArticles,

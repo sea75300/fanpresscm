@@ -109,6 +109,8 @@ final class finalizer extends \fpcm\model\abstracts\model {
 
             $i++;
         }
+
+        $migration->optimizeTables();
         
         return true;
     }
