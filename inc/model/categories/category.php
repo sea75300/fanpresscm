@@ -122,6 +122,10 @@ implements \fpcm\model\interfaces\isCsvImportable {
      */
     public function getCategoryImage()
     {
+        if (!$this->getIconPath()) {
+            return (new \fpcm\view\helper\icon('image'))->setStack('ban text-danger')->setStackTop(true)->setText('GLOBAL_NOTFOUND');
+        }
+        
         return '<img src="' . $this->getIconPath() . '" alt="' . $this->getName() . '" title="' . $this->getName() . '" class="fpcm-pub-category-icon">';
     }
 
