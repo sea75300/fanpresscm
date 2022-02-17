@@ -5,7 +5,7 @@
     <div class="row my-2 row-cols-3 gap-1">
         <div class="col-12 col-md align-self-center">
         <?php if ($twitterIsActive) : ?>
-            <?php $theView->alert('success')->setText('SYSTEM_OPTIONS_TWITTER_ACTIVE', ['{{screenname}}' => $twitterScreenName])->setIcon('twitter', 'fab')->setClass('mb-0'); ?>
+            <?php $theView->alert('success')->setText('SYSTEM_OPTIONS_TWITTER_ACTIVE', ['{{screenname}}' => $twitterScreenName])->setIcon('twitter', 'fab')->setClass('mb-1 mb-md-0'); ?>
         <?php endif; ?>
         </div>
         <div class="col-12 col-md align-self-center">
