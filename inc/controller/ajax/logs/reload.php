@@ -334,7 +334,7 @@ class reload extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
             new \fpcm\components\dataView\rowCol('user', new \fpcm\view\helper\escape($username)),
             new \fpcm\components\dataView\rowCol('ipaddress', new \fpcm\view\helper\escape($item->getIp())),
             new \fpcm\components\dataView\rowCol('login', new \fpcm\view\helper\dateText($item->getLogin())),
-            new \fpcm\components\dataView\rowCol('logout', ($item->getLogout() ? new \fpcm\view\helper\dateText($item->getLogout()) : $this->sessionTimeoutStr)),
+            new \fpcm\components\dataView\rowCol('logout', new \fpcm\view\helper\dateText( $item->getLogout() ? $item->getLogout() : $item->getLastaction() )),
             new \fpcm\components\dataView\rowCol('useragent', new \fpcm\view\helper\escape($item->getUseragent())),
             new \fpcm\components\dataView\rowCol('external', (new \fpcm\view\helper\boolToText(uniqid('sessext')))->setValue($item->getExternal())),
         ]);

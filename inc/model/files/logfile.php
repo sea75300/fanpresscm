@@ -76,7 +76,7 @@ final class logfile extends \fpcm\model\abstracts\file {
         $this->fileMap = self::getLogMap();
 
         if (!isset($this->fileMap[$logFile])) {
-            trigger_error('Invalid logfile type given');
+            trigger_error("Invalid logfile type given: {$logFile}");
             return false;
         }
 
