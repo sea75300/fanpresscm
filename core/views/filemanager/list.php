@@ -21,12 +21,10 @@
                     <div class="col-auto align-self-center">
                         <div class="card-body">
                             <p class="card-title"><?php print $theView->escapeVal(basename($file->getFilename())); ?></p>
+                            <?php if ($file->getAltText()) : ?>
+                            <p class="card-subtitle fs-6 text-secondary"><?php print $theView->escapeVal($file->getAltText()); ?></p>           
+                            <?php endif; ?>
                             <div class="card-text">
-
-                                <?php if ($file->getAltText()) : ?>
-                                    <p class="mb-0"><?php print $theView->escapeVal($file->getAltText()); ?></p>
-                                <?php endif; ?>
-
                                 <?php if (!$file->existsFolder()) : ?>
                                     <?php $theView->alert('danger')->setIcon('image', 'far')->setText('FILE_LIST_UPLOAD_NOTFOUND'); ?>
                                 <?php endif; ?>

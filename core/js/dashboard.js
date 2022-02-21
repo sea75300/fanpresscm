@@ -64,6 +64,7 @@ fpcm.dashboard = {
 
         fpcm.ui_dnd.initDnd({
             destination: 'fpcm-dashboard-containers',
+            handle: '.fpcm.dashboard-container-move',
             dropCallback: function (_event) {
 
                  var _containers = _event.to.children;

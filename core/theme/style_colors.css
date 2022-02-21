@@ -65,13 +65,11 @@ span.fpcm-ui-badge {
     background: rgba(var(--bs-primary-rgb), 0.75);
 }
 
-div.fpcm.ui-files-card div.fpcm.ui-files-item:nth-child(odd),
-div.fpcm.ui-files-list:nth-child(odd) div.fpcm.ui-files-item {
+div.fpcm.ui-files-item:nth-child(even) {
     background: rgba( var(--bs-light-rgb), 0.66);
 }
 
-div.fpcm.ui-files-card div.fpcm.ui-files-item:nth-child(even),
-div.fpcm.ui-files-list:nth-child(even) div.fpcm.ui-files-item {
+div.fpcm.ui-files-item:nth-child(odd) {
     background: rgba( var(--bs-light-rgb), 0.33);
 }
 
@@ -120,12 +118,9 @@ textarea {
     background: var(--bs-light-rgb);
 }
 
-div.fpcm.ui-files-card div.fpcm.ui-files-item:hover,
-div.fpcm.ui-files-card div.fpcm.ui-files-item:focus,
-div.fpcm.ui-files-card div.fpcm.ui-files-item:active,
-div.fpcm.ui-files-list div.fpcm.ui-files-item:hover,
-div.fpcm.ui-files-list div.fpcm.ui-files-item:focus,
-div.fpcm.ui-files-list div.fpcm.ui-files-item:active,
+div.fpcm.ui-files-item:hover,
+div.fpcm.ui-files-item:focus,
+div.fpcm.ui-files-item:active,
 div.fpcm-ui-dataview div.row:hover {
     background: rgba(255, 239, 143, 0.5);
 }

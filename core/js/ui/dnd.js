@@ -45,6 +45,10 @@ fpcm.ui_dnd = {
         if (_params.group) {
             _opt.group = _params.group;
         }
+        
+        if (_params.handle) {
+            _opt.handle = _params.handle;
+        }
 
         return Sortable.create(_el, _opt);
 
