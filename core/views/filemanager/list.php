@@ -10,7 +10,7 @@
             <div class="card shadow-sm w-100 my-2 fpcm ui-files-item ui-background-transition">
                 <div class="row g-0">
                     <div class="col-auto align-self-center">
-                        <a href="<?php print $file->getImageUrl(); ?>" class="fpcm ui-link-fancybox" data-fancybox="group">
+                        <a href="<?php print $file->getImageUrl(); ?>" class="fpcm ui-link-fancybox" data-fancybox="group" <?php if ($file->getAltText()) : ?>data-caption="<?php print $theView->escapeVal($file->getAltText()); ?>"<?php endif; ?>>
                         <?php if (file_exists($file->getFileManagerThumbnail())) : ?>
                             <img class="img-fluid rounded-start" loading="lazy" src="<?php print $file->getFileManagerThumbnailUrl(); ?>" title="<?php print $file->getFileName(); ?>" width="<?php print $thumbsize; ?>" height="<?php print $thumbsize; ?>">
                         <?php else : ?>
