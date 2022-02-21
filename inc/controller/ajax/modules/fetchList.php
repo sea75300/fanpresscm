@@ -259,6 +259,7 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController implements \fp
                         ->setText('MODULES_LIST_UPDATE')
                         ->setIcon('sync')
                         ->setIconOnly(true)
+                        ->setPrimary(true)
                         ->setClass('fpcm-ui-modulelist-action-local-update');
             }
 
@@ -268,6 +269,7 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController implements \fp
                     ->setText('MODULES_LIST_UPDATE')
                     ->setIcon('sync')
                     ->setIconOnly(true)
+                    ->setPrimary(true)
                     ->setClass('fpcm-ui-modulelist-action-local-update');
             }
         }

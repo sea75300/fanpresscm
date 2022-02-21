@@ -107,7 +107,8 @@ class modulelist extends \fpcm\controller\abstracts\controller implements \fpcm\
                                 'updateKeys' => urlencode(base64_encode($this->crypt->encrypt(implode(';', $updatesAvailable))))
                             ])
                         )->setText('MODULES_LIST_UPDATE_ALL')
-                        ->setIcon('sync');
+                        ->setIcon('sync')
+                        ->setPrimary(true);
             }
             
         }

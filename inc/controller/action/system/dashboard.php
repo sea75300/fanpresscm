@@ -47,17 +47,6 @@ class dashboard extends \fpcm\controller\abstracts\controller implements \fpcm\c
         $this->view->addFromLibrary('sortable_js', [
             'Sortable.min.js'
         ]);
-
-        $buttons = [];
-
-        if ($this->permissions->system->options) {
-            $buttons[] = (new \fpcm\view\helper\linkButton('runSyscheck'))
-                    ->setUrl(\fpcm\classes\tools::getFullControllerLink('system/options', ['syscheck' => 1]))
-                    ->setIcon('sync')
-                    ->setText('SYSCHECK_COMPLETE');
-        }
-
-        $this->view->addButtons($buttons);
     }
 
 }

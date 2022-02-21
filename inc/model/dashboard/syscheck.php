@@ -78,6 +78,18 @@ class syscheck extends \fpcm\model\abstracts\dashcontainer {
     {
         return self::DASHBOARD_HEIGHT_SMALL_MEDIUM;
     }
+    
+    public function getButton(): ?\fpcm\view\helper\linkButton
+    {
+        if (!$this->permissions->system->options) {
+            return null;
+        }
+
+        return (new \fpcm\view\helper\linkButton('runSyscheck'))
+                ->setUrl(\fpcm\classes\tools::getFullControllerLink('system/options', ['syscheck' => 1]))
+                ->setIcon('sync')
+                ->setText('SYSCHECK_COMPLETE');
+    }
 
     /**
      * Check ausführen

@@ -74,6 +74,8 @@ class linkButton extends button {
             $this->overrideButtonType('primary');
         }
 
+        $icon = trim($this->getIconString());
+        
         if ($this->readonly) {
             
             $this->class .= ' fpcm-ui-readonly';
@@ -81,7 +83,7 @@ class linkButton extends button {
                 "<a href=\"#\"",
                 "id=\"{$this->id}\"",
                 $this->getClassString(),
-                ($this->iconOnly ? "title=\"{$this->text}\">{$this->getIconString()}" : ">{$this->getIconString()}{$this->getDescriptionTextString()}"),
+                ($this->iconOnly ? "title=\"{$this->text}\">{$this->getIconString()}" : ">{$icon}{$this->getDescriptionTextString()}"),
                 '</a>'
             ]);
         }
@@ -93,7 +95,7 @@ class linkButton extends button {
             $this->getClassString(),
             $this->getRelString(),
             $this->getDataString(),
-            ($this->iconOnly ? "title=\"{$this->text}\">{$this->getIconString()}" : ">{$this->getIconString()}{$this->getDescriptionTextString()}"),
+            ($this->iconOnly ? "title=\"{$this->text}\">{$this->getIconString()}" : ">{$icon}{$this->getDescriptionTextString()}"),
             '</a>'
         ]);
     }
@@ -126,10 +128,14 @@ class linkButton extends button {
      * @return $this
      * @since 5.0.0-b3
      */
-    public function overrideButtonType(string $type)
+    public function overrideButtonType($type)
     {
-        $this->class = str_replace('btn-light', 'btn-' . $type, $this->class);
-        return $this;
+        if ($type === 'link') {
+            $this->class = str_replace('shadow-sm', 'shadow-none', $this->class);
+        }
+        
+        return parent::overrideButtonType($type);
     }
+
 
 }
