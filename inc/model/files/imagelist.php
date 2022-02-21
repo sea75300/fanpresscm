@@ -11,7 +11,7 @@ namespace fpcm\model\files;
  * Image list object
  * @package fpcm\model\files
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 final class imagelist extends \fpcm\model\abstracts\filelist {
@@ -273,10 +273,11 @@ final class imagelist extends \fpcm\model\abstracts\filelist {
     
     /**
      * Creates file manager thumbnails
-     * @param null|array $folderFiles
+     * @param array|null $folderFiles
+     * @param bool|null $forceAll
      * @return bool
      */
-    public function createFilemanagerThumbs(?array $folderFiles = null) : bool
+    public function createFilemanagerThumbs(?array $folderFiles = null, ?bool $forceAll = null) : bool
     {
         include_once \fpcm\classes\loader::libGetFilePath('PHPImageWorkshop');
         if ($folderFiles === null) {
@@ -318,7 +319,7 @@ final class imagelist extends \fpcm\model\abstracts\filelist {
             $this->removeBasePath($imgPath);
             $image = new \fpcm\model\files\image($imgPath);
 
-            if ($image->hasFileManageThumbnail()) {
+            if ($image->hasFileManageThumbnail() && !$forceAll) {
                 $image = null;
                 $phpImgWsp = null;
                 continue;

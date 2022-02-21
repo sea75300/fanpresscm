@@ -451,7 +451,6 @@ $lang = array (
   'LOGS_LIST_SESSIONID' => 'Identifier',
   'LOGS_LIST_TEXT' => 'Log data',
   'LOGS_LIST_TIME' => 'Time',
-  'LOGS_LIST_TIMEOUT' => 'Session timeout',
   'LOGS_LIST_USER' => 'User',
   'LOGS_LIST_USERAGENT' => 'User agent',
   'MAINTENANCE_MODE_ENABLED' => 'The maintenance mode of FanPress CM is currently active, therefore this function is not available at the moment.',

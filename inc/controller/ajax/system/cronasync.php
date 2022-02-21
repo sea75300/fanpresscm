@@ -12,7 +12,7 @@ namespace fpcm\controller\ajax\system;
  * 
  * @package fpcm\controller\ajax\system\cronasync
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 class cronasync extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
@@ -61,8 +61,25 @@ class cronasync extends \fpcm\controller\abstracts\ajaxController implements \fp
             trigger_error("Cronjob class {$cronName} must be an instance of \"\fpcm\model\abstracts\cron\"!");
             return false;
         }
+        
+        $this->mapJobParams($cron);
 
         return (new \fpcm\model\crons\cronlist())->registerCronAjax($cron);
+    }
+    
+    /**
+     * 
+     * @param \fpcm\model\abstracts\cron $job
+     * @return bool
+     */
+    private function mapJobParams(&$job) : bool
+    {            
+        if ($job->getCronName() === 'fmThumbs') {
+            $job->setExecParams(['force' => true]);
+            return true;
+        }
+        
+        return true;
     }
 
 }

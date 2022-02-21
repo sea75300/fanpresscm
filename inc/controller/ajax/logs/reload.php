@@ -51,12 +51,6 @@ class reload extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
 
     /**
      *
-     * @var array
-     */
-    private $sessionTimeoutStr = '';
-
-    /**
-     *
      * @var int
      */
     private $logsize = '';
@@ -163,7 +157,6 @@ class reload extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
         $this->userList = (new \fpcm\model\users\userList())->getUsersAll();
 
         $this->notfoundStr = $this->language->translate('GLOBAL_NOTFOUND');
-        $this->sessionTimeoutStr = $this->language->translate('LOGS_LIST_TIMEOUT');
 
         $this->initDataView();
         $this->assignDataViewvars();
