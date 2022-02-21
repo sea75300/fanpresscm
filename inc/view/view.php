@@ -182,6 +182,13 @@ class view {
     protected $showPageToken = true;
 
     /**
+     * Include full js vars if no header included
+     * @var bool
+     * @since 5.0.0-b3
+     */
+    protected $fullJsVarsNoheader = false;
+
+    /**
      * Root urls for replacements
      * @var array
      * @since 4.1
@@ -638,8 +645,19 @@ class view {
     }
 
     /**
-     * Renders a set up view
-     * @return bool
+     * Include full js var set if no header is included
+     * @param bool $fullJsVarsNoheader
+     */
+    public function includeFullJsVarsNoheader(bool $fullJsVarsNoheader)
+    {
+        $this->fullJsVarsNoheader = $fullJsVarsNoheader;
+    }
+    
+    /**
+     * Renders view
+     * @param bool $return
+     * @param bool $includeFullJsVars
+     * @return void
      */
     public function render(bool $return = false)
     {
@@ -780,7 +798,7 @@ class view {
             ]
         ];        
         
-        if ($this->showHeader === self::INCLUDE_HEADER_NONE) {
+        if ($this->showHeader === self::INCLUDE_HEADER_NONE && !$this->fullJsVarsNoheader) {
             $this->defaultViewVars->varsJs = $varsJs;
             $this->assign('theView', $this->defaultViewVars);
             return true;

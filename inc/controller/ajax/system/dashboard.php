@@ -40,6 +40,8 @@ class dashboard extends \fpcm\controller\abstracts\ajaxController implements \fp
     {
         $this->getClasses();
         $this->view->assign('containers', $this->containers);
+        $this->view->includeFullJsVarsNoheader(true);
+        $this->view->render();
     }
 
     /**

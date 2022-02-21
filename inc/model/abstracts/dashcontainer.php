@@ -181,6 +181,16 @@ abstract class dashcontainer extends model implements \fpcm\model\interfaces\das
     {
         return [];
     }
+    
+    /**
+     * Return container button
+     * @return \fpcm\view\helper\linkButton|null
+     * @since 5.0.0-b3
+     */
+    public function getButton() : ?\fpcm\view\helper\linkButton
+    {
+        return null;
+    }
 
     /**
      * Gibt Liste mit zu Variablen zurück, welche an Dashboard-Controller-View übergeben werden sollen
@@ -219,17 +229,32 @@ abstract class dashcontainer extends model implements \fpcm\model\interfaces\das
             $pos = $this->getPosition();
         }
         
+        $btn = $this->getButton();
+        if ($btn instanceof \fpcm\view\helper\button) {
+            $btn->setClass('btn-sm')->overrideButtonType('link');
+        }
+        else {
+            $btn = '<span class="d-block p-1">&nbsp;</span>';
+        }
+        
         $html = [];
         $html[] = '<div id="fpcm-dashboard-container-' . $this->getName() . '" class="fpcm dashboard-container-wrapper col-12 col-md-' . $this->getWidth() . '  vh-25" data-cname="' . $this->getName() . '" data-cpos="' . $pos . '" draggable="true">';
         $html[] = ' <div class="card m-1 shadow-sm fpcm dashboard-container ui-background-white-50p ui-blurring">';
         $html[] = '     <div class="card-body pt-1 ps-1 pe-1 pb-2 ui-align-ellipsis">';
-        $html[] = '         <h3 class="card-title fpcm dashboard-container headline m-2 fs-5" title="' . strip_tags($this->language->translate($this->getHeadline())) . '">';
+        $html[] = '         <h3 class="card-title fpcm dashboard-container headline m-2 fs-5 border-1 border-bottom border-primary" title="' . strip_tags($this->language->translate($this->getHeadline())) . '">';
         $html[] = '             <span class="d-inline-block text-truncate w-100">' . $this->language->translate($this->getHeadline()) . '</span> ';
         $html[] = '         </h3>';
         $html[] = '         <div class="card-text fpcm dashboard-container content">' . $this->getContent() . '</div>';
         $html[] = '     </div>';
         $html[] = '     <div class="card-footer bg-transparent">';
-        $html[] = '         ' . (new \fpcm\view\helper\icon('arrows-alt'))->setText('FILE_LIST_EDIT_MOVE')->setClass('fpcm dashboard-container-move float-end');            
+        $html[] = '         <div class="row g-0">';
+        $html[] = '             <div class="col flex-grow-1">';
+        $html[] = '             ' . $btn;
+        $html[] = '             </div>';
+        $html[] = '             <div class="col-auto  align-self-center">';
+        $html[] = '             ' . (new \fpcm\view\helper\icon('arrows-alt'))->setText('FILE_LIST_EDIT_MOVE')->setClass('fpcm dashboard-container-move');            
+        $html[] = '             </div>';
+        $html[] = '         </div>';
         $html[] = '     </div>';
         $html[] = ' </div>';
         $html[] = '</div>';

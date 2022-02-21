@@ -55,4 +55,12 @@ class welcome extends \fpcm\model\abstracts\dashcontainer {
         return 1;
     }
 
+    public function getButton(): ?\fpcm\view\helper\linkButton
+    {
+        return (new \fpcm\view\helper\linkButton('openProfile'))
+            ->setUrl(\fpcm\classes\tools::getFullControllerLink('system/profile'))
+            ->setIcon('wrench')
+            ->setText('PROFILE_OPEN');
+    }
+
 }

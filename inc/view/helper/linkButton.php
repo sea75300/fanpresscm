@@ -71,7 +71,7 @@ class linkButton extends button {
         $this->text = $this->language->translate($this->text);
         
         if ($this->primary) {
-            $this->class = str_replace('btn-light', 'btn-primary', $this->class);
+            $this->overrideButtonType('primary');
         }
 
         if ($this->readonly) {
@@ -117,6 +117,18 @@ class linkButton extends button {
      */
     public function setRel(string $rel) {
         $this->rel = $rel;
+        return $this;
+    }
+
+    /**
+     * Override bs button type
+     * @param string $rel
+     * @return $this
+     * @since 5.0.0-b3
+     */
+    public function overrideButtonType(string $type)
+    {
+        $this->class = str_replace('btn-light', 'btn-' . $type, $this->class);
         return $this;
     }
 

@@ -37,7 +37,7 @@ class button extends helper {
     protected function getString()
     {
         if ($this->primary) {
-            $this->class = preg_replace('/(btn-)(\w+\s{1})(.*)/i', '$1primary $3', $this->class);
+            $this->overrideButtonType('primary');
         }
         
         return implode(' ', [
@@ -100,6 +100,19 @@ class button extends helper {
         $this->data['fn-arg'] = $args;
         return $this;
     }
+
+    /**
+     * Override bs button type
+     * @param string $rel
+     * @return $this
+     * @since 5.0.0-b3
+     */
+    public function overrideButtonType(string $type)
+    {
+        $this->class = preg_replace('/(btn-)(\w+\s{1})(.*)/i', '$1'.$type.' $3', $this->class);
+        return $this;
+    }
+
 }
 
 ?>

@@ -49,10 +49,6 @@ class dashboard extends \fpcm\controller\abstracts\controller implements \fpcm\c
         ]);
 
         $buttons = [];
-        $buttons[] = (new \fpcm\view\helper\linkButton('openProfile'))
-                ->setUrl(\fpcm\classes\tools::getFullControllerLink('system/profile'))
-                ->setIcon('wrench')
-                ->setText('PROFILE_OPEN');
 
         if ($this->permissions->system->options) {
             $buttons[] = (new \fpcm\view\helper\linkButton('runSyscheck'))
