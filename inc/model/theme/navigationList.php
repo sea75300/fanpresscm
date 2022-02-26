@@ -121,16 +121,20 @@ final class navigationList {
             return true;
         }
 
-        $submenu = array_filter($item->getSubmenu(), function (navigationItem &$subItem) {
-            
+        $submenu = array_filter($item->getSubmenu(), function (navigationItem $subItem) {
+
             if ($subItem->isAccessible() === false) {
                 return false;
             }
-            
-            $subItem->initDefault($this->activeNavItem);
-            $subItem->setIsSubmenuItem(true);
+
             return true;
         });
+        
+        
+        foreach ($submenu as $subItem) {
+            $subItem->initDefault($this->activeNavItem);
+            $subItem->setIsSubmenuItem(true);
+        }
 
         $item->setSubmenu($submenu);
         return true;
