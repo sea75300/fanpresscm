@@ -60,6 +60,7 @@ final class rowCol implements \JsonSerializable {
     /**
      * @return array
      * @ignore
+     * #[\ReturnTypeWillChange]
      */
     public function jsonSerialize()
     {

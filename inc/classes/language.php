@@ -273,7 +273,7 @@ final class language {
      */
     public function translate($langvar, array $replaceParams = [])
     {
-        if (!trim($langvar)) {
+        if ($langvar === null || !trim($langvar)) {
             return '';
         }
 
