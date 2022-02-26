@@ -40,6 +40,7 @@ button {
     font: 1em var(--bs-font-monospace) !important;
 }
 
+.fpcm.ui-headline-font,
 h1,
 div.fpcm.ui-help-content > h3,
 h3.card-title {

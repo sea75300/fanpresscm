@@ -204,4 +204,23 @@ class updatecheck extends \fpcm\model\abstracts\dashcontainer implements \fpcm\m
         ]);
     }
 
+    /**
+     * Return button object
+     * @return \fpcm\view\helper\linkButton|null
+     * @since 5.0.0-b3
+     */
+    public function getButton(): ?\fpcm\view\helper\linkButton
+    {
+        if (\fpcm\classes\baseconfig::canConnect()) {
+            return null;
+        }
+
+        return (new \fpcm\view\helper\linkButton('manualCheckFooter'))
+            ->setUrl(\fpcm\classes\baseconfig::$updateServerManualLink)
+            ->setIcon('square-up-right')
+            ->setText('PACKAGES_MANUALCHECK')
+            ->setTarget('_blank')
+            ->setRel('noreferrer,noopener,external');
+    }
+
 }

@@ -235,10 +235,10 @@ abstract class dashcontainer extends model implements \fpcm\model\interfaces\das
         }
         
         $html = [];
-        $html[] = '<div id="fpcm-dashboard-container-' . $this->getName() . '" class="fpcm dashboard-container-wrapper col-12 col-md-' . $this->getWidth() . '  vh-25" data-cname="' . $this->getName() . '" data-cpos="' . $pos . '" draggable="true">';
+        $html[] = '<div id="fpcm-dashboard-container-' . $this->getName() . '" class="fpcm dashboard-container-wrapper col-12 col-md-' . $this->getWidth() . '  vh-25" data-cname="' . $this->getName() . '" data-cpos="' . $pos . '">';
         $html[] = ' <div class="card m-1 shadow-sm fpcm dashboard-container ui-background-white-50p ui-blurring">';
         $html[] = '     <div class="card-body pt-1 ps-1 pe-1 pb-2 ui-align-ellipsis">';
-        $html[] = '         <h3 class="card-title fpcm dashboard-container headline m-2 fs-5 border-1 border-bottom border-primary" title="' . strip_tags($this->language->translate($this->getHeadline())) . '">';
+        $html[] = '         <h3 class="card-title fpcm dashboard-container headline ui-headline-font m-2 fs-5 border-1 border-bottom border-primary" title="' . strip_tags($this->language->translate($this->getHeadline())) . '">';
         $html[] = '             <span class="d-inline-block text-truncate w-100">' . $this->language->translate($this->getHeadline()) . '</span> ';
         $html[] = '         </h3>';
         $html[] = '         <div class="card-text fpcm dashboard-container content">' . $this->getContent() . '</div>';
@@ -248,7 +248,7 @@ abstract class dashcontainer extends model implements \fpcm\model\interfaces\das
         $html[] = '             <div class="col flex-grow-1">';
         $html[] = '             ' . $btn;
         $html[] = '             </div>';
-        $html[] = '             <div class="col-auto  align-self-center">';
+        $html[] = '             <div class="col-auto  align-self-center" draggable="true">';
         $html[] = '             ' . (new \fpcm\view\helper\icon('arrows-alt'))->setText('FILE_LIST_EDIT_MOVE')->setClass('fpcm dashboard-container-move');            
         $html[] = '             </div>';
         $html[] = '         </div>';

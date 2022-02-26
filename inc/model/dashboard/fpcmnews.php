@@ -115,4 +115,18 @@ class fpcmnews extends \fpcm\model\abstracts\dashcontainer {
         $this->cache->write($this->cacheName, $this->content);
     }
 
+    /**
+     * Return button object
+     * @return \fpcm\view\helper\linkButton|null
+     * @since 5.0.0-b3
+     */
+    public function getButton(): ?\fpcm\view\helper\linkButton
+    {
+        return (new \fpcm\view\helper\linkButton('toActiveArticles'))
+                ->setUrl('https://github.com/sea75300/fanpresscm/releases')
+                ->setTarget('_blank')
+                ->setIcon('github', 'fa-brands')
+                ->setText('GitHub');
+    }
+
 }

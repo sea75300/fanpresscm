@@ -162,4 +162,17 @@ class recentcomments extends \fpcm\model\abstracts\dashcontainer implements \fpc
         $this->cache->write($this->cacheName, $this->content, $this->config->system_cache_timeout);
     }
 
+    /**
+     * Return button object
+     * @return \fpcm\view\helper\linkButton|null
+     * @since 5.0.0-b3
+     */
+    public function getButton(): ?\fpcm\view\helper\linkButton
+    {
+        return (new \fpcm\view\helper\linkButton('toCommentList'))
+                ->setUrl(\fpcm\classes\tools::getFullControllerLink('comments/list'))
+                ->setIcon('comments', 'far')
+                ->setText('HL_COMMENTS_MNG');
+    }
+
 }

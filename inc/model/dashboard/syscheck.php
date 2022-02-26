@@ -78,7 +78,12 @@ class syscheck extends \fpcm\model\abstracts\dashcontainer {
     {
         return self::DASHBOARD_HEIGHT_SMALL_MEDIUM;
     }
-    
+
+    /**
+     * Return button object
+     * @return \fpcm\view\helper\linkButton|null
+     * @since 5.0.0-b3
+     */
     public function getButton(): ?\fpcm\view\helper\linkButton
     {
         if (!$this->permissions->system->options) {

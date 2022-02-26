@@ -55,6 +55,11 @@ class welcome extends \fpcm\model\abstracts\dashcontainer {
         return 1;
     }
 
+    /**
+     * Return button object
+     * @return \fpcm\view\helper\linkButton|null
+     * @since 5.0.0-b3
+     */
     public function getButton(): ?\fpcm\view\helper\linkButton
     {
         return (new \fpcm\view\helper\linkButton('openProfile'))
