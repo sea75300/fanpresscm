@@ -138,7 +138,7 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller imp
 
         $buttons[] = (new \fpcm\view\helper\button('articlecache'))
                 ->setText('ARTICLES_CACHE_CLEAR')
-                ->setIcon('hdd')
+                ->setIcon('recycle')
                 ->setIconOnly(true)
                 ->setOnClick('articles.clearMultipleArticleCache');
 

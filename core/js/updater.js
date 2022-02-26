@@ -17,7 +17,7 @@ fpcm.updater = {
     elements     : [],
     currentEl    : {},
     currentIdx   : 0,
-    statusSpinner: 'fa-spinner fa-pulse fpcm-ui-update-iconstatus-spinner',
+    statusSpinner: 'fa-spinner fa-spin-pulse fpcm-ui-update-iconstatus-spinner',
 
     init: function () {
 

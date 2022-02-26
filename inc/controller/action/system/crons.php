@@ -106,7 +106,7 @@ class crons extends \fpcm\controller\abstracts\controller implements \fpcm\contr
     protected function initDataViewRow($cronjob)
     {
         if ( ($cronjob->getIntervalTime() > -1 && $this->currentTime > $cronjob->getNextExecTime() - 60) || $cronjob->isRunning()) {
-            $processingIcon = 'spinner fa-pulse text-danger';
+            $processingIcon = 'spinner fa-spin-pulse text-danger';
             $playClass = '';
             $btnReadonly = true;
         }
