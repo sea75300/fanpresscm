@@ -30,6 +30,7 @@
                                 ->setIconOnly(true)
                                 ->setIcon('plus-square')
                                 ->setSize('lg')
+                                ->setClass('btn-sm')
                                 ->setClass('fpcm-ui-template-tags')
                                 ->setData(['tag' => $tag]); ?>
                         <?php print $tag; ?>
