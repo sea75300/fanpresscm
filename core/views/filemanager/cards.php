@@ -25,12 +25,15 @@
                     <p class="card-subtitle text-center fs-6 text-secondary"><?php print $theView->escapeVal($file->getAltText()); ?></p>           
                     <?php endif; ?>
                     
+                    <?php if (!$file->existsFolder()) : ?>
                     <div class="card-text">
-                        <?php if (!$file->existsFolder()) : ?>
-                            <?php $theView->alert('danger')->setIcon('image', 'far')->setText('FILE_LIST_UPLOAD_NOTFOUND'); ?>
-                        <?php endif; ?>
+                        <?php $theView->alert('danger')->setIcon('image', 'far')->setText('FILE_LIST_UPLOAD_NOTFOUND'); ?>
                     </div>
+                    <?php endif; ?>
 
+                </div>
+                
+                <div class="card-footer bg-transparent">
                     <?php include $theView->getIncludePath('filemanager/buttons.php'); ?>
                 </div>
             </div>        
