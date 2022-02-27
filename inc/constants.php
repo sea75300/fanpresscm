@@ -199,6 +199,22 @@ if (!defined('FPCM_DB_PERSISTENT')) {
     define('FPCM_DB_PERSISTENT', true);
 }
 
+if (!defined('FPCM_CSV_IMPORT')) {
+    /**
+     * Enable CSV import
+     * @since 4.5
+     */
+    define('FPCM_CSV_IMPORT', false);
+}
+
+if (!defined('FPCM_CRON_DBDUMP_NOMAIL')) {
+    /**
+     * No attachments from sql dump cronjob
+     * @since 4.5.3
+     */
+    define('FPCM_CRON_DBDUMP_NOMAIL', false);
+}
+
 if (!defined('FPCM_USER_SESSION')) {
     /**
      * Default session lenght, replaces ACP setting

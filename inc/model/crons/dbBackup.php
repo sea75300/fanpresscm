@@ -101,27 +101,39 @@ class dbBackup extends \fpcm\model\abstracts\cron {
         }
 
         fpcmLogCron('New database dump created in "' . \fpcm\model\files\ops::removeBaseDir($this->dumpfile, true) . '".');
+        return $this->doMail();
+    }
 
-        $text = \fpcm\classes\loader::getObject('\fpcm\classes\language')->translate('CRONJOB_DBBACKUPS_TEXT', array(
-            '{{filetime}}' => date(\fpcm\classes\loader::getObject('\fpcm\model\system\config')->system_dtmask, $this->getLastExecTime()),
-            '{{dumpfile}}' => \fpcm\model\files\ops::removeBaseDir($this->dumpfile)
-        ));
-
+    /**
+     * Submit e-mail width databse dump file
+     * @return bool
+     * @since 4.5.3
+     */
+    private function doMail() : bool
+    {
         fpcmLogCron('Create email notification for new Database backup');
 
         $email = new \fpcm\classes\email(
-                \fpcm\classes\loader::getObject('\fpcm\model\system\config')->system_email, \fpcm\classes\loader::getObject('\fpcm\classes\language')->translate('CRONJOB_DBBACKUPS_SUBJECT'), $text
+            \fpcm\classes\loader::getObject('\fpcm\model\system\config')->system_email,
+            \fpcm\classes\loader::getObject('\fpcm\classes\language')->translate('CRONJOB_DBBACKUPS_SUBJECT'),
+            \fpcm\classes\loader::getObject('\fpcm\classes\language')->translate('CRONJOB_DBBACKUPS_TEXT', array(
+                '{{filetime}}' => date(\fpcm\classes\loader::getObject('\fpcm\model\system\config')->system_dtmask, $this->getLastExecTime()),
+                '{{dumpfile}}' => \fpcm\model\files\ops::removeBaseDir($this->dumpfile)
+            ))
         );
 
+        if (defined('FPCM_CRON_DBDUMP_NOMAIL') && FPCM_CRON_DBDUMP_NOMAIL) {
+            $email->submit();
+            return true;
+        }        
+        
         if (filesize($this->dumpfile) <= \fpcm\classes\baseconfig::memoryLimit(true) / 8) {
             $email->setAttachments([
                 $this->dumpfile
             ]);
         }
 
-
         $email->submit();
-
         return true;
     }
 
