@@ -32,25 +32,26 @@
 
             <ul class="dropdown-menu" aria-labelledby="nbexp<?php $file->getFileNameHash(); ?>">
               <li>
-                <?php $theView->dropdownItem(uniqid('rename'))->setText('FILE_LIST_RENAME')->setClass('fpcm-filelist-rename')->setData(['file' => base64_encode($file->getFilename()), 'oldname' => basename($file->getFilename(), '.'.$file->getExtension())]); ?>
+                <?php $theView->dropdownItem(uniqid('rename'))->setText('FILE_LIST_RENAME')->setIcon('edit')->setClass('fpcm-filelist-rename')->setData(['file' => base64_encode($file->getFilename()), 'oldname' => basename($file->getFilename(), '.'.$file->getExtension())]); ?>
               </li>
               <li>
-                <?php $theView->dropdownItem(uniqid('edit'))->setText('FILE_LIST_EDIT')->setClass('fpcm-filelist-link-edit')->setData(['url' => $file->getImageUrl(), 'filename' => $file->getFilename(), 'mime' => $file->getMimetype()]); ?>
+                <?php $theView->dropdownItem(uniqid('edit'))->setText('FILE_LIST_EDIT')->setIcon('magic')->setClass('fpcm-filelist-link-edit')->setData(['url' => $file->getImageUrl(), 'filename' => $file->getFilename(), 'mime' => $file->getMimetype()]); ?>
               </li>
               <li>
-                <?php $theView->dropdownItem(uniqid('alttext'))->setText('FILE_LIST_ALTTEXT')->setClass('fpcm-filelist-link-alttext')->setData(['file' => base64_encode($file->getFilename()), 'alttext' => $file->getAltText()]); ?>
+                <?php $theView->dropdownItem(uniqid('alttext'))->setText('FILE_LIST_ALTTEXT')->setIcon('keyboard')->setClass('fpcm-filelist-link-alttext')->setData(['file' => base64_encode($file->getFilename()), 'alttext' => $file->getAltText()]); ?>
               </li>
               <li><hr class="dropdown-divider"></li>
               <li>
                 <?php $theView->dropdownItem(uniqid('properties'))
                         ->setText('GLOBAL_PROPERTIES')
+                        ->setIcon('info-circle')
                         ->setClass('fpcm-filelist-properties')
                         ->setData( $file->getPropertiesArray( isset($users[$file->getUserid()]) ? $users[$file->getUserid()]->getDisplayName() : $theView->translate('USERS_SYSTEMUSER') ) ); ?>
               </li>
               <?php if ($theView->permissions->uploads->delete) : ?>
               <li><hr class="dropdown-divider"></li>
               <li>
-                <?php $theView->dropdownItem(uniqid('delete'))->setText('GLOBAL_DELETE')->setClass('fpcm-filelist-delete')->setData(['file' => base64_encode($file->getFilename()), 'filename' => $file->getFilename()]); ?>
+                <?php $theView->dropdownItem(uniqid('delete'))->setText('GLOBAL_DELETE')->setIcon('trash')->setClass('fpcm-filelist-delete')->setData(['file' => base64_encode($file->getFilename()), 'filename' => $file->getFilename()]); ?>
               </li>
               <?php endif; ?>
             </ul>

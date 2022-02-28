@@ -109,7 +109,7 @@ fpcm.comments = {
                     },                    
                     {
                         text: 'GLOBAL_RESET',
-                        icon: "undo" ,
+                        icon: "filter-circle-xmark" ,
                         clickClose: true,
                         click: function() {
                             fpcm.ui.relocate('self');
