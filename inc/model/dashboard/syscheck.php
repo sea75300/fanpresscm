@@ -101,15 +101,14 @@ class syscheck extends \fpcm\model\abstracts\dashcontainer {
      */
     protected function runCheck()
     {
-
         $sysCheckAction = new \fpcm\controller\ajax\system\syscheck(true);
-        $rows = $sysCheckAction->processCli();
-
-        $options = array_slice($rows, 16, 2);
 
         /* @var $data \fpcm\model\system\syscheckOption */
-        foreach ($options as $description => $data) {
-            $checkres = (new \fpcm\view\helper\boolToText($description))->setValue($data->getResult());
+        foreach ($sysCheckAction->getOptions() as $description => $data) {
+            
+            $txt = strip_tags($description);
+            $checkres = (new \fpcm\view\helper\boolToText($txt))->setValue($data->getResult());
+
             $dat  = "<div class=\"row g-0\">";
             $dat .= "<div class=\"col-auto px-2 text-center\">{$checkres}</div>";
             $dat .= "<div class=\"col px-2 \">{$description}</div>";
@@ -118,9 +117,10 @@ class syscheck extends \fpcm\model\abstracts\dashcontainer {
             $this->tableContent[] = $dat;
         }
 
-        $folders = array_slice($rows, -13);
-        foreach ($folders as $description => $data) {
-            $checkres = (new \fpcm\view\helper\boolToText($description))->setValue($data->getResult())->setText($data->getResult() ? 'GLOBAL_WRITABLE' : 'GLOBAL_NOT_WRITABLE');
+        foreach ($sysCheckAction->getFolders() as $description => $data) {
+
+            $txt = strip_tags($description);
+            $checkres = (new \fpcm\view\helper\boolToText($txt))->setValue($data->getResult())->setText($data->getResult() ? 'GLOBAL_WRITABLE' : 'GLOBAL_NOT_WRITABLE');
             
             $dat  = "<div class=\"row g-0\">";
             $dat .= "<div class=\"col-auto px-2 text-center\">{$checkres}</div>";

@@ -209,6 +209,15 @@ trait syscheck {
                 true
             );
 
+        $opcache = \fpcm\classes\baseconfig::hasOpcache();
+        $checkOptions[$this->language->translate('SYSTEM_OPTIONS_SYSCHECK_OPCACHE') . ' (' . $this->language->translate('GLOBAL_OPTIONAL') . ')']
+            = new \fpcm\model\system\syscheckOption(
+                $opcache ? 'true' : 'false',
+                'https://www.php.net/manual/de/book.opcache.php',
+                (true && $opcache),
+                true
+            );
+                
         
         $dirs = $this->getCheckFolders();
 
@@ -216,10 +225,7 @@ trait syscheck {
 
             $current = is_writable($folderPath);
             $pathOutput = \fpcm\model\files\ops::removeBaseDir($folderPath, true);
-            
-            
-            $lVarRaw = 'SYSCHECK_FOLDER_' . strtoupper(basename($folderPath));
-            
+
             $lVar = $this->language->translate('SYSCHECK_FOLDER_' . strtoupper(basename($folderPath)));
 
             $opt = new \fpcm\model\system\syscheckOption($current ? 'true' : 'false', '', (true && $current), false, true);
@@ -233,35 +239,9 @@ trait syscheck {
      * Check folders
      * @return array
      */
-    public function getCheckFolders()
+    public function getCheckFolders() : array
     {
-        $checkFolders = glob(\fpcm\classes\dirs::getDataDirPath('', '*'), GLOB_ONLYDIR);
-        
-        fpcmLogSystem(__METHOD__);
-        fpcmLogSystem($checkFolders);
-        
-//        $checkFolders = array(
-//            'SYSCHECK_FOLDER_DATA' => \fpcm\classes\dirs::getDataDirPath(''),
-//            'SYSCHECK_FOLDER_CACHE' => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_CACHE),
-//            'SYSCHECK_FOLDER_CONFIG' => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_CONFIG),
-//            'SYSCHECK_FOLDER_FILEMANAGER' => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_FMTMP),
-//            'SYSCHECK_FOLDER_LOGS' => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_LOGS),
-//            'SYSCHECK_FOLDER_MODULES' => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_MODULES),
-//            'SYSCHECK_FOLDER_OPTIONS' => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_OPTIONS),
-//            'SYSCHECK_FOLDER_SHARE' => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_SHARE),
-//            'SYSCHECK_FOLDER_SMILEYS' => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_SMILEYS),
-//            'SYSCHECK_FOLDER_STYLES' => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_STYLES),
-//            'SYSCHECK_FOLDER_TEMP' => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_TEMP),
-//            'SYSCHECK_FOLDER_UPLOADS' => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_UPLOADS),
-//            'SYSCHECK_FOLDER_DBDUMPS' => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_DBDUMP),
-//            'SYSCHECK_FOLDER_DRAFTS' => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_DRAFTS),
-//            'SYSCHECK_FOLDER_PROFILES' => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_PROFILES),
-//            'SYSCHECK_FOLDER_BACKUPS' => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_BACKUP),
-//        );
-
-        natsort($checkFolders);
-
-        return $checkFolders;
+        return glob(\fpcm\classes\dirs::getDataDirPath('', '*'), GLOB_ONLYDIR);
     }
 
 }
