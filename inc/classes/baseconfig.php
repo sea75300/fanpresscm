@@ -210,6 +210,20 @@ final class baseconfig {
     }
 
     /**
+     * HTTPS aktiv
+     * @return bool
+     * @since 3.5
+     */
+    public static function hasOpcache()
+    {
+        if (!isset($GLOBALS['fpcm']['baseconfigdata'][__FUNCTION__])) {
+            $GLOBALS['fpcm']['baseconfigdata'][__FUNCTION__] = ini_get('opcache.enable') == 1 && function_exists('opcache_get_status');
+        }
+
+        return $GLOBALS['fpcm']['baseconfigdata'][__FUNCTION__];
+    }
+
+    /**
      * Aufruf über CLI
      * @return bool
      * @since 4.0

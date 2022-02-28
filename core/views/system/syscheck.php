@@ -10,7 +10,7 @@
                     <?php endif; ?>
                 </div>
                 <div class="col-6 align-self-center">
-                    <spam><?php print $checkOption; ?></spam>
+                    <span><?php print $checkOption; ?></span>
                     <?php if ($checkResult->getActionButton() && !$checkResult->getResult()) : ?><?php print $checkResult->getActionButton(); ?><?php endif; ?>                
                 </div>
                 <div class="col-5 align-self-center">
