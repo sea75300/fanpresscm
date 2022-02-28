@@ -462,7 +462,7 @@ fpcm.filemanager = {
                     },                    
                     {
                         text: fpcm.ui.translate('GLOBAL_RESET'),
-                        icon: "undo" ,                        
+                        icon: "filter-circle-xmark" ,                        
                         clickClose: true,
                         click: function() {
                             fpcm.ui.relocate('self');
