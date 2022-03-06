@@ -58,7 +58,7 @@ jQuery(document).ready(function () {
             object.init();
         } catch (_e) {
             console.log(_e);
-            alert('UI init error!');
+            alert('UI init error!\n>> Code: ' + _e.message);
         }
 
     });
@@ -72,7 +72,7 @@ jQuery(document).ready(function () {
             object.initAfter();
         } catch (_e) {
             console.log(_e);
-            alert('UI init error!');
+            alert('UI initAfter error!\n>> Code: ' + _e.message);
         }
     });
 

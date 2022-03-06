@@ -19,7 +19,7 @@ trait authorImages {
 
     /**
      *
-     * @var \fpcm\components\fileupload\htmlupload
+     * @var \fpcm\components\fileupload\uploader
      */
     protected $uploader;
 
@@ -40,20 +40,30 @@ trait authorImages {
             return false;
         }
 
-        $files = $this->request->fromFiles();
-        if ($this->buttonClicked('uploadFile') && !is_null($files)) {
-            $uploader = new \fpcm\model\files\fileuploader($files);
-            $res = $uploader->processAuthorImageUpload($author->getImage());
-
-            $this->cache->cleanup('system/author' . $author->getImage() . '_image');
-            if ($res == true) {
-                $this->view->addNoticeMessage('SAVE_SUCCESS_UPLOADAUTHORIMG');
-                return true;
-            }
-
-            $this->view->addErrorMessage('SAVE_FAILED_UPLOADAUTHORIMG');
+        if (!$this->uploader instanceof \fpcm\components\fileupload\htmlupload) {
             return false;
         }
+
+        if (!$this->buttonClicked('uploadFile')) {
+            return false;
+        }
+
+        $files = $this->request->fromFiles();
+        if ($files === null) {
+            return false;
+        }
+        
+        $uploader = new \fpcm\model\files\fileuploader($files);
+        $res = $uploader->processAuthorImageUpload($author->getImage());
+
+        $this->cache->cleanup();
+        if ($res == true) {
+            $this->view->addNoticeMessage('SAVE_SUCCESS_UPLOADAUTHORIMG');
+            return true;
+        }
+
+        $this->view->addErrorMessage('SAVE_FAILED_UPLOADAUTHORIMG');
+        return false;
     }
 
     /**
@@ -83,7 +93,7 @@ trait authorImages {
             $res = $res && $authorImage->delete();
         }
 
-        $this->cache->cleanup('system/author' . $author->getImage() . '_image');
+        $this->cache->cleanup();
         if ($res == true) {
             $this->view->addNoticeMessage('DELETE_SUCCESS_FILEAUTHORIMG');
             return true;
@@ -116,16 +126,43 @@ trait authorImages {
         $this->view->assign('secret', $secret);
         return true;
     }
-    
-    protected function initUploader() : bool
+
+    /**
+     * 
+     * @param \fpcm\model\users\author $author
+     * @return bool
+     */
+    protected function initUploader(\fpcm\model\users\author $author) : bool
     {
-        $this->uploader = \fpcm\components\components::getFileUploader('\\fpcm\\components\\fileupload\\htmlupload');
+        if (defined('FPCM_UPLOADER_UPPY') && FPCM_UPLOADER_UPPY) {
+            $this->uploader = \fpcm\components\components::getFileUploader();
+        }
+        else {
+            $this->uploader = \fpcm\components\components::getFileUploader('\\fpcm\\components\\fileupload\\htmlupload');
+        }
+
+        if (!trim($this->uploader->getTemplate()) || !realpath($this->uploader->getTemplate())) {
+            trigger_error('Undefined file upload template given in '.$this->uploader->getTemplate());
+            $this->execDestruct = false;
+            return false;
+        }        
+
         $this->view->setViewVars($this->uploader->getViewVars());
         $this->view->addJsFiles($this->uploader->getJsFiles());
-        $this->view->addJsVars($this->uploader->getJsVars());
+        $this->view->addJsFiles(['users/userimage.js']);        
+        $this->view->addJsVars(array_merge([
+            'uploadDest' => 'userimage&uid=' . $author->getId(),
+            'userImgRedir' => \fpcm\classes\tools::getFullControllerLink('system/profile', [
+                'rg' => 1
+            ])
+        ], $this->uploader->getJsVars() ));        
+        
+        
+        $this->view->addCssFiles($this->uploader->getCssFiles());
+        $this->view->addJsLangVars($this->uploader->getJsLangVars());        
+        $this->view->addJsFilesLate($this->uploader->getJsFilesLate());
+        
         return true;
     }
 
 }
-
-?>

@@ -38,7 +38,7 @@ fpcm.fileuploader = {
                 hideUploadButton: true
             })
             .on('complete', function (_file, _response) {
-                fpcm.filemanager.runFileIndexUpdate();
+                fpcm.filemanager.runFileIndexUpdate(_file);
                 _uppy.reset();
             });
 

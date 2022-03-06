@@ -29,10 +29,10 @@ class useredit extends userbase {
             $this->redirect('users/list');
             return false;
         }
-        
-        $this->initUploader();
-        
+
         $this->initActionObjects();
+        $this->initUploader($this->user);
+
         parent::request();
 
         if (!$this->user->exists()) {
@@ -107,6 +107,13 @@ class useredit extends userbase {
             '{{username}}' => $chgUser->exists() ? $chgUser->getDisplayname() : $this->language->translate('GLOBAL_NOTFOUND'),
             '{{time}}'     => new \fpcm\view\helper\dateText($this->user->getChangetime())
         ]));
+        
+        $this->view->addJsVars([
+            'userImgRedir' => \fpcm\classes\tools::getFullControllerLink('users/edit', [
+                'id' => $this->user->getId(),
+                'rg' => 1
+            ])
+        ]);
         
         $this->view->addJsFiles(['users/edit.js']);
         $this->view->render();

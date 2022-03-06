@@ -30,7 +30,7 @@ class uppy extends \fpcm\controller\abstracts\ajaxController implements \fpcm\co
      */
     public function isAccessible(): bool
     {
-        return $this->permissions->uploads->visible && $this->permissions->uploads->add && defined('FPCM_UPLOADER_UPPY') && FPCM_UPLOADER_UPPY;
+        return defined('FPCM_UPLOADER_UPPY') && FPCM_UPLOADER_UPPY;
     }
     
     /**
@@ -51,6 +51,10 @@ class uppy extends \fpcm\controller\abstracts\ajaxController implements \fpcm\co
      */
     protected function processDefault() : array
     {
+        if (!$this->permissions->uploads->visible || !$this->permissions->uploads->add) {
+            $this->response->setCode(403)->fetch();
+        }
+        
         $file = $this->request->fromFiles('file');
         if ($file === null) {
             $this->response->setCode(400)->fetch();
@@ -103,6 +107,10 @@ class uppy extends \fpcm\controller\abstracts\ajaxController implements \fpcm\co
      */
     protected function processDrafts() : array
     {
+        if (!$this->permissions->system->drafts) {
+            $this->response->setCode(403)->fetch();
+        }
+
         $file = $this->request->fromFiles('file');
         if ($file === null) {
             $this->response->setCode(400)->fetch();
@@ -135,8 +143,60 @@ class uppy extends \fpcm\controller\abstracts\ajaxController implements \fpcm\co
      * 
      * @return array
      */
+    protected function processUserimage() : array
+    {
+        $userId = $this->request->fromGET('uid', [\fpcm\model\http\request::FILTER_CASTINT]);
+        if (!$userId)  {
+            $this->response->setCode(400)->fetch();
+        }
+        
+        $author = new \fpcm\model\users\author($userId);
+        $this->cache->cleanup();
+        
+        $file = $this->request->fromFiles('file');
+        if ($file === null) {
+            $this->response->setCode(400)->fetch();
+        }
+        
+        $realFile = $file['name'];
+        $tmpFile = $file['tmp_name'];
+        if (!is_uploaded_file($tmpFile)) {
+            $this->response->setCode(400)->fetch();
+        }
+
+        $mime = \fpcm\model\files\image::retrieveRealType($tmpFile);
+        if (!\fpcm\model\files\authorImage::isValidType(\fpcm\model\files\image::retrieveFileExtension($realFile), $mime)) {
+            trigger_error('Unsupported filetype '.$mime.' in ' . $realFile);
+            $this->response->setCode(415)->fetch();
+        }
+        
+        if ($file['size'] > FPCM_AUTHOR_IMAGE_MAX_SIZE) {
+            trigger_error('Uploaded file ' . $realFile . ' is to large, maximum size is ' . \fpcm\classes\tools::calcSize(FPCM_AUTHOR_IMAGE_MAX_SIZE));
+            $this->response->setCode(431)->fetch();
+        }
+        
+        $ext = \fpcm\model\abstracts\file::retrieveFileExtension($realFile);
+        $obj = new \fpcm\model\files\authorImage($author->getImage() . '.' . $ext);
+        if (!$obj->moveUploadedFile($tmpFile)) {
+            trigger_error('Unable to move uploaded to to uploader folder! ' . $realFile);
+            $this->response->setCode(500)->fetch();
+        }
+
+        $this->response->setReturnData([
+            'url' => $obj->getImageUrl()
+        ])->fetch();
+    }
+
+    /**
+     * 
+     * @return array
+     */
     protected function processCsv() : array
     {
+        if (!$this->permissions->system->options) {
+            $this->response->setCode(403)->fetch();
+        }
+
         $file = $this->request->fromFiles('file');
         if ($file === null) {
             $this->response->setCode(400)->fetch();

@@ -51,16 +51,16 @@ class profile extends \fpcm\controller\abstracts\controller implements \fpcm\con
     public function request()
     {
 
-        $this->initUploader();
-        
         $this->user = $this->session->getCurrentUser();
-        
+        $this->initUploader($this->user);
+
+        $this->deleteImage($this->user);
+        $this->uploadImage($this->user);
+
         if ($this->config->system_2fa_auth) {
             include_once \fpcm\classes\loader::libGetFilePath('sonata-project'.DIRECTORY_SEPARATOR.'GoogleAuthenticator');
             $this->gAuth = new \Sonata\GoogleAuthenticator\GoogleAuthenticator();
         }
-
-        $this->uploadImage($this->user);
 
         if (($this->buttonClicked('profileSave') || $this->buttonClicked('resetProfileSettings')) && !$this->checkPageToken()) {
             $this->view->addErrorMessage('CSRF_INVALID');
@@ -68,7 +68,6 @@ class profile extends \fpcm\controller\abstracts\controller implements \fpcm\con
 
         $this->reloadSite = 0;
 
-        $this->deleteImage($this->user);
         $this->resetProfileSettings();
         $this->resetDashboardSettings();
         $this->saveProfile();
@@ -260,5 +259,3 @@ class profile extends \fpcm\controller\abstracts\controller implements \fpcm\con
     }
 
 }
-
-?>
