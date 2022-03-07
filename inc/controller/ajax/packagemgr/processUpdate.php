@@ -88,7 +88,7 @@ class processUpdate extends \fpcm\controller\abstracts\ajaxController implements
         if ($this->processByParam('exec', 'step') === self::ERROR_PROCESS_BYPARAMS) {
             $this->response->setReturnData(new \fpcm\model\http\responseDataPkgMgr(false))->fetch();
         }
-
+        
         $this->response->setReturnData(new \fpcm\model\http\responseDataPkgMgr($this->res, $this->pkgdata, $this->message));
 
         usleep(500000);

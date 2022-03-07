@@ -1,7 +1,7 @@
 /**
  * FanPress CM Updater Namespace
  * @article Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2015-2018, Stefan Seehafer
+ * @copyright (c) 2015-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @since FPCM 3.5
  */
@@ -17,7 +17,6 @@ fpcm.updater = {
     elements     : [],
     currentEl    : {},
     currentIdx   : 0,
-    statusSpinner: 'fa-spinner fa-spin-pulse fpcm-ui-update-iconstatus-spinner',
 
     init: function () {
 
@@ -38,11 +37,11 @@ fpcm.updater = {
             var: el.data('var'),
         };
 
-        el.parent().parent().removeClass('opacity-25').addClass('opacity-100');
-        var descrEl = el.parent().parent().find('.fpcm-ui-updater-descr');
-        
+        var _listItem = el.parent().parent().parent();
+        _listItem.addClass('list-group-item-primary').removeClass('disabled');
+
         if (params.var && fpcm.vars.jsvars.pkgdata.update[params.var]) {
-            descrEl.html(descrEl.html().replace('{{var}}', fpcm.vars.jsvars.pkgdata.update[params.var]));
+            _listItem.html(_listItem.html().replace('{{var}}', fpcm.vars.jsvars.pkgdata.update[params.var]));
         }
 
         if (params.func && typeof fpcm.updater[params.func] === 'function') {
@@ -53,7 +52,8 @@ fpcm.updater = {
             return false;
         }
 
-        el.find('.fpcm-ui-update-iconstatus').removeClass('fa-square fpcm-ui-update-iconstatus-0').addClass(fpcm.updater.statusSpinner);
+        fpcm.updater._spinner(_listItem, true);
+
         fpcm.updater.currentEl = el;
 
         fpcm.ajax.post('packagemgr/processUpdate', {
@@ -63,12 +63,12 @@ fpcm.updater = {
             },
             execDone: function (res) {
 
-                var statusEl = fpcm.updater.currentEl.find('.fpcm-ui-update-iconstatus');
-                statusEl.removeClass(fpcm.updater.statusSpinner);
+                fpcm.updater._spinner(_listItem, false);
 
                 if (!res.code) {
-                    statusEl.addClass('fa-ban text-danger');
-                    fpcm.dom.fromId('fpcm-ui-update-result-0').removeClass('fpcm-ui-hidden');
+
+                    _listItem.removeClass('list-group-item-primary').removeClass('disabled').addClass('list-group-item-danger');
+                    fpcm.updater.errorMsg();
                     
                     if (res.message) {
                         fpcm.ui.addMessage(res.message);
@@ -91,7 +91,8 @@ fpcm.updater = {
                     fpcm.updater[afterFunc].call();
                 }
 
-                statusEl.addClass('fa-check fpcm-ui-editor-metainfo opacity-100');
+                _listItem.removeClass('list-group-item-primary').removeClass('disabled').addClass('list-group-item-success');
+                
                 if (!fpcm.updater.elements[fpcm.updater.currentIdx]) {
                     return false;
                 }
@@ -99,15 +100,15 @@ fpcm.updater = {
                 fpcm.updater.execRequest(fpcm.dom.fromTag(fpcm.updater.elements[fpcm.updater.currentIdx]));
             },
             execFail: function () {
-                fpcm.updater.currentEl.find('.fpcm-ui-update-iconstatus').removeClass(fpcm.updater.statusSpinner).addClass('fa-ban text-danger');
-                
-                var resultEl = fpcm.dom.fromId('fpcm-ui-update-result-0');
-                resultEl.removeClass('fpcm-ui-hidden');
+
+                fpcm.updater._spinner(_listItem, false);
+
+                _listItem.removeClass('list-group-item-primary').removeClass('disabled').addClass('list-group-item-danger');
 
                 fpcm.ui_notify.show({
-                    body: resultEl.find('div.fpcm-ui-updater-descr').text()
-                });
-
+                    body: fpcm.updater.errorMsg()
+                });                   
+                
                 fpcm.updater.currentEl = {};
                 return false;
             }
@@ -122,16 +123,29 @@ fpcm.updater = {
     
     stopTimer: function() {
         fpcm.updater.stopTime = (new Date().getTime());
-        fpcm.dom.appendHtml('#fpcm-ui-update-timer', ': ' + (fpcm.updater.stopTime - fpcm.updater.startTime) / 1000 + ' sec');
-        fpcm.dom.appendHtml('#fpcm-ui-update-newver-descr', ': ' + fpcm.vars.jsvars.pkgdata.update.version);
-        fpcm.dom.fromId('fpcm-ui-update-timer').parent().removeClass('fpcm-ui-hidden');
         
-        var resultEl = fpcm.dom.fromId('fpcm-ui-update-result-1');
-        resultEl.removeClass('fpcm-ui-hidden');
+        fpcm.dom.assignHtml('#fpcm-ui-update-timer', (fpcm.updater.stopTime - fpcm.updater.startTime) / 1000 + ' sec');
+        fpcm.dom.assignHtml('#fpcm-ui-update-newver-descr', fpcm.vars.jsvars.pkgdata.update.version);
 
+        let _res = fpcm.dom.fromId('fpcm-ui-update-result-1');
+        _res.removeClass('disabled d-none').addClass('list-group-item-success');
+        
         fpcm.ui_notify.show({
-            body: resultEl.find('div.fpcm-ui-updater-descr').text()
+            body: _res.find('div.fpcm-ui-updater-descr').text().trim()
         });        
 
+    },
+    
+    errorMsg: function () {
+        let _res = fpcm.dom.fromId('fpcm-ui-update-result-0');
+        _res.removeClass('disabled d-none').addClass('list-group-item-danger');
+        fpcm.dom.fromId('fpcm-ui-update-timer').addClass('d-none');
+        fpcm.dom.fromId('fpcm-ui-update-version').addClass('d-none');
+        return _res.find('div.fpcm-ui-updater-descr').text().trim();
+    },
+    
+    _spinner: function (_listItem, _status) {
+        _listItem.find('div.fpcm.ui-updater-spinner').html(_status ? '<div class="spinner-border spinner-border-sm text-secondary" role="status"></div>' : '');
     }
+
 };

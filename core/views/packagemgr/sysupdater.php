@@ -1,209 +1,276 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
 <div class="border-top border-5 border-primary">
-    <div class="row py-2">
-        <div class="col-1 text-center">
-            <?php $theView->icon('code-branch fa-flip-vertical')->setSize('2x'); ?>
-        </div>
-        <div class="col-auto align-self-center fpcm-ui-updater-descr">
-            <strong><?php $theView->write('PACKAGEMANAGER_CURRENTVERSION'); ?>:</strong>
-            <?php print $theView->escapeVal($theView->version); ?>
-        </div>
-    </div>
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8 align-self-center m-3">
+            <div class="list-group shadow">
+                <div class="list-group-item py-3 list-group-item-light">
+                    <div class="row fpcm-ui-updater-descr">
+                        <div class="col-12 align-self-center">
+                            <?php $theView->icon('code-branch fa-flip-vertical'); ?>
+                            <strong><?php $theView->write('PACKAGEMANAGER_CURRENTVERSION'); ?>:</strong>
+                            <?php print $theView->escapeVal($theView->version); ?>
+                        </div>
+                    </div>
+                </div>
 
-    <div class="row py-2">
-        <div class="col-1 text-center">
-            <?php $theView->icon('language')->setSize('2x'); ?>
-        </div>
-        <div class="col-auto align-self-center fpcm-ui-updater-descr">
-            <strong><?php $theView->write('PACKAGEMANAGER_CURRENTLANGUAGE'); ?>:</strong>
-            <?php print $theView->escapeVal($theView->langCode); ?>
-        </div>
-    </div>
+                <div class="list-group-item py-3 list-group-item-light">
+                    <div class="row fpcm-ui-updater-descr">
+                        <div class="col-12 align-self-center">
+                            <?php $theView->icon('language'); ?>
+                            <strong><?php $theView->write('PACKAGEMANAGER_CURRENTLANGUAGE'); ?>:</strong>
+                            <?php print $theView->escapeVal($theView->langCode); ?>
+                        </div>
+                    </div>
+                </div>
 
-    <div class="row py-2 opacity-25">
-        <div class="col-1 text-center">
-            <?php $theView->icon('lightbulb')->setSize('2x')->setClass('fpcm-ui-update-icons')->setStack('square fpcm-ui-update-iconstatus fpcm-ui-update-iconstatus-0')->setStackTop(true)->setData([
-                'step' => 'maintenanceOn',
-                'func' => 'startTimer'
-            ]); ?>
-        </div>
-        <div class="col-auto align-self-center fpcm-ui-updater-descr">
-            <?php $theView->write('PACKAGEMANAGER_MAINTENANCE_EN'); ?>
-        </div>
-    </div>
+                <div class="list-group-item py-3">
+                    <div class="row row-cols-2 fpcm-ui-updater-descr">
+                        <div class="col flex-grow-1 align-self-center">
+                            <?php $theView->icon('lightbulb')->setClass('fpcm-ui-update-icons')->setData([
+                                'step' => 'maintenanceOn',
+                                'func' => 'startTimer'
+                            ]); ?>
 
-    <?php if ($checkFs) : ?>
-    <div class="row py-2 opacity-25">
-        <div class="col-1 text-center">
-            <?php $theView->icon('medkit')->setSize('2x')->setClass('fpcm-ui-update-icons')->setStack('square fpcm-ui-update-iconstatus fpcm-ui-update-iconstatus-0')->setStackTop(true)->setData([
-                'step' => 'checkFiles'
-            ]); ?>
-        </div>
-        <div class="col-auto align-self-center fpcm-ui-updater-descr">
-            <?php $theView->write('PACKAGEMANAGER_CHECKLOCAL'); ?>
-        </div>
-    </div>
-    <?php endif; ?>
+                            <?php $theView->write('PACKAGEMANAGER_MAINTENANCE_EN'); ?>
+                        </div>
+                        <div class="col-auto fpcm ui-updater-spinner align-self-center">
+                            
+                        </div>
 
-    <?php if ($backupFs) : ?>
-    <div class="row py-2 opacity-25">
-        <div class="col-1 text-center">
-            <?php $theView->icon('life-ring')->setSize('2x')->setClass('fpcm-ui-update-icons')->setStack('square fpcm-ui-update-iconstatus fpcm-ui-update-iconstatus-0')->setStackTop(true)->setData([
-                'step' => 'backupFs'
-            ]); ?>
-        </div>
-        <div class="col-auto align-self-center fpcm-ui-updater-descr">
-            <?php $theView->write('PACKAGEMANAGER_BACKUPFS'); ?>
-        </div>
-    </div>
-    <?php endif; ?>
+                    </div>            
+                </div>
 
-    <?php if ($download) : ?>
-    <div class="row py-2 opacity-25">
-        <div class="col-1 text-center">
-            <?php $theView->icon('cloud-download-alt')->setSize('2x')->setClass('fpcm-ui-update-icons')->setStack('square fpcm-ui-update-iconstatus fpcm-ui-update-iconstatus-0')->setStackTop(true)->setData([
-                'step' => 'download'
-            ]); ?>
-        </div>
-        <div class="col-auto align-self-center fpcm-ui-updater-descr">
-            <?php $theView->write('PACKAGEMANAGER_DOWNLOAD', [
-                '{{var}}' => $pkgurl,
-                '{{var2}}' => $pkgsize,
-            ]); ?>
-        </div>
-    </div>
-    <?php endif; ?>
+                <?php if ($checkFs) : ?>
+                <div class="list-group-item py-3">
+                    <div class="row row-cols-2 fpcm-ui-updater-descr">
+                        <div class="col flex-grow-1 align-self-center">
+                            <?php $theView->icon('medkit')->setClass('fpcm-ui-update-icons')->setData([
+                                'step' => 'checkFiles'
+                            ]); ?>
 
-    <?php if ($checkPkg) : ?>
-    <div class="row py-2 opacity-25">
-        <div class="col-1 text-center">
-            <?php $theView->icon('file-signature')->setSize('2x')->setClass('fpcm-ui-update-icons')->setStack('square fpcm-ui-update-iconstatus fpcm-ui-update-iconstatus-0')->setStackTop(true)->setData([
-                'step' => 'checkPkg'
-            ]); ?>
-        </div>
-        <div class="col-auto align-self-center fpcm-ui-updater-descr">
-            <?php $theView->write('PACKAGEMANAGER_CHECKPKG', [
-                '{{var}}' => $pkgname
-            ]); ?>
-        </div>
-    </div>
-    <?php endif; ?>
+                            <?php $theView->write('PACKAGEMANAGER_CHECKLOCAL'); ?>
+                        </div>
+                        <div class="col-auto fpcm ui-updater-spinner align-self-center">
+                            
+                        </div>
 
-    <?php if ($extract) : ?>
-    <div class="row py-2 opacity-25">
-        <div class="col-1 text-center">
-            <?php $theView->icon('file-archive', 'far')->setSize('2x')->setClass('fpcm-ui-update-icons')->setStack('square fpcm-ui-update-iconstatus fpcm-ui-update-iconstatus-0')->setStackTop(true)->setData([
-                'step' => 'extract'
-            ]); ?>
-        </div>
-        <div class="col-auto align-self-center fpcm-ui-updater-descr">
-            <?php $theView->write('PACKAGEMANAGER_EXTRACT', [
-                '{{var}}' => $pkgname
-            ]); ?>
-        </div>
-    </div>
-    <?php endif; ?>
+                    </div>
+                </div>
+                <?php endif; ?>
 
-    <?php if ($updateFs) : ?>
-    <div class="row py-2 opacity-25">
-        <div class="col-1 text-center">
-            <?php $theView->icon('copy')->setSize('2x')->setClass('fpcm-ui-update-icons')->setStack('square fpcm-ui-update-iconstatus fpcm-ui-update-iconstatus-0')->setStackTop(true)->setData([
-                'step' => 'updateFs'
-            ]); ?>
-        </div>
-        <div class="col-auto align-self-center fpcm-ui-updater-descr">
-            <?php $theView->write('PACKAGEMANAGER_UPDATEFS'); ?>
-        </div>
-    </div>
-    <?php endif; ?>
+                <?php if ($backupFs) : ?>
+                <div class="list-group-item py-3">
+                    <div class="row row-cols-2 fpcm-ui-updater-descr">
+                        <div class="col flex-grow-1 align-self-center">
+                            <?php $theView->icon('life-ring')->setClass('fpcm-ui-update-icons')->setData([
+                                'step' => 'backupFs'
+                            ]); ?>
+                            <?php $theView->write('PACKAGEMANAGER_BACKUPFS'); ?>
+                        </div>
+                        <div class="col-auto fpcm ui-updater-spinner align-self-center">
+                            
+                        </div>
 
-    <?php if ($updateDb) : ?>
-    <div class="row py-2 opacity-25">
-        <div class="col-1 text-center">
-            <?php $theView->icon('database')->setSize('2x')->setClass('fpcm-ui-update-icons')->setStack('square fpcm-ui-update-iconstatus fpcm-ui-update-iconstatus-0')->setStackTop(true)->setData([
-                'step' => 'updateDb'
-            ]); ?>
-        </div>
-        <div class="col-auto align-self-center fpcm-ui-updater-descr">
-            <?php $theView->write('PACKAGEMANAGER_UPDATEDB'); ?>
-        </div>
-    </div>
-    <?php endif; ?>
+                    </div>
+                </div>
+                <?php endif; ?>
 
-    <?php if ($updateLog) : ?>
-    <div class="row py-2 opacity-25">
-        <div class="col-1 text-center">
-            <?php $theView->icon('file-alt', 'far')->setSize('2x')->setClass('fpcm-ui-update-icons')->setStack('square fpcm-ui-update-iconstatus fpcm-ui-update-iconstatus-0')->setStackTop(true)->setData([
-                'step' => 'updateLog'
-            ]); ?>
-        </div>
-        <div class="col-auto align-self-center fpcm-ui-updater-descr">
-            <?php $theView->write('PACKAGEMANAGER_UPDATELOG'); ?>
-        </div>
-    </div>
-    <?php endif; ?>
+                <?php if ($download) : ?>
+                <div class="list-group-item py-3">
+                    <div class="row row-cols-2 fpcm-ui-updater-descr">
+                        <div class="col flex-grow-1 align-self-center">
+                            <?php $theView->icon('cloud-download-alt')->setClass('fpcm-ui-update-icons')->setData([
+                                'step' => 'download'
+                            ]); ?>
 
-    <?php if ($cleanup) : ?>
-    <div class="row py-2 opacity-25">
-        <div class="col-1 text-center">
-            <?php $theView->icon('eraser')->setSize('2x')->setClass('fpcm-ui-update-icons')->setStack('square fpcm-ui-update-iconstatus fpcm-ui-update-iconstatus-0')->setStackTop(true)->setData([
-                'step' => 'cleanup'
-            ]); ?>
-        </div>
-        <div class="col-auto align-self-center fpcm-ui-updater-descr">
-            <?php $theView->write('PACKAGEMANAGER_CLEANUP'); ?>
-        </div>
-    </div>
-    <?php endif; ?>
+                            <?php $theView->write('PACKAGEMANAGER_DOWNLOAD', [
+                                '{{var}}' => $pkgurl,
+                                '{{var2}}' => $pkgsize,
+                            ]); ?>
+                            
+                        </div>
+                        <div class="col-auto fpcm ui-updater-spinner align-self-center">
+                            
+                        </div>
+                    </div>
+                </div>
+                <?php endif; ?>
 
-    <div class="row py-2 opacity-25">
-        <div class="col-1 text-center">
-            <?php $theView->icon('lightbulb')->setSize('2x')->setClass('fpcm-ui-update-icons')->setStack('square fpcm-ui-update-iconstatus fpcm-ui-update-iconstatus-0')->setStackTop(true)->setData([
-                'step' => 'maintenanceOff'
-            ]); ?>
-        </div>
-        <div class="col-auto align-self-center fpcm-ui-updater-descr">
-            <?php $theView->write('PACKAGEMANAGER_MAINTENANCE_DIS'); ?>
-        </div>
-    </div>
+                <?php if ($checkPkg) : ?>
+                <div class="list-group-item py-3">
+                    <div class="row row-cols-2 fpcm-ui-updater-descr">
+                        <div class="col flex-grow-1 align-self-center">
+                            <?php $theView->icon('file-signature')->setClass('fpcm-ui-update-icons')->setData([
+                                'step' => 'checkPkg'
+                            ]); ?>
 
-    <div class="row py-2 opacity-25">
-        <div class="col-1 text-center">
-            <?php $theView->icon('code-branch')->setSize('2x')->setClass('fpcm-ui-update-icons')->setStack('square fpcm-ui-update-iconstatus fpcm-ui-update-iconstatus-0')->setData([
-                'step' => 'getVersion',
-                'var' => 'version',
-                'after' => 'stopTimer',
-            ]); ?>
-        </div>
-        <div class="col-11 align-self-center fpcm-ui-updater-descr" id="fpcm-ui-update-newver-descr">
-            <strong><?php $theView->write('PACKAGEMANAGER_NEWVERSION'); ?></strong>
-        </div>
-    </div>
+                            <?php $theView->write('PACKAGEMANAGER_CHECKPKG', [
+                                '{{var}}' => $pkgname
+                            ]); ?>
+                            
+                        </div>
+                        <div class="col-auto fpcm ui-updater-spinner align-self-center">
+                            
+                        </div>
+                    </div>
+                </div>
+                <?php endif; ?>
 
-    <div class="row py-2 fpcm-ui-hidden">
-        <div class="col-1 text-center">
-            <?php $theView->icon('clock', 'far')->setSize('2x'); ?>
-        </div>
-        <div class="col-auto align-self-center" id="fpcm-ui-update-timer">
-            <strong><?php $theView->write('PACKAGEMANAGER_TIMER'); ?></strong>
-        </div>
-    </div>
+                <?php if ($extract) : ?>
+                <div class="list-group-item py-3">
+                    <div class="row row-cols-2 fpcm-ui-updater-descr">
+                        <div class="col flex-grow-1 align-self-center">
+                            <?php $theView->icon('file-archive', 'far')->setClass('fpcm-ui-update-icons')->setData([
+                                'step' => 'extract'
+                            ]); ?>
 
-    <div class="row py-2 fpcm-ui-hidden" id="fpcm-ui-update-result-1">
-        <div class="col-1 text-center">
-            <?php $theView->icon('check')->setSize('3x')->setClass('fpcm-ui-editor-metainfo'); ?>
-        </div>
-        <div class="col-auto align-self-center fpcm-ui-updater-descr">
-            <?php $theView->write('PACKAGEMANAGER_SUCCESS'); ?>
-        </div>
-    </div>
+                            <?php $theView->write('PACKAGEMANAGER_EXTRACT', [
+                                '{{var}}' => $pkgname
+                            ]); ?>
+                        </div>
+                        <div class="col-auto fpcm ui-updater-spinner align-self-center">
+                            
+                        </div>
+                    </div>
+                </div>
+                <?php endif; ?>
 
-    <div class="row py-2 fpcm-ui-hidden" id="fpcm-ui-update-result-0">
-        <div class="col-1 text-center">
-            <?php $theView->icon('times')->setSize('3x')->setClass('text-danger'); ?>
+                <?php if ($updateFs) : ?>
+                <div class="list-group-item py-3">
+                    <div class="row row-cols-2 fpcm-ui-updater-descr">
+                        <div class="col flex-grow-1 align-self-center">
+                            <?php $theView->icon('copy')->setClass('fpcm-ui-update-icons')->setData([
+                                'step' => 'updateFs'
+                            ]); ?>
+
+                            <?php $theView->write('PACKAGEMANAGER_UPDATEFS'); ?>
+                        </div>
+                        <div class="col-auto fpcm ui-updater-spinner align-self-center">
+                            
+                        </div>
+                    </div>
+                </div>
+                <?php endif; ?>
+
+                <?php if ($updateDb) : ?>
+                <div class="list-group-item py-3">
+                    <div class="row row-cols-2 fpcm-ui-updater-descr">
+                        <div class="col flex-grow-1 align-self-center">
+                            <?php $theView->icon('database')->setClass('fpcm-ui-update-icons')->setData([
+                                'step' => 'updateDb'
+                            ]); ?>
+
+                            <?php $theView->write('PACKAGEMANAGER_UPDATEDB'); ?>
+                            
+                        </div>
+                        <div class="col-auto fpcm ui-updater-spinner align-self-center">
+                            
+                        </div>
+                    </div>
+                </div>
+                <?php endif; ?>
+
+
+                <?php if ($updateLog) : ?>
+                <div class="list-group-item py-3">
+                    <div class="row row-cols-2 fpcm-ui-updater-descr">
+                        <div class="col flex-grow-1 align-self-center">
+                            <?php $theView->icon('file-alt', 'far')->setClass('fpcm-ui-update-icons')->setData([
+                                'step' => 'updateLog'
+                            ]); ?>
+
+                            <?php $theView->write('PACKAGEMANAGER_UPDATELOG'); ?>
+                            
+                        </div>
+                        <div class="col-auto fpcm ui-updater-spinner align-self-center">
+                            
+                        </div>
+                    </div>
+                </div>
+                <?php endif; ?>
+
+                <?php if ($cleanup) : ?>
+                <div class="list-group-item py-3">
+                    <div class="row row-cols-2 fpcm-ui-updater-descr">
+                        <div class="col flex-grow-1 align-self-center">
+                            <?php $theView->icon('eraser')->setClass('fpcm-ui-update-icons')->setData([
+                                'step' => 'cleanup'
+                            ]); ?>
+
+                            <?php $theView->write('PACKAGEMANAGER_CLEANUP'); ?>
+                        </div>
+                        <div class="col-auto fpcm ui-updater-spinner align-self-center">
+                            
+                        </div>
+                    </div>
+                </div>
+                <?php endif; ?>
+
+                <div class="list-group-item py-3">
+                    <div class="row row-cols-2 fpcm-ui-updater-descr">
+                        <div class="col flex-grow-1 align-self-center">
+                            <?php $theView->icon('bolt')->setClass('fpcm-ui-update-icons')->setData([
+                                'step' => 'maintenanceOff'
+                            ]); ?>
+
+                            <?php $theView->write('PACKAGEMANAGER_MAINTENANCE_DIS'); ?>
+                        </div>
+                        <div class="col-auto fpcm ui-updater-spinner align-self-center">
+                            
+                        </div>
+                    </div>
+                </div>
+
+                <div class="list-group-item disabled py-3" id="fpcm-ui-update-version">
+                    <div class="row row-cols-2 fpcm-ui-updater-descr">
+                        <div class="col flex-grow-1 align-self-center">
+                            <?php $theView->icon('code-branch')->setClass('fpcm-ui-update-icons')->setData([
+                                'step' => 'getVersion',
+                                'var' => 'version',
+                                'after' => 'stopTimer',
+                            ]); ?>
+
+                            <strong><?php $theView->write('PACKAGEMANAGER_NEWVERSION'); ?></strong>
+
+                            <span id="fpcm-ui-update-newver-descr"></span>
+                        </div>
+                        <div class="col-auto fpcm ui-updater-spinner align-self-center">
+                            
+                        </div>
+                    </div>
+                </div>
+
+                <div class="list-group-item disabled d-none py-3" id="fpcm-ui-update-result-1">
+                    <div class="row fpcm-ui-updater-descr">
+                        <div class="col-12 align-self-center">
+                            <?php $theView->icon('check'); ?>
+                            <?php $theView->write('PACKAGEMANAGER_SUCCESS'); ?>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="list-group-item disabled d-none py-3" id="fpcm-ui-update-result-0">
+                    <div class="row fpcm-ui-updater-descr">
+                        <div class="col-12 align-self-center">
+                            <?php $theView->icon('times'); ?>
+                            <?php $theView->write('PACKAGEMANAGER_FAILED'); ?>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="list-group-item py-3 list-group-item-light">
+                    <div class="row fpcm-ui-updater-descr">
+                        <div class="col-12 align-self-center">
+                            <?php $theView->icon('clock', 'far'); ?>
+                            <strong><?php $theView->write('PACKAGEMANAGER_TIMER'); ?></strong>
+                            <span id="fpcm-ui-update-timer"></span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
-        <div class="col-auto align-self-center fpcm-ui-updater-descr">
-            <?php $theView->write('PACKAGEMANAGER_FAILED'); ?>
-        </div>
-    </div>    
+        
+    </div>
+    
 </div>
