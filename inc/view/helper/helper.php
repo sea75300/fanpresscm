@@ -105,6 +105,12 @@ abstract class helper {
     protected $returned = false;
 
     /**
+     * Column with if input uses an icon
+     * @var string
+     */
+    protected $labelType = 'input-group';
+
+    /**
      * Konstruktor
      * @param string $name
      * @param string $id
@@ -359,6 +365,17 @@ abstract class helper {
     final public function setText($text, $params = [])
     {
         $this->text = $this->language->translate($text, $params);
+        return $this;
+    }
+    
+    /**
+     * Set label typ to floating
+     * @return $this
+     * @since 5.0.0-b4
+     */
+    public function setLabelTypeFloat()
+    {
+        $this->labelType = 'form-floating';
         return $this;
     }
 

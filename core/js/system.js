@@ -30,7 +30,7 @@ fpcm.system = {
 
     togglePasswordField: function (_event, _callee)
     {
-        let _el = _callee.parentNode.querySelector('input');
+        let _el = _callee.parentNode.parentNode.querySelector('input');
         let _map = {
             password: 'text',
             text: 'password',

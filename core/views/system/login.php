@@ -24,14 +24,17 @@
         </div>
         <?php else : ?>
         <div class="row g-0">
-            <?php $theView->textInput($userNameField)->setText('GLOBAL_USERNAME')->setPlaceholder(true)->setAutocomplete(false)->setAutoFocused(true); ?>
+            <?php $theView->textInput($userNameField)->setText('GLOBAL_USERNAME')->setPlaceholder('GLOBAL_USERNAME')->setAutocomplete(false)->setAutoFocused(true)
+                    ->setLabelTypeFloat(); ?>
         </div>
 
         <div class="row g-0">
             <?php if ($resetPasswort) : ?>
-                <?php $theView->textInput('email')->setType('email')->setText('GLOBAL_EMAIL')->setPlaceholder(true)->setAutocomplete(false); ?>
+                <?php $theView->textInput('email')->setType('email')->setText('GLOBAL_EMAIL')->setPlaceholder('GLOBAL_EMAIL')->setAutocomplete(false)
+                    ->setLabelTypeFloat(); ?>
             <?php else : ?>
-                <?php $theView->passwordInput('login[password]')->setText('GLOBAL_PASSWORD')->setPlaceholder(true)->setAutocomplete(false); ?>
+                <?php $theView->passwordInput('login[password]')->setText('GLOBAL_PASSWORD')->setPlaceholder('GLOBAL_PASSWORD')->setAutocomplete(false)
+                    ->setLabelTypeFloat(); ?>
             <?php endif; ?>
         </div>
         <?php endif; ?>

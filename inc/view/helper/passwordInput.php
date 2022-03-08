@@ -29,14 +29,48 @@ final class passwordInput extends input {
 
     protected function appendItems(string &$str): bool
     {
-        $str .= ' ' . (string) (new button($this->name . '-toggle'))
-                        ->setIcon('eye')
-                        ->setText('PASSWORD_TOGGLE')
-                        ->setIconOnly(true)
-                        ->setClass('btn-secondary fpcm ui-put-pass-toggle')
-                        ->setOnClick('system.togglePasswordField')
-                        ->setReadonly($this->readonly);
+     
+        $this->getLabelTypeConfig($wrprS, $wrprE, $class, $type, $icoO);
+        
+        $str .= $wrprS .
+                (string) (new button($this->name . '-toggle'))
+                    ->overrideButtonType($type)
+                    ->setText('PASSWORD_TOGGLE')
+                    ->setIcon('eye')
+                    ->setIconOnly($icoO)
+                    ->setClass('fpcm ui-put-pass-toggle' . $class)
+                    ->setOnClick('system.togglePasswordField')
+                    ->setReadonly($this->readonly) .
+                $wrprE;
 
+        return true;
+    }
+
+    /**
+     * 
+     * @param string $wrprS
+     * @param string $wrprE
+     * @param string $class
+     * @param string $type
+     * @param string $icoO
+     * @return bool
+     */
+    private function getLabelTypeConfig(&$wrprS, &$wrprE, &$class, &$type, &$icoO) : bool
+    {
+        if ($this->labelType === 'form-floating') {
+            $wrprS = '<div class="d-block d-flex justify-content-end">';
+            $wrprE = '</div>';
+            $class = ' shadow-none ui-font-small';
+            $type  = 'link';
+            $icoO  = false;
+            return true;
+        }
+
+        $wrprS = '';
+        $wrprE = '';
+        $class = '';
+        $type  = 'light';
+        $icoO  = true;
         return true;
     }
 

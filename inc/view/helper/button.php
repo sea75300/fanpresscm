@@ -40,13 +40,15 @@ class button extends helper {
             $this->overrideButtonType('primary');
         }
         
+        $icon = trim($this->getIconString());
+        
         return implode(' ', [
             "<button type=\"{$this->type}\" ",
             $this->getDataString(),
             $this->getAriaString(),
             $this->getReadonlyString(),
             $this->getNameIdString() . ' ' . $this->getClassString(),
-            ($this->iconOnly ? "title=\"{$this->text}\">{$this->getIconString()}" : ">{$this->getIconString()} {$this->getDescriptionTextString()}"),
+            ($this->iconOnly ? "title=\"{$this->text}\">{$icon}" : ">{$icon}{$this->getDescriptionTextString()}"),
             "</button>"
         ]);
     }

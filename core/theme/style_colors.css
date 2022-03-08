@@ -127,7 +127,7 @@ div.fpcm-ui-dataview div.row:hover {
 
 .fpcm-ui-input:invalid,
 .fpcm-ui-input:required:invalid {
-    box-shadow: 0 0 0 .25rem var(--bs-red);
+    box-shadow: 0 0 0 .1rem var(--bs-red);
 }
 
 div.row.fpcm-ui-dataview-row.fpcm-ui-logs-error {

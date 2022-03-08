@@ -263,7 +263,7 @@
                         <div class="col-12 align-self-center">
                             <?php $theView->icon('clock', 'far'); ?>
                             <strong><?php $theView->write('PACKAGEMANAGER_TIMER'); ?></strong>
-                            <span id="fpcm-ui-update-timer"></span>
+                            <span id="fpcm-ui-update-timer"><span class="spinner-border spinner-border-sm text-secondary" role="status"></span></span>
                         </div>
                     </div>
                 </div>

@@ -353,6 +353,13 @@ class view {
                 '', '', 'text-danger'
             ));
         }
+        
+        if (defined('FPCM_UPLOADER_UPPY') && FPCM_UPLOADER_UPPY) {
+            $this->notifications->addNotification(new \fpcm\model\theme\notificationItem(
+                (new helper\icon('arrow-up-from-bracket'))->setText('NOTIFICATION_EXPERIMENTAL_UPPY'),
+                '', '', 'text-danger'
+            ));
+        }
 
         $this->defaultViewVars->notificationString = $this->notifications->getNotificationsString();
         return true;

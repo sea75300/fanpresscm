@@ -68,7 +68,7 @@ abstract class input extends helper {
         $wrapperStart = '';
         $wrapperEnd = '';
 
-        $wrapperStart = "<div class=\"input-group mb-3\">";
+        $wrapperStart = "<div class=\"{$this->labelType} mb-3\">";
         $wrapperEnd = "</div>";
         
         $mlstr = $this->maxlenght ? "maxlength=\"{$this->maxlenght}\"" : '';
@@ -81,11 +81,12 @@ abstract class input extends helper {
         }
 
         $description = $this->placeholder !== true ? $this->getDescriptionTextString() : '';
-        if ($this->getIconString() || trim($description)) {
-            $description = "<label title=\"{$this->text}\" class=\"col-form-label pe-3 {$this->getLabelSize()}\" for=\"{$this->id}\">{$this->getIconString()}{$description}</label>";
+        if ( ($this->getIconString() || trim($description)) ) {
+            $descrCss = $this->labelType === 'input-group' ? 'col-form-label pe-3 ' . $this->getLabelSize() : '';
+            $description = "<label title=\"{$this->text}\" class=\"{$descrCss}\" for=\"{$this->id}\">{$this->getIconString()}{$description}</label>";
         }
 
-        return $wrapperStart . $description . $input . $wrapperEnd;
+        return $wrapperStart . ($this->labelType === 'input-group' ? $description : '' )  . $input . ($this->labelType === 'form-floating' ? $description : '' )  . $wrapperEnd;
     }
 
     /**
@@ -154,7 +155,7 @@ abstract class input extends helper {
         $this->pattern = ltrim($pattern, '/');
         return $this;
     }
-
+    
     /**
      * Placeholder string
      * @return string
