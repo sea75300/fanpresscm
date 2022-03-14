@@ -118,7 +118,7 @@ final class cache {
         if ($cacheName === null) {
             $cacheFiles = $this->getCacheComplete();
         }
-        elseif (substr($cacheName, -1) === \fpcm\classes\cache::CLEAR_ALL) {
+        elseif (substr($cacheName, -1) !== \fpcm\classes\cache::CLEAR_ALL) {
             $file = new \fpcm\model\files\cacheFile($cacheName);
             return $file->cleanup();
         }
@@ -130,7 +130,6 @@ final class cache {
 
             $cacheFiles = glob($this->basePath . DIRECTORY_SEPARATOR . $cacheName . DIRECTORY_SEPARATOR . '*' . \fpcm\model\files\cacheFile::EXTENSION_CACHE);            
         }
-
         if (!is_array($cacheFiles) || !count($cacheFiles)) {
             return false;
         }

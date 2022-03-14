@@ -101,7 +101,6 @@ final class authorImage extends image {
         if (!$this->isValidDataFolder($this->filepath)) {
             return false;
         }
-
         return unlink($this->fullpath);
     }
 

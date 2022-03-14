@@ -128,7 +128,7 @@ abstract class model implements \fpcm\model\interfaces\model {
         $this->language = \fpcm\classes\loader::getObject('\fpcm\classes\language');
         $this->notifications = \fpcm\classes\loader::getObject('\fpcm\model\theme\notifications');
 
-        if (is_object($this->config)) {
+        if ($this->config instanceof \fpcm\model\system\config) {
             $this->config->setUserSettings();
         }
 

@@ -12,7 +12,7 @@ namespace fpcm\model\dashboard;
  * 
  * @package fpcm\model\dashboard
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 class recentarticles extends \fpcm\model\abstracts\dashcontainer implements \fpcm\model\interfaces\isAccessible {
@@ -66,47 +66,10 @@ class recentarticles extends \fpcm\model\abstracts\dashcontainer implements \fpc
 
         $this->getCacheName('_' . $this->currentUser);
 
-        $this->permissions = \fpcm\classes\loader::getObject('\fpcm\model\permissions\permissions');
-
-        if ($this->cache->isExpired($this->cacheName)) {
-            $this->renderContent();
+        if (!$this->cache->isExpired($this->cacheName)) {
+            return $this->cache->read($this->cacheName);
         }
 
-        return $this->cache->read($this->cacheName);
-    }
-
-    /**
-     * Return container headline
-     * @return string
-     */
-    public function getHeadline()
-    {
-        return 'RECENT_ARTICLES';
-    }
-
-    /**
-     * Returns container position
-     * @return int
-     */
-    public function getPosition()
-    {
-        return 2;
-    }
-
-    /**
-     * Returns container width
-     * @return int
-     */
-    public function getWidth()
-    {
-        return 8;
-    }
-
-    /**
-     * Content rendern
-     */
-    private function renderContent()
-    {
         $articleList = new \fpcm\model\articles\articlelist();
         $userlist = new \fpcm\model\users\userList();
 
@@ -115,6 +78,12 @@ class recentarticles extends \fpcm\model\abstracts\dashcontainer implements \fpc
         $conditions->orderby = ['createtime DESC'];
 
         $articles = $articleList->getArticlesByCondition($conditions);
+        
+        if (!count($articles)) {
+            $str = $this->language->translate('GLOBAL_NOTFOUND2');
+            $this->cache->write($this->cacheName, $str);
+            return $str;
+        }
 
         $users = array_flip($userlist->getUsersNameList());
 
@@ -154,9 +123,36 @@ class recentarticles extends \fpcm\model\abstracts\dashcontainer implements \fpc
 
         $content[] = '</div>';
 
-        $this->content = implode(PHP_EOL, $content);
+        $str = implode(PHP_EOL, $content);
+        $this->cache->write($this->cacheName, $str, $this->config->system_cache_timeout);
+        return $str;
+    }
 
-        $this->cache->write($this->cacheName, $this->content, $this->config->system_cache_timeout);
+    /**
+     * Return container headline
+     * @return string
+     */
+    public function getHeadline()
+    {
+        return 'RECENT_ARTICLES';
+    }
+
+    /**
+     * Returns container position
+     * @return int
+     */
+    public function getPosition()
+    {
+        return 2;
+    }
+
+    /**
+     * Returns container width
+     * @return int
+     */
+    public function getWidth()
+    {
+        return 8;
     }
 
     /**

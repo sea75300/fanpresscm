@@ -12,16 +12,10 @@ namespace fpcm\model\dashboard;
  * 
  * @package fpcm\model\dashboard
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 class syscheck extends \fpcm\model\abstracts\dashcontainer {
-
-    /**
-     * Table container
-     * @var array
-     */
-    protected $tableContent = [];
 
     /**
      * Returns name
@@ -48,8 +42,38 @@ class syscheck extends \fpcm\model\abstracts\dashcontainer {
      */
     public function getContent()
     {
-        $this->runCheck();
-        return implode(PHP_EOL, $this->tableContent);
+        $sysCheckAction = new \fpcm\controller\ajax\system\syscheck(true);
+
+        $content = [];
+        
+        /* @var $data \fpcm\model\system\syscheckOption */
+        foreach ($sysCheckAction->getOptions() as $description => $data) {
+            
+            $txt = strip_tags($description);
+            $checkres = (new \fpcm\view\helper\boolToText($txt))->setValue($data->getResult());
+
+            $dat  = "<div class=\"row g-0\">";
+            $dat .= "<div class=\"col-auto px-2 text-center\">{$checkres}</div>";
+            $dat .= "<div class=\"col px-2 \">{$description}</div>";
+            $dat .= "</div>";
+
+            $content[] = $dat;
+        }
+
+        foreach ($sysCheckAction->getFolders() as $description => $data) {
+
+            $txt = strip_tags($description);
+            $checkres = (new \fpcm\view\helper\boolToText($txt))->setValue($data->getResult())->setText($data->getResult() ? 'GLOBAL_WRITABLE' : 'GLOBAL_NOT_WRITABLE');
+            
+            $dat  = "<div class=\"row g-0\">";
+            $dat .= "<div class=\"col-auto px-2 text-center\">{$checkres}</div>";
+            $dat .= "<div class=\"col px-2 \">{$description}</div>";
+            $dat .= "</div>";
+
+            $content[] = $dat;
+        }        
+        
+        return implode(PHP_EOL, $content);
     }
 
     /**
@@ -94,41 +118,6 @@ class syscheck extends \fpcm\model\abstracts\dashcontainer {
                 ->setUrl(\fpcm\classes\tools::getFullControllerLink('system/options', ['syscheck' => 1]))
                 ->setIcon('sync')
                 ->setText('SYSCHECK_COMPLETE');
-    }
-
-    /**
-     * Check ausführen
-     */
-    protected function runCheck()
-    {
-        $sysCheckAction = new \fpcm\controller\ajax\system\syscheck(true);
-
-        /* @var $data \fpcm\model\system\syscheckOption */
-        foreach ($sysCheckAction->getOptions() as $description => $data) {
-            
-            $txt = strip_tags($description);
-            $checkres = (new \fpcm\view\helper\boolToText($txt))->setValue($data->getResult());
-
-            $dat  = "<div class=\"row g-0\">";
-            $dat .= "<div class=\"col-auto px-2 text-center\">{$checkres}</div>";
-            $dat .= "<div class=\"col px-2 \">{$description}</div>";
-            $dat .= "</div>";
-
-            $this->tableContent[] = $dat;
-        }
-
-        foreach ($sysCheckAction->getFolders() as $description => $data) {
-
-            $txt = strip_tags($description);
-            $checkres = (new \fpcm\view\helper\boolToText($txt))->setValue($data->getResult())->setText($data->getResult() ? 'GLOBAL_WRITABLE' : 'GLOBAL_NOT_WRITABLE');
-            
-            $dat  = "<div class=\"row g-0\">";
-            $dat .= "<div class=\"col-auto px-2 text-center\">{$checkres}</div>";
-            $dat .= "<div class=\"col px-2 \">{$description}</div>";
-            $dat .= "</div>";
-
-            $this->tableContent[] = $dat;
-        }
     }
 
 }
