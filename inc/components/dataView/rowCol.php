@@ -60,8 +60,9 @@ final class rowCol implements \JsonSerializable {
     /**
      * @return array
      * @ignore
-     * #[\ReturnTypeWillChange]
      */
+    
+    #[\ReturnTypeWillChange]
     public function jsonSerialize()
     {
         return get_object_vars($this);

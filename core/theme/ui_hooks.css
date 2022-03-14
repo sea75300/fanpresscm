@@ -47,6 +47,10 @@ div.mce-fpcm-ui-emoticons-panel {
     box-shadow: none !important;
 }
 
+.selectize-control.multi .selectize-input [data-value] {
+    background-image: none !important;
+}
+
 /* php-diff */
 
 table.diff-wrapper {

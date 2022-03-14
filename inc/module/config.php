@@ -83,8 +83,9 @@ class config implements \JsonSerializable {
      * 
      * @return array
      * @ignore
-     * #[\ReturnTypeWillChange]
      */
+    
+    #[\ReturnTypeWillChange]
     public function jsonSerialize()
     {
         $return = $this->data;

@@ -11,29 +11,30 @@
     </div>    
     <?php endif; ?>
 
-    <div class="row g-0">
-        <div class="col-12 my-2">
-            <fieldset>
-                <div class="row">
-                    <?php $theView->textInput('article[title]')->setValue($article->getTitle())->setText('ARTICLE_LIST_TITLE')->setPlaceholder(true)->setAutoFocused(true); ?>
-                </div>
-
-                <div class="row">
-                    <div class="col-12 <?php if ($editorMode) : ?>col-md-8 col-lg-9<?php endif; ?> fpcm-ui-editor-categories">
-                        <?php $theView->select('article[categories][]')->setIsMultiple(true)->setOptions($categories)->setSelected($article->getCategories()); ?>                    
-                    </div>
-                    <?php if ($editorMode) : ?>
-                    <div class="col-12 col-sm-auto flex-grow-1">
-                        <div class="d-flex justify-content-center justify-content-md-end fs-5">
-                            <?php print implode(PHP_EOL, $article->getMetaDataStatusIcons($showDraftStatus, $commentEnabledGlobal, $showArchiveStatus)); ?>
-                        </div>
-                    </div>
-                    <?php endif; ?>
-                </div>
-                
-            </fieldset>
+    <div class="row">
+        <div class="col mt-3">
+            <?php $theView->textInput('article[title]')->setValue($article->getTitle())
+                    ->setText('ARTICLE_LIST_TITLE')
+                    ->setPlaceholder('ARTICLE_LIST_TITLE')
+                    ->setAutoFocused(true)
+                    ->setLabelTypeFloat(); ?>
+            
         </div>
     </div>
+
+    <div class="row row-cols-2 mb-3">
+        <div class="col-12 col-sm flex-grow-1 fpcm-ui-editor-categories">
+            <?php $theView->select('article[categories][]')->setIsMultiple(true)->setOptions($categories)->setSelected($article->getCategories()); ?>                    
+        </div>
+        <?php if ($editorMode) : ?>
+        <div class="col-12 col-sm-auto">
+            <div class="d-flex justify-content-center justify-content-md-end fs-5">
+                <?php print implode(PHP_EOL, $article->getMetaDataStatusIcons($showDraftStatus, $commentEnabledGlobal, $showArchiveStatus)); ?>
+            </div>
+        </div>
+        <?php endif; ?>
+    </div>
+                
 </div>                
 
 <?php include \fpcm\components\components::getArticleEditor()->getEditorTemplate(); ?>

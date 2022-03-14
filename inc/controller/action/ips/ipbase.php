@@ -50,6 +50,7 @@ implements \fpcm\controller\interfaces\isAccessible, \fpcm\controller\interfaces
             (new \fpcm\view\helper\textInput('ipaddress'))
                     ->setValue($this->ipaddress->getIpaddress())
                     ->setText('IPLIST_IPADDRESS')
+                    ->setPlaceholder('127.0.0.1')
                     ->setIcon('network-wired')
                     ->setAutoFocused(true),
             new \fpcm\components\fieldGroup([

@@ -19,7 +19,8 @@
         <?php if ($twoFactorAuth) : ?>
         <div class="row g-0">
             <?php $theView->textInput('login[authcode]')->setText('LOGIN_AUTHCODE')
-                    ->setMaxlenght(6)->setPlaceholder(true)->setAutocomplete(false)->setAutoFocused(true)->setClass('fpcm-ui-monospace'); ?>
+                    ->setMaxlenght(6)->setPlaceholder('LOGIN_AUTHCODE')->setAutocomplete(false)->setAutoFocused(true)->setClass('fpcm-ui-monospace')
+                    ->setLabelTypeFloat(); ?>
             <?php $theView->hiddenInput('login[formData]')->setValue($formData); ?>
         </div>
         <?php else : ?>
@@ -41,7 +42,7 @@
 
         <?php if ($resetPasswort) : ?>
         <div class="row g-0">
-            <?php print $captcha->createPluginTextInput(); ?>
+            <?php print $captcha->createPluginTextInput(true); ?>
         </div>
         <?php endif; ?>
 
