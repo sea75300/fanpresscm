@@ -318,12 +318,13 @@ Help language file
             <dd class="pb-2">Die ausgewählten Dateien können gelöscht werden. Wichtig! Für Dateien existiert kein Papierkorb.</dd>
             <dt>Umbenennen:</dt>
             <dd class="pb-2">Über den Button kann die Datei umbenannt werden, die Dateiendung muss dabei nicht angehangen werden.</dd>
+            <dt>Bild bearbeiten:</dt>
+            <dd class="pb-2">FanPress CM bringt einen einfachen Bildeditor mit. Dieser ermöglicht es, hochgeladenen Grafiken in ihrer Größe
+            zu verändern, zu drehen, zoomen oder Bereiche auszuschneiden.</dd>
+            <dt>Alternativtext eingeben:</dt>
+            <dd class="pb-2">Der Alternativtext ermöglicht eine gesonderte Beschreibung für die gewählte Grafik zu hinterlegen.</dd>
             <dt>Eigenschaften:</dt>
             <dd class="pb-2">Über diesen Button werden relevante Informationen zum gewählten Eintrag (Upload-Datum/ Benutzer, Dateigröße, Auflösung usw.) angezeigt.</dd>
-            <dt>Thumbnail öffnen:</strong> (nur Dateimanager)</dt>
-            <dd class="pb-2">Öffnen des Thumbnails.</dd>
-            <dt>Bild öffnen:</strong> (nur Dateimanager)</dt>
-            <dd class="pb-2">Öffnen des eigentlichen Bildes.</dd>
             <dt>Artikelbild festlegen:</strong> (nur Editor)</dt>
             <dd class="pb-2">Ausgewählte Datei als Artikelbild festlegen.</dd>
             <dt>Thumbnail-URL einfügen:</strong> (nur Editor)</dt>

@@ -35,6 +35,13 @@ class dropdown extends helper {
     protected $returnString = [];
 
     /**
+     * 
+     * @var string
+     * @since 5.0.0-b4
+     */
+    protected $ddType = '';
+
+    /**
      * Return element string
      * @return string
      */
@@ -56,7 +63,7 @@ class dropdown extends helper {
             $this->getDataString(),
             "role=\"group\" >",
             $btn,
-            "   <ul class=\"dropdown-menu\" aria-labelledby=\"{$btnId}\" id=\"{$this->id}List\">",
+            "   <ul class=\"dropdown-menu {$this->ddType}\" aria-labelledby=\"{$btnId}\" id=\"{$this->id}List\">",
                 $options,
             "   </ul>",
             "</div>",
@@ -95,6 +102,18 @@ class dropdown extends helper {
         return $this;
     }
 
+    /**
+     * Set dropdown type
+     * @param string $ddType
+     * @return $this
+     * @since 5.0.0-b4
+     */
+    public function setDdType(string $ddType)
+    {
+        $this->ddType = 'dropdown-menu-' . $ddType;
+        return $this;
+    }
+        
     /**
      * Create options string
      * @param array $options

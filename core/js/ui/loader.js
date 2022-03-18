@@ -19,7 +19,7 @@ fpcm.ui_loader = {
         var html = [
             '<div id="fpcm-loader">',
             '   <div class="position-fixed top-50 start-50 translate-middle d-flex justify-content-center">',
-            '       <div class="spinner-grow text-warning" role="status"><span class="visually-hidden">',
+            '       <div class="spinner-border text-warning" role="status"><span class="visually-hidden">',
             '           <span class="visually-hidden">' + fpcm.ui.translate('GLOBAL_PLEASEWAIT') + '...</span>',
             '       </div>',   
             (_message ? '       <div class="text-light fpcm ui-label ms-3 align-self-center">' + _message + '</div>' : ''),

@@ -36,6 +36,7 @@ namespace fpcm\view;
  * 
  * @property \fpcm\model\permissions\permissions  $permissions
  * @property \fpcm\model\theme\navigationList  $navigation
+ * @property \fpcm\model\theme\notifications $notifications
  * 
  * @property array  $messages
  * @property array  $filesJs

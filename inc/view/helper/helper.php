@@ -23,6 +23,12 @@ abstract class helper {
     /*  @since 4.3.0 */
     const TEXT_DEFAULT_LABEL = 'LABEL_FIELD_';
 
+    /*  @since 5.0.0-b4 */
+    const LABEL_TYPE_DEFAULT = 'input-group';
+
+    /*  @since 5.0.0-b4 */
+    const LABEL_TYPE_FLOATING = 'form-floating';
+
     /**
      * Element data
      * @var array
@@ -212,9 +218,9 @@ abstract class helper {
      * @param string $prefix
      * @return string
      */
-    final protected function getDescriptionTextString()
+    final protected function getDescriptionTextString(string $prefix = 'ps-1')
     {
-        return "<span class=\"fpcm-ui-label ps-1\">{$this->text}</span>";
+        return "<span class=\"fpcm-ui-label {$prefix}\">{$this->text}</span>";
     }
 
     /**

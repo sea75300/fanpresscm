@@ -361,7 +361,7 @@ class view {
             ));
         }
 
-        $this->defaultViewVars->notificationString = $this->notifications->getNotificationsString();
+        $this->defaultViewVars->notifications = $this->notifications;
         return true;
     }
 
@@ -826,7 +826,9 @@ class view {
 
         $this->defaultViewVars->varsJs = $varsJs;
         
-        $this->prepareNotifications();
+        if ($this->showHeader === self::INCLUDE_HEADER_FULL) {
+            $this->prepareNotifications();
+        }
 
         /* @var $theView viewVars */
         $this->assign('theView', $this->defaultViewVars);

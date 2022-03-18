@@ -52,10 +52,6 @@ div.fpcm-ui-dataview-subhead {
     font-family: var(--fpcm-font-headline), var(--bs-font-sans-serif) !important;
 }
 
-div.fpcm.ui-help-content h3 {
-    font-weight: 600;
-}
-
 a, a:visited, a.fpcm-link {
     text-decoration: none;  
 }
@@ -68,10 +64,7 @@ b,
 strong,
 dt,
 a, a:visited, a.fpcm-link,
-a:hover, a:focus, a:active,
-h2,
-h3,
-.fpcm-dashboard-container h3 {
+a:hover, a:focus, a:active {
     font-weight: bold;
 }
 
@@ -82,7 +75,9 @@ a.fpcm-ui-button-link:active,
 a.dropdown-item:hover,
 a.dropdown-item:focus,
 a.dropdown-item:active,
-a.dropdown-item {
+a.dropdown-item,
+a.fpcm.ui-nav-link.nav-link,
+a.fpcm.ui-nav-link.nav-link.active {
     font-weight: normal;
 }
 

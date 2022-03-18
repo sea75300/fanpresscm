@@ -65,6 +65,8 @@ abstract class input extends helper {
             $this->setDisplaySizesDefault();
         }
 
+        $isFloating = $this->labelType === self::LABEL_TYPE_FLOATING;
+
         $wrapperStart = '';
         $wrapperEnd = '';
 
@@ -80,13 +82,13 @@ abstract class input extends helper {
             return $wrapperStart . $input . $wrapperEnd;
         }
 
-        $description = $this->placeholder !== true ? $this->getDescriptionTextString() : '';
+        $description = $this->placeholder !== true ? $this->getDescriptionTextString($isFloating ? '' : 'ps-1') : '';
         if ( ($this->getIconString() || trim($description)) ) {
-            $descrCss = $this->labelType === 'input-group' ? 'col-form-label pe-3 ' . $this->getLabelSize() : '';
+            $descrCss = !$isFloating ? 'col-form-label pe-3 ' . $this->getLabelSize() : '';
             $description = "<label title=\"{$this->text}\" class=\"{$descrCss}\" for=\"{$this->id}\">{$this->getIconString()}{$description}</label>";
         }
 
-        return $wrapperStart . ($this->labelType === 'input-group' ? $description : '' )  . $input . ($this->labelType === 'form-floating' ? $description : '' )  . $wrapperEnd;
+        return $wrapperStart . (!$isFloating ? $description : '' )  . $input . ($isFloating ? $description : '' )  . $wrapperEnd;
     }
 
     /**

@@ -16,7 +16,7 @@ namespace fpcm\model\theme;
  * @package fpcm\model\theme
  * @since 3.6
  */
-class notifications {
+class notifications implements \Countable {
 
     /**
      * List of notificatio objects
@@ -25,12 +25,19 @@ class notifications {
     private $notifications = [];
 
     /**
+     * Counter of notifications
+     * @var int
+     */
+    private $ctr = null;
+
+    /**
      * Notification hinzufügen
      * @param \fpcm\model\theme\notificationItem $notification
      */
     public function addNotification(notificationItem $notification)
     {
         $this->notifications[] = $notification;
+        $this->ctr = null;
     }
 
     /**
@@ -43,10 +50,23 @@ class notifications {
     }
 
     /**
-     * Notifications anzeigen
+     * Array mit Notifications zurückgeben
+     * @return array
+     */
+    public function count() : int
+    {
+        if ($this->ctr === null) {
+            $this->ctr = count($this->notifications);
+        }
+
+        return $this->ctr;
+    }
+
+    /**
+     * Returns notification string
      * @return string
      */
-    public function getNotificationsString()
+    public function __toString() : string
     {
         if (!count($this->notifications)) {
             $this->addNotification(new \fpcm\model\theme\notificationItem(

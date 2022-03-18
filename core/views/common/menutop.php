@@ -38,9 +38,12 @@
                     <a class="nav-link dropdown-toggle" href="#" id="fpcm-notify-menu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <?php $theView->icon('envelope')->setClass('fpcm-navicon')->setSize('lg'); ?>                
                         <span class="d-none d-md-inline"><?php $theView->write('PROFILE_MENU_NOTIFICATIONS'); ?></span>
+                        <?php if (count($theView->notifications)) : ?>
+                        <?php $theView->badge('notificationsCount')->setText('PROFILE_MENU_NOTIFICATIONS')->setValue(count($theView->notifications))->setClass('rounded-pill bg-info'); ?>
+                        <?php endif; ?>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="fpcm-notify-menu">
-                        <?php print $theView->notificationString; ?>
+                        <?php print $theView->notifications; ?>
                     </ul>
                 </li>
                 <li class="nav-item dropdown me-2">
