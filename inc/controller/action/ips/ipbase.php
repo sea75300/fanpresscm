@@ -31,8 +31,17 @@ implements \fpcm\controller\interfaces\isAccessible, \fpcm\controller\interfaces
      */
     protected $ipaddress;
 
+    /**
+     * Current ip address
+     * @var string
+     */
+    protected $current;
+
+
     public function request()
     {
+        $this->current = $this->request->getIp();
+        
         $this->id = $this->request->getID();
 
         $this->ipaddress = new \fpcm\model\ips\ipaddress($this->id ? $this->id : null);
@@ -52,7 +61,8 @@ implements \fpcm\controller\interfaces\isAccessible, \fpcm\controller\interfaces
                     ->setText('IPLIST_IPADDRESS')
                     ->setPlaceholder('127.0.0.1')
                     ->setIcon('network-wired')
-                    ->setAutoFocused(true),
+                    ->setAutoFocused(true)
+                    ->setPattern("^(?!.*({$this->current})).*"),
             new \fpcm\components\fieldGroup([
                 (new \fpcm\view\helper\checkbox('nocomments'))->setText('IPLIST_NOCOMMENTS')->setSelected($this->ipaddress->getNocomments())->setSwitch(true),
                 (new \fpcm\view\helper\checkbox('nologin'))->setText('IPLIST_NOLOGIN')->setSelected($this->ipaddress->getNologin())->setSwitch(true),
@@ -76,7 +86,7 @@ implements \fpcm\controller\interfaces\isAccessible, \fpcm\controller\interfaces
             return false;
         }
 
-        if ($ipAddr === $this->request->getIp()) {
+        if ($ipAddr === $this->current) {
             $this->view->addErrorMessage('SAVE_FAILED_IPADDRESS_SAME');
             return false;            
         }
