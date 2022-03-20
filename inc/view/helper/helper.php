@@ -23,10 +23,10 @@ abstract class helper {
     /*  @since 4.3.0 */
     const TEXT_DEFAULT_LABEL = 'LABEL_FIELD_';
 
-    /*  @since 5.0.0-b4 */
+    /*  @since 5.0.0-b5 */
     const LABEL_TYPE_DEFAULT = 'input-group';
 
-    /*  @since 5.0.0-b4 */
+    /*  @since 5.0.0-b5 */
     const LABEL_TYPE_FLOATING = 'form-floating';
 
     /**

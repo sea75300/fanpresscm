@@ -37,7 +37,7 @@ class dropdown extends helper {
     /**
      * 
      * @var string
-     * @since 5.0.0-b4
+     * @since 5.0.0-b5
      */
     protected $ddType = '';
 
@@ -106,7 +106,7 @@ class dropdown extends helper {
      * Set dropdown type
      * @param string $ddType
      * @return $this
-     * @since 5.0.0-b4
+     * @since 5.0.0-b5
      */
     public function setDdType(string $ddType)
     {
