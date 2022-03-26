@@ -1071,6 +1071,7 @@ class view {
      * Add off canvas widget to view
      * @param string $headline
      * @param array $filePath
+     * @since 5.0.0-b6
      */
     public function addOffCanvas(string $headline, string $filePath)
     {
