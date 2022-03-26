@@ -1031,7 +1031,7 @@ class view {
     
     /**
      * Sets view to standard tab view,
-     * do not use if you want to include tabs in aother view!!!
+     * do not use if you want to include tabs in another view!!!
      * @param string $tabsId
      * @param array $tabs
      * @param string $tabsClass
@@ -1065,6 +1065,18 @@ class view {
         $this->defaultViewVars->pager = $pager;
         $this->addJsVars(['pager' => $pager->getJsVars()]);
         $this->addJsLangVars($pager->getJsLangVars());
+    }
+    
+    /**
+     * Add off canvas widget to view
+     * @param string $headline
+     * @param array $filePath
+     */
+    public function addOffCanvas(string $headline, string $filePath)
+    {
+        $this->assign('offcanvasFile', $filePath . '.php');
+        $this->assign('offcanvasHeadline', $headline);
+        $this->defaultViewVars->showOffCanvas = true;
     }
 
     /**

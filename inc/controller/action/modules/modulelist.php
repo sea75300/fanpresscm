@@ -129,8 +129,8 @@ class modulelist extends \fpcm\controller\abstracts\controller implements \fpcm\
 
         $this->initUpload();
         
-        $this->view->includeForms('modules');
         $this->view->addTabs('modulemgr', $this->tabs);
+        $this->view->addOffCanvas( (new \fpcm\view\helper\icon('plug') . $this->language->translate('MODULES_LIST_INFORMATIONS')) , 'modules/offcanvas');
         return true;
     }
 

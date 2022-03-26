@@ -1,6 +1,9 @@
 
-        </div>
+            <?php if ($theView->showOffCanvas) : ?>
+                <?php include $theView->getIncludePath('components/offcanvas.php'); ?>
+            <?php endif; ?>
 
+        </div>
         <?php if ($theView->formActionTarget && $theView->showPageToken) : ?>
             <?php $theView->pageTokenField(); ?>
             <?php $theView->hiddenInput('activeTab')->setValue((isset($activeTab) ? $activeTab : 0)); ?>
