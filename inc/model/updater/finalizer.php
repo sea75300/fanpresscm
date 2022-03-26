@@ -95,19 +95,20 @@ final class finalizer extends \fpcm\model\abstracts\model {
 
         $this->cliProgress = new \fpcm\model\cli\progress(count($migrations));
 
-        $i = 1;
+        $i = 0;
 
         /* @var $migration \fpcm\migrations\migration */
         foreach ($migrations as $migration) {
 
-            $this->cliProgress->setCurrentValue($i)->output();
-            
+            $i++;
+
             if (!$migration->process()) {
                 trigger_error('Processing of migration '. get_class($migration).' failed!.', E_USER_ERROR);
                 return false;
             }
 
-            $i++;
+            $this->cliProgress->setCurrentValue($i)->output();
+            usleep(100000);
         }
 
         $migration->optimizeTables();
