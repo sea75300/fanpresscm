@@ -145,6 +145,7 @@ class filelist extends \fpcm\controller\abstracts\ajaxController implements \fpc
 
         $this->view->assign('showPager', $this->showPager);
         $this->view->assign('thumbsize', $this->config->file_thumb_size . 'px');
+        $this->view->assign('pager', $pager);
         
         $responseData = new \fpcm\model\http\responseDataHtml(
             $this->view->render(true), [

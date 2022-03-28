@@ -1,5 +1,17 @@
 <?php /* @var $theView fpcm\view\viewVars */ /* @var $file fpcm\model\files\image */ ?>
 <div class="justify-content-end border-top border-5 border-primary">
+    
+    <?php if ($showPager && in_array($mode, [2, 3, 4])) : ?>
+    <div class="navbar">
+        <div class="container-fluid">
+            <div class="navbar me-auto d-flex gap-1"></div>
+            <div class="navbar ms-auto gap-1">
+                <?php print $pager; ?>
+            </div>
+        </div>
+    </div>
+    <?php endif; ?>
+
     <?php if ($filterError) : ?>
     <p class="p-3"><?php $theView->icon('search')->setStack('ban text-danger')->setSize('lg')->setStackTop(true); ?> <?php $theView->write('SEARCH_ERROR'); ?></p>
     <?php elseif (!count($files)) : ?>
