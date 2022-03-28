@@ -139,6 +139,7 @@ class filelist extends \fpcm\controller\abstracts\ajaxController implements \fpc
         $this->initViewAssigns($list, $userList->getUsersAll());
         $this->initPermissions();
 
+        $this->view->assign('itemsPerRow', FPCM_FILEMAGER_ITEMS_ROW);
         $this->view->assign('showPager', $this->showPager);
         $this->view->assign('thumbsize', $this->config->file_thumb_size . 'px');
         

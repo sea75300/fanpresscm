@@ -37,7 +37,7 @@
                     <?php include $theView->getIncludePath('filemanager/buttons.php'); ?>
                 </div>
             </div>        
-        <?php if ($i % 5 === 0) : ?></div><div class="card-group ui-files-card"><?php endif; ?>
+        <?php if ($i % $itemsPerRow === 0) : ?></div><div class="card-group ui-files-card"><?php endif; ?>
         <?php endforeach; ?>
         </div>
     <?php endif; ?>

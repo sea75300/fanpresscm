@@ -222,3 +222,11 @@ if (!defined('FPCM_USER_SESSION')) {
      */
     define('FPCM_USER_SESSION', 3600);
 }
+
+if (!defined('FPCM_FILEMAGER_ITEMS_ROW')) {
+    /**
+     * Default session lenght, replaces ACP setting
+     * @since 5.0.0-b5
+     */
+    define('FPCM_FILEMAGER_ITEMS_ROW', 5);
+}
