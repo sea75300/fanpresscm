@@ -30,7 +30,7 @@
                 ->setClass('dropdown-toggle');
             ?>
 
-            <ul class="dropdown-menu <?php if ($i % $itemsPerRow === 0) : ?>dropdown-menu-end<?php endif; ?>" aria-labelledby="nbexp<?php $file->getFileNameHash(); ?>">
+            <ul class="dropdown-menu <?php if ($is_last($i)) : ?>dropdown-menu-end<?php endif; ?>" aria-labelledby="nbexp<?php $file->getFileNameHash(); ?>">
               <li>
                 <?php $theView->dropdownItem(uniqid('rename'))->setText('FILE_LIST_RENAME')->setIcon('edit')->setClass('fpcm-filelist-rename')->setData(['file' => base64_encode($file->getFilename()), 'oldname' => basename($file->getFilename(), '.'.$file->getExtension())]); ?>
               </li>
