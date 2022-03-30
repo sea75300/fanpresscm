@@ -225,6 +225,10 @@ final class language {
      */
     private function addModulePrefix(&$val, $key, $args)
     {
+        if (strpos($val, 'SYSCHECK_FOLDER_') === 0) {
+            return true;
+        }
+        
         $val = $args['prefix'].$val;
     }
 

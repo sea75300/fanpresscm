@@ -25,7 +25,7 @@
                 ->setText('GLOBAL_ACTIONS')
                 ->setIcon('bars')
                 ->setIconOnly(true)
-                ->setData(['bs-toggle' => 'dropdown'])
+                ->setData(['bs-toggle' => 'dropdown', 'bs-auto-close' => 'true'])
                 ->setAria(['expanded' => 'false'])
                 ->setClass('dropdown-toggle');
             ?>

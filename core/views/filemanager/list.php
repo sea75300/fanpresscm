@@ -19,7 +19,7 @@
     <?php else : ?>
         <?php foreach($files AS $file) : ?>
         <div class="row g-0 px-3 fpcm ui-files-list">    
-            <div class="card shadow-sm w-100 my-2 fpcm ui-files-item ui-background-transition">
+            <div class="card w-100 my-2 fpcm ui-files-item ui-background-transition shadow">
                 <div class="row g-0">
                     <div class="col-auto align-self-center">
                         <a href="<?php print $file->getImageUrl(); ?>" class="fpcm ui-link-fancybox" data-fancybox="group" <?php if ($file->getAltText()) : ?>data-caption="<?php print $theView->escapeVal($file->getAltText()); ?>"<?php endif; ?>>
@@ -36,7 +36,7 @@
                             <?php if ($file->getAltText()) : ?>
                             <p class="card-subtitle fs-6 text-secondary"><?php print $theView->escapeVal($file->getAltText()); ?></p>           
                             <?php endif; ?>
-                            <div class="card-text">
+                            <div class="card-text mb-3">
                                 <?php if (!$file->existsFolder()) : ?>
                                     <?php $theView->alert('danger')->setIcon('image', 'far')->setText('FILE_LIST_UPLOAD_NOTFOUND'); ?>
                                 <?php endif; ?>

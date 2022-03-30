@@ -21,7 +21,7 @@
         <div class="card-group fpcm ui-files-card">
         <?php foreach($files AS $file) : ?>
         <?php $i++; ?>
-            <div class="card my-2 mx-sm-2 rounded fpcm ui-files-item ui-background-transition">
+            <div class="card my-2 mx-sm-2 rounded fpcm ui-files-item ui-background-transition shadow">
 
                 <a href="<?php print $file->getImageUrl(); ?>" class="fpcm ui-link-fancybox" data-fancybox="group" <?php if ($file->getAltText()) : ?>data-caption="<?php print $theView->escapeVal($file->getAltText()); ?>"<?php endif; ?>>
                 <?php if (file_exists($file->getFileManagerThumbnail())) : ?>
