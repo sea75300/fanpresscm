@@ -139,8 +139,13 @@ class filelist extends \fpcm\controller\abstracts\ajaxController implements \fpc
         $this->initViewAssigns($list, $userList->getUsersAll());
         $this->initPermissions();
 
+        $this->view->assign('is_last', function ($i) {
+            return $i % FPCM_FILEMAGER_ITEMS_ROW === 0;
+        });
+
         $this->view->assign('showPager', $this->showPager);
         $this->view->assign('thumbsize', $this->config->file_thumb_size . 'px');
+        $this->view->assign('pager', $pager);
         
         $responseData = new \fpcm\model\http\responseDataHtml(
             $this->view->render(true), [

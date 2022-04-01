@@ -1,5 +1,17 @@
 <?php /* @var $theView fpcm\view\viewVars */ /* @var $file fpcm\model\files\image */ ?>
 <div class="justify-content-end border-top border-5 border-primary">
+    
+    <?php if ($showPager && in_array($mode, [2, 3, 4])) : ?>
+    <div class="navbar">
+        <div class="container-fluid">
+            <div class="navbar me-auto d-flex gap-1"></div>
+            <div class="navbar ms-auto gap-1">
+                <?php print $pager; ?>
+            </div>
+        </div>
+    </div>
+    <?php endif; ?>
+
     <?php if ($filterError) : ?>
     <p class="p-3"><?php $theView->icon('search')->setStack('ban text-danger')->setSize('lg')->setStackTop(true); ?> <?php $theView->write('SEARCH_ERROR'); ?></p>
     <?php elseif (!count($files)) : ?>
@@ -9,7 +21,7 @@
         <div class="card-group fpcm ui-files-card">
         <?php foreach($files AS $file) : ?>
         <?php $i++; ?>
-            <div class="card my-2 mx-sm-2 rounded fpcm ui-files-item ui-background-transition">
+            <div class="card my-2 mx-sm-2 rounded fpcm ui-files-item ui-background-transition shadow">
 
                 <a href="<?php print $file->getImageUrl(); ?>" class="fpcm ui-link-fancybox" data-fancybox="group" <?php if ($file->getAltText()) : ?>data-caption="<?php print $theView->escapeVal($file->getAltText()); ?>"<?php endif; ?>>
                 <?php if (file_exists($file->getFileManagerThumbnail())) : ?>
@@ -37,7 +49,7 @@
                     <?php include $theView->getIncludePath('filemanager/buttons.php'); ?>
                 </div>
             </div>        
-        <?php if ($i % 5 === 0) : ?></div><div class="card-group ui-files-card"><?php endif; ?>
+        <?php if ($is_last($i)) : ?></div><div class="card-group ui-files-card"><?php endif; ?>
         <?php endforeach; ?>
         </div>
     <?php endif; ?>

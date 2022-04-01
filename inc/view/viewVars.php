@@ -47,6 +47,7 @@ namespace fpcm\view;
  * @property bool   $loggedIn
  * @property bool   $fullWrapper
  * @property bool   $showPageToken
+ * @property bool   $showOffCanvas
  * @property \fpcm\model\users\author $currentUser
  * @property helper\pager $pager
  * 
