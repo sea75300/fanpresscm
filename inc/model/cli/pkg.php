@@ -277,7 +277,7 @@ final class pkg extends \fpcm\model\abstracts\cli {
         }
 
         $this->config->init();
-        $this->output(PHP_EOL . '-- Finished.' . PHP_EOL);
+        $this->output('-- Finished.' . PHP_EOL);
         return true;
     }
 
