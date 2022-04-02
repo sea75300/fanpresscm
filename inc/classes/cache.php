@@ -130,9 +130,11 @@ final class cache {
 
             $cacheFiles = glob($this->basePath . DIRECTORY_SEPARATOR . $cacheName . DIRECTORY_SEPARATOR . '*' . \fpcm\model\files\cacheFile::EXTENSION_CACHE);            
         }
+
         if (!is_array($cacheFiles) || !count($cacheFiles)) {
             return false;
         }
+        
         
         $cacheFiles = array_filter($cacheFiles, function ($cacheFile) {
             return file_exists($cacheFile) && is_writable($cacheFile);            
