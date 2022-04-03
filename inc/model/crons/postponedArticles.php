@@ -32,8 +32,6 @@ class postponedArticles extends \fpcm\model\abstracts\cron {
         if (!$articlesList->publishPostponedArticles($articleIds)) {
             return false;
         }
-        
-        (new \fpcm\classes\cache())->cleanup();
 
         $config = \fpcm\classes\loader::getObject('\fpcm\model\system\config');
         if (!\fpcm\classes\baseconfig::canConnect() || (!$config->twitter_events['create'] && !$config->twitter_events['update'])) {

@@ -343,7 +343,7 @@ fpcm.system = {
 
     showHelpDialog: function () {
 
-        fpcm.dom.bindClick('a.fpcm.ui-help-dialog', function (_event, _ui) {
+        fpcm.dom.bindClick('.fpcm.ui-help-dialog', function (_event, _ui) {
 
             fpcm.ajax.get('help', {
                 

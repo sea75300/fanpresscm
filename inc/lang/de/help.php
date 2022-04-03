@@ -9,8 +9,7 @@ Help language file
 <chapters>
     <chapter ref="HL_DASHBOARD">
         <![CDATA[
-            <p>Im <b>Dashboard</b> findest du verschiedene Informationen zu deiner FanPress CM Installation etc. Eigene Dashboard-Container
-            können durch Module bzw. neue Datei unter "fanpress/inc/dashboard" erzeugt werden.</p>
+            <p>Im <b>Dashboard</b> findest du verschiedene Informationen zu deiner FanPress CM Installation etc.</p>
             <dl>
                 <dt>Zuletzt geschriebene News:</dt>
                 <dd class="pb-2">Hier findest du eine Übersicht der zuletzt verfassten Artikel.</dd>
@@ -30,8 +29,10 @@ Help language file
                 E-Mail zu verfassen.</dd>
             </dl>
 
-            <p>Über den Button <strong>Mein Profil öffnen</strong> kannst du dein Benutzerprofil aufrufen. Der Button
-            <strong>Vollständige Systemprüfung</strong> ruft die Systemprüfung in den Systemeinstellungen auf.</p>
+            <p>Über die zusätzlichen Links am Ende der Container können zusätzliche Informationen abgerufen werden
+            oder es ist ein Schnellzugriff auf bestimmte Funktionen möglich.</p>
+            
+            <p>Neue, eigene Dashboard-Container können durch Module erzeugt werden</p>
         ]]>
     </chapter>
     <chapter ref="ARTICLES_EDITOR">
@@ -674,9 +675,23 @@ Help language file
 
         <h3 class="pt-5 fs-1">Systemprüfung</h3>
         
-        <p>Über die Systemprüfung kannst du deine aktuelle Installation auf mögliche Fehlkonfigurationen prüfen lassen. Sofern alle Icons am rechten
-        Haken blau sind, wurden keine Probleme gefunden. Punkte, welche mit <em>optional</em> gekennzeichnet sind, müssen nicht zwangsläufig einen
-        blauen Haken besitzen.</p>
+        <p>Über die Systemprüfung kannst du deine aktuelle Installation auf mögliche Fehlkonfigurationen prüfen lassen.</p>
+        
+        <p>Die Prüfung erfolgt erstmalig bei der Installation und sorgt dafür, dass alle notwendigen Module von PHP verfügbar sind,
+        die Unterordner im <em>/data</em>-Verzeichnis beschreibbar sind etc.</p>
+        
+        <p>Die Systemprüfung unterscheidet zwischen zwingend erforderlichen Punkten. 
+            Dies sind z. B. eine bestimmte PHP- oder MariaDB/Postgres-Version, bestimmte Funktionen von PHP oder 
+            Schreibrechten auf die Ordner unter im <em>/data</em>-Verzeichnis. Wurden diese Punkte nicht erfolgreich 
+            geprüft, kann es bei der Nutzung von FanPress CM zu Fehlern kommen oder diese gar nicht möglich sein.</p>
+
+        <p>Punkte, welche mit <em>optional</em> gekennzeichnet sind, müssen nicht zwangsläufig erfüllt sein, erhöhen jedoch den
+            Komfort, die Sicherheit oder die Performance.</p>
+
+        <p>Bei der Prüfung auf einen verfügbaren MariaDB- oder Postgres-Datenbanktreiber ist es ausreichend, dass eine der beiden
+            Datenbanken verfügbar ist.</p>
+
+        <p>Der Startbildschirm-Container "systemprüfung" umfasst eine Kurzzusammenfassung der Systemprüfung.</p>
         ]]>
     </chapter>
     <chapter ref="HL_OPTIONS_USERS">

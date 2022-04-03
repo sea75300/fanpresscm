@@ -18,20 +18,20 @@
                         <?php $theView->icon('play')->setSize('lg')->setClass('fpcm-navicon'); ?>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a id="fpcm-clear-cache" href="#" class="nav-link" title="<?php $theView->write('GLOBAL_CACHE_CLEAR'); ?>">
+                <li class="nav-item">                    
+                    <button id="fpcm-clear-cache" class="nav-link bg-transparent border-0" title="<?php $theView->write('GLOBAL_CACHE_CLEAR'); ?>">
                         <?php $theView->icon('recycle')->setSize('lg') ?>
-                    </a>
+                    </button>
                 </li>
                 <?php if ($theView->helpLink !== null && $theView->helpLink['ref'] !== null && $theView->helpLink['chapter'] !== null) : ?>
                 <li class="nav-item">
-                    <a class="nav-link fpcm ui-help-dialog" 
-                        href="#"
-                        title="<?php $theView->write('HELP_BTN_OPEN'); ?>"
-                        data-ref="<?php print $theView->helpLink['ref']; ?>" 
-                        data-chapter="<?php print $theView->helpLink['chapter']; ?>">
+                    <button id="fpcm-clear-cache"
+                            class="nav-link bg-transparent border-0 fpcm ui-help-dialog"
+                            title="<?php $theView->write('HELP_BTN_OPEN'); ?>"
+                            data-ref="<?php print $theView->helpLink['ref']; ?>" 
+                            data-chapter="<?php print $theView->helpLink['chapter']; ?>">
                         <?php $theView->icon('question-circle')->setSize('lg'); ?>
-                    </a>
+                    </button>
                 </li>
                 <?php endif; ?>
                 <li class="nav-item dropdown me-2">

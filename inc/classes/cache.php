@@ -12,7 +12,7 @@ namespace fpcm\classes;
  * 
  * @package fpcm\classes\cache
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  */
 final class cache {
 
@@ -101,8 +101,9 @@ final class cache {
      */
     public function getExpirationTime($cacheName)
     {
-        if (defined('FPCM_INSTALLER_NOCACHE') && FPCM_INSTALLER_NOCACHE)
+        if (defined('FPCM_INSTALLER_NOCACHE') && FPCM_INSTALLER_NOCACHE) {
             return false;
+        }
 
         $file = new \fpcm\model\files\cacheFile($cacheName);
         return $file->expires();
@@ -130,12 +131,15 @@ final class cache {
 
             $cacheFiles = glob($this->basePath . DIRECTORY_SEPARATOR . $cacheName . DIRECTORY_SEPARATOR . '*' . \fpcm\model\files\cacheFile::EXTENSION_CACHE);            
         }
+        
+        if (defined('FPCM_CACHELIST_DEBUG') && FPCM_CACHELIST_DEBUG) {
+            fpcmLogSystem($cacheFiles);
+        }
 
         if (!is_array($cacheFiles) || !count($cacheFiles)) {
             return false;
         }
-        
-        
+
         $cacheFiles = array_filter($cacheFiles, function ($cacheFile) {
             return file_exists($cacheFile) && is_writable($cacheFile);            
         });
@@ -164,7 +168,7 @@ final class cache {
      */
     public function getCacheComplete()
     {
-        return array_merge(glob($this->basePath . '/*' . \fpcm\model\files\cacheFile::EXTENSION_CACHE), glob($this->basePath . '/*/*' . \fpcm\model\files\cacheFile::EXTENSION_CACHE));
+        return array_unique(array_merge_recursive(glob($this->basePath . '/*' . \fpcm\model\files\cacheFile::EXTENSION_CACHE), glob($this->basePath . '/*/*' . \fpcm\model\files\cacheFile::EXTENSION_CACHE)));
     }
 
 }
