@@ -64,6 +64,10 @@ final class progress {
         $this->currentValue = $currentValue;
         $this->isCli = \fpcm\classes\baseconfig::isCli();
         
+        if (!$this->isCli) {
+            return;
+        }
+        
         try {
             $cols = exec('tput cols');
             if ($cols === false) {
