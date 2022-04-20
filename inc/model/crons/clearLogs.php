@@ -46,6 +46,7 @@ class clearLogs extends \fpcm\model\abstracts\cron {
         });
         
         if (!is_array($list) || !count($list)) {
+            fpcmLogCron('No logs to cleanup, exit.');
             return true;
         }
 
