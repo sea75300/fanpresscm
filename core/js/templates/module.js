@@ -34,19 +34,11 @@ fpcm.templates = {
                     return true;
                 }
 
-                try {
-                    fpcm.templates.editorInstance = fpcm.editor_codemirror.create({
-                       editorId  : 'tpleditor' + _ui.target.dataset.tplid,
-                       elementId : 'content_' + _ui.target.dataset.tplid
-                    });
-                    
-                    fpcm.templates.editorInstance.setSize('100%', '100vh');
-
-                } catch (_e) {
-                    fpcm.dom.assignHtml(_ev.target.dataset.bsTarget, 'Error init error\r\n' + _e);
-                    return false;
+                if (!fpcm.templates.createEditorInstance(_ui)) {
+                    setTimeout(function () {
+                        fpcm.templates.createEditorInstance(_ui);
+                    }, 1500);
                 }
-
 
                 fpcm.dom.fromTag('button.fpcm-ui-template-tags').click(function() {
 
@@ -75,6 +67,8 @@ fpcm.templates = {
                 return true;
             }
         });
+        
+        fpcm.dom.bindEvent('.fpcm-editor-html-click', )
 
         fpcm.dom.bindClick('#showpreview', fpcm.templates.saveTemplatePreview);
 
@@ -121,6 +115,24 @@ fpcm.templates = {
             }
         });
         
+    },
+    
+    createEditorInstance: function (_ui, _ldr) {
+
+        try {
+
+            fpcm.templates.editorInstance = fpcm.editor_codemirror.create({
+               editorId  : 'tpleditor' + _ui.target.dataset.tplid,
+               elementId : 'content_' + _ui.target.dataset.tplid
+            });
+
+            fpcm.templates.editorInstance.setSize('100%', '100vh');
+
+        } catch (_e) {
+            return false;
+        }
+
+        return true;
     }
 
 };
