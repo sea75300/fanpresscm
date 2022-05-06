@@ -3,11 +3,11 @@
     <legend><?php $theView->write('SYSTEM_OPTIONS_TWITTER_CONSTATE'); ?></legend>
     
     <div class="row my-2 row-cols-3 gap-1">
-        <div class="col-12 col-md align-self-center">
         <?php if ($twitterIsActive) : ?>
+        <div class="col-12 col-md align-self-center">
             <?php $theView->alert('success')->setText('SYSTEM_OPTIONS_TWITTER_ACTIVE', ['{{screenname}}' => $twitterScreenName])->setIcon('twitter', 'fab')->setClass('mb-1 mb-md-0'); ?>
-        <?php endif; ?>
         </div>
+        <?php endif; ?>
         <div class="col-12 col-md align-self-center">
             <div class="row g-0">
                 <div class="col-auto align-self-center">
