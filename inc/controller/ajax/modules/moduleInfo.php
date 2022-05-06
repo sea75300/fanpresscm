@@ -98,7 +98,7 @@ class moduleInfo extends \fpcm\controller\abstracts\ajaxController implements \f
         $this->view->assign('moduleDownload', $data['packageUrl'] ?? false);
         $this->view->assign('moduleInstall', $this->module->isInstallable() && !$this->module->isInstalled());
         $this->view->assign('moduleHash', $data['hash'] ?? false);
-        $this->view->assign('moduleVersion', $data['version']);
+        $this->view->assign('moduleVersion', $data['version'] ?? '');
 
         $this->view->render();
     }
