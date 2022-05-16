@@ -113,14 +113,6 @@ fpcm.editor = {
                             text: 'EDITOR_ARTICLE_SHORTLINK_COPY',
                             icon: 'copy',
                             click: function () {
-                                
-                                if (!result.permalink) {
-                                    let _domEl = document.createElement('input');
-                                    _domEl.type = 'hidden';
-                                    _domEl.id = 'fpcm-editor-shotlink';
-                                    _domEl.value = result.shortend;
-                                    document.appendChild(_domEl);
-                                }
 
                                 let _el = fpcm.dom.fromId('fpcm-editor-shotlink');
                                  if (!_el.length) {
@@ -129,24 +121,14 @@ fpcm.editor = {
 
                                  _el.select();
                                 document.execCommand('copy');
-                                if (!result.permalink) {
-                                    fpcm.dom.fromId('fpcm-editor-shotlink').remove();
-                                }                                
-
                             }
                         }]
                     };
-                             
-                    if (result.permalink) {
-                        _par.content = fpcm.ui.getTextInput({
-                                            name: 'fpcm-editor-shotlink',
-                                            value: result.shortend,
-                                            text: fpcm.ui.translate('EDITOR_ARTICLE_SHORTLINK'),
-                                        });
-                    }
-                    else {
-                        _par.url = result.shortend;
-                    }
+
+                    _par.content = '<div class="form-floating mb-3">' +
+                                    '<input type="url" class="form-control" id="fpcm-editor-shotlink" name="fpcm-editor-shotlink" placeholder="' + fpcm.ui.translate('EDITOR_ARTICLE_SHORTLINK') + '" value="' + result.shortend + '">' +
+                                    '<label for="fpcm-editor-shotlink">' + fpcm.ui.translate('EDITOR_ARTICLE_SHORTLINK') + '</label>' +
+                                  '</div>';
 
                     fpcm.ui_dialogs.create(_par);
                 }
@@ -207,40 +189,35 @@ fpcm.editor = {
 
             fpcm.editor.filePickerCallback = callback;
             fpcm.editor.filePickerActions = {
+                fmUpload: 'btnFileUpload',
                 fmSearch: 'btnOpenSearch',
                 fmNewThumbs: 'btnCreateThumbs',
                 fmDelete: 'btnDeleteFiles',
                 fmGallery: 'btnInsertGallery',
             };
-
-            let _filePickerButtons = [
-                {
+            
+            _btns = [{
+                type:  'custom',
+                name: 'fmSearch',
+                text: fpcm.ui.translate('ARTICLES_SEARCH'),
+                disabled: false,
+                primary: false,
+                align: 'start'
+            }];
+            
+            if (fpcm.vars.jsvars.filemanagerPermissions.add) {
+                _btns.push({
                     type:  'custom',
-                    name: 'fmNewThumbs',
-                    text: fpcm.ui.translate('FILE_LIST_NEWTHUMBS'),
+                    name: 'fmUpload',
+                    text: fpcm.ui.translate('FILE_LIST_UPLOADFORM'),
                     disabled: false,
-                    primary: false,
+                    primary: true,
                     align: 'start'
-                },
-                {
-                    type:  'custom',
-                    name: 'fmDelete',
-                    text: fpcm.ui.translate('GLOBAL_DELETE'),
-                    disabled: false,
-                    primary: false,
-                    align: 'start'
-                },
-                {
-                    type:  'cancel',
-                    name: 'fmClose',
-                    text: fpcm.ui.translate('GLOBAL_CLOSE'),
-                    disabled: false,
-                    primary: true
-                },                          
-            ];
+                });
+            }
             
             if (!fpcm.editor.insertGalleryDisabled()) {
-                _filePickerButtons.unshift({
+                _btns.push({
                     type:  'custom',
                     name: 'fmGallery',
                     text: fpcm.ui.translate('FILE_LIST_INSERTGALLERY'),
@@ -250,12 +227,43 @@ fpcm.editor = {
                 });
             }
 
+            if (fpcm.vars.jsvars.filemanagerPermissions.thumbs) {
+                _btns.push({
+                    type:  'custom',
+                    name: 'fmNewThumbs',
+                    text: fpcm.ui.translate('FILE_LIST_NEWTHUMBS'),
+                    disabled: false,
+                    primary: false,
+                    align: 'start'
+                });                
+            }
+            
+            
+            if (fpcm.vars.jsvars.filemanagerPermissions.delete) {
+                _btns.push({
+                    type:  'custom',
+                    name: 'fmDelete',
+                    text: fpcm.ui.translate('GLOBAL_DELETE'),
+                    disabled: false,
+                    primary: false,
+                    align: 'start'
+                });                
+            }
+            
+            _btns.push({
+                type:  'cancel',
+                name: 'fmClose',
+                text: fpcm.ui.translate('GLOBAL_CLOSE'),
+                disabled: false,
+                primary: true
+            });
+
             tinymce.activeEditor.windowManager.openUrl({
                 title: fpcm.ui.translate('HL_FILES_MNG'),
                 size: 'large',
                 url: fpcm.vars.jsvars.filemanagerUrl + fpcm.vars.jsvars.filemanagerMode,
                 id: 'fpcm-dialog-editor-tinymce-filemanager',
-                buttons: _filePickerButtons,
+                buttons: _btns,
                 onAction: function(api, action) {
 
                     if (!fpcm.editor.filePickerActions[action.name]) {

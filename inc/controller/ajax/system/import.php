@@ -55,7 +55,7 @@ class import extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
 
     public function isAccessible(): bool
     {
-        return $this->permissions->system->options;
+        return $this->permissions->system->csvimport;
     }
     
     public function request()

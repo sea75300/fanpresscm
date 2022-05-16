@@ -34,8 +34,6 @@ class userRollList extends \fpcm\model\abstracts\tablelist {
      */
     public function getUserRolls()
     {
-        $rolls = $this->dbcon->fetch($this->dbcon->select($this->table), true);
-        
         $rolls = $this->dbcon->selectFetch( (new \fpcm\model\dbal\selectParams($this->table))->setFetchAll(true)->setWhere('id>0 '.$this->dbcon->orderBy(['id ASC, leveltitle ASC'])) );
 
         $res = [];

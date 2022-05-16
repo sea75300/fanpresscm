@@ -153,6 +153,23 @@ class filelist extends \fpcm\controller\abstracts\controller implements \fpcm\co
                 $buttons[] = (new \fpcm\view\helper\button('fmgrUploadBack'))->setText('GLOBAL_BACK')->setIcon('chevron-circle-left')->setClass('fpcm-ui-maintoolbarbuttons-tab2 fpcm-ui-hidden');
             }
         }
+        
+        if ($this->permissions->uploads->add) {
+
+            $this->view->assign('uploadFormPath', $uploader->getTemplate());
+
+            $buttons[] =  (new \fpcm\view\helper\button('fileUpload'))
+                ->setText('FILE_LIST_UPLOADFORM')
+                ->setIcon('upload')
+                ->setData([
+                    'bs-toggle' => 'offcanvas',
+                    'bs-target' => '#offcanvasUpload'
+                ])
+                ->setAria([
+                    'bs-controls' => 'offcanvasUpload',
+                ]);
+
+        }
 
         $this->view->addButtons($buttons);
         $this->view->setFormAction('files/list', ['mode' => $this->mode]);
@@ -164,17 +181,6 @@ class filelist extends \fpcm\controller\abstracts\controller implements \fpcm\co
                 ->setTabToolbar(1)
                 ->setUrl(\fpcm\classes\tools::getControllerLink('ajax/files/lists', [ 'mode' => $this->mode ]) )
         ];
-        
-        if ($this->permissions->uploads->add) {
-
-            $this->view->assign('uploadFormPath', $uploader->getTemplate());
-            
-            $tabs[] = (new \fpcm\view\helper\tabItem('upload'))
-                    ->setText('FILE_LIST_UPLOADFORM')
-                    ->setTabToolbar(2)
-                    ->setFile('filemanager/upload');
-            
-        }
 
         $this->view->includeForms('filemanager');
         $this->view->addTabs('files', $tabs);

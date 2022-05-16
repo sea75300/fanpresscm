@@ -108,4 +108,10 @@ class system extends base {
      */
     public $profile;
 
+    /**
+     * Can use csv import
+     * @var bool
+     */
+    public $csvimport;
+
 }

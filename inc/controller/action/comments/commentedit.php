@@ -163,6 +163,7 @@ class commentedit extends \fpcm\controller\abstracts\controller implements \fpcm
         $jsVars += array(
             'filemanagerUrl' => \fpcm\classes\tools::getFullControllerLink('files/list', ['mode' => '']),
             'filemanagerMode' => 2,
+            'filemanagerPermissions' => $this->permissions->uploads,
             'editorGalleryTagStart' => \fpcm\model\pubtemplates\article::GALLERY_TAG_START,
             'editorGalleryTagEnd' => \fpcm\model\pubtemplates\article::GALLERY_TAG_END,
             'editorGalleryTagThumb' => \fpcm\model\pubtemplates\article::GALLERY_TAG_THUMB,
@@ -171,7 +172,7 @@ class commentedit extends \fpcm\controller\abstracts\controller implements \fpcm
 
         $this->view->addJsVars($jsVars);
         $this->view->addJsFiles(array_merge(['comments/module.js', 'comments/editor.js', 'editor/editor_videolinks.js'], $editorPlugin->getJsFiles()));
-        $this->view->addJsLangVars(array_merge(['HL_FILES_MNG', 'ARTICLES_SEARCH', 'FILE_LIST_NEWTHUMBS', 'GLOBAL_DELETE', 'FILE_LIST_INSERTGALLERY'], $editorPlugin->getJsLangVars()));
+        $this->view->addJsLangVars(array_merge(['HL_FILES_MNG', 'ARTICLES_SEARCH', 'FILE_LIST_NEWTHUMBS', 'GLOBAL_DELETE', 'FILE_LIST_INSERTGALLERY', 'FILE_LIST_UPLOADFORM'], $editorPlugin->getJsLangVars()));
         
 
         if ($this->comment->getChangeuser() && $this->comment->getChangetime()) {

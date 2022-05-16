@@ -16,32 +16,28 @@ if (fpcm.editor !== undefined) {
             _mode = fpcm.vars.jsvars.filemanagerMode;
         }
 
-        let _btns = [,
-            {
-                text: 'ARTICLES_SEARCH',
-                icon: "search",
+        let _btns = [{
+            text: 'ARTICLES_SEARCH',
+            icon: "search",
+            click: function(_ui) {
+                fpcm.dom.findElementInDialogFrame(_ui, '#btnOpenSearch').click();
+            }
+        }];
+        
+        
+        if (fpcm.vars.jsvars.filemanagerPermissions.add) {
+            _btns.push({
+                text: 'FILE_LIST_UPLOADFORM',
+                icon: "upload",
+                primary: true,
                 click: function(_ui) {
-                    fpcm.dom.findElementInDialogFrame(_ui, '#btnOpenSearch').click();
+                    fpcm.dom.findElementInDialogFrame(_ui, '#btnFileUpload').click();
                 }
-            },
-            {
-                text: 'FILE_LIST_NEWTHUMBS',
-                icon: "image",
-                click: function(_ui) {
-                    fpcm.dom.findElementInDialogFrame(_ui, '#btnCreateThumbs').click();
-                }
-            },
-            {
-                text: 'GLOBAL_DELETE',
-                icon: "trash",
-                click: function(_ui) {
-                    fpcm.dom.findElementInDialogFrame(_ui, '#btnDeleteFiles').click();
-                }
-            }                            
-        ];
+            });
+        }
         
         if (!fpcm.editor.insertGalleryDisabled(_mode)) {
-            _btns.unshift({
+            _btns.push({
                 text: 'FILE_LIST_INSERTGALLERY',
                 icon: "images",
                 click: function(_ui) {
@@ -62,6 +58,26 @@ if (fpcm.editor !== undefined) {
 
                     fpcm.editor.insertGalleryByEditor(values);
                     return false;                    
+                }
+            });
+        }
+
+        if (fpcm.vars.jsvars.filemanagerPermissions.thumbs) {
+            _btns.push({
+                text: 'FILE_LIST_NEWTHUMBS',
+                icon: "image",
+                click: function(_ui) {
+                    fpcm.dom.findElementInDialogFrame(_ui, '#btnCreateThumbs').click();
+                }
+            });
+        }
+
+        if (fpcm.vars.jsvars.filemanagerPermissions.delete) {
+            _btns.push({
+                text: 'GLOBAL_DELETE',
+                icon: "trash",
+                click: function(_ui) {
+                    fpcm.dom.findElementInDialogFrame(_ui, '#btnDeleteFiles').click();
                 }
             });
         }

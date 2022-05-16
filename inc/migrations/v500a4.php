@@ -27,5 +27,14 @@ class v500a4 extends migration {
     {
         return $this->getDB()->update(\fpcm\classes\database::tableRoll, ['is_system'], [1], 'id <= 3');
     }
+
+    /**
+     * Returns new version, e. g. from version.txt
+     * @return string
+     */
+    protected function getNewVersion() : string
+    {
+        return '5.0.0-a4';
+    }
     
 }

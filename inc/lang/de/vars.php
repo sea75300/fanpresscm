@@ -555,6 +555,7 @@ $lang = array (
   'PERMISSION_SYSTEM' => 'System',
   'PERMISSION_SYSTEM_BACKUPS' => 'Backups verwalten',
   'PERMISSION_SYSTEM_CATEGORIES' => 'Kategorien verwalten',
+  'PERMISSION_SYSTEM_CSVIMPORT' => 'CSV-Import ausführen',
   'PERMISSION_SYSTEM_CRONS' => 'Cronjobs verwalten',
   'PERMISSION_SYSTEM_DRAFTS' => 'Artikel-Vorlagen verwalten',
   'PERMISSION_SYSTEM_IPADDR' => 'IP-Adressen verwalten',
