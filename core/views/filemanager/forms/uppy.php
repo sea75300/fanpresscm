@@ -4,10 +4,10 @@
         <div id="fpcm-uppy-select"></div>
     </div>
     <div class="col-auto">
-        <?php $theView->button('upload')->setText('FILE_FORM_UPLOADSTART'); ?>
+        <?php $theView->button('upload')->setText('FILE_FORM_UPLOADSTART')->setIcon('upload')->overrideButtonType('outline-secondary'); ?>
     </div>
     <div class="col flex-grow-1">
-        <?php $theView->button('cancel')->setText('FILE_FORM_UPLOADCANCEL'); ?>
+        <?php $theView->button('cancel')->setText('FILE_FORM_UPLOADCANCEL')->setIcon('ban')->overrideButtonType('outline-secondary'); ?>
     </div>
 </div>
 

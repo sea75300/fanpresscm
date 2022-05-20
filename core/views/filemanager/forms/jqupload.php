@@ -9,8 +9,8 @@
                     <span><?php $theView->write('FILE_FORM_FILEADD'); ?></span>
                     <input type="file" name="files[]" <?php if ($uploadMultiple) : ?>multiple<?php endif; ?>>
                 </a>
-                <?php $theView->submitButton('start')->setText('FILE_FORM_UPLOADSTART')->setClass('start')->setIcon('upload'); ?>
-                <?php $theView->resetButton('cancel')->setText('FILE_FORM_UPLOADCANCEL')->setClass('cancel')->setIcon('ban'); ?>
+                <?php $theView->submitButton('start')->setText('FILE_FORM_UPLOADSTART')->setClass('start')->setIcon('upload')->overrideButtonType('outline-secondary'); ?>
+                <?php $theView->resetButton('cancel')->setText('FILE_FORM_UPLOADCANCEL')->setClass('cancel')->setIcon('ban')->overrideButtonType('outline-secondary'); ?>
             </div>
         </div>
         <div class="col-12 col-sm-auto flex-grow-1 align-self-center pe-0">

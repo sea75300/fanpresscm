@@ -110,10 +110,10 @@ fpcm.fileuploader = {
 
         html += '   </div>';
         html += '   <div class="col align-self-center fpcm-ui-ellipsis">';
-        html += '       <span class="name">' + _file.name + '</span> (<span class="size">' + _params.formatFileSize(_file.size) + '</span>)';
+        html += '       <span class="name">' + _file.name + '</span> <span class="fs-6">(' + _params.formatFileSize(_file.size) + ')</span>';
         html += '   </div>';
-        html += '   <div class="col align-self-center fpcm-ui-ellipsis">';
-        html += '       <span class="error fpcm text-danger"> ' + (_file.error ? fpcm.ui.translate('SAVE_FAILED_UPLOAD_GEN').replace('{{uploadMsg}}', _file.error) : '') + '</span>';
+        html += '   <div class="col-12 align-self-center">';
+        html += '       <span class="error fpcm text-danger fs-6"> ' + (_file.error ? fpcm.ui.translate('SAVE_FAILED_UPLOAD_GEN').replace('{{uploadMsg}}', _file.error) : '') + '</span>';
         html += '   </div>';
         html += '</div>';
 

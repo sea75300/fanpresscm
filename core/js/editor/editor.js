@@ -223,7 +223,6 @@ fpcm.editor = {
                     text: fpcm.ui.translate('FILE_LIST_INSERTGALLERY'),
                     disabled: false,
                     primary: false,
-                    align: 'start'
                 });
             }
 
@@ -234,7 +233,6 @@ fpcm.editor = {
                     text: fpcm.ui.translate('FILE_LIST_NEWTHUMBS'),
                     disabled: false,
                     primary: false,
-                    align: 'start'
                 });                
             }
             
@@ -246,7 +244,6 @@ fpcm.editor = {
                     text: fpcm.ui.translate('GLOBAL_DELETE'),
                     disabled: false,
                     primary: false,
-                    align: 'start'
                 });                
             }
             

@@ -121,39 +121,10 @@ class filelist extends \fpcm\controller\abstracts\controller implements \fpcm\co
         $this->initViewAssigns([], []);
 
         $buttons = [
-            new \fpcm\view\helper\wrapper('div', 'btn btn-light fpcm-ui-maintoolbarbuttons-tab1', (new \fpcm\view\helper\checkbox('fpcm-select-all'))->setText('GLOBAL_SELECTALL')->setIconOnly(true)->setClass('fpcm-select-all') ),
-            (new \fpcm\view\helper\button('openSearch'))->setText('ARTICLES_SEARCH')->setIcon('search')->setIconOnly(true)->setClass('fpcm-ui-maintoolbarbuttons-tab1')
+            new \fpcm\view\helper\wrapper('div', 'btn btn-light', (new \fpcm\view\helper\checkbox('fpcm-select-all'))->setText('GLOBAL_SELECTALL')->setIconOnly(true)->setClass('fpcm-select-all') ),
+            (new \fpcm\view\helper\button('openSearch'))->setText('ARTICLES_SEARCH')->setIcon('search')->setIconOnly(true)
         ];
 
-        if ($this->mode === 2) {
-            $buttons[] = (new \fpcm\view\helper\submitButton('insertGallery'))->setText('FILE_LIST_INSERTGALLERY')->setIcon('images', 'far')->setIconOnly(true)->setClass('fpcm-ui-maintoolbarbuttons-tab1');
-        }
-
-        if ($this->permissions->uploads->thumbs) {
-            $buttons[] = (new \fpcm\view\helper\submitButton('createThumbs'))
-                    ->setText('FILE_LIST_NEWTHUMBS')
-                    ->setIcon('image', 'far')
-                    ->setIconOnly(true)
-                    ->setClass('fpcm-ui-maintoolbarbuttons-tab1');
-        }
-
-        if ($this->permissions->uploads->delete) {
-            $buttons[] = (new \fpcm\view\helper\deleteButton('deleteFiles'))->setClass('fpcm-ui-maintoolbarbuttons-tab1');
-        }
-
-        if ($this->mode === 1) {
-            $buttons[] = (new \fpcm\view\helper\select('listView'))
-                    ->setOptions(\fpcm\components\components::getFilemanagerViews())
-                    ->setClass('fpcm-ui-listeview-setting')
-                    ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
-                    ->setSelected($this->config->file_view)
-                    ->setClass('fpcm-ui-maintoolbarbuttons-tab1');
-
-            if ($this->permissions->uploads->add) {
-                $buttons[] = (new \fpcm\view\helper\button('fmgrUploadBack'))->setText('GLOBAL_BACK')->setIcon('chevron-circle-left')->setClass('fpcm-ui-maintoolbarbuttons-tab2 fpcm-ui-hidden');
-            }
-        }
-        
         if ($this->permissions->uploads->add) {
 
             $this->view->assign('uploadFormPath', $uploader->getTemplate());
@@ -167,8 +138,33 @@ class filelist extends \fpcm\controller\abstracts\controller implements \fpcm\co
                 ])
                 ->setAria([
                     'bs-controls' => 'offcanvasUpload',
-                ]);
+                ])
+                ->setPrimary();
 
+        }
+        
+
+        if ($this->mode === 2) {
+            $buttons[] = (new \fpcm\view\helper\submitButton('insertGallery'))->setText('FILE_LIST_INSERTGALLERY')->setIcon('images', 'far')->setIconOnly(true);
+        }
+
+        if ($this->permissions->uploads->thumbs) {
+            $buttons[] = (new \fpcm\view\helper\submitButton('createThumbs'))
+                    ->setText('FILE_LIST_NEWTHUMBS')
+                    ->setIcon('image', 'far')
+                    ->setIconOnly(true);
+        }
+
+        if ($this->permissions->uploads->delete) {
+            $buttons[] = (new \fpcm\view\helper\deleteButton('deleteFiles'));
+        }
+
+        if ($this->mode === 1) {
+            $buttons[] = (new \fpcm\view\helper\select('listView'))
+                    ->setOptions(\fpcm\components\components::getFilemanagerViews())
+                    ->setClass('fpcm-ui-listeview-setting')
+                    ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
+                    ->setSelected($this->config->file_view);
         }
 
         $this->view->addButtons($buttons);

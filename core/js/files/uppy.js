@@ -26,7 +26,7 @@ fpcm.fileuploader = {
                 fpcm.vars.ajaxActionPath + 'upload/uppy&dest=' + fpcm.vars.jsvars.uploadDest
             })
             .use(Uppy.FileInput, {
-                target: '#fpcm-uppy-select',
+                target: '#fpcm-uppy-select'
             })
             .use(Uppy.DragDrop, {
                 target: '#fpcm-uppy-drop-area'
