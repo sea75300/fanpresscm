@@ -92,9 +92,7 @@ fpcm.import = {
                 return false;
             }
 
-            fpcm.dom.fromId('fpcm-progress-csvimport').parent().removeClass('ui-hidden');
-            fpcm.dom.fromId('fpcm-ui-csv-upload').addClass('fpcm ui-hidden');
-            fpcm.dom.fromId('fpcm-ui-csv-settings').addClass('fpcm ui-hidden');
+            fpcm.dom.fromId('fpcm-id-progress-col').removeClass('d-none');
             
             fpcm.ui_dialogs.confirm({
                 clickYes: function () {
