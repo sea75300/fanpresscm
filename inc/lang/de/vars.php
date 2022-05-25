@@ -479,6 +479,7 @@ $lang = array (
   'MODULES_LIST_KEY' => 'Schlüssel',
   'MODULES_LIST_LINK' => 'Info-Link',
   'MODULES_LIST_NAME' => 'Name',
+  'MODULES_LIST_DATAPATH' => 'Pfad im /data-Ordner',
   'MODULES_LIST_REQUIRE_FPCM' => 'Erfordert FanPress CM',
   'MODULES_LIST_REQUIRE_PHP' => 'Erfordert PHP',
   'MODULES_LIST_UNINSTALL' => 'Modul deinstallieren',

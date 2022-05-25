@@ -86,6 +86,7 @@ class moduleInfo extends \fpcm\controller\abstracts\ajaxController implements \f
                                         
         $this->view->addJsFiles(['modules/info.js']);
 
+        $this->view->assign('moduleKey', $this->module->getKey());
         $this->view->assign('moduleName', $config->name);
         $this->view->assign('moduleAuthor', $config->author);
         $this->view->assign('moduleLink', $config->link);
@@ -93,6 +94,7 @@ class moduleInfo extends \fpcm\controller\abstracts\ajaxController implements \f
         $this->view->assign('modulePhpVer', $config->requirements['php']);
         $this->view->assign('moduleDescription', $config->description);
         $this->view->assign('moduleKeyHash', \fpcm\classes\tools::getHash($this->module->getKey()));
+        $this->view->assign('moduleDataPath', $config->useDataFolder ? \fpcm\model\files\ops::removeBaseDir($this->module->getDataPath(), true) : '-');
 
         $data = \fpcm\classes\loader::getObject('\fpcm\model\updater\modules')->getDataCachedByKey($this->key);
         $this->view->assign('moduleDownload', $data['packageUrl'] ?? false);

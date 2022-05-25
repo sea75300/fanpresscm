@@ -16,6 +16,14 @@
 
 <div class="row row-cols-2 mb-3">
     <div class="col fw-bold">
+        <?php $theView->icon('tag')->setSize('lg'); ?>
+        <?php $theView->write('MODULES_LIST_KEY'); ?>:
+    </div>
+    <div class="col text-truncate"><?php print $theView->escape($moduleKey); ?></div>
+</div>
+
+<div class="row row-cols-2 mb-3">
+    <div class="col fw-bold">
         <?php $theView->icon('code-branch')->setSize('lg'); ?>
         <?php $theView->write('MODULES_LIST_VERSION_REMOTE'); ?>:
     </div>
@@ -73,11 +81,22 @@
 
 <div class="row row-cols-2 mb-3">
     <div class="col-12 fw-bold">
+        <?php $theView->icon('folder-tree')->setSize('lg'); ?>
+        <?php $theView->write('MODULES_LIST_DATAPATH'); ?>:
+    </div>
+</div>
+
+<div class="row mb-3">
+    <div class="col pre-box text-secondary"><?php print $theView->escape($moduleDataPath); ?></div>
+</div>
+
+<div class="row row-cols-2 mb-3">
+    <div class="col-12 fw-bold">
         <?php $theView->icon('hashtag')->setSize('lg'); ?>
         <?php $theView->write('FILE_LIST_FILEHASH'); ?>:
     </div>
 </div>
 
-<div class="row">
-    <div class="col pre-box"><?php print $theView->escapeVal($moduleHash); ?></div>
+<div class="row mb-3">
+    <div class="col pre-box text-secondary"><?php print $theView->escapeVal($moduleHash); ?></div>
 </div>

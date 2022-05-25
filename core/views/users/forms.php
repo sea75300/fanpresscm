@@ -14,12 +14,12 @@
     </div>
 </div>
 
-<div class="offcanvas offcanvas-end fpcm offcanvas-large" tabindex="-1" id="offcanvasUserStats" aria-labelledby="offcanvasUserStatsLabel" data-bs-scroll="true">
-    <div class="offcanvas-header text-white bg-primary">
+<div class="offcanvas offcanvas-end fpcm offcanvas-large bg-transparent" tabindex="-1" id="offcanvasUserStats" aria-labelledby="offcanvasUserStatsLabel" data-bs-scroll="true">
+    <div class="offcanvas-header text-white fpcm ui-background-blue-75 ui-blurring">
         <h5 class="offcanvas-title" id="offcanvasUserStatsLabel"><?php $theView->icon('chart-pie'); ?> <?php $theView->write('USERS_STATS_ARTICLE'); ?></h5>
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="<?php $theView->write('GLOBAL_CLOSE'); ?>"></button>
     </div>
-    <div class="offcanvas-body">
+    <div class="offcanvas-body bg-white">
         <?php print $userArticles; ?>
 
     </div>
