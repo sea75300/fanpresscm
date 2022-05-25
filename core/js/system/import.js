@@ -313,12 +313,23 @@ fpcm.import = {
 fpcm.filemanager = {
 
     runFileIndexUpdate: function (_params) {
-        
+
         if (_params === undefined) {
             return false;
         }
         
-        if (!_params.files || !_params.files[0] || !_params.files[0].name) {
+        debugger;
+        
+
+        let _fileName = '';
+
+        if (_params.uploadID && _params.successful && _params.successful[0] && _params.successful[0].name) {
+            _fileName = _params.successful[0].name;
+        }
+        else if (_params.files && _params.files[0] && _params.files[0].name) {
+            _fileName = _params.files[0].name;
+        }
+        else {
             return false;
         }
 
@@ -326,7 +337,7 @@ fpcm.filemanager = {
         fpcm.dom.appendHtml('#fpcm-ui-csv-upload', '<div class="row my-2">' + fpcm.ui.getTextInput({
                 name: 'import_filename',
                 id: 'import_filename',
-                value: _params.files[0].name,
+                value: _fileName,
                 text: fpcm.ui.translate('IMPORT_FILE')
             }) + '</div>'
         );

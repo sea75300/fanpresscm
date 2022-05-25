@@ -215,14 +215,23 @@ class uppy extends \fpcm\controller\abstracts\ajaxController implements \fpcm\co
         }
 
         $unique = \fpcm\classes\tools::getHash($this->session->getSessionId().$this->session->getUserId());
-        $obj = new \fpcm\model\files\csvFile($unique, null, null);
+        
+        $uniquePath = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_TEMP) . DIRECTORY_SEPARATOR . $unique . DIRECTORY_SEPARATOR;
+
+        if ( !file_exists($uniquePath) && !mkdir($uniquePath) ) {
+            $this->response->setCode(400)->fetch();
+        }
+        
+        $baseName = basename($realFile, '.csv');
+        
+        $obj = new \fpcm\model\files\csvFile( $unique . DIRECTORY_SEPARATOR . $baseName , null, null);
         if (!$obj->moveUploadedFile($tmpFile)) {
             trigger_error('Unable to move uploaded to to uploader folder! ' . $realFile);
             $this->response->setCode(500)->fetch();
         }
 
         $this->response->setReturnData([
-            'url' => \fpcm\classes\dirs::getDataUrl(\fpcm\classes\dirs::DATA_TEMP, '/'.$unique.'.csv'),
+            'url' => \fpcm\classes\dirs::getDataUrl(\fpcm\classes\dirs::DATA_TEMP, $unique . '/' . $baseName),
         ])->fetch();
     }
 

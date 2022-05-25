@@ -20,7 +20,7 @@
         </div>
     </div>
     
-    <div class="row mt-3">        
+    <div class="row mt-3">
         <div class="col">
             <div class="fileupload-progress fade">
                 <div class="fpcm-ui-progressbar progress active w-100" role="progressbar" aria-valuemin="0" aria-valuemax="100">

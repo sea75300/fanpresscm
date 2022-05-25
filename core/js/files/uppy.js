@@ -50,6 +50,12 @@ fpcm.fileuploader = {
            _uppy.cancelAll(); 
         });
 
+    },
+    
+    initAfter: function () {
+        
+        fpcm.dom.fromClass('uppy-FileInput-btn').addClass('w-100');
+        
     }
     
 };
