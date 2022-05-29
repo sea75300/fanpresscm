@@ -66,8 +66,9 @@ final class templatefile extends \fpcm\model\abstracts\file implements \fpcm\mod
      */
     public function save()
     {
-        if (!$this->exists() || !$this->content || !$this->isWritable())
-            return false;
+        if (!$this->exists() || !$this->content || !$this->isWritable()) {
+            return false;            
+        }
 
         if (!file_put_contents($this->fullpath, $this->content)) {
             trigger_error('Unable to update template ' . $this->fullpath);
@@ -77,6 +78,22 @@ final class templatefile extends \fpcm\model\abstracts\file implements \fpcm\mod
         return true;
     }
 
+    /**
+     * Check if file exists
+     * @return bool
+     */
+    public function exists()
+    {
+        if (!$this->isValidDataFolder('', \fpcm\classes\dirs::DATA_DRAFTS)) {
+            return false;
+        }
+
+        if (!parent::exists()) {
+            return false;
+        }
+
+        return true;
+    }
 
     /**
      * Check if file extension and file type is valid

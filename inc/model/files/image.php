@@ -316,7 +316,7 @@ class image extends \fpcm\model\abstracts\file implements \fpcm\model\interfaces
      */
     public function save()
     {
-        if ($this->exists(true) || !$this->isValidDataFolder($this->filepath)) {
+        if ($this->exists(true) || !$this->isValidDataFolder($this->filepath, \fpcm\classes\dirs::DATA_UPLOADS)) {
             return false;
         }
 
@@ -351,7 +351,7 @@ class image extends \fpcm\model\abstracts\file implements \fpcm\model\interfaces
      */
     public function delete()
     {
-        if (!$this->isValidDataFolder()) {
+        if (!$this->isValidDataFolder('', \fpcm\classes\dirs::DATA_UPLOADS)) {
             return false;
         }
         
