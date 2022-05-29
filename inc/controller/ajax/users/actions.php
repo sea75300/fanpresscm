@@ -116,7 +116,8 @@ class actions extends \fpcm\controller\abstracts\ajaxController implements \fpcm
             return new \fpcm\view\message($this->language->translate('DELETE_FAILED_USERS_OWN'), \fpcm\view\message::TYPE_ERROR);
         }
         
-        if ((new \fpcm\model\users\userList)->countActiveUsers() == 1) {
+        $list = new \fpcm\model\users\userList;
+        if ($list->countActiveUsers() === 1 && $list->isLastActiveUser($this->oid) == 1) {
             return new \fpcm\view\message($this->language->translate('DELETE_FAILED_USERS_LAST'), \fpcm\view\message::TYPE_ERROR);
         }
         
