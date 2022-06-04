@@ -117,7 +117,7 @@ class twitter extends \fpcm\model\abstracts\staticModel {
      * Fetch timeline data
      * @since 5.0.0-rc3
      */
-    public function fetch()
+    public function fetchTimeline() : array
     {
         $cacheName = 'dashboard/twitter';
 

@@ -52,7 +52,7 @@ class twitter_history extends \fpcm\model\abstracts\dashcontainer implements \fp
         $cn = $this->getCacheName();
         
         if ($this->cache->isExpired($cn)) {
-            $data = $this->twitter->fetch();           
+            $data = $this->twitter->fetchTimeline();           
             $this->cache->write($cn, $data);
             
         }
@@ -61,15 +61,9 @@ class twitter_history extends \fpcm\model\abstracts\dashcontainer implements \fp
         }
 
         $data = json_decode($data, true);
-        
-        
-//        fpcmLogSystem(__METHOD__);
-        fpcmLogSystem($data[0]);
-//        fpcmLogSystem($data[1]);
-//        
+
         $rows = '';
-        
-        
+
         $likeTxt = $this->language->translate('EDITOR_SHARES_LIKEBUTTON');
         $rewteetTxt = $this->language->translate('RECENT_TWEETS_REWTEETS');
         
@@ -104,10 +98,7 @@ class twitter_history extends \fpcm\model\abstracts\dashcontainer implements \fp
             $rows .= '</div>';
             
         }
-                
-        
-        
-        
+
         return $rows;
     }
 
@@ -135,7 +126,7 @@ class twitter_history extends \fpcm\model\abstracts\dashcontainer implements \fp
      */
     public function isAccessible(): bool
     {
-        return true; //defined('FPCM_DEBUD') && FPCM_DEBUG && $this->twitter->checkConnection();
+        return $this->twitter->checkConnection();
     }
 
     /**
