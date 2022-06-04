@@ -17,6 +17,8 @@ namespace fpcm\model\dashboard;
  */
 class twitter_history extends \fpcm\model\abstracts\dashcontainer implements \fpcm\model\interfaces\isAccessible {
 
+    use \fpcm\model\traits\dashContainerCols;
+    
     /**
      * Twitetr object
      * @var \fpcm\model\system\twitter
@@ -47,7 +49,66 @@ class twitter_history extends \fpcm\model\abstracts\dashcontainer implements \fp
      */
     public function getContent()
     {
-        return '<p class="px-2">' . $this->language->translate('RECENT_TWEETS') . '</p>';
+        $cn = $this->getCacheName();
+        
+        if ($this->cache->isExpired($cn)) {
+            $data = $this->twitter->fetch();           
+            $this->cache->write($cn, $data);
+            
+        }
+        else {
+            $data = $this->cache->read($cn);
+        }
+
+        $data = json_decode($data, true);
+        
+        
+//        fpcmLogSystem(__METHOD__);
+        fpcmLogSystem($data[0]);
+//        fpcmLogSystem($data[1]);
+//        
+        $rows = '';
+        
+        
+        $likeTxt = $this->language->translate('EDITOR_SHARES_LIKEBUTTON');
+        $rewteetTxt = $this->language->translate('RECENT_TWEETS_REWTEETS');
+        
+        foreach ($data as $tweet) {
+            
+            $ts = strtotime($tweet['created_at']);
+            
+            $css = !$tweet['retweeted'] ? 'text-primary' : '';
+
+            $col2 = '<div class="row g-0">';
+            $col2 .= "  <div class=\"col {$css}\">" . $this->parseLinks($tweet['text']) . '</div>';
+            $col2 .= '</div>';
+
+            $col2 .= '<div class="row row-cols-3 g-0 fpcm-ui-font-small">';
+            $col2 .= '  <div class="col text-secondary">' . (new \fpcm\view\helper\dateText($ts)) . '</div>';
+
+            if ($tweet['retweet_count'] && !$tweet['retweeted']) {
+                $col2 .= '  <div class="col text-secondary text-center" title="'.$rewteetTxt.'">' . (new \fpcm\view\helper\icon('retweet'))->setClass('text-success') . (int) $tweet['retweet_count'] . '</div>';
+            }
+
+            if ($tweet['favorite_count']) {
+                $col2 .= '  <div class="col text-secondary text-center" title="'.$likeTxt.'">' . (new \fpcm\view\helper\icon('heart'))->setClass('text-danger') . (int) $tweet['favorite_count'] . '</div>';
+            }
+            
+            $col2 .= '</div>';
+            
+            $rows .= "<div class=\"row py-1\" id=\"fpcm-id-tweet-{$tweet['id_str']}\">";
+            $rows .= $this->get2ColRowSmallLeftAuto( 
+                (new \fpcm\view\helper\openButton("fpcm-id-tweet-open-{$tweet['id_str']}"))->setUrl('https://twitter.com/i/web/status/'.$tweet['id_str'])->setTarget('_blank')->setRel('external'),
+                $col2
+            );
+            $rows .= '</div>';
+            
+        }
+                
+        
+        
+        
+        return $rows;
     }
 
     /**
@@ -74,7 +135,17 @@ class twitter_history extends \fpcm\model\abstracts\dashcontainer implements \fp
      */
     public function isAccessible(): bool
     {
-        return defined('FPCM_DEBUD') && FPCM_DEBUG && $this->twitter->checkConnection();
+        return true; //defined('FPCM_DEBUD') && FPCM_DEBUG && $this->twitter->checkConnection();
+    }
+
+    /**
+     * 
+     * @param string $str
+     * @return string
+     */
+    private function parseLinks(string $str) : string
+    {
+        return preg_replace('/((http|https?):\/\/\S+[^\s.,>)\]\"\'<\/])/i', "<a href=\"$0\">$0</a>", $str);    
     }
 
 }

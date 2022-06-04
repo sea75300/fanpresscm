@@ -96,7 +96,7 @@ class twitter extends \fpcm\model\abstracts\staticModel {
      * @param string $text
      * @return bool
      */
-    public function updateStatus($text)
+    public function updateStatus($text) : bool
     {
         if (!trim($text)) {
             fpcmLogSystem('Create tweet failed, no text given!');
@@ -111,6 +111,32 @@ class twitter extends \fpcm\model\abstracts\staticModel {
 
         fpcmLogSystem('Create tweet retuned code: '.$code);
         return ($code != 200 ? false : true);
+    }
+
+    /**
+     * Fetch timeline data
+     * @since 5.0.0-rc3
+     */
+    public function fetch()
+    {
+        $cacheName = 'dashboard/twitter';
+
+        $code = $this->oAuth->request(
+            'GET',
+            $this->oAuth->url('1.1/statuses/user_timeline'),
+            [
+                'count' => $this->config->articles_acp_limit,
+                'trim_user' => 1
+            ]
+        );
+        
+        if ($code != 200) {
+            trigger_error('Failed to fetch twitetr timeline');
+            return [];
+        }
+        
+        $this->log();
+        return $this->oAuth->response['response'] ?? [];
     }
 
     /**
