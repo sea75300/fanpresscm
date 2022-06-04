@@ -265,7 +265,7 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller imp
         
         if ($this->permissions->article->authors) {
             $fields[] = new \fpcm\components\masseditField(
-                (new \fpcm\view\helper\select('userid'))
+                (new \fpcm\view\helper\select('userid', 'meUserid'))
                     ->setOptions(['GLOBAL_NOCHANGE_APPLY' => -1] + $this->users)
                     ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
                     ->setText('EDITOR_CHANGEAUTHOR')
@@ -274,7 +274,7 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller imp
         }
 
         $fields[] = new \fpcm\components\masseditField(
-            (new \fpcm\view\helper\select('pinned'))
+            (new \fpcm\view\helper\select('pinned', 'mePinned'))
                 ->setOptions($this->yesNoChangeList)
                 ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
                 ->setText('EDITOR_PINNED')
@@ -283,7 +283,7 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller imp
         
         if ($this->showDraftStatus()) {
             $fields[] = new \fpcm\components\masseditField(
-                (new \fpcm\view\helper\select('draft'))
+                (new \fpcm\view\helper\select('draft', 'meDraft'))
                     ->setOptions($this->yesNoChangeList)
                     ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
                     ->setText('EDITOR_DRAFT')
@@ -293,7 +293,7 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller imp
         
         if (!$this->permissions->article->approve) {
             $fields[] = new \fpcm\components\masseditField(
-                (new \fpcm\view\helper\select('approval'))
+                (new \fpcm\view\helper\select('approval', 'meApproval'))
                     ->setOptions($this->yesNoChangeList)
                     ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
                     ->setText('EDITOR_STATUS_APPROVAL')
@@ -303,7 +303,7 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller imp
         
         if ($this->config->system_comments_enabled && $this->permissions->editComments()) {
             $fields[] = new \fpcm\components\masseditField(
-                (new \fpcm\view\helper\select('comments'))
+                (new \fpcm\view\helper\select('comments', 'meComments'))
                     ->setOptions($this->yesNoChangeList)
                     ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
                     ->setText('EDITOR_COMMENTS')
@@ -313,7 +313,7 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller imp
         
         if ($this->permissions->article->archive) {
             $fields[] = new \fpcm\components\masseditField(
-                (new \fpcm\view\helper\select('archived'))
+                (new \fpcm\view\helper\select('archived', 'meArchived'))
                     ->setOptions($this->yesNoChangeList)
                     ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
                     ->setText('EDITOR_ARCHIVE')

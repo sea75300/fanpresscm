@@ -385,6 +385,31 @@ fpcm.ui = {
         fpcm.ui._autocompletes[_elemClassId] = new Autocomplete(_acDdEl, _opt);
         fpcm.ui._autocompletes[_elemClassId].setData([]);
     },
+    
+    multiselect: function(_id, _params) {
+
+        if (!_params) {
+            _params = {};
+        }
+        
+        if (!_params.searchField) {
+            _params.searchField = ['text', 'value'];
+        }
+        
+        if (!_params.plugins) {
+            _params.plugins = [];
+        }
+        
+        if (!_params.placeholder) {
+            _params.placeholder = 'EDITOR_CATEGORIES_SEARCH';
+        }
+
+        _params.placeholder = fpcm.ui.translate(_params.placeholder);
+        _params.plugins.push('remove_button');
+
+        return fpcm.dom.fromId(_id).selectize(_params);    
+
+    },
 
     createIFrame: function(params) {
       

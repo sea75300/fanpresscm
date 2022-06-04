@@ -182,10 +182,16 @@ fpcm.system = {
             }
         }
 
-        var objectIDs = fpcm.dom.getCheckboxCheckedValues('.fpcm-ui-list-checkbox');
-        if (objectIDs.length == 0) {
+        var _ajaxParams = {
+            fields: {},
+            ids: fpcm.dom.getCheckboxCheckedValues('.fpcm-ui-list-checkbox')
+        };
+
+        if (!_ajaxParams.ids.length) {
             return false;
         }
+        
+        _ajaxParams.ids = fpcm.ajax.toJSON(_ajaxParams.ids);
 
         fpcm.ui_dialogs.create({
             id: dialogId,
@@ -200,33 +206,30 @@ fpcm.system = {
                     clickClose: true,
                     click: function () {
 
+                        _ajaxParams.fields = fpcm.dom.getValuesByClass('fpcm-ui-input-massedit');
+
                         var catEl = fpcm.dom.fromId('categories');
                         if (catEl.length) {
                             list.massEditCategories = catEl.val();
                         }  
 
+                        if (_params.multipleSelect) {
+                            _ajaxParams.fields[_params.multipleSelectField] = fpcm.dom.fromId(_params.multipleSelect).val();
+                        }
+                        else {
+                            _ajaxParams.fields.categories = list.massEditCategories;
+                            list.massEditCategories = [];
+                        }
+
                         fpcm.ui_dialogs.confirm({
                             defaultYes: true,
                             clickYes: function () {
 
-                                var params = {
-                                    fields: fpcm.dom.getValuesByClass('fpcm-ui-input-massedit'),
-                                    ids: fpcm.ajax.toJSON(objectIDs),
-                                };
-
-                                if (_params.multipleSelect) {
-                                    params.fields[_params.multipleSelectField] = fpcm.dom.fromId(_params.multipleSelect).val();
-                                }
-                                else {
-                                    params.fields.categories = list.massEditCategories;
-                                    list.massEditCategories = [];
-                                }
-
                                 if (_params.onSuccess) {
-                                    params.onSuccess = _params.onSuccess;
+                                    _ajaxParams.onSuccess = _params.onSuccess;
                                 }
 
-                                fpcm.system.execMassEdit(func, params);
+                                fpcm.system.execMassEdit(func, _ajaxParams);
                             }
                         });
                     }

@@ -30,6 +30,8 @@ fpcm.articles = {
                     fpcm.articles.loadArticles({
                         loader: true
                     });
+
+                    fpcm.dom.resetValuesByIdsSelect(['meUserid', 'mePinned', 'meDraft','meApproval', 'meComments', 'meArchived']);
                 }
             });
 
@@ -38,10 +40,8 @@ fpcm.articles = {
     },
     
     initWidgets: function() {
-        fpcm.dom.fromId('categories').selectize({
-            placeholder: fpcm.ui.translate('EDITOR_CATEGORIES_SEARCH'),
-            searchField: ['text', 'value'],
-            plugins: ['remove_button']
+        fpcm.ui.multiselect('categories', {
+            placeholder: 'EDITOR_CATEGORIES_SEARCH'
         });
     },
     

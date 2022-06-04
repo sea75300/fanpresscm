@@ -65,8 +65,8 @@ class massedit extends \fpcm\controller\abstracts\ajaxController implements \fpc
     {
         $fields = [
             'iconpath'  => $this->data['iconpath'] ?? -1,
-            'groups'    => isset($this->data['groups'])
-                        ? implode(';', array_map('intval', $this->data['groups']))
+            'groups'    => isset($this->data['rolls']) && is_array($this->data['rolls'])
+                        ? implode(';', array_map('intval', $this->data['rolls']))
                         : -1
         ];
 

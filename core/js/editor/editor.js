@@ -52,10 +52,8 @@ fpcm.editor = {
     
     initAfter: function() {
 
-        fpcm.dom.fromId('articlecategories').selectize({
-            placeholder: fpcm.ui.translate('EDITOR_CATEGORIES_SEARCH'),
-            searchField: ['text', 'value'],
-            plugins: ['remove_button']
+        fpcm.ui.multiselect('articlecategories', {
+            placeholder: 'EDITOR_CATEGORIES_SEARCH'
         });
 
         fpcm.dom.fromClass('fpcm-editor-articleimage').fancybox();

@@ -17,14 +17,12 @@ fpcm.categories = {
 
             fpcm.system.initMassEditDialog('categories/massedit', 'categories-massedit', fpcm.categories, {
                 multipleSelect: 'rolls',
-                multipleSelectField: 'groups',
+                multipleSelectField: 'rolls',
                 fields: fpcm.vars.jsvars.masseditFields
             });
 
-            fpcm.dom.fromId('rolls').selectize({
-                placeholder: fpcm.ui.translate('CATEGORIES_ROLLS'),
-                searchField: ['text', 'value'],
-                plugins: ['remove_button']
+            fpcm.ui.multiselect('rolls', {
+                placeholder: 'CATEGORIES_ROLLS'
             });
 
             return false;
