@@ -40,7 +40,7 @@ class twitter_history extends \fpcm\model\abstracts\dashcontainer implements \fp
      */
     public function getName()
     {
-        return 'welcome';
+        return 'twitter_history';
     }
 
     /**
