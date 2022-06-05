@@ -13,7 +13,9 @@ namespace fpcm\controller\action\articles;
  * @copyright (c) 2011-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-abstract class articlebase extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\isAccessible {
+abstract class articlebase extends \fpcm\controller\abstracts\controller
+implements \fpcm\controller\interfaces\isAccessible,
+           \fpcm\controller\interfaces\requestFunctions {
 
     /**
      *
@@ -137,11 +139,6 @@ abstract class articlebase extends \fpcm\controller\abstracts\controller impleme
         $this->canChangeAuthor = $this->permissions->article->authors;
         $this->approvalRequired = $this->permissions->article->approve;
         $this->initObject();
-
-        if ($this->buttonClicked('doAction') && !$this->checkPageToken()) {
-            $this->view->addErrorMessage('CSRF_INVALID');
-            return false;
-        }
 
         return true;
     }
@@ -284,69 +281,11 @@ abstract class articlebase extends \fpcm\controller\abstracts\controller impleme
 
     /**
      * 
-     * @return bool
-     */
-    protected function saveArticle()
-    {
-        $res = false;
-
-        $allTimer = time();
-
-        if (!$this->buttonClicked('articleSave')) {
-            return -1;
-        }
-
-        if ($this->article->getId()) {
-            $this->article->prepareRevision();
-        }
-
-        $data = $this->request->fromPOST('article', [
-            \fpcm\model\http\request::FILTER_STRIPSLASHES,
-            \fpcm\model\http\request::FILTER_TRIM
-        ]);
-
-        $this->assignArticleFormData($data, $allTimer);
-
-        if (!$this->article->getTitle() || !$this->article->getContent()) {
-            $this->view->addErrorMessage('SAVE_FAILED_ARTICLE_EMPTY');
-            $this->emptyTitleContent = true;
-            return false;
-        }
-
-        if (isset($data['tweettxt']) && $data['tweettxt']) {
-            $this->article->setTweetOverride($data['tweettxt']);
-        }
-
-        if (!$this->article->getId() && !$this->article->getCreatetime()) {
-            $this->article->setCreatetime($allTimer);
-        }
-
-        $this->article->setChangetime($allTimer);
-        $this->article->setChangeuser($this->session->getUserId());
-
-        $this->article->enableTweetCreation(isset($data['tweet']) ? true : false);
-        if ($this->article->getId()) {
-            
-            $res = $this->article->update();
-            if ($res) {
-                $this->article->createRevision();
-            }
-        }
-        else {
-            $res = $this->article->save();
-        }
-
-        \fpcm\model\articles\article::addSourcesAutocomplete($this->article->getSources());
-        return $res;
-    }
-
-    /**
-     * 
      * @param array $data
      * @param int $allTimer
      * @return bool
      */
-    private function assignArticleFormData(array $data, $allTimer)
+    protected function assignArticleFormData(array $data, $allTimer)
     {
         $this->article->setTitle($data['title']);
         $this->article->setContent($data['content']);
@@ -383,8 +322,7 @@ abstract class articlebase extends \fpcm\controller\abstracts\controller impleme
         $this->article->setDraft(isset($data['draft']) ? 1 : 0);
         $this->article->setComments(isset($data['comments']) ? 1 : 0);
         
-        $approval = $this->approvalRequired ? 1 : (isset($data['approval']) ? 1 : 0);
-        $this->article->setApproval($approval);
+        $this->article->setApproval( $this->approvalRequired ? 1 : ( isset($data['approval']) ? 1 : 0 ) );
         $this->article->setImagepath(isset($data['imagepath']) ? $data['imagepath'] : '');
         $this->article->setSources(isset($data['sources']) ? $data['sources'] : '');
 
@@ -395,8 +333,7 @@ abstract class articlebase extends \fpcm\controller\abstracts\controller impleme
                 $this->article->setDraft(0);
             }
         }
-        
-        
+
         $authorId = (isset($data['author']) && trim($data['author']) && $this->canChangeAuthor ? $data['author'] : $this->session->getUserId());
         $this->article->setCreateuser($authorId);
 
@@ -418,4 +355,92 @@ abstract class articlebase extends \fpcm\controller\abstracts\controller impleme
 
         return $fields;
     }
+
+    /**
+     * 
+     * @return bool
+     */
+    protected function onArticleSave() : bool
+    {
+        $allTimer = time();
+        
+        $data = $this->request->fromPOST('article', [
+            \fpcm\model\http\request::FILTER_STRIPSLASHES,
+            \fpcm\model\http\request::FILTER_TRIM
+        ]);
+
+        if (!$this->checkPageToken()) {
+            $this->view->addErrorMessage('CSRF_INVALID');
+            return false;
+        }
+        
+        if ($this->article->getId()) {
+            $this->article->prepareRevision();
+        }
+
+        $this->assignArticleFormData($data, $allTimer);
+        
+        $fn = 'save';
+        if ($this->article->getId()) {
+
+            $fn = 'update';
+
+            if (!$this->article->getEditPermission()) {
+                return false;
+            }
+
+            if ($this->article->isInEdit()) {
+                return false;
+            }            
+
+        }
+        elseif (!$this->article->getCreatetime()) {
+            $this->article->setCreatetime($allTimer);
+        }
+
+        if (!$this->article->getTitle() || !$this->article->getContent()) {
+            $this->view->addErrorMessage('SAVE_FAILED_ARTICLE_EMPTY');
+            return false;
+        }
+
+        if (isset($data['tweettxt']) && $data['tweettxt']) {
+            $this->article->setTweetOverride($data['tweettxt']);
+        }
+
+        $this->article->setChangetime($allTimer);
+        $this->article->setChangeuser($this->session->getUserId());
+
+        $this->article->enableTweetCreation(isset($data['tweet']) ? true : false);        
+
+        $res = $this->article->{$fn}();
+
+        if ($res === false) {
+            $this->view->addErrorMessage('SAVE_FAILED_ARTICLE');
+            return false;
+        }
+
+        \fpcm\model\articles\article::addSourcesAutocomplete($this->article->getSources());
+
+        switch ($fn) {
+            case 'save' :
+            
+                $this->redirect('articles/edit', [
+                    'id' => (int) $res,
+                    'added' => $this->permissions->article->approve ? 2 : 1
+                ]);
+
+            break;
+
+            case 'update' :
+
+                $this->article->createRevision();
+
+            break;
+
+        }
+        
+        return true;
+    }
+    
+    
 }

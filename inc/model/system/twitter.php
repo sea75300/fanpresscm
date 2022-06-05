@@ -117,10 +117,8 @@ class twitter extends \fpcm\model\abstracts\staticModel {
      * Fetch timeline data
      * @since 5.0.0-rc3
      */
-    public function fetchTimeline() : array
+    public function fetchTimeline() : string
     {
-        $cacheName = 'dashboard/twitter';
-
         $code = $this->oAuth->request(
             'GET',
             $this->oAuth->url('1.1/statuses/user_timeline'),
@@ -132,7 +130,7 @@ class twitter extends \fpcm\model\abstracts\staticModel {
         
         if ($code != 200) {
             trigger_error('Failed to fetch twitetr timeline');
-            return [];
+            return '';
         }
         
         $this->log();

@@ -57,10 +57,16 @@ class articleedit extends articlebase {
         $this->showRevisions = $this->permissions->article->revisions;
 
         if (!parent::request()) {
+            
+            $data = $this->request->fromPOST('article', [
+                \fpcm\model\http\request::FILTER_STRIPSLASHES,
+                \fpcm\model\http\request::FILTER_TRIM
+            ]);
+
+            $this->assignArticleFormData($data, time());
             return false;
         }
 
-        
         if (!$this->article->exists()) {
             $this->view = new \fpcm\view\error('LOAD_FAILED_ARTICLE', 'articles/listall');
             return false;
@@ -76,25 +82,10 @@ class articleedit extends articlebase {
         $this->userList     = new \fpcm\model\users\userList();
         $this->commentList  = new \fpcm\model\comments\commentList();
 
-        if ($this->buttonClicked('doAction') && !$this->checkPageToken) {
-            $data = $this->request->fromPOST('article', [
-                \fpcm\model\http\request::FILTER_STRIPSLASHES,
-                \fpcm\model\http\request::FILTER_TRIM
-            ]);
-
-            $this->assignArticleFormData($data, time());
-        }
-
         $this->handleRevisionActions();
         $this->handleDeleteAction();
         
         $res = false;
-        if ($this->checkPageToken && !$this->article->isInEdit()) {
-            $res = $this->saveArticle();
-            if (!$res && !$this->emptyTitleContent) {
-                $this->view->addErrorMessage('SAVE_FAILED_ARTICLE');
-            }
-        }
         
         $added = $this->request->fromGET('added', [
             \fpcm\model\http\request::FILTER_CASTINT
@@ -120,6 +111,8 @@ class articleedit extends articlebase {
      */
     public function process()
     {
+        $this->article->enableTweetCreation($this->config->twitter_events['update']);
+        
         $this->commentCount = array_sum($this->commentList->countComments([$this->article->getId()]));
         $this->revisionCount = $this->article->getRevisionsCount();
         
@@ -150,8 +143,9 @@ class articleedit extends articlebase {
             $username = $this->language->translate('GLOBAL_NOTFOUND');
             if (is_array($data)) {
                 $user = new \fpcm\model\users\author($data[1]);
-                if ($user->exists())
+                if ($user->exists()) {
                     $username = $user->getDisplayname();
+                }
             }
 
             $this->view->addMessage('EDITOR_STATUS_INEDIT', ['{{username}}' => $username]);

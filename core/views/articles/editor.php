@@ -1,12 +1,9 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
 <div class="border-top border-5 border-primary">
     <?php if ( trim($rollCodex) ) : ?>
-    <div class="row g-0">
-        <div class="col-12 my-2">
-            <fieldset>
-                <legend><?php $theView->write('EDITOR_CODEX'); ?></legend>
-                <p><?php print nl2br($theView->escapeVal($rollCodex)); ?></p>
-            </fieldset>
+    <div class="row mt-3">
+        <div class="col-12">
+            <?php $theView->alert('warning')->setText('<span class="fw-bold">'. $theView->translate('EDITOR_CODEX') . '</span><br>' .   nl2br($theView->escapeVal($rollCodex))); ?>
         </div>
     </div>    
     <?php endif; ?>
