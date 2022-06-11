@@ -106,11 +106,10 @@ class recentarticles extends \fpcm\model\abstracts\dashcontainer implements \fpc
             $content[] = (string) (new \fpcm\view\helper\editButton('editBtn'))->setUrlbyObject($article)->setReadonly($article->getEditPermission() ? false : true);
             $content[] = '  </div>';
 
-            $content[] = '  <div class="col align-self-center">';
-            $content[] = '  <div class="fpcm-ui-ellipsis">';
+            $content[] = '  <div class="col align-self-center text-truncate">';
             $content[] = '  <strong>' . (new \fpcm\view\helper\escape(strip_tags(rtrim($article->getTitle(), '.!?')))) . '</strong><br>';
             $content[] = '  <span>' . $createStr . ': ' . $createInfo . '</span>';
-            $content[] = '  </div></div>';
+            $content[] = '  </div>';
             $content[] = '  <div class="col-auto fpcm-ui-metabox px-4 align-self-center">';
             $content[] = $article->getStatusIconPinned();
             $content[] = $article->getStatusIconDraft();
