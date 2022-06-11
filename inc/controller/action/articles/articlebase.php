@@ -421,26 +421,10 @@ implements \fpcm\controller\interfaces\isAccessible,
 
         \fpcm\model\articles\article::addSourcesAutocomplete($this->article->getSources());
 
-        switch ($fn) {
-            case 'save' :
-            
-                $this->redirect('articles/edit', [
-                    'id' => (int) $res,
-                    'added' => $this->permissions->article->approve ? 2 : 1
-                ]);
-
-            break;
-
-            case 'update' :
-
-                $this->article->createRevision();
-
-            break;
-
-        }
-        
+        $this->onArticleSaveAfterSuccess((int) $res);        
         return true;
     }
     
+    abstract protected function onArticleSaveAfterSuccess(int $id) : bool;
     
 }

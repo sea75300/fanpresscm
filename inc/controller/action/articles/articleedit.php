@@ -313,4 +313,12 @@ class articleedit extends articlebase {
         return true;
     }
 
+    protected function onArticleSaveAfterSuccess(int $id): bool
+    {            
+        $this->article->createRevision();
+        $this->view->addNoticeMessage('SAVE_SUCCESS_ARTICLE');
+        
+        return true;
+    }
+
 }

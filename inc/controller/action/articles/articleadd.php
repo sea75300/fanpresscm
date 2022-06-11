@@ -41,4 +41,15 @@ class articleadd extends articlebase {
         $this->view->render();
     }
 
+    protected function onArticleSaveAfterSuccess(int $id): bool
+    {            
+        $this->redirect('articles/edit', [
+            'id' => $id,
+            'added' => $this->permissions->article->approve ? 2 : 1
+        ]);   
+        
+        return true;
+    }
+
+
 }
