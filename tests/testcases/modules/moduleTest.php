@@ -8,6 +8,8 @@ class moduleTest extends \PHPUnit\Framework\TestCase {
      * @var bool
      */
     protected $backupGlobals = false;
+    
+    protected $testMkey = 'nkorg/example';
 
     protected function setUp() : void
     {
@@ -20,12 +22,29 @@ class moduleTest extends \PHPUnit\Framework\TestCase {
         $this->assertTrue($res);
     }
 
+    public function testInstallDownload()
+    {
+        if ((new \fpcm\module\module($this->testMkey))->isInstalled()) {
+            $this->markTestSkipped($this->testMkey . ' already installed! Skip downloading');
+        }
+
+        $pkg = new \fpcm\model\packages\module($this->testMkey);
+            
+        $this->assertTrue( $pkg->download() );
+        $this->assertTrue( $pkg->checkPackage() );
+        $this->assertTrue( $pkg->extract() );
+        $this->assertTrue( $pkg->copy() );
+        $this->assertTrue( $pkg->updateLog() );
+        $this->assertTrue( $pkg->cleanup() );
+        
+    }
+
     public function testInstall()
     {
         /* @var fpcm\module\module $GLOBALS['module'] */
-        $GLOBALS['module'] = new \fpcm\module\module('nkorg/example');
+        $GLOBALS['module'] = new \fpcm\module\module($this->testMkey);
         $this->assertDirectoryExists($GLOBALS['module']->getConfig()->basePath);
-        $success = $GLOBALS['module']->install(true);
+        $success = $GLOBALS['module']->install();
 
         $this->assertTrue($success);
         $this->assertTrue($GLOBALS['module']->isInstalled());
@@ -40,7 +59,7 @@ class moduleTest extends \PHPUnit\Framework\TestCase {
         /* @var $db \fpcm\classes\database */
         $db = \fpcm\classes\loader::getObject('\fpcm\classes\database');
 
-        $this->assertGreaterThanOrEqual(1, $db->count(fpcm\classes\database::tableCronjobs, '*', 'modulekey = ?', ['nkorg/example']));
+        $this->assertGreaterThanOrEqual(1, $db->count(fpcm\classes\database::tableCronjobs, '*', 'modulekey = ?', [$this->testMkey]));
 
         $struct1 = $db->getTableStructure('module_nkorgexample_tab1');
         $this->assertIsArray($struct1);
@@ -74,8 +93,6 @@ class moduleTest extends \PHPUnit\Framework\TestCase {
 
     public function testUpdate()
     {
-        $this->markTestSkipped();
-        
         /* @var $db \fpcm\classes\database */
         $db = \fpcm\classes\loader::getObject('\fpcm\classes\database');
         $dbResult = $db->delete(\fpcm\classes\database::tableConfig, "config_name IN ('module_nkorgexample_opt1', 'module_nkorgexample_opt2', 'module_nkorgexample_opt3')");
@@ -84,30 +101,36 @@ class moduleTest extends \PHPUnit\Framework\TestCase {
         $dbResult = $db->drop('module_nkorgexample_tab1');
         $this->assertTrue($dbResult, 'Unable to delete module_nkorgexample_tab1');
 
+        (new \fpcm\classes\cache)->cleanup();
+
         $success = $GLOBALS['module']->update();
 
         $this->assertNotFalse($db->fetch($db->select('module_nkorgexample_tab1', '*')), 'Fetch from table module_nkorgexample_tab1 failed');
-        $this->assertGreaterThanOrEqual(1, $db->count(fpcm\classes\database::tableCronjobs, '*', 'modulekey = ?', ['nkorg/example']));
+        $this->assertGreaterThanOrEqual(1, $db->count(fpcm\classes\database::tableCronjobs, '*', 'modulekey = ?', [$this->testMkey]));
+
     }
 
     public function testGetInstalledModules()
     {
         $testModList = (new fpcm\module\modules())->getInstalledDatabase();
 
-        $testModKey = 'nkorg/example';
+        $testModKey = $this->testMkey;
 
         $this->assertTrue(is_array($testModList));
         $this->assertArrayHasKey($testModKey, $testModList);
 
         $moduleObj = $testModList[$testModKey];
-        $this->assertEquals($testModKey, $moduleObj->getConfig()->key);
+        $this->assertEquals($testModKey, $moduleObj->getConfig()->key);        
     }
 
     public function testUninstall()
     {
-        $success = $GLOBALS['module']->uninstall(false, true);
+        unset($GLOBALS['fpcm']['objects']['fpcm\classes\database'], $GLOBALS['module']);
         
-        $this->assertTrue($success);
+        $GLOBALS['module'] = new fpcm\module\module($this->testMkey);
+        $success = $GLOBALS['module']->uninstall();
+        
+        $this->assertTrue($success, 'Error while uninstalling module.');
         $this->assertFalse($GLOBALS['module']->isInstalled());
         $this->assertFalse($GLOBALS['module']->isActive());
 
@@ -125,6 +148,6 @@ class moduleTest extends \PHPUnit\Framework\TestCase {
         /* @var $db \fpcm\classes\database */
         $db = \fpcm\classes\loader::getObject('\fpcm\classes\database');
         $this->assertCount(0, $db->getTableStructure('module_nkorgexample_tab1', false, false));
-        $this->assertEquals(0, $db->count(fpcm\classes\database::tableCronjobs, '*', 'modulekey = ?', ['nkorg/example']));
+        $this->assertEquals(0, $db->count(fpcm\classes\database::tableCronjobs, '*', 'modulekey = ?', [$this->testMkey]));
     }
 }
