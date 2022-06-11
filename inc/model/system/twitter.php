@@ -69,10 +69,10 @@ class twitter extends \fpcm\model\abstracts\staticModel {
      */
     public function checkConnection()
     {
-        $this->cacheName = 'twitter/checkConnection';
+        $cacheName = 'twitter/checkConnection';
 
-        if (!$this->cache->isExpired($this->cacheName)) {
-            return $this->cache->read($this->cacheName);
+        if (!$this->cache->isExpired($cacheName)) {
+            return $this->cache->read($cacheName);
         }
 
         if (!$this->checkRequirements()) {
@@ -86,7 +86,7 @@ class twitter extends \fpcm\model\abstracts\staticModel {
         $this->log();
 
         $return = ($code != 200 ? false : true);
-        $this->cache->write($this->cacheName, $return, $this->config->system_cache_timeout);
+        $this->cache->write($cacheName, $return, $this->config->system_cache_timeout);
 
         return $return;
     }
@@ -177,10 +177,10 @@ class twitter extends \fpcm\model\abstracts\staticModel {
      */
     public function getUsername()
     {
-        $this->cacheName = 'twitter/getUsername';
+        $cacheName = 'twitter/getUsername';
 
-        if (!$this->cache->isExpired($this->cacheName) && !trim($this->username)) {
-            $this->username = $this->cache->read($this->cacheName);
+        if (!$this->cache->isExpired($cacheName) && !trim($this->username)) {
+            $this->username = $this->cache->read($cacheName);
         }
 
         return $this->username;

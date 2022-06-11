@@ -235,4 +235,15 @@ final class tools {
         return str_replace(array_keys($replacement), array_values($replacement), $subject, $count);
     }
 
+    /**
+     * 
+     * @param string $str
+     * @return string
+     * @since 5.0.0-rc4
+     */
+    public static function parseLinks(string $str) : string
+    {
+        return preg_replace('/((http|https?):\/\/\S+[^\s.,>)\]\"\'<\/])/i', "<a href=\"$0\">$0</a>", $str);    
+    }
+
 }

@@ -74,7 +74,7 @@ class twitter_history extends \fpcm\model\abstracts\dashcontainer implements \fp
             $css = !$tweet['retweeted'] ? 'text-primary' : '';
 
             $col2 = '<div class="row g-0">';
-            $col2 .= "  <div class=\"col {$css}\">" . $this->parseLinks($tweet['text']) . '</div>';
+            $col2 .= "  <div class=\"col {$css}\">" . \fpcm\classes\tools::parseLinks($tweet['text']) . '</div>';
             $col2 .= '</div>';
 
             $col2 .= '<div class="row row-cols-3 g-0 fpcm-ui-font-small">';
@@ -101,8 +101,16 @@ class twitter_history extends \fpcm\model\abstracts\dashcontainer implements \fp
 
         return $rows;
     }
+    
+    public function getButton(): ?\fpcm\view\helper\linkButton
+    {
+        return (new \fpcm\view\helper\linkButton('twitter_history_profile'))
+                ->setUrl('https://twitter.com/' . $this->twitter->getUsername())
+                ->setText('PROFILE_MENU_OPENPROFILE')
+                ->setIcon('twitter', 'fab');
+    }
 
-    /**
+        /**
      * Return container headline
      * @return string
      */
@@ -136,7 +144,7 @@ class twitter_history extends \fpcm\model\abstracts\dashcontainer implements \fp
      */
     private function parseLinks(string $str) : string
     {
-        return preg_replace('/((http|https?):\/\/\S+[^\s.,>)\]\"\'<\/])/i', "<a href=\"$0\">$0</a>", $str);    
+        return \fpcm\classes\tools::parseLinks($str);
     }
 
 }
