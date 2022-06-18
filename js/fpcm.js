@@ -40,18 +40,18 @@ window.onload = function() {
                 fpcm.pub.doRefresh();
 
                 jQuery('.fpcm-pub-commentsmiley').click(function () {
-                    fpcm.pub.insert(' ' + jQuery(this).attr('data-code') + ' ');
+                    fpcm.pub.insert(' ' + this.dataset.code + ' ');
                     return false;
                 });
 
                 jQuery('.fpcm-pub-readmore-text').hide();
                 jQuery('.fpcm-pub-readmore-link').click(function () {
-                    jQuery('#fpcm-pub-readmore-text-' + jQuery(this).attr('id')).fadeToggle();
+                    jQuery('#fpcm-pub-readmore-text-' + this.id).fadeToggle();
                     return false;
                 });
 
                 jQuery('.fpcm-pub-mentionlink').click(function () {
-                    fpcm.pub.insert('@#' + jQuery(this).attr('id') + ': ');
+                    fpcm.pub.insert('@#' + this.id + ': ');
                     return false;
                 });
 

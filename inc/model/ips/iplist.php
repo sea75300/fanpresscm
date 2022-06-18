@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4.x
+ * FanPress CM 5.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -37,9 +37,14 @@ class iplist extends \fpcm\model\abstracts\tablelist {
      * Liefert IP-Adressen aus Datenbank zurück
      * @return array
      */
-    public function getIpAll()
+    public function getIpAll(string $sorting = '')
     {
-        $items = $this->dbcon->selectFetch((new \fpcm\model\dbal\selectParams($this->table))->setFetchAll(true));
+        $sObj = new \fpcm\model\dbal\selectParams($this->table);
+        if (trim($sorting)) {
+            $sObj->setWhere('id > 0 ' . $this->dbcon->orderBy(['iptime '.$sorting]));
+        }
+        
+        $items = $this->dbcon->selectFetch($sObj->setFetchAll(true));
         if (!$items) {
             return [];
         }

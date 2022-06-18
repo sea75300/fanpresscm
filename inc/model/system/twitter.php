@@ -69,10 +69,10 @@ class twitter extends \fpcm\model\abstracts\staticModel {
      */
     public function checkConnection()
     {
-        $this->cacheName = 'twitter/checkConnection';
+        $cacheName = 'twitter/checkConnection';
 
-        if (!$this->cache->isExpired($this->cacheName)) {
-            return $this->cache->read($this->cacheName);
+        if (!$this->cache->isExpired($cacheName)) {
+            return $this->cache->read($cacheName);
         }
 
         if (!$this->checkRequirements()) {
@@ -86,7 +86,7 @@ class twitter extends \fpcm\model\abstracts\staticModel {
         $this->log();
 
         $return = ($code != 200 ? false : true);
-        $this->cache->write($this->cacheName, $return, $this->config->system_cache_timeout);
+        $this->cache->write($cacheName, $return, $this->config->system_cache_timeout);
 
         return $return;
     }
@@ -96,7 +96,7 @@ class twitter extends \fpcm\model\abstracts\staticModel {
      * @param string $text
      * @return bool
      */
-    public function updateStatus($text)
+    public function updateStatus($text) : bool
     {
         if (!trim($text)) {
             fpcmLogSystem('Create tweet failed, no text given!');
@@ -111,6 +111,30 @@ class twitter extends \fpcm\model\abstracts\staticModel {
 
         fpcmLogSystem('Create tweet retuned code: '.$code);
         return ($code != 200 ? false : true);
+    }
+
+    /**
+     * Fetch timeline data
+     * @since 5.0.0-rc3
+     */
+    public function fetchTimeline() : string
+    {
+        $code = $this->oAuth->request(
+            'GET',
+            $this->oAuth->url('1.1/statuses/user_timeline'),
+            [
+                'count' => $this->config->articles_acp_limit,
+                'trim_user' => 1
+            ]
+        );
+        
+        if ($code != 200) {
+            trigger_error('Failed to fetch twitetr timeline');
+            return '';
+        }
+        
+        $this->log();
+        return $this->oAuth->response['response'] ?? [];
     }
 
     /**
@@ -153,10 +177,10 @@ class twitter extends \fpcm\model\abstracts\staticModel {
      */
     public function getUsername()
     {
-        $this->cacheName = 'twitter/getUsername';
+        $cacheName = 'twitter/getUsername';
 
-        if (!$this->cache->isExpired($this->cacheName) && !trim($this->username)) {
-            $this->username = $this->cache->read($this->cacheName);
+        if (!$this->cache->isExpired($cacheName) && !trim($this->username)) {
+            $this->username = $this->cache->read($cacheName);
         }
 
         return $this->username;

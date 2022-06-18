@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4.x
+ * FanPress CM 5.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -15,32 +15,21 @@ namespace fpcm\controller\action\articles;
  */
 class articleadd extends articlebase {
 
+    /**
+     *
+     * @var bool
+     */
+    protected $showComments = false;
+
     public function isAccessible(): bool
     {
         return $this->permissions->article->add;
     }
 
-    public function request()
-    {
-        if (parent::request()) {
-            $id = $this->saveArticle();
-
-            if ($id === false && !$this->emptyTitleContent) {
-                $this->view->addErrorMessage('SAVE_FAILED_ARTICLE');
-            } elseif ($id > 0) {
-                $this->redirect('articles/edit', [
-                    'id' => $id,
-                    'added' => $this->permissions->article->approve ? 2 : 1
-                ]);
-            }
-        }
-
-        $this->article->enableTweetCreation($this->config->twitter_events['create']);
-        return true;
-    }
-
     public function process()
     {
+        $this->article->enableTweetCreation($this->config->twitter_events['create']);
+
         parent::process();
 
         $this->view->setFormAction('articles/add');
@@ -51,5 +40,16 @@ class articleadd extends articlebase {
         $this->view->assign('postponedTimer', time());
         $this->view->render();
     }
+
+    protected function onArticleSaveAfterSuccess(int $id): bool
+    {            
+        $this->redirect('articles/edit', [
+            'id' => $id,
+            'added' => $this->permissions->article->approve ? 2 : 1
+        ]);   
+        
+        return true;
+    }
+
 
 }

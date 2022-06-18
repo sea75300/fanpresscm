@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4
+ * FanPress CM 5
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -12,7 +12,7 @@ namespace fpcm\controller\abstracts;
  * 
  * @package fpcm\controller\abstracts
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2021, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @abstract
  */
@@ -397,14 +397,14 @@ class controller implements \fpcm\controller\interfaces\controller {
     {
         return 'noaccess';
     }
-
+    
     /**
-     * Get controller permissions
-     * @return array
+     * Must return true, if controller is accessible
+     * @return bool
      */
-    protected function getPermissions()
+    public function isAccessible() : bool
     {
-        return [];
+        return true;
     }
 
     /**
@@ -454,12 +454,14 @@ class controller implements \fpcm\controller\interfaces\controller {
      */
     public function hasAccess()
     {
-        if (!$this->maintenanceMode(false) && !$this->session->exists()) {
+        $hasSession = is_object($this->session) && $this->session instanceof \fpcm\model\system\session;
+
+        if (!$this->maintenanceMode(false) && $hasSession && !$this->session->exists()) {
             $this->execDestruct = false;
             return false;
         }
 
-        if (!is_object($this->session) || !$this->session->exists()) {
+        if (!$hasSession || !$this->session->exists()) {
             $this->execDestruct = false;
             return $this->redirectNoSession();
         }
@@ -469,11 +471,7 @@ class controller implements \fpcm\controller\interfaces\controller {
             return false;
         }
 
-        $accessResult   = $this instanceof \fpcm\controller\interfaces\isAccessible
-                        ? $this->isAccessible()
-                        : ( $this->permissions && count($this->getPermissions()) && !$this->permissions->check($this->getPermissions()) ? false : true );
-
-        if (!$accessResult) {
+        if (!$this->isAccessible()) {
             $this->execDestruct = false;
             $this->view = new \fpcm\view\error('PERMISSIONS_REQUIRED');
             $this->view->render($this->moduleCheckExit);
@@ -576,16 +574,14 @@ class controller implements \fpcm\controller\interfaces\controller {
      */
     final protected function getActiveTab() : int
     {
-        $activeTab = $this->request->fromGET('rg', [ \fpcm\model\http\request::FILTER_CASTINT ]);
-
+        $activeTab = $this->request->fromGET('rg');
         if ($activeTab !== null) {
             return (int) $activeTab;
         }
 
-        $activeTab = $this->request->fromGET('activeTab', [ \fpcm\model\http\request::FILTER_CASTINT ]);
-
+        $activeTab = $this->request->fromPOST('activeTab');
         if ($activeTab !== null) {
-            return $activeTab;
+            return (int) $activeTab;
         }
         
         return 0;
@@ -627,18 +623,7 @@ class controller implements \fpcm\controller\interfaces\controller {
      */    
     protected function initPermissionObject() : bool
     {
-        if ($this instanceof \fpcm\controller\interfaces\isAccessible) {
-            $this->permissions = \fpcm\classes\loader::getObject('\fpcm\model\permissions\permissions');
-            return true;
-        }
-
-        trigger_error(get_called_class(). ' :: Permissions objects of instance \\fpcm\\model\\system\\permissions are deprecated. Use \\fpcm\\model\\permissions\\permissions instead', E_USER_DEPRECATED);
-
-        $this->permissions = \fpcm\classes\loader::getObject(
-            '\fpcm\model\system\permissions',
-            $this->session->exists() ? $this->session->getCurrentUser()->getRoll() : 0
-        );
-
+        $this->permissions = \fpcm\classes\loader::getObject('\fpcm\model\permissions\permissions');
         return true;
     }
 

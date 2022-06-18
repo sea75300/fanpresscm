@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4
+ * FanPress CM 5
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -26,7 +26,6 @@ final class textInput extends input {
         parent::init();
 
         $this->type = 'text';
-        $this->class .= ' fpcm-ui-input-text';
     }
 
 }

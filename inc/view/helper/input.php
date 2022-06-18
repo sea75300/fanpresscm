@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4
+ * FanPress CM 5
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -65,31 +65,30 @@ abstract class input extends helper {
             $this->setDisplaySizesDefault();
         }
 
+        $isFloating = $this->labelType === self::LABEL_TYPE_FLOATING;
+
         $wrapperStart = '';
         $wrapperEnd = '';
 
-        if ($this->useWrapper) {
-            $this->wrapperClass .= ' fpcm-ui-input-wrapper-'.$this->type;
-            $wrapperStart = "<div class=\"fpcm-ui-input-wrapper col-{$this->colWidth} {$this->wrapperClass} fpcm-ui-padding-none-lr\"><div class=\"fpcm-ui-input-wrapper-inner\">";
-            $wrapperEnd = "</div></div>";
-        }
-        else {
-            $this->class .= ' fpcm-ui-field-input-nowrapper-general'.$this->getFieldSize();
-        }
+        $wrapperStart = "<div class=\"{$this->labelType} mb-3\">";
+        $wrapperEnd = "</div>";
         
-        $input = "<input type=\"{$this->type}\" maxlength=\"{$this->maxlenght}\" {$this->getAttributeStrings()}>";
+        $mlstr = $this->maxlenght ? "maxlength=\"{$this->maxlenght}\"" : '';
+
+        $input = "<input type=\"{$this->type}\" {$mlstr} {$this->getAttributeStrings()}>";
         $this->appendItems($input);
 
         if (!$this->text) {
             return $wrapperStart . $input . $wrapperEnd;
         }
 
-        $description = $this->placeholder !== true ? $this->getDescriptionTextString() : '';
-        if ($this->getIconString() || trim($description)) {
-            $description = "<label title=\"{$this->text}\" class=\"fpcm-ui-field-label-general {$this->labelClass}{$this->getLabelSize()}\" for=\"{$this->id}\">{$this->getIconString()}{$description}</label>";
+        $description = $this->placeholder !== true ? $this->getDescriptionTextString($isFloating ? '' : 'ps-1') : '';
+        if ( ($this->getIconString() || trim($description)) ) {
+            $descrCss = !$isFloating ? 'col-form-label pe-3 ' . $this->getLabelSize() : '';
+            $description = "<label title=\"{$this->text}\" class=\"{$descrCss}\" for=\"{$this->id}\">{$this->getIconString()}{$description}</label>";
         }
 
-        return $wrapperStart . $description . $input . $wrapperEnd;
+        return $wrapperStart . (!$isFloating ? $description : '' )  . $input . ($isFloating ? $description : '' )  . $wrapperEnd;
     }
 
     /**
@@ -98,7 +97,7 @@ abstract class input extends helper {
      */
     protected function init()
     {
-        $this->class = 'fpcm-ui-input';
+        $this->class = 'fpcm-ui-input form-control';
         $this->labelClass = 'align-self-center';
     }
 
@@ -158,7 +157,7 @@ abstract class input extends helper {
         $this->pattern = ltrim($pattern, '/');
         return $this;
     }
-
+    
     /**
      * Placeholder string
      * @return string
@@ -201,6 +200,16 @@ abstract class input extends helper {
     }
 
     /**
+     * Return required string
+     * @return string
+     * @since 5.0.0-a3
+     */
+    protected function getRequiredString()
+    {
+        return $this->requ ? 'required' : '';
+    }
+
+    /**
      * 
      * @param string $str
      * @return bool
@@ -209,6 +218,16 @@ abstract class input extends helper {
     protected function appendItems(string &$str) : bool
     {
         return true;
+    }
+
+    /**
+     * Append attributes to input element
+     * @return string
+     * @since 5.0-dev
+     */
+    protected function appendAttributes() : string
+    {
+        return '';
     }
 
     /**
@@ -226,7 +245,9 @@ abstract class input extends helper {
             $this->getAutoFocusedString(),
             $this->getPlaceholderString(),
             $this->getPatternString(),
-            $this->getDataString()
+            $this->getRequiredString(),
+            $this->getDataString(),
+            $this->appendAttributes()
         ]);
     }
 

@@ -12,7 +12,8 @@ namespace fpcm\controller\action\users;
 class userbase extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\isAccessible {
 
     use \fpcm\controller\traits\common\timezone,
-        \fpcm\controller\traits\users\authorImages;
+        \fpcm\controller\traits\users\authorImages,
+        \fpcm\controller\traits\theme\nav\users;
 
     /**
      *
@@ -26,27 +27,28 @@ class userbase extends \fpcm\controller\abstracts\controller implements \fpcm\co
      */
     protected $user;
 
+    /**
+     *
+     * @var bool
+     */
+    protected $showExtended = false;
+
+    /**
+     * 
+     * @return string
+     */
+    protected function getViewPath() : string
+    {
+        return 'users/usereditor';
+    }
+
+    /**
+     * 
+     * @return bool
+     */
     public function isAccessible(): bool
     {
         return $this->permissions->system->users;
-    }
-
-    /**
-     * 
-     * @return string
-     */
-    protected function getActiveNavigationElement()
-    {
-        return 'submenu-itemnav-item-users';
-    }
-
-    /**
-     * 
-     * @return string
-     */
-    protected function getHelpLink()
-    {
-        return 'HL_OPTIONS_USERS';
     }
 
     /**
@@ -83,6 +85,8 @@ class userbase extends \fpcm\controller\abstracts\controller implements \fpcm\co
      */
     public function process()
     {
+        $this->initTabs();
+        
         $userRolls = new \fpcm\model\users\userRollList();
         $this->view->assign('userRolls', $userRolls->getUserRollsTranslated());
         $this->view->assign('languages', array_flip($this->language->getLanguages()));
@@ -101,7 +105,6 @@ class userbase extends \fpcm\controller\abstracts\controller implements \fpcm\co
         ]);
 
         $this->view->addJsLangVars(['SAVE_FAILED_PASSWORD_MATCH', 'SAVE_FAILED_PASSWORD_SECURITY', 'SAVE_FAILED_PASSWORD_SECURITY_PWNDPASS']);
-        $this->view->setFieldAutofocus('username');
     }
 
     /**

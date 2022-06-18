@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4.x
+ * FanPress CM 5.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -209,19 +209,28 @@ trait syscheck {
                 true
             );
 
-        $checkFolders = $this->getCheckFolders();
-        foreach ($checkFolders as $description => $folderPath) {
-            $current = is_writable($folderPath);
-            $pathOutput = \fpcm\model\files\ops::removeBaseDir($folderPath, true);
-            $checkOptions['<i>' . $description . '</i> ' . $pathOutput] = new \fpcm\model\system\syscheckOption(
-                $current ? 'true' : 'false',
-                '',
-                (true && $current),
-                false,
+        $opcache = \fpcm\classes\baseconfig::hasOpcache();
+        $checkOptions[$this->language->translate('SYSTEM_OPTIONS_SYSCHECK_OPCACHE') . ' (' . $this->language->translate('GLOBAL_OPTIONAL') . ')']
+            = new \fpcm\model\system\syscheckOption(
+                $opcache ? 'true' : 'false',
+                'https://www.php.net/manual/de/book.opcache.php',
+                (true && $opcache),
                 true
             );
+                
+        
+        $dirs = $this->getCheckFolders();
 
-        }
+        array_walk($dirs, function($folderPath, $description) use (&$checkOptions) {
+
+            $current = is_writable($folderPath);
+            $pathOutput = \fpcm\model\files\ops::removeBaseDir($folderPath, true);
+
+            $lVar = $this->language->translate('SYSCHECK_FOLDER_' . strtoupper(basename($folderPath)));
+
+            $opt = new \fpcm\model\system\syscheckOption($current ? 'true' : 'false', '', (true && $current), false, true);
+            $checkOptions[$lVar . ' <span class="text-secondary">' . $pathOutput . ' </span>'] = $opt;
+        });
 
         return $checkOptions;
     }
@@ -230,30 +239,9 @@ trait syscheck {
      * Check folders
      * @return array
      */
-    public function getCheckFolders()
+    public function getCheckFolders() : array
     {
-        $checkFolders = array(
-            $this->language->translate('SYSCHECK_FOLDER_DATA') => \fpcm\classes\dirs::getDataDirPath(''),
-            $this->language->translate('SYSCHECK_FOLDER_CACHE') => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_CACHE),
-            $this->language->translate('SYSCHECK_FOLDER_CONFIG') => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_CONFIG),
-            $this->language->translate('SYSCHECK_FOLDER_FILEMANAGER') => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_FMTMP),
-            $this->language->translate('SYSCHECK_FOLDER_LOGS') => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_LOGS),
-            $this->language->translate('SYSCHECK_FOLDER_MODULES') => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_MODULES),
-            $this->language->translate('SYSCHECK_FOLDER_OPTIONS') => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_OPTIONS),
-            $this->language->translate('SYSCHECK_FOLDER_SHARE') => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_SHARE),
-            $this->language->translate('SYSCHECK_FOLDER_SMILEYS') => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_SMILEYS),
-            $this->language->translate('SYSCHECK_FOLDER_STYLES') => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_STYLES),
-            $this->language->translate('SYSCHECK_FOLDER_TEMP') => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_TEMP),
-            $this->language->translate('SYSCHECK_FOLDER_UPLOADS') => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_UPLOADS),
-            $this->language->translate('SYSCHECK_FOLDER_DBDUMPS') => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_DBDUMP),
-            $this->language->translate('SYSCHECK_FOLDER_DRAFTS') => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_DRAFTS),
-            $this->language->translate('SYSCHECK_FOLDER_PROFILES') => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_PROFILES),
-            $this->language->translate('SYSCHECK_FOLDER_BACKUPS') => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_BACKUP),
-        );
-
-        natsort($checkFolders);
-
-        return $checkFolders;
+        return glob(\fpcm\classes\dirs::getDataDirPath('', '*'), GLOB_ONLYDIR);
     }
 
 }

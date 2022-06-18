@@ -8,16 +8,18 @@
  */
 error_reporting(E_ALL);
 
-include __DIR__ . '/classes/dirs.php';
-include __DIR__ . '/classes/baseconfig.php';
-include __DIR__ . '/classes/timer.php';
-include __DIR__ . '/constants.php';
+require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'lib' . DIRECTORY_SEPARATOR . 'spyc' . DIRECTORY_SEPARATOR . 'Spyc.php';
+
+include __DIR__ . DIRECTORY_SEPARATOR . 'classes/dirs.php';
+include __DIR__ . DIRECTORY_SEPARATOR . 'classes/baseconfig.php';
+include __DIR__ . DIRECTORY_SEPARATOR . 'classes/timer.php';
+include __DIR__ . DIRECTORY_SEPARATOR . 'constants.php';
 
 if (FPCM_DEBUG) {
     fpcm\classes\timer::start();
 }
 
-include __DIR__ . '/functions.php';
+include __DIR__ . DIRECTORY_SEPARATOR . 'functions.php';
 
 \fpcm\classes\dirs::init();
 \fpcm\classes\baseconfig::init();

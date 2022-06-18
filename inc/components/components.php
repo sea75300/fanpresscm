@@ -1,14 +1,14 @@
 <?php
 
 /**
- * FanPress CM 4.x
+ * FanPress CM 5.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
 namespace fpcm\components;
 
 /**
- * FanPress CM 4.x component loader
+ * FanPress CM 5.x component loader
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2018-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
@@ -97,12 +97,16 @@ final class components {
     }
 
     /**
-     * Return jQuery libary path, generic instance
+     * Return file upload plugin object
      * @return fileupload\uploader
      * @since 4.5
      */
     public static function getFileUploader($uploader = '\\fpcm\\components\\fileupload\\jqupload') : object
     {
+        if (defined('FPCM_UPLOADER_UPPY') && FPCM_UPLOADER_UPPY) {
+            $uploader = '\fpcm\components\fileupload\uppy';
+        }
+
         $return = new $uploader();
         if (!$return instanceof fileupload\uploader) {
             return new fileupload\jqupload();
@@ -118,7 +122,7 @@ final class components {
      */
     public static function getjQuery() : string
     {
-        return \fpcm\classes\dirs::getLibUrl('jquery/jquery-3.5.1.min.js');
+        return \fpcm\classes\dirs::getLibUrl('jquery/jquery-3.6.0.min.js');
     }
 
 }

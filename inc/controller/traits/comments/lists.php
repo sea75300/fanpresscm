@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4.x
+ * FanPress CM 5.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -137,48 +137,38 @@ trait lists {
         
         if ($this->permissions->comment->approve) {
             $fields[] = new \fpcm\components\masseditField(
-                'flag',
-                'COMMMENT_SPAM',
                 (new \fpcm\view\helper\select('isSpam'))
                     ->setOptions($this->yesNoChangeList)
                     ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
-                    ->setClass('fpcm-articles-search-input fpcm-ui-input-select-massedit fpcm-ui-input-massedit'),
-                    'col-sm-6 col-md-4'
+                    ->setText('COMMMENT_SPAM')
+                    ->setIcon('flag')
             );
 
             $fields[] = new \fpcm\components\masseditField(
-                ['icon' => 'check-circle', 'prefix' => 'far'],
-                'COMMMENT_APPROVE',
                 (new \fpcm\view\helper\select('isApproved'))
                     ->setOptions($this->yesNoChangeList)
                     ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
-                    ->setClass('fpcm-articles-search-input fpcm-ui-input-select-massedit fpcm-ui-input-massedit'),
-                    'col-sm-6 col-md-4'
+                    ->setText('COMMMENT_APPROVE')
+                    ->setIcon('check-circle', 'far')
             );
         }
         
         if ($this->permissions->comment->private) {
             $fields[] = new \fpcm\components\masseditField(
-                'eye-slash',
-                'COMMMENT_PRIVATE',
                 (new \fpcm\view\helper\select('isPrivate'))
                     ->setOptions($this->yesNoChangeList)
                     ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
-                    ->setClass('fpcm-articles-search-input fpcm-ui-input-select-massedit fpcm-ui-input-massedit'),
-                    'col-sm-6 col-md-4'
+                    ->setText('COMMMENT_PRIVATE')
+                    ->setIcon('eye-slash')
             );
         }
         
         if ($mode === 1 && $this->permissions->comment->move) {
             $fields[] = new \fpcm\components\masseditField(
-                'clipboard',
-                'COMMMENT_MOVE',
                 (new \fpcm\view\helper\textInput('moveToArticle'))
-                    ->setText('')
-                    ->setClass('fpcm-ui-input-massedit fpcm-ui-input-articleid fpcm-ui-field-input-nowrapper-general')
-                    ->setMaxlenght(20)
-                    ->setWrapper(false),
-                'col-sm-6 col-md-4 '
+                    ->setClass('fpcm-ui-input-articleid')
+                    ->setText('COMMMENT_MOVE')
+                    ->setIcon('clipboard')
             );
         }
 
@@ -275,10 +265,10 @@ trait lists {
             $this->dataView->addRow(
                 new \fpcm\components\dataView\row([
                     new \fpcm\components\dataView\rowCol(
-                        'title',
+                        'name',
                         (new \fpcm\view\helper\icon('list-ul '))->setSize('lg')->setStack(true)->setStack('ban fpcm-ui-important-text')->setStackTop(true).' '.
                         $this->language->translate('GLOBAL_NOTFOUND2'),
-                        'fpcm-ui-padding-md-lr fpcm-ui-dataview-align-notfound',
+                        '',
                         \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT
                     ),
                 ],
@@ -302,7 +292,7 @@ trait lists {
                 new \fpcm\components\dataView\rowCol('name', $comment->getName(), 'fpcm-ui-ellipsis'),
                 new \fpcm\components\dataView\rowCol('email', $comment->getEmail(), 'fpcm-ui-ellipsis'),
                 new \fpcm\components\dataView\rowCol('create', new \fpcm\view\helper\dateText($comment->getCreatetime()), 'fpcm-ui-ellipsis'),
-                new \fpcm\components\dataView\rowCol('metadata', implode('', $comment->getMetaDataStatusIcons()), 'fpcm-ui-metabox fpcm-ui-dataview-align-center', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
+                new \fpcm\components\dataView\rowCol('metadata', implode('', $comment->getMetaDataStatusIcons()), 'fs-5', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
             ]));
         }
 

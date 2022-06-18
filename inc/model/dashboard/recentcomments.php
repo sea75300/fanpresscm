@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4.x
+ * FanPress CM 5.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -12,7 +12,7 @@ namespace fpcm\model\dashboard;
  * 
  * @package fpcm\model\dashboard
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 class recentcomments extends \fpcm\model\abstracts\dashcontainer implements \fpcm\model\interfaces\isAccessible {
@@ -66,13 +66,70 @@ class recentcomments extends \fpcm\model\abstracts\dashcontainer implements \fpc
 
         $this->getCacheName('_' . $this->currentUser);
 
-        $this->permissions = \fpcm\classes\loader::getObject('\fpcm\model\permissions\permissions');
-
-        if ($this->cache->isExpired($this->cacheName)) {
-            $this->renderContent();
+        if (!$this->cache->isExpired($this->cacheName)) {
+            return $this->cache->read($this->cacheName);
         }
 
-        return $this->cache->read($this->cacheName);
+        $commenList = new \fpcm\model\comments\commentList();
+
+        $search = new \fpcm\model\comments\search();
+        $search->searchtype = 0;
+        $search->deleted = 0;
+        $search->limit = array(10, 0);
+        $search->orderby = array('createtime DESC');
+
+        $comments = $commenList->getCommentsBySearchCondition($search);
+        
+        if (!count($comments)) {
+            $str = $this->language->translate('GLOBAL_NOTFOUND2');
+            $this->cache->write($this->cacheName, $str);
+            return $str;
+        }
+
+        $userlist = new \fpcm\model\users\userList();
+        $users = array_flip($userlist->getUsersNameList());
+
+        $createStr = $this->language->translate('GLOBAL_LASTCHANGE');
+        
+        $content = [];
+        $content[] = '<div>';
+        foreach ($comments as $comment) {
+
+            $createInfo = $this->language->translate('GLOBAL_USER_ON_TIME', array(
+                '{{username}}' => isset($users[$comment->getChangeuser()]) ? $users[$comment->getChangeuser()] : $this->language->translate('GLOBAL_NOTFOUND'),
+                '{{time}}' => date($this->config->system_dtmask, $comment->getChangetime())
+            ));
+
+            if (!$comment->getChangeuser() && !$comment->getChangetime()) {
+                $createInfo = '';
+            }
+
+            $content[] = '<div class="row fpcm-ui-font-small py-1">';
+            $content[] = '  <div class="col-12 col-md-auto px-3 text-center">';
+            $content[] = (string) (new \fpcm\view\helper\openButton('openBtn'))->setUrlbyObject($comment)->setTarget('_blank');
+            $content[] = (string) (new \fpcm\view\helper\editButton('editBtn'))->setUrlbyObject($comment, '&mode=1')->setReadonly($comment->getEditPermission() ? false : true);
+            $content[] = '  </div>';
+
+            $content[] = '  <div class="col align-self-center">';
+            $content[] = '  <div class="fpcm-ui-ellipsis">';
+            $content[] = '  <strong>' . (new \fpcm\view\helper\escape(strip_tags($comment->getName()))) . '</strong> @ ' . (new \fpcm\view\helper\dateText($comment->getCreatetime())) . '<br>';
+            $content[] = '  <span>' . $createStr . ': ' . $createInfo . '</span>';
+            $content[] = '  </div></div>';
+            $content[] = '  <div class="col-auto fpcm-ui-metabox px-4 align-self-center">';
+
+            $content[] = $comment->getStatusIconSpam();
+            $content[] = $comment->getStatusIconApproved();
+            $content[] = $comment->getStatusIconPrivate();
+
+            $content[] = '  </div>';
+            $content[] = '</div>';
+        }
+
+        $content[] = '</div>';
+
+        $str = implode(PHP_EOL, $content);
+        $this->cache->write($this->cacheName, $str, $this->config->system_cache_timeout);
+        return $str;
     }
 
     /**
@@ -107,57 +164,20 @@ class recentcomments extends \fpcm\model\abstracts\dashcontainer implements \fpc
      */
     private function renderContent()
     {
-        $commenList = new \fpcm\model\comments\commentList();
 
-        $search = new \fpcm\model\comments\search();
-        $search->searchtype = 0;
-        $search->deleted = 0;
-        $search->limit = array(10, 0);
-        $search->orderby = array('createtime DESC');
-        $comments = $commenList->getCommentsBySearchCondition($search);
+    }
 
-        $userlist = new \fpcm\model\users\userList();
-        $users = array_flip($userlist->getUsersNameList());
-
-        $content = [];
-        $content[] = '<div>';
-        foreach ($comments as $comment) {
-
-            $createInfo = $this->language->translate('COMMMENT_LASTCHANGE', array(
-                '{{username}}' => isset($users[$comment->getChangeuser()]) ? $users[$comment->getChangeuser()] : $this->language->translate('GLOBAL_NOTFOUND'),
-                '{{time}}' => date($this->config->system_dtmask, $comment->getChangetime())
-            ));
-
-            if (!$comment->getChangeuser() && !$comment->getChangetime()) {
-                $createInfo = '';
-            }
-
-            $content[] = '<div class="row fpcm-ui-font-small fpcm-ui-padding-md-tb">';
-            $content[] = '  <div class="col-12 col-md-auto px-3 fpcm-ui-center">';
-            $content[] = (string) (new \fpcm\view\helper\openButton('openBtn'))->setUrlbyObject($comment)->setTarget('_blank');
-            $content[] = (string) (new \fpcm\view\helper\editButton('editBtn'))->setUrlbyObject($comment, '&mode=1')->setReadonly($comment->getEditPermission() ? false : true);
-            $content[] = '  </div>';
-
-            $content[] = '  <div class="col align-self-center">';
-            $content[] = '  <div class="fpcm-ui-ellipsis">';
-            $content[] = '  <strong>' . (new \fpcm\view\helper\escape(strip_tags($comment->getName()))) . '</strong> @ ' . (new \fpcm\view\helper\dateText($comment->getCreatetime())) . '<br>';
-            $content[] = '  <span>' . $createInfo . '</span>';
-            $content[] = '  </div></div>';
-            $content[] = '  <div class="col-auto fpcm-ui-metabox px-4 align-self-center">';
-
-            $content[] = $comment->getStatusIconSpam();
-            $content[] = $comment->getStatusIconApproved();
-            $content[] = $comment->getStatusIconPrivate();
-
-            $content[] = '  </div>';
-            $content[] = '</div>';
-        }
-
-        $content[] = '</div>';
-
-        $this->content = implode(PHP_EOL, $content);
-
-        $this->cache->write($this->cacheName, $this->content, $this->config->system_cache_timeout);
+    /**
+     * Return button object
+     * @return \fpcm\view\helper\linkButton|null
+     * @since 5.0.0-b3
+     */
+    public function getButton(): ?\fpcm\view\helper\linkButton
+    {
+        return (new \fpcm\view\helper\linkButton('toCommentList'))
+                ->setUrl(\fpcm\classes\tools::getFullControllerLink('comments/list'))
+                ->setIcon('comments', 'far')
+                ->setText('HL_COMMENTS_MNG');
     }
 
 }

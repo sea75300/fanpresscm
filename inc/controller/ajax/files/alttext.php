@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4.x
+ * FanPress CM 5.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -50,7 +50,6 @@ class alttext extends \fpcm\controller\abstracts\ajaxController implements \fpcm
 
         $image = new \fpcm\model\files\image($fileName);
         $image->setAltText(substr($altText, 0, 250));
-        $image->setUserid($this->session->getUserId());
         
         if ($image->exists() && $image->update()) {
             $this->response->setReturnData(new \fpcm\view\message(

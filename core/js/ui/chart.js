@@ -21,43 +21,20 @@ fpcm.ui_chart = {
             return false;
         }
 
-        for (var i = 0; i < _chartConf.data.datasets.length; i++) {
-            _chartConf.data.datasets[i].borderWidth = (_chartConf.type === 'line' ? 2 : 0);            
+        _chartConf.options.elements = {
+            line: {
+                borderWidth: 0
+            },
+            bar: {
+                borderWidth: 0
+            },
+            arc: {
+                borderWidth: 0
+            }
         }
 
-        let isBarOrLine = (_chartConf.type === 'line' || _chartConf.type === 'bar');
 
-        if (_chartConf.options.legend === undefined) {
-
-            _chartConf.options.legend = {
-                display: (isBarOrLine ? false : true),
-                position: 'right',
-                labels: {
-                    boxWidth: 25,
-                    fontSize: 12
-                }
-            };
-
-        }
-
-        if (isBarOrLine && !_chartConf.options.scales) {
-
-            _chartConf.options.scales = {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }],
-                xAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }],
-            };
-
-        }
-
-        return new Chart(fpcm.dom.fromId(_chartConf.id), _chartConf);  
+        return new Chart(fpcm.dom.fromId(_chartConf.id), _chartConf);
     }
 
 };

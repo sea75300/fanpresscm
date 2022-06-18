@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4
+ * FanPress CM 5
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -172,9 +172,11 @@ class feed extends \fpcm\controller\abstracts\pubController {
                 $adate = $dom->createElement('pubDate', date(DATE_RSS, $article->getCreatetime()));
                 $item->appendChild($adate);
 
-                if (isset($this->users[$article->getCreateuser()])) {
-                    $usremail = $this->emails[$article->getCreateuser()] . ' (' . $this->users[$article->getCreateuser()] . ')';
-                    $aauthr = $dom->createElement('author', $usremail);
+                $uMail = $this->emails[$article->getCreateuser()] ?? '';
+                $uName = $this->users[$article->getCreateuser()] ?? '';
+                
+                if (trim($uName)) {
+                    $aauthr = $dom->createElement('author', $uMail . ' (' . $uName . ')');
                     $item->appendChild($aauthr);
                 }
 

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4.x
+ * FanPress CM 5.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -50,19 +50,13 @@ trait lists {
      * @param array $users
      * @param array $pagerData
      */
-    public function initViewAssigns($list, $users, $pagerData)
+    public function initViewAssigns($list, $users)
     {
         $this->view->assign('files', $list);
         $this->view->assign('users', $users);
         $this->view->assign('mode', $this->mode);
         $this->view->assign('filterError', $this->filterError);
         $this->view->assign('listAction', 'files/list');
-
-        $this->view->assign('showPager', true);
-        foreach ($pagerData as $key => $value) {
-            $this->view->assign($key, $value);
-        }
-
     }
 
 }

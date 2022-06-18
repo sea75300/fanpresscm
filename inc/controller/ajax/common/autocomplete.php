@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4.x
+ * FanPress CM 5.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -106,13 +106,19 @@ class autocomplete extends \fpcm\controller\abstracts\ajaxController implements 
         }
 
         $data = \fpcm\model\articles\article::fetchSourcesAutocomplete();
+        foreach ($data as $value) {
+            $this->returnData[] = [
+                'value' => $value,
+                'label' => $value
+            ];
+        }
+
         if (!$this->term) {
-            $this->returnData = $data;
             return true;
         }
         
-        $this->returnData = array_filter($data, function ($value) {
-            return $this->term && stripos($value, $this->term) === false ? false : true;
+        $this->returnData = array_filter($this->returnData, function ($value) {
+            return $this->term && stripos($value['value'], $this->term) === false ? false : true;
         });
         
         return true;

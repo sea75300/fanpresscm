@@ -2,102 +2,17 @@
     width: 100%;
 }
 
-@media (max-width: 576px) {
-    
-    #fpcm-messages {
-        max-width: 100% !important;
-        min-width: 100% !important;
-        right: 0 !important;
-        top: 2em !important;
-    }
-    
-    div.fpcm-message-box {
-        border: 0;
-        margin: 0 !important;
-        z-index: 1 !important;
-    }
+@media (min-width: 576px) {
 
-    #fpcm-messages,
-    div.fpcm-ui-messages-close   {
-        text-align:center !important;
+    .form-range.col-sm-6 {
+        width: 50% !important;
     }
-    
-    div.fpcm-ui-logo h1 {
-        padding: 0.75em 0 !important;
-    }
-
-    div.fpcm-ui-logo h1 span {
-        display: inline !important;
-    }
-    
-    
-    #fpcm-navigation li,
-    div.fpcm-status-info ul.fpcm-menu-top li ul,
-    #btnHiddenMenu {
-        width: 100% !important;
-        min-width: 100% !important;
-    }
-    
-    #fpcm-navigation ul.fpcm-ui-menu li.fpcm-menu-has-submenu:hover ul.fpcm-ui-sub-menu,
-    #fpcm-navigation ul.fpcm-ui-nav-hidden-links,
-    #fpcm-navigation ul.fpcm-ui-nav-hidden-links li.fpcm-menu-has-submenu:hover ul.fpcm-ui-sub-menu,
-    div.fpcm-status-info ul.fpcm-menu-top li ul {
-        left: 0rem;
-        right: 0rem;
-    }
-    
-    #fpcm-navigation ul.fpcm-ui-nav-hidden-links {
-        top: 70px;
-    }
-    
-    #btnHiddenMenu {
-        height: 75px;
-        line-height: 37.5px;
-    }
-
-}
-
-@media (max-width: 768px) {
-    
-    div.fpcm-navigation ul.fpcm-menu li.fpcm-menu-level1-show {
-        display: none;
-    }
-    
-    #itemshowMenu.fpcm-menu-level1-show  {
-        display: block !important;
-    }
-
 }
 
 @media (min-width: 769px) {
 
-    div.fpcm-navigation ul.fpcm-menu li.fpcm-menu-level1-show {
-        display: block !important;
+    .form-range.col-md-4 {
+        width: 66.6666666% !important;
     }
     
-}
-
-@media (max-width: 1024px) {
-    
-    fieldset {
-        margin: 0.5em 0;
-    }
-    
-    div.fpcm-ui-padding-none-lr-small > div {
-        padding-left: 0 !important;
-        padding-right: 0 !important;
-    }
-    
-    #fpcm-wrapper-left div.fpcm-ui-logo {
-        margin-top: 0 !important;
-    }
-
-}
-
-@media (min-width: 1200px) {
-
-    div.fpcm.ui-form-login {
-        max-width: 750px !important;
-    }
-
 }

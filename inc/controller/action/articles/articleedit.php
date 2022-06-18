@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4.x
+ * FanPress CM 5.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -45,7 +45,7 @@ class articleedit extends articlebase {
      */
     protected function getActiveNavigationElement()
     {
-        return 'itemnav-id-editnews';
+        return 'editnews';
     }
 
     /**
@@ -54,7 +54,16 @@ class articleedit extends articlebase {
      */
     public function request()
     {
+        $this->showRevisions = $this->permissions->article->revisions;
+
         if (!parent::request()) {
+            
+            $data = $this->request->fromPOST('article', [
+                \fpcm\model\http\request::FILTER_STRIPSLASHES,
+                \fpcm\model\http\request::FILTER_TRIM
+            ]);
+
+            $this->assignArticleFormData($data, time());
             return false;
         }
 
@@ -73,25 +82,10 @@ class articleedit extends articlebase {
         $this->userList     = new \fpcm\model\users\userList();
         $this->commentList  = new \fpcm\model\comments\commentList();
 
-        if ($this->buttonClicked('doAction') && !$this->checkPageToken) {
-            $data = $this->request->fromPOST('article', [
-                \fpcm\model\http\request::FILTER_STRIPSLASHES,
-                \fpcm\model\http\request::FILTER_TRIM
-            ]);
-
-            $this->assignArticleFormData($data, time());
-        }
-
         $this->handleRevisionActions();
         $this->handleDeleteAction();
         
         $res = false;
-        if ($this->checkPageToken && !$this->article->isInEdit()) {
-            $res = $this->saveArticle();
-            if (!$res && !$this->emptyTitleContent) {
-                $this->view->addErrorMessage('SAVE_FAILED_ARTICLE');
-            }
-        }
         
         $added = $this->request->fromGET('added', [
             \fpcm\model\http\request::FILTER_CASTINT
@@ -117,15 +111,17 @@ class articleedit extends articlebase {
      */
     public function process()
     {
+        $this->article->enableTweetCreation($this->config->twitter_events['update']);
+        
+        $this->commentCount = array_sum($this->commentList->countComments([$this->article->getId()]));
+        $this->revisionCount = $this->article->getRevisionsCount();
+        
         parent::process();
 
         $this->view->setFormAction($this->article->getEditLink(), [], true);
         $this->view->assign('editorMode', 1);
-        $this->view->assign('showRevisions', $this->permissions->article->revisions);
         $this->view->assign('postponedTimer', $this->article->getCreatetime());
-        $this->view->assign('commentCount', array_sum($this->commentList->countComments([$this->article->getId()])));
         $this->view->assign('commentsMode', 2);
-        $this->view->assign('revisionCount', $this->article->getRevisionsCount());
         
         $this->view->addDataView(new \fpcm\components\dataView\dataView('commentlist', false));
         $this->view->addDataView(new \fpcm\components\dataView\dataView('revisionslist', false));
@@ -138,7 +134,7 @@ class articleedit extends articlebase {
             'lkIp' => $this->permissions->comment->lockip ? 1 : 0
         ]);
 
-        $this->view->addJsLangVars(['EDITOR_STATUS_INEDIT', 'EDITOR_STATUS_NOTINEDIT', 'EDITOR_ARTICLE_SHORTLINK', 'COMMENTS_EDIT', 'COMMMENT_LOCKIP']);
+        $this->view->addJsLangVars(['EDITOR_STATUS_INEDIT', 'EDITOR_STATUS_NOTINEDIT', 'EDITOR_ARTICLE_SHORTLINK', 'COMMENTS_EDIT', 'COMMMENT_LOCKIP', 'EDITOR_ARTICLE_SHORTLINK_COPY']);
 
         if ($this->article->isInEdit()) {
 
@@ -147,8 +143,9 @@ class articleedit extends articlebase {
             $username = $this->language->translate('GLOBAL_NOTFOUND');
             if (is_array($data)) {
                 $user = new \fpcm\model\users\author($data[1]);
-                if ($user->exists())
+                if ($user->exists()) {
                     $username = $user->getDisplayname();
+                }
             }
 
             $this->view->addMessage('EDITOR_STATUS_INEDIT', ['{{username}}' => $username]);
@@ -162,12 +159,12 @@ class articleedit extends articlebase {
         $createUser = isset($users[$this->article->getCreateuser()]) ? $users[$this->article->getCreateuser()] : null;
         $changeUser = isset($users[$this->article->getChangeuser()]) ? $users[$this->article->getChangeuser()] : null;
 
-        $this->view->assign('createInfo', $this->language->translate('EDITOR_AUTHOREDIT', [
+        $this->view->assign('createInfo', $this->language->translate('GLOBAL_USER_ON_TIME', [
             '{{username}}' => $createUser ? $createUser->getDisplayname() : $this->language->translate('GLOBAL_NOTFOUND'),
             '{{time}}'     => new \fpcm\view\helper\dateText($this->article->getCreatetime())           
         ]));
 
-        $this->view->assign('changeInfo', $this->language->translate('EDITOR_LASTEDIT', [
+        $this->view->assign('changeInfo', $this->language->translate('GLOBAL_USER_ON_TIME', [
             '{{username}}' => $changeUser ? $changeUser->getDisplayname() : $this->language->translate('GLOBAL_NOTFOUND'),
             '{{time}}'     => new \fpcm\view\helper\dateText($this->article->getChangetime())
         ]));
@@ -188,6 +185,10 @@ class articleedit extends articlebase {
             $this->view->addButton((new \fpcm\view\helper\linkButton('articleimg'))->setUrl($this->article->getImagepath())->setText('EDITOR_ARTICLEIMAGE_SHOW')->setIcon('image')->setIconOnly(true)->setClass('fpcm-editor-articleimage fpcm-ui-maintoolbarbuttons-tab1'));
         }
 
+        if ($this->permissions->article->delete && !$this->request->fromGET('rev')) {
+            $this->view->addButton((new \fpcm\view\helper\deleteButton('articleDelete'))->setClass('fpcm-ui-maintoolbarbuttons-tab1 fpcm ui-button-confirm')->setReadonly($this->article->isInEdit()));
+        }
+
         $shares = (new \fpcm\model\shares\shares())->getByArticleId($this->article->getId());
 
         $this->view->assign('shares', $shares);
@@ -195,7 +196,7 @@ class articleedit extends articlebase {
         
         if ($this->permissions->article->revisions) {
             $this->view->addButton((new \fpcm\view\helper\submitButton('articleRevisionRestore'))->setText('EDITOR_REVISION_RESTORE')->setIcon('undo')->setReadonly($this->article->isInEdit())->setClass('fpcm-ui-maintoolbarbuttons-tab3 fpcm-ui-hidden'));
-            $this->view->addButton((new \fpcm\view\helper\deleteButton('revisionDelete'))->setClass('fpcm-ui-maintoolbarbuttons-tab3 fpcm-ui-hidden fpcm-ui-button-confirm')->setText('EDITOR_REVISION_DELETE'));
+            $this->view->addButton((new \fpcm\view\helper\deleteButton('revisionDelete'))->setClass('fpcm-ui-maintoolbarbuttons-tab3 fpcm-ui-hidden fpcm ui-button-confirm')->setText('EDITOR_REVISION_DELETE'));
         }
 
         $this->view->render();
@@ -219,14 +220,10 @@ class articleedit extends articlebase {
             }
 
             if ($this->permissions->comment->delete) {
-                $this->view->addButton((new \fpcm\view\helper\deleteButton('deleteComment'))->setClass('fpcm-ui-button-confirm fpcm-ui-maintoolbarbuttons-tab2 fpcm-ui-hidden fpcm-ui-button-confirm')->setText('EDITOR_COMMENTS_DELETE'));
+                $this->view->addButton((new \fpcm\view\helper\deleteButton('deleteComment'))->setClass('fpcm ui-button-confirm fpcm-ui-maintoolbarbuttons-tab2 fpcm-ui-hidden')->setText('EDITOR_COMMENTS_DELETE'));
             }
 
             $this->initCommentMassEditForm(2);
-        }
-
-        if ($this->permissions->article->delete && !$this->request->fromGET('rev')) {
-            $this->view->addButton((new \fpcm\view\helper\deleteButton('articleDelete'))->setClass('fpcm-ui-maintoolbarbuttons-tab1 fpcm-ui-button-confirm')->setReadonly($this->article->isInEdit()));
         }
 
         $this->view->assign('currentUserId', $this->session->getUserId());
@@ -313,6 +310,14 @@ class articleedit extends articlebase {
         }
 
         $this->view->addErrorMessage('SAVE_FAILED_ARTICLEREVRESTORE');
+        return true;
+    }
+
+    protected function onArticleSaveAfterSuccess(int $id): bool
+    {            
+        $this->article->createRevision();
+        $this->view->addNoticeMessage('SAVE_SUCCESS_ARTICLE');
+        
         return true;
     }
 

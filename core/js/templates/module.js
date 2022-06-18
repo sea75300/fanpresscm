@@ -9,25 +9,38 @@ fpcm.templates = {
     
     init: function() {
 
-        fpcm.dataview.render('draftfiles', {
-            onRenderAfter: fpcm.ui.assignControlgroups
-        });
+        if (fpcm.dataview.exists('draftfiles')) {
+            fpcm.dataview.render('draftfiles');
+        }
 
-        fpcm.ui.tabs('#fpcm-tabs-templates', {
-            beforeLoad: function(event, ui) {
-                fpcm.ui_loader.show();
-                ui.jqXHR.done(function(result) {
-                    fpcm.ui_loader.hide();
+        fpcm.ui_tabs.render('#fpcm-tabs-templates', {
+
+            onRenderHtmlBefore: function(_ui) {
+
+                if (fpcm.templates.editorInstance === undefined ||
+                    !_ui.relatedTarget.dataset.tplid ) {
                     return true;
-                });
+                }
+
+                fpcm.templates.editorInstance.toTextArea();
+                fpcm.templates.editorInstance = null;                
+                fpcm.dom.fromTag(_ui.relatedTarget.dataset.bsTarget).empty();
+                return true;
             },
-            load: function( event, ui ) {
-                fpcm.templates.editorInstance = fpcm.editor_codemirror.create({
-                   editorId  : 'tpleditor',
-                   elementId : 'content_' + ui.tab.attr('data-tplId')
-                });
-                
-                fpcm.dom.fromTag('a.fpcm-ui-template-tags').click(function() {
+
+            onTabShowAfter: function( _ui ) {
+
+                if (!_ui.target.dataset.tplid) {
+                    return true;
+                }
+
+                if (!fpcm.templates.createEditorInstance(_ui)) {
+                    setTimeout(function () {
+                        fpcm.templates.createEditorInstance(_ui);
+                    }, 1500);
+                }
+
+                fpcm.dom.fromTag('button.fpcm-ui-template-tags').click(function() {
 
                     var tag = fpcm.dom.fromTag(this).attr('data-tag');
                     var doc = fpcm.templates.editorInstance.doc;
@@ -51,59 +64,28 @@ fpcm.templates = {
                     return false;
                 });
 
-                
-                fpcm.ui.assignControlgroups();
-
                 return true;
-            },
-            addMainToobarToggleAfter: function( event, ui ) {
-                if (ui.oldTab.attr('data-noempty')) {
-                    return true;
-                }
-
-                ui.oldPanel.empty();
-            },
-            addTabScroll: true,
-            addMainToobarToggle: true,
-            saveActiveTab: true,
-            active: fpcm.vars.jsvars.activeTab
-        });
-
-        fpcm.dom.fromId('showpreview').click(function () {
-            fpcm.templates.saveTemplatePreview();
-            return false;
+            }
         });
         
-        fpcm.dom.fromClass('fpcm-articletemplates-edit').click(function() {
+        fpcm.dom.bindEvent('.fpcm-editor-html-click', )
+
+        fpcm.dom.bindClick('#showpreview', fpcm.templates.saveTemplatePreview);
+
+        fpcm.dom.bindClick('.fpcm-articletemplates-edit', function(_ev, _ui) {
 
             fpcm.ui_loader.hide();
-
-            var sizes       = fpcm.ui.getDialogSizes(top, 0.75);
-            fpcm.ui.dialog({
-                title     : fpcm.ui.translate('TEMPLATE_HL_DRAFTS_EDIT'),
-                content   : fpcm.ui.createIFrame({
-                    src: fpcm.dom.fromTag(this).attr('href'),
-                    id: 'fpcm-articletemplates-editor-frame'
-                }),
-                dlWidth   : parseInt(sizes.width),
-                dlHeight  : parseInt(sizes.height),
-                resizable : true,
-                defaultCloseEmpty: true,
+            fpcm.ui_dialogs.create({
+                title: 'TEMPLATE_HL_DRAFTS_EDIT',
+                url: _ui.attributes.href.value,
+                closeButton: true,
                 dlButtons : [
                     {
-                        text: fpcm.ui.translate('GLOBAL_SAVE'),
-                        icon: "ui-icon-disk",
-                        class: 'fpcm-ui-button-primary',
-                        click: function() {
-                            fpcm.dom.fromTag(this).children('#fpcm-articletemplates-editor-frame').contents().find('#btnSaveTemplate').trigger('click');
-                            fpcm.ui_loader.hide();
-                        }
-                    },
-                    {
-                        text: fpcm.ui.translate('GLOBAL_CLOSE'),
-                        icon: "ui-icon-closethick",                    
-                        click: function() {
-                            fpcm.dom.fromTag(this).dialog('close');
+                        text: 'GLOBAL_SAVE',
+                        icon: "save",
+                        primary: true,
+                        click: function(_ui) {
+                            fpcm.dom.findElementInDialogFrame(_ui, '#btnSaveTemplate').click();
                             fpcm.ui_loader.hide();
                         }
                     }
@@ -125,28 +107,32 @@ fpcm.templates = {
                 tplid  : fpcm.dom.fromId('templateid').val()
             },
             execDone: function() {
-                fpcm.dom.appendHtml('#fpcm-dialog-templatepreview-layer', '<iframe id="fpcm-dialog-templatepreview-layer-frame" class="fpcm-ui-full-width" src="' + fpcm.vars.actionPath + 'templates/preview&tid=' + fpcm.dom.fromId('templateid').val() + '"></iframe>');
-                fpcm.ui.dialog({
-                    id         : 'templatepreview-layer',
-                    dlWidth    : fpcm.ui.getDialogSizes(top, 0.75).width,
-                    dlHeight   : fpcm.ui.getDialogSizes(top, 0.75).height,
-                    title      : fpcm.ui.translate('HL_TEMPLATE_PREVIEW'),
-                    resizable  : true,
-                    defaultCloseEmpty: true,
-                    dlButtons  : [
-                        {
-                            text: fpcm.ui.translate('GLOBAL_CLOSE'),
-                            icon: "ui-icon-closethick",                    
-                            click: function() {
-                                fpcm.dom.fromTag(this).dialog('close');
-                                fpcm.dom.fromClass('fpcm-dialog-templatepreview-layer-frame').remove();
-                            }
-                        }                            
-                    ]
+                fpcm.ui_dialogs.create({
+                    id: 'templatepreview-layer',
+                    closeButton: true,
+                    url: fpcm.vars.actionPath + 'templates/preview&tid=' + fpcm.dom.fromId('templateid').val()
                 });
             }
         });
         
+    },
+    
+    createEditorInstance: function (_ui, _ldr) {
+
+        try {
+
+            fpcm.templates.editorInstance = fpcm.editor_codemirror.create({
+               editorId  : 'tpleditor' + _ui.target.dataset.tplid,
+               elementId : 'content_' + _ui.target.dataset.tplid
+            });
+
+            fpcm.templates.editorInstance.setSize('100%', '100vh');
+
+        } catch (_e) {
+            return false;
+        }
+
+        return true;
     }
 
 };
@@ -156,6 +142,7 @@ fpcm.filemanager = {
     runFileIndexUpdate: function (_params) {
 
         if (!_params.files || !_params.files) {
+            fpcm.ui.relocate('?module=templates/templates&rg=7');
             return false;
         }
 
@@ -173,12 +160,17 @@ fpcm.filemanager = {
             return false;
         }
 
-        fpcm.ui.relocate('self');
+        fpcm.ui.relocate('?module=templates/templates&rg=7');
     },
     
     getAcceptTypes: function ()
     {
         return /(\.|\/)(htm|html|txt)$/i;
+    },
+    
+    getAcceptTypesArr: function ()
+    {
+        return ['html', 'htm', 'txt', 'application/xhtml+xml', 'text/html', 'text/plain'];
     }
 
 };

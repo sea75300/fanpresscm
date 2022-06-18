@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4.x
+ * FanPress CM 5.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -18,9 +18,6 @@ namespace fpcm\model\cli;
  * @since 4.4-b5
  */
 final class progress {
-
-    /* Maximum chars for one cli line */
-    const LINE_MAX_CHARS = 70;
 
     /* Progress char */
     const PROGRESS_CHAR = '#';
@@ -44,6 +41,18 @@ final class progress {
     private $isCli = true;
 
     /**
+     * Maximum chars for one cli line
+     * @var int
+     */
+    private $maxLineChars = 70;
+
+    /**
+     * Output text
+     * @var string
+     */
+    private $outputText = '';
+
+    /**
      * Constructor
      * @param int $maxValue
      * @param int $currentValue
@@ -54,6 +63,24 @@ final class progress {
         $this->maxValue = $maxValue;
         $this->currentValue = $currentValue;
         $this->isCli = \fpcm\classes\baseconfig::isCli();
+        
+        if (!$this->isCli) {
+            return;
+        }
+        
+        try {
+            $cols = exec('tput cols');
+            if ($cols === false) {
+                return;
+            }
+
+            $this->maxLineChars = (int) $cols - 7;
+
+        } catch (\Exception $exc) {
+            io::output($exc->getMessage(), true);
+        }
+
+        
     }
 
     /**
@@ -68,6 +95,18 @@ final class progress {
     }
 
     /**
+     * Set output text for cli
+     * @param string $outputText
+     * @return $this
+     */
+    public function setOutputText(string $outputText)
+    {
+        $this->outputText = substr($outputText, 0, $this->maxLineChars / 2) . ': ';
+        $this->maxLineChars -= mb_strlen($this->outputText);
+        return $this;
+    }
+        
+    /**
      * Show progress output
      * @return bool
      */
@@ -78,8 +117,8 @@ final class progress {
         }
 
         $percent = round(($this->currentValue * 100) / $this->maxValue);
-        $bars = round((self::LINE_MAX_CHARS * $percent) / 100);
-        print sprintf("%s%%[%s#%s]\r", $percent, str_repeat(self::PROGRESS_CHAR, $bars), str_repeat(" ", self::LINE_MAX_CHARS-$bars));
+        $bars = round(($this->maxLineChars * $percent) / 100);
+        print sprintf("%s%s%%[%s#%s] \r", $this->outputText, $percent, str_repeat(self::PROGRESS_CHAR, $bars), str_repeat(" ", $this->maxLineChars - $bars));
         return true;
     }
 

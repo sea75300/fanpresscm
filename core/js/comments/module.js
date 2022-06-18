@@ -26,24 +26,18 @@ fpcm.comments = {
     
     initAfter: function() {
         
-        if (fpcm.dataview && fpcm.dataview.exists('commenttrash')) {
-            fpcm.dataview.render('commenttrash', {
-                onRenderAfter: function() {
-                    fpcm.ui.assignCheckboxes();
-                    fpcm.ui.assignControlgroups();
-                }
-            });
+        if (!fpcm.dataview) {
+            return false;
+        }
+        
+        if (fpcm.dataview.exists('commenttrash')) {
+            fpcm.dataview.render('commenttrash');
             
             return true;
         }
         
-        if (fpcm.dataview && fpcm.dataview.exists('commentlist')) {
-            fpcm.dataview.render('commentlist', {
-                onRenderAfter: function() {
-                    fpcm.ui.assignCheckboxes();
-                    fpcm.ui.assignControlgroups();
-                }
-            });
+        if (fpcm.dataview.exists('commentlist')) {
+            fpcm.dataview.render('commentlist');
         }
         
     },
@@ -76,11 +70,10 @@ fpcm.comments = {
         return -1;
     },
 
-    initWidgets: function(dialogId) {
+    initWidgets: function() {
 
-        fpcm.ui.autocomplete('.fpcm-ui-input-articleid', {
+        fpcm.ui.autocomplete('#moveToArticle', {
             source: fpcm.vars.ajaxActionPath + 'autocomplete&src=articles',
-            appendTo: dialogId,
             minLength: 3
         });
 
@@ -92,60 +85,46 @@ fpcm.comments = {
         fpcm.dom.fromId('opensearch').unbind('click');
         fpcm.dom.fromId('opensearch').click(function () {
 
-            var sDlg = fpcm.ui.dialog({
-                id      : 'comments-search',
-                resizable: true,
-                title    : fpcm.ui.translate('ARTICLES_SEARCH'),
+            fpcm.ui_dialogs.create({
+                id: 'comments-search',
+                title: 'ARTICLES_SEARCH',
+                closeButton: true,
                 dlButtons  : [
                     {
-                        text: fpcm.ui.translate('ARTICLE_SEARCH_START'),
-                        icon: 'ui-icon-check',
-                        class: 'fpcm-ui-button-primary',
+                        text: 'ARTICLE_SEARCH_START',
+                        icon: 'search',
+                        primary: true,
+                        clickClose: true,
                         click: function() {
                             
                             var sParams = {
                                 mode: fpcm.vars.jsvars.articleSearchMode,
-                                filter: fpcm.ui.getValuesByClass('fpcm-comments-search-input')
+                                filter: fpcm.dom.getValuesByClass('fpcm-comments-search-input')
                             };
                             
-                            sParams.filter.combinations = fpcm.ui.getValuesByClass('fpcm-ui-input-select-commentsearch-combination');
+                            sParams.filter.combinations = fpcm.dom.getValuesByClass('fpcm-ui-input-select-commentsearch-combination');
 
                             fpcm.comments.startCommentSearch(sParams);
-                            fpcm.dom.fromTag(this).dialog('close');
                         }
                     },                    
                     {
-                        text: fpcm.ui.translate('ARTICLE_SEARCH_RESET'),
-                        icon: "ui-icon-refresh" ,                        
+                        text: 'GLOBAL_RESET',
+                        icon: "filter-circle-xmark" ,
+                        clickClose: true,
                         click: function() {
                             fpcm.ui.relocate('self');
                         }
-                    },                    
-                    {
-                        text: fpcm.ui.translate('GLOBAL_CLOSE'),
-                        icon: "ui-icon-closethick",                        
-                        click: function() {
-                            fpcm.dom.fromTag(this).dialog('close');
-                        }
-                    }                            
+                    }              
                 ],
                 dlOnOpen: function() {
                     fpcm.dom.fromId('text').focus();
+                },
+                dlOnOpenAfter: function() {            
+                    fpcm.ui.autocomplete('#articleId', {
+                        source: fpcm.vars.ajaxActionPath + 'autocomplete&src=articles',
+                        minLength: 3
+                    });
                 }
-            });
-
-            fpcm.ui.selectmenu('.fpcm-ui-input-select-commentsearch', {
-                appendTo: '#' + sDlg.attr('id')
-            });
-            
-            fpcm.ui.selectmenu('.fpcm-ui-input-select-commentsearch-combination', {
-                appendTo: '#' + sDlg.attr('id'),
-            });
-            
-            fpcm.ui.autocomplete('#articleId', {
-                source: fpcm.vars.ajaxActionPath + 'autocomplete&src=articles',
-                appendTo: '#' + sDlg.attr('id'),
-                minLength: 3
             });
 
             return false;
@@ -172,15 +151,8 @@ fpcm.comments = {
                 }
 
                 fpcm.ui.mainToolbar.find('.fpcm-ui-pager-element').addClass('fpcm-ui-hidden');
-                fpcm.ui.controlgroup(fpcm.ui.mainToolbar, 'refresh');
                 fpcm.vars.jsvars.dataviews[result.dataViewName] = result.dataViewVars;
-                fpcm.dataview.updateAndRender(result.dataViewName, {
-                    onRenderAfter: function () {
-                        fpcm.ui.assignCheckboxes();
-                        fpcm.ui.assignControlgroups();
-                    }
-                });
-                fpcm.dom.fromId('opensearch').addClass('fpcm-ui-button-primary');
+                fpcm.dataview.updateAndRender(result.dataViewName);
             }
         });
 
@@ -199,7 +171,7 @@ fpcm.comments = {
 
     restoreFromTrash: function() {
 
-        var ids = fpcm.ui.getCheckboxCheckedValues('.fpcm-ui-list-checkbox');
+        var ids = fpcm.dom.getCheckboxCheckedValues('.fpcm-ui-list-checkbox');
         if (ids.length == 0) {
             fpcm.ui_loader.hide();
             return false;

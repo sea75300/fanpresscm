@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4
+ * FanPress CM 5
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -76,12 +76,12 @@ class select extends helper {
         }
         
         if ($this->isMultiple) {
-            $this->class = str_replace('fpcm-ui-input-select', 'fpcm-ui-input-select-multiple', $this->class);        
+            $this->class = str_replace('form-select', '', $this->class);        
         }
 
         $label = '';
         if ($this->prependLabel) {
-            $label = "<label title=\"{$this->text}\" class=\"fpcm-ui-field-label-general {$this->labelClass}{$this->getLabelSize()}\" for=\"{$this->id}\">{$this->getIconString()}{$this->getDescriptionTextString()}</label>";
+            $label = "<div class=\"input-group mb-3\"><label title=\"{$this->text}\" class=\"col-form-label pe-3 {$this->labelClass}{$this->getLabelSize()}\" for=\"{$this->id}\">{$this->getIconString()}{$this->getDescriptionTextString()}</label>";
         }
         
         return $label.implode(' ', [
@@ -93,7 +93,8 @@ class select extends helper {
             ">",
             $this->hasOptGroup ? $this->getOptionsGroupsString() : $this->getOptionsString($this->options),
             "</select>",
-        ]);
+        ]) . ($this->prependLabel ? '</div>' : '');
+        
     }
 
     /**
@@ -102,7 +103,7 @@ class select extends helper {
      */
     protected function init()
     {
-        $this->class = 'fpcm-ui-input-select';
+        $this->class = 'form-select';
         $this->firstOption = self::FIRST_OPTION_PLEASESELECT;
     }
 
@@ -235,6 +236,15 @@ class select extends helper {
         }
 
         return implode(PHP_EOL, $this->returnString);
+    }
+
+    /**
+     * Return class string
+     * @return string
+     */
+    protected function getReadonlyString()
+    {
+        return $this->readonly ? "disabled" : '';
     }
 
 }

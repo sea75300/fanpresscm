@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4.x
+ * FanPress CM 5.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -40,7 +40,7 @@ class testing extends \fpcm\controller\abstracts\ajaxController implements \fpcm
      * Controller-Processing
      */
     public function process()
-    {
+    {        
         $current = $this->request->fromPOST('current', [
             \fpcm\model\http\request::FILTER_CASTINT
         ]);

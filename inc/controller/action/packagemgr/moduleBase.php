@@ -112,7 +112,13 @@ class moduleBase extends \fpcm\controller\abstracts\controller implements \fpcm\
         $this->view->addButtons([
             (new \fpcm\view\helper\linkButton('backbtn'))->setText('MODULES_LIST_BACKTOLIST')->setUrl(\fpcm\classes\tools::getFullControllerLink('modules/list'))->setIcon('chevron-circle-left'),
             (new \fpcm\view\helper\linkButton('protobtn'))->setText('HL_LOGS')->setUrl(\fpcm\classes\tools::getFullControllerLink('system/logs'))->setIcon('exclamation-triangle')->setTarget('_blank'),
-        ]);        
+        ]);
+        
+        $tabText = $this->language->translate($this->steps['tabHeadline']).': '. $this->key;
+        
+        $this->view->addTabs('updater', [
+            (new \fpcm\view\helper\tabItem('sysupdate'))->setText($tabText)->setFile($this->getViewPath())
+        ]);
         
         $this->assignMultipleUpdates();
         $this->view->addJsFiles(['modules/installer.js']);
@@ -153,7 +159,8 @@ class moduleBase extends \fpcm\controller\abstracts\controller implements \fpcm\
                 ])
             )->setText('MODULES_LIST_UPDATE_NEXT')
             ->setIcon('sync')
-            ->setClass('fpcm ui-hidden fpcm-ui-button-primary')
+            ->setClass('fpcm ui-hidden')
+            ->setPrimary()
         );
 
         return true;

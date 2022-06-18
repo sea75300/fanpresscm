@@ -103,14 +103,6 @@ if (!defined('FPCM_CACHEMODULE_DEBUG')) {
     define('FPCM_CACHEMODULE_DEBUG', false);
 }
 
-if (!defined('FPCM_NOJSCSSPHP_FILESIZE_HEADER')) {
-    /**
-     * Dateigröße in style.php und script.php nicht als Header mitschicken
-     * @since 3.4
-     */
-    define('FPCM_NOJSCSSPHP_FILESIZE_HEADER', false);
-}
-
 if (!defined('FPCM_ARTICLE_LOCKED_INTERVAL')) {
     /**
      * Interval um Artikel auf "In Bearbeitung" zu setzten bzw. zu prüfen
@@ -221,4 +213,20 @@ if (!defined('FPCM_CRON_DBDUMP_NOMAIL')) {
      * @since 4.5.3
      */
     define('FPCM_CRON_DBDUMP_NOMAIL', false);
+}
+
+if (!defined('FPCM_USER_SESSION')) {
+    /**
+     * Default session lenght, replaces ACP setting
+     * @since 5.0.0-a3
+     */
+    define('FPCM_USER_SESSION', 3600);
+}
+
+if (!defined('FPCM_FILEMAGER_ITEMS_ROW')) {
+    /**
+     * Default session lenght, replaces ACP setting
+     * @since 5.0.0-b5
+     */
+    define('FPCM_FILEMAGER_ITEMS_ROW', 5);
 }

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4.x
+ * FanPress CM 5.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -75,10 +75,9 @@ class backups extends \fpcm\controller\abstracts\controller implements \fpcm\con
     {
         $isPg = \fpcm\classes\loader::getObject('\fpcm\classes\database')->getDbtype() === \fpcm\classes\database::DBTYPE_POSTGRES;
         
-        $this->view->addButton((new \fpcm\view\helper\deleteButton('delete'))->setClass('fpcm-ui-button-confirm')->setReadonly($isPg));
+        $this->view->addButton((new \fpcm\view\helper\deleteButton('delete'))->setClass('fpcm ui-button-confirm')->setReadonly($isPg)->setIconOnly(false));
         $this->view->addJsFiles(['backups.js']);
 
-        $this->view->assign('headline', 'HL_BACKUPS');
         if ($isPg) {
             $this->view->addErrorMessage('BACKUPS_NOTICE_POSTGRES');
             $this->items = [];
@@ -99,6 +98,15 @@ class backups extends \fpcm\controller\abstracts\controller implements \fpcm\con
         );
 
         $this->view->render();
+    }
+
+    protected function getDataViewTabs() : array
+    {
+        return [
+            (new \fpcm\view\helper\tabItem('tabs-'.$this->getDataViewName().'-list'))
+                ->setText('HL_BACKUPS')
+                ->setFile('components/dataview__inline.php')
+        ];
     }
 
     protected function getDataViewCols()

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4.x
+ * FanPress CM 5.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -210,6 +210,20 @@ final class baseconfig {
     }
 
     /**
+     * HTTPS aktiv
+     * @return bool
+     * @since 3.5
+     */
+    public static function hasOpcache()
+    {
+        if (!isset($GLOBALS['fpcm']['baseconfigdata'][__FUNCTION__])) {
+            $GLOBALS['fpcm']['baseconfigdata'][__FUNCTION__] = ini_get('opcache.enable') == 1 && function_exists('opcache_get_status');
+        }
+
+        return $GLOBALS['fpcm']['baseconfigdata'][__FUNCTION__];
+    }
+
+    /**
      * Aufruf über CLI
      * @return bool
      * @since 4.0
@@ -293,8 +307,6 @@ final class baseconfig {
                 return $controllerList;
             }
         }
-
-        include_once loader::libGetFilePath('spyc/Spyc.php');
 
         $controller = [];
 
@@ -390,8 +402,6 @@ final class baseconfig {
      */
     private static function initServers()
     {
-        include_once loader::libGetFilePath('spyc/Spyc.php');
-
         $servers = \Spyc::YAMLLoad(dirs::getDataDirPath(dirs::DATA_CONFIG, 'servers.yml'));
 
         self::$updateServer = $servers['updates'];

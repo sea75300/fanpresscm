@@ -28,6 +28,15 @@ implements \fpcm\controller\interfaces\isAccessible, \fpcm\controller\interfaces
 
     /**
      * 
+     * @return string
+     */
+    protected function getViewPath(): string
+    {
+        return 'modules/configure';
+    }
+
+    /**
+     * 
      * @return bool
      */
     protected function initActionObjects()
@@ -40,13 +49,12 @@ implements \fpcm\controller\interfaces\isAccessible, \fpcm\controller\interfaces
         }
 
         $this->module = $this->getObject($key);
-        if (!$this->module->isInstalled() || !$this->module->isActive() || !$this->module->hasConfigure($this->useLegacy)) {
+        if (!$this->module->isInstalled() || !$this->module->isActive() || !$this->module->hasConfigure()) {
             $this->view = new \fpcm\view\error("The module '{$key}' is not installed or enabled!");
             $this->view->render();
             return false;
         }
 
-        $this->view = new \fpcm\view\view(($this->useLegacy ? '' : 'modules/') .'configure', $this->useLegacy ? $key : false);
         return true;
     }
 
@@ -114,7 +122,13 @@ implements \fpcm\controller\interfaces\isAccessible, \fpcm\controller\interfaces
             $this->view->addFromModule(['moduleConfig.js'], [], $this->module->getKey());
         }
 
-        $this->view->addButton(new \fpcm\view\helper\saveButton('save'));
+        $this->view->addButtons([
+            (new \fpcm\view\helper\linkButton('backbtn'))->setText('MODULES_LIST_BACKTOLIST')->setUrl(\fpcm\classes\tools::getFullControllerLink('modules/list'))->setIcon('chevron-circle-left'),
+            (new \fpcm\view\helper\saveButton('save'))->setPrimary()
+        ]);
+        $this->view->addTabs('-module'.$this->module->getKey(), [
+            (new \fpcm\view\helper\tabItem('configure-modul'.$this->module->getKey()))->setFile($this->getViewPath())->setText('SYSTEM_HL_OPTIONS_GENERAL')
+        ]);
         $this->view->render();
     }
     
@@ -182,7 +196,7 @@ implements \fpcm\controller\interfaces\isAccessible, \fpcm\controller\interfaces
             return true;
         }
 
-        if (!$this->module->prepareSaveOptions($options) || !$this->module->setOptions($options)) {
+        if (!$this->module->setOptions($options)) {
             $this->view->addErrorMessage('SAVE_FAILED_OPTIONS');
             return true;
         }

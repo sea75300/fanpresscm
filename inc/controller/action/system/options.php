@@ -65,7 +65,7 @@ implements \fpcm\controller\interfaces\isAccessible,
     public function request()
     {
 
-        $this->config = new \fpcm\model\system\config(false, false);
+        $this->config = new \fpcm\model\system\config();
 
         if ($this->request->fromGET('syscheck')) {
             $this->syscheck = $this->request->fromGET('syscheck', [
@@ -135,12 +135,8 @@ implements \fpcm\controller\interfaces\isAccessible,
             $smtpActive = $mail->checkSmtp();
         }
 
-        if ($smtpActive && $this->buttonClicked('configSave') && $this->mailSettingsChanged) {
-            $this->view->addNoticeMessage('SYSTEM_OPTIONS_EMAIL_ACTIVE');
-        }
-
         $this->view->assign('smtpActive', $smtpActive);
-        $this->view->addJsFiles(['options.js', 'systemcheck.js']);
+        $this->view->addJsFiles(['system/options.js', 'systemcheck.js']);
         $this->view->addJsVars([
             'runSysCheck' => $this->syscheck,
             'dtMasks' => $this->getDateTimeMasks()
@@ -157,8 +153,8 @@ implements \fpcm\controller\interfaces\isAccessible,
     private function initButtons()
     {
         $buttons = [
-            (new \fpcm\view\helper\saveButton('configSave'))->setClass('fpcm-ui-maintoolbarbuttons-tab1 fpcm-ui-button-primary'.($this->syscheck ? ' fpcm-ui-hidden' : '')),
-            (new \fpcm\view\helper\button('syschecksubmitstats', 'syschecksubmitstats'))->setText('SYSTEM_OPTIONS_SYSCHECK_SUBMITSTATS')->setClass('fpcm-ui-maintoolbarbuttons-tab2 fpcm-ui-button-primary fpcm-ui-hidden')->setIcon('chart-line'),
+            (new \fpcm\view\helper\saveButton('configSave'))->setPrimary()->setClass('fpcm-ui-maintoolbarbuttons-tab1'.($this->syscheck ? ' fpcm-ui-hidden' : '')),
+            (new \fpcm\view\helper\button('syschecksubmitstats', 'syschecksubmitstats'))->setPrimary()->setText('SYSTEM_OPTIONS_SYSCHECK_SUBMITSTATS')->setClass('fpcm-ui-maintoolbarbuttons-tab2'.($this->syscheck ? '' : ' fpcm-ui-hidden'))->setIcon('chart-line'),
         ];
 
         if (!\fpcm\classes\baseconfig::canConnect() || !$this->permissions->system->update) {
@@ -176,34 +172,48 @@ implements \fpcm\controller\interfaces\isAccessible,
     {
 
         $tabs = [
-            (new \fpcm\view\helper\tabItem('general'))->setText('SYSTEM_HL_OPTIONS_GENERAL')->setWrapper(false)->setUrl('#tabs-options-general')->setData([
-                'toolbar-buttons' => 1
-            ]),
-            (new \fpcm\view\helper\tabItem('editor'))->setText('SYSTEM_HL_OPTIONS_EDITOR')->setWrapper(false)->setUrl('#tabs-options-editor')->setData([
-                'toolbar-buttons' => 1
-            ]),
-            (new \fpcm\view\helper\tabItem('articles'))->setText('SYSTEM_HL_OPTIONS_ARTICLES')->setWrapper(false)->setUrl('#tabs-options-news')->setData([
-                'toolbar-buttons' => 1
-            ]),
-            (new \fpcm\view\helper\tabItem('comments'))->setText('SYSTEM_HL_OPTIONS_COMMENTS')->setWrapper(false)->setUrl('#tabs-options-comments')->setData([
-                'toolbar-buttons' => 1
-            ]),
-            (new \fpcm\view\helper\tabItem('extended'))->setText('GLOBAL_EXTENDED')->setWrapper(false)->setUrl('#tabs-options-extended')->setData([
-                'toolbar-buttons' => 1
-            ]),
-            (new \fpcm\view\helper\tabItem('twitter'))->setText('SYSTEM_HL_OPTIONS_TWITTER')->setWrapper(false)->setUrl('#tabs-options-twitter')->setData([
-                'toolbar-buttons' => 1
-            ]),
-            (new \fpcm\view\helper\tabItem('smtp'))->setText('SYSTEM_OPTIONS_EXTENDED_EMAILSUBMISSION')->setWrapper(false)->setUrl('#tabs-options-smtp')->setData([
-                'toolbar-buttons' => 1
-            ]),
-            (new \fpcm\view\helper\tabItem('syscheck'))->setText('SYSTEM_HL_OPTIONS_SYSCHECK')->setWrapper(false)->setUrl(\fpcm\classes\tools::getFullControllerLink('ajax/syscheck'))->setData([
-                'toolbar-buttons' => 2
-            ]),
+            (new \fpcm\view\helper\tabItem('general'))
+                ->setText('SYSTEM_HL_OPTIONS_GENERAL')
+                ->setFile($this->getViewPath() . '.php')
+                ->setTabToolbar(1)
+            ,
+            (new \fpcm\view\helper\tabItem('editor'))
+                ->setText('SYSTEM_HL_OPTIONS_EDITOR')
+                ->setFile('system/editor.php')
+                ->setTabToolbar(1)
+            ,
+            (new \fpcm\view\helper\tabItem('articles'))
+                ->setText('SYSTEM_HL_OPTIONS_ARTICLES')
+                ->setFile('system/news.php')
+                ->setTabToolbar(1)
+            ,
+            (new \fpcm\view\helper\tabItem('comments'))
+                ->setText('COMMMENT_HEADLINE')                
+                ->setFile('system/comments.php')
+                ->setTabToolbar(1)
+            ,
+            (new \fpcm\view\helper\tabItem('extended'))
+                ->setText('GLOBAL_EXTENDED')
+                ->setFile('system/extended.php')
+                ->setTabToolbar(1)
+            ,
+            (new \fpcm\view\helper\tabItem('twitter'))
+                ->setText('SYSTEM_HL_OPTIONS_TWITTER')
+                ->setFile('system/twitter.php')
+                ->setTabToolbar(1)
+            ,
+            (new \fpcm\view\helper\tabItem('smtp'))
+                ->setText('SYSTEM_OPTIONS_EXTENDED_EMAILSUBMISSION')
+                ->setFile('system/smtp.php')
+                ->setTabToolbar(1)
+            ,
+            (new \fpcm\view\helper\tabItem('syscheck'))
+                ->setText('SYSTEM_HL_OPTIONS_SYSCHECK')
+                ->setUrl(\fpcm\classes\tools::getFullControllerLink('ajax/syscheck'))
+                ->setTabToolbar(2)
         ];
 
-        $this->view->setActiveTab($this->syscheck ? count($tabs)-1 : $this->getActiveTab());
-        $this->view->assign('tabs', $tabs);
+        $this->view->addTabs('options', $tabs, 'fpcm ui-tabs-function-autoinit', $this->syscheck ? count($tabs)-1 : $this->getActiveTab());
     }
 
 
@@ -240,6 +250,10 @@ implements \fpcm\controller\interfaces\isAccessible,
         if (!$this->config->update()) {
             $this->view->addErrorMessage('SAVE_FAILED_OPTIONS');
             return false;
+        }
+        
+        if ($this->config->smtp_enabled && $this->mailSettingsChanged && (new \fpcm\classes\email('', '', ''))->checkSmtp()) {
+            $this->view->addNoticeMessage('SYSTEM_OPTIONS_EMAIL_ACTIVE', [], true);
         }
 
         $this->view->addNoticeMessage('SAVE_SUCCESS_OPTIONS');

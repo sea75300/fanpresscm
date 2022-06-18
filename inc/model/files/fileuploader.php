@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4.x
+ * FanPress CM 5.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -83,7 +83,7 @@ final class fileuploader extends \fpcm\model\abstracts\staticModel {
                 $res['error'][$key] = $fileNames[$key];
                 continue;
             }
-
+            
             $image->createThumbnail();
             $image->setFiletime(time());
             $image->setUserid($userId);

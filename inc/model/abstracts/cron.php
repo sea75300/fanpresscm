@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4.x
+ * FanPress CM 5.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -80,6 +80,13 @@ abstract class cron implements \fpcm\model\interfaces\cron {
      * @var bool
      */
     protected $asyncCurrent = false;
+
+    /**
+     * add execution parameters
+     * @var array
+     * @since 5.0.0-b3
+     */
+    protected $execParams = false;
     
     /**
      * Konstruktor
@@ -312,6 +319,32 @@ abstract class cron implements \fpcm\model\interfaces\cron {
     {
         $this->isrunning = 0;
         return $this->dbcon->update($this->table, ['isrunning'], [$this->isrunning, $this->cronName], 'cjname=?');        
+    }
+
+    /**
+     * Sets execution parameter
+     * @param array $execParams
+     * @return $this
+     * @since 5.0.0-b3
+     */
+    final public function setExecParams(array $execParams)
+    {
+        $this->execParams = $execParams;
+    }
+
+    /**
+     * Return execution parameter
+     * @param string $val
+     * @return mixed
+     * @since 5.0.0-b3
+     */
+    final public function getExecParams(string $val = '')
+    {
+        if (!trim($val)) {
+            return $this->execParams;
+        }
+        
+        return $this->execParams[$val] ?? null;
     }
 
     /**

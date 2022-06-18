@@ -1,22 +1,25 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
 <?php /* @var $tab \fpcm\view\helper\tabItem */ ?>
-<?php if (!isset($tabsInline) || !$tabsInline) : ?>
-<div class="fpcm-content-wrapper">
-<?php endif; ?>
-    <div class="fpcm-ui-tabs-general ui-tabs ui-corner-all ui-widget ui-widget-content <?php print $tabsClass; ?>" id="<?php print $tabsId; ?>">
-        <ul class="ui-tabs-nav ui-corner-all ui-helper-reset ui-helper-clearfix ui-widget-header">
-            <?php foreach ($tabs as $tab) : ?><?php print $tab; ?><?php endforeach; ?>
-        </ul>
+<div class="fpcm ui-tabs-wrapper <?php print $tabsClass; ?>" id="<?php print $tabsId; ?>">
+    <ul class="nav nav-tabs flex-column flex-sm-row" role="tablist">
+    <?php foreach ($tabs as $tabIdx => $tab) : ?>
+        <?php print $tab->setSaveIndex($tabIdx); ?>
+    <?php endforeach; ?>
+    </ul>    
 
-        <?php foreach ($tabs as $tab) : ?>
-            <?php if (!$tab->getFile()) : continue; endif; ?>
-            <div <?php print $tab->getIdString(); ?> class="fpcm tabs-register ui-tabs-panel ui-corner-bottom ui-widget-content">
-                <?php include $theView->getIncludePath($tab->getFile()); ?>
-            </div>
+    <div class="tab-content <?php if (!isset($hideTabBackground)) : ?>fpcm ui-background-white-50p<?php endif; ?>">
+    <?php foreach ($tabs as $tab) : ?>
 
-        <?php endforeach; ?>
-
+        <div id="fpcm-tab-<?php print $tab->getId(); ?>-pane" class="tab-pane fade <?php if ($tab->isActive()) : ?>show active<?php endif; ?>" role="tabpanel" aria-labelledby="fpcm-tab-<?php print $tab->getId(); ?>">
+            <?php if ($tab->getFile() && $tab->canPreload()) : ?>
+                <?php include $tab->getFile(); ?>
+            <?php endif; ?>
         </div>
-<?php if (!isset($tabsInline) || !$tabsInline) : ?>
+    <?php endforeach; ?>
     </div>
+</div>        
+
+<?php if (trim($theView->includeForms)) : ?>
+<?php include $theView->getIncludePath($theView->includeForms); ?>
 <?php endif; ?>
+

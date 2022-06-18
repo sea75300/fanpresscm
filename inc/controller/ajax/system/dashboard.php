@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4.x
+ * FanPress CM 5.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -40,6 +40,8 @@ class dashboard extends \fpcm\controller\abstracts\ajaxController implements \fp
     {
         $this->getClasses();
         $this->view->assign('containers', $this->containers);
+        $this->view->includeFullJsVarsNoheader(true);
+        $this->view->render();
     }
 
     /**

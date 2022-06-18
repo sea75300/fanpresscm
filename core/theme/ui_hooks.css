@@ -1,154 +1,29 @@
-/* ------ jQuery UI */
-h2.ui-accordion-header {
-    box-shadow:none;
+/* ------ Bootstrap */
+div.tab-pane {
+    min-height: 50vh;
 }
 
-.ui-widget,
-.ui-controlgroup .ui-controlgroup-label span {
-    font-size: 1em;
+div.fpcm.ui-tabs-wrapper > ul.nav.nav-tabs li.nav-item {
+    margin-left: 0.1rem;
+    margin-right: 0.1rem;
 }
 
-div.ui-tabs {
-    height: 100%;
-    min-height: 66vh;
+div.fpcm.ui-tabs-wrapper > ul.nav.nav-tabs li.nav-item:first-child {
+    margin-left: 0;
 }
 
-.fpcm-ui-permissions-container .ui-button {
-    margin: 0.3em 0em;
+div.fpcm.ui-tabs-wrapper > ul.nav.nav-tabs li.nav-item:last-child {
+    margin-right: 0;
 }
 
-.ui-spinner input,
-.ui-spinner input:hover,
-.ui-spinner input:focus,
-.ui-spinner input:active {
-    border: 0 !important;
-    box-shadow: none !important;
-    padding: 0;
+div.fpcm.offcanvas-large {
+    min-width: 400px;
+    width: 33%;
+    max-width: 994px;
 }
 
-.ui-spinner {
-    padding: 0.2em;
-    width: 195px;
-    max-height: 31.3333px !important;
-}
-
-.ui-datepicker {
-    z-index: 1000 !important;
-}
-
-.ui-selectmenu-menu {
-    max-height: 225px !important;
-    overflow-y: auto;
-    overflow-x: hidden;
-    margin-bottom: 3px;
-}
-
-.ui-selectmenu-menu .ui-menu .ui-selectmenu-optgroup {
-    font-size: 1.25em;
-}
-
-div.row.fpcm-ui-selectmenu-border-radius-right > span.ui-selectmenu-button {
-    border-radius: 0 5px 5px 0;
-}
-
-.ui-accordion.ui-state-disabled {
-    opacity: 1;
-}
-
-.ui-autocomplete {
-    max-height: 300px;
-    overflow-y: auto;
-    overflow-x: hidden;
-}
-
-.ui-icon-blank {
-    background-position: 16px 16px !important;
-}
-
-.ui-icon-check {
-    background-position: -64px -144px !important;
-}
-
-.ui-controlgroup-label.ui-widget-content:last-child {
-    border-right: 1px solid;
-}
-
-.ui-tabs .ui-tabs-nav {
-    border-bottom: 1px solid #00aded;
-}
-
-.ui-tabs .ui-tabs-nav li.ui-tabs-active {
-    margin-bottom: 0px !important;
-    padding-bottom: 0px !important;
-}
-
-.ui-tabs.ui-widget-content {
-    color: inherit !important;
-    background-color: rgba(255,255,255,0.65);
-}
-
-.ui-autocomplete.ui-widget-content {
-    color: inherit !important;
-    background-color: rgba(255,255,255,0.85);
-}
-
-.ui-autocomplete.ui-widget-content,
-.ui-widget-overlay.ui-front {
-    backdrop-filter: blur(5px);
-}
-
-.ui-checkboxradio-icon,
-.ui-checkboxradio-icon.ui-state-active,
-.ui-checkboxradio-icon.ui-state-checked {
-    background-color: #fff;
-}
-
-.ui-progressbar .ui-progressbar-value {
-    margin: 0;
-}
-
-.ui-button.fpcm-ui-button-primary,
-.ui-progressbar-value {
-    background-image: url("../../lib/jquery-ui/images/ui-bg_highlight-soft_25_0073ea_1x100_dark.png");
-}
-
-.ui-progressbar-value {
-    background-color: #0073ea;
-}
-
-.ui-checkboxradio-label:hover .ui-checkboxradio-icon {
-    background-image: url("../../lib/jquery-ui/images/ui-icons_666666_256x240.png");
-}
-
-.ui-menu .ui-menu-item .ui-menu-item-wrapper.ui-state-active,
-.ui-button.fpcm-ui-button-primary:hover,
-.ui-button.fpcm-ui-button-primary:focus,
-.ui-button.fpcm-ui-button-primary:active {
-    background-image: url("../../lib/jquery-ui/images/ui-bg_highlight-soft_25_0073ea_1x100.png");
-}
-
-.ui-button.fpcm-ui-button-primary .ui-icon {
-    background-image: url("../../lib/jquery-ui/images/ui-icons_ffffff_256x240.png") !important;
-}
-
-.ui-menu .ui-menu-item .ui-menu-item-wrapper.ui-state-active,
-.fpcm-ui-button-link.fpcm-ui-button-primary span {
-    color: #fff;
-}
-
-.ui-datepicker-title > select,
-.ui-datepicker-title > .ui-datepicker-month,
-.ui-datepicker-title > .ui-datepicker-year {
-    min-width: auto;
-    height: auto;
-}
-
-@media (max-width: 1024px) {
-    
-    div.ui-tabs {
-        min-height: 0 !important;
-    }
-
+.vh-75 {
+    height: 75vh;
 }
 
 /* ------ TinyMCE */
@@ -159,11 +34,6 @@ td.fpcm-tinymce-emoticons img {
 div.mce-fpcm-ui-emoticons-panel {
     width: auto !important;
     height: auto !important;
-}
-
-/* ------ CodeMirror */
-.CodeMirror {
-    height: 50vh !important;
 }
 
 /* ------ Selectize.js */
@@ -177,16 +47,16 @@ div.mce-fpcm-ui-emoticons-panel {
     box-shadow: none !important;
 }
 
-.fpcm-ui-editor-categories-massedit .selectize-input {
-    padding: 5px;
-}
-
-.fpcm-ui-editor-categories-massedit .selectize-input.items,
-.fpcm-ui-editor-categories-massedit .selectize-control.multi.selectize-input.has-items {
-    width: 100%;
+.selectize-control.multi .selectize-input [data-value] {
+    background-image: none !important;
 }
 
 /* php-diff */
+
+table.diff-wrapper {
+    width: 100%;
+}
+
 .diff-wrapper.diff tbody th.sign.del {
   background: #fbe1e1;
 }

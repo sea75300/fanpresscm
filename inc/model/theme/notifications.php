@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4.x
+ * FanPress CM 5.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -16,7 +16,7 @@ namespace fpcm\model\theme;
  * @package fpcm\model\theme
  * @since 3.6
  */
-class notifications {
+class notifications implements \Countable {
 
     /**
      * List of notificatio objects
@@ -25,12 +25,19 @@ class notifications {
     private $notifications = [];
 
     /**
+     * Counter of notifications
+     * @var int
+     */
+    private $ctr = null;
+
+    /**
      * Notification hinzufügen
      * @param \fpcm\model\theme\notificationItem $notification
      */
     public function addNotification(notificationItem $notification)
     {
         $this->notifications[] = $notification;
+        $this->ctr = null;
     }
 
     /**
@@ -43,13 +50,31 @@ class notifications {
     }
 
     /**
-     * Notifications anzeigen
+     * Array mit Notifications zurückgeben
      * @return array
      */
-    public function getNotificationsString()
+    public function count() : int
+    {
+        if ($this->ctr === null) {
+            $this->ctr = count($this->notifications);
+        }
+
+        return $this->ctr;
+    }
+
+    /**
+     * Returns notification string
+     * @return string
+     */
+    public function __toString() : string
     {
         if (!count($this->notifications)) {
-            return '';
+            $this->addNotification(new \fpcm\model\theme\notificationItem(
+                (new \fpcm\view\helper\icon('ban'))->setText('GLOBAL_NOTFOUND2'),
+                '',
+                '',
+                'disabled'
+            ));
         }
 
         $notificationStrings = array_map([$this, 'asString'], $this->notifications);

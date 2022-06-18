@@ -12,22 +12,29 @@
 
     </head>  
 
-    <body class="fpcm-body <?php print $theView->bodyClass; ?>" id="fpcm-body">
+    <body class="fpcm-body" id="fpcm-body">
+        <div class="position-absolute top-50 start-50 translate-middle col-12 col-md-8 col-lg-6 col-xl-4">
+            <div class="shadow-lg rounded p-4 fpcm ui-background-white-50p ui-blurring">
 
-        <div class="row no-gutters fpcm-ui-full-view-height m-2 ms-0 justify-content-center">
-            <div class="fpcm ui-form-login col-12 col-md-10 col-lg-8 col-xl-5 align-self-center">
-                <div class="fpcm ui-background-white-50p ui-blurring fpcm-ui-border-radius-all p-3 py-md-3 px-md-4 fpcm ui-align-center">
+                <header>
+                    <div class="row g-0 mb-3">
+                        <!-- FanPress CM News System <?php print $theView->version; ?> -->
+                        <div class="col-auto">
+                            <img class="border-bottom border-5 border-info" src="<?php print $theView->themePath; ?>logo.svg" role="presentation" alt="FanPress CM News System <?php print $theView->version; ?>">
+                        </div>
+                        <div class="col align-self-center">
+                            <h1 class="d-none d-xl-block fs-3">FanPress CM News System</h1>
+                        </div>
 
-                    <h1 class="fpcm-ui-margin-md-bottom"><?php $theView->icon('chevron-right'); ?> <span>FanPress CM</span> <span>News System</span></h1>
+                    </div>
 
-                    <p class=""><?php $theView->icon($icon.' fa-inverse')->setStack('square')->setClass('fa-5x fpcm-ui-important-text'); ?></p>
-                    <p><?php print $errorMessage; ?></p>
-                    <p><?php $theView->linkButton('backBtn')->setUrl($backController ? $backController : 'javascript:window.history.back();')->setText('GLOBAL_BACK')->setIcon('chevron-circle-left'); ?></p>
+                </header>
 
-                </div>
+                <p class="text-center"><?php $theView->icon($icon.' fa-inverse')->setStack('square')->setClass('fa-5x text-danger'); ?></p>
+                <p class="text-center"><?php print $errorMessage; ?></p>
+                <p class="text-center"><?php $theView->linkButton('backBtn')->setUrl($backController ? $backController : 'javascript:window.history.back();')->setText('GLOBAL_BACK')->setIcon('chevron-circle-left'); ?></p>
             </div>
         </div>
-        
     </body>
 </html>
 

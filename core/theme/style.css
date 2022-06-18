@@ -1,7 +1,5 @@
 /* ------ Text aligns */
 label,
-.fpcm-ui-field-label-general,
-.fpcm-ui-field-input-nowrapper-general,
 .fpcm.ui-align-ellipsis,
 .fpcm-ui-ellipsis    {
     overflow: hidden;
@@ -9,241 +7,27 @@ label,
     text-overflow: ellipsis;
 }
 
-.fpcm.ui-align-left,
-.fpcm-ui-align-left {
-    text-align:left;
-}
-
-.fpcm.ui-align-right,
-.fpcm-ui-align-right {
-    text-align:right;
-}
-
-.fpcm.ui-align-justify,
-.fpcm-ui-align-justify {
-    text-align:justify;
-}
-
-.fpcm.ui-align-center,
-.fpcm-ui-center,
-.fpcm-ui-align-center {
-    text-align: center;
-}
-
 /* ------ Paddings and margins */
-.fpcm-ui-padding-none-left {
-    padding-left: 0;
-}
-
-.fpcm-ui-padding-none-right {
-    padding-right: 0;
-}
-
-.fpcm-ui-padding-none-lr {
-    padding-left: 0;
-    padding-right: 0;
-}
-
-.fpcm-ui-padding-none {
-    padding: 0em;
-}
-
-.fpcm-ui-padding-md-all {
-    padding: 0.5em;
-}
-
-.fpcm-ui-padding-md-lr {
-    padding-left: 0.5em;
-    padding-right: 0.5em;
-}
-
-.fpcm-ui-padding-md-tb {
-    padding-top: 0.5em;
-    padding-bottom: 0.5em;
-}
-
-.fpcm-ui-padding-md-left {
-    padding-left: 0.5em;
-}
-
-.fpcm-ui-padding-md-right {
-    padding-right: 0.5em;
-}
-
-.fpcm-ui-padding-md-top {
-    padding-top: 0.5em;
-}
-
-.fpcm-ui-padding-md-bottom {
-    padding-bottom: 0.5em;
-}
-
-.fpcm-ui-padding-lg-lr {
-    padding-left: 1em;
-    padding-right: 1em;
-}
-
-.fpcm-ui-padding-lg-tb {
-    padding-top: 1em;
-    padding-bottom: 1em;
-}
-
-.fpcm-ui-padding-lg-left {
-    padding-left: 1em;
-}
-
-.fpcm-ui-padding-lg-right {
-    padding-right: 1em;
-}
-
-.fpcm-ui-padding-lg-top {
-    padding-top: 1em;
-}
-
-.fpcm-ui-padding-lg-bottom {
-    padding-bottom: 1em;
-}
-
-.fpcm-ui-margin-md-all,
-.fpcm-ui-margin-md-bottom {
-    margin-bottom: 0.5em;
-}
-
-.fpcm-ui-margin-md-all,
-.fpcm-ui-margin-md-left,
-#twitterReplacements-button {
-    margin-left: 0.5em;
-}
-
-.fpcm-ui-margin-md-all,
-.fpcm-ui-margin-md-right {
-    margin-right: 0.5em;
-}
-
-.fpcm-ui-margin-md-all,
-.fpcm-ui-margin-md-top,
-.fpcm-body.fpcm-content-nobuttons div.fpcm-content-wrapper {
-    margin-top: 0.5em;
-}
-
-.fpcm-ui-margin-lg-bottom {
-    margin-bottom: 1em;
-}
-
-.fpcm-ui-margin-lg-top {
-    margin-top: 1em;
-}
-
-.fpcm-ui-margin-lg-left {
-    margin-left: 1em;
-}
-
-.fpcm-ui-margin-lg-right {
-    margin-right: 1em;
-}
-
-.fpcm-ui-margin-none {
-    margin: 0;
-}
-
-.fpcm-ui-margin-none-left {
-    margin-left: 0 !important;
-}
-
-.fpcm-ui-margin-none-right {
-    margin-right: 0 !important;
-}
-
-.fpcm-ui-margin-center {
-    margin-left: auto;
-    margin-right: auto;
-}
-
 div.row {
     margin-left: 0;
     margin-right: 0;
 }
 
-/* ------ Positions */
-.fpcm-ui-position-fixed {
-    position: fixed;
-}
-
-.fpcm-ui-position-relative {
-    position: relative;
-}
-
-.fpcm-ui-position-absolute,
-.fpcm-editor-select,
-.fpcm-editor-dialog iframe {
-    position: absolute;
-}
-
-.fpcm-ui-position-top-0,
-.fpcm-ui-position-absolute-0 {
-    top: 0px;
-}
-
-.fpcm-ui-position-bottom-0,
-.fpcm-ui-position-absolute-0 {
-    bottom: 0px;
-}
-
-.fpcm-ui-position-left-0,
-.fpcm-ui-position-absolute-0 {
-    left: 0px;
-}
-
-.fpcm-ui-position-right-0,
-.fpcm-ui-position-absolute-0 {
-    right: 0px;
-}
-
 /* ------ General floats and displays */
-.fpcm-ui-float-left,
-.fpcm-ui-progressbar-label,
-.fpcm.ui-progressbar-label {
+.fpcm-ui-float-left {
     float: left;
 }
 
-span.fpcm-ui-badge,
 .fpcm-ui-float-right {
     float: right;
 }
 
-span.fpcm-ui-badge.fpcm-ui-badge-comments,
-span.fpcm-ui-badge.fpcm-ui-badge-userarticles,
 .fpcm-ui-float-none {
     float: none;
 }
 
 .fpcm-ui-clear {
     clear: both;
-}
-
-span.fpcm-ui-badge,
-#fpcm-filemanager-upload-drop h4:before,
-div.fileupload-progress.in,
-.fpcm-ui-progressbar-label,
-.fpcm.ui-progressbar-label,
-.fpcm-ui-permissions-container .ui-button,
-.fpcm-ui-block,
-.fpcm.ui-block {
-    display: block;
-}
-
-span.fpcm-ui-badge.fpcm-ui-badge-comments,
-span.fpcm-ui-badge.fpcm-ui-badge-userarticles,
-.fpcm-ui-input-wrapper,
-.fpcm-ui-inline-block,
-.fpcm.ui-inline-block {
-    display: inline-block;
-}
-
-.fpcm.ui-hidden,
-.fpcm-ui-hidden,
-.fpcm-editor-select {
-    display: none;
 }
 
 /* ------ General borders */
@@ -264,109 +48,8 @@ span.fpcm-ui-badge.fpcm-ui-badge-userarticles,
     border-left: none !important;
 }
 
-/* ------ Widths and heights */
-.fpcm.ui-full-width,
-.fpcm-ui-full-width,
-.fpcm-ui-input-wrapper,
-.fpcm-ui-input-wrapper input,
-.fpcm-ui-progressbar,
-.fpcm-editor-dialog iframe,
-.fpcm-editor-select a {
-    width: 100%;
-}
-
-#fpcm-dialog-help,
-#mainhelp {
-    width: 100% !important;
-}
-
-.fpcm-ui-full-height {
-    height: 100%;
-}
-
-.fpcm-ui-full-view-height {
-    height: 100vh;
-}
-
-.fpcm.ui-full-view-max-width-100p {
-    max-width: 100%;
-}
-
-.fpcm.ui-full-view-min-width-100p {
-    min-width: 100%;
-}
-
-.fpcm-ui-full-view-min-height {
-    min-height: 100vh !important;
-}
-
-.fpcm-ui-full-min-height {
-    height: auto;
-    min-height: 100%;
-}
-
-.fpcm-quarter-width {
-    width: 25%;
-}
-
-.fpcm-half-width {
-    width: 50% !important;
-}
-
-.fpcm-ui-button,
-.fpcm-ui-controlgroup > *,
-.ui-selectmenu-button,
-.ui-checkboxradio-label,
-.fpcm-ui-element-min-height {
-    min-height: 18.666666666666666666666667px;
-    line-height: 18.666666666666666666666667px;
-}
-
-.fpcm.ui-element-min-height-md,
-.fpcm-ui-element-min-height-md,
-.fpcm-ui-field-input-nowrapper-general,
-.fpcm-ui-field-label-general {
-    min-height: 21.3333px;
-    line-height: 21.3333px;
-}
-
-.fpcm-editor-html-click {
-    min-height: 31px;
-}
-
-div.fpcm-ui-inline-loader {
-    height: 50vh;
-    max-height: 1024px;
-}
-
 ul.fpcm-ui-csv-fields {
     min-height: 100px;
-}
-
-.fpcm-ui-controlgroup.fpcm-ui-borderradius-remove-left > .ui-button:first-child {
-    border-radius: 0 !important;
-}
-
-/* ------ Message box styles */
-#fpcm-messages {
-    top: 4em;
-    z-index: 10000;
-    max-width: 66%;
-    min-width: 400px;
-}
-
-.fpcm-message-box {
-    padding: 0.3em;
-    margin: 0.5em 0;
-}
-
-.fpcm-message-box a {
-    margin-left: 0.3em;
-}
-
-.fpcm-message-box .fpcm-ui-messages-close {
-    font-size: 0.6em;
-    cursor: pointer;
 }
 
 /* ------ Opacities */
@@ -382,23 +65,22 @@ ul.fpcm-ui-csv-fields {
     backdrop-filter: blur(5px);
 }
 
-.fpcm.ui-status-075,
-.fpcm-ui-status-075 {
-    opacity: 0.75;
+.fpcm.ui-invert-1 {
+    filter: invert(1);
 }
 
 div.fileupload-progress.fpcm-ui-fade {
     opacity: 0;
-    -webkit-transition: opacity .15s linear;
-    -o-transition: opacity .15s linear;
     transition: opacity .15s linear;
 }
 
 div.fileupload-progress.in {
     opacity: 1;
-    -webkit-transition: opacity .15s linear;
-    -o-transition: opacity .15s linear;
     transition: opacity .15s linear;
+}
+
+.fpcm.ui-background-transition {
+    transition: background-color 0.5s ease;
 }
 
 /* ------ Badge styles */
@@ -406,89 +88,24 @@ span.fpcm-ui-badge {
     z-index: 999;
 }
 
-span.fpcm-ui-badge.fpcm-ui-badge-comments,
-span.fpcm-ui-badge.fpcm-ui-badge-userarticles {
-    font-size: 0.9em;
-    min-width: 4em;
-    line-height: 2em;
-    padding: 0em 0.5em;
-}
-
-div.fpcm-ui-editor-metabox span.fpcm-ui-editor-metainfo {
-    font-size: 1.1rem;
-}
-
 /* ------ General classes and ids */
 
 #fpcm-loader {
-    z-index : 9999;
     display : none;
 }
 
-#fpcm-loader > div.fpcm-loader-icon {
-    top: calc(50vh - 2em);
+#fpcm-loader > div:first-child {
+    z-index : 9999;
 }
 
-#fpcm-loader > div.fpcm-loader-icon > span.fpcm.ui-label {
-    margin-left: 0.5rem;
-}
-
-div.fpcm-ui-datepicker-inputwrapper {
-    max-width: 200px;
-}
-
-.fpcm-ui-inner-wrapper {
-    margin: 0.5em;
-}
-
-.fpcm-debug-data,
+.fpcm.ui-font-small,
 .fpcm-ui-font-small {
     font-size: 0.85em;
-}
-
-.fpcm-ui-tabs-general {
-    overflow: hidden;
-}
-
-.fpcm-tabs-scroll {
-    overflow: auto;
-    padding-bottom: 0.2em;
-}
-
-.fpcm-editor-dialog iframe {
-    border: 0;
-    margin: 0;
-    padding: 0;
-    height:100%;
-    bottom: 0px;
-    top: 0px;
-    left: 0px;
 }
 
 #fpcm-dialog-editor-shortlink iframe {
     height:50px;
     min-height:50px;
-}
-
-.fpcm-ui-permissions-container h2,
-.fpcm-editor-dialog h2 {
-    margin:0px 0px 5px 0px;
-}
-
-.fpcm-editor-select {
-    min-width: 125px !important;
-    max-width: 250px;
-    padding: 0.4em;
-    z-index: 525;
-}
-
-.fpcm-editor-select a {
-    line-height: 1.4em;
-    font-weight: normal;
-}
-
-#fpcm-dialog-editor-html-insertsmileys {
-    line-height: 25px;
 }
 
 li.fpcm-ui-smileylist-preview {
@@ -505,57 +122,8 @@ img.fpcm-ui-smileylist-preview {
     cursor: pointer;
 }
 
-.fpcm-ui-progressbar,
-.fpcm.ui-progressbar {
-    margin: 0 auto;
-    overflow: hidden;
-    min-height: 35px;
-    position: relative;
-}
-
-.fpcm-ui-progressbar-label,
-.fpcm.ui-progressbar-label {
-    position: absolute;
-    left: 0.2rem;
-    top: 0.2rem;
-    font-size: 0.8rem;
-}
-
-.fileupload-progress .fpcm.ui-progressbar-label {
-    top: 1.25rem;
-}
-
-.fpcm-ui-border-radius-all,
-.fpcm-ui-field-input-nowrapper-general {
-    border-radius: 5px;
-}
-
-.fpcm-ui-border-radius-right {
-    border-radius: 0 5px 5px 0;
-}
-
-.fpcm-ui-border-radius-left {
-    border-radius: 5px 0 0 5px;
-}
-
-.fpcm-ui-border-radius-top {
-    border-radius: 5px 5px 0 0;
-}
-
-.fpcm-ui-border-radius-bottom {
-    border-radius: 0 0 5px 5px;
-}
-
-.fpcm.ui-border-radius-none {
-    border-radius: 0;
-}
-
-div.fpcm-accordion-pkgmanager ul {
-    padding-left: 1.2em;
-}
-
-div.fpcm-filelist-actions-box {
-    margin: 0.5em 0em;
+.fpcm-ui-progressbar {
+    height: 35px;
 }
 
 div.fpcm-filelist-thumb-box img {
@@ -587,4 +155,40 @@ div.fpcm-filelist-thumb-box img {
 ul.fpcm-ui-list-style-none {
     list-style-type: none;
     list-style-image: none;
+}
+
+div.fpcm.ui-message {
+    z-index: 9999 !important;
+}
+
+#fpcm-ui-toolbar .form-select {
+    display: inline-block;
+    width: auto;
+}
+
+/* ------ Forms common */
+.fpcm-ui-readonly {
+    opacity: 0.35;
+}
+
+textarea.fpcm-ui-textarea-medium,
+textarea.fpcm.ui-textarea-medium {
+    min-height: 25vh;
+}
+
+textarea.fpcm.ui-textarea-noresize {
+    resize: none;
+}
+
+.fpcm-ui-box-sizing-none {
+    box-sizing: initial !important;
+}
+
+div.fileupload-progress.in {
+    display: block;
+}
+
+.fpcm.ui-hidden,
+.fpcm-ui-hidden {
+    display: none !important;
 }

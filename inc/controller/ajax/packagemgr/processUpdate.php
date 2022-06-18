@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4.x
+ * FanPress CM 5.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -88,7 +88,7 @@ class processUpdate extends \fpcm\controller\abstracts\ajaxController implements
         if ($this->processByParam('exec', 'step') === self::ERROR_PROCESS_BYPARAMS) {
             $this->response->setReturnData(new \fpcm\model\http\responseDataPkgMgr(false))->fetch();
         }
-
+        
         $this->response->setReturnData(new \fpcm\model\http\responseDataPkgMgr($this->res, $this->pkgdata, $this->message));
 
         usleep(500000);
@@ -210,6 +210,7 @@ class processUpdate extends \fpcm\controller\abstracts\ajaxController implements
     {
         fpcmLogSystem('Update package manager logfile!');
         $this->res = $this->pkg->updateLog();
+        (new \fpcm\model\crons\updateCheck())->run();
         return;
     }
 

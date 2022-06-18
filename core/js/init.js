@@ -9,11 +9,9 @@ jQuery.noConflict();
 
 (function () {
     fpcm.ui.init();
-    fpcm.ui_navigation.init();
     fpcm.ui_notify.init();
 
     delete fpcm.ui.init;
-    delete fpcm.ui_navigation.init;
     delete fpcm.ui_notify.init;
 
     fpcm.worker = new Worker('core/js/worker.js');
@@ -56,7 +54,13 @@ jQuery(document).ready(function () {
             return true;
         }
 
-        object.init();
+        try {
+            object.init();
+        } catch (_e) {
+            console.log(_e);
+            alert('UI init error!\n>> Code: ' + _e.message);
+        }
+
     });
 
     jQuery.each(fpcm, function (idx, object) {
@@ -64,7 +68,12 @@ jQuery(document).ready(function () {
             return true;
         }
 
-        object.initAfter();
+        try {
+            object.initAfter();
+        } catch (_e) {
+            console.log(_e);
+            alert('UI initAfter error!\n>> Code: ' + _e.message);
+        }
     });
 
 });

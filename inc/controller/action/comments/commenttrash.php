@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4.x
+ * FanPress CM 5.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -87,9 +87,21 @@ class commenttrash extends \fpcm\controller\abstracts\controller implements \fpc
         $this->view->addJsFiles(['comments/module.js']);
 
         $this->view->addButtons([    
-            (new \fpcm\view\helper\select('action'))->setOptions(['ARTICLE_LIST_RESTOREARTICLE' => 'restoreFromTrash', 'ARTICLE_LIST_EMPTYTRASH' => 'emptyTrash']),
-            (new \fpcm\view\helper\submitButton('doAction'))->setIcon('check')->setText('GLOBAL_OK')->setIconOnly(true)->setClass('fpcm-ui-articleactions-ok')
-
+            (new \fpcm\view\helper\button('restoreFromTrash'))
+                ->setIcon('trash-restore')
+                ->setText('ARTICLE_LIST_RESTOREARTICLE')
+                ->setOnClick('comments.restoreFromTrash'),
+            (new \fpcm\view\helper\button('emptyTrash'))
+                ->setIcon('recycle')
+                ->setText('ARTICLE_LIST_EMPTYTRASH')
+                ->setIconOnly(true)
+                ->setOnClick('comments.emptyTrash')
+        ]);
+        
+        $this->view->addTabs('comments', [
+            (new \fpcm\view\helper\tabItem('tabs-comments-trash'))
+                ->setText('ARTICLES_TRASH')
+                ->setFile($this->getViewPath() . '.php')
         ]);
 
         $this->initDataView();

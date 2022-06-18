@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4.x
+ * FanPress CM 5.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -12,7 +12,7 @@ namespace fpcm\model\dashboard;
  * 
  * @package fpcm\model\dashboard
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 class recentarticles extends \fpcm\model\abstracts\dashcontainer implements \fpcm\model\interfaces\isAccessible {
@@ -66,13 +66,65 @@ class recentarticles extends \fpcm\model\abstracts\dashcontainer implements \fpc
 
         $this->getCacheName('_' . $this->currentUser);
 
-        $this->permissions = \fpcm\classes\loader::getObject('\fpcm\model\permissions\permissions');
-
-        if ($this->cache->isExpired($this->cacheName)) {
-            $this->renderContent();
+        if (!$this->cache->isExpired($this->cacheName)) {
+            return $this->cache->read($this->cacheName);
         }
 
-        return $this->cache->read($this->cacheName);
+        $articleList = new \fpcm\model\articles\articlelist();
+        $userlist = new \fpcm\model\users\userList();
+
+        $conditions = new \fpcm\model\articles\search();
+        $conditions->limit = [10, 0];
+        $conditions->orderby = ['createtime DESC'];
+
+        $articles = $articleList->getArticlesByCondition($conditions);
+        
+        if (!count($articles)) {
+            $str = $this->language->translate('GLOBAL_NOTFOUND2');
+            $this->cache->write($this->cacheName, $str);
+            return $str;
+        }
+
+        $users = array_flip($userlist->getUsersNameList());
+
+        $content = [];
+        $content[] = '<div>';
+        
+        $createStr = $this->language->translate('GLOBAL_AUTHOR_EDITOR');
+        
+        /* @var $article \fpcm\model\articles\article */
+        foreach ($articles as $article) {
+
+            $createInfo = $this->language->translate('GLOBAL_USER_ON_TIME', array(
+                '{{username}}' => isset($users[$article->getCreateuser()]) ? $users[$article->getCreateuser()] : $this->language->translate('GLOBAL_NOTFOUND'),
+                '{{time}}' => date($this->config->system_dtmask, $article->getCreatetime())
+            ));
+
+            $content[] = '<div class="row fpcm-ui-font-small py-1">';
+            $content[] = '  <div class="col-12 col-md-auto px-3 text-center">';
+            $content[] = (string) (new \fpcm\view\helper\openButton('openBtn'))->setUrlbyObject($article)->setTarget('_blank');
+            $content[] = (string) (new \fpcm\view\helper\editButton('editBtn'))->setUrlbyObject($article)->setReadonly($article->getEditPermission() ? false : true);
+            $content[] = '  </div>';
+
+            $content[] = '  <div class="col align-self-center text-truncate">';
+            $content[] = '  <strong>' . (new \fpcm\view\helper\escape(strip_tags(rtrim($article->getTitle(), '.!?')))) . '</strong><br>';
+            $content[] = '  <span>' . $createStr . ': ' . $createInfo . '</span>';
+            $content[] = '  </div>';
+            $content[] = '  <div class="col-auto fpcm-ui-metabox px-4 align-self-center">';
+            $content[] = $article->getStatusIconPinned();
+            $content[] = $article->getStatusIconDraft();
+            $content[] = $article->getStatusIconPostponed();
+            $content[] = $article->getStatusIconApproval();
+            $content[] = $article->getStatusIconComments();
+            $content[] = '  </div>';
+            $content[] = '</div>';
+        }
+
+        $content[] = '</div>';
+
+        $str = implode(PHP_EOL, $content);
+        $this->cache->write($this->cacheName, $str, $this->config->system_cache_timeout);
+        return $str;
     }
 
     /**
@@ -103,58 +155,16 @@ class recentarticles extends \fpcm\model\abstracts\dashcontainer implements \fpc
     }
 
     /**
-     * Content rendern
+     * Return button object
+     * @return \fpcm\view\helper\linkButton|null
+     * @since 5.0.0-b3
      */
-    private function renderContent()
+    public function getButton(): ?\fpcm\view\helper\linkButton
     {
-        $articleList = new \fpcm\model\articles\articlelist();
-        $userlist = new \fpcm\model\users\userList();
-
-        $conditions = new \fpcm\model\articles\search();
-        $conditions->limit = [10, 0];
-        $conditions->orderby = ['createtime DESC'];
-
-        $articles = $articleList->getArticlesByCondition($conditions);
-
-        $users = array_flip($userlist->getUsersNameList());
-
-        $content = [];
-        $content[] = '<div>';
-        
-        /* @var $article \fpcm\model\articles\article */
-        foreach ($articles as $article) {
-
-            $createInfo = $this->language->translate('EDITOR_AUTHOREDIT', array(
-                '{{username}}' => isset($users[$article->getCreateuser()]) ? $users[$article->getCreateuser()] : $this->language->translate('GLOBAL_NOTFOUND'),
-                '{{time}}' => date($this->config->system_dtmask, $article->getCreatetime())
-            ));
-
-            $content[] = '<div class="row fpcm-ui-font-small fpcm-ui-padding-md-tb">';
-            $content[] = '  <div class="col-12 col-md-auto px-3 fpcm-ui-center">';
-            $content[] = (string) (new \fpcm\view\helper\openButton('openBtn'))->setUrlbyObject($article)->setTarget('_blank');
-            $content[] = (string) (new \fpcm\view\helper\editButton('editBtn'))->setUrlbyObject($article)->setReadonly($article->getEditPermission() ? false : true);
-            $content[] = '  </div>';
-
-            $content[] = '  <div class="col align-self-center">';
-            $content[] = '  <div class="fpcm-ui-ellipsis">';
-            $content[] = '  <strong>' . (new \fpcm\view\helper\escape(strip_tags(rtrim($article->getTitle(), '.!?')))) . '</strong><br>';
-            $content[] = '  <span>' . $createInfo . '</span>';
-            $content[] = '  </div></div>';
-            $content[] = '  <div class="col-auto fpcm-ui-metabox px-4 align-self-center">';
-            $content[] = $article->getStatusIconPinned();
-            $content[] = $article->getStatusIconDraft();
-            $content[] = $article->getStatusIconPostponed();
-            $content[] = $article->getStatusIconApproval();
-            $content[] = $article->getStatusIconComments();
-            $content[] = '  </div>';
-            $content[] = '</div>';
-        }
-
-        $content[] = '</div>';
-
-        $this->content = implode(PHP_EOL, $content);
-
-        $this->cache->write($this->cacheName, $this->content, $this->config->system_cache_timeout);
+        return (new \fpcm\view\helper\linkButton('toActiveArticles'))
+                ->setUrl(\fpcm\classes\tools::getFullControllerLink('articles/listactive'))
+                ->setIcon('newspaper', 'far')
+                ->setText('HL_ARTICLE_EDIT');
     }
 
 }

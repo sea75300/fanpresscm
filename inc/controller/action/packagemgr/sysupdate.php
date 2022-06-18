@@ -92,6 +92,10 @@ class sysupdate extends \fpcm\controller\abstracts\controller implements \fpcm\c
             (new \fpcm\view\helper\linkButton('backbtn'))->setText('PACKAGES_BACKTODASHBOARD')->setUrl(\fpcm\classes\tools::getFullControllerLink('system/dashboard'))->setIcon('chevron-circle-left'),
             (new \fpcm\view\helper\linkButton('protobtn'))->setText('HL_LOGS')->setUrl(\fpcm\classes\tools::getFullControllerLink('system/logs'))->setIcon('exclamation-triangle')->setTarget('_blank'),
         ]);
+        
+        $this->view->addTabs('updater', [
+            (new \fpcm\view\helper\tabItem('sysupdate'))->setText('HL_PACKAGEMGR_SYSUPDATES')->setFile($this->getViewPath())
+        ]);
 
         $this->view->addJsFiles(['updater.js']);
         $this->view->render();

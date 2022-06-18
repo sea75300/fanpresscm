@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4.x
+ * FanPress CM 5.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -86,10 +86,7 @@ abstract class dashcontainer extends model implements \fpcm\model\interfaces\das
     final public function __construct()
     {
         parent::__construct();
-        if ($this instanceof \fpcm\model\interfaces\isAccessible) {
-            $this->permissions = \fpcm\classes\loader::getObject('\fpcm\model\permissions\permissions');
-        }
-
+        $this->permissions = \fpcm\classes\loader::getObject('\fpcm\model\permissions\permissions');
         $this->initObjects();
     }
 
@@ -181,6 +178,16 @@ abstract class dashcontainer extends model implements \fpcm\model\interfaces\das
     {
         return [];
     }
+    
+    /**
+     * Return container button
+     * @return \fpcm\view\helper\linkButton|null
+     * @since 5.0.0-b3
+     */
+    public function getButton() : ?\fpcm\view\helper\linkButton
+    {
+        return null;
+    }
 
     /**
      * Gibt Liste mit zu Variablen zurück, welche an Dashboard-Controller-View übergeben werden sollen
@@ -213,20 +220,45 @@ abstract class dashcontainer extends model implements \fpcm\model\interfaces\das
      */
     final public function __toString()
     {
+        
+        $pos = $this->getStoredPosition();
+        if ($pos === false) {
+            $pos = $this->getPosition();
+        }
+        
+        $btn = $this->getButton();
+        if ($btn instanceof \fpcm\view\helper\button) {
+            $btn->setClass('btn-sm')->overrideButtonType('link');
+        }
+        else {
+            $btn = '<span class="d-block p-1">&nbsp;</span>';
+        }
+        
         $html = [];
-        $html[] = '<div id="fpcm-dashboard-container-' . $this->getName() . '" class="fpcm-dashboard-container fpcm-dashboard-container-' . $this->getName() . ' col-sm-12 col-md-' . $this->getWidth() . ' fpcm-dashboard-container-width-' . $this->getWidth() . ' fpcm-dashboard-container-height-' . $this->getHeight() . ' fpcm-ui-padding-none-lr" data-container="' . $this->getName() . '">';
-        $html[] = ' <div class="fpcm-dashboard-container-inner fpcm ui-background-white-50p ui-blurring ui-border-radius-all">';
-        $html[] = '     <h3 class="fpcm-dashboard-container-headline p-2" title="' . strip_tags($this->language->translate($this->getHeadline())) . '">';
-        $html[] = '         <span class="fpcm ui-inline-block ui-align-ellipsis">' . $this->language->translate($this->getHeadline()) . '</span> ';
-        $html[] = '         ' . (new \fpcm\view\helper\icon('arrows-alt'))->setClass('fpcm-dashboard-container-move fpcm-ui-float-right');
-        $html[] = '     </h3>';
-        $html[] = '     <div class="fpcm-dashboard-container-content">' . $this->getContent() . '</div>';
+        $html[] = '<div id="fpcm-dashboard-container-' . $this->getName() . '" class="fpcm dashboard-container-wrapper col-12 col-md-' . $this->getWidth() . '  vh-25" data-cname="' . $this->getName() . '" data-cpos="' . $pos . '">';
+        $html[] = ' <div class="card m-1 shadow-sm fpcm dashboard-container ui-background-white-50p ui-blurring">';
+        $html[] = '     <div class="card-body pt-1 ps-1 pe-1 pb-2 ui-align-ellipsis">';
+        $html[] = '         <h3 class="card-title fpcm dashboard-container headline ui-headline-font m-2 fs-5 border-1 border-bottom border-primary" title="' . strip_tags($this->language->translate($this->getHeadline())) . '">';
+        $html[] = '             <span class="d-inline-block text-truncate w-100">' . $this->language->translate($this->getHeadline()) . '</span> ';
+        $html[] = '         </h3>';
+        $html[] = '         <div class="card-text fpcm dashboard-container content">' . $this->getContent() . '</div>';
+        $html[] = '     </div>';
+        $html[] = '     <div class="card-footer bg-transparent">';
+        $html[] = '         <div class="row g-0">';
+        $html[] = '             <div class="col flex-grow-1">';
+        $html[] = '             ' . $btn;
+        $html[] = '             </div>';
+        $html[] = '             <div class="col-auto  align-self-center" draggable="true">';
+        $html[] = '             ' . (new \fpcm\view\helper\icon('arrows-alt'))->setText('FILE_LIST_EDIT_MOVE')->setClass('fpcm dashboard-container-move');            
+        $html[] = '             </div>';
+        $html[] = '         </div>';
+        $html[] = '     </div>';
         $html[] = ' </div>';
         $html[] = '</div>';
 
         return implode(PHP_EOL, $html);
     }
-
+    
 }
 
 ?>

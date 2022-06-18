@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4.x
+ * FanPress CM 5.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -155,24 +155,30 @@ implements \fpcm\controller\interfaces\isAccessible,
         $this->view->addJsVars([
             'articleId' => $this->aid
         ]);
-
-        $this->view->addJsFiles(['articles/revisions.js']);
         
         $revision = [];
 
         array_map(function ($value) use (&$revision) {
-            $revision[(string) new \fpcm\view\helper\dateText($value)] = $value;
+            
+            $ddI = new \fpcm\view\helper\dropdownItem('rv-'.$value);
+            $ddI->setUrl($this->getControllerLink('articles/revision', [
+                    'aid' => $this->aid,
+                    'rid' => $value
+            ]));
+            $ddI->setValue($value);
+            $ddI->setText((string) new \fpcm\view\helper\dateText($value));
+            $revision[] = $ddI;
+
         }, array_keys($this->article->getRevisions()));
         
         $this->view->addButtons([
+            (new \fpcm\view\helper\dropdown('revisionList'))
+                ->setOptions($revision)
+                ->setSelected($this->rid),
             (new \fpcm\view\helper\linkButton('backToArticel'))
                 ->setUrl($this->article->getEditLink().'&rg=3')
                 ->setText('EDITOR_BACKTOCURRENT')
                 ->setIcon('chevron-circle-left'),    
-            (new \fpcm\view\helper\select('revisionList'))
-                ->setOptions($revision)
-                ->setSelected($this->rid)
-                ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED),
             (new \fpcm\view\helper\submitButton('revisionRestore'))
                 ->setText('EDITOR_REVISION_RESTORE')
                 ->setIcon('undo')
@@ -188,30 +194,38 @@ implements \fpcm\controller\interfaces\isAccessible,
             $this->revision->getChangeuser(),
         ]);
         
-        $this->view->assign('articleCreate', $this->language->translate('EDITOR_AUTHOREDIT', [
+        $this->view->assign('articleCreate', $this->language->translate('GLOBAL_USER_ON_TIME', [
             '{{username}}' => isset($users[$this->article->getCreateuser()]) ? $users[$this->article->getCreateuser()]->getDisplayname() : $this->language->translate('GLOBAL_NOTFOUND'),
             '{{time}}'     => new \fpcm\view\helper\dateText($this->article->getCreatetime())           
         ]));
 
-        $this->view->assign('articleChange', $this->language->translate('EDITOR_LASTEDIT', [
+        $this->view->assign('articleChange', $this->language->translate('GLOBAL_USER_ON_TIME', [
             '{{username}}' => isset($users[$this->article->getChangeuser()]) ? $users[$this->article->getChangeuser()]->getDisplayname() : $this->language->translate('GLOBAL_NOTFOUND'),
             '{{time}}'     => new \fpcm\view\helper\dateText($this->article->getChangetime())
         ]));
         
-        $this->view->assign('revisionCreate', $this->language->translate('EDITOR_AUTHOREDIT', [
+        $this->view->assign('revisionCreate', $this->language->translate('GLOBAL_USER_ON_TIME', [
             '{{username}}' => isset($users[$this->revision->getCreateuser()]) ? $users[$this->revision->getCreateuser()]->getDisplayname() : $this->language->translate('GLOBAL_NOTFOUND'),
             '{{time}}'     => new \fpcm\view\helper\dateText($this->revision->getCreatetime())           
         ]));
 
-        $this->view->assign('revisionChange', $this->language->translate('EDITOR_LASTEDIT', [
+        $this->view->assign('revisionChange', $this->language->translate('GLOBAL_USER_ON_TIME', [
             '{{username}}' => isset($users[$this->revision->getChangeuser()]) ? $users[$this->revision->getChangeuser()]->getDisplayname() : $this->language->translate('GLOBAL_NOTFOUND'),
             '{{time}}'     => new \fpcm\view\helper\dateText($this->revision->getChangetime())
         ]));
         
         try {
-            $differ = new Differ([$this->revision->getContent()], [$this->article->getContent()]);
-            $renderer = RendererFactory::make('Combined', [
+            $differContent = new Differ([$this->revision->getContent()], [$this->article->getContent()]);
+            $rendererContent = RendererFactory::make('Combined', [
                 'detailLevel' => 'word',
+                'language' => 'eng',
+                'lineNumbers' => false,
+                'showHeader' => false
+            ]);
+
+            $differTitel = new Differ([$this->revision->getTitle()], [$this->article->getTitle()]);
+            $rendererTitle = RendererFactory::make('Combined', [
+                'detailLevel' => 'char',
                 'language' => 'eng',
                 'lineNumbers' => false,
                 'showHeader' => false
@@ -221,8 +235,14 @@ implements \fpcm\controller\interfaces\isAccessible,
             $this->view = new \fpcm\view\error($exc->getMessage());
             exit;
         }
-
-        $this->view->assign('diffResult', html_entity_decode($renderer->render($differ)) );
+        
+        $this->view->assign('diffResultTitle', html_entity_decode($rendererTitle->render($differTitel)) );
+        $this->view->assign('diffResultText', html_entity_decode($rendererContent->render($differContent)) );
+        
+        $this->view->addTabs('article', [
+            (new \fpcm\view\helper\tabItem('article'))->setText('EDITOR_STATUS_REVISION')->setFile('articles/revisiondiff.php')
+        ]);
+        
         $this->view->render();
     }
     

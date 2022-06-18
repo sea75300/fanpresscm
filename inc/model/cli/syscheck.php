@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4.x
+ * FanPress CM 5.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -29,11 +29,10 @@ final class syscheck extends \fpcm\model\abstracts\cli {
         $sysCheckAction = new \fpcm\controller\ajax\system\syscheck();
         $rows = $sysCheckAction->processCli();
 
-        $this->output(PHP_EOL . 'Fetch data for system check...' . PHP_EOL);
-
         $lines = [PHP_EOL];
 
         $progress = new progress(count($rows));
+        $progress->setOutputText('Fetch data for system check');
 
         $i = 1;
 

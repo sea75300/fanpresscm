@@ -3,7 +3,7 @@
 /**
  * FanPress CM clear log files Cronjob
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -29,33 +29,36 @@ class clearLogs extends \fpcm\model\abstracts\cron {
     public function run()
     {
         $dateStr = date('Ymd') . '.txt';
+        
+        clearstatcache();
+        
+        $list = array_filter(\fpcm\model\files\logfile::getLogMap(), function ($filename) {
+            
+            if (!file_exists($filename)) {
+                return false;
+            }
 
-        $logFileSystem = \fpcm\classes\baseconfig::$logFiles['syslog'];
-        if (file_exists($logFileSystem) && filesize($logFileSystem) >= $this->maxsize) {
-            fpcmLogCron('Cleanup system log...');
-            copy($logFileSystem, $logFileSystem . '.' . $dateStr);
-            $this->clear(1);
+            if (filesize($filename) < $this->maxsize) {
+                return false;
+            }
+
+            return true;
+        });
+        
+        if (!is_array($list) || !count($list)) {
+            fpcmLogCron('No logs to cleanup, exit.');
+            return true;
         }
 
-        $logFilePhp = \fpcm\classes\baseconfig::$logFiles['phplog'];
-        if (file_exists($logFilePhp) && filesize($logFilePhp) >= $this->maxsize) {
-            fpcmLogCron('Cleanup php log...');
-            copy($logFilePhp, $logFilePhp . '.' . $dateStr);
-            $this->clear(2);
-        }
+        foreach ($list as $key => $filename) {
+            
+            fpcmLogCron("Cleanup {$key} log in: " . \fpcm\model\files\ops::removeBaseDir($filename));
+            
+            if ($key !== \fpcm\model\files\logfile::FPCM_LOGFILETYPE_SESSION) {
+                copy($filename, $filename . '.' . $dateStr);
+            }
 
-        $logFileDbms = \fpcm\classes\baseconfig::$logFiles['dblog'];
-        if (file_exists($logFileDbms) && filesize($logFileDbms) >= $this->maxsize) {
-            fpcmLogCron('Cleanup sql log...');
-            copy($logFileDbms, $logFileDbms . '.' . $dateStr);
-            $this->clear(3);
-        }
-
-        $logFilePkgMgr = \fpcm\classes\baseconfig::$logFiles['pkglog'];
-        if (file_exists($logFilePkgMgr) && filesize($logFilePkgMgr) >= $this->maxsize) {
-            fpcmLogCron('Cleanup package manager log...');
-            copy($logFilePkgMgr, $logFilePkgMgr . '.' . $dateStr);
-            $this->clear(4);
+            $this->clear($key);
         }
 
         return true;
@@ -68,7 +71,7 @@ class clearLogs extends \fpcm\model\abstracts\cron {
      */
     private function clear($log)
     {
-        if ($log < 1) {
+        if ($log === \fpcm\model\files\logfile::FPCM_LOGFILETYPE_SESSION) {
             return \fpcm\classes\loader::getObject('\fpcm\model\system\session')->clearSessions();
         }
 

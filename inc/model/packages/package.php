@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4.x
+ * FanPress CM 5.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -191,7 +191,6 @@ abstract class package {
      */
     final public function isTrustedPath()
     {
-        include_once \fpcm\classes\loader::libGetFilePath('spyc/Spyc.php');
         $trusted = \Spyc::YAMLLoad(\fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_CONFIG, 'trustedServers.yml'));
 
         if (!count($trusted)) {

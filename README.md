@@ -1,6 +1,6 @@
-# FanPress CM News System version 4
+# FanPress CM News System version 5
 
-The FanPress CM News System version 4 is a lightweight but powerful content management system for small and mid-size websites, especially blogs and such looking for a post management system in combination with static HTML.
+The FanPress CM News System version 5 is a lightweight but powerful content management system for small and mid-size websites, especially blogs and such looking for a post management system in combination with static HTML.
 
 ## Demo system
 
@@ -11,7 +11,7 @@ A small live demo system is available at https://area51.nobody-knows.org/fanpres
 
 ## Base Requirements
 
-* __FanPress CM 4.5:__ PHP 7.2 or better; __FanPress CM 4.4 and older:__ PHP 7.0 or better
+* __FanPress CM 5.0:__ PHP 7.2 or better
 * MySQL/ Maria DB 7 or Postgres 9.4
 * complete requirements check will be performed during setup.
 
@@ -32,23 +32,22 @@ The following functions are available:
     * `$params` is an array to further customize the out of the function
         * _count_: number of articles per page
         * _category_: select articles of a single category, default is 0
-        * _isUtf8_: out will be displayed utf-8 encoded or iso-8895-1, default is true
+        * _isUtf8_: out will be displayed utf-8 encoded or iso-8895-1, default is true ( :x: deprecated as of version 5.0, to be removed )
         * _template_: change used template to display articles in frontend
-        * _search_: can be used to create search function for articles, only in content (v4.5-b5+)
+        * _search_: can be used to create search function for articles, only in content
 * `$api->showLatestNews(array $params)`: Display recent news list
     * `$params` is an array to further customize the out of the function
         * _count_: number of articles per page
         * _category_: select articles of a single category, default is 0
-        * _isUtf8_: out will be displayed utf-8 encoded or iso-8895-1, default is true
+        * _isUtf8_: out will be displayed utf-8 encoded or iso-8895-1, default is true ( :x: deprecated as of version 5.0, to be removed )
 * `$api->showPageNumber($divider, $isUtf8)`: displays current page number.
     * _divider_: parameter for page descriptions like "Page XYZ"
-    * _isUtf8_: out will be displayed utf-8 encoded or iso-8895-1, default is true
+    * _isUtf8_: out will be displayed utf-8 encoded or iso-8895-1, default is true ( :x: deprecated as of version 5.0, to be removed )
 * `$api->showTitle($divider, $isUtf8)`: displays article title in HTML <title>
     * _divider_: parameter for a separator of your text in <title>
-    * _isUtf8_: out will be displayed utf-8 encoded or iso-8895-1, default is true
-* `$api->legacyRedirect($articlesPerPage)`: perform redirect of article URLs in FanPress CM 1/2 style.
+    * _isUtf8_: out will be displayed utf-8 encoded or iso-8895-1, default is true ( :x: deprecated as of version 5.0, to be removed )
    
-A full list of additional functions can be found in our [class documentation](http://updates.nobody-knows.org/fanpress/docs_fpcm4/).
+A full list of additional functions can be found in our [class documentation](https://sea75300.github.io/fanpresscm4/classes/fpcmAPI.html).
 
 ## iframes
 
@@ -69,7 +68,7 @@ If you want to provide the RSS feed for your visitors, just create a link to **y
 
 ## Licence
 
-FanPress CM 4 is provided under the GPL v3 and is free to use. Support is provided via GitHub.
+FanPress CM 5 is provided under the GPL v3 and is free to use. Support is provided via GitHub.
 
 ## Contribution
 

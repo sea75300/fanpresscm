@@ -52,7 +52,7 @@ class commentedit extends \fpcm\controller\abstracts\controller implements \fpcm
      */
     protected function getViewPath() : string
     {
-        return 'comments/commentedit';
+        return 'comments/editor';
     }
 
     /**
@@ -70,7 +70,7 @@ class commentedit extends \fpcm\controller\abstracts\controller implements \fpcm
      */
     protected function getActiveNavigationElement()
     {
-        return 'itemnav-item-editcomments';
+        return 'editcomments';
     }
 
     /**
@@ -111,7 +111,7 @@ class commentedit extends \fpcm\controller\abstracts\controller implements \fpcm
     {
         if ($this->mode === 2) {
             $this->view->showHeaderFooter(\fpcm\view\view::INCLUDE_HEADER_SIMPLE);
-            $this->view->setBodyClass('fpcm-ui-hide-toolbar');
+            $this->view->setBodyClass('m-2');
         }
         
         $editorPlugin = \fpcm\components\components::getArticleEditor();
@@ -141,25 +141,45 @@ class commentedit extends \fpcm\controller\abstracts\controller implements \fpcm
         
         
         $jsVars = $editorPlugin->getJsVars();
-        if (is_object($jsVars['editorConfig']) && $jsVars['editorConfig'] instanceof \fpcm\components\editor\conf\tinymceEditor5) {
-            $jsVars['editorConfig']->prepareComments();
-        }        
+        
+        if (isset($jsVars['editorConfig']['plugins']) && isset($jsVars['editorConfig']['toolbar'])) {
+
+            $jsVars['editorConfig']['plugins'] = str_replace([
+                'autosave',
+                'template',
+                'fpcm_readmore',
+            ], '', $jsVars['editorConfig']['plugins']);
+            
+            $jsVars['editorConfig']['toolbar'] = str_replace([
+                'restoredraft',
+                'template',
+                'fpcm_readmore',
+            ], '', $jsVars['editorConfig']['toolbar']);
+            
+            
+            $jsVars['editorConfig']['custom_elements'] = '';
+        }
 
         $jsVars += array(
             'filemanagerUrl' => \fpcm\classes\tools::getFullControllerLink('files/list', ['mode' => '']),
-            'filemanagerMode' => 2
+            'filemanagerMode' => 2,
+            'filemanagerPermissions' => $this->permissions->uploads,
+            'editorGalleryTagStart' => \fpcm\model\pubtemplates\article::GALLERY_TAG_START,
+            'editorGalleryTagEnd' => \fpcm\model\pubtemplates\article::GALLERY_TAG_END,
+            'editorGalleryTagThumb' => \fpcm\model\pubtemplates\article::GALLERY_TAG_THUMB,
+            'editorGalleryTagLink' => \fpcm\model\pubtemplates\article::GALLERY_TAG_LINK            
         );
 
         $this->view->addJsVars($jsVars);
         $this->view->addJsFiles(array_merge(['comments/module.js', 'comments/editor.js', 'editor/editor_videolinks.js'], $editorPlugin->getJsFiles()));
-        $this->view->addJsLangVars(array_merge(['HL_FILES_MNG', 'ARTICLES_SEARCH', 'FILE_LIST_NEWTHUMBS', 'GLOBAL_DELETE'], $editorPlugin->getJsLangVars()));
+        $this->view->addJsLangVars(array_merge(['HL_FILES_MNG', 'ARTICLES_SEARCH', 'FILE_LIST_NEWTHUMBS', 'GLOBAL_DELETE', 'FILE_LIST_INSERTGALLERY', 'FILE_LIST_UPLOADFORM'], $editorPlugin->getJsLangVars()));
         
 
         if ($this->comment->getChangeuser() && $this->comment->getChangetime()) {
             $changeUser = new \fpcm\model\users\author($this->comment->getChangeuser());
 
             $this->view->assign(
-                'changeInfo', $this->language->translate('COMMMENT_LASTCHANGE', array(
+                'changeInfo', $this->language->translate('GLOBAL_USER_ON_TIME', array(
                     '{{username}}' => $changeUser->exists() ? $changeUser->getDisplayname() : $this->language->translate('GLOBAL_NOTFOUND'),
                     '{{time}}' => date($this->config->system_dtmask, $this->comment->getChangetime())
             )));
@@ -170,15 +190,17 @@ class commentedit extends \fpcm\controller\abstracts\controller implements \fpcm
         $hiddenClass = $this->mode === 2 ? 'fpcm-ui-hidden' : '';
         
         $buttons     = [];
-        $buttons[]   = (new \fpcm\view\helper\saveButton('commentSave'))->setClass($hiddenClass.' fpcm-ui-button-primary');
+        $buttons[]   = (new \fpcm\view\helper\saveButton('commentSave'))->setClass($hiddenClass)->setPrimary();
         
+        $showArticleIdField = false;
         if ($this->mode === 1) {
             $article     = new \fpcm\model\articles\article($this->comment->getArticleid());
             $articleList = new \fpcm\model\articles\articlelist();
             $articleList->checkEditPermissions($article);
-
             if ($article->exists()) {
-
+                
+                $showArticleIdField = false;
+                
                 if ($article->getEditPermission()) {
                     $buttons[] = (new \fpcm\view\helper\editButton('editArticle'))->setUrlbyObject($article)->setText('COMMENTS_EDITARTICLE');
                 }
@@ -186,16 +208,31 @@ class commentedit extends \fpcm\controller\abstracts\controller implements \fpcm
                 $buttons[] = (new \fpcm\view\helper\openButton('commentfe'))->setUrlbyObject($this->comment)->setTarget('_blank');           
             }
             else {
+                $showArticleIdField = true;
                 $this->view->addErrorMessage('LOAD_FAILED_COMMENT_ARTICLE');
             }
         }
+        
+        $this->view->assign('showArticleIdField', $showArticleIdField && $this->permissions->comment->move);
 
-        $buttons[] = (new \fpcm\view\helper\linkButton('whoisIp'))->setUrl("http://www.whois.com/whois/{$this->comment->getIpaddress()}")->setTarget('_blank')->setText('Whois')->setIcon('home')->setClass($hiddenClass)->setRel('noreferrer,noopener,external');
+        $buttons[] = (new \fpcm\view\helper\linkButton('whoisIp'))
+                ->setUrl("http://www.whois.com/whois/{$this->comment->getIpaddress()}")
+                        ->setTarget('_blank')
+                        ->setText('Whois')
+                        ->setIcon('home')
+                        ->setIconOnly(true)
+                        ->setClass($hiddenClass)
+                        ->setRel('noreferrer,noopener,external');
 
         if ($this->permissions->comment->lockip) {
-            $buttons[] = (new \fpcm\view\helper\button('lockIp'))->setText('COMMMENT_LOCKIP')->setIcon('globe')->setClass($hiddenClass)->setData([
-                'commentid' => $this->comment->getId()
-            ]);
+            $buttons[] = (new \fpcm\view\helper\button('lockIp'))
+                    ->setText('COMMMENT_LOCKIP')
+                    ->setIcon('globe')
+                    ->setClass($hiddenClass)
+                    ->setIconOnly(true)
+                    ->setData([
+                        'commentid' => $this->comment->getId()
+                    ]);
         }
 
 
@@ -204,6 +241,12 @@ class commentedit extends \fpcm\controller\abstracts\controller implements \fpcm
         $this->view->setFormAction($this->comment->getEditLink(), ['mode' => $this->mode], true);
         $this->view->assign('comment', $this->comment);
         $this->view->assign('commentsMode', $this->mode);
+        
+        $this->view->addTabs('comments', [
+            (new \fpcm\view\helper\tabItem('comment'))->setText('COMMENTS_EDIT')->setFile($this->getViewPath() . '.php')
+        ]);
+        
+        
         $this->view->render();
         
         return true;
@@ -240,13 +283,12 @@ class commentedit extends \fpcm\controller\abstracts\controller implements \fpcm
         $this->comment->setText($commentData['text']);
         unset($commentData['text']);
 
-        foreach ($commentData as &$value) {
-            $value = $this->request->filter($value, [\fpcm\model\http\request::FILTER_STRIPTAGS, \fpcm\model\http\request::FILTER_HTMLENTITIES]);
-        }
-
         $this->comment->setName($commentData['name']);
         $this->comment->setEmail($commentData['email']);
         $this->comment->setWebsite(filter_var($commentData['website'], FILTER_SANITIZE_URL));
+        if ( filter_var(str_replace('*', 1, $commentData['ipaddr']), FILTER_VALIDATE_IP, [ 'flags' => FILTER_FLAG_IPV4 | FILTER_FLAG_IPV6 ]) ) {
+            $this->comment->setIpaddress($commentData['ipaddr']);
+        }
 
         if ($this->permissions->comment->approve) {
             $this->comment->setApproved(isset($commentData['approved']) ? true : false);
@@ -259,6 +301,10 @@ class commentedit extends \fpcm\controller\abstracts\controller implements \fpcm
 
         $this->comment->setChangetime(time());
         $this->comment->setChangeuser($this->session->getUserId());
+        
+        if ($this->mode === 1 && $this->permissions->comment->move && $commentData['article'] != $this->comment->getArticleid()) {
+            $this->comment->setArticleid((int) $commentData['article']);
+        }
 
         $this->view->addJsVars([ 'reloadList' => $this->mode === 2 ? true : false ]);
 

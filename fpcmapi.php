@@ -46,7 +46,7 @@ class fpcmAPI {
     {
         $this->versionFailed = version_compare(PHP_VERSION, FPCM_PHP_REQUIRED, '<') || !\fpcm\classes\baseconfig::dbConfigExists() || \fpcm\classes\baseconfig::installerEnabled();
     }
-    
+
     /**
      * Initializes controllers
      * @return bool
@@ -375,7 +375,7 @@ class fpcmAPI {
             return false;
         }
         
-        if (!isset($param['subject'])) {
+        if (!isset($param['html'])) {
             $param['html'] = false;
         }
         

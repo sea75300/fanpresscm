@@ -1,108 +1,188 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
-<div class="fpcm-content-wrapper">
-    <div class="fpcm-ui-tabs-general">
-        <ul>
-            <li><a href="#tabs-article"><?php $theView->write('EDITOR_STATUS_REVISION'); ?></a></li>
-        </ul>            
 
-        <div id="tabs-article">
+<div class="row g-0 border-5 border-top border-primary">
+    <div class="col-12 fpcm-ui-ellipsis">    
+    <?php if (trim($diffResultTitle)) : ?>
+        <div class="m-2">
+            <?php print $diffResultTitle; ?>
+        </div>
+    <?php else : ?>
+        <strong class="d-block m-2"><?php print $theView->escape($revision->getTitle()); ?></strong>
+    <?php endif; ?>
+    </div>
+</div>
 
-            <div class="row no-gutters my-1">
-                <div class="<?php $theView->defaultBoxHalf(); ?> pr-0 pr-md-2">
-                    <h3><?php print $theView->escape($revision->getTitle()); ?></h3>
+<div class="row g-0">
+    <div class="<?php $theView->defaultBoxHalf(); ?>">
+        <fieldset>
+            <legend class="fs-6 bg-secondary"><?php $theView->write('TEMPLATE_ARTICLE_CATEGORYTEXTS'); ?></legend>
+            
+            <div class="row">
+                <div class="col-12 mb-2">
+                    <?php print $theView->escape(implode(', ', $categoriesRevision)); ?>
                 </div>
-                <div class="<?php $theView->defaultBoxHalf(); ?> pl-0 pl-md-2">
-                    <h3><?php print $theView->escape($article->getTitle()); ?></h3>
+            </div>
+        </fieldset>
+    </div>
+    <div class="<?php $theView->defaultBoxHalf(); ?> ps-0 ps-md-2">
+        <fieldset>
+            <legend class="fs-6"><?php $theView->write('TEMPLATE_ARTICLE_CATEGORYTEXTS'); ?></legend>
+            
+            <div class="row">
+                <div class="col-12 mb-2">
+                    <?php print $theView->escape(implode(', ', $categoriesArticle)); ?>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+</div>
+
+<div class="row g-0">
+    <div class="<?php $theView->defaultBoxHalf(); ?>">
+        <fieldset>
+            <legend class="fs-6 bg-secondary"><?php $theView->write('TEMPLATE_ARTICLE_SOURCES'); ?></legend>
+            
+            <div class="row">
+                <div class="col-12 mb-2">
+                    <?php print $revision->getSources() ? $revision->getSources() : '-'; ?>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+    <div class="<?php $theView->defaultBoxHalf(); ?> ps-0 ps-md-2">
+        <fieldset>
+            <legend class="fs-6"><?php $theView->write('TEMPLATE_ARTICLE_SOURCES'); ?></legend>
+            
+            <div class="row">
+                <div class="col-12 mb-2">
+                    <?php print $article->getSources() ? $article->getSources() : '-'; ?>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+</div>
+
+<div class="row g-0">
+    <div class="<?php $theView->defaultBoxHalf(); ?>">
+        <fieldset>
+            <legend class="fs-6 bg-secondary"><?php $theView->write('TEMPLATE_ARTICLE_ARTICLEIMAGE'); ?></legend>
+            
+            <div class="row">
+                <div class="col-12 mb-2">
+                    <?php print $revision->getImagepath() ? $revision->getImagepath() : '-'; ?>
                 </div>
             </div>
 
-            <div class="row no-gutters my-1">
-
-                <div class="<?php $theView->defaultBoxHalf(); ?> pr-0 pr-md-2">
-                    <div class="row fpcm-ui-editor-metabox">
-                        <?php
-                            $tmpArticle = $article;
-                            $article    = $revision;
-                            $createInfo = $articleCreate;
-                            $changeInfo = $articleChange;
-                        ?>
-                        <div class="col-sm-12 px-0">
-                            <?php include $theView->getIncludePath('articles/times.php'); ?>
-                        </div>
-                    </div>
-                </div>
-                <div class="<?php $theView->defaultBoxHalf(); ?> pl-0 pl-md-2">
-                    <div class="row fpcm-ui-editor-metabox">
-                        <?php
-                            $article    = $tmpArticle;
-                            $tmpArticle = null;
-                            $createInfo = $revisionCreate;
-                            $changeInfo = $revisionChange;
-                        ?>        
-                        <div class="col-sm-12 px-0">
-                            <?php include $theView->getIncludePath('articles/times.php'); ?>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="row no-gutters my-2">
-                <div class="<?php $theView->defaultBoxHalf(); ?> pr-0 pr-md-2">
-                    <fieldset>
-                        <legend><?php $theView->write('TEMPLATE_ARTICLE_CATEGORYTEXTS'); ?></legend>
-                        <?php print $theView->escape(implode(', ', $categoriesRevision)); ?>
-                    </fieldset>
-                </div>
-                <div class="<?php $theView->defaultBoxHalf(); ?> pl-0 pl-md-2">
-                    <fieldset>
-                        <legend><?php $theView->write('TEMPLATE_ARTICLE_CATEGORYTEXTS'); ?></legend>
-                        <?php print $theView->escape(implode(', ', $categoriesArticle)); ?>
-                    </fieldset>
+        </fieldset>
+    </div>
+    <div class="<?php $theView->defaultBoxHalf(); ?> ps-0 ps-md-2">
+        <fieldset>
+            <legend class="fs-6"><?php $theView->write('TEMPLATE_ARTICLE_ARTICLEIMAGE'); ?></legend>
+            
+            <div class="row">
+                <div class="col-12 mb-2">
+                    <?php print $article->getImagepath() ? $article->getImagepath() : '-'; ?>
                 </div>
             </div>
+        </fieldset>
+    </div>
+</div>
 
-            <div class="row no-gutters my-2">
-                <div class="<?php $theView->defaultBoxHalf(); ?> pr-0 pr-md-2">
-                    <fieldset>
-                        <legend><?php $theView->write('TEMPLATE_ARTICLE_SOURCES'); ?></legend>
-                        <?php print $revision->getSources() ? $revision->getSources() : '-'; ?>
-                    </fieldset>
-                </div>
-                <div class="<?php $theView->defaultBoxHalf(); ?> pl-0 pl-md-2">
-                    <fieldset>
-                        <legend><?php $theView->write('TEMPLATE_ARTICLE_SOURCES'); ?></legend>
-                        <?php print $article->getSources() ? $article->getSources() : '-'; ?>
-                    </fieldset>
-                </div>
-            </div>
-
-            <div class="row no-gutters my-2">
-                <div class="<?php $theView->defaultBoxHalf(); ?> pr-0 pr-md-2">
-                    <fieldset>
-                        <legend><?php $theView->write('TEMPLATE_ARTICLE_ARTICLEIMAGE'); ?></legend>
-                        <?php print $revision->getImagepath() ? $revision->getImagepath() : '-'; ?>
-                    </fieldset>
-                </div>
-                <div class="<?php $theView->defaultBoxHalf(); ?> pl-0 pl-md-2">
-                    <fieldset>
-                        <legend><?php $theView->write('TEMPLATE_ARTICLE_ARTICLEIMAGE'); ?></legend>
-                        <?php print $article->getImagepath() ? $article->getImagepath() : '-'; ?>
-                    </fieldset>
-                </div>
-            </div>
-
-            <div class="row no-gutters mt-3">
-                <div class="col-12 fpcm-ui-border-radius-all fpcm-ui-ellipsis">
-                <?php if (trim($diffResult)) : ?>
-                    <?php print $diffResult; ?>
+<div class="row g-0">
+    <div class="col-12 fpcm-ui-ellipsis">
+        <div class="row">
+            <div class="col-12 my-2">
+                <?php if (trim($diffResultText)) : ?>
+                    <?php print $diffResultText; ?>
                 <?php else : ?>
                     <?php print $revision->getContent(); ?>
-                <?php endif; ?>
-                </div>
+                <?php endif; ?>                
             </div>
         </div>
     </div>
 </div>
 
+<div class="row g-0">
 
+    <div class="<?php $theView->defaultBoxHalf(); ?>">
+        <div class="row g-0">
+            <div class="col-12">
+                <fieldset class="my-2">
+                    <legend class="fs-6 bg-secondary"><?php $theView->write('GLOBAL_METADATA'); ?></legend>
+
+                    <div class="row g-0 my-2 fs-6">
+                        <div class="col-12">
+
+                            <div class="row mb-2">
+                                <div class="col-12">
+                                    <?php print implode(' ', $revision->getMetaDataStatusIcons(true, true, true)); ?>
+                                </div>
+                            </div>
+
+                            <div class="row mb-1 row-cols-2">
+                                <div class="col">
+                                    <?php $theView->icon('calendar')->setSize('lg'); ?>
+                                    <strong><?php $theView->write('GLOBAL_AUTHOR_EDITOR'); ?>:</strong>
+                                </div>
+                                <div class="col">
+                                    <?php print $revisionCreate; ?>
+                                </div>
+                            </div>
+
+                            <div class="row mb-1">
+                                <div class="col">
+                                    <?php $theView->icon('clock', 'far')->setSize('lg'); ?> 
+                                    <strong><?php $theView->write('GLOBAL_LASTCHANGE'); ?>:</strong>
+                                </div>
+                                <div class="col">
+                                    <?php print $revisionChange; ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+    <div class="<?php $theView->defaultBoxHalf(); ?> ps-0 ps-md-2">
+        <div class="row g-0">    
+            <div class="col-12">
+                <fieldset class="my-2">
+                    <legend class="fs-6"><?php $theView->write('GLOBAL_METADATA'); ?></legend>
+
+                    <div class="row g-0 my-2 fs-6">
+                        <div class="col-12">
+
+                            <div class="row mb-2">
+                                <div class="col-12">
+                                    <?php print implode(' ', $article->getMetaDataStatusIcons(true, true, true)); ?>
+                                </div>
+                            </div>
+
+                            <div class="row mb-1 row-cols-2">
+                                <div class="col">
+                                    <?php $theView->icon('calendar')->setSize('lg'); ?>
+                                    <strong><?php $theView->write('GLOBAL_AUTHOR_EDITOR'); ?>:</strong>
+                                </div>
+                                <div class="col">
+                                    <?php print $articleCreate; ?>
+                                </div>
+                            </div>
+
+                            <div class="row mb-1 row-cols-2">
+                                <div class="col">
+                                    <?php $theView->icon('clock', 'far')->setSize('lg'); ?> 
+                                    <strong><?php $theView->write('GLOBAL_LASTCHANGE'); ?>:</strong>
+                                </div>
+                                <div class="col">
+                                    <?php print $articleChange; ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+
+</div>

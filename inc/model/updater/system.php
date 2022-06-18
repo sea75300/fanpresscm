@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4.x
+ * FanPress CM 5.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -108,7 +108,6 @@ final class system extends staticModel {
     {
         $this->fileOption = new fileOption(repository::FOPT_UPDATES);
 
-        include_once loader::libGetFilePath('spyc/Spyc.php');
         $foptData = \Spyc::YAMLLoadString($this->fileOption->read());
         
         $currentVersionComplete = $this->config->system_version;

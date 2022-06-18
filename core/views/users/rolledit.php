@@ -2,39 +2,35 @@
 /* @var $theView \fpcm\view\viewVars */
 /* @var $userRoll \fpcm\model\users\userRoll */
 ?>
-<div class="fpcm-content-wrapper">
-    <div class="fpcm-ui-tabs-general">
-        <ul>
-            <li><a href="#tabs-roll"><?php $theView->write($tabsHeadline); ?></a></li>
-            <?php if ($theView->permissions->system->permissions && $userRoll->getId()) : ?>
-            <li><a href="#tabs-permissions"><?php $theView->write('HL_OPTIONS_PERMISSIONS'); ?></a></li>
-            <?php endif; ?>
-        </ul>            
+<div class="row border-top border-5 border-primary">
+    <div class="col-12 col-md-6">
+        <fieldset class="my-3">
 
-        <div id="tabs-roll">
-            <div class="row mb-2">
+            <div class="row">
                 <?php $theView->textInput('rollname')
                     ->setValue($userRoll->getRollName())
                     ->setText('USERS_ROLLS_NAME')
-                    ->setAutoFocused($userRoll->getId() && $userRoll->getId() > 3)
-                    ->setReadonly($userRoll->getId() && $userRoll->getId() <= 3); ?>
+                    ->setRequired(!$userRoll->isSystemRoll())
+                    ->setAutoFocused(!$userRoll->isSystemRoll())
+                    ->setReadonly($userRoll->isSystemRoll()); ?>
             </div>
-            <div class="row mb-2">
-                <div class="col-12 px-0">
-                    <fieldset>
-                        <legend><?php $theView->write('USERS_ROLLS_CODEX'); ?></legend>
+               
+        </fieldset>
+    </div>
+</div>
+
+<div class="row g-0">
+    <div class="col-12">
+        <fieldset>
+            <legend><?php $theView->write('USERS_ROLLS_CODEX'); ?></legend>
+
+            <div class="row my-3">
+                <div class="col-12 col-md-6">
                         <?php $theView->textarea('rollcodex')
                             ->setValue($userRoll->getCodex(), ENT_QUOTES | ENT_COMPAT)
-                            ->setClass('fpcm-ui-textarea-medium fpcm-ui-full-width'); ?>
-                    </fieldset>
+                            ->setClass('fpcm-ui-textarea-medium w-100'); ?>                      
                 </div>
             </div>
-        </div>
-
-        <?php if ($theView->permissions->system->permissions && $userRoll->getId()) : ?>
-        <div id="tabs-permissions">
-            <?php include $theView->getIncludePath('users/permissions_editor.php'); ?>
-        </div>
-        <?php endif; ?>
+        </fieldset>
     </div>
 </div>

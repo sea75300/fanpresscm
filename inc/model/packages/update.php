@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4.x
+ * FanPress CM 5.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -12,7 +12,7 @@ namespace fpcm\model\packages;
  * 
  * @package fpcm\model\packages
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @since 3.1
  */
@@ -222,6 +222,8 @@ class update extends package {
      */
     public function copy()
     {
+        clearstatcache();
+        
         $srcBasePath = $this->getExtractionPath();
         $files = $this->retrieveFilesFromFileTxt($srcBasePath . DIRECTORY_SEPARATOR . 'fanpress');
         if (!count($files)) {

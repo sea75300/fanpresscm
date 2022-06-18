@@ -9,8 +9,7 @@ Help language file
 <chapters>
     <chapter ref="HL_DASHBOARD">
         <![CDATA[
-            <p>Im <b>Dashboard</b> findest du verschiedene Informationen zu deiner FanPress CM Installation etc. Eigene Dashboard-Container
-            können durch Module bzw. neue Datei unter "fanpress/inc/dashboard" erzeugt werden.</p>
+            <p>Im <b>Dashboard</b> findest du verschiedene Informationen zu deiner FanPress CM Installation etc.</p>
             <dl>
                 <dt>Zuletzt geschriebene News:</dt>
                 <dd class="pb-2">Hier findest du eine Übersicht der zuletzt verfassten Artikel.</dd>
@@ -30,28 +29,32 @@ Help language file
                 E-Mail zu verfassen.</dd>
             </dl>
 
-            <p>Über den Button <strong>Mein Profil öffnen</strong> kannst du dein Benutzerprofil aufrufen. Der Button
-            <strong>Vollständige Systemprüfung</strong> ruft die Systemprüfung in den Systemeinstellungen auf.</p>
+            <p>Über die zusätzlichen Links am Ende der Container können zusätzliche Informationen abgerufen werden
+            oder es ist ein Schnellzugriff auf bestimmte Funktionen möglich.</p>
+            
+            <p>Neue, eigene Dashboard-Container können durch Module erzeugt werden</p>
         ]]>
     </chapter>
     <chapter ref="ARTICLES_EDITOR">
         <![CDATA[
-        <h3>Editor</h3>
-        
         <p>Mit dem <b>Artikel-Editor</b> kannst du Artikel schreiben und/oder bearbeiten. Hierbei hast du vielfältige Gestaltungsmöglichkeiten, welche
             durch Module erweitert werden können. Du kannst einem Artikel Kategorien zuweisen, ihn "anpinnen", sodass er über allen anderen Artikeln
             dargestellt wird und verschiedene weitere Einstellungen vornehmen.</p>
 
+        <h3 class="pt-5 fs-1">Editor</h3>
+
         <dl>
             <dt>TinyMCE:</dt>
             <dd class="pb-2">Dieser WYSIWYG-Editor zeigt alle Formatierungen und Änderungen direkt an. Außerdem
-            bietet er diverse zusätzliche Informationen u. a. zur Bearbeitung von Bildern.</dd>
+            bietet er diverse zusätzliche Informationen und Funktionen u. a. zur Bearbeitung von Bildern, die Anzeige von
+            eingefügten Galerien, Tabellen, Listen usw.</dd>
             <dt>CodeMirror:</dt>
             <dd class="pb-2">Dieser Editor ist ein reiner HTML-Editor, welcher verschiedene Formatierungsmöglichkeiten
-            bietet sowie zusätzliche Funktionen wie Syntax-Highlighting.</dd>
+            bietet sowie zusätzliche Funktionen wie Syntax-Highlighting. Dieser Editor-Type wird zudem immer für die
+            Bearbeitung der Temlplates und Artikel-Vorlagen geladen.</dd>
         </dl>        
 
-        <h3>Eigenschaften</h3>
+        <h3 class="pt-5 fs-1">Eigenschaften</h3>
         
         <dl>
             <dt>Artikelbild:</dt>
@@ -93,17 +96,9 @@ Help language file
             die aktuelle Anzahl pro Artikel angezeigt, diese umfasst sowohl Teilungen bei den verfügbaren sozialen Netzwerken als auch Klicks auf den
             FanPress CM-eigenen "Gefällt mir"-Button. Eine Summe über alle geteilten Inhalte pro Artikel wird in den Artikel-Listen neben der Kommentar-Anzahl angezeigt.</dd>
         </dl>
- 
-        <h3>Weiterlesen-Link/ Seitenumbruch einfügen</h3>
 
-        <p>Vor allem bei sehr langen Beiträgen kann es sinnvoll sein, nur einen kurzen Anreißer in der Artikelliste anzuzeigen und den
-        Rest erst durch Klick auf den "Weiterlesen"-Link. Hierzu bietet der Editor die "Seitenumbruch einfügen"-Funktion. Dies erzeugt im Artikel
-        einen Eintrag der Form <pre>&lt;!-- pagebreak --&gt;</pre> welcher im Frontend in einen Weiterlesen-Link umgesetzt wird. <b>Achtung!</b> Hierfür muss
-        das Template entsprechend angepasst werden.</p>
-        
-        <p>In älteren Versionen wurde hierfür das <strong>&lt;readmore&gt;</strong>-Tag verwendet. Dieses gilt seit Fanpress CM 4.4 als veraltet, wird aber
-        in der Frontend-Ausgabe vorerst weiterhin umgesetzt.</p>
-
+        <h3 class="pt-5 fs-1">Register</h3>
+    
         <p>Der Artikel-Editor kann am oberen Rand bis zu vier Tabs enthalten.</p>
 
         <dl>
@@ -126,7 +121,7 @@ Help language file
             aktuellen Artikel-Version angezeigt.</dd>
         </dl>
         
-        <h3>Buttons und Aktionen</h3>
+        <h3 class="pt-5 fs-1">Buttons und Aktionen</h3>
         
         <dl>
             <dt>Löschen-Buttons</dt>
@@ -153,8 +148,17 @@ Help language file
             <dt>Zurück zur aktuellen Ansicht (Revisionen)</dt>
             <dd class="pb-2">Wurde eine Revision geöffnet, so gelangst du durch diese Schaltfläche zurück in den aktuellen Artikel.</dd>
         </dl>
+ 
+        <h3 class="pt-5 fs-1">Erweiterte Funktionen</h3>
+        
+        <h4 class="pt-3">Weiterlesen-Link/ Seitenumbruch einfügen</h4>
 
-        <h3>Einzelnes Bild in Artikel einfügen</h3>
+        <p>Vor allem bei sehr langen Beiträgen kann es sinnvoll sein, nur einen kurzen Anreißer in der Artikelliste anzuzeigen und den
+        Rest erst durch Klick auf den "Weiterlesen"-Link. Hierzu bietet der Editor die "Seitenumbruch einfügen"-Funktion. Dies erzeugt im Artikel
+        einen Eintrag der Form <pre>&lt;!-- pagebreak --&gt;</pre> welcher im Frontend in einen Weiterlesen-Link umgesetzt wird. <b>Achtung!</b> Hierfür muss
+        das Template entsprechend angepasst werden.</p>
+
+        <h4 class="pt-3">Einzelnes Bild in Artikel einfügen</h4>
 
         <p>Um den Pfad eines Bildes direkt in den <em>Bild einfügen</em>-Dialog zu übernehmen, klicke auf die Buttons <strong>Thumbnail-Pfad in Quelle einfügen</strong>
         bzw. <strong>Datei-Pfad in Quelle einfügen</strong> unterhalb/ neben dem Thumbnail des jeweiligen Bildes. Je nach gewähltem Button wird der entsprechende Pfad
@@ -170,7 +174,7 @@ Help language file
             <li>In TinyMCE steht im "Bild einfügen"-Dialog zudem der Punkt <strong>Bildliste</strong> zur Verfügung.</li>
         </ul>
         
-        <h3>Gallery in Artikel einfügen</h3>
+        <h4 class="pt-3">Gallery in Artikel einfügen</h4>
 
         <p>Über den Button "Gallery einfügen" lassen sich mehrere Bilder mit einmal in einen Artikel einfügen. Das folgende Beispiel zeigt eine Gallery mit vier Bidlern.</p>
 
@@ -197,7 +201,7 @@ Help language file
         <![CDATA[
         <p>Im Bereich <b>Artikel verwalten</b> kannst findest du alle gespeicherten Artikel in FanPress CM.</p>
         
-        <h3>Bereiche</h3>
+        <h3 class="pt-5 fs-1">Bereiche</h3>
         
         <dl>
             <dt>Alle Artikel:</dt>
@@ -212,7 +216,7 @@ Help language file
         
         <p>Die verfügbaren Eigenschaften werden im Artikel-Editor näher beschrieben.</p>
 
-        <h3>Aktionen</h3>
+        <h3 class="pt-5 fs-1">Aktionen</h3>
         
         <dl>
             <dt>Bearbeiten:</dt>
@@ -245,7 +249,7 @@ Help language file
         <p>Willst du nur die Artikel zu einem bestimmten Artikel anzeigen lassen, geht das wie gewohnt über die Liste
             auf dem Kommentar-Tab im Artikel-Editor.</p>
         
-        <h3>Eigenschaften</h3>
+        <h3 class="pt-5 fs-1">Eigenschaften</h3>
         
         <dl>
             <dt>Kommentar ist privat:</dt>
@@ -264,7 +268,7 @@ Help language file
             verschieben. Das Eingabefeld unterstützt die Suche nach Artikeln mittels Autovervollständigung.</dd>
         </dl>
 
-        <h3>Aktionen</h3>
+        <h3 class="pt-5 fs-1">Aktionen</h3>
         
         <dl>
             <dt>Bearbeiten:</dt>
@@ -288,13 +292,19 @@ Help language file
             Recht zu verwalten von IP-Adressen benötigt. Die Sperren können unter <strong>Optionen > IP-Adressen</strong> aufgehoben werden.</dd>
         </dl>
         
-        <h3>Kommentar-Editor</h3>
+        <h3 class="pt-5 fs-1">Kommentar-Editor</h3>
         
         <p>Der Editor bietet genau wie der Artikel-Editor die Auswahl zwischen TinyMCE und CodeMirror, besitzt jedoch nicht alle Funktionen des Artikel-Editors. Oberhalb des Editors
         werden noch zusätzliche Informationen angezeigt, u. a. von welcher IP-Adresse der Kommentar geschrieben wurde. Diese Information kann zur Vermeidung von Spam, bei Straftaten etc.
         wichtig sein.</p>
         
-        <p>Aus Datenschutz-Gründen wird die IP-Adresse durch den Cronjob <em>IP-Adressen aus Kommentaren anonymisieren</em> per Default einmal im Monat anonymisiert. Die Anonymisierung
+        <p>Erscheint beim Aufruf des Editors die Meldung, dass der zum Kommentar gehörige Artikel nicht gefunden wurde, so wird das Feld
+        <em>Kommentar zu Artikel verschieben</em> eingeblendet. Dieses hat die gleiche Funktion wie die
+        Eigenschaft <em>Kommentar zu Artikel mit ID verschieben</em> in der Kommentar-Übersicht.
+        Durch direkte Eingabe einer Artikel-ID bzw. die Autovervollständigung kann der Kommentar zu einem anderen
+        Artikel verschoben werden.</p>
+        
+        <p>Aus Datenschutz-Gründen wird die IP-Adresse durch den Cronjob <em>IP-Adressen aus Kommentaren anonymisieren</em> standardmäßig einmal im Monat anonymisiert. Die Anonymisierung
         erfolgt nicht für Kommentare, welche als Spam eingestuft wurden, da entsprechende Kommentare später auch zur Spam-Erkennung herangezogen werden.</p>
         
         ]]>
@@ -302,11 +312,12 @@ Help language file
     </chapter>
     <chapter ref="HL_FILES_MNG">
         <![CDATA[
+        
         <p>Im <b>Dateimanager</b> kannst du Grafiken hochladen, welche du in deinen Artikeln verwenden willst. Eine vereinfachte Ansicht lässt
             sich auch direkt aus dem Artikel-Editor heraus aufrufen. Er zeigt neben einem Vorschau-Bild noch einige zusätzliche Informationen zur
             hochgeladenen Datei an.</p>
 
-        <h3>Aktionen</h3>
+        <h3 class="pt-5 fs-1">Aktionen</h3>
 
         <dl>
             <dt>Suche und Filter:</dt>
@@ -320,12 +331,13 @@ Help language file
             <dd class="pb-2">Die ausgewählten Dateien können gelöscht werden. Wichtig! Für Dateien existiert kein Papierkorb.</dd>
             <dt>Umbenennen:</dt>
             <dd class="pb-2">Über den Button kann die Datei umbenannt werden, die Dateiendung muss dabei nicht angehangen werden.</dd>
+            <dt>Bild bearbeiten:</dt>
+            <dd class="pb-2">FanPress CM bringt einen einfachen Bildeditor mit. Dieser ermöglicht es, hochgeladenen Grafiken in ihrer Größe
+            zu verändern, zu drehen, zoomen oder Bereiche auszuschneiden.</dd>
+            <dt>Alternativtext eingeben:</dt>
+            <dd class="pb-2">Der Alternativtext ermöglicht eine gesonderte Beschreibung für die gewählte Grafik zu hinterlegen.</dd>
             <dt>Eigenschaften:</dt>
             <dd class="pb-2">Über diesen Button werden relevante Informationen zum gewählten Eintrag (Upload-Datum/ Benutzer, Dateigröße, Auflösung usw.) angezeigt.</dd>
-            <dt>Thumbnail öffnen:</strong> (nur Dateimanager)</dt>
-            <dd class="pb-2">Öffnen des Thumbnails.</dd>
-            <dt>Bild öffnen:</strong> (nur Dateimanager)</dt>
-            <dd class="pb-2">Öffnen des eigentlichen Bildes.</dd>
             <dt>Artikelbild festlegen:</strong> (nur Editor)</dt>
             <dd class="pb-2">Ausgewählte Datei als Artikelbild festlegen.</dd>
             <dt>Thumbnail-URL einfügen:</strong> (nur Editor)</dt>
@@ -337,7 +349,7 @@ Help language file
             die Optionen können auch über die Systemeinstellungen bzw. das Profil angepasst werden.</dd>
         </dl>
         
-        <h3>Eigenschaften</h3>
+        <h3 class="pt-5 fs-1">Eigenschaften</h3>
 
         <dl>
             <dt>Zuletzt geändert:</dt>
@@ -356,7 +368,7 @@ Help language file
             <dd class="pb-2">IPTC-Daten der Grafik</dd>
         </dl>
 
-        <h3>Ansichten</h3>
+        <h3 class="pt-5 fs-1">Ansichten</h3>
 
         <dl>
             <dt>Karten:</dt>
@@ -371,7 +383,7 @@ Help language file
         <p>Das eigene <b>Profil</b> können alle Benutzer über das Profil-Menü oben rechts aufrufen. Über den Button <strong>Zurücksetzen</strong>
         können die Einstellungen auf die Systemweiten Vorgaben zurücksetzen.</p>
         
-        <h3>Profil</h3>
+        <h3 class="pt-5 fs-1">Profil</h3>
         
         <dl>
             <dt>Angezeigter Name:</dt>
@@ -387,7 +399,7 @@ Help language file
             <dd class="pb-2">Zur Änderung des Passwortes und bestimmter anderer Einstellungen ist eine Bestätigung per Passwort nötig.</dd>
         </dl>
 
-        <h3>Zwei-Faktor-Authentifizierung (optional)</h3>
+        <h3 class="pt-5 fs-1">Zwei-Faktor-Authentifizierung (optional)</h3>
         
         <p>Die Zwei-Faktor-Authentifizierung bietet einen zusätzlichen Schutz deines Logins gegen Fishing, Bots und ähnliches. Die Nutzung ist
         optional und kann durch einen Administrator bei Bedarf aktiviert werden. Der zweite Faktor zum Login wird mittels der App "Google Authenticator" auf deinem Smartphone
@@ -396,7 +408,7 @@ Help language file
         <p>Zur Aktivierung der Zwei-Faktor-Authentifizierung scanne den angezeigten QR-Code mit deinem Smartphone mit der App. Trage im Anschluss den ersten Zahlencode
         in das Eingabefeld ein und speicher den Vorgang..</p>
 
-        <h3>Erweitert</h3>
+        <h3 class="pt-5 fs-1">Erweitert</h3>
         <dl>
             <dt>Biografie / Sonstiges:</strong> (optional)</dt>
             <dd class="pb-2">Kurzer Info-Text zum Autor, der in den News angezeigt werden kann.</dd>            
@@ -404,7 +416,7 @@ Help language file
             <dd class="pb-2">Benutzer-Avatar, Dateiname entspricht dem Muster <em>benutzername.jpg/png/gif/bmp</em></dd>
         </dl>
         
-        <h3>Benutzereinstellungen</h3>
+        <h3 class="pt-5 fs-1">Benutzereinstellungen</h3>
         <dl>
             <dt>Zeitzone:</dt>
             <dd class="pb-2">Zeitzone für Datums- und Zeit-Angaben.</dd>
@@ -438,7 +450,7 @@ Help language file
 
         <p>Über den Button <strong>Auf Aktualisierung prüfen</strong> in der Toolbar kannst du die Prüfung auf System-Updates manuell starten.</p>
         
-        <h3>Allgemein</h3>
+        <h3 class="pt-5 fs-1">Allgemein</h3>
         
         <dl>
             <dt>Allgemein - E-Mail-Adresse:</dt>
@@ -474,7 +486,7 @@ Help language file
             so wird eine entsprechende Fehlermeldung ausgegeben.</dd>
         </dl>
         
-        <h3>Editor & Dateimanager</h3>
+        <h3 class="pt-5 fs-1">Editor & Dateimanager</h3>
         
         <dl>
             <dt>Editor - Editor auswählen:</dt>
@@ -489,9 +501,6 @@ Help language file
             <dd class="pb-2">Revisionen, welche älter als der angegebene Wert sind, werden beim nächsten Durchlauf des
             zugehörigen Cronjobs aus der Datenbank entfernt. Wurde der Wert "Nie" ausgewählt, so bleiben alle Revisionen erhalten, bis sie
             irgendwann manuell gelöscht werden.</dd>
-            <dt>Editor - Bilder-Änderungen in TinyMCE auf Server speichern:</dt>
-            <dd class="pb-2">Werden in TinyMCE Änderungen an Bildern vorgenommen, so werden die Änderungen bei Aktivierung dieser
-            Option als neue Datei im Upload-Ordner abgelegt und können später auch im Dateimanager ausgewählt werden.</dd>
             <dt>Editor - CSS-Klassen im Editor:</dt>
             <dd class="pb-2">CSS-Klassen zur Nutzung im FanPress CM Editor. Bei den CSS-Klassen handelt es sich in der Regel
             um solche, die du auch auf deiner Webseite verwendest.</dd>
@@ -503,14 +512,22 @@ Help language file
             <dt>Dateimanager - Dateimanager-Ansicht:</dt>
             <dd class="pb-2">Über diese Option kann ausgewählt werden, ob die Dateien im Dateimanager nebeneinander als Karten
             oder untereinander in einer Listenform angezeigt werden. Die dargestellten Informationen bleiben die gleichen.</dd>
-            
-            <dt>Vorschaubild-Größe - Breite in Pixel:</dt>
-            <dd class="pb-2">Die maximale Bereite von erzeugten Thumbnails.</dd>
-            <dt>Vorschaubild-Größe - Höhe in Pixel:</dt>
-            <dd class="pb-2">Die maximale Höhe von erzeugten Thumbnails.</dd>
+            <dt>Dateimanager - Dateiname-Muster bearbeiteter Bilder:</dt>
+            <dd class="pb-2">Werden Bilder im Dateimanager oder Artikel-Editor bearbeitet, so erfolgt die Speicherung der neuen Datei
+            unter einem Namen, welcher dem eingestellten Muster entspricht. Folgende Platzhalter können verwendet werden:
+            <ul>
+                <li>{{filename}}: Dateiname</li>
+                <li>{{date}}: aktuelles Datum</li>
+                <li>{{datelong}}: aktuelles Datum mit Zeit</li>
+                <li>{{hash}}: Dateihash</li>
+                <li>{{userid}}:  Benutzer-ID</li>
+                <li>{{random}}: Zufallszahl</li>
+            </ul></dd>
+            <dt>Dateimanager - Thumbnail-Größe:</dt>
+            <dd class="pb-2">Größe von erzeugten Thumbnails.</dd>
         </dl>
 
-        <h3>Artikel</h3>
+        <h3 class="pt-5 fs-1">Artikel</h3>
         
         <dl>
             <dt><em>Frontend</em> - Anzahl Artikel pro öffentlicher Seite:</dt>
@@ -545,7 +562,7 @@ Help language file
             werden nicht für Besucher deiner Webseite angezeigt. ist dieses Feld leer, so werden alle archivierten Artikel angezeigt.</dd>
         </dl>
         
-        <h3>Kommentare</h3>
+        <h3 class="pt-5 fs-1">Kommentare</h3>
         
         <dl>
             <dt>Kommentare - Kommentar-System ist aktiv:</dt>
@@ -578,7 +595,7 @@ Help language file
             so werden neue Kommentare automatisch als Spam deklariert.</dd>
         </dl>
         
-        <h3>Erweitert</h3>
+        <h3 class="pt-5 fs-1">Erweitert</h3>
         
         <dl>
             <dt>Sicherheit & Wartung - Wartungsmodus aktiv:</dt>
@@ -637,7 +654,7 @@ Help language file
             erkennen.</dd>
         </dl>
 
-        <h3>Twitter-Verbindung</h3>
+        <h3 class="pt-5 fs-1">Twitter-Verbindung</h3>
         
         <p>Dieses Register dient der Einrichtung und Überwachung der Twitter-Anbindung von FanPress-CM. Die Anleitung zur Einrichtung erreichst
         du über das Hilfe-Icon neben dem Button <strong>API-Schlüssel und/oder Token anfordern</strong>.</p>
@@ -656,11 +673,25 @@ Help language file
             Twitter-API benötigt werden. Welche Daten hier eingetragen werden müssen, erfährst du in der Hilfe zur Einrichtung.</dd>
         </dl>
 
-        <h3>Systemprüfung</h3>
+        <h3 class="pt-5 fs-1">Systemprüfung</h3>
         
-        <p>Über die Systemprüfung kannst du deine aktuelle Installation auf mögliche Fehlkonfigurationen prüfen lassen. Sofern alle Icons am rechten
-        Haken blau sind, wurden keine Probleme gefunden. Punkte, welche mit <em>optional</em> gekennzeichnet sind, müssen nicht zwangsläufig einen
-        blauen Haken besitzen.</p>
+        <p>Über die Systemprüfung kannst du deine aktuelle Installation auf mögliche Fehlkonfigurationen prüfen lassen.</p>
+        
+        <p>Die Prüfung erfolgt erstmalig bei der Installation und sorgt dafür, dass alle notwendigen Module von PHP verfügbar sind,
+        die Unterordner im <em>/data</em>-Verzeichnis beschreibbar sind etc.</p>
+        
+        <p>Die Systemprüfung unterscheidet zwischen zwingend erforderlichen Punkten. 
+            Dies sind z. B. eine bestimmte PHP- oder MariaDB/Postgres-Version, bestimmte Funktionen von PHP oder 
+            Schreibrechten auf die Ordner unter im <em>/data</em>-Verzeichnis. Wurden diese Punkte nicht erfolgreich 
+            geprüft, kann es bei der Nutzung von FanPress CM zu Fehlern kommen oder diese gar nicht möglich sein.</p>
+
+        <p>Punkte, welche mit <em>optional</em> gekennzeichnet sind, müssen nicht zwangsläufig erfüllt sein, erhöhen jedoch den
+            Komfort, die Sicherheit oder die Performance.</p>
+
+        <p>Bei der Prüfung auf einen verfügbaren MariaDB- oder Postgres-Datenbanktreiber ist es ausreichend, dass eine der beiden
+            Datenbanken verfügbar ist.</p>
+
+        <p>Der Startbildschirm-Container "systemprüfung" umfasst eine Kurzzusammenfassung der Systemprüfung.</p>
         ]]>
     </chapter>
     <chapter ref="HL_OPTIONS_USERS">
@@ -668,7 +699,7 @@ Help language file
 
         <p>Mit den entsprechenden Rechten können Benutzer und Benutzer-Rollen verwaltet werden.</p>
 
-        <h3>Benutzer</h3>
+        <h3 class="pt-5 fs-1">Benutzer</h3>
         
         <ul>
             <li>Über Benutzer wird der Zugriff auf den Admin-Bereich gesteuert, sowie dokumentiert, wer welchen Artikel,
@@ -684,9 +715,9 @@ Help language file
             löschen zu lassen. Wurde ein Benutzer gelöscht, so wird bei allen verweisen auf den Benutzer angezeigt, dass er
             nicht gefunden wurde.</li>
             <li>Über den Button <strong>E-Mail verfassen</strong> kann aus dem von euch festgelegten Standard-E-Mail-Programm eine Nachricht versendet werden.</li>
-        </ul>
-
-        <h3>Benutzer-Rollen</h3>
+        </ul>      
+        
+        <h3 class="pt-5 fs-1">Benutzer-Rollen</h3>
         
         <p>Ein Benutzer ist immer Mitglied einer Rolle, über deren Berechtigungen der Zugriff des Benutzers auf bestimmte Funktionen
         gesteuert wird.</p>
@@ -696,7 +727,7 @@ Help language file
         <p>Mit Version 4.5 wurde die Möglichkeit eingeführt, einen <b>Codex</b> für Gruppen zu definieren. Dieser dient dazu, Benutzern
         der gewählten Rolle bspw. Tipps zu Quellen, Hinweise beim Verfassen von Artikeln oder sonstige Anmerkungen zu geben.</p>
 
-        <h3>Berechtigungen</h3>
+        <h3 class="pt-5 fs-1">Berechtigungen</h3>
 
         <p>Benutzer mit entsprechenden Rechten können hier die Zugriffsrechte auf verschiedene Dinge von FanPress CM ändern und
         den Zugriff einschränken. Der Bereich sollte nur von Administratoren nutzbar sein! Der Rolle "Administrator" kann der
@@ -804,8 +835,8 @@ Help language file
             <li>Durch entsprechende Muster können ganze IP-Adress-Bereiche gesperrt werden, Beispiele werden sind im Editor angezeigt. Dies
             kann nötig werden, wenn zum Beispiel Bots (Spam, Suchmaschinen etc.) häufig ihre IP-Adresse wechseln.</li>
         </ul>
-        
-        <h3>Sperren einrichten</h3>
+
+        <h3 class="pt-5 fs-1">Sperren einrichten</h3>
 
         <ul>
             <li>Um eine <strong>einzelne</strong> IP-Adresse (z. B. 192.168.1.2) zu sperren, trage diese komplett in das Feld <em>IP-Adresse</em> ein.</li>
@@ -814,7 +845,7 @@ Help language file
             <li>Für IPv6-Adressen (aa11::22bb:cc33:d4d4:e5e5) gehen analog vor, ersetze hier die Stellen zwischen den Doppelpunkten.</li>
         </ul>
 
-        <h3>Aktionen</h3>
+        <h3 class="pt-5 fs-1">Aktionen</h3>
         
         <dl>
             <dt>Keine Kommentare schreiben</dt>
@@ -882,7 +913,7 @@ Help language file
         <p>Benutzer mit entsprechenden Rechten können die Templates zur Ausgabe von Artikeln, Kommentaren etc. bearbeiten.
         Für eine bessere Übersicht bietet der Template-Editor Syntax-Highlighting und eine Liste der verfügbaren Platzhalter.</p>
 
-        <h3>Templates</h3>
+        <h3 class="pt-5 fs-1">Templates</h3>
         
         <dl>
             <dt>Artikel-Liste:</dt>
@@ -905,7 +936,7 @@ Help language file
             <dd class="pb-2">HTML-Vorlagen zu Nutzung im Artikel-Editor. (TinyMCE bzw. HTML-Ansicht).</dd>
         </dl>
         
-        <h3>Editor</h3>
+        <h3 class="pt-5 fs-1">Editor</h3>
         
         <dl>
             <dt>Verwendbare Platzhalter:</dt>
@@ -921,7 +952,7 @@ Help language file
             als Vorschau anzeigen zu lassen und somit die Wirkung, Formatierungsfehler etc. sofort zu erkennen.</dd>
         </dl>
         
-        <h3>Vorlagen</h3>
+        <h3 class="pt-5 fs-1">Vorlagen</h3>
         
         <ul>
             <li>Vorlagen sind HTML-Dateien, deren Inhalt im Artikel-Editor verwendet werden kann.</li>
@@ -930,7 +961,7 @@ Help language file
             angepasst werden. Weitere können bei Bedarf ins System hochgeladen werden.</li>
         </ul>
 
-        <h3>Verfügbare Attribute</h3>
+        <h3 class="pt-5 fs-1">Verfügbare Attribute</h3>
         
         <p>Die Template-Platzhalter können seit Version 4.1 <em>Attribute</em> besitzen, welche die Frontend-Ausgabe weiter beeinflussen. Attribute werden in der Form
         <em>AttributeName="AttributeWert"</em> angegeben. Platzhalter können mehrere Attribute besitzen, wobei mehrere gleichzeitig verwendet werden können.
@@ -1074,7 +1105,7 @@ Help language file
         <p>Durch Module kann die Funktionalität von FanPress CM umfangreich erweitert werden. Die Verwaltung von verfügbaren und/oder
         installierten Modulen erfolgt in diesem Bereich.</p>
 
-        <h3>Register</h3>
+        <h3 class="pt-5 fs-1">Register</h3>
 
         <dl>
             <dt>Installierte Module:</dt>
@@ -1091,7 +1122,7 @@ Help language file
             durch Anpassung der Konstante "FPCM_DISABLE_MODULE_ZIPUPLOAD" aktiviert werden.</dd>
         </dl>
         
-        <h3>Aktionen</h3>
+        <h3 class="pt-5 fs-1">Aktionen</h3>
 
         <dl>
             <dt>Modul-Detail-Informationen:</dt>
@@ -1125,7 +1156,7 @@ Help language file
         <p>Sind für mehrere Module Aktualisierungen verfügbar, so erscheint in der Toolbar der Button "Updates für alle Module einspielen".
         Über diesen können - ohne zusätzlichen Wechsel zurück in den Modulmanager - alle Aktualisierungen nacheinander eingespielt werden.</p>
 
-        <h3>Modul-Detail-Informationen</h3>
+        <h3 class="pt-5 fs-1">Modul-Detail-Informationen</h3>
 
         <dl>
             <dt>Schlüssel:</dt>
@@ -1152,7 +1183,7 @@ Help language file
         
         ]]>
     </chapter>
-    <chapter ref="SYSTEM_OPTIONS_TWITTER_CONNECTION">
+    <chapter ref="SYSTEM_HL_OPTIONS_TWITTER">
         <![CDATA[
         <p>FanPress CM bietet dir die Möglichkeit, beim Schreiben/ Aktualisieren eines Artikels automatisch einen Tweet bei Twitter
             erzeugen zu lassen.</p>
@@ -1212,7 +1243,7 @@ Help language file
         <p>Der CSV-Import dient der Übernahme von Daten aus anderen Content-Management-Systemen nach FanPress CM mittels 
         <a rel="noreferrer,noopener,external" href="https://de.wikipedia.org/wiki/CSV_(Dateiformat)" target="_blank">CSV-Datei</a>.</p>
         
-        <h3>Einstellungen</h3>
+        <h3 class="pt-5 fs-1">Einstellungen</h3>
         
         <p>Bevor der Import gestartet werden kann, müsse verschiedene Einstellungen festgelegt werden.</p>
         
@@ -1251,7 +1282,7 @@ Help language file
             </dd>
         </dl>
 
-        <h3>Aufbereitung von Import-Daten</h3>
+        <h3 class="pt-5 fs-1">Aufbereitung von Import-Daten</h3>
         <p>In Abhängigkeit vom ursprünglichen CMS ist im Regelfall eine vorherige Aufbereitung der Daten notwendig.</p>
         
         <dl>
@@ -1290,7 +1321,7 @@ Help language file
             </dd>
         </dl>
 
-        <h3>Hinweise</h3>
+        <h3 class="pt-5 fs-1">Hinweise</h3>
         
         <dl>
             <dt>Vermeidung von defekten Umlauten und Sonderzeichen</dt>

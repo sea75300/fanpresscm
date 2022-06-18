@@ -11,7 +11,8 @@ if (fpcm === undefined) {
 
 fpcm.system = {
 
-    init: function () {
+    init: function ()
+    {
 
         fpcm.worker.postMessage({
             namespace: 'system',
@@ -22,15 +23,23 @@ fpcm.system = {
 
         fpcm.system.initPasswordFieldActions();
         fpcm.system.showHelpDialog();
+        fpcm.dom.bindClick('#fpcm-clear-cache', function () {
+            return fpcm.system.clearCache();
+        });
+    },
+
+    togglePasswordField: function (_event, _callee)
+    {
+        let _el = _callee.parentNode.parentNode.querySelector('input');
+        let _map = {
+            password: 'text',
+            text: 'password',
+        }
+        
+        _el.type = _map[_el.type] ? _map[_el.type] : 'password';
     },
 
     initPasswordFieldActions: function () {
-
-        fpcm.dom.fromClass('fpcm.ui-put-pass-toggle').click(function () {
-            let _el = fpcm.dom.fromTag(this).parent().find('input');
-            _el.attr('type', _el.attr('type') === 'text' ? 'password' : 'text');
-            return false;
-        });
 
         fpcm.dom.fromId('password_confirm').focusout(function () {
             var password = fpcm.dom.fromId('password').val();
@@ -67,8 +76,8 @@ fpcm.system = {
 
             return false;
         });
-
-        fpcm.dom.fromId('genPasswd').click(function () {
+        
+        fpcm.dom.bindClick('#genPasswd', function () {
             fpcm.system.generatePasswdString();
             fpcm.ui.showCurrentPasswordConfirmation();
             return false;
@@ -90,28 +99,28 @@ fpcm.system = {
             }
         });
 
-        fpcm.ui.dialog({
+        fpcm.ui_dialogs.create({
+            id: 'sessioncheck',
             content: fpcm.ui.translate('SESSION_TIMEOUT'),
             dlButtons: buttons = [
                 {
-                    text: fpcm.ui.translate('GLOBAL_YES'),
-                    icon: "ui-icon-check",
+                    text: 'GLOBAL_YES',
+                    icon: "check",
+                    clickClose: true,
+                    primary: true,
                     click: function () {
                         fpcm.ui.relocate(fpcm.vars.actionPath + 'system/login');
-                        fpcm.dom.fromTag(this).dialog('close');
                     }
                 },
                 {
-                    text: fpcm.ui.translate('GLOBAL_NO'),
-                    icon: "ui-icon-closethick",
+                    text: 'GLOBAL_NO',
+                    icon: "times",
+                    clickClose: true,
                     click: function () {
                         fpcm.vars.jsvars.sessionCheck = true;
-                        fpcm.dom.fromTag(this).dialog('close');
-                        fpcm.dom.fromTag(this).remove();
                     }
                 }
             ],
-            id: 'sessioncheck'
         });
 
         fpcm.vars.jsvars.sessionCheck = false;
@@ -125,6 +134,7 @@ fpcm.system = {
 
         fpcm.ajax.post('refresh', {
             quiet: true,
+            async: true,
             data: {
                 articleId: fpcm.vars.jsvars.articleId
             },
@@ -165,80 +175,75 @@ fpcm.system = {
 
         var dialogIdCom = '#fpcm-dialog-' + dialogId;
 
-        fpcm.ui.selectmenu('.fpcm-ui-input-select-massedit', {
-            appendTo: dialogIdCom,
-        });
-
-        if (typeof list.initWidgets === 'function') {
-            list.initWidgets(dialogIdCom);
+        let _content = '';
+        if (_params.fields !== undefined) {
+            for (var _i in _params.fields) {
+                _content += _params.fields[_i];
+            }
         }
 
-        var size = fpcm.ui.getDialogSizes();
+        var _ajaxParams = {
+            fields: {},
+            ids: fpcm.dom.getCheckboxCheckedValues('.fpcm-ui-list-checkbox')
+        };
 
-        fpcm.ui.dialog({
+        if (!_ajaxParams.ids.length) {
+            return false;
+        }
+        
+        _ajaxParams.ids = fpcm.ajax.toJSON(_ajaxParams.ids);
+
+        fpcm.ui_dialogs.create({
             id: dialogId,
-            dlWidth: size.width,
-            resizable: true,
-            title: fpcm.ui.translate('GLOBAL_EDIT_SELECTED'),
+            title: 'GLOBAL_EDIT_SELECTED',
+            closeButton: true,
+            content: _content ? _content : undefined,
             dlButtons: [
                 {
-                    text: fpcm.ui.translate('GLOBAL_SAVE'),
-                    icon: "ui-icon-check",
-                    class: 'fpcm-ui-button-primary',
+                    text: 'GLOBAL_SAVE',
+                    icon: "save",
+                    primary: true,
+                    clickClose: true,
                     click: function () {
 
-                        fpcm.ui.confirmDialog({
+                        _ajaxParams.fields = fpcm.dom.getValuesByClass('fpcm-ui-input-massedit');
+
+                        var catEl = fpcm.dom.fromId('categories');
+                        if (catEl.length) {
+                            list.massEditCategories = catEl.val();
+                        }  
+
+                        if (_params.multipleSelect) {
+                            _ajaxParams.fields[_params.multipleSelectField] = fpcm.dom.fromId(_params.multipleSelect).val();
+                        }
+                        else {
+                            _ajaxParams.fields.categories = list.massEditCategories;
+                            list.massEditCategories = [];
+                        }
+
+                        fpcm.ui_dialogs.confirm({
                             defaultYes: true,
                             clickYes: function () {
 
-                                var objectIDs = fpcm.ui.getCheckboxCheckedValues('.fpcm-ui-list-checkbox');
-                                if (objectIDs.length == 0) {
-                                    fpcm.ui_loader.hide();
-                                    return false;
-                                }
-
-                                var params = {
-                                    fields: fpcm.ui.getValuesByClass('fpcm-ui-input-massedit'),
-                                    ids: fpcm.ajax.toJSON(objectIDs),
-                                };
-
-                                if (_params.multipleSelect) {
-                                    params.fields[_params.multipleSelectField] = fpcm.dom.fromId(_params.multipleSelect).val();
-                                }
-                                else {
-                                    var catEl = fpcm.dom.fromId('categories');
-                                    if (catEl) {
-                                        params.fields.categories = catEl.val();
-                                    }                                    
-                                }
-
                                 if (_params.onSuccess) {
-                                    params.onSuccess = _params.onSuccess;
+                                    _ajaxParams.onSuccess = _params.onSuccess;
                                 }
 
-                                fpcm.system.execMassEdit(func, params);
-                                fpcm.dom.fromTag(this).dialog('close');
-
-                            },
-
-                            clickNo: function () {
-                                fpcm.dom.fromTag(this).dialog('close');
+                                fpcm.system.execMassEdit(func, _ajaxParams);
                             }
                         });
                     }
-                },
-                {
-                    text: fpcm.ui.translate('GLOBAL_CLOSE'),
-                    icon: "ui-icon-closethick",
-                    click: function () {
-                        fpcm.dom.fromTag(this).dialog('close');
-                    }
                 }
             ],
+            dlOnOpenAfter: function() {
+                if (typeof list.initWidgets === 'function') {
+                    list.initWidgets();
+                }
+            },
             dlOnClose: function (event, ui) {
-                
+
                 let catEl = fpcm.dom.fromId('categories');
-                if (catEl[0]) {
+                if (catEl[0] && catEl[0].selectize) {
                     catEl[0].selectize.clear();
                 }
 
@@ -253,7 +258,15 @@ fpcm.system = {
         
         if (!params.onSuccess) {
             params.onSuccess = function () {
-                fpcm.ui.relocate(window.location.href + (fpcm.vars.jsvars.massEdit && fpcm.vars.jsvars.massEdit.relocateParams ? fpcm.vars.jsvars.massEdit.relocateParams : ''));
+                
+                if (fpcm.vars.jsvars.massEdit === undefined || !fpcm.vars.jsvars.massEdit.relocateParams === undefined) {
+                    setTimeout(function () {
+                        window.location.reload();
+                    }, 1000);
+                    return;
+                }
+
+                fpcm.ui.relocate(window.location.href + fpcm.vars.jsvars.massEdit.relocateParams);
             };
         }
         
@@ -296,7 +309,7 @@ fpcm.system = {
 
     emptyTrash: function (_params) {
 
-        fpcm.ui.confirmDialog({
+        fpcm.ui_dialogs.confirm({
 
             clickYes: function () {
                 
@@ -307,7 +320,7 @@ fpcm.system = {
                     },
                     execDone: function (result) {
 
-                        fpcm.ui.resetSelectMenuSelection('action');
+                        fpcm.dom.resetValuesByIdsSelect('action');
 
                         if (!result.msg && !result.code) {
                             fpcm.ajax.showAjaxErrorMessage();
@@ -325,11 +338,7 @@ fpcm.system = {
 
                     }
                 });
-
-                fpcm.dom.fromTag(this).dialog("close");
-            },
-            clickNoDefault: true
-
+            }
         });
 
         return false;
@@ -337,61 +346,28 @@ fpcm.system = {
 
     showHelpDialog: function () {
 
-        fpcm.dom.fromClass('fpcm-ui-help-dialog').click(function () {
-            var el = fpcm.dom.fromTag(this);
+        fpcm.dom.bindClick('.fpcm.ui-help-dialog', function (_event, _ui) {
 
             fpcm.ajax.get('help', {
+                
+                quiet: true,
                 data: {
-                    ref: el.data('ref'),
-                    chapter: el.data('chapter'),
+                    ref: _ui.dataset.ref,
+                    chapter: _ui.dataset.chapter,
                 },
-                execDone: function (result) {
+                execDone: function (_result) {
 
-                    var sizes = fpcm.ui.getDialogSizes(top, 0.90);
-
-                    fpcm.ui.dialog({
+                    fpcm.ui_dialogs.create({
                         id: 'help',
-                        dlWidth: sizes.width,
-                        dlMaxHeight: sizes.height,
-                        resizable: true,
-                        title: fpcm.ui.translate('HL_HELP'),
-                        content: result,
-                        dlButtons: [
-                            {
-                                text: fpcm.ui.translate('GLOBAL_CLOSE'),
-                                icon: "ui-icon-closethick",
-                                click: function () {
-                                    fpcm.dom.fromTag(this).dialog('close');
-                                    return false;
-                                }
-                            }
-                        ],
-                        dlOnClose: function (event, ui) {
-                            fpcm.dom.fromTag(this).remove();
-                        }
+                        title: 'HL_HELP',
+                        size: 'xl',
+                        content: _result,
+                        closeButton: true,
+                        headlines: true
                     });
-
-                    fpcm.ui.tabs('#fpcm-ui-tabs-help');
-
-                    var headlines = fpcm.dom.fromId('tabs-help-general').find('h3');
-                    if (headlines.length < 2) {
-                        fpcm.dom.fromId('fpcm-ui-help-toc-headline').addClass('fpcm-ui-hidden');
-                        return true;
-                    }
-
-                    var listEl = fpcm.dom.fromId('fpcm-ui-help-toc');
-                    jQuery.each(headlines, function (i, val) {
-
-                        if (!i) {
-                            return true;
-                        }
-
-                        listEl.append('<li><strong>' + val.innerText + '</strong></li>');
-                    });
-
                 }
             });
-
+            
             return false;
         });
 

@@ -22,6 +22,9 @@ fpcm.ipadresses = {
             onRenderAfter: fpcm.ui.assignCheckboxes
         });
 
+        fpcm.dom.bindEvent('#sortlist', 'change', function () {
+            fpcm.dom.fromId('fpcm-ui-form').submit();
+        });
     },
 
 };

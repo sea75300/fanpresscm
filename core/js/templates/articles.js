@@ -8,12 +8,12 @@ if (fpcm === undefined) {
 fpcm.templates_articles = {
     
     init: function() {
-        fpcm.editor_codemirror.create({           
+        var cm = fpcm.editor_codemirror.create({           
            editorId  : 'templatecode',
            elementId : 'templatecode'
         });
 
-        fpcm.dom.fromTag('div.CodeMirror').addClass('fpcm-ui-full-view-min-height');
+        cm.setSize('100%', '100%');
     }
 
 };

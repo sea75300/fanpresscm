@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4.x
+ * FanPress CM 5.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -52,11 +52,16 @@ final class csvFile extends \fpcm\model\abstracts\file {
      * Constructor
      * @param string $filename
      */
-    public function __construct($filename = '', string $delim, string $enclosure)
+    public function __construct($filename = '', ?string $delim, ?string $enclosure)
     {
         parent::__construct($filename);
         $this->delim = $delim;
         $this->enclosure = $enclosure;
+        
+        if ($delim === null && $enclosure === null) {
+            return;
+        }
+        
         $this->init();
     }
 

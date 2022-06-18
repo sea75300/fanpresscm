@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4.x
+ * FanPress CM 5.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -16,6 +16,9 @@ namespace fpcm\controller\action\ips;
 abstract class ipbase extends \fpcm\controller\abstracts\controller
 implements \fpcm\controller\interfaces\isAccessible, \fpcm\controller\interfaces\requestFunctions {
 
+    use \fpcm\controller\traits\common\simpleEditForm,
+        \fpcm\controller\traits\theme\nav\ips;
+    
     /**
      * Ip-Adress-Objekt
      * @var int
@@ -29,37 +32,20 @@ implements \fpcm\controller\interfaces\isAccessible, \fpcm\controller\interfaces
     protected $ipaddress;
 
     /**
-     * 
-     * @return bool
+     * Current ip address
+     * @var string
      */
-    public function isAccessible(): bool
-    {
-        return $this->permissions->system->ipaddr;
-    }
+    protected $current;
 
-    protected function getViewPath() : string
-    {
-        return 'ips/ipadd';
-    }
-
-    protected function getHelpLink()
-    {
-        return 'HL_OPTIONS_IPBLOCKING';
-    }
-
-    protected function getActiveNavigationElement()
-    {
-        return 'submenu-itemnav-item-ips';
-    }
 
     public function request()
     {
+        $this->current = $this->request->getIp();
+        
         $this->id = $this->request->getID();
 
         $this->ipaddress = new \fpcm\model\ips\ipaddress($this->id ? $this->id : null);
 
-        $this->view->assign('object', $this->ipaddress);
-        $this->view->setFieldAutofocus('ipSave');
         $this->view->addButton(new \fpcm\view\helper\saveButton('ipSave'));
         $this->view->addJsFiles(['ipadresses.js']);
 
@@ -69,6 +55,21 @@ implements \fpcm\controller\interfaces\isAccessible, \fpcm\controller\interfaces
                 ->setFile($this->getViewPath().'.php')
         ]);
 
+        $this->assignFields([
+            (new \fpcm\view\helper\textInput('ipaddress'))
+                    ->setValue($this->ipaddress->getIpaddress())
+                    ->setText('IPLIST_IPADDRESS')
+                    ->setPlaceholder('127.0.0.1')
+                    ->setIcon('network-wired')
+                    ->setAutoFocused(true)
+                    ->setPattern("^(?!.*({$this->current})).*"),
+            new \fpcm\components\fieldGroup([
+                (new \fpcm\view\helper\checkbox('nocomments'))->setText('IPLIST_NOCOMMENTS')->setSelected($this->ipaddress->getNocomments())->setSwitch(true),
+                (new \fpcm\view\helper\checkbox('nologin'))->setText('IPLIST_NOLOGIN')->setSelected($this->ipaddress->getNologin())->setSwitch(true),
+                (new \fpcm\view\helper\checkbox('noaccess'))->setText('IPLIST_NOACCESS')->setSelected($this->ipaddress->getNoaccess())->setSwitch(true),
+            ], 'IPLIST_BLOCKTYPE', new \fpcm\view\helper\icon('lock'))
+        ]);
+        
         return true;
     }
     
@@ -85,7 +86,7 @@ implements \fpcm\controller\interfaces\isAccessible, \fpcm\controller\interfaces
             return false;
         }
 
-        if ($ipAddr === $this->request->getIp()) {
+        if ($ipAddr === $this->current) {
             $this->view->addErrorMessage('SAVE_FAILED_IPADDRESS_SAME');
             return false;            
         }

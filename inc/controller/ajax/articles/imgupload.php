@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4.x
+ * FanPress CM 5.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -39,9 +39,7 @@ class imgupload extends \fpcm\controller\abstracts\ajaxController implements \fp
 
         $localPath = \fpcm\model\files\ops::getUploadPath($name, $this->config->file_subfolders);
         if (file_exists($localPath)) {
-            $name = explode('.', $name);
-            $name[0] .= '_cropped' . date('Ymd') . $this->session->getUserId();
-            $name = implode('.', $name);
+            \fpcm\model\files\image::getCropperFilename($name);
         }
 
         $uploader = new \fpcm\model\files\fileuploader([

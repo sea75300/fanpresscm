@@ -117,7 +117,7 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller imp
         $buttons = [];
 
         if ($this->permissions->article->add) {
-            $buttons[] = (new \fpcm\view\helper\linkButton('addArticle'))->setUrl(\fpcm\classes\tools::getFullControllerLink('articles/add'))->setText('HL_ARTICLE_ADD')->setIcon('pen-square')->setIconOnly(true)->setClass('fpcm-loader');
+            $buttons[] = (new \fpcm\view\helper\linkButton('addArticle'))->setUrl(\fpcm\classes\tools::getFullControllerLink('articles/add'))->setText('GLOBAL_NEW')->setIcon('plus');
         }
 
         if ($this->permissions->editArticlesMass()) {
@@ -125,8 +125,30 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller imp
         }
 
         $buttons[] = (new \fpcm\view\helper\button('opensearch', 'opensearch'))->setText('ARTICLES_SEARCH')->setIcon('search')->setIconOnly(true);
-        $buttons[] = (new \fpcm\view\helper\select('action'))->setOptions($this->articleActions);
-        $buttons[] = (new \fpcm\view\helper\submitButton('doAction'))->setText('GLOBAL_OK')->setClass('fpcm-ui-articleactions-ok')->setIcon('check')->setIconOnly(true)->setData(['hidespinner' => true]);
+        
+        $tweet = new \fpcm\model\system\twitter();
+
+        if ($tweet->checkRequirements() && $tweet->checkConnection()) {
+            $buttons[] = (new \fpcm\view\helper\button('newtweet'))
+                    ->setText('ARTICLE_LIST_NEWTWEET')
+                    ->setIcon('twitter', 'fab')
+                    ->setIconOnly(true)
+                    ->setOnClick('articles.articleActionsTweet');
+        }
+
+        $buttons[] = (new \fpcm\view\helper\button('articlecache'))
+                ->setText('ARTICLES_CACHE_CLEAR')
+                ->setIcon('recycle')
+                ->setIconOnly(true)
+                ->setOnClick('articles.clearMultipleArticleCache');
+
+        if ($this->permissions->article && $this->permissions->article->delete) {
+            $buttons[] = (new \fpcm\view\helper\button('delete'))
+                    ->setText('GLOBAL_DELETE')
+                    ->setIcon('trash')
+                    ->setIconOnly(true)
+                    ->setOnClick('articles.deleteMultipleArticle');
+        }
         
         $this->view->addPager((new \fpcm\view\helper\pager($this->listAction, $this->page, 1, $this->config->articles_acp_limit, 1)));
         $this->view->addButtons($buttons);
@@ -144,6 +166,11 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller imp
         
         $this->view->setFormAction($this->listAction, $formActionParams);
         $this->view->addDataView( new \fpcm\components\dataView\dataView('articlelist') );
+        
+        $this->view->addTabs('articles', [
+            (new \fpcm\view\helper\tabItem('articles'))->setText($this->getTabHeadline())->setFile('articles/listouter.php')
+        ]);
+
         return true;
     }
 
@@ -151,16 +178,6 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller imp
     {
         if (!$this->permissions) {
             return false;
-        }
-
-        $tweet = new \fpcm\model\system\twitter();
-
-        if ($tweet->checkRequirements() && $tweet->checkConnection()) {
-            $this->articleActions['ARTICLE_LIST_NEWTWEET'] = 'newtweet';
-        }
-
-        if ($this->permissions->article && $this->permissions->article->delete) {
-            $this->articleActions['GLOBAL_DELETE'] = 'delete';
         }
 
         $this->articleActions['ARTICLES_CACHE_CLEAR'] = 'articlecache';
@@ -176,8 +193,8 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller imp
      */
     private function initSearchForm()
     {
-        $this->view->assign('searchUsers', ['ARTICLE_SEARCH_USER' => -1] + $this->users);
-        $this->view->assign('searchCategories', ['ARTICLE_SEARCH_CATEGORY' => -1] + $this->categories);
+        $this->view->assign('searchUsers', ['' => -1] + $this->users);
+        $this->view->assign('searchCategories', ['' => -1] + $this->categories);
         
         $this->assignSearchFromVars();
 
@@ -189,31 +206,31 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller imp
         ]);
 
         $this->view->assign('searchPinned', [
-            'ARTICLE_SEARCH_PINNED' => -1,
+            '' => -1,
             'GLOBAL_YES' => 1,
             'GLOBAL_NO' => 0
         ]);
 
         $this->view->assign('searchPostponed', [
-            'ARTICLE_SEARCH_POSTPONED' => -1,
+            '' => -1,
             'GLOBAL_YES' => 1,
             'GLOBAL_NO' => 0
         ]);
 
         $this->view->assign('searchComments', [
-            'ARTICLE_SEARCH_COMMENTS' => -1,
+            '' => -1,
             'GLOBAL_YES' => 1,
             'GLOBAL_NO' => 0
         ]);
 
         $this->view->assign('searchApproval', [
-            'ARTICLE_SEARCH_APPROVAL' => -1,
+            '' => -1,
             'GLOBAL_YES' => 1,
             'GLOBAL_NO' => 0
         ]);
 
         $this->view->assign('searchDraft', [
-            'ARTICLE_SEARCH_DRAFT' => -1,
+            '' => -1,
             'GLOBAL_YES' => 1,
             'GLOBAL_NO' => 0
         ]);
@@ -248,72 +265,72 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller imp
         
         if ($this->permissions->article->authors) {
             $fields[] = new \fpcm\components\masseditField(
-                'users',
-                'EDITOR_CHANGEAUTHOR',
-                (new \fpcm\view\helper\select('userid'))
+                (new \fpcm\view\helper\select('userid', 'meUserid'))
                     ->setOptions(['GLOBAL_NOCHANGE_APPLY' => -1] + $this->users)
                     ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
-                    ->setClass('fpcm-articles-search-input fpcm-ui-input-select-massedit fpcm-ui-input-massedit')
+                    ->setText('EDITOR_CHANGEAUTHOR')
+                    ->setIcon('users')
             );
         }
 
         $fields[] = new \fpcm\components\masseditField(
-            'thumbtack fa-rotate-90',
-            'EDITOR_PINNED',
-            (new \fpcm\view\helper\select('pinned'))
+            (new \fpcm\view\helper\select('pinned', 'mePinned'))
                 ->setOptions($this->yesNoChangeList)
                 ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
-                ->setClass('fpcm-articles-search-input fpcm-ui-input-select-massedit fpcm-ui-input-massedit'),
-                'col-sm-6 col-md-4'
+                ->setText('EDITOR_PINNED')
+                ->setIcon('thumbtack fa-rotate-90')
         );
         
         if ($this->showDraftStatus()) {
             $fields[] = new \fpcm\components\masseditField(
-                ['icon' => 'file-alt'],
-                'EDITOR_DRAFT',
-                (new \fpcm\view\helper\select('draft'))
+                (new \fpcm\view\helper\select('draft', 'meDraft'))
                     ->setOptions($this->yesNoChangeList)
                     ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
-                    ->setClass('fpcm-articles-search-input fpcm-ui-input-select-massedit fpcm-ui-input-massedit'),
-                    'col-sm-6 col-md-4'
+                    ->setText('EDITOR_DRAFT')
+                    ->setIcon('file-alt')
             );
         }
         
         if (!$this->permissions->article->approve) {
             $fields[] = new \fpcm\components\masseditField(
-                ['icon' => 'thumbs-up', 'prefix' => 'far'],
-                'EDITOR_STATUS_APPROVAL',
-                (new \fpcm\view\helper\select('approval'))
+                (new \fpcm\view\helper\select('approval', 'meApproval'))
                     ->setOptions($this->yesNoChangeList)
                     ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
-                    ->setClass('fpcm-articles-search-input fpcm-ui-input-select-massedit fpcm-ui-input-massedit'),
-                    'col-sm-6 col-md-4'
+                    ->setText('EDITOR_STATUS_APPROVAL')
+                    ->setIcon('thumbs-up', 'far')
             );
         }
         
         if ($this->config->system_comments_enabled && $this->permissions->editComments()) {
             $fields[] = new \fpcm\components\masseditField(
-                ['icon' => 'comments', 'prefix' => 'far'],
-                'EDITOR_COMMENTS',
-                (new \fpcm\view\helper\select('comments'))
+                (new \fpcm\view\helper\select('comments', 'meComments'))
                     ->setOptions($this->yesNoChangeList)
                     ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
-                    ->setClass('fpcm-articles-search-input fpcm-ui-input-select-massedit fpcm-ui-input-massedit'),
-                    'col-sm-6 col-md-4'
+                    ->setText('EDITOR_COMMENTS')
+                    ->setIcon('comments', 'far')
             );
         }
         
         if ($this->permissions->article->archive) {
             $fields[] = new \fpcm\components\masseditField(
-                'archive',
-                'EDITOR_ARCHIVE',
-                (new \fpcm\view\helper\select('archived'))
+                (new \fpcm\view\helper\select('archived', 'meArchived'))
                     ->setOptions($this->yesNoChangeList)
                     ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
-                    ->setClass('fpcm-articles-search-input fpcm-ui-input-select-massedit fpcm-ui-input-massedit'),
-                    'col-sm-6 col-md-4'
+                    ->setText('EDITOR_ARCHIVE')
+                    ->setIcon('archive')
             );
         }
+        
+        $fields[] = new \fpcm\components\masseditField(
+                (new \fpcm\view\helper\select('categories[]'))
+                    ->setIsMultiple(true)
+                    ->setOptions($this->categories)
+                    ->setText('TEMPLATE_ARTICLE_CATEGORYTEXTS')
+                    ->setIcon('tags')
+                    ->setClass('col-12 col-sm-6 col-md-8')
+                    ->setSelected([]),
+                null
+        );
 
         $this->assignFields($fields);
     }

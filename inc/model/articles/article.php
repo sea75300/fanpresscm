@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4.x
+ * FanPress CM 5.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -662,7 +662,7 @@ implements \fpcm\model\interfaces\isCsvImportable {
             return $return['url'];
         }
 
-        $shortened = file_get_contents('http://is.gd/create.php?format=simple&url=' . $elLinkEncode, false);
+        $shortened = file_get_contents('https://is.gd/create.php?format=simple&url=' . $elLinkEncode, false);
         if($shortened === false) {
             trigger_error('Unable to fetch short link data for '.$elLink.' , return with default article link.');
             return $elLink;

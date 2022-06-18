@@ -15,13 +15,17 @@ fpcm.editor = {
         fpcm.editor[fpcm.vars.jsvars.editorInitFunction].call();
         fpcm.editor.initToolbar();
 
+        fpcm.ui.autocomplete('#commentarticle', {
+            source: fpcm.vars.ajaxActionPath + 'autocomplete&src=articles',
+            minLength: 3
+        });
+
         fpcm.dom.fromId('btnLockIp').unbind('click');
         fpcm.dom.fromId('btnLockIp').click(function (event, ui) {
 
             var cid = fpcm.dom.fromTag(event.currentTarget).data('commentid');
 
-            fpcm.ui.confirmDialog({
-                clickNoDefault: true,
+            fpcm.ui_dialogs.confirm({
                 clickYes: function () {
                     fpcm.ajax.post('comments/lockip', {
                         dataType: 'json',
@@ -32,13 +36,8 @@ fpcm.editor = {
                             fpcm.ui.addMessage(result);
                         }
                     });
-                    
-                    fpcm.dom.fromTag(this).dialog("close");
                 }
             });
-
-
-
 
             return false;
         });
@@ -56,6 +55,13 @@ fpcm.editor = {
     
     initTinyMce: function() {
         fpcm.editor_tinymce.create(fpcm.vars.jsvars.editorConfig);
+    },
+    
+    getGalleryReplacement: function (_values) {
+        return fpcm.vars.jsvars.editorGalleryTagStart.replace(
+            '{{IMAGES}}',
+            fpcm.vars.jsvars.editorGalleryTagThumb + _values.join(fpcm.vars.jsvars.editorGalleryTagLink + '|' + fpcm.vars.jsvars.editorGalleryTagThumb) + fpcm.vars.jsvars.editorGalleryTagLink
+        );
     }
 
 };

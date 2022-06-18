@@ -1,22 +1,29 @@
 <?php /* @var $theView fpcm\view\viewVars */ ?>
 <?php if ($theView->buttons || $theView->pager) : ?>
-<div class="fpcm ui-background-white-50p fpcm-ui-margin-lg-bottom" id="fpcm-ui-toolbar">
+<div class="navbar navbar-dark border-bottom border-1 border-secondary fpcm ui-background-white-50p <?php if (!empty($toolbarClass)) : print $toolbarClass; endif; ?>" id="fpcm-ui-toolbar">
+    
+    <div class="container-fluid justify-content-start">
     <?php if ($theView->buttons) : ?>
-    <div class="fpcm-ui-toolbar fpcm-ui-float-left">
-        <?php foreach ($theView->buttons as $button) : ?><?php print $button; ?><?php endforeach; ?>
-    </div>
+        <div class="navbar me-auto d-flex gap-1">
+        <?php foreach ($theView->buttons as $button) : ?>
+            <?php $button->setClass('shadow-sm'); ?>
+                <?php print $button; ?>
+        <?php endforeach; ?>
+        </div>
     <?php endif; ?>
+        <div class="navbar ms-auto gap-1">
+            <?php if ($theView->toolbarItemRight) : ?>
+            <div class="nav-item">
+                <?php print $theView->toolbarItemRight; ?>
+            </div>
+            <?php endif; ?>
+            <?php if ($theView->pager) : ?>
+            <?php print $theView->pager; ?>                
+            <?php endif; ?>
+        </div>
+    </div>
 
-    <?php if ($theView->toolbarItemRight) : ?>
-    <div class="fpcm-ui-toolbar fpcm-ui-float-right">
-        <?php print $theView->toolbarItemRight; ?>
-    </div>
-    <?php endif; ?>
-    <?php if ($theView->pager) : ?>
-    <div class="fpcm-ui-toolbar fpcm-ui-float-right" id="fpcm-ui-pager">
-        <?php print $theView->pager; ?>
-    </div>
-    <?php endif; ?>
-    <div class="fpcm-ui-clear"></div>
 </div>
+<?php else : ?>
+<div class="mb-3"></div>
 <?php endif; ?>

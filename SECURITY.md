@@ -6,8 +6,9 @@ As of Oct 13th 2021, the following version branches are supported. Version with 
 
 | Version | Supported          |
 | ------- | ------------------ |
-| 4.5.x   | :white_check_mark: |
-| 4.4.x   | ( :white_check_mark: ) |
+| 5.0.x   | :white_check_mark: |
+| 4.5.x   | ( :white_check_mark: ) |
+| 4.4.x   | :x: |
 | 4.3.x   | :x: |
 | 4.2.x   | :x: |
 | 4.1.x   | :x: |

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4.x
+ * FanPress CM 5.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -12,18 +12,12 @@ namespace fpcm\model\dashboard;
  * 
  * @package fpcm\model\dashboard
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 class sysstats extends \fpcm\model\abstracts\dashcontainer {
 
     use \fpcm\model\traits\dashContainerCols;
-    
-    /**
-     * Container table content
-     * @var array
-     */
-    protected $tableContent = [];
 
     /**
      * Coutn of deleted items
@@ -58,91 +52,93 @@ class sysstats extends \fpcm\model\abstracts\dashcontainer {
             return $this->cache->read($this->cacheName);
         }
 
-        $this->tableContent[] = $this->get2ColRow(
+        $content = [];
+
+        $content[] = $this->get2ColRow(
             (new \fpcm\view\helper\icon('book')).' '.$this->language->translate('SYSTEM_STATS_ARTICLES_ALL'),
             $this->dbStats['articles_all']
         );
 
-        $this->tableContent[] = $this->get2ColRow(
+        $content[] = $this->get2ColRow(
             (new \fpcm\view\helper\icon('newspaper', 'far')).' '.$this->language->translate('SYSTEM_STATS_ARTICLES_ACTIVE'),
             $this->dbStats['articles_active']
         );
 
-        $this->tableContent[] = $this->get2ColRow(
+        $content[] = $this->get2ColRow(
             (new \fpcm\view\helper\icon('archive')).' '.$this->language->translate('SYSTEM_STATS_ARTICLES_ARCHIVE'),
             $this->dbStats['articles_archived']
         );
 
-        $this->tableContent[] = $this->get2ColRow(
+        $content[] = $this->get2ColRow(
             (new \fpcm\view\helper\icon('file-alt', 'far')).' '.$this->language->translate('SYSTEM_STATS_ARTICLES_DRAFT'),
             $this->dbStats['articles_draft']
         );
 
-        $this->tableContent[] = $this->get2ColRow(
+        $content[] = $this->get2ColRow(
             (new \fpcm\view\helper\icon('thumbs-up', 'far')).' '.$this->language->translate('SYSTEM_STATS_ARTICLES_APPROVAL'),
             $this->dbStats['articles_unapproved'],
-            ($this->dbStats['articles_unapproved'] > 0 ? 'fpcm-ui-important-text' : '')
+            ($this->dbStats['articles_unapproved'] > 0 ? 'color-red' : '')
         );
 
-        $this->tableContent[] = $this->get2ColRow(
+        $content[] = $this->get2ColRow(
             (new \fpcm\view\helper\icon('calendar-plus')).' '.$this->language->translate('SYSTEM_STATS_ARTICLES_POSTPONED'),
             $this->dbStats['articles_postponed'],
-            ($this->dbStats['articles_postponed'] > 0 ? 'fpcm-ui-important-text' : '')
+            ($this->dbStats['articles_postponed'] > 0 ? 'color-red' : '')
         );
-        $this->tableContent[] = $this->get2ColRow(
+        $content[] = $this->get2ColRow(
             (new \fpcm\view\helper\icon('comments')).' '.$this->language->translate('SYSTEM_STATS_COMMENTS_ALL'),
             $this->dbStats['comments_all']
         );
 
-        $this->tableContent[] = $this->get2ColRow(
+        $content[] = $this->get2ColRow(
             (new \fpcm\view\helper\icon('check-circle', 'far')).' '.$this->language->translate('SYSTEM_STATS_COMMENTS_UNAPPR'),
             $this->dbStats['comments_unapproved'],
-            ($this->dbStats['comments_unapproved'] > 0 ? 'fpcm-ui-important-text' : '')
+            ($this->dbStats['comments_unapproved'] > 0 ? 'color-red' : '')
         );          
 
-        $this->tableContent[] = $this->get2ColRow(
+        $content[] = $this->get2ColRow(
             (new \fpcm\view\helper\icon('eye-slash')).' '.$this->language->translate('SYSTEM_STATS_COMMENTS_PRIVATE'),
             $this->dbStats['comments_private'],
-            ($this->dbStats['comments_private'] > 0 ? 'fpcm-ui-important-text' : '')
+            ($this->dbStats['comments_private'] > 0 ? 'color-red' : '')
         );          
 
-        $this->tableContent[] = $this->get2ColRow(
+        $content[] = $this->get2ColRow(
             (new \fpcm\view\helper\icon('flag')).' '.$this->language->translate('SYSTEM_STATS_COMMENTS_SPAM'),
             $this->dbStats['comments_spam'],
-            ($this->dbStats['comments_spam'] > 0 ? 'fpcm-ui-important-text' : '')
+            ($this->dbStats['comments_spam'] > 0 ? 'color-red' : '')
         );        
 
-        $this->tableContent[] = $this->get2ColRow(
+        $content[] = $this->get2ColRow(
             (new \fpcm\view\helper\icon('users')).' '.$this->language->translate('SYSTEM_STATS_USERS'),
             "{$this->dbStats['users_all']} ({$this->dbStats['users_active']})"
         );
 
-        $this->tableContent[] = $this->get2ColRow(
+        $content[] = $this->get2ColRow(
             (new \fpcm\view\helper\icon('file-alt', 'far')).' '.$this->language->translate('SYSTEM_STATS_CATEGORIES'),
             $this->dbStats['categories']
         );
 
-        $this->tableContent[] = $this->get2ColRow(
+        $content[] = $this->get2ColRow(
             (new \fpcm\view\helper\icon('copy', 'far')).' '.$this->language->translate('SYSTEM_STATS_UPLOAD_COUNT'),
             $this->dbStats['upload_count']
         );
 
-        $this->tableContent[] = $this->get2ColRow(
+        $content[] = $this->get2ColRow(
             (new \fpcm\view\helper\icon('calculator')).' '.$this->language->translate('SYSTEM_STATS_UPLOAD_SIZE'),
             \fpcm\classes\tools::calcSize($this->dbStats['upload_size'] ?? 0)
         );
 
-        $this->tableContent[] = $this->get2ColRow(
+        $content[] = $this->get2ColRow(
             (new \fpcm\view\helper\icon('hdd')).' '.$this->language->translate('SYSTEM_STATS_CACHE_SIZE'),
             \fpcm\classes\tools::calcSize($this->cache->getSize())
         );
 
-        $this->tableContent[] = $this->get2ColRow(
+        $content[] = $this->get2ColRow(
             (new \fpcm\view\helper\icon('flag')).' '.$this->language->translate('SYSTEM_STATS_TRASHCOUNT'),
             $this->dbStats['articles_deleted'] + $this->dbStats['comments_deleted']
         );
 
-        $return = PHP_EOL.'<div class="row">'.implode('</div>'.PHP_EOL.'<div class="row">'.PHP_EOL, $this->tableContent).'</div>'.PHP_EOL;
+        $return = PHP_EOL.'<div class="row">'.implode('</div>'.PHP_EOL.'<div class="row">'.PHP_EOL, $content).'</div>'.PHP_EOL;
         $this->cache->write($this->cacheName, $return);
 
         return $return;
@@ -173,13 +169,6 @@ class sysstats extends \fpcm\model\abstracts\dashcontainer {
     public function getHeight()
     {
         return self::DASHBOARD_HEIGHT_SMALL_MEDIUM;
-    }
-
-    /**
-     * Check ausführen
-     */
-    protected function runCheck()
-    {
     }
 
     /**

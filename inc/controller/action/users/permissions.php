@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4.x
+ * FanPress CM 5.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -18,6 +18,11 @@ class permissions extends \fpcm\controller\abstracts\controller implements \fpcm
 
     use \fpcm\controller\traits\users\savePermissions;
 
+    /**
+     * 
+     * @var \fpcm\model\users\userRoll
+     */
+    private $roll;
 
     public function isAccessible(): bool
     {
@@ -37,8 +42,7 @@ class permissions extends \fpcm\controller\abstracts\controller implements \fpcm
     {
         $this->rollId = $this->request->getID();
 
-        $roll = new \fpcm\model\users\userRoll($this->rollId, false);
-        $this->view->assign('rollname', $this->language->translate($roll->getRollName()));
+        $this->roll = new \fpcm\model\users\userRoll($this->rollId, false);
 
         $this->fetchRollPermssions();
         
@@ -73,6 +77,12 @@ class permissions extends \fpcm\controller\abstracts\controller implements \fpcm
         $this->view->setFormAction('users/permissions', [
             'id' => $this->rollId
         ]);
+
+        $this->view->addTabs('permissions', [
+            (new \fpcm\view\helper\tabItem('permissions-group'))
+                ->setText('USERS_EDIT_PERMISSION', ['rollname' => $this->language->translate($this->roll->getRollName())])
+                ->setFile($this->getViewPath() . '.php')
+        ], 'm-2');
 
         $this->view->render();
     }

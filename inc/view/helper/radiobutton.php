@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4
+ * FanPress CM 5
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -25,7 +25,7 @@ final class radiobutton extends radiocheck {
     {
         parent::init();
         $this->type = 'radio';
-        $this->class .= ' fpcm-ui-input-radiobutton';
+        $this->class .= ' form-check-input';
     }
 
 }

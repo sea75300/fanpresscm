@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4
+ * FanPress CM 5
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -18,6 +18,8 @@ namespace fpcm\view\helper;
  */
 final class dateTimeInput extends input {
 
+    use traits\minMaxHelper;
+    
     const DEFAULT_CLASS = 'fpcm-ui-datetime-picker';
 
     /**
@@ -27,8 +29,10 @@ final class dateTimeInput extends input {
     protected function init()
     {
         parent::init();
-        $this->type = 'text';
+        $this->type = 'date';
         $this->class .= ' '.self::DEFAULT_CLASS;
+        $this->maxlenght = '';
+        $this->setPlaceholder('');
     }
 
     /**

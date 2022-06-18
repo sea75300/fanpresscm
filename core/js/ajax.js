@@ -48,7 +48,7 @@ fpcm.ajax = {
         }
 
         jQuery.ajax({
-            url         : fpcm.vars.ajaxActionPath + action,
+            url         : fpcm.vars.ajaxActionPath + action.replace(fpcm.vars.ajaxActionPath, ''),
             type        : params.method.toUpperCase(),
             data        : params.data,
             async       : params.async,
@@ -212,10 +212,17 @@ fpcm.ajax = {
                 
                 if (_params.dataType !== 'json') {
                     fpcm.dom.assignHtml(_params.destination, result);
-                    _params.onAssignHtmlAfter();
+                    _params.onAssignHtmlAfter(result);
                     return true;
                 }
                 
+                if (result.html) {
+                    fpcm.ui.togglePager(_params.filter ? true : false);
+                    fpcm.dom.assignHtml(_params.destination, result.html);
+                    _params.onAssignHtmlAfter(result);
+                    return true;
+                }
+
                 if (result.message && result.message.txt && result.message.type) {
                     fpcm.ui.addMessage(result.message);
                     return false;
@@ -227,15 +234,10 @@ fpcm.ajax = {
                 });
                 
                 if (_params.filter) {
-                    fpcm.ui.mainToolbar.find('.fpcm-ui-pager-element').addClass('fpcm-ui-hidden');
-                    fpcm.ui.controlgroup(fpcm.ui.mainToolbar, 'refresh');
-                    fpcm.dom.fromId('opensearch').addClass('fpcm-ui-button-primary');
+                    fpcm.ui.togglePager(true);
                 }
                 else if (result.pager && !_params.filter) {
-                    fpcm.ui.mainToolbar.find('.fpcm-ui-pager-element').removeClass('fpcm-ui-hidden');
-                    fpcm.ui.controlgroup(fpcm.ui.mainToolbar, 'refresh');
-                    fpcm.dom.fromId('opensearch').removeClass('fpcm-ui-button-primary');
-                    
+                    fpcm.ui.togglePager(false);
                     fpcm.vars.jsvars.pager.currentPage = result.pager.currentPage;
                     fpcm.vars.jsvars.pager.maxPages = result.pager.maxPages;
                     fpcm.vars.jsvars.pager.showBackButton = result.pager.showBackButton;

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4
+ * FanPress CM 5
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -20,13 +20,13 @@ class tabItem extends helper {
 
     /**
      * @var int Tab state active
-     * @since 4.5.5
+     * @since 5.0-dev
      */
     const STATE_ACTIVE = 1;
 
     /**
      * @var int Tab state disabled
-     * @since 4.5.5
+     * @since 5.0-dev
      */
     const STATE_DISABLED = 2;
     
@@ -47,6 +47,37 @@ class tabItem extends helper {
      * @var string
      */
     protected $dataViewId = '';
+
+    /**
+     * Module key
+     * @var string
+     * @since 5.0.-dev
+     */
+    protected $modulekey = '';
+
+    /**
+     * Tab status
+     * @var int
+     * @since 5.0-dev
+     */
+    protected $state = 011;
+
+    /**
+     * Preload tab item
+     * @var bool
+     * @since 5.0-dev
+     */
+    protected $preload = true;
+
+    /**
+     * Optional init function
+     * @return void
+     * @ignore
+     */
+    protected function init()
+    {
+        $this->data['bs-toggle'] = 'tab';
+    }
 
     /**
      * Returns item id
@@ -76,8 +107,48 @@ class tabItem extends helper {
      */
     public function setFile(string $file) 
     {
-        $this->url = '#'.$this->id;
+        if (substr($file, 0, 2) === '{$') {
+            $file = \fpcm\classes\tools::strReplaceArray($file, [
+                \fpcm\view\view::PATH_COMPONENTS => \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'components' . DIRECTORY_SEPARATOR),
+                \fpcm\view\view::PATH_MODULE => $this->modulekey ? \fpcm\module\module::getTemplateDirByKey($this->modulekey, DIRECTORY_SEPARATOR) : '',
+            ]);
+        }
+        
+        if (substr($file, -4) !== '.php') {
+            $file .= '.php';
+        }
+
+        if (!file_exists($file)) {
+            $file = realpath(\fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, $file));
+        }
+
+        $this->url = '#';
         $this->file = $file;
+
+        return $this;
+    }
+
+    /**
+     * 
+     * @param int $state
+     * @return $this
+     * @since 5.0-dev
+     */
+    public function setState(int $state)
+    {
+        $this->state = $state;
+        return $this;
+    }
+
+    /**
+     * 
+     * @param string $modulekey
+     * @return $this
+     * @since 5.0-dev
+     */
+    public function setModulekey(string $modulekey)
+    {
+        $this->modulekey = $modulekey;
         return $this;
     }
 
@@ -103,6 +174,39 @@ class tabItem extends helper {
     }
 
     /**
+     * Set item ID
+     * @param string $dataViewId
+     * @return $this
+     */
+    public function setTabToolbar($toolbarTab)
+    {
+        $this->data['toolbar-buttons'] = (string) $toolbarTab;
+        return $this;
+    }
+
+    /**
+     * Set item index
+     * @param int $index
+     * @return $this
+     */
+    public function setSaveIndex(int $index)
+    {
+        $this->data['tab-index'] = $index;
+        return $this;
+    }
+
+    /**
+     * Set preload status of tab
+     * @param bool $preload
+     * @return $this
+     * @since 5.0-dev
+     */
+    public function setPreload(bool $preload) {
+        $this->preload = $preload;
+        return $this;
+    }
+    
+    /**
      * Get item ID
      * @return string
      */
@@ -112,24 +216,59 @@ class tabItem extends helper {
     }
 
     /**
+     * Return active state of tab
+     * @return bool
+     * @since 5.0-dev
+     */
+    final public function isActive() : bool
+    {
+        return $this->state === self::STATE_ACTIVE;
+    }
+
+    /**
+     * Return preload state of tab
+     * @return bool
+     * @since 5.0-dev
+     */
+    final public function canPreload() : bool
+    {
+        return $this->preload;
+    }
+
+    /**
      * Return item string
      * @return string
      */
     protected function getString()
     {
         $html = [];
-        $html[] = '<li';
-        $html[] = 'id="fpcm-tabs-'.$this->id.'" class="ui-tabs-tab ui-corner-top ui-state-default"';
+        $html[] = '<li id="fpcm-tab-'.$this->id.'" class="nav-item flex-sm-fill11"';
 
         if ($this->dataViewId) {
-            $html[] = 'data-dataview-list="'.$this->dataViewId.'"';
+            $this->data['dataview-list'] = $this->dataViewId;
         }
 
         if (!$this->useWrapper) {
             $html[] = $this->getDataString();
         }
 
-        $html[] = '><a class="ui-tabs-anchor" href="'.$this->url.'" '.($this->useWrapper ? $this->getDataString() : '').'>'.$this->text.'</a>';
+        $this->data['bs-target'] = '#fpcm-tab-'.$this->id.'-pane';
+        $this->data['bs-toggle'] = 'tab';
+
+        $css = 'fpcm ui-background-white-50p ';
+
+        switch ($this->state) {
+            case self::STATE_ACTIVE :
+                $css .= 'active';
+                $this->setAria(['current' => 'page']);                
+                break;
+            case self::STATE_DISABLED :
+                $css .= 'disabled';
+                $this->setAria(['disabled' => 'true']);                
+                break;
+        }
+
+        $html[] = '><a class="nav-link '.$css.'" href="'.$this->url.'" role="tab" '.$this->getDataString().' '.$this->getAriaString().'>'.$this->text.'</a>';
         $html[] = '</li>';
 
         return implode(' ', $html);

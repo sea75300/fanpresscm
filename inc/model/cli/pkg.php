@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4.x
+ * FanPress CM 5.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -79,11 +79,11 @@ final class pkg extends \fpcm\model\abstracts\cli {
         }
         
         if (!isset($this->funcParams[1])) {
-            $this->funcParams[1] = null;
+            $this->funcParams[1] = '';
         }
         
         if (!isset($this->funcParams[2])) {
-            $this->funcParams[2] = null;
+            $this->funcParams[2] = '';
         }
 
         list($action, $package, $ex) = $this->funcParams;
@@ -139,8 +139,8 @@ final class pkg extends \fpcm\model\abstracts\cli {
         }
 
         $successMod = $this->updaterMod->getData();
-        if (!$successMod) {
-            $this->output('Unable to sync module package informations. Check error log for further information.' . PHP_EOL . 'Error Code ' . $successMod, true);
+        if (!count($successMod)) {
+            $this->output('Unable to sync module package informations. Check error log for further information.' . PHP_EOL . 'Error Code ' . print_r($successMod, true), true);
         }
 
         $updates = (new \fpcm\module\modules())->getInstalledUpdates();
@@ -245,6 +245,12 @@ final class pkg extends \fpcm\model\abstracts\cli {
         $pkg->cleanupFiles();
         $pkg->cleanup();
         $this->output('-- Finished.' . PHP_EOL);
+
+        if (\fpcm\classes\baseconfig::canConnect()) {
+            $this->output('Refresh package data...');
+            (new \fpcm\model\crons\updateCheck())->run();
+            $this->output('-- Finished.' . PHP_EOL);
+        }
 
         $this->output('System update successful. New version: ' . \fpcm\classes\baseconfig::getVersionFromFile() . PHP_EOL);
         $this->output('Please check error log and data folder permissions.' . PHP_EOL);

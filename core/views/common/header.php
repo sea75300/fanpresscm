@@ -7,6 +7,7 @@
         <meta name="robots" content="noindex, nofollow">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="apple-touch-icon" sizes="180x180" href="<?php print $theView->themePath; ?>apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="192x192" href="<?php print $theView->themePath; ?>android-icon-192x192.png">
         <link rel="icon" type="image/png" sizes="32x32" href="<?php print $theView->themePath; ?>favicon-32x32.png">
         <link rel="icon" type="image/png" sizes="16x16" href="<?php print $theView->themePath; ?>favicon-16x16.png">        
         <link rel="shortcut icon" href="<?php print $theView->themePath; ?>favicon.ico" />
@@ -17,34 +18,13 @@
 
     <body class="fpcm-body <?php print $theView->bodyClass; ?>" id="fpcm-body">
 
-        <?php include_once $theView->getIncludePath('common/messagesTpl.php'); ?>
-        
-        <div class="fpcm-ui-wrapper">
+        <?php if ($theView->formActionTarget) : ?><form method="post" action="<?php print $theView->formActionTarget; ?>" enctype="multipart/form-data" id="fpcm-ui-form"><?php endif; ?>
 
-            <?php if ($theView->formActionTarget) : ?><form method="post" action="<?php print $theView->formActionTarget; ?>" enctype="multipart/form-data" id="fpcm-ui-form"><?php endif; ?>
+        <header>
+            <?php include_once $theView->getIncludePath('common/menutop.php'); ?>                
+            <?php include_once $theView->getIncludePath('common/navigation.php'); ?>
+        </header>
 
-            <header>
-                <div class="row no-gutters fpcm-ui-background-white-100">
-                    <div class="col-12 col-md-6 fpcm-ui-ellipsis">
-                        <!-- <img src="<?php print $theView->themePath; ?>logo.svg">-->
-                        <h1 class="mx-3- mx-md-0"><?php $theView->icon('chevron-right '); ?> <span>FanPress CM</span> <span>News System</span></h1>
-                    </div>
-                    <div class="col-12 col-md-6 fpcm-ui-ellipsis d-block d-sm-none">
-                        <p class="fpcm-ui-center fpcm-ui-padding-md-lr fpcm-ui-font-small"><?php $theView->icon('exclamation-circle'); ?> <?php $theView->write('GUI_VIEWPORT_SIZE'); ?></p>
-                    </div>
-                    <div class="col-12 col-md-6 align-self-center">
-                        <?php include_once $theView->getIncludePath('common/menutop.php'); ?>
-                    </div>                
-                </div>
-            </header>
+        <?php include_once $theView->getIncludePath('common/buttons.php'); ?>
 
-            <nav>
-                <div class="row no-gutters align-self-center">
-                    <div class="col-12">
-                        <?php include_once $theView->getIncludePath('common/navigation.php'); ?>
-                    </div>
-                </div>
-            </nav>
-
-            <?php include_once $theView->getIncludePath('common/buttons.php'); ?>
-            <div class="container-fluid">
+        <div class="container-fluid mx-0 px-0 px-md-2 my-2">

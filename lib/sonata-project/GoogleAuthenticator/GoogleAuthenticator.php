@@ -101,7 +101,7 @@ final class GoogleAuthenticator implements GoogleAuthenticatorInterface
      * @param string                                   $secret
      * @param float|string|int|\DateTimeInterface|null $time
      */
-    public function getCode($secret, /* \DateTimeInterface */$time = null): string
+    public function getCode($secret, /* \DateTimeInterface */ $time = null): string
     {
         if (null === $time) {
             $time = $this->instanceTime;
@@ -113,7 +113,7 @@ final class GoogleAuthenticator implements GoogleAuthenticatorInterface
             @trigger_error(
                 'Passing anything other than null or a DateTimeInterface to $time is deprecated as of 2.0 '.
                 'and will not be possible as of 3.0.',
-                E_USER_DEPRECATED
+                \E_USER_DEPRECATED
             );
             $timeForCode = $time;
         }
@@ -121,7 +121,7 @@ final class GoogleAuthenticator implements GoogleAuthenticatorInterface
         $base32 = new FixedBitNotation(5, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ234567', true, true);
         $secret = $base32->decode($secret);
 
-        $timeForCode = str_pad(pack('N', $timeForCode), 8, \chr(0), STR_PAD_LEFT);
+        $timeForCode = str_pad(pack('N', $timeForCode), 8, \chr(0), \STR_PAD_LEFT);
 
         $hash = hash_hmac('sha1', $timeForCode, $secret, true);
         $offset = \ord(substr($hash, -1));
@@ -129,7 +129,7 @@ final class GoogleAuthenticator implements GoogleAuthenticatorInterface
 
         $truncatedHash = $this->hashToInt($hash, $offset) & 0x7FFFFFFF;
 
-        return str_pad((string) ($truncatedHash % $this->pinModulo), $this->passCodeLength, '0', STR_PAD_LEFT);
+        return str_pad((string) ($truncatedHash % $this->pinModulo), $this->passCodeLength, '0', \STR_PAD_LEFT);
     }
 
     /**
@@ -147,7 +147,7 @@ final class GoogleAuthenticator implements GoogleAuthenticatorInterface
             'Using %s() is deprecated as of 2.1 and will be removed in 3.0. '.
             'Use Sonata\GoogleAuthenticator\GoogleQrUrl::generate() instead.',
             __METHOD__
-        ), E_USER_DEPRECATED);
+        ), \E_USER_DEPRECATED);
 
         $issuer = \func_get_args()[3] ?? null;
         $accountName = sprintf('%s@%s', $user, $hostname);

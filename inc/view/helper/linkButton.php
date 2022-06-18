@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4
+ * FanPress CM 5
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -38,7 +38,7 @@ class linkButton extends button {
      */
     protected function init()
     {
-        $this->class = 'ui-button ui-corner-all ui-widget fpcm-ui-button fpcm-ui-button-link';
+        $this->class = 'btn btn-light shadow-sm fpcm-ui-button fpcm-ui-button-link';
     }
 
     /**
@@ -68,16 +68,22 @@ class linkButton extends button {
      */
     protected function getString()
     {
+        $this->text = $this->language->translate($this->text);
+        
+        if ($this->primary) {
+            $this->overrideButtonType('primary');
+        }
+
+        $icon = trim($this->getIconString());
+        
         if ($this->readonly) {
             
             $this->class .= ' fpcm-ui-readonly';
-            
-            $this->class = str_replace('fpcm-loader', '', $this->class);
             return implode(' ', [
                 "<a href=\"#\"",
                 "id=\"{$this->id}\"",
                 $this->getClassString(),
-                ($this->iconOnly ? "title=\"{$this->text}\">{$this->getIconString()}" : ">{$this->getIconString()}{$this->getDescriptionTextString()}"),
+                ($this->iconOnly ? "title=\"{$this->text}\">{$this->getIconString()}" : ">{$icon}{$this->getDescriptionTextString()}"),
                 '</a>'
             ]);
         }
@@ -89,7 +95,7 @@ class linkButton extends button {
             $this->getClassString(),
             $this->getRelString(),
             $this->getDataString(),
-            ($this->iconOnly ? "title=\"{$this->text}\">{$this->getIconString()}" : ">{$this->getIconString()}{$this->getDescriptionTextString()}"),
+            ($this->iconOnly ? "title=\"{$this->text}\">{$this->getIconString()}" : ">{$icon}{$this->getDescriptionTextString()}"),
             '</a>'
         ]);
     }
@@ -115,5 +121,21 @@ class linkButton extends button {
         $this->rel = $rel;
         return $this;
     }
+
+    /**
+     * Override bs button type
+     * @param string $rel
+     * @return $this
+     * @since 5.0.0-b3
+     */
+    public function overrideButtonType($type)
+    {
+        if ($type === 'link') {
+            $this->class = str_replace('shadow-sm', 'shadow-none', $this->class);
+        }
+        
+        return parent::overrideButtonType($type);
+    }
+
 
 }

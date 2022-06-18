@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4.x
+ * FanPress CM 5.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -55,7 +55,7 @@ class import extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
 
     public function isAccessible(): bool
     {
-        return $this->permissions->system->options;
+        return $this->permissions->system->csvimport;
     }
     
     public function request()

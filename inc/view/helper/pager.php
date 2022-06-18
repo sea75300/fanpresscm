@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4
+ * FanPress CM 5
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -152,9 +152,9 @@ class pager extends helper {
     protected function getString()
     {
         $return = implode('', [
-            (new linkButton('pagerBack'))->setText('GLOBAL_BACK')->setUrl('#')->setReadonly($this->showBackButton ? false : true)->setIcon('chevron-circle-left')->setIconOnly(true)->setClass('fpcm-ui-pager-element'),
-            (new select('pageSelect'))->setOptions([])->setFirstOption(select::FIRST_OPTION_DISABLED)->setClass('fpcm-ui-pager-element'),
-            (new linkButton('pagerNext'))->setText('GLOBAL_NEXT')->setUrl('#')->setReadonly($this->showNextButton ? false : true)->setIcon('chevron-circle-right')->setIconOnly(true)->setClass('fpcm-ui-pager-element')
+            '<div class="nav-item">' . (new linkButton('pagerBack'))->setText('GLOBAL_BACK')->setUrl('#')->setReadonly($this->showBackButton ? false : true)->setIcon('chevron-circle-left')->setIconOnly(true)->setClass('fpcm-ui-pager-element shadow-sm') . '</div>',
+            '<div class="nav-item d-none d-sm-block">' . (new select('pageSelect'))->setOptions([])->setFirstOption(select::FIRST_OPTION_DISABLED)->setClass('fpcm-ui-pager-element shadow-sm') . '</div>',
+            '<div class="nav-item">' . (new linkButton('pagerNext'))->setText('GLOBAL_NEXT')->setUrl('#')->setReadonly($this->showNextButton ? false : true)->setIcon('chevron-circle-right')->setIconOnly(true)->setClass('fpcm-ui-pager-element shadow-sm') . '</div>',
         ]);
 
         return $return;

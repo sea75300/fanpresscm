@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4.x
+ * FanPress CM 5.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -76,7 +76,7 @@ final class logfile extends \fpcm\model\abstracts\file {
         $this->fileMap = self::getLogMap();
 
         if (!isset($this->fileMap[$logFile])) {
-            trigger_error('Invalid logfile type given');
+            trigger_error("Invalid logfile type given: {$logFile}");
             return false;
         }
 

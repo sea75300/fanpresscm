@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4.x
+ * FanPress CM 5.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -65,8 +65,6 @@ trait savePermissions {
     
     protected function assignToView() : bool
     {
-        $this->view->addJsFiles(['permissions.js']);
-
         $this->view->assign('rollId', $this->rollId);
         $this->view->assign('permissions', $this->permissionObj->getPermissionData());
         return true;

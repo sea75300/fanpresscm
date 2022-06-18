@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4.x
+ * FanPress CM 5.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -95,6 +95,18 @@ class navigationItem extends \fpcm\model\abstracts\staticModel {
     private $currentModule = '';
 
     /**
+     * Module to check/merk as active
+     * @var string
+     */
+    private $activeSetModule = '';
+
+    /**
+     * has parent, so it's a submenu item
+     * @var bool
+     */
+    private $submenuItem = false;
+
+    /**
      * Konstruktor
      */
     public function __construct()
@@ -102,7 +114,7 @@ class navigationItem extends \fpcm\model\abstracts\staticModel {
         $this->config = \fpcm\classes\loader::getObject('\fpcm\model\system\config');
         $this->language = \fpcm\classes\loader::getObject('\fpcm\classes\language');
 
-        $this->id = uniqid('fpcm-nav-item');
+        $this->id = uniqid('fpcm-nav-item-');
         $this->currentModule = \fpcm\classes\tools::getNavigationActiveCheckStr();
     }
 
@@ -225,7 +237,7 @@ class navigationItem extends \fpcm\model\abstracts\staticModel {
      */
     public function setIcon(string $icon, string $prefix = 'fa', bool $useFa = true)
     {
-        $this->icon = (string) new \fpcm\view\helper\icon($icon, $prefix, $useFa);
+        $this->icon = (string) (new \fpcm\view\helper\icon($icon, $prefix, $useFa));
         return $this;
     }
 
@@ -255,7 +267,7 @@ class navigationItem extends \fpcm\model\abstracts\staticModel {
      */
     public function setId($id)
     {
-        $this->id = $id;
+        $this->id = 'fpcm-nav-item-' . $id;
         return $this;
     }
 
@@ -290,6 +302,18 @@ class navigationItem extends \fpcm\model\abstracts\staticModel {
     }
 
     /**
+     * Is submenu item
+     * @param bool $submenuItem
+     * @return $this
+     * @since 5.0.0-a4
+     */
+    public function setIsSubmenuItem(bool $submenuItem)
+    {
+        $this->submenuItem = $submenuItem;
+        return $this;
+    }
+    
+    /**
      * Status, ob Spacer nach Element angezeigt werden soll
      * @return bool
      */
@@ -311,8 +335,12 @@ class navigationItem extends \fpcm\model\abstracts\staticModel {
      * Status zurückgeben, ob Ziel aktiv ist
      * @return bool
      */
-    public function isActive()
+    public function isActive(string $id = '')
     {
+        if ($this->getId() === 'fpcm-nav-item-' . $id) {
+            return true;
+        }
+        
         return ( substr($this->url, 0, strlen($this->currentModule)) === $this->currentModule ? true : false );
     }
 
@@ -330,32 +358,107 @@ class navigationItem extends \fpcm\model\abstracts\staticModel {
      * @param bool $accessible
      * @return $this
      */
-    public function setAccessible(bool $accessible) {
+    public function setAccessible(bool $accessible)
+    {
         $this->accessible = $accessible;
         return $this;
     }
+
+    /**
+     * Get navigation item css string
+     * @param type $active
+     * @return string
+     * @since 5.0-dev
+     */
+    public function getDefaultCss($active = '') : string
+    {
+        $css = [$this->class];
+        if ($this->isActive($active)) {
+            $css[] = 'active';
+        }
+
+        if ($this->hasSubmenu()) {
+            $css[] = 'dropdown-toggle';
+        }
+
+        return implode(' ', $css);
+    }
+
+    /**
+     * Init defaults in view
+     * @param string $mod
+     * @since 5.0.0-a4
+     * @ignore
+     */
+    public function initDefault(string $mod = '')
+    {
+        $this->activeSetModule = $mod;
+    }
     
-    /**
-     * @ignore
-     * @return array
-     */
-    public function __sleep()
+    public function __toString() : string
     {
-        $this->config = null;
-        $this->language = null;
+        $css = [];
+        
+        
+        if (!$this->submenuItem) {
+            $css[] = 'nav-item';
+            
+        }
 
-        return ['description', 'url', 'icon', 'class', 'id', 'parent', 'accessible', 'permission', 'submenu', 'spacer', 'wrapperClass'];
+        if ($this->hasSubmenu()) {
+            $css[] = 'dropdown';
+        }
+        
+        $css = implode(' ', $css);
+
+        $str =  "<li class= \"{$css}\" id=\"{$this->getId()}\">" .
+                $this->getLinkString();
+        
+        $str = $this->getSubmenuString($str) . "</li>";
+        
+        return $str;
+    }
+    
+    private function getLinkString() : string
+    {
+        $css = ( $this->submenuItem ? 'dropdown-item px-2 ' : 'text-center p-3 fpcm ui-nav-link ' ) . $this->getDefaultCss($this->activeSetModule) . ' nav-link';
+   
+        return "<a class=\"{$css}\" href=\"{$this->getFullUrl()}\" " .
+                ($this->hasSubmenu() ? "role=\"button\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\" " : '' ) .
+                ($this->isActive($this->activeSetModule) ? "aria-current=\"page\" " : '' ) .
+                ">" .
+                ($this->submenuItem ? $this->getIcon() : "<span class=\"d-block\">{$this->getIcon()}</span>") .
+                ($this->submenuItem ? $this->getDescription() : "<span class=\"fpcm nav-text text-nowrap\">{$this->getDescription()}</span>" ) .
+                "</a>";
     }
 
-    /**
-     * @ignore
-     * @return void
-     */
-    public function __wakeup()
+    private function getSubmenuString($str) : string
     {
-        $this->config = \fpcm\classes\loader::getObject('\fpcm\model\system\config');
-        $this->language = \fpcm\classes\loader::getObject('\fpcm\classes\language');
-        $this->currentModule = \fpcm\classes\tools::getNavigationActiveCheckStr();
-    }
+        
+        if (!$this->hasSubmenu()) {
+            return $str;
+        }
+        
+        $str .= "<ul class=\"dropdown-menu shadow fpcm ui-blurring\" aria-labelledby=\"{$this->getId()}\"> ";
+        
+        /* @var $si navigationItem */
+        foreach ($this->getSubmenu() as $si) {
 
+            $si->setClass('');
+            $si->initDefault($this->activeSetModule);
+
+            $str .= (string) $si;
+            
+            if ($si->hasSpacer()) {
+                $str .= '<li><hr class=\"dropdown-divider\"></li>';
+            }
+
+        }
+        
+        $str .= "</ul> ";
+        
+        
+        return $str;
+    }
+    
 }

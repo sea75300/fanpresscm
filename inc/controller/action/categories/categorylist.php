@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4.x
+ * FanPress CM 5.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -13,9 +13,12 @@ namespace fpcm\controller\action\categories;
  * @copyright (c) 2011-2019, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class categorylist extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\isAccessible {
+class categorylist extends \fpcm\controller\abstracts\controller
+implements \fpcm\controller\interfaces\isAccessible,
+            \fpcm\controller\interfaces\requestFunctions {
 
-    use \fpcm\controller\traits\common\dataView;
+    use \fpcm\controller\traits\common\dataView,
+        \fpcm\controller\traits\theme\nav\categories;
 
     /**
      *
@@ -37,33 +40,6 @@ class categorylist extends \fpcm\controller\abstracts\controller implements \fpc
 
     /**
      * 
-     * @return bool
-     */
-    public function isAccessible(): bool
-    {
-        return $this->permissions->system->categories;
-    }
-
-    /**
-     * 
-     * @return string
-     */
-    protected function getViewPath() : string
-    {
-        return 'components/dataview';
-    }
-
-    /**
-     * 
-     * @return string
-     */
-    protected function getHelpLink()
-    {
-        return 'HL_CATEGORIES_MNG';
-    }
-
-    /**
-     * 
      * @return string
      */
     protected function getDataViewName()
@@ -77,8 +53,6 @@ class categorylist extends \fpcm\controller\abstracts\controller implements \fpc
      */
     public function request()
     {
-        $this->list = new \fpcm\model\categories\categoryList();
-        $this->rollList = new \fpcm\model\users\userRollList();
 
         if ($this->request->hasMessage('added')) {
             $this->view->addNoticeMessage('SAVE_SUCCESS_ADDCATEGORY');
@@ -88,7 +62,9 @@ class categorylist extends \fpcm\controller\abstracts\controller implements \fpc
             $this->view->addNoticeMessage('SAVE_SUCCESS_EDITCATEGORY');
         }
 
-        $this->delete();
+        $this->list = new \fpcm\model\categories\categoryList();
+        $this->rollList = new \fpcm\model\users\userRollList();
+
         return true;
     }
 
@@ -104,7 +80,7 @@ class categorylist extends \fpcm\controller\abstracts\controller implements \fpc
         $this->countReadOnly = $this->itemsCount < 2 ? true : false;
         $this->initDataView();
 
-        $this->view->addJsFiles(['categories.js']);
+        $this->view->addJsFiles(['system/categories.js']);
 
         $this->view->addFromLibrary(
             'selectize_js',
@@ -116,13 +92,11 @@ class categorylist extends \fpcm\controller\abstracts\controller implements \fpc
 
         $this->view->addAjaxPageToken('categories/massedit');
         $this->view->setFormAction('categories/list');
-        
-        $this->view->assign('headline', 'HL_CATEGORIES_MNG');
 
         $this->view->addButtons([
-            (new \fpcm\view\helper\linkButton('addnew'))->setUrl(\fpcm\classes\tools::getFullControllerLink('categories/add'))->setText('CATEGORIES_ADD')->setIcon('tag')->setClass('fpcm-loader'),
+            (new \fpcm\view\helper\linkButton('addnew'))->setUrl(\fpcm\classes\tools::getFullControllerLink('categories/add'))->setText('GLOBAL_NEW')->setIcon('tag'),
             (new \fpcm\view\helper\button('massEdit', 'massEdit'))->setText('GLOBAL_EDIT')->setIcon('edit')->setIconOnly(true),
-            (new \fpcm\view\helper\deleteButton('delete'))->setClass('fpcm-ui-button-confirm')
+            (new \fpcm\view\helper\deleteButton('delete'))->setClass('fpcm ui-button-confirm')
         ]);
 
         $rolls = (new \fpcm\model\users\userRollList())->getUserRollsTranslated();
@@ -130,19 +104,21 @@ class categorylist extends \fpcm\controller\abstracts\controller implements \fpc
         $this->view->addJsVars([
             'masseditFields' => [
                 'fieldIconPath' => (string) new \fpcm\components\masseditField(
-                    'link',
-                    'CATEGORIES_ICON_PATH',
                     (new \fpcm\view\helper\textInput('iconpath'))
                         ->setText('')
                         ->setType('url')
-                        ->setClass('fpcm-ui-input-massedit fpcm-ui-field-input-nowrapper-general fpcm ui-full-width'),
-                    'col-md-8'
+                        ->setText('CATEGORIES_ICON_PATH')
+                        ->setIcon('link'),
+                    ''
                 ),
                 'fieldRolls' => (string) new \fpcm\components\masseditField(
-                    'users',
-                    'CATEGORIES_ROLLS',
-                    (new \fpcm\view\helper\select('rolls'))->setOptions($rolls)->setIsMultiple(true)->setSelected([])->setClass('fpcm-ui-borderradius-remove-left'),
-                    'col-md-8 fpcm-ui-editor-categories-massedit'
+                    (new \fpcm\view\helper\select('rolls'))
+                        ->setOptions($rolls)
+                        ->setIsMultiple(true)
+                        ->setSelected([])
+                        ->setClass('col-12 col-sm-6 col-md-8')
+                        ->setText('CATEGORIES_ROLLS')
+                        ->setIcon('users'),
                 ),
             ],
             'massEditSaveFailed' => 'SAVE_FAILED_CATEGORY'
@@ -150,6 +126,15 @@ class categorylist extends \fpcm\controller\abstracts\controller implements \fpc
 
         $this->view->render();
         return true;
+    }
+
+    protected function getDataViewTabs() : array
+    {
+        return [
+            (new \fpcm\view\helper\tabItem('tabs-'.$this->getDataViewName().'-list'))
+                ->setText('HL_CATEGORIES_MNG')
+                ->setFile('components/dataview__inline.php')
+        ];
     }
 
     /**
@@ -163,7 +148,7 @@ class categorylist extends \fpcm\controller\abstracts\controller implements \fpc
             (new \fpcm\components\dataView\column('button', ''))->setSize(1)->setAlign('center'),
             (new \fpcm\components\dataView\column('name', 'CATEGORIES_NAME'))->setSize(3),
             (new \fpcm\components\dataView\column('groups', 'CATEGORIES_ROLLS'))->setSize(3),
-            (new \fpcm\components\dataView\column('icon', 'CATEGORIES_ICON_PATH'))->setSize(4)
+            (new \fpcm\components\dataView\column('icon', 'CATEGORIES_ICON_PATH'))->setSize(4)->setAlign('center')
         ];
     }
 
@@ -184,13 +169,13 @@ class categorylist extends \fpcm\controller\abstracts\controller implements \fpc
             new \fpcm\components\dataView\rowCol('icon', $category->getCategoryImage()),
         ]);
     }
-    
-    private function delete()
+
+    /**
+     * 
+     * @return bool
+     */
+    protected function onDelete() : bool
     {
-        if (!$this->buttonClicked('delete')) {
-            return false;
-        }
-        
         if (!$this->checkPageToken()) {
             $this->view->addErrorMessage('CSRF_INVALID');
             return false;

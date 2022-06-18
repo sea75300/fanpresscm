@@ -47,8 +47,7 @@ class articlelisttrash extends \fpcm\controller\abstracts\controller implements 
         $this->isTrash = true;
         
         $this->initActionObjects();
-        
-        $this->view->assign('tabHeadline', 'ARTICLES_TRASH');
+
         $this->view->addAjaxPageToken('clearTrash');
         $this->view->setFormAction('articles/trash');
         $this->view->addJsFiles(['articles/trash.js']);
@@ -56,18 +55,27 @@ class articlelisttrash extends \fpcm\controller\abstracts\controller implements 
         $this->view->assign('includeMassEditForm', false);
 
         $this->view->addButtons([
-            (new \fpcm\view\helper\select('action'))->setOptions([
-                $this->language->translate('ARTICLE_LIST_RESTOREARTICLE') => 'restore', 
-                $this->language->translate('ARTICLE_LIST_EMPTYTRASH') => 'trash'
-            ]),
-            (new \fpcm\view\helper\submitButton('doAction'))->setText('GLOBAL_OK')->setClass('fpcm-ui-articleactions-ok')->setIcon('check')->setIconOnly(true)->setData(['hidespinner' => true])
+            (new \fpcm\view\helper\button('restoreFromTrash'))
+                ->setIcon('trash-restore')
+                ->setText('ARTICLE_LIST_RESTOREARTICLE')
+                ->setOnClick('articles_trash.restoreFromTrash'),
+            (new \fpcm\view\helper\button('emptyTrash'))
+                ->setIcon('recycle')
+                ->setText('ARTICLE_LIST_EMPTYTRASH')
+                ->setIconOnly(true)
+                ->setOnClick('articles_trash.emptyTrash')
         ]);        
         
         
         $this->items = $this->articleList->getArticlesDeleted(true);
+        $this->translateCategories();
 
         $this->initDataView();
         $this->view->addDataView($this->dataView);
+        
+        $this->view->addTabs('articles', [
+            (new \fpcm\view\helper\tabItem('articles'))->setText('ARTICLES_TRASH')->setFile('articles/listouter.php')
+        ]);
     }
 
 }

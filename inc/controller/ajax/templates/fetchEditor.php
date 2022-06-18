@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4.x
+ * FanPress CM 5.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -67,9 +67,12 @@ class fetchEditor extends \fpcm\controller\abstracts\ajaxController implements \
             return false;
         }
 
+        $allowedTags = $this->template->getAllowedTagsArray();
+        $tagCount = count($allowedTags);
+        
         $this->view->assign('replacements', $this->template->getReplacementTranslations($this->prefix));
         $this->view->assign('attributes', $this->template->getReplacementAttributesMap());
-        $this->view->assign('allowedTags', $this->template->getAllowedTagsArray());
+        $this->view->assign('allowedTagsList', $tagCount ? array_chunk($allowedTags, $tagCount / 2) : []);
         $this->view->assign('content', $this->template->getContent());
         $this->view->assign('isWritable', $this->template->isWritable());
         $this->view->assign('tplId', $this->templateId);

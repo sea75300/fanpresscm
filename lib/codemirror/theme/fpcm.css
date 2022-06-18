@@ -1,4 +1,4 @@
-.cm-s-fpcm.CodeMirror { color: #999; background-color: #fff; }
+.cm-s-fpcm.CodeMirror { color: #333; background-color: #fff; }
 .cm-s-fpcm div.CodeMirror-selected { background: #cfc; }
 .cm-s-fpcm .CodeMirror-line { color: #362b36; }
 .cm-s-fpcm .CodeMirror-line::selection, .cm-s-fpcm .CodeMirror-line > span::selection, .cm-s-fpcm .CodeMirror-line > span > span::selection { background: #cfc; }

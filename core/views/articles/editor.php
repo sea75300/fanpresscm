@@ -1,76 +1,73 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
-<div class="fpcm-content-wrapper">
-    <div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-editor-comments"></div>
+<div class="border-top border-5 border-primary">
+    <?php if ( trim($rollCodex) ) : ?>
+    <div class="row mt-3">
+        <div class="col-12">
+            <?php $theView->alert('warning')->setText('<span class="fw-bold">'. $theView->translate('EDITOR_CODEX') . '</span><br>' .   nl2br($theView->escapeVal($rollCodex))); ?>
+        </div>
+    </div>    
+    <?php endif; ?>
 
-    <div id="fpcm-editor-tabs">
-        <ul>
-            <li id="fpcm-editor-tabs-editorregister" data-toolbar-buttons="1"><a href="#tabs-article"><?php $theView->write('ARTICLES_EDITOR'); ?></a></li>
-            <li id="fpcm-editor-tabs-editorextended" data-toolbar-buttons="1"><a href="#tabs-extended"><?php $theView->write('GLOBAL_EXTENDED'); ?></a></li>
-            <?php if ($showComments && $commentEnabledGlobal) : ?>
-            <li data-toolbar-buttons="2" data-dataview-list="commentlist"><a href="<?php print $theView->controllerLink('ajax/editor/editorlist', ['id' => $article->getId(), 'view' => 'comments']); ?>">
-                <?php $theView->write('HL_ARTICLE_EDIT_COMMENTS', [ 'count' => $commentCount ]); ?>
-            </a></li>
-            <?php endif; ?>
-            <?php if ($showRevisions) : ?>
-            <li data-toolbar-buttons="3" data-dataview-list="revisionslist"><a href="<?php print $theView->controllerLink('ajax/editor/editorlist', ['id' => $article->getId(), 'view' => 'revisions']); ?>">
-                <?php $theView->write('HL_ARTICLE_EDIT_REVISIONS', [ 'count' => $revisionCount ]); ?>
-            </a></li>
-            <?php endif; ?>
-        </ul>            
-
-        <div id="tabs-article">
-            <div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-editor-html-filemanager"></div>            
-
-            <?php if ( trim($rollCodex) ) : ?></p>
-            <div class="row mb-2">
-                <div class="col-12 px-0">
-                    <fieldset>
-                        <legend><?php $theView->write('EDITOR_CODEX'); ?></legend>
-                        <p><?php print nl2br($theView->escapeVal($rollCodex)); ?></p>
-                    </fieldset>
-                </div>                    
-            </div>
-            <?php endif; ?>
+    <div class="row">
+        <div class="col mt-3">
+            <?php $theView->textInput('article[title]')->setValue($article->getTitle())
+                    ->setText('ARTICLE_LIST_TITLE')
+                    ->setPlaceholder('ARTICLE_LIST_TITLE')
+                    ->setAutoFocused(true)
+                    ->setLabelTypeFloat(); ?>
             
-            <div class="row py-2">
+        </div>
+    </div>
+
+    <div class="row row-cols-2 mb-3">
+        <div class="col-12 col-sm flex-grow-1 fpcm-ui-editor-categories">
+            <?php $theView->select('article[categories][]')->setIsMultiple(true)->setOptions($categories)->setSelected($article->getCategories()); ?>                    
+        </div>
+        <?php if ($editorMode) : ?>
+        <div class="col-12 col-sm-auto">
+            <div class="d-flex justify-content-center justify-content-md-end fs-5">
+                <?php print implode(PHP_EOL, $article->getMetaDataStatusIcons($showDraftStatus, $commentEnabledGlobal, $showArchiveStatus)); ?>
+            </div>
+        </div>
+        <?php endif; ?>
+    </div>
                 
-                <div class="col-12 px-0">                
-                    <div class="row pb-2">
-                        <div class="col-12 px-0">
-                            <fieldset>
-                                <legend><?php $theView->write('SYSTEM_HL_OPTIONS_GENERAL'); ?></legend>
+</div>                
 
-                                    <div class="row py-2 fpcm-ui-editor-categories">
-                                        <div class="col-12 px-0">
-                                            <?php $theView->textInput('article[title]')->setValue($article->getTitle())->setText('ARTICLE_LIST_TITLE')->setPlaceholder(true)->setWrapper(true)->setAutoFocused(true); ?>
-                                        </div>
-                                    </div>
+<?php include \fpcm\components\components::getArticleEditor()->getEditorTemplate(); ?>
+    
+<?php if ($editorMode) : ?>
 
-                                    <div class="row py-2 fpcm-ui-editor-categories">
-                                        <div class="col-12 px-0">
-                                            <?php $theView->select('article[categories][]')->setIsMultiple(true)->setOptions($categories)->setSelected($article->getCategories()); ?>
-                                        </div>
-                                    </div>
-                            </fieldset>
-                        </div>                    
-                    </div>                    
-                    <?php if ($editorMode) : ?><?php include $theView->getIncludePath('articles/times.php'); ?><?php endif; ?>
+<fieldset class="my-2">
+    <legend class="fpcm-ui-font-small"><?php $theView->write('GLOBAL_METADATA'); ?></legend>
+
+    <div class="row g-0 my-2 fpcm-ui-font-small">
+        <div class="col-12 col-md-6">
+            
+            <div class="row mb-1 row-cols-2">
+                <div class="col">
+                    <?php $theView->icon('calendar')->setSize('lg'); ?>
+                    <strong><?php $theView->write('GLOBAL_AUTHOR_EDITOR'); ?>:</strong>
+                </div>
+                <div class="col">
+                    <?php print $createInfo; ?>
                 </div>
             </div>
-
-            <?php include \fpcm\components\components::getArticleEditor()->getEditorTemplate(); ?>
+            
+            <div class="row mb-1 row-cols-2">
+                <div class="col">
+                    <?php $theView->icon('clock', 'far')->setSize('lg'); ?> 
+                    <strong><?php $theView->write('GLOBAL_LASTCHANGE'); ?>:</strong>
+                </div>
+                <div class="col">
+                    <?php print $changeInfo; ?>
+                </div>
+            </div>
         </div>
-
-        <div id="tabs-extended"> 
-                <?php include $theView->getIncludePath('articles/buttons.php'); ?>
-        </div>
-
     </div>
-</div>
+</fieldset>
+<?php endif; ?>
 
 <?php if ($showComments) : ?>
     <?php include $theView->getIncludePath('comments/massedit.php'); ?>
 <?php endif; ?>
-
-<!-- Shortlink layer -->
-<div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-editor-shortlink"></div>

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4.x
+ * FanPress CM 5.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -47,7 +47,6 @@ final class modules extends \fpcm\model\abstracts\staticModel {
      */
     public function getData()
     {
-        include_once loader::libGetFilePath('spyc/Spyc.php');
         return \Spyc::YAMLLoadString($this->fileOption->read());
     }
 
@@ -59,7 +58,6 @@ final class modules extends \fpcm\model\abstracts\staticModel {
     public function getDataCachedByKey($key)
     {
         if (!count($this->list)) {
-            include_once loader::libGetFilePath('spyc/Spyc.php');
             $this->list = \Spyc::YAMLLoadString($this->fileOption->read());
         }
 

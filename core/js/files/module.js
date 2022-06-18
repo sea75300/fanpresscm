@@ -13,6 +13,18 @@ fpcm.filemanager = {
     tabsObj: {},
 
     init: function() {
+        
+        fpcm.ui_tabs.render('#files', {
+            reload: true,
+            onRenderHtmlAfter: function (_event, _result) {
+
+                if (_result.data && _result.data.pager) {
+                    fpcm.vars.jsvars.pager = _result.data.pager;
+                }
+
+                fpcm.filemanager.initListActions();
+            }
+        });
 
         if (fpcm.ui.langvarExists('ARTICLES_SEARCH')) {
             fpcm.filemanager.initFilesSearch();
@@ -21,108 +33,58 @@ fpcm.filemanager = {
         fpcm.filemanager.initNewThumbButton();
         fpcm.filemanager.initDeleteMultipleButton();
 
-        fpcm.dom.fromId('fpcm-tabs-tabs-files-list-reload').click(function () {
-            fpcm.filemanager.reloadFiles();
-            fpcm.dom.fromId('opensearch').removeClass('fpcm-ui-button-primary');
-            return false;
-        });
-
     },
     
     initAfter: function() {
 
-        if (fpcm.vars.jsvars.loadAjax) {
-            fpcm.worker.postMessage({
-                namespace: 'filemanager',
-                function: 'reloadFiles',
-                id: 'filemanager.reloadFiles'
-            });
-        }
-
         if (fpcm.vars.jsvars.fmgrMode === 1) {
             
             fpcm.ui.selectmenu('#listView', {
-                change: function (event, ui) {
+                change: function (_ev, _ui) {
                     fpcm.ajax.post('setconfig', {
                         data: {
                             var: 'file_view',
-                            value: ui.item.value
+                            value: _ui.value
                         },
-                        execDone: function() {
-                            fpcm.filemanager.reloadFiles();
-                            fpcm.dom.fromId('opensearch').removeClass('fpcm-ui-button-primary');
-                        }
+                        execDone: fpcm.filemanager.reloadFiles
                     });
                 }
             });            
-
-            fpcm.filemanager.tabsObj = fpcm.ui.tabs('#fpcm-files-tabs', {
-                beforeActivate: function( event, ui ) {
-
-                    var hideButtons = fpcm.dom.fromTag(ui.oldTab).data('toolbar-buttons');
-                    var showButtons = fpcm.dom.fromTag(ui.newTab).data('toolbar-buttons');
-
-                    fpcm.ui.mainToolbar.find('.fpcm-ui-maintoolbarbuttons-tab'+ hideButtons).addClass('fpcm-ui-hidden');
-                    fpcm.ui.mainToolbar.find('.fpcm-ui-maintoolbarbuttons-tab'+ showButtons).removeClass('fpcm-ui-hidden');
-
-                    fpcm.dom.fromId('fpcm-select-all').checkboxradio('instance').option('classes', {
-                        "ui-checkboxradio-label": (showButtons == 2 ? "fpcm-ui-hidden" : "")
-                    });
-                    
-                    fpcm.dom.fromId('listView-button').toggleClass("fpcm-ui-hidden");
-                    fpcm.ui.controlgroup(fpcm.ui.mainToolbar, 'refresh');
-                }
-            });
         }
 
         fpcm.dom.fromId('btnFmgrUploadBack').click(function () {
-            fpcm.filemanager.tabsObj.tabs('option', 'active', 0);
+            fpcm.ui_tabs.show('#files', 0);
         });
         
     },
 
-    initJqUiWidgets: function (_hideLoader) {
-        fpcm.dom.fromId('fpcm-select-all').prop('checked', false).checkboxradio('refresh');
+    initListActions: function (_hideLoader) {
         fpcm.ui.assignCheckboxes();
-        fpcm.ui.assignControlgroups();
+        fpcm.ui.initLightbox();
+        fpcm.filemanager.initPagination();
         fpcm.filemanager.initInsertButtons();
         fpcm.filemanager.initRenameButtons();
         fpcm.filemanager.initEditButtons();
         fpcm.filemanager.initDeleteButtons();
         fpcm.filemanager.initAltTextButtons();
         fpcm.filemanager.initPropertiesButton();
-        fpcm.filemanager.initPagination();
-        fpcm.dom.fromClass('fpcm-link-fancybox').fancybox();
-        
-        if (_hideLoader === true) {
-            fpcm.ui_loader.hide();
-        }
-    },
-    
-    closeRenameDialog: function() {
-        fpcm.dom.fromId('newfilename').val('');
-        fpcm.dom.fromId('newFilenameDialog').val('');
     },
     
     initInsertButtons: function () {
 
-        fpcm.dom.fromClass('fpcm-filelist-tinymce-thumb').unbind('click');
-        fpcm.dom.fromClass('fpcm-filelist-tinymce-full').unbind('click');
-        fpcm.dom.fromClass('fpcm-filelist-articleimage').unbind('click');
-        fpcm.dom.fromId('insertGallery').unbind('click');
-
         if (fpcm.vars.jsvars.fmgrMode === 2) {
-            fpcm.dom.fromClass('fpcm-filelist-tinymce-thumb').click(function () {
-                parent.fpcm.editor.insertThumbByEditor(fpcm.dom.fromTag(this).attr('href'), fpcm.dom.fromTag(this).data('imgtext'));
-                return false;
-            });
 
-            fpcm.dom.fromClass('fpcm-filelist-tinymce-full').click(function () {
-                parent.fpcm.editor.insertFullByEditor(fpcm.dom.fromTag(this).attr('href'), fpcm.dom.fromTag(this).data('imgtext'));
-                return false;
+            fpcm.dom.bindClick('.fpcm-filelist-tinymce-thumb', function (_e, _ui) {                
+                parent.fpcm.editor.insertThumbByEditor(_ui.href, _ui.dataset.imgtext);
+                fpcm.ui_dialogs.close('editor-html-filemanager', true);
             });
+            
+            fpcm.dom.bindClick('.fpcm-filelist-tinymce-full', function (_e, _ui) {
+                parent.fpcm.editor.insertFullByEditor(_ui.href, _ui.dataset.imgtext);
+                fpcm.ui_dialogs.close('editor-html-filemanager', true);
+            });            
 
-            fpcm.dom.fromId('insertGallery').click(function () {
+            fpcm.dom.bindClick('#btnInsertGallery', function () {
 
                 var values = [];
                 fpcm.dom.fromClass('fpcm-ui-list-checkbox:checked').map(function (idx, item) {
@@ -141,15 +103,10 @@ fpcm.filemanager = {
         }
         
         if (fpcm.vars.jsvars.fmgrMode === 3) {
-            fpcm.dom.fromClass('fpcm-filelist-articleimage').click(function () {
-
-                var url   = fpcm.dom.fromTag(this).attr('href');
-                parent.document.getElementById('articleimagepath').value  = url;
-                var dialogEl = window.parent.fpcm.dom.fromId("fpcm-dialog-editor-html-filemanager");
-
-                dialogEl.dialog('close');
-                dialogEl.empty();
-                return false;
+            
+            fpcm.dom.bindClick('.fpcm-filelist-articleimage', function (_e, _ui) {
+                parent.document.getElementById('articleimagepath').value  = _ui.href;
+                fpcm.ui_dialogs.close('editor-html-filemanager', true);
             });
 
             return false;
@@ -157,28 +114,16 @@ fpcm.filemanager = {
         
         if (fpcm.vars.jsvars.fmgrMode === 4) {
             
-            fpcm.dom.fromClass('fpcm-filelist-tinymce-thumb').click(function () {
-                var url   = fpcm.dom.fromTag(this).attr('href');
-                parent.document.getElementById('mediaposter').value  = url;
-                var dialogEl = window.parent.fpcm.dom.fromId("fpcm-dialog-editor-html-filemanager");
-
-                dialogEl.dialog('close');
-                dialogEl.empty();
-                return false;
+            fpcm.dom.bindClick('.fpcm-filelist-tinymce-thumb', function (_e, _ui) {
+                parent.document.getElementById('mediaposter').value  = _ui.href;
+                fpcm.ui_dialogs.close('editor-html-filemanager', true);
             });
-
-            fpcm.dom.fromClass('fpcm-filelist-tinymce-full').click(function () {
-                var url   = fpcm.dom.fromTag(this).attr('href');
-                parent.document.getElementById('mediaposter').value  = url;
-                var dialogEl = window.parent.fpcm.dom.fromId("fpcm-dialog-editor-html-filemanager");
-
-                dialogEl.dialog('close');
-                dialogEl.empty();
-                return false;
+            
+            fpcm.dom.bindClick('.fpcm-filelist-tinymce-full', function (_e, _ui) {
+                parent.document.getElementById('mediaposter').value  = _ui.href;
+                fpcm.ui_dialogs.close('editor-html-filemanager', true);
             });
         }
-
-
 
     },
 
@@ -190,39 +135,37 @@ fpcm.filemanager = {
                 console.log('FILE_LIST_RENAME_NEWNAME');
                 return false;
             }
+            
+            var _docname = this.dataset.file;
 
-            var selectedFile = fpcm.dom.fromTag(this).data('file');
-            fpcm.dom.fromId('newFilenameDialog').val(fpcm.dom.fromTag(this).data('oldname'));
-
-            fpcm.ui.dialog({
+            fpcm.ui_dialogs.create({
                 id: 'files-rename',
-                dlWidth: fpcm.ui.getDialogSizes().width,
-                title: fpcm.ui.translate('FILE_LIST_RENAME_NEWNAME'),
+                title: 'FILE_LIST_RENAME_NEWNAME',
+                closeButton: true,
+                content: fpcm.ui.getTextInput({
+                    name: 'newFilenameDialog',
+                    text: fpcm.ui.translate('FILE_LIST_FILENAME'),
+                    icon: 'edit',
+                    value: this.dataset.oldname,
+                    placeholder: this.dataset.oldname
+                }),
                 dlButtons: [
                     {
-                        text: fpcm.ui.translate('GLOBAL_SAVE'),
-                        icon: "ui-icon-check",                        
+                        text: 'GLOBAL_SAVE',
+                        icon: "save",
+                        clickClose: true,
+                        primary: true,
                         click: function() {
-                            fpcm.dom.fromTag(this).dialog( "close" );
                             fpcm.ajax.post('files/rename', {
                                 data: {
                                     newName: fpcm.dom.fromId('newFilenameDialog').val(),
-                                    oldName: selectedFile
+                                    oldName: _docname
                                 },
                                 execDone: function (result) {
                                     fpcm.ui.addMessage(result);
-                                    fpcm.filemanager.closeRenameDialog();
                                     fpcm.filemanager.reloadFiles();
                                 }
                             });
-                        }
-                    },
-                    {
-                        text: fpcm.ui.translate('GLOBAL_CLOSE'),
-                        icon: "ui-icon-closethick",                
-                        click: function () {
-                            fpcm.filemanager.closeRenameDialog();
-                            fpcm.dom.fromTag(this).dialog('close');
                         }
                     }
                 ]
@@ -233,12 +176,10 @@ fpcm.filemanager = {
     },
     
     initEditButtons: function() {
-
-        fpcm.dom.fromClass('fpcm-filelist-link-edit').unbind('click');
-        fpcm.dom.fromClass('fpcm-filelist-link-edit').click(function () {
+        fpcm.dom.bindClick('.fpcm-filelist-link-edit', function (_e, _ui) {
             fpcm.imageEditor.initEditorDialog({
                 afterUpload: fpcm.filemanager.reloadFiles,
-                data: fpcm.dom.fromTag(this).data()
+                data: _ui.dataset
             });
             return false;
         });
@@ -246,44 +187,39 @@ fpcm.filemanager = {
 
     initAltTextButtons: function() {
 
-        fpcm.dom.fromClass('fpcm-filelist-link-alttext').unbind('click');
-        fpcm.dom.fromClass('fpcm-filelist-link-alttext').click(function () {
-
-        var selectedFile = fpcm.dom.fromTag(this).data('file');
-        fpcm.dom.fromId('altTextDialog').val(fpcm.dom.fromTag(this).data('alttext'));
-
-        fpcm.ui.dialog({
-            id: 'files-alttext',
-            dlWidth: fpcm.ui.getDialogSizes().width,
-            title: fpcm.ui.translate('FILE_LIST_ALTTEXT'),
-            dlButtons: [
-                {
-                    text: fpcm.ui.translate('GLOBAL_SAVE'),
-                    icon: "ui-icon-disk",                        
-                    click: function() {
-                        fpcm.dom.fromTag(this).dialog( "close" );
-                        fpcm.ajax.post('files/alttext', {
-                            data: {
-                                file: selectedFile,
-                                alttext: fpcm.dom.fromId('altTextDialog').val()
-                            },
-                            execDone: function (result) {
-                                fpcm.ui.addMessage(result);
-                                fpcm.dom.fromId('altTextDialog').val('');
-                                fpcm.filemanager.reloadFiles();
-                            }
-                        });
+        fpcm.dom.bindClick('.fpcm-filelist-link-alttext', function (_e, _ui) {
+            fpcm.ui_dialogs.create({
+                id: 'files-alttext',
+                title: 'FILE_LIST_ALTTEXT',
+                closeButton: true,
+                    content: fpcm.ui.getTextInput({
+                        name: 'altTextDialog',
+                        text: fpcm.ui.translate('FILE_LIST_ALTTEXT'),
+                        icon: 'edit',
+                        value: _ui.dataset.alttext,
+                        placeholder: _ui.dataset.alttext
+                    }),
+                dlButtons: [
+                    {
+                        text: fpcm.ui.translate('GLOBAL_SAVE'),
+                        icon: "save",
+                        clickClose: true,
+                        clickClose: true,
+                        click: function() {
+                            fpcm.ajax.post('files/alttext', {
+                                data: {
+                                    file: _ui.dataset.file,
+                                    alttext: fpcm.dom.fromId('altTextDialog').val()
+                                },
+                                execDone: function (result) {
+                                    fpcm.ui.addMessage(result);
+                                    fpcm.filemanager.reloadFiles();
+                                }
+                            });
+                        }
                     }
-                },
-                {
-                    text: fpcm.ui.translate('GLOBAL_CLOSE'),
-                    icon: "ui-icon-closethick",                
-                    click: function () {
-                        fpcm.dom.fromTag(this).dialog('close');
-                    }
-                }
-            ]
-        });     
+                ]
+            });     
 
 
 
@@ -294,26 +230,19 @@ fpcm.filemanager = {
 
     initDeleteButtons: function() {
 
-        fpcm.dom.fromClass('fpcm-filelist-delete').unbind('click');
-        fpcm.dom.fromClass('fpcm-filelist-delete').click(function () {
-
-            var el = fpcm.dom.fromTag(this);
-            var filename = el.data('filename');
-            var path = el.data('file');
-
-            fpcm.ui.confirmDialog({
+        fpcm.dom.bindClick('.fpcm-filelist-delete',function (_e, _ui) {
+            fpcm.ui_dialogs.confirm({
                 clickNoDefault: true,
                 clickYes: function () {
 
-                    fpcm.dom.fromTag(this).dialog( "close" );
                     fpcm.ajax.post('files/delete', {
                         dataType: 'json',
                         data: {
-                            filename: path
+                            filename: _ui.dataset.file
                         },
                         execDone: function (result) {
 
-                            result.txt.replace('{{filenames}}', filename);
+                            result.txt.replace('{{filenames}}', _ui.dataset.filename);
                             fpcm.ui.addMessage(result);
 
                             fpcm.filemanager.reloadFiles();
@@ -327,23 +256,23 @@ fpcm.filemanager = {
 
             return false;  
         });
+        
     },
 
     initNewThumbButton: function() {
 
-        var el = fpcm.dom.fromId('createThumbs');
-        if (!el.length) {
-            return false;
-        }
-
-        el.click(function (event, ui) {
+        fpcm.dom.bindClick('#btnCreateThumbs', function (event, ui) {
             
-            var items = fpcm.ui.getCheckboxCheckedValues('.fpcm-ui-list-checkbox');
+            var items = fpcm.dom.getCheckboxCheckedValues('.fpcm-ui-list-checkbox');
             if (!items || !items.length) {
                 return false;
             }
+            
+            ui.disabled = true;
 
             fpcm.ajax.post('files/createthumbs', {
+                async: true,
+                loaderMsg: fpcm.ui.translate('MSG_FILES_CREATETHUMBS'),
                 data: {
                     items: items
                 },
@@ -354,34 +283,26 @@ fpcm.filemanager = {
                     });
 
                     fpcm.filemanager.reloadFiles();
+                    ui.disabled = false;
                 }
             });
 
             return false;
-        })
+        });
 
     },
 
     initDeleteMultipleButton: function() {
 
-        var el = fpcm.dom.fromId('deleteFiles');
-        if (!el.length) {
-            return false;
-        }
-
-        el.unbind('click');
-        el.click(function (event, ui) {
+        fpcm.dom.bindClick('#btnDeleteFiles', function () {
             
-            var items = fpcm.ui.getCheckboxCheckedValues('.fpcm-ui-list-checkbox');
+            var items = fpcm.dom.getCheckboxCheckedValues('.fpcm-ui-list-checkbox');
             if (!items || !items.length) {
                 return false;
             }
 
-            fpcm.ui.confirmDialog({
-                clickNoDefault: true,
+            fpcm.ui_dialogs.confirm({
                 clickYes: function () {
-
-                    fpcm.dom.fromTag(this).dialog( "close" );
                     fpcm.ajax.post('files/delete', {
                         dataType: 'json',
                         data: {
@@ -394,6 +315,7 @@ fpcm.filemanager = {
                                 fpcm.ui.addMessage(value, i == 1 ? true : false);
                             });
 
+                            fpcm.dom.fromId('fpcm-select-all').prop('checked', false);
                             fpcm.filemanager.reloadFiles();
                         }
                     });
@@ -409,39 +331,37 @@ fpcm.filemanager = {
 
     initPropertiesButton: function() {
 
-        fpcm.filemanager.propertiesDialog = [
-            'filetime',
-            'fileuser',
-            'filesize',
-            'resulution',
-            'filehash',
-            'filemime',
-            'credits'
-        ];
+        fpcm.filemanager.propertiesDialog = {
+            filetime: '',
+            fileuser: '',
+            filesize: '',
+            resulution: '',
+            filehash: '',
+            filemime: '',
+            credits: ''
+        };
 
-        fpcm.dom.fromClass('fpcm-filelist-properties').click(function () {
-            
-            var el = fpcm.dom.fromTag(this);
-
-            fpcm.ui.dialog({
+        fpcm.dom.bindClick('.fpcm-filelist-properties', function (_e, _ui) {
+            fpcm.ui_dialogs.create({
                 id: 'files-properties',
                 title: fpcm.ui.translate('GLOBAL_PROPERTIES'),
+                closeButton: true,
                 dlOnOpen: function () {
 
                     var titleTxt = '';
                     var titleHtml = '';
+                    
+                    for (var _prop in fpcm.filemanager.propertiesDialog) {
 
-                    jQuery.each(fpcm.filemanager.propertiesDialog, function (idx, prop) {
-                        
-                        switch (prop) {
+                        switch (_prop) {
                             case 'resulution' :
-                                titleTxt = el.data('fileresx') + ' X ' + el.data('fileresy') + ' ' + fpcm.ui.translate('FILE_LIST_RESOLUTION_PIXEL');
-                                titleHtml = el.data('fileresx') + fpcm.ui.getIcon('times') + el.data('fileresy') + ' ' + fpcm.ui.translate('FILE_LIST_RESOLUTION_PIXEL');
-                                fpcm.dom.fromId('fpcm-dialog-files-properties-' + prop).attr('title', titleTxt).html(titleHtml);
+                                titleTxt = _ui.dataset.fileresx + ' X ' + _ui.dataset.fileresy + ' ' + fpcm.ui.translate('FILE_LIST_RESOLUTION_PIXEL');
+                                titleHtml = _ui.dataset.fileresx + fpcm.ui.getIcon('times') + _ui.dataset.fileresy + ' ' + fpcm.ui.translate('FILE_LIST_RESOLUTION_PIXEL');
+                                fpcm.dom.fromId('fpcm-dialog-files-properties-' + _prop).attr('title', titleTxt).html(titleHtml);
                                 break;
                             default:
-                                titleTxt = el.data('' + prop);
-                                titleHtml = el.data('' + prop);
+                                titleTxt = _ui.dataset[_prop];
+                                titleHtml = _ui.dataset[_prop];
                                 break;
                         }
 
@@ -450,64 +370,35 @@ fpcm.filemanager = {
                             titleHtml = '&nbsp';
                         }
 
-                        fpcm.dom.fromId('fpcm-dialog-files-properties-' + prop).html(titleHtml).attr('title', el.data('' + prop));
-                    });
+                        fpcm.dom.fromId('fpcm-dialog-files-properties-' + _prop).html(titleHtml).attr('title', _ui.dataset[_prop]);
+                        
+                    }
                 },
                 dlOnClose: function() {
-                    jQuery.each(fpcm.filemanager.propertiesDialog, function (idx, prop) {
-                        fpcm.dom.fromId('fpcm-dialog-files-properties-' + prop).empty().attr('title', '');
-                    });
-                },
-                dlButtons: [
-                    {
-                        text: fpcm.ui.translate('GLOBAL_CLOSE'),
-                        icon: "ui-icon-closethick",                
-                        click: function() {
-                            fpcm.dom.fromTag(this).dialog( "close" );
-                        }
-                    }
-                ]
+                    for (var _prop in fpcm.filemanager.propertiesDialog) {
+                        fpcm.dom.fromId('fpcm-dialog-files-properties-' + _prop).empty().attr('title', fpcm.filemanager.propertiesDialog[_prop]);
+                    };
+                }
             })
             
 
             return false;
         });
+
     },
     
     initPagination: function() {
 
-        fpcm.vars.jsvars.pager = {
-            maxPages: 0,
-            showBackButton: true,
-            showNextButton: true
-        };
-
         fpcm.ui.initPager({
-            keepSelect: true,
             backAction: function() {
-                var link = fpcm.dom.fromTag(this).attr('href');
-                if (link === '#') {
-                    return false;
-                }
-
-                var page = link.split('&page=');
-                fpcm.filemanager.reloadFiles((page[1] === undefined) ? 1 : page[1]);
-                return false;
+                fpcm.filemanager.reloadFiles(fpcm.vars.jsvars.pager.showBackButton);
             },
             
             nextAction: function() {
-                
-                var link = fpcm.dom.fromTag(this).attr('href');
-                if (link === '#') {
-                    return false;
-                }
-
-                var page = link.split('&page=');
-                fpcm.filemanager.reloadFiles((page[1] === undefined) ? 1 : page[1]);
-                return false;
+                fpcm.filemanager.reloadFiles(fpcm.vars.jsvars.pager.showNextButton);
             },
             selectAction: function( event, ui ) {
-                fpcm.filemanager.reloadFiles(ui.item.value);
+                fpcm.filemanager.reloadFiles(ui.value);
             }
         });
 
@@ -518,6 +409,8 @@ fpcm.filemanager = {
         if (!_page) {
             _page = fpcm.filemanager.getCurrentPage();
         }
+
+        fpcm.dom.assignHtml('#fpcm-tab-files-list-pane', fpcm.vars.jsvars.loaderTpl.replace(/\{\$thumbsize\}/g, fpcm.vars.jsvars.thumbsize));
         
          if (_filter) {
             fpcm.vars.jsvars.filesLastSearch = (new Date()).getTime();
@@ -525,15 +418,21 @@ fpcm.filemanager = {
 
         fpcm.ajax.getItemList({
             module: 'files',
-            destination: "#tabs-files-list-content",
+            destination: "#fpcm-tab-files-list-pane",
             mode: fpcm.vars.jsvars.fmgrMode,
             page: _page,
             filter: _filter ? _filter : null,
-            loader: fpcm.dom.fromTag('div.fpcm-ui-inline-loader').length ? false : true,
-            dataType: 'html',
-            onAssignHtmlAfter: function () {
-                fpcm.filemanager.initJqUiWidgets(true);
-             }
+            loader: false,
+            dataType: 'json',
+            onAssignHtmlAfter: function (_result) {
+
+                if (_result.data && _result.data.pager) {
+                    fpcm.vars.jsvars.pager = _result.data.pager;
+                }                
+                
+                fpcm.filemanager.initListActions();
+                fpcm.dom.fromClass('fpcm-select-all').prop('checked', false);
+            }
         });
         
         return false;
@@ -541,52 +440,38 @@ fpcm.filemanager = {
     
     initFilesSearch: function() {
 
-        fpcm.dom.fromId('opensearch').click(function () {
+        fpcm.dom.bindClick('#btnOpenSearch', function () {
 
-            var sDlg = fpcm.ui.dialog({
-                id      : 'files-search',
-                resizable: true,
-                title    : fpcm.ui.translate('ARTICLES_SEARCH'),
-                dlButtons  : [
+            fpcm.ui_dialogs.create({
+                id: 'files-search',
+                title: 'ARTICLES_SEARCH',
+                closeButton: true,
+                dlButtons: [
                     {
                         text: fpcm.ui.translate('ARTICLE_SEARCH_START'),
-                        icon: "ui-icon-check",
-                        class: 'fpcm-ui-button-primary',
-                        click: function() {               
+                        icon: "check",
+                        primary: true,
+                        clickClose: true,
+                        click: function(_ui, _bsObj) {               
                             
-                            var sParams = fpcm.ui.getValuesByClass('fpcm-files-search-input');                            
-                            sParams.combinations = fpcm.ui.getValuesByClass('fpcm-ui-input-select-filessearch-combination');
+                            var sParams = fpcm.dom.getValuesByClass('fpcm-files-search-input');                            
+                            sParams.combinations = fpcm.dom.getValuesByClass('fpcm-ui-input-select-filessearch-combination');
 
                             fpcm.filemanager.startFilesSearch(sParams);
-                            fpcm.dom.fromTag(this).dialog('close');
                         }
                     },                    
                     {
-                        text: fpcm.ui.translate('ARTICLE_SEARCH_RESET'),
-                        icon: "ui-icon-refresh" ,                        
+                        text: fpcm.ui.translate('GLOBAL_RESET'),
+                        icon: "filter-circle-xmark" ,                        
+                        clickClose: true,
                         click: function() {
                             fpcm.ui.relocate('self');
                         }
-                    },                    
-                    {
-                        text: fpcm.ui.translate('GLOBAL_CLOSE'),
-                        icon: "ui-icon-closethick",                        
-                        click: function() {
-                            fpcm.dom.fromTag(this).dialog('close');
-                        }
-                    }                            
+                    }  
                 ],
                 dlOnOpen: function( event, ui ) {
                     fpcm.dom.fromId('text').focus();
                 }
-            });
-
-            fpcm.ui.selectmenu('.fpcm-ui-input-select-filessearch-combination', {
-                appendTo: '#' + sDlg.attr('id')
-            });
-
-            fpcm.ui.selectmenu('.fpcm-ui-input-select-filessearch', {
-                appendTo: '#' + sDlg.attr('id')
             });
 
             return false;
@@ -605,7 +490,6 @@ fpcm.filemanager = {
         }
 
         fpcm.filemanager.reloadFiles(1, sParams);
-        fpcm.dom.fromId('opensearch').addClass('fpcm-ui-button-primary');
     },
     
     runFileIndexUpdate: function () {
@@ -614,9 +498,11 @@ fpcm.filemanager = {
             data    : {
                 cjId: 'fileindex'
             },
-            loaderMsg: fpcm.ui.translate('FILE_LIST_ADDTOINDEX')
+            loaderMsg: fpcm.ui.translate('FILE_LIST_ADDTOINDEX'),
+            execDone: function () {
+                fpcm.ui_tabs.show('#files', 0);
+            }
         });
-
     },
     
     getCurrentPage: function () {

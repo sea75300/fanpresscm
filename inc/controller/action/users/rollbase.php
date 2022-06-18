@@ -11,6 +11,8 @@ namespace fpcm\controller\action\users;
 
 abstract class rollbase extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\isAccessible {
 
+    use \fpcm\controller\traits\theme\nav\users;
+
     /**
      *
      * @var \fpcm\model\users\userRoll
@@ -20,16 +22,6 @@ abstract class rollbase extends \fpcm\controller\abstracts\controller implements
     public function isAccessible(): bool
     {
         return $this->permissions->system->users && $this->permissions->system->rolls;
-    }
-
-    protected function getHelpLink()
-    {
-        return 'HL_OPTIONS_USERS';
-    }
-
-    protected function getActiveNavigationElement()
-    {
-        return 'submenu-itemnav-item-users';
     }
 
     protected function getViewPath() : string
@@ -90,12 +82,23 @@ abstract class rollbase extends \fpcm\controller\abstracts\controller implements
         }
         
         $this->view->addErrorMessage($errMsg);
+        
+        
         return true;
     }
     
     public function process()
     {
-        $this->view->assign('tabsHeadline', $this->headlineVar);
+        $tabs = [
+            (new \fpcm\view\helper\tabItem('roll'))->setText($this->headlineVar)->setFile('users/rolledit.php')           
+        ];
+        
+        if ( $this->permissions->system->permissions && $this->userRoll->getId() ) {
+            $tabs[] = (new \fpcm\view\helper\tabItem('permission'))->setText('HL_OPTIONS_PERMISSIONS')->setFile('users/permissions_editor.php');
+        }
+        
+        $this->view->addTabs('roll', $tabs, '', $this->getActiveTab());
+
         return true;
     }
 

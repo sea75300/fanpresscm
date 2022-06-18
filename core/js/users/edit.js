@@ -13,6 +13,19 @@ fpcm.useredit = {
 
     init: function () {
 
+        fpcm.dom.bindClick('#openQr', function(_ui) {
+
+            fpcm.ui_dialogs.create({
+                image: _ui.delegateTarget.href,
+                title: _ui.delegateTarget.innerText,
+                class: 'text-center',
+                size: 'sm',
+                closeButton: true
+            });
+            
+            return false;
+        });
+
     }
 
 };

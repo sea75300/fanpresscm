@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4.x
+ * FanPress CM 5.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -34,7 +34,6 @@ final class jqupload extends uploader {
     {
         return [
             \fpcm\classes\dirs::getLibUrl('jqupload/css/jquery.fileupload.css'),
-            \fpcm\classes\dirs::getLibUrl('jqupload/css/jquery.fileupload-ui.css'),
             \fpcm\classes\dirs::getLibUrl('cropper_js/cropper.min.css'),
         ];
     }
@@ -55,6 +54,7 @@ final class jqupload extends uploader {
     public function getJsFilesLate(): array
     {
         return [
+            \fpcm\classes\dirs::getLibUrl('jqupload/js/vendor/jquery.ui.widget.js'),
             \fpcm\classes\dirs::getLibUrl('jqupload/js/jquery.iframe-transport.js'),
             \fpcm\classes\dirs::getLibUrl('jqupload/js/jquery.fileupload.js'),
             \fpcm\classes\dirs::getLibUrl('jqupload/js/jquery.fileupload-process.js'),
@@ -101,6 +101,7 @@ final class jqupload extends uploader {
      */
     public function getViewVars(): array
     {
+        
         return [
             'uploadTemplatePath' => $this->getTemplate(),
             'uploadMultiple' => true

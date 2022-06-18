@@ -24,7 +24,7 @@ final class article extends template {
 
     const TEMPLATE_ID_SINGLE = 'articleSingle';
 
-    /* Image gallery: page break tag, replaces <readmore< block */
+    /* Page break tag, replaces <readmore< block */
     const PAGEBREAK_TAG = '<!-- pagebreak -->';
 
     /* Image gallery: start tag */
@@ -327,8 +327,8 @@ final class article extends template {
             return $content;
         }
 
-        $w = $this->config->file_img_thumb_width;
-        $h = $this->config->file_img_thumb_height;
+        $w = $this->config->file_thumb_size;
+        $h = $this->config->file_thumb_size;
 
         $thumbLen = 6;
         $linkLen = -5;
@@ -348,7 +348,7 @@ final class article extends template {
             );
 
             $url = $isThumb ? $imgObj->getThumbnailUrl() : $imgObj->getImageUrl();
-            $whStr = $isThumb ? "width=\"{$w}\" height=\"{$h}\"" : $imgObj->getWhstring();
+            $whStr = $isThumb ? '' : $imgObj->getWhstring();
 
             $imgTag = "<img {$this->getLazyLoadingImg()} src=\"{$url}\" {$whStr} alt=\"{$imgObj->getFilename()}\" class=\"fpcm-pub-content-gallery-image\">";
             if (!$isLink) {

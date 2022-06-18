@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4.x
+ * FanPress CM 5.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -12,7 +12,7 @@ namespace fpcm\model\dashboard;
  * 
  * @package fpcm\model\dashboard
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 class updatecheck extends \fpcm\model\abstracts\dashcontainer implements \fpcm\model\interfaces\isAccessible {
@@ -67,7 +67,7 @@ class updatecheck extends \fpcm\model\abstracts\dashcontainer implements \fpcm\m
         $this->getModuleUpdateStatus();
 
         $this->tableContent[] = implode(PHP_EOL, [
-            '<div class="row no-gutters py-3 fpcm ui-align-center">',
+            '<div class="row g-0 py-3 fpcm text-center">',
             '<div class="col align-self-center">'.$this->language->translate('UPDATE_VERSIONCHECK_NOTES').'</div>',
             '</div>'
         ]);
@@ -130,13 +130,13 @@ class updatecheck extends \fpcm\model\abstracts\dashcontainer implements \fpcm\m
             ]);
         } elseif ($this->systemCheckresult === \fpcm\model\abstracts\remoteModel::FURLOPEN_ERROR) {
             $iconClass = 'exclamation-triangle';
-            $statusClass = 'fpcm-dashboard-updates-checkerror';
+            $statusClass = 'text-secondary';
             $statusText = $this->language->translate('UPDATE_NOTAUTOCHECK', [
                 '{{btn}}' => (string) (new \fpcm\view\helper\linkButton('chckmanual'))->setText('PACKAGES_MANUALCHECK')->setIcon('external-link-square-alt ')->setUrl(\fpcm\classes\baseconfig::$updateServerManualLink)->setTarget('_blank')->setRel('noreferrer,noopener,external'),
             ]);
         } else {
             $iconClass = 'check';
-            $statusClass = 'fpcm-dashboard-updates-current fpcm-ui-color-blue-light';
+            $statusClass = 'fpcm-dashboard-updates-current text-success';
             $statusText = 'UPDATE_VERSIONCHECK_CURRENT';
         }
 
@@ -151,7 +151,7 @@ class updatecheck extends \fpcm\model\abstracts\dashcontainer implements \fpcm\m
     {
         $modulesUpdater = new \fpcm\model\updater\modules();
         if (!\fpcm\classes\baseconfig::canConnect() || !count($modulesUpdater->getData())) {
-            $this->renderTable('exclamation-triangle', 'fpcm-dashboard-updates-checkerror', 'UPDATE_MODULECHECK_FAILED');
+            $this->renderTable('exclamation-triangle', 'text-secondary', 'UPDATE_MODULECHECK_FAILED');
             return false;
         }
 
@@ -163,7 +163,7 @@ class updatecheck extends \fpcm\model\abstracts\dashcontainer implements \fpcm\m
             return true;
         }
 
-        $this->renderTable('check', 'fpcm-dashboard-updates-current fpcm-ui-color-blue-light', 'UPDATE_MODULECHECK_CURRENT');
+        $this->renderTable('check', 'fpcm-dashboard-updates-current text-success', 'UPDATE_MODULECHECK_CURRENT');
     }
 
     /**
@@ -197,11 +197,30 @@ class updatecheck extends \fpcm\model\abstracts\dashcontainer implements \fpcm\m
     private function renderTable($iconClass, $statusClass, $statusText)
     {
         $this->tableContent[] = implode(PHP_EOL, [
-            '<div class="row no-gutters">',
+            '<div class="row g-0">',
             '<div class="col-auto px-2">'.(new \fpcm\view\helper\icon($iconClass.' fa-inverse'))->setSize('2x')->setClass($statusClass)->setStack('square').'</div>',
             '<div class="col px-2 align-self-center">'.$this->language->translate($statusText).'</div>',
             '</div>'
         ]);
+    }
+
+    /**
+     * Return button object
+     * @return \fpcm\view\helper\linkButton|null
+     * @since 5.0.0-b3
+     */
+    public function getButton(): ?\fpcm\view\helper\linkButton
+    {
+        if (\fpcm\classes\baseconfig::canConnect()) {
+            return null;
+        }
+
+        return (new \fpcm\view\helper\linkButton('manualCheckFooter'))
+            ->setUrl(\fpcm\classes\baseconfig::$updateServerManualLink)
+            ->setIcon('square-up-right')
+            ->setText('PACKAGES_MANUALCHECK')
+            ->setTarget('_blank')
+            ->setRel('noreferrer,noopener,external');
     }
 
 }

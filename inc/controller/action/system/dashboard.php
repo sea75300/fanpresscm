@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4.x
+ * FanPress CM 5.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -43,22 +43,10 @@ class dashboard extends \fpcm\controller\abstracts\controller implements \fpcm\c
     public function process()
     {
         $this->view->addJsLangVars(['DASHBOARD_LOADING']);
-        $this->view->addJsFiles(['dashboard.js']);
-
-        $buttons = [];
-        $buttons[] = (new \fpcm\view\helper\linkButton('openProfile'))
-                ->setUrl(\fpcm\classes\tools::getFullControllerLink('system/profile'))
-                ->setIcon('wrench')
-                ->setText('PROFILE_OPEN');
-
-        if ($this->permissions->system->options) {
-            $buttons[] = (new \fpcm\view\helper\linkButton('runSyscheck'))
-                    ->setUrl(\fpcm\classes\tools::getFullControllerLink('system/options', ['syscheck' => 1]))
-                    ->setIcon('sync')
-                    ->setText('SYSCHECK_COMPLETE');
-        }
-
-        $this->view->addButtons($buttons);
+        $this->view->addJsFiles(['dashboard.js', 'ui/dnd.js']);
+        $this->view->addFromLibrary('sortable_js', [
+            'Sortable.min.js'
+        ]);
     }
 
 }

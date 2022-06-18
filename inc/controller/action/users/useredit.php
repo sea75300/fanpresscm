@@ -12,13 +12,10 @@ namespace fpcm\controller\action\users;
 class useredit extends userbase {
 
     /**
-     * 
-     * @return string
+     *
+     * @var bool
      */
-    protected function getViewPath() : string
-    {
-        return 'users/useredit';
-    }
+    protected $showExtended = true;
 
     /**
      * 
@@ -32,10 +29,10 @@ class useredit extends userbase {
             $this->redirect('users/list');
             return false;
         }
-        
-        $this->initUploader();
-        
+
         $this->initActionObjects();
+        $this->initUploader($this->user);
+
         parent::request();
 
         if (!$this->user->exists()) {
@@ -92,18 +89,49 @@ class useredit extends userbase {
         $this->view->assign('avatar', \fpcm\model\users\author::getAuthorImageDataOrPath($this->user, false));
 
         $buttons = [
-            (new \fpcm\view\helper\saveButton('userSave'))->setClass('fpcm-ui-button-primary'),
+            (new \fpcm\view\helper\saveButton('userSave'))->setPrimary(),
             (new \fpcm\view\helper\submitButton('resetProfileSettings'))->setText('GLOBAL_RESET')->setIcon('undo')
         ];
         
         if ($this->userId != $this->session->getUserId()) {
-            $buttons[] = (new \fpcm\view\helper\checkbox('data[passInfoUser]'))->setText('USERS_PASSWORD_SENDUSERINFO');
+            $buttons[] = (new \fpcm\view\helper\checkbox('data[passInfoUser]'))->setText('USERS_PASSWORD_SENDUSERINFO')->setSwitch(true)->setWrapperClass('ms-2 mb-0 mt-1');
         }
 
         $this->view->addButtons($buttons);
         
+        $chgUser = new \fpcm\model\users\author($this->user->getChangeUser());
+
+        $this->view->assign('createInfo', new \fpcm\view\helper\dateText($this->user->getRegistertime()));
+
+        $this->view->assign('changeInfo', $this->language->translate('GLOBAL_USER_ON_TIME', [
+            '{{username}}' => $chgUser->exists() ? $chgUser->getDisplayname() : $this->language->translate('GLOBAL_NOTFOUND'),
+            '{{time}}'     => new \fpcm\view\helper\dateText($this->user->getChangetime())
+        ]));
+        
+        $this->view->addJsVars([
+            'userImgRedir' => \fpcm\classes\tools::getFullControllerLink('users/edit', [
+                'id' => $this->user->getId(),
+                'rg' => 1
+            ])
+        ]);
+        
         $this->view->addJsFiles(['users/edit.js']);
         $this->view->render();
+    }
+    
+    protected function initTabs()
+    {
+        $tabs = [];
+        $tabs[] = (new \fpcm\view\helper\tabItem('edit'))->setText('USERS_EDIT')->setFile( $this->getViewPath() . '.php');
+        
+        if ($this->showExtended) {            
+            $tabs[] = (new \fpcm\view\helper\tabItem('extended'))->setText('GLOBAL_EXTENDED')->setFile('users/usereditor_extended.php');
+        }
+
+        $tabs[] = (new \fpcm\view\helper\tabItem('meta'))->setText('USERS_META_OPTIONS')->setFile('users/editormeta.php');
+        
+        $this->view->addTabs('users', $tabs, 'fpcm ui-tabs-autoinit', $this->getActiveTab());
+        
     }
 
 }

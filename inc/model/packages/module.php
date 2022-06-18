@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4.x
+ * FanPress CM 5.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -12,6 +12,7 @@ namespace fpcm\model\packages;
  * 
  * @package fpcm\model\packages
  * @author Stefan Seehafer <sea75300@yahoo.de>
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @since 3.1
  */
 class module extends package {
@@ -186,6 +187,8 @@ class module extends package {
      */
     public function copy()
     {
+        clearstatcache();
+        
         $srcBasePath    = $this->getExtractionPath();
         if(!$this->preValidate) {
             return false;

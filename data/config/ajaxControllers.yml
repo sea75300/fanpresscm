@@ -4,6 +4,7 @@ ajax/cache: ajax/common/cache
 ajax/autocomplete: ajax/common/autocomplete
 ajax/clearTrash: ajax/common/clearTrash
 ajax/setconfig: ajax/common/setConfig
+ajax/users/actions: ajax/users/actions
 ajax/logs/clear: ajax/logs/clear
 ajax/logs/reload: ajax/logs/reload
 ajax/files/lists: ajax/files/filelist
@@ -11,6 +12,7 @@ ajax/files/rename: ajax/files/rename
 ajax/files/delete: ajax/files/delete
 ajax/files/createthumbs: ajax/files/createThumbs
 ajax/files/alttext: ajax/files/alttext
+ajax/upload/uppy: ajax/files/uppy
 ajax/jqupload: ajax/files/jqupload
 ajax/articles/lists: ajax/articles/lists
 ajax/articles/tweet: ajax/articles/listnewtweets
@@ -31,6 +33,7 @@ ajax/packagemgr/moduleInstaller: ajax/packagemgr/moduleInstaller
 ajax/packagemgr/unzcp: ajax/packagemgr/moduleExtractCopy
 ajax/modules/exec: ajax/modules/execAction
 ajax/modules/fetch: ajax/modules/fetchList
+ajax/modules/info: ajax/modules/moduleInfo
 ajax/installer/checkdb: ajax/installer/checkdb
 ajax/installer/initdb: ajax/installer/initdb
 ajax/comments/search: ajax/comments/search

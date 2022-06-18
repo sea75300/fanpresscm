@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4.x
+ * FanPress CM 5.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -120,6 +120,8 @@ class syscheck extends \fpcm\controller\abstracts\ajaxController implements \fpc
             if (!trim($key)) {
                 continue;
             }
+            
+            $key = strip_tags($key);
 
             $text .= '- ' . str_pad(trim($key), 40, '.') . ': ' . $value->getCurrent() . PHP_EOL;
         }
@@ -148,6 +150,16 @@ class syscheck extends \fpcm\controller\abstracts\ajaxController implements \fpc
     public function processCli()
     {
         return $this->events->trigger('runSystemCheck', $this->getCheckOptionsSystem());
+    }
+
+    public function getOptions() : array
+    {
+        return array_slice($this->processCli(), 16, 3);
+    }
+
+    public function getFolders() : array
+    {
+        return array_slice($this->processCli(), 20);
     }
 
 }

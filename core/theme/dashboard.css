@@ -1,78 +1,35 @@
 /* ------ Dashboard conatienr styles */
-#fpcm-dashboard-containers {
-    margin-left: -0.5rem !important;
-    margin-right: -0.5rem !important;
-}
-
-.fpcm-dashboard-container {
-    margin-bottom: 0.75rem;
-}
-
-.fpcm-dashboard-container ul {
+.fpcm.dashboard-container ul {
     padding: 0em;
     margin: 0em 0.8em 0em 1.3em;
 }
 
-.fpcm-dashboard-container .fpcm-dashboard-container-inner {
-    height: 100%;
-    margin: 0 0.25rem;
+.fpcm.dashboard-container.card {
+    overflow: hidden;
 }
-    
-.fpcm-dashboard-container .fpcm-dashboard-container-content,
-h3.fpcm-dashboard-container-headline {
+
+.fpcm.dashboard-container .content,
+.fpcm.dashboard-container .headline {
     position: relative;
     left: 0;
     right: 0;
 }
 
-h3.fpcm-dashboard-container-headline > span:first-child {
+.fpcm.dashboard-container .card-body .card-text {
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 300px;
+}
+
+h3.fpcm.dashboard-container .headline > span:first-child {
     width: calc(100% - 1.5em);
     white-space: nowrap;
 }
 
-.fpcm-dashboard-container .fpcm-dashboard-container-content {
-    bottom: 5px;
-    padding: 0.1em 0.5em;
-    bottom: 0px;
-    top: 0px;
-    height: calc(100% - 55px);
-    overflow-X: hidden;
-    overflow-y: auto;
-}
-
-.fpcm-dashboard-container.fpcm-dashboard-container-height-small {
-    height: 125vh;
-    max-height: 300px;
-}
-
-.fpcm-dashboard-container.fpcm-dashboard-container-height-small-medium {
-    height: 133vh;
-    max-height: 425px;
-}
-
-.fpcm-dashboard-container.fpcm-dashboard-container-height-middle {
-    height: 150vh;
-    max-height: 650px;
-}
-
-.fpcm-dashboard-container.fpcm-dashboard-container-height-big {
-    height: 175vh;
-    max-height: 950px;
-}
-
-.fpcm-dashboard-container.fpcm-dashboard-container-height-very-big {
-    height: 200vh;
-    max-height: 12800px;
-}
-
-.fpcm-dashboard-container .fpcm-dashboard-container-inner .fpcm-dashboard-container-content {
+div.fpcm.dashboard-container .content {
     line-height: 1.5em;
 }
 
-.fpcm-dashboard-container .fpcm-dashboard-container-inner .fpcm-dashboard-container-content .fpcm-ui-font-small {
+div.fpcm.dashboard-container .content .fpcm-ui-font-small {
     line-height: 1.25em;
-}
-
-.fpcm-dashboard-container span.fpcm-dashboard-container-move {
-    cursor: move;
 }

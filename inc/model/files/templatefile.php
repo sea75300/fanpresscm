@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4.x
+ * FanPress CM 5.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -15,7 +15,7 @@ namespace fpcm\model\files;
  * @package fpcm\model\files
  * @since 3.3
  */
-final class templatefile extends \fpcm\model\abstracts\file {
+final class templatefile extends \fpcm\model\abstracts\file implements \fpcm\model\interfaces\validateFileType {
 
     /**
      * Erlaubte Dateitypen
@@ -66,8 +66,9 @@ final class templatefile extends \fpcm\model\abstracts\file {
      */
     public function save()
     {
-        if (!$this->exists() || !$this->content || !$this->isWritable())
-            return false;
+        if (!$this->exists() || !$this->content || !$this->isWritable()) {
+            return false;            
+        }
 
         if (!file_put_contents($this->fullpath, $this->content)) {
             trigger_error('Unable to update template ' . $this->fullpath);
@@ -75,6 +76,36 @@ final class templatefile extends \fpcm\model\abstracts\file {
         }
 
         return true;
+    }
+
+    /**
+     * Check if file exists
+     * @return bool
+     */
+    public function exists()
+    {
+        if (!$this->isValidDataFolder('', \fpcm\classes\dirs::DATA_DRAFTS)) {
+            return false;
+        }
+
+        if (!parent::exists()) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Check if file extension and file type is valid
+     * @param string $ext
+     * @param string $type
+     * @return bool
+     * @since 4.5
+     * @see \fpcm\model\interfaces\validateFileType
+     */
+    public static function isValidType(string $ext, string $type, array $map = []) : bool
+    {
+        return in_array($ext, self::$allowedExts) && in_array($type, self::$allowedTypes);
     }
 
 }

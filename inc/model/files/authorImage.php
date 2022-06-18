@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4.x
+ * FanPress CM 5.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -101,7 +101,6 @@ final class authorImage extends image {
         if (!$this->isValidDataFolder($this->filepath)) {
             return false;
         }
-
         return unlink($this->fullpath);
     }
 

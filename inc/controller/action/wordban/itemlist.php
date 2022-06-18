@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4.x
+ * FanPress CM 5.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -10,12 +10,14 @@ namespace fpcm\controller\action\wordban;
 /**
  * Wordban item list controller
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2021, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class itemlist extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\isAccessible {
+class itemlist extends \fpcm\controller\abstracts\controller
+implements \fpcm\controller\interfaces\isAccessible,
+           \fpcm\controller\interfaces\requestFunctions {
 
-    use \fpcm\controller\traits\common\dataView;
+    use \fpcm\controller\traits\common\dataView, \fpcm\controller\traits\theme\nav\texts;
 
     /**
      *
@@ -27,27 +29,8 @@ class itemlist extends \fpcm\controller\abstracts\controller implements \fpcm\co
      * 
      * @return bool
      */
-    public function isAccessible(): bool
-    {
-        return $this->permissions->system->wordban;
-    }
-
-    /**
-     * 
-     * @return string
-     */
-    protected function getHelpLink()
-    {
-        return 'HL_OPTIONS_WORDBAN';
-    }
-
-    /**
-     * 
-     * @return bool
-     */
     public function request()
     {
-        $this->list = new \fpcm\model\wordban\items();
 
         if ($this->request->hasMessage('added')) {
             $this->view->addNoticeMessage('SAVE_SUCCESS_WORDBAN');
@@ -57,7 +40,6 @@ class itemlist extends \fpcm\controller\abstracts\controller implements \fpcm\co
             $this->view->addNoticeMessage('SAVE_SUCCESS_WORDBAN');
         }
 
-        $this->delete();
         return true;
     }
 
@@ -67,17 +49,17 @@ class itemlist extends \fpcm\controller\abstracts\controller implements \fpcm\co
      */
     public function process()
     {
+        $this->list = new \fpcm\model\wordban\items();
         $this->items = $this->list->getItems();
         $this->initDataView();
-        
-        $this->view->assign('headline', 'HL_OPTIONS_WORDBAN');
+
         $this->view->setFormAction('wordban/list');
         $this->view->addJsFiles(['texts.js']);
         $this->view->addButtons([
-            (new \fpcm\view\helper\linkButton('addnew'))->setUrl(\fpcm\classes\tools::getFullControllerLink('wordban/add'))->setText('WORDBAN_ADD')->setIcon('ban')->setClass('fpcm-loader'),
-            (new \fpcm\view\helper\deleteButton('delete'))->setClass('fpcm-ui-button-confirm')
+            (new \fpcm\view\helper\linkButton('addnew'))->setUrl(\fpcm\classes\tools::getFullControllerLink('wordban/add'))->setText('GLOBAL_NEW')->setIcon('ban'),
+            (new \fpcm\view\helper\deleteButton('delete'))->setClass('fpcm ui-button-confirm')
         ]);
-        $this->view->render();
+        
         return true;
     }
 
@@ -101,7 +83,7 @@ class itemlist extends \fpcm\controller\abstracts\controller implements \fpcm\co
             (new \fpcm\components\dataView\column('button', ''))->setSize(1)->setAlign('center'),
             (new \fpcm\components\dataView\column('subject', 'WORDBAN_NAME'))->setSize(4),
             (new \fpcm\components\dataView\column('replacement', 'WORDBAN_REPLACEMENT_TEXT'))->setSize(4),
-            (new \fpcm\components\dataView\column('metadata', '')),
+            (new \fpcm\components\dataView\column('metadata', ''))->setAlign('center'),
         ];
     }
 
@@ -123,16 +105,22 @@ class itemlist extends \fpcm\controller\abstracts\controller implements \fpcm\co
             new \fpcm\components\dataView\rowCol('button', (new \fpcm\view\helper\editButton('editItem'))->setUrlbyObject($item), '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
             new \fpcm\components\dataView\rowCol('subject', new \fpcm\view\helper\escape($item->getSearchtext())),
             new \fpcm\components\dataView\rowCol('replacement', new \fpcm\view\helper\escape($item->getReplacementtext())),
-            new \fpcm\components\dataView\rowCol('metadata', implode('', $metaData), 'fpcm-ui-metabox fpcm-ui-dataview-align-center', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
+            new \fpcm\components\dataView\rowCol('metadata', implode('', $metaData), 'fs-5', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
         ]);
     }
-    
-    private function delete()
+
+    protected function getDataViewTabs() : array
     {
-        if (!$this->buttonClicked('delete')) {
-            return false;
-        }
-        
+        return [
+            (new \fpcm\view\helper\tabItem('tabs-'.$this->getDataViewName().'-list'))
+                ->setText('HL_OPTIONS_WORDBAN')
+                ->setFile('components/dataview__inline.php')
+        ];
+    }
+    
+    protected function onDelete()
+    {
+
         if (!$this->checkPageToken()) {
             $this->view->addErrorMessage('CSRF_INVALID');
             return true;

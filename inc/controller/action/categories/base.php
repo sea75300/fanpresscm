@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4.x
+ * FanPress CM 5.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -16,6 +16,9 @@ namespace fpcm\controller\action\categories;
 class base extends \fpcm\controller\abstracts\controller
 implements \fpcm\controller\interfaces\isAccessible, \fpcm\controller\interfaces\requestFunctions {
 
+    use \fpcm\controller\traits\common\simpleEditForm,
+        \fpcm\controller\traits\theme\nav\categories;
+    
     /**
      *
      * @var \fpcm\model\categories\category
@@ -26,39 +29,40 @@ implements \fpcm\controller\interfaces\isAccessible, \fpcm\controller\interfaces
 
     protected $tabHeadline = 'CATEGORIES_ADD';
 
-    /**
-     * 
-     * @return bool
-     */
-    public function isAccessible(): bool
-    {
-        return $this->permissions->system->categories;
-    }
-
-    protected function getViewPath() : string
-    {
-        return 'categories/editor';
-    }
-
-    protected function getHelpLink()
-    {
-        return 'HL_CATEGORIES_MNG';
-    }
-
-    protected function getActiveNavigationElement()
-    {
-        return 'submenu-itemnav-item-categories';
-    }
-
     public function process()
     {
-        $this->view->assign('userRolls', (new \fpcm\model\users\userRollList())->getUserRollsTranslated());
-        $this->view->assign('category', $this->category);
-        $this->view->assign('selectedGroups', explode(';', $this->category->getGroups()));
         $this->view->addButton(new \fpcm\view\helper\saveButton('categorySave'));
-        $this->view->addJsFiles(['categories.js']);
+        $this->view->addJsFiles(['system/categories.js']);
         $this->view->addTabs('fpcm-category-tabs', [
-            (new \fpcm\view\helper\tabItem('tabs-category'))->setText($this->tabHeadline)->setFile('categories/editor.php')
+            (new \fpcm\view\helper\tabItem('tabs-category'))
+                ->setText($this->tabHeadline)
+                ->setFile($this->getViewPath() . '.php')
+        ]);
+        
+        $selectedGroups = explode(';', $this->category->getGroups());
+        
+        $checkFields = [];
+        foreach ((new \fpcm\model\users\userRollList())->getUserRollsTranslated() as $rollname => $rollid) {
+            $checkFields[] = (new \fpcm\view\helper\checkbox('category[groups][]', 'cat'.$rollid))
+                ->setText($rollname)
+                ->setValue($rollid)
+                ->setSwitch(true)
+                ->setSelected(in_array($rollid, $selectedGroups));
+        }
+
+        $this->assignFields([
+            (new \fpcm\view\helper\textInput('category[name]'))
+                    ->setValue($this->category->getName())
+                    ->setAutoFocused(true)
+                    ->setRequired(true)
+                    ->setText('CATEGORIES_NAME')
+                    ->setIcon('tag'),
+            (new \fpcm\view\helper\textInput('category[iconpath]'))
+                    ->setValue($this->category->getIconPath())
+                    ->setType('url')
+                    ->setText('CATEGORIES_ICON_PATH')
+                    ->setIcon('link'),
+            new \fpcm\components\fieldGroup($checkFields, 'CATEGORIES_ROLLS', new \fpcm\view\helper\icon('user-tag'))
         ]);
 
         $this->view->render();

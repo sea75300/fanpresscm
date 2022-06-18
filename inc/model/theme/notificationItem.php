@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4.x
+ * FanPress CM 5.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -55,7 +55,7 @@ class notificationItem {
 
         $this->id = trim($id) ? trim($id) : uniqid('fpcm-notification-item');
         $this->callback = $callback;
-        $this->class = 'fpcm-menu-top-level2 fpcm-notification-item fpcm-ui-align-left py-2'.(trim($class) ? ' '.$class : '');
+        $this->class = 'dropdown-item'.(trim($class) ? ' '.$class : '');
     }
 
     /**
@@ -92,7 +92,7 @@ class notificationItem {
      */
     public function __toString() : string
     {
-        return "<li id=\"{$this->id}\" class=\"{$this->class}\"".$this->getCallback(). $this->icon . $this->icon->getText() . "</li>";
+        return "<li id=\"{$this->id}\" class=\"{$this->class} text-truncate\"".$this->getCallback(). $this->icon . $this->icon->getText() . "</li>";
     }
 
     /**
@@ -107,6 +107,7 @@ class notificationItem {
         }
 
         if (strpos($this->callback, 'http') === 0) {
+            $this->class .= ' nav-link';
             return "><a href=\"{$this->callback}\">" . $this->icon . "</a>";
         }
 

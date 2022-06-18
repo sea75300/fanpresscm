@@ -1,7 +1,7 @@
 /**
  * FanPress CM Users Namespace
  * @article Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2015-2018, Stefan Seehafer
+ * @copyright (c) 2015-2021, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @since FPCM 3.5
  */
@@ -13,19 +13,12 @@ fpcm.users = {
 
     init: function() {
 
-        fpcm.dom.fromId('btnDeleteUser').click(function() {
-            return fpcm.users.initMoveDeleteArticles();
-        });
-        
-        fpcm.ui.tabs('#fpcm-ui-tabs-users', {
-            addMainToobarToggle: true,
-            active: fpcm.vars.jsvars.activeTab
-        });
-
         if (fpcm.dataview.exists('userlist')) {
             fpcm.dataview.render('userlist', {
-                onRenderAfter: function() {
-                    fpcm.ui.assignControlgroups();
+                onRenderAfter: function () {
+                    fpcm.dom.bindClick('.fpcm.ui-userlist-actione', function (_ev, _ui) {
+                        return fpcm.users[_ui.dataset.dest](_ui);
+                    });
                 }
             });
         };
@@ -33,8 +26,32 @@ fpcm.users = {
         if (fpcm.dataview.exists('rollslist')) {
             fpcm.dataview.render('rollslist', {
                 onRenderAfter: function() {
-                    fpcm.ui.assignControlgroups();
-                    fpcm.users.initPermissionEdit();
+
+                    fpcm.dom.bindClick('.fpcm.ui-rolls-edit', function (_ev, _ui) {
+                        _ev.preventDefault();
+                        fpcm.ui_dialogs.create({
+                            id: 'edit-permissions',
+                            url: _ui.attributes.href.value,
+                            title: 'HL_OPTIONS_PERMISSIONS',
+                            closeButton: true,
+                            dlButtons: [
+                                {
+                                    text: 'GLOBAL_SAVE',
+                                    icon: "check",
+                                    primary: true,
+                                    click: function () {
+                                        fpcm.dom.fromId('fpcm-dialog-edit-permissions-frame').contents().find('#btnPermissionsSave').click();
+                                    },
+                                }
+                            ]
+                        });
+                        
+                        return false;
+                    });
+
+                    fpcm.dom.bindClick('.fpcm.ui-rollslist-action-delete', function (_ev, _ui) {
+                        return fpcm.users.confirmExec(_ui);
+                    });
                 }
             });
         };
@@ -44,78 +61,26 @@ fpcm.users = {
         }
     },
     
-    initMoveDeleteArticles: function() {
+    moveDeleteArticles: function(_ui) {
 
-        if (fpcm.users.continueDelete) {
-            return true;
-        }
-
-        var size = fpcm.ui.getDialogSizes();
-
-        fpcm.ui_loader.hide();
-        fpcm.ui.dialog({
-            id         : 'users-select-delete',
-            dlWidth    : size.width,
-            title      : fpcm.ui.translate('USERS_ARTICLES_SELECT'),
-            dlButtons  : [
+        fpcm.ui_dialogs.create({
+            id: 'users-select-delete',
+            title: 'USERS_ARTICLES_SELECT',
+            closeButton: true,
+            dlButtons: [
                 {
-                    text: fpcm.ui.translate('GLOBAL_OK'),
-                    icon: "ui-icon-check",                    
+                    text: 'GLOBAL_OK',
+                    icon: "check",
+                    closeClick: true,
+                    primary: true,
                     click: function() {
-                        
-                        fpcm.dom.fromTag(this).dialog('close');
-
-                        fpcm.ui.dialog({
-                            title: fpcm.ui.translate('GLOBAL_CONFIRM'),
-                            content: fpcm.ui.translate('CONFIRM_MESSAGE'),
-                            dlWidth: size.width,
-                            dlButtons: [
-                                {
-                                    text: fpcm.ui.translate('GLOBAL_YES'),
-                                    icon: "ui-icon-check",                    
-                                    click: function() {
-                                        fpcm.users.continueDelete = true;
-                                        fpcm.dom.fromId('btnDeleteUser').trigger('click');
-                                        fpcm.dom.fromTag(this).dialog('close');
-                                    }
-                                },
-                                {
-                                    text: fpcm.ui.translate('GLOBAL_NO'),
-                                    icon: "ui-icon-closethick",
-                                    click: function() {
-                                        fpcm.dom.fromTag(this).dialog('close');
-                                        fpcm.dom.fromId('articlesaction').val('').selectmenu("refresh");
-                                        fpcm.dom.fromId('articlesuser').val('').selectmenu("refresh");
-                                    }
-                                }
-                            ]
-                        });
+                        fpcm.users.confirmExec(_ui, 'users-select-delete');
                     }
-                },
-                {
-                    text: fpcm.ui.translate('GLOBAL_CLOSE'),
-                    icon: "ui-icon-closethick",                    
-                    click: function() {
-                        fpcm.dom.fromTag(this).dialog('close');
-                        fpcm.dom.fromId('articlesaction').val('').selectmenu("refresh");
-                        fpcm.dom.fromId('articlesuser').val('').selectmenu("refresh");
-                        fpcm.ui_loader.hide();
-                    }
-                }                            
+                }
             ],
-            dlOnOpen: function (event, ui) {
-
-                fpcm.ui.selectmenu('#articlesaction', {
-                    appendTo: '#fpcm-dialog-users-select-delete',
-                });
-
-                fpcm.ui.selectmenu('#articlesuser', {
-                    appendTo: '#fpcm-dialog-users-select-delete',
-                });
-
-            },
             dlOnClose: function (event, ui) {
-                fpcm.dom.fromTag(this).dialog('destroy');
+                fpcm.dom.fromId('articlesaction').val('');
+                fpcm.dom.fromId('articlesuser').val('');
             }
         });
 
@@ -123,45 +88,35 @@ fpcm.users = {
 
     },
     
-    initPermissionEdit: function () {
-        fpcm.dom.fromClass('fpcm-ui-rolllist-permissionedit').click(function() {
+    confirmExec: function (_ui, _closeDlg) {
 
-            var sizes = fpcm.ui.getDialogSizes(top, 0.75);
-            var link  = fpcm.dom.fromTag(this).attr('href');
-
-            fpcm.ui.dialog({
-                id       : 'users-permissions-edit',
-                dlWidth  : sizes.width,
-                dlHeight : fpcm.ui.getDialogSizes(top, 0.75).height,
-                resizable: true,
-                title    : fpcm.ui.translate('HL_OPTIONS_PERMISSIONS'),
-                defaultCloseEmpty: true,
-                dlButtons  : [
-                    {
-                        text: fpcm.ui.translate('GLOBAL_SAVE'),
-                        icon: "ui-icon-disk",                        
-                        click: function() {
-                            fpcm.dom.fromTag(this).children('iframe').contents().find('#btnPermissionsSave').trigger('click');
-                            fpcm.ui_loader.hide();
-                        }
+        fpcm.ui_dialogs.confirm({
+            clickYes: function () {
+                fpcm.ajax.execFunction('users/actions', _ui.dataset.fn, {
+                    data:  {
+                        oid: _ui.dataset.oid,
+                        moveAction: fpcm.dom.fromId('articlesaction').length ? fpcm.dom.fromId('articlesaction').val() : null,
+                        moveTo: fpcm.dom.fromId('articlesuser').length ? fpcm.dom.fromId('articlesuser').val() : null
                     },
-                    {
-                        text: fpcm.ui.translate('GLOBAL_CLOSE'),
-                        icon: "ui-icon-closethick",                    
-                        click: function() {
-                            fpcm.dom.fromTag(this).dialog('close');
-                            fpcm.ui_loader.hide();
-                        }
-                    }                            
-                ],
-                dlOnOpen: function (event, ui) {                
-                    fpcm.dom.appendHtml(this, fpcm.ui.createIFrame({
-                        src: link,
-                    }));
-                }
-            });
+                    pageToken: 'ajax/users/actions',
+                    execDone: function (_result) {
+                        fpcm.ui.addMessage(_result);
 
-            return false;
+                        if (_closeDlg) {
+                            fpcm.ui_dialogs.close(_closeDlg);
+                        }
+
+                        if (_result.type === 'success') {
+                            setTimeout(function () {
+                                window.location.reload();
+                            }, 1000);
+                        }
+                    }
+                });   
+            }
         });
+        
+        
+        return false;
     }
 };

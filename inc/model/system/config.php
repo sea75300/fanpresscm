@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4.x
+ * FanPress CM 5.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -17,70 +17,68 @@ use fpcm\model\traits\eventModuleEmpty;
 /**
  * System config Objekt
  * 
- * @property string $system_version Version
- * @property string $system_email E-Mail_Adresse
- * @property string $system_url Frontend-Url
- * @property string $system_lang Sprache
- * @property string $system_dtmask Date-Time-Maske
- * @property bool   $system_comments_enabled Kommentare aktiv
- * @property int    $system_session_length ACP-Session Länge
- * @property bool   $system_mode Frontend-Modus (0 = iframe, 1= phpinclude)
- * @property string $system_css_path Pfad zur CSS-Datei
- * @property bool   $system_show_share Share-Buttons anzeigen
- * @property bool   $system_share_count Click auf Share-Buttons zählen
- * @property string $system_timezone Zeitzone
- * @property int    $system_cache_timeout Cache-Timeout
- * @property bool   $system_loader_jquery jQuery in Frontend laden
- * @property bool   $system_editor aktiver Editor
- * @property int    $system_editor_fontsize Standard-Schriftgröße im Editor
- * @property bool   $system_maintenance Wartungsmodusaktiv
- * @property int    $system_loginfailed_locked Anzahl fehlgeschlagener Login-Versuche, nach denen Login temporär gesperrt wird
- * @property int    $system_updates_devcheck Entwickler-Versionen bei Update-Prüfung anzeigen
- * @property bool   $system_updates_emailnotify E-Mail-Benachrichtigung über Updates
- * @property int    $system_updates_manual Interval für manuelle Update-Prüfung
+ * @property string $system_version System version
+ * @property string $system_email General e-mail address
+ * @property string $system_url Frontend url
+ * @property string $system_lang System language
+ * @property string $system_dtmask Date time mask
+ * @property bool   $system_comments_enabled Comment system enabled
+ * @property bool   $system_mode Frontend mode (0 = iframe, 1= phpinclude)
+ * @property string $system_css_path External CSS file path
+ * @property bool   $system_show_share Enable share buttons
+ * @property bool   $system_share_count Count share button clicks
+ * @property string $system_timezone System timezone
+ * @property int    $system_cache_timeout System cache timeout
+ * @property bool   $system_loader_jquery Load jquery in frontend
+ * @property bool   $system_editor article and comment editor
+ * @property int    $system_editor_fontsize Default editor fontsize
+ * @property bool   $system_maintenance Maintenance mode active
+ * @property int    $system_loginfailed_locked Amout of failed logings before account is locked
+ * @property int    $system_updates_devcheck Check developer version on update check
+ * @property bool   $system_updates_emailnotify E-mail notification if update is available
+ * @property int    $system_updates_manual Update check interval for manual update check
  * @property bool   $system_2fa_auth Two factor authentication enabled
  * @property int    $system_trash_cleanup Age of datasets in trash to cleanup
  * @property bool   $system_passcheck_enabled Password check enabled
  * 
- * @property bool   $articles_revisions Revisionen aktiv
- * @property int    $articles_limit Artikel pro Seite im Fronend
- * @property string $articles_template_active aktives Template für Artikel-Liste
- * @property string $article_template_active aktives Template für Artikel-Einzel-Ansicht
- * @property bool   $articles_archive_show Archiv-Link anzeigen
- * @property string $articles_sort Sortierung der Artikel im Frontend
- * @property string $articles_sort_order Reihenfolge der Sortierung der Artikel im Frontend
- * @property bool   $articles_rss RSS-Feed ist aktiv
- * @property int    $articles_acp_limit Anzahl Element in ACP-Listen
- * @property int    $articles_archive_datelimit Datum, bis zu dem Artikel im Archiv maximal angezeigt werden sollen
- * @property int    $articles_revisions_limit Anzahl Revisionen, bei der alte Revisionen bereinigt werden
- * @property bool   $articles_link_urlrewrite URL-Rewriting aktivieren (ID + Artikel-Titel sind in Artikel-Link enthalten)
- * @property bool   $articles_imageedit_persistence Änderungen an Bilder pber TinyMCE auf Server speichern
+ * @property bool   $articles_revisions Enable revision system for articles
+ * @property int    $articles_limit Number of articles per page in frontend
+ * @property string $articles_template_active Active article list template
+ * @property string $article_template_active Active single article view template
+ * @property bool   $articles_archive_show Show article archive in frontend
+ * @property string $articles_sort Sort by field in frontend
+ * @property string $articles_sort_order Sort order in frontend
+ * @property bool   $articles_rss Enable RSS feed
+ * @property int    $articles_acp_limit Number of articles per page in ACP
+ * @property int    $articles_archive_datelimit Hide articles before this date in frontend archive
+ * @property int    $articles_revisions_limit Maximum number of kept articles revision
+ * @property bool   $articles_link_urlrewrite Enable URL-Rewriting (ID and article will be included within article link)
  * 
- * @property string $comments_template_active aktives Kommentar-Template
- * @property int    $comments_flood Sperre zwischen zwei Kommentaren
- * @property bool   $comments_email_optional E-Mail muss beim Kommentar-Schreiben angegegebn werden
- * @property bool   $comments_confirm Kommentare müssen freigegeben werden
- * @property string $comments_antispam_question Spam-Captcha-Frage
- * @property string $comments_antispam_answer Spam-Captcha-Antwort
- * @property int    $comments_notify wohin sollen Benachrichtigung bei neuem Kommentar gehen (0 = nur globale E-MailAdresse, 1 = nur Author, 2 = beide)
- * @property int    $comments_markspam_commentcount Anzahl an Spam deklarierter vorhandener Kommentare, über der ein ein neuer Kommentar automatisch als Spam markiert wird
- * @property bool   $comments_privacy_optin Opt-In beim Absenden eines Kommentars notwendig
+ * @property string $comments_template_active Active comment template
+ * @property int    $comments_flood Flood protection between two comments
+ * @property bool   $comments_email_optional E-mail-address is not mandatory for comments
+ * @property bool   $comments_confirm Comments need to be approved before
+ * @property string $comments_antispam_question Anti spam captcha question
+ * @property string $comments_antispam_answer Anti spam captcha reply
+ * @property int    $comments_notify Send notification for new comments to: 0 = General e-mail address, 1 = article auhor, 2 = both)
+ * @property int    $comments_markspam_commentcount Mark comments as spam, in case the author has been flagged as spammed before
+ * @property bool   $comments_privacy_optin GDPR privacy opt-in
  * 
- * @property int    $file_img_thumb_width Thumbnail width
- * @property int    $file_img_thumb_height Thumbnail height
- * @property int    $file_list_limit Numer of files per page
+ * @property int    $file_thumb_size Thumbnail size
+ * @property int    $file_list_limit Nubmer of files per page
  * @property bool   $file_subfolders Create subfolder of form YYYY-MM
  * @property string $file_view File manager view
+ * @property string $file_cropper_name Image editor file name
  * 
- * @property conf\twitterSettings  $twitter_data Daten für Twitter-Verbindung
- * @property conf\twitterEvents    $twitter_events Events, wenn Tweets erzeugt werden sollen
+ * @property conf\twitterSettings  $twitter_data Twitter conenctions ettings
+ * @property conf\twitterEvents    $twitter_events Events for new twitter posts
  * 
- * @property bool                  $smtp_enabled E-Mail-Versand via SMTP aktiv
- * @property conf\smtpSettings     $smtp_settings Konfiguration für E-Mail-Versand via SMTP
+ * @property bool                  $smtp_enabled E-mail-submission via SMTP server
+ * @property conf\smtpSettings     $smtp_settings SMTP settings
  * 
  * @package fpcm\model\system
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2021, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 final class config extends dataset {
@@ -94,12 +92,6 @@ final class config extends dataset {
     protected $newConfig = [];
 
     /**
-     * this->data cachen
-     * @var bool
-     */
-    protected $useCache = true;
-
-    /**
      * Benuter-Config bereits eingelesen
      * @var bool
      */
@@ -107,16 +99,14 @@ final class config extends dataset {
 
     /**
      * Konstruktor
-     * @param bool $useCache Configuration aus Cache laden
      * @return bool
      */
-    function __construct($useCache = true)
+    function __construct()
     {
         $this->table    = database::tableConfig;
         $this->dbcon    = loader::getObject('\fpcm\classes\database');
         $this->events   = loader::getObject('\fpcm\events\events');
         $this->cache    = loader::getObject('\fpcm\classes\cache');
-        $this->useCache = $useCache;
 
         if (baseconfig::installerEnabled()) {
             return false;
@@ -236,17 +226,9 @@ final class config extends dataset {
             return false;
         }
 
-        $cacheName = 'system/configuser' . $user->getId();
-
-        $userData = $this->cache->read($cacheName);
-        if ($this->cache->isExpired($cacheName) || !$this->useCache || !is_array($userData)) {
-
-            $userData = $user->getUserMeta();
-            if (!is_array($userData)) {
-                return false;
-            }
-
-            $this->cache->write($cacheName, $userData);
+        $userData = $user->getUserMeta();
+        if (!is_array($userData)) {
+            return false;
         }
 
         foreach ($userData as $key => $value) {
@@ -278,26 +260,16 @@ final class config extends dataset {
             return false;
         }
 
-        $this->cacheName = 'system/config';
-
-        if ($this->cache->isExpired($this->cacheName) || !$this->useCache) {
-
-            $obj = new \fpcm\model\dbal\selectParams($this->table);
-            $obj->setFetchAll(true);
-            foreach ($this->dbcon->selectFetch($obj) as $data) {
-                $this->data[$data->config_name] = $data->config_value;
-            }
-
-            $this->data['twitter_data'] = new conf\twitterSettings($this->data['twitter_data']);
-            $this->data['twitter_events'] = new conf\twitterEvents($this->data['twitter_events']);
-            $this->data['smtp_settings'] = new conf\smtpSettings($this->data['smtp_settings']);
-
-            $this->cache->write($this->cacheName, $this->data);
-
-            return true;
+        $obj = new \fpcm\model\dbal\selectParams($this->table);
+        $obj->setFetchAll(true);
+        foreach ($this->dbcon->selectFetch($obj) as $data) {
+            $this->data[$data->config_name] = $data->config_value;
         }
 
-        $this->data = $this->cache->read($this->cacheName);
+        $this->data['twitter_data'] = new conf\twitterSettings($this->data['twitter_data']);
+        $this->data['twitter_events'] = new conf\twitterEvents($this->data['twitter_events']);
+        $this->data['smtp_settings'] = new conf\smtpSettings($this->data['smtp_settings']);
+
         return true;
     }
 
@@ -373,10 +345,6 @@ final class config extends dataset {
             $this->newConfig['system_cache_timeout'] = (int) $this->newConfig['system_cache_timeout'];
         }
 
-        if (isset($this->newConfig['system_session_length'])) {
-            $this->newConfig['system_session_length'] = (int) $this->newConfig['system_session_length'];
-        }
-
         if (isset($this->newConfig['comments_flood'])) {
             $this->newConfig['comments_flood'] = (int) $this->newConfig['comments_flood'];
         }
@@ -393,16 +361,16 @@ final class config extends dataset {
             $this->newConfig['comments_markspam_commentcount'] = (int) $this->newConfig['comments_markspam_commentcount'];
         }
 
-        if (isset($this->newConfig['file_img_thumb_width'])) {
-            $this->newConfig['file_img_thumb_width'] = (int) $this->newConfig['file_img_thumb_width'];
-        }
-
-        if (isset($this->newConfig['file_img_thumb_height'])) {
-            $this->newConfig['file_img_thumb_height'] = (int) $this->newConfig['file_img_thumb_height'];
+        if (isset($this->newConfig['file_thumb_size'])) {
+            $this->newConfig['file_thumb_size'] = (int) $this->newConfig['file_thumb_size'];
         }
 
         if (isset($this->newConfig['file_list_limit'])) {
             $this->newConfig['file_list_limit'] = (int) $this->newConfig['file_list_limit'];
+        }
+
+        if (isset($this->newConfig['file_cropper_name'])) {
+            $this->newConfig['file_cropper_name'] = preg_replace('/([^\{\}\_\-a-z])/i', '', $this->newConfig['file_cropper_name']);
         }
 
         if (isset($this->newConfig['system_updates_devcheck'])) {
@@ -415,10 +383,6 @@ final class config extends dataset {
 
         if (isset($this->newConfig['articles_link_urlrewrite'])) {
             $this->newConfig['articles_link_urlrewrite'] = (int) $this->newConfig['articles_link_urlrewrite'];
-        }
-
-        if (isset($this->newConfig['articles_imageedit_persistence'])) {
-            $this->newConfig['articles_imageedit_persistence'] = (int) $this->newConfig['articles_imageedit_persistence'];
         }
             
         if (isset($this->newConfig['comments_privacy_optin'])) {

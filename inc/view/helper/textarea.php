@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4
+ * FanPress CM 5
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -23,7 +23,7 @@ final class textarea extends input {
      */
     protected function init()
     {
-        $this->class = 'fpcm-ui-textarea';
+        $this->class = 'form-control';
     }
 
     /**

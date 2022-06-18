@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4.x
+ * FanPress CM 5.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -13,7 +13,9 @@ namespace fpcm\controller\action\articles;
  * @copyright (c) 2011-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-abstract class articlebase extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\isAccessible {
+abstract class articlebase extends \fpcm\controller\abstracts\controller
+implements \fpcm\controller\interfaces\isAccessible,
+           \fpcm\controller\interfaces\requestFunctions {
 
     /**
      *
@@ -62,6 +64,30 @@ abstract class articlebase extends \fpcm\controller\abstracts\controller impleme
      * @var bool
      */
     protected $canChangeAuthor = false;
+
+    /**
+     *
+     * @var bool
+     */
+    protected $showComments = true;
+
+    /**
+     *
+     * @var bool
+     */
+    protected $showRevisions = false;
+
+    /**
+     *
+     * @var bool
+     */
+    protected $commentCount = 0;
+
+    /**
+     *
+     * @var bool
+     */
+    protected $revisionCount = 0;
 
     /**
      * Konstruktor
@@ -114,11 +140,6 @@ abstract class articlebase extends \fpcm\controller\abstracts\controller impleme
         $this->approvalRequired = $this->permissions->article->approve;
         $this->initObject();
 
-        if ($this->buttonClicked('doAction') && !$this->checkPageToken()) {
-            $this->view->addErrorMessage('CSRF_INVALID');
-            return false;
-        }
-
         return true;
     }
 
@@ -128,6 +149,8 @@ abstract class articlebase extends \fpcm\controller\abstracts\controller impleme
      */
     public function process()
     {
+        $this->initTabs();
+        
         $this->editorPlugin = \fpcm\components\components::getArticleEditor();
         if (!$this->editorPlugin) {
             $this->view = new \fpcm\view\error('Error loading article editor component '.$this->config->system_editor);
@@ -156,9 +179,7 @@ abstract class articlebase extends \fpcm\controller\abstracts\controller impleme
 
         $this->view->assign('changeAuthor', $this->canChangeAuthor);
         if ($this->canChangeAuthor) {
-            $userlist = new \fpcm\model\users\userList();
-            $changeuserList = ['EDITOR_CHANGEAUTHOR' => ''] + $userlist->getUsersNameList();
-            $this->view->assign('changeuserList', $changeuserList);
+            $this->view->assign('changeuserList', (new \fpcm\model\users\userList())->getUsersNameList());
         }
 
         $this->view->assign('approvalRequired', $this->approvalRequired);
@@ -194,76 +215,68 @@ abstract class articlebase extends \fpcm\controller\abstracts\controller impleme
         $this->jsVars += array(
             'filemanagerUrl' => \fpcm\classes\tools::getFullControllerLink('files/list', ['mode' => '']),
             'filemanagerMode' => 2,
+            'filemanagerPermissions' => $this->permissions->uploads,
             'editorGalleryTagStart' => \fpcm\model\pubtemplates\article::GALLERY_TAG_START,
             'editorGalleryTagEnd' => \fpcm\model\pubtemplates\article::GALLERY_TAG_END,
             'editorGalleryTagThumb' => \fpcm\model\pubtemplates\article::GALLERY_TAG_THUMB,
             'editorGalleryTagLink' => \fpcm\model\pubtemplates\article::GALLERY_TAG_LINK
         );
 
-        $this->view->addJsLangVars(array_merge([
-            'HL_FILES_MNG', 'ARTICLES_SEARCH', 'FILE_LIST_NEWTHUMBS', 'GLOBAL_DELETE', 'EDITOR_CATEGORIES_SEARCH', 'FILE_LIST_INSERTGALLERY', 'EDITOR_ARTICLE_SHORTLINK_COPY'
-        ], $this->editorPlugin->getJsLangVars()));
-
+        $this->view->addJsLangVars(array_merge(['HL_FILES_MNG', 'ARTICLES_SEARCH', 'FILE_LIST_NEWTHUMBS', 'GLOBAL_DELETE', 'EDITOR_CATEGORIES_SEARCH', 'FILE_LIST_INSERTGALLERY', 'FILE_LIST_UPLOADFORM'], $this->editorPlugin->getJsLangVars()));
         $this->view->addJsVars($this->jsVars);
 
         $this->view->addButton((new \fpcm\view\helper\saveButton('articleSave'))
-                ->setClass( 'fpcm-ui-maintoolbarbuttons-tab1'.($this->article->getId() ? ' fpcm-ui-button-primary' : '') )
-                ->setReadonly($this->article->isInEdit()));
+                ->setClass( 'fpcm-ui-maintoolbarbuttons-tab1')
+                ->setReadonly($this->article->isInEdit())
+                ->setPrimary($this->article->getId() > 0));
 
         return true;
     }
-
-    /**
-     * 
-     * @return bool
-     */
-    protected function saveArticle()
+    
+    private function initTabs()
     {
-        $res = false;
+    
+        $tabs = [];
+        
+        $tabs[] = (new \fpcm\view\helper\tabItem('editor'))
+                ->setFile('articles/editor.php')
+                ->setText('ARTICLES_EDITOR')
+                ->setTabToolbar(1);
 
-        $allTimer = time();
+        $tabs[] = (new \fpcm\view\helper\tabItem('extended'))
+                ->setFile('articles/buttons.php')
+                ->setText('GLOBAL_EXTENDED')
+                ->setTabToolbar(1);
+        
+        if ($this->showComments && $this->config->system_comments_enabled) {
 
-        if (!$this->buttonClicked('articleSave')) {
-            return -1;
+            $tabs[] = (new \fpcm\view\helper\tabItem('comments'))
+                    ->setUrl(\fpcm\classes\tools::getFullControllerLink('ajax/editor/editorlist', [
+                        'id' => $this->article->getId(),
+                        'view' => 'comments'])
+                    )
+                    ->setText('HL_ARTICLE_EDIT_COMMENTS', [ 'count' => $this->commentCount ])
+                    ->setDataViewId('commentlist')
+                    ->setTabToolbar(2);
+            
         }
+        
+        if ($this->showRevisions) {
 
-        if ($this->article->getId()) {
-            $this->article->prepareRevision();
+            $tabs[] = (new \fpcm\view\helper\tabItem('revisions'))
+                    ->setUrl(\fpcm\classes\tools::getFullcontrollerLink('ajax/editor/editorlist', [
+                        'id' => $this->article->getId(),
+                        'view' => 'revisions'])
+                    )
+                    ->setText('HL_ARTICLE_EDIT_REVISIONS', [ 'count' => $this->revisionCount ])
+                    ->setDataViewId('revisionslist')
+                    ->setTabToolbar(3);
+            
         }
-
-        $data = $this->request->fromPOST('article', [
-            \fpcm\model\http\request::FILTER_STRIPSLASHES,
-            \fpcm\model\http\request::FILTER_TRIM
-        ]);
-
-        $this->assignArticleFormData($data, $allTimer);
-
-        if (!$this->article->getTitle() || !$this->article->getContent()) {
-            $this->view->addErrorMessage('SAVE_FAILED_ARTICLE_EMPTY');
-            $this->emptyTitleContent = true;
-            return false;
-        }
-
-        if (isset($data['tweettxt']) && $data['tweettxt']) {
-            $this->article->setTweetOverride($data['tweettxt']);
-        }
-
-        if (!$this->article->getId() && !$this->article->getCreatetime()) {
-            $this->article->setCreatetime($allTimer);
-        }
-
-        $this->article->setChangetime($allTimer);
-        $this->article->setChangeuser($this->session->getUserId());
-
-        $this->article->enableTweetCreation(isset($data['tweet']) ? true : false);
-        $res = $this->article->getId() ? $this->article->update() : $this->article->save();
-
-        if ($res && $this->article->getId()) {
-            $this->article->createRevision();
-        }
-
-        \fpcm\model\articles\article::addSourcesAutocomplete($this->article->getSources());
-        return $res;
+        
+        
+        $this->view->addTabs('tabs-editor', $tabs, '', $this->getActiveTab());
+        
     }
 
     /**
@@ -272,7 +285,7 @@ abstract class articlebase extends \fpcm\controller\abstracts\controller impleme
      * @param int $allTimer
      * @return bool
      */
-    private function assignArticleFormData(array $data, $allTimer)
+    protected function assignArticleFormData(array $data, $allTimer)
     {
         $this->article->setTitle($data['title']);
         $this->article->setContent($data['content']);
@@ -309,8 +322,7 @@ abstract class articlebase extends \fpcm\controller\abstracts\controller impleme
         $this->article->setDraft(isset($data['draft']) ? 1 : 0);
         $this->article->setComments(isset($data['comments']) ? 1 : 0);
         
-        $approval = $this->approvalRequired ? 1 : (isset($data['approval']) ? 1 : 0);
-        $this->article->setApproval($approval);
+        $this->article->setApproval( $this->approvalRequired ? 1 : ( isset($data['approval']) ? 1 : 0 ) );
         $this->article->setImagepath(isset($data['imagepath']) ? $data['imagepath'] : '');
         $this->article->setSources(isset($data['sources']) ? $data['sources'] : '');
 
@@ -321,8 +333,7 @@ abstract class articlebase extends \fpcm\controller\abstracts\controller impleme
                 $this->article->setDraft(0);
             }
         }
-        
-        
+
         $authorId = (isset($data['author']) && trim($data['author']) && $this->canChangeAuthor ? $data['author'] : $this->session->getUserId());
         $this->article->setCreateuser($authorId);
 
@@ -344,4 +355,76 @@ abstract class articlebase extends \fpcm\controller\abstracts\controller impleme
 
         return $fields;
     }
+
+    /**
+     * 
+     * @return bool
+     */
+    protected function onArticleSave() : bool
+    {
+        $allTimer = time();
+        
+        $data = $this->request->fromPOST('article', [
+            \fpcm\model\http\request::FILTER_STRIPSLASHES,
+            \fpcm\model\http\request::FILTER_TRIM
+        ]);
+
+        if (!$this->checkPageToken()) {
+            $this->view->addErrorMessage('CSRF_INVALID');
+            return false;
+        }
+        
+        if ($this->article->getId()) {
+            $this->article->prepareRevision();
+        }
+
+        $this->assignArticleFormData($data, $allTimer);
+        
+        $fn = 'save';
+        if ($this->article->getId()) {
+
+            $fn = 'update';
+
+            if (!$this->article->getEditPermission()) {
+                return false;
+            }
+
+            if ($this->article->isInEdit()) {
+                return false;
+            }            
+
+        }
+        elseif (!$this->article->getCreatetime()) {
+            $this->article->setCreatetime($allTimer);
+        }
+
+        if (!$this->article->getTitle() || !$this->article->getContent()) {
+            $this->view->addErrorMessage('SAVE_FAILED_ARTICLE_EMPTY');
+            return false;
+        }
+
+        if (isset($data['tweettxt']) && $data['tweettxt']) {
+            $this->article->setTweetOverride($data['tweettxt']);
+        }
+
+        $this->article->setChangetime($allTimer);
+        $this->article->setChangeuser($this->session->getUserId());
+
+        $this->article->enableTweetCreation(isset($data['tweet']) ? true : false);        
+
+        $res = $this->article->{$fn}();
+
+        if ($res === false) {
+            $this->view->addErrorMessage('SAVE_FAILED_ARTICLE');
+            return false;
+        }
+
+        \fpcm\model\articles\article::addSourcesAutocomplete($this->article->getSources());
+
+        $this->onArticleSaveAfterSuccess((int) $res);        
+        return true;
+    }
+    
+    abstract protected function onArticleSaveAfterSuccess(int $id) : bool;
+    
 }

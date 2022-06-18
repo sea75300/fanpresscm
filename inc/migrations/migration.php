@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4.x
+ * FanPress CM 5.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -59,7 +59,7 @@ abstract class migration {
     final protected function getConfig() : \fpcm\model\system\config
     {
         if ( !($this->config instanceof \fpcm\model\system\config) ) {
-            $this->config = new \fpcm\model\system\config(false);
+            $this->config = new \fpcm\model\system\config();
         }
 
         return $this->config;
@@ -128,16 +128,16 @@ abstract class migration {
         if (method_exists($this->getDB(), 'transaction')) {
             $this->getDB()->transaction();
         }
-        
-        if (!$this->alterTablesAfter()) {
+
+        if (!$this->defaultAlterTables() || !$this->alterTablesAfter()) {
             return false;
         }
 
-        if (!$this->updatePermissionsAfter()) {
+        if (!$this->defaultUpdatePermissions() || !$this->updatePermissionsAfter()) {
             return false;
         }
 
-        if (!$this->updateSystemConfig()) {
+        if (!$this->defaultAddSystemOptions() || !$this->updateSystemConfig()) {
             return false;
         }
 
@@ -157,21 +157,19 @@ abstract class migration {
      * 
      * Output of migration messages
      * @param string $str
-     * @param bool $error
+     * @param bool $log
      * @return void
      * @since 4.3
      */
-    final protected function output(string $str, $error = false)
+    final protected function output(string $str, $log = false)
     {
-        if ($error) trigger_error($str);
-        else fpcmLogSystem($str);
+        $log = (int) $log;
+        
+        if ($log === 1) trigger_error(trim($str));
+        elseif ($log === 2) fpcmLogSql(trim($str));
+        else fpcmLogSystem(trim($str));
 
         if (!$this->isCli) {
-            return;
-        }
-
-        if (!class_exists('\fpcm\model\cli\io')) {
-            print $str.PHP_EOL;
             return;
         }
 
@@ -252,6 +250,234 @@ abstract class migration {
     public static function getNamespace(string $version) : string
     {
         return 'fpcm\\migrations\\v'.preg_replace('/([^0-9a-z])/i', '', $version);
+    }
+
+    /**
+     * 
+     * @return bool
+     * @since 5.0.0-b1
+     */
+    final protected function defaultAlterTables() : bool
+    {
+        $tableFiles = $this->getDB()->getTableFiles();
+        if (!count($tableFiles)) {
+            return true;
+        }
+
+        $dropTables = [];
+        
+        $addIndeices = method_exists($this->getDB(), 'addTableIndices');
+
+        $cache = new \fpcm\classes\cache();
+        
+        $i = 1;
+        foreach ($tableFiles as $tableFile) {
+
+            $tab = new \fpcm\model\system\yatdl($tableFile);
+
+            $success = $tab->parse();
+            if ($success !== true) {
+                $this->output('Unable to parse table definition for ' . $tableFile . ', ERROR CODE: ' . $success, true);
+                return false;
+            }
+
+            /* @var $tInfo \nkorg\yatdl\tableItem */
+            $tInfo = $tab->getTable();
+            
+            $tableName = $tInfo->name;
+            $isView = $tInfo->isview ?? false;
+
+            $this->output("Alter structure for {$tableName}...", 2);
+
+            $struct = $this->getDB()->getTableStructure($tableName);
+            $tabExists = count($struct) ? true : false;
+
+            if (!$isView &&  ( $tabExists && !$this->getDB()->addTableCols($tab) || !$this->getDB()->removeTableCols($tab) ) ) {
+                $this->output('Failed to alter table ' . $tableName . ' during update.', 2);
+                (new \fpcm\classes\cache)->cleanup($tableName . '_struct');
+                return false;
+            }
+
+            if (in_array($tableName, $dropTables)) {
+
+                fpcmLogSql("Drop table {$tableName}...");
+                $successDrop = false;
+                if (!$tabExists) {
+                    $this->output("Table not found, skipping...");
+                }
+                elseif (!$this->getDB()->drop($tableName)) {
+                    $this->output('Unable to drop table ' . $tableName . ' during update', 2);
+                    (new \fpcm\classes\cache)->cleanup($tableName . '_struct');
+                    return false;
+                }
+                else {
+                    $successDrop = true;
+                }
+
+                if ($successDrop) {
+                    $tabExists = false;
+                }
+
+            }
+
+            if (!$tabExists) {
+                fpcmLogSql("Add table {$tableName}...");
+                if (!$this->getDB()->execYaTdl($tableFile)) {
+                    $this->output('Unable to create table ' . $tableName . ' during update', 2);
+                    (new \fpcm\classes\cache)->cleanup($tableName . '_struct');
+                    return false;
+                }
+
+            }
+            
+            if (!$isView && $tabExists && $addIndeices) {
+                $this->getDB()->addTableIndices($tab);
+            }
+          
+            (new \fpcm\classes\cache)->cleanup($tableName . '_struct');
+            $i++;
+        }
+
+        if (!$addIndeices) {
+            $this->output("Important!! Table indices could not be added during database update. Please run \"fpcmcli.php pkg " . \fpcm\model\abstracts\cli::PARAM_UPGRADE_DB. " system\" after auto-update was finished.", 2);
+        }
+
+        return true;
+    }
+
+    /**
+     * neue System-Optionen bei Update erzeugen
+     * @return bool
+     */
+    final protected function defaultAddSystemOptions() : bool
+    {
+        $this->output("Update system options...");
+        
+        $yatdl = new \fpcm\model\system\yatdl(\fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_DBSTRUCT, '06config.yml'));
+        $yatdl->parse();
+
+        $data = $yatdl->getArray();
+        if (!isset($data['defaultvalues']['rows']) || !is_array($data['defaultvalues']['rows']) || !count($data['defaultvalues']['rows'])) {
+            return true;
+        }
+        
+        $conf = $this->getConfig();
+        
+        $data['defaultvalues']['rows'] = array_filter($data['defaultvalues']['rows'], function ($option) use ($conf) {
+            
+            if ($conf->{$option['config_name']} === false) {
+                return true;
+            }
+            
+            if ($option['config_name'] === 'smtp_setting') {
+                return false;
+            }
+            
+            return true;
+
+        });
+        
+        $res = true;
+        foreach ($data['defaultvalues']['rows'] as $option) {
+
+
+            $addres = $this->getConfig()->add($option['config_name'], trim($option['config_value']));
+            $this->config = null;
+
+            if ($addres === -1) {
+                $res = $res && true;
+                continue;
+            }
+            
+            $this->output("Added system option {$option['config_name']}...");
+            $res = $res && $addres;
+        }
+
+
+        $this->output("Update system options ".($res ? 'successful' : 'failed')."...");
+        return $res;
+    }
+
+
+    /**
+     * aktualisiert Berechtigungen
+     * @return bool
+     */
+    final protected function defaultUpdatePermissions() : bool
+    {
+        $this->output("Update permissions...");
+        
+        $rolls = (new \fpcm\model\users\userRollList())->getUserRolls();
+
+        $default = null;
+        foreach ($rolls as $group) {
+
+            
+            $permissionObj = new \fpcm\model\permissions\permissions($group->getId());
+            
+            if ($default === null) {
+                $default = $permissionObj->getPermissionSet();
+            }
+            
+            $data = $permissionObj->getPermissionData();
+            
+            $default['comment']['lockip'] = 1;
+            $default['system']['profile'] = 1;
+            
+            $newData = $data;
+            foreach ($default as $key => $value) {
+                $newData[$key] = array_merge(array_intersect_key($data[$key], $value), array_diff_key($value, $data[$key]));
+            }
+            
+            if (\fpcm\classes\tools::getHash(json_encode($data)) === \fpcm\classes\tools::getHash(json_encode($newData))) {
+                continue;
+            }
+
+            $permissionObj->setPermissionData($newData);
+            if (!$permissionObj->update()) {
+                return false;
+            }
+
+        }
+        
+        (new \fpcm\classes\cache)->cleanup();
+
+        $this->output("Update permissions successful...");
+        return true;
+    }
+
+    /**
+     * Führt Optimierung der Datenbank-Tabellen durch
+     * @since 3.3
+     * @return bool
+     */
+    final public function optimizeTables() : bool
+    {
+        $tables = \fpcm\classes\loader::getObject('\fpcm\events\events')->trigger('updaterAddOptimizeTables', [
+            \fpcm\classes\database::tableArticles,
+            \fpcm\classes\database::tableAuthors,
+            \fpcm\classes\database::tableCategories,
+            \fpcm\classes\database::tableComments,
+            \fpcm\classes\database::tableConfig,
+            \fpcm\classes\database::tableCronjobs,
+            \fpcm\classes\database::tableFiles,
+            \fpcm\classes\database::tableIpAdresses,
+            \fpcm\classes\database::tableModules,
+            \fpcm\classes\database::tablePermissions,
+            \fpcm\classes\database::tableRoll,
+            \fpcm\classes\database::tableSessions,
+            \fpcm\classes\database::tableSmileys,
+            \fpcm\classes\database::tableShares,
+            \fpcm\classes\database::tableTexts,
+            \fpcm\classes\database::tableRevisions
+        ]);
+        
+        foreach ($tables as $i => $table) {
+            $this->output("Optimize table {$table}...", 2);
+            $this->getDB()->optimize($table);
+        }
+
+        return true;
     }
 
 }

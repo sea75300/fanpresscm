@@ -97,10 +97,6 @@ fpcm.editor_tinymce = {
             params.image_caption = config.image_caption;
         }
 
-        if (config.image_caption !== undefined) {
-            params.image_caption = config.image_caption;
-        }
-
         params.link_assume_external_targets = (config.link_assume_external_targets !== undefined
                                             ? config.link_assume_external_targets
                                             : true);
@@ -147,15 +143,8 @@ fpcm.editor_tinymce = {
         if (config.emoticons_append) {
             params.emoticons_append = config.emoticons_append;
         }
-
-        if (config.mobileConfig) {
-            params.mobile = {
-                theme: 'mobile',
-                resize: 'both',
-                plugins: config.mobileConfig.plugins,
-                toolbar: config.mobileConfig.toolbar
-            }
-        }
+        
+        params.deprecation_warnings = false;
 
         tinymce.init(params);
     }
@@ -217,9 +206,9 @@ if (fpcm.editor) {
         if (top.tinymce.activeEditor === undefined) {
             return true;
         }
-        
-        let cont = top.tinymce.activeEditor.getContent({format: 'text'});
-        if (cont && cont.search('/gallery') != -1 ) {
+
+        let _cont = top.tinymce.activeEditor.getContent();
+        if (_cont && _cont.search('/gallery') != -1 ) {
             return true;
         }
 

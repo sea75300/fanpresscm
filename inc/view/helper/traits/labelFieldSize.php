@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4
+ * FanPress CM 5
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -59,9 +59,11 @@ trait labelFieldSize {
     /**
      * Fetch field size classes
      * @return string
+     * @deprecated 5.0-dev
      */
     public function getFieldSize()
     {
+        trigger_error(__METHOD__ . ' is deprecated and is not in use anymore. The function will be removed in future releases.');
         return $this->fieldSize;
     }
 
@@ -73,22 +75,24 @@ trait labelFieldSize {
      */
     public function setDisplaySizesDefault()
     {
-        return $this->setDisplaySizes(
-            ['xs' => 12, 'sm' => 6, 'md' => 3],
-            ['xs' => 12, 'sm' => 6, 'md' => 9]
-        );
+        return $this->setDisplaySizes(['xs' => 12, 'sm' => 6, 'md' => 4]);
     }
 
     /**
      * Sets label and field sizes
      * @param array $label
-     * @param array $field
+     * @param array $field (@deprecated 5.0-dev)
      * @return $this
      */
-    public function setDisplaySizes(array $label, array $field)
+    public function setDisplaySizes(array $label, array $field = [])
     {
         $this->setLabelSize($label);
-        $this->setFieldSize($field);
+        
+        if (count($field)) {
+            trigger_error(__METHOD__ . '::$field is deprecated and is not in use anymore. The parameter will be removed in future releases.');
+        }
+        
+        
         return $this;
     }
 
@@ -108,11 +112,11 @@ trait labelFieldSize {
      * Sets field sizes only
      * @param array $fieldSizes
      * @return $this
+     * @deprecated 5.0-dev
      */
     public function setFieldSize(array $fieldSizes)
     {
-        array_walk($fieldSizes, [$this, 'mapSizes']);
-        $this->fieldSize = ' '.implode(' ', $fieldSizes);
+        trigger_error(__METHOD__ . ' is deprecated and is not in use anymore. The function will be removed in future releases.');
         return $this;
     }
 

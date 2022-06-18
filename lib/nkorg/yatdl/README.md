@@ -7,7 +7,7 @@ shipped with it.
 
 ## Supported systems
 
-* PHP 7.0 or better
+* PHP 7.2 or better
 * MySQL
 * MariaDB
 * PosgreSQL

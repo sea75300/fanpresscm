@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4.x
+ * FanPress CM 5.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -17,7 +17,8 @@ class iplist extends \fpcm\controller\abstracts\controller
 implements \fpcm\controller\interfaces\isAccessible,
            \fpcm\controller\interfaces\requestFunctions {
 
-    use \fpcm\controller\traits\common\dataView;
+    use \fpcm\controller\traits\common\dataView,
+        \fpcm\controller\traits\theme\nav\ips;
 
     /**
      *
@@ -33,30 +34,13 @@ implements \fpcm\controller\interfaces\isAccessible,
 
     /**
      * 
-     * @return bool
+     * @var array
      */
-    public function isAccessible(): bool
-    {
-        return $this->permissions->system->ipaddr;
-    }
-
-    /**
-     * 
-     * @return string
-     */
-    protected function getHelpLink()
-    {
-        return 'HL_OPTIONS_IPBLOCKING';
-    }
-
-    /**
-     * 
-     * @return string
-     */
-    protected function getActiveNavigationElement()
-    {
-        return 'submenu-itemnav-item-ips';
-    }
+    private $sorts = [
+        'SYSTEM_OPTIONS_NEWS_SORTING_ORDER' => '-1',
+        'SYSTEM_OPTIONS_NEWS_ORDERASC' => 'ASC',
+        'SYSTEM_OPTIONS_NEWS_ORDERDESC' => 'DESC',
+    ];
 
     /**
      * Request-Handler
@@ -80,8 +64,13 @@ implements \fpcm\controller\interfaces\isAccessible,
      */
     public function process()
     {
+        $sort = $this->request->fromPOST('sortlist');
+        if (!in_array(strtoupper($sort), $this->sorts)) {
+            $sort = '';
+        }
+
         $userList = new \fpcm\model\users\userList();
-        $this->items = $this->ipList->getIpAll();
+        $this->items = $this->ipList->getIpAll($sort);
         $this->users = $userList->getUsersAll();
         
         $this->notfoundStr = $this->language->translate('GLOBAL_NOTFOUND');
@@ -92,9 +81,11 @@ implements \fpcm\controller\interfaces\isAccessible,
         $this->view->setFormAction('ips/list');
         $this->view->addJsFiles(['ipadresses.js']);
         $this->view->addButtons([
-            (new \fpcm\view\helper\linkButton('addnew'))->setUrl(\fpcm\classes\tools::getFullControllerLink('ips/add'))->setText('IPLIST_ADDIP')->setIcon('globe')->setClass('fpcm-loader'),
-            (new \fpcm\view\helper\deleteButton('delete'))->setClass('fpcm-ui-button-confirm')
+            (new \fpcm\view\helper\linkButton('addnew'))->setUrl(\fpcm\classes\tools::getFullControllerLink('ips/add'))->setText('GLOBAL_NEW')->setIcon('globe'),
+            (new \fpcm\view\helper\select('sortlist'))->setOptions($this->sorts)->setSelected($sort)->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED),
+            (new \fpcm\view\helper\deleteButton('delete'))->setClass('fpcm ui-button-confirm'),
         ]);
+
         $this->view->render();
     }
 
@@ -110,7 +101,7 @@ implements \fpcm\controller\interfaces\isAccessible,
             (new \fpcm\components\dataView\column('ipaddress', 'IPLIST_IPADDRESS'))->setSize(4),
             (new \fpcm\components\dataView\column('user', 'LOGS_LIST_USER'))->setSize(2),
             (new \fpcm\components\dataView\column('time', 'IPLIST_IPTIME'))->setSize(2),
-            (new \fpcm\components\dataView\column('metadata', '')),
+            (new \fpcm\components\dataView\column('metadata', ''))->setAlign('center'),
         ];
     }
 
@@ -146,8 +137,21 @@ implements \fpcm\controller\interfaces\isAccessible,
             new \fpcm\components\dataView\rowCol('ipaddress', new \fpcm\view\helper\escape($item->getIpaddress()) ),
             new \fpcm\components\dataView\rowCol('user', new \fpcm\view\helper\escape($userName) ),
             new \fpcm\components\dataView\rowCol('time', new \fpcm\view\helper\dateText($item->getIptime()) ),
-            new \fpcm\components\dataView\rowCol('metadata', implode('', $metaData), 'fpcm-ui-metabox fpcm-ui-dataview-align-center', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT ),
+            new \fpcm\components\dataView\rowCol('metadata', implode('', $metaData), 'fs-5', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT ),
         ]);
+    }
+
+    /**
+     * Get data view Columns
+     * @return array
+     */
+    protected function getDataViewTabs() : array
+    {
+        return [
+            (new \fpcm\view\helper\tabItem('tabs-'.$this->getDataViewName().'-list'))
+                ->setText('HL_OPTIONS_IPBLOCKING')
+                ->setFile('components/dataview__inline.php')
+        ];
     }
     
     protected function onDelete()

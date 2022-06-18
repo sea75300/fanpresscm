@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4.x
+ * FanPress CM 5.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -85,20 +85,26 @@ class commentlist extends \fpcm\controller\abstracts\controller implements \fpcm
         $this->view->setFormAction('comments/list');
 
         if ($this->permissions->editCommentsMass()) {
-            $this->view->addButton((new \fpcm\view\helper\button('massEdit', 'massEdit'))->setText('GLOBAL_EDIT')->setIcon('edit')->setIconOnly(true));
+            $this->view->addButton((new \fpcm\view\helper\button('massEdit', 'massEdit'))->setText('GLOBAL_EDIT')->setIcon('edit'));
         }
 
         $this->view->addButton((new \fpcm\view\helper\button('opensearch', 'opensearch'))->setText('ARTICLES_SEARCH')->setIcon('search')->setIconOnly(true));
 
         if ($this->permissions->comment->delete) {
-            $this->view->addButton((new \fpcm\view\helper\deleteButton('deleteComment'))->setClass('fpcm-ui-button-confirm'));
+            $this->view->addButton((new \fpcm\view\helper\deleteButton('deleteComment'))->setClass('fpcm ui-button-confirm'));
         }
 
         $this->initDataView();
         $this->view->addDataView($this->dataView);
         $this->view->addPager(new \fpcm\view\helper\pager('comments/list', $this->page, $this->commentCount, $this->config->articles_acp_limit, $this->maxItemCount));
+        
+        $this->view->addTabs('comments', [
+            (new \fpcm\view\helper\tabItem('tabs-comments-list'))
+                ->setText('COMMMENT_HEADLINE')
+                ->setFile($this->getViewPath() . '.php')
+        ]);
+        
     }
-
     
     /**
      * Initialisiert Suchformular-Daten
@@ -117,19 +123,19 @@ class commentlist extends \fpcm\controller\abstracts\controller implements \fpcm
         ]);
 
         $this->view->assign('searchApproval', array(
-            'COMMMENT_APPROVE' => -1,
+            '' => -1,
             'GLOBAL_YES' => 1,
             'GLOBAL_NO' => 0
         ));
 
         $this->view->assign('searchSpam', array(
-            'COMMMENT_SPAM' => -1,
+            '' => -1,
             'GLOBAL_YES' => 1,
             'GLOBAL_NO' => 0
         ));
 
         $this->view->assign('searchPrivate', array(
-            'COMMMENT_PRIVATE' => -1,
+            '' => -1,
             'GLOBAL_YES' => 1,
             'GLOBAL_NO' => 0
         ));
@@ -138,6 +144,16 @@ class commentlist extends \fpcm\controller\abstracts\controller implements \fpcm
             'commentsLastSearch' => 0,
             'massEditSaveFailed' => 'SAVE_FAILED_COMMENTS'
         ]);
+    }
+
+    protected function getDataViewTabs() : array
+    {
+        return [
+            (new \fpcm\view\helper\tabItem('tabs-'.$this->getDataViewName().'-list'))
+                ->setUrl('#tabs-'.$this->getDataViewName().'-list')
+                ->setText('COMMMENT_HEADLINE')
+                ->setFile($this->getViewPath() . '.php')
+        ];
     }
 
 }

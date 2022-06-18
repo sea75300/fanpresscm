@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4.x
+ * FanPress CM 5.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -33,7 +33,6 @@ class yatdl extends \fpcm\model\abstracts\staticModel {
      */
     public function __construct($filePath)
     {
-        include_once \fpcm\classes\loader::libGetFilePath('spyc/Spyc.php');
         include_once \fpcm\classes\loader::libGetFilePath('nkorg');
 
         $this->parser = new \nkorg\yatdl\parser(
@@ -88,6 +87,16 @@ class yatdl extends \fpcm\model\abstracts\staticModel {
     public function getArray()
     {
         return $this->parser->getArray();
+    }
+
+    /**
+     * Returns parsed data as \nkorg\yatdl\tableItem instance
+     * @return \nkorg\yatdl\tableItem
+     * @since 5.0.0-b1
+     */
+    public function getTable()
+    {
+        return $this->parser->getTabData();
     }
 
 }

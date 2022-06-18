@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4.x
+ * FanPress CM 5.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -77,6 +77,10 @@ final class language {
             trigger_error('Try to load undefined language: ' . $langCode);
             return false;
         }
+        
+        if ($langCode && $this->langCode !== $langCode) {
+            $GLOBALS['langdata'] = [];
+        }
 
         $this->langCode = $langCode;
         $this->init();
@@ -101,6 +105,9 @@ final class language {
 
         $this->langList[$this->langCode] = file_get_contents($confFile);
         $this->helpFile = $this->langPath . '/help.php';
+        if (!file_exists($this->helpFile)) {
+            $this->helpFile = dirs::getIncDirPath('lang' . DIRECTORY_SEPARATOR . FPCM_DEFAULT_LANGUAGE_CODE . DIRECTORY_SEPARATOR . '/help.php');
+        }
 
         $this->cache = loader::getObject('\fpcm\classes\cache');
         $cacheName = 'system/langcache' . strtoupper($this->langCode);
@@ -218,6 +225,10 @@ final class language {
      */
     private function addModulePrefix(&$val, $key, $args)
     {
+        if (strpos($val, 'SYSCHECK_FOLDER_') === 0) {
+            return true;
+        }
+        
         $val = $args['prefix'].$val;
     }
 
@@ -266,7 +277,7 @@ final class language {
      */
     public function translate($langvar, array $replaceParams = [])
     {
-        if (!trim($langvar)) {
+        if ($langvar === null || !trim($langvar)) {
             return '';
         }
 
@@ -333,8 +344,15 @@ final class language {
      * @return array
      * @since 4.4
      */
-    public function getAll() : array
+    public function getAll(bool $force = false) : array
     {
+        if ($force) {
+            $GLOBALS['langdata'] = [];
+            $this->init();
+
+            return $GLOBALS['langdata'];
+        }
+        
         return $GLOBALS['langdata'];
     }
 

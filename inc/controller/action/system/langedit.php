@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4.x
+ * FanPress CM 5.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -55,11 +55,10 @@ implements \fpcm\controller\interfaces\isAccessible,
         $this->view->addTabs('langedit', [
             (new \fpcm\view\helper\tabItem('editor'))->setText('Language variable editor')->setFile('system/langedit.php'), 
         ]);
-        
 
         $this->cache->cleanup('system/langcache' . strtoupper($this->langObj->getLangCode()));
         
-        $fullLang = $this->langObj->getAll();
+        $fullLang = $this->langObj->getAll(true);
 
         array_walk($fullLang, function (&$value, $index) use ($skipVal) {
             $value = strpos(strtoupper($index), 'MODULE_') !== FALSE ? $skipVal : $value;
@@ -69,7 +68,10 @@ implements \fpcm\controller\interfaces\isAccessible,
         $this->view->addButtons([
             (new \fpcm\view\helper\saveButton('save')),
             (new \fpcm\view\helper\button('new'))->setText('Neue Variable')->setIcon('plus'),
-            (new \fpcm\view\helper\select('langselect'))->setOptions(array_flip($this->language->getLanguages()))->setSelected($this->langObj->getLangCode()),
+            (new \fpcm\view\helper\select('langselect'))
+                ->setOptions(array_flip($this->language->getLanguages()))
+                ->setSelected($this->langObj->getLangCode())
+                ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED),
             (new \fpcm\view\helper\submitButton('selectLang'))->setText('GLOBAL_OK')
         ]);
         
@@ -77,7 +79,7 @@ implements \fpcm\controller\interfaces\isAccessible,
         
         $this->view->setFormAction('system/langedit');
         $this->view->assign('langVars', $fullLang);
-        $this->view->addJsFiles(['langedit.js']);
+        $this->view->addJsFiles(['system/langedit.js']);
         $this->view->render();
     }
 

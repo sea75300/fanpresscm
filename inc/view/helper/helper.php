@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4
+ * FanPress CM 5
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -16,9 +16,18 @@ namespace fpcm\view\helper;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 abstract class helper {
+    
+    use traits\cssClassHelper,
+        traits\ariaHelper;
 
     /*  @since 4.3.0 */
     const TEXT_DEFAULT_LABEL = 'LABEL_FIELD_';
+
+    /*  @since 5.0.0-b5 */
+    const LABEL_TYPE_DEFAULT = 'input-group';
+
+    /*  @since 5.0.0-b5 */
+    const LABEL_TYPE_FLOATING = 'form-floating';
 
     /**
      * Element data
@@ -45,12 +54,6 @@ abstract class helper {
     protected $text = '';
 
     /**
-     * CSS class string
-     * @var string
-     */
-    protected $class = '';
-
-    /**
      * Element is readonly
      * @var boolean
      */
@@ -62,6 +65,13 @@ abstract class helper {
      * @since 4.1
      */
     protected $autoFocused = false;
+
+    /**
+     * Element is required
+     * @var bool
+     * @since 5.0.0-a3
+     */
+    protected $requ = false;
 
     /**
      * Element prefix
@@ -99,6 +109,12 @@ abstract class helper {
      * @var boolean
      */
     protected $returned = false;
+
+    /**
+     * Column with if input uses an icon
+     * @var string
+     */
+    protected $labelType = 'input-group';
 
     /**
      * Konstruktor
@@ -202,9 +218,9 @@ abstract class helper {
      * @param string $prefix
      * @return string
      */
-    final protected function getDescriptionTextString()
+    final protected function getDescriptionTextString(string $prefix = 'ps-1')
     {
-        return "<span class=\"fpcm-ui-label\">{$this->text}</span>";
+        return "<span class=\"fpcm-ui-label {$prefix}\">{$this->text}</span>";
     }
 
     /**
@@ -222,27 +238,8 @@ abstract class helper {
         }
         
         $this->text = self::TEXT_DEFAULT_LABEL.strtoupper(preg_replace('/([^A-Za-z0-9\_]+)/', '_', rtrim($this->name, ']')));
+        $this->text = $this->language->translate($this->text);
         return true;
-    }
-
-    /**
-     * Set additional css class
-     * @param string $class
-     * @return $this
-     */
-    public function setClass($class)
-    {
-        $this->class .= ' ' . $class;
-        return $this;
-    }
-
-    /**
-     * Return class string
-     * @return string
-     */
-    protected function getClassString()
-    {
-        return "class=\"{$this->class}\"";
     }
 
     /**
@@ -251,19 +248,30 @@ abstract class helper {
      */
     protected function getDataString()
     {
-        if (!count($this->data)) {
+        return $this->assocArrayToString('data', $this->data);
+    }
+
+    /**
+     * Turns assoc array into string
+     * @param string $prefix
+     * @param array $data
+     * @return string
+     */
+    private function assocArrayToString(string $prefix, array $data) : string
+    {
+        if (!count($data)) {
             return '';
         }
 
-        $return = [];
-        foreach ($this->data as $key => $value) {
-
+        $return = array_map(function ($value, $key) use ($prefix) {
+            
             if (is_object($value) || is_array($value)) {
                 $value = json_encode($value);
             }
 
-            $return[] = "data-{$key}=\"{$value}\"";
-        }
+            return "{$prefix}-{$key}=\"{$value}\"";            
+            
+        }, array_values($data), array_keys($data));
 
         return implode(' ', $return);
     }
@@ -343,6 +351,18 @@ abstract class helper {
     }
 
     /**
+     * Set required flag
+     * @param bool $required
+     * @return $this
+     * @since 5.0.0-a3
+     */
+    public function setRequired(bool $requ)
+    {
+        $this->requ = $requ;
+        return $this;
+    }
+
+    /**
      * Set button description
      * @param string $text
      * @param array $params
@@ -351,6 +371,17 @@ abstract class helper {
     final public function setText($text, $params = [])
     {
         $this->text = $this->language->translate($text, $params);
+        return $this;
+    }
+    
+    /**
+     * Set label typ to floating
+     * @return $this
+     * @since 5.0.0-b4
+     */
+    public function setLabelTypeFloat()
+    {
+        $this->labelType = 'form-floating';
         return $this;
     }
 
@@ -430,6 +461,7 @@ abstract class helper {
      * @return string
      */
     abstract protected function getString();
+
 }
 
 ?>

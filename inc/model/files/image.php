@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4.x
+ * FanPress CM 5.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -316,7 +316,7 @@ class image extends \fpcm\model\abstracts\file implements \fpcm\model\interfaces
      */
     public function save()
     {
-        if ($this->exists(true) || !$this->isValidDataFolder($this->filepath)) {
+        if ($this->exists(true) || !$this->isValidDataFolder($this->filepath, \fpcm\classes\dirs::DATA_UPLOADS)) {
             return false;
         }
 
@@ -351,7 +351,7 @@ class image extends \fpcm\model\abstracts\file implements \fpcm\model\interfaces
      */
     public function delete()
     {
-        if (!$this->isValidDataFolder()) {
+        if (!$this->isValidDataFolder('', \fpcm\classes\dirs::DATA_UPLOADS)) {
             return false;
         }
         
@@ -453,13 +453,13 @@ class image extends \fpcm\model\abstracts\file implements \fpcm\model\interfaces
             $phpImgWsp = \PHPImageWorkshop\ImageWorkshop::initFromPath($this->getFullpath());
             $phpImgWsp->cropToAspectRatio(
                 \PHPImageWorkshop\Core\ImageWorkshopLayer::UNIT_PIXEL,
-                $this->config->file_img_thumb_width,
-                $this->config->file_img_thumb_height,
+                $this->config->file_thumb_size,
+                $this->config->file_thumb_size,
                 0, 0, 'MM'
             );
 
             $fullThumbPath = $this->getThumbnailFull();
-            $phpImgWsp->resizeInPixel($this->config->file_img_thumb_width, $this->config->file_img_thumb_height);
+            $phpImgWsp->resizeInPixel($this->config->file_thumb_size, $this->config->file_thumb_size);
             $phpImgWsp->save(dirname($fullThumbPath), basename($fullThumbPath), true, null, 85);
         } catch (\ErrorException $exc) {
             trigger_error('Error while creating file thumbnail '.$this->getThumbnail().PHP_EOL.$exc->getMessage());
@@ -476,6 +476,17 @@ class image extends \fpcm\model\abstracts\file implements \fpcm\model\interfaces
     }
 
     /**
+     * Add upload sub folder string
+     * @return bool
+     * @since 5.0.0-a3
+     */
+    public function addUploadFolder() : bool
+    {
+        $this->fullpath = ops::getUploadPath($this->filename, $this->config->file_subfolders);
+        return true;
+    }
+
+    /**
      * Gibt Speicher-Values zurück
      * @return array
      */
@@ -483,7 +494,7 @@ class image extends \fpcm\model\abstracts\file implements \fpcm\model\interfaces
     {
         $values = [];
         foreach ($this->dbParams as $key) {
-            $values[$key] = ($this->$key) ? $this->$key : '';
+            $values[$key] = $this->$key ?? '';
         }
 
         return $values;
@@ -642,6 +653,55 @@ class image extends \fpcm\model\abstracts\file implements \fpcm\model\interfaces
 
         $this->iptcStr = htmlspecialchars(strip_tags(utf8_encode(implode(PHP_EOL, $this->iptcStr))));
         return true;
+    }
+
+    /**
+     * Return properties array
+     * @param string $userName
+     * @return array
+     * @since 5.0.0-a1
+     */
+    public function getPropertiesArray(string $userName) : array
+    {
+        return [
+            'filename' => $this->getFilename(),
+            'filetime' => (string) new \fpcm\view\helper\dateText($this->getFiletime()),
+            'fileuser' => $userName,
+            'filesize' => \fpcm\classes\tools::calcSize($this->getFilesize()),
+            'fileresx' => $this->getWidth(),
+            'fileresy' => $this->getHeight(),
+            'filehash' => $this->getFileHash(),
+            'filemime' => $this->getMimetype(),
+            'credits' => $this->getIptcStr()  
+        ];
+    }
+
+    /**
+     * Get cropper filename string
+     * @return string
+     * @since 5.0.0-a1
+     */
+    public static function getCropperFilename(string &$filename)
+    {            
+        $repl = [
+            '{{filename}}' => self::retrieveFileName($filename),
+            '{{date}}' => date('Y-m-d'),
+            '{{datelong}}' => date('Y-m.d_H-m-s'),
+            '{{hash}}' => \fpcm\classes\tools::getHash($filename),
+            '{{userid}}' => \fpcm\classes\loader::getObject('\fpcm\model\system\session')->getUserId(),
+            '{{random}}' => mt_rand()
+        ];
+        
+        $pattern = \fpcm\classes\loader::getObject('\fpcm\model\system\config')->file_cropper_name;        
+        if (!trim($pattern)) {
+            $pattern = '{{filename}}_cropped_{{date}}';
+        }
+
+        $filename = str_replace(
+            array_keys($repl),
+            array_values($repl),
+            $pattern
+        ) . '.' . self::retrieveFileExtension($filename);
     }
 
     /**

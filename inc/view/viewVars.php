@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4
+ * FanPress CM 5
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -31,12 +31,13 @@ namespace fpcm\view;
  * @property string $toolbarItemRight
  * @property string $toolbarArea
  * @property string $ipAddress
+ * @property string $includeForms
  * @property int    $loginTime
  * 
  * @property \fpcm\model\permissions\permissions  $permissions
  * @property \fpcm\model\theme\navigationList  $navigation
+ * @property \fpcm\model\theme\notifications $notifications
  * 
- * @property array  $navigationActiveModule
  * @property array  $messages
  * @property array  $filesJs
  * @property array  $filesJsLate
@@ -46,9 +47,11 @@ namespace fpcm\view;
  * @property bool   $loggedIn
  * @property bool   $fullWrapper
  * @property bool   $showPageToken
+ * @property bool   $showOffCanvas
  * @property \fpcm\model\users\author $currentUser
  * @property helper\pager $pager
  * 
+ * @method helper\alert             alert(string $type)
  * @method helper\badge             badge(string $name , string $id)
  * @method helper\boolSelect        boolSelect(string $name , string $id)
  * @method helper\boolToText        boolToText(string $name , string $id)
@@ -75,7 +78,11 @@ namespace fpcm\view;
  * @method helper\submitButton      submitButton(string $name , string $id)
  * @method helper\tabItem           tabItem(string $name , string $id)
  * @method helper\textInput         textInput(string $name , string $id)
+ * @method helper\numberInput       numberInput(string $name , string $id)
  * @method helper\textarea          textarea(string $name , string $id)
+ * @method helper\dropdown          dropdown(string $name , string $id)
+ * @method helper\dropdownItem      dropdownItem(string $name , string $id)
+ * @method helper\rangeInput        rangeInput(string $name , string $id)
  */
 class viewVars {
 

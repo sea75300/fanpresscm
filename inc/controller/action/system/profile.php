@@ -32,7 +32,7 @@ class profile extends \fpcm\controller\abstracts\controller implements \fpcm\con
      */
     protected function getViewPath() : string
     {
-        return 'system/profile';
+        return 'users/usereditor';
     }
 
     /**
@@ -50,16 +50,17 @@ class profile extends \fpcm\controller\abstracts\controller implements \fpcm\con
      */
     public function request()
     {
-        $this->initUploader();
-        
+
         $this->user = $this->session->getCurrentUser();
-        
+        $this->initUploader($this->user);
+
+        $this->deleteImage($this->user);
+        $this->uploadImage($this->user);
+
         if ($this->config->system_2fa_auth) {
             include_once \fpcm\classes\loader::libGetFilePath('sonata-project'.DIRECTORY_SEPARATOR.'GoogleAuthenticator');
             $this->gAuth = new \Sonata\GoogleAuthenticator\GoogleAuthenticator();
         }
-
-        $this->uploadImage($this->user);
 
         if (($this->buttonClicked('profileSave') || $this->buttonClicked('resetProfileSettings')) && !$this->checkPageToken()) {
             $this->view->addErrorMessage('CSRF_INVALID');
@@ -67,13 +68,13 @@ class profile extends \fpcm\controller\abstracts\controller implements \fpcm\con
 
         $this->reloadSite = 0;
 
-        $this->deleteImage($this->user);
         $this->resetProfileSettings();
         $this->resetDashboardSettings();
         $this->saveProfile();
 
         $this->view->assign('author', $this->user);
         $this->view->assign('avatar', \fpcm\model\users\author::getAuthorImageDataOrPath($this->user, false));
+        
         return true;
     }
     
@@ -237,9 +238,15 @@ class profile extends \fpcm\controller\abstracts\controller implements \fpcm\con
         $this->view->addJsFiles([ \fpcm\classes\loader::libGetFileUrl('nkorg/passgen/passgen.js'), 'users/profile.js', 'users/edit.js' ]);
 
         $this->view->addButtons([
-            (new \fpcm\view\helper\saveButton('profileSave'))->setClass('fpcm-ui-button-primary'),
+            (new \fpcm\view\helper\saveButton('profileSave'))->setPrimary(),
             (new \fpcm\view\helper\submitButton('resetProfileSettings'))->setText('GLOBAL_RESET')->setIcon('undo')
-        ]);
+        ]);  
+
+        $this->view->addTabs('profile', [
+           (new \fpcm\view\helper\tabItem('user'))->setText('HL_PROFILE')->setFile($this->getViewPath()),
+           (new \fpcm\view\helper\tabItem('extended'))->setText('GLOBAL_EXTENDED')->setFile('users/usereditor_extended.php'),
+           (new \fpcm\view\helper\tabItem('meta'))->setText('USERS_META_OPTIONS')->setFile('users/editormeta.php'),
+        ], '', $this->getActiveTab());
 
         $this->view->setFormAction('system/profile');
 
@@ -252,5 +259,3 @@ class profile extends \fpcm\controller\abstracts\controller implements \fpcm\con
     }
 
 }
-
-?>

@@ -9,33 +9,17 @@
 
 namespace fpcm\controller\action\smileys;
 
-class smileylist extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\isAccessible {
+class smileylist extends \fpcm\controller\abstracts\controller
+implements \fpcm\controller\interfaces\isAccessible {
 
-    use \fpcm\controller\traits\common\dataView;
+    use \fpcm\controller\traits\common\dataView,
+        \fpcm\controller\traits\theme\nav\smileys;
     
     /**
      * Smiley-Liste
      * @var \fpcm\model\files\smileylist
      */
     protected $smileyList;
-
-    /**
-     * 
-     * @return bool
-     */
-    public function isAccessible(): bool
-    {
-        return $this->permissions->system->smileys;
-    }
-
-    /**
-     * 
-     * @return string
-     */
-    protected function getHelpLink()
-    {
-        return 'HL_OPTIONS_SMILEYS';
-    }
 
     /**
      * 
@@ -79,14 +63,22 @@ class smileylist extends \fpcm\controller\abstracts\controller implements \fpcm\
         $this->initDataView();
 
         $this->view->addButtons([
-            (new \fpcm\view\helper\linkButton('addSmiley'))->setText('FILE_LIST_SMILEYADD')->setUrl(\fpcm\classes\tools::getFullControllerLink('smileys/add'))->setClass('fpcm-loader')->setIcon('plus'),
-            (new \fpcm\view\helper\deleteButton('deleteSmiley'))->setClass('fpcm-ui-button-confirm')
+            (new \fpcm\view\helper\linkButton('addSmiley'))->setText('GLOBAL_NEW')->setUrl(\fpcm\classes\tools::getFullControllerLink('smileys/add'))->setIcon('plus'),
+            (new \fpcm\view\helper\deleteButton('deleteSmiley'))->setClass('fpcm ui-button-confirm')
         ]);
         
-        $this->view->assign('headline', 'HL_OPTIONS_SMILEYS');
         $this->view->setFormAction('smileys/list');
         $this->view->addJsFiles(['smileys.js']);
         $this->view->render();
+    }
+
+    protected function getDataViewTabs() : array
+    {
+        return [
+            (new \fpcm\view\helper\tabItem($this->getDataViewName().'-list'))
+                ->setText('HL_OPTIONS_SMILEYS')
+                ->setFile('components/dataview__inline.php')
+        ];
     }
 
     /**

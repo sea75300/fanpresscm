@@ -12,7 +12,8 @@ namespace fpcm\controller\action\files;
 class filelist extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\isAccessible {
 
     use \fpcm\controller\traits\files\lists,
-        \fpcm\controller\traits\common\searchParams;
+        \fpcm\controller\traits\common\searchParams,
+        \fpcm\controller\traits\theme\viewAjaxDummy;
 
     /**
      * Dateiliste
@@ -41,15 +42,6 @@ class filelist extends \fpcm\controller\abstracts\controller implements \fpcm\co
      * 
      * @return string
      */
-    protected function getViewPath() : string
-    {
-        return 'filemanager/listouter';
-    }
-
-    /**
-     * 
-     * @return string
-     */
     protected function getHelpLink()
     {
         return 'hl_files_mng';
@@ -68,7 +60,8 @@ class filelist extends \fpcm\controller\abstracts\controller implements \fpcm\co
         }
 
         $this->view->showHeaderFooter(\fpcm\view\view::INCLUDE_HEADER_SIMPLE);
-        $this->view->setBodyClass('fpcm-ui-hide-toolbar');
+        $this->view->setBodyClass('m-2');
+        $this->view->assign('toolbarClass', 'd-none');
         return true;
     }
 
@@ -86,7 +79,9 @@ class filelist extends \fpcm\controller\abstracts\controller implements \fpcm\co
             'currentModule' => $this->request->getModule(),
             'filesLastSearch' => 0,
             'checkboxRefresh' => true,
-            'uploadDest' => 'default'
+            'uploadDest' => 'default',
+            'thumbsize' => $this->config->file_thumb_size . 'px',
+            'loaderTpl' => new \fpcm\model\files\jsViewTemplate('fmloader')
         ], $uploader->getJsVars() ));
 
         $this->view->addJsLangVars(array_merge([
@@ -98,8 +93,8 @@ class filelist extends \fpcm\controller\abstracts\controller implements \fpcm\co
             'FILE_LIST_EDIT_ZOOMOUT', 'FILE_LIST_EDIT_RESIZE', 'GLOBAL_RESET',
             'SYSTEM_OPTIONS_NEWSSHOWMAXIMGSIZEHEIGHT',
             'SYSTEM_OPTIONS_NEWSSHOWMAXIMGSIZEWIDTH',
-            'FILE_LIST_EDIT_RESIZE_NOTICE',
-            'FILE_LIST_ALTTEXT'
+            'FILE_LIST_EDIT_RESIZE_NOTICE', 'FILE_LIST_ALTTEXT',
+            'FILE_LIST_ALTTEXT', 'FILE_LIST_FILENAME', 'MSG_FILES_CREATETHUMBS'
         ], $uploader->getJsLangVars()));
 
         if (!trim($uploader->getTemplate()) || !realpath($uploader->getTemplate())) {
@@ -113,36 +108,55 @@ class filelist extends \fpcm\controller\abstracts\controller implements \fpcm\co
             $jsFiles[] = 'files/tinymce5Messages.js';
         }
         
+        $this->view->addPager((new \fpcm\view\helper\pager('ajax/files/lists&mode='.$this->mode, 1, 1, $this->config->file_list_limit, 1)));
         $this->view->addJsFiles(array_merge( $jsFiles, $uploader->getJsFiles() ));
         $this->view->addJsFilesLate($uploader->getJsFilesLate());
         $this->view->setViewVars(array_merge([
-            'searchUsers' => ['ARTICLE_SEARCH_USER' => -1] + (new \fpcm\model\users\userList)->getUsersNameList(),
+            'searchUsers' =>  ['' => -1] + (new \fpcm\model\users\userList)->getUsersNameList(),
             'mode' => $this->mode,
             'hasFiles' => $hasFiles,
         ], $uploader->getViewVars() ));
 
         $this->assignSearchFromVars();
-        $this->initViewAssigns([], [], \fpcm\classes\tools::calcPagination(1, 1, 0, 0));
+        $this->initViewAssigns([], []);
 
         $buttons = [
-            (new \fpcm\view\helper\checkbox('fpcm-select-all'))->setText('GLOBAL_SELECTALL')->setIconOnly(true),
-            (new \fpcm\view\helper\button('opensearch', 'opensearch'))->setText('ARTICLES_SEARCH')->setIcon('search')->setIconOnly(true)->setClass('fpcm-ui-maintoolbarbuttons-tab1')
+            new \fpcm\view\helper\wrapper('div', 'btn btn-light', (new \fpcm\view\helper\checkbox('fpcm-select-all'))->setText('GLOBAL_SELECTALL')->setIconOnly(true)->setClass('fpcm-select-all') ),
+            (new \fpcm\view\helper\button('openSearch'))->setText('ARTICLES_SEARCH')->setIcon('search')->setIconOnly(true)
         ];
 
+        if ($this->permissions->uploads->add) {
+
+            $this->view->assign('uploadFormPath', $uploader->getTemplate());
+
+            $buttons[] =  (new \fpcm\view\helper\button('fileUpload'))
+                ->setText('FILE_LIST_UPLOADFORM')
+                ->setIcon('upload')
+                ->setData([
+                    'bs-toggle' => 'offcanvas',
+                    'bs-target' => '#offcanvasUpload'
+                ])
+                ->setAria([
+                    'bs-controls' => 'offcanvasUpload',
+                ])
+                ->setPrimary();
+
+        }
+        
+
         if ($this->mode === 2) {
-            $buttons[] = (new \fpcm\view\helper\submitButton('insertGallery', 'insertGallery'))->setText('FILE_LIST_INSERTGALLERY')->setIcon('images', 'far')->setIconOnly(true)->setClass('fpcm-ui-maintoolbarbuttons-tab1');
+            $buttons[] = (new \fpcm\view\helper\submitButton('insertGallery'))->setText('FILE_LIST_INSERTGALLERY')->setIcon('images', 'far')->setIconOnly(true);
         }
 
         if ($this->permissions->uploads->thumbs) {
-            $buttons[] = (new \fpcm\view\helper\submitButton('createThumbs', 'createThumbs'))->setText('FILE_LIST_NEWTHUMBS')->setIcon('image', 'far')->setIconOnly(true)->setClass('fpcm-ui-maintoolbarbuttons-tab1');
+            $buttons[] = (new \fpcm\view\helper\submitButton('createThumbs'))
+                    ->setText('FILE_LIST_NEWTHUMBS')
+                    ->setIcon('image', 'far')
+                    ->setIconOnly(true);
         }
 
         if ($this->permissions->uploads->delete) {
-            $buttons[] = (new \fpcm\view\helper\deleteButton('deleteFiles', 'deleteFiles'))->setClass('fpcm-ui-maintoolbarbuttons-tab1');
-        }
-
-        if ($this->permissions->uploads->add) {
-            $buttons[] = (new \fpcm\view\helper\button('fmgrUploadBack'))->setText('GLOBAL_BACK')->setIcon('chevron-circle-left')->setClass('fpcm-ui-maintoolbarbuttons-tab2 fpcm-ui-hidden');
+            $buttons[] = (new \fpcm\view\helper\deleteButton('deleteFiles'));
         }
 
         if ($this->mode === 1) {
@@ -150,12 +164,22 @@ class filelist extends \fpcm\controller\abstracts\controller implements \fpcm\co
                     ->setOptions(\fpcm\components\components::getFilemanagerViews())
                     ->setClass('fpcm-ui-listeview-setting')
                     ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
-                    ->setSelected($this->config->file_view)
-                    ->setData(['width' => '150px']);
+                    ->setSelected($this->config->file_view);
         }
 
         $this->view->addButtons($buttons);
         $this->view->setFormAction('files/list', ['mode' => $this->mode]);
+        
+        $tabs = [
+            (new \fpcm\view\helper\tabItem('files-list'))
+                ->setText('FILE_LIST_AVAILABLE')
+                ->setData(['ajax-quiet' => true])
+                ->setTabToolbar(1)
+                ->setUrl(\fpcm\classes\tools::getControllerLink('ajax/files/lists', [ 'mode' => $this->mode ]) )
+        ];
+
+        $this->view->includeForms('filemanager');
+        $this->view->addTabs('files', $tabs);
         $this->view->render();
     }
 

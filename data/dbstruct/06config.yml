@@ -6,7 +6,7 @@ engine: InnoDB
 charset: utf8
 autoincrement:
     colname: id
-    start: 51
+    start: 55
 cols:
     id:
         type: bigint
@@ -65,253 +65,243 @@ defaultvalues:
             config_name: "system_timezone"
             config_value: "Europe/Berlin"
             modulekey: ""
-        system_session_length:
-            id: 7
-            config_name: "system_session_length"
-            config_value: "18000"
-            modulekey: ""
         system_mode:
-            id: 8
+            id: 7
             config_name: "system_mode"
             config_value: "0"
             modulekey: ""
         system_css_path:
-            id: 9
+            id: 8
             config_name: "system_css_path"
             config_value: ""
             modulekey: ""
         system_show_share:
-            id: 10
+            id: 9
             config_name: "system_show_share"
             config_value: "1"
             modulekey: ""
         system_comments_enabled:
-            id: 11
+            id: 10
             config_name: "system_comments_enabled"
             config_value: "1"
             modulekey: ""
         system_cache_timeout:
-            id: 12
+            id: 11
             config_name: "system_cache_timeout"
             config_value: "86400"
             modulekey: ""
         system_loader_jquery:
-            id: 13
+            id: 12
             config_name: "system_loader_jquery"
             config_value: "1"
             modulekey: ""
         system_editor:
-            id: 14
+            id: 13
             config_name: "system_editor"
             config_value: "\\fpcm\\components\\editor\\tinymceEditor5"
             modulekey: ""
         system_editor_css:
-            id: 15
+            id: 14
             config_name: "system_editor_css"
             config_value: ""
             modulekey: ""
         system_editor_fontsize:
-            id: 16
+            id: 15
             config_name: "system_editor_fontsize"
             config_value: "12pt"
             modulekey: ""
         system_maintenance:
-            id: 17
+            id: 16
             config_name: "system_maintenance"
             config_value: "0"
             modulekey: ""
         system_loginfailed_locked:
-            id: 18
+            id: 17
             config_name: "system_loginfailed_locked"
             config_value: "3"
             modulekey: ""
         system_updates_emailnotify:
-            id: 19
+            id: 18
             config_name: "system_updates_emailnotify"
             config_value: "1"
             modulekey: ""
         system_updates_devcheck:
-            id: 20
+            id: 19
             config_name: "system_updates_devcheck"
             config_value: "0"
             modulekey: ""
         system_updates_manual:
-            id: 21
+            id: 20
             config_name: "system_updates_manual"
             config_value: "0"
             modulekey: ""
         system_2fa_auth:
-            id: 22
+            id: 21
             config_name: "system_2fa_auth"
             config_value: "0"
             modulekey: ""
         system_share_count:
-            id: 23
+            id: 22
             config_name: "system_share_count"
             config_value: "0"
             modulekey: ""
         system_trash_cleanup:
-            id: 24
+            id: 23
             config_name: "system_trash_cleanup"
             config_value: "30"
             modulekey: ""
         system_passcheck_enabled:
-            id: 25
+            id: 24
             config_name: "system_passcheck_enabled"
             config_value: "1"   
             modulekey: ""     
         articles_revisions:
-            id: 26
+            id: 25
             config_name: "articles_revisions"
             config_value: "1"
             modulekey: ""
         articles_limit:
-            id: 27
+            id: 26
             config_name: "articles_limit"
             config_value: "5"
             modulekey: ""
         articles_template_active:
-            id: 28
+            id: 27
             config_name: "articles_template_active"
             config_value: "articlelist"
             modulekey: ""
         articles_archive_show:
-            id: 29
+            id: 28
             config_name: "articles_archive_show"
             config_value: "1"
             modulekey: ""
         articles_sort:
-            id: 30
+            id: 29
             config_name: "articles_sort"
             config_value: "createtime"
             modulekey: ""
         articles_sort_order:
-            id: 31
+            id: 30
             config_name: "articles_sort_order"
             config_value: "DESC"
             modulekey: ""
         article_template_active:
-            id: 32
+            id: 31
             config_name: "article_template_active"
             config_value: "articlesingle"
             modulekey: ""
         articles_rss:
-            id: 33
+            id: 32
             config_name: "articles_rss"
             config_value: "1"
             modulekey: ""
         articles_acp_limit:
-            id: 34
+            id: 33
             config_name: "articles_acp_limit"
             config_value: "100"
             modulekey: ""
         articles_archive_datelimit:
-            id: 35
+            id: 34
             config_name: "articles_archive_datelimit"
             config_value: "0"
             modulekey: ""
         articles_revisions_limit:
-            id: 36
+            id: 35
             config_name: "articles_revisions_limit"
             config_value: "0"
             modulekey: ""
         articles_link_urlrewrite:
-            id: 37
+            id: 36
             config_name: "articles_link_urlrewrite"
             config_value: "0"
             modulekey: ""
-        articles_imageedit_persistence:
-            id: 38
-            config_name: "articles_imageedit_persistence"
-            config_value: "0"
-            modulekey: ""
         comments_template_active:
-            id: 39
+            id: 37
             config_name: "comments_template_active"
             config_value: "comments"
             modulekey: ""
         comments_flood:
-            id: 40
+            id: 38
             config_name: "comments_flood"
             config_value: "300"
             modulekey: ""
         comments_email_optional:
-            id: 41
+            id: 39
             config_name: "comments_email_optional"
             config_value: "1"
             modulekey: ""
         comments_confirm:
-            id: 42
+            id: 40
             config_name: "comments_confirm"
             config_value: "1"
             modulekey: ""
         comments_antispam_question:
-            id: 43
+            id: 41
             config_name: "comments_antispam_question"
             config_value: ""
             modulekey: ""
         comments_antispam_answer:
-            id: 44
+            id: 42
             config_name: "comments_antispam_answer"
             config_value: ""
             modulekey: ""
         comments_notify:
-            id: 45
+            id: 43
             config_name: "comments_notify"
             config_value: "0"
             modulekey: ""
         comments_markspam_commentcount:
-            id: 46
+            id: 44
             config_name: "comments_markspam_commentcount"
             config_value: "2"
             modulekey: ""
         comments_privacy_optin:
-            id: 47
+            id: 45
             config_name: "comments_privacy_optin"
             config_value: "1"
             modulekey: ""
-        file_img_thumb_width:
-            id: 48
-            config_name: "file_img_thumb_width"
-            config_value: "100"
+        file_thumb_size:
+            id: 46
+            config_name: "file_thumb_size"
+            config_value: "128"
             modulekey: ""
-        file_img_thumb_height:
-            id: 49
-            config_name: "file_img_thumb_height"
-            config_value: "100"
+        file_cropper_name:
+            id: 47
+            config_name: "file_cropper_name"
+            config_value: '{{filename}}_cropped_{{date}}'
             modulekey: ""
         file_list_limit:
-            id: 50
+            id: 48
             config_name: "file_list_limit"
             config_value: "25"
             modulekey: ""
         file_subfolders:
-            id: 51
+            id: 49
             config_name: "file_subfolders"
             config_value: "1"
             modulekey: ""
         file_view:
-            id: 52
+            id: 50
             config_name: "file_view"
             config_value: "cards"
             modulekey: ""
         twitter_data:
-            id: 53
+            id: 51
             config_name: "twitter_data"
             config_value: '{"consumer_key":"","consumer_secret":"","user_token":"","user_secret":""}'
             modulekey: ""
         twitter_events:
-            id: 54
+            id: 52
             config_name: "twitter_events"
             config_value: '{"create":0,"update":0}'
             modulekey: ""
         smtp_enabled:
-            id: 55
+            id: 53
             config_name: "smtp_enabled"
             config_value: 0
             modulekey: ""
         smtp_settings:
-            id: 56
+            id: 54
             config_name: "smtp_settings"
             config_value: '{"srvurl":"","user":"","pass":"","encr":"","port":"25","addr":""}'
             modulekey: ""

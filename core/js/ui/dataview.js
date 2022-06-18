@@ -35,7 +35,6 @@ fpcm.dataview = {
             return false;
         }
 
-        var spinner     = fpcm.dom.fromId('fpcm-dataview-' + id + '-spinner');
         var obj         = fpcm.vars.jsvars.dataviews[id];
         var style       = '';
 
@@ -44,18 +43,20 @@ fpcm.dataview = {
         obj.rowsId      = obj.fullId + '-rows';
 
         obj.wrapper     = fpcm.dom.fromId(obj.fullId).addClass('fpcm-ui-dataview');
-        obj.wrapper.append('<div class="row fpcm-ui-dataview-head fpcm-ui-dataview-rowcolpadding ui-widget-header ui-corner-all ui-helper-reset" id="' + obj.headId + '"></div>');
+        obj.wrapper.append('<div class="row bg-primary text-light py-1 fpcm ui-dataview-head" id="' + obj.headId + '"></div>');
         obj.wrapper.append('<div class="fpcm-ui-dataview-rows" id="' + obj.rowsId + '"></div>');
         
         obj.headline    = fpcm.dom.fromId(obj.headId);
         obj.lines       = fpcm.dom.fromId(obj.rowsId);
 
         jQuery.each(obj.columns, function (index, column) {
-            style = 'fpcm-ui-padding-none-lr fpcm-ui-dataview-col ' + column.class + ' fpcm-ui-dataview-align-' + column.align + ' col align-self-center ' + fpcm.dataview.getSizeString(column);
-            obj.headline.append('<div class="' + style + '" id="' + obj.fullId + '-dataview-headcol-' + column.name + index + '">' + (column.descr ? fpcm.ui.translate(column.descr) : '&nbsp;') + '</div>');            
-        });
+            let _style = (column.class ? column.class + ' ' : '') + fpcm.dataview.getAlignString(column.align, 'md', 'text-center') + 
+                     ' align-self-center py-0 py-md-1 ' + 
+                     fpcm.dataview.getSizeString(column) +
+                     (!column.descr ? ' d-none d-lg-block' : '');
 
-        obj.headline.append('<div class="fpcm-ui-clear"></div>');
+            obj.headline.append('<div class="' + _style + '" id="' + obj.fullId + '-dataview-headcol-' + column.name + index + '">' + (column.descr ? fpcm.ui.translate(column.descr) : '&nbsp;') + '</div>');            
+        });
 
         jQuery.each(obj.rows, function (index, row) {
             fpcm.dataview.addRow(obj.fullId, index, row, obj);
@@ -65,11 +66,11 @@ fpcm.dataview = {
             params.onRenderAfter.call();
         }
         
+        fpcm.ui.assignCheckboxes();
+        
         fpcm.vars.jsvars.dataviews[id].dataViewHeight = fpcm.dom.fromId(obj.fullId).height() + 'px';
-
-        if (spinner) {
-            spinner.remove();
-        }
+        fpcm.dom.fromId(obj.fullId).find('div.row.placeholder-wave').remove();
+        
     },
 
     addRow: function(id, index, row, obj) {
@@ -78,14 +79,15 @@ fpcm.dataview = {
             return;
         }
 
+        var _notFound       = row.isNotFound === true ? true : false;
+
         var rowId           = id + '-dataview-row-' + index;
-        var baseclass       = row.isheadline ? 'fpcm-ui-dataview-subhead' : 'fpcm-ui-dataview-row fpcm-ui-background-transition';
-        baseclass          += row.isNotFound ? ' fpcm-ui-dataview-notfound' : '';
-        var isNotFound      = row.isNotFound;
+        var baseclass       = row.isheadline ? 'fpcm-ui-dataview-subhead bg-secondary text-light' : 'fpcm ui-background-transition';
+        baseclass          += _notFound ? ' fpcm-ui-dataview-notfound' : '';
 
         row.class           = baseclass + (row.class ? ' ' + row.class : '');
 
-        obj.lines.append('<div class="row ' + row.class + '" id="' + rowId + '"></span>');
+        obj.lines.append('<div class="row py-2 border-bottom border-secondary ' + row.class + '" id="' + rowId + '"></span>');
 
         jQuery.each(row.columns, function (index, rowCol) {
 
@@ -98,16 +100,20 @@ fpcm.dataview = {
                 rowColumn.size = 'auto';
             }
 
-            var style       = 'fpcm-ui-padding-none-lr fpcm-ui-dataview-col ' + rowColumn.class + ' fpcm-ui-dataview-align-' + rowColumn.align
-                            + (isNotFound ? ' col col-12' : fpcm.dataview.getSizeString(rowColumn) )
-                            + ' fpcm-ui-dataview-type' + rowCol.type + ' align-self-center'
+            var colId = rowId + '-dataview-rowcol-' + rowCol.name + index;
+
+            var style       = ( rowColumn.class ? rowColumn.class + ' ' : '') 
+                            + ( _notFound === true ? ' text-start' : fpcm.dataview.getAlignString(rowColumn.align) )
+                            + ( _notFound === true ? ' col' : fpcm.dataview.getSizeString(rowColumn) )
+                            + ' fpcm-ui-dataview-type' 
+                            + rowCol.type + ' align-self-center my-1'
                             + (rowCol.class ? ' ' + rowCol.class : '');
 
             var valueStr    = ( rowCol.type == fpcm.vars.jsvars.dataviews.rolColTypes.coltypeValue
                             ? '<div class="fpcm-ui-dataview-col-value">' + (rowCol.value !== '' ? fpcm.ui.translate(rowCol.value) : '&nbsp;') + '</div>'
                             : (rowCol.value !== '' ? fpcm.ui.translate(rowCol.value) : '&nbsp;') );
 
-            fpcm.dom.appendHtml('#' + rowId, '<div class="' + style + '" id="' + rowId + '-dataview-rowcol-' + rowCol.name + index + '">' + valueStr + '</div>');
+            fpcm.dom.appendHtml('#' + rowId, '<div class="' + style + '" id="' + colId + '">' + valueStr + '</div>');
             
         });
     },
@@ -135,13 +141,39 @@ fpcm.dataview = {
         return 'fpcm-dataview-'+ id;
     },
     
+    getAlignString: function(_align, _prefix, _preprend) {
+        
+        if (_prefix === undefined) {
+            _prefix = '';
+        }
+        else {
+            _prefix = _prefix + '-';
+        }
+        
+        if (_preprend === undefined) {
+            _preprend = '';
+        }
+        
+        switch (_align) {
+            case 'left' :
+                _align = 'start';
+                break;
+            case 'right' :
+                _align = 'end';
+                break;
+        }
+
+        return _preprend + ' text-' + _prefix + _align;
+        
+    },
+    
     getSizeString: function(item) {
 
         if (!item.size) {
             return 'col';
         }
         
-        return ' fpcm-ui-dataview-size-' + item.size + ' col-12 col-lg-' + item.size;  
+        return ' col-12 col-lg-' + item.size;  
     },
 
     exists: function(id) {

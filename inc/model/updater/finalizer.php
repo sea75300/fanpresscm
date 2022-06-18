@@ -18,13 +18,6 @@ namespace fpcm\model\updater;
 final class finalizer extends \fpcm\model\abstracts\model {
 
     /**
-     * Run in command line mode
-     * @var bool
-     * @since 4.1
-     */
-    private $isCli = false;
-
-    /**
      * CLI progress
      * @var \fpcm\model\cli\progress
      */
@@ -37,10 +30,7 @@ final class finalizer extends \fpcm\model\abstracts\model {
     public function __construct()
     {
         parent::__construct();
-
-        $this->dbcon = new \fpcm\classes\database();
-        $this->config = new \fpcm\model\system\config(false, false);
-        $this->isCli = \fpcm\classes\baseconfig::isCli();
+        $this->config = new \fpcm\model\system\config();
     }
 
     /**
@@ -49,21 +39,15 @@ final class finalizer extends \fpcm\model\abstracts\model {
      */
     public function runUpdate()
     {
-        $res    = true &&
-                $this->alterTables() &&
-                $this->removeSystemOptions() &&
-                $this->addSystemOptions() &&
-                $this->updateSystemOptions() &&
-                $this->updatePermissions() &&
-                $this->runMigrations() &&
-                $this->updateVersion() &&
-                $this->optimizeTables();
-
-        if (\fpcm\classes\baseconfig::canConnect()) {
-            (new \fpcm\model\crons\updateCheck())->run();
+        if (!$this->runMigrations()) {
+            return false;
+        }
+        
+        if (!$this->updateVersion()) {
+            return false;
         }
 
-        return $res;
+        return true;
     }
 
     /**
@@ -78,8 +62,6 @@ final class finalizer extends \fpcm\model\abstracts\model {
         if (!is_array($migrations)) {
             return true;
         }
-
-        $this->cliOutput(" >> Processing migrations...");
 
         array_walk($migrations, function (&$item) {
             $item ='fpcm\\migrations\\' . basename($item, '.php');
@@ -101,17 +83,35 @@ final class finalizer extends \fpcm\model\abstracts\model {
             return $obj->isRequired();
         });
 
+        
         if (!count($migrations)) {
-            return true;
+            
+            fpcmLogSystem('Executing default migration...');
+
+            $migrations = [
+                new \fpcm\migrations\defaultAll()
+            ];
         }
+
+        $this->cliProgress = new \fpcm\model\cli\progress(count($migrations));
+
+        $i = 0;
 
         /* @var $migration \fpcm\migrations\migration */
         foreach ($migrations as $migration) {
+
+            $i++;
+
             if (!$migration->process()) {
-                $this->output('Processing of migration '. get_class($migration).' failed!.');
+                trigger_error('Processing of migration '. get_class($migration).' failed!.', E_USER_ERROR);
                 return false;
             }
+
+            $this->cliProgress->setCurrentValue($i)->output();
+            usleep(100000);
         }
+
+        $migration->optimizeTables();
         
         return true;
     }
@@ -127,346 +127,6 @@ final class finalizer extends \fpcm\model\abstracts\model {
         ]);
 
         return $this->config->update();
-    }
-
-    /**
-     * aktualisiert Berechtigungen
-     * @return bool
-     */
-    private function updatePermissions()
-    {
-        $this->cliOutput(" >> Update system permissions");
-        
-        $rolls = (new \fpcm\model\users\userRollList())->getUserRolls();
-
-        $default = null;
-
-        $this->cliProgress = new \fpcm\model\cli\progress(count($rolls));
-        
-        $i = 1;
-        foreach ($rolls as $group) {
-
-            
-            $permissionObj = new \fpcm\model\permissions\permissions($group->getId());
-            
-            if ($default === null) {
-                $default = $permissionObj->getPermissionSet();
-            }
-            
-            $data = $permissionObj->getPermissionData();
-            
-            $default['comment']['lockip'] = 1;
-            $default['system']['profile'] = 1;
-            
-            $newData = $data;
-            foreach ($default as $key => $value) {
-                $newData[$key] = array_merge(array_intersect_key($data[$key], $value), array_diff_key($value, $data[$key]));
-            }
-            
-            if (\fpcm\classes\tools::getHash(json_encode($data)) === \fpcm\classes\tools::getHash(json_encode($newData))) {
-                $this->cliProgress->setCurrentValue($i)->output();
-                $i++;
-                continue;
-            }
-
-            $permissionObj->setPermissionData($newData);
-            if (!$permissionObj->update()) {
-                return false;
-            }
-            
-            $this->cliProgress->setCurrentValue($i)->output();
-            $i++;
-
-        }
-
-        $this->cliProgress = null;
-        
-        return true;
-    }
-
-    /**
-     * neue System-Optionen bei Update erzeugen
-     * @return bool
-     */
-    private function addSystemOptions()
-    {
-        $this->cliOutput(" >> Add new system config...");
-        
-        $yatdl = new \fpcm\model\system\yatdl(\fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_DBSTRUCT, '06config.yml'));
-        $yatdl->parse();
-
-        $data = $yatdl->getArray();
-        if (!isset($data['defaultvalues']['rows']) || !is_array($data['defaultvalues']['rows']) || !count($data['defaultvalues']['rows'])) {
-            return true;
-        }
-
-        $res = true;
-        foreach ($data['defaultvalues']['rows'] as $option) {
-
-            if ($option['config_name'] === 'smtp_setting') {
-                continue;
-            }
-
-            $res = $res && $this->config->add($option['config_name'], trim($option['config_value']));
-        }
-
-        if ($this->dbcon->count(\fpcm\classes\database::tableCronjobs, '*', 'cjname = ?', ['cleanupTrash']) == 0) {
-            $id = $this->dbcon->insert(\fpcm\classes\database::tableCronjobs, [
-                'cjname' => 'cleanupTrash',
-                'lastexec' => 0,
-                'execinterval' => 86400
-            ]);
-
-            $res = $id ? $res && true : false;
-        }
-
-        return $res;
-    }
-
-    /**
-     * System-Optionen bei Update aktualisieren
-     * @return bool
-     */
-    private function updateSystemOptions()
-    {
-        $this->cliOutput(" >> Update existing system config...");
-        
-        $newConfig = [];
-
-        if (is_numeric($this->config->system_editor)) {
-
-            $editors = [
-                0 => '\fpcm\components\editor\tinymceEditor',
-                1 => '\fpcm\components\editor\htmlEditor'
-            ];
-
-            $newConfig['system_editor'] = $editors[$this->config->system_editor] ?? $editors[0];
-        }
-
-        if (!count($newConfig)) {
-            return true;
-        }
-
-        $this->config->setNewConfig($newConfig);
-        return $this->config->update();
-    }
-
-    /**
-     * System-Optionen bei Update aktualisieren
-     * @return bool
-     */
-    private function removeSystemOptions()
-    {
-        $this->cliOutput(" >> Cleanup system config...");
-        
-        $res = true;
-        if ($this->config->articles_trash) {
-            $res = $res && $this->config->remove('articles_trash');
-        }
-
-        if ($this->config->file_fiew) {
-            $res = $res && $this->config->remove('file_fiew');
-        }
-        
-        return $res;
-    }
-
-    /**
-     * Änderungen an Tabellen-Struktur vornehmen
-     * @return bool
-     */
-    private function alterTables()
-    {
-        $tableFiles = $this->dbcon->getTableFiles();
-        if (!count($tableFiles)) {
-            return true;
-        }
-
-        $dropTables = [];
-        if (version_compare($this->config->system_version, '4.0.0-b11', '<')) {
-            $dropTables[] = \fpcm\classes\database::tableModules;
-        }
-        
-        $addIndeices = method_exists($this->dbcon, 'addTableIndices');
-
-        $this->cliProgress = new \fpcm\model\cli\progress(count($tableFiles));
-
-        $i = 1;
-        foreach ($tableFiles as $tableFile) {
-
-            $tab = new \fpcm\model\system\yatdl($tableFile);
-
-            $success = $tab->parse();
-            if ($success !== true) {
-                trigger_error('Unable to parse table definition for ' . $tableFile . ', ERROR CODE: ' . $success);
-                return false;
-            }
-
-            $tableName = $tab->getArray()['name'];
-            $isView = $tab->getArray()['isview'] ?? false;
-            fpcmLogSql("Alter table structure {$tableName}...");
-
-            $this->cliProgress->setCurrentValue($i)->output();
-
-            $struct = $this->dbcon->getTableStructure($tableName);
-            $tabExists = count($struct) ? true : false;
-
-            if (!$isView &&  ( $tabExists && !$this->dbcon->addTableCols($tab) || !$this->dbcon->removeTableCols($tab) ) ) {
-                trigger_error('Failed to alter table ' . $tableName . ' during update.');
-                return false;
-            }
-
-            if (in_array($tableName, $dropTables)) {
-
-                fpcmLogSql("Drop table {$tableName}...");
-                $successDrop = false;
-                if (!$tabExists) {
-                    $this->cliOutput("     Table not found, skipping...");
-                }
-                elseif (!$this->dbcon->drop($tableName)) {
-                    trigger_error('Unable to drop table ' . $tableName . ' during update');
-                    return false;
-                }
-                else {
-                    $successDrop = true;
-                }
-
-                if ($successDrop) {
-                    $tabExists = false;
-                }
-
-            }
-
-            if (!$tabExists) {
-                fpcmLogSql("Add table {$tableName}...");
-                if (!$this->dbcon->execYaTdl($tableFile)) {
-                    trigger_error('Unable to create table ' . $tableName . ' during update');
-                    return false;
-                }
-
-            }
-            
-            if (!$isView && $tabExists && $addIndeices) {
-                $this->dbcon->addTableIndices($tab);
-            }
-          
-            $i++;
-        }
-        
-        $this->cliProgress = null;
-
-        if (!$addIndeices) {
-            $this->cliOutput("     ++ Important!! Table indices could not be added during database update. Please run \"fpcmcli.php pkg " . \fpcm\model\abstracts\cli::PARAM_UPGRADE_DB. " system\" after auto-update was finished.");
-        }
-
-        return true;
-    }
-
-    /**
-     * Führt Optimierung der Datenbank-Tabellen durch
-     * @since 3.3
-     * @return bool
-     */
-    private function optimizeTables()
-    {
-        $this->cliOutput(" >> Optimize tables...");
-        
-        $tables = $this->events->trigger('updaterAddOptimizeTables', [
-            \fpcm\classes\database::tableArticles,
-            \fpcm\classes\database::tableAuthors,
-            \fpcm\classes\database::tableCategories,
-            \fpcm\classes\database::tableComments,
-            \fpcm\classes\database::tableConfig,
-            \fpcm\classes\database::tableCronjobs,
-            \fpcm\classes\database::tableFiles,
-            \fpcm\classes\database::tableIpAdresses,
-            \fpcm\classes\database::tableModules,
-            \fpcm\classes\database::tablePermissions,
-            \fpcm\classes\database::tableRoll,
-            \fpcm\classes\database::tableSessions,
-            \fpcm\classes\database::tableSmileys,
-            \fpcm\classes\database::tableShares,
-            \fpcm\classes\database::tableTexts,
-            \fpcm\classes\database::tableRevisions
-        ]);
-
-        $this->cliProgress = new \fpcm\model\cli\progress(count($tables));
-        
-        foreach ($tables as $i => $table) {
-
-            $this->cliProgress->setCurrentValue(($i+1));
-            $this->cliProgress->output();
-
-            $this->dbcon->optimize($table);
-        }
-        
-        $this->cliProgress = null;
-
-        return true;
-    }
-
-    /**
-     * Prüft System-Version auf bestimmten Wert
-     * @param string $version
-     * @param string $option
-     * @return bool
-     * @since 3.2
-     */
-    private function checkVersion($version, $option = '<')
-    {
-        return version_compare($this->config->system_version, $version, $option);
-    }
-
-    /**
-     * Print text in command line mode
-     * @param string $str
-     * @since 4.1
-     */
-    private function cliOutput(string $str)
-    {
-        if (!$this->isCli) {
-            return;
-        }
-
-        // this workaround will be removed in FPCM 4.4
-        if (!class_exists('\fpcm\model\cli\io')) {
-
-            if (is_array($str)) {
-                $str = implode(PHP_EOL, $str);
-            }
-
-            print $str . PHP_EOL;
-            return;
-        }
-
-        \fpcm\model\cli\io::output($str);
-    }
-
-    /**
-     * Check if fullpath is valid path in /data folder structure
-     * @param string $path
-     * @param string $type
-     * @return bool
-     */
-    public static function isValidDataFolder(string $path = '', string $type = '/') : bool
-    {
-        if (!trim($path)) {
-            return false;
-        }
-
-        $dataPath = \fpcm\classes\dirs::getDataDirPath($type);
-        $realpath = realpath($path);
-        
-        if (!trim($realpath)) {
-            $realpath = self::realpathNoExists($path);
-        }
-
-        if (strpos($realpath, $dataPath) === 0) {
-            return true;
-        }
-        
-        trigger_error('Invalid data path found: '.$path);
-        return false;
     }
 
 }

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4.x
+ * FanPress CM 5.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -81,7 +81,6 @@ final class installer extends \fpcm\model\abstracts\cli {
             $this->output('No configuration file found in ' . \fpcm\model\files\ops::removeBaseDir(\fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_CONFIG), true), true);
         }
 
-        include_once \fpcm\classes\loader::libGetFilePath('spyc/Spyc.php');
         $this->conf = \Spyc::YAMLLoad($configFile);
 
         $this->language = new \fpcm\classes\language($this->conf['config']['language']);
@@ -227,12 +226,11 @@ final class installer extends \fpcm\model\abstracts\cli {
             'system_dtmask' => $this->conf['config']['datetimemask'],
             'system_timezone' => $this->conf['config']['timezone'],
             'system_cache_timeout' => $this->conf['config']['cachetimeout'],
-            'system_session_length' => $this->conf['config']['sessionlength'],
             'comments_antispam_question' => $this->conf['config']['captcha']['question'],
             'comments_antispam_answer' => $this->conf['config']['captcha']['answer'],
         ];
 
-        $config = new \fpcm\model\system\config(false, false);
+        $config = new \fpcm\model\system\config();
         $config->setNewConfig($newconfig);
         $config->prepareDataSave();
         usleep(250000);

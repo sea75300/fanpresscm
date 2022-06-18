@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4
+ * FanPress CM 5
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -25,15 +25,52 @@ final class passwordInput extends input {
     {
         parent::init();
         $this->type = 'password';
-        $this->class .= ' fpcm-ui-input-password';
     }
 
     protected function appendItems(string &$str): bool
     {
-        $str .= ' ' . (string) (new icon('eye fa-inverse'))
-                ->setClass('fpcm ui-put-pass-toggle')
-                ->setStack('circle');
+     
+        $this->getLabelTypeConfig($wrprS, $wrprE, $class, $type, $icoO);
         
+        $str .= $wrprS .
+                (string) (new button($this->name . '-toggle'))
+                    ->overrideButtonType($type)
+                    ->setText('PASSWORD_TOGGLE')
+                    ->setIcon('eye')
+                    ->setIconOnly($icoO)
+                    ->setClass('fpcm ui-put-pass-toggle' . $class)
+                    ->setOnClick('system.togglePasswordField')
+                    ->setReadonly($this->readonly) .
+                $wrprE;
+
+        return true;
+    }
+
+    /**
+     * 
+     * @param string $wrprS
+     * @param string $wrprE
+     * @param string $class
+     * @param string $type
+     * @param string $icoO
+     * @return bool
+     */
+    private function getLabelTypeConfig(&$wrprS, &$wrprE, &$class, &$type, &$icoO) : bool
+    {
+        if ($this->labelType === 'form-floating') {
+            $wrprS = '<div class="d-block d-flex justify-content-end">';
+            $wrprE = '</div>';
+            $class = ' shadow-none ui-font-small';
+            $type  = 'link';
+            $icoO  = false;
+            return true;
+        }
+
+        $wrprS = '';
+        $wrprE = '';
+        $class = '';
+        $type  = 'light';
+        $icoO  = true;
         return true;
     }
 

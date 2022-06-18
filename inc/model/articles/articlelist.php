@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4.x
+ * FanPress CM 5.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -306,13 +306,23 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
      */
     public function publishPostponedArticles(array $ids)
     {
-        $this->cache->cleanup();
-        return $this->dbcon->update(
+        if (!count($ids)) {
+            return true;
+        }
+        
+        $return = $this->dbcon->update(
             $this->table,
             ['postponed'],
             array_merge([0], $ids),
             $this->dbcon->inQuery('id', $ids) . ' AND postponed = 1 AND approval = 0 AND deleted = 0 AND draft = 0'
         );
+        
+        if (!$return) {
+            return false;
+        }
+        
+        $this->cache->cleanup();
+        return true;
     }
 
     /**

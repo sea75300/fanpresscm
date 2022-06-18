@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4.x
+ * FanPress CM 5.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -31,6 +31,13 @@ class userRoll extends \fpcm\model\abstracts\dataset {
      * @since 4.5-b7
      */
     protected $codex = '';
+
+    /**
+     * System roll flag
+     * @var bool
+     * @since 5.0.0-a4
+     */
+    protected $is_system = 0;
 
     /**
      * Wortsperren-Liste
@@ -77,6 +84,15 @@ class userRoll extends \fpcm\model\abstracts\dataset {
     }
 
     /**
+     * System roll flag set
+     * @return bool
+     */
+    public function isSystemRoll(): bool
+    {
+        return (bool) $this->is_system;
+    }
+        
+    /**
      * Set roll name
      * @param string $leveltitle
      */
@@ -119,6 +135,7 @@ class userRoll extends \fpcm\model\abstracts\dataset {
         $params = $this->events->trigger('userroll\save', [
             'leveltitle' => $this->leveltitle,
             'codex' => $this->codex,
+            'is_system' => $this->is_system
         ]);
 
         $newId = $this->dbcon->insert($this->table, $params);
@@ -147,8 +164,8 @@ class userRoll extends \fpcm\model\abstracts\dataset {
      */
     public function delete()
     {
-        if ($this->id <= 3) {
-            trigger_error('Tried to delete system roll with: ' . $this->id);
+        if ($this->is_system) {
+            trigger_error('A system roll cannot be deleted, ID was ' . $this->id);
             return false;
         }
 
@@ -175,8 +192,8 @@ class userRoll extends \fpcm\model\abstracts\dataset {
      */
     public function update()
     {
-        if ($this->id <= 3 && isset($this->data['old_leveltitle']) && $this->data['old_leveltitle'] !== $this->leveltitle) {
-            trigger_error('Tried to rename system roll with id ' . $this->id);
+        if ($this->is_system && isset($this->data['old_leveltitle']) && $this->data['old_leveltitle'] !== $this->leveltitle) {
+            trigger_error('A system roll cannot be renamed, ID was ' . $this->id);
             return false;
         }
 

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4.x
+ * FanPress CM 5.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -11,7 +11,7 @@ namespace fpcm\model\files;
  * Image list object
  * @package fpcm\model\files
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 final class imagelist extends \fpcm\model\abstracts\filelist {
@@ -273,17 +273,17 @@ final class imagelist extends \fpcm\model\abstracts\filelist {
     
     /**
      * Creates file manager thumbnails
-     * @param null|array $folderFiles
+     * @param array|null $folderFiles
+     * @param bool|null $forceAll
      * @return bool
      */
-    public function createFilemanagerThumbs(?array $folderFiles = null) : bool
+    public function createFilemanagerThumbs(?array $folderFiles = null, ?bool $forceAll = null) : bool
     {
         include_once \fpcm\classes\loader::libGetFilePath('PHPImageWorkshop');
-
         if ($folderFiles === null) {
             $folderFiles = $this->getFolderList();
         }
-        
+
         if (!count($folderFiles)) {
             return false;
         }
@@ -310,6 +310,8 @@ final class imagelist extends \fpcm\model\abstracts\filelist {
         if (!count($folderFiles)) {
             return false;
         }
+        
+        $thumbSize = $this->config->file_thumb_size;
 
         foreach ($folderFiles as $folderFile) {
 
@@ -317,7 +319,7 @@ final class imagelist extends \fpcm\model\abstracts\filelist {
             $this->removeBasePath($imgPath);
             $image = new \fpcm\model\files\image($imgPath);
 
-            if ($image->hasFileManageThumbnail()) {
+            if ($image->hasFileManageThumbnail() && !$forceAll) {
                 $image = null;
                 $phpImgWsp = null;
                 continue;
@@ -327,10 +329,10 @@ final class imagelist extends \fpcm\model\abstracts\filelist {
                 $phpImgWsp = \PHPImageWorkshop\ImageWorkshop::initFromPath($folderFile);
                 $phpImgWsp->cropToAspectRatio(
                     \PHPImageWorkshop\Core\ImageWorkshopLayer::UNIT_PIXEL,
-                    100, 100, 0, 0, 'MM'
+                    $thumbSize, $thumbSize, 0, 0, 'MM'
                 );
 
-                $phpImgWsp->resizeInPixel(100, 100);
+                $phpImgWsp->resizeInPixel($thumbSize, $thumbSize);
                 $phpImgWsp->save(dirname($image->getFileManagerThumbnail()), basename($image->getFileManagerThumbnail()));
             } catch (\Exception $exc) {
                 trigger_error('Error while creating filemanager thumbnail '.$image->getFileManagerThumbnail().PHP_EOL.$exc->getMessage());

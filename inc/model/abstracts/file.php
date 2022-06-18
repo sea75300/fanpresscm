@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4.x
+ * FanPress CM 5.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -370,7 +370,7 @@ abstract class file {
      * @since 3.3
      */
     public function moveUploadedFile($uploadedPath)
-    {        
+    {
         if (!$this->isValidDataFolder($this->filepath)) {
             return false;
         }
@@ -446,10 +446,6 @@ abstract class file {
             $path = $this->fullpath;
         }
 
-        if (!method_exists('fpcm\model\files\ops', 'isValidDataFolder')) {            
-            return \fpcm\model\updater\finalizer::isValidDataFolder($path, $type);
-        }
-
         return ops::isValidDataFolder($path, $type);
     }
 
@@ -482,13 +478,36 @@ abstract class file {
     }
 
     /**
+     * Retrieve file name via pathinfo
+     * @param string $filename
+     * @return string
+     * @since 5.0
+     */
+    public static function retrieveFileName(string $filename) : string
+    {
+        return pathinfo($filename, PATHINFO_FILENAME);        
+    }
+
+    /**
      * Return hash based on filename
      * @return string
-     * @since 4.5.4
+     * @since 5.0.0-a1
      */
     public function getFileNameHash() : string
     {
         return tools::getHash($this->filename);
+    }
+    
+    /**
+     * Retrieve real file path via finfo
+     * @param string $path
+     * @return string
+     * @since 5.0.0-a3
+     */
+    public static function retrieveRealType(string $path) : string
+    {
+        $mime = (new \finfo)->file($path, FILEINFO_MIME_TYPE);
+        return trim($mime) ? $mime : '';
     }
 
 }

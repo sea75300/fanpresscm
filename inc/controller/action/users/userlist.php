@@ -11,6 +11,8 @@ namespace fpcm\controller\action\users;
 
 class userlist extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\isAccessible {
 
+    use \fpcm\controller\traits\theme\nav\users;
+    
     /**
      *
      * @var \fpcm\model\users\userList
@@ -50,18 +52,13 @@ class userlist extends \fpcm\controller\abstracts\controller implements \fpcm\co
         return 'users/userlist';
     }
 
+    /**
+     * 
+     * @return bool
+     */
     public function isAccessible(): bool
     {
         return $this->permissions->system->users;
-    }
-
-    /**
-     * 
-     * @return string
-     */
-    protected function getHelpLink()
-    {
-        return 'HL_OPTIONS_USERS';
     }
 
     /**
@@ -94,38 +91,6 @@ class userlist extends \fpcm\controller\abstracts\controller implements \fpcm\co
             $this->view->addNoticeMessage('SAVE_SUCCESS_EDITROLL');
         }
 
-        if (($this->buttonClicked('disableUser') ||
-                $this->buttonClicked('enableUser') ||
-                $this->buttonClicked('deleteUser') ||
-                $this->buttonClicked('deleteRoll') ) && !$this->checkPageToken()) {
-            $this->view->addErrorMessage('CSRF_INVALID');
-            return true;
-        }
-
-        $userIds = $this->request->fromPOST('userids', [\fpcm\model\http\request::FILTER_CASTINT]);
-        if ($this->buttonClicked('disableUser') && $userIds) {
-            $this->disableUsers();
-        }
-
-        if ($this->buttonClicked('enableUser') && $userIds) {
-            $this->enableUsers();
-        }
-
-        if ($this->buttonClicked('deleteUser') && $userIds) {
-            $this->deleteUser();
-        }
-
-        $rollId = $this->request->fromPOST('rollids', [\fpcm\model\http\request::FILTER_CASTINT]);
-        if ($this->buttonClicked('deleteRoll') && $rollId) {
-            $roll = new \fpcm\model\users\userRoll($rollId);
-            if (!$roll->delete()) {
-                $this->view->addErrorMessage('DELETE_FAILED_ROLL');
-                return true;
-            }
-
-            $this->view->addNoticeMessage('DELETE_SUCCESS_ROLL');
-        }
-
         return true;
     }
 
@@ -135,29 +100,44 @@ class userlist extends \fpcm\controller\abstracts\controller implements \fpcm\co
      */
     public function process()
     {
+        $this->initTabs();
+        
         $this->view->assign('usersListSelect', $this->userList->getUsersNameList());
         
-        $chart = new \fpcm\components\charts\chart('pie', 'userArticles');
+        $chart = new \fpcm\components\charts\chart(\fpcm\components\charts\chart::TYPE_PIE, 'userArticles');
+        $chart->setLegend([
+            'position' => 'bottom'
+        ]);
+
         $this->view->addCssFiles($chart->getCssFiles());
         
         $this->view->addJsFiles(array_merge(['users/module.js'], $chart->getJsFiles()));
         $this->view->addJsLangVars(['USERS_ARTICLES_SELECT', 'HL_OPTIONS_PERMISSIONS']);
 
         $this->view->setFormAction('users/list');
-
-        $buttons = [
-            (new \fpcm\view\helper\linkButton('addUser'))->setUrl(\fpcm\classes\tools::getFullControllerLink('users/add'))->setText('USERS_ADD')->setClass('fpcm-loader fpcm-ui-maintoolbarbuttons-tab1')->setIcon('user-plus'),
-            (new \fpcm\view\helper\submitButton('disableUser'))->setText('GLOBAL_DISABLE')->setClass('fpcm-ui-maintoolbarbuttons-tab1 fpcm-ui-button-confirm')->setIcon('user-lock'),
-            (new \fpcm\view\helper\submitButton('enableUser'))->setText('GLOBAL_ENABLE')->setClass('fpcm-ui-maintoolbarbuttons-tab1 fpcm-ui-button-confirm')->setIcon('user-check'),
-            (new \fpcm\view\helper\deleteButton('deleteUser'))->setClass('fpcm-ui-maintoolbarbuttons-tab1')            
+        
+        $ddOpt = [
+            (new \fpcm\view\helper\dropdownItem('addUser'))->setUrl(\fpcm\classes\tools::getFullControllerLink('users/add'))->setText('USERS_ADD')->setValue('user')->setIcon('user-plus'),
         ];
         
         if ($this->permissions->system->rolls) {
-            $buttons[] = (new \fpcm\view\helper\linkButton('addRoll'))->setUrl(\fpcm\classes\tools::getFullControllerLink('users/addroll'))->setText('USERS_ROLL_ADD')->setClass('fpcm-ui-maintoolbarbuttons-tab2 fpcm-ui-hidden')->setIcon('users');
-            $buttons[] = (new \fpcm\view\helper\deleteButton('deleteRoll'))->setClass('fpcm-ui-maintoolbarbuttons-tab2 fpcm-ui-hidden fpcm-ui-button-confirm');
+            $ddOpt[] = (new \fpcm\view\helper\dropdownItem('addRoll'))->setUrl(\fpcm\classes\tools::getFullControllerLink('users/addroll'))->setText('USERS_ROLL_ADD')->setValue('roll')->setIcon('user-tag');
         }
 
-        $this->view->addButtons($buttons);
+        $this->view->addButtons([
+            (new \fpcm\view\helper\dropdown('new'))->setText('GLOBAL_NEW')->setIcon('plus')->setOptions($ddOpt),
+            (new \fpcm\view\helper\button('userStats'))
+                ->setText('USERS_STATS_ARTICLE')
+                ->setIcon('chart-pie')
+                ->setData([
+                    'bs-toggle' => 'offcanvas',
+                    'bs-target' => '#offcanvasUserStats'
+                ])
+                ->setAria([
+                    'bs-controls' => 'offcanvasUserStats',
+                ])
+        ]);
+
         $this->createUsersView();
         
         if ($this->permissions->system->rolls) {
@@ -175,12 +155,13 @@ class userlist extends \fpcm\controller\abstracts\controller implements \fpcm\co
         
         $chart->setValues($chartItem);
         $this->view->assign('userArticles', $chart);
-        $this->view->setActiveTab($this->getActiveTab());
 
         $this->view->addJsVars([
             'chartData' => $chart
         ]);
-
+        
+        $this->view->includeForms('users');
+        $this->view->addAjaxPageToken('users/actions');
         $this->view->render();
         return true;
     }
@@ -213,12 +194,11 @@ class userlist extends \fpcm\controller\abstracts\controller implements \fpcm\co
         $dataView = new \fpcm\components\dataView\dataView('userlist');
         
         $dataView->addColumns([
-            (new \fpcm\components\dataView\column('select', ''))->setSize(1)->setAlign('center'),
-            (new \fpcm\components\dataView\column('button', ''))->setSize(2)->setAlign('center'),
+            (new \fpcm\components\dataView\column('button', '', 'flex-grow-1'))->setSize('auto')->setAlign('center'),
             (new \fpcm\components\dataView\column('username', 'GLOBAL_USERNAME'))->setSize(3),
             (new \fpcm\components\dataView\column('email', 'GLOBAL_EMAIL'))->setSize(3),
             (new \fpcm\components\dataView\column('registered', 'USERS_REGISTEREDTIME'))->setSize(2)->setAlign('center'),
-            (new \fpcm\components\dataView\column('metadata', ''))->setAlign('center'),
+            (new \fpcm\components\dataView\column('metadata', '', 'flex-grow-1'))->setSize('auto')->setAlign('center'),
         ]);
 
         $articleCount = $this->articleList->countArticlesByUsers();
@@ -233,19 +213,16 @@ class userlist extends \fpcm\controller\abstracts\controller implements \fpcm\co
         
         foreach($usersInGroups AS $rollId => $users) {
             
-            $title  = $descr.': '.$this->language->translate($userGroups[$rollId]->getRollName());
+            $title  = '<b>' . $descr.': '.$this->language->translate($userGroups[$rollId]->getRollName()) . '</b>';
             
             $dataView->addRow(
                 new \fpcm\components\dataView\row([
-                    new \fpcm\components\dataView\rowCol('select', '', '', 'd-none d-lg-block'),
                     new \fpcm\components\dataView\rowCol('button', '', 'd-none d-lg-block'),
                     new \fpcm\components\dataView\rowCol('username', $title),
                     new \fpcm\components\dataView\rowCol('email', '', 'd-none d-lg-block'),
                     new \fpcm\components\dataView\rowCol('registered', '', 'd-none d-lg-block'),
                     new \fpcm\components\dataView\rowCol('metadata', '', 'd-none d-lg-block'),
-                ],
-                'fpcm-ui-dataview-rowcolpadding ui-widget-header ui-corner-all ui-helper-reset',
-                true
+                ], '', true
             ));
             
             /* @var $user \fpcm\model\users\author */
@@ -259,25 +236,47 @@ class userlist extends \fpcm\controller\abstracts\controller implements \fpcm\co
                 $this->chartItemColors[$user->getDisplayname()] = \fpcm\components\charts\chartItem::getRandomColor();
 
                 $metadata = [
-                    (new \fpcm\view\helper\badge('art'.$userId))->setValue($count)->setText('USERS_ARTICLE_COUNT')->setIcon('book')->setClass('fpcm-ui-badge-userarticles'),
-                    (new \fpcm\view\helper\icon('user-slash fa-inverse'))->setText('USERS_DISABLED')->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $user->getDisabled())->setStack('square')
+                    (new \fpcm\view\helper\badge('art'.$userId))->setValue($count)->setText('USERS_ARTICLE_COUNT')->setIcon('book'),
+                    (new \fpcm\view\helper\icon('user-slash'))->setText('USERS_DISABLED')->setClass('ms-1 fpcm-ui-editor-metainfo fpcm-ui-status-' . $user->getDisabled())
                 ];
                 
                 $buttons = [
-                    '<div class="fpcm-ui-controlgroup">',
                     (new \fpcm\view\helper\editButton('useredit'.$userId))->setUrlbyObject($user),
                     (new \fpcm\view\helper\linkButton('usermail'.$userId))->setUrl('mailto:'.$user->getEmail())->setIcon('envelope')->setIconOnly(true)->setText('GLOBAL_WRITEMAIL'),
-                    '</div>'
                 ];
+                
+                if ($user->getDisabled()) {
+                    $buttons[] = (new \fpcm\view\helper\submitButton(uniqid('enableUser')))
+                        ->setText('GLOBAL_ENABLE')
+                        ->setClass('fpcm ui-userlist-actione')
+                        ->setIcon('user-check')
+                        ->setIconOnly(true)
+                        ->setReadonly($noRb)
+                        ->setData(['oid' => $userId, 'fn' => 'enableUser', 'dest' => 'confirmExec']);
+                }
+                else {
+                    $buttons[] = (new \fpcm\view\helper\submitButton(uniqid('disableUser')))
+                        ->setText('GLOBAL_DISABLE')
+                        ->setClass('fpcm ui-userlist-actione')
+                        ->setIcon('user-lock')
+                        ->setIconOnly(true)
+                        ->setReadonly($noRb)
+                        ->setData(['oid' => $userId, 'fn' => 'disableUser', 'dest' => 'confirmExec']);
+                }
+                
+                $buttons[] = (new \fpcm\view\helper\deleteButton(uniqid('deleteUser')))
+                        ->setClass('fpcm ui-userlist-actione')
+                        ->setIconOnly(true)
+                        ->setReadonly($noRb)
+                        ->setData(['oid' => $userId, 'fn' => 'deleteUser', 'dest' => 'moveDeleteArticles']);
 
                 $dataView->addRow(
                     new \fpcm\components\dataView\row([
-                        new \fpcm\components\dataView\rowCol('select', (new \fpcm\view\helper\radiobutton('userids', 'userids'.$userId))->setValue($userId)->setReadonly($noRb), '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
                         new \fpcm\components\dataView\rowCol('button', implode('', $buttons), '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
                         new \fpcm\components\dataView\rowCol('username', new \fpcm\view\helper\escape($user->getDisplayname()) ),
                         new \fpcm\components\dataView\rowCol('email', new \fpcm\view\helper\escape($user->getEmail())),
                         new \fpcm\components\dataView\rowCol('registered', new \fpcm\view\helper\dateText($user->getRegistertime())),
-                        new \fpcm\components\dataView\rowCol('metadata', implode('', $metadata), 'fpcm-ui-metabox fpcm-ui-dataview-align-center', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
+                        new \fpcm\components\dataView\rowCol('metadata', implode('', $metadata), 'fs-5', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
                     ]
                 ));
 
@@ -300,7 +299,6 @@ class userlist extends \fpcm\controller\abstracts\controller implements \fpcm\co
         $dataView = new \fpcm\components\dataView\dataView('rollslist');
         
         $dataView->addColumns([
-            (new \fpcm\components\dataView\column('select', ''))->setSize(1)->setAlign('center'),
             (new \fpcm\components\dataView\column('button', ''))->setSize(2)->setAlign('center'),
             (new \fpcm\components\dataView\column('title', 'USERS_ROLLS_NAME'))->setSize('auto'),
         ]);
@@ -308,7 +306,6 @@ class userlist extends \fpcm\controller\abstracts\controller implements \fpcm\co
         foreach($rolls AS $descr => $rollId) {
 
             $buttons = [
-                '<div class="fpcm-ui-controlgroup">',
                 (new \fpcm\view\helper\editButton('rollEditBtn'.$rollId))->setUrl(\fpcm\classes\tools::getFullControllerLink('users/editroll', [
                     'id' => $rollId
                 ]))
@@ -317,14 +314,21 @@ class userlist extends \fpcm\controller\abstracts\controller implements \fpcm\co
             if ($this->permissions->system->permissions) {
                 $buttons[] = (new \fpcm\view\helper\linkButton('rollPermBtn'.$rollId))->setUrl(\fpcm\classes\tools::getFullControllerLink('users/permissions', [
                     'id' => $rollId
-                ]))->setIcon('key')->setIconOnly(true)->setText('USERS_ROLLS_PERMISSIONS')->setClass('fpcm-ui-rolllist-permissionedit');
+                ]))->setIcon('key')
+                    ->setIconOnly(true)
+                    ->setText('USERS_ROLLS_PERMISSIONS')
+                    ->setClass('fpcm ui-rolls-edit')
+                    ->setData(['type' => 'iframe']);
             }
             
-            $buttons[] = '</div>';
-
+            $buttons[] = (new \fpcm\view\helper\deleteButton(uniqid('deleteROll')))
+                    ->setClass('fpcm ui-rollslist-action-delete')
+                    ->setIconOnly(true)
+                    ->setReadonly($rollId <= 3)
+                    ->setData(['oid' => $rollId, 'fn' => 'deleteRoll']);
+            
             $dataView->addRow(
                 new \fpcm\components\dataView\row([
-                    new \fpcm\components\dataView\rowCol('select', (new \fpcm\view\helper\radiobutton('rollids', 'rollids'.$rollId))->setValue($rollId)->setReadonly($rollId <= 3), '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
                     new \fpcm\components\dataView\rowCol('button', implode('', $buttons), '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
                     new \fpcm\components\dataView\rowCol('title', new \fpcm\view\helper\escape($descr) ),
                 ]
@@ -335,106 +339,23 @@ class userlist extends \fpcm\controller\abstracts\controller implements \fpcm\co
         $this->view->addDataView($dataView);
         return true;
     }
-
-    /**
-     * Benutzer deaktivieren
-     * @return void
-     */
-    private function disableUsers()
+    
+    protected function initTabs()
     {
-        $userId = $this->request->fromPOST('userids', [\fpcm\model\http\request::FILTER_CASTINT]);
+        $tabs = [];
+        $tabs[] = (new \fpcm\view\helper\tabItem('users'))
+                ->setText('USERS_LIST')
+                ->setFile($this->getViewPath())
+                ->setTabToolbar(1);
         
-        if ($this->userList->countActiveUsers() == 1) {
-            $this->view->addErrorMessage('SAVE_FAILED_USER_DISABLE_LAST');
-            return;
+        if ($this->permissions->system->rolls) {
+            $tabs[] = (new \fpcm\view\helper\tabItem('rolls'))
+                    ->setText('USERS_LIST_ROLLS')
+                    ->setFile('users/rollslist')
+                    ->setTabToolbar(2);
         }
-
-        if ($userId == $this->session->getUserId()) {
-            $this->view->addErrorMessage('SAVE_FAILED_USER_DISABLE_OWN');
-            return;
-        }
-
-        $user = new \fpcm\model\users\author($userId);
-        if ($user->disable()) {
-            $this->view->addNoticeMessage('SAVE_SUCCESS_USER_DISABLE');
-            return;
-        }
-
-        $this->view->addErrorMessage('SAVE_FAILED_USER_DISABLE');
-    }
-
-    /**
-     * Benutzer aktivieren
-     * @return void
-     */
-    private function enableUsers()
-    {
-        $userId = $this->request->fromPOST('userids', [\fpcm\model\http\request::FILTER_CASTINT]);
-        if ($userId == $this->session->getUserId()) {
-            return;
-        }
-
-        $user = new \fpcm\model\users\author($userId);
-        if ($user->enable()) {
-            $this->view->addNoticeMessage('SAVE_SUCCESS_USER_ENABLE');
-            return;
-        }
-
-        $this->view->addErrorMessage('SAVE_FAILED_USER_ENABLE');
-    }
-
-    /**
-     * Benutzer löschen
-     * @return bool
-     */
-    private function deleteUser()
-    {
-        $params = $this->request->fromPOST(null);
         
-        $userId         = (int) $params['userids'];
-        $articlesParams = $params['articles'];
-        
-        if ($this->userList->countActiveUsers() == 1) {
-            $this->view->addErrorMessage('DELETE_FAILED_USERS_LAST');
-            return;
-        }
-
-        if ($userId == $this->session->getUserId()) {
-            $this->view->addErrorMessage('DELETE_FAILED_USERS_OWN');
-            return;
-        }
-
-        $user = new \fpcm\model\users\author($userId);
-        if (is_array($articlesParams) && !isset($articlesParams['action']) && !isset($articlesParams['user'])) {
-
-            if ($user->delete()) {
-                $this->view->addNoticeMessage('DELETE_SUCCESS_USERS');
-            } else {
-                $this->view->addErrorMessage('DELETE_FAILED_USERS');
-            }
-        }
-
-        if ($articlesParams['action'] === 'move' && $userId === (int) $articlesParams['user']) {
-            $this->view->addErrorMessage('DELETE_FAILED_USERSARTICLES');
-            return;
-        }
-
-        if (!$user->delete()) {
-            $this->view->addErrorMessage('DELETE_FAILED_USERS');
-            return false;
-        }
-
-        $articleList = new \fpcm\model\articles\articlelist();
-        switch ($articlesParams['action']) {
-            case 'move' :
-                $articleList->moveArticlesToUser($userId, (int) $articlesParams['user']);
-                break;
-            case 'delete' :
-                $articleList->deleteArticlesByUser($userId);
-                break;
-        }
-
-        $this->view->addNoticeMessage('DELETE_SUCCESS_USERS');
+        $this->view->addTabs('users', $tabs, '', $this->getActiveTab());
     }
 
 }

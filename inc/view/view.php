@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4
+ * FanPress CM 5
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -27,6 +27,7 @@ class view {
     const ROOTURL_UNIQUE = '{$unique}';
 
     const PATH_COMPONENTS = '{$components}';
+    const PATH_MODULE = '{$module}';
 
     const JS_FILETYP_URL  = 0b100;
     const JS_FILETYP_FILE = 0b010;
@@ -181,6 +182,13 @@ class view {
     protected $showPageToken = true;
 
     /**
+     * Include full js vars if no header included
+     * @var bool
+     * @since 5.0.0-b3
+     */
+    protected $fullJsVarsNoheader = false;
+
+    /**
      * Root urls for replacements
      * @var array
      * @since 4.1
@@ -193,7 +201,14 @@ class view {
      * @since 4.5-b7
      */
     protected $module = null;
-    
+
+    /**
+     * Active nagivation item
+     * @var string
+     * @since 5.0.0-a4
+     */
+    protected $navigationActiveModule = '';
+
     /**
      * Konstruktor
      * @param string $viewName Viewname ohne Endung .php
@@ -249,7 +264,7 @@ class view {
             'GLOBAL_CONFIRM', 'GLOBAL_CLOSE', 'GLOBAL_OK', 'GLOBAL_YES', 'GLOBAL_NO', 'GLOBAL_SAVE', 'GLOBAL_CLOSE',
             'GLOBAL_OPENNEWWIN', 'GLOBAL_EXTENDED', 'GLOBAL_EDIT_SELECTED', 'GLOBAL_NOTFOUND', 'SAVE_FAILED_ARTICLES',
             'AJAX_REQUEST_ERROR', 'AJAX_RESPONSE_ERROR', 'CONFIRM_MESSAGE', 'CACHE_CLEARED_OK', 'SELECT_ITEMS_MSG',
-            'HL_HELP', 'CSRF_INVALID', 'HEADLINE'
+            'HL_HELP', 'CSRF_INVALID', 'HEADLINE', 'GLOBAL_RESET', 'GLOBAL_PLEASEWAIT'
         ]);
 
         $this->jsLangVars['calendar']['days'] = $this->language->getDays();
@@ -314,32 +329,39 @@ class view {
         if ($this->config->system_maintenance) {
             $this->notifications->addNotification(new \fpcm\model\theme\notificationItem(
                 (new helper\icon('lightbulb'))->setText('SYSTEM_OPTIONS_MAINTENANCE'),
-                '', '', 'fpcm-ui-important-text'
+                '', '', 'text-danger'
             ));
         }
 
         if (!\fpcm\classes\baseconfig::asyncCronjobsEnabled()) {
             $this->notifications->addNotification(new \fpcm\model\theme\notificationItem(
                 (new helper\icon('history'))->setText('SYSTEM_OPTIONS_CRONJOBS'),
-                '', '', 'fpcm-ui-important-text'
+                '', '', 'text-danger'
             ));
         }
         
         if (defined('FPCM_DEBUG') && FPCM_DEBUG) {
             $this->notifications->addNotification(new \fpcm\model\theme\notificationItem(
                 (new helper\icon('terminal'))->setText('DEBUG_MODE'),
-                '', '', 'fpcm-ui-important-text'
+                '', '', 'text-danger'
             ));
         }
         
         if (defined('FPCM_VIEW_JS_USE_MINIFIED') && FPCM_VIEW_JS_USE_MINIFIED) {
             $this->notifications->addNotification(new \fpcm\model\theme\notificationItem(
                 (new helper\icon('js', 'fab'))->setText('NOTIFICATION_EXPERIMENTAL_MINJS'),
-                '', '', 'fpcm-ui-important-text'
+                '', '', 'text-danger'
+            ));
+        }
+        
+        if (defined('FPCM_UPLOADER_UPPY') && FPCM_UPLOADER_UPPY) {
+            $this->notifications->addNotification(new \fpcm\model\theme\notificationItem(
+                (new helper\icon('arrow-up-from-bracket'))->setText('NOTIFICATION_EXPERIMENTAL_UPPY'),
+                '', '', 'text-danger'
             ));
         }
 
-        $this->defaultViewVars->notificationString = $this->notifications->getNotificationsString();
+        $this->defaultViewVars->notifications = $this->notifications;
         return true;
     }
 
@@ -630,11 +652,26 @@ class view {
     }
 
     /**
-     * Renders a set up view
-     * @return bool
+     * Include full js var set if no header is included
+     * @param bool $fullJsVarsNoheader
      */
-    public function render()
+    public function includeFullJsVarsNoheader(bool $fullJsVarsNoheader)
     {
+        $this->fullJsVarsNoheader = $fullJsVarsNoheader;
+    }
+    
+    /**
+     * Renders view
+     * @param bool $return
+     * @param bool $includeFullJsVars
+     * @return void
+     */
+    public function render(bool $return = false)
+    {
+        if ($return) {
+            ob_start();
+        }
+        
         if (!file_exists($this->viewPath) || strpos(realpath($this->viewPath), \fpcm\classes\dirs::getFullDirPath('') ) !== 0) {
             trigger_error("View file {$this->viewName} not found in {$this->viewPath}!", E_USER_ERROR);
             exit("View file {$this->viewName} not found in {$this->viewPath}!");
@@ -665,6 +702,12 @@ class view {
 
         $this->events->trigger('view\renderAfter');
         $this->rendered = true;
+        
+        if ($return) {
+            $content = ob_get_contents();
+            ob_end_clean();
+            return $content;
+        }
 
         return true;
     }
@@ -685,8 +728,8 @@ class view {
 
             $this->defaultViewVars->currentUser = $this->session->getCurrentUser();
             $this->defaultViewVars->loginTime = $this->session->getLogin();
-            $this->defaultViewVars->navigation = (new \fpcm\model\theme\navigation())->render();
-            $this->defaultViewVars->navigationActiveModule = \fpcm\classes\tools::getNavigationActiveCheckStr();
+            $this->defaultViewVars->navigation = (new \fpcm\model\theme\navigation($this->navigationActiveModule))->render();
+            
             $this->defaultViewVars->loggedIn = true;
             $this->defaultViewVars->permissions = \fpcm\classes\loader::getObject('\fpcm\model\permissions\permissions');
         }
@@ -752,27 +795,40 @@ class view {
 
         $this->jsVars['currentModule'] = $this->defaultViewVars->currentModule;
 
-        $this->defaultViewVars->varsJs = [
+        $varsJs = [
             'vars' => [
                 'ui' => [
                     'messages' => $this->messages,
                     'lang' => $this->jsLangVars,
-                    'notifyicon' => \fpcm\classes\dirs::getCoreUrl(\fpcm\classes\dirs::CORE_THEME, 'favicon-32x32.png'),
-                    'components' => [
-                        'icon' => new helper\jsIcon(''),
-                        'input' => (string) (new helper\textInput('{{name}}', '{{id}}'))->setValue('{{value}}')
-                                            ->setText('{{text}}')->setClass('{{class}}')->setType('{{type}}')
-                                            ->setPlaceholder('{{placeholder}}')->setMaxlenght('255')
-                                            ->setWrapper(false)->setDisplaySizesDefault()
-                    ]
                 ],
                 'jsvars' => $this->jsVars,
-                'actionPath' => \fpcm\classes\tools::getFullControllerLink(''),
-                'ajaxActionPath' => \fpcm\classes\tools::getFullControllerLink('ajax/'),
             ]
+        ];        
+        
+        if ($this->showHeader === self::INCLUDE_HEADER_NONE && !$this->fullJsVarsNoheader) {
+            $this->defaultViewVars->varsJs = $varsJs;
+            $this->assign('theView', $this->defaultViewVars);
+            return true;
+        }
+
+        $varsJs['vars']['ui']['notifyicon'] = \fpcm\classes\dirs::getCoreUrl(\fpcm\classes\dirs::CORE_THEME, 'favicon-32x32.png');
+        $varsJs['vars']['ui']['components'] = [
+            'icon' => new helper\jsIcon(''),
+            'input' => (string) (new helper\textInput('{{name}}', '{{id}}'))->setValue('{{value}}')
+                        ->setText('{{text}}')->setClass('{{class}}')->setType('{{type}}')
+                        ->setPlaceholder('{{placeholder}}')->setMaxlenght('255')
+                        ->setDisplaySizesDefault()
         ];
 
-        $this->prepareNotifications();
+        $varsJs['vars']['ui']['dialogTpl'] = new \fpcm\model\files\jsViewTemplate('dialog');
+        $varsJs['vars']['actionPath'] = \fpcm\classes\tools::getFullControllerLink('');
+        $varsJs['vars']['ajaxActionPath'] = \fpcm\classes\tools::getFullControllerLink('ajax/');
+
+        $this->defaultViewVars->varsJs = $varsJs;
+        
+        if ($this->showHeader === self::INCLUDE_HEADER_FULL) {
+            $this->prepareNotifications();
+        }
 
         /* @var $theView viewVars */
         $this->assign('theView', $this->defaultViewVars);
@@ -850,8 +906,9 @@ class view {
         if (!trim($elementId)) {
             return false;
         }
-
-        $this->jsVars['navigationActive'] = (string) $elementId;
+        
+        $this->navigationActiveModule = $elementId;
+        return true;
     }
 
     /**
@@ -974,18 +1031,29 @@ class view {
     
     /**
      * Sets view to standard tab view,
-     * do not use if you want to include tabs in aother view!!!
+     * do not use if you want to include tabs in another view!!!
      * @param string $tabsId
      * @param array $tabs
      * @param string $tabsClass
      * @since 4.3
      */
-    public function addTabs(string $tabsId, array $tabs, string $tabsClass = '')
+    public function addTabs(string $tabsId, array $tabs, string $tabsClass = '', int $active = -1)
     {
+        if (count($tabs) === 1) {
+            $active = 0;
+        }
+        
+        if ($active > -1 && isset($tabs[$active])) {
+            $tabs[$active]->setState(helper\tabItem::STATE_ACTIVE);
+            
+        }
+
         $this->setViewPath('components/tabs');
         $this->assign('tabsId', $tabsId);
         $this->assign('tabs', $tabs);
         $this->assign('tabsClass', $tabsClass);
+
+        $this->setActiveTab($active);
     }
 
     /**
@@ -998,6 +1066,19 @@ class view {
         $this->addJsVars(['pager' => $pager->getJsVars()]);
         $this->addJsLangVars($pager->getJsLangVars());
     }
+    
+    /**
+     * Add off canvas widget to view
+     * @param string $headline
+     * @param array $filePath
+     * @since 5.0.0-b6
+     */
+    public function addOffCanvas(string $headline, string $filePath)
+    {
+        $this->assign('offcanvasFile', $filePath . '.php');
+        $this->assign('offcanvasHeadline', $headline);
+        $this->defaultViewVars->showOffCanvas = true;
+    }
 
     /**
      * Add HTML items into toolbar right hand to pager
@@ -1007,6 +1088,16 @@ class view {
     public function addToolbarRight(string $data)
     {
         $this->defaultViewVars->toolbarItemRight = $data;
+    }
+
+    /**
+     * Add path for default forms.php view file
+     * @param string str
+     * @since 5.0-dev
+     */
+    public function includeForms(string $str)
+    {
+        $this->defaultViewVars->includeForms = $str . '/forms.php';
     }
 
     /**
@@ -1046,10 +1137,9 @@ class view {
     private function initCssFiles()
     {
         $this->addCssFiles([
-            self::ROOTURL_LIB.'jquery-ui/jquery-ui.min.css',
+            self::ROOTURL_LIB.'bootstrap/css/bootstrap.min.css',
             self::ROOTURL_LIB.'fancybox/jquery.fancybox.min.css',
             self::ROOTURL_LIB.'font-awesome/css/all.min.css',
-            self::ROOTURL_LIB.'bootstrap/bootstrap-grid.min.css',
             self::ROOTURL_CORE_THEME.'style.php'
         ]);
 
@@ -1064,9 +1154,10 @@ class view {
     {
         $this->addJsFiles([
             \fpcm\components\components::getjQuery(),
-            self::ROOTURL_LIB.'jquery-ui/jquery-ui.min.js',
+            self::ROOTURL_LIB.'bootstrap/js/bootstrap.bundle.min.js',
+            self::ROOTURL_LIB.'bs-autocomplete/autocomplete.js',
             self::ROOTURL_LIB.'fancybox/jquery.fancybox.min.js',
-            self::ROOTURL_CORE_JS.'script.php?uq={$unique}'
+            self::ROOTURL_CORE_JS.'script.php?uq=' . self::ROOTURL_UNIQUE
         ]);
 
         $this->addJsFilesLate([self::ROOTURL_CORE_JS.'init'.self::getJsExt()]);

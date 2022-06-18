@@ -243,6 +243,18 @@ class userList extends \fpcm\model\abstracts\tablelist {
     }
 
     /**
+     * Check if given user last active user
+     * @param int $uid
+     * @return bool
+     * @since 5.0.0-rc3
+     */
+    public function isLastActiveUser(int $uid) : bool
+    {
+        $res = $this->dbcon->count($this->table, 'id', 'disabled = 0 and id != ?', [ $uid ]);
+        return $res > 1;
+    }
+
+    /**
      * Liste von Benutzern zurückgeben, die in den übergebenen Artikeln verwendet wurden
      * @param array $articleIds
      * @return \fpcm\model\users\author[]

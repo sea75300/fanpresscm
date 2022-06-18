@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4
+ * FanPress CM 5
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -24,7 +24,6 @@ final class boolSelect extends select {
     protected function init()
     {
         parent::init();
-        $this->class .= ' fpcm-ui-input-boolselect';
         $this->firstOption = self::FIRST_OPTION_DISABLED;
         $this->setOptions([
             'GLOBAL_YES' => 1,

@@ -1,16 +1,14 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
-<div class="fpcm-content-wrapper">
-    <div id="fpcm-tabs-templates">
-        <ul class="ui-tabs-nav ui-corner-all ui-helper-reset ui-helper-clearfix ui-widget-header">
-            <?php foreach ($tabs as $tab) : ?><?php print $tab; ?><?php endforeach; ?>
-        </ul>
+<?php if ($theView->permissions->system->drafts) : ?>
+<div id="fpcm-dataview-draftfiles"></div>
 
-        <?php if ($theView->permissions->system->drafts) : ?>
-        <div id="tab-article-editor-templates" class="fpcm tabs-register ui-tabs-panel ui-corner-bottom ui-widget-content">
-            <?php include $theView->getIncludePath('templates/article_templates.php'); ?>
-        </div>
-        <?php endif; ?>
+<div class="offcanvas offcanvas-end fpcm offcanvas-large" tabindex="-1" id="offcanvasUpload" aria-labelledby="offcanvasUploadLabel" data-bs-scroll="true">
+    <div class="offcanvas-header text-white bg-primary">
+        <h5 class="offcanvas-title" id="offcanvasUploadLabel"><?php $theView->icon('upload'); ?> <?php $theView->write('FILE_LIST_UPLOADFORM'); ?></h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="<?php $theView->write('GLOBAL_CLOSE'); ?>"></button>
+    </div>
+    <div class="offcanvas-body">
+        <?php include $uploadTemplatePath; ?>
     </div>
 </div>
-
-<div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-templatepreview-layer"></div>
+<?php endif; ?>

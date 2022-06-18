@@ -10,70 +10,88 @@ if (fpcm === undefined) {
 
 if (fpcm.editor !== undefined) {
 
-    fpcm.editor.showFileManager = function(fmgrMode) {
+    fpcm.editor.showFileManager = function(_mode) {
 
-        if (fmgrMode === undefined) {
-            fmgrMode = fpcm.vars.jsvars.filemanagerMode;
+        if (_mode === undefined) {
+            _mode = fpcm.vars.jsvars.filemanagerMode;
         }
 
-        var size = fpcm.ui.getDialogSizes(top, 0.75);
-
-        fpcm.dom.appendHtml('#fpcm-dialog-editor-html-filemanager', '<iframe id="fpcm-dialog-editor-html-filemanager-frame" class="fpcm-ui-full-width" src="' + fpcm.vars.jsvars.filemanagerUrl + fmgrMode + '"></iframe>');
-        fpcm.ui.dialog({
-            id       : 'editor-html-filemanager',
-            dlMinWidth : size.width,
-            dlMinHeight: size.height,
-            modal    : true,
-            resizable: true,
-            title    : fpcm.ui.translate('HL_FILES_MNG'),
-            dlButtons  : [
-                {
-                    text: fpcm.ui.translate('FILE_LIST_INSERTGALLERY'),
-                    icon: "ui-icon-suitcase",
-                    disabled: fpcm.editor.insertGalleryDisabled(fmgrMode),
-                    click: function() {
-                        fpcm.dom.fromTag(this).children('#fpcm-dialog-editor-html-filemanager-frame').contents().find('#insertGallery').click();
-                    }
-                },
-                {
-                    text: fpcm.ui.translate('ARTICLES_SEARCH'),
-                    icon: "ui-icon-search",
-                    click: function() {
-                        fpcm.dom.fromTag(this).children('#fpcm-dialog-editor-html-filemanager-frame').contents().find('#opensearch').click();
-                    }
-                },
-                {
-                    text: fpcm.ui.translate('FILE_LIST_NEWTHUMBS'),
-                    icon: "ui-icon-image",
-                    click: function() {
-                        fpcm.dom.fromTag(this).children('#fpcm-dialog-editor-html-filemanager-frame').contents().find('#createThumbs').click();
-                    }
-                },
-                {
-                    text: fpcm.ui.translate('GLOBAL_DELETE'),
-                    icon: "ui-icon-trash",
-                    click: function() {
-                        fpcm.dom.fromTag(this).children('#fpcm-dialog-editor-html-filemanager-frame').contents().find('#deleteFiles').click();
-                    }
-                },
-                {
-                    text: fpcm.ui.translate('GLOBAL_CLOSE'),
-                    icon: "ui-icon-closethick",                    
-                    click: function() {
-                        fpcm.dom.fromTag(this).dialog('close');
-                    }
-                }                            
-            ],
-            dlOnClose: function( event, ui ) {
-                fpcm.dom.fromTag(this).empty();
+        let _btns = [{
+            text: 'ARTICLES_SEARCH',
+            icon: "search",
+            click: function(_ui) {
+                fpcm.dom.findElementInDialogFrame(_ui, '#btnOpenSearch').click();
             }
+        }];
+        
+        
+        if (fpcm.vars.jsvars.filemanagerPermissions.add) {
+            _btns.push({
+                text: 'FILE_LIST_UPLOADFORM',
+                icon: "upload",
+                primary: true,
+                click: function(_ui) {
+                    fpcm.dom.findElementInDialogFrame(_ui, '#btnFileUpload').click();
+                }
+            });
+        }
+        
+        if (!fpcm.editor.insertGalleryDisabled(_mode)) {
+            _btns.push({
+                text: 'FILE_LIST_INSERTGALLERY',
+                icon: "images",
+                click: function(_ui) {
+
+                    let _var = fpcm.dom.findElementInDialogFrame(_ui, '.fpcm-ui-list-checkbox:checked');
+                    if (!_var.length) {
+                        return false;
+                    } 
+                    
+                    var values = [];
+                    _var.map(function (idx, item) {
+                        values.push(item.dataset.gallery);
+                    });
+
+                    if (!values.length) {
+                        return false;
+                    }
+
+                    fpcm.editor.insertGalleryByEditor(values);
+                    return false;                    
+                }
+            });
+        }
+
+        if (fpcm.vars.jsvars.filemanagerPermissions.thumbs) {
+            _btns.push({
+                text: 'FILE_LIST_NEWTHUMBS',
+                icon: "image",
+                click: function(_ui) {
+                    fpcm.dom.findElementInDialogFrame(_ui, '#btnCreateThumbs').click();
+                }
+            });
+        }
+
+        if (fpcm.vars.jsvars.filemanagerPermissions.delete) {
+            _btns.push({
+                text: 'GLOBAL_DELETE',
+                icon: "trash",
+                click: function(_ui) {
+                    fpcm.dom.findElementInDialogFrame(_ui, '#btnDeleteFiles').click();
+                }
+            });
+        }
+
+        fpcm.ui_dialogs.create({
+            id: 'editor-html-filemanager',
+            title: 'HL_FILES_MNG',
+            closeButton: true,
+            url: fpcm.vars.jsvars.filemanagerUrl + _mode,
+            useSize: true,
+            size: 'xl modal-fullscreen-lg-down',
+            modalBodyClass: 'vh-75',
+            dlButtons: _btns
         });   
     };
 
-    fpcm.editor.setSelectToDialog = function(obj) {
-        fpcm.dom.fromTag(obj).find('.fpcm-ui-input-select').selectmenu({
-            appendTo: "#" + fpcm.dom.fromTag(obj).attr('id')
-        });
-    };
-    
 }

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4.x
+ * FanPress CM 5.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -77,17 +77,23 @@ class fpcmDefault extends \fpcm\model\abstracts\spamCaptcha {
      * @return string
      * @since 4.3
      */
-    public function createPluginTextInput()
+    public function createPluginTextInput(bool $float = false)
     {
         if ($this->session->exists()) {
             return '';
         }
 
-        return (string) (new \fpcm\view\helper\textInput('commentCaptcha'))
+        $obj = (new \fpcm\view\helper\textInput('commentCaptcha'))
             ->setClass('fpcm-pub-textinput')
             ->setAutocomplete(false)
-            ->setText($this->config->comments_antispam_question)
-            ->setDisplaySizesDefault();
+            ->setText($this->config->comments_antispam_question);
+        
+        if ($float) {
+            $obj->setLabelTypeFloat();
+            $obj->setPlaceholder($this->config->comments_antispam_question);
+        }
+        
+        return (string) $obj;
     }
     
     /**
@@ -101,7 +107,7 @@ class fpcmDefault extends \fpcm\model\abstracts\spamCaptcha {
             return '';
         }
 
-        return (string) (new \fpcm\view\helper\textInput('commentCaptcha'))->setClass('fpcm-pub-textinput')->setWrapper($wrap)->setAutocomplete(false)->setText('');
+        return (string) (new \fpcm\view\helper\textInput('commentCaptcha'))->setClass('fpcm-pub-textinput')->setAutocomplete(false)->setText('');
     }
 
     /**

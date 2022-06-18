@@ -17,28 +17,13 @@ class useradd extends userbase {
      */
     protected $author;
 
-    protected function getViewPath() : string
-    {
-        return 'users/useradd';
-    }
-
-    protected function getHelpLink()
-    {
-        return 'HL_OPTIONS_USERS';
-    }
-
-    protected function getActiveNavigationElement()
-    {
-        return 'submenu-itemnav-item-users';
-    }   
-
     public function process()
     {
         parent::process();
         
         $this->view->addButtons([
-            (new \fpcm\view\helper\saveButton('userSave'))->setClass('fpcm-ui-button-primary'),
-            (new \fpcm\view\helper\checkbox('data[passInfoUser]'))->setText('USERS_SENDUSERINFO')
+            (new \fpcm\view\helper\saveButton('userSave'))->setPrimary(),
+            (new \fpcm\view\helper\checkbox('data[passInfoUser]'))->setText('USERS_SENDUSERINFO')->setSwitch(true)->setWrapperClass('ms-2 mb-0 mt-1')
         ]);
         $this->view->setFormAction('users/add');
         $this->view->assign('showDisableButton', false);
@@ -46,6 +31,14 @@ class useradd extends userbase {
         $this->view->assign('showImage', false);
         $this->view->assign('twoFaAuth', false);
         $this->view->render();
+    }
+    
+    protected function initTabs()
+    {
+        $tabs = [];
+        $tabs[] = (new \fpcm\view\helper\tabItem('edit'))->setText('USERS_ADD')->setFile( $this->getViewPath() . '.php');       
+        $this->view->addTabs('users', $tabs, 'fpcm ui-tabs-autoinit');
+        
     }
 
 }

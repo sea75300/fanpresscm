@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4.x
+ * FanPress CM 5.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -75,7 +75,7 @@ class progress implements \JsonSerializable {
             return;
         }
         
-        $this->maxExec = round(((int) $ini) * 0.8, 0, PHP_ROUND_HALF_DOWN);
+        $this->maxExec = 3; //round(((int) $ini) * 0.8, 0, PHP_ROUND_HALF_DOWN);
     }
 
     /**

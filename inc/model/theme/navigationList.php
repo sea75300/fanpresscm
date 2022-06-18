@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4.x
+ * FanPress CM 5.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -16,7 +16,7 @@ namespace fpcm\model\theme;
  * @package fpcm\model\theme
  * @since 4.5
  */
-final class navigationList implements \ArrayAccess {
+final class navigationList {
 
     /**
      * Item list
@@ -26,10 +26,19 @@ final class navigationList implements \ArrayAccess {
     private $data;
 
     /**
+     * Active navigation item
+     * @var string
+     * @since 5.0.0-a4
+     */
+    private $activeNavItem = '';
+
+    /**
      * @ignore
      */
-    final public function __construct()
+    final public function __construct(string $activeNavItem = '')
     {
+        $this->activeNavItem = $activeNavItem ?? \fpcm\classes\tools::getNavigationActiveCheckStr();
+
         $this->data = [
             navigationItem::AREA_DASHBOARD => [],
             navigationItem::AREA_ADDNEWS => [],
@@ -78,6 +87,11 @@ final class navigationList implements \ArrayAccess {
             return false;
         }
         
+        if ($id == $area) {
+            $this->data[$area] = [];
+            return true;
+        }
+        
         unset($this->data[$area][$id]);
         return true;
     }
@@ -86,58 +100,13 @@ final class navigationList implements \ArrayAccess {
      * Fetch item list
      * @return array
      */
-    public function fetch() : array
+    public function fetch(string $str = '') : array
     {
-        return $this->data;
-    }
-
-    /**
-     * Offset exists
-     * @param string $offset
-     * @return bool
-     */
-    public function offsetExists($offset): bool
-    {
-        return isset($this->data[$offset]);
-    }
-
-    /**
-     * Returns offet value
-     * @param string $offset
-     * @return navigationItem
-     */
-    public function offsetGet($offset)
-    {
-        return $this->data[$offset];
-    }
-
-    /**
-     * Set offset to value
-     * @param type $offset
-     * @param \fpcm\model\theme\navigationItem $value
-     * @return void
-     * @see navigationList::add
-     */
-    public function offsetSet($offset, $value): void
-    {
-        if (!$value instanceof navigationItem) {
-            trigger_error('Item added to mńavigation list must be an instance of "\fpcm\model\theme\navigationItem".');
-            return;
+        if (trim($str)) {
+            return $this->data[$str];
         }
         
-        $this->add($offset, $value);
-        return;
-    }
-
-    /**
-     * Unset offset
-     * @param string $offset
-     * @return void
-     * @ignore
-     */
-    public function offsetUnset($offset): void
-    {
-        return;
+        return $this->data;
     }
     
     /**
@@ -147,13 +116,25 @@ final class navigationList implements \ArrayAccess {
      */
     private function checkSubmenu(navigationItem &$item) : bool
     {
+        $item->initDefault($this->activeNavItem);
         if (!$item->hasSubmenu()) {
             return true;
         }
 
         $submenu = array_filter($item->getSubmenu(), function (navigationItem $subItem) {
-            return $subItem->isAccessible() === false ? false : true;
+
+            if ($subItem->isAccessible() === false) {
+                return false;
+            }
+
+            return true;
         });
+        
+        
+        foreach ($submenu as $subItem) {
+            $subItem->initDefault($this->activeNavItem);
+            $subItem->setIsSubmenuItem(true);
+        }
 
         $item->setSubmenu($submenu);
         return true;

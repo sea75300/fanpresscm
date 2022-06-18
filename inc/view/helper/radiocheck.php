@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4
+ * FanPress CM 5
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -21,6 +21,20 @@ abstract class radiocheck extends helper {
         traits\valueHelper,
         traits\typeHelper,
         traits\selectedHelper;
+
+    /**
+     * Inline element
+     * @var bool
+     * @since 5.0-dev
+     */
+    protected $inline = false;
+
+    /**
+     * Switch element
+     * @var bool
+     * @since 5.0-dev
+     */
+    protected $switch = false;
 
     /**
      * Optional init function
@@ -51,46 +65,51 @@ abstract class radiocheck extends helper {
     }
 
     /**
+     * Set check to inline element
+     * @param bool $inline
+     * @return $this
+     * @since 5.0-dev
+     */
+    public function setInline(bool $inline)
+    {
+        $this->inline = $inline;
+        return $this;
+    }
+
+    /**
+     * Set switch element
+     * @param bool $inline
+     * @return $this
+     * @since 5.0-dev
+     */
+    public function setSwitch(bool $switch) {
+        $this->switch = $switch;
+        return $this;
+    }
+    
+    /**
      * Return element string
      * @return string
      */
     protected function getString()
     {
-        $labelClass = (strpos($this->class, 'fpcm-ui-hidden') !== false) ? $this->getClassString() : '';
+        $labelClass = ' form-check-label '.$this->labelClass;
         
-        if (!$labelClass && trim($this->labelClass)) {
-            $labelClass = " class=\"{$this->labelClass}\"";
-        }
+        $wrapStart = $this->text && !$this->iconOnly ? '<div class="form-check '. ( $this->inline ? 'form-check-inline' : '') . ($this->switch ? 'form-switch' : '').' ' . $this->wrapperClass . '  ">' : '';
+        $wrapEnd   = $this->text && !$this->iconOnly ? '</div>' : '';
 
-        if ($this->iconOnly) {            
-            return implode(' ', [
-                "<input type=\"{$this->type}\"",
-                $this->getNameIdString(),
-                $this->getClassString(),
-                $this->getReadonlyString(),
-                $this->getValueString(),
-                $this->getDataString(),
-                $this->getSelectedString(),
-                ">",
-                "<label for=\"{$this->id}\" title=\"{$this->text}\" {$labelClass}>",
-                $this->getIconString(),
-                "</label>"
-            ]);
+        $inEL = "<input type=\"{$this->type}\" {$this->getNameIdString()} {$this->getClassString()} {$this->getReadonlyString()} {$this->getValueString()} {$this->getDataString()} {$this->getSelectedString()}>";
+
+        $inLa = '';
+        if ($this->text && !$this->iconOnly) {
+            $inLa = "<label for=\"{$this->id}\" class=\"{$labelClass}\">" .
+                    $this->getIconString() .
+                    ( $this->iconOnly ? '' : $this->getDescriptionTextString() ) .
+                   "</label>";
         }
         
-        return implode(' ', [
-            "<input type=\"{$this->type}\"",
-            $this->getNameIdString(),
-            $this->getClassString(),
-            $this->getReadonlyString(),
-            $this->getValueString(),
-            $this->getDataString(),
-            $this->getSelectedString(),
-            "><label for=\"{$this->id}\" {$labelClass}>",
-            $this->getIconString(),
-            $this->getDescriptionTextString(),
-            "</label>",
-        ]);
+        return $wrapStart .$inEL . $inLa . $wrapEnd;
+
     }
 
 }

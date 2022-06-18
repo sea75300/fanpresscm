@@ -21,7 +21,7 @@ fpcm.filemanagerTinyMCE5Msg = {
             }
 
             if (event.data.mceAction === 'clickFmgrBtn') {
-                fpcm.dom.fromId('' + event.data.cmd).click()
+                fpcm.dom.fromId(event.data.cmd).click()
             }
 
         });

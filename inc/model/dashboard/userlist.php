@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4.x
+ * FanPress CM 5.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -10,7 +10,7 @@ namespace fpcm\model\dashboard;
 /**
  * User list dashboard container object
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @since 3.2.0
  * @package fpcm\model\dashboard
@@ -34,12 +34,25 @@ class userlist extends \fpcm\model\abstracts\dashcontainer {
      */
     public function getContent()
     {
-        $this->getCacheName();
-        if ($this->cache->isExpired($this->cacheName)) {
-            $this->renderContent();
+        $content = [];
+        $content[] = '<div>';
+
+        /* @var $item \fpcm\model\users\author */
+        foreach ((new \fpcm\model\users\userList())->getUsersActive() as $item) {
+
+            $emailAddress = (new \fpcm\view\helper\escape($item->getEmail()));
+            
+            $content[] = '<div class="row fpcm-ui-font-small py-2">';
+            $content[] = $this->get2ColRowSmallLeftAuto(
+                (new \fpcm\view\helper\linkButton(uniqid('createMail')))->setUrl('mailto:' . $emailAddress)->setText('GLOBAL_WRITEMAIL')->setTarget('_blank')->setIcon('envelope')->setIconOnly(true),
+                '<strong>' . (new \fpcm\view\helper\escape($item->getDisplayname())) . '</strong><br><span>' . $emailAddress . '</span>'
+            );
+            $content[] = '</div>';
+
         }
 
-        return $this->cache->read($this->cacheName);
+        $content[] = '</div>';
+        return implode(PHP_EOL, $content);
     }
 
     /**
@@ -66,31 +79,7 @@ class userlist extends \fpcm\model\abstracts\dashcontainer {
     private function renderContent()
     {
 
-        $userlist = new \fpcm\model\users\userList();
 
-        $content = [];
-        $content[] = '<div>';
-
-        $items = $userlist->getUsersActive();
-        /* @var $item \fpcm\model\users\author */
-        foreach ($items as $item) {
-
-            $emailAddress = (new \fpcm\view\helper\escape($item->getEmail()));
-            
-            $content[] = '<div class="row fpcm-ui-font-small py-2">';
-            $content[] = $this->get2ColRowSmallLeftAuto(
-                (new \fpcm\view\helper\linkButton(uniqid('createMail')))->setUrl('mailto:' . $emailAddress)->setText('GLOBAL_WRITEMAIL')->setTarget('_blank')->setIcon('envelope')->setIconOnly(true),
-                '<strong>' . (new \fpcm\view\helper\escape($item->getDisplayname())) . '</strong><br><span>' . $emailAddress . '</span>'
-            );
-            $content[] = '</div>';
-
-        }
-
-        $content[] = '</div>';
-
-        $this->content = implode(PHP_EOL, $content);
-
-        $this->cache->write($this->cacheName, $this->content, $this->config->system_cache_timeout);
     }
 
 }

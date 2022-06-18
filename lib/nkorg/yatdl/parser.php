@@ -8,9 +8,9 @@ namespace nkorg\yatdl;
  * 
  * @package nkorg\yatdl
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2016-2020, Stefan Seehafer
+ * @copyright (c) 2016-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
- * @version YaTDL4.0
+ * @version 4.0
  */
 final class parser {
 
@@ -43,7 +43,7 @@ final class parser {
      * In Array geparstes YAML-String
      * @var tableItem
      */
-    protected $yamlArray;
+    protected $tabData;
 
     /**
      * Array mit SQL-Strings
@@ -89,14 +89,14 @@ final class parser {
 
     /**
      * 
-     * @param array $yamlArray
+     * @param array $tabData
      * @param string $driver
      * @param array $dataTypes
      * @throws Exception
      */
-    public function __construct(array $yamlArray, string $driver, array $dataTypes)
+    public function __construct(array $tabData, string $driver, array $dataTypes)
     {
-        $drvPath = __DIR__ . DIRECTORY_SEPARATOR . $driver . '.php';
+        $drvPath = __DIR__ . DIRECTORY_SEPARATOR . 'driver' . DIRECTORY_SEPARATOR . $driver . '.php';
         if (!file_exists($drvPath)) {
             throw new \Exception('Unsupported database driver ' . $driver);
         }
@@ -108,9 +108,9 @@ final class parser {
 
         $this->dataTypeList = dataTypes::getTypeList();
         $this->currentDriver = $driver;
-        $className = 'nkorg\\yatdl\\' . $driver;
+        $className = 'nkorg\\yatdl\\driver\\' . $driver;
         $this->driver = new $className($dataTypes);
-        $this->yamlArray = $yamlArray;
+        $this->tabData = new tableItem($tabData);
     }
 
     /**
@@ -119,7 +119,7 @@ final class parser {
      */
     public function setTablePrefix(string $tablePrefix)
     {
-        $this->yamlArray['name'] = $tablePrefix . $this->yamlArray['name'];
+        $this->tabData->name = $tablePrefix . $this->tabData->name;
     }
 
     /**
@@ -135,8 +135,8 @@ final class parser {
             return self::ERROR_YAMLCHECK_FAILED;
         }
         
-        $this->driver->setYamlArray($this->yamlArray);
-        if ($this->yamlArray->isview === null) {
+        $this->driver->setYamlArray($this->tabData);
+        if ($this->tabData->isview === null) {
             return $this->parseTable();
         }
 
@@ -170,7 +170,7 @@ final class parser {
      */
     public function dumpYamlArray()
     {
-        print '<pre>' . print_r($this->yamlArray, true) . '</pre>';
+        print '<pre>' . print_r($this->tabData, true) . '</pre>';
     }
 
     /**
@@ -179,7 +179,16 @@ final class parser {
      */
     public function getArray()
     {
-        return $this->yamlArray;
+        return $this->tabData->toArray();
+    }
+
+    /**
+     * Gibt geparsten YAML-String als Array zurück
+     * @return tableItem
+     */
+    public function getTabData()
+    {
+        return $this->tabData;
     }
 
     /**
@@ -223,11 +232,11 @@ final class parser {
      */
     private function parseView() : bool
     {
-        if ($this->yamlArray->isview === '') {
+        if ($this->tabData->isview === '') {
             return self::ERROR_YAMLPARSER_VIEW;
         }
 
-        if (!$this->yamlArray->isview) {
+        if (!$this->tabData->isview) {
             return false;
         }
 
@@ -242,7 +251,7 @@ final class parser {
      */
     private function createAutoincrement()
     {
-        $aiItem = new autoIncrementItem($this->yamlArray->autoincrement);
+        $aiItem = new autoIncrementItem($this->tabData->autoincrement);
         if ($aiItem->start === null) {
             trigger_error('Invalid YAML autoincrement data, no "start" property found!');
             return false;
@@ -271,7 +280,7 @@ final class parser {
      */
     private function createIndices()
     {
-        if (!is_array($this->yamlArray->indices) || !count($this->yamlArray->indices)) {
+        if (!is_array($this->tabData->indices) || !count($this->tabData->indices)) {
             return true;
         }
 
@@ -284,27 +293,27 @@ final class parser {
      */
     private function createDefaultInsert()
     {
-        if ($this->yamlArray->defaultvalues === null || !is_array($this->yamlArray->defaultvalues['rows']) || !count($this->yamlArray->defaultvalues['rows'])) {
+        if ($this->tabData->defaultvalues === null || !is_array($this->tabData->defaultvalues['rows']) || !count($this->tabData->defaultvalues['rows'])) {
             return true;
         }
 
         $textTypes = dataTypes::getTextTypeList();
 
         $values = [];
-        foreach ($this->yamlArray->defaultvalues['rows'] as $row) {
+        foreach ($this->tabData->defaultvalues['rows'] as $row) {
 
             array_walk($row, function (&$colval, $col) use ($textTypes, &$values)  {
-                $colval = in_array($this->yamlArray->cols[$col]['type'], $textTypes) ? "'{$colval}'" : $colval;
+                $colval = in_array($this->tabData->cols[$col]['type'], $textTypes) ? "'{$colval}'" : $colval;
             });
 
             $values[] = implode(', ', $row);
             
         }
 
-        $cols = implode(', ', array_keys($this->yamlArray->cols));
+        $cols = implode(', ', array_keys($this->tabData->cols));
         $values = implode('), (', $values);
 
-        $this->sqlArray['defaultinsert'] = "INSERT INTO {{dbpref}}_{$this->yamlArray->name} ({$cols}) VALUES ($values);";
+        $this->sqlArray['defaultinsert'] = "INSERT INTO {{dbpref}}_{$this->tabData->name} ({$cols}) VALUES ($values);";
         return true;
     }
 
@@ -313,59 +322,52 @@ final class parser {
      * @return boolean
      */
     private function checkYamlArray()
-    {
-        if (!is_array($this->yamlArray)) {
-            trigger_error('Invalid YAML data, no valid data available!');
-            return false;
-        }
-        
-        if (array_key_exists('isview', $this->yamlArray) && $this->yamlArray['isview']) {
+    {        
+        if ($this->tabData->isview !== null && $this->tabData->isview) {
 
-            if (!array_key_exists('query', $this->yamlArray) && !array_key_exists('query'.$this->currentDriver, $this->yamlArray)) {
+            if ($this->tabData->query === null && $this->tabData->{'query'.$this->currentDriver}) {
                 trigger_error('Invalid YAML data, no "query" property found!');
                 return false;
             }
 
-            $this->yamlArray = new tableItem($this->yamlArray);
             return true;
         }
 
-        if (!array_key_exists('name', $this->yamlArray) || !trim($this->yamlArray['name'])) {
+        if ($this->tabData->cols === null || !trim($this->tabData->name)) {
             trigger_error('Invalid YAML data, no "name" property found!');
             return false;
         }
 
-        if (!array_key_exists('cols', $this->yamlArray) || !is_array($this->yamlArray['cols']) || !count($this->yamlArray['cols'])) {
+        if ($this->tabData->cols === null || !is_array($this->tabData->cols) || !count($this->tabData->cols)) {
             trigger_error('Invalid YAML data, no "cols" property found!');
             return false;
         }
 
-        if (!array_key_exists('indices', $this->yamlArray)) {
+        if ($this->tabData->indices === null) {
             trigger_error('Invalid YAML data, no "index" property found!');
             return false;
         }
 
-        if (!array_key_exists('primarykey', $this->yamlArray)) {
+        if ($this->tabData->primarykey === null) {
             trigger_error('Invalid YAML data, no "primarykey" property found!');
             return false;
         }
 
-        if (!array_key_exists('charset', $this->yamlArray)) {
+        if ($this->tabData->charset === null) {
             trigger_error('Invalid YAML data, no "charset" property found!');
             return false;
         }
 
-        if (!array_key_exists('autoincrement', $this->yamlArray)) {
+        if ($this->tabData->autoincrement === null) {
             trigger_error('Invalid YAML data, no "autoincrement" property found!');
             return false;
         }
 
-        if (!array_key_exists('engine', $this->yamlArray)) {
+        if ($this->tabData->engine === null) {
             trigger_error('Invalid YAML data, no "engine" property found!');
             return false;
         }
 
-        $this->yamlArray = new tableItem($this->yamlArray);
         return true;
     }
 
@@ -387,20 +389,17 @@ final class parser {
     /**
      * Create view statement
      * @return bool
-     * @since @since YaTDL4.0
+     * @since YaTDL4.0
      */
     private function createViewString() : bool
     {
-        $queryStr   = $this->yamlArray->{'query'.$this->currentDriver}
-                    ? $this->yamlArray->{'query'.$this->currentDriver}
-                    : $this->yamlArray->query;
-                    
-                    
+        $queryStr = $this->tabData->{'query'.$this->currentDriver} ?? $this->tabData->query;
+ 
         if (!trim($queryStr)) {
             return false;
         }
 
-        $this->sqlString = 'CREATE OR REPLACE VIEW {{dbpref}}_'.$this->yamlArray->name.' AS '.$queryStr;
+        $this->sqlString = 'CREATE OR REPLACE VIEW {{dbpref}}_'.$this->tabData->name.' AS '.$queryStr;
         return true;
     }
 

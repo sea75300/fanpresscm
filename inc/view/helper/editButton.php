@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4
+ * FanPress CM 5
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -24,7 +24,7 @@ final class editButton extends linkButton {
     protected function init()
     {
         parent::init();
-        $this->class .= ' fpcm-ui-button-edit fpcm-loader';
+        $this->class .= ' fpcm-ui-button-edit';
         $this->iconOnly = true;
         $this->setText('GLOBAL_EDIT');
         $this->setIcon('edit');

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4
+ * FanPress CM 5
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -24,17 +24,31 @@ class button extends helper {
     const NAME_PREFIX = 'btn';
 
     /**
+     * Is primary button
+     * @var bool
+     * @since 5.0-dev
+     */
+    protected $primary = false;
+
+    /**
      * Return element string
      * @return string
      */
     protected function getString()
     {
+        if ($this->primary) {
+            $this->overrideButtonType('primary');
+        }
+        
+        $icon = trim($this->getIconString());
+        
         return implode(' ', [
             "<button type=\"{$this->type}\" ",
             $this->getDataString(),
+            $this->getAriaString(),
             $this->getReadonlyString(),
-            ($this->readonly ? $this->getClassString() : $this->getNameIdString() . ' ' . $this->getClassString()),
-            ($this->iconOnly ? "title=\"{$this->text}\">{$this->getIconString()}" : ">{$this->getIconString()} {$this->getDescriptionTextString()}"),
+            $this->getNameIdString() . ' ' . $this->getClassString(),
+            ($this->iconOnly ? "title=\"{$this->text}\">{$icon}" : ">{$icon}{$this->getDescriptionTextString()}"),
             "</button>"
         ]);
     }
@@ -55,8 +69,50 @@ class button extends helper {
     protected function init()
     {
         $this->prefix = self::NAME_PREFIX;
-        $this->class = 'ui-button ui-corner-all fpcm-ui-button';
+        $this->class = 'btn btn-light shadow-sm fpcm ui-button';
         $this->type = 'button';
+    }
+    
+    /**
+     * Set button to primary
+     * @param bool $primary
+     * @return $this
+     * @since 5.0-dev
+     */
+    public function setPrimary(bool $primary = true)
+    {
+        $this->primary = $primary;
+        return $this;
+    }
+
+    /**
+     * Bind function to button click
+     * @param string $func
+     * @param type $args
+     * @return $this
+     * @since 5.0-dev
+     */
+    final public function setOnClick(string $func, $args = null)
+    {
+        if (!$func) {
+            return $this;
+        }
+        
+        $this->data['fn'] = $func;
+        $this->data['fn-arg'] = $args;
+        return $this;
+    }
+
+    /**
+     * Override bs button type
+     * @param string $rel
+     * @return $this
+     * @since 5.0.0-b3
+     */
+    public function overrideButtonType(string $type)
+    {
+        $this->class = preg_replace('/(btn-)(\w+\s{1})(.*)/i', '$1'.$type.' $3', $this->class);
+        return $this;
     }
 
 }

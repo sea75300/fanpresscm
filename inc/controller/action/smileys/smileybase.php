@@ -11,6 +11,9 @@ namespace fpcm\controller\action\smileys;
 
 abstract class smileybase extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\isAccessible {
 
+    use \fpcm\controller\traits\common\simpleEditForm,
+        \fpcm\controller\traits\theme\nav\smileys;
+    
     /**
      *
      * @var \fpcm\model\files\smiley
@@ -22,30 +25,6 @@ abstract class smileybase extends \fpcm\controller\abstracts\controller implemen
      * @var int
      */
     protected $id;
-
-    /**
-     * 
-     * @return bool
-     */
-    public function isAccessible(): bool
-    {
-        return $this->permissions->system->smileys;
-    }
-
-    final protected function getViewPath() : string
-    {
-        return 'smileys/editor';
-    }
-
-    final protected function getHelpLink()
-    {
-        return 'HL_OPTIONS_SMILEYS';
-    }
-
-    final protected function getActiveNavigationElement()
-    {
-        return 'submenu-itemnav-item-smileys';
-    }
 
     public function request()
     {
@@ -74,24 +53,37 @@ abstract class smileybase extends \fpcm\controller\abstracts\controller implemen
         foreach ($smileyList->getFolderList() as $file) {
 
             $fileName = basename($file);
-            $url = \fpcm\classes\dirs::getDataUrl(\fpcm\classes\dirs::DATA_SMILEYS, $fileName);
 
             $files[] = [
-                'label' => $url,
+                'label' => $fileName,
                 'value' => $fileName
             ];
         }
 
-        $this->view->addJsVars(['files' => $files]);
+        $this->view->addJsVars([
+            'files' => $files,
+            'smileypath' => \fpcm\classes\dirs::getDataUrl(\fpcm\classes\dirs::DATA_SMILEYS, '')
+        ]);
+
         $this->view->addJsFiles(['smileys.js']);
-        $this->view->assign('smiley', $this->smiley);
         $this->view->addButton(new \fpcm\view\helper\saveButton('saveSmiley'));
-        $this->view->assign('tabActionString', 'FILE_LIST_SMILEY'.$this->getActionText());
 
         $this->view->addTabs('smileys', [
             (new \fpcm\view\helper\tabItem('smiley'))
                 ->setText('FILE_LIST_SMILEY'.$this->getActionText())
                 ->setFile($this->getViewPath().'.php')
+        ]);
+
+        $this->assignFields([
+            (new \fpcm\view\helper\textInput('smiley[code]'))
+                    ->setValue($this->smiley->getSmileyCode())
+                    ->setText('FILE_LIST_SMILEYCODE')
+                    ->setIcon('bookmark')
+                    ->setAutoFocused(true),
+            (new \fpcm\view\helper\textInput('smiley[filename]', 'smileyfilename'))
+                    ->setValue($this->smiley->getFilename())
+                    ->setText('FILE_LIST_FILENAME')
+                    ->setIcon('link')
         ]);
 
         $this->view->render();

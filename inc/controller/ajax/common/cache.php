@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4.x
+ * FanPress CM 5.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -82,8 +82,7 @@ class cache extends \fpcm\controller\abstracts\ajaxController implements \fpcm\c
         
         $this->response->setReturnData(new \fpcm\view\message(
             'CACHE_CLEARED_OK',
-            \fpcm\view\message::TYPE_NOTICE,
-            'hdd'
+            \fpcm\view\message::TYPE_NOTICE
         ))->fetch();
 
     }

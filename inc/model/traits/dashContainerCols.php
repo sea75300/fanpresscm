@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4.x
+ * FanPress CM 5.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -28,10 +28,10 @@ trait dashContainerCols {
     private function get2ColRow(string $col1, string $col2, string $class = '') : string
     {        
         return implode('', [
-            '<div class="col px-2 '.$class.'">',
+            '<div class="col px-1 '.$class.'">',
             $col1,
             '</div>',
-            '<div class="col-3 px-2 fpcm-ui-center '.$class.'">',
+            '<div class="col-3 px-1 text-center '.$class.'">',
             $col2,
             '</div>'
         ]);
@@ -48,10 +48,10 @@ trait dashContainerCols {
     private function get2ColRowSmallLeftAuto(string $col1, string $col2, string $class = '') : string
     {        
         return implode('', [
-            '<div class="col-auto px-2 fpcm-ui-center '.$class.'">',
+            '<div class="col-auto px-1 text-center '.$class.'">',
             $col1,
             '</div>',
-            '<div class="col px-2 '.$class.'">',
+            '<div class="col px-1 '.$class.'">',
             $col2,
             '</div>'
         ]);

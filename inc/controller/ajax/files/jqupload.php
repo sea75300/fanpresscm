@@ -66,8 +66,8 @@ class jqupload extends \fpcm\controller\abstracts\ajaxController implements \fpc
                     'upload_dir' => \fpcm\model\files\ops::getUploadPath(DIRECTORY_SEPARATOR.'thumbs'.DIRECTORY_SEPARATOR),
                     'upload_url' => \fpcm\model\files\ops::getUploadUrl('/thumbs/'),
                     'crop' => false,
-                    'max_width' => $this->config->file_img_thumb_width,
-                    'max_height' => $this->config->file_img_thumb_height
+                    'max_width' => $this->config->file_thumb_size,
+                    'max_height' => $this->config->file_thumb_size
                 )
             ),
             'min_width' => false,

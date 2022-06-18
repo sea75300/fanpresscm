@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4.x
+ * FanPress CM 5.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -76,6 +76,12 @@ class module {
      * @var config
      */
     protected $config;
+
+    /**
+     * Module data paths handler
+     * @var paths
+     */
+    protected $paths;
 
     /**
      * System config object
@@ -223,6 +229,20 @@ class module {
     final public function getOptions() : array
     {
         return $this->systemConfig->getModuleOptions($this->mkey);
+    }
+
+    /**
+     * 
+     * @return paths
+     * @since 5.0.0-b1
+     */
+    final function fromPath() : paths
+    {
+        if (!$this->paths instanceof paths) {
+            $this->paths = new paths($this->getDataPath());
+        }
+
+        return $this->paths;
     }
 
     /**
@@ -387,18 +407,11 @@ class module {
     /**
      * 
      * Check if configure action should be displayed
-     * @param int $status
      * @return bool
      */
-    public function hasConfigure(int &$legacy = 0) : bool
+    public function hasConfigure() : bool
     {
         if ( file_exists(self::getConfigByKey($this->mkey, 'configure')) ) {
-            $legacy = 0;
-            return true;
-        }
-
-        if ( file_exists(\fpcm\module\module::getTemplateDirByKey($this->mkey, 'configure.php')) ) {
-            $legacy = 1;
             return true;
         }
 
@@ -412,7 +425,6 @@ class module {
      */
     public function getConfigureFields() : array
     {
-        include_once \fpcm\classes\loader::libGetFilePath('spyc/Spyc.php');
         return \Spyc::YAMLLoad( self::getConfigByKey($this->mkey, 'configure') );
     }
 
@@ -613,6 +625,11 @@ class module {
             return false;
         }
 
+        if (!$this->createDataFolder()) {
+            trigger_error('Creation of module data folder was not successful!');
+            return false;
+        }
+
         if (!\fpcm\classes\loader::getObject('\fpcm\events\events')->trigger('modules\installAfter', $this->mkey)) {
             return false;
         }
@@ -638,7 +655,7 @@ class module {
         fpcmLogSystem('Update modules table with ' . $this->mkey);
 
         $values = get_object_vars($this);
-        unset($values['db'], $values['config'], $values['id'], $values['prefix'], $values['systemConfig'], $values['cache'], $values['initDb'], $values['basePath']);
+        unset($values['db'], $values['config'], $values['id'], $values['prefix'], $values['systemConfig'], $values['cache'], $values['initDb'], $values['basePath'], $values['paths']);
         $values['data'] = json_encode($this->config);
 
         $result = $fromDir
@@ -784,6 +801,10 @@ class module {
             return false;
         }
 
+        if (!$this->removeDataFolder()) {
+            return false;
+        }
+
         if (!$this->removeConfig() && !$delete) {
             return false;
         }
@@ -881,6 +902,7 @@ class module {
         
         $crons = $this->config->crons;
         if (!is_array($crons) || !count($crons)) {
+            fpcmLogSystem('No cronjobs for ' . $this->mkey);
             return true;
         }
 
@@ -909,6 +931,10 @@ class module {
             return false;
         }
 
+        if (!$this->createDataFolder()) {
+            return false;
+        }
+
         if (!$this->runMigrations()) {
             return false;
         }
@@ -923,6 +949,70 @@ class module {
 
         $this->cache->cleanup();
         return true;
+    }
+
+    /**
+     * Get module data path
+     * @return string
+     * @version 5.0.0-b1
+     */
+    final public function getDataPath() : string
+    {
+        return \fpcm\classes\dirs::getDataDirPath('module_' . $this->prefix, DIRECTORY_SEPARATOR);
+    }
+
+    /**
+     * Create module data path
+     * @return bool
+     * @version 5.0.0-b1
+     */
+    final public function createDataFolder() : bool
+    {
+        if (!$this->config->useDataFolder) {
+            return true;
+        }
+
+        if (file_exists($this->getDataPath())) {
+            fpcmLogSystem('Module data path folder aready exists: ' . $this->getDataPath());
+            return true;
+        }
+        
+        fpcmLogSystem('Create module data path ' . $this->mkey . ' : ' . $this->getDataPath());
+        
+        if (mkdir($this->getDataPath())) {
+            return true;
+        }
+
+        trigger_error('Unable to create module data path folder: ' . $this->getDataPath());
+        return false;
+    }
+
+    /**
+     * Delete module data path
+     * @return bool
+     * @version 5.0.0-b1
+     */
+    final public function removeDataFolder() : bool
+    {
+        if (!$this->config->removeDataFolder) {
+            fpcmLogSystem('No data folder removal for ' . $this->mkey);
+            return true;
+        }
+
+        if (!file_exists($this->getDataPath())) {
+            fpcmLogSystem('No data folder for ' . $this->mkey);
+            return true;
+        }
+        
+        fpcmLogSystem('Remove module data path ' . $this->mkey . ' : ' . $this->getDataPath());
+        
+        if (\fpcm\model\files\ops::deleteRecursive($this->getDataPath())) {
+            fpcmLogSystem('Data folder removed for ' . $this->mkey);
+            return true;
+        }
+
+        trigger_error('Unable to delete data path folder: ' . $this->getDataPath());
+        return false;
     }
 
     /**

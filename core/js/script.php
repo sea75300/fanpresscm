@@ -35,10 +35,13 @@ if ($cache->isExpired($cacheName) || \fpcm\classes\baseconfig::installerEnabled(
         __DIR__.DIRECTORY_SEPARATOR.'ajax'.$jsExt,
         __DIR__.DIRECTORY_SEPARATOR.'dom'.$jsExt,
         __DIR__.DIRECTORY_SEPARATOR.'ui'.DIRECTORY_SEPARATOR.'base'.$jsExt,
-        __DIR__.DIRECTORY_SEPARATOR.'ui'.DIRECTORY_SEPARATOR.'navigation'.$jsExt,
+        __DIR__.DIRECTORY_SEPARATOR.'ui'.DIRECTORY_SEPARATOR.'dialogs'.$jsExt,
         __DIR__.DIRECTORY_SEPARATOR.'ui'.DIRECTORY_SEPARATOR.'webnotify'.$jsExt,
         __DIR__.DIRECTORY_SEPARATOR.'ui'.DIRECTORY_SEPARATOR.'notifications'.$jsExt,
         __DIR__.DIRECTORY_SEPARATOR.'ui'.DIRECTORY_SEPARATOR.'loader'.$jsExt,
+        __DIR__.DIRECTORY_SEPARATOR.'ui'.DIRECTORY_SEPARATOR.'tabs'.$jsExt,
+        __DIR__.DIRECTORY_SEPARATOR.'ui'.DIRECTORY_SEPARATOR.'pager'.$jsExt,
+        __DIR__.DIRECTORY_SEPARATOR.'ui'.DIRECTORY_SEPARATOR.'deprecated'.$jsExt,
         __DIR__.DIRECTORY_SEPARATOR.'system'.$jsExt
     ];
 
@@ -57,7 +60,5 @@ if ($cache->isExpired($cacheName) || \fpcm\classes\baseconfig::installerEnabled(
 }
 
 header("Content-Type: application/javascript");
-//if (!FPCM_NOJSCSSPHP_FILESIZE_HEADER) {
 header("Content-Length: ".$data['filesize']);
-//}
 exit($data['content']);

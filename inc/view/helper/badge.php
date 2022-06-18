@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 4
+ * FanPress CM 5
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -36,7 +36,7 @@ class badge extends helper {
      */
     protected function init()
     {
-        $this->class = 'fpcm-ui-badge';
+        $this->class = 'fpcm-ui-badge badge p-2';
     }
 
 }
