@@ -2,80 +2,169 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>    Documentation &raquo; Deprecated elements
+            <title>    Documentation &raquo; Deprecated elements
 </title>
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro">
-    <link rel="stylesheet" href="../css/normalize.css">
-    <link rel="stylesheet" href="../css/template.css">
-    <link rel="icon" href="../images/favicon.ico"/>
-        <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.4.6/fuse.min.js"></script>
-    <script src="../js/search.js"></script>
-    <script defer src="../js/searchIndex.js"></script>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="../">
+    <link rel="icon" href="images/favicon.ico"/>
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/base.css">
+            <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="css/template.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0/css/all.min.css" integrity="sha256-ybRkN9dBjhcS2qrW1z+hfCxq+1aBdwyQM5wlQoQVt/0=" crossorigin="anonymous" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/themes/prism-okaidia.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-numbers/prism-line-numbers.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-highlight/prism-line-highlight.css">
+                <script src="https://cdn.jsdelivr.net/npm/fuse.js@3.4.6"></script>
+        <script src="https://cdn.jsdelivr.net/npm/css-vars-ponyfill@2"></script>
+        <script src="js/search.js"></script>
+        <script defer src="js/searchIndex.js"></script>
     </head>
-<body>
-<header class="phpdocumentor-top-header"></header>
-<header class="phpdocumentor-header">
-    <section class="phpdocumentor-section">
-        <h1 class="phpdocumentor-title">Documentation</h1>
-    </section>
-</header>
-<main class="phpdocumentor">
-    <div class="phpdocumentor-section">
-        <aside class="three phpdocumentor-columns phpdocumentor-sidebar">
+<body id="top">
+    <header class="phpdocumentor-header phpdocumentor-section">
+    <h1 class="phpdocumentor-title"><a href="" class="phpdocumentor-title__link">Documentation</a></h1>
+    <input class="phpdocumentor-header__menu-button" type="checkbox" id="menu-button" name="menu-button" />
+    <label class="phpdocumentor-header__menu-icon" for="menu-button">
+        <i class="fas fa-bars"></i>
+    </label>
     <section data-search-form class="phpdocumentor-search">
-        <h1 class="phpdocumentor-sidebar__category-header">Search</h1>
-        <label class="phpdocumentor-label">
-            <span class="visually-hidden">Search for</span>
-            <input type="search" class="phpdocumentor-field phpdocumentor-search__field" placeholder="Loading .." disabled />
-        </label>
+    <label>
+        <span class="visually-hidden">Search for</span>
+        <svg class="phpdocumentor-search__icon" width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="7.5" cy="7.5" r="6.5" stroke="currentColor" stroke-width="2"/>
+            <line x1="12.4892" y1="12.2727" x2="19.1559" y2="18.9393" stroke="currentColor" stroke-width="3"/>
+        </svg>
+        <input type="search" class="phpdocumentor-field phpdocumentor-search__field" placeholder="Loading .." disabled />
+    </label>
+</section>
+
+    <nav class="phpdocumentor-topnav">
+    <ul class="phpdocumentor-topnav__menu">
+        </ul>
+</nav>
+</header>
+
+    <main class="phpdocumentor">
+        <div class="phpdocumentor-section">
+            <input class="phpdocumentor-sidebar__menu-button" type="checkbox" id="sidebar-button" name="sidebar-button" />
+<label class="phpdocumentor-sidebar__menu-icon" for="sidebar-button">
+    Menu
+</label>
+<aside class="phpdocumentor-column -four phpdocumentor-sidebar">
+                    <section class="phpdocumentor-sidebar__category">
+            <h2 class="phpdocumentor-sidebar__category-header">Namespaces</h2>
+                                    <h4 class="phpdocumentor-sidebar__root-namespace">
+    <a href="namespaces/fpcm.html" class="">fpcm</a>
+</h4>
+    <ul class="phpdocumentor-list">
+                    <li>
+                <a href="namespaces/fpcm-classes.html" class="">classes</a>
+                
+            </li>
+                    <li>
+                <a href="namespaces/fpcm-components.html" class="">components</a>
+                
+            </li>
+                    <li>
+                <a href="namespaces/fpcm-controller.html" class="">controller</a>
+                
+            </li>
+                    <li>
+                <a href="namespaces/fpcm-drivers.html" class="">drivers</a>
+                
+            </li>
+                    <li>
+                <a href="namespaces/fpcm-events.html" class="">events</a>
+                
+            </li>
+                    <li>
+                <a href="namespaces/fpcm-migrations.html" class="">migrations</a>
+                
+            </li>
+                    <li>
+                <a href="namespaces/fpcm-model.html" class="">model</a>
+                
+            </li>
+                    <li>
+                <a href="namespaces/fpcm-module.html" class="">module</a>
+                
+            </li>
+                    <li>
+                <a href="namespaces/fpcm-view.html" class="">view</a>
+                
+            </li>
+            </ul>
+
+                        </section>
+                <section class="phpdocumentor-sidebar__category">
+            <h2 class="phpdocumentor-sidebar__category-header">Packages</h2>
+                                    <h4 class="phpdocumentor-sidebar__root-namespace">
+    <a href="packages/Application.html" class="">Application</a>
+</h4>
+
+                                    <h4 class="phpdocumentor-sidebar__root-namespace">
+    <a href="packages/fpcm.html" class="">fpcm</a>
+</h4>
+    <ul class="phpdocumentor-list">
+                    <li>
+                <a href="packages/fpcm-classes.html" class="">classes</a>
+                
+            </li>
+                    <li>
+                <a href="packages/fpcm-model.html" class="">model</a>
+                
+            </li>
+                    <li>
+                <a href="packages/fpcm-components.html" class="">components</a>
+                
+            </li>
+                    <li>
+                <a href="packages/fpcm-controller.html" class="">controller</a>
+                
+            </li>
+                    <li>
+                <a href="packages/fpcm-module.html" class="">module</a>
+                
+            </li>
+                    <li>
+                <a href="packages/fpcm-drivers.html" class="">drivers</a>
+                
+            </li>
+                    <li>
+                <a href="packages/fpcm-events.html" class="">events</a>
+                
+            </li>
+                    <li>
+                <a href="packages/fpcm-migrations.html" class="">migrations</a>
+                
+            </li>
+                    <li>
+                <a href="packages/fpcm-view.html" class="">view</a>
+                
+            </li>
+            </ul>
+
+                        </section>
+            
+    <section class="phpdocumentor-sidebar__category">
+        <h2 class="phpdocumentor-sidebar__category-header">Reports</h2>
+                <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/deprecated.html">Deprecated</a></h3>
+        <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/errors.html">Errors</a></h3>
+        <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/markers.html">Markers</a></h3>
     </section>
 
-    
-    <h1 class="phpdocumentor-sidebar__category-header">Namespaces</h1>
-            <h2 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/default.html"><abbr title="\">Global</abbr></a></h2>
-                    <h3 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/fpcm.html"><abbr title="\fpcm">fpcm</abbr></a></h3>
-            <ul class="phpdocumentor-list">
-                                    <li><a href="../namespaces/fpcm-classes.html"><abbr title="\fpcm\classes">classes</abbr></a></li>
-                                    <li><a href="../namespaces/fpcm-components.html"><abbr title="\fpcm\components">components</abbr></a></li>
-                                    <li><a href="../namespaces/fpcm-controller.html"><abbr title="\fpcm\controller">controller</abbr></a></li>
-                                    <li><a href="../namespaces/fpcm-drivers.html"><abbr title="\fpcm\drivers">drivers</abbr></a></li>
-                                    <li><a href="../namespaces/fpcm-events.html"><abbr title="\fpcm\events">events</abbr></a></li>
-                                    <li><a href="../namespaces/fpcm-migrations.html"><abbr title="\fpcm\migrations">migrations</abbr></a></li>
-                                    <li><a href="../namespaces/fpcm-model.html"><abbr title="\fpcm\model">model</abbr></a></li>
-                                    <li><a href="../namespaces/fpcm-module.html"><abbr title="\fpcm\module">module</abbr></a></li>
-                                    <li><a href="../namespaces/fpcm-view.html"><abbr title="\fpcm\view">view</abbr></a></li>
-                            </ul>
-            
-        <h1 class="phpdocumentor-sidebar__category-header">Packages</h1>
-            <h2 class="phpdocumentor-sidebar__root-package"><a href="../packages/Default.html"><abbr title="\Default">Default</abbr></a></h2>
-        <ul class="phpdocumentor-list">
-                    </ul>
-            <h2 class="phpdocumentor-sidebar__root-package"><a href="../packages/fpcm.html"><abbr title="\fpcm">fpcm</abbr></a></h2>
-        <ul class="phpdocumentor-list">
-                            <li><a href="../packages/fpcm-classes.html"><abbr title="\fpcm\classes">classes</abbr></a></li>
-                            <li><a href="../packages/fpcm-model.html"><abbr title="\fpcm\model">model</abbr></a></li>
-                            <li><a href="../packages/fpcm-components.html"><abbr title="\fpcm\components">components</abbr></a></li>
-                            <li><a href="../packages/fpcm-controller.html"><abbr title="\fpcm\controller">controller</abbr></a></li>
-                            <li><a href="../packages/fpcm-module.html"><abbr title="\fpcm\module">module</abbr></a></li>
-                            <li><a href="../packages/fpcm-drivers.html"><abbr title="\fpcm\drivers">drivers</abbr></a></li>
-                            <li><a href="../packages/fpcm-events.html"><abbr title="\fpcm\events">events</abbr></a></li>
-                            <li><a href="../packages/fpcm-migrations.html"><abbr title="\fpcm\migrations">migrations</abbr></a></li>
-                            <li><a href="../packages/fpcm-view.html"><abbr title="\fpcm\view">view</abbr></a></li>
-                    </ul>
-        
-    <h1 class="phpdocumentor-sidebar__category-header">Reports</h1>
-        <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/deprecated.html">Deprecated</a></h2>
-    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/errors.html">Errors</a></h2>
-    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/markers.html">Markers</a></h2>
+    <section class="phpdocumentor-sidebar__category">
+        <h2 class="phpdocumentor-sidebar__category-header">Indices</h2>
+        <h3 class="phpdocumentor-sidebar__root-package"><a href="indices/files.html">Files</a></h3>
+    </section>
 </aside>
 
-        <div class="nine phpdocumentor-columns phpdocumentor-content">
-            <ul class="phpdocumentor-breadcrumbs">
-        <li><a href="../index.html">Home</a></li>
+            <div class="phpdocumentor-column -eight phpdocumentor-content">
+                    <ul class="phpdocumentor-breadcrumbs">
+        <li><a href="">Home</a></li>
     </ul>
 
     <div class="phpdocumentor-row">
@@ -84,22 +173,22 @@
                 <h3>Table of Contents</h3>
         <table class="phpdocumentor-table_of_contents">
                             <tr>
-                    <td class="phpdocumentor-cell"><a href="#inc/classes/http.php">inc/classes/http.php</a></td>
+                    <td class="phpdocumentor-cell"><a href="reports/deprecated.html#inc/classes/http.php">inc/classes/http.php</a></td>
                 </tr>
                             <tr>
-                    <td class="phpdocumentor-cell"><a href="#inc/controller/abstracts/ajaxController.php">inc/controller/abstracts/ajaxController.php</a></td>
+                    <td class="phpdocumentor-cell"><a href="reports/deprecated.html#inc/controller/abstracts/ajaxController.php">inc/controller/abstracts/ajaxController.php</a></td>
                 </tr>
                             <tr>
-                    <td class="phpdocumentor-cell"><a href="#inc/controller/abstracts/controller.php">inc/controller/abstracts/controller.php</a></td>
+                    <td class="phpdocumentor-cell"><a href="reports/deprecated.html#inc/controller/abstracts/controller.php">inc/controller/abstracts/controller.php</a></td>
                 </tr>
                             <tr>
-                    <td class="phpdocumentor-cell"><a href="#inc/controller/traits/modules/tools.php">inc/controller/traits/modules/tools.php</a></td>
+                    <td class="phpdocumentor-cell"><a href="reports/deprecated.html#inc/model/permissions/permissions.php">inc/model/permissions/permissions.php</a></td>
                 </tr>
                             <tr>
-                    <td class="phpdocumentor-cell"><a href="#inc/model/permissions/permissions.php">inc/model/permissions/permissions.php</a></td>
+                    <td class="phpdocumentor-cell"><a href="reports/deprecated.html#inc/model/system/permissions.php">inc/model/system/permissions.php</a></td>
                 </tr>
                             <tr>
-                    <td class="phpdocumentor-cell"><a href="#inc/model/system/permissions.php">inc/model/system/permissions.php</a></td>
+                    <td class="phpdocumentor-cell"><a href="reports/deprecated.html#inc/view/helper/traits/labelFieldSize.php">inc/view/helper/traits/labelFieldSize.php</a></td>
                 </tr>
                     </table>
         
@@ -113,58 +202,69 @@
                 </tr>
                                                             <tr>
                             <td class="phpdocumentor-cell">21</td>
-                            <td class="phpdocumentor-cell"><a href="../classes/fpcm-classes-http.html"><abbr title="\fpcm\classes\http">normal</abbr></a></td>
-                            <td class="phpdocumentor-cell">FPCM 4.4, use new request/ response handler instead</td>
+                            <td class="phpdocumentor-cell"><a href="classes/fpcm-classes-http.html"><abbr title="\fpcm\classes\http">http</abbr></a></td>
+                            <td class="phpdocumentor-cell"><p>FPCM 4.4, use new request/ response handler instead</p>
+</td>
                         </tr>
                                                                                 <tr>
                             <td class="phpdocumentor-cell">136</td>
-                            <td class="phpdocumentor-cell"><a href="../classes/fpcm-classes-http.html#method_get"><abbr title="\fpcm\classes\http::get()">normal</abbr></a></td>
-                            <td class="phpdocumentor-cell">FPCM 4.4</td>
+                            <td class="phpdocumentor-cell"><a href="classes/fpcm-classes-http.html#method_get"><abbr title="\fpcm\classes\http::get()">http::get()</abbr></a></td>
+                            <td class="phpdocumentor-cell"><p>FPCM 4.4</p>
+</td>
                         </tr>
                                                                                 <tr>
                             <td class="phpdocumentor-cell">155</td>
-                            <td class="phpdocumentor-cell"><a href="../classes/fpcm-classes-http.html#method_postOnly"><abbr title="\fpcm\classes\http::postOnly()">normal</abbr></a></td>
-                            <td class="phpdocumentor-cell">FPCM 4.4</td>
+                            <td class="phpdocumentor-cell"><a href="classes/fpcm-classes-http.html#method_postOnly"><abbr title="\fpcm\classes\http::postOnly()">http::postOnly()</abbr></a></td>
+                            <td class="phpdocumentor-cell"><p>FPCM 4.4</p>
+</td>
                         </tr>
                                                                                 <tr>
                             <td class="phpdocumentor-cell">174</td>
-                            <td class="phpdocumentor-cell"><a href="../classes/fpcm-classes-http.html#method_getOnly"><abbr title="\fpcm\classes\http::getOnly()">normal</abbr></a></td>
-                            <td class="phpdocumentor-cell">FPCM 4.4</td>
+                            <td class="phpdocumentor-cell"><a href="classes/fpcm-classes-http.html#method_getOnly"><abbr title="\fpcm\classes\http::getOnly()">http::getOnly()</abbr></a></td>
+                            <td class="phpdocumentor-cell"><p>FPCM 4.4</p>
+</td>
                         </tr>
                                                                                 <tr>
                             <td class="phpdocumentor-cell">193</td>
-                            <td class="phpdocumentor-cell"><a href="../classes/fpcm-classes-http.html#method_cookieOnly"><abbr title="\fpcm\classes\http::cookieOnly()">normal</abbr></a></td>
-                            <td class="phpdocumentor-cell">FPCM 4.4</td>
+                            <td class="phpdocumentor-cell"><a href="classes/fpcm-classes-http.html#method_cookieOnly"><abbr title="\fpcm\classes\http::cookieOnly()">http::cookieOnly()</abbr></a></td>
+                            <td class="phpdocumentor-cell"><p>FPCM 4.4</p>
+</td>
                         </tr>
                                                                                 <tr>
                             <td class="phpdocumentor-cell">205</td>
-                            <td class="phpdocumentor-cell"><a href="../classes/fpcm-classes-http.html#method_getIp"><abbr title="\fpcm\classes\http::getIp()">normal</abbr></a></td>
-                            <td class="phpdocumentor-cell">FPCM 4.4</td>
+                            <td class="phpdocumentor-cell"><a href="classes/fpcm-classes-http.html#method_getIp"><abbr title="\fpcm\classes\http::getIp()">http::getIp()</abbr></a></td>
+                            <td class="phpdocumentor-cell"><p>FPCM 4.4</p>
+</td>
                         </tr>
                                                                                 <tr>
                             <td class="phpdocumentor-cell">218</td>
-                            <td class="phpdocumentor-cell"><a href="../classes/fpcm-classes-http.html#method_getHttpHost"><abbr title="\fpcm\classes\http::getHttpHost()">normal</abbr></a></td>
-                            <td class="phpdocumentor-cell">FPCM 4.4</td>
+                            <td class="phpdocumentor-cell"><a href="classes/fpcm-classes-http.html#method_getHttpHost"><abbr title="\fpcm\classes\http::getHttpHost()">http::getHttpHost()</abbr></a></td>
+                            <td class="phpdocumentor-cell"><p>FPCM 4.4</p>
+</td>
                         </tr>
                                                                                 <tr>
                             <td class="phpdocumentor-cell">230</td>
-                            <td class="phpdocumentor-cell"><a href="../classes/fpcm-classes-http.html#method_getFiles"><abbr title="\fpcm\classes\http::getFiles()">normal</abbr></a></td>
-                            <td class="phpdocumentor-cell">FPCM 4.4</td>
+                            <td class="phpdocumentor-cell"><a href="classes/fpcm-classes-http.html#method_getFiles"><abbr title="\fpcm\classes\http::getFiles()">http::getFiles()</abbr></a></td>
+                            <td class="phpdocumentor-cell"><p>FPCM 4.4</p>
+</td>
                         </tr>
                                                                                 <tr>
                             <td class="phpdocumentor-cell">243</td>
-                            <td class="phpdocumentor-cell"><a href="../classes/fpcm-classes-http.html#method_getSessionVar"><abbr title="\fpcm\classes\http::getSessionVar()">normal</abbr></a></td>
-                            <td class="phpdocumentor-cell">FPCM 4.4</td>
+                            <td class="phpdocumentor-cell"><a href="classes/fpcm-classes-http.html#method_getSessionVar"><abbr title="\fpcm\classes\http::getSessionVar()">http::getSessionVar()</abbr></a></td>
+                            <td class="phpdocumentor-cell"><p>FPCM 4.4</p>
+</td>
                         </tr>
                                                                                 <tr>
                             <td class="phpdocumentor-cell">256</td>
-                            <td class="phpdocumentor-cell"><a href="../classes/fpcm-classes-http.html#method_setSessionVar"><abbr title="\fpcm\classes\http::setSessionVar()">normal</abbr></a></td>
-                            <td class="phpdocumentor-cell">FPCM 4.4</td>
+                            <td class="phpdocumentor-cell"><a href="classes/fpcm-classes-http.html#method_setSessionVar"><abbr title="\fpcm\classes\http::setSessionVar()">http::setSessionVar()</abbr></a></td>
+                            <td class="phpdocumentor-cell"><p>FPCM 4.4</p>
+</td>
                         </tr>
                                                                                 <tr>
                             <td class="phpdocumentor-cell">281</td>
-                            <td class="phpdocumentor-cell"><a href="../classes/fpcm-classes-http.html#method_filter"><abbr title="\fpcm\classes\http::filter()">normal</abbr></a></td>
-                            <td class="phpdocumentor-cell">FPCM 4.4</td>
+                            <td class="phpdocumentor-cell"><a href="classes/fpcm-classes-http.html#method_filter"><abbr title="\fpcm\classes\http::filter()">http::filter()</abbr></a></td>
+                            <td class="phpdocumentor-cell"><p>FPCM 4.4</p>
+</td>
                         </tr>
                                                 </table>
                     <a id="inc/controller/abstracts/ajaxController.php"></a>
@@ -177,8 +277,9 @@
                 </tr>
                                                             <tr>
                             <td class="phpdocumentor-cell">26</td>
-                            <td class="phpdocumentor-cell"><a href="../classes/fpcm-controller-abstracts-ajaxController.html#property_returnData"><abbr title="\fpcm\controller\abstracts\ajaxController::$returnData">normal</abbr></a></td>
-                            <td class="phpdocumentor-cell">since version FPCM 4.5</td>
+                            <td class="phpdocumentor-cell"><a href="classes/fpcm-controller-abstracts-ajaxController.html#property_returnData"><abbr title="\fpcm\controller\abstracts\ajaxController::$returnData">ajaxController::$returnData</abbr></a></td>
+                            <td class="phpdocumentor-cell"><p>since version FPCM 4.5</p>
+</td>
                         </tr>
                                                 </table>
                     <a id="inc/controller/abstracts/controller.php"></a>
@@ -191,22 +292,9 @@
                 </tr>
                                                             <tr>
                             <td class="phpdocumentor-cell">177</td>
-                            <td class="phpdocumentor-cell"><a href="../classes/fpcm-controller-abstracts-controller.html#method_getRequestVar"><abbr title="\fpcm\controller\abstracts\controller::getRequestVar()">normal</abbr></a></td>
-                            <td class="phpdocumentor-cell">FPCM 4.4, use $this-&gt;request instead</td>
-                        </tr>
-                                                </table>
-                    <a id="inc/controller/traits/modules/tools.php"></a>
-            <h3><abbr title="inc/controller/traits/modules/tools.php">tools.php</abbr></h3>
-            <table>
-                <tr>
-                    <th class="phpdocumentor-heading">Line</th>
-                    <th class="phpdocumentor-heading">Element</th>
-                    <th class="phpdocumentor-heading">Reason</th>
-                </tr>
-                                                            <tr>
-                            <td class="phpdocumentor-cell">19</td>
-                            <td class="phpdocumentor-cell"><a href="../classes/fpcm-controller-traits-modules-tools.html"><abbr title="\fpcm\controller\traits\modules\tools">normal</abbr></a></td>
-                            <td class="phpdocumentor-cell">since version FPCM 4.4</td>
+                            <td class="phpdocumentor-cell"><a href="classes/fpcm-controller-abstracts-controller.html#method_getRequestVar"><abbr title="\fpcm\controller\abstracts\controller::getRequestVar()">controller::getRequestVar()</abbr></a></td>
+                            <td class="phpdocumentor-cell"><p>FPCM 4.4, use $this-&gt;request instead</p>
+</td>
                         </tr>
                                                 </table>
                     <a id="inc/model/permissions/permissions.php"></a>
@@ -219,8 +307,9 @@
                 </tr>
                                                             <tr>
                             <td class="phpdocumentor-cell">389</td>
-                            <td class="phpdocumentor-cell"><a href="../classes/fpcm-model-permissions-permissions.html#method_check"><abbr title="\fpcm\model\permissions\permissions::check()">normal</abbr></a></td>
-                            <td class="phpdocumentor-cell">since version FPCM 4.4</td>
+                            <td class="phpdocumentor-cell"><a href="classes/fpcm-model-permissions-permissions.html#method_check"><abbr title="\fpcm\model\permissions\permissions::check()">permissions::check()</abbr></a></td>
+                            <td class="phpdocumentor-cell"><p>since version FPCM 4.4</p>
+</td>
                         </tr>
                                                 </table>
                     <a id="inc/model/system/permissions.php"></a>
@@ -233,21 +322,54 @@
                 </tr>
                                                             <tr>
                             <td class="phpdocumentor-cell">19</td>
-                            <td class="phpdocumentor-cell"><a href="../classes/fpcm-model-system-permissions.html"><abbr title="\fpcm\model\system\permissions">normal</abbr></a></td>
-                            <td class="phpdocumentor-cell">since version FPCM 4.4</td>
+                            <td class="phpdocumentor-cell"><a href="classes/fpcm-model-system-permissions.html"><abbr title="\fpcm\model\system\permissions">permissions</abbr></a></td>
+                            <td class="phpdocumentor-cell"><p>since version FPCM 4.4</p>
+</td>
+                        </tr>
+                                                </table>
+                    <a id="inc/view/helper/traits/labelFieldSize.php"></a>
+            <h3><abbr title="inc/view/helper/traits/labelFieldSize.php">labelFieldSize.php</abbr></h3>
+            <table>
+                <tr>
+                    <th class="phpdocumentor-heading">Line</th>
+                    <th class="phpdocumentor-heading">Element</th>
+                    <th class="phpdocumentor-heading">Reason</th>
+                </tr>
+                                                            <tr>
+                            <td class="phpdocumentor-cell">64</td>
+                            <td class="phpdocumentor-cell"><a href="classes/fpcm-view-helper-traits-labelFieldSize.html#method_getFieldSize"><abbr title="\fpcm\view\helper\traits\labelFieldSize::getFieldSize()">labelFieldSize::getFieldSize()</abbr></a></td>
+                            <td class="phpdocumentor-cell"></td>
+                        </tr>
+                                                                                <tr>
+                            <td class="phpdocumentor-cell">117</td>
+                            <td class="phpdocumentor-cell"><a href="classes/fpcm-view-helper-traits-labelFieldSize.html#method_setFieldSize"><abbr title="\fpcm\view\helper\traits\labelFieldSize::setFieldSize()">labelFieldSize::setFieldSize()</abbr></a></td>
+                            <td class="phpdocumentor-cell"></td>
                         </tr>
                                                 </table>
             </div>
-            <div data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
-
-                <h2>Search results</h2>
-                <ul class="phpdocumentor-search-results__entries">
-
-                </ul>
+                <section data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
+    <section class="phpdocumentor-search-results__dialog">
+        <header class="phpdocumentor-search-results__header">
+            <h2 class="phpdocumentor-search-results__title">Search results</h2>
+            <button class="phpdocumentor-search-results__close"><i class="fas fa-times"></i></button>
+        </header>
+        <section class="phpdocumentor-search-results__body">
+            <ul class="phpdocumentor-search-results__entries"></ul>
+        </section>
+    </section>
+</section>
             </div>
         </div>
-    </div>
-</main>
+        <a href="reports/deprecated.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
 
+    </main>
+
+    <script>
+        cssVars({});
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/prism.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
 </body>
 </html>
