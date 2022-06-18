@@ -47,7 +47,7 @@ The following functions are available:
     * _divider_: parameter for a separator of your text in <title>
     * _isUtf8_: out will be displayed utf-8 encoded or iso-8895-1, default is true ( :x: deprecated as of version 5.0, to be removed )
    
-A full list of additional functions can be found in our [class documentation](https://sea75300.github.io/fanpresscm4/classes/fpcmAPI.html).
+A full list of additional functions can be found in our [class documentation](https://sea75300.github.io/fanpresscm/classes/fpcmAPI.html).
 
 ## iframes
 
