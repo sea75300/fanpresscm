@@ -2,1146 +2,1724 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Documentation</title>
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro">
-    <link rel="stylesheet" href="../css/normalize.css">
-    <link rel="stylesheet" href="../css/template.css">
-    <link rel="icon" href="../images/favicon.ico"/>
-        <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.4.6/fuse.min.js"></script>
-    <script src="../js/search.js"></script>
-    <script defer src="../js/searchIndex.js"></script>
-    </head>
-<body>
-<header class="phpdocumentor-top-header"></header>
-<header class="phpdocumentor-header">
-    <section class="phpdocumentor-section">
-        <h1 class="phpdocumentor-title">Documentation</h1>
-    </section>
-</header>
-<main class="phpdocumentor">
-    <div class="phpdocumentor-section">
-        <aside class="three phpdocumentor-columns phpdocumentor-sidebar">
-    <section data-search-form class="phpdocumentor-search">
-        <h1 class="phpdocumentor-sidebar__category-header">Search</h1>
-        <label class="phpdocumentor-label">
-            <span class="visually-hidden">Search for</span>
-            <input type="search" class="phpdocumentor-field phpdocumentor-search__field" placeholder="Loading .." disabled />
-        </label>
-    </section>
-
+            <title>Documentation</title>
     
-    <h1 class="phpdocumentor-sidebar__category-header">Namespaces</h1>
-            <h2 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/default.html"><abbr title="\">Global</abbr></a></h2>
-                    <h3 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/fpcm.html"><abbr title="\fpcm">fpcm</abbr></a></h3>
-            <ul class="phpdocumentor-list">
-                                    <li><a href="../namespaces/fpcm-classes.html"><abbr title="\fpcm\classes">classes</abbr></a></li>
-                                    <li><a href="../namespaces/fpcm-components.html"><abbr title="\fpcm\components">components</abbr></a></li>
-                                    <li><a href="../namespaces/fpcm-controller.html"><abbr title="\fpcm\controller">controller</abbr></a></li>
-                                    <li><a href="../namespaces/fpcm-drivers.html"><abbr title="\fpcm\drivers">drivers</abbr></a></li>
-                                    <li><a href="../namespaces/fpcm-events.html"><abbr title="\fpcm\events">events</abbr></a></li>
-                                    <li><a href="../namespaces/fpcm-migrations.html"><abbr title="\fpcm\migrations">migrations</abbr></a></li>
-                                    <li><a href="../namespaces/fpcm-model.html"><abbr title="\fpcm\model">model</abbr></a></li>
-                                    <li><a href="../namespaces/fpcm-module.html"><abbr title="\fpcm\module">module</abbr></a></li>
-                                    <li><a href="../namespaces/fpcm-view.html"><abbr title="\fpcm\view">view</abbr></a></li>
-                            </ul>
-            
-        <h1 class="phpdocumentor-sidebar__category-header">Packages</h1>
-            <h2 class="phpdocumentor-sidebar__root-package"><a href="../packages/Default.html"><abbr title="\Default">Default</abbr></a></h2>
-        <ul class="phpdocumentor-list">
-                    </ul>
-            <h2 class="phpdocumentor-sidebar__root-package"><a href="../packages/fpcm.html"><abbr title="\fpcm">fpcm</abbr></a></h2>
-        <ul class="phpdocumentor-list">
-                            <li><a href="../packages/fpcm-classes.html"><abbr title="\fpcm\classes">classes</abbr></a></li>
-                            <li><a href="../packages/fpcm-model.html"><abbr title="\fpcm\model">model</abbr></a></li>
-                            <li><a href="../packages/fpcm-components.html"><abbr title="\fpcm\components">components</abbr></a></li>
-                            <li><a href="../packages/fpcm-controller.html"><abbr title="\fpcm\controller">controller</abbr></a></li>
-                            <li><a href="../packages/fpcm-module.html"><abbr title="\fpcm\module">module</abbr></a></li>
-                            <li><a href="../packages/fpcm-drivers.html"><abbr title="\fpcm\drivers">drivers</abbr></a></li>
-                            <li><a href="../packages/fpcm-events.html"><abbr title="\fpcm\events">events</abbr></a></li>
-                            <li><a href="../packages/fpcm-migrations.html"><abbr title="\fpcm\migrations">migrations</abbr></a></li>
-                            <li><a href="../packages/fpcm-view.html"><abbr title="\fpcm\view">view</abbr></a></li>
-                    </ul>
-        
-    <h1 class="phpdocumentor-sidebar__category-header">Reports</h1>
-        <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/deprecated.html">Deprecated</a></h2>
-    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/errors.html">Errors</a></h2>
-    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/markers.html">Markers</a></h2>
-</aside>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="../">
+    <link rel="icon" href="images/favicon.ico"/>
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/base.css">
+            <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="css/template.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0/css/all.min.css" integrity="sha256-ybRkN9dBjhcS2qrW1z+hfCxq+1aBdwyQM5wlQoQVt/0=" crossorigin="anonymous" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/themes/prism-okaidia.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-numbers/prism-line-numbers.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-highlight/prism-line-highlight.css">
+                <script src="https://cdn.jsdelivr.net/npm/fuse.js@3.4.6"></script>
+        <script src="https://cdn.jsdelivr.net/npm/css-vars-ponyfill@2"></script>
+        <script src="js/search.js"></script>
+        <script defer src="js/searchIndex.js"></script>
+    </head>
+<body id="top">
+    <header class="phpdocumentor-header phpdocumentor-section">
+    <h1 class="phpdocumentor-title"><a href="" class="phpdocumentor-title__link">Documentation</a></h1>
+    <input class="phpdocumentor-header__menu-button" type="checkbox" id="menu-button" name="menu-button" />
+    <label class="phpdocumentor-header__menu-icon" for="menu-button">
+        <i class="fas fa-bars"></i>
+    </label>
+    <section data-search-form class="phpdocumentor-search">
+    <label>
+        <span class="visually-hidden">Search for</span>
+        <svg class="phpdocumentor-search__icon" width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="7.5" cy="7.5" r="6.5" stroke="currentColor" stroke-width="2"/>
+            <line x1="12.4892" y1="12.2727" x2="19.1559" y2="18.9393" stroke="currentColor" stroke-width="3"/>
+        </svg>
+        <input type="search" class="phpdocumentor-field phpdocumentor-search__field" placeholder="Loading .." disabled />
+    </label>
+</section>
 
-        <div class="nine phpdocumentor-columns phpdocumentor-content">
-            <ul class="phpdocumentor-breadcrumbs">
-    <li><a href="../index.html">Home</a></li>
-                        <li><a href="../namespaces/fpcm.html">fpcm</a></li>
-                    <li><a href="../namespaces/fpcm-model.html">model</a></li>
-                    <li><a href="../namespaces/fpcm-model-dbal.html">dbal</a></li>
+    <nav class="phpdocumentor-topnav">
+    <ul class="phpdocumentor-topnav__menu">
+        </ul>
+</nav>
+</header>
+
+    <main class="phpdocumentor">
+        <div class="phpdocumentor-section">
+            <input class="phpdocumentor-sidebar__menu-button" type="checkbox" id="sidebar-button" name="sidebar-button" />
+<label class="phpdocumentor-sidebar__menu-icon" for="sidebar-button">
+    Menu
+</label>
+<aside class="phpdocumentor-column -four phpdocumentor-sidebar">
+                    <section class="phpdocumentor-sidebar__category">
+            <h2 class="phpdocumentor-sidebar__category-header">Namespaces</h2>
+                                    <h4 class="phpdocumentor-sidebar__root-namespace">
+    <a href="namespaces/fpcm.html" class="">fpcm</a>
+</h4>
+    <ul class="phpdocumentor-list">
+                    <li>
+                <a href="namespaces/fpcm-classes.html" class="">classes</a>
+                
+            </li>
+                    <li>
+                <a href="namespaces/fpcm-components.html" class="">components</a>
+                
+            </li>
+                    <li>
+                <a href="namespaces/fpcm-controller.html" class="">controller</a>
+                
+            </li>
+                    <li>
+                <a href="namespaces/fpcm-drivers.html" class="">drivers</a>
+                
+            </li>
+                    <li>
+                <a href="namespaces/fpcm-events.html" class="">events</a>
+                
+            </li>
+                    <li>
+                <a href="namespaces/fpcm-migrations.html" class="">migrations</a>
+                
+            </li>
+                    <li>
+                <a href="namespaces/fpcm-model.html" class="">model</a>
+                
+            </li>
+                    <li>
+                <a href="namespaces/fpcm-module.html" class="">module</a>
+                
+            </li>
+                    <li>
+                <a href="namespaces/fpcm-view.html" class="">view</a>
+                
+            </li>
             </ul>
 
-    <article class="phpdocumentor-element phpdocumentor-class">
-        <h2 class="phpdocumentor-content__title">
-            selectParams
-                                        <div class="phpdocumentor-element__package">
-                    in
+                        </section>
+                <section class="phpdocumentor-sidebar__category">
+            <h2 class="phpdocumentor-sidebar__category-header">Packages</h2>
+                                    <h4 class="phpdocumentor-sidebar__root-namespace">
+    <a href="packages/Application.html" class="">Application</a>
+</h4>
+
+                                    <h4 class="phpdocumentor-sidebar__root-namespace">
+    <a href="packages/fpcm.html" class="">fpcm</a>
+</h4>
+    <ul class="phpdocumentor-list">
+                    <li>
+                <a href="packages/fpcm-classes.html" class="">classes</a>
+                
+            </li>
+                    <li>
+                <a href="packages/fpcm-model.html" class="">model</a>
+                
+            </li>
+                    <li>
+                <a href="packages/fpcm-components.html" class="">components</a>
+                
+            </li>
+                    <li>
+                <a href="packages/fpcm-controller.html" class="">controller</a>
+                
+            </li>
+                    <li>
+                <a href="packages/fpcm-module.html" class="">module</a>
+                
+            </li>
+                    <li>
+                <a href="packages/fpcm-drivers.html" class="">drivers</a>
+                
+            </li>
+                    <li>
+                <a href="packages/fpcm-events.html" class="">events</a>
+                
+            </li>
+                    <li>
+                <a href="packages/fpcm-migrations.html" class="">migrations</a>
+                
+            </li>
+                    <li>
+                <a href="packages/fpcm-view.html" class="">view</a>
+                
+            </li>
+            </ul>
+
+                        </section>
+            
+    <section class="phpdocumentor-sidebar__category">
+        <h2 class="phpdocumentor-sidebar__category-header">Reports</h2>
+                <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/deprecated.html">Deprecated</a></h3>
+        <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/errors.html">Errors</a></h3>
+        <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/markers.html">Markers</a></h3>
+    </section>
+
+    <section class="phpdocumentor-sidebar__category">
+        <h2 class="phpdocumentor-sidebar__category-header">Indices</h2>
+        <h3 class="phpdocumentor-sidebar__root-package"><a href="indices/files.html">Files</a></h3>
+    </section>
+</aside>
+
+            <div class="phpdocumentor-column -eight phpdocumentor-content">
                     <ul class="phpdocumentor-breadcrumbs">
-                                                    <li><a href="../packages/fpcm.html">fpcm</a></li>
-                                                    <li><a href="../packages/fpcm-model.html">model</a></li>
-                                                    <li><a href="../packages/fpcm-model-system.html">system</a></li>
-                                            </ul>
-                </div>
-                                            </h2>
+            <li class="phpdocumentor-breadcrumb"><a href="namespaces/fpcm.html">fpcm</a></li>
+            <li class="phpdocumentor-breadcrumb"><a href="namespaces/fpcm-model.html">model</a></li>
+            <li class="phpdocumentor-breadcrumb"><a href="namespaces/fpcm-model-dbal.html">dbal</a></li>
+    </ul>
+
+    <article class="phpdocumentor-element -class">
+        <h2 class="phpdocumentor-content__title">
+    selectParams
+
+    
+            <div class="phpdocumentor-element__package">
+            in package
+            <ul class="phpdocumentor-breadcrumbs">
+                                    <li class="phpdocumentor-breadcrumb"><a href="packages/fpcm.html">fpcm</a></li>
+                                    <li class="phpdocumentor-breadcrumb"><a href="packages/fpcm-model.html">model</a></li>
+                                    <li class="phpdocumentor-breadcrumb"><a href="packages/fpcm-model-system.html">system</a></li>
+                            </ul>
+        </div>
+    
+    
+    </h2>
+
         <aside class="phpdocumentor-element-found-in">
-            <abbr class="phpdocumentor-element-found-in__file" title="inc/model/dbal/selectParams.php"><a href="../files/inc-model-dbal-selectparams.html"><abbr title="inc/model/dbal/selectParams.php">selectParams.php</abbr></a></abbr>
-            :
-            <span class="phpdocumentor-element-found-in__line">18</span>
-        </aside>
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/dbal/selectParams.php"><a href="files/inc-model-dbal-selectparams.html"><abbr title="inc/model/dbal/selectParams.php">selectParams.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">18</span>
 
-        <p class="phpdocumentor-class__summary">IP-Listen Objekt</p>
-        <section class="phpdocumentor-class__description"></section>
+    </aside>
 
-        <h3>Table of Contents</h3>
-        <table class="phpdocumentor-table_of_contents">
-                                        <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-dbal-selectParams.html#property_table">$table</a></th>
-                    <td class="phpdocumentor-cell">Database table name</td>
-                    <td class="phpdocumentor-cell">string</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-dbal-selectParams.html#property_item">$item</a></th>
-                    <td class="phpdocumentor-cell">Select item string</td>
-                    <td class="phpdocumentor-cell">string</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-dbal-selectParams.html#property_where">$where</a></th>
-                    <td class="phpdocumentor-cell">Where clause</td>
-                    <td class="phpdocumentor-cell">string</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-dbal-selectParams.html#property_join">$join</a></th>
-                    <td class="phpdocumentor-cell">JOIN clause</td>
-                    <td class="phpdocumentor-cell">string</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-dbal-selectParams.html#property_params">$params</a></th>
-                    <td class="phpdocumentor-cell">Select params</td>
-                    <td class="phpdocumentor-cell">array</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-dbal-selectParams.html#property_distinct">$distinct</a></th>
-                    <td class="phpdocumentor-cell">SELECT DISTINCT flag</td>
-                    <td class="phpdocumentor-cell">bool</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-dbal-selectParams.html#property_returnResult">$returnResult</a></th>
-                    <td class="phpdocumentor-cell">Return raw result flag</td>
-                    <td class="phpdocumentor-cell">bool</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-dbal-selectParams.html#property_fetchAll">$fetchAll</a></th>
-                    <td class="phpdocumentor-cell">Fetch all mode</td>
-                    <td class="phpdocumentor-cell">bool</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-dbal-selectParams.html#property_fetchStyle">$fetchStyle</a></th>
-                    <td class="phpdocumentor-cell">Fetch style</td>
-                    <td class="phpdocumentor-cell">int</td>
-                </tr>
-                                                                <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-dbal-selectParams.html#method___construct">__construct()</a></th>
-                    <td class="phpdocumentor-cell">Constructor method, as of FPCM 4.1 the destination table(s) can be set directly</td>
-                    <td class="phpdocumentor-cell">mixed</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-dbal-selectParams.html#method_getTable">getTable()</a></th>
-                    <td class="phpdocumentor-cell">Returns database name(s)</td>
-                    <td class="phpdocumentor-cell">string|array</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-dbal-selectParams.html#method_getItem">getItem()</a></th>
-                    <td class="phpdocumentor-cell">Returns items</td>
-                    <td class="phpdocumentor-cell">string</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-dbal-selectParams.html#method_getWhere">getWhere()</a></th>
-                    <td class="phpdocumentor-cell">Returns where clause</td>
-                    <td class="phpdocumentor-cell">string</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-dbal-selectParams.html#method_getJoin">getJoin()</a></th>
-                    <td class="phpdocumentor-cell">Returns join clause</td>
-                    <td class="phpdocumentor-cell">string</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-dbal-selectParams.html#method_getParams">getParams()</a></th>
-                    <td class="phpdocumentor-cell">Return select params</td>
-                    <td class="phpdocumentor-cell">array</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-dbal-selectParams.html#method_getDistinct">getDistinct()</a></th>
-                    <td class="phpdocumentor-cell">return Distinct select mode</td>
-                    <td class="phpdocumentor-cell">bool</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-dbal-selectParams.html#method_getReturnResult">getReturnResult()</a></th>
-                    <td class="phpdocumentor-cell">Returns mode of result return</td>
-                    <td class="phpdocumentor-cell">bool</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-dbal-selectParams.html#method_getFetchAll">getFetchAll()</a></th>
-                    <td class="phpdocumentor-cell">Returns fetch mode</td>
-                    <td class="phpdocumentor-cell">bool</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-dbal-selectParams.html#method_getFetchStyle">getFetchStyle()</a></th>
-                    <td class="phpdocumentor-cell">Returns fetch style</td>
-                    <td class="phpdocumentor-cell">int</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-dbal-selectParams.html#method_setTable">setTable()</a></th>
-                    <td class="phpdocumentor-cell">Set database table name(s)</td>
-                    <td class="phpdocumentor-cell">$this</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-dbal-selectParams.html#method_setItem">setItem()</a></th>
-                    <td class="phpdocumentor-cell">Set select items</td>
-                    <td class="phpdocumentor-cell">$this</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-dbal-selectParams.html#method_setWhere">setWhere()</a></th>
-                    <td class="phpdocumentor-cell">Set Where clause</td>
-                    <td class="phpdocumentor-cell">$this</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-dbal-selectParams.html#method_setJoin">setJoin()</a></th>
-                    <td class="phpdocumentor-cell">Set JOIN clause</td>
-                    <td class="phpdocumentor-cell">$this</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-dbal-selectParams.html#method_setParams">setParams()</a></th>
-                    <td class="phpdocumentor-cell">Set select data params for where clause</td>
-                    <td class="phpdocumentor-cell">$this</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-dbal-selectParams.html#method_setDistinct">setDistinct()</a></th>
-                    <td class="phpdocumentor-cell">Set distinct select mode</td>
-                    <td class="phpdocumentor-cell">$this</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-dbal-selectParams.html#method_setReturnResult">setReturnResult()</a></th>
-                    <td class="phpdocumentor-cell">Set return of raw result</td>
-                    <td class="phpdocumentor-cell">$this</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-dbal-selectParams.html#method_setFetchAll">setFetchAll()</a></th>
-                    <td class="phpdocumentor-cell">Set fetch mode to all or single mode</td>
-                    <td class="phpdocumentor-cell">$this</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-dbal-selectParams.html#method_setFetchStyle">setFetchStyle()</a></th>
-                    <td class="phpdocumentor-cell">Set fetch style</td>
-                    <td class="phpdocumentor-cell">$this</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-dbal-selectParams.html#method_getQuery">getQuery()</a></th>
-                    <td class="phpdocumentor-cell"></td>
-                    <td class="phpdocumentor-cell">string</td>
-                </tr>
-                                            </table>
+            <p class="phpdocumentor-summary">IP-Listen Objekt</p>
+
+
+
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">author</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                
+                                                 <section class="phpdocumentor-description"><p>Stefan Seehafer <a href="mailto:sea75300@yahoo.de">sea75300@yahoo.de</a></p>
+</section>
+
+                                    </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">copyright</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                
+                                                 <section class="phpdocumentor-description"><p>(c) 2011-2020, Stefan Seehafer</p>
+</section>
+
+                                    </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">license</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                
+                                                 <section class="phpdocumentor-description"><p>http://www.gnu.org/licenses/gpl.txt GPLv3</p>
+</section>
+
+                                    </dd>
+                        </dl>
+
+
+
+
+
+
+<h3 id="toc">
+    Table of Contents
+    <a href="#toc" class="headerlink"><i class="fas fa-link"></i></a>
+</h3>
+
+<dl class="phpdocumentor-table-of-contents">
+                    <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/fpcm-model-dbal-selectParams.html#property_distinct">$distinct</a>
+    <span>
+                        &nbsp;: bool            </span>
+</dt>
+<dd>SELECT DISTINCT flag</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/fpcm-model-dbal-selectParams.html#property_fetchAll">$fetchAll</a>
+    <span>
+                        &nbsp;: bool            </span>
+</dt>
+<dd>Fetch all mode</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/fpcm-model-dbal-selectParams.html#property_fetchStyle">$fetchStyle</a>
+    <span>
+                        &nbsp;: int            </span>
+</dt>
+<dd>Fetch style</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/fpcm-model-dbal-selectParams.html#property_item">$item</a>
+    <span>
+                        &nbsp;: string            </span>
+</dt>
+<dd>Select item string</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/fpcm-model-dbal-selectParams.html#property_join">$join</a>
+    <span>
+                        &nbsp;: string            </span>
+</dt>
+<dd>JOIN clause</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/fpcm-model-dbal-selectParams.html#property_params">$params</a>
+    <span>
+                        &nbsp;: array&lt;string|int, mixed&gt;            </span>
+</dt>
+<dd>Select params</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/fpcm-model-dbal-selectParams.html#property_returnResult">$returnResult</a>
+    <span>
+                        &nbsp;: bool            </span>
+</dt>
+<dd>Return raw result flag</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/fpcm-model-dbal-selectParams.html#property_table">$table</a>
+    <span>
+                        &nbsp;: string            </span>
+</dt>
+<dd>Database table name</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/fpcm-model-dbal-selectParams.html#property_where">$where</a>
+    <span>
+                        &nbsp;: string            </span>
+</dt>
+<dd>Where clause</dd>
+
+                <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-model-dbal-selectParams.html#method___construct">__construct()</a>
+    <span>
+                                &nbsp;: mixed    </span>
+</dt>
+<dd>Constructor method, as of FPCM 4.1 the destination table(s) can be set directly</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-model-dbal-selectParams.html#method___toString">__toString()</a>
+    <span>
+                                &nbsp;: string    </span>
+</dt>
+<dd>Magic toString function</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-model-dbal-selectParams.html#method_getDistinct">getDistinct()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+<dd>return Distinct select mode</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-model-dbal-selectParams.html#method_getFetchAll">getFetchAll()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+<dd>Returns fetch mode</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-model-dbal-selectParams.html#method_getFetchStyle">getFetchStyle()</a>
+    <span>
+                                &nbsp;: int    </span>
+</dt>
+<dd>Returns fetch style</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-model-dbal-selectParams.html#method_getItem">getItem()</a>
+    <span>
+                                &nbsp;: string    </span>
+</dt>
+<dd>Returns items</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-model-dbal-selectParams.html#method_getJoin">getJoin()</a>
+    <span>
+                                &nbsp;: string    </span>
+</dt>
+<dd>Returns join clause</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-model-dbal-selectParams.html#method_getParams">getParams()</a>
+    <span>
+                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+</dt>
+<dd>Return select params</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-model-dbal-selectParams.html#method_getQuery">getQuery()</a>
+    <span>
+                                &nbsp;: string    </span>
+</dt>
+<dd>Return query string</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-model-dbal-selectParams.html#method_getReturnResult">getReturnResult()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+<dd>Returns mode of result return</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-model-dbal-selectParams.html#method_getTable">getTable()</a>
+    <span>
+                                &nbsp;: string|array&lt;string|int, mixed&gt;    </span>
+</dt>
+<dd>Returns database name(s)</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-model-dbal-selectParams.html#method_getWhere">getWhere()</a>
+    <span>
+                                &nbsp;: string    </span>
+</dt>
+<dd>Returns where clause</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-model-dbal-selectParams.html#method_setDistinct">setDistinct()</a>
+    <span>
+                                &nbsp;: $this    </span>
+</dt>
+<dd>Set distinct select mode</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-model-dbal-selectParams.html#method_setFetchAll">setFetchAll()</a>
+    <span>
+                                &nbsp;: $this    </span>
+</dt>
+<dd>Set fetch mode to all or single mode</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-model-dbal-selectParams.html#method_setFetchStyle">setFetchStyle()</a>
+    <span>
+                                &nbsp;: $this    </span>
+</dt>
+<dd>Set fetch style</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-model-dbal-selectParams.html#method_setItem">setItem()</a>
+    <span>
+                                &nbsp;: $this    </span>
+</dt>
+<dd>Set select items</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-model-dbal-selectParams.html#method_setJoin">setJoin()</a>
+    <span>
+                                &nbsp;: $this    </span>
+</dt>
+<dd>Set JOIN clause</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-model-dbal-selectParams.html#method_setParams">setParams()</a>
+    <span>
+                                &nbsp;: $this    </span>
+</dt>
+<dd>Set select data params for where clause</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-model-dbal-selectParams.html#method_setReturnResult">setReturnResult()</a>
+    <span>
+                                &nbsp;: $this    </span>
+</dt>
+<dd>Set return of raw result</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-model-dbal-selectParams.html#method_setTable">setTable()</a>
+    <span>
+                                &nbsp;: $this    </span>
+</dt>
+<dd>Set database table name(s)</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-model-dbal-selectParams.html#method_setWhere">setWhere()</a>
+    <span>
+                                &nbsp;: $this    </span>
+</dt>
+<dd>Set Where clause</dd>
+
+        </dl>
+
+
 
         
-                    <section>
-                <h3 class="phpdocumentor-properties__header">Properties</h3>
-                                    <a id="property_table"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--private
-                                "
->
-    <h4 class="phpdocumentor-property__name">$table</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/dbal/selectParams.php"><a href="../files/inc-model-dbal-selectparams.html"><abbr title="inc/model/dbal/selectParams.php">selectParams.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">24</span>
-    </aside>
-            <p class="phpdocumentor-summary">Database table name</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__type">string</span>
-        <span class="phpdocumentor-signature__name">$table</span>
-         = <span class="phpdocumentor-signature__default-value">&#039;&#039;</span>    </code>
-    </article>
-                                    <a id="property_item"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--private
-                                "
->
-    <h4 class="phpdocumentor-property__name">$item</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/dbal/selectParams.php"><a href="../files/inc-model-dbal-selectparams.html"><abbr title="inc/model/dbal/selectParams.php">selectParams.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">30</span>
-    </aside>
-            <p class="phpdocumentor-summary">Select item string</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__type">string</span>
-        <span class="phpdocumentor-signature__name">$item</span>
-         = <span class="phpdocumentor-signature__default-value">&#039;*&#039;</span>    </code>
-    </article>
-                                    <a id="property_where"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--private
-                                "
->
-    <h4 class="phpdocumentor-property__name">$where</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/dbal/selectParams.php"><a href="../files/inc-model-dbal-selectparams.html"><abbr title="inc/model/dbal/selectParams.php">selectParams.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">36</span>
-    </aside>
-            <p class="phpdocumentor-summary">Where clause</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__type">string</span>
-        <span class="phpdocumentor-signature__name">$where</span>
-         = <span class="phpdocumentor-signature__default-value">&#039;&#039;</span>    </code>
-    </article>
-                                    <a id="property_join"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--private
-                                "
->
-    <h4 class="phpdocumentor-property__name">$join</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/dbal/selectParams.php"><a href="../files/inc-model-dbal-selectparams.html"><abbr title="inc/model/dbal/selectParams.php">selectParams.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">42</span>
-    </aside>
-            <p class="phpdocumentor-summary">JOIN clause</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__type">string</span>
-        <span class="phpdocumentor-signature__name">$join</span>
-         = <span class="phpdocumentor-signature__default-value">&#039;&#039;</span>    </code>
-    </article>
-                                    <a id="property_params"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--private
-                                "
->
-    <h4 class="phpdocumentor-property__name">$params</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/dbal/selectParams.php"><a href="../files/inc-model-dbal-selectparams.html"><abbr title="inc/model/dbal/selectParams.php">selectParams.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">48</span>
-    </aside>
-            <p class="phpdocumentor-summary">Select params</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__type">array</span>
-        <span class="phpdocumentor-signature__name">$params</span>
-         = <span class="phpdocumentor-signature__default-value">[]</span>    </code>
-    </article>
-                                    <a id="property_distinct"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--private
-                                "
->
-    <h4 class="phpdocumentor-property__name">$distinct</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/dbal/selectParams.php"><a href="../files/inc-model-dbal-selectparams.html"><abbr title="inc/model/dbal/selectParams.php">selectParams.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">54</span>
-    </aside>
-            <p class="phpdocumentor-summary">SELECT DISTINCT flag</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__type">bool</span>
-        <span class="phpdocumentor-signature__name">$distinct</span>
-         = <span class="phpdocumentor-signature__default-value">false</span>    </code>
-    </article>
-                                    <a id="property_returnResult"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--private
-                                "
->
-    <h4 class="phpdocumentor-property__name">$returnResult</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/dbal/selectParams.php"><a href="../files/inc-model-dbal-selectparams.html"><abbr title="inc/model/dbal/selectParams.php">selectParams.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">60</span>
-    </aside>
-            <p class="phpdocumentor-summary">Return raw result flag</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__type">bool</span>
-        <span class="phpdocumentor-signature__name">$returnResult</span>
-         = <span class="phpdocumentor-signature__default-value">false</span>    </code>
-    </article>
-                                    <a id="property_fetchAll"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--private
-                                "
->
-    <h4 class="phpdocumentor-property__name">$fetchAll</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/dbal/selectParams.php"><a href="../files/inc-model-dbal-selectparams.html"><abbr title="inc/model/dbal/selectParams.php">selectParams.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">66</span>
-    </aside>
-            <p class="phpdocumentor-summary">Fetch all mode</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__type">bool</span>
-        <span class="phpdocumentor-signature__name">$fetchAll</span>
-         = <span class="phpdocumentor-signature__default-value">false</span>    </code>
-    </article>
-                                    <a id="property_fetchStyle"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--private
-                                "
->
-    <h4 class="phpdocumentor-property__name">$fetchStyle</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/dbal/selectParams.php"><a href="../files/inc-model-dbal-selectparams.html"><abbr title="inc/model/dbal/selectParams.php">selectParams.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">73</span>
-    </aside>
-            <p class="phpdocumentor-summary">Fetch style</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__type">int</span>
-        <span class="phpdocumentor-signature__name">$fetchStyle</span>
-         = <span class="phpdocumentor-signature__default-value">5</span>    </code>
-    </article>
-                                                            </section>
+
         
-                    <section>
-                <h3 class="phpdocumentor-methods__header">Methods</h3>
-                                    <a id="method___construct"></a>
-<article
+    <section class="phpdocumentor-properties">
+        <h3 class="phpdocumentor-elements__header" id="properties">
+            Properties
+            <a href="classes/fpcm-model-dbal-selectParams.html#properties" class="headerlink"><i class="fas fa-link"></i></a>
+        </h3>
+                    <article
         class="
-            phpdocumentor-method
-            phpdocumentor-method--public
+            phpdocumentor-element
+            -property
+            -private
                                                         "
 >
-    <h4 class="phpdocumentor-method__name">__construct()</h4>
+    <h4 class="phpdocumentor-element__name" id="property_distinct">
+        $distinct
+        <a href="classes/fpcm-model-dbal-selectParams.html#property_distinct" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/dbal/selectParams.php"><a href="../files/inc-model-dbal-selectparams.html"><abbr title="inc/model/dbal/selectParams.php">selectParams.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">79</span>
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/dbal/selectParams.php"><a href="files/inc-model-dbal-selectparams.html"><abbr title="inc/model/dbal/selectParams.php">selectParams.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">54</span>
+
     </aside>
+
+        <p class="phpdocumentor-summary">SELECT DISTINCT flag</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type">bool</span>
+    <span class="phpdocumentor-signature__name">$distinct</span>
+     = <span class="phpdocumentor-signature__default-value">false</span></code>
+
+    
+    
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_fetchAll">
+        $fetchAll
+        <a href="classes/fpcm-model-dbal-selectParams.html#property_fetchAll" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/dbal/selectParams.php"><a href="files/inc-model-dbal-selectparams.html"><abbr title="inc/model/dbal/selectParams.php">selectParams.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">66</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Fetch all mode</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type">bool</span>
+    <span class="phpdocumentor-signature__name">$fetchAll</span>
+     = <span class="phpdocumentor-signature__default-value">false</span></code>
+
+    
+    
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_fetchStyle">
+        $fetchStyle
+        <a href="classes/fpcm-model-dbal-selectParams.html#property_fetchStyle" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/dbal/selectParams.php"><a href="files/inc-model-dbal-selectparams.html"><abbr title="inc/model/dbal/selectParams.php">selectParams.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">73</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Fetch style</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type">int</span>
+    <span class="phpdocumentor-signature__name">$fetchStyle</span>
+     = <span class="phpdocumentor-signature__default-value">5</span></code>
+
+    
+    
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">4.2.1</span>
+                                                                                
+                                             
+                                    </dd>
+                        </dl>
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_item">
+        $item
+        <a href="classes/fpcm-model-dbal-selectParams.html#property_item" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/dbal/selectParams.php"><a href="files/inc-model-dbal-selectparams.html"><abbr title="inc/model/dbal/selectParams.php">selectParams.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">30</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Select item string</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type">string</span>
+    <span class="phpdocumentor-signature__name">$item</span>
+     = <span class="phpdocumentor-signature__default-value">&#039;*&#039;</span></code>
+
+    
+    
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_join">
+        $join
+        <a href="classes/fpcm-model-dbal-selectParams.html#property_join" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/dbal/selectParams.php"><a href="files/inc-model-dbal-selectparams.html"><abbr title="inc/model/dbal/selectParams.php">selectParams.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">42</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">JOIN clause</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type">string</span>
+    <span class="phpdocumentor-signature__name">$join</span>
+     = <span class="phpdocumentor-signature__default-value">&#039;&#039;</span></code>
+
+    
+    
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_params">
+        $params
+        <a href="classes/fpcm-model-dbal-selectParams.html#property_params" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/dbal/selectParams.php"><a href="files/inc-model-dbal-selectparams.html"><abbr title="inc/model/dbal/selectParams.php">selectParams.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">48</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Select params</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;</span>
+    <span class="phpdocumentor-signature__name">$params</span>
+     = <span class="phpdocumentor-signature__default-value">[]</span></code>
+
+    
+    
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_returnResult">
+        $returnResult
+        <a href="classes/fpcm-model-dbal-selectParams.html#property_returnResult" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/dbal/selectParams.php"><a href="files/inc-model-dbal-selectparams.html"><abbr title="inc/model/dbal/selectParams.php">selectParams.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">60</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Return raw result flag</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type">bool</span>
+    <span class="phpdocumentor-signature__name">$returnResult</span>
+     = <span class="phpdocumentor-signature__default-value">false</span></code>
+
+    
+    
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_table">
+        $table
+        <a href="classes/fpcm-model-dbal-selectParams.html#property_table" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/dbal/selectParams.php"><a href="files/inc-model-dbal-selectparams.html"><abbr title="inc/model/dbal/selectParams.php">selectParams.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">24</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Database table name</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type">string</span>
+    <span class="phpdocumentor-signature__name">$table</span>
+     = <span class="phpdocumentor-signature__default-value">&#039;&#039;</span></code>
+
+    
+    
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_where">
+        $where
+        <a href="classes/fpcm-model-dbal-selectParams.html#property_where" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/dbal/selectParams.php"><a href="files/inc-model-dbal-selectparams.html"><abbr title="inc/model/dbal/selectParams.php">selectParams.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">36</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Where clause</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type">string</span>
+    <span class="phpdocumentor-signature__name">$where</span>
+     = <span class="phpdocumentor-signature__default-value">&#039;&#039;</span></code>
+
+    
+    
+    
+
+</article>
+            </section>
+
+            <section class="phpdocumentor-methods">
+        <h3 class="phpdocumentor-elements__header" id="methods">
+            Methods
+            <a href="classes/fpcm-model-dbal-selectParams.html#methods" class="headerlink"><i class="fas fa-link"></i></a>
+        </h3>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method___construct">
+        __construct()
+        <a href="classes/fpcm-model-dbal-selectParams.html#method___construct" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/dbal/selectParams.php"><a href="files/inc-model-dbal-selectparams.html"><abbr title="inc/model/dbal/selectParams.php">selectParams.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">79</span>
+
+    </aside>
+
         <p class="phpdocumentor-summary">Constructor method, as of FPCM 4.1 the destination table(s) can be set directly</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">__construct</span>(
-                    <span class="phpdocumentor-signature__argument">
-            [                <span class="phpdocumentor-signature__argument__name">$table</span> :
-                <span class="phpdocumentor-signature__argument__return-type">string|array</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span> ]            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">mixed</span>
-    </code>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">string|array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$table</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
 
     
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$table</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">string|array</span>
-                     = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span>                </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>(@since 4.1)</p></section></dd>
-                    </dl>
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">mixed</span>
-            
-</article>
-                                    <a id="method_getTable"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                                        "
->
-    <h4 class="phpdocumentor-method__name">getTable()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/dbal/selectParams.php"><a href="../files/inc-model-dbal-selectparams.html"><abbr title="inc/model/dbal/selectParams.php">selectParams.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">89</span>
-    </aside>
-        <p class="phpdocumentor-summary">Returns database name(s)</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">getTable</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type">string|array</span>
-    </code>
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$table</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string|array&lt;string|int, mixed&gt;</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>(@since 4.1)</p>
+</section>
+
+            </dd>
+            </dl>
 
     
-    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">mixed</span>
+            &mdash;
         
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">string|array</span>
-            
+    
 </article>
-                                    <a id="method_getItem"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
                                                         "
 >
-    <h4 class="phpdocumentor-method__name">getItem()</h4>
+    <h4 class="phpdocumentor-element__name" id="method___toString">
+        __toString()
+        <a href="classes/fpcm-model-dbal-selectParams.html#method___toString" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/dbal/selectParams.php"><a href="../files/inc-model-dbal-selectparams.html"><abbr title="inc/model/dbal/selectParams.php">selectParams.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">98</span>
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/dbal/selectParams.php"><a href="files/inc-model-dbal-selectparams.html"><abbr title="inc/model/dbal/selectParams.php">selectParams.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">285</span>
+
     </aside>
-        <p class="phpdocumentor-summary">Returns items</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">getItem</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type">string</span>
-    </code>
+
+        <p class="phpdocumentor-summary">Magic toString function</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">__toString</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
 
     
     
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">string</span>
-            
-</article>
-                                    <a id="method_getWhere"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                                        "
->
-    <h4 class="phpdocumentor-method__name">getWhere()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/dbal/selectParams.php"><a href="../files/inc-model-dbal-selectparams.html"><abbr title="inc/model/dbal/selectParams.php">selectParams.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">107</span>
-    </aside>
-        <p class="phpdocumentor-summary">Returns where clause</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">getWhere</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type">string</span>
-    </code>
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">4.5-b8</span>
+                                                                                
+                                             
+                                    </dd>
+                        </dl>
 
-    
-    
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">string</span>
+            &mdash;
         
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">string</span>
-            
+    
 </article>
-                                    <a id="method_getJoin"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
                                                         "
 >
-    <h4 class="phpdocumentor-method__name">getJoin()</h4>
+    <h4 class="phpdocumentor-element__name" id="method_getDistinct">
+        getDistinct()
+        <a href="classes/fpcm-model-dbal-selectParams.html#method_getDistinct" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/dbal/selectParams.php"><a href="../files/inc-model-dbal-selectparams.html"><abbr title="inc/model/dbal/selectParams.php">selectParams.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">116</span>
-    </aside>
-        <p class="phpdocumentor-summary">Returns join clause</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">getJoin</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type">string</span>
-    </code>
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/dbal/selectParams.php"><a href="files/inc-model-dbal-selectparams.html"><abbr title="inc/model/dbal/selectParams.php">selectParams.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">134</span>
 
-    
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">string</span>
-            
-</article>
-                                    <a id="method_getParams"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                                        "
->
-    <h4 class="phpdocumentor-method__name">getParams()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/dbal/selectParams.php"><a href="../files/inc-model-dbal-selectparams.html"><abbr title="inc/model/dbal/selectParams.php">selectParams.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">125</span>
     </aside>
-        <p class="phpdocumentor-summary">Return select params</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">getParams</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type">array</span>
-    </code>
 
-    
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array</span>
-            
-</article>
-                                    <a id="method_getDistinct"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                                        "
->
-    <h4 class="phpdocumentor-method__name">getDistinct()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/dbal/selectParams.php"><a href="../files/inc-model-dbal-selectparams.html"><abbr title="inc/model/dbal/selectParams.php">selectParams.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">134</span>
-    </aside>
         <p class="phpdocumentor-summary">return Distinct select mode</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">getDistinct</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type">bool</span>
-    </code>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">getDistinct</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
 
     
     
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">bool</span>
-            
-</article>
-                                    <a id="method_getReturnResult"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                                        "
->
-    <h4 class="phpdocumentor-method__name">getReturnResult()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/dbal/selectParams.php"><a href="../files/inc-model-dbal-selectparams.html"><abbr title="inc/model/dbal/selectParams.php">selectParams.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">143</span>
-    </aside>
-        <p class="phpdocumentor-summary">Returns mode of result return</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">getReturnResult</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type">bool</span>
-    </code>
+    
 
-    
-    
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">bool</span>
+            &mdash;
         
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">bool</span>
-            
+    
 </article>
-                                    <a id="method_getFetchAll"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
                                                         "
 >
-    <h4 class="phpdocumentor-method__name">getFetchAll()</h4>
+    <h4 class="phpdocumentor-element__name" id="method_getFetchAll">
+        getFetchAll()
+        <a href="classes/fpcm-model-dbal-selectParams.html#method_getFetchAll" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/dbal/selectParams.php"><a href="../files/inc-model-dbal-selectparams.html"><abbr title="inc/model/dbal/selectParams.php">selectParams.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">152</span>
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/dbal/selectParams.php"><a href="files/inc-model-dbal-selectparams.html"><abbr title="inc/model/dbal/selectParams.php">selectParams.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">152</span>
+
     </aside>
+
         <p class="phpdocumentor-summary">Returns fetch mode</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">getFetchAll</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type">bool</span>
-    </code>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">getFetchAll</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
 
     
     
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">bool</span>
+            &mdash;
         
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">bool</span>
-            
+    
 </article>
-                                    <a id="method_getFetchStyle"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
                                                         "
 >
-    <h4 class="phpdocumentor-method__name">getFetchStyle()</h4>
+    <h4 class="phpdocumentor-element__name" id="method_getFetchStyle">
+        getFetchStyle()
+        <a href="classes/fpcm-model-dbal-selectParams.html#method_getFetchStyle" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/dbal/selectParams.php"><a href="../files/inc-model-dbal-selectparams.html"><abbr title="inc/model/dbal/selectParams.php">selectParams.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">162</span>
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/dbal/selectParams.php"><a href="files/inc-model-dbal-selectparams.html"><abbr title="inc/model/dbal/selectParams.php">selectParams.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">162</span>
+
     </aside>
+
         <p class="phpdocumentor-summary">Returns fetch style</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">getFetchStyle</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type">int</span>
-    </code>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">getFetchStyle</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
 
     
     
-                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
-        <dl class="phpdocumentor-tag-list">
-                                                <dt class="phpdocumentor-tag-list__entry">
-                        <span class="phpdocumentor-tag__name">since</span>
-                    </dt>
-                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
-                                    </dl>
     
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">int</span>
-            
-</article>
-                                    <a id="method_setTable"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                                        "
->
-    <h4 class="phpdocumentor-method__name">setTable()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/dbal/selectParams.php"><a href="../files/inc-model-dbal-selectparams.html"><abbr title="inc/model/dbal/selectParams.php">selectParams.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">171</span>
-    </aside>
-        <p class="phpdocumentor-summary">Set database table name(s)</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">setTable</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$table</span> :
-                <span class="phpdocumentor-signature__argument__return-type">string|array</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">$this</span>
-    </code>
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">4.2.1</span>
+                                                                                
+                                             
+                                    </dd>
+                        </dl>
 
-    
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$table</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">string|array</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                    </dl>
-    
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">int</span>
+            &mdash;
         
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">$this</span>
-            
+    
 </article>
-                                    <a id="method_setItem"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
                                                         "
 >
-    <h4 class="phpdocumentor-method__name">setItem()</h4>
+    <h4 class="phpdocumentor-element__name" id="method_getItem">
+        getItem()
+        <a href="classes/fpcm-model-dbal-selectParams.html#method_getItem" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/dbal/selectParams.php"><a href="../files/inc-model-dbal-selectparams.html"><abbr title="inc/model/dbal/selectParams.php">selectParams.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">182</span>
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/dbal/selectParams.php"><a href="files/inc-model-dbal-selectparams.html"><abbr title="inc/model/dbal/selectParams.php">selectParams.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">98</span>
+
     </aside>
-        <p class="phpdocumentor-summary">Set select items</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">setItem</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$item</span> :
-                <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">$this</span>
-    </code>
+
+        <p class="phpdocumentor-summary">Returns items</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">getItem</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
 
     
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$item</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                    </dl>
     
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">string</span>
+            &mdash;
         
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">$this</span>
-            
+    
 </article>
-                                    <a id="method_setWhere"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
                                                         "
 >
-    <h4 class="phpdocumentor-method__name">setWhere()</h4>
+    <h4 class="phpdocumentor-element__name" id="method_getJoin">
+        getJoin()
+        <a href="classes/fpcm-model-dbal-selectParams.html#method_getJoin" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/dbal/selectParams.php"><a href="../files/inc-model-dbal-selectparams.html"><abbr title="inc/model/dbal/selectParams.php">selectParams.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">193</span>
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/dbal/selectParams.php"><a href="files/inc-model-dbal-selectparams.html"><abbr title="inc/model/dbal/selectParams.php">selectParams.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">116</span>
+
     </aside>
-        <p class="phpdocumentor-summary">Set Where clause</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">setWhere</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$where</span> :
-                <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">$this</span>
-    </code>
+
+        <p class="phpdocumentor-summary">Returns join clause</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">getJoin</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
 
     
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$where</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                    </dl>
     
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">string</span>
+            &mdash;
         
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">$this</span>
-            
+    
 </article>
-                                    <a id="method_setJoin"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
                                                         "
 >
-    <h4 class="phpdocumentor-method__name">setJoin()</h4>
+    <h4 class="phpdocumentor-element__name" id="method_getParams">
+        getParams()
+        <a href="classes/fpcm-model-dbal-selectParams.html#method_getParams" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/dbal/selectParams.php"><a href="../files/inc-model-dbal-selectparams.html"><abbr title="inc/model/dbal/selectParams.php">selectParams.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">204</span>
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/dbal/selectParams.php"><a href="files/inc-model-dbal-selectparams.html"><abbr title="inc/model/dbal/selectParams.php">selectParams.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">125</span>
+
     </aside>
-        <p class="phpdocumentor-summary">Set JOIN clause</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">setJoin</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$join</span> :
-                <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">$this</span>
-    </code>
+
+        <p class="phpdocumentor-summary">Return select params</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">getParams</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
 
     
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$join</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                    </dl>
     
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+            &mdash;
         
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">$this</span>
-            
+    
 </article>
-                                    <a id="method_setParams"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                                        "
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                -final        "
 >
-    <h4 class="phpdocumentor-method__name">setParams()</h4>
+    <h4 class="phpdocumentor-element__name" id="method_getQuery">
+        getQuery()
+        <a href="classes/fpcm-model-dbal-selectParams.html#method_getQuery" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/dbal/selectParams.php"><a href="../files/inc-model-dbal-selectparams.html"><abbr title="inc/model/dbal/selectParams.php">selectParams.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">215</span>
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/dbal/selectParams.php"><a href="files/inc-model-dbal-selectparams.html"><abbr title="inc/model/dbal/selectParams.php">selectParams.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">270</span>
+
     </aside>
-        <p class="phpdocumentor-summary">Set select data params for where clause</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">setParams</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$params</span> :
-                <span class="phpdocumentor-signature__argument__return-type">array</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">$this</span>
-    </code>
+
+        <p class="phpdocumentor-summary">Return query string</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__final">final</span>            <span class="phpdocumentor-signature__name">getQuery</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
 
     
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$params</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">array</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                    </dl>
     
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">4.5</span>
+                                                                                
+                                             
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">string</span>
+            &mdash;
         
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">$this</span>
-            
+    
 </article>
-                                    <a id="method_setDistinct"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
                                                         "
 >
-    <h4 class="phpdocumentor-method__name">setDistinct()</h4>
+    <h4 class="phpdocumentor-element__name" id="method_getReturnResult">
+        getReturnResult()
+        <a href="classes/fpcm-model-dbal-selectParams.html#method_getReturnResult" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/dbal/selectParams.php"><a href="../files/inc-model-dbal-selectparams.html"><abbr title="inc/model/dbal/selectParams.php">selectParams.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">226</span>
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/dbal/selectParams.php"><a href="files/inc-model-dbal-selectparams.html"><abbr title="inc/model/dbal/selectParams.php">selectParams.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">143</span>
+
     </aside>
+
+        <p class="phpdocumentor-summary">Returns mode of result return</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">getReturnResult</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+    
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">bool</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getTable">
+        getTable()
+        <a href="classes/fpcm-model-dbal-selectParams.html#method_getTable" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/dbal/selectParams.php"><a href="files/inc-model-dbal-selectparams.html"><abbr title="inc/model/dbal/selectParams.php">selectParams.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">89</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Returns database name(s)</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">getTable</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string|array&lt;string|int, mixed&gt;</span></code>
+
+    
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">string|array&lt;string|int, mixed&gt;</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getWhere">
+        getWhere()
+        <a href="classes/fpcm-model-dbal-selectParams.html#method_getWhere" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/dbal/selectParams.php"><a href="files/inc-model-dbal-selectparams.html"><abbr title="inc/model/dbal/selectParams.php">selectParams.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">107</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Returns where clause</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">getWhere</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+
+    
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">string</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_setDistinct">
+        setDistinct()
+        <a href="classes/fpcm-model-dbal-selectParams.html#method_setDistinct" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/dbal/selectParams.php"><a href="files/inc-model-dbal-selectparams.html"><abbr title="inc/model/dbal/selectParams.php">selectParams.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">226</span>
+
+    </aside>
+
         <p class="phpdocumentor-summary">Set distinct select mode</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">setDistinct</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$distinct</span> :
-                <span class="phpdocumentor-signature__argument__return-type">bool</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">$this</span>
-    </code>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">setDistinct</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$distinct</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
 
     
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$distinct</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">bool</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                    </dl>
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">$this</span>
-            
-</article>
-                                    <a id="method_setReturnResult"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                                        "
->
-    <h4 class="phpdocumentor-method__name">setReturnResult()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/dbal/selectParams.php"><a href="../files/inc-model-dbal-selectparams.html"><abbr title="inc/model/dbal/selectParams.php">selectParams.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">237</span>
-    </aside>
-        <p class="phpdocumentor-summary">Set return of raw result</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">setReturnResult</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$returnResult</span> :
-                <span class="phpdocumentor-signature__argument__return-type">bool</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">$this</span>
-    </code>
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$distinct</span>
+                : <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
 
     
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$returnResult</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">bool</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                    </dl>
-    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">$this</span>
+            &mdash;
         
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">$this</span>
-            
+    
 </article>
-                                    <a id="method_setFetchAll"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
                                                         "
 >
-    <h4 class="phpdocumentor-method__name">setFetchAll()</h4>
+    <h4 class="phpdocumentor-element__name" id="method_setFetchAll">
+        setFetchAll()
+        <a href="classes/fpcm-model-dbal-selectParams.html#method_setFetchAll" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/dbal/selectParams.php"><a href="../files/inc-model-dbal-selectparams.html"><abbr title="inc/model/dbal/selectParams.php">selectParams.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">248</span>
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/dbal/selectParams.php"><a href="files/inc-model-dbal-selectparams.html"><abbr title="inc/model/dbal/selectParams.php">selectParams.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">248</span>
+
     </aside>
+
         <p class="phpdocumentor-summary">Set fetch mode to all or single mode</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">setFetchAll</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$fetchAll</span> :
-                <span class="phpdocumentor-signature__argument__return-type">bool</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">$this</span>
-    </code>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">setFetchAll</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$fetchAll</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
 
     
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$fetchAll</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">bool</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                    </dl>
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$fetchAll</span>
+                : <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
     
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">$this</span>
+            &mdash;
         
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">$this</span>
-            
+    
 </article>
-                                    <a id="method_setFetchStyle"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
                                                         "
 >
-    <h4 class="phpdocumentor-method__name">setFetchStyle()</h4>
+    <h4 class="phpdocumentor-element__name" id="method_setFetchStyle">
+        setFetchStyle()
+        <a href="classes/fpcm-model-dbal-selectParams.html#method_setFetchStyle" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/dbal/selectParams.php"><a href="../files/inc-model-dbal-selectparams.html"><abbr title="inc/model/dbal/selectParams.php">selectParams.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">260</span>
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/dbal/selectParams.php"><a href="files/inc-model-dbal-selectparams.html"><abbr title="inc/model/dbal/selectParams.php">selectParams.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">260</span>
+
     </aside>
+
         <p class="phpdocumentor-summary">Set fetch style</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">setFetchStyle</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$fetchStyle</span> :
-                <span class="phpdocumentor-signature__argument__return-type">int</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">$this</span>
-    </code>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">setFetchStyle</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$fetchStyle</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
 
     
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$fetchStyle</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                    </dl>
-    
-                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
-        <dl class="phpdocumentor-tag-list">
-                                                <dt class="phpdocumentor-tag-list__entry">
-                        <span class="phpdocumentor-tag__name">since</span>
-                    </dt>
-                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
-                                    </dl>
-    
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">$this</span>
-            
-</article>
-                                    <a id="method_getQuery"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                                phpdocumentor-element--final        "
->
-    <h4 class="phpdocumentor-method__name">getQuery()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/dbal/selectParams.php"><a href="../files/inc-model-dbal-selectparams.html"><abbr title="inc/model/dbal/selectParams.php">selectParams.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">265</span>
-    </aside>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__final">final</span>                <span class="phpdocumentor-signature__name">getQuery</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type">string</span>
-    </code>
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$fetchStyle</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
 
     
-    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">4.2.1</span>
+                                                                                
+                                             
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">$this</span>
+            &mdash;
         
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">string</span>
-            
+    
 </article>
-                                                            </section>
-            </article>
-            <div data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_setItem">
+        setItem()
+        <a href="classes/fpcm-model-dbal-selectParams.html#method_setItem" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/dbal/selectParams.php"><a href="files/inc-model-dbal-selectparams.html"><abbr title="inc/model/dbal/selectParams.php">selectParams.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">182</span>
 
-                <h2>Search results</h2>
-                <ul class="phpdocumentor-search-results__entries">
+    </aside>
 
-                </ul>
+        <p class="phpdocumentor-summary">Set select items</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">setItem</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$item</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$item</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">$this</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_setJoin">
+        setJoin()
+        <a href="classes/fpcm-model-dbal-selectParams.html#method_setJoin" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/dbal/selectParams.php"><a href="files/inc-model-dbal-selectparams.html"><abbr title="inc/model/dbal/selectParams.php">selectParams.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">204</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Set JOIN clause</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">setJoin</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$join</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$join</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">$this</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_setParams">
+        setParams()
+        <a href="classes/fpcm-model-dbal-selectParams.html#method_setParams" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/dbal/selectParams.php"><a href="files/inc-model-dbal-selectparams.html"><abbr title="inc/model/dbal/selectParams.php">selectParams.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">215</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Set select data params for where clause</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">setParams</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$params</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$params</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">$this</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_setReturnResult">
+        setReturnResult()
+        <a href="classes/fpcm-model-dbal-selectParams.html#method_setReturnResult" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/dbal/selectParams.php"><a href="files/inc-model-dbal-selectparams.html"><abbr title="inc/model/dbal/selectParams.php">selectParams.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">237</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Set return of raw result</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">setReturnResult</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$returnResult</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$returnResult</span>
+                : <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">$this</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_setTable">
+        setTable()
+        <a href="classes/fpcm-model-dbal-selectParams.html#method_setTable" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/dbal/selectParams.php"><a href="files/inc-model-dbal-selectparams.html"><abbr title="inc/model/dbal/selectParams.php">selectParams.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">171</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Set database table name(s)</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">setTable</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string|array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$table</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$table</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string|array&lt;string|int, mixed&gt;</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">$this</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_setWhere">
+        setWhere()
+        <a href="classes/fpcm-model-dbal-selectParams.html#method_setWhere" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/dbal/selectParams.php"><a href="files/inc-model-dbal-selectparams.html"><abbr title="inc/model/dbal/selectParams.php">selectParams.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">193</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Set Where clause</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">setWhere</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$where</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$where</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">$this</span>
+            &mdash;
+        
+    
+</article>
+            </section>
+
+        
+    <script type="text/javascript">
+        function loadExternalCodeSnippets(line) {
+            Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach((pre) => {
+                var src = pre.getAttribute('data-src').replace( /\\/g, '/');
+                var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+                var language = 'php';
+
+                var code = document.createElement('code');
+                code.className = 'language-' + language;
+
+                pre.textContent = '';
+
+                pre.setAttribute('data-line', line)
+                code.textContent = 'Loading…';
+
+                pre.appendChild(code);
+
+                var xhr = new XMLHttpRequest();
+
+                xhr.open('GET', src, true);
+
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == 4) {
+
+                        if (xhr.status < 400 && xhr.responseText) {
+                            code.textContent = xhr.responseText;
+
+                            Prism.highlightElement(code);
+                        }
+                        else if (xhr.status >= 400) {
+                            code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                        }
+                        else {
+                            code.textContent = '✖ Error: File does not exist, is empty or trying to view from localhost';
+                        }
+                    }
+                };
+
+                xhr.send(null);
+            });
+        }
+
+        var modals = document.querySelectorAll("[data-modal]");
+
+        modals.forEach(function (trigger) {
+            trigger.addEventListener("click", function (event) {
+                //event.preventDefault();
+                const modal = document.getElementById(trigger.dataset.modal);
+                modal.classList.add("phpdocumentor-modal__open");
+                loadExternalCodeSnippets(trigger.dataset.line)
+                const exits = modal.querySelectorAll("[data-exit-button]");
+                exits.forEach(function (exit) {
+                    exit.addEventListener("click", function (event) {
+                        event.preventDefault();
+                        modal.classList.remove("phpdocumentor-modal__open");
+                    });
+                });
+            });
+        });
+    </script>
+
+    </article>
+                <section data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
+    <section class="phpdocumentor-search-results__dialog">
+        <header class="phpdocumentor-search-results__header">
+            <h2 class="phpdocumentor-search-results__title">Search results</h2>
+            <button class="phpdocumentor-search-results__close"><i class="fas fa-times"></i></button>
+        </header>
+        <section class="phpdocumentor-search-results__body">
+            <ul class="phpdocumentor-search-results__entries"></ul>
+        </section>
+    </section>
+</section>
             </div>
         </div>
-    </div>
-</main>
+        <a href="classes/fpcm-model-dbal-selectParams.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
 
+    </main>
+
+    <script>
+        cssVars({});
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/prism.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
 </body>
 </html>

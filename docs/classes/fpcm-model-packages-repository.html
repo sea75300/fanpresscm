@@ -2,1008 +2,1533 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Documentation</title>
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro">
-    <link rel="stylesheet" href="../css/normalize.css">
-    <link rel="stylesheet" href="../css/template.css">
-    <link rel="icon" href="../images/favicon.ico"/>
-        <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.4.6/fuse.min.js"></script>
-    <script src="../js/search.js"></script>
-    <script defer src="../js/searchIndex.js"></script>
-    </head>
-<body>
-<header class="phpdocumentor-top-header"></header>
-<header class="phpdocumentor-header">
-    <section class="phpdocumentor-section">
-        <h1 class="phpdocumentor-title">Documentation</h1>
-    </section>
-</header>
-<main class="phpdocumentor">
-    <div class="phpdocumentor-section">
-        <aside class="three phpdocumentor-columns phpdocumentor-sidebar">
-    <section data-search-form class="phpdocumentor-search">
-        <h1 class="phpdocumentor-sidebar__category-header">Search</h1>
-        <label class="phpdocumentor-label">
-            <span class="visually-hidden">Search for</span>
-            <input type="search" class="phpdocumentor-field phpdocumentor-search__field" placeholder="Loading .." disabled />
-        </label>
-    </section>
-
+            <title>Documentation</title>
     
-    <h1 class="phpdocumentor-sidebar__category-header">Namespaces</h1>
-            <h2 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/default.html"><abbr title="\">Global</abbr></a></h2>
-                    <h3 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/fpcm.html"><abbr title="\fpcm">fpcm</abbr></a></h3>
-            <ul class="phpdocumentor-list">
-                                    <li><a href="../namespaces/fpcm-classes.html"><abbr title="\fpcm\classes">classes</abbr></a></li>
-                                    <li><a href="../namespaces/fpcm-components.html"><abbr title="\fpcm\components">components</abbr></a></li>
-                                    <li><a href="../namespaces/fpcm-controller.html"><abbr title="\fpcm\controller">controller</abbr></a></li>
-                                    <li><a href="../namespaces/fpcm-drivers.html"><abbr title="\fpcm\drivers">drivers</abbr></a></li>
-                                    <li><a href="../namespaces/fpcm-events.html"><abbr title="\fpcm\events">events</abbr></a></li>
-                                    <li><a href="../namespaces/fpcm-migrations.html"><abbr title="\fpcm\migrations">migrations</abbr></a></li>
-                                    <li><a href="../namespaces/fpcm-model.html"><abbr title="\fpcm\model">model</abbr></a></li>
-                                    <li><a href="../namespaces/fpcm-module.html"><abbr title="\fpcm\module">module</abbr></a></li>
-                                    <li><a href="../namespaces/fpcm-view.html"><abbr title="\fpcm\view">view</abbr></a></li>
-                            </ul>
-            
-        <h1 class="phpdocumentor-sidebar__category-header">Packages</h1>
-            <h2 class="phpdocumentor-sidebar__root-package"><a href="../packages/Default.html"><abbr title="\Default">Default</abbr></a></h2>
-        <ul class="phpdocumentor-list">
-                    </ul>
-            <h2 class="phpdocumentor-sidebar__root-package"><a href="../packages/fpcm.html"><abbr title="\fpcm">fpcm</abbr></a></h2>
-        <ul class="phpdocumentor-list">
-                            <li><a href="../packages/fpcm-classes.html"><abbr title="\fpcm\classes">classes</abbr></a></li>
-                            <li><a href="../packages/fpcm-model.html"><abbr title="\fpcm\model">model</abbr></a></li>
-                            <li><a href="../packages/fpcm-components.html"><abbr title="\fpcm\components">components</abbr></a></li>
-                            <li><a href="../packages/fpcm-controller.html"><abbr title="\fpcm\controller">controller</abbr></a></li>
-                            <li><a href="../packages/fpcm-module.html"><abbr title="\fpcm\module">module</abbr></a></li>
-                            <li><a href="../packages/fpcm-drivers.html"><abbr title="\fpcm\drivers">drivers</abbr></a></li>
-                            <li><a href="../packages/fpcm-events.html"><abbr title="\fpcm\events">events</abbr></a></li>
-                            <li><a href="../packages/fpcm-migrations.html"><abbr title="\fpcm\migrations">migrations</abbr></a></li>
-                            <li><a href="../packages/fpcm-view.html"><abbr title="\fpcm\view">view</abbr></a></li>
-                    </ul>
-        
-    <h1 class="phpdocumentor-sidebar__category-header">Reports</h1>
-        <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/deprecated.html">Deprecated</a></h2>
-    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/errors.html">Errors</a></h2>
-    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/markers.html">Markers</a></h2>
-</aside>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="../">
+    <link rel="icon" href="images/favicon.ico"/>
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/base.css">
+            <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="css/template.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0/css/all.min.css" integrity="sha256-ybRkN9dBjhcS2qrW1z+hfCxq+1aBdwyQM5wlQoQVt/0=" crossorigin="anonymous" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/themes/prism-okaidia.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-numbers/prism-line-numbers.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-highlight/prism-line-highlight.css">
+                <script src="https://cdn.jsdelivr.net/npm/fuse.js@3.4.6"></script>
+        <script src="https://cdn.jsdelivr.net/npm/css-vars-ponyfill@2"></script>
+        <script src="js/search.js"></script>
+        <script defer src="js/searchIndex.js"></script>
+    </head>
+<body id="top">
+    <header class="phpdocumentor-header phpdocumentor-section">
+    <h1 class="phpdocumentor-title"><a href="" class="phpdocumentor-title__link">Documentation</a></h1>
+    <input class="phpdocumentor-header__menu-button" type="checkbox" id="menu-button" name="menu-button" />
+    <label class="phpdocumentor-header__menu-icon" for="menu-button">
+        <i class="fas fa-bars"></i>
+    </label>
+    <section data-search-form class="phpdocumentor-search">
+    <label>
+        <span class="visually-hidden">Search for</span>
+        <svg class="phpdocumentor-search__icon" width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="7.5" cy="7.5" r="6.5" stroke="currentColor" stroke-width="2"/>
+            <line x1="12.4892" y1="12.2727" x2="19.1559" y2="18.9393" stroke="currentColor" stroke-width="3"/>
+        </svg>
+        <input type="search" class="phpdocumentor-field phpdocumentor-search__field" placeholder="Loading .." disabled />
+    </label>
+</section>
 
-        <div class="nine phpdocumentor-columns phpdocumentor-content">
-            <ul class="phpdocumentor-breadcrumbs">
-    <li><a href="../index.html">Home</a></li>
-                        <li><a href="../namespaces/fpcm.html">fpcm</a></li>
-                    <li><a href="../namespaces/fpcm-model.html">model</a></li>
-                    <li><a href="../namespaces/fpcm-model-packages.html">packages</a></li>
+    <nav class="phpdocumentor-topnav">
+    <ul class="phpdocumentor-topnav__menu">
+        </ul>
+</nav>
+</header>
+
+    <main class="phpdocumentor">
+        <div class="phpdocumentor-section">
+            <input class="phpdocumentor-sidebar__menu-button" type="checkbox" id="sidebar-button" name="sidebar-button" />
+<label class="phpdocumentor-sidebar__menu-icon" for="sidebar-button">
+    Menu
+</label>
+<aside class="phpdocumentor-column -four phpdocumentor-sidebar">
+                    <section class="phpdocumentor-sidebar__category">
+            <h2 class="phpdocumentor-sidebar__category-header">Namespaces</h2>
+                                    <h4 class="phpdocumentor-sidebar__root-namespace">
+    <a href="namespaces/fpcm.html" class="">fpcm</a>
+</h4>
+    <ul class="phpdocumentor-list">
+                    <li>
+                <a href="namespaces/fpcm-classes.html" class="">classes</a>
+                
+            </li>
+                    <li>
+                <a href="namespaces/fpcm-components.html" class="">components</a>
+                
+            </li>
+                    <li>
+                <a href="namespaces/fpcm-controller.html" class="">controller</a>
+                
+            </li>
+                    <li>
+                <a href="namespaces/fpcm-drivers.html" class="">drivers</a>
+                
+            </li>
+                    <li>
+                <a href="namespaces/fpcm-events.html" class="">events</a>
+                
+            </li>
+                    <li>
+                <a href="namespaces/fpcm-migrations.html" class="">migrations</a>
+                
+            </li>
+                    <li>
+                <a href="namespaces/fpcm-model.html" class="">model</a>
+                
+            </li>
+                    <li>
+                <a href="namespaces/fpcm-module.html" class="">module</a>
+                
+            </li>
+                    <li>
+                <a href="namespaces/fpcm-view.html" class="">view</a>
+                
+            </li>
             </ul>
 
-    <article class="phpdocumentor-element phpdocumentor-class">
-        <h2 class="phpdocumentor-content__title">
-            repository
-                            <span class="phpdocumentor-class__extends">
-                    extends <a href="../classes/fpcm-model-abstracts-remoteModel.html"><abbr title="\fpcm\model\abstracts\remoteModel">remoteModel</abbr></a>
-                </span>
-                                        <div class="phpdocumentor-element__package">
-                    in
+                        </section>
+                <section class="phpdocumentor-sidebar__category">
+            <h2 class="phpdocumentor-sidebar__category-header">Packages</h2>
+                                    <h4 class="phpdocumentor-sidebar__root-namespace">
+    <a href="packages/Application.html" class="">Application</a>
+</h4>
+
+                                    <h4 class="phpdocumentor-sidebar__root-namespace">
+    <a href="packages/fpcm.html" class="">fpcm</a>
+</h4>
+    <ul class="phpdocumentor-list">
+                    <li>
+                <a href="packages/fpcm-classes.html" class="">classes</a>
+                
+            </li>
+                    <li>
+                <a href="packages/fpcm-model.html" class="">model</a>
+                
+            </li>
+                    <li>
+                <a href="packages/fpcm-components.html" class="">components</a>
+                
+            </li>
+                    <li>
+                <a href="packages/fpcm-controller.html" class="">controller</a>
+                
+            </li>
+                    <li>
+                <a href="packages/fpcm-module.html" class="">module</a>
+                
+            </li>
+                    <li>
+                <a href="packages/fpcm-drivers.html" class="">drivers</a>
+                
+            </li>
+                    <li>
+                <a href="packages/fpcm-events.html" class="">events</a>
+                
+            </li>
+                    <li>
+                <a href="packages/fpcm-migrations.html" class="">migrations</a>
+                
+            </li>
+                    <li>
+                <a href="packages/fpcm-view.html" class="">view</a>
+                
+            </li>
+            </ul>
+
+                        </section>
+            
+    <section class="phpdocumentor-sidebar__category">
+        <h2 class="phpdocumentor-sidebar__category-header">Reports</h2>
+                <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/deprecated.html">Deprecated</a></h3>
+        <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/errors.html">Errors</a></h3>
+        <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/markers.html">Markers</a></h3>
+    </section>
+
+    <section class="phpdocumentor-sidebar__category">
+        <h2 class="phpdocumentor-sidebar__category-header">Indices</h2>
+        <h3 class="phpdocumentor-sidebar__root-package"><a href="indices/files.html">Files</a></h3>
+    </section>
+</aside>
+
+            <div class="phpdocumentor-column -eight phpdocumentor-content">
                     <ul class="phpdocumentor-breadcrumbs">
-                                                    <li><a href="../packages/fpcm.html">fpcm</a></li>
-                                                    <li><a href="../packages/fpcm-model.html">model</a></li>
-                                                    <li><a href="../packages/fpcm-model-packages.html">packages</a></li>
-                                            </ul>
-                </div>
-                                            </h2>
+            <li class="phpdocumentor-breadcrumb"><a href="namespaces/fpcm.html">fpcm</a></li>
+            <li class="phpdocumentor-breadcrumb"><a href="namespaces/fpcm-model.html">model</a></li>
+            <li class="phpdocumentor-breadcrumb"><a href="namespaces/fpcm-model-packages.html">packages</a></li>
+    </ul>
+
+    <article class="phpdocumentor-element -class">
+        <h2 class="phpdocumentor-content__title">
+    repository
+
+        <span class="phpdocumentor-element__extends">
+        extends <a href="classes/fpcm-model-abstracts-remoteModel.html"><abbr title="\fpcm\model\abstracts\remoteModel">remoteModel</abbr></a>
+    </span>
+    
+            <div class="phpdocumentor-element__package">
+            in package
+            <ul class="phpdocumentor-breadcrumbs">
+                                    <li class="phpdocumentor-breadcrumb"><a href="packages/fpcm.html">fpcm</a></li>
+                                    <li class="phpdocumentor-breadcrumb"><a href="packages/fpcm-model.html">model</a></li>
+                                    <li class="phpdocumentor-breadcrumb"><a href="packages/fpcm-model-packages.html">packages</a></li>
+                            </ul>
+        </div>
+    
+    
+    </h2>
+
         <aside class="phpdocumentor-element-found-in">
-            <abbr class="phpdocumentor-element-found-in__file" title="inc/model/packages/repository.php"><a href="../files/inc-model-packages-repository.html"><abbr title="inc/model/packages/repository.php">repository.php</abbr></a></abbr>
-            :
-            <span class="phpdocumentor-element-found-in__line">21</span>
-        </aside>
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/packages/repository.php"><a href="files/inc-model-packages-repository.html"><abbr title="inc/model/packages/repository.php">repository.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">21</span>
 
-        <p class="phpdocumentor-class__summary">Repository class</p>
-        <section class="phpdocumentor-class__description"></section>
+    </aside>
 
-        <h3>Table of Contents</h3>
-        <table class="phpdocumentor-table_of_contents">
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-packages-repository.html#constant_FOPT_UPDATES">FOPT_UPDATES</a></th>
-                    <td class="phpdocumentor-cell"></td>
-                    <td class="phpdocumentor-cell">&#039;updates.yml&#039;</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-packages-repository.html#constant_FOPT_MODULES">FOPT_MODULES</a></th>
-                    <td class="phpdocumentor-cell"></td>
-                    <td class="phpdocumentor-cell">&#039;modules.yml&#039;</td>
-                </tr>
-                                        <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-packages-repository.html#property_files">$files</a></th>
-                    <td class="phpdocumentor-cell">Repository check sources</td>
-                    <td class="phpdocumentor-cell">array</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-packages-repository.html#property_current">$current</a></th>
-                    <td class="phpdocumentor-cell">Current repo source</td>
-                    <td class="phpdocumentor-cell">string</td>
-                </tr>
-                                                    <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-abstracts-remoteModel.html#property_remoteServer">$remoteServer</a></th>
-                    <td class="phpdocumentor-cell">URL zum Server</td>
-                    <td class="phpdocumentor-cell">string</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-abstracts-remoteModel.html#property_remotePort">$remotePort</a></th>
-                    <td class="phpdocumentor-cell">Server port</td>
-                    <td class="phpdocumentor-cell">string</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-abstracts-remoteModel.html#property_checkParams">$checkParams</a></th>
-                    <td class="phpdocumentor-cell">Datenparameter</td>
-                    <td class="phpdocumentor-cell">array</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-abstracts-remoteModel.html#property_canConnect">$canConnect</a></th>
-                    <td class="phpdocumentor-cell">Verbindungen zu anderem Server möglich</td>
-                    <td class="phpdocumentor-cell">bool</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-abstracts-remoteModel.html#property_remoteData">$remoteData</a></th>
-                    <td class="phpdocumentor-cell">vom Server zurückgegebene Daten</td>
-                    <td class="phpdocumentor-cell">string</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-abstracts-staticModel.html#property_data">$data</a></th>
-                    <td class="phpdocumentor-cell">Data array</td>
-                    <td class="phpdocumentor-cell">array</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-abstracts-staticModel.html#property_cache">$cache</a></th>
-                    <td class="phpdocumentor-cell">Cache object</td>
-                    <td class="phpdocumentor-cell"><a href="../classes/fpcm-classes-cache.html"><abbr title="\fpcm\classes\cache">cache</abbr></a></td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-abstracts-staticModel.html#property_events">$events</a></th>
-                    <td class="phpdocumentor-cell">Event list</td>
-                    <td class="phpdocumentor-cell"><a href="../classes/fpcm-events-events.html"><abbr title="\fpcm\events\events">events</abbr></a></td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-abstracts-staticModel.html#property_config">$config</a></th>
-                    <td class="phpdocumentor-cell">Config object</td>
-                    <td class="phpdocumentor-cell"><a href="../classes/fpcm-model-system-config.html"><abbr title="\fpcm\model\system\config">config</abbr></a></td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-abstracts-staticModel.html#property_language">$language</a></th>
-                    <td class="phpdocumentor-cell">Sprachobjekt</td>
-                    <td class="phpdocumentor-cell"><a href="../classes/fpcm-classes-language.html"><abbr title="\fpcm\classes\language">language</abbr></a></td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-abstracts-staticModel.html#property_session">$session</a></th>
-                    <td class="phpdocumentor-cell">Session objekt</td>
-                    <td class="phpdocumentor-cell"><a href="../classes/fpcm-model-system-session.html"><abbr title="\fpcm\model\system\session">session</abbr></a></td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-abstracts-staticModel.html#property_notifications">$notifications</a></th>
-                    <td class="phpdocumentor-cell">Notifications</td>
-                    <td class="phpdocumentor-cell"><a href="../classes/fpcm-model-theme-notifications.html"><abbr title="\fpcm\model\theme\notifications">notifications</abbr></a></td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-abstracts-staticModel.html#property_permissions">$permissions</a></th>
-                    <td class="phpdocumentor-cell">Permissions</td>
-                    <td class="phpdocumentor-cell"><a href="../classes/fpcm-model-permissions-permissions.html"><abbr title="\fpcm\model\permissions\permissions">permissions</abbr></a></td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-abstracts-staticModel.html#property_cacheName">$cacheName</a></th>
-                    <td class="phpdocumentor-cell">Cache name</td>
-                    <td class="phpdocumentor-cell">string</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-abstracts-staticModel.html#property_cacheModule">$cacheModule</a></th>
-                    <td class="phpdocumentor-cell">Cache Modul</td>
-                    <td class="phpdocumentor-cell">string</td>
-                </tr>
-                                        <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-packages-repository.html#method___construct">__construct()</a></th>
-                    <td class="phpdocumentor-cell">Konstruktor</td>
-                    <td class="phpdocumentor-cell">bool</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-packages-repository.html#method_fetchRemoteData">fetchRemoteData()</a></th>
-                    <td class="phpdocumentor-cell">Fetchs data from remote repository source</td>
-                    <td class="phpdocumentor-cell">bool</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-packages-repository.html#method_saveRemoteData">saveRemoteData()</a></th>
-                    <td class="phpdocumentor-cell">Writes remote repository data to local storage</td>
-                    <td class="phpdocumentor-cell">bool</td>
-                </tr>
-                                                    <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-abstracts-staticModel.html#method___construct">__construct()</a></th>
-                    <td class="phpdocumentor-cell">Konstruktor</td>
-                    <td class="phpdocumentor-cell">void</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-abstracts-remoteModel.html#method_fetchRemoteData">fetchRemoteData()</a></th>
-                    <td class="phpdocumentor-cell">Ftech data from remote source</td>
-                    <td class="phpdocumentor-cell">bool</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-abstracts-remoteModel.html#method_getRemoteData">getRemoteData()</a></th>
-                    <td class="phpdocumentor-cell">Daten zurückgeben, die vom Server abgerufen wurden</td>
-                    <td class="phpdocumentor-cell">array</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-abstracts-remoteModel.html#method_remoteAvailable">remoteAvailable()</a></th>
-                    <td class="phpdocumentor-cell">Prüft, ob Update-Server verfügbar ist</td>
-                    <td class="phpdocumentor-cell">bool</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-abstracts-remoteModel.html#method_saveRemoteData">saveRemoteData()</a></th>
-                    <td class="phpdocumentor-cell">Writes remote repository data to local storage</td>
-                    <td class="phpdocumentor-cell">bool</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-abstracts-staticModel.html#method_getCacheName">getCacheName()</a></th>
-                    <td class="phpdocumentor-cell">Cache-Name zurückgeben</td>
-                    <td class="phpdocumentor-cell">string</td>
-                </tr>
-                    </table>
+            <p class="phpdocumentor-summary">Repository class</p>
 
-                    <section>
-                <h3 class="phpdocumentor-constants__header">Constants</h3>
-                                    <a id="constant_FOPT_UPDATES"></a>
-<article
-        class="
-            phpdocumentor-element
-            phpdocumentor-constant
-            phpdocumentor-constant--
-                    "
->
-    <h4 class="phpdocumentor-constant__name">FOPT_UPDATES</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/packages/repository.php"><a href="../files/inc-model-packages-repository.html"><abbr title="inc/model/packages/repository.php">repository.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">23</span>
-    </aside>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility"></span>
-        <span class="phpdocumentor-signature__type">mixed</span>
-        <span class="phpdocumentor-signature__name">$FOPT_UPDATES</span>
-        = <span class="phpdocumentor-signature__default-value">&#039;updates.yml&#039;</span>
-    </code>
-    </article>
-                                    <a id="constant_FOPT_MODULES"></a>
-<article
-        class="
-            phpdocumentor-element
-            phpdocumentor-constant
-            phpdocumentor-constant--
-                    "
->
-    <h4 class="phpdocumentor-constant__name">FOPT_MODULES</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/packages/repository.php"><a href="../files/inc-model-packages-repository.html"><abbr title="inc/model/packages/repository.php">repository.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">25</span>
-    </aside>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility"></span>
-        <span class="phpdocumentor-signature__type">mixed</span>
-        <span class="phpdocumentor-signature__name">$FOPT_MODULES</span>
-        = <span class="phpdocumentor-signature__default-value">&#039;modules.yml&#039;</span>
-    </code>
-    </article>
-                                                    <a id="constant_FURLOPEN_ERROR"></a>
-<article
-        class="
-            phpdocumentor-element
-            phpdocumentor-constant
-            phpdocumentor-constant--
-                    "
->
-    <h4 class="phpdocumentor-constant__name">FURLOPEN_ERROR</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/remoteModel.php"><a href="../files/inc-model-abstracts-remotemodel.html"><abbr title="inc/model/abstracts/remoteModel.php">remoteModel.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">26</span>
-    </aside>
-            <p class="phpdocumentor-summary">Hinweis, dass allow_url_fopen nicht aktiv ist</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility"></span>
-        <span class="phpdocumentor-signature__type">mixed</span>
-        <span class="phpdocumentor-signature__name">$FURLOPEN_ERROR</span>
-        = <span class="phpdocumentor-signature__default-value">400</span>
-    </code>
-    </article>
-                                    <a id="constant_REMOTEFILE_ERROR"></a>
-<article
-        class="
-            phpdocumentor-element
-            phpdocumentor-constant
-            phpdocumentor-constant--
-                    "
->
-    <h4 class="phpdocumentor-constant__name">REMOTEFILE_ERROR</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/remoteModel.php"><a href="../files/inc-model-abstracts-remotemodel.html"><abbr title="inc/model/abstracts/remoteModel.php">remoteModel.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">31</span>
-    </aside>
-            <p class="phpdocumentor-summary">Fehler beim Prüfung, ob Update-Server erreichbar ist</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility"></span>
-        <span class="phpdocumentor-signature__type">mixed</span>
-        <span class="phpdocumentor-signature__name">$REMOTEFILE_ERROR</span>
-        = <span class="phpdocumentor-signature__default-value">401</span>
-    </code>
-    </article>
-                                    <a id="constant_REMOTECONTENT_ERROR"></a>
-<article
-        class="
-            phpdocumentor-element
-            phpdocumentor-constant
-            phpdocumentor-constant--
-                    "
->
-    <h4 class="phpdocumentor-constant__name">REMOTECONTENT_ERROR</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/remoteModel.php"><a href="../files/inc-model-abstracts-remotemodel.html"><abbr title="inc/model/abstracts/remoteModel.php">remoteModel.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">36</span>
-    </aside>
-            <p class="phpdocumentor-summary">Fehler beim Abrüfen der Update-Informationen</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility"></span>
-        <span class="phpdocumentor-signature__type">mixed</span>
-        <span class="phpdocumentor-signature__name">$REMOTECONTENT_ERROR</span>
-        = <span class="phpdocumentor-signature__default-value">402</span>
-    </code>
-    </article>
-                            </section>
+
+
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">author</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                
+                                                 <section class="phpdocumentor-description"><p>Stefan Seehafer <a href="mailto:sea75300@yahoo.de">sea75300@yahoo.de</a></p>
+</section>
+
+                                    </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">copyright</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                
+                                                 <section class="phpdocumentor-description"><p>(c) 2011-2020, Stefan Seehafer</p>
+</section>
+
+                                    </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">license</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                
+                                                 <section class="phpdocumentor-description"><p>http://www.gnu.org/licenses/gpl.txt GPLv3</p>
+</section>
+
+                                    </dd>
+                        </dl>
+
+
+
+
+
+
+<h3 id="toc">
+    Table of Contents
+    <a href="#toc" class="headerlink"><i class="fas fa-link"></i></a>
+</h3>
+
+<dl class="phpdocumentor-table-of-contents">
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a href="classes/fpcm-model-packages-repository.html#constant_FOPT_MODULES">FOPT_MODULES</a>
+    <span>
+        &nbsp;= &#039;modules.yml&#039;                            </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a href="classes/fpcm-model-packages-repository.html#constant_FOPT_UPDATES">FOPT_UPDATES</a>
+    <span>
+        &nbsp;= &#039;updates.yml&#039;                            </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a href="classes/fpcm-model-abstracts-remoteModel.html#constant_FURLOPEN_ERROR">FURLOPEN_ERROR</a>
+    <span>
+        &nbsp;= 400                            </span>
+</dt>
+<dd>Hinweis, dass allow_url_fopen nicht aktiv ist</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a href="classes/fpcm-model-abstracts-remoteModel.html#constant_REMOTECONTENT_ERROR">REMOTECONTENT_ERROR</a>
+    <span>
+        &nbsp;= 402                            </span>
+</dt>
+<dd>Fehler beim Abrüfen der Update-Informationen</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a href="classes/fpcm-model-abstracts-remoteModel.html#constant_REMOTEFILE_ERROR">REMOTEFILE_ERROR</a>
+    <span>
+        &nbsp;= 401                            </span>
+</dt>
+<dd>Fehler beim Prüfung, ob Update-Server erreichbar ist</dd>
+
+                    <dt class="phpdocumentor-table-of-contents__entry -property -protected">
+    <a href="classes/fpcm-model-abstracts-staticModel.html#property_cache">$cache</a>
+    <span>
+                        &nbsp;: <a href="classes/fpcm-classes-cache.html"><abbr title="\fpcm\classes\cache">cache</abbr></a>            </span>
+</dt>
+<dd>Cache object</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -protected">
+    <a href="classes/fpcm-model-abstracts-staticModel.html#property_cacheModule">$cacheModule</a>
+    <span>
+                        &nbsp;: string            </span>
+</dt>
+<dd>Cache Modul</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -protected">
+    <a href="classes/fpcm-model-abstracts-staticModel.html#property_cacheName">$cacheName</a>
+    <span>
+                        &nbsp;: string            </span>
+</dt>
+<dd>Cache name</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -protected">
+    <a href="classes/fpcm-model-abstracts-remoteModel.html#property_canConnect">$canConnect</a>
+    <span>
+                        &nbsp;: bool            </span>
+</dt>
+<dd>Verbindungen zu anderem Server möglich</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -protected">
+    <a href="classes/fpcm-model-abstracts-remoteModel.html#property_checkParams">$checkParams</a>
+    <span>
+                        &nbsp;: array&lt;string|int, mixed&gt;            </span>
+</dt>
+<dd>Datenparameter</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -protected">
+    <a href="classes/fpcm-model-abstracts-staticModel.html#property_config">$config</a>
+    <span>
+                        &nbsp;: <a href="classes/fpcm-model-system-config.html"><abbr title="\fpcm\model\system\config">config</abbr></a>            </span>
+</dt>
+<dd>Config object</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -protected">
+    <a href="classes/fpcm-model-abstracts-staticModel.html#property_data">$data</a>
+    <span>
+                        &nbsp;: array&lt;string|int, mixed&gt;            </span>
+</dt>
+<dd>Data array</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -protected">
+    <a href="classes/fpcm-model-abstracts-staticModel.html#property_events">$events</a>
+    <span>
+                        &nbsp;: <a href="classes/fpcm-events-events.html"><abbr title="\fpcm\events\events">events</abbr></a>            </span>
+</dt>
+<dd>Event list</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -protected">
+    <a href="classes/fpcm-model-abstracts-staticModel.html#property_language">$language</a>
+    <span>
+                        &nbsp;: <a href="classes/fpcm-classes-language.html"><abbr title="\fpcm\classes\language">language</abbr></a>            </span>
+</dt>
+<dd>Sprachobjekt</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -protected">
+    <a href="classes/fpcm-model-abstracts-staticModel.html#property_notifications">$notifications</a>
+    <span>
+                        &nbsp;: <a href="classes/fpcm-model-theme-notifications.html"><abbr title="\fpcm\model\theme\notifications">notifications</abbr></a>            </span>
+</dt>
+<dd>Notifications</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -protected">
+    <a href="classes/fpcm-model-abstracts-staticModel.html#property_permissions">$permissions</a>
+    <span>
+                        &nbsp;: <a href="classes/fpcm-model-permissions-permissions.html"><abbr title="\fpcm\model\permissions\permissions">permissions</abbr></a>            </span>
+</dt>
+<dd>Permissions</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -protected">
+    <a href="classes/fpcm-model-abstracts-remoteModel.html#property_remoteData">$remoteData</a>
+    <span>
+                        &nbsp;: string            </span>
+</dt>
+<dd>vom Server zurückgegebene Daten</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -protected">
+    <a href="classes/fpcm-model-abstracts-remoteModel.html#property_remotePort">$remotePort</a>
+    <span>
+                        &nbsp;: string            </span>
+</dt>
+<dd>Server port</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -protected">
+    <a href="classes/fpcm-model-abstracts-remoteModel.html#property_remoteServer">$remoteServer</a>
+    <span>
+                        &nbsp;: string            </span>
+</dt>
+<dd>URL zum Server</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -protected">
+    <a href="classes/fpcm-model-abstracts-staticModel.html#property_session">$session</a>
+    <span>
+                        &nbsp;: <a href="classes/fpcm-model-system-session.html"><abbr title="\fpcm\model\system\session">session</abbr></a>            </span>
+</dt>
+<dd>Session objekt</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/fpcm-model-packages-repository.html#property_current">$current</a>
+    <span>
+                        &nbsp;: string            </span>
+</dt>
+<dd>Current repo source</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/fpcm-model-packages-repository.html#property_files">$files</a>
+    <span>
+                        &nbsp;: array&lt;string|int, mixed&gt;            </span>
+</dt>
+<dd>Repository check sources</dd>
+
+                <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-model-packages-repository.html#method___construct">__construct()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+<dd>Konstruktor</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-model-packages-repository.html#method_fetchRemoteData">fetchRemoteData()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+<dd>Fetchs data from remote repository source</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-model-abstracts-staticModel.html#method_getCacheName">getCacheName()</a>
+    <span>
+                                &nbsp;: string    </span>
+</dt>
+<dd>Cache-Name zurückgeben</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-model-abstracts-remoteModel.html#method_getRemoteData">getRemoteData()</a>
+    <span>
+                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+</dt>
+<dd>Daten zurückgeben, die vom Server abgerufen wurden</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -protected">
+    <a href="classes/fpcm-model-abstracts-remoteModel.html#method_remoteAvailable">remoteAvailable()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+<dd>Prüft, ob Update-Server verfügbar ist</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -protected">
+    <a href="classes/fpcm-model-packages-repository.html#method_saveRemoteData">saveRemoteData()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+<dd>Writes remote repository data to local storage</dd>
+
+        </dl>
+
+
+
         
-                    <section>
-                <h3 class="phpdocumentor-properties__header">Properties</h3>
-                                    <a id="property_files"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--private
-                                "
->
-    <h4 class="phpdocumentor-property__name">$files</h4>
+    <section class="phpdocumentor-constants">
+        <h3 class="phpdocumentor-elements__header" id="constants">
+            Constants
+            <a href="classes/fpcm-model-packages-repository.html#constants" class="headerlink"><i class="fas fa-link"></i></a>
+        </h3>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_FOPT_MODULES">
+        FOPT_MODULES
+        <a href="classes/fpcm-model-packages-repository.html#constant_FOPT_MODULES" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/packages/repository.php"><a href="../files/inc-model-packages-repository.html"><abbr title="inc/model/packages/repository.php">repository.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">31</span>
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/packages/repository.php"><a href="files/inc-model-packages-repository.html"><abbr title="inc/model/packages/repository.php">repository.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">25</span>
+
     </aside>
-            <p class="phpdocumentor-summary">Repository check sources</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__type">array</span>
-        <span class="phpdocumentor-signature__name">$files</span>
-         = <span class="phpdocumentor-signature__default-value">[]</span>    </code>
-    </article>
-                                    <a id="property_current"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--private
-                                "
->
-    <h4 class="phpdocumentor-property__name">$current</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/packages/repository.php"><a href="../files/inc-model-packages-repository.html"><abbr title="inc/model/packages/repository.php">repository.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">37</span>
-    </aside>
-            <p class="phpdocumentor-summary">Current repo source</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__type">string</span>
-        <span class="phpdocumentor-signature__name">$current</span>
-         = <span class="phpdocumentor-signature__default-value">&#039;&#039;</span>    </code>
-    </article>
-                                                                    <a id="property_remoteServer"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--protected
-                                "
->
-    <h4 class="phpdocumentor-property__name">$remoteServer</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/remoteModel.php"><a href="../files/inc-model-abstracts-remotemodel.html"><abbr title="inc/model/abstracts/remoteModel.php">remoteModel.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">42</span>
-    </aside>
-            <p class="phpdocumentor-summary">URL zum Server</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">protected</span>
-                <span class="phpdocumentor-signature__type">string</span>
-        <span class="phpdocumentor-signature__name">$remoteServer</span>
-         = <span class="phpdocumentor-signature__default-value">&#039;&#039;</span>    </code>
-    </article>
-                                    <a id="property_remotePort"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--protected
-                                "
->
-    <h4 class="phpdocumentor-property__name">$remotePort</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/remoteModel.php"><a href="../files/inc-model-abstracts-remotemodel.html"><abbr title="inc/model/abstracts/remoteModel.php">remoteModel.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">48</span>
-    </aside>
-            <p class="phpdocumentor-summary">Server port</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">protected</span>
-                <span class="phpdocumentor-signature__type">string</span>
-        <span class="phpdocumentor-signature__name">$remotePort</span>
-         = <span class="phpdocumentor-signature__default-value">80</span>    </code>
-    </article>
-                                    <a id="property_checkParams"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--protected
-                                "
->
-    <h4 class="phpdocumentor-property__name">$checkParams</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/remoteModel.php"><a href="../files/inc-model-abstracts-remotemodel.html"><abbr title="inc/model/abstracts/remoteModel.php">remoteModel.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">54</span>
-    </aside>
-            <p class="phpdocumentor-summary">Datenparameter</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">protected</span>
-                <span class="phpdocumentor-signature__type">array</span>
-        <span class="phpdocumentor-signature__name">$checkParams</span>
-         = <span class="phpdocumentor-signature__default-value">[]</span>    </code>
-    </article>
-                                    <a id="property_canConnect"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--protected
-                                "
->
-    <h4 class="phpdocumentor-property__name">$canConnect</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/remoteModel.php"><a href="../files/inc-model-abstracts-remotemodel.html"><abbr title="inc/model/abstracts/remoteModel.php">remoteModel.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">60</span>
-    </aside>
-            <p class="phpdocumentor-summary">Verbindungen zu anderem Server möglich</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">protected</span>
-                <span class="phpdocumentor-signature__type">bool</span>
-        <span class="phpdocumentor-signature__name">$canConnect</span>
-         = <span class="phpdocumentor-signature__default-value">false</span>    </code>
-    </article>
-                                    <a id="property_remoteData"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--protected
-                                "
->
-    <h4 class="phpdocumentor-property__name">$remoteData</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/remoteModel.php"><a href="../files/inc-model-abstracts-remotemodel.html"><abbr title="inc/model/abstracts/remoteModel.php">remoteModel.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">66</span>
-    </aside>
-            <p class="phpdocumentor-summary">vom Server zurückgegebene Daten</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">protected</span>
-                <span class="phpdocumentor-signature__type">string</span>
-        <span class="phpdocumentor-signature__name">$remoteData</span>
-         = <span class="phpdocumentor-signature__default-value">&#039;&#039;</span>    </code>
-    </article>
-                                    <a id="property_data"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--protected
-                                "
->
-    <h4 class="phpdocumentor-property__name">$data</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/staticModel.php"><a href="../files/inc-model-abstracts-staticmodel.html"><abbr title="inc/model/abstracts/staticModel.php">staticModel.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">28</span>
-    </aside>
-            <p class="phpdocumentor-summary">Data array</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">protected</span>
-                <span class="phpdocumentor-signature__type">array</span>
-        <span class="phpdocumentor-signature__name">$data</span>
-            </code>
-    </article>
-                                    <a id="property_cache"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--protected
-                                "
->
-    <h4 class="phpdocumentor-property__name">$cache</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/staticModel.php"><a href="../files/inc-model-abstracts-staticmodel.html"><abbr title="inc/model/abstracts/staticModel.php">staticModel.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">34</span>
-    </aside>
-            <p class="phpdocumentor-summary">Cache object</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">protected</span>
-                <span class="phpdocumentor-signature__type"><a href="../classes/fpcm-classes-cache.html"><abbr title="\fpcm\classes\cache">cache</abbr></a></span>
-        <span class="phpdocumentor-signature__name">$cache</span>
-            </code>
-    </article>
-                                    <a id="property_events"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--protected
-                                "
->
-    <h4 class="phpdocumentor-property__name">$events</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/staticModel.php"><a href="../files/inc-model-abstracts-staticmodel.html"><abbr title="inc/model/abstracts/staticModel.php">staticModel.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">40</span>
-    </aside>
-            <p class="phpdocumentor-summary">Event list</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">protected</span>
-                <span class="phpdocumentor-signature__type"><a href="../classes/fpcm-events-events.html"><abbr title="\fpcm\events\events">events</abbr></a></span>
-        <span class="phpdocumentor-signature__name">$events</span>
-            </code>
-    </article>
-                                    <a id="property_config"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--protected
-                                "
->
-    <h4 class="phpdocumentor-property__name">$config</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/staticModel.php"><a href="../files/inc-model-abstracts-staticmodel.html"><abbr title="inc/model/abstracts/staticModel.php">staticModel.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">46</span>
-    </aside>
-            <p class="phpdocumentor-summary">Config object</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">protected</span>
-                <span class="phpdocumentor-signature__type"><a href="../classes/fpcm-model-system-config.html"><abbr title="\fpcm\model\system\config">config</abbr></a></span>
-        <span class="phpdocumentor-signature__name">$config</span>
-            </code>
-    </article>
-                                    <a id="property_language"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--protected
-                                "
->
-    <h4 class="phpdocumentor-property__name">$language</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/staticModel.php"><a href="../files/inc-model-abstracts-staticmodel.html"><abbr title="inc/model/abstracts/staticModel.php">staticModel.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">52</span>
-    </aside>
-            <p class="phpdocumentor-summary">Sprachobjekt</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">protected</span>
-                <span class="phpdocumentor-signature__type"><a href="../classes/fpcm-classes-language.html"><abbr title="\fpcm\classes\language">language</abbr></a></span>
-        <span class="phpdocumentor-signature__name">$language</span>
-            </code>
-    </article>
-                                    <a id="property_session"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--protected
-                                "
->
-    <h4 class="phpdocumentor-property__name">$session</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/staticModel.php"><a href="../files/inc-model-abstracts-staticmodel.html"><abbr title="inc/model/abstracts/staticModel.php">staticModel.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">58</span>
-    </aside>
-            <p class="phpdocumentor-summary">Session objekt</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">protected</span>
-                <span class="phpdocumentor-signature__type"><a href="../classes/fpcm-model-system-session.html"><abbr title="\fpcm\model\system\session">session</abbr></a></span>
-        <span class="phpdocumentor-signature__name">$session</span>
-            </code>
-    </article>
-                                    <a id="property_notifications"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--protected
-                                "
->
-    <h4 class="phpdocumentor-property__name">$notifications</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/staticModel.php"><a href="../files/inc-model-abstracts-staticmodel.html"><abbr title="inc/model/abstracts/staticModel.php">staticModel.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">65</span>
-    </aside>
-            <p class="phpdocumentor-summary">Notifications</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">protected</span>
-                <span class="phpdocumentor-signature__type"><a href="../classes/fpcm-model-theme-notifications.html"><abbr title="\fpcm\model\theme\notifications">notifications</abbr></a></span>
-        <span class="phpdocumentor-signature__name">$notifications</span>
-            </code>
-    </article>
-                                    <a id="property_permissions"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--protected
-                                "
->
-    <h4 class="phpdocumentor-property__name">$permissions</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/staticModel.php"><a href="../files/inc-model-abstracts-staticmodel.html"><abbr title="inc/model/abstracts/staticModel.php">staticModel.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">72</span>
-    </aside>
-            <p class="phpdocumentor-summary">Permissions</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">protected</span>
-                <span class="phpdocumentor-signature__type"><a href="../classes/fpcm-model-permissions-permissions.html"><abbr title="\fpcm\model\permissions\permissions">permissions</abbr></a></span>
-        <span class="phpdocumentor-signature__name">$permissions</span>
-            </code>
-    </article>
-                                    <a id="property_cacheName"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--protected
-                                "
->
-    <h4 class="phpdocumentor-property__name">$cacheName</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/staticModel.php"><a href="../files/inc-model-abstracts-staticmodel.html"><abbr title="inc/model/abstracts/staticModel.php">staticModel.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">78</span>
-    </aside>
-            <p class="phpdocumentor-summary">Cache name</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">protected</span>
-                <span class="phpdocumentor-signature__type">string</span>
-        <span class="phpdocumentor-signature__name">$cacheName</span>
-         = <span class="phpdocumentor-signature__default-value">false</span>    </code>
-    </article>
-                                    <a id="property_cacheModule"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--protected
-                                "
->
-    <h4 class="phpdocumentor-property__name">$cacheModule</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/staticModel.php"><a href="../files/inc-model-abstracts-staticmodel.html"><abbr title="inc/model/abstracts/staticModel.php">staticModel.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">85</span>
-    </aside>
-            <p class="phpdocumentor-summary">Cache Modul</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">protected</span>
-                <span class="phpdocumentor-signature__type">string</span>
-        <span class="phpdocumentor-signature__name">$cacheModule</span>
-         = <span class="phpdocumentor-signature__default-value">&#039;&#039;</span>    </code>
-    </article>
-                            </section>
-        
-                    <section>
-                <h3 class="phpdocumentor-methods__header">Methods</h3>
-                                    <a id="method___construct"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                                        "
->
-    <h4 class="phpdocumentor-method__name">__construct()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/packages/repository.php"><a href="../files/inc-model-packages-repository.html"><abbr title="inc/model/packages/repository.php">repository.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">43</span>
-    </aside>
-        <p class="phpdocumentor-summary">Konstruktor</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">__construct</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type">bool</span>
-    </code>
 
     
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">FOPT_MODULES</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;modules.yml&#039;</span>
+</code>
+
+
+        <section class="phpdocumentor-description"></section>
+
+        <section class="phpdocumentor-description"></section>
+
     
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">bool</span>
-            
+
 </article>
-                                    <a id="method_fetchRemoteData"></a>
-<article
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_FOPT_UPDATES">
+        FOPT_UPDATES
+        <a href="classes/fpcm-model-packages-repository.html#constant_FOPT_UPDATES" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/packages/repository.php"><a href="files/inc-model-packages-repository.html"><abbr title="inc/model/packages/repository.php">repository.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">23</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">FOPT_UPDATES</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;updates.yml&#039;</span>
+</code>
+
+
+        <section class="phpdocumentor-description"></section>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_FURLOPEN_ERROR">
+        FURLOPEN_ERROR
+        <a href="classes/fpcm-model-abstracts-remoteModel.html#constant_FURLOPEN_ERROR" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/remoteModel.php"><a href="files/inc-model-abstracts-remotemodel.html"><abbr title="inc/model/abstracts/remoteModel.php">remoteModel.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">26</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Hinweis, dass allow_url_fopen nicht aktiv ist</p>
+
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">FURLOPEN_ERROR</span>
+    = <span class="phpdocumentor-signature__default-value">400</span>
+</code>
+
+
+    
+        <section class="phpdocumentor-description"></section>
+
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_REMOTECONTENT_ERROR">
+        REMOTECONTENT_ERROR
+        <a href="classes/fpcm-model-abstracts-remoteModel.html#constant_REMOTECONTENT_ERROR" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/remoteModel.php"><a href="files/inc-model-abstracts-remotemodel.html"><abbr title="inc/model/abstracts/remoteModel.php">remoteModel.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">36</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Fehler beim Abrüfen der Update-Informationen</p>
+
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">REMOTECONTENT_ERROR</span>
+    = <span class="phpdocumentor-signature__default-value">402</span>
+</code>
+
+
+    
+        <section class="phpdocumentor-description"></section>
+
+    
+
+</article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_REMOTEFILE_ERROR">
+        REMOTEFILE_ERROR
+        <a href="classes/fpcm-model-abstracts-remoteModel.html#constant_REMOTEFILE_ERROR" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/remoteModel.php"><a href="files/inc-model-abstracts-remotemodel.html"><abbr title="inc/model/abstracts/remoteModel.php">remoteModel.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">31</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Fehler beim Prüfung, ob Update-Server erreichbar ist</p>
+
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">REMOTEFILE_ERROR</span>
+    = <span class="phpdocumentor-signature__default-value">401</span>
+</code>
+
+
+    
+        <section class="phpdocumentor-description"></section>
+
+    
+
+</article>
+            </section>
+
+        
+    <section class="phpdocumentor-properties">
+        <h3 class="phpdocumentor-elements__header" id="properties">
+            Properties
+            <a href="classes/fpcm-model-packages-repository.html#properties" class="headerlink"><i class="fas fa-link"></i></a>
+        </h3>
+                    <article
         class="
-            phpdocumentor-method
-            phpdocumentor-method--public
+            phpdocumentor-element
+            -property
+            -protected
                                                         "
 >
-    <h4 class="phpdocumentor-method__name">fetchRemoteData()</h4>
+    <h4 class="phpdocumentor-element__name" id="property_cache">
+        $cache
+        <a href="classes/fpcm-model-abstracts-staticModel.html#property_cache" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/packages/repository.php"><a href="../files/inc-model-packages-repository.html"><abbr title="inc/model/packages/repository.php">repository.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">64</span>
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/staticModel.php"><a href="files/inc-model-abstracts-staticmodel.html"><abbr title="inc/model/abstracts/staticModel.php">staticModel.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">34</span>
+
     </aside>
+
+        <p class="phpdocumentor-summary">Cache object</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+        <span class="phpdocumentor-signature__type"><a href="classes/fpcm-classes-cache.html"><abbr title="\fpcm\classes\cache">cache</abbr></a></span>
+    <span class="phpdocumentor-signature__name">$cache</span>
+    </code>
+
+    
+    
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -protected
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_cacheModule">
+        $cacheModule
+        <a href="classes/fpcm-model-abstracts-staticModel.html#property_cacheModule" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/staticModel.php"><a href="files/inc-model-abstracts-staticmodel.html"><abbr title="inc/model/abstracts/staticModel.php">staticModel.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">85</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Cache Modul</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+        <span class="phpdocumentor-signature__type">string</span>
+    <span class="phpdocumentor-signature__name">$cacheModule</span>
+     = <span class="phpdocumentor-signature__default-value">&#039;&#039;</span></code>
+
+    
+    
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">3.4</span>
+                                                                                
+                                             
+                                    </dd>
+                        </dl>
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -protected
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_cacheName">
+        $cacheName
+        <a href="classes/fpcm-model-abstracts-staticModel.html#property_cacheName" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/staticModel.php"><a href="files/inc-model-abstracts-staticmodel.html"><abbr title="inc/model/abstracts/staticModel.php">staticModel.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">78</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Cache name</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+        <span class="phpdocumentor-signature__type">string</span>
+    <span class="phpdocumentor-signature__name">$cacheName</span>
+     = <span class="phpdocumentor-signature__default-value">false</span></code>
+
+    
+    
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -protected
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_canConnect">
+        $canConnect
+        <a href="classes/fpcm-model-abstracts-remoteModel.html#property_canConnect" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/remoteModel.php"><a href="files/inc-model-abstracts-remotemodel.html"><abbr title="inc/model/abstracts/remoteModel.php">remoteModel.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">60</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Verbindungen zu anderem Server möglich</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+        <span class="phpdocumentor-signature__type">bool</span>
+    <span class="phpdocumentor-signature__name">$canConnect</span>
+     = <span class="phpdocumentor-signature__default-value">false</span></code>
+
+    
+    
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -protected
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_checkParams">
+        $checkParams
+        <a href="classes/fpcm-model-abstracts-remoteModel.html#property_checkParams" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/remoteModel.php"><a href="files/inc-model-abstracts-remotemodel.html"><abbr title="inc/model/abstracts/remoteModel.php">remoteModel.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">54</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Datenparameter</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+        <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;</span>
+    <span class="phpdocumentor-signature__name">$checkParams</span>
+     = <span class="phpdocumentor-signature__default-value">[]</span></code>
+
+    
+    
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -protected
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_config">
+        $config
+        <a href="classes/fpcm-model-abstracts-staticModel.html#property_config" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/staticModel.php"><a href="files/inc-model-abstracts-staticmodel.html"><abbr title="inc/model/abstracts/staticModel.php">staticModel.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">46</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Config object</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+        <span class="phpdocumentor-signature__type"><a href="classes/fpcm-model-system-config.html"><abbr title="\fpcm\model\system\config">config</abbr></a></span>
+    <span class="phpdocumentor-signature__name">$config</span>
+    </code>
+
+    
+    
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -protected
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_data">
+        $data
+        <a href="classes/fpcm-model-abstracts-staticModel.html#property_data" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/staticModel.php"><a href="files/inc-model-abstracts-staticmodel.html"><abbr title="inc/model/abstracts/staticModel.php">staticModel.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">28</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Data array</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+        <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;</span>
+    <span class="phpdocumentor-signature__name">$data</span>
+    </code>
+
+    
+    
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -protected
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_events">
+        $events
+        <a href="classes/fpcm-model-abstracts-staticModel.html#property_events" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/staticModel.php"><a href="files/inc-model-abstracts-staticmodel.html"><abbr title="inc/model/abstracts/staticModel.php">staticModel.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">40</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Event list</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+        <span class="phpdocumentor-signature__type"><a href="classes/fpcm-events-events.html"><abbr title="\fpcm\events\events">events</abbr></a></span>
+    <span class="phpdocumentor-signature__name">$events</span>
+    </code>
+
+    
+    
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -protected
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_language">
+        $language
+        <a href="classes/fpcm-model-abstracts-staticModel.html#property_language" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/staticModel.php"><a href="files/inc-model-abstracts-staticmodel.html"><abbr title="inc/model/abstracts/staticModel.php">staticModel.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">52</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Sprachobjekt</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+        <span class="phpdocumentor-signature__type"><a href="classes/fpcm-classes-language.html"><abbr title="\fpcm\classes\language">language</abbr></a></span>
+    <span class="phpdocumentor-signature__name">$language</span>
+    </code>
+
+    
+    
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -protected
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_notifications">
+        $notifications
+        <a href="classes/fpcm-model-abstracts-staticModel.html#property_notifications" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/staticModel.php"><a href="files/inc-model-abstracts-staticmodel.html"><abbr title="inc/model/abstracts/staticModel.php">staticModel.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">65</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Notifications</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+        <span class="phpdocumentor-signature__type"><a href="classes/fpcm-model-theme-notifications.html"><abbr title="\fpcm\model\theme\notifications">notifications</abbr></a></span>
+    <span class="phpdocumentor-signature__name">$notifications</span>
+    </code>
+
+    
+    
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">3.6</span>
+                                                                                
+                                             
+                                    </dd>
+                        </dl>
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -protected
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_permissions">
+        $permissions
+        <a href="classes/fpcm-model-abstracts-staticModel.html#property_permissions" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/staticModel.php"><a href="files/inc-model-abstracts-staticmodel.html"><abbr title="inc/model/abstracts/staticModel.php">staticModel.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">72</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Permissions</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+        <span class="phpdocumentor-signature__type"><a href="classes/fpcm-model-permissions-permissions.html"><abbr title="\fpcm\model\permissions\permissions">permissions</abbr></a></span>
+    <span class="phpdocumentor-signature__name">$permissions</span>
+    </code>
+
+    
+    
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">4</span>
+                                                                                
+                                             
+                                    </dd>
+                        </dl>
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -protected
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_remoteData">
+        $remoteData
+        <a href="classes/fpcm-model-abstracts-remoteModel.html#property_remoteData" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/remoteModel.php"><a href="files/inc-model-abstracts-remotemodel.html"><abbr title="inc/model/abstracts/remoteModel.php">remoteModel.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">66</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">vom Server zurückgegebene Daten</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+        <span class="phpdocumentor-signature__type">string</span>
+    <span class="phpdocumentor-signature__name">$remoteData</span>
+     = <span class="phpdocumentor-signature__default-value">&#039;&#039;</span></code>
+
+    
+    
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -protected
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_remotePort">
+        $remotePort
+        <a href="classes/fpcm-model-abstracts-remoteModel.html#property_remotePort" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/remoteModel.php"><a href="files/inc-model-abstracts-remotemodel.html"><abbr title="inc/model/abstracts/remoteModel.php">remoteModel.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">48</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Server port</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+        <span class="phpdocumentor-signature__type">string</span>
+    <span class="phpdocumentor-signature__name">$remotePort</span>
+     = <span class="phpdocumentor-signature__default-value">80</span></code>
+
+    
+    
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -protected
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_remoteServer">
+        $remoteServer
+        <a href="classes/fpcm-model-abstracts-remoteModel.html#property_remoteServer" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/remoteModel.php"><a href="files/inc-model-abstracts-remotemodel.html"><abbr title="inc/model/abstracts/remoteModel.php">remoteModel.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">42</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">URL zum Server</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+        <span class="phpdocumentor-signature__type">string</span>
+    <span class="phpdocumentor-signature__name">$remoteServer</span>
+     = <span class="phpdocumentor-signature__default-value">&#039;&#039;</span></code>
+
+    
+    
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -protected
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_session">
+        $session
+        <a href="classes/fpcm-model-abstracts-staticModel.html#property_session" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/staticModel.php"><a href="files/inc-model-abstracts-staticmodel.html"><abbr title="inc/model/abstracts/staticModel.php">staticModel.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">58</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Session objekt</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+        <span class="phpdocumentor-signature__type"><a href="classes/fpcm-model-system-session.html"><abbr title="\fpcm\model\system\session">session</abbr></a></span>
+    <span class="phpdocumentor-signature__name">$session</span>
+    </code>
+
+    
+    
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_current">
+        $current
+        <a href="classes/fpcm-model-packages-repository.html#property_current" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/packages/repository.php"><a href="files/inc-model-packages-repository.html"><abbr title="inc/model/packages/repository.php">repository.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">37</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Current repo source</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type">string</span>
+    <span class="phpdocumentor-signature__name">$current</span>
+     = <span class="phpdocumentor-signature__default-value">&#039;&#039;</span></code>
+
+    
+    
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_files">
+        $files
+        <a href="classes/fpcm-model-packages-repository.html#property_files" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/packages/repository.php"><a href="files/inc-model-packages-repository.html"><abbr title="inc/model/packages/repository.php">repository.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">31</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Repository check sources</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;</span>
+    <span class="phpdocumentor-signature__name">$files</span>
+     = <span class="phpdocumentor-signature__default-value">[]</span></code>
+
+    
+    
+    
+
+</article>
+            </section>
+
+            <section class="phpdocumentor-methods">
+        <h3 class="phpdocumentor-elements__header" id="methods">
+            Methods
+            <a href="classes/fpcm-model-packages-repository.html#methods" class="headerlink"><i class="fas fa-link"></i></a>
+        </h3>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method___construct">
+        __construct()
+        <a href="classes/fpcm-model-packages-repository.html#method___construct" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/packages/repository.php"><a href="files/inc-model-packages-repository.html"><abbr title="inc/model/packages/repository.php">repository.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">43</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Konstruktor</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+    
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">bool</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_fetchRemoteData">
+        fetchRemoteData()
+        <a href="classes/fpcm-model-packages-repository.html#method_fetchRemoteData" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/packages/repository.php"><a href="files/inc-model-packages-repository.html"><abbr title="inc/model/packages/repository.php">repository.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">64</span>
+
+    </aside>
+
         <p class="phpdocumentor-summary">Fetchs data from remote repository source</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">fetchRemoteData</span>(
-                    <span class="phpdocumentor-signature__argument">
-            [                <span class="phpdocumentor-signature__argument__name">$cliOutput</span> :
-                <span class="phpdocumentor-signature__argument__return-type">bool</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">false</span> ]            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">bool</span>
-    </code>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">fetchRemoteData</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$cliOutput</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">false</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
 
     
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$cliOutput</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">bool</span>
-                     = <span class="phpdocumentor-signature__argument__default-value">false</span>                </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                    </dl>
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$cliOutput</span>
+                : <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">false</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
     
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">bool</span>
+            &mdash;
         
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">bool</span>
-            
+    
 </article>
-                                    <a id="method_saveRemoteData"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--protected
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
                                                         "
 >
-    <h4 class="phpdocumentor-method__name">saveRemoteData()</h4>
+    <h4 class="phpdocumentor-element__name" id="method_getCacheName">
+        getCacheName()
+        <a href="classes/fpcm-model-abstracts-staticModel.html#method_getCacheName" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/packages/repository.php"><a href="../files/inc-model-packages-repository.html"><abbr title="inc/model/packages/repository.php">repository.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">107</span>
-    </aside>
-        <p class="phpdocumentor-summary">Writes remote repository data to local storage</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">protected</span>
-                                <span class="phpdocumentor-signature__name">saveRemoteData</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type">bool</span>
-    </code>
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/staticModel.php"><a href="files/inc-model-abstracts-staticmodel.html"><abbr title="inc/model/abstracts/staticModel.php">staticModel.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">144</span>
 
-    
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">bool</span>
-            
-</article>
-                                                                    <a id="method___construct"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                                        "
->
-    <h4 class="phpdocumentor-method__name">__construct()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/staticModel.php"><a href="../files/inc-model-abstracts-staticmodel.html"><abbr title="inc/model/abstracts/staticModel.php">staticModel.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">91</span>
     </aside>
-        <p class="phpdocumentor-summary">Konstruktor</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">__construct</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type">void</span>
-    </code>
 
-    
-    
-        
-    
-</article>
-                                    <a id="method_fetchRemoteData"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                                        "
->
-    <h4 class="phpdocumentor-method__name">fetchRemoteData()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/remoteModel.php"><a href="../files/inc-model-abstracts-remotemodel.html"><abbr title="inc/model/abstracts/remoteModel.php">remoteModel.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">82</span>
-    </aside>
-        <p class="phpdocumentor-summary">Ftech data from remote source</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">fetchRemoteData</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type">bool</span>
-    </code>
-
-    
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">bool</span>
-            
-</article>
-                                    <a id="method_getRemoteData"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                                        "
->
-    <h4 class="phpdocumentor-method__name">getRemoteData()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/remoteModel.php"><a href="../files/inc-model-abstracts-remotemodel.html"><abbr title="inc/model/abstracts/remoteModel.php">remoteModel.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">106</span>
-    </aside>
-        <p class="phpdocumentor-summary">Daten zurückgeben, die vom Server abgerufen wurden</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">getRemoteData</span>(
-                    <span class="phpdocumentor-signature__argument">
-            [                <span class="phpdocumentor-signature__argument__name">$key</span> :
-                <span class="phpdocumentor-signature__argument__return-type">string</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">false</span> ]            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">array</span>
-    </code>
-
-    
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$key</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                     = <span class="phpdocumentor-signature__argument__default-value">false</span>                </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                    </dl>
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array</span>
-            
-</article>
-                                    <a id="method_remoteAvailable"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--protected
-                                                        "
->
-    <h4 class="phpdocumentor-method__name">remoteAvailable()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/remoteModel.php"><a href="../files/inc-model-abstracts-remotemodel.html"><abbr title="inc/model/abstracts/remoteModel.php">remoteModel.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">115</span>
-    </aside>
-        <p class="phpdocumentor-summary">Prüft, ob Update-Server verfügbar ist</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">protected</span>
-                                <span class="phpdocumentor-signature__name">remoteAvailable</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type">bool</span>
-    </code>
-
-    
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">bool</span>
-            
-</article>
-                                    <a id="method_saveRemoteData"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--protected
-                        phpdocumentor-element--abstract                                "
->
-    <h4 class="phpdocumentor-method__name">saveRemoteData()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/remoteModel.php"><a href="../files/inc-model-abstracts-remotemodel.html"><abbr title="inc/model/abstracts/remoteModel.php">remoteModel.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">133</span>
-    </aside>
-        <p class="phpdocumentor-summary">Writes remote repository data to local storage</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">protected</span>
-        <span class="phpdocumentor-signature__abstract">abstract</span>                        <span class="phpdocumentor-signature__name">saveRemoteData</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type">bool</span>
-    </code>
-
-    
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">bool</span>
-            
-</article>
-                                    <a id="method_getCacheName"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                                        "
->
-    <h4 class="phpdocumentor-method__name">getCacheName()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/staticModel.php"><a href="../files/inc-model-abstracts-staticmodel.html"><abbr title="inc/model/abstracts/staticModel.php">staticModel.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">170</span>
-    </aside>
         <p class="phpdocumentor-summary">Cache-Name zurückgeben</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">getCacheName</span>(
-                    <span class="phpdocumentor-signature__argument">
-            [                <span class="phpdocumentor-signature__argument__name">$addName</span> :
-                <span class="phpdocumentor-signature__argument__return-type">string</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span> ]            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">string</span>
-    </code>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">getCacheName</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$addName</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
 
     
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$addName</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                     = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span>                </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
-                    </dl>
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$addName</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
     
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">string</span>
+            &mdash;
         
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">string</span>
-            
+    
 </article>
-                            </section>
-            </article>
-            <div data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getRemoteData">
+        getRemoteData()
+        <a href="classes/fpcm-model-abstracts-remoteModel.html#method_getRemoteData" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/remoteModel.php"><a href="files/inc-model-abstracts-remotemodel.html"><abbr title="inc/model/abstracts/remoteModel.php">remoteModel.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">106</span>
 
-                <h2>Search results</h2>
-                <ul class="phpdocumentor-search-results__entries">
+    </aside>
 
-                </ul>
+        <p class="phpdocumentor-summary">Daten zurückgeben, die vom Server abgerufen wurden</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">getRemoteData</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$key</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">false</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$key</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">false</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -protected
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_remoteAvailable">
+        remoteAvailable()
+        <a href="classes/fpcm-model-abstracts-remoteModel.html#method_remoteAvailable" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/remoteModel.php"><a href="files/inc-model-abstracts-remotemodel.html"><abbr title="inc/model/abstracts/remoteModel.php">remoteModel.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">115</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Prüft, ob Update-Server verfügbar ist</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+                    <span class="phpdocumentor-signature__name">remoteAvailable</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+    
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">bool</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -protected
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_saveRemoteData">
+        saveRemoteData()
+        <a href="classes/fpcm-model-packages-repository.html#method_saveRemoteData" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/packages/repository.php"><a href="files/inc-model-packages-repository.html"><abbr title="inc/model/packages/repository.php">repository.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">107</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Writes remote repository data to local storage</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+                    <span class="phpdocumentor-signature__name">saveRemoteData</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+    
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">bool</span>
+            &mdash;
+        
+    
+</article>
+            </section>
+
+        
+    <script type="text/javascript">
+        function loadExternalCodeSnippets(line) {
+            Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach((pre) => {
+                var src = pre.getAttribute('data-src').replace( /\\/g, '/');
+                var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+                var language = 'php';
+
+                var code = document.createElement('code');
+                code.className = 'language-' + language;
+
+                pre.textContent = '';
+
+                pre.setAttribute('data-line', line)
+                code.textContent = 'Loading…';
+
+                pre.appendChild(code);
+
+                var xhr = new XMLHttpRequest();
+
+                xhr.open('GET', src, true);
+
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == 4) {
+
+                        if (xhr.status < 400 && xhr.responseText) {
+                            code.textContent = xhr.responseText;
+
+                            Prism.highlightElement(code);
+                        }
+                        else if (xhr.status >= 400) {
+                            code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                        }
+                        else {
+                            code.textContent = '✖ Error: File does not exist, is empty or trying to view from localhost';
+                        }
+                    }
+                };
+
+                xhr.send(null);
+            });
+        }
+
+        var modals = document.querySelectorAll("[data-modal]");
+
+        modals.forEach(function (trigger) {
+            trigger.addEventListener("click", function (event) {
+                //event.preventDefault();
+                const modal = document.getElementById(trigger.dataset.modal);
+                modal.classList.add("phpdocumentor-modal__open");
+                loadExternalCodeSnippets(trigger.dataset.line)
+                const exits = modal.querySelectorAll("[data-exit-button]");
+                exits.forEach(function (exit) {
+                    exit.addEventListener("click", function (event) {
+                        event.preventDefault();
+                        modal.classList.remove("phpdocumentor-modal__open");
+                    });
+                });
+            });
+        });
+    </script>
+
+    </article>
+                <section data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
+    <section class="phpdocumentor-search-results__dialog">
+        <header class="phpdocumentor-search-results__header">
+            <h2 class="phpdocumentor-search-results__title">Search results</h2>
+            <button class="phpdocumentor-search-results__close"><i class="fas fa-times"></i></button>
+        </header>
+        <section class="phpdocumentor-search-results__body">
+            <ul class="phpdocumentor-search-results__entries"></ul>
+        </section>
+    </section>
+</section>
             </div>
         </div>
-    </div>
-</main>
+        <a href="classes/fpcm-model-packages-repository.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
 
+    </main>
+
+    <script>
+        cssVars({});
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/prism.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
 </body>
 </html>

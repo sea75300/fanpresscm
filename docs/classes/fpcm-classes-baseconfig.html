@@ -2,1077 +2,1648 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Documentation</title>
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro">
-    <link rel="stylesheet" href="../css/normalize.css">
-    <link rel="stylesheet" href="../css/template.css">
-    <link rel="icon" href="../images/favicon.ico"/>
-        <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.4.6/fuse.min.js"></script>
-    <script src="../js/search.js"></script>
-    <script defer src="../js/searchIndex.js"></script>
-    </head>
-<body>
-<header class="phpdocumentor-top-header"></header>
-<header class="phpdocumentor-header">
-    <section class="phpdocumentor-section">
-        <h1 class="phpdocumentor-title">Documentation</h1>
-    </section>
-</header>
-<main class="phpdocumentor">
-    <div class="phpdocumentor-section">
-        <aside class="three phpdocumentor-columns phpdocumentor-sidebar">
-    <section data-search-form class="phpdocumentor-search">
-        <h1 class="phpdocumentor-sidebar__category-header">Search</h1>
-        <label class="phpdocumentor-label">
-            <span class="visually-hidden">Search for</span>
-            <input type="search" class="phpdocumentor-field phpdocumentor-search__field" placeholder="Loading .." disabled />
-        </label>
-    </section>
-
+            <title>Documentation</title>
     
-    <h1 class="phpdocumentor-sidebar__category-header">Namespaces</h1>
-            <h2 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/default.html"><abbr title="\">Global</abbr></a></h2>
-                    <h3 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/fpcm.html"><abbr title="\fpcm">fpcm</abbr></a></h3>
-            <ul class="phpdocumentor-list">
-                                    <li><a href="../namespaces/fpcm-classes.html"><abbr title="\fpcm\classes">classes</abbr></a></li>
-                                    <li><a href="../namespaces/fpcm-components.html"><abbr title="\fpcm\components">components</abbr></a></li>
-                                    <li><a href="../namespaces/fpcm-controller.html"><abbr title="\fpcm\controller">controller</abbr></a></li>
-                                    <li><a href="../namespaces/fpcm-drivers.html"><abbr title="\fpcm\drivers">drivers</abbr></a></li>
-                                    <li><a href="../namespaces/fpcm-events.html"><abbr title="\fpcm\events">events</abbr></a></li>
-                                    <li><a href="../namespaces/fpcm-migrations.html"><abbr title="\fpcm\migrations">migrations</abbr></a></li>
-                                    <li><a href="../namespaces/fpcm-model.html"><abbr title="\fpcm\model">model</abbr></a></li>
-                                    <li><a href="../namespaces/fpcm-module.html"><abbr title="\fpcm\module">module</abbr></a></li>
-                                    <li><a href="../namespaces/fpcm-view.html"><abbr title="\fpcm\view">view</abbr></a></li>
-                            </ul>
-            
-        <h1 class="phpdocumentor-sidebar__category-header">Packages</h1>
-            <h2 class="phpdocumentor-sidebar__root-package"><a href="../packages/Default.html"><abbr title="\Default">Default</abbr></a></h2>
-        <ul class="phpdocumentor-list">
-                    </ul>
-            <h2 class="phpdocumentor-sidebar__root-package"><a href="../packages/fpcm.html"><abbr title="\fpcm">fpcm</abbr></a></h2>
-        <ul class="phpdocumentor-list">
-                            <li><a href="../packages/fpcm-classes.html"><abbr title="\fpcm\classes">classes</abbr></a></li>
-                            <li><a href="../packages/fpcm-model.html"><abbr title="\fpcm\model">model</abbr></a></li>
-                            <li><a href="../packages/fpcm-components.html"><abbr title="\fpcm\components">components</abbr></a></li>
-                            <li><a href="../packages/fpcm-controller.html"><abbr title="\fpcm\controller">controller</abbr></a></li>
-                            <li><a href="../packages/fpcm-module.html"><abbr title="\fpcm\module">module</abbr></a></li>
-                            <li><a href="../packages/fpcm-drivers.html"><abbr title="\fpcm\drivers">drivers</abbr></a></li>
-                            <li><a href="../packages/fpcm-events.html"><abbr title="\fpcm\events">events</abbr></a></li>
-                            <li><a href="../packages/fpcm-migrations.html"><abbr title="\fpcm\migrations">migrations</abbr></a></li>
-                            <li><a href="../packages/fpcm-view.html"><abbr title="\fpcm\view">view</abbr></a></li>
-                    </ul>
-        
-    <h1 class="phpdocumentor-sidebar__category-header">Reports</h1>
-        <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/deprecated.html">Deprecated</a></h2>
-    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/errors.html">Errors</a></h2>
-    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/markers.html">Markers</a></h2>
-</aside>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="../">
+    <link rel="icon" href="images/favicon.ico"/>
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/base.css">
+            <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="css/template.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0/css/all.min.css" integrity="sha256-ybRkN9dBjhcS2qrW1z+hfCxq+1aBdwyQM5wlQoQVt/0=" crossorigin="anonymous" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/themes/prism-okaidia.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-numbers/prism-line-numbers.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-highlight/prism-line-highlight.css">
+                <script src="https://cdn.jsdelivr.net/npm/fuse.js@3.4.6"></script>
+        <script src="https://cdn.jsdelivr.net/npm/css-vars-ponyfill@2"></script>
+        <script src="js/search.js"></script>
+        <script defer src="js/searchIndex.js"></script>
+    </head>
+<body id="top">
+    <header class="phpdocumentor-header phpdocumentor-section">
+    <h1 class="phpdocumentor-title"><a href="" class="phpdocumentor-title__link">Documentation</a></h1>
+    <input class="phpdocumentor-header__menu-button" type="checkbox" id="menu-button" name="menu-button" />
+    <label class="phpdocumentor-header__menu-icon" for="menu-button">
+        <i class="fas fa-bars"></i>
+    </label>
+    <section data-search-form class="phpdocumentor-search">
+    <label>
+        <span class="visually-hidden">Search for</span>
+        <svg class="phpdocumentor-search__icon" width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="7.5" cy="7.5" r="6.5" stroke="currentColor" stroke-width="2"/>
+            <line x1="12.4892" y1="12.2727" x2="19.1559" y2="18.9393" stroke="currentColor" stroke-width="3"/>
+        </svg>
+        <input type="search" class="phpdocumentor-field phpdocumentor-search__field" placeholder="Loading .." disabled />
+    </label>
+</section>
 
-        <div class="nine phpdocumentor-columns phpdocumentor-content">
-            <ul class="phpdocumentor-breadcrumbs">
-    <li><a href="../index.html">Home</a></li>
-                        <li><a href="../namespaces/fpcm.html">fpcm</a></li>
-                    <li><a href="../namespaces/fpcm-classes.html">classes</a></li>
+    <nav class="phpdocumentor-topnav">
+    <ul class="phpdocumentor-topnav__menu">
+        </ul>
+</nav>
+</header>
+
+    <main class="phpdocumentor">
+        <div class="phpdocumentor-section">
+            <input class="phpdocumentor-sidebar__menu-button" type="checkbox" id="sidebar-button" name="sidebar-button" />
+<label class="phpdocumentor-sidebar__menu-icon" for="sidebar-button">
+    Menu
+</label>
+<aside class="phpdocumentor-column -four phpdocumentor-sidebar">
+                    <section class="phpdocumentor-sidebar__category">
+            <h2 class="phpdocumentor-sidebar__category-header">Namespaces</h2>
+                                    <h4 class="phpdocumentor-sidebar__root-namespace">
+    <a href="namespaces/fpcm.html" class="">fpcm</a>
+</h4>
+    <ul class="phpdocumentor-list">
+                    <li>
+                <a href="namespaces/fpcm-classes.html" class="">classes</a>
+                
+            </li>
+                    <li>
+                <a href="namespaces/fpcm-components.html" class="">components</a>
+                
+            </li>
+                    <li>
+                <a href="namespaces/fpcm-controller.html" class="">controller</a>
+                
+            </li>
+                    <li>
+                <a href="namespaces/fpcm-drivers.html" class="">drivers</a>
+                
+            </li>
+                    <li>
+                <a href="namespaces/fpcm-events.html" class="">events</a>
+                
+            </li>
+                    <li>
+                <a href="namespaces/fpcm-migrations.html" class="">migrations</a>
+                
+            </li>
+                    <li>
+                <a href="namespaces/fpcm-model.html" class="">model</a>
+                
+            </li>
+                    <li>
+                <a href="namespaces/fpcm-module.html" class="">module</a>
+                
+            </li>
+                    <li>
+                <a href="namespaces/fpcm-view.html" class="">view</a>
+                
+            </li>
             </ul>
 
-    <article class="phpdocumentor-element phpdocumentor-class">
-        <h2 class="phpdocumentor-content__title">
-            baseconfig
-                                        <div class="phpdocumentor-element__package">
-                    in
+                        </section>
+                <section class="phpdocumentor-sidebar__category">
+            <h2 class="phpdocumentor-sidebar__category-header">Packages</h2>
+                                    <h4 class="phpdocumentor-sidebar__root-namespace">
+    <a href="packages/Application.html" class="">Application</a>
+</h4>
+
+                                    <h4 class="phpdocumentor-sidebar__root-namespace">
+    <a href="packages/fpcm.html" class="">fpcm</a>
+</h4>
+    <ul class="phpdocumentor-list">
+                    <li>
+                <a href="packages/fpcm-classes.html" class="">classes</a>
+                
+            </li>
+                    <li>
+                <a href="packages/fpcm-model.html" class="">model</a>
+                
+            </li>
+                    <li>
+                <a href="packages/fpcm-components.html" class="">components</a>
+                
+            </li>
+                    <li>
+                <a href="packages/fpcm-controller.html" class="">controller</a>
+                
+            </li>
+                    <li>
+                <a href="packages/fpcm-module.html" class="">module</a>
+                
+            </li>
+                    <li>
+                <a href="packages/fpcm-drivers.html" class="">drivers</a>
+                
+            </li>
+                    <li>
+                <a href="packages/fpcm-events.html" class="">events</a>
+                
+            </li>
+                    <li>
+                <a href="packages/fpcm-migrations.html" class="">migrations</a>
+                
+            </li>
+                    <li>
+                <a href="packages/fpcm-view.html" class="">view</a>
+                
+            </li>
+            </ul>
+
+                        </section>
+            
+    <section class="phpdocumentor-sidebar__category">
+        <h2 class="phpdocumentor-sidebar__category-header">Reports</h2>
+                <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/deprecated.html">Deprecated</a></h3>
+        <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/errors.html">Errors</a></h3>
+        <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/markers.html">Markers</a></h3>
+    </section>
+
+    <section class="phpdocumentor-sidebar__category">
+        <h2 class="phpdocumentor-sidebar__category-header">Indices</h2>
+        <h3 class="phpdocumentor-sidebar__root-package"><a href="indices/files.html">Files</a></h3>
+    </section>
+</aside>
+
+            <div class="phpdocumentor-column -eight phpdocumentor-content">
                     <ul class="phpdocumentor-breadcrumbs">
-                                                    <li><a href="../packages/fpcm.html">fpcm</a></li>
-                                                    <li><a href="../packages/fpcm-classes.html">classes</a></li>
-                                                    <li><a href="../packages/fpcm-classes-baseconfig.html">baseconfig</a></li>
-                                            </ul>
-                </div>
-                                            </h2>
+            <li class="phpdocumentor-breadcrumb"><a href="namespaces/fpcm.html">fpcm</a></li>
+            <li class="phpdocumentor-breadcrumb"><a href="namespaces/fpcm-classes.html">classes</a></li>
+    </ul>
+
+    <article class="phpdocumentor-element -class">
+        <h2 class="phpdocumentor-content__title">
+    baseconfig
+
+    
+            <div class="phpdocumentor-element__package">
+            in package
+            <ul class="phpdocumentor-breadcrumbs">
+                                    <li class="phpdocumentor-breadcrumb"><a href="packages/fpcm.html">fpcm</a></li>
+                                    <li class="phpdocumentor-breadcrumb"><a href="packages/fpcm-classes.html">classes</a></li>
+                                    <li class="phpdocumentor-breadcrumb"><a href="packages/fpcm-classes-baseconfig.html">baseconfig</a></li>
+                            </ul>
+        </div>
+    
+    
+    </h2>
+
         <aside class="phpdocumentor-element-found-in">
-            <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/baseconfig.php"><a href="../files/inc-classes-baseconfig.html"><abbr title="inc/classes/baseconfig.php">baseconfig.php</abbr></a></abbr>
-            :
-            <span class="phpdocumentor-element-found-in__line">17</span>
-        </aside>
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/baseconfig.php"><a href="files/inc-classes-baseconfig.html"><abbr title="inc/classes/baseconfig.php">baseconfig.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">17</span>
 
-        <p class="phpdocumentor-class__summary">Base config class</p>
-        <section class="phpdocumentor-class__description"></section>
+    </aside>
 
-        <h3>Table of Contents</h3>
-        <table class="phpdocumentor-table_of_contents">
-                                        <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-classes-baseconfig.html#property_updateServer">$updateServer</a></th>
-                    <td class="phpdocumentor-cell">Update-Server-URL</td>
-                    <td class="phpdocumentor-cell">string</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-classes-baseconfig.html#property_updateServerManualLink">$updateServerManualLink</a></th>
-                    <td class="phpdocumentor-cell">Link für manuelle Update-Prüfung</td>
-                    <td class="phpdocumentor-cell">string</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-classes-baseconfig.html#property_moduleServer">$moduleServer</a></th>
-                    <td class="phpdocumentor-cell">Module-Server-URL</td>
-                    <td class="phpdocumentor-cell">string</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-classes-baseconfig.html#property_moduleServerManualLink">$moduleServerManualLink</a></th>
-                    <td class="phpdocumentor-cell">Link für manuellen Module-Manager</td>
-                    <td class="phpdocumentor-cell">string</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-classes-baseconfig.html#property_folderExcludes">$folderExcludes</a></th>
-                    <td class="phpdocumentor-cell">auszuschließende Ordner</td>
-                    <td class="phpdocumentor-cell">array</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-classes-baseconfig.html#property_logFiles">$logFiles</a></th>
-                    <td class="phpdocumentor-cell">Logdatein</td>
-                    <td class="phpdocumentor-cell">array</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-classes-baseconfig.html#property_dateTimeMasks">$dateTimeMasks</a></th>
-                    <td class="phpdocumentor-cell">Datetime-Masken</td>
-                    <td class="phpdocumentor-cell">array</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-classes-baseconfig.html#property_installerEnabledFile">$installerEnabledFile</a></th>
-                    <td class="phpdocumentor-cell">Installer aktiv Status-Datei</td>
-                    <td class="phpdocumentor-cell">string</td>
-                </tr>
-                                                                <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-classes-baseconfig.html#method_init">init()</a></th>
-                    <td class="phpdocumentor-cell">Initiiert Grundsystem</td>
-                    <td class="phpdocumentor-cell">mixed</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-classes-baseconfig.html#method_getDatabaseConfig">getDatabaseConfig()</a></th>
-                    <td class="phpdocumentor-cell">Lädt config.php</td>
-                    <td class="phpdocumentor-cell">array</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-classes-baseconfig.html#method_getCryptConfig">getCryptConfig()</a></th>
-                    <td class="phpdocumentor-cell">Lädt crypt.php</td>
-                    <td class="phpdocumentor-cell">array</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-classes-baseconfig.html#method_getSecurityConfig">getSecurityConfig()</a></th>
-                    <td class="phpdocumentor-cell">Lädt sec.php</td>
-                    <td class="phpdocumentor-cell">array</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-classes-baseconfig.html#method_getVersionFromFile">getVersionFromFile()</a></th>
-                    <td class="phpdocumentor-cell">Lädt version.txt</td>
-                    <td class="phpdocumentor-cell">string</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-classes-baseconfig.html#method_canConnect">canConnect()</a></th>
-                    <td class="phpdocumentor-cell">allow_url_fopen = 1</td>
-                    <td class="phpdocumentor-cell">bool</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-classes-baseconfig.html#method_canCrypt">canCrypt()</a></th>
-                    <td class="phpdocumentor-cell">allow_url_fopen = 1</td>
-                    <td class="phpdocumentor-cell">bool</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-classes-baseconfig.html#method_canHttps">canHttps()</a></th>
-                    <td class="phpdocumentor-cell">HTTPS aktiv</td>
-                    <td class="phpdocumentor-cell">bool</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-classes-baseconfig.html#method_isCli">isCli()</a></th>
-                    <td class="phpdocumentor-cell">Aufruf über CLI</td>
-                    <td class="phpdocumentor-cell">bool</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-classes-baseconfig.html#method_noToken">noToken()</a></th>
-                    <td class="phpdocumentor-cell">Aufruf über CLI</td>
-                    <td class="phpdocumentor-cell">bool</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-classes-baseconfig.html#method_memoryLimit">memoryLimit()</a></th>
-                    <td class="phpdocumentor-cell">PHP Memory Limit</td>
-                    <td class="phpdocumentor-cell">int</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-classes-baseconfig.html#method_uploadFilesizeLimit">uploadFilesizeLimit()</a></th>
-                    <td class="phpdocumentor-cell">PHP Upload filesize limit</td>
-                    <td class="phpdocumentor-cell">int</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-classes-baseconfig.html#method_getControllers">getControllers()</a></th>
-                    <td class="phpdocumentor-cell">Controller abrufen</td>
-                    <td class="phpdocumentor-cell">array</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-classes-baseconfig.html#method_dbConfigExists">dbConfigExists()</a></th>
-                    <td class="phpdocumentor-cell">Prüft ob Datenbank-Config-Datei existiert</td>
-                    <td class="phpdocumentor-cell">bool</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-classes-baseconfig.html#method_installerEnabled">installerEnabled()</a></th>
-                    <td class="phpdocumentor-cell">Prüft ob Installer aktiv ist</td>
-                    <td class="phpdocumentor-cell">bool</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-classes-baseconfig.html#method_enableInstaller">enableInstaller()</a></th>
-                    <td class="phpdocumentor-cell">Aktiviert bzw. deaktiviert Installer</td>
-                    <td class="phpdocumentor-cell">bool</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-classes-baseconfig.html#method_asyncCronjobsEnabled">asyncCronjobsEnabled()</a></th>
-                    <td class="phpdocumentor-cell">Prüft ob Ausführung von asynchronen Cronjobs aktiv ist</td>
-                    <td class="phpdocumentor-cell">bool</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-classes-baseconfig.html#method_enableAsyncCronjobs">enableAsyncCronjobs()</a></th>
-                    <td class="phpdocumentor-cell">Aktiviert bzw. deaktiviert asynchrone Cronjob-Ausführung</td>
-                    <td class="phpdocumentor-cell">bool</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-classes-baseconfig.html#method_initServers">initServers()</a></th>
-                    <td class="phpdocumentor-cell">Initialisiert Server-Infos</td>
-                    <td class="phpdocumentor-cell">mixed</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-classes-baseconfig.html#method_initModuleControllers">initModuleControllers()</a></th>
-                    <td class="phpdocumentor-cell">Registriert Controller-Configs aus controllers.yml</td>
-                    <td class="phpdocumentor-cell"><abbr title="\fpcm\classes\aarray">aarray</abbr></td>
-                </tr>
-                                            </table>
+            <p class="phpdocumentor-summary">Base config class</p>
 
-        
-                    <section>
-                <h3 class="phpdocumentor-properties__header">Properties</h3>
-                                    <a id="property_updateServer"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--public
-            phpdocumentor-property--static                    "
->
-    <h4 class="phpdocumentor-property__name">$updateServer</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/baseconfig.php"><a href="../files/inc-classes-baseconfig.html"><abbr title="inc/classes/baseconfig.php">baseconfig.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">23</span>
-    </aside>
-            <p class="phpdocumentor-summary">Update-Server-URL</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__type">string</span>
-        <span class="phpdocumentor-signature__name">$updateServer</span>
-            </code>
-    </article>
-                                    <a id="property_updateServerManualLink"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--public
-            phpdocumentor-property--static                    "
->
-    <h4 class="phpdocumentor-property__name">$updateServerManualLink</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/baseconfig.php"><a href="../files/inc-classes-baseconfig.html"><abbr title="inc/classes/baseconfig.php">baseconfig.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">29</span>
-    </aside>
-            <p class="phpdocumentor-summary">Link für manuelle Update-Prüfung</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__type">string</span>
-        <span class="phpdocumentor-signature__name">$updateServerManualLink</span>
-            </code>
-    </article>
-                                    <a id="property_moduleServer"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--public
-            phpdocumentor-property--static                    "
->
-    <h4 class="phpdocumentor-property__name">$moduleServer</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/baseconfig.php"><a href="../files/inc-classes-baseconfig.html"><abbr title="inc/classes/baseconfig.php">baseconfig.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">35</span>
-    </aside>
-            <p class="phpdocumentor-summary">Module-Server-URL</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__type">string</span>
-        <span class="phpdocumentor-signature__name">$moduleServer</span>
-            </code>
-    </article>
-                                    <a id="property_moduleServerManualLink"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--public
-            phpdocumentor-property--static                    "
->
-    <h4 class="phpdocumentor-property__name">$moduleServerManualLink</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/baseconfig.php"><a href="../files/inc-classes-baseconfig.html"><abbr title="inc/classes/baseconfig.php">baseconfig.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">41</span>
-    </aside>
-            <p class="phpdocumentor-summary">Link für manuellen Module-Manager</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__type">string</span>
-        <span class="phpdocumentor-signature__name">$moduleServerManualLink</span>
-            </code>
-    </article>
-                                    <a id="property_folderExcludes"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--public
-            phpdocumentor-property--static                    "
->
-    <h4 class="phpdocumentor-property__name">$folderExcludes</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/baseconfig.php"><a href="../files/inc-classes-baseconfig.html"><abbr title="inc/classes/baseconfig.php">baseconfig.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">47</span>
-    </aside>
-            <p class="phpdocumentor-summary">auszuschließende Ordner</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__type">array</span>
-        <span class="phpdocumentor-signature__name">$folderExcludes</span>
-         = <span class="phpdocumentor-signature__default-value">array(&#039;.&#039;, &#039;..&#039;)</span>    </code>
-    </article>
-                                    <a id="property_logFiles"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--public
-            phpdocumentor-property--static                    "
->
-    <h4 class="phpdocumentor-property__name">$logFiles</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/baseconfig.php"><a href="../files/inc-classes-baseconfig.html"><abbr title="inc/classes/baseconfig.php">baseconfig.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">53</span>
-    </aside>
-            <p class="phpdocumentor-summary">Logdatein</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__type">array</span>
-        <span class="phpdocumentor-signature__name">$logFiles</span>
-         = <span class="phpdocumentor-signature__default-value">[]</span>    </code>
-    </article>
-                                    <a id="property_dateTimeMasks"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--public
-            phpdocumentor-property--static                    "
->
-    <h4 class="phpdocumentor-property__name">$dateTimeMasks</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/baseconfig.php"><a href="../files/inc-classes-baseconfig.html"><abbr title="inc/classes/baseconfig.php">baseconfig.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">59</span>
-    </aside>
-            <p class="phpdocumentor-summary">Datetime-Masken</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__type">array</span>
-        <span class="phpdocumentor-signature__name">$dateTimeMasks</span>
-         = <span class="phpdocumentor-signature__default-value">[&#039;d.m.Y, H:i&#039;, &#039;d. M Y, H:i&#039;, &#039;d.n.Y H:i&#039;, &#039;j. M Y H:i&#039;, &#039;j.n.Y H:i&#039;, &#039;M dS Y - h:ia&#039;, &#039;m/d/Y - h:ia&#039;, &#039;M jS Y - h:ia&#039;, &#039;n/d/Y - h:ia&#039;]</span>    </code>
-    </article>
-                                    <a id="property_installerEnabledFile"></a>
-<article
-        class="
-            phpdocumentor-property
-            phpdocumentor-property--private
-            phpdocumentor-property--static                    "
->
-    <h4 class="phpdocumentor-property__name">$installerEnabledFile</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/baseconfig.php"><a href="../files/inc-classes-baseconfig.html"><abbr title="inc/classes/baseconfig.php">baseconfig.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">75</span>
-    </aside>
-            <p class="phpdocumentor-summary">Installer aktiv Status-Datei</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__type">string</span>
-        <span class="phpdocumentor-signature__name">$installerEnabledFile</span>
-            </code>
-    </article>
-                                                            </section>
-        
-                    <section>
-                <h3 class="phpdocumentor-methods__header">Methods</h3>
-                                    <a id="method_init"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                    phpdocumentor-element--static                    "
->
-    <h4 class="phpdocumentor-method__name">init()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/baseconfig.php"><a href="../files/inc-classes-baseconfig.html"><abbr title="inc/classes/baseconfig.php">baseconfig.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">80</span>
-    </aside>
-        <p class="phpdocumentor-summary">Initiiert Grundsystem</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">init</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type">mixed</span>
-    </code>
 
-    
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">mixed</span>
-            
-</article>
-                                    <a id="method_getDatabaseConfig"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                    phpdocumentor-element--static                    "
->
-    <h4 class="phpdocumentor-method__name">getDatabaseConfig()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/baseconfig.php"><a href="../files/inc-classes-baseconfig.html"><abbr title="inc/classes/baseconfig.php">baseconfig.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">119</span>
-    </aside>
-        <p class="phpdocumentor-summary">Lädt config.php</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getDatabaseConfig</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type">array</span>
-    </code>
 
-    
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array</span>
-            
-</article>
-                                    <a id="method_getCryptConfig"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                    phpdocumentor-element--static                    "
->
-    <h4 class="phpdocumentor-method__name">getCryptConfig()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/baseconfig.php"><a href="../files/inc-classes-baseconfig.html"><abbr title="inc/classes/baseconfig.php">baseconfig.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">135</span>
-    </aside>
-        <p class="phpdocumentor-summary">Lädt crypt.php</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getCryptConfig</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type">array</span>
-    </code>
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">author</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                
+                                                 <section class="phpdocumentor-description"><p>Stefan Seehafer <a href="mailto:sea75300@yahoo.de">sea75300@yahoo.de</a></p>
+</section>
 
-    
-    
-                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
-        <dl class="phpdocumentor-tag-list">
+                                    </dd>
                                                 <dt class="phpdocumentor-tag-list__entry">
-                        <span class="phpdocumentor-tag__name">since</span>
-                    </dt>
-                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
-                                    </dl>
-    
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array</span>
-            
-</article>
-                                    <a id="method_getSecurityConfig"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                    phpdocumentor-element--static                    "
->
-    <h4 class="phpdocumentor-method__name">getSecurityConfig()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/baseconfig.php"><a href="../files/inc-classes-baseconfig.html"><abbr title="inc/classes/baseconfig.php">baseconfig.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">151</span>
-    </aside>
-        <p class="phpdocumentor-summary">Lädt sec.php</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getSecurityConfig</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type">array</span>
-    </code>
+                    <span class="phpdocumentor-tag__name">copyright</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                
+                                                 <section class="phpdocumentor-description"><p>(c) 2011-2020, Stefan Seehafer</p>
+</section>
 
-    
-    
-                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
-        <dl class="phpdocumentor-tag-list">
-                                                <dt class="phpdocumentor-tag-list__entry">
-                        <span class="phpdocumentor-tag__name">since</span>
-                    </dt>
-                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
-                                    </dl>
-    
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array</span>
-            
-</article>
-                                    <a id="method_getVersionFromFile"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                    phpdocumentor-element--static                    "
->
-    <h4 class="phpdocumentor-method__name">getVersionFromFile()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/baseconfig.php"><a href="../files/inc-classes-baseconfig.html"><abbr title="inc/classes/baseconfig.php">baseconfig.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">167</span>
-    </aside>
-        <p class="phpdocumentor-summary">Lädt version.txt</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getVersionFromFile</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type">string</span>
-    </code>
+                                    </dd>
+                        </dl>
 
-    
-    
-                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
-        <dl class="phpdocumentor-tag-list">
-                                                <dt class="phpdocumentor-tag-list__entry">
-                        <span class="phpdocumentor-tag__name">since</span>
-                    </dt>
-                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
-                                    </dl>
-    
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">string</span>
-            
-</article>
-                                    <a id="method_canConnect"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                    phpdocumentor-element--static                    "
->
-    <h4 class="phpdocumentor-method__name">canConnect()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/baseconfig.php"><a href="../files/inc-classes-baseconfig.html"><abbr title="inc/classes/baseconfig.php">baseconfig.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">176</span>
-    </aside>
-        <p class="phpdocumentor-summary">allow_url_fopen = 1</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">canConnect</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type">bool</span>
-    </code>
 
-    
-    
+
+
+
+
+<h3 id="toc">
+    Table of Contents
+    <a href="#toc" class="headerlink"><i class="fas fa-link"></i></a>
+</h3>
+
+<dl class="phpdocumentor-table-of-contents">
+                    <dt class="phpdocumentor-table-of-contents__entry -property -public">
+    <a href="classes/fpcm-classes-baseconfig.html#property_dateTimeMasks">$dateTimeMasks</a>
+    <span>
+                        &nbsp;: array&lt;string|int, mixed&gt;            </span>
+</dt>
+<dd>Datetime-Masken</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -public">
+    <a href="classes/fpcm-classes-baseconfig.html#property_folderExcludes">$folderExcludes</a>
+    <span>
+                        &nbsp;: array&lt;string|int, mixed&gt;            </span>
+</dt>
+<dd>auszuschließende Ordner</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -public">
+    <a href="classes/fpcm-classes-baseconfig.html#property_logFiles">$logFiles</a>
+    <span>
+                        &nbsp;: array&lt;string|int, mixed&gt;            </span>
+</dt>
+<dd>Logdatein</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -public">
+    <a href="classes/fpcm-classes-baseconfig.html#property_moduleServer">$moduleServer</a>
+    <span>
+                        &nbsp;: string            </span>
+</dt>
+<dd>Module-Server-URL</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -public">
+    <a href="classes/fpcm-classes-baseconfig.html#property_moduleServerManualLink">$moduleServerManualLink</a>
+    <span>
+                        &nbsp;: string            </span>
+</dt>
+<dd>Link für manuellen Module-Manager</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -public">
+    <a href="classes/fpcm-classes-baseconfig.html#property_updateServer">$updateServer</a>
+    <span>
+                        &nbsp;: string            </span>
+</dt>
+<dd>Update-Server-URL</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -public">
+    <a href="classes/fpcm-classes-baseconfig.html#property_updateServerManualLink">$updateServerManualLink</a>
+    <span>
+                        &nbsp;: string            </span>
+</dt>
+<dd>Link für manuelle Update-Prüfung</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/fpcm-classes-baseconfig.html#property_installerEnabledFile">$installerEnabledFile</a>
+    <span>
+                        &nbsp;: string            </span>
+</dt>
+<dd>Installer aktiv Status-Datei</dd>
+
+                <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-classes-baseconfig.html#method_asyncCronjobsEnabled">asyncCronjobsEnabled()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+<dd>Prüft ob Ausführung von asynchronen Cronjobs aktiv ist</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-classes-baseconfig.html#method_canConnect">canConnect()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+<dd>allow_url_fopen = 1</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-classes-baseconfig.html#method_canCrypt">canCrypt()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+<dd>allow_url_fopen = 1</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-classes-baseconfig.html#method_canHttps">canHttps()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+<dd>HTTPS aktiv</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-classes-baseconfig.html#method_dbConfigExists">dbConfigExists()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+<dd>Prüft ob Datenbank-Config-Datei existiert</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-classes-baseconfig.html#method_enableAsyncCronjobs">enableAsyncCronjobs()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+<dd>Aktiviert bzw. deaktiviert asynchrone Cronjob-Ausführung</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-classes-baseconfig.html#method_enableInstaller">enableInstaller()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+<dd>Aktiviert bzw. deaktiviert Installer</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-classes-baseconfig.html#method_getControllers">getControllers()</a>
+    <span>
+                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+</dt>
+<dd>Controller abrufen</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-classes-baseconfig.html#method_getCryptConfig">getCryptConfig()</a>
+    <span>
+                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+</dt>
+<dd>Lädt crypt.php</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-classes-baseconfig.html#method_getDatabaseConfig">getDatabaseConfig()</a>
+    <span>
+                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+</dt>
+<dd>Lädt config.php</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-classes-baseconfig.html#method_getSecurityConfig">getSecurityConfig()</a>
+    <span>
+                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+</dt>
+<dd>Lädt sec.php</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-classes-baseconfig.html#method_getVersionFromFile">getVersionFromFile()</a>
+    <span>
+                                &nbsp;: string    </span>
+</dt>
+<dd>Lädt version.txt</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-classes-baseconfig.html#method_hasOpcache">hasOpcache()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+<dd>HTTPS aktiv</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-classes-baseconfig.html#method_init">init()</a>
+    <span>
+                                &nbsp;: mixed    </span>
+</dt>
+<dd>Initiiert Grundsystem</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-classes-baseconfig.html#method_installerEnabled">installerEnabled()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+<dd>Prüft ob Installer aktiv ist</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-classes-baseconfig.html#method_isCli">isCli()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+<dd>Aufruf über CLI</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-classes-baseconfig.html#method_memoryLimit">memoryLimit()</a>
+    <span>
+                                &nbsp;: int    </span>
+</dt>
+<dd>PHP Memory Limit</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-classes-baseconfig.html#method_noToken">noToken()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+<dd>Aufruf über CLI</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-classes-baseconfig.html#method_uploadFilesizeLimit">uploadFilesizeLimit()</a>
+    <span>
+                                &nbsp;: int    </span>
+</dt>
+<dd>PHP Upload filesize limit</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a href="classes/fpcm-classes-baseconfig.html#method_initModuleControllers">initModuleControllers()</a>
+    <span>
+                                &nbsp;: <abbr title="\fpcm\classes\aarray">aarray</abbr>    </span>
+</dt>
+<dd>Registriert Controller-Configs aus controllers.yml</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a href="classes/fpcm-classes-baseconfig.html#method_initServers">initServers()</a>
+    <span>
+                                &nbsp;: mixed    </span>
+</dt>
+<dd>Initialisiert Server-Infos</dd>
+
+        </dl>
+
+
+
         
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">bool</span>
-            
-</article>
-                                    <a id="method_canCrypt"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                    phpdocumentor-element--static                    "
->
-    <h4 class="phpdocumentor-method__name">canCrypt()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/baseconfig.php"><a href="../files/inc-classes-baseconfig.html"><abbr title="inc/classes/baseconfig.php">baseconfig.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">189</span>
-    </aside>
-        <p class="phpdocumentor-summary">allow_url_fopen = 1</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">canCrypt</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type">bool</span>
-    </code>
 
-    
-    
         
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">bool</span>
-            
-</article>
-                                    <a id="method_canHttps"></a>
-<article
+    <section class="phpdocumentor-properties">
+        <h3 class="phpdocumentor-elements__header" id="properties">
+            Properties
+            <a href="classes/fpcm-classes-baseconfig.html#properties" class="headerlink"><i class="fas fa-link"></i></a>
+        </h3>
+                    <article
         class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                    phpdocumentor-element--static                    "
+            phpdocumentor-element
+            -property
+            -public
+            -static                                            "
 >
-    <h4 class="phpdocumentor-method__name">canHttps()</h4>
+    <h4 class="phpdocumentor-element__name" id="property_dateTimeMasks">
+        $dateTimeMasks
+        <a href="classes/fpcm-classes-baseconfig.html#property_dateTimeMasks" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/baseconfig.php"><a href="../files/inc-classes-baseconfig.html"><abbr title="inc/classes/baseconfig.php">baseconfig.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">203</span>
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/baseconfig.php"><a href="files/inc-classes-baseconfig.html"><abbr title="inc/classes/baseconfig.php">baseconfig.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">59</span>
+
     </aside>
-        <p class="phpdocumentor-summary">HTTPS aktiv</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">canHttps</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type">bool</span>
+
+        <p class="phpdocumentor-summary">Datetime-Masken</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;</span>
+    <span class="phpdocumentor-signature__name">$dateTimeMasks</span>
+     = <span class="phpdocumentor-signature__default-value">[&#039;d.m.Y, H:i&#039;, &#039;d. M Y, H:i&#039;, &#039;d.n.Y H:i&#039;, &#039;j. M Y H:i&#039;, &#039;j.n.Y H:i&#039;, &#039;M dS Y - h:ia&#039;, &#039;m/d/Y - h:ia&#039;, &#039;M jS Y - h:ia&#039;, &#039;n/d/Y - h:ia&#039;]</span></code>
+
+    
+    
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -public
+            -static                                            "
+>
+    <h4 class="phpdocumentor-element__name" id="property_folderExcludes">
+        $folderExcludes
+        <a href="classes/fpcm-classes-baseconfig.html#property_folderExcludes" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/baseconfig.php"><a href="files/inc-classes-baseconfig.html"><abbr title="inc/classes/baseconfig.php">baseconfig.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">47</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">auszuschließende Ordner</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;</span>
+    <span class="phpdocumentor-signature__name">$folderExcludes</span>
+     = <span class="phpdocumentor-signature__default-value">array(&#039;.&#039;, &#039;..&#039;)</span></code>
+
+    
+    
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -public
+            -static                                            "
+>
+    <h4 class="phpdocumentor-element__name" id="property_logFiles">
+        $logFiles
+        <a href="classes/fpcm-classes-baseconfig.html#property_logFiles" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/baseconfig.php"><a href="files/inc-classes-baseconfig.html"><abbr title="inc/classes/baseconfig.php">baseconfig.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">53</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Logdatein</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;</span>
+    <span class="phpdocumentor-signature__name">$logFiles</span>
+     = <span class="phpdocumentor-signature__default-value">[]</span></code>
+
+    
+    
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -public
+            -static                                            "
+>
+    <h4 class="phpdocumentor-element__name" id="property_moduleServer">
+        $moduleServer
+        <a href="classes/fpcm-classes-baseconfig.html#property_moduleServer" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/baseconfig.php"><a href="files/inc-classes-baseconfig.html"><abbr title="inc/classes/baseconfig.php">baseconfig.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">35</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Module-Server-URL</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">string</span>
+    <span class="phpdocumentor-signature__name">$moduleServer</span>
     </code>
 
     
     
-                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
-        <dl class="phpdocumentor-tag-list">
-                                                <dt class="phpdocumentor-tag-list__entry">
-                        <span class="phpdocumentor-tag__name">since</span>
-                    </dt>
-                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
-                                    </dl>
     
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">bool</span>
-            
+
 </article>
-                                    <a id="method_isCli"></a>
-<article
+                    <article
         class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                    phpdocumentor-element--static                    "
+            phpdocumentor-element
+            -property
+            -public
+            -static                                            "
 >
-    <h4 class="phpdocumentor-method__name">isCli()</h4>
+    <h4 class="phpdocumentor-element__name" id="property_moduleServerManualLink">
+        $moduleServerManualLink
+        <a href="classes/fpcm-classes-baseconfig.html#property_moduleServerManualLink" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/baseconfig.php"><a href="../files/inc-classes-baseconfig.html"><abbr title="inc/classes/baseconfig.php">baseconfig.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">217</span>
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/baseconfig.php"><a href="files/inc-classes-baseconfig.html"><abbr title="inc/classes/baseconfig.php">baseconfig.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">41</span>
+
     </aside>
-        <p class="phpdocumentor-summary">Aufruf über CLI</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">isCli</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type">bool</span>
+
+        <p class="phpdocumentor-summary">Link für manuellen Module-Manager</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">string</span>
+    <span class="phpdocumentor-signature__name">$moduleServerManualLink</span>
     </code>
 
     
     
-                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
-        <dl class="phpdocumentor-tag-list">
-                                                <dt class="phpdocumentor-tag-list__entry">
-                        <span class="phpdocumentor-tag__name">since</span>
-                    </dt>
-                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
-                                    </dl>
     
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">bool</span>
-            
+
 </article>
-                                    <a id="method_noToken"></a>
-<article
+                    <article
         class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                    phpdocumentor-element--static                    "
+            phpdocumentor-element
+            -property
+            -public
+            -static                                            "
 >
-    <h4 class="phpdocumentor-method__name">noToken()</h4>
+    <h4 class="phpdocumentor-element__name" id="property_updateServer">
+        $updateServer
+        <a href="classes/fpcm-classes-baseconfig.html#property_updateServer" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/baseconfig.php"><a href="../files/inc-classes-baseconfig.html"><abbr title="inc/classes/baseconfig.php">baseconfig.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">231</span>
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/baseconfig.php"><a href="files/inc-classes-baseconfig.html"><abbr title="inc/classes/baseconfig.php">baseconfig.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">23</span>
+
     </aside>
-        <p class="phpdocumentor-summary">Aufruf über CLI</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">noToken</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type">bool</span>
+
+        <p class="phpdocumentor-summary">Update-Server-URL</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">string</span>
+    <span class="phpdocumentor-signature__name">$updateServer</span>
     </code>
 
     
     
-                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
-        <dl class="phpdocumentor-tag-list">
-                                                <dt class="phpdocumentor-tag-list__entry">
-                        <span class="phpdocumentor-tag__name">since</span>
-                    </dt>
-                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
-                                    </dl>
     
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">bool</span>
-            
-</article>
-                                    <a id="method_memoryLimit"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                    phpdocumentor-element--static                    "
->
-    <h4 class="phpdocumentor-method__name">memoryLimit()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/baseconfig.php"><a href="../files/inc-classes-baseconfig.html"><abbr title="inc/classes/baseconfig.php">baseconfig.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">253</span>
-    </aside>
-        <p class="phpdocumentor-summary">PHP Memory Limit</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">memoryLimit</span>(
-                    <span class="phpdocumentor-signature__argument">
-            [                <span class="phpdocumentor-signature__argument__name">$inByte</span> :
-                <span class="phpdocumentor-signature__argument__return-type">bool</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">false</span> ]            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">int</span>
-    </code>
 
-    
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$inByte</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">bool</span>
-                     = <span class="phpdocumentor-signature__argument__default-value">false</span>                </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Ausgabe in Byte oder Mbyte</p></section></dd>
-                    </dl>
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">int</span>
-            
 </article>
-                                    <a id="method_uploadFilesizeLimit"></a>
-<article
+                    <article
         class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                    phpdocumentor-element--static                    "
+            phpdocumentor-element
+            -property
+            -public
+            -static                                            "
 >
-    <h4 class="phpdocumentor-method__name">uploadFilesizeLimit()</h4>
+    <h4 class="phpdocumentor-element__name" id="property_updateServerManualLink">
+        $updateServerManualLink
+        <a href="classes/fpcm-classes-baseconfig.html#property_updateServerManualLink" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/baseconfig.php"><a href="../files/inc-classes-baseconfig.html"><abbr title="inc/classes/baseconfig.php">baseconfig.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">267</span>
-    </aside>
-        <p class="phpdocumentor-summary">PHP Upload filesize limit</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">uploadFilesizeLimit</span>(
-                    <span class="phpdocumentor-signature__argument">
-            [                <span class="phpdocumentor-signature__argument__name">$inByte</span> :
-                <span class="phpdocumentor-signature__argument__return-type">bool</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">false</span> ]            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">int</span>
-    </code>
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/baseconfig.php"><a href="files/inc-classes-baseconfig.html"><abbr title="inc/classes/baseconfig.php">baseconfig.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">29</span>
 
-    
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$inByte</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">bool</span>
-                     = <span class="phpdocumentor-signature__argument__default-value">false</span>                </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Ausgabe in Byte oder Mbyte</p></section></dd>
-                    </dl>
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">int</span>
-            
-</article>
-                                    <a id="method_getControllers"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                    phpdocumentor-element--static                    "
->
-    <h4 class="phpdocumentor-method__name">getControllers()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/baseconfig.php"><a href="../files/inc-classes-baseconfig.html"><abbr title="inc/classes/baseconfig.php">baseconfig.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">280</span>
     </aside>
-        <p class="phpdocumentor-summary">Controller abrufen</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getControllers</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type">array</span>
+
+        <p class="phpdocumentor-summary">Link für manuelle Update-Prüfung</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">string</span>
+    <span class="phpdocumentor-signature__name">$updateServerManualLink</span>
     </code>
 
     
     
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array</span>
-            
+    
+
 </article>
-                                    <a id="method_dbConfigExists"></a>
-<article
+                    <article
         class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                    phpdocumentor-element--static                    "
+            phpdocumentor-element
+            -property
+            -private
+            -static                                            "
 >
-    <h4 class="phpdocumentor-method__name">dbConfigExists()</h4>
+    <h4 class="phpdocumentor-element__name" id="property_installerEnabledFile">
+        $installerEnabledFile
+        <a href="classes/fpcm-classes-baseconfig.html#property_installerEnabledFile" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/baseconfig.php"><a href="../files/inc-classes-baseconfig.html"><abbr title="inc/classes/baseconfig.php">baseconfig.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">317</span>
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/baseconfig.php"><a href="files/inc-classes-baseconfig.html"><abbr title="inc/classes/baseconfig.php">baseconfig.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">75</span>
+
     </aside>
-        <p class="phpdocumentor-summary">Prüft ob Datenbank-Config-Datei existiert</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">dbConfigExists</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type">bool</span>
+
+        <p class="phpdocumentor-summary">Installer aktiv Status-Datei</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">string</span>
+    <span class="phpdocumentor-signature__name">$installerEnabledFile</span>
     </code>
 
     
     
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">bool</span>
-            
-</article>
-                                    <a id="method_installerEnabled"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                    phpdocumentor-element--static                    "
->
-    <h4 class="phpdocumentor-method__name">installerEnabled()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/baseconfig.php"><a href="../files/inc-classes-baseconfig.html"><abbr title="inc/classes/baseconfig.php">baseconfig.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">330</span>
-    </aside>
-        <p class="phpdocumentor-summary">Prüft ob Installer aktiv ist</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">installerEnabled</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type">bool</span>
-    </code>
+    
 
-    
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">bool</span>
-            
 </article>
-                                    <a id="method_enableInstaller"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                    phpdocumentor-element--static                    "
->
-    <h4 class="phpdocumentor-method__name">enableInstaller()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/baseconfig.php"><a href="../files/inc-classes-baseconfig.html"><abbr title="inc/classes/baseconfig.php">baseconfig.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">348</span>
-    </aside>
-        <p class="phpdocumentor-summary">Aktiviert bzw. deaktiviert Installer</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">enableInstaller</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$status</span> :
-                <span class="phpdocumentor-signature__argument__return-type">bool</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">bool</span>
-    </code>
+            </section>
 
-    
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$status</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">bool</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>neuer Status</p></section></dd>
-                    </dl>
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">bool</span>
-            
-</article>
-                                    <a id="method_asyncCronjobsEnabled"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                    phpdocumentor-element--static                    "
+            <section class="phpdocumentor-methods">
+        <h3 class="phpdocumentor-elements__header" id="methods">
+            Methods
+            <a href="classes/fpcm-classes-baseconfig.html#methods" class="headerlink"><i class="fas fa-link"></i></a>
+        </h3>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
 >
-    <h4 class="phpdocumentor-method__name">asyncCronjobsEnabled()</h4>
+    <h4 class="phpdocumentor-element__name" id="method_asyncCronjobsEnabled">
+        asyncCronjobsEnabled()
+        <a href="classes/fpcm-classes-baseconfig.html#method_asyncCronjobsEnabled" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/baseconfig.php"><a href="../files/inc-classes-baseconfig.html"><abbr title="inc/classes/baseconfig.php">baseconfig.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">361</span>
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/baseconfig.php"><a href="files/inc-classes-baseconfig.html"><abbr title="inc/classes/baseconfig.php">baseconfig.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">373</span>
+
     </aside>
+
         <p class="phpdocumentor-summary">Prüft ob Ausführung von asynchronen Cronjobs aktiv ist</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">asyncCronjobsEnabled</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type">bool</span>
-    </code>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">asyncCronjobsEnabled</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
 
     
     
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">bool</span>
+            &mdash;
         
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">bool</span>
-            
+    
 </article>
-                                    <a id="method_enableAsyncCronjobs"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                    phpdocumentor-element--static                    "
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
 >
-    <h4 class="phpdocumentor-method__name">enableAsyncCronjobs()</h4>
+    <h4 class="phpdocumentor-element__name" id="method_canConnect">
+        canConnect()
+        <a href="classes/fpcm-classes-baseconfig.html#method_canConnect" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/baseconfig.php"><a href="../files/inc-classes-baseconfig.html"><abbr title="inc/classes/baseconfig.php">baseconfig.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">376</span>
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/baseconfig.php"><a href="files/inc-classes-baseconfig.html"><abbr title="inc/classes/baseconfig.php">baseconfig.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">176</span>
+
     </aside>
+
+        <p class="phpdocumentor-summary">allow_url_fopen = 1</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">canConnect</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+    
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">bool</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_canCrypt">
+        canCrypt()
+        <a href="classes/fpcm-classes-baseconfig.html#method_canCrypt" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/baseconfig.php"><a href="files/inc-classes-baseconfig.html"><abbr title="inc/classes/baseconfig.php">baseconfig.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">189</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">allow_url_fopen = 1</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">canCrypt</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+    
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">bool</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_canHttps">
+        canHttps()
+        <a href="classes/fpcm-classes-baseconfig.html#method_canHttps" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/baseconfig.php"><a href="files/inc-classes-baseconfig.html"><abbr title="inc/classes/baseconfig.php">baseconfig.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">203</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">HTTPS aktiv</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">canHttps</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+    
+    
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">3.5</span>
+                                                                                
+                                             
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">bool</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_dbConfigExists">
+        dbConfigExists()
+        <a href="classes/fpcm-classes-baseconfig.html#method_dbConfigExists" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/baseconfig.php"><a href="files/inc-classes-baseconfig.html"><abbr title="inc/classes/baseconfig.php">baseconfig.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">329</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Prüft ob Datenbank-Config-Datei existiert</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">dbConfigExists</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+    
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">bool</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_enableAsyncCronjobs">
+        enableAsyncCronjobs()
+        <a href="classes/fpcm-classes-baseconfig.html#method_enableAsyncCronjobs" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/baseconfig.php"><a href="files/inc-classes-baseconfig.html"><abbr title="inc/classes/baseconfig.php">baseconfig.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">388</span>
+
+    </aside>
+
         <p class="phpdocumentor-summary">Aktiviert bzw. deaktiviert asynchrone Cronjob-Ausführung</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">enableAsyncCronjobs</span>(
-                    <span class="phpdocumentor-signature__argument">
-                            <span class="phpdocumentor-signature__argument__name">$status</span> :
-                <span class="phpdocumentor-signature__argument__return-type">bool</span>
-                            </span>
-                )
-        : <span class="phpdocumentor-signature__response_type">bool</span>
-    </code>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">enableAsyncCronjobs</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$status</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
 
     
-            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-        <dl class="phpdocumentor-argument-list">
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$status</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">bool</span>
-                                    </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>neuer Status</p></section></dd>
-                    </dl>
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$status</span>
+                : <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>neuer Status</p>
+</section>
+
+            </dd>
+            </dl>
+
     
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">bool</span>
+            &mdash;
         
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">bool</span>
-            
+    
 </article>
-                                    <a id="method_initServers"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--private
-                                    phpdocumentor-element--static                    "
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
 >
-    <h4 class="phpdocumentor-method__name">initServers()</h4>
+    <h4 class="phpdocumentor-element__name" id="method_enableInstaller">
+        enableInstaller()
+        <a href="classes/fpcm-classes-baseconfig.html#method_enableInstaller" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/baseconfig.php"><a href="../files/inc-classes-baseconfig.html"><abbr title="inc/classes/baseconfig.php">baseconfig.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">391</span>
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/baseconfig.php"><a href="files/inc-classes-baseconfig.html"><abbr title="inc/classes/baseconfig.php">baseconfig.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">360</span>
+
     </aside>
-        <p class="phpdocumentor-summary">Initialisiert Server-Infos</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">private</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">initServers</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type">mixed</span>
-    </code>
+
+        <p class="phpdocumentor-summary">Aktiviert bzw. deaktiviert Installer</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">enableInstaller</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$status</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$status</span>
+                : <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>neuer Status</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">bool</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getControllers">
+        getControllers()
+        <a href="classes/fpcm-classes-baseconfig.html#method_getControllers" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/baseconfig.php"><a href="files/inc-classes-baseconfig.html"><abbr title="inc/classes/baseconfig.php">baseconfig.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">294</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Controller abrufen</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getControllers</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
 
     
     
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+            &mdash;
         
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">mixed</span>
-            
+    
 </article>
-                                    <a id="method_initModuleControllers"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--private
-                                    phpdocumentor-element--static                    "
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
 >
-    <h4 class="phpdocumentor-method__name">initModuleControllers()</h4>
+    <h4 class="phpdocumentor-element__name" id="method_getCryptConfig">
+        getCryptConfig()
+        <a href="classes/fpcm-classes-baseconfig.html#method_getCryptConfig" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/baseconfig.php"><a href="../files/inc-classes-baseconfig.html"><abbr title="inc/classes/baseconfig.php">baseconfig.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">407</span>
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/baseconfig.php"><a href="files/inc-classes-baseconfig.html"><abbr title="inc/classes/baseconfig.php">baseconfig.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">135</span>
+
     </aside>
+
+        <p class="phpdocumentor-summary">Lädt crypt.php</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getCryptConfig</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+
+    
+    
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">3.5</span>
+                                                                                
+                                             
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getDatabaseConfig">
+        getDatabaseConfig()
+        <a href="classes/fpcm-classes-baseconfig.html#method_getDatabaseConfig" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/baseconfig.php"><a href="files/inc-classes-baseconfig.html"><abbr title="inc/classes/baseconfig.php">baseconfig.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">119</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Lädt config.php</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getDatabaseConfig</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+
+    
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getSecurityConfig">
+        getSecurityConfig()
+        <a href="classes/fpcm-classes-baseconfig.html#method_getSecurityConfig" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/baseconfig.php"><a href="files/inc-classes-baseconfig.html"><abbr title="inc/classes/baseconfig.php">baseconfig.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">151</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Lädt sec.php</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getSecurityConfig</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+
+    
+    
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">3.6</span>
+                                                                                
+                                             
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getVersionFromFile">
+        getVersionFromFile()
+        <a href="classes/fpcm-classes-baseconfig.html#method_getVersionFromFile" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/baseconfig.php"><a href="files/inc-classes-baseconfig.html"><abbr title="inc/classes/baseconfig.php">baseconfig.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">167</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Lädt version.txt</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getVersionFromFile</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+
+    
+    
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">4</span>
+                                                                                
+                                             
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">string</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_hasOpcache">
+        hasOpcache()
+        <a href="classes/fpcm-classes-baseconfig.html#method_hasOpcache" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/baseconfig.php"><a href="files/inc-classes-baseconfig.html"><abbr title="inc/classes/baseconfig.php">baseconfig.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">217</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">HTTPS aktiv</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">hasOpcache</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+    
+    
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">3.5</span>
+                                                                                
+                                             
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">bool</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_init">
+        init()
+        <a href="classes/fpcm-classes-baseconfig.html#method_init" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/baseconfig.php"><a href="files/inc-classes-baseconfig.html"><abbr title="inc/classes/baseconfig.php">baseconfig.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">80</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Initiiert Grundsystem</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">init</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+
+    
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">mixed</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_installerEnabled">
+        installerEnabled()
+        <a href="classes/fpcm-classes-baseconfig.html#method_installerEnabled" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/baseconfig.php"><a href="files/inc-classes-baseconfig.html"><abbr title="inc/classes/baseconfig.php">baseconfig.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">342</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Prüft ob Installer aktiv ist</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">installerEnabled</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+    
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">bool</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_isCli">
+        isCli()
+        <a href="classes/fpcm-classes-baseconfig.html#method_isCli" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/baseconfig.php"><a href="files/inc-classes-baseconfig.html"><abbr title="inc/classes/baseconfig.php">baseconfig.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">231</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Aufruf über CLI</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">isCli</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+    
+    
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">4.0</span>
+                                                                                
+                                             
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">bool</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_memoryLimit">
+        memoryLimit()
+        <a href="classes/fpcm-classes-baseconfig.html#method_memoryLimit" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/baseconfig.php"><a href="files/inc-classes-baseconfig.html"><abbr title="inc/classes/baseconfig.php">baseconfig.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">267</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">PHP Memory Limit</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">memoryLimit</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$inByte</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">false</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$inByte</span>
+                : <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">false</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Ausgabe in Byte oder Mbyte</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">int</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_noToken">
+        noToken()
+        <a href="classes/fpcm-classes-baseconfig.html#method_noToken" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/baseconfig.php"><a href="files/inc-classes-baseconfig.html"><abbr title="inc/classes/baseconfig.php">baseconfig.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">245</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Aufruf über CLI</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">noToken</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+    
+    
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">4.0</span>
+                                                                                
+                                             
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">bool</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_uploadFilesizeLimit">
+        uploadFilesizeLimit()
+        <a href="classes/fpcm-classes-baseconfig.html#method_uploadFilesizeLimit" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/baseconfig.php"><a href="files/inc-classes-baseconfig.html"><abbr title="inc/classes/baseconfig.php">baseconfig.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">281</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">PHP Upload filesize limit</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">uploadFilesizeLimit</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$inByte</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">false</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$inByte</span>
+                : <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">false</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Ausgabe in Byte oder Mbyte</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">int</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_initModuleControllers">
+        initModuleControllers()
+        <a href="classes/fpcm-classes-baseconfig.html#method_initModuleControllers" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/baseconfig.php"><a href="files/inc-classes-baseconfig.html"><abbr title="inc/classes/baseconfig.php">baseconfig.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">417</span>
+
+    </aside>
+
         <p class="phpdocumentor-summary">Registriert Controller-Configs aus controllers.yml</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">private</span>
-                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">initModuleControllers</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type"><abbr title="\fpcm\classes\aarray">aarray</abbr></span>
-    </code>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">initModuleControllers</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><abbr title="\fpcm\classes\aarray">aarray</abbr></span></code>
 
     
     
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type"><abbr title="\fpcm\classes\aarray">aarray</abbr></span>
+            &mdash;
         
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type"><abbr title="\fpcm\classes\aarray">aarray</abbr></span>
-            
+    
 </article>
-                                                            </section>
-            </article>
-            <div data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_initServers">
+        initServers()
+        <a href="classes/fpcm-classes-baseconfig.html#method_initServers" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/baseconfig.php"><a href="files/inc-classes-baseconfig.html"><abbr title="inc/classes/baseconfig.php">baseconfig.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">403</span>
 
-                <h2>Search results</h2>
-                <ul class="phpdocumentor-search-results__entries">
+    </aside>
 
-                </ul>
+        <p class="phpdocumentor-summary">Initialisiert Server-Infos</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">initServers</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+
+    
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">mixed</span>
+            &mdash;
+        
+    
+</article>
+            </section>
+
+        
+    <script type="text/javascript">
+        function loadExternalCodeSnippets(line) {
+            Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach((pre) => {
+                var src = pre.getAttribute('data-src').replace( /\\/g, '/');
+                var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+                var language = 'php';
+
+                var code = document.createElement('code');
+                code.className = 'language-' + language;
+
+                pre.textContent = '';
+
+                pre.setAttribute('data-line', line)
+                code.textContent = 'Loading…';
+
+                pre.appendChild(code);
+
+                var xhr = new XMLHttpRequest();
+
+                xhr.open('GET', src, true);
+
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == 4) {
+
+                        if (xhr.status < 400 && xhr.responseText) {
+                            code.textContent = xhr.responseText;
+
+                            Prism.highlightElement(code);
+                        }
+                        else if (xhr.status >= 400) {
+                            code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                        }
+                        else {
+                            code.textContent = '✖ Error: File does not exist, is empty or trying to view from localhost';
+                        }
+                    }
+                };
+
+                xhr.send(null);
+            });
+        }
+
+        var modals = document.querySelectorAll("[data-modal]");
+
+        modals.forEach(function (trigger) {
+            trigger.addEventListener("click", function (event) {
+                //event.preventDefault();
+                const modal = document.getElementById(trigger.dataset.modal);
+                modal.classList.add("phpdocumentor-modal__open");
+                loadExternalCodeSnippets(trigger.dataset.line)
+                const exits = modal.querySelectorAll("[data-exit-button]");
+                exits.forEach(function (exit) {
+                    exit.addEventListener("click", function (event) {
+                        event.preventDefault();
+                        modal.classList.remove("phpdocumentor-modal__open");
+                    });
+                });
+            });
+        });
+    </script>
+
+    </article>
+                <section data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
+    <section class="phpdocumentor-search-results__dialog">
+        <header class="phpdocumentor-search-results__header">
+            <h2 class="phpdocumentor-search-results__title">Search results</h2>
+            <button class="phpdocumentor-search-results__close"><i class="fas fa-times"></i></button>
+        </header>
+        <section class="phpdocumentor-search-results__body">
+            <ul class="phpdocumentor-search-results__entries"></ul>
+        </section>
+    </section>
+</section>
             </div>
         </div>
-    </div>
-</main>
+        <a href="classes/fpcm-classes-baseconfig.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
 
+    </main>
+
+    <script>
+        cssVars({});
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/prism.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
 </body>
 </html>

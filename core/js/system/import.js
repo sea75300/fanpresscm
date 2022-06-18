@@ -18,11 +18,11 @@ fpcm.import = {
                 fpcm.dom.fromId('fpcm-ui-csv-fields-select').empty();
                 fpcm.dom.fromId('fpcm-ui-csv-fields-list').empty();
 
-                if (!fpcm.vars.jsvars.fields[ui.value.replace('\\', '_')]) {
+                if (!fpcm.vars.jsvars.fields[ui.value.replace(/\\/g, '_')]) {
                     return false;
                 }
                 
-                let fields = fpcm.vars.jsvars.fields[ui.value.replace('\\', '_')];
+                let fields = fpcm.vars.jsvars.fields[ui.value.replace(/\\/g, '_')];
 
                 let _i = 0;
                 for (var item in fields) {
@@ -69,7 +69,7 @@ fpcm.import = {
                 id: 'import.exec',
                 param: {
                     csv: {
-                        item: fpcm.dom.fromId('import_destination').val().replace('\\', '__'),
+                        item: fpcm.import._getImportDestinationValue(),
                         file: fpcm.dom.fromId('import_filename').val(),
                         delim: fpcm.dom.fromId('import_delimiter').val(),
                         enclo: fpcm.dom.fromId('import_enclosure').val(),
@@ -102,7 +102,7 @@ fpcm.import = {
                         id: 'import.exec',
                         param: {
                             csv: {
-                                item: fpcm.dom.fromId('import_destination').val().replace('\\', '__'),
+                                item: fpcm.import._getImportDestinationValue(),
                                 file: fpcm.dom.fromId('import_filename').val(),
                                 delim: fpcm.dom.fromId('import_delimiter').val(),
                                 enclo: fpcm.dom.fromId('import_enclosure').val(),
@@ -306,6 +306,11 @@ fpcm.import = {
             destination: _id,
             group: 'shared'
         });
+    },
+    
+    _getImportDestinationValue: function ()
+    {
+        return fpcm.dom.fromId('import_destination').val().replace(/\\/g, '__');
     }
 
 };
