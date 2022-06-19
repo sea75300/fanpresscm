@@ -12,7 +12,7 @@ namespace fpcm\components\editor;
  * 
  * @package fpcm\components\editor
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2021, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 class tinymceEditor5 extends articleEditor {
@@ -94,26 +94,14 @@ class tinymceEditor5 extends articleEditor {
         $cssClasses = array_merge($editorStyles, $this->getEditorStyles());
 
         return $this->events->trigger('editor\initTinymce', [
-            'editorConfig' => [
-                'theme' => 'silver',
-                'language' => $this->config->system_lang,
-                'plugins' => $pluginFolders,
-                'custom_elements' => 'readmore',
-                'toolbar' => 'formatselect fontsizeselect | bold italic underline strikethrough | forecolor backcolor | alignleft aligncenter alignright alignjustify outdent indent | subscript superscript table toc | bullist numlist | pagebreak hr blockquote | link unlink anchor image media | fpcm_emoticons charmap insertdatetime template | undo redo removeformat searchreplace fullscreen code restoredraft | emoticons | help',
-                'link_class_list' => $cssClasses,
-                'image_class_list' => $cssClasses,
-                'link_list' => \fpcm\classes\tools::getFullControllerLink('ajax/autocomplete', ['src' => 'editorlinks']),
-                'image_list' => \fpcm\classes\tools::getFullControllerLink('ajax/autocomplete', ['src' => 'editorfiles']),
-                'textpattern_patterns' => $this->getTextPatterns(),
-                'templates' => $this->getTemplateDrafts(),
-                'autosave_prefix' => 'fpcm-editor-as-' . $this->session->getUserId(),
-                'images_upload_url' => \fpcm\classes\tools::getFullControllerLink('ajax/editor/imgupload'),
-                'automatic_uploads' => 1,
-                'width' => '100%',
-                'min_height' => 500,
-                'file_picker_types' => ['image', 'file'],
-                'pagebreak_separator' => \fpcm\model\pubtemplates\article::PAGEBREAK_TAG,
-            ],
+            'editorConfig' => new conf\tinymceEditor5(
+                $this->config,
+                $pluginFolders,
+                $cssClasses,
+                $this->getTextPatterns(),
+                $this->getTemplateDrafts(),
+                $this->session->getUserId()
+            ),
             'editorDefaultFontsize' => $this->config->system_editor_fontsize,
             'uploadFileRoot' => \fpcm\classes\dirs::getDataUrl(\fpcm\classes\dirs::DATA_UPLOADS, ''),
             'galleryThumbStr' => \fpcm\model\pubtemplates\article::GALLERY_TAG_THUMB,
