@@ -362,7 +362,8 @@ fpcm.editor = {
             editor.on('BeforeSetContent', function (e) {
 
                 let _data = e.content.match(/\[gallery\](.*)\[\/gallery\]/i);
-                if (!_data) {
+                let _hasGallery = e.content.search(_galleryPlaceholderClass) > 0;
+                if (!_data || _hasGallery) {
                     return true;
                 }
 
@@ -372,7 +373,6 @@ fpcm.editor = {
                 }
                 
                 let _repl = [];
-                _repl.push('<figure role="group" class="' + _galleryPlaceholderClass + '" data-mce-placeholder="1" data-placeholder="' + _data[0] + '">');
                 
                 for (var i = 0; i < _list.length; i++) {
 
@@ -388,9 +388,17 @@ fpcm.editor = {
                     let _imgurl = fpcm.vars.jsvars.uploadFileRoot + (_item[1] === fpcm.vars.jsvars.galleryThumbStr ? _item[2].replace('/', '/thumbs/') : _item[2]);
                     _repl.push('<img src="' + _imgurl + '" class="fpcm-content-gallery-item" style="padding: 0 0.25rem;" data-mce-resize="false" data-mce-placeholder="1" />');
                 }
+                
+                if (!_repl.length) {
+                    return true;
+                }
 
+                _repl.unshift('<figure role="group" class="' + _galleryPlaceholderClass + '" data-mce-placeholder="1" data-placeholder="' + _data[0] + '">');
                 _repl.push('</figure>');
+
                 e.content = e.content.replace(_data[0], _repl.join(''));
+
+                return true;
             });
 
             editor.on('PreInit', function () {
