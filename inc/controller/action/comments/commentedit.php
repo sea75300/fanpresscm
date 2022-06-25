@@ -141,23 +141,8 @@ class commentedit extends \fpcm\controller\abstracts\controller implements \fpcm
         
         
         $jsVars = $editorPlugin->getJsVars();
-        
-        if (isset($jsVars['editorConfig']['plugins']) && isset($jsVars['editorConfig']['toolbar'])) {
-
-            $jsVars['editorConfig']['plugins'] = str_replace([
-                'autosave',
-                'template',
-                'fpcm_readmore',
-            ], '', $jsVars['editorConfig']['plugins']);
-            
-            $jsVars['editorConfig']['toolbar'] = str_replace([
-                'restoredraft',
-                'template',
-                'fpcm_readmore',
-            ], '', $jsVars['editorConfig']['toolbar']);
-            
-            
-            $jsVars['editorConfig']['custom_elements'] = '';
+        if (is_object($jsVars['editorConfig']) && $jsVars['editorConfig'] instanceof \fpcm\components\editor\conf\tinymceEditor5) {
+            $jsVars['editorConfig']->prepareComments();
         }
 
         $jsVars += array(
