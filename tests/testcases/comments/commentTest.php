@@ -68,6 +68,23 @@ class commentTest extends testBase {
         $this->assertEquals(0, $object->getApproved());
         $this->assertEquals(1, $object->getArticleid());
     }
+    
+    public function testGetElementLink()
+    {
+        $obj = new fpcm\model\comments\comment($GLOBALS['objectId']);
+        $this->assertStringContainsString((new \fpcm\model\system\config)->system_url  . '?module=fpcm/article&id=' . $obj->getArticleid() . '#comments', $obj->getElementLink());
+    }
+    
+    public function testGetMetaDataStatusIcons()
+    {
+        $icons = (new fpcm\model\comments\comment($GLOBALS['objectId']))->getMetaDataStatusIcons();
+        
+        foreach ($icons as $icon) {
+            $this->assertInstanceOf('\fpcm\view\helper\icon', $icon);
+            $this->assertStringContainsString('<span class="fpcm-ui-icon-single fpcm-ui-editor-metainfo', (string) $icon );
+        }
+        
+    }
 
     public function testDelete()
     {

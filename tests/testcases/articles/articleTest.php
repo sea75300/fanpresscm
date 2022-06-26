@@ -28,6 +28,7 @@ class articleTest extends testBase {
         $object->setComments(1);
         $object->setSources('https://nobody-knows.org');
         $object->setCategories(array(1));
+        $object->setImagepath('test.jpg');
 
         $result = $object->save();
         $this->assertGreaterThanOrEqual(1, $result);
@@ -82,6 +83,29 @@ class articleTest extends testBase {
 
         $this->assertTrue(is_array($revisions));
         $this->assertGreaterThanOrEqual(1, count($revisions));
+    }
+    
+    public function testGetElementLink()
+    {
+        $link = (new fpcm\model\articles\article($GLOBALS['objectId']))->getElementLink();
+        $this->assertStringContainsString((new \fpcm\model\system\config)->system_url  . '?module=fpcm/article&id=' . $GLOBALS['objectId'], $link);
+    }
+    
+    public function testGetArticleImage()
+    {
+        $img = (new fpcm\model\articles\article($GLOBALS['objectId']))->getArticleImage();
+        $this->assertStringContainsString('<img loading="lazy" class="fpcm-pub-article-image" src="test.jpg" alt="'.$GLOBALS['article_title'].'" title="'.$GLOBALS['article_title'].'" role="presentation">', $img);
+    }
+    
+    public function testGetMetaDataStatusIcons()
+    {
+        $icons = (new fpcm\model\articles\article($GLOBALS['objectId']))->getMetaDataStatusIcons(true, true, true);
+        
+        foreach ($icons as $icon) {
+            $this->assertInstanceOf('\fpcm\view\helper\icon', $icon);
+            $this->assertStringContainsString('<span class="fpcm-ui-icon-single fpcm-ui-editor-metainfo', (string) $icon );
+        }
+        
     }
 
     public function testDelete()
