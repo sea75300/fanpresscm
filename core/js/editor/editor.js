@@ -386,7 +386,7 @@ fpcm.editor = {
                     }
                     
                     let _imgurl = fpcm.vars.jsvars.uploadFileRoot + (_item[1] === fpcm.vars.jsvars.galleryThumbStr ? _item[2].replace('/', '/thumbs/') : _item[2]);
-                    _repl.push('<img src="' + _imgurl + '" class="fpcm-content-gallery-item" style="padding: 0 0.25rem;" data-mce-resize="false" data-mce-placeholder="1" />');
+                    _repl.push('<img src="' + _imgurl + '" class="fpcm-content-gallery-item" data-mce-resize="false" data-mce-placeholder="1"  data-item="' + _list[i] + '" />');
                 }
                 
                 if (!_repl.length) {
@@ -425,6 +425,30 @@ fpcm.editor = {
                         _node.type = 3;
                     }
                 });
+            });
+
+            editor.on('NodeChange', function (_params) {
+
+                if (!_params.selectionChange || _params.element.nodeName != 'FIGURE' || !_params.element.classList.contains(_galleryPlaceholderClass)) {
+                    return true;
+                }
+
+                if (!_params.element.children.length) {
+                    return true;
+                }
+                
+                let _elList = [];
+                for (var i = 0; i < _params.element.children.length; i++) {
+                    _elList.push(_params.element.children[i].dataset.item);
+                }
+                
+                if (!_elList.length) {
+                    return true;
+                }
+
+                _params.element.dataset.placeholder = '[gallery]' + _elList.join('|') + '[/gallery]';
+                return true;
+                
             });
         
         };
