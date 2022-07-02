@@ -17,7 +17,7 @@ class categoryTest extends testBase {
         $object = $this->object;
 
         $GLOBALS['categoryName'] = 'UnitTest category ' . microtime(true);
-        $GLOBALS['categoryIcon'] = 'icon.pjg';
+        $GLOBALS['categoryIcon'] = 'icon.jpg';
         $GLOBALS['categoryGroups'] = '1;2;3';
 
         $object->setName($GLOBALS['categoryName']);
@@ -53,6 +53,12 @@ class categoryTest extends testBase {
         $this->assertEquals($GLOBALS['categoryGroups'], $object->getGroups());
         $this->assertEquals($GLOBALS['categoryName'], $object->getName());
         $this->assertEquals($GLOBALS['categoryIcon'], $object->getIconPath());
+    }
+    
+    public function testGetCategoryImage()
+    {
+        $img = (new fpcm\model\categories\category($GLOBALS['objectId']))->getCategoryImage();
+        $this->assertStringContainsString('<img src="icon.jpg" alt="'.$GLOBALS['categoryName'].'" title="'.$GLOBALS['categoryName'].'" class="fpcm-pub-category-icon">', $img);
     }
 
     public function testDelete()

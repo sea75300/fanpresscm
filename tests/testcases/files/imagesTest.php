@@ -37,6 +37,32 @@ class imagesTest extends testBase {
         $this->assertEquals($GLOBALS['imageAltText'], $object->getAltText());
         $this->assertTrue($object->delete());
     }
+
+    public function testGetCropperFilename()
+    {
+        $filename = $GLOBALS['imageName'];
+        \fpcm\model\files\image::getCropperFilename($filename);
+
+        $this->assertNotEquals($GLOBALS['imageName'], $filename);
+        $this->assertStringContainsString('_cropped_', $filename);
+    }
+
+    public function testGetPropertiesArray()
+    {
+        $object =  new \fpcm\model\files\image($GLOBALS['imageName']);
+        $data = $object->getPropertiesArray('Stefan');
+        
+        $keys = [
+            'filename', 'filetime', 'fileuser',
+            'filesize', 'fileresx', 'fileresy',
+            'filehash', 'filemime', 'credits'
+        ];
+
+        foreach ($keys as $key) {
+            $this->assertArrayHasKey($key, $data);
+        }
+
+    }
     
     public function testValidateType()
     {
