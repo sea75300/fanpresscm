@@ -5,16 +5,16 @@
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
-namespace fpcm\model\files;
+namespace fpcm\model\cache;
 
 /**
  * Cache file objekt
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2022, Stefan Seehafer
+ * @copyright (c) 2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
- * @package fpcm\model\files
+ * @package fpcm\model\cache
  */
-class cacheFile {
+class fsBackend implements \fpcm\model\interfaces\cacheBackend {
 
     const EXTENSION_CACHE = '.cache';
 
@@ -186,6 +186,59 @@ class cacheFile {
         return \fpcm\classes\dirs::DATA_CACHE;
     }
 
-}
+    /**
+     * Returns all *.cache files from fielsystem
+     * @return array
+     * @since 5.1-dev
+     */
+    public static function getCacheComplete(string $basePath) : array
+    {
+        return array_unique(array_merge_recursive(glob($basePath . '/*' . self::EXTENSION_CACHE), glob($basePath . '/*/*' . self::EXTENSION_CACHE)));
+    }
 
-?>
+    /**
+     * Cleanup cache by cache name in base path
+     * @param string $basePath
+     * @param type $cacheName
+     * @return bool
+     * @since 5.1-dev
+     */
+    public static function cleanupByCacheName(string $basePath, $cacheName = null) : bool
+    {
+        if ($cacheName === null) {
+            $cacheFiles = $this->getCacheComplete($basePath);
+        }
+        elseif (substr($cacheName, -1) !== \fpcm\classes\cache::CLEAR_ALL) {
+            $file = new \fpcm\model\cache\fsBackend($cacheName);
+            return $file->cleanup();
+        }
+        else {
+            $cacheName = strtolower(substr($cacheName, 0, -2));
+            if (!defined('FPCM_CACHEMODULE_DEBUG') || !FPCM_CACHEMODULE_DEBUG) {
+                $cacheName = md5($cacheName);
+            }
+
+            $cacheFiles = glob($basePath . DIRECTORY_SEPARATOR . $cacheName . DIRECTORY_SEPARATOR . '*' . self::EXTENSION_CACHE);            
+        }
+        
+        if (defined('FPCM_CACHELIST_DEBUG') && FPCM_CACHELIST_DEBUG) {
+            fpcmLogSystem($cacheFiles);
+        }
+
+        if (!is_array($cacheFiles) || !count($cacheFiles)) {
+            return false;
+        }
+
+        $cacheFiles = array_filter($cacheFiles, function ($cacheFile) {
+            return file_exists($cacheFile) && is_writable($cacheFile);            
+        });
+
+        if (!count($cacheFiles)) {
+            return true;
+        }
+        
+        array_map('unlink', $cacheFiles);
+        return true;
+    }
+
+}

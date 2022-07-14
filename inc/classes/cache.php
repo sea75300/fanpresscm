@@ -55,7 +55,7 @@ final class cache {
             return true;
         }
 
-        $file = new \fpcm\model\files\cacheFile($cacheName);
+        $file = new \fpcm\model\cache\fsBackend($cacheName);
         return $file->expires() <= time() ? true : false;
     }
 
@@ -72,7 +72,7 @@ final class cache {
             return false;
         }
 
-        $file = new \fpcm\model\files\cacheFile($cacheName);
+        $file = new \fpcm\model\cache\fsBackend($cacheName);
         return $file->write($data, $expires ? $expires : FPCM_CACHE_DEFAULT_TIMEOUT);
     }
 
@@ -88,7 +88,7 @@ final class cache {
             return false;
         }
 
-        $file = new \fpcm\model\files\cacheFile($cacheName);
+        $file = new \fpcm\model\cache\fsBackend($cacheName);
         $content = $file->read();
 
         return substr($content, 0, 2) == 'a:' || substr($content, 0, 2) == 'o:' ? unserialize($content) : $content;
@@ -105,7 +105,7 @@ final class cache {
             return false;
         }
 
-        $file = new \fpcm\model\files\cacheFile($cacheName);
+        $file = new \fpcm\model\cache\fsBackend($cacheName);
         return $file->expires();
     }
 
@@ -116,40 +116,7 @@ final class cache {
      */
     public function cleanup($cacheName = null)
     {
-        if ($cacheName === null) {
-            $cacheFiles = $this->getCacheComplete();
-        }
-        elseif (substr($cacheName, -1) !== \fpcm\classes\cache::CLEAR_ALL) {
-            $file = new \fpcm\model\files\cacheFile($cacheName);
-            return $file->cleanup();
-        }
-        else {
-            $cacheName = strtolower(substr($cacheName, 0, -2));
-            if (!defined('FPCM_CACHEMODULE_DEBUG') || !FPCM_CACHEMODULE_DEBUG) {
-                $cacheName = md5($cacheName);
-            }
-
-            $cacheFiles = glob($this->basePath . DIRECTORY_SEPARATOR . $cacheName . DIRECTORY_SEPARATOR . '*' . \fpcm\model\files\cacheFile::EXTENSION_CACHE);            
-        }
-        
-        if (defined('FPCM_CACHELIST_DEBUG') && FPCM_CACHELIST_DEBUG) {
-            fpcmLogSystem($cacheFiles);
-        }
-
-        if (!is_array($cacheFiles) || !count($cacheFiles)) {
-            return false;
-        }
-
-        $cacheFiles = array_filter($cacheFiles, function ($cacheFile) {
-            return file_exists($cacheFile) && is_writable($cacheFile);            
-        });
-
-        if (!count($cacheFiles)) {
-            return true;
-        }
-        
-        array_map('unlink', $cacheFiles);
-        return true;
+        return \fpcm\model\cache\fsBackend::cleanupByCacheName($this->basePath, $cacheName);
     }
 
     /**
@@ -168,7 +135,7 @@ final class cache {
      */
     public function getCacheComplete()
     {
-        return array_unique(array_merge_recursive(glob($this->basePath . '/*' . \fpcm\model\files\cacheFile::EXTENSION_CACHE), glob($this->basePath . '/*/*' . \fpcm\model\files\cacheFile::EXTENSION_CACHE)));
+        return \fpcm\model\cache\fsBackend::getCacheComplete($this->basePath);
     }
 
 }
