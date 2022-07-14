@@ -3,7 +3,7 @@
 /**
  * FanPress CM constants
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 if (file_exists(dirname(__DIR__) . '/data/config/constants.custom.php')) {
@@ -15,7 +15,7 @@ if (file_exists(dirname(__DIR__) . '/data/config/constants.custom.php')) {
  * @since 3.5
  * @ignore
  */
-define('FPCM_PHP_REQUIRED', '7.2.0');
+define('FPCM_PHP_REQUIRED', '8.0.0');
 
 /**
  * Constant of seconds per day

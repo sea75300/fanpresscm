@@ -10,11 +10,12 @@ namespace fpcm\controller\ajax\templates;
 /**
  * Template controller
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
-class fetchEditor extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
+class fetchEditor extends \fpcm\controller\abstracts\ajaxController
+{
 
     use \fpcm\controller\traits\templates\edit;
     

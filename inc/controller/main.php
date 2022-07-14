@@ -12,7 +12,7 @@ namespace fpcm\controller;
  * 
  * @package fpcm\controller\main
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 class main {
@@ -65,6 +65,13 @@ class main {
          */
         $controller = new $class();
         $this->isExecutable($controller, $class, $module);
+        
+        if ($controller instanceof interfaces\isAccessible) {
+            trigger_error('The interface "fpcm\controller\interfaces\isAccessible" '
+                        . 'is deprecated since version 5.0.0-a3. '
+                        . 'The interface will be removed in future versions. '
+                        . 'Please remove the implements statement.', E_USER_DEPRECATED);
+        }
 
         if (!$controller->hasAccess() || !$controller->request()) {
             return false;

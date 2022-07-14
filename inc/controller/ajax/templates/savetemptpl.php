@@ -10,12 +10,13 @@ namespace fpcm\controller\ajax\templates;
 /**
  * AJAX save template preview code
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\controller\ajax\system\cronasync
  * @since 3.4
  */
-class savetemptpl extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
+class savetemptpl extends \fpcm\controller\abstracts\ajaxController
+{
 
     use \fpcm\controller\traits\templates\preview;
 

@@ -13,9 +13,8 @@ namespace fpcm\controller\action\categories;
  * @copyright (c) 2011-2019, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class categorylist extends \fpcm\controller\abstracts\controller
-implements \fpcm\controller\interfaces\isAccessible,
-            \fpcm\controller\interfaces\requestFunctions {
+class categorylist extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\requestFunctions
+{
 
     use \fpcm\controller\traits\common\dataView,
         \fpcm\controller\traits\theme\nav\categories;

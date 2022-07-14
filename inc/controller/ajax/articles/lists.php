@@ -16,7 +16,8 @@ namespace fpcm\controller\ajax\articles;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @since 4.5
  */
-class lists extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
+class lists extends \fpcm\controller\abstracts\ajaxController
+{
 
     use \fpcm\controller\traits\common\searchParams,
         \fpcm\controller\traits\articles\listsCommon,

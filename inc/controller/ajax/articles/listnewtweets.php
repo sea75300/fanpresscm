@@ -15,7 +15,8 @@ namespace fpcm\controller\ajax\articles;
  * @copyright (c) 2011-2019, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class listnewtweets extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
+class listnewtweets extends \fpcm\controller\abstracts\ajaxController
+{
 
     /**
      * Artikel-Listen-objekt

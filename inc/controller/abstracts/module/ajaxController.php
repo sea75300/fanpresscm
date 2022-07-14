@@ -12,13 +12,13 @@ namespace fpcm\controller\abstracts\module;
  * 
  * @package fpcm\module
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @abstract
  * @since 4.1
  */
 class ajaxController extends \fpcm\controller\abstracts\ajaxController
-implements \fpcm\controller\interfaces\isAccessible {
+{
 
     use \fpcm\module\tools;
     

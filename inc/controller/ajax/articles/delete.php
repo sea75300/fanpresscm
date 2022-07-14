@@ -14,7 +14,8 @@ namespace fpcm\controller\ajax\articles;
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @since 3.5
  */
-class delete extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
+class delete extends \fpcm\controller\abstracts\ajaxController
+{
 
     /**
      * 

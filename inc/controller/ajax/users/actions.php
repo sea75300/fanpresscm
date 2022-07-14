@@ -9,7 +9,8 @@
 
 namespace fpcm\controller\ajax\users;
 
-class actions extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
+class actions extends \fpcm\controller\abstracts\ajaxController
+{
 
     /**
      * 

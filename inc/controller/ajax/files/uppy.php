@@ -16,7 +16,8 @@ namespace fpcm\controller\ajax\files;
  * @package fpcm\controller\ajax\files
  * @author Stefan Seehafer <sea75300@yahoo.de>
  */
-class uppy extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
+class uppy extends \fpcm\controller\abstracts\ajaxController
+{
 
     /**
      *

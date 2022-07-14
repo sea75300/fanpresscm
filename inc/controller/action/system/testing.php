@@ -14,9 +14,8 @@ namespace fpcm\controller\action\system;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
-class testing extends \fpcm\controller\abstracts\controller
-implements \fpcm\controller\interfaces\isAccessible,
-           \fpcm\controller\interfaces\viewByNamespace {
+class testing extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\viewByNamespace
+{
 
     public function isAccessible(): bool
     {

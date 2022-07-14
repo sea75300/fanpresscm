@@ -13,7 +13,8 @@ namespace fpcm\controller\ajax\modules;
  * @package fpcm\controller\ajax\modules\moduleactions
  * @author Stefan Seehafer <sea75300@yahoo.de>
  */
-class fetchList extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
+class fetchList extends \fpcm\controller\abstracts\ajaxController
+{
 
     use \fpcm\controller\traits\common\dataView;
 

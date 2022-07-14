@@ -8,7 +8,8 @@ namespace fpcm\controller\ajax\modules;
  * @copyright (c) 2011-2021, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class moduleInfo extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
+class moduleInfo extends \fpcm\controller\abstracts\ajaxController
+{
 
     /**
      *

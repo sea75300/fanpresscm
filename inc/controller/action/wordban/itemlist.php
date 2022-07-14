@@ -13,11 +13,11 @@ namespace fpcm\controller\action\wordban;
  * @copyright (c) 2011-2021, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class itemlist extends \fpcm\controller\abstracts\controller
-implements \fpcm\controller\interfaces\isAccessible,
-           \fpcm\controller\interfaces\requestFunctions {
+class itemlist extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\requestFunctions
+{
 
-    use \fpcm\controller\traits\common\dataView, \fpcm\controller\traits\theme\nav\texts;
+    use \fpcm\controller\traits\common\dataView,
+        \fpcm\controller\traits\theme\nav\texts;
 
     /**
      *

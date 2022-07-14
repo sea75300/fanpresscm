@@ -3,14 +3,15 @@
 /**
  * Article trash controller
  * @article Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @since 3.5
  */
 
 namespace fpcm\controller\action\articles;
 
-class articlelisttrash extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\isAccessible {
+class articlelisttrash extends \fpcm\controller\abstracts\controller
+{
 
     use \fpcm\controller\traits\articles\listsCommon,
         \fpcm\controller\traits\articles\lists; 

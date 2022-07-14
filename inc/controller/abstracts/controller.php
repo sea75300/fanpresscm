@@ -168,36 +168,6 @@ class controller implements \fpcm\controller\interfaces\controller {
     }
 
     /**
-     * Gibt Wert in $_GET, $_POST, $_FILE zurück
-     * @param string $varname
-     * @param array $filter
-     * @return mixed
-     * @deprecated FPCM 4.4, use $this->request instead
-     */
-    final public function getRequestVar
-    (        
-        $varname = null,
-        array $filter = [
-            \fpcm\classes\http::FILTER_STRIPTAGS,
-            \fpcm\classes\http::FILTER_HTMLENTITIES,
-            \fpcm\classes\http::FILTER_STRIPSLASHES,
-            \fpcm\classes\http::FILTER_TRIM
-        ]
-    )
-    {
-        trigger_error(__METHOD__.' is deprecated as of FPCM 4.4, use $this->request instead! This method will be removed in future  releases.', E_USER_DEPRECATED);
-        
-        if (is_object($this->request)) {
-            return $this->request->fetchAll($varname, $filter);
-        }
-
-        /**
-         * @todo usage removal of old HTTP wrapper
-         */
-        return \fpcm\classes\http::get($varname, $filter);
-    }
-
-    /**
      * Prüft ob Button gesendet wurde
      * @param string $buttonName
      * @return string
