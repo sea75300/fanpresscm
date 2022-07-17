@@ -53,11 +53,9 @@
                     <legend><?php $theView->write('TEMPLATE_EDITOR'); ?></legend>
                     
                     <?php foreach ($allowedTagsList as $allowedTags) : ?>
-                        <div class="btn-group mb-1" role="group" aria-label="<?php $theView->write('TEMPLATE_EDITOR'); ?>">
                         <?php foreach ($allowedTags as $tag) : ?>
-                            <?php $theView->button('tps-editor-'.substr($tag, 1, -1))->setText(htmlentities($tag))->setClass('fpcm-editor-html-click')->setData(['htmltag' => substr($tag, 1, -1)]); ?>
+                            <?php $theView->button('tps-editor-'.substr($tag, 1, -1))->setText(htmlentities($tag))->setClass('fpcm-editor-html-click btn-sm m-1')->setData(['htmltag' => substr($tag, 1, -1)]); ?>
                         <?php endforeach; ?>
-                        </div>
                     <?php endforeach; ?>
 
                 </fieldset>

@@ -129,11 +129,11 @@ final class navigationList {
 
             return true;
         });
-        
-        
+
         foreach ($submenu as $subItem) {
             $subItem->initDefault($this->activeNavItem);
             $subItem->setIsSubmenuItem(true);
+            $subItem->setParent($item);
         }
 
         $item->setSubmenu($submenu);

@@ -6,7 +6,7 @@
         <?php $theView->icon('bars')->setClass('py-2'); ?>
     </button>
 
-    <div class="collapse navbar-collapse mx-1" id="fpcm-navigation-menu">
+    <div class="collapse navbar-collapse" id="fpcm-navigation-menu">
         <ul class="nav nav-pills flex-column">
         <?php foreach ($theView->navigation->fetch() as $ng) : ?>
             <?php foreach ($ng as $area => $ni) : print $ni; endforeach; ?>

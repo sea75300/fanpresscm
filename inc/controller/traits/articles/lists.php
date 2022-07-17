@@ -155,20 +155,8 @@ trait lists {
                 $buttons = (new \fpcm\view\helper\controlgroup('articlebuttons' . $article->getId() ))
                             ->addItem( (new \fpcm\view\helper\openButton('articlefe'))->setUrlbyObject($article)->setTarget('_blank') )
                             ->addItem( (new \fpcm\view\helper\editButton('articleedit'))->setUrlbyObject($article) );
-
-                if (!$this->isTrash) {
-                    $buttons->addItem( (new \fpcm\view\helper\clearArticleCacheButton('cac'))->setDatabyObject($article) );
-                }
-
-                if ($showDeleteButton) {
-
-                    $buttons->addItem( (new \fpcm\view\helper\button('delete'.$articleId))
-                            ->setText('GLOBAL_DELETE')
-                            ->setIcon('trash')
-                            ->setIconOnly(true)
-                            ->setClass('fpcm-ui-button-delete fpcm-ui-button-delete-article-single')
-                            ->setData(['articleid' => $articleId]) );
-                }
+                
+                $this->getExtLineMenu($buttons, $article, $showDeleteButton);
 
                 $title = [
                     '<strong>' . strip_tags($article->getTitle()) . '</strong>',
@@ -260,6 +248,47 @@ trait lists {
             ]),
             '</span>'
         ]);
+    }
+    
+    private function getExtLineMenu(
+        \fpcm\view\helper\controlgroup &$buttons,
+        \fpcm\model\articles\article $article,
+        bool $showDeleteButton
+    ) : bool
+    {
+        $extMenuOptions = [];
+
+        if (!$this->isTrash) {
+            $extMenuOptions[] = (new \fpcm\view\helper\dropdownItem('cac'.$article->getId(), 'cac'.$article->getId()))
+                                ->setIcon('recycle')
+                                ->setText('ARTICLES_CACHE_CLEAR')
+                                ->setClass('fpcm-article-cache-clear')
+                                ->setReadonly($article->getEditPermission())
+                                ->setData($article->getArticleCacheParams());
+        }
+
+        if ($showDeleteButton) {
+            $extMenuOptions[] = (new \fpcm\view\helper\dropdownItem('ddDelete'.$article->getId()))
+                                ->setIcon('trash')
+                                ->setText('GLOBAL_DELETE')
+                                ->setClass('fpcm-ui-button-delete fpcm-ui-button-delete-article-single')
+                                ->setData(['articleid' => $article->getId()]);
+        }
+
+        if (!count($extMenuOptions)) {
+            return true;
+        }
+
+        $buttons->addItem((new \fpcm\view\helper\dropdown('articlebuttonsdd' . $article->getId()))
+            ->setIcon('bars')
+            ->setIconOnly()
+            ->setText('')
+            ->setSelected('-1')
+            ->setClass('d-inline-block')
+            ->setOptions($extMenuOptions)
+        );
+        
+        return true;
     }
 
     /**

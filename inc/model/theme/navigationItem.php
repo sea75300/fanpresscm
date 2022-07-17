@@ -394,34 +394,37 @@ class navigationItem extends \fpcm\model\abstracts\staticModel {
     {
         $this->activeSetModule = $mod;
     }
-    
+
     public function __toString() : string
     {
         $css = [];
-        
-        
+
         if (!$this->submenuItem) {
             $css[] = 'nav-link';
-            
         }
 
         if ($this->hasSubmenu()) {
             $css[] = 'dropdown';
         }
         
+        if ($this->hasActiveSubmenuItem()) {
+            $this->setClass('active text-white');
+        }
+        
         $css = implode(' ', $css);
 
-        $str =  "<li class= \"{$css}\" id=\"{$this->getId()}\">" .
-                $this->getLinkString();
-        
-        $str = $this->getSubmenuString($str) . "</li>";
-        
-        return $str;
+        $str =  "<li class= \"{$css}\" id=\"{$this->getId()}\">" . $this->getLinkString();
+
+        return $this->getSubmenuString($str) . "</li>";
     }
-    
+
+    /**
+     * Return Link string
+     * @return string
+     */
     private function getLinkString() : string
     {
-        $css = ( $this->submenuItem ? 'dropdown-item px-2 ' : 'fpcm ui-nav-link ' ) . $this->getDefaultCss($this->activeSetModule) . ' nav-link';
+        $css = ( $this->submenuItem ? 'dropdown-item  ' : 'fpcm ui-nav-link ' ) . $this->getDefaultCss($this->activeSetModule) . ' nav-link';
    
         return "<a class=\"{$css}\" href=\"{$this->getFullUrl()}\" " .
                 ($this->hasSubmenu() ? "role=\"button\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\" " : '' ) .
@@ -432,7 +435,12 @@ class navigationItem extends \fpcm\model\abstracts\staticModel {
                 "</a>";
     }
 
-    private function getSubmenuString($str) : string
+    /**
+     * Returns submenu string
+     * @param string $str
+     * @return string
+     */
+    private function getSubmenuString(string $str) : string
     {
         
         if (!$this->hasSubmenu()) {
@@ -459,6 +467,24 @@ class navigationItem extends \fpcm\model\abstracts\staticModel {
         
         
         return $str;
+    }
+
+    /**
+     * Check if submenu has active item
+     * @return bool
+     * @since 5.1-dev
+     */
+    private function hasActiveSubmenuItem() : bool
+    {
+        if (!$this->hasSubmenu()) {
+            return false;
+        }
+        
+        $items = array_filter($this->getSubmenu(), function (navigationItem $item) {
+            return $item->isActive();            
+        });
+
+        return count($items);
     }
     
 }
