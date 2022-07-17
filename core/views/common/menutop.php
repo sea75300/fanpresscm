@@ -1,9 +1,9 @@
 <?php /* @var $theView fpcm\view\viewVars */ ?>
 <?php if ($theView->loggedIn) : ?>
 <nav class="navbar navbar-expand navbar-dark bg-primary bg-gradient ui-navigation" id="fpcm-top-menu">
-    <div class="container-fluid">
+    <div class="container-fluid g-0">
         
-        <div class="navbar-brand px-3">
+        <div class="navbar-brand ms-1 ms-md-3">
             <!-- FanPress CM News System <?php print $theView->version; ?> -->
             <div class="border-bottom border-5 border-info d-inline-block">
                 <a href="<?php print $theView->basePath; ?>system/dashboard"><img src="<?php print $theView->themePath; ?>logo.svg" alt="FanPress CM News System <?php print $theView->version; ?>" class="fpcm ui-invert-1"></a>
@@ -34,7 +34,7 @@
                     </button>
                 </li>
                 <?php endif; ?>
-                <li class="nav-item dropdown me-2">
+                <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="fpcm-notify-menu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <?php $theView->icon('envelope')->setClass('fpcm-navicon')->setSize('lg'); ?>                
                         <span class="d-none d-md-inline"><?php $theView->write('PROFILE_MENU_NOTIFICATIONS'); ?></span>
