@@ -72,7 +72,7 @@ trait iconHelper {
      * @param string $iconOnly
      * @return $this
      */
-    public function setIconOnly($iconOnly)
+    public function setIconOnly($iconOnly = true)
     {
         $this->iconOnly = (bool) $iconOnly;
         return $this;

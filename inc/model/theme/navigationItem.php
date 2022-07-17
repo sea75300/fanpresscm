@@ -401,7 +401,7 @@ class navigationItem extends \fpcm\model\abstracts\staticModel {
         
         
         if (!$this->submenuItem) {
-            $css[] = 'nav-item';
+            $css[] = 'nav-link';
             
         }
 
@@ -421,13 +421,13 @@ class navigationItem extends \fpcm\model\abstracts\staticModel {
     
     private function getLinkString() : string
     {
-        $css = ( $this->submenuItem ? 'dropdown-item px-2 ' : 'text-center p-3 fpcm ui-nav-link ' ) . $this->getDefaultCss($this->activeSetModule) . ' nav-link';
+        $css = ( $this->submenuItem ? 'dropdown-item px-2 ' : 'fpcm ui-nav-link ' ) . $this->getDefaultCss($this->activeSetModule) . ' nav-link';
    
         return "<a class=\"{$css}\" href=\"{$this->getFullUrl()}\" " .
                 ($this->hasSubmenu() ? "role=\"button\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\" " : '' ) .
                 ($this->isActive($this->activeSetModule) ? "aria-current=\"page\" " : '' ) .
                 ">" .
-                ($this->submenuItem ? $this->getIcon() : "<span class=\"d-block\">{$this->getIcon()}</span>") .
+                ($this->submenuItem ? $this->getIcon() : "{$this->getIcon()}") .
                 ($this->submenuItem ? $this->getDescription() : "<span class=\"fpcm nav-text text-nowrap\">{$this->getDescription()}</span>" ) .
                 "</a>";
     }

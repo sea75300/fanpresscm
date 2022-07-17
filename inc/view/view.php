@@ -530,7 +530,7 @@ class view {
 
     /**
      * Add button to toolbar
-     * @param \fpcm\view\helper\button $button
+     * @param helper\helper $button
      * @param type $pos
      * @return void
      */
@@ -540,6 +540,13 @@ class view {
             trigger_error('Invalid parameter, $button must be an instance of /fpcm/view/helper.');
             return;
         }
+
+//        if (method_exists($button, 'setUiSize')) {
+//            $button->setUiSize('btn-sm');
+//        }
+//        else {
+//            $button->setClass('btn-sm');
+//        }
 
         if ($pos) {
             $this->buttons[$pos] = $button;

@@ -20,7 +20,8 @@ class dropdown extends helper {
     use traits\iconHelper,
         traits\labelFieldSize,
         traits\selectedHelper,
-        traits\escapeHelper;
+        traits\escapeHelper,
+        traits\uiSizeHelper;
 
     /**
      * Select options
@@ -51,7 +52,7 @@ class dropdown extends helper {
         
         $options = $this->getOptionsString($this->options);
         
-        $btn = (new button($btnId))->setText($this->text)->setClass('dropdown-toggle')->setData([ 'bs-toggle' => 'dropdown' ])->setAria(['expanded' => 'false']);
+        $btn = (new button($btnId))->setText($this->text)->setClass('dropdown-toggle ' . $this->getUiSize())->setData([ 'bs-toggle' => 'dropdown' ])->setAria(['expanded' => 'false']);
         if (trim($this->icon)) {
             $btn->setIcon($this->icon);
         }
@@ -113,7 +114,8 @@ class dropdown extends helper {
         $this->ddType = 'dropdown-menu-' . $ddType;
         return $this;
     }
-        
+
+
     /**
      * Create options string
      * @param array $options

@@ -322,6 +322,7 @@ $lang = array (
   'GLOBAL_SAVE' => 'Save',
   'GLOBAL_SELECT' => 'Please select',
   'GLOBAL_SELECTALL' => 'Select all',
+  'GLOBAL_SCROLLTOP' => 'Scroll to top',
   'GLOBAL_SUBMIT' => 'Submit',
   'GLOBAL_USERNAME' => 'Username',
   'GLOBAL_USER_ON_TIME' => '{{username}} on {{time}}',

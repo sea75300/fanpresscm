@@ -20,11 +20,45 @@
 
         <?php if ($theView->formActionTarget) : ?><form method="post" action="<?php print $theView->formActionTarget; ?>" enctype="multipart/form-data" id="fpcm-ui-form"><?php endif; ?>
 
-        <header>
-            <?php include_once $theView->getIncludePath('common/menutop.php'); ?>                
-            <?php include_once $theView->getIncludePath('common/navigation.php'); ?>
-        </header>
+        <div class="d-md-flex fpcm ui-mh-100vh">
+            
+            <div class="d-flex flex-column flex-shrink-0 w-auto fpcm ui-background-white-50p">
 
-        <?php include_once $theView->getIncludePath('common/buttons.php'); ?>
+                <header>
+                    <div class="bg-primary bg-gradient py-2 ps-1 ps-md-4">
+                        <!-- FanPress CM News System <?php print $theView->version; ?> -->
+                        <div class="d-inline-block border-bottom border-4 border-info w-auto">
+                            <a href="<?php print $theView->basePath; ?>system/dashboard"><img src="<?php print $theView->themePath; ?>logo.svg" class="fpcm ui-invert-1" alt="FanPress CM News System <?php print $theView->version; ?>"></a>
+                        </div>
+                        <h1 class="d-none">FanPress CM News System</h1>                                        
+                    </div>
+                </header>
 
-        <div class="container-fluid mx-0 px-0 px-md-2 my-2">
+                <?php include_once $theView->getIncludePath('common/navigation.php'); ?>
+                
+                <hr class="d-none d-md-block">
+                <div class="d-none d-md-block mb-2 text-center">
+                    <?php $theView->linkButton('scrollTopLeft')->setText('GLOBAL_SCROLLTOP')->setUrl('#fpcm-body')->setIcon('chevron-up')->setIconOnly()->setClass('btn-sm'); ?>
+                </div>
+            </div>
+
+            <div class="d-flex flex-column flex-grow-1 col-12 col-md">
+
+                <?php
+                    include_once $theView->getIncludePath('common/menutop.php');
+                    include_once $theView->getIncludePath('common/buttons.php');
+                ?>
+          
+                <div class="container-fluid mx-0 px-0 px-md-2 my-2">
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+

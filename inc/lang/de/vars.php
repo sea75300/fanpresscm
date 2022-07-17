@@ -322,6 +322,7 @@ $lang = array (
   'GLOBAL_SAVE' => 'Speichern',
   'GLOBAL_SELECT' => 'Bitte auswählen',
   'GLOBAL_SELECTALL' => 'Alle auswählen',
+  'GLOBAL_SCROLLTOP' => 'Nach oben scrollen',
   'GLOBAL_SUBMIT' => 'Absenden',
   'GLOBAL_USERNAME' => 'Benutzername',
   'GLOBAL_USER_ON_TIME' => '{{username}} am {{time}}',

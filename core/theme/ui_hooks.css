@@ -1,8 +1,4 @@
 /* ------ Bootstrap */
-div.tab-pane {
-    min-height: 50vh;
-}
-
 div.fpcm.ui-tabs-wrapper > ul.nav.nav-tabs li.nav-item {
     margin-left: 0.1rem;
     margin-right: 0.1rem;

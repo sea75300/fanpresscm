@@ -28,7 +28,6 @@ h1,
 h3,
 ins,
 .text-primary,
-a.fpcm.ui-nav-link.nav-link.active,
 span.fpcm.ui-button-shorthelp:hover,
 span.fpcm-ui-editor-metainfo {
     color: var(--bs-primary);
@@ -41,7 +40,9 @@ h3.fpcm.dashboard-container.headline span.fpcm-ui-icon {
 .btn-primary,
 .form-check-input:checked,
 .progress-bar,
-span.fpcm-ui-badge {
+span.fpcm-ui-badge,
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
     background-color: var(--bs-primary);
 }
 

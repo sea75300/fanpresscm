@@ -99,10 +99,7 @@ class navigation extends \fpcm\model\abstracts\staticModel {
         $this->addTrashItem();
         $this->addUtilitiesItem();
 
-        $return = $this->events->trigger('navigation\add', $this->navList);
-        $this->addAfterItems($return);
-        
-        return $return;
+        return $this->events->trigger('navigation\add', $this->navList);
     }
 
     /**
@@ -169,32 +166,6 @@ class navigation extends \fpcm\model\abstracts\staticModel {
             ->setSubmenu($submenu)
         );
 
-        return true;
-    }
-    
-    /**
-     * Adjust maximum leght of main menu
-     * @param navigationList $list
-     * @return boolean
-     * @since 5.0-dev
-     */
-    private function addAfterItems(&$list)
-    {
-        $items = $list->fetch(navigationItem::AREA_AFTER);
-        
-        if (!count($items)) {
-            return true;
-        }
-        
-        $list->remove(navigationItem::AREA_AFTER, navigationItem::AREA_AFTER);
-
-        $niObj = (new navigationItem())
-                ->setUrl('#')
-                ->setDescription('GLOBAL_EXTENDED')
-                ->setSubmenu($items)
-                ->setIcon('angle-double-down');
-        
-        $list->add(navigationItem::AREA_AFTER, $niObj);
         return true;
     }
 

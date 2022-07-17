@@ -52,6 +52,10 @@ ul.fpcm-ui-csv-fields {
     min-height: 100px;
 }
 
+.fpcm.ui-mh-100vh {
+    min-height: 100vh;
+}
+
 /* ------ Opacities */
 .fpcm-ui-status-0 {
     opacity: 0.2;
