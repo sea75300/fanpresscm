@@ -89,5 +89,3 @@ final class htmlLogin extends \fpcm\model\abstracts\authProvider {
 
 
 }
-
-?>

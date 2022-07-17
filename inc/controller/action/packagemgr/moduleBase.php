@@ -142,7 +142,7 @@ class moduleBase extends \fpcm\controller\abstracts\controller
             \fpcm\model\http\request::FILTER_BASE64DECODE,
             \fpcm\model\http\request::FILTER_DECRYPT
         ]);
-        
+
         if ($updateKeys === null || !trim($updateKeys)) {
             return false;
         }
@@ -156,7 +156,7 @@ class moduleBase extends \fpcm\controller\abstracts\controller
             (new \fpcm\view\helper\linkButton('runUpdateNext'))
                 ->setUrl(\fpcm\classes\tools::getFullControllerLink('package/modupdate', [
                     'key' => array_shift($updateKeys),
-                    'updateKeys' => base64_decode(implode(';', $updateKeys))
+                    'updateKeys' => base64_decode($this->crypt->encrypt(implode(';', $updateKeys)))
                 ])
             )->setText('MODULES_LIST_UPDATE_NEXT')
             ->setIcon('sync')

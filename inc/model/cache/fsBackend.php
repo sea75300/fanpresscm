@@ -206,7 +206,7 @@ class fsBackend implements \fpcm\model\interfaces\cacheBackend {
     public static function cleanupByCacheName(string $basePath, $cacheName = null) : bool
     {
         if ($cacheName === null) {
-            $cacheFiles = $this->getCacheComplete($basePath);
+            $cacheFiles = self::getCacheComplete($basePath);
         }
         elseif (substr($cacheName, -1) !== \fpcm\classes\cache::CLEAR_ALL) {
             $file = new \fpcm\model\cache\fsBackend($cacheName);
