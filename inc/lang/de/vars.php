@@ -3,7 +3,7 @@
 /**
  * FanPress CM language variables file: de
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2021, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -130,6 +130,7 @@ $lang = array (
   'EDITOR_ARCHIVE' => 'Artikel archivieren',
   'EDITOR_ARTICLEIMAGE' => 'Artikelbild festlegen',
   'EDITOR_ARTICLEIMAGE_SHOW' => 'Artikelbild anzeigen',
+  'EDITOR_ARTICLE_ARTICLELINK' => 'Text für Artikellinks ("{{articleId}}-" +)',
   'EDITOR_ARTICLE_SHORTLINK' => 'Kurzlink',
   'EDITOR_ARTICLE_SHORTLINK_COPY' => 'Link kopieren',
   'EDITOR_AUTOSAVE_RESTORE' => 'Letzten Entwurf wiederherstellen',
@@ -320,9 +321,9 @@ $lang = array (
   'GLOBAL_RELOAD' => 'Aktualisieren',
   'GLOBAL_RESET' => 'Zurücksetzen',
   'GLOBAL_SAVE' => 'Speichern',
+  'GLOBAL_SCROLLTOP' => 'Nach oben scrollen',
   'GLOBAL_SELECT' => 'Bitte auswählen',
   'GLOBAL_SELECTALL' => 'Alle auswählen',
-  'GLOBAL_SCROLLTOP' => 'Nach oben scrollen',
   'GLOBAL_SUBMIT' => 'Absenden',
   'GLOBAL_USERNAME' => 'Benutzername',
   'GLOBAL_USER_ON_TIME' => '{{username}} am {{time}}',
@@ -468,6 +469,7 @@ $lang = array (
   'MODULES_LIST_AVAILABLE' => 'Verfügbare Module',
   'MODULES_LIST_BACKTOLIST' => 'zurück zur Modul-Liste',
   'MODULES_LIST_CONFIGURE' => 'Modul konfigurieren',
+  'MODULES_LIST_DATAPATH' => 'Pfad im /data-Ordner',
   'MODULES_LIST_DELETE' => 'Modul löschen',
   'MODULES_LIST_DESCRIPTION' => 'Beschreibung',
   'MODULES_LIST_DISABLE' => 'Modul deaktivieren',
@@ -480,7 +482,6 @@ $lang = array (
   'MODULES_LIST_KEY' => 'Schlüssel',
   'MODULES_LIST_LINK' => 'Info-Link',
   'MODULES_LIST_NAME' => 'Name',
-  'MODULES_LIST_DATAPATH' => 'Pfad im /data-Ordner',
   'MODULES_LIST_REQUIRE_FPCM' => 'Erfordert FanPress CM',
   'MODULES_LIST_REQUIRE_PHP' => 'Erfordert PHP',
   'MODULES_LIST_UNINSTALL' => 'Modul deinstallieren',
@@ -559,8 +560,8 @@ $lang = array (
   'PERMISSION_SYSTEM' => 'System',
   'PERMISSION_SYSTEM_BACKUPS' => 'Backups verwalten',
   'PERMISSION_SYSTEM_CATEGORIES' => 'Kategorien verwalten',
-  'PERMISSION_SYSTEM_CSVIMPORT' => 'CSV-Import ausführen',
   'PERMISSION_SYSTEM_CRONS' => 'Cronjobs verwalten',
+  'PERMISSION_SYSTEM_CSVIMPORT' => 'CSV-Import ausführen',
   'PERMISSION_SYSTEM_DRAFTS' => 'Artikel-Vorlagen verwalten',
   'PERMISSION_SYSTEM_IPADDR' => 'IP-Adressen verwalten',
   'PERMISSION_SYSTEM_LOGS' => 'System-Protokolle verwalten',

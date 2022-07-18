@@ -3,7 +3,7 @@
 /**
  * FanPress CM language variables file: en
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2021, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -130,6 +130,7 @@ $lang = array (
   'EDITOR_ARCHIVE' => 'Archive article',
   'EDITOR_ARTICLEIMAGE' => 'Set article image',
   'EDITOR_ARTICLEIMAGE_SHOW' => 'Show article image',
+  'EDITOR_ARTICLE_ARTICLELINK' => 'Text for article links ("{{articleId}}-" +)',
   'EDITOR_ARTICLE_SHORTLINK' => 'Short link',
   'EDITOR_ARTICLE_SHORTLINK_COPY' => 'Copy link',
   'EDITOR_AUTOSAVE_RESTORE' => 'Restore last draft',
@@ -320,9 +321,9 @@ $lang = array (
   'GLOBAL_RELOAD' => 'Refresh',
   'GLOBAL_RESET' => 'Reset',
   'GLOBAL_SAVE' => 'Save',
+  'GLOBAL_SCROLLTOP' => 'Scroll to top',
   'GLOBAL_SELECT' => 'Please select',
   'GLOBAL_SELECTALL' => 'Select all',
-  'GLOBAL_SCROLLTOP' => 'Scroll to top',
   'GLOBAL_SUBMIT' => 'Submit',
   'GLOBAL_USERNAME' => 'Username',
   'GLOBAL_USER_ON_TIME' => '{{username}} on {{time}}',
@@ -468,6 +469,7 @@ $lang = array (
   'MODULES_LIST_AVAILABLE' => 'Available modules',
   'MODULES_LIST_BACKTOLIST' => 'back to module list',
   'MODULES_LIST_CONFIGURE' => 'Configure module',
+  'MODULES_LIST_DATAPATH' => 'Path in /data folder',
   'MODULES_LIST_DELETE' => 'Delete module',
   'MODULES_LIST_DESCRIPTION' => 'Description',
   'MODULES_LIST_DISABLE' => 'Deactivate module',
@@ -480,7 +482,6 @@ $lang = array (
   'MODULES_LIST_KEY' => 'Key',
   'MODULES_LIST_LINK' => 'Info link',
   'MODULES_LIST_NAME' => 'Name',
-  'MODULES_LIST_DATAPATH' => 'Path in /data folder',
   'MODULES_LIST_REQUIRE_FPCM' => 'Requires FanPress CM',
   'MODULES_LIST_REQUIRE_PHP' => 'Requires PHP',
   'MODULES_LIST_UNINSTALL' => 'Uninstall module',
@@ -559,8 +560,8 @@ $lang = array (
   'PERMISSION_SYSTEM' => 'System',
   'PERMISSION_SYSTEM_BACKUPS' => 'Manage backups',
   'PERMISSION_SYSTEM_CATEGORIES' => 'Manage categories',
-  'PERMISSION_SYSTEM_CSVIMPORT' => 'Use CSV import',
   'PERMISSION_SYSTEM_CRONS' => 'Manage cronjobs',
+  'PERMISSION_SYSTEM_CSVIMPORT' => 'Use CSV import',
   'PERMISSION_SYSTEM_DRAFTS' => 'Manage article templates',
   'PERMISSION_SYSTEM_IPADDR' => 'Manage IP addresses',
   'PERMISSION_SYSTEM_LOGS' => 'Manage system logs',
@@ -799,7 +800,7 @@ Log in to moderate the comment. {{systemurl}}',
   'SYSTEM_OPTIONS_SYSCHECK_DBVERSION' => 'Version of the database system >= {{value}}',
   'SYSTEM_OPTIONS_SYSCHECK_FPCMVERSION' => 'FanPress CM Version = {{value}}',
   'SYSTEM_OPTIONS_SYSCHECK_HTTPS' => 'HTTPS is active',
-    'SYSTEM_OPTIONS_SYSCHECK_OPCACHE' => 'OPcache enabled',
+  'SYSTEM_OPTIONS_SYSCHECK_OPCACHE' => 'OPcache enabled',
   'SYSTEM_OPTIONS_SYSCHECK_PHPMAXEXECTIME' => 'Maximum execution time for PHP >= {{value}}',
   'SYSTEM_OPTIONS_SYSCHECK_PHPMEMLIMIT' => 'PHP memory limit >= {{value}}',
   'SYSTEM_OPTIONS_SYSCHECK_PHPVERSION' => 'PHP version >= {{value}}',

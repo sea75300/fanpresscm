@@ -208,6 +208,7 @@ abstract class articlebase extends \fpcm\controller\abstracts\controller impleme
 
         $this->view->assign('twitterReplacements', $twitterReplacements);
         $this->view->assign('showTwitter', $twitterOk);
+        $this->view->assign('urlRewrite', $this->config->articles_link_urlrewrite);
         $this->view->setActiveTab($this->getActiveTab());
 
         $this->jsVars  = $this->editorPlugin->getJsVars();
@@ -321,9 +322,10 @@ abstract class articlebase extends \fpcm\controller\abstracts\controller impleme
         $this->article->setDraft(isset($data['draft']) ? 1 : 0);
         $this->article->setComments(isset($data['comments']) ? 1 : 0);
         
-        $this->article->setApproval( $this->approvalRequired ? 1 : ( isset($data['approval']) ? 1 : 0 ) );
-        $this->article->setImagepath(isset($data['imagepath']) ? $data['imagepath'] : '');
-        $this->article->setSources(isset($data['sources']) ? $data['sources'] : '');
+        $this->article->setApproval($this->approvalRequired ? 1 : ( isset($data['approval']) ? 1 : 0 ));
+        $this->article->setImagepath($data['imagepath'] ?? '');
+        $this->article->setSources($data['sources'] ?? '');
+        $this->article->setUrl($data['url'] ?? '');
 
         if ($this->permissions->article->archive) {
             $this->article->setArchived(isset($data['archived']) ? 1 : 0);

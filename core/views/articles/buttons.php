@@ -1,4 +1,7 @@
-<?php /* @var $theView \fpcm\view\viewVars */ ?>
+<?php
+/* @var $theView \fpcm\view\viewVars */
+/* @var $article \fpcm\model\articles\article */
+?>
 <div class="border-top border-5 border-primary">
     <fieldset class="py-3">
 
@@ -145,6 +148,23 @@
             </div>        
         </div>
     </fieldset>
+
+    <?php if ($editorMode && $urlRewrite) : ?>
+    <fieldset class="py-3">
+        <div class="row">
+            <div class="col-12 col-md-8">
+                <?php $theView->textInput('article[url]')
+                    ->setType('text')
+                    ->setPlaceholder($article->getNicePathString())
+                    ->setText('EDITOR_ARTICLE_ARTICLELINK', ['articleId' => $article->getId()])
+                    ->setValue($article->getUrl())
+                    ->setMaxlenght(512)
+                    ->setIcon('link')
+                    ->setSize('lg'); ?>
+            </div>
+        </div>
+    </fieldset>
+    <?php endif; ?>
 
     <?php if ($showShares && count($shares)) : ?>
     <fieldset class="py-3">

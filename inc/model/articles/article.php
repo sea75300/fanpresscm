@@ -162,6 +162,13 @@ implements \fpcm\model\interfaces\isCsvImportable {
     protected $inedit = '';
 
     /**
+     * Article url
+     * @var string
+     * @since 5.1-dev
+     */
+    protected $url = '';
+
+    /**
      * richtiges Löschen erzwingen
      * @var int
      */
@@ -551,6 +558,27 @@ implements \fpcm\model\interfaces\isCsvImportable {
     }
 
     /**
+     * Get article URL string
+     * @return string
+     * @since 5.1-dev
+     */
+    public function getUrl(): string
+    {
+        return $this->url;
+    }
+
+    /**
+     * Get article URL string
+     * @param string $url
+     * @return void
+     * @since 5.1-dev
+     */
+    public function setUrl(string $url): void
+    {
+        $this->url = $this->cleanupUrlString($url);
+    }
+
+    /**
      * Setzt Status, ob Artikel bearbeitet werden kann
      * @param bool $editPermission
      * @since 3.3
@@ -603,9 +631,19 @@ implements \fpcm\model\interfaces\isCsvImportable {
      * schönen URL-Pfad zurückgeben
      * @return string
      */
-    public function getArticleNicePath()
+    public function getArticleNicePath() : string
     {
-        return rawurlencode($this->id . '-' . str_replace(array(' ', '---'), '-', strtolower($this->title)));
+        return rawurlencode($this->id . '-' . $this->getNicePathString() );
+    }
+
+    /**
+     * Get nice article path string
+     * @return string
+     * @since 5.1-dev
+     */
+    public function getNicePathString() : string
+    {
+        return $this->cleanupUrlString( trim($this->url) ? $this->url : $this->title );
     }
     
     /**
@@ -1157,6 +1195,16 @@ implements \fpcm\model\interfaces\isCsvImportable {
         $this->cache->cleanup(\fpcm\model\articles\article::CACHE_ARTICLE_SINGLE . '/'.\fpcm\classes\cache::CLEAR_ALL);
         $this->cache->cleanup(\fpcm\model\pubtemplates\sharebuttons::CACHE_MODULE . '/'.\fpcm\classes\cache::CLEAR_ALL);
         $this->cache->cleanup(\fpcm\model\abstracts\dashcontainer::CACHE_M0DULE_DASHBOARD . '/'.\fpcm\classes\cache::CLEAR_ALL);
+    }
+
+    /**
+     * Cleanup article url string
+     * @param string $str
+     * @return string
+     */
+    private function cleanupUrlString(string $str) : string
+    {
+        return rtrim(str_replace(['----', '--'], ['-', '-'], preg_replace( '/[\s\\\\\/\.\!\?\(\)\[\]]/i', '-', strtolower($str) ) ), '-');
     }
 
     /**
