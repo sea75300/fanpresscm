@@ -41,7 +41,7 @@
 
                 <?php include_once $theView->getIncludePath('common/buttons.php'); ?>
           
-                <div class="container-fluid ps-2 pe-3 py-2">
+                <div class="container-fluid ps-2 pe-2 pe-md-3 py-2">
             
             
             
