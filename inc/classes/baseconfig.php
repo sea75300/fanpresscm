@@ -212,12 +212,26 @@ final class baseconfig {
     /**
      * HTTPS aktiv
      * @return bool
-     * @since 3.5
+     * @since 5.0.0-a1
      */
     public static function hasOpcache()
     {
         if (!isset($GLOBALS['fpcm']['baseconfigdata'][__FUNCTION__])) {
             $GLOBALS['fpcm']['baseconfigdata'][__FUNCTION__] = ini_get('opcache.enable') == 1 && function_exists('opcache_get_status');
+        }
+
+        return $GLOBALS['fpcm']['baseconfigdata'][__FUNCTION__];
+    }
+
+    /**
+     * HTTPS aktiv
+     * @return bool
+     * @since 5.1-dev
+     */
+    public static function hasMemcache()
+    {
+        if (!isset($GLOBALS['fpcm']['baseconfigdata'][__FUNCTION__])) {
+            $GLOBALS['fpcm']['baseconfigdata'][__FUNCTION__] = class_exists('\Memcached');
         }
 
         return $GLOBALS['fpcm']['baseconfigdata'][__FUNCTION__];

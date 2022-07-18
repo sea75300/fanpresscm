@@ -230,3 +230,11 @@ if (!defined('FPCM_FILEMAGER_ITEMS_ROW')) {
      */
     define('FPCM_FILEMAGER_ITEMS_ROW', 5);
 }
+
+if (!defined('FPCM_CACHE_BACKEND')) {
+    /**
+     * Cache backend
+     * @since 5.1-dev
+     */
+    define('FPCM_CACHE_BACKEND', '\\fpcm\\model\\cache\\fsBackend');
+}   

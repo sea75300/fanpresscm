@@ -37,7 +37,7 @@ final class cache {
     public function __construct()
     {
         $this->crypt = loader::getObject('\fpcm\classes\crypt');
-        $this->basePath = dirs::getDataDirPath(dirs::DATA_CACHE);
+        $this->basePath = dirs::getDataDirPath(dirs::DATA_CACHE);     
 
         if (!isset($GLOBALS['fpcm']['stack'])) {
             $GLOBALS['fpcm']['stack'] = [];
@@ -55,8 +55,7 @@ final class cache {
             return true;
         }
 
-        $file = new \fpcm\model\cache\fsBackend($cacheName);
-        return $file->expires() <= time() ? true : false;
+        return $this->getBackendInstance($cacheName)->expires() <= time() ? true : false;
     }
 
     /**
@@ -72,8 +71,7 @@ final class cache {
             return false;
         }
 
-        $file = new \fpcm\model\cache\fsBackend($cacheName);
-        return $file->write($data, $expires ? $expires : FPCM_CACHE_DEFAULT_TIMEOUT);
+        return $this->getBackendInstance($cacheName)->write($data, $expires ? $expires : FPCM_CACHE_DEFAULT_TIMEOUT);
     }
 
     /**
@@ -88,8 +86,7 @@ final class cache {
             return false;
         }
 
-        $file = new \fpcm\model\cache\fsBackend($cacheName);
-        $content = $file->read();
+        $content = $this->getBackendInstance($cacheName)->read();
 
         return substr($content, 0, 2) == 'a:' || substr($content, 0, 2) == 'o:' ? unserialize($content) : $content;
     }
@@ -105,8 +102,7 @@ final class cache {
             return false;
         }
 
-        $file = new \fpcm\model\cache\fsBackend($cacheName);
-        return $file->expires();
+        return $this->getBackendInstance($cacheName)->expires();
     }
 
     /**
@@ -115,8 +111,8 @@ final class cache {
      * @return bool
      */
     public function cleanup($cacheName = null)
-    {
-        return \fpcm\model\cache\fsBackend::cleanupByCacheName($this->basePath, $cacheName);
+    {        
+        return call_user_func(FPCM_CACHE_BACKEND . '::cleanupByCacheName', $this->basePath, $cacheName);
     }
 
     /**
@@ -135,7 +131,18 @@ final class cache {
      */
     public function getCacheComplete()
     {
-        return \fpcm\model\cache\fsBackend::getCacheComplete($this->basePath);
+        return call_user_func(FPCM_CACHE_BACKEND . '::getCacheComplete', $this->basePath);
+    }
+
+    /**
+     * Create cache backend object instance
+     * @param string $cacheName
+     * @return \fpcm\model\interfaces\cacheBackend
+     */
+    private function getBackendInstance(string $cacheName)
+    {
+        $cbe = FPCM_CACHE_BACKEND;
+        return new $cbe($cacheName);
     }
 
 }

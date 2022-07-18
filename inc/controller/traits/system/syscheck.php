@@ -217,6 +217,15 @@ trait syscheck {
                 (true && $opcache),
                 true
             );
+
+        $memcache = \fpcm\classes\baseconfig::hasMemcache();
+        $checkOptions[$this->language->translate('SYSTEM_OPTIONS_SYSCHECK_MEMCACHE') . ' (' . $this->language->translate('GLOBAL_OPTIONAL') . ')']
+            = new \fpcm\model\system\syscheckOption(
+                $memcache ? 'true' : 'false',
+                'https://www.php.net/manual/de/book.memcache.php',
+                (true && $memcache),
+                true
+            );
                 
         
         $dirs = $this->getCheckFolders();

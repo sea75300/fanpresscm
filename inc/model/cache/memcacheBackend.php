@@ -53,6 +53,7 @@ class memcacheBackend implements \fpcm\model\interfaces\cacheBackend {
         $this->path = $cacheName[1] ?? $cacheName[0];
 
         $this->memcache = \fpcm\classes\loader::getObject('\fpcm\model\cache\memcacheConnector');
+        \fpcm\classes\loader::getObject('\fpcm\model\theme\notifications')->addNotification(new \fpcm\model\theme\notificationItem( (new \fpcm\view\helper\icon('flask'))->setText('memcache cache backend is enabled!') ));
     }
 
     /**
