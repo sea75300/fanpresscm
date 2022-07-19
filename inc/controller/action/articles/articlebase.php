@@ -166,10 +166,10 @@ abstract class articlebase extends \fpcm\controller\abstracts\controller impleme
         $this->view->addCssFiles($this->editorPlugin->getCssFiles());
         
         $this->view->addFromLibrary(
-            'selectize_js',
-            [ 'dist/js/selectize.min.js' ],
-            [ 'dist/css/selectize.default.css' ]
-        );
+            'tom-select_js',
+            [ 'tom-select.min.js' ],
+            [ 'tom-select-bootstrap5.min.css' ]
+        ); 
 
         $viewVars = $this->editorPlugin->getViewVars();
         foreach ($viewVars as $key => $value) {

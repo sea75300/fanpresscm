@@ -52,9 +52,7 @@ fpcm.editor = {
     
     initAfter: function() {
 
-        fpcm.ui.multiselect('articlecategories', {
-            placeholder: 'EDITOR_CATEGORIES_SEARCH'
-        });
+        window.categoryMs = fpcm.ui.multiselect('articlecategories');
 
         fpcm.dom.fromClass('fpcm-editor-articleimage').fancybox();
 

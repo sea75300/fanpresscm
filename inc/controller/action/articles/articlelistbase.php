@@ -251,10 +251,10 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller
         $this->view->addJsLangVars(['EDITOR_CATEGORIES_SEARCH']);
 
         $this->view->addFromLibrary(
-            'selectize_js',
-            [ 'dist/js/selectize.min.js' ],
-            [ 'dist/css/selectize.default.css' ]
-        );        
+            'tom-select_js',
+            [ 'tom-select.min.js' ],
+            [ 'tom-select-bootstrap5.min.css' ]
+        );   
 
         if (!$this->permissions->editArticlesMass()) {
             return [];

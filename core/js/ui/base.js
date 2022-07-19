@@ -388,6 +388,11 @@ fpcm.ui = {
     
     multiselect: function(_id, _params) {
 
+        if (TomSelect === undefined) {
+            alert('Multiselect ui init error, "TomSelect" not defined. Check if you included the library.');
+            return null;
+        }
+
         if (!_params) {
             _params = {};
         }
@@ -403,12 +408,15 @@ fpcm.ui = {
         if (!_params.placeholder) {
             _params.placeholder = 'EDITOR_CATEGORIES_SEARCH';
         }
+        
+        if (!_params.hidePlaceholder) {
+            _params.hidePlaceholder = true;
+        }
 
         _params.placeholder = fpcm.ui.translate(_params.placeholder);
         _params.plugins.push('remove_button');
 
-        return fpcm.dom.fromId(_id).selectize(_params);    
-
+        return new TomSelect('#' + _id, _params);
     },
 
     createIFrame: function(params) {

@@ -242,9 +242,8 @@ fpcm.system = {
             },
             dlOnClose: function (event, ui) {
 
-                let catEl = fpcm.dom.fromId('categories');
-                if (catEl[0] && catEl[0].selectize) {
-                    catEl[0].selectize.clear();
+                if (typeof list.onMassEditorDialogClose === 'function') {
+                    list.onMassEditorDialogClose();
                 }
 
                 fpcm.ui_loader.hide();

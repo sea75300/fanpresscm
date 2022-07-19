@@ -10,6 +10,8 @@ if (fpcm === undefined) {
 
 fpcm.articles = {
 
+    categoryMs: null,
+
     init: function() {
 
         fpcm.worker.postMessage({
@@ -40,9 +42,21 @@ fpcm.articles = {
     },
     
     initWidgets: function() {
-        fpcm.ui.multiselect('categories', {
-            placeholder: 'EDITOR_CATEGORIES_SEARCH'
-        });
+        
+        if (!fpcm.articles.categoryMs) {
+            fpcm.articles.categoryMs = fpcm.ui.multiselect('categories');
+        }
+        
+    },
+    
+    onMassEditorDialogClose: function () {
+        
+        if (!fpcm.articles.categoryMs) {
+            return false;
+        }
+        
+        fpcm.articles.categoryMs.clear();
+        return true;
     },
     
     initArticleSearch: function() {

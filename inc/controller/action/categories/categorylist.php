@@ -82,9 +82,9 @@ class categorylist extends \fpcm\controller\abstracts\controller implements \fpc
         $this->view->addJsFiles(['system/categories.js']);
 
         $this->view->addFromLibrary(
-            'selectize_js',
-            [ 'dist/js/selectize.min.js' ],
-            [ 'dist/css/selectize.default.css' ]
+            'tom-select_js',
+            [ 'tom-select.min.js' ],
+            [ 'tom-select-bootstrap5.min.css' ]
         ); 
 
         $this->view->addJsLangVars(['CATEGORIES_ROLLS', 'SAVE_FAILED_CATEGORY']);
