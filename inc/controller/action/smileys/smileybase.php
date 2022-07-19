@@ -80,11 +80,13 @@ abstract class smileybase extends \fpcm\controller\abstracts\controller
                     ->setValue($this->smiley->getSmileyCode())
                     ->setText('FILE_LIST_SMILEYCODE')
                     ->setIcon('bookmark')
-                    ->setAutoFocused(true),
+                    ->setAutoFocused(true)
+                    ->setRequired(),
             (new \fpcm\view\helper\textInput('smiley[filename]', 'smileyfilename'))
                     ->setValue($this->smiley->getFilename())
                     ->setText('FILE_LIST_FILENAME')
                     ->setIcon('link')
+                    ->setRequired()
         ]);
 
         $this->view->render();

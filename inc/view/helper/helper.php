@@ -356,7 +356,7 @@ abstract class helper {
      * @return $this
      * @since 5.0.0-a3
      */
-    public function setRequired(bool $requ)
+    public function setRequired(bool $requ = true)
     {
         $this->requ = $requ;
         return $this;
