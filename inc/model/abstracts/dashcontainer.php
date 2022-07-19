@@ -131,6 +131,21 @@ abstract class dashcontainer extends model implements \fpcm\model\interfaces\das
     }
 
     /**
+     * Returns stored container position
+     * @return int|bool
+     * @since 4.1
+     */
+    final public function isDisabled() : bool
+    {
+        $conf = loader::getObject('\fpcm\model\system\session')->getCurrentUser()->getUserMeta('dashboard_containers_disabled');
+        if (!is_array($conf)) {
+            return false;
+        }
+        
+        return in_array($this->getName(), $conf);
+    }
+
+    /**
      * Container-Berechtigungen, die geprüft werden müssen, zurückgeben
      * @return string
      */
@@ -249,7 +264,8 @@ abstract class dashcontainer extends model implements \fpcm\model\interfaces\das
         $html[] = '             ' . $btn;
         $html[] = '             </div>';
         $html[] = '             <div class="col-auto  align-self-center" draggable="true">';
-        $html[] = '             ' . (new \fpcm\view\helper\icon('arrows-alt'))->setText('FILE_LIST_EDIT_MOVE')->setClass('fpcm dashboard-container-move');            
+        $html[] = '             ' . $this->getToggleButton();
+        $html[] = '             ' . (new \fpcm\view\helper\icon('arrows-alt'))->setText('FILE_LIST_EDIT_MOVE')->setClass('fpcm dashboard-container-move');
         $html[] = '             </div>';
         $html[] = '         </div>';
         $html[] = '     </div>';
@@ -257,6 +273,26 @@ abstract class dashcontainer extends model implements \fpcm\model\interfaces\das
         $html[] = '</div>';
 
         return implode(PHP_EOL, $html);
+    }
+
+    /**
+     * Add disable button if not disabled
+     * @return string
+     * @since 5.1-dev
+     */
+    private function getToggleButton()
+    {
+        if ($this->isDisabled()) {
+            return '';
+        }
+
+        return (new \fpcm\view\helper\button('disable'. md5($this->getName())))
+                ->overrideButtonType('link')
+                ->setClass('btn-sm shadow-none text-dark ui-dashboard-conatiner-disable')
+                ->setIcon('toggle-off')
+                ->setIconOnly()
+                ->setText('GLOBAL_DISABLE')
+                ->setData(['cname' => $this->getName()]);
     }
     
 }

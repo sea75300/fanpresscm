@@ -541,13 +541,6 @@ class view {
             return;
         }
 
-//        if (method_exists($button, 'setUiSize')) {
-//            $button->setUiSize('btn-sm');
-//        }
-//        else {
-//            $button->setClass('btn-sm');
-//        }
-
         if ($pos) {
             $this->buttons[$pos] = $button;
             ksort($this->buttons);

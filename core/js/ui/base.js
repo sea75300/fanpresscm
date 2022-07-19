@@ -153,7 +153,7 @@ fpcm.ui = {
         else if (value.txtComplete) {
             value.txt = value.txtComplete;
         }
-;
+
         fpcm.ui.appendMessageToBody(fpcm.ui.createMessageBox(value));
     },
     

@@ -70,7 +70,6 @@ class profile extends \fpcm\controller\abstracts\controller
         $this->reloadSite = 0;
 
         $this->resetProfileSettings();
-        $this->resetDashboardSettings();
         $this->saveProfile();
 
         $this->view->assign('author', $this->user);
@@ -96,25 +95,6 @@ class profile extends \fpcm\controller\abstracts\controller
 
         $this->view->addNoticeMessage('SAVE_SUCCESS_RESETPROFILE');
         $this->reloadSite = 1;
-        return true;
-    }
-    
-    /**
-     * Reset dashboard container positions
-     * @return bool
-     */
-    private function resetDashboardSettings() : bool
-    {
-        if (!$this->buttonClicked('resetDashboardSettings') || !$this->checkPageToken) {
-            return false;
-        }
-
-        if ($this->user->resetDashboard() === false) {
-            $this->view->addErrorMessage('SAVE_FAILED_USER_RESETDASHCONTAINER');
-            return false;
-        }
-
-        $this->view->addNoticeMessage('SAVE_SUCCESS_RESETDASHCONTAINER');
         return true;
     }
     

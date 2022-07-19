@@ -15,6 +15,8 @@ fpcm.dashboard = {
 
     init: function () {
 
+        fpcm.dom.bindClick('#resetDashboardSettings', fpcm.dashboard.resetPositions);
+
         fpcm.ajax.exec('dashboard', {
             quiet: true,
             async: true,
@@ -86,10 +88,50 @@ fpcm.dashboard = {
                      },
                      execDone: fpcm.dashboard.init,
                      quiet: true
-                 });                
+                 });
             }
         });
 
+        fpcm.dom.bindClick('.fpcm.ui-dashboard-conatiner-disable', function (_e, _ui) {
+            fpcm.dashboard.disableContainer(_ui.dataset.cname);
+        });
+    },
+    
+    resetPositions: function ()
+    {
+        fpcm.ui_dialogs.confirm({
+            clickYes: function () {
+                fpcm.ajax.post('setconfig', {
+                    data: {
+                        op: 'reset',
+                        var: 'dashboardpos'
+                    },
+                    execDone: fpcm.dashboard.init,
+                    quiet: true
+                });
+            }
+        });
+
+        return false;
+    },
+    
+    disableContainer: function (_value)
+    {
+        fpcm.ui_dialogs.confirm({
+            clickYes: function () {
+                fpcm.ajax.post('setconfig', {
+                    data: {
+                        op: 'change',
+                        var: 'dashboard_containers_disabled',
+                        value: _value
+                    },
+                    execDone: fpcm.dashboard.init,
+                    quiet: true
+                });
+            }
+        });
+
+        return false;
     }
 
 };

@@ -64,7 +64,7 @@ class dashboard extends \fpcm\controller\abstracts\ajaxController
                 continue;
             }
             
-            if (!$this->checkPermissions($containerObj)) {
+            if (!$this->checkPermissions($containerObj) || $containerObj->isDisabled()) {
                 continue;
             }
 

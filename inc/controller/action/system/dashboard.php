@@ -48,6 +48,24 @@ class dashboard extends \fpcm\controller\abstracts\controller
         $this->view->addFromLibrary('sortable_js', [
             'Sortable.min.js'
         ]);
+        
+        $dropdown = new \fpcm\view\helper\dropdown('dashboardAction');
+        $dropdown->setText('HL_OPTIONS')->setUiSize('btn-sm')->setIcon('bars');
+        $dropdown->setOptions([
+            
+            (new \fpcm\view\helper\dropdownItem('resetDashboardSettings'))
+                ->setText('USERS_META_RESET_DASHBOARD')
+                ->setIcon('undo')
+                ->setValue('1'),
+            
+            (new \fpcm\view\helper\dropdownItem('resetDashboardSettings2'))
+                ->setText('DASHBOARD_MANAGE_CONTAINER')
+                ->setIcon('box')
+                ->setValue('2'),
+        ]);
+        
+        $this->view->addButton($dropdown);
+        
     }
 
 }
