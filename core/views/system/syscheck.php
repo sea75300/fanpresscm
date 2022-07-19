@@ -1,7 +1,7 @@
 <div class="border-top border-5 border-primary">
     <div class="fpcm-ui-dataview">
         <?php foreach ($checkOptions as $checkOption => $checkResult) : ?>
-            <div class="row py-3 border-bottom border-secondary fpcm ui-background-transition">
+            <div class="row py-3 border-bottom border-1 border-secondary fpcm ui-background-transition">
                 <div class="col-auto flex-grow-1 align-self-center text-center">
                     <?php if ($checkResult->isFolder()) : ?>
                         <?php print (new \fpcm\view\helper\icon('folder')); ?>

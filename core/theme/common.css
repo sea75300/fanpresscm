@@ -62,9 +62,7 @@ a:hover, a:focus, a:active {
 
 b,
 strong,
-dt,
-a, a:visited, a.fpcm-link,
-a:hover, a:focus, a:active {
+dt {
     font-weight: bold;
 }
 

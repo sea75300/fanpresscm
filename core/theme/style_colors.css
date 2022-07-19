@@ -24,6 +24,15 @@ a.nav-link {
     color: var(--bs-body-color);
 }
 
+#fpcm-top-menu a.nav-link {
+    color: var(--bs-nav-link-color);
+}
+
+#fpcm-top-menu a.nav-link:focus,
+#fpcm-top-menu a.nav-link:hover {
+  color: var(--bs-nav-link-hover-color);
+}
+
 h1,
 h3,
 ins,

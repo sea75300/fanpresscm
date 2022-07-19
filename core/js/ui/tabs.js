@@ -152,12 +152,15 @@ fpcm.ui_tabs = {
     
     _updateMainToolbar: function (_active, _prev) {
 
-        if (_active === undefined || _prev === undefined || 
-            _active.dataset === undefined || _prev.dataset === undefined) {
+        if (!_active || !_prev) {
             return true;
         }
 
-        if (_active.dataset.toolbarButtons === undefined || _prev.dataset.toolbarButtons === undefined ||
+        if (!_active.dataset || !_prev.dataset) {
+            return true;
+        }
+
+        if (!_active.dataset.toolbarButtons || !_prev.dataset.toolbarButtons ||
             _active.dataset.toolbarButtons === _prev.dataset.toolbarButtons) {
             return true;
         }
