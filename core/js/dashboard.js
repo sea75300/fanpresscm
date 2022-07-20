@@ -17,6 +17,10 @@ fpcm.dashboard = {
 
         fpcm.dom.bindClick('#resetDashboardSettings', fpcm.dashboard.resetPositions);
 
+        fpcm.dom.bindClick('#fpcm-ui-container-disabled-list > li[data-container]', function (_e, _ui) {
+            fpcm.dashboard.enableContainer(_ui);
+        });
+
         fpcm.ajax.exec('dashboard', {
             quiet: true,
             async: true,
@@ -92,7 +96,7 @@ fpcm.dashboard = {
             }
         });
 
-        fpcm.dom.bindClick('.fpcm.ui-dashboard-conatiner-disable', function (_e, _ui) {
+        fpcm.dom.bindClick('.fpcm.ui-dashboard-container-disable', function (_e, _ui) {
             fpcm.dashboard.disableContainer(_ui.dataset.cname);
         });
     },
@@ -126,6 +130,28 @@ fpcm.dashboard = {
                         value: _value
                     },
                     execDone: fpcm.dashboard.init,
+                    quiet: true
+                });
+            }
+        });
+
+        return false;
+    },
+    
+    enableContainer: function (_ui)
+    {
+        fpcm.ui_dialogs.confirm({
+            clickYes: function () {
+                fpcm.ajax.post('setconfig', {
+                    data: {
+                        op: 'reset',
+                        var: 'dashboard_containers_disabled',
+                        value: _ui.dataset.container
+                    },
+                    execDone: function () {
+                        fpcm.dom.fromTag(_ui).remove();
+                        fpcm.dashboard.init();
+                    },
                     quiet: true
                 });
             }

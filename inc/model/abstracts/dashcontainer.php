@@ -141,8 +141,8 @@ abstract class dashcontainer extends model implements \fpcm\model\interfaces\das
         if (!is_array($conf)) {
             return false;
         }
-        
-        return in_array($this->getName(), $conf);
+
+        return in_array(get_class($this), $conf);
     }
 
     /**
@@ -288,11 +288,11 @@ abstract class dashcontainer extends model implements \fpcm\model\interfaces\das
 
         return (new \fpcm\view\helper\button('disable'. md5($this->getName())))
                 ->overrideButtonType('link')
-                ->setClass('btn-sm shadow-none text-dark ui-dashboard-conatiner-disable')
+                ->setClass('btn-sm shadow-none text-dark ui-dashboard-container-disable')
                 ->setIcon('toggle-off')
                 ->setIconOnly()
                 ->setText('GLOBAL_DISABLE')
-                ->setData(['cname' => $this->getName()]);
+                ->setData(['cname' => base64_encode($this::class) ]);
     }
     
 }
