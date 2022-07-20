@@ -22,7 +22,7 @@ use fpcm\model\dbal\selectParams;
  * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-abstract class dataset implements \fpcm\model\interfaces\dataset {
+abstract class dataset implements \fpcm\model\interfaces\dataset, \Stringable {
 
     /**
      * DB-Verbindung

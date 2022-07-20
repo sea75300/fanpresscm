@@ -174,7 +174,7 @@ final class security {
             $data = bin2hex(random_bytes(64));
         } catch (\Exception $exc) {
             $md5base = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : __FILE__;
-            $data = uniqid('fpcm', true) . '#' . microtime(true) . '#' . md5($md5base) . '#' . mt_rand();
+            $data = uniqid('fpcm', true) . '#' . hrtime(true) . '#' . md5($md5base) . '#' . mt_rand();
         }
 
         return $data;

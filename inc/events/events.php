@@ -10,7 +10,7 @@ namespace fpcm\events;
 /**
  * FanPress CM event list model
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2019, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\events
  */
@@ -38,17 +38,24 @@ final class events {
             fpcmLogEvents($dataParams);
         }
 
-        /**
-         * @var abstracts\event
-         */
-        $eventClassName = "\\fpcm\\events\\" . $eventName;
-        $event = new $eventClassName($dataParams);
+        try {
+            
+            /* @var $event abstracts\event */
+            $eventClassName = "\\fpcm\\events\\" . $eventName;
+            $event = new $eventClassName($dataParams);
 
-        if (!$event->isExecutable()) {
+            if (!$event->isExecutable()) {
+                return $dataParams;
+            }
+
+            return $event->run();
+            
+        } catch (\Throwable $e) {
+            trigger_error(sprintf("Unable to trigger event \"%s\" in \"%s\".\nError-Code: %s\n%s", $eventName, $eventClassName, $e->getCode(), $e->getTraceAsString()), E_USER_ERROR);
             return $dataParams;
         }
 
-        return $event->run();
+        return $dataParams;
     }
 
     /**

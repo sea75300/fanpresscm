@@ -11,12 +11,12 @@ namespace fpcm\model\theme;
  * ACP notification item in top menu
  * 
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2017, Stefan Seehafer
+ * @copyright (c) 2017-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\model\theme
  * @since 3.6
  */
-class notificationItem {
+class notificationItem implements \Stringable {
 
     /**
      * CSS-Klassen für Icon

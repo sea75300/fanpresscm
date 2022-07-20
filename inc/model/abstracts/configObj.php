@@ -13,7 +13,7 @@ namespace fpcm\model\abstracts;
  * @package fpcm\model\abstracts
  * @abstract
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2020, Stefan Seehafer
+ * @copyright (c) 2020-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @since 4.5-rc2
  */
@@ -36,9 +36,7 @@ abstract class configObj implements \ArrayAccess, \JsonSerializable {
      * @param int|string $offset
      * @return mixed
      */
-    
-    #[\ReturnTypeWillChange]
-    public function offsetGet($offset)
+    public function offsetGet($offset) : mixed
     {
         return $this->$offset;
     }
@@ -85,7 +83,6 @@ abstract class configObj implements \ArrayAccess, \JsonSerializable {
     public function __unserialize($data): void
     {
         $this->init($data);
-        return;
     }
 
     /**

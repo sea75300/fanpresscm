@@ -11,12 +11,12 @@ namespace fpcm\model\theme;
  * ACP navigation item object
  * 
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2017-2019, Stefan Seehafer
+ * @copyright (c) 2017-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\model\theme
  * @since 3.5
  */
-class navigationItem extends \fpcm\model\abstracts\staticModel {
+class navigationItem extends \fpcm\model\abstracts\staticModel implements \Stringable {
 
     const AREA_DASHBOARD = 'dashboard';
     const AREA_ADDNEWS = 'addnews';

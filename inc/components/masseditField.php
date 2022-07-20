@@ -8,12 +8,14 @@
 namespace fpcm\components;
 
 /**
- * Mass edit field
+ * Mass edit field component
  * 
- * @package fpcm\components
- * @author Stefan Seehafer <sea75300@yahoo.de>
+ * @package fpcm\components\charts
+ * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
+ * @copyright (c) 2019-2022, Stefan Seehafer
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-final class masseditField {
+final class masseditField implements \Stringable {
 
     /**
      * field object

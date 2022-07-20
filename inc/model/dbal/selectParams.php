@@ -15,7 +15,7 @@ namespace fpcm\model\dbal;
  * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class selectParams {
+class selectParams implements \Stringable {
 
     /**
      * Database table name

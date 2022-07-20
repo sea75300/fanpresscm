@@ -15,7 +15,7 @@ namespace fpcm\view\helper;
  * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-abstract class helper {
+abstract class helper implements \Stringable {
     
     use traits\cssClassHelper,
         traits\ariaHelper;

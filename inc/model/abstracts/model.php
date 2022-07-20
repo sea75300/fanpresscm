@@ -16,7 +16,7 @@ namespace fpcm\model\abstracts;
  * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-abstract class model implements \fpcm\model\interfaces\model {
+abstract class model implements \fpcm\model\interfaces\model, \Stringable {
 
     /**
      * DB-Verbindung

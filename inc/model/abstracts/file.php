@@ -21,7 +21,7 @@ use fpcm\model\files\ops;
  * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-abstract class file {
+abstract class file implements \Stringable {
 
     /**
      * Tabellen-Name

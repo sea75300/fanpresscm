@@ -27,7 +27,7 @@ abstract class itemArray extends item implements \ArrayAccess
      * @return mixed
      * #[\ReturnTypeWillChange]
      */
-    public function offsetGet($offset)
+    public function offsetGet($offset): mixed
     {
         trigger_error('\nkorg\yatdl\itemArray is deprecatesd as of YaTDL 5.0, use objects instead', E_USER_DEPRECATED);
         return $this->__get($offset);

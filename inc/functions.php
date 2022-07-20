@@ -103,7 +103,7 @@ set_error_handler(function($ecode, $etext, $efile, $eline)
 
 set_exception_handler(function(Throwable $ex) {
 
-    print '<pre>----- FATAL ERROR: Loading terminated :-S'.PHP_EOL.'Detailed error message is available within system error log.<pre>';
+    printf("<pre>----- FATAL ERROR: Loading terminated :-S\n\nDetailed error message is available within system error log.\n%s<pre>", $ex->getMessage());
     
     $errorLog = dirname(__DIR__) . '/data/logs/phplog.txt';
 

@@ -11,7 +11,7 @@ namespace fpcm\model\theme;
  * ACP navigation navigation list object
  * 
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2017-2019, Stefan Seehafer
+ * @copyright (c) 2017-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\model\theme
  * @since 4.5

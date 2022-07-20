@@ -18,7 +18,7 @@ use fpcm\classes\loader;
  * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-abstract class dashcontainer extends model implements \fpcm\model\interfaces\dashcontainer {
+abstract class dashcontainer extends model implements \fpcm\model\interfaces\dashcontainer, \Stringable {
 
     /**
      * Default container cache module
