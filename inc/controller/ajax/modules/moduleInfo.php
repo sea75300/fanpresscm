@@ -91,6 +91,10 @@ class moduleInfo extends \fpcm\controller\abstracts\ajaxController
         $this->view->assign('moduleName', $config->name);
         $this->view->assign('moduleAuthor', $config->author);
         $this->view->assign('moduleLink', $config->link);
+        $this->view->assign('moduleHelp', $config->help);
+        $this->view->assign('moduleLicence', $config->licence ?? 'GPLv3');
+        $this->view->assign('moduleLicenceUrl', $config->licenceUrl ?? 'https://www.gnu.org/licenses/gpl-3.0.html');
+        $this->view->assign('moduleSupport', $config->support ?? $config->link);
         $this->view->assign('moduleSysVer', $config->requirements['system']);
         $this->view->assign('modulePhpVer', $config->requirements['php']);
         $this->view->assign('moduleDescription', $config->description);

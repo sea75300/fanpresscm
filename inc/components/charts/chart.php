@@ -193,7 +193,7 @@ class chart implements \JsonSerializable, \Stringable {
      * @return array
      * @ignore
      */
-    final public function jsonSerialize()
+    final public function jsonSerialize(): mixed
     {
         if (!isset($this->options['responsive'])) {
             $this->options['responsive'] = true;

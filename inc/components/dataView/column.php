@@ -14,6 +14,8 @@ namespace fpcm\components\dataView;
  * @author Stefan Seehafer <sea75300@yahoo.de>
  */
 final class column implements \JsonSerializable {
+    
+    use \fpcm\model\traits\jsonSerializeReturnObject;
 
     /**
      * Column name
@@ -138,13 +140,4 @@ final class column implements \JsonSerializable {
         return $this;
     }
 
-    /**
-     * 
-     * @return array
-     * @ignore
-     */
-    public function jsonSerialize()
-    {
-        return get_object_vars($this);
-    }
 }

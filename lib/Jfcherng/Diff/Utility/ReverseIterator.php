@@ -6,9 +6,9 @@ namespace Jfcherng\Diff\Utility;
 
 final class ReverseIterator
 {
-    const ITERATOR_GET_VALUE = 0;
-    const ITERATOR_GET_KEY = 1 << 0;
-    const ITERATOR_GET_BOTH = 1 << 1;
+    public const ITERATOR_GET_VALUE = 0;
+    public const ITERATOR_GET_KEY = 1 << 0;
+    public const ITERATOR_GET_BOTH = 1 << 1;
 
     /**
      * The constructor.
@@ -27,8 +27,8 @@ final class ReverseIterator
     {
         // iterate [key => value] pair
         if ($flags & self::ITERATOR_GET_BOTH) {
-            for (\end($array); ($key = \key($array)) !== null; \prev($array)) {
-                yield $key => \current($array);
+            for (end($array); ($key = key($array)) !== null; prev($array)) {
+                yield $key => current($array);
             }
 
             return;
@@ -36,7 +36,7 @@ final class ReverseIterator
 
         // iterate only key
         if ($flags & self::ITERATOR_GET_KEY) {
-            for (\end($array); ($key = \key($array)) !== null; \prev($array)) {
+            for (end($array); ($key = key($array)) !== null; prev($array)) {
                 yield $key;
             }
 
@@ -44,8 +44,8 @@ final class ReverseIterator
         }
 
         // iterate only value
-        for (\end($array); \key($array) !== null; \prev($array)) {
-            yield \current($array);
+        for (end($array); key($array) !== null; prev($array)) {
+            yield current($array);
         }
     }
 }

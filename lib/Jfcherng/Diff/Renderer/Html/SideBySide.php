@@ -14,7 +14,7 @@ final class SideBySide extends AbstractHtml
     /**
      * {@inheritdoc}
      */
-    const INFO = [
+    public const INFO = [
         'desc' => 'Side by side',
         'type' => 'Html',
     ];
@@ -28,13 +28,13 @@ final class SideBySide extends AbstractHtml
             return $this->getResultForIdenticals();
         }
 
-        $wrapperClasses = \array_merge(
-            $this->options['wrapperClasses'],
-            ['diff', 'diff-html', 'diff-side-by-side']
-        );
+        $wrapperClasses = [
+            ...$this->options['wrapperClasses'],
+            'diff', 'diff-html', 'diff-side-by-side',
+        ];
 
         return
-            '<table class="' . \implode(' ', $wrapperClasses) . '">' .
+            '<table class="' . implode(' ', $wrapperClasses) . '">' .
                 $this->renderTableHeader() .
                 $this->renderTableHunks($changes) .
             '</table>';
@@ -104,17 +104,24 @@ final class SideBySide extends AbstractHtml
      */
     protected function renderTableBlock(array $block): string
     {
-        static $callbacks = [
-            SequenceMatcher::OP_EQ => 'renderTableBlockEqual',
-            SequenceMatcher::OP_INS => 'renderTableBlockInsert',
-            SequenceMatcher::OP_DEL => 'renderTableBlockDelete',
-            SequenceMatcher::OP_REP => 'renderTableBlockReplace',
-        ];
+        switch ($block['tag']) {
+            case SequenceMatcher::OP_EQ:
+                $content = $this->renderTableBlockEqual($block);
+                break;
+            case SequenceMatcher::OP_INS:
+                $content = $this->renderTableBlockInsert($block);
+                break;
+            case SequenceMatcher::OP_DEL:
+                $content = $this->renderTableBlockDelete($block);
+                break;
+            case SequenceMatcher::OP_REP:
+                $content = $this->renderTableBlockReplace($block);
+                break;
+            default:
+                $content = '';
+        }
 
-        return
-            '<tbody class="change change-' . self::TAG_CLASS_MAP[$block['tag']] . '">' .
-                $this->{$callbacks[$block['tag']]}($block) .
-            '</tbody>';
+        return '<tbody class="change change-' . self::TAG_CLASS_MAP[$block['tag']] . '">' . $content . '</tbody>';
     }
 
     /**
@@ -133,7 +140,7 @@ final class SideBySide extends AbstractHtml
                 $block['old']['lines'][$no],
                 $block['new']['lines'][$no],
                 $block['old']['offset'] + $no + 1,
-                $block['new']['offset'] + $no + 1
+                $block['new']['offset'] + $no + 1,
             );
         }
 
@@ -154,7 +161,7 @@ final class SideBySide extends AbstractHtml
                 null,
                 $newLine,
                 null,
-                $block['new']['offset'] + $no + 1
+                $block['new']['offset'] + $no + 1,
             );
         }
 
@@ -175,7 +182,7 @@ final class SideBySide extends AbstractHtml
                 $oldLine,
                 null,
                 $block['old']['offset'] + $no + 1,
-                null
+                null,
             );
         }
 
@@ -191,7 +198,7 @@ final class SideBySide extends AbstractHtml
     {
         $ret = '';
 
-        $lineCountMax = \max(\count($block['old']['lines']), \count($block['new']['lines']));
+        $lineCountMax = max(\count($block['old']['lines']), \count($block['new']['lines']));
 
         for ($no = 0; $no < $lineCountMax; ++$no) {
             if (isset($block['old']['lines'][$no])) {

@@ -14,7 +14,7 @@ final class RendererFactory
      *
      * @var AbstractRenderer[]
      */
-    private static $singletons = [];
+    private static array $singletons = [];
 
     /**
      * The constructor.
@@ -31,11 +31,7 @@ final class RendererFactory
      */
     public static function getInstance(string $renderer, ...$ctorArgs): AbstractRenderer
     {
-        if (!isset(self::$singletons[$renderer])) {
-            self::$singletons[$renderer] = self::make($renderer, ...$ctorArgs);
-        }
-
-        return self::$singletons[$renderer];
+        return self::$singletons[$renderer] ??= self::make($renderer, ...$ctorArgs);
     }
 
     /**
@@ -73,7 +69,7 @@ final class RendererFactory
         foreach (RendererConstant::RENDERER_TYPES as $type) {
             $className = RendererConstant::RENDERER_NAMESPACE . "\\{$type}\\{$renderer}";
 
-            if (\class_exists($className)) {
+            if (class_exists($className)) {
                 return $cache[$renderer] = $className;
             }
         }

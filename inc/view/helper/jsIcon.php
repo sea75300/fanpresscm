@@ -44,7 +44,7 @@ class jsIcon extends icon implements \JsonSerializable {
      * Returns array for object
      * @return array
      */
-    public function jsonSerialize() : array
+    public function jsonSerialize() : mixed
     {
         $this->returned = true;
 

@@ -52,6 +52,11 @@ final class events {
             
         } catch (\Throwable $e) {
             trigger_error(sprintf("Unable to trigger event \"%s\" in \"%s\".\nError-Code: %s\n%s", $eventName, $eventClassName, $e->getCode(), $e->getTraceAsString()), E_USER_ERROR);
+            \fpcm\classes\loader::getObject('\fpcm\model\theme\notifications')->addNotification(
+                new \fpcm\model\theme\notificationItem(
+                    (new \fpcm\view\helper\icon('bomb'))->setText('NOTIFICATION_ERROR_EVENTS', ['eventName' => $eventName])
+                )
+            );
             return $dataParams;
         }
 

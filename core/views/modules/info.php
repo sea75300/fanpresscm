@@ -3,15 +3,25 @@
     <div class="col-12 col-md-auto fw-bold fs-3 text-start flex-grow-1 align-self-center text-truncate">
         <h3 class="d-inline"><?php print $theView->escape($moduleName); ?></h3>
     </div>
-    <div class="col-auto col-md-auto align-self-center">
-        <?php $theView->button('install')->setReadonly(!$moduleInstall)->setIcon('plus-circle')->setText('MODULES_LIST_INSTALL')->setIconOnly(true)->setData(['hash' => $moduleKeyHash]); ?>
+    <div class="col-12 col-md-auto">
+        <div class="btn-group" role="group">
+            <?php $theView->button('install')->overrideButtonType('outline-secondary')->setReadonly(!$moduleInstall)->setIcon('plus-circle')->setText('MODULES_LIST_INSTALL')->setIconOnly(true)->setData(['hash' => $moduleKeyHash]); ?>
+            <?php $theView->linkButton('download')->overrideButtonType('outline-secondary')->setRel('external')->setReadonly(!$moduleDownload)->setUrl($moduleDownload)->setIcon('cloud-download-alt')->setIconOnly(true)->setText('MODULES_LIST_DOWNLOAD'); ?>
+            <?php $theView->linkButton('link')->overrideButtonType('outline-secondary')->setRel('external')->setUrl($moduleLink)->setIconOnly(true)->setTarget('_blank')->setText($moduleLink)->setIcon('house'); ?>
+        <?php if ($moduleLicenceUrl) : ?>
+            <?php $theView->linkButton('support')->overrideButtonType('outline-secondary')->setUrl($moduleLicenceUrl)->setIconOnly(true)->setTarget('_blank')->setText('HL_HELP_LICENCE')->setIcon('certificate'); ?>
+        <?php endif; ?>
+    <?php if (trim($moduleSupport)) : ?>
+        <?php if (filter_var($moduleSupport, FILTER_VALIDATE_EMAIL)) : ?>
+            <?php $theView->linkButton('support')->overrideButtonType('outline-secondary')->setUrl('mailto:' . $moduleSupport)->setIconOnly(true)->setText('MODULES_LIST_SUPPORT')->setIcon('headset'); ?>
+        <?php elseif (filter_var($moduleSupport, FILTER_VALIDATE_URL)) : ?>
+            <?php $theView->linkButton('support')->overrideButtonType('outline-secondary')->setRel('external')->setUrl($moduleSupport)->setIconOnly(true)->setTarget('_blank')->setText('MODULES_LIST_SUPPORT')->setIcon('headset'); ?>
+        <?php endif; ?>    
+    <?php endif; ?>
+
+        </div>
     </div>
-    <div class="col-auto col-md-auto align-self-center">
-        <?php $theView->linkButton('download')->setRel('external')->setReadonly(!$moduleDownload)->setUrl($moduleDownload)->setIcon('cloud-download-alt')->setIconOnly(true)->setText('MODULES_LIST_DOWNLOAD'); ?>
-    </div>
-    <div class="col-auto col-md-auto align-self-center">
-        <?php $theView->linkButton('link')->setRel('external')->setUrl($moduleLink)->setIconOnly(true)->setTarget('_blank')->setText($moduleLink)->setIcon('external-link-square-alt'); ?>
-    </div>
+
 </div>    
 
 <div class="row row-cols-2 mb-3">
@@ -30,6 +40,8 @@
     <div class="col text-truncate"><?php print $theView->escape($moduleVersion); ?></div>
 </div>
 
+<hr>
+
 <div class="row row-cols-2 mb-3">
     <div class="col fw-bold">
         <?php $theView->icon('at')->setSize('lg'); ?>
@@ -40,11 +52,29 @@
 
 <div class="row row-cols-2 mb-3">
     <div class="col fw-bold">
-        <?php $theView->icon('external-link-square-alt')->setSize('lg'); ?>
+        <?php $theView->icon('house')->setSize('lg'); ?>
         <?php $theView->write('MODULES_LIST_LINK'); ?>:
     </div>
     <div class="col text-truncate"><?php print $theView->escape($moduleLink); ?></div>
 </div>
+
+<div class="row row-cols-2 mb-3">
+    <div class="col fw-bold">
+        <?php $theView->icon('headset')->setSize('lg'); ?>
+        <?php $theView->write('MODULES_LIST_SUPPORT'); ?>:
+    </div>
+    <div class="col text-truncate"><?php print $theView->escape($moduleSupport); ?></div>
+</div>
+
+<div class="row row-cols-2 mb-3">
+    <div class="col fw-bold">
+        <?php $theView->icon('certificate')->setSize('lg'); ?>
+        <?php $theView->write('MODULES_LIST_LICENCE'); ?>:
+    </div>
+    <div class="col text-truncate" title="<?php print $theView->escape($moduleLicence); ?>"><?php print $theView->escape($moduleLicence); ?></div>
+</div>
+
+<hr>
 
 <div class="row row-cols-2 mb-3">
     <div class="col fw-bold">
@@ -62,6 +92,8 @@
     <div class="col text-truncate"><?php print $theView->escape($modulePhpVer); ?></div>
 </div>
 
+<hr>
+
 <div class="row mb-5">
     <div class="col-12">        
         <?php $theView->button('topDescr')
@@ -78,6 +110,8 @@
         </div>
     </div>
 </div>
+
+<hr>
 
 <div class="row row-cols-2 mb-3">
     <div class="col-12 fw-bold">

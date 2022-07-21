@@ -10,13 +10,15 @@ use Jfcherng\Diff\Utility\Language;
 
 /**
  * Base class for diff renderers.
+ *
+ * @todo use typed properties (BC breaking for public interface) in v7
  */
 abstract class AbstractRenderer implements RendererInterface
 {
     /**
      * @var array information about this renderer
      */
-    const INFO = [
+    public const INFO = [
         'desc' => 'default_desc',
         'type' => 'default_type',
     ];
@@ -24,12 +26,12 @@ abstract class AbstractRenderer implements RendererInterface
     /**
      * @var bool Is this renderer pure text?
      */
-    const IS_TEXT_RENDERER = true;
+    public const IS_TEXT_RENDERER = true;
 
     /**
      * @var string[] array of the opcodes and their corresponding symbols
      */
-    const SYMBOL_MAP = [
+    public const SYMBOL_MAP = [
         SequenceMatcher::OP_DEL => '-',
         SequenceMatcher::OP_EQ => ' ',
         SequenceMatcher::OP_INS => '+',
@@ -40,6 +42,14 @@ abstract class AbstractRenderer implements RendererInterface
      * @var Language the language translation object
      */
     protected $t;
+
+    /**
+     * If the input "changes" have `<ins>...</ins>` or `<del>...</del>`,
+     * which means they have been processed, then `false`. Otherwise, `true`.
+     *
+     * @var bool
+     */
+    protected $changesAreRaw = true;
 
     /**
      * @var array array of the default options that apply to this renderer
@@ -120,7 +130,7 @@ abstract class AbstractRenderer implements RendererInterface
 
         $this->updateLanguage(
             $this->options['language'] ?? '',
-            $newOptions['language']
+            $newOptions['language'],
         );
 
         $this->options = $newOptions;
@@ -168,6 +178,7 @@ abstract class AbstractRenderer implements RendererInterface
      */
     final public function render(Differ $differ): string
     {
+        $this->changesAreRaw = true;
         // the "no difference" situation may happen frequently
         return $differ->getOldNewComparison() === 0
             ? $this->getResultForIdenticals()
@@ -179,6 +190,8 @@ abstract class AbstractRenderer implements RendererInterface
      */
     final public function renderArray(array $differArray): string
     {
+        $this->changesAreRaw = false;
+
         return $this->renderArrayWorker($differArray);
     }
 
@@ -225,6 +238,6 @@ abstract class AbstractRenderer implements RendererInterface
     {
         $text = $this->t->translate($text);
 
-        return $escapeHtml ? \htmlspecialchars($text) : $text;
+        return $escapeHtml ? htmlspecialchars($text) : $text;
     }
 }

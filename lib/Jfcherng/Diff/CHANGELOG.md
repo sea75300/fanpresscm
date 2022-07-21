@@ -1,7 +1,47 @@
 
 ## VERSION 6  UNIFIED
 
+ * Version **6.11** - Bump PHP version to 7.4
+   * 2022-06-26 13:42  **6.11.6**  fix Combined::renderArray
+      * 710be7f test: update tests
+      * fea80b0 fix: Combined::renderArray isn't working properly
+      * a8eabe3 chore: update deps
+   * 2022-04-03 00:35  **6.11.5**  Update upstream
+      * 52551c6 chore: update deps
+      * 4b08ef2 chore: change rules for php-cs-fixer 3.8
+      * ba4dc50 chore: update deps
+      * fc6613b chore: update deps
+   * 2022-03-07 19:24  **6.11.4**  add Italian translation
+      * 6d4b53e feat: add Italian translation (#53)
+      * f94c48f refactor: tidy codes
+   * 2022-03-01 00:23  **6.11.3**  PHP 7.4 refactoring
+      * 27a92e4 refactor: utilize PHP 7.4 typed properties
+      * 8ec5d02 refactor: utilize PHP 7.4 array spread operator
+      * 7372b0a refactor: utilize PHP 7.4 arrow funciton
+      * 74db0b4 refactor: utilize PHP 7.4 null coalescing assignment
+      * 02c14b8 chore: update deps
+      * fafa8a8 chore: remove "todo" from test data
+   * 2022-02-21 13:54  **6.11.2**  Fix PHP alpine
+      * a589955 chore: update deps
+      * 1b537d5 chore: license year +1
+   * 2021-11-25 10:15  **6.11.0**  initial release
+      * 65610ae style: reformat with php-cs-fixer
+      * 664ff0f chore: update php-cs-fixer rules for v3
+      * 84abe9f chore: bump min PHP to 7.4.0 and update other deps
+      * d55fd28 chore: remove "@todo" in readme
+      * 8130948 docs: revise instructions for running demo
+
  * Version **6.10** - feat: add methods to get diff statistics
+   * 2021-09-02 12:03  **6.10.2**  Bump deps
+      * bf18634 chore: bump "jfcherng/php-sequence-matcher" 3.2.8
+   * 2021-09-02 11:58  **6.10.1**  Bump deps
+      * 795555c chore: bump "jfcherng/php-sequence-matcher" 3.2.7
+      * 814782b chore: add RMT into ignore-export
+      * 98fbe77 chore: update demo js/css URLs
+      * 809ea0f docs: update badegs
+      * 17d912e style: fix some long lines
+      * 7e9a001 style: add visibility to public consts
+      * 2a28fe1 chore: update deps
    * 2021-03-19 17:20  **6.10.0**  initial release
       * 56eee87 chore: add liip/rmt as a dev dependency
       * 4b170cd feat: add methods to get diff statistics

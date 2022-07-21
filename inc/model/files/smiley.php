@@ -356,7 +356,7 @@ final class smiley extends \fpcm\model\abstracts\file implements \Serializable, 
      * @return array
      * @ignore
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): mixed
     {
         return [
             'img' => $this->getEditorImageTag(),

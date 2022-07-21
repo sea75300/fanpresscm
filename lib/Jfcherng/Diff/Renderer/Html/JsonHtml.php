@@ -14,7 +14,7 @@ class JsonHtml extends AbstractHtml
     /**
      * {@inheritdoc}
      */
-    const INFO = [
+    public const INFO = [
         'desc' => 'HTML Json',
         'type' => 'Html',
     ];
@@ -22,7 +22,7 @@ class JsonHtml extends AbstractHtml
     /**
      * {@inheritdoc}
      */
-    const IS_TEXT_RENDERER = true;
+    public const IS_TEXT_RENDERER = true;
 
     /**
      * {@inheritdoc}
@@ -41,7 +41,7 @@ class JsonHtml extends AbstractHtml
             $this->convertTagToString($changes);
         }
 
-        return \json_encode($changes, $this->options['jsonEncodeFlags']);
+        return json_encode($changes, $this->options['jsonEncodeFlags']);
     }
 
     /**

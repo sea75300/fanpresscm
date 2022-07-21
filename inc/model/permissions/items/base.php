@@ -43,7 +43,7 @@ abstract class base implements \JsonSerializable {
      * @return array
      * @see \JsonSerializable::jsonSerialize()
      */
-    public function jsonSerialize() : array
+    public function jsonSerialize() : mixed
     {
         return $this->getObjectVars();
     }

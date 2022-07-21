@@ -14,6 +14,8 @@ namespace fpcm\components\dataView;
  * @author Stefan Seehafer <sea75300@yahoo.de>
  */
 final class rowCol implements \JsonSerializable {
+    
+    use \fpcm\model\traits\jsonSerializeReturnObject;
 
     const COLTYPE_VALUE     = 1;
     const COLTYPE_ELEMENT   = 2;
@@ -55,17 +57,6 @@ final class rowCol implements \JsonSerializable {
         $this->value = (is_object($value) ? (string) $value : $value);
         $this->class = $class;
         $this->type  = (int) $type;
-    }
-
-    /**
-     * @return array
-     * @ignore
-     */
-    
-    #[\ReturnTypeWillChange]
-    public function jsonSerialize()
-    {
-        return get_object_vars($this);
     }
 
 }

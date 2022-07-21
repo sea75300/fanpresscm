@@ -14,7 +14,7 @@ final class LineRendererFactory
      *
      * @var AbstractLineRenderer[]
      */
-    private static $singletons = [];
+    private static array $singletons = [];
 
     /**
      * The constructor.
@@ -31,11 +31,7 @@ final class LineRendererFactory
      */
     public static function getInstance(string $type, ...$ctorArgs): AbstractLineRenderer
     {
-        if (!isset(self::$singletons[$type])) {
-            self::$singletons[$type] = self::make($type, ...$ctorArgs);
-        }
-
-        return self::$singletons[$type];
+        return self::$singletons[$type] ??= self::make($type, ...$ctorArgs);
     }
 
     /**
@@ -48,9 +44,9 @@ final class LineRendererFactory
      */
     public static function make(string $type, ...$ctorArgs): AbstractLineRenderer
     {
-        $className = RendererConstant::RENDERER_NAMESPACE . '\\Html\\LineRenderer\\' . \ucfirst($type);
+        $className = RendererConstant::RENDERER_NAMESPACE . '\\Html\\LineRenderer\\' . ucfirst($type);
 
-        if (!\class_exists($className)) {
+        if (!class_exists($className)) {
             throw new \InvalidArgumentException("LineRenderer not found: {$type}");
         }
 
