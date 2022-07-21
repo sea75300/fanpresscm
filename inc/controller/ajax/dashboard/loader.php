@@ -5,7 +5,7 @@
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
-namespace fpcm\controller\ajax\system;
+namespace fpcm\controller\ajax\dashboard;
 
 /**
  * Dashboard controller
@@ -13,10 +13,11 @@ namespace fpcm\controller\ajax\system;
  * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class dashboard extends \fpcm\controller\abstracts\ajaxController
+class loader extends \fpcm\controller\abstracts\ajaxController
 {
 
-    use \fpcm\controller\traits\common\isAccessibleTrue;
+    use \fpcm\controller\traits\common\isAccessibleTrue,
+        \fpcm\controller\traits\system\dashPermissions;
 
     /**
      * Dashboard-Container-Array
@@ -101,47 +102,4 @@ class dashboard extends \fpcm\controller\abstracts\ajaxController
         return '\\fpcm\\model\\dashboard\\' . basename($filename, '.php');
     }
 
-    /**
-     * 
-     * @param \fpcm\model\abstracts\dashcontainer $obj
-     * @return bool
-     */
-    private function checkPermissions(\fpcm\model\abstracts\dashcontainer $obj) : bool
-    {
-        if ($obj instanceof \fpcm\model\interfaces\isAccessible) {
-            return $obj->isAccessible();
-        }
-        
-        $perm = $obj->getPermissions();
-        if (!count($perm)) {
-            return true;
-        }
-
-        foreach ($perm as $mod => $vals) {
-            
-            if (!is_array($vals)) {
-                $vals = [$vals];
-            }
-
-            foreach ($vals as $val) {
-                
-                $res = $this->permissions->{$mod}->{$val};
-                if ($val) {
-                    break;
-                }
-                
-            }
-            
-            if (!$res) {
-                return false;
-            }
-            
-        }
-        
-        return true;
- 
-    }
-
 }
-
-?>

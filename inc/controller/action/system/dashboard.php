@@ -49,8 +49,10 @@ class dashboard extends \fpcm\controller\abstracts\controller
             'Sortable.min.js'
         ]);
         
+        $this->view->addOffCanvas('DASHBOARD_MANAGE_CONTAINER_ENABLE', 'dashboard/manage');
+
         $dropdown = new \fpcm\view\helper\dropdown('dashboardAction');
-        $dropdown->setText('HL_OPTIONS')->setUiSize('btn-sm')->setIcon('bars');
+        $dropdown->setText('DASHBOARD_MANAGE_CONTAINER')->setUiSize('btn-sm')->setIcon('bars');
         $dropdown->setOptions([
             
             (new \fpcm\view\helper\dropdownItem('resetDashboardSettings'))
@@ -59,8 +61,7 @@ class dashboard extends \fpcm\controller\abstracts\controller
                 ->setValue('1'),
             
             (new \fpcm\view\helper\dropdownItem('resetDashboardSettings2'))
-                ->setText('DASHBOARD_MANAGE_CONTAINER')
-                ->setIcon('box')
+                ->setText('DASHBOARD_MANAGE_CONTAINER_ENABLE')
                 ->setValue('2')
                 ->setAria([
                     'controls' => 'offcanvasInfo'
@@ -69,31 +70,11 @@ class dashboard extends \fpcm\controller\abstracts\controller
                     'bs-toggle' => "offcanvas",
                     'bs-target' => "#offcanvasInfo",
                     
-                ]), // data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample"
+                ])
         ]);
         
         $this->view->addButton($dropdown);
         
-        $this->assignContainerManager();
-        
-    }
-    
-    private function assignContainerManager()
-    {
-        $this->view->addOffCanvas('DASHBOARD_MANAGE_CONTAINER', 'dashboard/manage');
-
-        $disabledContainer = $this->session->getCurrentUser()->getUserMeta('dashboard_containers_disabled');
-        if (!is_array($disabledContainer) || !count($disabledContainer)) {
-            $this->view->assign('disabledContainer', []);
-            return true;
-        }
-
-        array_walk($disabledContainer, function (&$item) {
-            $item = new $item;
-        });
-
-        $this->view->assign('disabledContainer', $disabledContainer);
-        return true;
     }
 
 }

@@ -4,7 +4,7 @@
         <div class="fpcm-ui-dataview-rows">
             <?php foreach ($langVars as $key => $value) : ?>
 
-                <div class="row py-2 border-bottom border-secondary">
+                <div class="row py-2 border-bottom border-1 border-secondary">
 
                     <div class="col-auto align-self-center">
                         <?php $theView->button('edit'. strtolower($key))->setData([

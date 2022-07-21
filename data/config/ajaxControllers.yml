@@ -23,7 +23,8 @@ ajax/editor/smileys: ajax/articles/smileys
 ajax/editor/draft: ajax/articles/draft
 ajax/editor/imgupload: ajax/articles/imgupload
 ajax/editor/editorlist: ajax/articles/editorlist
-ajax/dashboard: ajax/system/dashboard
+ajax/dashboard/load: ajax/dashboard/loader
+ajax/dashboard/manager: ajax/dashboard/containerManager
 ajax/syscheck: ajax/system/syscheck
 ajax/refresh: ajax/system/refresh
 ajax/cronasync: ajax/system/cronasync

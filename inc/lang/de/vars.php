@@ -97,6 +97,7 @@ $lang = array (
   'CSRF_INVALID' => 'Das CSRF-Token ist ungültig. Die Aktion wurde nicht durchgeführt!',
   'DASHBOARD_LOADING' => 'Dashboard-Container werden geladen',
   'DASHBOARD_MANAGE_CONTAINER' => 'Container verwalten',
+  'DASHBOARD_MANAGE_CONTAINER_ENABLE' => '{{icon="box"}} Container reaktivieren',
   'DASHBOARD_USERLIST' => '{{icon="users"}} Team-Kontakte',
   'DEBUG_MODE' => 'Debug-Modus aktiv',
   'DELETE_FAILED_ARTICLE' => 'Die Artikel konnten nicht gelöscht werden!',

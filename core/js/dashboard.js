@@ -16,12 +16,12 @@ fpcm.dashboard = {
     init: function () {
 
         fpcm.dom.bindClick('#resetDashboardSettings', fpcm.dashboard.resetPositions);
-
-        fpcm.dom.bindClick('#fpcm-ui-container-disabled-list > li[data-container]', function (_e, _ui) {
-            fpcm.dashboard.enableContainer(_ui);
+        fpcm.dom.bindEvent('#offcanvasInfo', 'shown.bs.offcanvas', fpcm.dashboard.fetchDisabledContainer);
+        fpcm.dom.bindEvent('#offcanvasInfo', 'hidden.bs.offcanvas', function () {
+            let _el = fpcm.dom.fromId('fpcm-ui-container-disabled-list').empty();
         });
 
-        fpcm.ajax.exec('dashboard', {
+        fpcm.ajax.exec('dashboard/load', {
             quiet: true,
             async: true,
             execDone: function(result) {
@@ -119,6 +119,28 @@ fpcm.dashboard = {
         return false;
     },
     
+    fetchDisabledContainer: function() {
+
+        fpcm.ajax.exec('dashboard/manager', {
+            quiet: true,
+            async: true,
+            execDone: function(_result) {
+
+                let _el = fpcm.dom.fromId('fpcm-ui-container-disabled-list');
+                _el.empty();
+
+                for (var _i in _result) {
+                    _el.append('<a class="list-group-item" data-container="' + _result[_i].code + '">' + _result[_i].hl + '</a>');
+                }
+
+                fpcm.dom.bindClick('#fpcm-ui-container-disabled-list > a[data-container]', function (_e, _ui) {
+                    fpcm.dashboard.enableContainer(_ui);
+                });
+
+            }
+        });    
+    },
+    
     disableContainer: function (_value)
     {
         fpcm.ui_dialogs.confirm({
@@ -149,7 +171,7 @@ fpcm.dashboard = {
                         value: _ui.dataset.container
                     },
                     execDone: function () {
-                        fpcm.dom.fromTag(_ui).remove();
+                        fpcm.dashboard.fetchDisabledContainer();
                         fpcm.dashboard.init();
                     },
                     quiet: true

@@ -243,7 +243,7 @@ abstract class dashcontainer extends model implements \fpcm\model\interfaces\das
         
         $btn = $this->getButton();
         if ($btn instanceof \fpcm\view\helper\button) {
-            $btn->setClass('btn-sm')->overrideButtonType('link');
+            $btn->overrideButtonType('link')->setClass('btn-sm link-dark');
         }
         else {
             $btn = '<span class="d-block p-1">&nbsp;</span>';
@@ -263,9 +263,8 @@ abstract class dashcontainer extends model implements \fpcm\model\interfaces\das
         $html[] = '             <div class="col flex-grow-1">';
         $html[] = '             ' . $btn;
         $html[] = '             </div>';
-        $html[] = '             <div class="col-auto  align-self-center" draggable="true">';
-        $html[] = '             ' . $this->getToggleButton();
-        $html[] = '             ' . (new \fpcm\view\helper\icon('arrows-alt'))->setText('FILE_LIST_EDIT_MOVE')->setClass('fpcm dashboard-container-move');
+        $html[] = '             <div class="col-auto  align-self-center btn-group" draggable="true">';
+        $html[] = '             ' . $this->getSystemButtons();
         $html[] = '             </div>';
         $html[] = '         </div>';
         $html[] = '     </div>';
@@ -280,19 +279,28 @@ abstract class dashcontainer extends model implements \fpcm\model\interfaces\das
      * @return string
      * @since 5.1-dev
      */
-    private function getToggleButton()
+    private function getSystemButtons()
     {
+        $return = (string) (new \fpcm\view\helper\button('move'. md5($this->getName())))
+                ->overrideButtonType('link')
+                ->setClass('btn-sm shadow-none link-secondary dashboard-container-move')
+                ->setIcon('arrows-alt')
+                ->setIconOnly()
+                ->setText('FILE_LIST_EDIT_MOVE');
+
         if ($this->isDisabled()) {
-            return '';
+            return $return;
         }
 
-        return (new \fpcm\view\helper\button('disable'. md5($this->getName())))
+        $return = (string)  (new \fpcm\view\helper\button('disable'. md5($this->getName())))
                 ->overrideButtonType('link')
-                ->setClass('btn-sm shadow-none text-dark ui-dashboard-container-disable')
+                ->setClass('btn-sm shadow-none link-secondary ui-dashboard-container-disable')
                 ->setIcon('toggle-off')
                 ->setIconOnly()
                 ->setText('GLOBAL_DISABLE')
-                ->setData(['cname' => base64_encode($this::class) ]);
+                ->setData(['cname' => base64_encode($this::class) ]) . $return;
+        
+        return $return;
     }
     
 }
