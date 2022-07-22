@@ -1,7 +1,7 @@
 <?php /* @var $theView fpcm\view\viewVars */ ?>
 <div class="border-top border-5 border-primary">
     <?php if (!count($items)) : ?>
-    <p class="p-3 border-bottom border-secondary"><?php $theView->icon('copy', 'far')->setSize('lg')->setStack('ban text-danger')->setStackTop(true); ?> <?php $theView->write('GLOBAL_NOTFOUND2'); ?></p>
+    <p class="p-3 border-1 border-bottom border-secondary"><?php $theView->icon('copy', 'far')->setSize('lg')->setStack('ban text-danger')->setStackTop(true); ?> <?php $theView->write('GLOBAL_NOTFOUND2'); ?></p>
     <?php else : ?>
     <?php 
 
