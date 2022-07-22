@@ -38,17 +38,28 @@ final class events {
             fpcmLogEvents($dataParams);
         }
 
-        /**
-         * @var abstracts\event
-         */
-        $eventClassName = "\\fpcm\\events\\" . $eventName;
-        $event = new $eventClassName($dataParams);
+        try {
+            /* @var $event abstracts\event */
+            $eventClassName = "\\fpcm\\events\\" . $eventName;
+            $event = new $eventClassName($dataParams);
 
-        if (!$event->isExecutable()) {
+            if (!$event->isExecutable()) {
+                return $dataParams;
+            }
+
+            return $event->run();
+            
+        } catch (\Throwable $e) {
+            trigger_error(sprintf("Unable to trigger event \"%s\" in \"%s\".\nError-Code: %s\n%s", $eventName, $eventClassName, $e->getCode(), $e->getTraceAsString()), E_USER_ERROR);
+            \fpcm\classes\loader::getObject('\fpcm\model\theme\notifications')->addNotification(
+                new \fpcm\model\theme\notificationItem(
+                    (new \fpcm\view\helper\icon('bomb'))->setText('NOTIFICATION_ERROR_EVENTS', ['eventName' => $eventName])
+                )
+            );
             return $dataParams;
         }
 
-        return $event->run();
+        return $dataParams;
     }
 
     /**

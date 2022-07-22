@@ -492,6 +492,7 @@ $lang = array (
   'MODULES_LIST_VERSION_REMOTE' => 'Version (Server)',
   'MSG_FILES_CREATETHUMBS' => 'Vorschaubilder werden neu erzeugt...',
   'NAVIGATION_SHOW' => 'Menü',
+  'NOTIFICATION_ERROR_EVENTS' => 'Beim Ausführen des Events "{{eventName}}" ist ein Fehler aufgetreten. Prüfe die Systemprokolle und aktualisiere installierte Module.',
   'NOTIFICATION_EXPERIMENTAL_MINJS' => 'Minimierte JavaScript-Dateien werden verwendet. Änderungen werden evtl. nicht sofort übernommen.',
   'NOTIFICATION_EXPERIMENTAL_UPPY' => 'Uppy File Upload ist aktiv. Experimentelle Funktion! Upload-Funktionen können unerwartet arbeiten!',
   'PACKAGEMANAGER_BACKUPFS' => 'Erstelle Dateisystem-Backup...',
