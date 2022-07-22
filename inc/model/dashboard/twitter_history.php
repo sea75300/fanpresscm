@@ -107,6 +107,7 @@ class twitter_history extends \fpcm\model\abstracts\dashcontainer implements \fp
         return (new \fpcm\view\helper\linkButton('twitter_history_profile'))
                 ->setUrl('https://twitter.com/' . $this->twitter->getUsername())
                 ->setText('PROFILE_MENU_OPENPROFILE')
+                ->setTarget('_blank')
                 ->setIcon('twitter', 'fab');
     }
 
