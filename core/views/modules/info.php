@@ -9,7 +9,7 @@
             <?php $theView->linkButton('download')->overrideButtonType('outline-secondary')->setRel('external')->setReadonly(!$moduleDownload)->setUrl($moduleDownload)->setIcon('cloud-download-alt')->setIconOnly(true)->setText('MODULES_LIST_DOWNLOAD'); ?>
             <?php $theView->linkButton('link')->overrideButtonType('outline-secondary')->setRel('external')->setUrl($moduleLink)->setIconOnly(true)->setTarget('_blank')->setText($moduleLink)->setIcon('house'); ?>
         <?php if ($moduleLicenceUrl) : ?>
-            <?php $theView->linkButton('support')->overrideButtonType('outline-secondary')->setUrl($moduleLicenceUrl)->setIconOnly(true)->setTarget('_blank')->setText('HL_HELP_LICENCE')->setIcon('certificate'); ?>
+            <?php $theView->linkButton('licence')->overrideButtonType('outline-secondary')->setRel('external')->setUrl($moduleLicenceUrl)->setIconOnly(true)->setTarget('_blank')->setText('HL_HELP_LICENCE')->setIcon('certificate'); ?>
         <?php endif; ?>
     <?php if (trim($moduleSupport)) : ?>
         <?php if (filter_var($moduleSupport, FILTER_VALIDATE_EMAIL)) : ?>
@@ -94,17 +94,16 @@
 
 <hr>
 
-<div class="row mb-5">
+<div class="row">
     <div class="col-12">        
         <?php $theView->button('topDescr')
             ->setText('MODULES_LIST_DESCRIPTION')
             ->setAria(['controls' => 'infoDescrCollapse'])
             ->setData(['bs-toggle' => 'collapse', 'bs-target' => '#infoDescrCollapse'])
-            ->setIcon('chevron-down')
-            ->setPrimary(); ?>
+            ->setIcon('chevron-down'); ?>
 
-        <div class="collapse show" id="infoDescrCollapse">
-            <div class="card card-body">
+        <div class="collapse show mt-2" id="infoDescrCollapse">
+            <div class="card card-body border-0">
                 <div class="pre-box"><?php print $theView->escape($moduleDescription); ?></div>
             </div>
         </div>
