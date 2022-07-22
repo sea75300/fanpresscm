@@ -25,6 +25,8 @@
             </div>
         </div>    
     </fieldset>
+    
+    <hr>
 
     <?php if ($changeAuthor) : ?>
     <fieldset class="py-3">
@@ -41,7 +43,61 @@
                 </div>
             </div>
     </fieldset>
+    
+    <hr>
     <?php endif; ?>
+
+    <fieldset class="py-3">
+        <div class="row">
+            <div class="col-12 col-md-8">
+                <?php $theView->textInput('article[sources]')
+                        ->setPlaceholder('http://')
+                        ->setText('TEMPLATE_ARTICLE_SOURCES')
+                        ->setValue($article->getSources())
+                        ->setIcon('external-link-alt')
+                        ->setSize('lg'); ?>
+
+            </div>
+        </div>
+    </fieldset>
+
+    <fieldset class="py-3">
+        <div class="row">
+            <div class="col-12 col-md-8">
+                <?php $theView->textInput('article[imagepath]')
+                    ->setType('url')
+                    ->setPlaceholder('http://')
+                    ->setText('TEMPLATE_ARTICLE_ARTICLEIMAGE')
+                    ->setValue($article->getImagepath())
+                    ->setMaxlenght(512)
+                    ->setIcon('image')
+                    ->setSize('lg'); ?>
+            </div>        
+            <div class="col-12 col-md-1">
+                <?php $theView->button('insertarticleimg', 'insertarticleimg')->setText('HL_FILES_MNG')->setIcon('image')->setIconOnly(true); ?>
+            </div>        
+        </div>
+    </fieldset>
+
+    <?php if ($editorMode && $urlRewrite) : ?>
+    <fieldset class="py-3">
+        <div class="row">
+            <div class="col-12 col-md-8">
+                <?php $theView->textInput('article[url]')
+                    ->setType('text')
+                    ->setPlaceholder($article->getNicePathString())
+                    ->setText('EDITOR_ARTICLE_ARTICLELINK', ['articleId' => $article->getId()])
+                    ->setValue($article->getUrl())
+                    ->setMaxlenght(512)
+                    ->setIcon('link')
+                    ->setSize('lg'); ?>
+            </div>
+        </div>
+    </fieldset>
+
+    <?php endif; ?>
+    
+    <hr>
 
     <?php if (!$editorMode || $article->getPostponed()) : ?>
     <fieldset class="py-3">
@@ -114,59 +170,12 @@
                 </div>
             </div>
         </div>    
-    </fieldset>
-    <?php endif; ?>
-
-    <fieldset class="py-3">
-        <div class="row">
-            <div class="col-12 col-md-8">
-                <?php $theView->textInput('article[sources]')
-                        ->setPlaceholder('http://')
-                        ->setText('TEMPLATE_ARTICLE_SOURCES')
-                        ->setValue($article->getSources())
-                        ->setIcon('external-link-alt')
-                        ->setSize('lg'); ?>
-
-            </div>
-        </div>
-    </fieldset>
-
-    <fieldset class="py-3">
-        <div class="row">
-            <div class="col-12 col-md-8">
-                <?php $theView->textInput('article[imagepath]')
-                    ->setType('url')
-                    ->setPlaceholder('http://')
-                    ->setText('TEMPLATE_ARTICLE_ARTICLEIMAGE')
-                    ->setValue($article->getImagepath())
-                    ->setMaxlenght(512)
-                    ->setIcon('image')
-                    ->setSize('lg'); ?>
-            </div>        
-            <div class="col-12 col-md-1">
-                <?php $theView->button('insertarticleimg', 'insertarticleimg')->setText('HL_FILES_MNG')->setIcon('image')->setIconOnly(true); ?>
-            </div>        
-        </div>
-    </fieldset>
-
-    <?php if ($editorMode && $urlRewrite) : ?>
-    <fieldset class="py-3">
-        <div class="row">
-            <div class="col-12 col-md-8">
-                <?php $theView->textInput('article[url]')
-                    ->setType('text')
-                    ->setPlaceholder($article->getNicePathString())
-                    ->setText('EDITOR_ARTICLE_ARTICLELINK', ['articleId' => $article->getId()])
-                    ->setValue($article->getUrl())
-                    ->setMaxlenght(512)
-                    ->setIcon('link')
-                    ->setSize('lg'); ?>
-            </div>
-        </div>
-    </fieldset>
+    </fieldset>    
     <?php endif; ?>
 
     <?php if ($showShares && count($shares)) : ?>
+    <hr>
+
     <fieldset class="py-3">
         <legend><?php $theView->write('EDITOR_SHARES'); ?></legend>
         <?php foreach ($shares as $share) : ?>
