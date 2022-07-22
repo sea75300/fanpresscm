@@ -128,13 +128,6 @@ class options extends \fpcm\controller\abstracts\controller implements \fpcm\con
         $this->view->assign('twitterIsActive', $twitter->checkConnection());
         $this->view->assign('twitterScreenName', $twitter->getUsername());
 
-        $smtpActive = false;
-        if ($this->config->smtp_enabled) {
-            $mail = new \fpcm\classes\email('', '', '');
-            $smtpActive = $mail->checkSmtp();
-        }
-
-        $this->view->assign('smtpActive', $smtpActive);
         $this->view->addJsFiles(['system/options.js', 'systemcheck.js']);
         $this->view->addJsVars([
             'runSysCheck' => $this->syscheck,
@@ -162,6 +155,10 @@ class options extends \fpcm\controller\abstracts\controller implements \fpcm\con
         }
 
         $buttons[] = (new \fpcm\view\helper\button('checkUpdate', 'checkUpdate'))->setText('PACKAGES_MANUALCHECK')->setIcon('sync');
+        
+        if ($this->config->smtp_enabled) {
+            $buttons[] = (new \fpcm\view\helper\button('testSmtp'))->setText('SYSTEM_OPTIONS_EMAIL_CHECK')->setIcon('envelope-circle-check');
+        }
 
         $this->view->addButtons($buttons);
         return true;
@@ -249,10 +246,6 @@ class options extends \fpcm\controller\abstracts\controller implements \fpcm\con
         if (!$this->config->update()) {
             $this->view->addErrorMessage('SAVE_FAILED_OPTIONS');
             return false;
-        }
-        
-        if ($this->config->smtp_enabled && $this->mailSettingsChanged && (new \fpcm\classes\email('', '', ''))->checkSmtp()) {
-            $this->view->addNoticeMessage('SYSTEM_OPTIONS_EMAIL_ACTIVE', [], true);
         }
 
         $this->view->addNoticeMessage('SAVE_SUCCESS_OPTIONS');

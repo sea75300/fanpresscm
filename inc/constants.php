@@ -238,3 +238,11 @@ if (!defined('FPCM_CACHE_BACKEND')) {
      */
     define('FPCM_CACHE_BACKEND', '\\fpcm\\model\\cache\\fsBackend');
 }   
+
+if (!defined('FPCM_SMTP_TIMEOUT')) {
+    /**
+     * SMTP connection timeout
+     * @since 5.1-dev
+     */
+    define('FPCM_SMTP_TIMEOUT', 5);
+}   

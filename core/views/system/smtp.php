@@ -1,16 +1,4 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
-<?php if ($smtpActive) : ?>
-<fieldset class="mb-2">
-    <legend><?php $theView->write('SYSTEM_OPTIONS_TWITTER_CONSTATE'); ?></legend>
-
-    <div class="row my-2">
-        <div class="col-12 col-md-8">
-            <?php $theView->alert('success')->setText('SYSTEM_OPTIONS_EMAIL_ACTIVE')->setIcon('envelope')->setClass('mb-0'); ?>
-        </div>
-    </div>
-</fieldset>
-<?php endif; ?>
-
 <fieldset class="mb-2">
     <legend><?php $theView->write('SYSTEM_OPTIONS_TWITTER_CREDENTIALS'); ?></legend>
 

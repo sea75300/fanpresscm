@@ -281,6 +281,7 @@ final class email {
         $this->mailer->SMTPSecure = !$autoEncryption ? $config->smtp_settings['encr'] : '';
         $this->mailer->SMTPAutoTLS = $autoEncryption;
         $this->mailer->SMTPAuth = ($config->smtp_settings['user'] && $config->smtp_settings['pass']) ? true : false;
+        $this->mailer->Timeout = FPCM_SMTP_TIMEOUT;
 
         try {
             $res = $this->mailer->smtpConnect();
