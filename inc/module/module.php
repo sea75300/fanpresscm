@@ -356,12 +356,16 @@ class module {
         if (defined('FPCM_MODULE_IGNORE_DEPENDENCIES') && FPCM_MODULE_IGNORE_DEPENDENCIES) {
             return true;
         }
-
-        if (version_compare(PHP_VERSION, $this->config->requirements['php'], '<')) {
+        
+        $phpVersion = '';
+        $sysVersion = '';
+        
+        $this->getVersionStrings($phpVersion, $sysVersion);
+        if (version_compare(PHP_VERSION, $phpVersion, '<')) {
             return false;
         }
 
-        if (version_compare($this->systemConfig->system_version, $this->config->requirements['system'], '<')) {
+        if (version_compare($this->systemConfig->system_version, $sysVersion, '<')) {
             return false;
         }
 
@@ -378,12 +382,16 @@ class module {
         if ($data === false) {
             return false;
         }
+        
+        $phpVersion = '';
+        $sysVersion = '';
 
+        $this->getVersionStrings($phpVersion, $sysVersion, $data['requirements']);
         if (version_compare($this->config->version, $data['version'], '>=')) {
             return false;
         }
 
-        if (version_compare(PHP_VERSION, $data['requirements']['php'], '<') || version_compare($this->systemConfig->system_version, $data['requirements']['system'], '<')) {
+        if (version_compare(PHP_VERSION, $phpVersion, '<') || version_compare($this->systemConfig->system_version, $sysVersion, '<')) {
             return false;
         }
 
@@ -1177,6 +1185,39 @@ class module {
         }
         
         return true;
+    }
+
+    /**
+     * Get PHP- and System Version string
+     * @param string $phpVersion
+     * @param string $sysVersion
+     * @return void
+     * @since 5.1-dev
+     */
+    private function getVersionStrings(string &$phpVersion, string &$sysVersion, array $data = []): void
+    {
+        if (!count($data)) {
+            $data = $this->config->requirements;
+        }
+
+        if (!isset($data['php']) || !isset($data['system'])) {
+            trigger_error('Invalid data given, missing index "ühü" and "system"');
+            return;
+        }
+
+        $phpRelease = \fpcm\classes\tools::getMajorMinorReleaseFromString(PHP_VERSION);
+        $phpVersion = is_array($data['php']) && 
+                      $data['php'][$phpRelease]
+
+                    ? $data['php'][$phpRelease]
+                    : $data['php'];
+
+        $sysRelease = \fpcm\classes\tools::getMajorMinorReleaseFromString($this->systemConfig->system_version);
+        $sysVersion = is_array($data['system']) &&
+                      $data['system'][$sysRelease]
+
+                    ? $data['system'][$sysRelease]
+                    : $data['system'];
     }
 
     /**

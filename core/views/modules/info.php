@@ -24,7 +24,7 @@
 
 </div>    
 
-<div class="row row-cols-2 mb-3">
+<div class="row row-cols-1 row-cols-lg-2 mb-3">
     <div class="col fw-bold">
         <?php $theView->icon('tag')->setSize('lg'); ?>
         <?php $theView->write('MODULES_LIST_KEY'); ?>:
@@ -32,7 +32,7 @@
     <div class="col text-truncate"><?php print $theView->escape($moduleKey); ?></div>
 </div>
 
-<div class="row row-cols-2 mb-3">
+<div class="row row-cols-1 row-cols-lg-2 mb-3">
     <div class="col fw-bold">
         <?php $theView->icon('code-branch')->setSize('lg'); ?>
         <?php $theView->write('MODULES_LIST_VERSION_REMOTE'); ?>:
@@ -42,7 +42,7 @@
 
 <hr>
 
-<div class="row row-cols-2 mb-3">
+<div class="row row-cols-1 row-cols-lg-2 mb-3">
     <div class="col fw-bold">
         <?php $theView->icon('at')->setSize('lg'); ?>
         <?php $theView->write('MODULES_LIST_AUTHOR'); ?>:
@@ -50,7 +50,7 @@
     <div class="col text-truncate"><?php print $theView->escape($moduleAuthor); ?></div>
 </div>
 
-<div class="row row-cols-2 mb-3">
+<div class="row row-cols-1 row-cols-lg-2 mb-3">
     <div class="col fw-bold">
         <?php $theView->icon('house')->setSize('lg'); ?>
         <?php $theView->write('MODULES_LIST_LINK'); ?>:
@@ -58,7 +58,7 @@
     <div class="col text-truncate"><?php print $theView->escape($moduleLink); ?></div>
 </div>
 
-<div class="row row-cols-2 mb-3">
+<div class="row row-cols-1 row-cols-lg-2 mb-3">
     <div class="col fw-bold">
         <?php $theView->icon('headset')->setSize('lg'); ?>
         <?php $theView->write('MODULES_LIST_SUPPORT'); ?>:
@@ -66,7 +66,7 @@
     <div class="col text-truncate"><?php print $theView->escape($moduleSupport); ?></div>
 </div>
 
-<div class="row row-cols-2 mb-3">
+<div class="row row-cols-1 row-cols-lg-2 mb-3">
     <div class="col fw-bold">
         <?php $theView->icon('certificate')->setSize('lg'); ?>
         <?php $theView->write('MODULES_LIST_LICENCE'); ?>:
@@ -76,20 +76,46 @@
 
 <hr>
 
-<div class="row row-cols-2 mb-3">
+<div class="row row-cols-1 row-cols-lg-2 mb-3">
     <div class="col fw-bold">
         <?php $theView->icon('code-pull-request')->setSize('lg'); ?>
         <?php $theView->write('MODULES_LIST_REQUIRE_FPCM'); ?>:
     </div>
-    <div class="col text-truncate"><?php print $theView->escape($moduleSysVer); ?></div>
+    <div class="col text-truncate">
+    <?php if (is_array($moduleSysVer)) : ?>
+        <?php foreach ($moduleSysVer as $smamin => $ver) : ?>
+        <ul class="list-group">
+            <li class="list-group-item d-flex">
+                <span class="fw-bold flex-grow-1"><?php print $theView->escape($smamin); ?></span>
+                <span class="justify-content-end"><?php print $theView->escape($ver); ?></span>
+            </li>
+        <?php endforeach; ?>
+        </ul>
+    <?php else : ?>
+        <?php print $theView->escape($moduleSysVer); ?>
+    <?php endif; ?>
+    </div>
 </div>
 
-<div class="row row-cols-2 mb-3">
+<div class="row row-cols-1 row-cols-lg-2 mb-3">
     <div class="col fw-bold">
         <?php $theView->icon('php', 'fa-brands')->setSize('lg'); ?>
         <?php $theView->write('MODULES_LIST_REQUIRE_PHP'); ?>:
     </div>
-    <div class="col text-truncate"><?php print $theView->escape($modulePhpVer); ?></div>
+    <div class="col text-truncate">
+    <?php if (is_array($modulePhpVer)) : ?>
+        <?php foreach ($modulePhpVer as $pmamin => $pver) : ?>
+        <ul class="list-group">
+            <li class="list-group-item d-flex">
+                <span class="fw-bold flex-grow-1"><?php print $theView->escape($pmamin); ?></span>
+                <span class="justify-content-end"><?php print $theView->escape($ver); ?></span>
+            </li>
+        <?php endforeach; ?>
+        </ul>
+    <?php else : ?>
+        <?php print $theView->escape($modulePhpVer); ?>
+    <?php endif; ?>
+    </div>
 </div>
 
 <hr>
@@ -112,7 +138,7 @@
 
 <hr>
 
-<div class="row row-cols-2 mb-3">
+<div class="row row-cols-1 row-cols-lg-2 mb-3">
     <div class="col-12 fw-bold">
         <?php $theView->icon('folder-tree')->setSize('lg'); ?>
         <?php $theView->write('MODULES_LIST_DATAPATH'); ?>:
@@ -123,7 +149,7 @@
     <div class="col pre-box text-secondary"><?php print $theView->escape($moduleDataPath); ?></div>
 </div>
 
-<div class="row row-cols-2 mb-3">
+<div class="row row-cols-1 row-cols-lg-2 mb-3">
     <div class="col-12 fw-bold">
         <?php $theView->icon('hashtag')->setSize('lg'); ?>
         <?php $theView->write('FILE_LIST_FILEHASH'); ?>:

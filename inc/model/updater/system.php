@@ -111,7 +111,7 @@ final class system extends staticModel {
         $foptData = \Spyc::YAMLLoadString($this->fileOption->read());
         
         $currentVersionComplete = $this->config->system_version;
-        $currentVersionMinor    = implode('.', array_slice(explode('.', $currentVersionComplete), 0, 2));
+        $currentVersionMinor    = \fpcm\classes\tools::getMajorMinorReleaseFromString($currentVersionComplete);
 
         if ($this->config->system_updates_devcheck) {
             $currentVersionComplete .= '-'.self::PREFIX_DEV;
