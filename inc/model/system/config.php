@@ -226,14 +226,7 @@ final class config extends dataset {
             return false;
         }
 
-        $userData = $user->getUserMeta();
-        if (!is_array($userData)) {
-            return false;
-        }
-
-        foreach ($userData as $key => $value) {
-            $this->data[$key] = $value;
-        }
+        $user->getUserMeta()->mergeToConfig($this->data);
 
         loader::getObject('\fpcm\classes\language', $this->system_lang, false);
         $this->userConfigSet = true;

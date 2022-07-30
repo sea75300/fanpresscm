@@ -30,6 +30,8 @@ class useradd extends userbase {
         $this->view->assign('showExtended', false);
         $this->view->assign('showImage', false);
         $this->view->assign('twoFaAuth', false);
+        $this->view->assign('createInfo', '');
+        $this->view->assign('changeInfo', '');
         $this->view->render();
     }
     

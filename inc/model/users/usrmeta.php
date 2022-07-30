@@ -43,6 +43,11 @@ implements  \ArrayAccess,
         }
 
         $this->data = $data;
+
+        if (!is_array($this->data)) {
+            $this->data = [];
+        }
+
     }
 
     
@@ -104,6 +109,35 @@ implements  \ArrayAccess,
     public function getPersistentData(): int|string
     {
         return json_encode($this->data);
+    }
+
+    /**
+     * 
+     * @param array $newData
+     */
+    public function mergeData(array $newData)
+    {        
+        $this->data = array_merge($this->data, $newData);
+    }
+
+    /**
+     * 
+     * @param array $newData
+     */
+    public function mergeToConfig(array &$newData): void
+    {
+        if (!is_array($this->data) || !count($this->data)) {
+            return;
+        }
+        
+        foreach ($this->data as $key => $value) {
+            
+            if (!isset($newData[$key])) {
+                continue;
+            }
+            
+            $newData[$key] = $value;
+        }
     }
 
 }

@@ -373,9 +373,9 @@ class author extends \fpcm\model\abstracts\dataset {
      * ben.-def. Einstellungen setzen
      * @param array $usrmeta
      */
-    public function setUserMeta(array $usrmeta)
+    public function setUserMeta($usrmeta)
     {
-        $this->usrmeta = new usrmeta($usrmeta);
+        $this->usrmeta = is_array($usrmeta) ? new usrmeta($usrmeta) : $usrmeta;
     }
 
     /**
@@ -447,7 +447,6 @@ class author extends \fpcm\model\abstracts\dataset {
 
         $this->passwd = \fpcm\classes\security::createUserPasswordHash($this->passwd);
         $this->disabled = 0;
-        $this->usrmeta = json_encode($this->usrmeta);
 
         return parent::save() === false ? false : true;
     }
@@ -481,7 +480,6 @@ class author extends \fpcm\model\abstracts\dataset {
         $params[] = $this->getId();
 
         $this->events->trigger($this->getEventName('update'), $params);
-        $params['usrmeta'] = json_encode($params['usrmeta']);
 
         $return = false;
         if ($this->dbcon->update($this->table, $fields, array_values($params), 'id = ?')) {

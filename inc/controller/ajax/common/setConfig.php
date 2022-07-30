@@ -50,7 +50,9 @@ class setConfig extends \fpcm\controller\abstracts\ajaxController {
         
         switch ($var) {
             case 'dashboard_containers_disabled' :
-                $usrmeta->{$var}[] = $this->request->fromPOST('value', [ \fpcm\model\http\request::FILTER_BASE64DECODE ]);                
+                $tmp = $usrmeta->{$var};
+                $tmp[] = $this->request->fromPOST('value', [ \fpcm\model\http\request::FILTER_BASE64DECODE ]);
+                $usrmeta->{$var} = $tmp;
                 break;
             default:
                 $usrmeta->{$var} = $this->request->fromPOST('value');

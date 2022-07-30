@@ -116,7 +116,9 @@ class profile extends \fpcm\controller\abstracts\controller
         $this->user->setEmail($saveData['email']);
         $this->user->setDisplayName($saveData['displayname']);
 
-        $metaData = $this->request->fromPOST('usermeta');
+        $metaData = $this->user->getUserMeta();
+        $metaData->mergeData($this->request->fromPOST('usermeta'));
+        
         $this->user->setUserMeta($metaData);
         $this->user->setUsrinfo($saveData['usrinfo']);
         $this->user->setChangeTime(time());

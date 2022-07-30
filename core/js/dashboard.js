@@ -78,7 +78,7 @@ fpcm.dashboard = {
 
                  for (var _i = 0; _i < _containers.length; _i++) {
 
-                     if (!_containers[_i]) {
+                     if (!_containers[_i] || !_containers[_i].dataset || !_containers[_i].dataset.cname) {
                          continue;
                      }
 

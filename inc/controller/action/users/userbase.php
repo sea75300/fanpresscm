@@ -190,16 +190,23 @@ class userbase extends \fpcm\controller\abstracts\controller
             return [];
         }
 
-        $userMeta = $this->request->fromPOST('usermeta');
-        if (!is_array($userMeta)) {
-            $userMeta = [];
-        }
-        
         $this->user->setUserName($data['username']);
         $this->user->setEmail($data['email']);
         $this->user->setDisplayName($data['displayname']);
         $this->user->setRoll($data['roll']);
-        $this->user->setUserMeta($userMeta);
+
+        $metaData = $this->user->getUserMeta();
+        if (is_object($metaData)) {
+            
+            $userMetaForm = $this->request->fromPOST('usermeta');
+            if (!is_array($userMetaForm)) {
+                $userMetaForm = [];
+            }            
+            
+            $metaData->mergeData($userMetaForm);
+            $this->user->setUserMeta($metaData);
+        }
+
         $this->user->setUsrinfo(isset($data['usrinfo']) ? $data['usrinfo'] : '');
         $this->user->setDisabled(isset($data['disabled']) ? $data['disabled'] : 0);
         $this->user->setChangeTime(time());
