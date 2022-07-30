@@ -50,14 +50,13 @@ class setConfig extends \fpcm\controller\abstracts\ajaxController {
         
         switch ($var) {
             case 'dashboard_containers_disabled' :
-                $usrmeta[$var][] = $this->request->fromPOST('value', [ \fpcm\model\http\request::FILTER_BASE64DECODE ]);                
+                $usrmeta->{$var}[] = $this->request->fromPOST('value', [ \fpcm\model\http\request::FILTER_BASE64DECODE ]);                
                 break;
             default:
-                $usrmeta[$var] = $this->request->fromPOST('value');
+                $usrmeta->{$var} = $this->request->fromPOST('value');
         }        
 
         $this->session->currentUser->disablePasswordSecCheck();
-        $this->session->currentUser->setPassword(null);
         $this->session->currentUser->setUserMeta($usrmeta);
         return $this->session->currentUser->update() === true;
     }
@@ -81,12 +80,11 @@ class setConfig extends \fpcm\controller\abstracts\ajaxController {
                 
                 $usrmeta = $this->session->currentUser->getUserMeta();
                 
-                $usrmeta[$var] = array_filter($usrmeta[$var], function ($str) {
+                $usrmeta->{$var} = array_filter($usrmeta->{$var}, function ($str) {
                     return $str !== $this->request->fromPOST('value', [ \fpcm\model\http\request::FILTER_BASE64DECODE ]);
                 });
                 
                 $this->session->currentUser->disablePasswordSecCheck();
-                $this->session->currentUser->setPassword(null);
                 $this->session->currentUser->setUserMeta($usrmeta);
                 $return = $this->session->currentUser->update() === true;
                 

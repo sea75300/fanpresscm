@@ -83,7 +83,7 @@ class author extends \fpcm\model\abstracts\dataset {
 
     /**
      * Meta-Daten für persönliche Einstellungen
-     * @var string
+     * @var usrmeta
      */
     protected $usrmeta = '';
 
@@ -158,7 +158,7 @@ class author extends \fpcm\model\abstracts\dataset {
             $this->cacheName = 'author' . $id;
         }
 
-        parent::__construct($id);
+        parent::__construct($id);        
     }
 
     /**
@@ -291,17 +291,16 @@ class author extends \fpcm\model\abstracts\dataset {
     /**
      * Liefert ben.-def. Einstellungen zurück
      * @param string $valueName
-     * @return string|array
+     * @return mixed
      */
     public function getUserMeta($valueName = null)
     {
-        $userMeta = json_decode($this->usrmeta, true);
         if ($valueName === null) {
-            return $userMeta;
+            return $this->usrmeta;
         }
 
-        if (isset($userMeta[$valueName])) {
-            return $userMeta[$valueName];
+        if ($this->usrmeta->{$valueName}) {
+            return $this->usrmeta->{$valueName};
         }
 
         return $this->config->{$valueName};
@@ -376,7 +375,7 @@ class author extends \fpcm\model\abstracts\dataset {
      */
     public function setUserMeta(array $usrmeta)
     {
-        $this->usrmeta = json_encode($usrmeta);
+        $this->usrmeta = new usrmeta($usrmeta);
     }
 
     /**
@@ -448,6 +447,7 @@ class author extends \fpcm\model\abstracts\dataset {
 
         $this->passwd = \fpcm\classes\security::createUserPasswordHash($this->passwd);
         $this->disabled = 0;
+        $this->usrmeta = json_encode($this->usrmeta);
 
         return parent::save() === false ? false : true;
     }
@@ -481,6 +481,7 @@ class author extends \fpcm\model\abstracts\dataset {
         $params[] = $this->getId();
 
         $this->events->trigger($this->getEventName('update'), $params);
+        $params['usrmeta'] = json_encode($params['usrmeta']);
 
         $return = false;
         if ($this->dbcon->update($this->table, $fields, array_values($params), 'id = ?')) {
@@ -573,7 +574,7 @@ class author extends \fpcm\model\abstracts\dataset {
      */
     public function resetProfileSettings()
     {
-        $this->setUserMeta([]);
+        $this->setUserMeta(new usrmeta([]));
         $this->disablePasswordSecCheck();
         $this->setPassword(null);
         return $this->update();
@@ -587,7 +588,7 @@ class author extends \fpcm\model\abstracts\dataset {
     public function resetDashboard()
     {
         $meta = $this->getUserMeta();
-        $meta['dashboardpos'] = [];
+        $meta->dashboardpos = [];
         $this->setUserMeta($meta);
         $this->disablePasswordSecCheck();
         $this->setPassword(null);
@@ -604,6 +605,7 @@ class author extends \fpcm\model\abstracts\dataset {
         $res = parent::createFromDbObject($object);
         $this->groupname = $this->language->translate($this->groupname);
         $this->image = preg_replace('/[^a-z0-9_\-\w]/', '', strtolower($this->username));
+        $this->usrmeta = new usrmeta($this->usrmeta);
 
         return $res;
     }
