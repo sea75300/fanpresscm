@@ -27,7 +27,10 @@ namespace fpcm\model\users;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @since 5.1-dev
  */
-class usrmeta extends \fpcm\model\abstracts\staticModel implements \ArrayAccess, \JsonSerializable {
+class usrmeta extends \fpcm\model\abstracts\staticModel
+implements  \ArrayAccess,
+            \JsonSerializable,
+            \fpcm\model\interfaces\hasPersistence {
 
     /**
      * 
@@ -92,6 +95,15 @@ class usrmeta extends \fpcm\model\abstracts\staticModel implements \ArrayAccess,
     public function jsonSerialize(): mixed
     {
         return $this->data;
+    }
+
+    /**
+     * Return persitence data to store in database
+     * @return int|string
+     */
+    public function getPersistentData(): int|string
+    {
+        return json_encode($this->data);
     }
 
 }

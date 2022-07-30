@@ -569,6 +569,16 @@ final class database {
 
         $this->lastQueryString = $statement->queryString;
 
+        array_walk($bindParams, function (&$value) {
+
+            if (!is_object($value) || !$value instanceof \fpcm\model\interfaces\hasPersistence) {
+                return false;
+            }
+
+            $value = $value->getPersistentData();
+            return true;
+        });
+
         try {
             $res = $statement->execute($bindParams);
         } catch (\PDOException $e) {
