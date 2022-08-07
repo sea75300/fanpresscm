@@ -34,7 +34,7 @@ fpcm.editor_tinymce = {
             browser_spellcheck  : true,
             branding            : false,
             element_format      : 'html',
-            content_style       : 'body { font-size: ' + fpcm.vars.jsvars.editorDefaultFontsize + '; }'
+            content_style       : 'body { font-size: ' + fpcm.vars.jsvars.editorDefaultFontsize + '; } figure > img { margin: 0.25rem; }'
         };
         
         if (config.skin !== undefined) {
