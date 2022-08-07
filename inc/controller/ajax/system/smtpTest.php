@@ -37,10 +37,10 @@ class smtpTest extends \fpcm\controller\abstracts\ajaxController
     {
         $mail = new \fpcm\classes\email($this->config->system_email, 'Test message', 'This is a FanPress CM SMTP Testmessage!');
         if (!$mail->checkSmtp() || !$mail->submit()) {
-            $msg = new \fpcm\view\message('SAVE_FAILED_OPTIONS_SMTP_CONECT', \fpcm\view\message::TYPE_ERROR);
+            $msg = new \fpcm\view\message($this->language->translate('SAVE_FAILED_OPTIONS_SMTP_CONECT') , \fpcm\view\message::TYPE_ERROR);
         }
         else {
-            $msg = new \fpcm\view\message('SYSTEM_OPTIONS_EMAIL_ACTIVE', \fpcm\view\message::TYPE_NOTICE);
+            $msg = new \fpcm\view\message($this->language->translate('SYSTEM_OPTIONS_EMAIL_ACTIVE'), \fpcm\view\message::TYPE_NOTICE);
         }
             
         $this->response->setReturnData($msg)->fetch();
