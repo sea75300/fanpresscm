@@ -12,10 +12,18 @@ fpcm.options = {
 
     init: function () {
 
-        fpcm.dom.fromId('syschecksubmitstats').click(function () {
+        fpcm.dom.bindClick('#syschecksubmitstats', function () {
             fpcm.ajax.post('syscheck', {
                 data: {
                     sendstats: 1
+                }
+            });
+        });
+
+        fpcm.dom.bindClick('#btnTestSmtp', function () {
+            fpcm.ajax.post('smtptest', {
+                execDone: function (_msg) {
+                    fpcm.ui.addMessage(_msg);
                 }
             });
         });

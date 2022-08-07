@@ -230,3 +230,11 @@ if (!defined('FPCM_FILEMAGER_ITEMS_ROW')) {
      */
     define('FPCM_FILEMAGER_ITEMS_ROW', 5);
 }
+
+if (!defined('FPCM_SMTP_TIMEOUT')) {
+    /**
+     * SMTP connection timeout
+     * @since 5.0.1
+     */
+    define('FPCM_SMTP_TIMEOUT', 30);
+}   
