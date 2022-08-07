@@ -175,8 +175,8 @@ class tinymceEditor5 implements \JsonSerializable {
         $this->link_list = \fpcm\classes\tools::getFullControllerLink('ajax/autocomplete', ['src' => 'editorlinks']);
         $this->image_list = \fpcm\classes\tools::getFullControllerLink('ajax/autocomplete', ['src' => 'editorfiles']);
 
-        $this->images_upload_url = $config->articles_imageedit_persistence ? \fpcm\classes\tools::getFullControllerLink('ajax/editor/imgupload') : false;
-        $this->automatic_uploads = $config->articles_imageedit_persistence ? 1 : 0;
+        $this->images_upload_url = \fpcm\classes\tools::getFullControllerLink('ajax/editor/imgupload');
+        $this->automatic_uploads = true;
 
         $this->language = $config->system_lang;
         
