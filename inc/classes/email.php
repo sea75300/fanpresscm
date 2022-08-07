@@ -268,20 +268,7 @@ final class email {
         }
 
         $this->getMailerObj();
-        $this->mailer->isSMTP();
-
-        $config = $this->config;
-
-        $autoEncryption = ($config->smtp_settings['encr'] === 'auto' ? true : false);
-
-        $this->mailer->Host = $config->smtp_settings['srvurl'];
-        $this->mailer->Username = $config->smtp_settings['user'];
-        $this->mailer->Password = $config->smtp_settings['pass'];
-        $this->mailer->Port = $config->smtp_settings['port'];
-        $this->mailer->SMTPSecure = !$autoEncryption ? $config->smtp_settings['encr'] : '';
-        $this->mailer->SMTPAutoTLS = $autoEncryption;
-        $this->mailer->SMTPAuth = ($config->smtp_settings['user'] && $config->smtp_settings['pass']) ? true : false;
-        $this->mailer->Timeout = FPCM_SMTP_TIMEOUT;
+        $this->initSmtpSettings();
 
         try {
             $res = $this->mailer->smtpConnect();
@@ -319,17 +306,7 @@ final class email {
      */
     private function submitSmtp()
     {
-
-        $autoEncryption = ($this->config->smtp_settings['encr'] === 'auto' ? true : false);
-
-        $this->mailer->Host = $this->config->smtp_settings['srvurl'];
-        $this->mailer->Username = $this->config->smtp_settings['user'];
-        $this->mailer->Password = $this->config->smtp_settings['pass'];
-        $this->mailer->Port = $this->config->smtp_settings['port'];
-        $this->mailer->SMTPSecure = !$autoEncryption ? $this->config->smtp_settings['encr'] : '';
-        $this->mailer->SMTPAutoTLS = $autoEncryption;
-        $this->mailer->SMTPAuth = ($this->config->smtp_settings['user'] && $this->config->smtp_settings['pass']) ? true : false;
-        $this->mailer->isSMTP();
+        $this->initSmtpSettings();
 
         try {
             $res = $this->mailer->send();
@@ -354,10 +331,45 @@ final class email {
         $this->mailer->isHTML($this->html);
         $this->mailer->setFrom($this->config->smtp_settings['addr']);
         $this->mailer->setLanguage($this->config->system_lang);
+        $this->mailer->Timeout = FPCM_SMTP_TIMEOUT;        
+
+        $this->mailer->Debugoutput = function($str, $level) {
+            trigger_error($str);
+        };
 
         return true;
     }
 
+    /**
+     * 
+     * @return bool
+     * @since 5.0.1
+     */
+    private function initSmtpSettings(): bool
+    {
+        if (!$this->config->smtp_enabled) {
+            return false;
+        }
+
+        $this->mailer->isSMTP();
+
+        $config = $this->config;
+
+        $autoEncryption = ($config->smtp_settings['encr'] === 'auto' ? true : false);
+
+        $this->mailer->Host = $config->smtp_settings['srvurl'];
+        $this->mailer->Username = $config->smtp_settings['user'];
+        $this->mailer->Password = $config->smtp_settings['pass'];
+        $this->mailer->Port = $config->smtp_settings['port'];
+        $this->mailer->SMTPSecure = !$autoEncryption ? $config->smtp_settings['encr'] : '';
+        $this->mailer->SMTPAutoTLS = $autoEncryption;
+        $this->mailer->SMTPAuth = ($config->smtp_settings['user'] && $config->smtp_settings['pass']) ? true : false;
+        $this->mailer->SMTPDebug = 4; /* @see \PHPMailer\PHPMailer\SMTP::DEBUG_CONNECTION; */
+        $this->mailer->getSMTPInstance()->Timelimit = FPCM_SMTP_TIMEOUT;
+
+        return true;
+    }
+    
     /**
      * Return SMTP encryption modes
      * @return array
