@@ -41,7 +41,7 @@ class memcacheConnector {
      */
     public function __construct()
     {
-        $this->host = defined('FPCM_MEMCACHE_HOST') ? FPCM_MEMCACHE_HOST : '/tmp/memcached.sock';
+        $this->host = defined('FPCM_MEMCACHE_HOST') ? FPCM_MEMCACHE_HOST : '127.0.0.1';
         $this->port = defined('FPCM_MEMCACHE_PORT') ? FPCM_MEMCACHE_PORT : 11211;
     }
 
@@ -51,19 +51,26 @@ class memcacheConnector {
      */
     final public function getInstance() : \Memcached
     {
+        
         if ($this->obj instanceof \Memcached) {
             return $this->obj;
         }
-        
-        $this->obj = new \Memcached();
-        
-        $servers = $this->obj->getServerList();
-        if(!count($servers) || !isset($servers[0]) || !isset($servers[0]['host']) || $servers[0]['host'] !== $this->host) {
 
-            if (!$this->obj->addServer($this->host, $this->port)) {
-                trigger_error(sprintf('Unable to connect to memcache at %s:%s!', $this->host, $this->port));
+        try {
+            
+            $this->obj = new \Memcached();
+
+            $servers = $this->obj->getServerList();
+            if(!count($servers) || !isset($servers[0]) || !isset($servers[0]['host']) || $servers[0]['host'] !== $this->host) {
+                $sec = $this->obj->addServer($this->host, $this->port);
             }
+            
+        } catch (\Exception $e) {
+            return null;
+        }
 
+        if (!$sec) {
+            trigger_error(sprintf('Unable to connect to memcache at %s:%s!', $this->host, $this->port));
         }
 
         return $this->obj;

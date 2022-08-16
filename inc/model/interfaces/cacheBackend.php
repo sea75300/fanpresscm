@@ -21,7 +21,7 @@ interface cacheBackend {
      * Konstruktor
      * @param string $cacheName
      */
-    public function __construct($cacheName);
+    public function __construct(string $cacheName);
 
     /**
      * Write content to cache file
@@ -29,7 +29,7 @@ interface cacheBackend {
      * @param integer $expires
      * @return bool
      */
-    public function write($data, $expires);
+    public function write($data, int $expires);
 
     /**
      * Read cache file content

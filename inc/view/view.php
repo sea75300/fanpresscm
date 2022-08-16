@@ -361,6 +361,12 @@ class view {
             ));
         }
 
+        if (str_contains(FPCM_CACHE_BACKEND, 'memcacheBackend')) {
+            $this->notifications->addNotification(new \fpcm\model\theme\notificationItem(
+                (new \fpcm\view\helper\icon('flask'))->setText('memcache cache backend is enabled!')
+            ));
+        }
+
         $this->defaultViewVars->notifications = $this->notifications;
         return true;
     }

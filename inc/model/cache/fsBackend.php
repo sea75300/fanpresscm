@@ -40,7 +40,7 @@ class fsBackend implements \fpcm\model\interfaces\cacheBackend {
      * Konstruktor
      * @param string $cacheName
      */
-    public function __construct($cacheName)
+    public function __construct(string $cacheName)
     {
         $cacheName = explode('/', $cacheName, 2);
 
@@ -58,7 +58,7 @@ class fsBackend implements \fpcm\model\interfaces\cacheBackend {
      * @param integer $expires
      * @return bool
      */
-    public function write($data, $expires)
+    public function write($data, int $expires)
     {
         if (defined('FPCM_INSTALLER_NOCACHE') && FPCM_INSTALLER_NOCACHE) {
             return false;
