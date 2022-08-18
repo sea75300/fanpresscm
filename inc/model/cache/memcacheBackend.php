@@ -52,7 +52,12 @@ class memcacheBackend implements \fpcm\model\interfaces\cacheBackend {
         $this->module = isset($cacheName[1]) && trim($cacheName[1]) ? $cacheName[0] : '';
         $this->path = $cacheName[1] ?? $cacheName[0];
 
+        $this->path = $this->module . '_'. $this->path; //md5($this->module . '_'. $this->path);
+
         $this->memcache = \fpcm\classes\loader::getObject('\fpcm\model\cache\memcacheConnector');
+        
+        
+        $this->logData(__METHOD__ . ' :: ' . $this->path);
     }
 
     /**
@@ -67,25 +72,27 @@ class memcacheBackend implements \fpcm\model\interfaces\cacheBackend {
             return false;
         }
 
-        if (is_object($data) || is_array($data)) {
-            $data = serialize($data);
-        }
+//        if (is_object($data) || is_array($data)) {
+//            $data = serialize($data);
+//        }
         
         $this->expires = time() + $expires;
 
         $r = $this->memcache->getInstance()->set($this->path, [
             'expires' => $this->expires,
             'data' => $data
-        ]);
+        ], $expires);
         
-        fpcmLogSystem([__METHOD__, $this->path, $this->memcache->getInstance()->getResultCode(), $this->memcache->getInstance()->getResultMessage()]);
+//        $this->logData(__METHOD__ . ' :: ' . $r);
+//        $this->logData($this->memcache->getInstance()->getResultCode());
+//        $this->logData($this->memcache->getInstance()->getResultMessage());
+//        $this->logData(\fpcm\classes\tools::calcSize(memory_get_usage()));
         
         if (!$r) {
             trigger_error('Unable to write cache data for key ' . $this->path);
             return false;
         }
-        
-        
+
         return true;
     }
 
@@ -97,10 +104,7 @@ class memcacheBackend implements \fpcm\model\interfaces\cacheBackend {
     public function read($raw = false)
     {
         $return = $this->memcache->getInstance()->get($this->path);
-        
-        fpcmLogSystem([__METHOD__, $this->path, $this->memcache->getInstance()->getResultCode(), $this->memcache->getInstance()->getResultMessage()]);
-        
-        return $raw ? $return : ($return->data ?? null);
+        return $raw ? $return : ($return['data'] ?? null);
     }
 
     /**
@@ -109,14 +113,13 @@ class memcacheBackend implements \fpcm\model\interfaces\cacheBackend {
      */
     public function expires()
     {
-        $item = $this->memcache->getInstance()->get($this->path);
-        
-        if (!$item) {
+        $data = $this->read(true);
+
+        if (!$data) {
             return 0;
         }
 
-        $data = $this->read(true);
-        $this->expires = $data->expires ?? 0;
+        $this->expires = $data['expires'] ?? 0;
         return $this->expires;
     }
 
@@ -126,20 +129,25 @@ class memcacheBackend implements \fpcm\model\interfaces\cacheBackend {
      */
     public function cleanup()
     {
-        $this->memcache->getInstance()->flush();
+        $r = $this->memcache->getInstance()->flush();
         return true;
     }
 
     public static function cleanupByCacheName(string $basePath, $cacheName = null): bool
     {
+//        \fpcm\classes\loader::getObject('\fpcm\model\cache\memcacheConnector')->getInstance()->delete(md5($cacheName));
         return true;
     }
 
     public static function getCacheComplete(string $basePath): array
     {
-        $this->memcache->getInstance()->getAllKeys();
+        \fpcm\classes\loader::getObject('\fpcm\model\cache\memcacheConnector')->getInstance()->getAllKeys();
         
         return [];
     }
-
+    
+    private function logData($data)
+    {
+        file_put_contents( \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_LOGS, 'memcached.txt') , print_r($data, true).PHP_EOL.PHP_EOL.PHP_EOL, FILE_APPEND);    
+    }
 }

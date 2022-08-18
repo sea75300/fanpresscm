@@ -88,6 +88,10 @@ final class cache {
 
         $content = $this->getBackendInstance($cacheName)->read();
 
+        if (!is_string($content)) {
+            return $content;
+        }
+        
         return substr($content, 0, 2) == 'a:' || substr($content, 0, 2) == 'o:' ? unserialize($content) : $content;
     }
 
