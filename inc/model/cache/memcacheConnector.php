@@ -90,7 +90,7 @@ class memcacheConnector {
         }
         
         if ($var === null) {
-            return $stats[$this->host.':'.$this->port];
+            return $stats;
         }
 
         return null;
