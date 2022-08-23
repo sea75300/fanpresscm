@@ -51,13 +51,9 @@ class memcacheBackend implements \fpcm\model\interfaces\cacheBackend {
         
         $this->module = isset($cacheName[1]) && trim($cacheName[1]) ? $cacheName[0] : '';
         $this->path = $cacheName[1] ?? $cacheName[0];
-
-        //$this->path = hash(\fpcm\classes\security::defaultHashAlgo, $this->module) . '_'. hash(\fpcm\classes\security::defaultHashAlgo, $this->path);
-        $this->path = $this->module . '_'. $this->path;
+        $this->path = $this->module . '/'. $this->path;
 
         $this->memcache = \fpcm\classes\loader::getObject('\fpcm\model\cache\memcacheConnector');
-        
-        $this->logData($this->memcache->getInstance()->getAllKeys());
     }
 
     /**
@@ -158,24 +154,18 @@ class memcacheBackend implements \fpcm\model\interfaces\cacheBackend {
 
         if (substr($cacheName, -1) !== \fpcm\classes\cache::CLEAR_ALL) {
             return $mem->delete( $cacheName );
-        }
-        
-        //$mod = hash( \fpcm\classes\security::defaultHashAlgo, strtolower(substr($cacheName, 0, -2)) );
+        }           
+
         $mod = strtolower(substr($cacheName, 0, -2));
-        
+
         $all = \fpcm\classes\loader::getObject('\fpcm\model\cache\memcacheConnector')->getInstance()->getAllKeys();
-        
-        $this->logData($all);
-        
         if (!is_array($all) || !count($all)) {
             return true;
         }
 
-        $filtered = array_filter( $all, function ($val, $key) use ($mod)
-        {
-            return str_starts_with($key, $mod);
-        },
-        ARRAY_FILTER_USE_BOTH);
+        $filtered = array_filter( $all, function ($val) use ($mod) {
+            return str_starts_with($val, $mod);
+        });
 
         if (!is_array($filtered) || !count($filtered)) {
             return true;
@@ -184,9 +174,5 @@ class memcacheBackend implements \fpcm\model\interfaces\cacheBackend {
         $mem->deleteMulti($filtered);
         return true;
     }
-    
-    private function logData($data)
-    {
-        file_put_contents( \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_LOGS, 'memcached.txt') , print_r($data, true).PHP_EOL.PHP_EOL.PHP_EOL, FILE_APPEND);    
-    }
+
 }
