@@ -61,6 +61,10 @@ class twitter_history extends \fpcm\model\abstracts\dashcontainer implements \fp
         }
 
         $data = json_decode($data, true);
+        
+        if (!is_array($data) || !count($data)) {
+            return '';
+        }
 
         $rows = '';
 

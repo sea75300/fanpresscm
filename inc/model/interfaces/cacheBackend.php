@@ -21,7 +21,7 @@ interface cacheBackend {
      * Konstruktor
      * @param string $cacheName
      */
-    public function __construct(string $cacheName);
+    public function __construct(?string $cacheName);
 
     /**
      * Write content to cache file
@@ -51,11 +51,17 @@ interface cacheBackend {
     public function cleanup();
 
     /**
-     * Returns all *.cache files from fielsystem
-     * @return array
-     * @since 5.1-dev
+     * get cache size
+     * @return int
      */
-    public static function getCacheComplete(string $basePath) : array;
+    public function getSize(string $basePath): int;
+
+    /**
+     * Prepare data
+     * @param mixed $value
+     * @return mixed
+     */
+    public function prepareReturnedValue(mixed $value): mixed;
 
     /**
      * Cleanup cache by cache name in base path

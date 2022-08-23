@@ -86,13 +86,8 @@ final class cache {
             return false;
         }
 
-        $content = $this->getBackendInstance($cacheName)->read();
-
-        if (!is_string($content)) {
-            return $content;
-        }
-        
-        return substr($content, 0, 2) == 'a:' || substr($content, 0, 2) == 'o:' ? unserialize($content) : $content;
+        $obj = $this->getBackendInstance($cacheName);
+        return $obj->prepareReturnedValue( $obj->read() );
     }
 
     /**
@@ -124,18 +119,8 @@ final class cache {
      * @return int
      */
     public function getSize()
-    {
-        return array_sum(array_map('filesize', $this->getCacheComplete()));
-    }
-
-    /**
-     * Liefert alle *.cache-Dateien in cache-ordner zurück
-     * @return array
-     * @since 3.4
-     */
-    public function getCacheComplete()
-    {
-        return call_user_func(FPCM_CACHE_BACKEND . '::getCacheComplete', $this->basePath);
+    {        
+        return $this->getBackendInstance(null)->getSize($this->basePath);
     }
 
     /**
@@ -143,7 +128,7 @@ final class cache {
      * @param string $cacheName
      * @return \fpcm\model\interfaces\cacheBackend
      */
-    private function getBackendInstance(string $cacheName)
+    private function getBackendInstance(?string $cacheName)
     {
         $cbe = FPCM_CACHE_BACKEND;
         return new $cbe($cacheName);

@@ -76,4 +76,20 @@ class memcacheConnector {
         return $this->obj;
     }
 
+    /**
+     * 
+     * @param string $var
+     * @return mixed
+     */
+    final public function getStats(string $var): mixed
+    {
+        $stats = $this->obj->getStats();
+
+        if (isset($stats[$this->host.':'.$this->port][$var])) {
+            return $stats[$this->host.':'.$this->port][$var];
+        }
+
+        return null;
+    }
+
 }
