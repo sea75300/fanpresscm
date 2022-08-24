@@ -483,6 +483,11 @@ class image extends \fpcm\model\abstracts\file implements \fpcm\model\interfaces
     public function addUploadFolder() : bool
     {
         $this->fullpath = ops::getUploadPath($this->filename, $this->config->file_subfolders);
+        
+        if (!file_exists(dirname($this->fullpath))) {
+            mkdir(dirname($this->fullpath));
+        }
+        
         return true;
     }
 
