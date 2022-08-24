@@ -514,8 +514,6 @@ fpcm.editor = {
 
     showInEditDialog: function(result){
 
-        debugger;
-
         if (fpcm.vars.jsvars.checkLastState == 1 && result.articleCode == 0) {
 
             fpcm.ui.addMessage({
