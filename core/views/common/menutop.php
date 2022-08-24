@@ -42,7 +42,7 @@
                         <?php $theView->badge('notificationsCount')->setText('PROFILE_MENU_NOTIFICATIONS')->setValue(count($theView->notifications))->setClass('rounded-pill bg-info'); ?>
                         <?php endif; ?>
                     </a>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="fpcm-notify-menu">
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="fpcm-notify-menu" id="fpcm-id-notifications">
                         <?php print $theView->notifications; ?>
                     </ul>
                 </li>

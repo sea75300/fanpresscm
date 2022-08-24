@@ -154,6 +154,10 @@ fpcm.system = {
                     fpcm.system.showSessionCheckDialog();
                 }
 
+                if (result.notifications) {
+                    fpcm.system.addAjaxNotifications(result.notifications, result.notificationCount);
+                }
+
             },
         });
 
@@ -370,6 +374,14 @@ fpcm.system = {
             return false;
         });
 
+    },
+    
+    addAjaxNotifications: function(_nstring, _count) {
+        
+        fpcm.dom.assignHtml('#fpcm-id-notifications', _nstring);
+        fpcm.dom.assignHtml('#notificationsCount', _count);
+        
+        
     },
 
     checkForUpdates: function () {

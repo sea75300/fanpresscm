@@ -43,4 +43,16 @@ final class responseDataRefresh implements \JsonSerializable {
      */
     public $username = '';
 
+    /**
+     * notifications list
+     * @var string
+     */
+    public $notifications = '';
+
+    /**
+     * notifications list
+     * @var int
+     */
+    public $notificationCount = 0;
+
 }

@@ -60,6 +60,7 @@ class refresh extends \fpcm\controller\abstracts\ajaxController
 
         $this->runSessionCheck();
         $this->runArticleInEdit();
+        $this->getNotifications();
         $this->response->setReturnData($this->returnDataObj)->fetch();
     }
 
@@ -146,6 +147,26 @@ class refresh extends \fpcm\controller\abstracts\ajaxController
         }
 
         return true;
+    }
+
+    private function getNotifications()
+    {
+        /* @var $result \fpcm\module\eventResult */
+        $result = $this->events->trigger('ajaxRefresh', new \fpcm\model\theme\notifications());
+        
+        if (!$result->getSuccessed() || !$result->getContinue()) {
+            return false;
+        }
+
+        /* @var $notifications \fpcm\model\theme\notifications */
+        $notifications = $result->getData();
+        if (!$notifications->count()) {
+            return false;
+        }
+        
+        $this->returnDataObj->notifications = (string) $notifications;
+        $this->returnDataObj->notificationCount = $notifications->count();
+        
     }
 
 }

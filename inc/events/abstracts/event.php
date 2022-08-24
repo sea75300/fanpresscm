@@ -40,6 +40,12 @@ abstract class event {
      * Object returntype für Module-Event
      * @since 4
      */
+    const RETURNTYPE_EVENTRESULT = '\\fpcm\\module\\eventResult';
+
+    /**
+     * Object returntype für Module-Event
+     * @since 4
+     */
     const RETURNTYPE_VOID = null;
 
     /**
@@ -212,7 +218,6 @@ abstract class event {
         return str_replace('fpcm\\events\\', '', get_class($this));
     }
 
-
     /**
      * Executes a certain event
      * @param array $data
@@ -221,7 +226,14 @@ abstract class event {
     public function run()
     {
         $eventClasses = $this->getEventClasses();
+        $returnDataType = $this->getReturnType();
+        
         if (!count($eventClasses)) {
+
+            if ($returnDataType === self::RETURNTYPE_EVENTRESULT) {
+                return (new \fpcm\module\eventResult())->setContinue(false);
+            }              
+
             return $this->data;
         }
 
@@ -244,7 +256,19 @@ abstract class event {
             $eventResult = $module->run();
         }
 
-        $returnDataType = $this->getReturnType();
+        
+        if ($returnDataType === self::RETURNTYPE_EVENTRESULT) {
+
+            /* @var $eventResult \fpcm\module\eventResult */
+            if (!$eventResult instanceof \fpcm\module\eventResult) {
+                trigger_error('Returned event data must an instance of \\fpcm\\module \\eventResult');
+                return (new \fpcm\module\eventResult())->setContinue(false)->setData($module);
+            }
+
+            return $eventResult;
+        }
+        
+        
         if ($returnDataType === self::RETURNTYPE_VOID && $eventResult !== null) {
             trigger_error('Invalid data type. Returned data type must be null for '.$base);
             return null;
