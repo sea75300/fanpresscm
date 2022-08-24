@@ -134,4 +134,14 @@ final class cache {
         return new $cbe($cacheName);
     }
 
+    /**
+     * Get cache backend name
+     * @return string
+     * @since 5.1-dev
+     */
+    public static function getCacheBackendName() : string
+    {
+        return strtoupper(preg_replace('/(.*\\\\)(.*)/', 'SYSTEM_OPTIONS_SYSCHECK_CACHE_$2', FPCM_CACHE_BACKEND));
+    }
+
 }

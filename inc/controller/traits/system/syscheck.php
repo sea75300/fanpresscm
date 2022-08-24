@@ -87,7 +87,7 @@ trait syscheck {
             'http://php.net/manual/info.configuration.php',
             ($curVal >= $recomVal ? true : false),
             true
-        );
+        );     
 
         $dbDrivers      = \PDO::getAvailableDrivers();
         $resultMySql    = in_array(\fpcm\classes\database::DBTYPE_MYSQLMARIADB, $dbDrivers);
@@ -133,6 +133,13 @@ trait syscheck {
                 $db->checkDbVersion()
             );
         }
+
+        $checkOptions[$this->language->translate('SYSTEM_OPTIONS_SYSCHECK_CACHE')] =
+            new \fpcm\model\system\syscheckOption (
+                $this->language->translate(\fpcm\classes\cache::getCacheBackendName()),
+                'https://sea75300.github.io/fanpresscm/',
+                true
+        ); 
 
         $current = in_array('pdo', $loadedExtensions) && in_array('pdo_mysql', $loadedExtensions);
         $checkOptions['PHP Data Objects (PDO)'] = new \fpcm\model\system\syscheckOption(
