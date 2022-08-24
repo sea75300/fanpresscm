@@ -146,7 +146,7 @@ fpcm.system = {
                 });                
                 
 
-                if (fpcm.vars.jsvars.articleId == 1) {
+                if (fpcm.vars.jsvars.articleId > 0) {
                     fpcm.editor.showInEditDialog(result);
                 }
 
