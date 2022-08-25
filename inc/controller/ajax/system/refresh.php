@@ -151,21 +151,23 @@ class refresh extends \fpcm\controller\abstracts\ajaxController
 
     private function getNotifications()
     {
+        $notifications = new \fpcm\model\theme\notifications();
+        $notifications->prependSystemNotifications();
+        
         /* @var $result \fpcm\module\eventResult */
-        $result = $this->events->trigger('ajaxRefresh', new \fpcm\model\theme\notifications());
+        $result = $this->events->trigger('ajaxRefresh', $notifications);
         
         if (!$result->getSuccessed() || !$result->getContinue()) {
+            $this->returnDataObj->notificationCount = $notifications->count();
+            $this->returnDataObj->notifications = (string) $notifications;
             return false;
         }
 
         /* @var $notifications \fpcm\model\theme\notifications */
         $notifications = $result->getData();
-        if (!$notifications->count()) {
-            return false;
-        }
         
-        $this->returnDataObj->notifications = (string) $notifications;
         $this->returnDataObj->notificationCount = $notifications->count();
+        $this->returnDataObj->notifications = (string) $notifications;
         
     }
 
