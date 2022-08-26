@@ -366,7 +366,10 @@ fpcm.system = {
                         size: 'xl',
                         content: _result,
                         closeButton: true,
-                        headlines: true
+                        headlines: true,
+                        dlOnOpenAfter: function (_dlg) {
+                            fpcm.ui_dialogs.initScrollspy(_dlg.id);
+                        }
                     });
                 }
             });
