@@ -2,7 +2,7 @@
 <!DOCTYPE HTML>
 <HTML lang="<?php print $theView->langCode; ?>">
     <head>
-        <title><?php $theView->write('HEADLINE'); ?></title>
+        <title><?php $theView->write('HEADLINE'); ?> <?php print $theView->version; ?> | <?php $theView->escape($theView->currentUser->getDisplayName()); ?></title>
         <meta charset="utf-8"> 
         <meta name="robots" content="noindex, nofollow">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
