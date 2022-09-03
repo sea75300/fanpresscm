@@ -283,7 +283,7 @@ class controller implements \fpcm\controller\interfaces\controller {
             return $this->checkPageToken;
         }
         elseif (!$hasFunc && ( !isset($_SERVER['HTTP_REFERER']) || strpos($_SERVER['HTTP_REFERER'], \fpcm\classes\dirs::getRootUrl()) === false )) {
-            trigger_error('Referer check failed for '. get_class($this).'.', E_USER_ERROR);
+            trigger_error(sprintf('Referer %s check failed for %s.', $_SERVER['HTTP_REFERER'] ?? 'http(s)://??', static::class), E_USER_ERROR);
             $this->checkPageToken = false;
             return $this->checkPageToken;
         }
@@ -533,7 +533,7 @@ class controller implements \fpcm\controller\interfaces\controller {
      */
     final protected function hasActiveModule()
     {
-        $this->moduleElement = !(\fpcm\module\module::getKeyFromClass(get_class($this)) == false);
+        $this->moduleElement = !(\fpcm\module\module::getKeyFromClass(static::class) == false);
         return true;
     }
 

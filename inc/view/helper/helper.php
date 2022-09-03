@@ -180,7 +180,7 @@ abstract class helper implements \Stringable {
      */
     public function __call($name, $arguments)
     {
-        print $name . ' does not exists in ' . get_class($this);
+        print $name . ' does not exists in ' . static::class;
         return $this;
     }
 

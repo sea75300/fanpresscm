@@ -212,7 +212,7 @@ class revision extends \fpcm\model\abstracts\dataset {
 
         $object = $this->dbcon->fetch($result);
         if (!$object) {
-            trigger_error('Failed to load data for object of type "' . get_class($this) . '" with given id ' . $this->id . '!');
+            trigger_error('Failed to load data for object of type "' . static::class . '" with given id ' . $this->id . '!');
             return false;
         }
 

@@ -123,7 +123,7 @@ abstract class event {
      */
     public function __call($name, $arguments)
     {
-        print "Function '{$name}' not found in " . get_class($this) . '<br>';
+        print "Function '{$name}' not found in " . static::class . '<br>';
         return false;
     }
 
@@ -209,7 +209,7 @@ abstract class event {
      */
     protected function getEventClassBase()
     {
-        return str_replace('fpcm\\events\\', '', get_class($this));
+        return str_replace('fpcm\\events\\', '', static::class);
     }
 
 

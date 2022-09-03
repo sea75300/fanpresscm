@@ -142,7 +142,7 @@ abstract class dashcontainer extends model implements \fpcm\model\interfaces\das
             return false;
         }
 
-        return in_array(get_class($this), $conf);
+        return in_array(static::class, $conf);
     }
 
     /**

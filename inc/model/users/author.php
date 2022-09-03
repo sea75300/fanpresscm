@@ -659,7 +659,7 @@ class author extends \fpcm\model\abstracts\dataset {
         );
 
         if (!$data) {
-            trigger_error('Failed to load data for object of type "' . get_class($this) . '" with given id ' . $this->id . '!');
+            trigger_error('Failed to load data for object of type "' . static::class . '" with given id ' . $this->id . '!');
             return false;
         }
 

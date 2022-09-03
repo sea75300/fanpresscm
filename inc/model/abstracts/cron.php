@@ -97,7 +97,7 @@ abstract class cron implements \fpcm\model\interfaces\cron {
         $this->table = database::tableCronjobs;
         $this->dbcon = loader::getObject('\fpcm\classes\database');
         $this->events = loader::getObject('\fpcm\events\events');
-        $this->cronName = basename(str_replace('\\', DIRECTORY_SEPARATOR, get_class($this)));
+        $this->cronName = basename(str_replace('\\', DIRECTORY_SEPARATOR, static::class));
 
         if (!$init) {
             return;
