@@ -31,6 +31,52 @@ class notifications implements \Countable {
     private $ctr = null;
 
     /**
+     * Prepends system notifications
+     * @return void
+     * @since 5.1-dev
+     */
+    final public function prependSystemNotifications(): void
+    {
+        if (\fpcm\classes\loader::getObject('\fpcm\model\system\config')->system_maintenance) {
+            $this->addNotification(new \fpcm\model\theme\notificationItem(
+                (new \fpcm\view\helper\icon('lightbulb'))->setText('SYSTEM_OPTIONS_MAINTENANCE'),
+                '', '', 'text-danger'
+            ));
+        }
+
+        if (!\fpcm\classes\baseconfig::asyncCronjobsEnabled()) {
+            $this->addNotification(new \fpcm\model\theme\notificationItem(
+                (new \fpcm\view\helper\icon('history'))->setText('SYSTEM_OPTIONS_CRONJOBS')
+            ));
+        }
+        
+        if (defined('FPCM_DEBUG') && FPCM_DEBUG) {
+            $this->addNotification(new \fpcm\model\theme\notificationItem(
+                (new \fpcm\view\helper\icon('terminal'))->setText('DEBUG_MODE'),
+                '', '', 'text-danger'
+            ));
+        }
+        
+        if (defined('FPCM_VIEW_JS_USE_MINIFIED') && FPCM_VIEW_JS_USE_MINIFIED) {
+            $this->addNotification(new \fpcm\model\theme\notificationItem(
+                (new \fpcm\view\helper\icon('js', 'fab'))->setText('NOTIFICATION_EXPERIMENTAL_MINJS')
+            ));
+        }
+        
+        if (defined('FPCM_UPLOADER_UPPY') && FPCM_UPLOADER_UPPY) {
+            $this->addNotification(new \fpcm\model\theme\notificationItem(
+                (new \fpcm\view\helper\icon('arrow-up-from-bracket'))->setText('NOTIFICATION_EXPERIMENTAL_UPPY')
+            ));
+        }
+
+        if (str_contains(FPCM_CACHE_BACKEND, 'memcacheBackend')) {
+            $this->addNotification(new \fpcm\model\theme\notificationItem(
+                (new \fpcm\view\helper\icon('flask'))->setText('memcache cache backend is enabled!')
+            ));
+        }    
+    }
+
+    /**
      * Notification hinzufügen
      * @param \fpcm\model\theme\notificationItem $notification
      */
@@ -77,18 +123,11 @@ class notifications implements \Countable {
             ));
         }
 
-        $notificationStrings = array_map([$this, 'asString'], $this->notifications);
-        return implode(PHP_EOL, $notificationStrings) . PHP_EOL;
-    }
+        $notificationStrings = array_map(function (notificationItem $item) {
+            return (string) $item;
+        }, $this->notifications);
 
-    /**
-     * returns item as string
-     * @param \fpcm\model\theme\notificationItem $item
-     * @return string
-     */
-    private function asString(notificationItem $item)
-    {
-        return (string) $item;
+        return implode(PHP_EOL, $notificationStrings) . PHP_EOL;
     }
 
 }

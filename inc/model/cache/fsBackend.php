@@ -40,7 +40,7 @@ class fsBackend implements \fpcm\model\interfaces\cacheBackend {
      * Konstruktor
      * @param string $cacheName
      */
-    public function __construct($cacheName)
+    public function __construct(?string $cacheName)
     {
         $cacheName = explode('/', $cacheName, 2);
 
@@ -58,7 +58,7 @@ class fsBackend implements \fpcm\model\interfaces\cacheBackend {
      * @param integer $expires
      * @return bool
      */
-    public function write($data, $expires)
+    public function write($data, int $expires)
     {
         if (defined('FPCM_INSTALLER_NOCACHE') && FPCM_INSTALLER_NOCACHE) {
             return false;
@@ -131,6 +131,25 @@ class fsBackend implements \fpcm\model\interfaces\cacheBackend {
         }
 
         return unlink($this->path);
+    }
+
+    /**
+     * Prepare data
+     * @param mixed $value
+     * @return mixed
+     */
+    public function prepareReturnedValue(mixed $value): mixed
+    {
+        return substr($value, 0, 2) == 'a:' || substr($value, 0, 2) == 'o:' ? unserialize($value) : $value;
+    }
+
+    /**
+     * Get cache size
+     * @return int
+     */
+    public function getSize(string $basePath): int
+    {
+        return array_sum(array_map('filesize', static::getCacheComplete($basePath)));
     }
 
     /**

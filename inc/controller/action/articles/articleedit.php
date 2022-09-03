@@ -130,7 +130,7 @@ class articleedit extends articlebase {
             'canConnect' => \fpcm\classes\baseconfig::canConnect() ? 1 : 0,
             'articleId' => $this->article->getId(),
             'checkTimeout' => FPCM_ARTICLE_LOCKED_INTERVAL * 1000,
-            'checkLastState' => -1,
+            'checkLastState' => (int) $this->article->isInEdit(),
             'lkIp' => $this->permissions->comment->lockip ? 1 : 0
         ]);
 

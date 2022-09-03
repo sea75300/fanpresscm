@@ -146,12 +146,16 @@ fpcm.system = {
                 });                
                 
 
-                if (fpcm.vars.jsvars.articleId == 1) {
+                if (fpcm.vars.jsvars.articleId > 0) {
                     fpcm.editor.showInEditDialog(result);
                 }
 
                 if (result.sessionCode == 0 && fpcm.vars.jsvars.sessionCheck) {
                     fpcm.system.showSessionCheckDialog();
+                }
+
+                if (result.notifications) {
+                    fpcm.system.addAjaxNotifications(result.notifications, result.notificationCount);
                 }
 
             },
@@ -362,7 +366,10 @@ fpcm.system = {
                         size: 'xl',
                         content: _result,
                         closeButton: true,
-                        headlines: true
+                        headlines: true,
+                        dlOnOpenAfter: function (_dlg) {
+                            fpcm.ui_dialogs.initScrollspy(_dlg.id);
+                        }
                     });
                 }
             });
@@ -370,6 +377,19 @@ fpcm.system = {
             return false;
         });
 
+    },
+    
+    addAjaxNotifications: function(_nstring, _count) {
+        
+        fpcm.dom.assignHtml('#fpcm-id-notifications', _nstring);
+        let _el = fpcm.dom.fromId('notificationsCount').html(_count);
+        
+        if (_count) {
+            _el.removeClass('d-none');
+            return true;
+        }
+        
+        _el.addClass('d-none');
     },
 
     checkForUpdates: function () {

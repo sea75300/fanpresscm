@@ -514,7 +514,7 @@ fpcm.editor = {
 
     showInEditDialog: function(result){
 
-        if (fpcm.vars.jsvars.checkLastState == 1 && result.articleCode == 0 && !result.articleUser) {
+        if (fpcm.vars.jsvars.checkLastState == 1 && result.articleCode == 0) {
 
             fpcm.ui.addMessage({
                 type : 'notice',
@@ -524,7 +524,7 @@ fpcm.editor = {
             }, true);
         }
 
-        if (fpcm.vars.jsvars.checkLastState == 0 && result.articleCode == 1 && result.articleUser) {
+        if (fpcm.vars.jsvars.checkLastState == 0 && result.articleCode == 1) {
             var msg = fpcm.ui.translate('EDITOR_STATUS_INEDIT');
             fpcm.ui.addMessage({
                 type : 'neutral',

@@ -250,12 +250,6 @@ fpcm.ui_dialogs = {
 
         fpcm.dom.fromId(_dlgId + '-navbar').find('ul').append(_links.join('')).removeClass('d-none');
         fpcm.dom.fromId(_dlgId + '-navbar').removeClass('d-none');
-
-        var dataSpyList = [].slice.call(document.querySelectorAll('#' + _dlgId + ' [data-bs-spy="scroll"]'))
-        dataSpyList.forEach(function (dataSpyEl) {
-            bootstrap.ScrollSpy.getOrCreateInstance(dataSpyEl).refresh();
-        });
-
     },
     
     confirm: function(_params) {
@@ -367,6 +361,13 @@ fpcm.ui_dialogs = {
 
         _bsObj.toggle(_domEl);
         return true;
+    },
+    
+    initScrollspy: function (_id) {
+        var _spylist = [].slice.call(document.querySelectorAll('#' + _id + ' [data-bs-spy="scroll"]'));
+        _spylist.forEach(function (_el) {
+            bootstrap.ScrollSpy.getOrCreateInstance(_el).refresh();
+        });   
     }
     
 }

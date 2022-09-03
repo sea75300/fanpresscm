@@ -616,6 +616,6 @@ fpcm.ui = {
     
     getUniqueID: function (_descr) {
         return (new Date()).getMilliseconds() + Math.random().toString(36).substr(2, 9) + (_descr ? _descr : '');
-    },
+    }
 
 };

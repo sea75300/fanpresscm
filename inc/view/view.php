@@ -326,41 +326,7 @@ class view {
             return false;
         }
         
-        if ($this->config->system_maintenance) {
-            $this->notifications->addNotification(new \fpcm\model\theme\notificationItem(
-                (new helper\icon('lightbulb'))->setText('SYSTEM_OPTIONS_MAINTENANCE'),
-                '', '', 'text-danger'
-            ));
-        }
-
-        if (!\fpcm\classes\baseconfig::asyncCronjobsEnabled()) {
-            $this->notifications->addNotification(new \fpcm\model\theme\notificationItem(
-                (new helper\icon('history'))->setText('SYSTEM_OPTIONS_CRONJOBS'),
-                '', '', 'text-danger'
-            ));
-        }
-        
-        if (defined('FPCM_DEBUG') && FPCM_DEBUG) {
-            $this->notifications->addNotification(new \fpcm\model\theme\notificationItem(
-                (new helper\icon('terminal'))->setText('DEBUG_MODE'),
-                '', '', 'text-danger'
-            ));
-        }
-        
-        if (defined('FPCM_VIEW_JS_USE_MINIFIED') && FPCM_VIEW_JS_USE_MINIFIED) {
-            $this->notifications->addNotification(new \fpcm\model\theme\notificationItem(
-                (new helper\icon('js', 'fab'))->setText('NOTIFICATION_EXPERIMENTAL_MINJS'),
-                '', '', 'text-danger'
-            ));
-        }
-        
-        if (defined('FPCM_UPLOADER_UPPY') && FPCM_UPLOADER_UPPY) {
-            $this->notifications->addNotification(new \fpcm\model\theme\notificationItem(
-                (new helper\icon('arrow-up-from-bracket'))->setText('NOTIFICATION_EXPERIMENTAL_UPPY'),
-                '', '', 'text-danger'
-            ));
-        }
-
+        $this->notifications->prependSystemNotifications();
         $this->defaultViewVars->notifications = $this->notifications;
         return true;
     }

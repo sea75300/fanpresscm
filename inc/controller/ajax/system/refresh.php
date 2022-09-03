@@ -23,6 +23,12 @@ class refresh extends \fpcm\controller\abstracts\ajaxController
     private $ext = false;
 
     /**
+     * 
+     * @var \fpcm\model\http\responseDataRefresh
+     */
+    private $returnDataObj;
+
+    /**
      * @see \fpcm\controller\abstracts\controller::hasAccess()
      * @return bool
      */
@@ -45,6 +51,8 @@ class refresh extends \fpcm\controller\abstracts\ajaxController
      */
     public function process()
     {
+        $this->returnDataObj = new \fpcm\model\http\responseDataRefresh();
+        
         $this->runCrons();
         if ($this->ext) {
             exit('{}');
@@ -52,7 +60,8 @@ class refresh extends \fpcm\controller\abstracts\ajaxController
 
         $this->runSessionCheck();
         $this->runArticleInEdit();
-        $this->response->setReturnData($this->returnData)->fetch();
+        $this->getNotifications();
+        $this->response->setReturnData($this->returnDataObj)->fetch();
     }
 
     /**
@@ -76,8 +85,8 @@ class refresh extends \fpcm\controller\abstracts\ajaxController
         foreach ($crons as $cron) {
             $cronlist->registerCronAjax($cron);
         }
-
-        $this->returnData['crons'] = true;
+        
+        $this->returnDataObj->crons = true;
         return true;
     }
 
@@ -88,16 +97,16 @@ class refresh extends \fpcm\controller\abstracts\ajaxController
     private function runSessionCheck()
     {
         if (!is_object($this->session)) {
-            $this->returnData['sessionCode'] = -1;
+            $this->returnDataObj->sessionCode = -1;
             return true;
         }
 
         if (!$this->session->exists() || $this->ipList->ipIsLocked($this->getIpLockedModul()) ) {
-            $this->returnData['sessionCode'] = 0;
+            $this->returnDataObj->sessionCode = 0;
             return true;
         }
 
-        $this->returnData['sessionCode'] = 1;
+        $this->returnDataObj->sessionCode = 1;
         return true;
     }
 
@@ -107,14 +116,13 @@ class refresh extends \fpcm\controller\abstracts\ajaxController
      */
     private function runArticleInEdit()
     {
-        $this->returnData['articleCode'] = 0;
-        $this->returnData['articleUser'] = false;
+        $this->returnDataObj->articleCode = 0;
 
         $articleId = $this->request->fetchAll('articleId', [
             \fpcm\model\http\request::FILTER_CASTINT
         ]);
 
-        if ($this->returnData['sessionCode'] < 1 || !$this->permissions->editArticles() || !$articleId) {
+        if ($this->returnDataObj->sessionCode < 1 || !$this->permissions->editArticles() || !$articleId) {
             return true;
         }
         
@@ -128,17 +136,39 @@ class refresh extends \fpcm\controller\abstracts\ajaxController
             $article->setInEdit();
             return true;
         }
-        
-        $this->returnData['articleCode'] = 1;
+
+        $this->returnDataObj->articleCode = 1;
         $data = $article->getInEdit();
 
         if (is_array($data)) {
             $user = new \fpcm\model\users\author($data[1]);
 
-            $this->returnData['username'] = $user->exists() ? $user->getDisplayname() : $this->language->translate('GLOBAL_NOTFOUND');
+            $this->returnDataObj->username = $user->exists() ? $user->getDisplayname() : $this->language->translate('GLOBAL_NOTFOUND');
         }
 
         return true;
+    }
+
+    private function getNotifications()
+    {
+        $notifications = new \fpcm\model\theme\notifications();
+        $notifications->prependSystemNotifications();
+        
+        /* @var $result \fpcm\module\eventResult */
+        $result = $this->events->trigger('ajaxRefresh', $notifications);
+        
+        if (!$result->getSuccessed() || !$result->getContinue()) {
+            $this->returnDataObj->notificationCount = $notifications->count();
+            $this->returnDataObj->notifications = (string) $notifications;
+            return false;
+        }
+
+        /* @var $notifications \fpcm\model\theme\notifications */
+        $notifications = $result->getData();
+        
+        $this->returnDataObj->notificationCount = $notifications->count();
+        $this->returnDataObj->notifications = (string) $notifications;
+        
     }
 
 }
