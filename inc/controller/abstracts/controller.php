@@ -344,7 +344,7 @@ class controller implements \fpcm\controller\interfaces\controller {
     protected function getViewPath() : string
     {
         if ($this instanceof \fpcm\controller\interfaces\viewByNamespace) {
-            return str_replace(['fpcm\\controller\\action\\', '\\'], ['', DIRECTORY_SEPARATOR], get_called_class());
+            return preg_replace('/(\\\\?fpcm\\\\controller\\\\action\\\\){1}(.*)\\\\(.*)/i', '$2' . DIRECTORY_SEPARATOR . '$3', static::class );
         }
 
         return '';
@@ -579,7 +579,7 @@ class controller implements \fpcm\controller\interfaces\controller {
         
         $fn = trim($prefix.$actionName);
         if (!method_exists($this, $fn)) {
-            trigger_error('Request for undefined function '.$fn.' in '. get_called_class(), E_USER_WARNING);
+            trigger_error(sprintf('Request for undefined function %s in %s!', $fn, static::class) , E_USER_WARNING);
             return self::ERROR_PROCESS_BYPARAMS;
         }
 

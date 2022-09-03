@@ -27,7 +27,7 @@ class testing extends \fpcm\controller\abstracts\controller implements \fpcm\con
      * @return bool
      */
     public function process() : bool
-    {
+    {       
         $this->view->addJsFiles([
             'testing.js'
         ]);

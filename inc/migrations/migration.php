@@ -116,7 +116,7 @@ abstract class migration {
      */
     final public function process() : bool
     {
-        $cn = get_called_class();
+        $cn = static::class;
         $this->output('Processing migration '.$cn);
         
         $dbType = $this->getDB()->getDbtype();
