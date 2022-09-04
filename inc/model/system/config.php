@@ -81,7 +81,7 @@ use fpcm\model\traits\eventModuleEmpty;
  * @copyright (c) 2011-2021, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-final class config extends dataset {
+final class config extends dataset implements \fpcm\model\interfaces\isObjectInstancable {
 
     use eventModuleEmpty;
 
@@ -515,5 +515,23 @@ final class config extends dataset {
             50 => 50
         ];
     }
+
+    /**
+     * Returns config class instance
+     * @return config
+     * @since 5.1-dev
+     */
+    public static function getInstance()
+    {
+        $iClass = static::class;
+        
+        if (!isset($GLOBALS['fpcm']['objects'][$iClass])) {
+            $GLOBALS['fpcm']['objects'][$iClass] = new $iClass();
+        }
+        
+        return $GLOBALS['fpcm']['objects'][$iClass];
+        
+    }
+
 
 }

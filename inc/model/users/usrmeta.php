@@ -153,14 +153,16 @@ implements  \ArrayAccess,
      */
     private function initDefaults(): void
     {
+        $co = \fpcm\model\system\config::getInstance();
+        
         $this->data = [
-            'articles_acp_limit' => \fpcm\classes\loader::getObject('\fpcm\model\system\config')->articles_acp_limit,
-            'file_list_limit' => \fpcm\classes\loader::getObject('\fpcm\model\system\config')->file_list_limit,
-            'file_view' => \fpcm\classes\loader::getObject('\fpcm\model\system\config')->file_view,
-            'system_dtmask' => \fpcm\classes\loader::getObject('\fpcm\model\system\config')->system_dtmask,
-            'system_editor_fontsize' => \fpcm\classes\loader::getObject('\fpcm\model\system\config')->system_editor_fontsize,
-            'system_lang' => \fpcm\classes\loader::getObject('\fpcm\model\system\config')->system_lang,
-            'system_timezone' => \fpcm\classes\loader::getObject('\fpcm\model\system\config')->system_timezone,
+            'articles_acp_limit' => $co->articles_acp_limit,
+            'file_list_limit' => $co->file_list_limit,
+            'file_view' => $co->file_view,
+            'system_dtmask' => $co->system_dtmask,
+            'system_editor_fontsize' => $co->system_editor_fontsize,
+            'system_lang' => $co->system_lang,
+            'system_timezone' => $co->system_timezone,
             'dashboard_containers_disabled' => [],
             'dashboardpos' => []
         ];
