@@ -22,7 +22,7 @@ class smtpTest extends \fpcm\controller\abstracts\ajaxController
      * Check controlelr acccess
      * @return boolean
      */
-    public function isAccessible()
+    public function isAccessible(): bool
     {
         return $this->config->smtp_enabled && $this->permissions->system->options;
     }
