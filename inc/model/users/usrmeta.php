@@ -42,12 +42,8 @@ implements  \ArrayAccess,
             $data = json_decode($data, true);
         }
 
-        $this->data = $data;
-
-        if (!is_array($this->data)) {
-            $this->data = [];
-        }
-
+        $this->initDefaults();
+        $this->data = array_merge($this->data, $data);
     }
 
     
@@ -129,7 +125,7 @@ implements  \ArrayAccess,
         if (!is_array($this->data) || !count($this->data)) {
             return;
         }
-        
+
         foreach ($this->data as $key => $value) {
             
             if (!isset($newData[$key])) {
@@ -138,6 +134,36 @@ implements  \ArrayAccess,
             
             $newData[$key] = $value;
         }
+
+    }
+
+    /**
+     * Reset profile settings
+     * @return bool
+     */
+    public function resetSettings(): bool
+    {
+        $this->data = [];
+        return true;
+    }
+
+    /**
+     * Init default user meta settings from config
+     * @return void
+     */
+    private function initDefaults(): void
+    {
+        $this->data = [
+            'articles_acp_limit' => \fpcm\classes\loader::getObject('\fpcm\model\system\config')->articles_acp_limit,
+            'file_list_limit' => \fpcm\classes\loader::getObject('\fpcm\model\system\config')->file_list_limit,
+            'file_view' => \fpcm\classes\loader::getObject('\fpcm\model\system\config')->file_view,
+            'system_dtmask' => \fpcm\classes\loader::getObject('\fpcm\model\system\config')->system_dtmask,
+            'system_editor_fontsize' => \fpcm\classes\loader::getObject('\fpcm\model\system\config')->system_editor_fontsize,
+            'system_lang' => \fpcm\classes\loader::getObject('\fpcm\model\system\config')->system_lang,
+            'system_timezone' => \fpcm\classes\loader::getObject('\fpcm\model\system\config')->system_timezone,
+            'dashboard_containers_disabled' => [],
+            'dashboardpos' => []
+        ];
     }
 
 }

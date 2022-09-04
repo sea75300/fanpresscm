@@ -17,7 +17,7 @@ fpcm.templates = {
 
             onRenderHtmlBefore: function(_ui) {
 
-                if (fpcm.templates.editorInstance === undefined ||
+                if (!fpcm.templates.editorInstance ||
                     !_ui.relatedTarget.dataset.tplid ) {
                     return true;
                 }

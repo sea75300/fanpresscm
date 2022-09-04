@@ -153,7 +153,7 @@ class commentedit extends \fpcm\controller\abstracts\controller
             'editorGalleryTagStart' => \fpcm\model\pubtemplates\article::GALLERY_TAG_START,
             'editorGalleryTagEnd' => \fpcm\model\pubtemplates\article::GALLERY_TAG_END,
             'editorGalleryTagThumb' => \fpcm\model\pubtemplates\article::GALLERY_TAG_THUMB,
-            'editorGalleryTagLink' => \fpcm\model\pubtemplates\article::GALLERY_TAG_LINK            
+            'editorGalleryTagLink' => \fpcm\model\pubtemplates\article::GALLERY_TAG_LINK
         );
 
         $this->view->addJsVars($jsVars);

@@ -289,9 +289,9 @@ class author extends \fpcm\model\abstracts\dataset {
     }
 
     /**
-     * Liefert ben.-def. Einstellungen zurück
+     * Returns user settings
      * @param string $valueName
-     * @return mixed
+     * @return usrmeta
      */
     public function getUserMeta($valueName = null)
     {
@@ -299,11 +299,7 @@ class author extends \fpcm\model\abstracts\dataset {
             return $this->usrmeta;
         }
 
-        if ($this->usrmeta->{$valueName}) {
-            return $this->usrmeta->{$valueName};
-        }
-
-        return $this->config->{$valueName};
+        return $this->usrmeta->{$valueName};
     }
 
     /**
@@ -572,7 +568,7 @@ class author extends \fpcm\model\abstracts\dataset {
      */
     public function resetProfileSettings()
     {
-        $this->setUserMeta(new usrmeta([]));
+        $this->getUserMeta()->resetSettings();
         $this->disablePasswordSecCheck();
         $this->setPassword(null);
         return $this->update();
