@@ -34,7 +34,7 @@ class showarchive extends showcommon {
     {
         $res = parent::createPagination($count, $action);
         $res = str_replace('</ul>', '<li><a href="?module=fpcm/list" class="fpcm-pub-pagination-page">' . $this->language->translate('ARTICLES_PUBLIC_ACTIVE') . '</a></li>' . PHP_EOL . '</ul>' . PHP_EOL, $res);
-        $res = $this->events->trigger('pub\pageinationShowArchive', $res);
+        $res = $this->events->trigger('pub\pageinationShowArchive', $res)->getData();
 
         return $res;
     }
@@ -55,7 +55,7 @@ class showarchive extends showcommon {
         $this->assignConditions($countConditions);
         $parsed[] = $this->createPagination($this->articleList->countArticlesByCondition($countConditions), 'fpcm/archive');
 
-        return $this->events->trigger('pub\showArchive', $parsed);
+        return $this->events->trigger('pub\showArchive', $parsed)->getData();
     }
 
     protected function isArchive(): bool

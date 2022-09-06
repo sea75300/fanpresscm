@@ -28,15 +28,16 @@ final class getByCondition extends \fpcm\events\abstracts\eventReturnArray {
      * @return array
      */
     public function run()
-    {
-        $eventData = parent::run();
-        if (!isset($eventData['where']) || !is_array($eventData['where']) ||
-            !isset($eventData['conditions']) || $eventData['conditions'] instanceof \fpcm\model\comments\search ||
-            !isset($eventData['values']) || !is_array($eventData['values'])) {
-            return $this->data;
+    {        
+        $result = parent::run();
+        $tmp = $result->getData();
+        if (!isset($tmp['where']) || !is_array($tmp['where']) ||
+            !isset($tmp['conditions']) || $tmp['conditions'] instanceof \fpcm\model\comments\search ||
+            !isset($tmp['values']) || !is_array($tmp['values'])) {
+            return (new \fpcm\module\eventResult)->setContinue(true)->setData($this->data);
         }
 
-        return $eventData;
+        return $eventData;        
     }
 
 }

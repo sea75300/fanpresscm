@@ -99,7 +99,7 @@ class search extends \fpcm\controller\abstracts\ajaxController
         }
 
         $this->conditions->combinationDeleted = \fpcm\model\comments\search::COMBINATION_AND;
-        $this->conditions = $this->events->trigger('comments\prepareSearch', $this->conditions);
+        $this->conditions = $this->events->trigger('comments\prepareSearch', $this->conditions)->getData();
 
         return true;
     }

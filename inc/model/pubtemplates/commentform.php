@@ -70,7 +70,7 @@ final class commentform extends template {
             return false;
         }
 
-        $this->replacementTags = $this->events->trigger('template\parseCommentForm', $this->replacementTags);
+        $this->replacementTags = $this->events->trigger('template\parseCommentForm', $this->replacementTags)->getData();
         $tags = array_merge($this->replacementInternal, $this->replacementTags);
         return \fpcm\classes\tools::strReplaceArray($this->content, $tags);
     }
@@ -85,7 +85,7 @@ final class commentform extends template {
             return false;
         }
 
-        $this->content = $this->events->trigger('template\save', array('file' => $this->fullpath, 'content' => $this->content))['content'];
+        $this->content = $this->events->trigger('template\save', array('file' => $this->fullpath, 'content' => $this->content))->getData()['content'];
 
         if (strpos($this->content, '{{submitUrl}}') === false) {
             trigger_error('Unable to update comment form template, {{submitUrl}} replacement is missing!');

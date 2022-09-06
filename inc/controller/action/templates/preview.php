@@ -92,9 +92,9 @@ class preview extends \fpcm\controller\abstracts\controller
         $this->view->overrideJsFiles($this->events->trigger('pub\addJsFiles', [
             \fpcm\components\components::getjQuery(),
             \fpcm\classes\dirs::getRootUrl('js/fpcm.js')
-        ]));
+        ])->getData());
         
-        $this->view->overrideCssFiles($this->events->trigger('pub\addCssFiles', $cssfiles));
+        $this->view->overrideCssFiles($this->events->trigger('pub\addCssFiles', $cssfiles)->getData());
         $this->view->render();
     }
 

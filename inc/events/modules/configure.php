@@ -30,15 +30,15 @@ class configure extends \fpcm\events\abstracts\eventReturnArray {
     {
         $class = \fpcm\module\module::getEventNamespace($this->data, $this->getEventClassBase());
         if (!class_exists($class)) {
-            return true;
+            return (new \fpcm\module\eventResult)->setData(true);
         }
 
         $obj = new $class($this->data);
         if (!$this->is_a($obj)) {
-            return false;
+            return (new \fpcm\module\eventResult)->setData(false);
         }
 
-        return $obj->run();
+        return (new \fpcm\module\eventResult)->setData($obj->run());
     }
 
 }

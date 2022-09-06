@@ -34,7 +34,9 @@ final class addToList extends \fpcm\events\abstracts\eventReturnArray {
             'logs-' . \fpcm\model\files\logfile::FPCM_LOGFILETYPE_PKGMGR
         ];
         
-        array_walk($result, function (\fpcm\view\helper\tabItem &$tab) use ($blacklist) {
+        
+        $dat = $result->getData();
+        array_walk($dat, function (\fpcm\view\helper\tabItem &$tab) use ($blacklist) {
             
             if (in_array($tab->getId(), $blacklist)) {
                 return false;
@@ -46,7 +48,8 @@ final class addToList extends \fpcm\events\abstracts\eventReturnArray {
 
             return true;
         });
-        
+
+        $result->setData($dat);
         return $result;
     }
 

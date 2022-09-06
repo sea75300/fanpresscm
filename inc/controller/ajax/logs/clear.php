@@ -83,7 +83,7 @@ class clear extends \fpcm\controller\abstracts\ajaxController
             $res = $this->events->trigger('logs\clearModuleLog', [
                 'key' => $this->moduleKey,
                 'log' => $this->log
-            ]);
+            ])->getData();
         }
 
         $this->response->setReturnData(new \fpcm\view\message(

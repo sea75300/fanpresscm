@@ -120,8 +120,8 @@ class pubController extends controller {
             $cssfiles[] = trim($this->config->system_css_path);
         }
 
-        $this->view->overrideJsFiles($this->events->trigger('pub\addJsFiles', $jsfiles));
-        $this->view->overrideCssFiles($this->events->trigger('pub\addCssFiles', $cssfiles));
+        $this->view->overrideJsFiles($this->events->trigger('pub\addJsFiles', $jsfiles)->getData());
+        $this->view->overrideCssFiles($this->events->trigger('pub\addCssFiles', $cssfiles)->getData());
         $this->view->overrideJsLangVars([]);
 
         return true;

@@ -229,7 +229,7 @@ class controller implements \fpcm\controller\interfaces\controller {
 
         $redirectString = 'Location: ' . ($controller ? \fpcm\classes\tools::getFullControllerLink($controller, $params) : 'index.php');
         if (is_object($this->events)) {
-            $redirectString = $this->events->trigger('controllerRedirect', $redirectString);
+            $redirectString = $this->events->trigger('controllerRedirect', $redirectString)->getData();
         }
 
         header($redirectString);

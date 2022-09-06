@@ -690,7 +690,7 @@ implements \fpcm\model\interfaces\isCsvImportable {
             'encoded' => $elLinkEncode,
             'active' => $external,
             'default' => true,
-        ]);
+        ])->getData();
 
         if (!$external) {
             return $elLink;
@@ -765,7 +765,7 @@ implements \fpcm\model\interfaces\isCsvImportable {
     public function createRevision($timer = 0)
     {
         $content = $this->getPreparedSaveParams();
-        $content = $this->events->trigger('revision\create', $content);
+        $content = $this->events->trigger('revision\create', $content)->getData();
 
         if (!$timer) {
             $timer = $this->changetime;
@@ -808,7 +808,7 @@ implements \fpcm\model\interfaces\isCsvImportable {
         if (!is_array($revisionSets) || !count($revisionSets)) {
             return [];
         }
-        $revisionFiles = $this->events->trigger('revision\getBefore', $revisionSets);
+        $revisionFiles = $this->events->trigger('revision\getBefore', $revisionSets)->getData();
 
         $revisions = [];
         foreach ($revisionSets as $revisionSet) {
@@ -826,7 +826,7 @@ implements \fpcm\model\interfaces\isCsvImportable {
             $revisions[$revTime] = $full ? $revData : $revData['title'];
         }
 
-        $revisions = $this->events->trigger('revision\getAfter', array('full' => $full, 'revisions' => $revisions))['revisions'];
+        $revisions = $this->events->trigger('revision\getAfter', array('full' => $full, 'revisions' => $revisions))->getData()['revisions'];
 
         return $revisions;
     }
@@ -853,7 +853,7 @@ implements \fpcm\model\interfaces\isCsvImportable {
             return false;
         }
 
-        $revision = $this->events->trigger('revision\get', $revision);
+        $revision = $this->events->trigger('revision\get', $revision)->getData();
         foreach ($revision->getContent() as $key => $value) {
             $this->$key = $value;
         }
@@ -906,7 +906,7 @@ implements \fpcm\model\interfaces\isCsvImportable {
         }
 
         /* @var $eventResult article */
-        $eventResult = $this->events->trigger('article\createTweet', $this);
+        $eventResult = $this->events->trigger('article\createTweet', $this)->getData();
 
         $author = new \fpcm\model\users\author($eventResult->getCreateuser());
 

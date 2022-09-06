@@ -158,7 +158,7 @@ implements \fpcm\controller\interfaces\requestFunctions {
             return true;
         }
 
-        $data = $this->events->trigger('session\loginBefore', $data);
+        $data = $this->events->trigger('session\loginBefore', $data)->getData();
 
         if (!empty($data['formData'])) {
             $tmp = json_decode((new \fpcm\classes\crypt)->decrypt(base64_decode($data['formData'])), true);

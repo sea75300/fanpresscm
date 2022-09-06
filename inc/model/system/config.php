@@ -153,7 +153,7 @@ final class config extends dataset implements \fpcm\model\interfaces\isObjectIns
             return false;
         }
 
-        $params = $this->events->trigger('configUpdate', $this->newConfig);
+        $params = $this->events->trigger('configUpdate', $this->newConfig)->getData();
 
         $data = [];
         $where = [];

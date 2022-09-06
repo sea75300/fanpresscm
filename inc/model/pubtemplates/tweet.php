@@ -58,7 +58,7 @@ final class tweet extends template {
             return false;
         }
 
-        $this->replacementTags = $this->events->trigger('template\parseTweet', $this->replacementTags);
+        $this->replacementTags = $this->events->trigger('template\parseTweet', $this->replacementTags)->getData();
 
         $content = $this->content;
         $tags = array_merge($this->replacementInternal, $this->replacementTags);
@@ -76,7 +76,7 @@ final class tweet extends template {
      */
     public function save()
     {
-        $this->content = $this->events->trigger('template\save', array('file' => $this->fullpath, 'content' => strip_tags($this->content)))['content'];
+        $this->content = $this->events->trigger('template\save', array('file' => $this->fullpath, 'content' => strip_tags($this->content)))->getData()['content'];
         return parent::save();
     }
 

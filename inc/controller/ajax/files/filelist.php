@@ -134,7 +134,7 @@ class filelist extends \fpcm\controller\abstracts\ajaxController
             $this->showPager ? $fileList->getDatabaseCountByCondition($this->filter) : 1
         );
         
-        $list = $this->events->trigger('reloadFileList', $list);
+        $list = $this->events->trigger('reloadFileList', $list)->getData();
 
         $userList = new \fpcm\model\users\userList();
         $this->initViewAssigns($list, $userList->getUsersAll());

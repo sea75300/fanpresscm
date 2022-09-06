@@ -216,7 +216,7 @@ final class email {
                 'text' => $this->text,
             ],
             'attachments' => $this->attachments
-        ]);
+        ])->getData();
 
         $this->headers = $eventData['headers'];
         $this->attachments = $eventData['attachments'];

@@ -102,7 +102,7 @@ abstract class articleEditor extends \fpcm\model\abstracts\staticModel {
             $editorStyles[$class] = $class;
         }
 
-        return $this->events->trigger('editor\addStyles', $editorStyles);
+        return $this->events->trigger('editor\addStyles', $editorStyles)->getData();
     }
 
     /**
@@ -111,7 +111,7 @@ abstract class articleEditor extends \fpcm\model\abstracts\staticModel {
      */
     public function getEditorLinks()
     {
-        $links = $this->events->trigger('editor\addLinks');
+        $links = $this->events->trigger('editor\addLinks')->getData();
         if (!is_array($links) || !count($links)) {
             return [];
         }
@@ -140,7 +140,7 @@ abstract class articleEditor extends \fpcm\model\abstracts\staticModel {
         $res = $this->events->trigger('editor\getFileList', [
             'label' => 'label',
             'files' => $data
-        ]);
+        ])->getData();
 
         return $res['files'] ?? [];
     }

@@ -188,7 +188,7 @@ final class smiley extends \fpcm\model\abstracts\file implements \Serializable, 
         }
 
         $saveValues = $this->getSaveValues();
-        $saveValues = $this->events->trigger('smileySave', $saveValues);
+        $saveValues = $this->events->trigger('smileySave', $saveValues)->getData();
 
         $this->cache->cleanup();
         return $this->dbcon->insert($this->table, $saveValues);
@@ -205,7 +205,7 @@ final class smiley extends \fpcm\model\abstracts\file implements \Serializable, 
         }
 
         $saveValues = $this->getSaveValues();
-        $saveValues = $this->events->trigger('smileyUpdate', $saveValues);
+        $saveValues = $this->events->trigger('smileyUpdate', $saveValues)->getData();
         
         $fields = array_keys($saveValues);
         $saveValues[] = $this->getId();

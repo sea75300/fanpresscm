@@ -136,7 +136,7 @@ class userRoll extends \fpcm\model\abstracts\dataset {
             'leveltitle' => $this->leveltitle,
             'codex' => $this->codex,
             'is_system' => $this->is_system
-        ]);
+        ])->getData();
 
         $newId = $this->dbcon->insert($this->table, $params);
 
@@ -206,7 +206,7 @@ class userRoll extends \fpcm\model\abstracts\dataset {
         $params = $this->events->trigger('userroll\update', [
             'leveltitle' => $this->leveltitle,
             'codex' => $this->codex,
-        ]);
+        ])->getData();
         
         $params[] = $this->id;
 

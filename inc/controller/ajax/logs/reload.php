@@ -126,7 +126,7 @@ class reload extends \fpcm\controller\abstracts\ajaxController
         $this->logObj = $this->events->trigger('logs\getModuleLog', [
             'key' => $this->moduleKey,
             'log' => $this->log
-        ]);
+        ])->getData();
 
         if (!$this->logObj instanceof \fpcm\model\logs\logfileResult) {
             return false;

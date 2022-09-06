@@ -240,7 +240,7 @@ final class sharebuttons extends template {
             '{{description}}' => $this->description,
             '{{articleId}}' => $this->articleId,
             '{{credits}}' => "<!-- Icon set powered by http://simplesharingbuttons.com and https://whatsappbrand.com/ -->"
-        ]));
+        ]))->getData();
     }
 
     /**

@@ -193,7 +193,7 @@ class permissions extends \fpcm\model\abstracts\dataset {
         }
 
         $params = $this->getPreparedSaveParams();
-        $params = $this->events->trigger($this->getEventName('update'), $params);
+        $params = $this->events->trigger($this->getEventName('update'), $params)->getData();
 
         $fields = array_keys($params);
 

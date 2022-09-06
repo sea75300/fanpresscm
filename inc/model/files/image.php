@@ -323,7 +323,7 @@ class image extends \fpcm\model\abstracts\file implements \fpcm\model\interfaces
         $saveValues = $this->getSaveValues();
         $saveValues['filesize'] = (int) $saveValues['filesize'];
 
-        return $this->dbcon->insert($this->table, $this->events->trigger('image\save', $saveValues));
+        return $this->dbcon->insert($this->table, $this->events->trigger('image\save', $saveValues)->getData());
     }
 
     /**
@@ -340,7 +340,7 @@ class image extends \fpcm\model\abstracts\file implements \fpcm\model\interfaces
         $saveValues['filesize'] = (int) $saveValues['filesize'];
 
         $saveValues[] = $this->filename;
-        $saveValues = $this->events->trigger('image\update', $saveValues);
+        $saveValues = $this->events->trigger('image\update', $saveValues)->getData();
 
         return $this->dbcon->update($this->table, $this->dbParams, array_values($saveValues), "filename = ?");
     }
@@ -466,7 +466,7 @@ class image extends \fpcm\model\abstracts\file implements \fpcm\model\interfaces
             return false;
         }        
 
-        $this->events->trigger('image\thumbnailCreate', $this);
+        $this->events->trigger('image\thumbnailCreate', $this)->getData();
         if (!file_exists($fullThumbPath)) {
             trigger_error('Unable to create thumbnail: ' . $this->getThumbnail());
             return false;

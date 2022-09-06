@@ -42,7 +42,7 @@ final class components {
             'SYSTEM_OPTIONS_NEWS_EDITOR_CLASSIC' => '\fpcm\components\editor\htmlEditor'
         ];
          
-        return array_map('base64_encode', \fpcm\classes\loader::getObject('\fpcm\events\events')->trigger('editor\getEditors', $list));
+        return array_map('base64_encode', \fpcm\classes\loader::getObject('\fpcm\events\events')->trigger('editor\getEditors', $list)->getData());
     }
 
     /**
@@ -62,7 +62,7 @@ final class components {
      */
     public static function getAuthProvider() : object
     {
-        $class = \fpcm\classes\loader::getObject('\fpcm\events\events')->trigger('getAuthProvider');
+        $class = \fpcm\classes\loader::getObject('\fpcm\events\events')->trigger('getAuthProvider')->getData();
         if (class_exists($class) && is_subclass_of($class, 'fpcm\model\abstracts\authProvider')) {
             return \fpcm\classes\loader::getObject($class);
         }
@@ -76,7 +76,7 @@ final class components {
      */
     public static function getChatptchaProvider() : object
     {
-        $class = \fpcm\classes\loader::getObject('\fpcm\events\events')->trigger('pub\replaceSpamCaptcha');
+        $class = \fpcm\classes\loader::getObject('\fpcm\events\events')->trigger('pub\replaceSpamCaptcha')->getData();
         if (class_exists($class) && is_subclass_of($class, '\fpcm\model\abstracts\spamCaptcha')) {
             return \fpcm\classes\loader::getObject($class);
         }

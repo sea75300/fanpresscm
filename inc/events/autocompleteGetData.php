@@ -30,11 +30,12 @@ final class autocompleteGetData extends \fpcm\events\abstracts\eventReturnArray 
     public function run()
     {
         $result = parent::run();
-        if (!count($result) || !isset($result['returnData'])) {
-            return $this->data['returnData'];
+        $tmp = $result->getData();
+        if (!count($tmp) || !isset($tmp['returnData'])) {
+            return (new \fpcm\module\eventResult)->setContinue(true)->setData($this->data['returnData']);
         }
 
-        return $result['returnData'];
+        return $this->toEventResult($result['returnData']);
     }
 
 }

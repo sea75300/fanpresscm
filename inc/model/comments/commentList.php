@@ -112,7 +112,7 @@ class commentList extends \fpcm\model\abstracts\tablelist {
             'conditions' => $conditions,
             'where' => $where,
             'values' => $valueParams
-        ]);
+        ])->getData();
 
         $where = $eventData['where'];
         $valueParams = $eventData['values'];
@@ -289,7 +289,7 @@ class commentList extends \fpcm\model\abstracts\tablelist {
         return $this->dbcon->count(
             $this->table,
             '*',
-            $this->events->trigger('comments\getByConditionCount', implode(" {$combination} ", $where))
+            $this->events->trigger('comments\getByConditionCount', implode(" {$combination} ", $where))->getData()
         );
     }
 
@@ -346,7 +346,7 @@ class commentList extends \fpcm\model\abstracts\tablelist {
         $result = $this->events->trigger('comments\massEditBefore', [
             'fields' => $fields,
             'commentIds' => $commentIds
-        ]);
+        ])->getData();
 
         foreach ($result as $key => $val) {
             ${$key} = $val;

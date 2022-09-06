@@ -190,7 +190,7 @@ class ipaddress extends \fpcm\model\abstracts\dataset {
         }
 
         $params = $this->getPreparedSaveParams();
-        $params = $this->events->trigger('ipaddressSave', $params);
+        $params = $this->events->trigger('ipaddressSave', $params)->getData();
 
         $return = false;
         if ($this->dbcon->insert($this->table, $params)) {
@@ -214,7 +214,7 @@ class ipaddress extends \fpcm\model\abstracts\dataset {
         }
 
         $params = $this->getPreparedSaveParams();
-        $params = $this->events->trigger('ipaddressUpdate', $params);        
+        $params = $this->events->trigger('ipaddressUpdate', $params)->getData();        
         $fields = array_keys($params);
         $params[] = $this->getId();
 

@@ -296,16 +296,10 @@ final class session extends \fpcm\model\abstracts\dataset {
      */
     public function save()
     {
-        if ($this->dbcon->insert(
-                $this->table, $this->events->trigger(
-                    'session\create', $this->getPreparedSaveParams()
-                )
-            )
-        ) {
-            return true;
-        }
-
-        return false;
+        return $this->dbcon->insert(
+            $this->table,
+            $this->events->trigger('session\create', $this->getPreparedSaveParams())->getData()
+        ) ? true : false;
     }
 
     /**
@@ -318,7 +312,7 @@ final class session extends \fpcm\model\abstracts\dataset {
         $fields = array_keys($params);
 
         $params[] = $this->getSessionId();
-        $params = $this->events->trigger('session\update', $params);
+        $params = $this->events->trigger('session\update', $params)->getData();
 
         $return = false;
         if ($this->dbcon->update($this->table, $fields, array_values($params), 'sessionid = ?')) {

@@ -349,7 +349,7 @@ abstract class articlebase extends \fpcm\controller\abstracts\controller impleme
      */
     protected function getUserFields()
     {
-        $fields = $this->events->trigger('editor\addUserFields');
+        $fields = $this->events->trigger('editor\addUserFields')->getData();
 
         if (!is_array($fields) || !count($fields))
             return [];

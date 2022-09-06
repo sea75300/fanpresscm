@@ -475,7 +475,7 @@ class author extends \fpcm\model\abstracts\dataset {
         $fields = array_keys($params);
         $params[] = $this->getId();
 
-        $this->events->trigger($this->getEventName('update'), $params);
+        $this->events->trigger($this->getEventName('update'), $params)->getData();
 
         $return = false;
         if ($this->dbcon->update($this->table, $fields, array_values($params), 'id = ?')) {

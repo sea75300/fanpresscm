@@ -30,8 +30,9 @@ final class massEditBefore extends \fpcm\events\abstracts\eventReturnArray {
     public function run()
     {
         $result = parent::run();
-        if (!count($result) || !isset($result['fields']) || !isset($result['commentIds'])) {
-            return $this->data;
+        $tmp = $result->getData();
+        if (!count($tmp) || !isset($tmp['fields']) || !isset($tmp['commentIds'])) {
+            return (new \fpcm\module\eventResult)->setContinue(true)->setData($this->data);
         }
 
         return $result;

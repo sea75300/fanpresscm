@@ -56,7 +56,7 @@ class autocomplete extends \fpcm\controller\abstracts\ajaxController
         $this->response->setReturnData($this->events->trigger('autocompleteGetData', [
             'module'     => $this->request->fetchAll('src'),
             'returnData' => $this->returnData
-        ]))->fetch();
+        ])->getData())->fetch();
 
     }
 

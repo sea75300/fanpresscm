@@ -58,7 +58,7 @@ final class comment extends template {
             return false;
         }
 
-        $this->replacementTags = $this->events->trigger('template\parseComment', $this->replacementTags);
+        $this->replacementTags = $this->events->trigger('template\parseComment', $this->replacementTags)->getData();
 
         $content = $this->content;
 

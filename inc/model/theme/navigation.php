@@ -41,7 +41,7 @@ class navigation extends \fpcm\model\abstracts\staticModel {
     public function render()
     {
         $this->getNavigation();
-        return $this->events->trigger('navigation\render', $this->navList);
+        return $this->events->trigger('navigation\render', $this->navList)->getData();
     }
 
     /**
@@ -99,7 +99,7 @@ class navigation extends \fpcm\model\abstracts\staticModel {
         $this->addTrashItem();
         $this->addUtilitiesItem();
 
-        return $this->events->trigger('navigation\add', $this->navList);
+        return $this->events->trigger('navigation\add', $this->navList)->getData();
     }
 
     /**
@@ -254,7 +254,7 @@ class navigation extends \fpcm\model\abstracts\staticModel {
      */
     private function modulesSubmenu()
     {
-        $items = $this->events->trigger('navigation\addSubmenuModules');
+        $items = $this->events->trigger('navigation\addSubmenuModules')->getData();
         if (!is_array($items) || !count($items)) {
             return [];
         }

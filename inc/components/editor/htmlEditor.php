@@ -108,7 +108,7 @@ class htmlEditor extends articleEditor {
                 'pageBreakVar' => \fpcm\model\pubtemplates\article::PAGEBREAK_TAG
             ],
             'editorInitFunction' => 'initCodeMirror'
-        ]);
+        ])->getData();
     }
 
     /**
@@ -308,7 +308,7 @@ class htmlEditor extends articleEditor {
             ]
         );
 
-        return $this->events->trigger('editor\initCodemirrorView', $vars);
+        return $this->events->trigger('editor\initCodemirrorView', $vars)->getData();
     }
 
     /**

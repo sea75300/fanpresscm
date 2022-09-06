@@ -279,7 +279,7 @@ abstract class dataset implements \fpcm\model\interfaces\dataset, \Stringable {
                         $this->table, $this->events->trigger(
                                 $this->getEventName('save'),
                                 $this->getPreparedSaveParams()
-                        )
+                        )->getData()
                 )
         ) {
             return false;
@@ -291,7 +291,7 @@ abstract class dataset implements \fpcm\model\interfaces\dataset, \Stringable {
         
         $afterEvent = $this->getEventName('saveAfter');
         if (class_exists(event::getEventNamespace($afterEvent))) {
-            $this->events->trigger($afterEvent, $this->id);
+            $this->events->trigger($afterEvent, $this->id)->getData();
         }
 
         return $this->id;
@@ -312,7 +312,7 @@ abstract class dataset implements \fpcm\model\interfaces\dataset, \Stringable {
         $fields = array_keys($params);
 
         $params[] = $this->getId();
-        $params = $this->events->trigger($this->getEventName('update'), $params);
+        $params = $this->events->trigger($this->getEventName('update'), $params)->getData();
 
         $return = false;
         if ($this->dbcon->update(
@@ -329,7 +329,7 @@ abstract class dataset implements \fpcm\model\interfaces\dataset, \Stringable {
 
         $afterEvent = $this->getEventName('updateAfter');
         if (class_exists(event::getEventNamespace($afterEvent))) {
-            $this->events->trigger($afterEvent, $this->id);
+            $this->events->trigger($afterEvent, $this->id)->getData();
         }
 
         return $return;

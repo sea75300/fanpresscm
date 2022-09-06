@@ -173,7 +173,7 @@ class categoryList extends \fpcm\model\abstracts\tablelist {
         $result = $this->events->trigger('category\massEditBefore', [
             'fields' => $fields,
             'ids' => $ids
-        ]);
+        ])->getData();
 
         foreach ($result as $key => $val) {
             ${$key} = $val;
@@ -203,7 +203,7 @@ class categoryList extends \fpcm\model\abstracts\tablelist {
             'result' => $result,
             'fields' => $fields,
             'ids' => $ids
-        ]);
+        ])->getData();
 
         return $result['result'];
     }

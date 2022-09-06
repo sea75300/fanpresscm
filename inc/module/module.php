@@ -251,7 +251,7 @@ class module {
      */
     public function getConfigViewVars() : array
     {
-        $res = \fpcm\classes\loader::getObject('\fpcm\events\events')->trigger('modules\configure', $this->mkey);
+        $res = \fpcm\classes\loader::getObject('\fpcm\events\events')->trigger('modules\configure', $this->mkey)->getData();
         return is_array($res) && count($res) ? $res : [];
     }
 
@@ -638,7 +638,7 @@ class module {
             return false;
         }
 
-        if (!\fpcm\classes\loader::getObject('\fpcm\events\events')->trigger('modules\installAfter', $this->mkey)) {
+        if (!\fpcm\classes\loader::getObject('\fpcm\events\events')->trigger('modules\installAfter', $this->mkey)->getData()) {
             return false;
         }
 
@@ -947,7 +947,7 @@ class module {
             return false;
         }
 
-        if (!\fpcm\classes\loader::getObject('\fpcm\events\events')->trigger('modules\updateAfter', $this->mkey)) {
+        if (!\fpcm\classes\loader::getObject('\fpcm\events\events')->trigger('modules\updateAfter', $this->mkey)->getData()) {
             return false;
         }
 

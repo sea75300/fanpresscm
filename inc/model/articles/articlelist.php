@@ -209,7 +209,7 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
             'conditions' => $conditions,
             'where' => $where,
             'values' => $valueParams
-        ]);
+        ])->getData();
 
         $conditions = $eventData['conditions'];
         $where = $eventData['where'];
@@ -393,7 +393,7 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
         $eventData = $this->events->trigger('article\getByConditionCount', [
             'where' => $where,
             'values' => $valueParams
-        ]);
+        ])->getData();
 
         return $this->dbcon->count(
             $this->table,
@@ -528,7 +528,7 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
         $result = $this->events->trigger('article\massEditBefore', [
             'fields' => $fields,
             'articleIds' => $articleIds
-        ]);
+        ])->getData();
 
         foreach ($result as $key => $val) {
             ${$key} = $val;
@@ -575,7 +575,7 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
             'result' => $result,
             'fields' => $fields,
             'articleIds' => $articleIds
-        ]);
+        ])->getData();
 
         return $result['result'];
     }

@@ -230,11 +230,13 @@ abstract class event {
         
         if (!count($eventClasses)) {
 
-            if ($returnDataType === self::RETURNTYPE_EVENTRESULT) {
-                return (new \fpcm\module\eventResult())->setContinue(false);
-            }              
-
-            return $this->data;
+//            if ($returnDataType === self::RETURNTYPE_EVENTRESULT) {
+//                return (new \fpcm\module\eventResult())->setContinue(false);
+//            }              
+//
+//            return $this->data;
+            
+            return (new \fpcm\module\eventResult())->setContinue(true)->setData($this->data);     
         }
 
         $base = $this->getEventClassBase();
@@ -255,38 +257,38 @@ abstract class event {
 
             $eventResult = $module->run();
         }
-
         
-        if ($returnDataType === self::RETURNTYPE_EVENTRESULT) {
-
-            /* @var $eventResult \fpcm\module\eventResult */
-            if (!$eventResult instanceof \fpcm\module\eventResult) {
-                trigger_error('Returned event data must an instance of \\fpcm\\module \\eventResult');
-                return (new \fpcm\module\eventResult())->setContinue(false)->setData($module);
-            }
-
-            return $eventResult;
-        }
+//        if ($returnDataType === self::RETURNTYPE_EVENTRESULT) {
+//
+//            /* @var $eventResult \fpcm\module\eventResult */
+//            if (!$eventResult instanceof \fpcm\module\eventResult) {
+//                trigger_error('Returned event data must an instance of \\fpcm\\module \\eventResult');
+//                return (new \fpcm\module\eventResult())->setContinue(false)->setData($module);
+//            }
+//
+//            return $eventResult;
+//        }
         
+        return $this->toEventResult($eventResult);
         
-        if ($returnDataType === self::RETURNTYPE_VOID && $eventResult !== null) {
-            trigger_error('Invalid data type. Returned data type must be null for '.$base);
-            return null;
-        }
-        elseif ($returnDataType === self::RETURNTYPE_ARRAY && !is_array($eventResult)) {
-            trigger_error('Invalid data type. Returned data type must be an array for '.$base);
-            return $this->data;
-        }
-        elseif ($returnDataType === self::RETURNTYPE_OBJ && !is_object($eventResult)) {
-            trigger_error('Invalid data type. Returned data type must be an object for '.$base);
-            return $this->data;
-        }
-        elseif ($returnDataType === self::RETURNTYPE_SCALAR && !is_scalar($eventResult) ) {
-            trigger_error('Invalid data type. Returned data type must be instance of ' . $returnDataType.' for '.$base);
-            return $this->data;
-        }
-
-        return $eventResult;
+//        if ($returnDataType === self::RETURNTYPE_VOID && $eventResult !== null) {
+//            trigger_error('Invalid data type. Returned data type must be null for '.$base);
+//            return null;
+//        }
+//        elseif ($returnDataType === self::RETURNTYPE_ARRAY && !is_array($eventResult)) {
+//            trigger_error('Invalid data type. Returned data type must be an array for '.$base);
+//            return $this->data;
+//        }
+//        elseif ($returnDataType === self::RETURNTYPE_OBJ && !is_object($eventResult)) {
+//            trigger_error('Invalid data type. Returned data type must be an object for '.$base);
+//            return $this->data;
+//        }
+//        elseif ($returnDataType === self::RETURNTYPE_SCALAR && !is_scalar($eventResult) ) {
+//            trigger_error('Invalid data type. Returned data type must be instance of ' . $returnDataType.' for '.$base);
+//            return $this->data;
+//        }
+//
+//        return $eventResult;
     }
 
     /**
@@ -297,6 +299,20 @@ abstract class event {
     final public static function getEventNamespace(string $event) : string
     {
         return 'fpcm\\events\\'.$event;
+    }
+
+    /**
+     * Convert event result to eventResult object
+     * @param mixed $data
+     * @return \fpcm\module\eventResult
+     */
+    final protected function toEventResult(mixed $data): \fpcm\module\eventResult
+    {
+        if ($data instanceof \fpcm\module\eventResult) {
+            return $data;
+        }
+
+        return (new \fpcm\module\eventResult())->setContinue(true)->setData($data);       
     }
 
 }

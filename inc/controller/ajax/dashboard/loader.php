@@ -52,7 +52,7 @@ class loader extends \fpcm\controller\abstracts\ajaxController
     protected function getClasses()
     {
         $containers = array_map(array($this, 'parseClassname'), glob(\fpcm\classes\dirs::getIncDirPath('model' . DIRECTORY_SEPARATOR . 'dashboard' . DIRECTORY_SEPARATOR . '*.php')));
-        $containers = $this->events->trigger('dashboardContainersLoad', $containers);
+        $containers = $this->events->trigger('dashboardContainersLoad', $containers)->getData();
 
         $viewVars = $this->view->getViewVars();
         $jsFiles = [];

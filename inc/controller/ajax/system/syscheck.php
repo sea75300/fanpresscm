@@ -102,7 +102,7 @@ class syscheck extends \fpcm\controller\abstracts\ajaxController
      */
     private function getCheckOptions()
     {
-        return $this->events->trigger('runSystemCheck', $this->getCheckOptionsSystem());
+        return $this->events->trigger('runSystemCheck', $this->getCheckOptionsSystem())->getData();
     }
 
     /**
@@ -150,7 +150,7 @@ class syscheck extends \fpcm\controller\abstracts\ajaxController
 
     public function processCli()
     {
-        return $this->events->trigger('runSystemCheck', $this->getCheckOptionsSystem());
+        return $this->events->trigger('runSystemCheck', $this->getCheckOptionsSystem())->getData();
     }
 
     public function getOptions() : array

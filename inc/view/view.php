@@ -644,7 +644,7 @@ class view {
         }
 
         $this->initAssigns();
-        extract($this->events->trigger('view\renderBefore', $this->viewVars));
+        extract($this->events->trigger('view\renderBefore', $this->viewVars)->getData());
 
         switch ($this->showHeader) {
             case self::INCLUDE_HEADER_FULL :
@@ -1076,8 +1076,8 @@ class view {
             return false;
         }
         
-        $this->jsFiles = $this->events->trigger($type.'\addJsFiles', $this->jsFiles);
-        $this->cssFiles = $this->events->trigger($type.'\addCssFiles', $this->cssFiles);    
+        $this->jsFiles = $this->events->trigger($type.'\addJsFiles', $this->jsFiles)->getData();
+        $this->cssFiles = $this->events->trigger($type.'\addCssFiles', $this->cssFiles)->getData();    
 
         return true;
     }
