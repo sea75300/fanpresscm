@@ -32,8 +32,8 @@ final class getByConditionCount extends \fpcm\events\abstracts\eventReturnArray 
         $eventData = parent::run();
         
         $obj = $eventData->getData();
-        if (!isset($eventData['where']) || !is_array($eventData['where']) ||
-            !isset($eventData['values']) || !is_array($eventData['values'])) {
+        if (!isset($obj['where']) || !is_array($obj['where']) ||
+            !isset($obj['values']) || !is_array($obj['values'])) {
             return (new \fpcm\module\eventResult)->setContinue(true)->setData($this->data);
         }
 
