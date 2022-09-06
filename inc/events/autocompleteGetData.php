@@ -35,7 +35,7 @@ final class autocompleteGetData extends \fpcm\events\abstracts\eventReturnArray 
             return (new \fpcm\module\eventResult)->setContinue(true)->setData($this->data['returnData']);
         }
 
-        return $this->toEventResult($result['returnData']);
+        return $result;
     }
 
 }
