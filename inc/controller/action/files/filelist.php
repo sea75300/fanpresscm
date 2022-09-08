@@ -160,17 +160,18 @@ class filelist extends \fpcm\controller\abstracts\controller
             $buttons[] = (new \fpcm\view\helper\deleteButton('deleteFiles'));
         }
 
-        if ($this->mode === 1) {
-            $buttons[] = (new \fpcm\view\helper\select('listView'))
-                    ->setOptions(\fpcm\components\components::getFilemanagerViews())
-                    ->setClass('fpcm-ui-listeview-setting')
-                    ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
-                    ->setSelected($this->config->file_view);
-        }
-
         $this->view->addButtons($buttons);
         $this->view->setFormAction('files/list', ['mode' => $this->mode]);
         
+
+        if ($this->mode === 1) {
+            $this->view->addToolbarRight((string) (new \fpcm\view\helper\select('listView'))
+                    ->setOptions(\fpcm\components\components::getFilemanagerViews())
+                    ->setClass('fpcm-ui-listeview-setting')
+                    ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
+                    ->setSelected($this->config->file_view) );
+        }
+
         $tabs = [
             (new \fpcm\view\helper\tabItem('files-list'))
                 ->setText('FILE_LIST_AVAILABLE')

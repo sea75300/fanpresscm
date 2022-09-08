@@ -75,6 +75,10 @@ span.fpcm-ui-badge,
     background: rgba(var(--bs-primary-rgb), 0.75);
 }
 
+.fpcm.ui-background-grey-75 {
+    background: rgba(var(--bs-secondary-rgb), 0.75);
+}
+
 div.fpcm.ui-files-item:nth-child(even) {
     background: rgba( var(--bs-light-rgb), 0.66);
 }

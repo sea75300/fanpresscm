@@ -117,6 +117,7 @@ class options extends \fpcm\controller\abstracts\controller implements \fpcm\con
             'SYSTEM_OPTIONS_COMMENT_NOTIFY_ALL' => 2
         ]);
 
+        $this->view->assign('smtpAuthTypes', \fpcm\classes\email::getAuthenticationTypes());
         $this->view->assign('smtpEncryption', \fpcm\classes\email::getEncryptions());
         $this->view->assign('filemanagerViews', \fpcm\components\components::getFilemanagerViews());
         $this->view->assign('articleLimitList', \fpcm\model\system\config::getArticleLimits());

@@ -383,5 +383,20 @@ final class email {
             'Auto' => 'auto'
         ];
     }
+    
+    /**
+     * Return SMTP authentication types
+     * @return array
+     * @since 5
+     */
+    public static function getAuthenticationTypes() : array
+    {
+        return [
+            'CRAM-MD5' => 'CRAM-MD5',
+            'LOGIN' => 'LOGIN',
+            'PLAIN' => 'PLAIN',
+//            'XOAUTH2 (Gmail)' => 'XOAUTH2',
+        ];
+    }
 
 }

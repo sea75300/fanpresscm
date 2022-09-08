@@ -81,9 +81,10 @@ class iplist extends \fpcm\controller\abstracts\controller implements \fpcm\cont
         $this->view->addJsFiles(['ipadresses.js']);
         $this->view->addButtons([
             (new \fpcm\view\helper\linkButton('addnew'))->setUrl(\fpcm\classes\tools::getFullControllerLink('ips/add'))->setText('GLOBAL_NEW')->setIcon('globe'),
-            (new \fpcm\view\helper\select('sortlist'))->setOptions($this->sorts)->setSelected($sort)->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED),
             (new \fpcm\view\helper\deleteButton('delete'))->setClass('fpcm ui-button-confirm'),
         ]);
+
+        $this->view->addToolbarRight((string) (new \fpcm\view\helper\select('sortlist'))->setOptions($this->sorts)->setSelected($sort)->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED));        
 
         $this->view->render();
     }

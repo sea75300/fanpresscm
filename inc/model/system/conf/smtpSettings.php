@@ -49,10 +49,28 @@ class smtpSettings extends \fpcm\model\abstracts\configObj
     public $pass = '';
 
     /**
-     * Conenction encryption
+     * Connection encryption
      * @var string
      */
     public $encr = 'auto';
+
+    /**
+     * Connection encryption
+     * @var string
+     */
+    public $auth = '';
+
+    /**
+     * OAuth token
+     * @var string
+     */
+    public $token = '';
+
+    /**
+     * OAuth access token
+     * @var string
+     */
+    public $accesstoken = '';
 
     /**
      * Constructor

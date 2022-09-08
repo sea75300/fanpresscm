@@ -1,7 +1,7 @@
 <div class="modal fade rounded {$modalClass}" id="{$id}" tabindex="-1" aria-labelledby="{$opener}" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered rounded-3 {$size} {$class}">
         <div class="modal-content shadow fpcm ui-background-white-0">
-            <div class="modal-header text-white fpcm ui-background-blue-75 ui-blurring">
+            <div class="modal-header text-white fpcm ui-background-grey-75 ui-blurring">
                 <h5 class="modal-title" id="exampleModalLabel">{$title}</h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>

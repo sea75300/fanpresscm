@@ -11,6 +11,7 @@ system/crons: action/system/crons
 system/info: action/system/info
 system/langedit: action/system/langedit
 system/import: action/system/import
+##system/smtpOAuth: action/system/smtpOAuth
 templates/templates: action/templates/templates
 templates/preview: action/templates/preview
 templates/templateedit: action/templates/articleTemplateEditor
