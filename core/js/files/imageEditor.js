@@ -21,7 +21,7 @@ fpcm.imageEditor = {
             title: 'FILE_LIST_EDIT',
             class: 'modal-fullscreen',
             modalBodyClass: 'overflow-hidden',
-            content: '<div class="m-2 mw-100 h-100 overflow-hidden"><img id="fpcm-dialog-files-imgeditor" src="' + _param.data.url + '"></div>',
+            content: '<div class="fpcm ui-image-editor-cropper m-2 mw-100 h-100 overflow-hidden"><img id="fpcm-dialog-files-imgeditor" src="' + _param.data.url + '"></div>',
             closeButton: true,
             scrollable: false,
             dlOnOpenAfter: function() {

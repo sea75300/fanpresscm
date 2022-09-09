@@ -109,3 +109,8 @@ table.diff-wrapper {
   border: none;
   padding: 0 0.35rem;
 }
+
+/* ------ Selectize.js */
+.fpcm.ui-image-editor-cropper .cropper-drag-box.cropper-crop.cropper-modal {
+    opacity: .5 !important;
+}
