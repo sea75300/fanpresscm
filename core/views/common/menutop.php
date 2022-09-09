@@ -40,7 +40,7 @@
                         <span class="d-none d-md-inline"><?php $theView->write('PROFILE_MENU_NOTIFICATIONS'); ?></span>
                         <?php $theView->badge('notificationsCount')->setText('PROFILE_MENU_NOTIFICATIONS')->setValue(count($theView->notifications))->addPadding(-1)->setClass('rounded-pill text-bg-warning ' . ( count($theView->notifications) ? '' : 'd-none' ) ); ?>
                     </a>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="fpcm-notify-menu" id="fpcm-id-notifications">
+                    <ul class="dropdown-menu dropdown-menu-end fpcm ui-z-index-top" aria-labelledby="fpcm-notify-menu" id="fpcm-id-notifications">
                         <?php print $theView->notifications; ?>
                     </ul>
                 </li>
@@ -49,7 +49,7 @@
                         <?php $theView->icon('user-circle')->setClass('fpcm-navicon')->setSize('lg'); ?>                
                         <span class="d-none d-md-inline"><?php $theView->write('PROFILE_MENU_LOGGEDINAS',  ['{{username}}' => $theView->currentUser->getDisplayName()]); ?></span>
                     </a>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="fpcm-profile-menu">
+                    <ul class="dropdown-menu dropdown-menu-end fpcm ui-z-index-top" aria-labelledby="fpcm-profile-menu">
                         <li class="dropdown-item fpcm-ui-font-small disabled text-dark">
                             <b><?php $theView->write('PROFILE_MENU_LOGGEDINSINCE'); ?>:</b><br>
                             <?php $theView->dateText($theView->loginTime); ?> (<?php print $theView->dateTimeZone; ?>)

@@ -161,10 +161,6 @@ ul.fpcm-ui-list-style-none {
     list-style-image: none;
 }
 
-div.fpcm.ui-message {
-    z-index: 9999 !important;
-}
-
 #fpcm-ui-toolbar .form-select {
     display: inline-block;
     width: auto;
@@ -195,4 +191,8 @@ div.fileupload-progress.in {
 .fpcm.ui-hidden,
 .fpcm-ui-hidden {
     display: none !important;
+}
+
+.fpcm.ui-z-index-top {
+    z-index : 1021;
 }

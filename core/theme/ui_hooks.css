@@ -114,3 +114,7 @@ table.diff-wrapper {
 .fpcm.ui-image-editor-cropper .cropper-drag-box.cropper-crop.cropper-modal {
     opacity: .5 !important;
 }
+
+.toast-container.position-fixed {
+    z-index : 1021;
+}
