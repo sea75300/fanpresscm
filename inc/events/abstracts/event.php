@@ -226,7 +226,7 @@ abstract class event {
     public function run()
     {
         $eventClasses = $this->getEventClasses();
-        $returnDataType = $this->getReturnType();
+//        $returnDataType = $this->getReturnType();
         
         if (!count($eventClasses)) {
 
@@ -249,6 +249,10 @@ abstract class event {
                 continue;
             }
             
+            if ($eventResult instanceof \fpcm\module\eventResult) {
+                $eventResult = $eventResult->getData();
+            }
+            
             /* @var \fpcm\module\event $module */
             $module = new $class($eventResult);
             if (!$this->is_a($module)) {
@@ -256,6 +260,12 @@ abstract class event {
             }
 
             $eventResult = $module->run();
+            
+            if (empty($eventResult)) {
+                trigger_error(sprintf('The return value of the module event "%s" cannot be empty. An instance of "\fpcm\module\eventResult" is required at least.', $module::class), E_USER_ERROR);
+                $eventResult = $this->toEventResult($this->data);
+            }
+            
         }
         
 //        if ($returnDataType === self::RETURNTYPE_EVENTRESULT) {
