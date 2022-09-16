@@ -11,8 +11,32 @@
             <h1 class="d-none">FanPress CM News System</h1>
         </div>
         
-        <div class="align-items-end">
+        <div class="align-items-end d-i">
             <ul class="navbar-nav me-auto">
+                <li class="nav-item dropdown-center">
+                    <button id="fpcm-id-search-global-btn" class="nav-link dropdown-toggle bg-transparent border-0" title="<?php $theView->write('ARTICLES_SEARCH'); ?>" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                        <?php $theView->icon('magnifying-glass')->setSize('lg')->setClass('fpcm-navicon')->setSize('lg')->setText('ARTICLES_SEARCH'); ?>
+                    </button>               
+                    
+                    <div class="dropdown-menu fpcm ui-z-index-top" aria-labelledby="fpcm-id-search-global-btn" id="fpcm-id-search-global">
+
+                        <h6 class="dropdown-header ps-2 pe-5"><?php $theView->write('ARTICLE_SEARCH_TEXT'); ?></h6>
+
+                        <div class="dropdown-item-text px-2">
+                            <div class="input-group input-group-sm w-auto">
+                                <input type="text" class="form-control" id="fpcm-id-search-global-text" placeholder="<?php $theView->write('ARTICLE_SEARCH_TEXT'); ?>" aria-label="<?php $theView->write('ARTICLE_SEARCH_TEXT'); ?>">
+                                <?php $theView->button('searchGlobalStart')
+                                        ->overrideButtonType('outline-secondary')
+                                        ->setText('ARTICLE_SEARCH_START')
+                                        ->setIcon('magnifying-glass-arrow-right')
+                                        ->setIconOnly(); ?>                            
+
+                            </div>
+
+                        </div>
+                    </div>
+                </li>                
+                
                 <li class="nav-item">
                     <a class="nav-link" href="<?php print $theView->frontEndLink; ?>" title="<?php $theView->write('GLOBAL_FRONTEND_OPEN'); ?>">
                         <?php $theView->icon('play')->setSize('lg')->setClass('fpcm-navicon'); ?>

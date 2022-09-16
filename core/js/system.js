@@ -23,6 +23,8 @@ fpcm.system = {
 
         fpcm.system.initPasswordFieldActions();
         fpcm.system.showHelpDialog();
+        fpcm.system.initSearchGlobal();
+
         fpcm.dom.bindClick('#fpcm-clear-cache', function () {
             return fpcm.system.clearCache();
         });
@@ -377,6 +379,19 @@ fpcm.system = {
             return false;
         });
 
+    },
+    
+    initSearchGlobal: function() {
+        
+        fpcm.dom.bindClick('#btnSearchGlobalStart', function () {
+            
+            fpcm.ui.addMessage({
+                txt: 'Not implemented yet!',
+                type: 'notice'
+            });
+            
+        });
+        
     },
     
     addAjaxNotifications: function(_nstring, _count) {
