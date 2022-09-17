@@ -401,6 +401,11 @@ fpcm.system = {
         
         fpcm.dom.bindClick('#btnSearchGlobalStart', function () {
             
+            var _sterm = fpcm.dom.fromId('fpcm-id-search-global-text').val();
+            if (!_sterm || _sterm.length < 3) {
+                return false;
+            }
+            
             fpcm.ajax.post('searchall', {
                 data: {
                     term: fpcm.dom.fromId('fpcm-id-search-global-text').val()
