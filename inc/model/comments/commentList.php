@@ -15,7 +15,9 @@ namespace fpcm\model\comments;
  * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class commentList extends \fpcm\model\abstracts\tablelist implements \fpcm\model\interfaces\gsearchIndex {
+class commentList
+extends \fpcm\model\abstracts\tablelist
+implements \fpcm\model\interfaces\gsearchIndex {
 
     use permissions;
 
@@ -620,7 +622,7 @@ class commentList extends \fpcm\model\abstracts\tablelist implements \fpcm\model
      */
     public function getSearchQuery(): \fpcm\model\dbal\selectParams
     {
-        return $this->getSearchQueryObj()->setItem('\'comments\' as model, id as oid, concat(name, \' | \', email) as text')->setFetchAll(true);
+        return $this->getSearchQueryObj()->setItem('\'comments\' as model, id as oid, '.$this->dbcon->concatString(['name', '";"', 'createtime']).' as text')->setFetchAll(true);
     }
 
     /**
@@ -654,6 +656,17 @@ class commentList extends \fpcm\model\abstracts\tablelist implements \fpcm\model
     private function getSearchQueryObj(): \fpcm\model\dbal\selectParams
     {
         return (new \fpcm\model\dbal\selectParams($this->table))->setWhere('deleted = 0 AND (name LIKE :term OR email LIKE :term OR website LIKE :term OR text LIKE :term OR ipaddress LIKE :term)');
+    }
+
+    /**
+     * Prepare result text
+     * @param string $text
+     * @return string
+     */
+    public function prepareText(string $text): string
+    {
+        list($name, $date) = explode(';', $text);
+        return sprintf('%s<br><span class="fpcm ui-font-small text-muted">%s</span>', new \fpcm\view\helper\escape($name), new \fpcm\view\helper\dateText($date));
     }
 
 }

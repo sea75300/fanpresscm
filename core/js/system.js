@@ -388,6 +388,17 @@ fpcm.system = {
             fpcm.dom.fromId('fpcm-id-search-global-text').val('');
         });
         
+        fpcm.dom.bindEvent('#fpcm-id-search-global-text', 'keydown', function (_e,_ui) {
+
+            if (_e.originalEvent.keyCode !== 13) {
+                return true;
+            }
+
+            fpcm.dom.fromId('btnSearchGlobalStart').trigger('click');
+            return false;
+
+        }, false, true);
+        
         fpcm.dom.bindClick('#btnSearchGlobalStart', function () {
             
             fpcm.ajax.post('searchall', {
@@ -395,35 +406,41 @@ fpcm.system = {
                     term: fpcm.dom.fromId('fpcm-id-search-global-text').val()
                 },
                 execDone: function (_result) {
+                    
+                    fpcm.dom.fromClass('fpcm.ui-search-global-results').remove();
+
+                    let _list = '';
+
+                    let _resCss = 'dropdown-item-text fpcm ui-search-global-results text-truncate';
 
                     if (_result.count < 1) {
-                        return false;
+                        let _l = fpcm.ui.getIcon('list-ul', {
+                            stack: 'ban fpcm-ui-important-text',
+                            stackTop: true,
+                        }) + ' ' + fpcm.ui.translate('GLOBAL_NOTFOUND2');
+                        _list += `<div class="${_resCss}"><div class="alert alert-secondary mb-0" role="alert">${_l}</div></div>`;
                     }
-
-                    let _el = fpcm.dom.fromId('fpcm-id-search-global');
-                    
-                    let _list = '';
-                    
-                    if (_result.count > _result.items.length) {
-                        
-                        _list += `<div class="alert alert-warning fpcm ui-search-global-results" role="alert">Es werden nicht alle Suchergebnisse (${_result.count}) angezeigt.</div>`;
-                    }
-                    
-                    for (var i = 0; i < _result.items.length; i++) {
-                        
-                        if (!_result.items[i]) {
-                            continue;
+                    else {
+                        if (_result.count > _result.items.length) {
+                            let _l = fpcm.ui.translate('LABEL_SEARCH_GLOBAL_RESULTSIZE').replace('{{result_count}}', _result.count);
+                            _list += `<div class="${_resCss}"><div class="alert alert-warning" role="alert">${_l}</div></div>`;
                         }
 
-                        let link = _result.items[i].link;
-                        let text = _result.items[i].text;
-                        let icon = _result.items[i].icon;
+                        for (var i = 0; i < _result.items.length; i++) {
 
-                        _list += `<div class="dropdown-item fpcm ui-search-global-results text-truncate"><a href="${link}" class="text-truncate">${icon}${text}</a></div>`;
+                            if (!_result.items[i]) {
+                                continue;
+                            }
+
+                            let link = _result.items[i].link;
+                            let text = _result.items[i].text;
+                            let icon = _result.items[i].icon;
+
+                            _list += `<div class="${_resCss}"><a href="${link}" target="_blank" class="text-truncate">${icon}${text}</a></div>`;
+                        }
                     }
 
-                    
-                    fpcm.dom.appendHtml(_el, `<div class="fpcm ui-search-global-results"><hr class="dropdown-divider"></div>${_list}`);
+                    fpcm.dom.appendHtml('#fpcm-id-search-global', `<div class="fpcm ui-search-global-results"><hr class="dropdown-divider"></div>${_list}`);
                 }
             });
         });

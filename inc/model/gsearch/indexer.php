@@ -86,8 +86,9 @@ class indexer extends \fpcm\model\abstracts\tablelist
             $instance = $this->instances[$result->model] ?? null;
             $link = $instance?->getElementLink($result->oid);
             $icon = $instance?->getElementIcon();
+            $text = $instance?->prepareText($result->text);
 
-            $setItems[] = new resultItem($result->text, $link, $icon);
+            $setItems[] = new resultItem($text, $link, $icon);
             
         }
 
@@ -119,7 +120,7 @@ class indexer extends \fpcm\model\abstracts\tablelist
             $this->instances[$key] = (new $class());
             
             if (!$this->instances[$key] instanceof \fpcm\model\interfaces\gsearchIndex) {
-                //trigger_error(sprintf('Object of type %s must be implement the interface \fpcm\model\interfaces\gsearchIndex', $class), E_USER_ERROR);
+                trigger_error(sprintf('Object of type %s must be implement the interface \fpcm\model\interfaces\gsearchIndex', $class), E_USER_ERROR);
                 unset($this->instances[$key]);
                 continue;
             }
@@ -140,7 +141,7 @@ class indexer extends \fpcm\model\abstracts\tablelist
         }         
         
         $cResults = $this->dbcon->unionSelectFetch($counter, \PDO::FETCH_KEY_PAIR);
-        $sResults = $this->dbcon->unionSelectFetch($searcher, \PDO::FETCH_OBJ, false, FPCM_ARTICLES_SOURCES_AUTOCOMPLETE, 0);
+        $sResults = $this->dbcon->unionSelectFetch($searcher, \PDO::FETCH_OBJ, false, 10, 0);
 
         return count($cResults) && count($sResults);
     }

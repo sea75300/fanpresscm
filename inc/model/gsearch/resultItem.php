@@ -46,7 +46,7 @@ class resultItem implements \JsonSerializable
      */
     public function __construct(string $text, string $link, \fpcm\view\helper\icon $icon)
     {
-        $this->text = strip_tags($text);
+        $this->text = strip_tags($text, ['<br>', '<span>']);
         $this->link = $link;
         $this->icon = (string) $icon;
     }

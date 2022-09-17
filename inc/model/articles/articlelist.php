@@ -15,7 +15,9 @@ namespace fpcm\model\articles;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\model\articles
  */
-class articlelist extends \fpcm\model\abstracts\tablelist implements \fpcm\model\interfaces\gsearchIndex {
+class articlelist
+extends \fpcm\model\abstracts\tablelist
+implements \fpcm\model\interfaces\gsearchIndex {
 
     use permissions;
 
@@ -844,7 +846,7 @@ class articlelist extends \fpcm\model\abstracts\tablelist implements \fpcm\model
      */
     public function getSearchQuery(): \fpcm\model\dbal\selectParams
     {
-        return $this->getSearchQueryObj()->setItem('\'articles\' as model, id as oid, title as text')->setFetchAll(true);
+        return $this->getSearchQueryObj()->setItem('\'articles\' as model, id as oid, '.$this->dbcon->concatString(['title', '";"', 'createtime']).' as text')->setFetchAll(true);
     }
 
     /**
@@ -878,6 +880,17 @@ class articlelist extends \fpcm\model\abstracts\tablelist implements \fpcm\model
     private function getSearchQueryObj(): \fpcm\model\dbal\selectParams
     {
         return (new \fpcm\model\dbal\selectParams($this->table))->setWhere('deleted = 0 AND (title LIKE :term OR content LIKE :term OR sources LIKE :term OR url LIKE :term)');
+    }
+
+    /**
+     * Prepare result text
+     * @param string $text
+     * @return string
+     */
+    public function prepareText(string $text): string
+    {
+        list($name, $date) = explode(';', $text);
+        return sprintf('%s<br><span class="fpcm ui-font-small text-muted">%s</span>', new \fpcm\view\helper\escape($name), new \fpcm\view\helper\dateText($date));        
     }
 
 }

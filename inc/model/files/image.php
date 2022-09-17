@@ -15,7 +15,9 @@ namespace fpcm\model\files;
  * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class image extends \fpcm\model\abstracts\file implements \fpcm\model\interfaces\validateFileType {
+class image
+extends \fpcm\model\abstracts\file
+implements \fpcm\model\interfaces\validateFileType {
 
     /**
      * Erlaubte Dateitypen
@@ -618,7 +620,7 @@ class image extends \fpcm\model\abstracts\file implements \fpcm\model\interfaces
             $filename[0] = $fn;
         }
 
-        return implode('/', $filename);;
+        return implode('/', $filename);
     }
 
     /**
