@@ -28,12 +28,17 @@ class autocomplete extends \fpcm\controller\abstracts\ajaxController
     protected $term = '';
 
     /**
+     * 
+     * @var array
+     */
+    protected $returnData = [];
+
+    /**
      * Request-Handler
      * @return bool
      */
     public function request()
     {
-        $this->returnData = [];
         $this->term = $this->request->fetchAll('term', [
             \fpcm\model\http\request::FILTER_STRIPTAGS,
             \fpcm\model\http\request::FILTER_STRIPSLASHES,
@@ -56,7 +61,7 @@ class autocomplete extends \fpcm\controller\abstracts\ajaxController
         $this->response->setReturnData($this->events->trigger('autocompleteGetData', [
             'module'     => $this->request->fetchAll('src'),
             'returnData' => $this->returnData
-        ])->getData())->fetch();
+        ])->getData()['returnData'])->fetch();
 
     }
 

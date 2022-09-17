@@ -430,6 +430,7 @@ $lang = array (
   'LABEL_FIELD_FILE_CROPPER_NAME' => 'Dateiname-Muster bearbeiteter Bilder',
   'LABEL_FIELD_FILE_CROPPER_NAME_HELP' => '{{filename}}: Dateiname, {{date}}: aktuelles Datum, {{datelong}}: aktuelles Datum mit Zeit, {{hash}}: Dateihash, {{userid}}:  Benutzer-ID, {{random}}: Zufallszahl',
   'LABEL_FIELD_OPENQR' => 'QR-Code anzeigen',
+  'LABEL_SEARCH_GLOBAL' => 'Gibt den Suchbegriff ein und drücke Enter oder die Lupe.',
   'LOAD_FAILED_ARTICLE' => 'Der gesuchte Artikel wurde nicht gefunden.',
   'LOAD_FAILED_ARTICLE_LIST' => 'Die gesuchte Seite wurde nicht gefunden.',
   'LOAD_FAILED_CATEGORY' => 'Die gesuchte Kategorie wurde nicht gefunden.',

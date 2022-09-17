@@ -383,6 +383,11 @@ fpcm.system = {
     
     initSearchGlobal: function() {
         
+        fpcm.ui.autocomplete('#fpcm-id-search-global-text', {
+            source: fpcm.vars.ajaxActionPath + 'autocomplete&src=articles',
+            minLength: 3
+        });        
+        
         fpcm.dom.bindClick('#btnSearchGlobalStart', function () {
             
             fpcm.ui.addMessage({
