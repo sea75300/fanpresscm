@@ -2,6 +2,7 @@
 ---
 ajax/cache: ajax/common/cache
 ajax/autocomplete: ajax/common/autocomplete
+ajax/searchall: ajax/common/searchall
 ajax/clearTrash: ajax/common/clearTrash
 ajax/setconfig: ajax/common/setConfig
 ajax/users/actions: ajax/users/actions
