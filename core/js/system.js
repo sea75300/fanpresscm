@@ -382,19 +382,50 @@ fpcm.system = {
     },
     
     initSearchGlobal: function() {
-        
-        fpcm.ui.autocomplete('#fpcm-id-search-global-text', {
-            source: fpcm.vars.ajaxActionPath + 'autocomplete&src=articles',
-            minLength: 3
-        });        
+
+        fpcm.dom.bindEvent('#fpcm-id-search-global-btn', 'hidden.bs.dropdown', function (_e, _ui) {
+            fpcm.dom.fromClass('fpcm.ui-search-global-results').remove();
+            fpcm.dom.fromId('fpcm-id-search-global-text').val('');
+        });
         
         fpcm.dom.bindClick('#btnSearchGlobalStart', function () {
             
-            fpcm.ui.addMessage({
-                txt: 'Not implemented yet!',
-                type: 'notice'
+            fpcm.ajax.post('searchall', {
+                data: {
+                    term: fpcm.dom.fromId('fpcm-id-search-global-text').val()
+                },
+                execDone: function (_result) {
+
+                    if (_result.count < 1) {
+                        return false;
+                    }
+
+                    let _el = fpcm.dom.fromId('fpcm-id-search-global');
+                    
+                    let _list = '';
+                    
+                    if (_result.count > _result.items.length) {
+                        
+                        _list += `<div class="alert alert-warning fpcm ui-search-global-results" role="alert">Es werden nicht alle Suchergebnisse (${_result.count}) angezeigt.</div>`;
+                    }
+                    
+                    for (var i = 0; i < _result.items.length; i++) {
+                        
+                        if (!_result.items[i]) {
+                            continue;
+                        }
+
+                        let link = _result.items[i].link;
+                        let text = _result.items[i].text;
+                        let icon = _result.items[i].icon;
+
+                        _list += `<div class="dropdown-item fpcm ui-search-global-results text-truncate"><a href="${link}" class="text-truncate">${icon}${text}</a></div>`;
+                    }
+
+                    
+                    fpcm.dom.appendHtml(_el, `<div class="fpcm ui-search-global-results"><hr class="dropdown-divider"></div>${_list}`);
+                }
             });
-            
         });
         
     },

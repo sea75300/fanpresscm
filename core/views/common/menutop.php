@@ -11,16 +11,16 @@
             <h1 class="d-none">FanPress CM News System</h1>
         </div>
         
-        <div class="align-items-end d-i">
+        <div class="align-items-end">
             <ul class="navbar-nav me-auto">
-                <li class="nav-item dropdown-center">
+                <li class="nav-item dropdown d-none d-md-inline">
                     <button id="fpcm-id-search-global-btn" class="nav-link dropdown-toggle bg-transparent border-0" title="<?php $theView->write('ARTICLES_SEARCH'); ?>" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
                         <?php $theView->icon('magnifying-glass')->setSize('lg')->setClass('fpcm-navicon')->setSize('lg')->setText('ARTICLES_SEARCH'); ?>
                     </button>               
                     
-                    <div class="dropdown-menu fpcm ui-z-index-top" aria-labelledby="fpcm-id-search-global-btn" id="fpcm-id-search-global">
+                    <div class="dropdown-menu fpcm ui-z-index-top ui-max-width-md" aria-labelledby="fpcm-id-search-global-btn" id="fpcm-id-search-global">
 
-                        <h6 class="dropdown-header ps-2 pe-5"><?php $theView->write('LABEL_SEARCH_GLOBAL'); ?></h6>
+                        <h6 class="dropdown-header ps-2"><?php $theView->write('LABEL_SEARCH_GLOBAL'); ?></h6>
 
                         <div class="dropdown-item-text px-2">
                             <div class="input-group input-group-sm w-auto">
@@ -34,6 +34,7 @@
                             </div>
 
                         </div>
+
                     </div>
                 </li>                
                 
@@ -64,7 +65,7 @@
                         <span class="d-none d-md-inline"><?php $theView->write('PROFILE_MENU_NOTIFICATIONS'); ?></span>
                         <?php $theView->badge('notificationsCount')->setText('PROFILE_MENU_NOTIFICATIONS')->setValue(count($theView->notifications))->addPadding(-1)->setClass('rounded-pill text-bg-warning ' . ( count($theView->notifications) ? '' : 'd-none' ) ); ?>
                     </a>
-                    <ul class="dropdown-menu dropdown-menu-end fpcm ui-z-index-top" aria-labelledby="fpcm-notify-menu" id="fpcm-id-notifications">
+                    <ul class="dropdown-menu dropdown-menu-end fpcm ui-z-index-top ui-max-width-md" aria-labelledby="fpcm-notify-menu" id="fpcm-id-notifications">
                         <?php print $theView->notifications; ?>
                     </ul>
                 </li>

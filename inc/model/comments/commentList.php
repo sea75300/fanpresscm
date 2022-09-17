@@ -15,7 +15,7 @@ namespace fpcm\model\comments;
  * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class commentList extends \fpcm\model\abstracts\tablelist {
+class commentList extends \fpcm\model\abstracts\tablelist implements \fpcm\model\interfaces\gsearchIndex {
 
     use permissions;
 
@@ -602,6 +602,58 @@ class commentList extends \fpcm\model\abstracts\tablelist {
         $valueParams[] = $conditions->deleted !== null ? $conditions->deleted : 0;
         
         return true;
+    }
+
+    /**
+     * Get count query string
+     * @return \fpcm\model\dbal\selectParams
+     * @since 5.1-dev
+     */
+    public function getCountQuery(): \fpcm\model\dbal\selectParams
+    {
+        return $this->getSearchQueryObj()->setItem('\'comments\' as model, count(id) as count');
+    }
+
+    /**
+     * Get query string
+     * @return \fpcm\model\dbal\selectParams
+     */
+    public function getSearchQuery(): \fpcm\model\dbal\selectParams
+    {
+        return $this->getSearchQueryObj()->setItem('\'comments\' as model, id as oid, concat(name, \' | \', email) as text')->setFetchAll(true);
+    }
+
+    /**
+     * Return link to element link
+     * @return string
+     * @since 5.1-dev
+     */
+    public function getElementLink(mixed $id): string
+    {
+        $tmp = \fpcm\classes\loader::getObject('\fpcm\model\comments\comment', null);
+        $tmp->setId($id);
+   
+        return $tmp->getEditLink();
+    }
+
+    /**
+     * Return link icon
+     * @return \fpcm\view\helper\icon
+     * @since 5.1-dev
+     */
+    public function getElementIcon(): \fpcm\view\helper\icon
+    {
+        return new \fpcm\view\helper\icon('comments');
+    }
+
+    /**
+     * Returns selectParams object instance
+     * @return \fpcm\model\dbal\selectParams
+     * @since 5.1-dev
+     */
+    private function getSearchQueryObj(): \fpcm\model\dbal\selectParams
+    {
+        return (new \fpcm\model\dbal\selectParams($this->table))->setWhere('deleted = 0 AND (name LIKE :term OR email LIKE :term OR website LIKE :term OR text LIKE :term OR ipaddress LIKE :term)');
     }
 
 }

@@ -18,7 +18,6 @@ namespace fpcm\controller\ajax\common;
  */
 class searchall extends \fpcm\controller\abstracts\ajaxController
 {
-
     use \fpcm\controller\traits\common\isAccessibleTrue;
 
     /**
@@ -48,20 +47,16 @@ class searchall extends \fpcm\controller\abstracts\ajaxController
      */
     public function process()
     {
-        
-        
-        
-//        if ($this->processByParam('autocomplete', 'src') !== true) {
-//            $this->response->setReturnData([])->fetch();
-//        }
-//
-//        $this->response->setReturnData($this->events->trigger('autocompleteGetData', [
-//            'module'     => $this->request->fetchAll('src'),
-//            'returnData' => $this->returnData
-//        ])->getData()['returnData'])->fetch();
+        if (!trim($this->term) || strlen($this->term) < 3) {
+            $this->response->setReturnData(new \fpcm\model\gsearch\resultSet([], 0))->fetch();
+        }
 
+        $cond = new \fpcm\model\gsearch\conditions($this->term);
+        
+        $indexer = new \fpcm\model\gsearch\indexer($cond);
+        $result = $indexer->getData();
+
+        $this->response->setReturnData($result)->fetch();
     }
 
 }
-
-?>

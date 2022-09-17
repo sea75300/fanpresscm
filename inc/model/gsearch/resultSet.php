@@ -16,8 +16,10 @@ namespace fpcm\model\gsearch;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @since 5.1-dev
  */
-class resultSet
+class resultSet implements \JsonSerializable
 {
+    use \fpcm\model\traits\jsonSerializeReturnObject;
+
     /**
      * List of resultItem objects
      * @var array
@@ -30,20 +32,33 @@ class resultSet
      */
     private int $count;
 
+    /**
+     * Constructor
+     * @param string $model
+     * @param array $items
+     * @param int $count
+     */
     public function __construct(array $items, int $count)
     {
         $this->items = $items;
         $this->count = $count;
     }
 
-    public function getItems(): array
-    {
+    /**
+     * Get list of items
+     * @return array
+     */
+    public function getItems(): array {
         return $this->items;
     }
 
-    public function getCount(): int
-    {
+    /**
+     * Get total search count
+     * @return int
+     */
+    public function getCount(): int {
         return $this->count;
     }
+
 
 }

@@ -226,17 +226,9 @@ abstract class event {
     public function run()
     {
         $eventClasses = $this->getEventClasses();
-//        $returnDataType = $this->getReturnType();
         
         if (!count($eventClasses)) {
-
-//            if ($returnDataType === self::RETURNTYPE_EVENTRESULT) {
-//                return (new \fpcm\module\eventResult())->setContinue(false);
-//            }              
-//
-//            return $this->data;
-            
-            return (new \fpcm\module\eventResult())->setContinue(true)->setData($this->data);     
+            return (new \fpcm\module\eventResult())->setData($this->data);     
         }
 
         $base = $this->getEventClassBase();
@@ -268,37 +260,7 @@ abstract class event {
             
         }
         
-//        if ($returnDataType === self::RETURNTYPE_EVENTRESULT) {
-//
-//            /* @var $eventResult \fpcm\module\eventResult */
-//            if (!$eventResult instanceof \fpcm\module\eventResult) {
-//                trigger_error('Returned event data must an instance of \\fpcm\\module \\eventResult');
-//                return (new \fpcm\module\eventResult())->setContinue(false)->setData($module);
-//            }
-//
-//            return $eventResult;
-//        }
-        
         return $this->toEventResult($eventResult);
-        
-//        if ($returnDataType === self::RETURNTYPE_VOID && $eventResult !== null) {
-//            trigger_error('Invalid data type. Returned data type must be null for '.$base);
-//            return null;
-//        }
-//        elseif ($returnDataType === self::RETURNTYPE_ARRAY && !is_array($eventResult)) {
-//            trigger_error('Invalid data type. Returned data type must be an array for '.$base);
-//            return $this->data;
-//        }
-//        elseif ($returnDataType === self::RETURNTYPE_OBJ && !is_object($eventResult)) {
-//            trigger_error('Invalid data type. Returned data type must be an object for '.$base);
-//            return $this->data;
-//        }
-//        elseif ($returnDataType === self::RETURNTYPE_SCALAR && !is_scalar($eventResult) ) {
-//            trigger_error('Invalid data type. Returned data type must be instance of ' . $returnDataType.' for '.$base);
-//            return $this->data;
-//        }
-//
-//        return $eventResult;
     }
 
     /**
@@ -322,7 +284,7 @@ abstract class event {
             return $data;
         }
 
-        return (new \fpcm\module\eventResult())->setContinue(true)->setData($data);       
+        return (new \fpcm\module\eventResult())->setData($data);       
     }
 
 }

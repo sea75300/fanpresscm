@@ -20,18 +20,23 @@ interface gsearchIndex {
      * Get query string
      * @return string
      */
-    public function getSearchQuery(): string;
+    public function getSearchQuery(): \fpcm\model\dbal\selectParams;
 
     /**
-     * Return container content
+     * Get count query string
      * @return string
      */
-    public function getCountQuery();
+    public function getCountQuery(): \fpcm\model\dbal\selectParams;
 
     /**
-     * Return container content
+     * Return link to element link
      * @return string
      */
-    public function getTableName();
+    public function getElementLink(mixed $param): string;
 
+    /**
+     * Return link icon
+     * @return \fpcm\view\helper\icon
+     */
+    public function getElementIcon(): \fpcm\view\helper\icon;
 }

@@ -16,8 +16,10 @@ namespace fpcm\model\gsearch;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @since 5.1-dev
  */
-class resultItem
+class resultItem implements \JsonSerializable
 {
+    use \fpcm\model\traits\jsonSerializeReturnObject;
+
     /**
      * Result item text
      * @var string
@@ -31,39 +33,22 @@ class resultItem
     private string $link;
 
     /**
-     * Return result item text
-     * @return string
+     * Element icon
+     * @var string
      */
-    public function getText(): string {
-        return $this->text;
-    }
+    private string $icon;
 
     /**
-     * Return result item link
-     * @return string
-     */
-    public function getLink(): string {
-        return $this->link;
-    }
-
-    /**
-     * Set result item text
+     * Constructor
      * @param string $text
-     * @return $this
-     */
-    public function setText(string $text) {
-        $this->text = $text;
-        return $this;
-    }
-
-    /**
-     * Set result item link
      * @param string $link
-     * @return $this
+     * @param string $icon
      */
-    public function setLink(string $link) {
+    public function __construct(string $text, string $link, \fpcm\view\helper\icon $icon)
+    {
+        $this->text = strip_tags($text);
         $this->link = $link;
-        return $this;
+        $this->icon = (string) $icon;
     }
 
 }

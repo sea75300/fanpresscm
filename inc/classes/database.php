@@ -306,7 +306,7 @@ final class database {
      * @return array
      * @since 4.5
      */
-    public function unionSelectFetch(array $selects, int $fetchStyle = \PDO::FETCH_OBJ, bool $returnResult = false)
+    public function unionSelectFetch(array $selects, int $fetchStyle = \PDO::FETCH_OBJ, bool $returnResult = false, ?int $count = null, ?int $offset = null)
     {
         $selects = array_filter($selects, function ($item) {            
             return ($item instanceof \fpcm\model\dbal\selectParams);
@@ -327,7 +327,7 @@ final class database {
             return [];
         }
 
-        $result = $this->query('('.implode(') UNION (', $queries).')', $params);
+        $result = $this->query('('.implode(') UNION (', $queries).')' . ( $count !== null && $offset !== null ? $this->limitQuery($count, $offset) : ''), $params);
         if ($returnResult) {
             return $result;
         }

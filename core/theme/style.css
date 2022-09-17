@@ -196,3 +196,7 @@ div.fileupload-progress.in {
 .fpcm.ui-z-index-top {
     z-index : 1021;
 }
+
+.fpcm.ui-max-width-md {
+    max-width: 30em;
+}

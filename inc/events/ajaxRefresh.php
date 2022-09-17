@@ -21,14 +21,5 @@ namespace fpcm\events;
  */
 final class ajaxRefresh extends \fpcm\events\abstracts\event
 {
-
-    /**
-     * Defines type of returned data
-     * @return string|bool|null
-     */
-    protected function getReturnType()
-    {
-        return self::RETURNTYPE_EVENTRESULT;
-    }
     
 }
