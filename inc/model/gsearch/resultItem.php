@@ -39,16 +39,24 @@ class resultItem implements \JsonSerializable
     private string $icon;
 
     /**
+     * Init lightbox for result list
+     * @var bool
+     */
+    private bool $lightbox;
+
+    /**
      * Constructor
      * @param string $text
      * @param string $link
-     * @param string $icon
+     * @param \fpcm\view\helper\icon $icon
+     * @param bool $lightbox
      */
-    public function __construct(string $text, string $link, \fpcm\view\helper\icon $icon)
+    public function __construct(string $text, string $link, \fpcm\view\helper\icon $icon, bool $lightbox)
     {
         $this->text = strip_tags($text, ['<br>', '<span>']);
         $this->link = $link;
         $this->icon = (string) $icon;
+        $this->lightbox = $lightbox;
     }
 
 }

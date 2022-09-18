@@ -33,15 +33,23 @@ class resultSet implements \JsonSerializable
     private int $count;
 
     /**
+     * Init lightbox for result list
+     * @var bool
+     */
+    private bool $lightbox;
+
+    /**
      * Constructor
      * @param string $model
      * @param array $items
      * @param int $count
+     * @param bool $lightbox
      */
-    public function __construct(array $items, int $count)
+    public function __construct(array $items, int $count, bool $lightbox)
     {
         $this->items = $items;
         $this->count = $count;
+        $this->lightbox = $lightbox;
     }
 
     /**
@@ -60,5 +68,13 @@ class resultSet implements \JsonSerializable
         return $this->count;
     }
 
+    /**
+     * Get lightbox init flag
+     * @return bool
+     */
+    public function getLightbox(): bool
+    {
+        return $this->lightbox;
+    }
 
 }

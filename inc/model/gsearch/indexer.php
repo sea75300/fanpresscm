@@ -74,6 +74,8 @@ class indexer extends \fpcm\model\abstracts\tablelist
         }         
         
         $setItems = [];
+        
+        $lightboxes = 0;
 
         /* @var $instance \fpcm\model\interfaces\gsearchIndex */
         foreach ($sResults as $result) {
@@ -87,12 +89,17 @@ class indexer extends \fpcm\model\abstracts\tablelist
             $link = $instance?->getElementLink($result->oid);
             $icon = $instance?->getElementIcon();
             $text = $instance?->prepareText($result->text);
+            
+            $lightbox = $result->model === 'images';
+            if ($lightbox) {
+                $lightboxes++;
+            }
 
-            $setItems[] = new resultItem($text, $link, $icon);
+            $setItems[] = new resultItem($text, $link, $icon, $lightbox);
             
         }
 
-        return new resultSet($setItems, array_sum($cResults));        
+        return new resultSet($setItems, array_sum($cResults), ($lightboxes > 0));
         
     }
 

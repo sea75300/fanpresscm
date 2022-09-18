@@ -415,7 +415,6 @@ fpcm.system = {
                     fpcm.dom.fromClass('fpcm.ui-search-global-results').remove();
 
                     let _list = '';
-
                     let _resCss = 'dropdown-item-text fpcm ui-search-global-results text-truncate';
 
                     if (_result.count < 1) {
@@ -440,12 +439,17 @@ fpcm.system = {
                             let link = _result.items[i].link;
                             let text = _result.items[i].text;
                             let icon = _result.items[i].icon;
+                            let linkCss = _result.items[i].lightbox ? 'fpcm ui-link-fancybox' : '';
 
-                            _list += `<div class="${_resCss}"><a href="${link}" target="_blank" class="text-truncate">${icon}${text}</a></div>`;
+                            _list += `<div class="${_resCss}"><a href="${link}" target="_blank" class="text-truncate ${linkCss}">${icon}${text}</a></div>`;
                         }
                     }
 
                     fpcm.dom.appendHtml('#fpcm-id-search-global', `<div class="fpcm ui-search-global-results"><hr class="dropdown-divider"></div>${_list}`);
+                    
+                    if (_result.lightbox) {
+                        fpcm.ui.initLightbox();
+                    }
                 }
             });
         });
