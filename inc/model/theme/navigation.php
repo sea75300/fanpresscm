@@ -30,8 +30,8 @@ class navigation extends \fpcm\model\abstracts\staticModel {
      */
     public function __construct(string $activeNavItem = '')
     {
-        parent::__construct();
-        $this->navList = new navigationList($activeNavItem ?? \fpcm\classes\tools::getNavigationActiveCheckStr());
+        parent::__construct();        
+        $this->navList = new navigationList($activeNavItem);
     }
     
     /**

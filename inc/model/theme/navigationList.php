@@ -37,7 +37,11 @@ final class navigationList {
      */
     final public function __construct(string $activeNavItem = '')
     {
-        $this->activeNavItem = $activeNavItem ?? \fpcm\classes\tools::getNavigationActiveCheckStr();
+        if (!trim($activeNavItem)) {
+            $activeNavItem = (new \fpcm\model\http\request())->fromGET('module');
+        }
+
+        $this->activeNavItem = $activeNavItem;
 
         $this->data = [
             navigationItem::AREA_DASHBOARD => [],

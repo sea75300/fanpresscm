@@ -113,7 +113,6 @@ class navigationItem extends \fpcm\model\abstracts\staticModel implements \Strin
     {
         $this->config = \fpcm\classes\loader::getObject('\fpcm\model\system\config');
         $this->language = \fpcm\classes\loader::getObject('\fpcm\classes\language');
-
         $this->id = uniqid('fpcm-nav-item-');
         $this->currentModule = \fpcm\classes\tools::getNavigationActiveCheckStr();
     }
@@ -340,7 +339,7 @@ class navigationItem extends \fpcm\model\abstracts\staticModel implements \Strin
         if ($this->getId() === 'fpcm-nav-item-' . $id) {
             return true;
         }
-        
+
         return ( substr($this->url, 0, strlen($this->currentModule)) === $this->currentModule ? true : false );
     }
 
@@ -395,6 +394,11 @@ class navigationItem extends \fpcm\model\abstracts\staticModel implements \Strin
         $this->activeSetModule = $mod;
     }
 
+    /**
+     * 
+     * @return string
+     * @ignore
+     */
     public function __toString() : string
     {
         $css = [];

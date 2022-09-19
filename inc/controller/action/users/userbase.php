@@ -216,5 +216,3 @@ class userbase extends \fpcm\controller\abstracts\controller
     }
 
 }
-
-?>
