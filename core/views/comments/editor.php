@@ -53,13 +53,21 @@
 
                 <div class="row g-0">                
                     <div class="col-form-label col-12 col-sm-6 col-md-4">
-                        <?php $theView->icon('exclamation-circle'); ?> <span class="fpcm-ui-label ps-1"> <?php $theView->write('COMMMENT_STATUS'); ?></span>
+                        <?php $theView->icon('exclamation-circle')->setSize('lg'); ?> <span class="fpcm-ui-label ps-1"> <?php $theView->write('COMMMENT_STATUS'); ?></span>
                     </div>
 
                     <div class="col">
-                        <?php $theView->checkbox('comment[spam]', 'spam')->setText('COMMMENT_SPAM')->setReadonly(!$theView->permissions->comment->approve)->setSelected($comment->getSpammer())->setClass('fpcm-ui-comments-status')->setSwitch(true); ?>
-                        <?php $theView->checkbox('comment[approved]', 'approved')->setText('COMMMENT_APPROVE')->setReadonly(!$theView->permissions->comment->approve)->setSelected($comment->getApproved())->setClass('fpcm-ui-comments-status')->setSwitch(true); ?>
-                        <?php $theView->checkbox('comment[private]', 'private')->setReadonly(!$theView->permissions->comment->private)->setText('COMMMENT_PRIVATE')->setSelected($comment->getPrivate())->setClass('fpcm-ui-comments-status')->setSwitch(true); ?>
+                        <div class="list-group">
+                            <div class="list-group-item">
+                                <?php $theView->checkbox('comment[spam]', 'spam')->setText('COMMMENT_SPAM')->setReadonly(!$theView->permissions->comment->approve)->setSelected($comment->getSpammer())->setSwitch(true); ?>
+                            </div>
+                            <div class="list-group-item">
+                                <?php $theView->checkbox('comment[approved]', 'approved')->setText('COMMMENT_APPROVE')->setReadonly(!$theView->permissions->comment->approve)->setSelected($comment->getApproved())->setSwitch(true); ?>
+                            </div>
+                            <div class="list-group-item">
+                                <?php $theView->checkbox('comment[private]', 'private')->setReadonly(!$theView->permissions->comment->private)->setText('COMMMENT_PRIVATE')->setSelected($comment->getPrivate())->setSwitch(true); ?>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

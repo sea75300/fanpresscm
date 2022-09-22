@@ -13,13 +13,30 @@
                     </div>
 
                     <div class="col">
-                    <?php if (!$article->getArchived()) : ?>
-                        <?php $theView->checkbox('article[pinned]')->setText('EDITOR_PINNED')->setSelected($article->getPinned())->setClass('fpcm-ui-editor-metainfo-checkbox')->setData(['icon' => 'pinned'])->setSwitch(true); ?>
-                        <?php $theView->checkbox('article[draft]')->setText('EDITOR_DRAFT')->setSelected($article->getDraft())->setClass('fpcm-ui-editor-metainfo-checkbox')->setData(['icon' => 'draft'])->setSwitch(true); ?>
-                    <?php endif; ?>
-                        <?php $theView->checkbox('article[comments]')->setText('EDITOR_COMMENTS')->setSelected($article->getComments())->setClass('fpcm-ui-editor-metainfo-checkbox')->setData(['icon' => 'comments'])->setSwitch(true); ?>
-                        <?php if (!$approvalRequired) : ?><?php $theView->checkbox('article[approval]')->setText('EDITOR_STATUS_APPROVAL')->setSelected($article->getApproval())->setClass('fpcm-ui-editor-metainfo-checkbox')->setData(['icon' => 'approval'])->setSwitch(true); ?><?php endif; ?>
-                        <?php if ($editorMode && $theView->permissions->article->archive) : ?><?php $theView->checkbox('article[archived]')->setText('EDITOR_ARCHIVE')->setSelected($article->getArchived())->setClass('fpcm-ui-editor-metainfo-checkbox')->setData(['icon' => 'archived'])->setSwitch(true); ?><?php endif; ?>
+                        <div class="list-group">
+                        <?php if (!$article->getArchived()) : ?>
+                            <div class="list-group-item">
+                                <?php $theView->checkbox('article[pinned]')->setText('EDITOR_PINNED')->setSelected($article->getPinned())->setClass('fpcm-ui-editor-metainfo-checkbox')->setData(['icon' => 'pinned'])->setSwitch(true); ?>
+                            </div>
+                            <div class="list-group-item">
+                                <?php $theView->checkbox('article[draft]')->setText('EDITOR_DRAFT')->setSelected($article->getDraft())->setClass('fpcm-ui-editor-metainfo-checkbox')->setData(['icon' => 'draft'])->setSwitch(true); ?>
+                            </div>
+                        <?php endif; ?>
+                            <div class="list-group-item">
+                                <?php $theView->checkbox('article[comments]')->setText('EDITOR_COMMENTS')->setSelected($article->getComments())->setClass('fpcm-ui-editor-metainfo-checkbox')->setData(['icon' => 'comments'])->setSwitch(true); ?>
+                            </div>
+                        <?php if (!$approvalRequired) : ?>
+                            <div class="list-group-item">
+                                <?php $theView->checkbox('article[approval]')->setText('EDITOR_STATUS_APPROVAL')->setSelected($article->getApproval())->setClass('fpcm-ui-editor-metainfo-checkbox')->setData(['icon' => 'approval'])->setSwitch(true); ?>
+                            </div>
+                        <?php endif; ?>
+                        <?php if ($editorMode && $theView->permissions->article->archive) : ?>
+                            <div class="list-group-item">
+                                <?php $theView->checkbox('article[archived]')->setText('EDITOR_ARCHIVE')->setSelected($article->getArchived())->setClass('fpcm-ui-editor-metainfo-checkbox')->setData(['icon' => 'archived'])->setSwitch(true); ?>
+                            </div>                            
+                        <?php endif; ?>
+                        </div>
+                        
                     </div>
                 </div>
             </div>

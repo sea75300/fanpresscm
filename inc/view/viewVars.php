@@ -44,6 +44,7 @@ namespace fpcm\view;
  * @property array  $filesCss
  * @property array  $varsJs
  * @property array  $buttons
+ * @property array  $profileMenuButtons
  * @property bool   $loggedIn
  * @property bool   $fullWrapper
  * @property bool   $showPageToken

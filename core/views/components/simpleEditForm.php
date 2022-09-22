@@ -12,9 +12,13 @@
                     </div>
 
                     <div class="col">
+                        <div class="list-group">
                     <?php foreach ($field->getFields() as $subField) : ?>
-                        <?php print $subField; ?>
+                            <div class="list-group-item">
+                            <?php print $subField; ?>
+                            </div>
                     <?php endforeach; ?>
+                        </div>
                     </div>
                 <?php else : ?>
                     <?php print $field; ?>

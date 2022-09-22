@@ -320,6 +320,59 @@ class view {
     }
 
     /**
+     * Prepares profile menu
+     * @return bool
+     * @since 5.1-dev
+     */
+    private function prepareProfileMenu()
+    {
+        
+        $default = [
+            sprintf('<a class="text-truncate" href="%s">%s%s</a>',
+                    \fpcm\classes\tools::getControllerLink('system/profile'),
+                    new helper\icon('wrench'),
+                    $this->language->translate('PROFILE_MENU_OPENPROFILE')),
+
+            sprintf('<a class="text-truncate" href="%s" rel="license">%s%s</a>',
+                    \fpcm\classes\tools::getControllerLink('system/info'),
+                    new helper\icon('info-circle'),
+                    $this->language->translate('HL_HELP_SUPPORT')),
+
+            sprintf('<a class="text-truncate" href="%s" rel="license">%s%s</a>',
+                    \fpcm\classes\tools::getControllerLink('system/logout'),
+                    new helper\icon('sign-out-alt'),
+                    $this->language->translate('LOGOUT_BTN')),
+ 
+        ];
+
+        $result = $this->events->trigger('view\extendProfileMenu', $default);
+        if (!$result->getSuccessed() || !$result->getContinue()) {
+            $this->defaultViewVars->profileMenuButtons = $default;
+            return false;
+        }
+
+        $this->defaultViewVars->profileMenuButtons = $result->getData();
+        return true;
+    }
+
+    /**
+     * Prepares toolbar
+     * @return bool
+     * @since 5.1-dev
+     */
+    private function prepareToolbar()
+    {
+        $toolbarButtons = new \fpcm\events\view\extendToolbarResult();
+        $toolbarButtons->buttons = $this->buttons;
+
+        /* @var $toolbarButtons \fpcm\events\view\extendToolbarResult */
+        $toolbarButtons = $this->events->trigger('view\extendToolbar', $toolbarButtons);        
+        $this->defaultViewVars->toolbarArea = $toolbarButtons->area;
+        $this->defaultViewVars->buttons = $toolbarButtons->buttons;
+        return true;
+    }
+
+    /**
      * Initializes notifications
      * @return bool
      */
@@ -728,14 +781,8 @@ class view {
         $this->defaultViewVars->ipAddress = $req->getIp();
         unset($req);
         
-        $toolbarButtons = new \fpcm\events\view\extendToolbarResult();
-        $toolbarButtons->buttons = $this->buttons;
-        
-        /* @var $toolbarButtons \fpcm\events\view\extendToolbarResult */
-        $toolbarButtons = $this->events->trigger('view\extendToolbar', $toolbarButtons);        
-        $this->defaultViewVars->toolbarArea = $toolbarButtons->area;
-        $this->defaultViewVars->buttons = $toolbarButtons->buttons;
-        unset($toolbarButtons);
+        $this->prepareToolbar();
+        $this->prepareProfileMenu();
 
         $this->defaultViewVars->formActionTarget = $this->formAction;
         $this->defaultViewVars->bodyClass = $this->bodyClass;

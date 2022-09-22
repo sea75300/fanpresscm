@@ -84,24 +84,11 @@
                             <?php print $theView->ipAddress; ?>
                         </li>
                         <li><hr class="dropdown-divider"></li>
-                        <li class="dropdown-item">
-                            <a class="text-truncate" href="<?php print $theView->controllerLink('system/profile'); ?>">
-                                <?php $theView->icon('wrench'); ?>
-                                <?php $theView->write('PROFILE_MENU_OPENPROFILE'); ?>
-                            </a>
-                        </li>
-                        <li class="dropdown-item">
-                            <a href="<?php print $theView->controllerLink('system/info'); ?>" rel="license">
-                                <?php $theView->icon('info-circle'); ?>
-                                <?php $theView->write('HL_HELP_SUPPORT'); ?>
-                            </a>
-                        </li>
-                        <li class="dropdown-item">
-                            <a href="<?php print $theView->controllerLink('system/logout'); ?>">
-                                <?php $theView->icon('sign-out-alt'); ?>
-                                <?php $theView->write('LOGOUT_BTN'); ?>
-                            </a>
-                        </li>
+                        <?php foreach ($theView->profileMenuButtons as $value) : ?>
+                            <li class="dropdown-item">
+                                <?php print $value; ?>                            
+                            </li>
+                        <?php endforeach; ?>
                     </ul>
                 </li>
             </ul>
