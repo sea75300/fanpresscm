@@ -216,7 +216,11 @@ final class email {
                 'text' => $this->text,
             ],
             'attachments' => $this->attachments
-        ])->getData();
+        ]);
+        
+        if (is_object($eventData) && $eventData instanceof \fpcm\module\eventResult) {
+            $eventData = $eventData->getData();
+        }
 
         $this->headers = $eventData['headers'];
         $this->attachments = $eventData['attachments'];
@@ -331,7 +335,7 @@ final class email {
         $this->mailer->isHTML($this->html);
         $this->mailer->setFrom($this->config->smtp_settings['addr']);
         $this->mailer->setLanguage($this->config->system_lang);
-        $this->mailer->Timeout = FPCM_SMTP_TIMEOUT;        
+        $this->mailer->Timeout = FPCM_SMTP_TIMEOUT ?? 5;        
 
         $this->mailer->Debugoutput = function($str, $level) {
             trigger_error($str);

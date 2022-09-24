@@ -45,7 +45,7 @@ final class events {
             $event = new $eventClassName($dataParams);
 
             if (!$event->isExecutable()) {
-                return $dataParams;
+                return (new \fpcm\module\eventResult())->setData($dataParams);
             }
 
             return $event->run();
