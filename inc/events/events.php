@@ -20,17 +20,17 @@ final class events {
      * Run event $eventName with params $dataParams
      * @param string $eventName
      * @param mixed $dataParams
-     * @return mixed
+     * @return mixed|\fpcm\module\eventResult
      */
     public function trigger($eventName, $dataParams = null)
     {
         if (!\fpcm\classes\baseconfig::dbConfigExists() || \fpcm\classes\baseconfig::installerEnabled()) {
-            return $dataParams;
+            return (new \fpcm\module\eventResult())->setData($dataParams);
         }
 
         if (!file_exists($this->getFullPath($eventName . '.php'))) {
             trigger_error('ERROR: Undefined event called: ' . $eventName);
-            return $dataParams;
+            return (new \fpcm\module\eventResult())->setData($dataParams);
         }
 
         fpcmLogEvents('Event: '.$eventName);
@@ -57,10 +57,11 @@ final class events {
                     (new \fpcm\view\helper\icon('bomb'))->setText('NOTIFICATION_ERROR_EVENTS', ['eventName' => $eventName])
                 )
             );
-            return $dataParams;
+            
+            return (new \fpcm\module\eventResult())->setData($dataParams);
         }
 
-        return $dataParams;
+        return (new \fpcm\module\eventResult())->setData($dataParams);
     }
 
     /**
