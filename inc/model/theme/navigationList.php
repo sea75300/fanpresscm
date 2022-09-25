@@ -35,7 +35,7 @@ final class navigationList {
     /**
      * @ignore
      */
-    final public function __construct(string $activeNavItem = '')
+    final public function __construct(?string $activeNavItem = '')
     {
         if (!trim($activeNavItem)) {
             $activeNavItem = (new \fpcm\model\http\request())->fromGET('module');

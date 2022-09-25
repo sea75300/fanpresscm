@@ -754,7 +754,10 @@ class view {
 
             $this->defaultViewVars->currentUser = $this->session->getCurrentUser();
             $this->defaultViewVars->loginTime = $this->session->getLogin();
-            $this->defaultViewVars->navigation = (new \fpcm\model\theme\navigation($this->navigationActiveModule))->render();
+            
+            if ($this->showHeader === self::INCLUDE_HEADER_FULL) {
+                $this->defaultViewVars->navigation = (new \fpcm\model\theme\navigation($this->navigationActiveModule))->render();
+            }
             
             $this->defaultViewVars->loggedIn = true;
             $this->defaultViewVars->permissions = \fpcm\classes\loader::getObject('\fpcm\model\permissions\permissions');
@@ -786,7 +789,10 @@ class view {
         unset($req);
         
         $this->prepareToolbar();
-        $this->prepareProfileMenu();
+        
+        if ($this->showHeader === self::INCLUDE_HEADER_FULL) {
+            $this->prepareProfileMenu();
+        }
 
         $this->defaultViewVars->formActionTarget = $this->formAction;
         $this->defaultViewVars->bodyClass = $this->bodyClass;

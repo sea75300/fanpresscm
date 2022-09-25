@@ -28,7 +28,7 @@ class navigation extends \fpcm\model\abstracts\staticModel {
      * Constructor
      * @param string $activeNavItem
      */
-    public function __construct(string $activeNavItem = '')
+    public function __construct(?string $activeNavItem = '')
     {
         parent::__construct();        
         $this->navList = new navigationList($activeNavItem);
