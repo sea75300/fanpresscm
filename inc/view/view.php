@@ -367,6 +367,10 @@ class view {
 
         /* @var $toolbarButtons \fpcm\events\view\extendToolbarResult */
         $toolbarButtons = $this->events->trigger('view\extendToolbar', $toolbarButtons);        
+        if ($toolbarButtons instanceof \fpcm\module\eventResult) {
+            $toolbarButtons = $toolbarButtons->getData();
+        }
+        
         $this->defaultViewVars->toolbarArea = $toolbarButtons->area;
         $this->defaultViewVars->buttons = $toolbarButtons->buttons;
         return true;
