@@ -26,23 +26,23 @@
             <?php include_once $theView->getIncludePath('common/menutop.php'); ?>
         </header>
 
-        <div class="d-md-flex fpcm ui-mh-100vh">
+        <div class="d-lg-flex fpcm ui-mh-100vh">
             
             <div class="d-flex flex-column flex-shrink-0 w-auto fpcm ui-background-white-50p border-bottom border-1 border-secondary">
 
                 <?php include_once $theView->getIncludePath('common/navigation.php'); ?>
                 
-                <hr class="d-none d-md-block">
-                <div class="d-none d-md-block mb-2 text-center">
+                <hr class="d-none d-lg-block">
+                <div class="d-none d-lg-block mb-2 text-center">
                     <?php $theView->linkButton('scrollTopLeft')->setText('GLOBAL_SCROLLTOP')->setUrl('#fpcm-body')->setIcon('chevron-up')->setIconOnly()->setClass('btn-sm'); ?>
                 </div>
             </div>
 
-            <div class="d-flex flex-column flex-grow-1 col-12 col-md">
+            <div class="d-flex flex-column flex-grow-1 col-12 col-sm">
 
                 <?php include_once $theView->getIncludePath('common/buttons.php'); ?>
           
-                <div class="container-fluid ps-2 pe-2 pe-md-3 py-2">
+                <div class="container-fluid px-2 pe-md-3 py-2">
             
             
             

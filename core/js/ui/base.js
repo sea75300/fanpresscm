@@ -616,6 +616,10 @@ fpcm.ui = {
     
     getUniqueID: function (_descr) {
         return (new Date()).getMilliseconds() + Math.random().toString(36).substr(2, 9) + (_descr ? _descr : '');
+    },
+    
+    replaceIcon: function (_id, _haystack, _needle) {
+        fpcm.dom.fromId(_id).find('span.fpcm-ui-icon').removeClass('fa-' + _haystack).addClass('fa-' + _needle);
     }
 
 };

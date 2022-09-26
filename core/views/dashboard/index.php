@@ -1,9 +1,9 @@
 <?php /* @var $theView fpcm\view\viewVars */ ?>
-<div class="row g-0" id="fpcm-dashboard-containers">
+<div class="row g-0 my-2" id="fpcm-dashboard-containers">
     <div class="card-group row-cols-1 row-cols-md-3">
         <div class="col">
             <div class="card m-1 shadow-sm fpcm dashboard-container ui-background-white-50p ui-blurrin">
-                <div class="card-body pt-1 ps-1 pe-1 pb-2">
+                <div class="card-body">
                     <h3 class="card-title text-secondary fpcm dashboard-container headline m-2 fs-5 placeholder-glow">
                         <span class="placeholder col-6">&nbsp;</span>
                     </h3>
@@ -19,7 +19,7 @@
         </div>
         <div class="col">
             <div class="card m-1 shadow-sm fpcm dashboard-container ui-background-white-50p ui-blurrin">
-                <div class="card-body pt-1 ps-1 pe-1 pb-2">
+                <div class="card-body">
                     <h3 class="card-title text-secondary fpcm dashboard-container headline m-2 fs-5 placeholder-glow">
                         <span class="placeholder col-6">&nbsp;</span>
                     </h3>
@@ -29,7 +29,7 @@
         </div>
         <div class="col">
             <div class="card m-1 shadow-sm fpcm dashboard-container ui-background-white-50p ui-blurrin">
-                <div class="card-body pt-1 ps-1 pe-1 pb-2">
+                <div class="card-body">
                     <h3 class="card-title text-secondary fpcm dashboard-container headline m-2 fs-5 placeholder-glow">
                         <span class="placeholder col-6">&nbsp;</span>
                     </h3>

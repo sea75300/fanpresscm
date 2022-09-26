@@ -29,8 +29,7 @@
                                         ->overrideButtonType('outline-secondary')
                                         ->setText('ARTICLE_SEARCH_START')
                                         ->setIcon('magnifying-glass-arrow-right')
-                                        ->setIconOnly(); ?>                            
-
+                                        ->setIconOnly(); ?>
                             </div>
 
                         </div>

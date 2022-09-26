@@ -252,18 +252,23 @@ abstract class dashcontainer extends model implements \fpcm\model\interfaces\das
         $html = [];
         $html[] = '<div id="fpcm-dashboard-container-' . $this->getName() . '" class="fpcm dashboard-container-wrapper col-12 col-lg-' . $this->getWidth() . '  vh-25" data-cname="' . $this->getName() . '" data-cpos="' . $pos . '">';
         $html[] = ' <div class="card m-1 shadow-sm fpcm dashboard-container ui-background-white-50p ui-blurring">';
-        $html[] = '     <div class="card-body pt-1 ps-1 pe-1 pb-2 ui-align-ellipsis">';
-        $html[] = '         <h3 class="card-title fpcm dashboard-container headline ui-headline-font m-2 fs-5 border-1 border-bottom border-primary" title="' . strip_tags($this->language->translate($this->getHeadline())) . '">';
+        
+        
+        $html[] = '     <div class="card-header bg-transparent border-1 border-bottom border-primary">';
+        $html[] = '         <h3 class="card-title fpcm dashboard-container headline ui-headline-font mx-0 mt-2 mb-0 p-0 fs-5" title="' . strip_tags($this->language->translate($this->getHeadline())) . '">';
         $html[] = '             <span class="d-inline-block text-truncate w-100">' . $this->language->translate($this->getHeadline()) . '</span> ';
         $html[] = '         </h3>';
+        $html[] = '     </div>';
+        
+        $html[] = '     <div class="card-body p-2 pe-0 ui-align-ellipsis">';
         $html[] = '         <div class="card-text fpcm dashboard-container content">' . $this->getContent() . '</div>';
         $html[] = '     </div>';
         $html[] = '     <div class="card-footer bg-transparent">';
         $html[] = '         <div class="row g-0">';
-        $html[] = '             <div class="col flex-grow-1">';
+        $html[] = '             <div class="col-12 col-xl flex-grow-1">';
         $html[] = '             ' . $btn;
         $html[] = '             </div>';
-        $html[] = '             <div class="col-auto  align-self-center btn-group" draggable="true">';
+        $html[] = '             <div class="col-12 col-xl-auto  align-self-center btn-group" draggable="true">';
         $html[] = '             ' . $this->getSystemButtons();
         $html[] = '             </div>';
         $html[] = '         </div>';

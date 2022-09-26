@@ -70,7 +70,7 @@ class indexer extends \fpcm\model\abstracts\tablelist
         $sResults = [];
         
         if (!$this->query($cResults, $sResults)) {
-            return new resultSet([], 0);
+            return new resultSet([], 0, false);
         }         
         
         $setItems = [];
