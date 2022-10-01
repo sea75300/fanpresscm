@@ -54,11 +54,73 @@ fpcm.editor = {
 
         window.categoryMs = fpcm.ui.multiselect('articlecategories');
 
-        fpcm.dom.fromClass('fpcm-editor-articleimage').fancybox();
-
-        fpcm.dom.fromId('insertarticleimg').click(function () {
+        fpcm.dom.bindClick('#insertarticleimg', function () {
             fpcm.editor.showFileManager(3);
-            return false;
+        });
+        
+        fpcm.dom.bindClick('#btnEditsources', function () {         
+            
+            fpcm.ajax.post('autocomplete', {
+                data: {
+                    term: '',
+                    src: 'articlesources'
+                },
+                execDone: function (_result) {
+
+                    if (!_result.length) {
+                        
+                        let _notFound = fpcm.ui.getIcon('list-ul', {
+                            stack: 'ban fpcm-ui-important-text',
+                            stackTop: true,
+                        }) + ' ' + fpcm.ui.translate('GLOBAL_NOTFOUND2');                        
+                        
+                        _result = [{
+                            value: false,
+                            label: _notFound
+                        }];
+                    }
+
+                    let _delDescr = fpcm.ui.translate('GLOBAL_DELETE');
+
+                    let _content = '<div class="list-group">';
+                    for (var _i in _result) {
+                        
+                        let _item = _result[_i];
+                        let _btn = '';
+
+                        if (_item.value) {
+                            _btn = ` <button type="button" class="btn-close" aria-label="${_delDescr}" data-src-del-item="${_item.value}"></button>`;
+                        }
+                        
+                        _content += `<div class="list-group-item d-flex justify-content-between align-items-start"><div class="align-self-center">${_item.label}</div>${_btn}</div>`;
+                    }
+
+                    _content += '</div>';
+
+                    fpcm.ui_dialogs.create({
+                        title: fpcm.ui.translate('SYSTEM_OPTIONS_NEWS_SOURCESLIST'),
+                        content: _content,
+                        closeButton: true,
+                        dlOnOpenAfter: function (_ui, _bsObj) {
+                            fpcm.dom.bindClick('button[data-src-del-item]', function (_ev, _ui) {
+                                fpcm.ajax.post('autocompleteCleanup', {
+                                    data: {
+                                        term: _ui.dataset.srcDelItem,
+                                        src: 'articlesources'
+                                    },
+                                    execDone: function (_result) {
+                                        fpcm.dom.fromTag(_ui).parent().remove();
+                                    }
+                                });
+                            });
+                        }
+                    });
+                    
+                    
+                }
+            });
+            
+            
         });
 
         fpcm.ui.autocomplete('#articleimagepath', {

@@ -182,7 +182,7 @@ class articleedit extends articlebase {
         ]);
 
         if ($this->article->getImagepath()) {
-            $this->view->addButton((new \fpcm\view\helper\linkButton('articleimg'))->setUrl($this->article->getImagepath())->setText('EDITOR_ARTICLEIMAGE_SHOW')->setIcon('image')->setIconOnly(true)->setClass('fpcm-editor-articleimage fpcm-ui-maintoolbarbuttons-tab1'));
+            $this->view->addButton((new \fpcm\view\helper\linkButton('articleimg'))->setUrl($this->article->getImagepath())->setText('EDITOR_ARTICLEIMAGE_SHOW')->setIcon('image')->setIconOnly(true)->setClass('fpcm ui-link-fancybox fpcm-ui-maintoolbarbuttons-tab1'));
         }
 
         if ($this->permissions->article->delete && !$this->request->fromGET('rev')) {

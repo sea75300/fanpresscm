@@ -124,7 +124,7 @@ class autocomplete extends \fpcm\controller\abstracts\ajaxController
         }
         
         $this->returnData = array_filter($this->returnData, function ($value) {
-            return $this->term && stripos($value['value'], $this->term) === false ? false : true;
+            return str_contains($value['value'], $this->term);
         });
         
         return true;

@@ -129,8 +129,13 @@ fpcm.dashboard = {
                 let _el = fpcm.dom.fromId('fpcm-ui-container-disabled-list');
                 _el.empty();
 
+                let _btn = '';
+                if (_result[0].code !== -1) {
+                    _btn = '<button type="button" class="btn-close"></button>';
+                }
+
                 for (var _i in _result) {
-                    _el.append('<a class="list-group-item" data-container="' + _result[_i].code + '">' + _result[_i].hl + '</a>');
+                    _el.append(`<a class="list-group-item d-flex justify-content-between align-items-start" data-container="${_result[_i].code}"><div class="align-self-center">${_result[_i].hl}</div> ${_btn}</a>`);
                 }
 
                 fpcm.dom.bindClick('#fpcm-ui-container-disabled-list > a[data-container]', function (_e, _ui) {
