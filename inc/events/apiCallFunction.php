@@ -32,20 +32,19 @@ final class apiCallFunction extends \fpcm\events\abstracts\event {
 
         if (!isset($functionData[0]) || !isset($functionData[1]) || !isset($functionData[2])) {
             trigger_error('Malformed function name data given: "' . $this->data['name'] . '"');
-            return false;
+            return (new \fpcm\module\eventResult())->setSuccessed(false);
         }
 
-        $vendorKey = $functionData[0];
-        $moduleKey = $functionData[1];
-        $functionName = $functionData[2];
+        list ($vendorKey, $moduleKey, $functionName) = $functionData;
+
+        $classkey = $vendorKey . '/' . $moduleKey;
 
         $classFile = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_MODULES, $vendorKey . DIRECTORY_SEPARATOR . $moduleKey . DIRECTORY_SEPARATOR . 'events' . DIRECTORY_SEPARATOR . 'apiCallFunction.php');
         if (!file_exists($classFile)) {
-            trigger_error('Event class "apiCallFunction" not found in ' . \fpcm\model\files\ops::removeBaseDir($classFile, true));
-            return false;
+            trigger_error(sprintf('Event class "%s/apiCallFunction" not found in %s',  $classkey, \fpcm\model\files\ops::removeBaseDir($classFile, true)));
+            return (new \fpcm\module\eventResult())->setSuccessed(false);
         }
 
-        $classkey = $vendorKey . '/' . $moduleKey;
         $eventClass = \fpcm\module\module::getEventNamespace($classkey, $this->getEventClassBase());
 
         $this->data['name'] = $functionName;
@@ -56,10 +55,15 @@ final class apiCallFunction extends \fpcm\events\abstracts\event {
         $module = new $eventClass($this->data);
 
         if (!$this->is_a($module)) {
-            return false;
+            return (new \fpcm\module\eventResult())->setSuccessed(false);
         }
 
-        return $module->run();
+        $return = $module->run();
+        if ($return instanceof \fpcm\module\eventResult) {
+            return $return;
+        }
+        
+        return (new \fpcm\module\eventResult())->setSuccessed(true)->setData($return);
     }
 
 }
