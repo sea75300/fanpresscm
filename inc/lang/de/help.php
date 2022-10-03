@@ -9,7 +9,13 @@ Help language file
 <chapters>
     <chapter ref="HL_DASHBOARD">
         <![CDATA[
-            <p>Im <b>Dashboard</b> findest du verschiedene Informationen zu deiner FanPress CM Installation etc.</p>
+
+            <p>Das Dashboard ist eine zentrale Anlaufstelle nach dem Login in FanPress CM. Der Startbildschirm
+            zeigt viele verschiedene Informationen (u. a. zum Systemstatus oder geschriebenen Artikeln) an. Die 
+            verfügbaren Informationen können durch Module erweitert werden.</p>
+            
+            <h3 class="pt-5 fs-1">Container</h3>
+            
             <dl>
                 <dt>Zuletzt geschriebene News:</dt>
                 <dd class="pb-2">Hier findest du eine Übersicht der zuletzt verfassten Artikel.</dd>
@@ -27,12 +33,26 @@ Help language file
                 <dt>Team-Kontakte:</dt>
                 <dd class="pb-2">Dieser Container beinhaltet eine Liste aller aktiven Benutzer mit der Möglichkeit, dies eine
                 E-Mail zu verfassen.</dd>
+                <dt>Letzte Tweets:</dt>
+                <dd class="pb-2">Bei eingerichteter Twitter-Verbindung werden in diesem Container (standardmäßig) bis zu 25 deiner
+                letzten Tweets und Retweets angezeigt. Werden deine Beiträge retweetet oder geliked, werden diese entsprechend markiert.</dd>
             </dl>
 
+            <h3 class="pt-5 fs-1">Container-Funktionen</h3>
+            
             <p>Über die zusätzlichen Links am Ende der Container können zusätzliche Informationen abgerufen werden
             oder es ist ein Schnellzugriff auf bestimmte Funktionen möglich.</p>
+
+            <p>Die Position der Container kann durch Klick auf den Button 
+            <span class="btn btn-link btn-sm"><span class="fpcm-ui-icon fa fa-fw fa-arrows-alt  "></span></span>
+            verändert werden. Die Reihenfolge legt jeder Benutzer selbst fest.
+            Um bestimmte Container zu deaktivieren, klicke in der Fußzeile auf
+            den Button <span class="btn btn-link btn-sm"><span class="fpcm-ui-icon fa fa-fw fa-toggle-off"></span></span>.</p>
             
-            <p>Neue, eigene Dashboard-Container können durch Module erzeugt werden</p>
+            <p>Über das Dropdown "Container verwalten" in der Toolbar des Startbildschirms kann die Reihenfolge auf den Standard zurückgesetzt bzw.
+            deaktivierte Container wieder reaktiviert werden.</p>
+            
+            
         ]]>
     </chapter>
     <chapter ref="ARTICLES_EDITOR">
@@ -61,36 +81,52 @@ Help language file
             <dd class="pb-2">Mit dem Artikelbild kannst du einen Artikel eine zusätzliche Dekoration, optische
                 Beschreibung etc. geben. Die Position und Größe des Artikelbildes kann über das Artikel-Template festgelegt werden. Über den Button rechts neben dem
             Eingabefeld kannst du ein bereits hochgeladenes Bild auswählen und weitere Bilder hochladen.</dd>
+
+            <dt>Text für Artikellinks:</dt>
+            <dd class="pb-2">Ist die Systemeinstellung "URL-Rewriting für Artikellinks aktivieren" aktiv, kann durch dieses Feld Einfluss auf
+            die erzeugten Artikel-URLs gemnommen werden. Diese setzen sich immer aus der Artikel-ID + dem hier angegeben Text zusammen. Standardmäßig
+            wird für die URL immer eine bereinigte Version des Artikel-Titels verwendet.</dd>
+
             <dt>Quellenverzeichnis:</dt>
             <dd class="pb-2">Der Inhalt dieses Feldes wird durch den Template-Tag "{{sources}}" dargestellt. Hier kannst du Links zu deinen Informationsquellen,
                 Quellen von Bildern, Videos etc. oder zu weiterführenden Informationen angeben. Links werden so weit es geht automatisch in HTML-Links umgewandelt.</dd>
+            <dd class="pb-2">Einträge im Quellenverzeichnis werden gespeichert und bei Übereinstimmung zur Auswahl angezeigt. Über den Button 
+                "Quellenverzeichnis-Einträge" die Einträge aus der Autovervollständigung entfernt werden.</dd>
+
             <dt>Tweet erzeugen:</dt>
             <dd class="pb-2">Über diese Option kann die Erzeugung eines Tweets bei aktiver Twitter-Verbindung manuell
                 deaktiviert werden, wenn sie in den Systemoptionen aktiviert wurde.</dd>
+
             <dt>Tweet erzeugen:</dt>
             <dd class="pb-2">Über das Textfeld kann das Standard-Template für einen Beitrag bei Twitter
                 überschrieben und durch einen eigenen Text ersetzt werden. Der Inhalt dieses Feldes wird nicht gespeichert.
                 Das Dropdown bietet einen Schnellzugriff auf die Template-Platzhalter. Über die Checkbox am Ende kann zudem festgelegt werden,
                 ob beim nächsten Speicher-Vorgang der Tweet erzeugt wird oder nicht.
             </dd>
+
             <dt>Artikel freischalten:</dt>
             <dd class="pb-2">Mittels dieser Option kannst du einen neuen Artikel verfassen und zu einem bestimmten
                 Zeitpunkt automatisch veröffentlichen lassen. Der Zeitpunkt kann maximal zwei Monate in der Zukunft liegen.</dd>
+
             <dt>Artikel als Entwurf speichern:</dt>
             <dd class="pb-2">Wird diese Option aktiviert, so wird der Artikel beim Speichern nicht als
                 Entwurf abgelegt. Entwürfe werden nicht sofort veröffentlicht, sondern sind nur für angemeldete Benutzer sichtbar
                 und können vor der Veröffentlichung noch bearbeitet werden.</dd>
+
             <dt>Artikel pinnen:</dt>
             <dd class="pb-2">"Gepinnte" Artikel werden im Frontend vor allen anderen verfügbaren Artikeln angezeigt, auch
                 auch wenn das Datum ihrer Veröffentlichung vor neueren Artikeln liegt.</dd>
             <dt>Kommentare aktiv:</dt>
             <dd class="pb-2">Über diese Option kann das Kommentar-System für einen einzelnen Artikel gesteuert werden.
                 ist die Option nicht aktiv, so können keine Kommentare auf der Artikel verfasst werden.</dd>
+
             <dt>Artikel archivieren:</dt>
             <dd class="pb-2">Bestehende Artikel können über diese Option ins Archiv verschoben werden bzw.
                 herausgenommen werden.</dd>
+
             <dt>Autor ändern:</dt>
             <dd class="pb-2">Benutzer mit entsprechenden Rechten können hierüber den Verfasser eines Artikeln ändern.</dd>
+
             <dt>Geteilte Inhalte und Likes:</dt>
             <dd class="pb-2">Sofern das Zählen von Klicks auf die Share-Buttons aktiviert wurde, wird in diesem Bereich
             die aktuelle Anzahl pro Artikel angezeigt, diese umfasst sowohl Teilungen bei den verfügbaren sozialen Netzwerken als auch Klicks auf den
