@@ -246,4 +246,19 @@ final class tools {
         return preg_replace('/((http|https?):\/\/\S+[^\s.,>)\]\"\'<\/])/i', "<a href=\"$0\">$0</a>", $str);    
     }
 
+    /**
+     * Retreives Major.Minor release version from version string of type Major.Minor.Bugfix
+     * @param string $str
+     * @return string
+     * @since 5.0.2
+     */
+    public static function getMajorMinorReleaseFromString(string $str) : string
+    {
+        if (!preg_match('/(\d{1,}\.{1}\d{1,}).*/', $str, $matches)) {
+            return $str;
+        }
+        
+        return $matches[1] ?? $str;
+    }
+
 }

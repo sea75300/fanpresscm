@@ -14,6 +14,7 @@
                     ->setText('ARTICLE_LIST_TITLE')
                     ->setPlaceholder('ARTICLE_LIST_TITLE')
                     ->setAutoFocused(true)
+                    ->setIcon('file-lines')
                     ->setLabelTypeFloat(); ?>
             
         </div>

@@ -9,7 +9,13 @@ Help language file
 <chapters>
     <chapter ref="HL_DASHBOARD">
         <![CDATA[
-            <p>Im <b>Dashboard</b> findest du verschiedene Informationen zu deiner FanPress CM Installation etc.</p>
+
+            <p>Das Dashboard ist eine zentrale Anlaufstelle nach dem Login in FanPress CM. Der Startbildschirm
+            zeigt viele verschiedene Informationen (u. a. zum Systemstatus oder geschriebenen Artikeln) an. Die 
+            verfügbaren Informationen können durch Module erweitert werden.</p>
+            
+            <h3 class="pt-5 fs-1">Container</h3>
+            
             <dl>
                 <dt>Zuletzt geschriebene News:</dt>
                 <dd class="pb-2">Hier findest du eine Übersicht der zuletzt verfassten Artikel.</dd>
@@ -27,12 +33,20 @@ Help language file
                 <dt>Team-Kontakte:</dt>
                 <dd class="pb-2">Dieser Container beinhaltet eine Liste aller aktiven Benutzer mit der Möglichkeit, dies eine
                 E-Mail zu verfassen.</dd>
+                <dt>Letzte Tweets:</dt>
+                <dd class="pb-2">Bei eingerichteter Twitter-Verbindung werden in diesem Container (standardmäßig) bis zu 25 deiner
+                letzten Tweets und Retweets angezeigt. Werden deine Beiträge retweetet oder geliked, werden diese entsprechend markiert.</dd>
             </dl>
 
+            <h3 class="pt-5 fs-1">Container-Funktionen</h3>
+            
             <p>Über die zusätzlichen Links am Ende der Container können zusätzliche Informationen abgerufen werden
             oder es ist ein Schnellzugriff auf bestimmte Funktionen möglich.</p>
             
-            <p>Neue, eigene Dashboard-Container können durch Module erzeugt werden</p>
+            <p>Die Position der Container kann durch Klick auf den Button 
+            <span class="btn btn-link btn-sm"><span class="fpcm-ui-icon fa fa-fw fa-arrows-alt  "></span></span>
+            verändert werden. Die Reihenfolge legt jeder Benutzer selbst fest.</p>
+            
         ]]>
     </chapter>
     <chapter ref="ARTICLES_EDITOR">

@@ -53,7 +53,7 @@
 
                 <div class="row g-0">                
                     <div class="col-form-label col-12 col-sm-6 col-md-4">
-                        <?php $theView->icon('exclamation-circle'); ?> <span class="fpcm-ui-label ps-1"> <?php $theView->write('COMMMENT_STATUS'); ?></span>
+                        <?php $theView->icon('exclamation-circle')->setSize('lg'); ?> <span class="fpcm-ui-label ps-1"> <?php $theView->write('COMMMENT_STATUS'); ?></span>
                     </div>
 
                     <div class="col">
