@@ -101,7 +101,7 @@ final class progress {
      */
     public function setOutputText(string $outputText)
     {
-        $this->outputText = substr($outputText, 0, $this->maxLineChars / 2) . ': ';
+        $this->outputText = substr($outputText, 0, floor($this->maxLineChars / 2)) . ': ';
         $this->maxLineChars -= mb_strlen($this->outputText);
         return $this;
     }
