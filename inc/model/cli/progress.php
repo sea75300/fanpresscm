@@ -13,7 +13,7 @@ namespace fpcm\model\cli;
  * @package fpcm\model\cli
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @author mayconbordin, https://gist.github.com/mayconbordin
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @since 4.4-b5
  */
@@ -101,7 +101,7 @@ final class progress {
      */
     public function setOutputText(string $outputText)
     {
-        $this->outputText = substr($outputText, 0, $this->maxLineChars / 2) . ': ';
+        $this->outputText = substr($outputText, 0, floor($this->maxLineChars / 2)) . ': ';
         $this->maxLineChars -= mb_strlen($this->outputText);
         return $this;
     }
