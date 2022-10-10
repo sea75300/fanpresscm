@@ -52,6 +52,7 @@ fpcm.categories = {
         }
         
         fpcm.categories.rollsMs.clear();
+        fpcm.categories.rollsMs = null;
         return true;
     }
 

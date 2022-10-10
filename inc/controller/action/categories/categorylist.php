@@ -107,7 +107,9 @@ class categorylist extends \fpcm\controller\abstracts\controller implements \fpc
                         ->setText('')
                         ->setType('url')
                         ->setText('CATEGORIES_ICON_PATH')
-                        ->setIcon('link'),
+                        ->setIcon('link')
+                        ->setLabelTypeFloat()
+                        ->setPlaceholder('CATEGORIES_ICON_PATH'),
                     ''
                 ),
                 'fieldRolls' => (string) new \fpcm\components\masseditField(
@@ -115,8 +117,7 @@ class categorylist extends \fpcm\controller\abstracts\controller implements \fpc
                         ->setOptions($rolls)
                         ->setIsMultiple(true)
                         ->setSelected([])
-                        ->setClass('col-12 col-sm-6 col-md-8')
-                        ->setText('CATEGORIES_ROLLS')
+                        ->setText('')
                         ->setIcon('users'),
                 ),
             ],

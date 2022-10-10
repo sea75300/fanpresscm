@@ -125,9 +125,9 @@ class userlist extends \fpcm\controller\abstracts\controller
             $ddOpt[] = (new \fpcm\view\helper\dropdownItem('addRoll'))->setUrl(\fpcm\classes\tools::getFullControllerLink('users/addroll'))->setText('USERS_ROLL_ADD')->setValue('roll')->setIcon('user-tag');
         }
 
-        $this->view->addButtons([
-            (new \fpcm\view\helper\dropdown('new'))->setText('GLOBAL_NEW')->setIcon('plus')->setOptions($ddOpt),
-            (new \fpcm\view\helper\button('userStats'))
+        $this->view->addButton( (new \fpcm\view\helper\dropdown('new'))->setText('GLOBAL_NEW')->setIcon('plus')->setOptions($ddOpt) );
+        
+        $this->view->addToolbarRight((string) (new \fpcm\view\helper\button('userStats'))
                 ->setText('USERS_STATS_ARTICLE')
                 ->setIcon('chart-pie')
                 ->setData([
@@ -136,8 +136,7 @@ class userlist extends \fpcm\controller\abstracts\controller
                 ])
                 ->setAria([
                     'bs-controls' => 'offcanvasUserStats',
-                ])
-        ]);
+                ]) );
 
         $this->createUsersView();
         

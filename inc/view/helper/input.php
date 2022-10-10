@@ -70,7 +70,7 @@ abstract class input extends helper {
         $wrapperStart = '';
         $wrapperEnd = '';
 
-        $wrapperStart = "<div class=\"{$this->labelType} mb-3\">";
+        $wrapperStart = "<div class=\"{$this->labelType} {$this->bottomSpace}\">";
         $wrapperEnd = "</div>";
         
         $mlstr = $this->maxlenght ? "maxlength=\"{$this->maxlenght}\"" : '';

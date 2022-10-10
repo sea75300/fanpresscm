@@ -142,6 +142,7 @@ trait lists {
                     ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
                     ->setText('COMMMENT_SPAM')
                     ->setIcon('flag')
+                    ->setLabelTypeFloat()
             );
 
             $fields[] = new \fpcm\components\masseditField(
@@ -150,6 +151,7 @@ trait lists {
                     ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
                     ->setText('COMMMENT_APPROVE')
                     ->setIcon('check-circle', 'far')
+                    ->setLabelTypeFloat()
             );
         }
         
@@ -160,6 +162,7 @@ trait lists {
                     ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
                     ->setText('COMMMENT_PRIVATE')
                     ->setIcon('eye-slash')
+                    ->setLabelTypeFloat()
             );
         }
         
@@ -169,6 +172,8 @@ trait lists {
                     ->setClass('fpcm-ui-input-articleid')
                     ->setText('COMMMENT_MOVE')
                     ->setIcon('clipboard')
+                    ->setLabelTypeFloat()
+                    ->setPlaceholder('COMMMENT_MOVE')
             );
         }
 

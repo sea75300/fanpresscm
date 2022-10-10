@@ -271,6 +271,7 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller
                     ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
                     ->setText('EDITOR_CHANGEAUTHOR')
                     ->setIcon('users')
+                    ->setLabelTypeFloat()
             );
         }
 
@@ -280,6 +281,7 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller
                 ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
                 ->setText('EDITOR_PINNED')
                 ->setIcon('thumbtack fa-rotate-90')
+                    ->setLabelTypeFloat()
         );
         
         if ($this->showDraftStatus()) {
@@ -289,6 +291,7 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller
                     ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
                     ->setText('EDITOR_DRAFT')
                     ->setIcon('file-alt')
+                    ->setLabelTypeFloat()
             );
         }
         
@@ -299,6 +302,7 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller
                     ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
                     ->setText('EDITOR_STATUS_APPROVAL')
                     ->setIcon('thumbs-up', 'far')
+                    ->setLabelTypeFloat()
             );
         }
         
@@ -309,6 +313,7 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller
                     ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
                     ->setText('EDITOR_COMMENTS')
                     ->setIcon('comments', 'far')
+                    ->setLabelTypeFloat()
             );
         }
         
@@ -319,6 +324,7 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller
                     ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
                     ->setText('EDITOR_ARCHIVE')
                     ->setIcon('archive')
+                    ->setLabelTypeFloat()
             );
         }
         
@@ -326,9 +332,8 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller
                 (new \fpcm\view\helper\select('categories[]'))
                     ->setIsMultiple(true)
                     ->setOptions($this->categories)
-                    ->setText('TEMPLATE_ARTICLE_CATEGORYTEXTS')
+                    ->setText('')
                     ->setIcon('tags')
-                    ->setClass('col-12 col-sm-6 col-md-8')
                     ->setSelected([]),
                 null
         );

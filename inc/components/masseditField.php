@@ -52,11 +52,7 @@ final class masseditField implements \Stringable {
      */
     public function __toString()
     {
-        return implode('', [
-            "<div class=\"row\">",
-            $this->field,
-            "</div>"
-        ]);
+        return sprintf('<div class="row"><div class="col">%s</div></div>', $this->field);
     }
 
 }

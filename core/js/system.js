@@ -185,6 +185,9 @@ fpcm.system = {
             for (var _i in _params.fields) {
                 _content += _params.fields[_i];
             }
+            
+            
+            _content = '<div class="mb-5">' + _content + '</div>';
         }
 
         var _ajaxParams = {

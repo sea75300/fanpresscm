@@ -416,6 +416,11 @@ fpcm.ui = {
         _params.placeholder = fpcm.ui.translate(_params.placeholder);
         _params.plugins.push('remove_button');
 
+
+        if (!document.getElementById(_id)) {
+            return false;
+        }
+
         return new TomSelect('#' + _id, _params);
     },
 

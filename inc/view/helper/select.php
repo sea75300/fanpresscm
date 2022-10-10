@@ -91,7 +91,7 @@ class select extends helper {
         }
         
         if ($this->prependLabel && $isFloating) {
-            $wrapperStart = "<div class=\"form-floating\">";
+            $wrapperStart = "<div class=\"form-floating {$this->bottomSpace}\">";
             $wrapperEnd = "<label title=\"{$this->text}\" class=\"col-form-label {$this->labelClass}{$this->getLabelSize()}\" for=\"{$this->id}\">{$this->getIconString()}{$this->getDescriptionTextString('')}</label></div>";
         }
         

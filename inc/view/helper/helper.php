@@ -117,6 +117,12 @@ abstract class helper implements \Stringable {
     protected $labelType = 'input-group';
 
     /**
+     * UI element bottom spance
+     * @var string
+     */
+    protected $bottomSpace = 'mb-3';
+
+    /**
      * Konstruktor
      * @param string $name
      * @param string $id
@@ -360,6 +366,18 @@ abstract class helper implements \Stringable {
         return $this;
     }
 
+    /**
+     * Set bottom space class
+     * @param string $bottomSpace
+     * @return $this
+     * @since 5.1-dev
+     */
+    public function setBottomSpace(string $bottomSpace)
+    {
+        $this->bottomSpace = $bottomSpace;
+        return $this;
+    }
+        
     /**
      * Set required flag
      * @param bool $required

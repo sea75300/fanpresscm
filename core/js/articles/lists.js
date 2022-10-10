@@ -56,6 +56,7 @@ fpcm.articles = {
         }
         
         fpcm.articles.categoryMs.clear();
+        fpcm.articles.categoryMs = null;
         return true;
     },
     
