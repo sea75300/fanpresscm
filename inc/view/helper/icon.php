@@ -56,7 +56,6 @@ class icon extends helper {
     protected function getString()
     {
         if ($this->iconStack) {
-            
             $stack = "<span class=\"fa {$this->iconStack} fa-stack-2x\"></span>";
             
             return implode(PHP_EOL, [
@@ -116,5 +115,3 @@ class icon extends helper {
     }
 
 }
-
-?>

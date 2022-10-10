@@ -65,7 +65,7 @@ abstract class input extends helper {
             $this->setDisplaySizesDefault();
         }
 
-        $isFloating = $this->labelType === self::LABEL_TYPE_FLOATING;
+        $isFloating = $this->isFloating();
 
         $wrapperStart = '';
         $wrapperEnd = '';

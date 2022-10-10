@@ -71,7 +71,9 @@ class select extends helper {
             $this->prependLabel();
         }
         
-        if (!trim($this->labelSize) && !trim($this->fieldSize)) {
+        $isFloating = $this->isFloating();
+        
+        if (!trim($this->labelSize) && !trim($this->fieldSize) && !$isFloating) {
             $this->setDisplaySizesDefault();
         }
         
@@ -80,11 +82,20 @@ class select extends helper {
         }
 
         $label = '';
-        if ($this->prependLabel) {
-            $label = "<div class=\"input-group mb-3\"><label title=\"{$this->text}\" class=\"col-form-label pe-3 {$this->labelClass}{$this->getLabelSize()}\" for=\"{$this->id}\">{$this->getIconString()}{$this->getDescriptionTextString()}</label>";
+        $wrapperStart = '';
+        $wrapperEnd = '';
+        
+        if ($this->prependLabel && !$isFloating) {
+            $wrapperStart = "<div class=\"input-group mb-3\"><label title=\"{$this->text}\" class=\"col-form-label pe-3 {$this->labelClass}{$this->getLabelSize()}\" for=\"{$this->id}\">{$this->getIconString()}{$this->getDescriptionTextString()}</label>";
+            $wrapperEnd = '</div>';
         }
         
-        return $label.implode(' ', [
+        if ($this->prependLabel && $isFloating) {
+            $wrapperStart = "<div class=\"form-floating\">";
+            $wrapperEnd = "<label title=\"{$this->text}\" class=\"col-form-label {$this->labelClass}{$this->getLabelSize()}\" for=\"{$this->id}\">{$this->getIconString()}{$this->getDescriptionTextString('')}</label></div>";
+        }
+        
+        return $wrapperStart.implode(' ', [
             "<select".($this->isMultiple ? ' multiple' : ''),
             $this->getNameIdString(),
             $this->getClassString(),
@@ -93,7 +104,7 @@ class select extends helper {
             ">",
             $this->hasOptGroup ? $this->getOptionsGroupsString() : $this->getOptionsString($this->options),
             "</select>",
-        ]) . ($this->prependLabel ? '</div>' : '');
+        ]) . $wrapperEnd;
         
     }
 

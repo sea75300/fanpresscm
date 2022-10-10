@@ -139,5 +139,3 @@ trait iconHelper {
     }
 
 }
-
-?>

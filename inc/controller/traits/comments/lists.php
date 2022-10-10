@@ -194,7 +194,7 @@ trait lists {
     {
         return [
             (new \fpcm\components\dataView\column('select', (new \fpcm\view\helper\checkbox('fpcm-select-all'))->setClass('fpcm-select-all')))->setSize(1)->setAlign('center'),
-            (new \fpcm\components\dataView\column('button', ''))->setSize(3),
+            (new \fpcm\components\dataView\column('button', ''))->setSize(1),
             (new \fpcm\components\dataView\column('name', 'COMMMENT_AUTHOR'))->setSize(2),
             (new \fpcm\components\dataView\column('email', 'GLOBAL_EMAIL'))->setSize(3),
             (new \fpcm\components\dataView\column('create', 'COMMMENT_CREATEDATE'))->setAlign('center'),

@@ -252,6 +252,16 @@ abstract class helper implements \Stringable {
     }
 
     /**
+     * 
+     * @return bool
+     * @since 5.1-dev
+     */
+    protected function isFloating() : bool
+    {
+        return $this->labelType === self::LABEL_TYPE_FLOATING;;
+    }
+
+    /**
      * Turns assoc array into string
      * @param string $prefix
      * @param array $data
