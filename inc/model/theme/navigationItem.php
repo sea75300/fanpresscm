@@ -294,7 +294,7 @@ class navigationItem extends \fpcm\model\abstracts\staticModel implements \Strin
      * Status, dass Spacer nach Element angezeigt werden soll
      * @param bool $spacer
      */
-    public function setSpacer($spacer)
+    public function setSpacer($spacer = true)
     {
         $this->spacer = (bool) $spacer;
         return $this;
@@ -430,7 +430,7 @@ class navigationItem extends \fpcm\model\abstracts\staticModel implements \Strin
     {
         $css = ( $this->submenuItem ? 'dropdown-item  ' : 'fpcm ui-nav-link ' ) . $this->getDefaultCss($this->activeSetModule) . ' nav-link';
    
-        return "<a class=\"{$css}\" href=\"{$this->getFullUrl()}\" " .
+        return "<a class=\"{$css} text-truncate\" href=\"{$this->getFullUrl()}\" " .
                 ($this->hasSubmenu() ? "role=\"button\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\" " : '' ) .
                 ($this->isActive($this->activeSetModule) ? "aria-current=\"page\" " : '' ) .
                 ">" .
@@ -451,7 +451,7 @@ class navigationItem extends \fpcm\model\abstracts\staticModel implements \Strin
             return $str;
         }
         
-        $str .= "<ul class=\"dropdown-menu shadow fpcm ui-blurring\" aria-labelledby=\"{$this->getId()}\"> ";
+        $str .= "<ul class=\"dropdown-menu shadow fpcm ui-blurring w-100\" aria-labelledby=\"{$this->getId()}\"> ";
         
         /* @var $si navigationItem */
         foreach ($this->getSubmenu() as $si) {
@@ -462,7 +462,7 @@ class navigationItem extends \fpcm\model\abstracts\staticModel implements \Strin
             $str .= (string) $si;
             
             if ($si->hasSpacer()) {
-                $str .= '<li><hr class=\"dropdown-divider\"></li>';
+                $str .= '<li><hr class="dropdown-divider"></li>';
             }
 
         }

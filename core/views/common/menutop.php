@@ -20,7 +20,7 @@
                     
                     <div class="dropdown-menu fpcm ui-z-index-top ui-max-width-md" aria-labelledby="fpcm-id-search-global-btn" id="fpcm-id-search-global">
 
-                        <h6 class="dropdown-header"><?php $theView->write('LABEL_SEARCH_GLOBAL'); ?></h6>
+                        <h6 class="dropdown-header me-5"><?php $theView->write('LABEL_SEARCH_GLOBAL'); ?></h6>
 
                         <div class="dropdown-item-text">
                             <div class="input-group input-group-sm w-auto">

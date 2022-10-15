@@ -52,39 +52,56 @@ class navigation extends \fpcm\model\abstracts\staticModel {
     {
         $this->navList->add(
             navigationItem::AREA_DASHBOARD,
-            (new navigationItem())->setUrl('system/dashboard')->setDescription('HL_DASHBOARD')->setIcon('home fa-lg')
+            (new navigationItem())->setUrl('system/dashboard')->setDescription('HL_DASHBOARD')->setIcon('home')
         );
 
         $this->navList->add(
             navigationItem::AREA_ADDNEWS,
-            (new navigationItem())->setUrl('articles/add')->setDescription('HL_ARTICLE_ADD')->setIcon('pen-square fa-lg')->setAccessible($this->permissions->article->add)
+            (new navigationItem())->setUrl('articles/add')->setDescription('HL_ARTICLE_ADD')->setIcon('pen-square')->setAccessible($this->permissions->article->add)
         );
 
         $this->navList->add(
             navigationItem::AREA_EDITNEWS,
             (new navigationItem())->setUrl('#')->setDescription('HL_ARTICLE_EDIT')
-            ->setIcon('book fa-lg')->setSubmenu($this->editorSubmenu())
+            ->setIcon('book')->setSubmenu($this->editorSubmenu())
             ->setAccessible($this->permissions->editArticles() || $this->permissions->article->archive)
             ->setId('editnews')
         );
 
-        $this->navList->add(
-            navigationItem::AREA_COMMENTS,
-            (new navigationItem())->setUrl('comments/list')->setDescription('HL_COMMENTS_MNG')
-            ->setIcon('comments fa-lg')->setId('editcomments')
-            ->setAccessible($this->config->system_comments_enabled && $this->permissions->editComments())
-        );
+        if ($this->config->system_comments_enabled) {
+
+            $commentItem = (new navigationItem())
+                    ->setDescription('HL_COMMENTS_MNG')
+                    ->setIcon('comments')
+                    ->setId('editcomments')
+                    ->setAccessible($this->permissions->editComments());
+
+            if ($this->permissions->comment->delete) {
+                $commentItem->setSubmenu([
+                    (new navigationItem())->setUrl('comments/list')->setDescription('HL_ARTICLE_EDIT_ALL')->setIcon('comments')->setSpacer(),
+                    (new navigationItem())->setUrl('comments/trash')->setDescription('ARTICLES_TRASH')->setIcon('trash-alt', 'far')
+                ]);
+            }
+            else {
+                $commentItem->setUrl('comments/list');
+            }
+
+            $this->navList->add(
+                navigationItem::AREA_COMMENTS,
+                $commentItem
+            );
+        }   
 
         $this->navList->add(
             navigationItem::AREA_FILEMANAGER,
             (new navigationItem())->setUrl('files/list&mode=1')->setDescription('HL_FILES_MNG')
-            ->setIcon('folder-open fa-lg')->setAccessible($this->permissions->uploads->visible)    
+            ->setIcon('folder-open')->setAccessible($this->permissions->uploads->visible)    
         );
 
         $this->navList->add(
             navigationItem::AREA_OPTIONS,
             (new navigationItem())->setUrl('#')->setDescription('HL_OPTIONS')
-            ->setIcon('cog fa-lg')->setSubmenu($this->optionSubmenu())
+            ->setIcon('cog')->setSubmenu($this->optionSubmenu())
             ->setAccessible($this->permissions->system->options)
             ->setId('options-submenu')
         );
@@ -92,46 +109,13 @@ class navigation extends \fpcm\model\abstracts\staticModel {
         $this->navList->add(
             navigationItem::AREA_MODULES,
             (new navigationItem())->setUrl('modules/list')->setDescription('HL_MODULES')
-            ->setIcon('plug fa-lg')->setSubmenu($this->modulesSubmenu())
+            ->setIcon('plug')->setSubmenu($this->modulesSubmenu())
             ->setAccessible($this->permissions->modules->configure || $this->permissions->modules->install || $this->permissions->modules->uninstall)
         );
 
-        $this->addTrashItem();
         $this->addUtilitiesItem();
 
         return $this->events->trigger('navigation\add', $this->navList)->getData();
-    }
-
-    /**
-     * Add trash navigation items depending on delete permissions
-     * @return array
-     */
-    private function addTrashItem()
-    {
-        $submenu = [];
-        
-        if ($this->permissions->article->delete) {
-            $submenu[] = (new navigationItem())->setUrl('articles/trash')->setDescription('HL_ARTICLES')->setIcon('book');
-        }
-
-        if ($this->config->system_comments_enabled && $this->permissions->comment->delete) {
-            $submenu[] = (new navigationItem())->setUrl('comments/trash')->setDescription('COMMMENT_HEADLINE')->setIcon('comments');
-        }
-
-        if (!count($submenu)) {
-            return false;
-        }
-                
-        $this->navList->add(
-            navigationItem::AREA_TRASH,
-            (new navigationItem())->setUrl('#')
-            ->setDescription('ARTICLES_TRASH')
-            ->setIcon('trash-alt', 'far')
-            ->setId('trashmain')
-            ->setSubmenu($submenu)
-        );
-
-        return true;
     }
 
     /**
@@ -175,7 +159,7 @@ class navigation extends \fpcm\model\abstracts\staticModel {
      */
     private function editorSubmenu()
     {
-        return [
+        $return = [
             (new navigationItem())->setUrl('articles/listall')
                 ->setDescription('HL_ARTICLE_EDIT_ALL')
                 ->setIcon('book')
@@ -188,7 +172,15 @@ class navigation extends \fpcm\model\abstracts\staticModel {
                 ->setDescription('HL_ARTICLE_EDIT_ARCHIVE')
                 ->setIcon('archive')
                 ->setAccessible($this->permissions->article->archive)
+                ->setSpacer($this->permissions->article->delete)
         ];
+        
+        if ($this->permissions->article->delete) {
+            $return[] = (new navigationItem())->setUrl('articles/trash')->setDescription('ARTICLES_TRASH')->setIcon('trash-alt', 'far');
+        }
+
+        return $return;
+        
     }
 
     /**
@@ -234,6 +226,7 @@ class navigation extends \fpcm\model\abstracts\staticModel {
             (new navigationItem())->setUrl('system/crons')
                 ->setDescription('HL_CRONJOBS')
                 ->setIcon('history')
+                ->setSpacer()
                 ->setAccessible($this->permissions->system->crons),
             (new navigationItem())->setUrl('system/backups')
                 ->setDescription('HL_BACKUPS')
