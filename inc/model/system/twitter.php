@@ -31,6 +31,13 @@ class twitter extends \fpcm\model\abstracts\staticModel {
     protected $username = '';
 
     /**
+     * Requirements status
+     * @var ?bool
+     * @since 5.0.2
+     */
+    protected $requ = null;
+
+    /**
      * Konstruktor
      */
     public function __construct()
@@ -45,22 +52,24 @@ class twitter extends \fpcm\model\abstracts\staticModel {
 
         $this->oAuth = new \tmhOAuth((array) $this->config->twitter_data);
     }
-
+    
     /**
-     * Prüft, ob Verbindung zu Twitter hergestellt werden kann
+     * Check, if connection requriements fit
+     * @param bool $force force check
      * @return bool
+     * @since 5.0.2
      */
-    public function checkRequirements()
+    public function checkRequirements(bool $force = false) : bool
     {
-        if (!\fpcm\classes\baseconfig::canConnect() || !function_exists('curl_init')) {
-            return false;
+        if ($this->requ !== null && !$force) {
+            return $this->requ;
         }
 
-        if (!$this->config->twitter_data->isConfigured()) {
-            return false;
-        }
+        $this->requ =   function_exists('curl_init') &&
+                        \fpcm\classes\baseconfig::canConnect() &&
+                        $this->config->twitter_data->isConfigured();
 
-        return true;
+        return $this->requ;
     }
 
     /**
@@ -80,7 +89,8 @@ class twitter extends \fpcm\model\abstracts\staticModel {
         }
 
         $code = $this->oAuth->request(
-            'GET', $this->oAuth->url('1.1/account/verify_credentials')
+            'GET',
+            $this->oAuth->url('1.1/account/verify_credentials')
         );
 
         $this->log();
@@ -104,12 +114,14 @@ class twitter extends \fpcm\model\abstracts\staticModel {
         }
 
         $code = $this->oAuth->request(
-            'POST', $this->oAuth->url('1.1/statuses/update'), array('status' => $text)
+            'POST',
+            $this->oAuth->url('1.1/statuses/update'), [ 'status' => $text ]
         );
         
+        fpcmLogSystem(sprintf('Create new tweet: "%s" ', new \fpcm\view\helper\escape($text) ));
         $this->log();
 
-        fpcmLogSystem('Create tweet retuned code: '.$code);
+        fpcmLogSystem(sprintf('Create tweet retuned code: %s', $code));
         return ($code != 200 ? false : true);
     }
 
