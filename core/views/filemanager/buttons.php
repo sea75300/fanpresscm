@@ -18,7 +18,7 @@
             <?php $theView->linkButton(uniqid('articleimg'))->setUrl($file->getImageUrl())->setText('EDITOR_ARTICLEIMAGE')->setClass('fpcm-filelist-articleimage')->setIcon('image')->setIconOnly(true)->setData(['imgtext' => $file->getFilename()]); ?>
         </div>
     <?php endif; ?>
-        <div class="nav-item dropdown">
+        <div class="nav-item dropdown dropup-center dropup">
 
             <?php $theView->button('nbexp'.$file->getFileNameHash())
                 ->setText('GLOBAL_ACTIONS')
