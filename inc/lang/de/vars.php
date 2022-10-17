@@ -29,6 +29,7 @@ $lang = array (
   'ARTICLE_SEARCH_DATE_FROM' => 'Datum von',
   'ARTICLE_SEARCH_DATE_TO' => 'Datum bis',
   'ARTICLE_SEARCH_DRAFT' => 'Entwürfe',
+  'ARTICLE_SEARCH_LOGIC' => 'Verknüpfung',
   'ARTICLE_SEARCH_LOGICAND' => 'UND',
   'ARTICLE_SEARCH_LOGICNONE' => 'keine',
   'ARTICLE_SEARCH_LOGICOR' => 'ODER',

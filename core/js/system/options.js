@@ -20,7 +20,7 @@ fpcm.options = {
             });
         });
 
-        fpcm.dom.bindClick('#btnTestSmtp', function () {
+        fpcm.dom.bindClick('#testSmtp', function () {
             fpcm.ajax.post('smtptest', {
                 execDone: function (_msg) {
                     fpcm.ui.addMessage(_msg);

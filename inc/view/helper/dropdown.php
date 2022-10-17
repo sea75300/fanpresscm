@@ -52,7 +52,7 @@ class dropdown extends helper {
         
         $options = $this->getOptionsString($this->options);
         
-        $btn = (new button($btnId))->setText($this->text)->setClass('dropdown-toggle ' . $this->getUiSize())->setData([ 'bs-toggle' => 'dropdown' ])->setAria(['expanded' => 'false']);
+        $btn = (new button($btnId))->setText($this->text)->setClass('dropdown-toggle ' . $this->getUiSize())->setData([ 'bs-toggle' => 'dropdown' ])->setAria(['expanded' => 'false'])->setIconOnly($this->iconOnly);
         if (trim($this->icon)) {
             $btn->setIcon($this->icon);
         }
@@ -134,6 +134,11 @@ class dropdown extends helper {
         }
         
         foreach ($options as $key => $value) {
+            
+            if ($value instanceof dropdownSpacer) {
+                $this->returnString[] = (string) $value;
+                continue;
+            }
             
             if (! $value instanceof dropdownItem) {
                 $value = (new dropdownItem(md5(uniqid('ddi').$key.$value) ))->setText($key)->setValue($value);

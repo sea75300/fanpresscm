@@ -93,6 +93,8 @@
                     ->setOptions($searchCombination)
                     ->setClass('fpcm-ui-input-select-filessearch-combination')
                     ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED)
+                    ->setText($theView->translate('ARTICLE_SEARCH_LOGIC'))
+                    ->setLabelTypeFloat()
                     ->setData(['']); ?>
         </div>
     </div>
@@ -111,6 +113,8 @@
                     ->setOptions($searchCombination)
                     ->setClass('fpcm-ui-input-select-filessearch-combination')
                     ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED)
+                    ->setText($theView->translate('ARTICLE_SEARCH_LOGIC'))
+                    ->setLabelTypeFloat()
                     ->setBottomSpace(''); ?>
         </div>
 
@@ -132,6 +136,8 @@
                     ->setOptions($searchCombination)
                     ->setClass('fpcm-ui-input-select-filessearch-combination')
                     ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED)
+                    ->setText($theView->translate('ARTICLE_SEARCH_LOGIC'))
+                    ->setLabelTypeFloat()
                     ->setBottomSpace(''); ?>
         </div>
 

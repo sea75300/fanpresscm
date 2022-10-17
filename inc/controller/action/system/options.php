@@ -145,23 +145,23 @@ class options extends \fpcm\controller\abstracts\controller implements \fpcm\con
 
     private function initButtons()
     {
-        $buttons = [
-            (new \fpcm\view\helper\saveButton('configSave'))->setPrimary()->setClass('fpcm-ui-maintoolbarbuttons-tab1'.($this->syscheck ? ' fpcm-ui-hidden' : '')),
-            (new \fpcm\view\helper\button('syschecksubmitstats', 'syschecksubmitstats'))->setPrimary()->setText('SYSTEM_OPTIONS_SYSCHECK_SUBMITSTATS')->setClass('fpcm-ui-maintoolbarbuttons-tab2'.($this->syscheck ? '' : ' fpcm-ui-hidden'))->setIcon('chart-line'),
+        $actions = [
+            (new \fpcm\view\helper\dropdownItem('syschecksubmitstats'))->setText('SYSTEM_OPTIONS_SYSCHECK_SUBMITSTATS')->setIcon('chart-line')->setValue('1'),
+            new \fpcm\view\helper\dropdownSpacer()
         ];
 
-        if (!\fpcm\classes\baseconfig::canConnect() || !$this->permissions->system->update) {
-            $this->view->addButtons($buttons);
-            return true;
+        if (\fpcm\classes\baseconfig::canConnect() && $this->permissions->system->update) {
+            $actions[] = (new \fpcm\view\helper\dropdownItem('checkUpdate'))->setText('PACKAGES_MANUALCHECK')->setIcon('sync')->setValue('3');
         }
-
-        $buttons[] = (new \fpcm\view\helper\button('checkUpdate', 'checkUpdate'))->setText('PACKAGES_MANUALCHECK')->setIcon('sync');
         
         if ($this->config->smtp_enabled) {
-            $buttons[] = (new \fpcm\view\helper\button('testSmtp'))->setText('SYSTEM_OPTIONS_EMAIL_CHECK')->setIcon('envelope-circle-check');
+            $actions[] = (new \fpcm\view\helper\dropdownItem('testSmtp'))->setText('SYSTEM_OPTIONS_EMAIL_CHECK')->setIcon('envelope-circle-check')->setValue('2');
         }
 
-        $this->view->addButtons($buttons);
+        $this->view->addButtons([
+            (new \fpcm\view\helper\saveButton('configSave'))->setPrimary(),
+            (new \fpcm\view\helper\dropdown('actions'))->setText('GLOBAL_EXTENDED')->setIcon('bars')->setOptions($actions)
+        ]);
         return true;
     }
 

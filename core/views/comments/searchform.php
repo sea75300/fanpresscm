@@ -19,6 +19,8 @@
                     ->setClass('fpcm-comments-search-input fpcm-ui-input-select-commentsearch')
                     ->setSelected(0)
                     ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED)
+                    ->setText($theView->translate('ARTICLE_SEARCH_LOGIC'))
+                    ->setLabelTypeFloat()
                     ->setBottomSpace(''); ?>
         </div>
     </div>
@@ -38,6 +40,8 @@
                     ->setOptions($searchCombination)
                     ->setClass('fpcm-ui-input-select-commentsearch-combination')
                     ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED)
+                    ->setText($theView->translate('ARTICLE_SEARCH_LOGIC'))
+                    ->setLabelTypeFloat()
                     ->setData([''])
                     ->setBottomSpace(''); ?>
         </div>
@@ -58,6 +62,8 @@
                     ->setOptions($searchCombination)
                     ->setClass('fpcm-ui-input-select-commentsearch-combination')
                     ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED)
+                    ->setText($theView->translate('ARTICLE_SEARCH_LOGIC'))
+                    ->setLabelTypeFloat()
                     ->setBottomSpace(''); ?>
         </div>
     </div>
@@ -79,6 +85,8 @@
                     ->setOptions($searchCombination)
                     ->setClass('fpcm-ui-input-select-commentsearch-combination')
                     ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED)
+                    ->setText($theView->translate('ARTICLE_SEARCH_LOGIC'))
+                    ->setLabelTypeFloat()
                     ->setBottomSpace(''); ?>
         </div>
     </div>
@@ -100,6 +108,8 @@
                     ->setOptions($searchCombination)
                     ->setClass('fpcm-ui-input-select-commentsearch-combination')
                     ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED)
+                    ->setText($theView->translate('ARTICLE_SEARCH_LOGIC'))
+                    ->setLabelTypeFloat()
                     ->setBottomSpace(''); ?>
         </div>
     </div>
@@ -121,6 +131,8 @@
                     ->setOptions($searchCombination)
                     ->setClass('fpcm-ui-input-select-commentsearch-combination')
                     ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED)
+                    ->setText($theView->translate('ARTICLE_SEARCH_LOGIC'))
+                    ->setLabelTypeFloat()
                     ->setBottomSpace(''); ?>
         </div>
     </div>
@@ -141,6 +153,8 @@
                     ->setOptions($searchCombination)
                     ->setClass('fpcm-ui-input-select-commentsearch-combination')
                     ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED)
+                    ->setText($theView->translate('ARTICLE_SEARCH_LOGIC'))
+                    ->setLabelTypeFloat()
                     ->setBottomSpace(''); ?>
         </div>
     </div>
