@@ -151,9 +151,9 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController
     {
         return [
             (new \fpcm\components\dataView\column('buttons', 'GLOBAL_ACTIONS'))->setAlign('center text-md-right')->setSize(2),
-            (new \fpcm\components\dataView\column('description', 'MODULES_LIST_NAME'))->setSize(6),
+            (new \fpcm\components\dataView\column('description', 'MODULES_LIST_NAME'))->setSize(5),
             (new \fpcm\components\dataView\column('key', 'MODULES_LIST_KEY'))->setSize(3),
-            (new \fpcm\components\dataView\column('version', 'MODULES_LIST_VERSION_LOCAL'))->setAlign('left text-lg-center')->setSize(1)
+            (new \fpcm\components\dataView\column('version', 'MODULES_LIST_VERSION_LOCAL'))->setAlign('left text-lg-center')->setSize(2)
         ];
     }
 
@@ -165,9 +165,9 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController
     {
         return [
             (new \fpcm\components\dataView\column('buttons', 'GLOBAL_ACTIONS'))->setAlign('center text-md-right')->setSize(2),
-            (new \fpcm\components\dataView\column('description', 'MODULES_LIST_NAME'))->setSize(6),
+            (new \fpcm\components\dataView\column('description', 'MODULES_LIST_NAME'))->setSize(5),
             (new \fpcm\components\dataView\column('key', 'MODULES_LIST_KEY'))->setSize(3),
-            (new \fpcm\components\dataView\column('version', 'MODULES_LIST_VERSION_REMOTE'))->setAlign('left text-lg-center')->setSize(1)
+            (new \fpcm\components\dataView\column('version', 'MODULES_LIST_VERSION_REMOTE'))->setAlign('left text-lg-center')->setSize(2)
         ];
     }
 
