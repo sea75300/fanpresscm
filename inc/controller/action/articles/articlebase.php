@@ -157,6 +157,7 @@ abstract class articlebase extends \fpcm\controller\abstracts\controller impleme
         }
         
         $this->view->addJsFiles(array_merge([
+                'articles/articlebase.js',
                 'editor/editor.js',
                 'editor/editor_videolinks.js',
             ],
@@ -192,22 +193,28 @@ abstract class articlebase extends \fpcm\controller\abstracts\controller impleme
 
         $twitter    = new \fpcm\model\system\twitter();
         $twitterOk  = $twitter->checkRequirements();
-        $twitterReplacements = ['TEMPLATE_REPLACEMENTS' => '', 'tplCode' => ''];
 
         if ($twitterOk) {
+            
+            $tph = [];
+            
             $twitterTpl = new \fpcm\model\pubtemplates\tweet();
             foreach ($twitterTpl->getReplacementTranslations('TEMPLATE_ARTICLE_') as $tag => $descr) {
-                $twitterReplacements[$descr.': '.$tag] = $tag;
+                $tph[] = (new \fpcm\view\helper\dropdownItem(md5($tag)))->setText($this->language->translate($descr).': '.$tag)->setValue($tag)->setData(['var' => $tag]);
             }
 
-            $twitterReplacements['tplCode'] = $twitterTpl->getContent();
+            $this->view->assign('twitterTplPlaceholder', $twitterTpl->getContent() );
+            $this->view->assign('twitterReplacements', $tph );
+            $this->view->assign('showTwitter', true);
+        }
+        else {
+            
+            $this->view->assign('twitterTplPlaceholder', null);
+            $this->view->assign('twitterReplacements', null);
+            $this->view->assign('showTwitter', false);
         }
 
-        $this->view->assign('twitterTplPlaceholder', $twitterReplacements['tplCode']);
-        unset($twitterReplacements['tplCode']);
 
-        $this->view->assign('twitterReplacements', $twitterReplacements);
-        $this->view->assign('showTwitter', $twitterOk);
         $this->view->assign('urlRewrite', $this->config->articles_link_urlrewrite);
         $this->view->setActiveTab($this->getActiveTab());
 

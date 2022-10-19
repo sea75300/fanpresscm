@@ -158,7 +158,7 @@
     </fieldset>
     <?php endif; ?>
 
-    <?php if ($showTwitter && !empty($twitterReplacements)) : ?>
+    <?php if ($showTwitter && !empty($twitterReplacements) && !empty($twitterTplPlaceholder)) : ?>
     <fieldset class="py-3">
         <div class="row">
             <div class="col">
@@ -184,7 +184,12 @@
                 <div class="row">
 
                     <div class="col align-self-center">
-                        <?php $theView->select('twitterReplacements')->setOptions($twitterReplacements)->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
+                        <?php $theView->dropdown('twitterReplacements')
+                                ->setOptions($twitterReplacements)
+                                ->setSelected('')
+                                ->setText('TEMPLATE_REPLACEMENTS')
+                                ->setIcon('square-plus')
+                                ->setIconOnly(); ?>
                     </div>
 
                 </div>
