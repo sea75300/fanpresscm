@@ -29,11 +29,7 @@ final class addLinks extends \fpcm\events\abstracts\eventReturnArray {
     public function run()
     {
         $this->data = [ ['label' => 'Example', 'value' => 'Example'] ];
-
-        $result = parent::run();
-        $result->setData(array_shift($result->getData()));
-
-        return $result;
+        return parent::run();
     }
 
 }

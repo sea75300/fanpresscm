@@ -150,7 +150,13 @@ class tinymceEditor5 extends articleEditor {
             return [];
         }
 
-        return json_decode(str_replace('label', 'title', json_encode($links)), false);
+        return array_map(function ($item) {
+            return [
+                'title' => $item['label'],
+                'value' => $item['value']
+            ];
+
+        }, $links);
     }
 
     /**

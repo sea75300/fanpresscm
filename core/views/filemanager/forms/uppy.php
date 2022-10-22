@@ -7,7 +7,7 @@
             <?php $theView->button('cancel')->setText('FILE_FORM_UPLOADCANCEL')->setClass('w-100')->setIcon('ban')->overrideButtonType('outline-secondary'); ?>
         </div>
         <div class="col align-self-center">
-            <div class="col-12 shadow d-none d-lg-block">
+            <div class="col-12 d-none d-lg-block">
                 <div id="fpcm-uppy-drop-area"></div>
             </div>
         </div>

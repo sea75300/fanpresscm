@@ -256,7 +256,7 @@ abstract class articlebase extends \fpcm\controller\abstracts\controller impleme
                 ->setTabToolbar(1);
 
         $tabs[] = (new \fpcm\view\helper\tabItem('extended'))
-                ->setFile('articles/buttons.php')
+                ->setFile('articles/extended.php')
                 ->setText('GLOBAL_EXTENDED')
                 ->setTabToolbar(1);
         

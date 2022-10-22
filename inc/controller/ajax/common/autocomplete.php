@@ -159,6 +159,8 @@ class autocomplete extends \fpcm\controller\abstracts\ajaxController
         }
 
         $data = \fpcm\components\components::getArticleEditor()->getEditorLinks();
+        array_shift($data);
+
         $this->returnData = array_filter($data, function ($value) {
             return $this->term && stripos($value['label'], $this->term) === false && stripos($value['value'], $this->term) === false ? false : true;
         });

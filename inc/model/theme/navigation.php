@@ -159,7 +159,7 @@ class navigation extends \fpcm\model\abstracts\staticModel {
      */
     private function editorSubmenu()
     {
-        $return = [
+        return [
             (new navigationItem())->setUrl('articles/listall')
                 ->setDescription('HL_ARTICLE_EDIT_ALL')
                 ->setIcon('book')
@@ -172,15 +172,13 @@ class navigation extends \fpcm\model\abstracts\staticModel {
                 ->setDescription('HL_ARTICLE_EDIT_ARCHIVE')
                 ->setIcon('archive')
                 ->setAccessible($this->permissions->article->archive)
-                ->setSpacer($this->permissions->article->delete)
+                ->setSpacer($this->permissions->article->delete),
+            (new navigationItem())
+                ->setUrl('articles/trash')
+                ->setDescription('ARTICLES_TRASH')
+                ->setIcon('trash-alt', 'far')
+                ->setAccessible($this->permissions->article->delete)
         ];
-        
-        if ($this->permissions->article->delete) {
-            $return[] = (new navigationItem())->setUrl('articles/trash')->setDescription('ARTICLES_TRASH')->setIcon('trash-alt', 'far');
-        }
-
-        return $return;
-        
     }
 
     /**
