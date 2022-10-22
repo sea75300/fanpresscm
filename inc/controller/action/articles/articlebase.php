@@ -16,6 +16,8 @@ namespace fpcm\controller\action\articles;
 abstract class articlebase extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\requestFunctions
 {
 
+    use \fpcm\controller\traits\articles\newteets;
+    
     /**
      *
      * @var \fpcm\model\articles\article
@@ -191,20 +193,15 @@ abstract class articlebase extends \fpcm\controller\abstracts\controller impleme
         $this->view->assign('userfields', $this->getUserFields());
         $this->view->assign('rollCodex', (new \fpcm\model\users\userRoll($this->session->getCurrentUser()->getRoll()))->getCodex());
 
-        $twitter    = new \fpcm\model\system\twitter();
+        $twitter    = $this->getTwitterInstace();
         $twitterOk  = $twitter->checkRequirements();
 
         if ($twitterOk) {
-            
-            $tph = [];
-            
-            $twitterTpl = new \fpcm\model\pubtemplates\tweet();
-            foreach ($twitterTpl->getReplacementTranslations('TEMPLATE_ARTICLE_') as $tag => $descr) {
-                $tph[] = (new \fpcm\view\helper\dropdownItem(md5($tag)))->setText($this->language->translate($descr).': '.$tag)->setValue($tag)->setData(['var' => $tag]);
-            }
 
-            $this->view->assign('twitterTplPlaceholder', $twitterTpl->getContent() );
-            $this->view->assign('twitterReplacements', $tph );
+            $tpl = $this->getTemplateContent();
+            
+            $this->view->assign('twitterTplPlaceholder', $tpl['tpl'] );
+            $this->view->assign('twitterReplacements', $tpl['vars'] );
             $this->view->assign('showTwitter', true);
         }
         else {

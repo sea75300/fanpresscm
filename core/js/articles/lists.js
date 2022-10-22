@@ -166,23 +166,57 @@ fpcm.articles = {
             return false;
         }
 
-        fpcm.ui_dialogs.confirm({
-            clickNoDefault: true,
-            clickYes: function() {
-
-                fpcm.articles.execNewTweet(ids);
+        fpcm.ui_dialogs.create({
+            title: 'EDITOR_TWEET_TEXT',
+            closeButton: true,
+            content: `<div class="row mb-5"><div class="col flex-grow-1">${fpcm.vars.jsvars.newTweetFields[0]}</div><div class="col-auto mb-3 align-self-center">${fpcm.vars.jsvars.newTweetFields[1]}</div></div>`,
+            dlOnClose: function() {
                 fpcm.dom.resetCheckboxesByClass('fpcm-ui-list-checkbox');
+                fpcm.dom.resetValuesByIdsString(['twitterText'], '');
+            },
+            dlOnOpenAfter: function() {
                 
-            }
+                let _textEL = fpcm.dom.fromId('twitterText');
+                
+                fpcm.dom.bindClick('#twitterReplacements li > a.dropdown-item', function (_e, _ui) {
+
+                    if (!_ui.dataset.var) {
+                        return false;
+                    }
+
+                    let currentText = _textEL.val();
+                    let currentpos = fpcm.dom.fromTag(_textEL).prop('selectionStart');
+
+                    _textEL.val(currentText.substring(0, currentpos) + _ui.dataset.var +  currentText.substring(currentpos));
+                });
+            },
+            dlButtons: [
+                {
+                    text: 'ARTICLE_LIST_NEWTWEET',
+                    icon: 'brands fa-twitter',
+                    primary: true,
+                    clickClose: true,
+                    click: function(_dlg, _btn) {
+
+                        _btn.childNodes[0].className = '';
+                        _btn.childNodes[0].innerHTML = '<div class="spinner-border spinner-border-sm text-light" role="status"></div';
+                        
+                        let _text = fpcm.dom.fromId('twitterText').val();
+                        fpcm.articles.execNewTweet(ids, _text);
+                    }
+                }
+            ]
+            
         });
 
     },
     
-    execNewTweet: function(articleIds) {
+    execNewTweet: function(_ids, _text) {
 
         fpcm.ajax.post('articles/tweet', {
             data    : {
-                ids : fpcm.ajax.toJSON(articleIds)
+                ids: fpcm.ajax.toJSON(_ids),
+                text: _text
             },
             async   : false,
             dataType: 'json',

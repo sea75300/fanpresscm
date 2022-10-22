@@ -200,7 +200,7 @@ fpcm.ui_dialogs = {
                     try {
                         
                         if (_obj.click) {
-                            _obj.click.call(this, _bsObj);
+                            _obj.click.call(this, _bsObj, _btn);
                         }
 
                         if (!_obj.clickClose) {

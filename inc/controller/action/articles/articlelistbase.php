@@ -15,7 +15,8 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller
     use \fpcm\controller\traits\articles\listsCommon,
         \fpcm\controller\traits\articles\listsView,
         \fpcm\controller\traits\common\massedit,
-        \fpcm\controller\traits\common\searchParams;
+        \fpcm\controller\traits\common\searchParams,
+        \fpcm\controller\traits\articles\newteets;
 
 
     /**
@@ -127,14 +128,38 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller
 
         $buttons[] = (new \fpcm\view\helper\button('opensearch', 'opensearch'))->setText('ARTICLES_SEARCH')->setIcon('search')->setIconOnly(true);
         
-        $tweet = new \fpcm\model\system\twitter();
+        $tweet = $this->getTwitterInstace();
 
-        if ($tweet->checkRequirements() && $tweet->checkConnection()) {
+        if ($tweet->checkConnection()) {
             $buttons[] = (new \fpcm\view\helper\button('newtweet'))
                     ->setText('ARTICLE_LIST_NEWTWEET')
                     ->setIcon('twitter', 'fab')
                     ->setIconOnly(true)
                     ->setOnClick('articles.articleActionsTweet');
+            
+            $this->view->addJsLangVars(['EDITOR_TWEET_TEXT', 'ARTICLE_LIST_NEWTWEET']);
+            
+            $ttpl = $this->getTemplateContent();
+            
+            $this->view->addJsVars([
+                'newTweetFields' => [
+                    (string) (new \fpcm\view\helper\textInput('twitterText'))
+                        ->setPlaceholder($ttpl['tpl'])
+                        ->setText($ttpl['tpl'])
+                        ->setLabelTypeFloat()
+                        ->setValue('')
+                        ->setSize(280)
+                        ->setIcon('twitter', 'fab')
+                        ->setSize('lg'),
+                    (string) (new \fpcm\view\helper\dropdown('twitterReplacements'))
+                        ->setOptions($ttpl['vars'])
+                        ->setSelected('')
+                        ->setText('TEMPLATE_REPLACEMENTS')
+                        ->setIcon('square-plus')
+                        ->setIconOnly()
+                ]
+            ]);
+            
         }
 
         $buttons[] = (new \fpcm\view\helper\button('articlecache'))

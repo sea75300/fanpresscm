@@ -118,7 +118,7 @@ class twitter extends \fpcm\model\abstracts\staticModel {
             $this->oAuth->url('1.1/statuses/update'), [ 'status' => $text ]
         );
         
-        fpcmLogSystem(sprintf('Create new tweet: "%s"...', new \fpcm\view\helper\escape($text) ));
+        fpcmLogSystem(sprintf('Create new tweet: "%s"...', $text));
         $this->log();
 
         fpcmLogSystem(sprintf('Create tweet retuned code: %s', $code));
