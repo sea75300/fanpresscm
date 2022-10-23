@@ -106,20 +106,31 @@ class crons extends \fpcm\controller\abstracts\controller
      */
     protected function initDataViewRow($cronjob)
     {
+        $modules = (new \fpcm\module\modules)->getEnabledDatabase();
+        
+        
+
         if ($cronjob->isRunning()) {
             $processingIcon = 'spinner fa-spin-pulse text-danger';
             $playClass = '';
+            $rowClass = '';
             $btnReadonly = true;
+        }
+        elseif ( $cronjob->getModuleKey() && !isset($modules[$cronjob->getModuleKey()]) ) {
+            $btnReadonly = true;
+            $processingIcon = 'play-circle';
+            $rowClass = 'text-muted';
+            $playClass = '';
         }
         else {
             $processingIcon = 'play-circle';
             $playClass = 'fpcm-cronjoblist-exec';
+            $rowClass = '';
             $btnReadonly = false;
         }
         
         $nextExecTs = $cronjob->getNextExecTime();
         
-        $modules = (new \fpcm\module\modules)->getEnabledDatabase();
 
         return new \fpcm\components\dataView\row([
             
@@ -132,6 +143,7 @@ class crons extends \fpcm\controller\abstracts\controller
                 (new \fpcm\view\helper\select('intervals_' . $cronjob->getCronName()))
                     ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
                     ->setOptions($this->intervals)
+                    ->setReadonly($btnReadonly)
                     ->setSelected($cronjob->getIntervalTime())
                     ->setClass('fpcm-cronjoblist-intervals')
                     ->setData([
@@ -141,7 +153,7 @@ class crons extends \fpcm\controller\abstracts\controller
             new \fpcm\components\dataView\rowCol('name', $this->language->translate($cronjob->getCronNameLangVar())),
             new \fpcm\components\dataView\rowCol('lastexec', new \fpcm\view\helper\dateText($cronjob->getLastExecTime())),
             new \fpcm\components\dataView\rowCol('nextecec', $nextExecTs ? new \fpcm\view\helper\dateText( $nextExecTs ) : '-')
-        ], $cronjob->getModuleKey() && !isset($modules[$cronjob->getModuleKey()]) ? 'text-muted' : '' );
+        ], $rowClass);
     }
 
 }
