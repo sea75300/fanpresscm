@@ -106,7 +106,7 @@ class crons extends \fpcm\controller\abstracts\controller
      */
     protected function initDataViewRow($cronjob)
     {
-        if ( ($cronjob->getIntervalTime() > -1 && $this->currentTime > $cronjob->getNextExecTime() - 60) || $cronjob->isRunning()) {
+        if ($cronjob->isRunning()) {
             $processingIcon = 'spinner fa-spin-pulse text-danger';
             $playClass = '';
             $btnReadonly = true;
@@ -118,6 +118,8 @@ class crons extends \fpcm\controller\abstracts\controller
         }
         
         $nextExecTs = $cronjob->getNextExecTime();
+        
+        $modules = (new \fpcm\module\modules)->getEnabledDatabase();
 
         return new \fpcm\components\dataView\row([
             
@@ -139,7 +141,7 @@ class crons extends \fpcm\controller\abstracts\controller
             new \fpcm\components\dataView\rowCol('name', $this->language->translate($cronjob->getCronNameLangVar())),
             new \fpcm\components\dataView\rowCol('lastexec', new \fpcm\view\helper\dateText($cronjob->getLastExecTime())),
             new \fpcm\components\dataView\rowCol('nextecec', $nextExecTs ? new \fpcm\view\helper\dateText( $nextExecTs ) : '-')
-        ]);
+        ], $cronjob->getModuleKey() && !isset($modules[$cronjob->getModuleKey()]) ? 'text-muted' : '' );
     }
 
 }
