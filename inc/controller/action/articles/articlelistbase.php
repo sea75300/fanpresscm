@@ -155,6 +155,7 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller
                         ->setOptions($ttpl['vars'])
                         ->setSelected('')
                         ->setText('TEMPLATE_REPLACEMENTS')
+                        ->setDdType('end')
                         ->setIcon('square-plus')
                         ->setIconOnly()
                 ]
