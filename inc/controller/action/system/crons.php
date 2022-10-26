@@ -107,8 +107,6 @@ class crons extends \fpcm\controller\abstracts\controller
     protected function initDataViewRow($cronjob)
     {
         $modules = (new \fpcm\module\modules)->getEnabledDatabase();
-        
-        
 
         if ($cronjob->isRunning()) {
             $processingIcon = 'spinner fa-spin-pulse text-danger';
@@ -116,7 +114,7 @@ class crons extends \fpcm\controller\abstracts\controller
             $rowClass = '';
             $btnReadonly = true;
         }
-        elseif ( $cronjob->getModuleKey() && !isset($modules[$cronjob->getModuleKey()]) ) {
+        elseif ( $cronjob->getModuleKey() && !in_array($cronjob->getModuleKey(), $modules) ) {
             $btnReadonly = true;
             $processingIcon = 'play-circle';
             $rowClass = 'text-muted';
