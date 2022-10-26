@@ -78,7 +78,7 @@ class linkButton extends button {
         
         if ($this->readonly) {
             
-            $this->class .= ' fpcm-ui-readonly';
+            $this->class .= ' disabled';
             return implode(' ', [
                 "<a href=\"#\"",
                 "id=\"{$this->id}\"",

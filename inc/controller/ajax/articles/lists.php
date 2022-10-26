@@ -21,7 +21,8 @@ class lists extends \fpcm\controller\abstracts\ajaxController
 
     use \fpcm\controller\traits\common\searchParams,
         \fpcm\controller\traits\articles\listsCommon,
-        \fpcm\controller\traits\articles\lists;
+        \fpcm\controller\traits\articles\lists,
+        \fpcm\controller\traits\articles\newteets;
     
     const MODE_ALL = 'all';
 
@@ -245,6 +246,7 @@ class lists extends \fpcm\controller\abstracts\ajaxController
             $this->conditions->limit = [$this->config->articles_acp_limit, \fpcm\classes\tools::getPageOffset($this->page, $this->config->articles_acp_limit)];
         }
 
+        $this->showTwitter = $this->getTwitterInstace()->checkConnection();
         return true;
     }
 

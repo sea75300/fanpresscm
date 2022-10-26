@@ -41,17 +41,17 @@ fpcm.ui.initPager = function (params) {
     }
 
     if (fpcm.vars.jsvars.pager.showBackButton) {
-        backEl.removeClass('fpcm-ui-readonly');
+        backEl.removeClass('disabled');
         backEl.click(params.backAction);
-    } else if (!fpcm.vars.jsvars.pager.showBackButton && backEl && !backEl.hasClass('fpcm-ui-readonly')) {
-        backEl.addClass('fpcm-ui-readonly');
+    } else if (!fpcm.vars.jsvars.pager.showBackButton && backEl && !backEl.hasClass('disabled')) {
+        backEl.addClass('disabled');
     }
 
     if (fpcm.vars.jsvars.pager.showNextButton) {
-        nextEl.removeClass('fpcm-ui-readonly');
+        nextEl.removeClass('disabled');
         nextEl.click(params.nextAction);
-    } else if (!fpcm.vars.jsvars.pager.showNextButton && nextEl && !nextEl.hasClass('fpcm-ui-readonly')) {
-        nextEl.addClass('fpcm-ui-readonly');
+    } else if (!fpcm.vars.jsvars.pager.showNextButton && nextEl && !nextEl.hasClass('disabled')) {
+        nextEl.addClass('disabled');
     }
     
     if (fpcm.vars.jsvars.pager.maxPages) {

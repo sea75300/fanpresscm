@@ -123,6 +123,7 @@ fpcm.articles = {
             module: 'articles',
             onRenderDataViewAfter: function () {
                 fpcm.articles.clearArticleCache();
+                fpcm.articles.tweetSingleActions();
                 fpcm.articles.deleteSingleArticle();
             },
             onPagerNext: function () {
@@ -166,6 +167,15 @@ fpcm.articles = {
             return false;
         }
 
+        fpcm.articles._showTweetDialog(ids);
+    },
+    
+    _showTweetDialog: function(_ids) {
+
+        if (!_ids || _ids.length == 0) {
+            return false;
+        }
+
         fpcm.ui_dialogs.create({
             title: 'EDITOR_TWEET_TEXT',
             closeButton: true,
@@ -202,13 +212,13 @@ fpcm.articles = {
                         _btn.childNodes[0].innerHTML = '<div class="spinner-border spinner-border-sm text-light" role="status"></div';
                         
                         let _text = fpcm.dom.fromId('twitterText').val();
-                        fpcm.articles.execNewTweet(ids, _text);
+                        fpcm.articles.execNewTweet(_ids, _text);
                     }
                 }
             ]
             
-        });
-
+        });        
+        
     },
     
     execNewTweet: function(_ids, _text) {
@@ -252,6 +262,14 @@ fpcm.articles = {
 
         });
 
+    },
+    
+    tweetSingleActions: function() {
+        
+        fpcm.dom.bindClick('.fpcm-ui-article-twitter-single', function (_e, _ui) {
+            fpcm.articles._showTweetDialog([_ui.dataset.articleid]);
+        });
+        
     },
 
     deleteSingleArticle: function() {
