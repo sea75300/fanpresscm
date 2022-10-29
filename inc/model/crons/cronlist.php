@@ -3,7 +3,7 @@
 /**
  * FanPress CM Cronjob list
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -129,7 +129,7 @@ final class cronlist extends \fpcm\model\abstracts\staticModel {
         }
 
         $obj = (new \fpcm\model\dbal\selectParams(\fpcm\classes\database::tableCronjobs))
-                ->setWhere('(lastexec+execinterval) < ? AND execinterval > -1')
+                ->setWhere('(lastexec+execinterval) < ? AND execinterval > -1 AND modulekey NOT IN (SELECT mkey from '.$this->dbcon->getTablePrefixed(\fpcm\classes\database::tableModules).' where active = 0)')
                 ->setParams([time()])
                 ->setFetchAll(true);
 

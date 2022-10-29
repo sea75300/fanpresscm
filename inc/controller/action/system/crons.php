@@ -105,14 +105,24 @@ class crons extends \fpcm\controller\abstracts\controller implements \fpcm\contr
      */
     protected function initDataViewRow($cronjob)
     {
-        if ( ($cronjob->getIntervalTime() > -1 && $this->currentTime > $cronjob->getNextExecTime() - 60) || $cronjob->isRunning()) {
+        $modules = (new \fpcm\module\modules)->getEnabledDatabase();
+
+        if ($cronjob->isRunning()) {
             $processingIcon = 'spinner fa-spin-pulse text-danger';
             $playClass = '';
+            $rowClass = '';
             $btnReadonly = true;
+        }
+        elseif ( $cronjob->getModuleKey() && !in_array($cronjob->getModuleKey(), $modules) ) {
+            $btnReadonly = true;
+            $processingIcon = 'play-circle';
+            $rowClass = 'text-muted';
+            $playClass = '';
         }
         else {
             $processingIcon = 'play-circle';
             $playClass = 'fpcm-cronjoblist-exec';
+            $rowClass = '';
             $btnReadonly = false;
         }
         
@@ -129,6 +139,7 @@ class crons extends \fpcm\controller\abstracts\controller implements \fpcm\contr
                 (new \fpcm\view\helper\select('intervals_' . $cronjob->getCronName()))
                     ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
                     ->setOptions($this->intervals)
+                    ->setReadonly($btnReadonly)
                     ->setSelected($cronjob->getIntervalTime())
                     ->setClass('fpcm-cronjoblist-intervals')
                     ->setData([
@@ -138,7 +149,7 @@ class crons extends \fpcm\controller\abstracts\controller implements \fpcm\contr
             new \fpcm\components\dataView\rowCol('name', $this->language->translate($cronjob->getCronNameLangVar())),
             new \fpcm\components\dataView\rowCol('lastexec', new \fpcm\view\helper\dateText($cronjob->getLastExecTime())),
             new \fpcm\components\dataView\rowCol('nextecec', $nextExecTs ? new \fpcm\view\helper\dateText( $nextExecTs ) : '-')
-        ]);
+        ], $rowClass);
     }
 
 }
