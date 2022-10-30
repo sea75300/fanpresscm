@@ -24,6 +24,12 @@ final class cron extends \fpcm\model\abstracts\cli {
      */
     public function process()
     {
+                        
+        if ($this->funcParams[0] === self::PARAM_LIST) {
+            $this->listCrons();
+            return true;
+        }        
+
         $cjClassName    = in_array($this->funcParams[0], [self::PARAM_EXEC, self::PARAM_RESET])
                         ? "\\fpcm\\model\\crons\\{$this->funcParams[1]}"
                         : false;
@@ -70,6 +76,33 @@ final class cron extends \fpcm\model\abstracts\cli {
         $this->output('Reset running flag for cronjob ' . $this->funcParams[1].'. Running: '. $this->boolText($cronjob->isRunning()) );
         $this->output('Reset of cronjob finished. Returned code: ' .(int) ($cronjob->isRunning() && $cronjob->setFinished()) );
         $cronjob->updateLastExecTime();
+        return true;
+    }
+
+    /**
+     * Lists executable cronjobs
+     * @return bool
+     */
+    private function listCrons()
+    {
+        $list = (new \fpcm\model\crons\cronlist)->getExecutableCrons();
+        if (!count($list)) {
+            $this->output('No cronjobs found to be executed.');
+            return true;            
+        }
+        
+        $tab = [];
+        
+        /* @var $cj \fpcm\model\abstracts\cron */
+        foreach ($list as $cj) {
+            $tab[] = sprintf('%s| %s| %s',
+                str_pad($this->language->translate($cj->getCronNameLangVar()), 45),
+                str_pad( new \fpcm\view\helper\dateText($cj->getNextExecTime()) , 20), 
+                str_pad( new \fpcm\view\helper\dateText($cj->getLastExecTime()) , 20)
+            );
+        }
+
+        $this->output($tab);
         return true;
     }
 
