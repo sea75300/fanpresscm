@@ -129,7 +129,7 @@ final class cronlist extends \fpcm\model\abstracts\staticModel {
         }
 
         $obj = (new \fpcm\model\dbal\selectParams(\fpcm\classes\database::tableCronjobs))
-                ->setWhere('(lastexec-36000000+execinterval) < ? AND execinterval > -1 AND (modulekey IS NULL OR modulekey NOT IN (SELECT mkey from '.$this->dbcon->getTablePrefixed(\fpcm\classes\database::tableModules).' where active = 0))')
+                ->setWhere('(lastexec+execinterval) < ? AND execinterval > -1 AND (modulekey IS NULL OR modulekey NOT IN (SELECT mkey from '.$this->dbcon->getTablePrefixed(\fpcm\classes\database::tableModules).' where active = 0))')
                 ->setParams([time()])
                 ->setFetchAll(true);
 

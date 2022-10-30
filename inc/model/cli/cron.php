@@ -95,8 +95,8 @@ final class cron extends \fpcm\model\abstracts\cli {
         
         /* @var $cj \fpcm\model\abstracts\cron */
         foreach ($list as $cj) {
-            $tab[] = sprintf('%-35s | %20s |%20s',
-                substr($this->language->translate($cj->getCronNameLangVar()), 0, 35),
+            $tab[] = sprintf('%-36s |%20s |%20s',
+                substr($this->language->translate($cj->getCronNameLangVar()), 0, 36),
                 new \fpcm\view\helper\dateText($cj->getNextExecTime()), 
                 new \fpcm\view\helper\dateText($cj->getLastExecTime())
             );
