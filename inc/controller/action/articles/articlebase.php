@@ -171,7 +171,7 @@ abstract class articlebase extends \fpcm\controller\abstracts\controller impleme
         $this->view->addFromLibrary(
             'tom-select_js',
             [ 'tom-select.min.js' ],
-            [ 'tom-select-bootstrap5.min.css' ]
+            [ 'tom-select.bootstrap5.min.css' ]
         ); 
 
         $viewVars = $this->editorPlugin->getViewVars();

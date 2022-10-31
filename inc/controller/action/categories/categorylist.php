@@ -84,7 +84,7 @@ class categorylist extends \fpcm\controller\abstracts\controller implements \fpc
         $this->view->addFromLibrary(
             'tom-select_js',
             [ 'tom-select.min.js' ],
-            [ 'tom-select-bootstrap5.min.css' ]
+            [ 'tom-select.bootstrap5.min.css' ]
         ); 
 
         $this->view->addJsLangVars(['CATEGORIES_ROLLS', 'SAVE_FAILED_CATEGORY']);

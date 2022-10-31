@@ -279,7 +279,7 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller
         $this->view->addFromLibrary(
             'tom-select_js',
             [ 'tom-select.min.js' ],
-            [ 'tom-select-bootstrap5.min.css' ]
+            [ 'tom-select.bootstrap5.min.css' ]
         );   
 
         if (!$this->permissions->editArticlesMass()) {
