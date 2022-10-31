@@ -70,7 +70,7 @@ class userRoll extends \fpcm\model\abstracts\dataset {
      */
     public function getRollName(): string
     {
-        return $this->leveltitle;
+        return (string) $this->leveltitle;
     }
 
     /**
@@ -80,7 +80,7 @@ class userRoll extends \fpcm\model\abstracts\dataset {
      */
     public function getCodex(): string
     {
-        return $this->codex;
+        return (string) $this->codex;
     }
 
     /**

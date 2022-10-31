@@ -129,7 +129,6 @@ class crons extends \fpcm\controller\abstracts\controller
         
         $nextExecTs = $cronjob->getNextExecTime();
         
-
         return new \fpcm\components\dataView\row([
             
             new \fpcm\components\dataView\rowCol('button', (new \fpcm\view\helper\button($cronjob->getCronName()))->setText('CRONJOB_LIST_EXECDEMAND')->setClass($playClass)->setIcon($processingIcon)->setIconOnly(true)->setReadonly($btnReadonly)->setData([
