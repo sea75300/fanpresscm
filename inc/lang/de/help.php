@@ -91,7 +91,7 @@ Help language file
             <dd class="pb-2">Der Inhalt dieses Feldes wird durch den Template-Tag "{{sources}}" dargestellt. Hier kannst du Links zu deinen Informationsquellen,
                 Quellen von Bildern, Videos etc. oder zu weiterführenden Informationen angeben. Links werden so weit es geht automatisch in HTML-Links umgewandelt.</dd>
             <dd class="pb-2">Einträge im Quellenverzeichnis werden gespeichert und bei Übereinstimmung zur Auswahl angezeigt. Über den Button 
-                "Quellenverzeichnis-Einträge" die Einträge aus der Autovervollständigung entfernt werden.</dd>
+                "Quellenverzeichnis-Einträge" können die Einträge aus der Autovervollständigung entfernt werden.</dd>
 
             <dt>Tweet erzeugen:</dt>
             <dd class="pb-2">Über diese Option kann die Erzeugung eines Tweets bei aktiver Twitter-Verbindung manuell

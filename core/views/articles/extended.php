@@ -144,13 +144,14 @@
 
             <div class="col-12 col-md-4 col-lg-2">
                 <div class="row">
+                
+                    <div class="col-12 align-self-center">
+                        
+                        <div class="input-group mb-3">
+                            <input class="form-control" name="article[postponehour]" type="number" min="0" max="23" value="<?php print $theView->dateText($postponedTimer, 'H'); ?>">
+                            <input class="form-control" name="article[postponeminute]" type="number" class="form-control" min="0" max="59" value="<?php print $theView->dateText($postponedTimer, 'i'); ?>">
+                        </div>
 
-                    <div class="col align-self-center">
-                        <?php $theView->numberInput('article[postponehour]')->setText('')->setMin(0)->setMax(23)->setValue($theView->dateText($postponedTimer, 'H')); ?>
-                    </div>
-
-                    <div class="col align-self-center">            
-                        <?php $theView->numberInput('article[postponeminute]')->setText('')->setMin(0)->setMax(59)->setValue($theView->dateText($postponedTimer, 'i')); ?>
                     </div>
                 </div>
             </div>

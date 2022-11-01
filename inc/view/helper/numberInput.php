@@ -30,7 +30,4 @@ final class numberInput extends input {
         $this->maxlenght = '';
     }
 
-
 }
-
-?>
