@@ -449,8 +449,8 @@ implements \fpcm\model\interfaces\isCsvImportable {
     public function getMetaDataStatusIcons()
     {
         return [
-            $this->getStatusIconSpam(),
             $this->getStatusIconApproved(),
+            $this->getStatusIconSpam(),
             $this->getStatusIconPrivate()
         ];
     }

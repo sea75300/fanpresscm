@@ -1,6 +1,6 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
 <div class="row border-top border-5 border-primary">
-    <div class="col-12 col-md-6">
+    <div class="col-12 col-lg-8 col-xl-6">
         <fieldset class="my-3">
             
         <?php foreach ($formFields as $field) : ?>
@@ -11,7 +11,7 @@
                         <span class="fpcm-ui-label ps-1"> <?php $theView->write($field->getDescr()); ?></span>
                     </div>
 
-                    <div class="col">
+                    <div class="col ps-sm-0">
                         <div class="list-group">
                     <?php foreach ($field->getFields() as $subField) : ?>
                             <div class="list-group-item">
