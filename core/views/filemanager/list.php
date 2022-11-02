@@ -17,6 +17,7 @@
     <?php elseif (!count($files)) : ?>
     <p class="p-3"><?php $theView->icon('images', 'far')->setStack('ban text-danger')->setSize('lg')->setStackTop(true); ?> <?php $theView->write('GLOBAL_NOTFOUND2'); ?></p>
     <?php else : ?>
+        <?php $i = 0; ?>
         <?php foreach($files AS $file) : ?>
         <div class="row g-0 px-3 fpcm ui-files-list">    
             <div class="card w-100 my-2 fpcm ui-files-item ui-background-transition shadow">

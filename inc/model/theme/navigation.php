@@ -211,20 +211,21 @@ class navigation extends \fpcm\model\abstracts\staticModel {
                 ->setDescription('HL_CATEGORIES_MNG')
                 ->setIcon('tags')
                 ->setId('categories')
-                ->setAccessible($this->permissions->system->categories),
-            (new navigationItem())->setUrl('templates/templates')
-                ->setDescription('HL_OPTIONS_TEMPLATES')
-                ->setIcon('code')
-                ->setAccessible($this->permissions->system->templates),
+                ->setAccessible($this->permissions->system->categories)
+                ->setSpacer(),
             (new navigationItem())->setUrl('smileys/list')
                 ->setDescription('HL_OPTIONS_SMILEYS')
                 ->setIcon('smile-beam')
                 ->setId('smileys')
                 ->setAccessible($this->permissions->system->smileys),
+            (new navigationItem())->setUrl('templates/templates')
+                ->setDescription('HL_OPTIONS_TEMPLATES')
+                ->setIcon('code')
+                ->setAccessible($this->permissions->system->templates)
+                ->setSpacer(),
             (new navigationItem())->setUrl('system/crons')
                 ->setDescription('HL_CRONJOBS')
                 ->setIcon('history')
-                ->setSpacer()
                 ->setAccessible($this->permissions->system->crons),
             (new navigationItem())->setUrl('system/backups')
                 ->setDescription('HL_BACKUPS')

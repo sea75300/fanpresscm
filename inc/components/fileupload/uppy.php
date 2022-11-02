@@ -32,9 +32,7 @@ final class uppy extends uploader {
      */
     public function getCssFiles(): array
     {
-        return [
-             \fpcm\classes\dirs::getLibUrl('uppy/uppy.min.css'),
-        ];
+        return [];
     }
 
     /**

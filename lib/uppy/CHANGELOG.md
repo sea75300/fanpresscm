@@ -12,6 +12,1016 @@ Please add your entries in this format:
 
 In the current stage we aim to release a new version at least every month.
 
+## 3.2.2
+
+Released: 2022-10-24
+
+| Package              | Version | Package              | Version |
+| -------------------- | ------- | -------------------- | ------- |
+| @uppy/aws-s3         |   3.0.4 | @uppy/tus            |   3.0.4 |
+| @uppy/core           |   3.0.4 | @uppy/xhr-upload     |   3.0.4 |
+| @uppy/provider-views |   3.0.2 | uppy                 |   3.2.2 |
+
+- @uppy/aws-s3,@uppy/tus,@uppy/xhr-upload: replace `this.getState().files` with `this.uppy.getState().files` (Artur Paikin / #4167)
+- @uppy/core: make cancel() and close() arguments optional in types (Merlijn Vos / #4161)
+- @uppy/provider-views: Fix button and input inconsistent font and style (Artur Paikin / #4162)
+
+
+## 3.2.1
+
+Released: 2022-10-19
+
+| Package         | Version | Package         | Version |
+| --------------- | ------- | --------------- | ------- |
+| @uppy/companion |   4.0.5 | uppy            |   3.2.1 |
+| @uppy/locales   |   3.0.3 |                 |         |
+
+- meta: fix CDN deploy (Antoine du Hamel)
+
+
+## 3.2.0
+
+Released: 2022-10-19
+
+| Package                | Version | Package                | Version |
+| ---------------------- | ------- | ---------------------- | ------- |
+| @uppy/angular          |   0.4.3 | @uppy/tus              |   3.0.3 |
+| @uppy/aws-s3           |   3.0.3 | @uppy/url              |   3.1.0 |
+| @uppy/companion        |   4.0.4 | @uppy/webcam           |   3.2.1 |
+| @uppy/core             |   3.0.3 | @uppy/xhr-upload       |   3.0.3 |
+| @uppy/golden-retriever |   3.0.2 | uppy                   |   3.2.0 |
+| @uppy/locales          |   3.0.2 |                        |         |
+
+- @uppy/webcam: fix bug when Dashboard is using a custom id (Antoine du Hamel / #4099)
+- @uppy/url: refactor `UrlUI` (Antoine du Hamel / #4143)
+- @uppy/url: trim whitespace around user input (Andrew McIntee / #4143)
+- @uppy/core: do not crash if a file is removed before the upload starts (Antoine du Hamel / #4148)
+- @uppy/xhr-upload: fix `Timed out waiting for socket` (Antoine du Hamel / #4150)
+- @uppy/golden-retriever: Fix retry upload with Golden Retriever (Merlijn Vos / #4155)
+- @uppy/aws-s3,@uppy/xhr-upload: fix `Cannot mark a queued request as done` in `MiniXHRUpload` (Antoine du Hamel / #4151)
+- meta: add a CI check to validate `yarn.lock` (Antoine du Hamel / #4154)
+- meta: fix outdated `yarn.lock` (Antoine du Hamel / #4153)
+- meta: fix `transloadit-xhr` dev example (Antoine du Hamel / #4149)
+- meta: Add example for Uppy with S3 and a Node.js server (Raúl Ibáñez / #4129)
+- @uppy/locales: Fix duplicate keys in UK_UA.js (Murderlon)
+- @uppy/companion: add workaround for S3 accelerated endpoints (Mikael Finstad / #4140)
+- @uppy/locales: Add missing Ukrainian locale entries (Andrii Bodnar / #4145)
+- @uppy/angular: remove unnecessary `console.log` call (Antoine du Hamel / #4139)
+- meta: fix bundlers workflow (Antoine du Hamel / #4144)
+- meta: fix default sources (Mikael Finstad / #4134)
+- @uppy/locales: Update pl_PL.js (Daniel Kamiński / #4136)
+- @uppy/core: Fix Uppy.cancelAll and Uppy.close types (Sven Grunewaldt / #4128)
+- @uppy/companion: fix error message (Mikael Finstad / #4125)
+- @uppy/xhr-upload: queue requests for socket token for remote files (Daniel Jones / #4123)
+
+
+## 3.1.1
+
+Released: 2022-09-25
+
+| Package         | Version | Package         | Version |
+| --------------- | ------- | --------------- | ------- |
+| @uppy/companion |   4.0.3 | uppy            |   3.1.1 |
+
+- meta: Fix Companion release deploy (Antoine du Hamel)
+
+
+## 3.1.0
+
+Released: 2022-09-25
+
+| Package                   | Version | Package                   | Version |
+| ------------------------- | ------- | ------------------------- | ------- |
+| @uppy/angular             |   0.4.2 | @uppy/onedrive            |   3.0.1 |
+| @uppy/audio               |   1.0.2 | @uppy/progress-bar        |   3.0.1 |
+| @uppy/aws-s3              |   3.0.2 | @uppy/provider-views      |   3.0.1 |
+| @uppy/aws-s3-multipart    |   3.0.2 | @uppy/react               |   3.0.2 |
+| @uppy/box                 |   2.0.1 | @uppy/redux-dev-tools     |   3.0.1 |
+| @uppy/companion           |   4.0.2 | @uppy/remote-sources      |   1.0.2 |
+| @uppy/companion-client    |   3.0.2 | @uppy/screen-capture      |   3.0.1 |
+| @uppy/compressor          |   1.0.1 | @uppy/status-bar          |   3.0.1 |
+| @uppy/core                |   3.0.2 | @uppy/store-default       |   3.0.2 |
+| @uppy/dashboard           |   3.1.0 | @uppy/store-redux         |   3.0.2 |
+| @uppy/drag-drop           |   3.0.1 | @uppy/svelte              |   3.0.1 |
+| @uppy/drop-target         |   2.0.1 | @uppy/thumbnail-generator |   3.0.2 |
+| @uppy/dropbox             |   3.0.1 | @uppy/transloadit         |   3.0.2 |
+| @uppy/facebook            |   3.0.1 | @uppy/tus                 |   3.0.2 |
+| @uppy/file-input          |   3.0.1 | @uppy/unsplash            |   3.0.1 |
+| @uppy/form                |   3.0.1 | @uppy/url                 |   3.0.1 |
+| @uppy/golden-retriever    |   3.0.1 | @uppy/utils               |   5.0.2 |
+| @uppy/google-drive        |   3.0.1 | @uppy/vue                 |   1.0.1 |
+| @uppy/image-editor        |   2.0.1 | @uppy/webcam              |   3.2.0 |
+| @uppy/informer            |   3.0.1 | @uppy/xhr-upload          |   3.0.2 |
+| @uppy/instagram           |   3.0.1 | @uppy/zoom                |   2.0.1 |
+| @uppy/locales             |   3.0.1 | uppy                      |   3.1.0 |
+
+- meta: Fix companion-deploy-yml (Mikael Finstad)
+- website: fix tag for Activity Feed (Livia Medeiros / #4118)
+- @uppy/golden-retriever: fix condition to load files from service worker (Merlijn Vos / #4115)
+- website: remove references to the deleted `disc.html` page (Antoine du Hamel / #4119)
+- @uppy/locales: Create uz_UZ (Ozodbek1405 / #4114)
+- @uppy/golden-retriever: Fix endless webcam re-render with Golden Retriever (Merlijn Vos / #4111)
+- @uppy/image-editor: image-editor: fix controls in small Dashboard (Livia Medeiros / #4113)
+- website: add “what is Uppy” to the blog post (Artur Paikin)
+- meta: fix Companion deploy (Antoine du Hamel / #4095)
+- @uppy/dashboard: add dashboard:show-panel event (Jon-Pierre Sanchez / #4108)
+- website: Small post fixes (Artur Paikin)
+- @uppy/companion: Companion throttle progress by time (Mikael Finstad / #4101)
+- meta: skip a few more unnecessary CI runs (Antoine du Hamel / #4106)
+- meta: resolve e2e flakiness (Merlijn Vos / #4077)
+- meta: run linters on almost every PRs (Antoine du Hamel / #4105)
+- website: 3.0 blog post tweaks (Merlijn Vos / #4104)
+- meta: Fix linter warnings in 3.0 post (Murderlon)
+- website: Add 3.0 blog post (Artur Paikin / #4046)
+- website: fix ESM import in example (Livia Medeiros / #4103)
+- doc: Update "Dashboard typo" (Laban / #4096)
+- @uppy/audio,@uppy/aws-s3-multipart,@uppy/aws-s3,@uppy/box,@uppy/companion-client,@uppy/companion,@uppy/compressor,@uppy/core,@uppy/dashboard,@uppy/drag-drop,@uppy/drop-target,@uppy/dropbox,@uppy/facebook,@uppy/file-input,@uppy/form,@uppy/golden-retriever,@uppy/google-drive,@uppy/image-editor,@uppy/informer,@uppy/instagram,@uppy/locales,@uppy/onedrive,@uppy/progress-bar,@uppy/provider-views,@uppy/react,@uppy/redux-dev-tools,@uppy/remote-sources,@uppy/screen-capture,@uppy/status-bar,@uppy/store-default,@uppy/store-redux,@uppy/svelte,@uppy/thumbnail-generator,@uppy/transloadit,@uppy/tus,@uppy/unsplash,@uppy/url,@uppy/utils,@uppy/vue,@uppy/webcam,@uppy/xhr-upload,@uppy/zoom: add missing entries to changelog for individual packages (Antoine du Hamel / #4092)
+- meta: ci: add GHA to tryout bundling Uppy with popular bundlers (Antoine du Hamel / #4084)
+- @uppy/core: Fix `Restrictor` counts ghost files against `maxNumberOfFiles` (Andrew McIntee / #4078)
+- uppy: add a decoy `Core` export to warn users about the renaming (Antoine du Hamel / #4085)
+- meta: run CI when modifying workflow files (Antoine du Hamel / #4091)
+- meta: limit the number of unnecessary CI runs (Antoine du Hamel / #4086)
+- meta: Update remote-sources.md (heocoi / #4087)
+- uppy: remove all remaining occurrences of `Uppy.Core` (Antoine du Hamel / #4082)
+- meta: fix typo in `e2e.yml` (Antoine du Hamel)
+- meta: Restrict e2e CI runs (Merlijn Vos / #4075)
+- @uppy/webcam: Set default videoConstraints (Artur Paikin / #4070)
+- @uppy/angular: Fix angular build error (Murderlon)
+- website: add `Known issues` section on Migration Guide (Antoine du Hamel / #4066)
+- @uppy/core: fix types (Antoine du Hamel / #4072)
+- doc: remove use of deprecated `metaFields` option (Antoine du Hamel / #4073)
+
+
+## 3.0.1
+
+Released: 2022-08-30
+
+| Package                   | Version | Package                   | Version |
+| ------------------------- | ------- | ------------------------- | ------- |
+| @uppy/angular             |   0.4.1 | @uppy/store-default       |   3.0.1 |
+| @uppy/audio               |   1.0.1 | @uppy/store-redux         |   3.0.1 |
+| @uppy/aws-s3              |   3.0.1 | @uppy/svelte              |   3.0.0 |
+| @uppy/aws-s3-multipart    |   3.0.1 | @uppy/thumbnail-generator |   3.0.1 |
+| @uppy/companion           |   4.0.1 | @uppy/transloadit         |   3.0.1 |
+| @uppy/companion-client    |   3.0.1 | @uppy/tus                 |   3.0.1 |
+| @uppy/core                |   3.0.1 | @uppy/utils               |   5.0.1 |
+| @uppy/dashboard           |   3.0.1 | @uppy/webcam              |   3.1.0 |
+| @uppy/react               |   3.0.1 | @uppy/xhr-upload          |   3.0.1 |
+| @uppy/remote-sources      |   1.0.1 | uppy                      |   3.0.1 |
+
+- @uppy/dashboard,@uppy/webcam: add nativeCameraFacingMode to Webcam and Dashboard (Artur Paikin / #4047)
+- meta: upgrade to Jest 29 (Antoine du Hamel / #4049)
+- @uppy/svelte: update peer dependencies (Antoine du Hamel / #4065)
+- @uppy/react: useUppy: fix unmount on NextJS dev mode (Matt Jesuele / #4062)
+- @uppy/vue: fix missing component in docs (Antoine du Hamel / #4063)
+- @uppy/angular: fix compiler warning (Antoine du Hamel / #4064)
+- meta: improve CI npm install time (Antoine du Hamel / #4058)
+- meta: example: fix Angular example package name (Antoine du Hamel / #4060)
+- meta: upgrade to TypeScript 4.8 (Antoine du Hamel / #4048)
+- @uppy/core,@uppy/dashboard,@uppy/thumbnail-generator: update definition type files for TS 4.8 compatibility (Antoine du Hamel / #4055)
+- @uppy/transloadit: improve deprecation notice (Antoine du Hamel / #4056)
+- @uppy/thumbnail-generator: fix `exifr` import (Antoine du Hamel / #4054)
+- @uppy/utils: fix `relativePath` when drag&dropping a folder (Antoine du Hamel / #4043)
+- @uppy/companion: Fix Companion license (Merlijn Vos / #4044)
+- e2e: add tests for AWS (Antoine du Hamel / #3665)
+- meta: Only publish Companion to Dockerhub on release (Merlijn Vos / #4037)
+- meta: fix linter warnings (Antoine du Hamel / #4039)
+- @uppy/utils: Post-release website fixes (Merlijn Vos / #4038)
+- @uppy/angular: fix peer dependencies (Antoine du Hamel / #4035)
+- meta: uppy.io homepage: Add Tus (Artur Paikin)
+- meta: Fix uppy.io homepage example (Artur Paikin)
+
+
+## 3.0.0
+
+Released: 2022-08-22
+
+**Migration guides:**
+https://uppy.io/docs/migration-guides.html
+
+| Package                   | Version | Package                   | Version |
+| ------------------------- | ------- | ------------------------- | ------- |
+| @uppy/angular             |   0.4.0 | @uppy/progress-bar        |   3.0.0 |
+| @uppy/audio               |   1.0.0 | @uppy/provider-views      |   3.0.0 |
+| @uppy/aws-s3              |   3.0.0 | @uppy/react               |   3.0.0 |
+| @uppy/aws-s3-multipart    |   3.0.0 | @uppy/react-native        |   0.4.0 |
+| @uppy/box                 |   2.0.0 | @uppy/redux-dev-tools     |   3.0.0 |
+| @uppy/companion           |   4.0.0 | @uppy/remote-sources      |   1.0.0 |
+| @uppy/companion-client    |   3.0.0 | @uppy/screen-capture      |   3.0.0 |
+| @uppy/compressor          |   1.0.0 | @uppy/status-bar          |   3.0.0 |
+| @uppy/core                |   3.0.0 | @uppy/store-default       |   3.0.0 |
+| @uppy/dashboard           |   3.0.0 | @uppy/store-redux         |   3.0.0 |
+| @uppy/drag-drop           |   3.0.0 | @uppy/svelte              |   2.0.0 |
+| @uppy/drop-target         |   2.0.0 | @uppy/thumbnail-generator |   3.0.0 |
+| @uppy/dropbox             |   3.0.0 | @uppy/transloadit         |   3.0.0 |
+| @uppy/facebook            |   3.0.0 | @uppy/tus                 |   3.0.0 |
+| @uppy/file-input          |   3.0.0 | @uppy/unsplash            |   3.0.0 |
+| @uppy/form                |   3.0.0 | @uppy/url                 |   3.0.0 |
+| @uppy/golden-retriever    |   3.0.0 | @uppy/utils               |   5.0.0 |
+| @uppy/google-drive        |   3.0.0 | @uppy/vue                 |   1.0.0 |
+| @uppy/image-editor        |   2.0.0 | @uppy/webcam              |   3.0.0 |
+| @uppy/informer            |   3.0.0 | @uppy/xhr-upload          |   3.0.0 |
+| @uppy/instagram           |   3.0.0 | @uppy/zoom                |   2.0.0 |
+| @uppy/locales             |   3.0.0 | uppy                      |   3.0.0 |
+| @uppy/onedrive            |   3.0.0 |                           |         |
+
+- docs: Use RemoteSources in readme example (Artur Paikin / #4030)
+- docs: Add migration guide for Uppy 3.x, Companion 4.x, and Robodog (Merlijn Vos / #3913)
+- example: upgrade React example to use React 18 (Antoine du Hamel / #4002)
+- meta: fix linter failures (Antoine du Hamel / #4029)
+- @uppy/vue: move `@uppy/` packages to peer dependencies (Antoine du Hamel / #4024)
+- @uppy/robodog: remove package (Antoine du Hamel / #3946)
+- example: migrate `digitalocean-spaces` to ESM (Antoine du Hamel / #4015)
+- example: replace Robodog example with Transloadit + RemoteSources + Form (Antoine du Hamel / #4027)
+- website: replace Robodog example with Uppy plugins (Artur Paikin / #4026)
+- @uppy/aws-s3,@uppy/tus,@uppy/xhr-upload: @uppy/tus, @uppy/xhr-upload, @uppy/aws-s3: `metaFields` -> `allowedMetaFields` (Merlijn Vos / #4023)
+- example: showcase migration out of Robodog (Antoine du Hamel / #4021)
+- example: fix Svelte dev mode (Antoine du Hamel / #4025)
+- example: fix docs and env for Vite examples (Antoine du Hamel / #4018)
+- @uppy/tus: avoid crashing when Tus client reports an error (Antoine du Hamel / #4019)
+- @uppy/react: move `@uppy/` packages to peer dependencies (Antoine du Hamel / #4004)
+- @uppy/core: core: uppy.addFile should accept browser File objects (Artur Paikin / #4020)
+- example: fix svelte example (Antoine du Hamel / #4017)
+- example: migrate `python-xhr` to ESM (Antoine du Hamel / #4010)
+- example: migrate `php-xhr` to ESM (Antoine du Hamel / #4009)
+- example: migrate `node-xhr` to ESM (Antoine du Hamel / #4008)
+- example: migrate `xhr-bundle` to ESM (Antoine du Hamel / #4012)
+- example: migrate `multiple-instances` to ESM (Antoine du Hamel / #4007)
+- example: replace `transloadit-textarea` with `transloadit-markdown-bin` (Antoine du Hamel / #4013)
+- example: add README to Svelte example (Antoine du Hamel / #4011)
+- build: Remove size-limit for now (Artur Paikin / #4003)
+- @uppy/core,@uppy/dashboard,@uppy/status-bar: Style tweaks: use all: initial + other resets (Artur Paikin / #3983)
+- @uppy/aws-s3: aws-s3: fix incorrect comparison for `file-removed` (Merlijn Vos / #3962)
+- example: update to new CDN export names (Antoine du Hamel / #4006)
+- example: fix dependencies of `bundled` example (Antoine du Hamel / #4005)
+- @uppy/tus: fix dependencies (Antoine du Hamel / #3923)
+- @uppy/tus: add file argument to `onBeforeRequest` (Merlijn Vos / #3984)
+- @uppy/utils: fix drop of multiple files on Chromium browsers (Antoine du Hamel / #3998)
+- @uppy/angular: upgrade to Angular 14 (Antoine du Hamel / #3997)
+- example: update Angular example to v14 (Antoine du Hamel / #3996)
+- @uppy/utils: Fix @uppy/utils microtip.scss export (Merlijn Vos / #3995)
+- docs: Companion: make streaming upload recommended & other docs tweaks (Mikael Finstad / #3994)
+
+### 3.0.0-beta.5
+
+Released: 2022-08-16
+
+- meta: prepare release workflow for beta versions (Antoine du Hamel)
+- @uppy/provider-views: Reset filter input correctly in provider views (Merlijn Vos / #3978)
+- @uppy/aws-s3-multipart: Fix when using Companion (Merlijn Vos / #3969)
+- @uppy/companion: Companion: bring back default upload protocol (Mikael Finstad / #3967)
+- meta: Update CONTRIBUTING.md (Mikael Finstad / #3966)
+- meta: fix contributing link (Mikael Finstad / #3968)
+- @uppy/companion: enforce usage of uploadUrls (Mikael Finstad / #3965)
+- @uppy/utils: Fix webp mimetype (Merlijn Vos / #3961)
+- @uppy/locales: Add compressor string translation to Japanese locale (kenken / #3963)
+- meta: Fix statement about cropping images in README.md (Mikael Finstad / #3964)
+- @uppy/aws-s3-multipart: Fix race condition in `#uploadParts` (Morgan Zolob / #3955)
+- @uppy/provider-views: core validateRestrictions: return error directly vs the result/reason obj (Artur Paikin / #3951)
+- @uppy/aws-s3: Export AwsS3UploadParameters & AwsS3Options interfaces (Antonina Vertsinskaya / #3956)
+- website: convert all website examples to ESM (Antoine du Hamel / #3957)
+- @uppy/companion: fix crash if redis disconnects (Mikael Finstad / #3954)
+- @uppy/companion: upgrade `ws` version (Antoine du Hamel / #3949)
+- @uppy/companion: sort Dropbox response & refactor to async/await (Mikael Finstad / #3897)
+- @uppy/utils: modernize `getDroppedFiles` (Antoine du Hamel / #3534)
+- @uppy/companion: fix default getKey for non-standalone too (Mikael Finstad / #3945)
+- @uppy/aws-s3-multipart: ignore exception inside `abortMultipartUpload` (Antoine du Hamel / #3950)
+- @uppy/companion: remove `isobject` from dependencies (Antoine du Hamel / #3948)
+- @uppy/compressor: Fix Compressor being broken when no name is in the compressed blob (Artur Paikin / #3947)
+- @uppy/core,@uppy/react: Fix all breaking todo comments for 3.0 (Merlijn Vos / #3907)
+- @uppy/companion: show deprecation message when using legacy s3 options (Antoine du Hamel / #3944)
+- example: fix aws-companion example (Antoine du Hamel / #3850)
+
+### 3.0.0-beta.4
+
+Released: 2022-08-03
+
+- @uppy/companion,@uppy/tus: Upgrade tus-js-client to 3.0.0 (Merlijn Vos / #3942)
+- meta: fix release script (Antoine du Hamel)
+- @uppy/aws-s3-multipart: Correctly handle errors for `prepareUploadParts` (Merlijn Vos / #3912)
+- @uppy/store-default: export the class, don't expose `.callbacks` (Antoine du Hamel / #3928)
+- @uppy/remote-sources: do not rely on `.name` property (Antoine du Hamel / #3941)
+- @uppy/screen-capture: fix TODOs (Antoine du Hamel / #3930)
+- @uppy/status-bar: rename internal modules (Antoine du Hamel / #3929)
+- @uppy/transloadit: remove static properties in favor of exports (Antoine du Hamel / #3927)
+- @uppy/informer: simplify `render` method (Antoine du Hamel / #3931)
+- @uppy/url: remove private methods from public API (Antoine du Hamel / #3934)
+- @uppy/dashboard: change `copyToClipboard` signature (Antoine du Hamel / #3933)
+- @uppy/drop-target: remove `isFileTransfer` from the public API (Antoine du Hamel / #3932)
+- meta: improve beta release script (Antoine du Hamel)
+
+### 3.0.0-beta.3
+
+Released: 2022-07-27
+
+- @uppy/react: Fix exports in propTypes.js to fix website build (Murderlon)
+- @uppy/dashboard,@uppy/webcam: Add support for `mobileNativeCamera` option to Webcam and Dashboard (Artur Paikin / #3844)
+- @uppy/aws-s3-multipart: make `headers` part indexed too in `prepareUploadParts` (Merlijn Vos / #3895)
+- @uppy/aws-s3,@uppy/core,@uppy/dashboard,@uppy/store-redux,@uppy/xhr-upload: upgrade `nanoid` to v4 (Antoine du Hamel / #3904)
+- @uppy/companion: update minimal supported Node.js version in the docs (Antoine du Hamel / #3902)
+- @uppy/companion: upgrade `redis` to version 4.x (Antoine du Hamel / #3589)
+- @uppy/companion: remove unnecessary ts-ignores (Mikael Finstad / #3900)
+- meta: use `node:` protocol when using Node.js built-in core modules (Antoine du Hamel / #3871)
+- meta: upgrade to Vite v3 (Antoine du Hamel / #3882)
+- @uppy/companion: remove `COMPANION_S3_GETKEY_SAFE_BEHAVIOR` env variable (Antoine du Hamel / #3869)
+- meta: fix release script for major beta versions (Antoine du Hamel)
+
+### 3.0.0-beta.2
+
+Released: 2022-07-06
+
+- example: fix `custom-provider` example (Antoine du Hamel / #3854)
+- example: fix Vue3 example (Antoine du Hamel / #3774)
+- @uppy/companion: remove deprecated duplicated metrics (Mikael Finstad / #3833)
+- example: update CDN example (Antoine du Hamel / #3803)
+- @uppy/companion: Companion 3 default to no s3 acl (Mikael Finstad / #3826)
+- @uppy/companion: rewrite companion.app() to return an object (Mikael Finstad / #3827)
+- @uppy/companion: remove companion provider compat api (Mikael Finstad / #3828)
+- @uppy/companion: rewrite code for node >=14 (Mikael Finstad / #3829)
+- @uppy/companion: remove chunkSize backwards compatibility (Mikael Finstad / #3830)
+- @uppy/companion: Companion: make `emitSuccess` and `emitError` private (Mikael Finstad / #3832)
+- @uppy/companion: do not use a default upload protocol (Mikael Finstad / #3834)
+
+### 3.0.0-beta.1
+
+Released: 2022-06-09
+
+- meta: improve release process for beta branch (Antoine du Hamel / #3809)
+- uppy: refactor to ESM (Antoine du Hamel / #3807)
+- @uppy/core,@uppy/dashboard: fix types for some events (Antoine du Hamel / #3812)
+- example: update Vue2 example (Antoine du Hamel / #3802)
+
+### 3.0.0-beta
+
+Released: 2022-05-30
+
+- meta: temporary adjust release script for the beta (Antoine du Hamel)
+- meta: disable ESM to CJS transform in dist files (Antoine du Hamel / #3773)
+- @uppy/companion: remove `searchProviders` wrapper & move `s3` options (Merlijn Vos / #3781)
+- meta: do not test on EOL versions of Node.js (Antoine du Hamel / #3786)
+- @uppy/companion: remove support for EOL versions of Node.js (Antoine du Hamel / #3784)
+- @uppy/react: refactor to ESM (Antoine du Hamel / #3780)
+- @uppy/transloadit: remove IE 10 hack (Antoine du Hamel / #3777)
+
+## 2.13.2
+
+Released: 2022-08-02
+
+| Package           | Version | Package           | Version |
+| ----------------- | ------- | ----------------- | ------- |
+| @uppy/transloadit |   2.3.6 | @uppy/robodog     |   2.9.2 |
+| @uppy/tus         |   2.4.2 | uppy              |  2.13.2 |
+
+- @uppy/transloadit: send `assembly-cancelled` only once (Antoine du Hamel / #3937)
+- meta: `keepNames` in bundle (Antoine du Hamel / #3926)
+- meta: e2e: fix Transloadit test suite with Cypress 10 (Antoine du Hamel / #3936)
+- meta: Bump guzzlehttp/guzzle from 7.4.1 to 7.4.5 in /examples/aws-php (dependabot[bot] / #3842)
+- @uppy/tus: fix dependencies (Antoine du Hamel / #3923)
+- meta: doc: fix linter failure in `image-editor.md` (Antoine du Hamel / #3924)
+- meta: doc: Fix typo in image-editor.md (Ikko Ashimine / #3921)
+- website: Docs and header fix (Artur Paikin / #3920)
+
+
+## 2.13.1
+
+Released: 2022-07-27
+
+| Package              | Version | Package              | Version |
+| -------------------- | ------- | -------------------- | ------- |
+| @uppy/companion      |   3.7.1 | @uppy/remote-sources |   0.1.1 |
+| @uppy/compressor     |   0.3.1 | @uppy/transloadit    |   2.3.5 |
+| @uppy/core           |   2.3.2 | @uppy/robodog        |   2.9.1 |
+| @uppy/dashboard      |   2.4.1 | uppy                 |  2.13.1 |
+| @uppy/image-editor   |   1.4.1 |                      |         |
+
+- @uppy/compressor: fix upload causing meta name to reset (Justin / #3890)
+- @uppy/transloadit: cancel assemblies when all its files have been removed (Antoine du Hamel / #3893)
+- e2e: Add retries for flaky e2e test (Merlijn Vos / #3915)
+- @uppy/dashboard,@uppy/image-editor,@uppy/remote-sources: Fix `uppy.close()` crashes when remote-sources or image-editor is installed (Merlijn Vos / #3914)
+- @uppy/core: Add missing type for retry-all event (Luc Boissaye / #3901)
+- @uppy/companion: Companion app type (Mikael Finstad / #3899)
+- e2e: upgrade to Cypress 10 (Antoine du Hamel / #3896)
+- meta: Fix website build (Murderlon)
+- meta: Create new issue templates (Merlijn Vos / #3879)
+
+
+## 2.13.0
+
+Released: 2022-07-18
+
+| Package            | Version | Package            | Version |
+| ------------------ | ------- | ------------------ | ------- |
+| @uppy/dashboard    |   2.4.0 | @uppy/robodog      |   2.9.0 |
+| @uppy/image-editor |   1.4.0 | uppy               |  2.13.0 |
+| @uppy/transloadit  |   2.3.4 |                    |         |
+
+- @uppy/transloadit: fix outdated file ids and incorrect usage of files (Merlijn Vos / #3886)
+- @uppy/image-editor: remove beta notice (Merlijn Vos / #3877)
+- meta: Fix broken links in _posts/2019-08-1.3.md (YukeshShr / #3884)
+- meta: Fix broken link in _posts/2017-03-0.15.md (YukeshShr / #3883)
+- @uppy/image-editor: Add image editor cancel event (James R T / #3875)
+
+
+## 2.12.3
+
+Released: 2022-07-11
+
+| Package           | Version | Package           | Version |
+| ----------------- | ------- | ----------------- | ------- |
+| @uppy/transloadit |   2.3.3 | uppy              |  2.12.3 |
+| @uppy/robodog     |   2.8.3 |                   |         |
+
+- @uppy/transloadit: fix TypeError when file is cancelled asynchronously (Antoine du Hamel / #3872)
+- @uppy/robodog,@uppy/transloadit: use modern syntax to simplify code (Antoine du Hamel / #3873)
+- meta: fix `release-beta` automation (Antoine du Hamel)
+
+
+## 2.12.2
+
+Released: 2022-07-06
+
+| Package              | Version | Package              | Version |
+| -------------------- | ------- | -------------------- | ------- |
+| @uppy/companion      |   3.7.0 | @uppy/transloadit    |   2.3.2 |
+| @uppy/locales        |   2.1.1 | @uppy/robodog        |   2.8.2 |
+| @uppy/provider-views |   2.1.2 | uppy                 |  2.12.2 |
+
+- @uppy/provider-views: improve logging (Mikael Finstad / #3638)
+- docs: de-dupe companion dev docs (Mikael Finstad / #3852)
+- @uppy/companion: Getkey safe behavior (Mikael Finstad / #3592)
+- website: fix broken links (YukeshShr / #3861)
+- @uppy/companion: doc: fix Google Drive example (Antoine du Hamel / #3855)
+- @uppy/locales,@uppy/transloadit: Fix undefined error in in onTusError (Merlijn Vos / #3848)
+- @uppy/companion: build an ARM64 container (Stuart Auld / #3841)
+- @uppy/locales: Add missing translations and reorder nl_NL locale (Kasper Meinema / #3839)
+- docs: Fix typo in aws-s3-multipart.md (Ikko Ashimine / #3838)
+- meta: do not rebase when preparing beta candidates (Antoine du Hamel)
+- meta: fix hard-coded branch name in release script (Antoine du Hamel)
+
+
+## 2.12.1
+
+Released: 2022-06-09
+
+| Package           | Version | Package           | Version |
+| ----------------- | ------- | ----------------- | ------- |
+| @uppy/transloadit |   2.3.1 | uppy              |  2.12.1 |
+| @uppy/robodog     |   2.8.1 |                   |         |
+
+- @uppy/transloadit: fix `COMPANION_PATTERN` export (Antoine du Hamel / #3820)
+- meta: fix URL generation in the release script (Antoine du Hamel)
+
+
+## 2.12.0
+
+Released: 2022-06-07
+
+| Package                | Version | Package                | Version |
+| ---------------------- | ------- | ---------------------- | ------- |
+| @uppy/aws-s3           |   2.2.1 | @uppy/tus              |   2.4.1 |
+| @uppy/aws-s3-multipart |   2.4.1 | @uppy/url              |   2.2.0 |
+| @uppy/companion-client |   2.2.1 | @uppy/xhr-upload       |   2.1.2 |
+| @uppy/core             |   2.3.1 | @uppy/robodog          |   2.8.0 |
+| @uppy/react            |   2.2.2 | uppy                   |  2.12.0 |
+| @uppy/remote-sources   |   0.1.0 |                        |         |
+
+- @uppy/remote-sources: Add @uppy/remote-sources preset/plugin (Artur Paikin / #3676)
+- @uppy/react: Reset uppy instance when React component is unmounted (Tomasz Pęksa / #3814)
+- @uppy/aws-s3-multipart,@uppy/aws-s3,@uppy/tus: queue socket token requests for remote files (Merlijn Vos / #3797)
+- @uppy/xhr-upload: replace `ev.target.status` with `xhr.status` (Wes Sankey / #3782)
+- @uppy/core: fix `TypeError` when file was deleted (Antoine du Hamel / #3811)
+- @uppy/robodog: fix linter warnings (Antoine du Hamel / #3808)
+- meta: fix GHA workflow for prereleases (Antoine du Hamel)
+- @uppy/aws-s3-multipart: allow `companionHeaders` to be modified with `setOptions` (Paulo Lemos Neto / #3770)
+- @uppy/url: enable passing optional meta data to `addFile` (Brad Edelman / #3788)
+- @uppy/url: fix `getFileNameFromUrl` (Brad Edelman / #3804)
+- @uppy/tus: make onShouldRetry type optional (Merlijn Vos / #3800)
+- doc: fix React examples (Antoine du Hamel / #3799)
+- meta: add GHA workflow for prereleases (Antoine du Hamel)
+
+
+## 2.11.0
+
+Released: 2022-05-30
+
+| Package                   | Version | Package                   | Version |
+| ------------------------- | ------- | ------------------------- | ------- |
+| @uppy/angular             |   0.3.1 | @uppy/progress-bar        |   2.1.1 |
+| @uppy/audio               |   0.3.2 | @uppy/provider-views      |   2.1.1 |
+| @uppy/aws-s3              |   2.2.0 | @uppy/react               |   2.2.1 |
+| @uppy/aws-s3-multipart    |   2.4.0 | @uppy/react-native        |   0.3.1 |
+| @uppy/box                 |   1.0.7 | @uppy/redux-dev-tools     |   2.1.0 |
+| @uppy/companion           |   3.6.0 | @uppy/screen-capture      |   2.1.1 |
+| @uppy/companion-client    |   2.2.0 | @uppy/status-bar          |   2.2.1 |
+| @uppy/compressor          |   0.3.0 | @uppy/store-default       |   2.1.0 |
+| @uppy/core                |   2.3.0 | @uppy/store-redux         |   2.1.0 |
+| @uppy/dashboard           |   2.3.0 | @uppy/thumbnail-generator |   2.2.0 |
+| @uppy/drag-drop           |   2.1.1 | @uppy/transloadit         |   2.3.0 |
+| @uppy/dropbox             |   2.0.7 | @uppy/tus                 |   2.4.0 |
+| @uppy/facebook            |   2.0.7 | @uppy/unsplash            |   2.1.0 |
+| @uppy/file-input          |   2.1.1 | @uppy/url                 |   2.1.1 |
+| @uppy/form                |   2.0.6 | @uppy/utils               |   4.1.0 |
+| @uppy/golden-retriever    |   2.1.0 | @uppy/vue                 |   0.4.8 |
+| @uppy/google-drive        |   2.1.1 | @uppy/webcam              |   2.2.1 |
+| @uppy/image-editor        |   1.3.0 | @uppy/xhr-upload          |   2.1.1 |
+| @uppy/informer            |   2.1.0 | @uppy/zoom                |   1.1.1 |
+| @uppy/instagram           |   2.1.1 | @uppy/robodog             |   2.7.0 |
+| @uppy/onedrive            |   2.1.1 | uppy                      |  2.11.0 |
+
+- doc: update bundler recommendation (Antoine du Hamel / #3763)
+- @uppy/aws-s3-multipart: refactor to ESM (Antoine du Hamel / #3672)
+- @uppy/aws-s3: fix JSDoc type error (Antoine du Hamel / #3785)
+- @uppy/aws-s3: refactor to ESM (Antoine du Hamel / #3673)
+- @uppy/companion-client: Revert "Revert "@uppy/companion-client: refactor to ESM"" (Antoine du Hamel / #3730)
+- @uppy/companion: expire redis keys after 1 day (Mikael Finstad / #3771)
+- @uppy/companion: fix some linter warnings (Antoine du Hamel / #3752)
+- @uppy/compressor: Fix Compressor docs, pass files array to compressor:complete event (Artur Paikin / #3682)
+- @uppy/core: refactor to ESM (Antoine du Hamel / #3744)
+- @uppy/dashboard: refactor to ESM (Antoine du Hamel / #3701)
+- @uppy/dashboard: use webkitRelativePath when querying a file's relative path (Eduard Müller / taktik / #3766)
+- @uppy/golden-retriever: refactor to ESM (Antoine du Hamel / #3731)
+- @uppy/image-editor: remove CJS-interop hack in the source code (Antoine du Hamel / #3778)
+- @uppy/informer: @uppy/Informer: refactor to ESM (Antoine du Hamel / #3732)
+- @uppy/informer: remove remaining `require` call (Antoine du Hamel / #3737)
+- @uppy/provider-views: Add onKeyPress event handler to capture e.shiftKey, unavailable in onChange (Artur Paikin / #3768)
+- @uppy/redux-dev-tools: refactor to ESM (Antoine du Hamel / #3733)
+- @uppy/screen-capture: don't install when unsupported (Artur Paikin / #3795)
+- @uppy/store-default: refactor to ESM (Antoine du Hamel / #3746)
+- @uppy/store-redux: refactor to ESM (Antoine du Hamel / #3745)
+- @uppy/thumbnail-generator: refactor to ESM (Antoine du Hamel / #3734)
+- @uppy/transloadit: refactor to ESM (Antoine du Hamel / #3725)
+- @uppy/transloadit: transloadit: propagate error details when creating Assembly fails (Renée Kooi / #3794)
+- @uppy/tus: Add `onShouldRetry` as option to @uppy/tus (Merlijn Vos / #3720)
+- @uppy/tus: fix broken import (Antoine du Hamel / #3729)
+- @uppy/tus: fixup! @uppy/tus: wait for user promise on beforeRequest (Antoine du Hamel / #3712)
+- @uppy/tus: wait for user promise on beforeRequest (Antoine du Hamel / #3712)
+- @uppy/unsplash: refactor to ESM (Antoine du Hamel / #3728)
+- @uppy/utils: refactor to ESM (Antoine du Hamel / #3721)
+- dev: fix dev env Vite's config (Antoine du Hamel)
+- dev: fix return type of generateSignatureIfSecret (Renée Kooi / #3793)
+- dev: remove `vite-plugin-jsx-commonjs` plugin on dev env (Antoine du Hamel / #3749)
+- dev: remove CJS-related hack in `build:locale-pack` script (Antoine du Hamel / #3764)
+- meta: e2e: run CI on PRs that modify the workflow file (Antoine du Hamel / #3740)
+- meta: fix linter warnings (Antoine du Hamel / #3753)
+- meta: fix more linter warnings (Antoine du Hamel / #3757)
+- meta: resolve warnings in `.d.ts` files (Antoine du Hamel / #3754)
+- meta: uppy: add Zoom plugin to the bundle and fix ESM exports (Antoine du Hamel / #3747)
+- test: Apply bin/update-yarn.sh (Merlijn Vos / #3775)
+- test: fix e2e dependency conflict (Merlijn Vos / #3779)
+- test: fixup! e2e: run CI on PRs that modify the workflow file (Antoine du Hamel / #3740)
+- test: prepare internal script files for lint rune hardening (Antoine du Hamel / #3760)
+- test: prepare test files for lint rule hardening (Antoine du Hamel / #3761)
+- test: Setup Cypress Dashboard (Merlijn Vos / #3691)
+- test: split Companion CI between Node.js legacy and supported versions (Antoine du Hamel / #3776)
+- website: disable linter warnings (Antoine du Hamel / #3759)
+
+
+## 2.10.0
+
+Released: 2022-05-14
+
+| Package                | Version | Package                | Version |
+| ---------------------- | ------- | ---------------------- | ------- |
+| @uppy/audio            |   0.3.1 | @uppy/provider-views   |   2.1.0 |
+| @uppy/aws-s3           |   2.1.0 | @uppy/react            |   2.2.0 |
+| @uppy/aws-s3-multipart |   2.3.0 | @uppy/react-native     |   0.3.0 |
+| @uppy/companion-client |   2.1.0 | @uppy/screen-capture   |   2.1.0 |
+| @uppy/core             |   2.2.0 | @uppy/status-bar       |   2.2.0 |
+| @uppy/dashboard        |   2.2.0 | @uppy/svelte           |   1.0.8 |
+| @uppy/drag-drop        |   2.1.0 | @uppy/transloadit      |   2.2.0 |
+| @uppy/file-input       |   2.1.0 | @uppy/tus              |   2.3.0 |
+| @uppy/google-drive     |   2.1.0 | @uppy/url              |   2.1.0 |
+| @uppy/image-editor     |   1.2.0 | @uppy/webcam           |   2.2.0 |
+| @uppy/instagram        |   2.1.0 | @uppy/xhr-upload       |   2.1.0 |
+| @uppy/locales          |   2.1.0 | @uppy/zoom             |   1.1.0 |
+| @uppy/onedrive         |   2.1.0 | @uppy/robodog          |   2.6.0 |
+| @uppy/progress-bar     |   2.1.0 | uppy                   |  2.10.0 |
+
+- @uppy/audio: fix types (Merlijn Vos / #3689)
+- @uppy/aws-s3-multipart,@uppy/aws-s3,@uppy/core,@uppy/react,@uppy/transloadit,@uppy/tus,@uppy/xhr-upload: proposal: Cancel assemblies optional (Mikael Finstad / #3575)
+- @uppy/aws-s3-multipart: export interface AwsS3MultipartOptions (Matteo Padovano / #3709)
+- @uppy/companion-client: refactor to ESM (Antoine du Hamel / #3693)
+- @uppy/companion: Only deploy on companion changes (kiloreux / #3677)
+- @uppy/core: add definition for addFiles method (Matteo Padovano / #3556)
+- @uppy/core: wrap plugins in div.uppy-Root and set dir attrubute in UIPlugin (Artur Paikin / #3692)
+- @uppy/google-drive: refactor to ESM (Antoine du Hamel / #3683)
+- @uppy/image-editor: refactor to ESM (Antoine du Hamel / #3685)
+- @uppy/instagram: refactor to ESM (Antoine du Hamel / #3696)
+- @uppy/locales: Add `save` translation to Spanish locale (Juan Carlos Alonso / #3678)
+- @uppy/locales: refactor to ESM (Antoine du Hamel / #3707)
+- @uppy/onedrive: refactor to ESM (Antoine du Hamel / #3694)
+- @uppy/progress-bar: refactor to ESM (Antoine du Hamel / #3706)
+- @uppy/provider-views: refactor to ESM (Antoine du Hamel / #3715)
+- @uppy/react: Support React 18 in @uppy/react (Merlijn Vos / #3680)
+- @uppy/screen-capture: refactor to ESM (Antoine du Hamel / #3698)
+- @uppy/status-bar: refactor to ESM (Antoine du Hamel / #3697)
+- @uppy/transloadit: add rate limiting for assembly creation and status polling (Antoine du Hamel / #3718)
+- @uppy/tus: refactor to ESM (Antoine du Hamel / #3724)
+- @uppy/url: refactor to ESM (Antoine du Hamel / #3713)
+- @uppy/webcam: refactor to ESM (Antoine du Hamel / #3686)
+- @uppy/xhr-upload: refactor to ESM (Antoine du Hamel / #3695)
+- @uppy/zoom: refactor to ESM (Antoine du Hamel / #3699)
+- meta: e2e: fix failing test (Antoine du Hamel / #3722)
+- test: harden linter rule for JSX/ESM validation (Antoine du Hamel / #3681)
+- test: harden linter rules for ESM/CJS validation (Antoine du Hamel / #3674)
+- test: Increase retries to trigger longer retryDelay in tus (Artur Paikin / #3726)
+- test: Remove `it.only` from e2e test (Merlijn Vos / #3690)
+- tests: Make Cypress more stable & add e2e test for error events when upload fails (Merlijn Vos / #3662)
+
+
+## 2.9.5
+
+Released: 2022-04-27
+
+| Package         | Version | Package         | Version |
+| --------------- | ------- | --------------- | ------- |
+| @uppy/companion |   3.5.2 | @uppy/robodog   |   2.5.5 |
+| @uppy/core      |  2.1.10 | uppy            |   2.9.5 |
+
+- @uppy/companion: Bump moment from 2.29.1 to 2.29.2 (dependabot[bot] / #3635)
+- @uppy/core: fix `TypeError` when file was removed (Antoine du Hamel / #3670)
+
+
+## 2.9.4
+
+Released: 2022-04-27
+
+| Package                | Version | Package                | Version |
+| ---------------------- | ------- | ---------------------- | ------- |
+| @uppy/aws-s3-multipart |   2.2.2 | @uppy/file-input       |   2.0.6 |
+| @uppy/box              |   1.0.6 | @uppy/form             |   2.0.5 |
+| @uppy/companion        |   3.5.1 | @uppy/locales          |   2.0.9 |
+| @uppy/compressor       |   0.2.5 | @uppy/transloadit      |   2.1.5 |
+| @uppy/core             |   2.1.9 | @uppy/utils            |   4.0.7 |
+| @uppy/drag-drop        |   2.0.7 | @uppy/vue              |   0.4.7 |
+| @uppy/drop-target      |   1.1.3 | @uppy/robodog          |   2.5.4 |
+| @uppy/dropbox          |   2.0.6 | uppy                   |   2.9.4 |
+| @uppy/facebook         |   2.0.6 |                        |         |
+
+- @uppy/locales: Plural translation in cs_CZ local (JakubHaladej / #3666)
+- @uppy/vue: Add license field to package.json in @uppy/vue (Tobias Trumm / #3664)
+- meta: Add todo comments (Murderlon)
+- @uppy/facebook: refactor to ESM (Antoine du Hamel / #3653)
+- meta: locale-pack: refactor to use more parallel processing (Antoine du Hamel / #3630)
+- @uppy/file-input: refactor to ESM (Antoine du Hamel / #3652)
+- meta: sign requests sent to Transloadit in e2e suite (Antoine du Hamel / #3656)
+- meta: add `VITE_TRANSLOADIT_SECRET` for e2e (Antoine du Hamel)
+- meta: Update BACKLOG.md (Artur Paikin)
+- @uppy/form: refactor to ESM (Antoine du Hamel / #3654)
+- @uppy/dropbox: refactor to ESM (Antoine du Hamel / #3651)
+- meta: sign requests sent to Transloadit in dev env (Antoine du Hamel / #3517)
+- @uppy/drop-target: refactor to ESM (Antoine du Hamel / #3648)
+- @uppy/core: fix `TypeError` when file was removed (Antoine du Hamel / #3650)
+- @uppy/drag-drop: refactor to ESM (Antoine du Hamel / #3647)
+- meta: update outdated files (Antoine du Hamel / #3646)
+- @uppy/compressor: Set meta on file compression (Camilo Forero / #3644)
+- @uppy/transloadit: improve fetch error handling (Antoine du Hamel / #3637)
+- @uppy/box: refactor to ESM (Antoine du Hamel / #3643)
+- @uppy/utils: Fix getFileType for dicom images (Merlijn Vos / #3610)
+- @uppy/aws-s3-multipart: Add `companionCookiesRule` type to @uppy/aws-s3-multipart (Mauricio Ribeiro / #3623)
+
+
+## 2.9.3
+
+Released: 2022-04-07
+
+| Package       | Version | Package       | Version |
+| ------------- | ------- | ------------- | ------- |
+| @uppy/core    |   2.1.8 | uppy          |   2.9.3 |
+| @uppy/robodog |   2.5.3 |               |         |
+
+- @uppy/core: fix TypeError in event handler when file was removed (Antoine du Hamel / #3629)
+
+
+## 2.9.2
+
+Released: 2022-04-07
+
+| Package                | Version | Package                | Version |
+| ---------------------- | ------- | ---------------------- | ------- |
+| @uppy/aws-s3           |   2.0.9 | @uppy/utils            |   4.0.6 |
+| @uppy/companion-client |   2.0.6 | @uppy/robodog          |   2.5.2 |
+| @uppy/compressor       |   0.2.4 | uppy                   |   2.9.2 |
+| @uppy/transloadit      |   2.1.4 |                        |         |
+
+- @uppy/aws-s3,@uppy/companion-client,@uppy/transloadit,@uppy/utils: Propagate `isNetworkError` through error wrappers (Renée Kooi / #3620)
+- @uppy/compressor: Merge new name and type into compressed file (Camilo Forero / #3606)
+
+
+## 2.9.1
+
+Released: 2022-03-29
+
+| Package       | Version | Package       | Version |
+| ------------- | ------- | ------------- | ------- |
+| @uppy/core    |   2.1.7 | @uppy/robodog |   2.5.1 |
+| @uppy/tus     |   2.2.2 | uppy          |   2.9.1 |
+
+- @uppy/tus: fix hasOwn (Mikael Finstad / #3604)
+- meta: Increase test timeout for flaky e2e tests (Merlijn Vos / #3603)
+- meta: upgrade GHA actions (Antoine du Hamel / #3602)
+- @uppy/core: refactor: replace deprecated String.prototype.substr() (CommanderRoot / #3600)
+
+
+## 2.9.0
+
+Released: 2022-03-24
+
+| Package           | Version | Package           | Version |
+| ----------------- | ------- | ----------------- | ------- |
+| @uppy/companion   |   3.5.0 | @uppy/webcam      |   2.1.0 |
+| @uppy/status-bar  |   2.1.3 | @uppy/robodog     |   2.5.0 |
+| @uppy/transloadit |   2.1.2 | uppy              |   2.9.0 |
+| @uppy/tus         |   2.2.1 |                   |         |
+
+- @uppy/transloadit: close assembly if upload is cancelled (Antoine du Hamel / #3591)
+- @uppy/companion: Companion server upload events (Mikael Finstad / #3544)
+- @uppy/tus: fix double requests sent when rate limiting (Antoine du Hamel / #3595)
+- website: fix linter error on blog post (Antoine du Hamel / #3596)
+- @uppy/companion: fix `yarn test` command (Antoine du Hamel / #3590)
+- @uppy/webcam: Mime types in webcam options type (Sobakin Sviatoslav / #3593)
+- website: Some polish and a better (?) intro for the recent update post (AJvanLoon / #3588)
+- @uppy/companion: Allow setting no ACL (Mikael Finstad / #3577)
+- @uppy/companion: Small companion code and doc changes (Mikael Finstad / #3586)
+- @uppy/robodog: fix CDN bundle (Antoine du Hamel / #3587)
+- website: Fix broken link (YukeshShr / #3581)
+
+## 2.8.0
+
+Released: 2022-03-16
+
+| Package              | Version | Package              | Version |
+| -------------------- | ------- | -------------------- | ------- |
+| @uppy/audio          |   0.3.0 | @uppy/locales        |   2.0.8 |
+| @uppy/aws-s3         |   2.0.8 | @uppy/provider-views |   2.0.8 |
+| @uppy/companion      |   3.4.0 | @uppy/vue            |   0.4.6 |
+| @uppy/compressor     |   0.2.3 | @uppy/robodog        |   2.4.0 |
+| @uppy/core           |   2.1.6 | uppy                 |   2.8.0 |
+| @uppy/drop-target    |   1.1.2 |                      |         |
+
+- @uppy/aws-s3: fix wrong events being sent to companion (Mikael Finstad / #3576)
+- @uppy/compressor: ignore remote files, calculate savings correctly (Artur Paikin / #3578)
+- @uppy/companion: always log errors with stack trace (Mikael Finstad / #3573)
+- meta: remove incorrect s3 documentation (Mikael Finstad / #3571)
+- @uppy/companion: Companion refactor (Mikael Finstad / #3542)
+- website: partial ooops (Artur Paikin)
+- meta: run e2e workflow on the head branch instead of the base one (Antoine du Hamel / #3561)
+- website: Use Plausible instead of Google Analytics (Artur Paikin / #3567)
+- @uppy/vue: enforce use of file extension within the import path (Antoine du Hamel / #3560)
+- @uppy/drop-target: ignore if dropped elements aren't files (Penar Musaraj / #3563)
+- @uppy/core: Abstract restriction logic in a new Restricter class (Merlijn Vos / #3532)
+- @uppy/companion: Fetch all Google Drive shared drives (Robert DiMartino / #3553)
+- website: add blog post 2.4-2.7 (Artur Paikin / #3557)
+- meta: fix e2e (Antoine du Hamel / #3562)
+- meta: fix broken link (YukeshShr / #3559)
+- meta: fix support of export declaration in source files (Antoine du Hamel / #3558)
+- @uppy/companion: Order Google Drive results by folder to show all folders first (Robert DiMartino / #3546)
+- meta: add corsOrigins to docs (Mikael Finstad / #3554)
+- @uppy/audio: refactor to ESM (Antoine du Hamel / #3470)
+- @uppy/locales: compressor cleanup (Antoine du Hamel / #3531)
+- meta: fix CJS interop in Vite config (Antoine du Hamel / #3543)
+- @uppy/companion: upgrade node-redis-pubsub (Mikael Finstad / #3541)
+- @uppy/provider-views: provider-view: fix breadcrumbs (Artur Paikin / #3535)
+- meta: Update BACKLOG.md (Artur Paikin)
+- @uppy/locales: Update ru_RU.js (Sobakin Sviatoslav / #3529)
+- @uppy/companion: reorder reqToOptions (Antoine du Hamel / #3530)
+- meta: Fix yarn caching in github actions (Mikael Finstad / #3526)
+
+
+## 2.7.0
+
+Released: 2022-03-02
+
+| Package                | Version | Package                | Version |
+| ---------------------- | ------- | ---------------------- | ------- |
+| @uppy/angular          |   0.3.0 | @uppy/locales          |   2.0.7 |
+| @uppy/aws-s3-multipart |   2.2.1 | uppy                   |   2.7.0 |
+| @uppy/companion        |   3.3.1 |                        |         |
+
+- @uppy/companion: fix unstable test (Mikael Finstad)
+- @uppy/companion: replace debug (Mikael Finstad)
+- @uppy/companion: Fix COMPANION_PATH (Mikael Finstad / #3515)
+- @uppy/angular: update ng version (Antoine du Hamel / #3503)
+- @uppy/companion: Upload protocol "s3-multipart" does not use the chunkSize option (Gabi Ganam / #3511)
+- @uppy/aws-s3-multipart: Add chunks back to prepareUploadParts, indexed by partNumber (Kevin West / #3520)
+- @uppy/locales: Update zh_CN.js (linxunzyf / #3513)
+- meta: update remark dependencies (Antoine du Hamel / #3502)
+## 2.6.0
+
+Released: 2022-02-17
+
+| Package         | Version | Package         | Version |
+| --------------- | ------- | --------------- | ------- |
+| @uppy/companion |   3.3.0 | uppy            |   2.6.0 |
+| @uppy/robodog   |   2.3.2 |                 |         |
+
+- meta: warn about not merging PR manually (Artur Paikin / #3492)
+- @uppy/companion: fix unpslash author meta, sanitize metadata to strings and improve companion tests (Mikael Finstad / #3478)
+- meta: ensure README is correctly formatted when doing releases (Antoine du Hamel / #3499)
+- meta: fix CDN bundle (Antoine du Hamel / #3494)
+- meta: fix missing EOL and end of e2e test templates (Antoine du Hamel / #3484)
+- meta: use a single `.env` file for config (Antoine du Hamel / #3498)
+## 2.5.1
+
+Released: 2022-02-16
+
+| Package                   | Version | Package                   | Version |
+| ------------------------- | ------- | ------------------------- | ------- |
+| @uppy/companion           |   3.2.1 | @uppy/thumbnail-generator |   2.1.1 |
+| @uppy/compressor          |   0.2.2 | @uppy/robodog             |   2.3.1 |
+| @uppy/onedrive            |   2.0.6 | uppy                      |   2.5.1 |
+
+- meta: Missing comma and wrong attribute name on cors example config (Edgar Santiago / #3465)
+- @uppy/onedrive: Update README.md (Márton László Attila / #3489)
+- @uppy/compressor: Add image compressor plugin (Artur Paikin / #3471)
+- @uppy/companion: fix periodicPingUrls oops (Mikael Finstad / #3490)
+- meta: add support for ESM sources in build script (Antoine du Hamel / #3468)
+## 2.5.0
+
+Released: 2022-02-14
+
+| Package                   | Version | Package                   | Version |
+| ------------------------- | ------- | ------------------------- | ------- |
+| @uppy/companion           |   3.2.0 | @uppy/provider-views      |   2.0.7 |
+| @uppy/companion-client    |   2.0.5 | @uppy/thumbnail-generator |   2.1.0 |
+| @uppy/core                |   2.1.5 | @uppy/robodog             |   2.3.0 |
+| @uppy/dashboard           |   2.1.4 | uppy                      |   2.5.0 |
+| @uppy/locales             |   2.0.6 |                           |         |
+
+- @uppy/companion: add support for COMPANION_UNSPLASH_SECRET (Mikael Finstad / #3463)
+- @uppy/unsplash: fix nested meta (Artur Paikin / #3485)
+- meta: fix(docs): typo in property `thumbnailType` (Dan Schalow / #3472)
+- @uppy/robodog: add audio, box, unsplash, screen-capture to Robodog (Artur Paikin / #3483)
+- meta: consolidate ENV files and fix contributing guidelines (Antoine du Hamel / #3475)
+- @uppy/companion-client,@uppy/companion,@uppy/provider-views,@uppy/robodog: Finishing touches on Companion dynamic Oauth (Renée Kooi / #2802)
+- meta: Improve companion docs (Mikael Finstad / #3479)
+- meta: Make E2E Great Again (Merlijn Vos / #3444)
+- meta: Add PostCSS handling to Vite (Artur Paikin / #3467)
+- meta: Update CONTRIBUTING.md (Mikael Finstad / #3411)
+- @uppy/companion: fix broken thumbnails for box and dropbox (Mikael Finstad / #3460)
+- website: fix `Uppy is not defined` error (Antoine du Hamel / #3461)
+- @uppy/companion: Implement periodic ping functionality (Mikael Finstad / #3246)
+- @uppy/companion: fix callback urls (Mikael Finstad / #3458)
+- @uppy/core,@uppy/dashboard,@uppy/thumbnail-generator: Add dashboard and UIPlugin types (Merlijn Vos / #3426)
+- @uppy/locales: Add "save" to fr_FR.js (Charly Billaud / #3395)
+- @uppy/companion: Fix TypeError when invalid initialization vector (Julian Gruber / #3416)
+- meta: Upgrade size-limit to 7.0.5 (Artur Paikin / #3445)
+- @uppy/provider-views: Unsplash: UI improvements (Artur Paikin / #3438)
+- @uppy/thumbnail-generator: exifr: remove legacy IE support (Artur Paikin / #3382)
+- @uppy/companion: Default to HEAD requests when the Companion looks to get meta information about a URL (Zack Bloom / #3417)
+- @uppy/dashboard: check if info array is empty (Artur Paikin / #3442)
+- meta: dev: fix Vite custom plugin (Antoine du Hamel / #3437)
+- website: add legacy bundle to CDN example (Antoine du Hamel / #3433)
+- meta: remove unused lerna and npm files (Antoine du Hamel / #3436)
+- meta: replace browserify with esbuild (Antoine du Hamel / #3363)
+## 2.4.1
+
+Released: 2022-01-12
+
+| Package           | Version | Package           | Version |
+| ----------------- | ------- | ----------------- | ------- |
+| @uppy/transloadit |   2.1.1 | uppy              |   2.4.1 |
+| @uppy/robodog     |   2.2.1 |                   |         |
+
+- @uppy/transloadit: fix handling of Tus errors and rate limiting (Antoine du Hamel / #3429)
+- meta: Add Unsplash to website dashboard example (Merlijn Vos / #3431)
+- meta: dev: move configuration to a `.env` file (Antoine du Hamel / #3430)
+- meta: Update ci.yml (Kevin van Zonneveld / #3428)
+- @uppy/transloadit: simplify `#onTusError` (Antoine du Hamel / #3419)
+- meta: Force include babel numeric separator (Merlijn Vos / #3422)
+## 2.4.0
+
+Released: 2022-01-10
+
+| Package              | Version | Package              | Version |
+| -------------------- | ------- | -------------------- | ------- |
+| @uppy/drag-drop      |   2.0.6 | @uppy/tus            |   2.2.0 |
+| @uppy/image-editor   |   1.1.1 | @uppy/utils          |   4.0.5 |
+| @uppy/screen-capture |   2.0.6 | @uppy/robodog        |   2.2.0 |
+| @uppy/transloadit    |   2.1.0 | uppy                 |   2.4.0 |
+
+- @uppy/transloadit: ignore rate limiting errors when polling (Antoine du Hamel / #3418)
+- @uppy/tus: pause all requests in response to server rate limiting (Antoine du Hamel / #3394)
+- @uppy/transloadit: better defaults for rate limiting (Antoine du Hamel / #3414)
+- @uppy/companion: Fix Companion deploys (kiloreux / #3388)
+- meta: update aws-php example to use esm (Antoine du Hamel / #3413)
+- @uppy/image-editor: namespace input range css (Merlijn Vos / #3406)
+- @uppy/screen-capture: Add missing option to the screen capture types (Mustafa Navruz / #3400)
+- @uppy/drag-drop: fix `undefined is not a function` TypeError (Antoine du Hamel / #3397)
+- website: update december 2021 blog post (Antoine du Hamel / #3396)
+- website: Polished the latest update blog (AJvanLoon / #3390)
+- website: docs: fix typo in audio.md (heocoi / #3389)
+- website: 2.0-2.3 post draft (Artur Paikin / #3370)
+
+## 2.3.3
+
+Released: 2022-01-04
+
+| Package         | Version | Package         | Version |
+| --------------- | ------- | --------------- | ------- |
+| @uppy/companion |   3.1.5 | uppy            |   2.3.3 |
+
+- @uppy/companion: improve private ip check (Mikael Finstad / #3403)
+
+
+## 2.3.2
+
+Released: 2021-12-21
+
+| Package         | Version | Package         | Version |
+| --------------- | ------- | --------------- | ------- |
+| @uppy/angular   |   0.2.8 | @uppy/vue       |   0.4.5 |
+| @uppy/companion |   3.1.4 | uppy            |   2.3.2 |
+| @uppy/svelte    |   1.0.7 |                 |         |
+
+- meta: fix release script (Antoine du Hamel)
+- @uppy/core: document file.name (Merlijn Vos / #3381)
+- @uppy/angular,@uppy/companion,@uppy/svelte,@uppy/vue: add `.npmignore` files to ignore `.gitignore` when packing (Antoine du Hamel / #3380)
+- meta: add VSCode workspace settings to `.gitignore` (Antoine du Hamel)
+- @uppy/companion: Upgrade ws in companion (Merlijn Vos / #3377)
+- meta: use ESBuild to bundle in E2E test suite (Antoine du Hamel / #3375)
+- meta: update linter config to parse ESM files (Antoine du Hamel / #3371)
+- meta: move dev workspace to `private/` (Antoine du Hamel / #3368)
+- meta: use Vite for examples/dev (Antoine du Hamel / #3361)
+- website: remove dependency on `crypto` in @uppy/transloadit example (Antoine du Hamel / #3367)
+- meta: enable linter on website examples (Antoine du Hamel / #3366)
+- meta: enable linter on mjs scripts (Antoine du Hamel / #3364)
+- @uppy/angular: Fix module field in `package.json` (Merlijn Vos / #3365)
+- meta: improve release script wording and formatting (Artur Paikin)
+
+
+## 2.3.1
+
+Released: 2021-12-09
+
+| Package           | Version | Package           | Version |
+| ----------------- | ------- | ----------------- | ------- |
+| @uppy/angular     |   0.2.7 | @uppy/store-redux |   2.0.3 |
+| @uppy/audio       |   0.2.1 | @uppy/svelte      |   1.0.6 |
+| @uppy/aws-s3      |   2.0.7 | @uppy/vue         |   0.4.4 |
+| @uppy/companion   |   3.1.3 | @uppy/xhr-upload  |   2.0.7 |
+| @uppy/core        |   2.1.4 | @uppy/robodog     |   2.1.5 |
+| @uppy/dashboard   |   2.1.3 | uppy              |   2.3.1 |
+| @uppy/locales     |   2.0.5 |                   |         |
+
+- meta: update npm deps (Antoine du Hamel / #3352)
+- @uppy/companion: fix Dockerfile and deploy automation (Mikael Finstad / #3355)
+- @uppy/companion: don’t pin Yarn version in `package.json` (Antoine du Hamel / #3347)
+- @uppy/aws-s3,@uppy/core,@uppy/dashboard,@uppy/store-redux,@uppy/xhr-upload: deps: use `nanoid/non-secure` to workaround react-native limitation (Antoine du Hamel / #3350)
+- @uppy/audio: showRecordingLength option was removed, always clearInterval (Artur Paikin / #3351)
+- meta: drop `stringify-object` dependency to generate locales (Antoine du Hamel / #3344)
+- meta: add release automations (Antoine du Hamel / #3304)
+
+
+## 2.3.0
+
+Released: 2021-12-07
+
+| Package                   | Version | Package                   | Version |
+| ------------------------- | ------- | ------------------------- | ------- |
+| @uppy/angular             |   0.2.6 | @uppy/locales             |   2.0.4 |
+| @uppy/audio               |   0.2.0 | @uppy/onedrive            |   2.0.5 |
+| @uppy/aws-s3              |   2.0.6 | @uppy/provider-views      |   2.0.6 |
+| @uppy/aws-s3-multipart    |   2.2.0 | @uppy/react               |   2.1.2 |
+| @uppy/box                 |   1.0.5 | @uppy/screen-capture      |   2.0.5 |
+| @uppy/companion           |   3.1.2 | @uppy/status-bar          |   2.1.2 |
+| @uppy/companion-client    |   2.0.4 | @uppy/store-default       |   2.0.3 |
+| @uppy/core                |   2.1.3 | @uppy/thumbnail-generator |   2.0.6 |
+| @uppy/dashboard           |   2.1.2 | @uppy/transloadit         |   2.0.5 |
+| @uppy/drag-drop           |   2.0.5 | @uppy/tus                 |   2.1.2 |
+| @uppy/dropbox             |   2.0.5 | @uppy/url                 |   2.0.5 |
+| @uppy/facebook            |   2.0.5 | @uppy/utils               |   4.0.4 |
+| @uppy/file-input          |   2.0.5 | @uppy/webcam              |   2.0.5 |
+| @uppy/golden-retriever    |   2.0.6 | @uppy/xhr-upload          |   2.0.6 |
+| @uppy/google-drive        |   2.0.5 | @uppy/zoom                |   1.0.5 |
+| @uppy/image-editor        |   1.1.0 | @uppy/robodog             |   2.1.4 |
+| @uppy/informer            |   2.0.5 | uppy                      |   2.3.0 |
+| @uppy/instagram           |   2.0.5 |                           |         |
+
+- meta: add release automations (Antoine du Hamel / #3304)
+- @uppy/dashboard: Save meta fields when opening the image editor (Merlijn Vos / #3339)
+- @uppy/aws-s3-multipart: Drop `lockedCandidatesForBatch` and mark chunks as busy when preparing (Yegor Yarko / #3342)
+- @uppy/webcam: fix broken links in `webcam.md` (Antoine du Hamel / #3346)
+- @uppy/audio: new @uppy/audio plugin for recording with microphone (Artur Paikin / #2976)
+- build: force use of `@babel/plugin-proposal-optional-chaining` (Antoine du Hamel / #3335)
+- @uppy/companion: fix deploy Yarn version (Antoine du Hamel / #3327)
+- @uppy/companion: upgrade aws-sdk (Mikael Finstad / #3334)
+- @uppy/core: disable loose transpilation for legacy bundle (Antoine du Hamel / #3329)
+- @uppy/angular: examples: update `angular-example` to Angular v13 (Antoine du Hamel / #3325)
+- meta: Update BACKLOG.md (Artur Paikin, Merlijn Vos)
+- meta: Add disableLocalFiles to options summary (Steve Barker / #3323)
+- meta: Create SECURITY.md (Ziding Zhang / #3052)
+- @uppy/image-editor: Pass croppedCanvasOptions to getCroppedCanvas (Mohamed Boudra / #3320)
+- meta: finish `master`->`main` job (Mikael Finstad / #3315)
+- website: update documents that were out of date (Antoine du Hamel / #3317)
+- @uppy/status-bar: Status bar error state improvements (Merlijn Vos / #3299)
+- doc: Fix typo in `docs/drag-drop.md` (Ash Allen / #3319)
+- website: Update /support and docs about Transloadit-hosted Companion (Artur Paikin / #3243)
+- @uppy/aws-s3,@uppy/box,@uppy/core,@uppy/dashboard,@uppy/drag-drop,@uppy/dropbox,@uppy/facebook,@uppy/file-input,@uppy/google-drive,@uppy/image-editor,@uppy/instagram,@uppy/locales,@uppy/onedrive,@uppy/screen-capture,@uppy/status-bar,@uppy/thumbnail-generator,@uppy/transloadit,@uppy/url,@uppy/webcam,@uppy/xhr-upload,@uppy/zoom: Refactor locale scripts & generate types and docs (Merlijn Vos / #3276)
+- @uppy/companion: Remove references of incorrect `options` argument for `companion.socket` (Mikael Finstad / #3307)
+- @uppy/companion: Upgrade linting to 2.0.0-0 (Kevin van Zonneveld / #3280)
+
+
 ## 2.2.1
 
 Released: 2021-10-14
