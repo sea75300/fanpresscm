@@ -26,49 +26,8 @@ fpcm.templates = {
                 fpcm.templates.editorInstance = null;                
                 fpcm.dom.fromTag(_ui.relatedTarget.dataset.bsTarget).empty();
                 return true;
-            },
-
-            onTabShowAfter: function( _ui ) {
-
-                if (!_ui.target.dataset.tplid) {
-                    return true;
-                }
-
-                if (!fpcm.templates.createEditorInstance(_ui)) {
-                    setTimeout(function () {
-                        fpcm.templates.createEditorInstance(_ui);
-                    }, 1500);
-                }
-
-                fpcm.dom.fromTag('button.fpcm-ui-template-tags').click(function() {
-
-                    var tag = fpcm.dom.fromTag(this).attr('data-tag');
-                    var doc = fpcm.templates.editorInstance.doc;
-                    var cursorPos = doc.getCursor();
-
-                    doc.replaceRange(tag, cursorPos, cursorPos);
-                    fpcm.templates.editorInstance.focus();
-
-                    return false;
-                });
-
-                fpcm.dom.fromClass('fpcm-editor-html-click').click(function() {
-
-                    var tag     = fpcm.dom.fromTag(this).data('htmltag');
-                    fpcm.editor_codemirror.initToInstance(
-                        fpcm.templates.editorInstance,
-                        '<' + tag + '>',
-                        '</' + tag + '>'
-                    );
-
-                    return false;
-                });
-
-                return true;
             }
         });
-        
-        fpcm.dom.bindEvent('.fpcm-editor-html-click', )
 
         fpcm.dom.bindClick('#showpreview', fpcm.templates.saveTemplatePreview);
 
@@ -117,16 +76,41 @@ fpcm.templates = {
         
     },
     
-    createEditorInstance: function (_ui, _ldr) {
+    createEditorInstance: function (_tplid) {
 
         try {
 
             fpcm.templates.editorInstance = fpcm.editor_codemirror.create({
-               editorId  : 'tpleditor' + _ui.target.dataset.tplid,
-               elementId : 'content_' + _ui.target.dataset.tplid
+               editorId  : 'tpleditor' + _tplid,
+               elementId : 'content_' + _tplid
             });
 
             fpcm.templates.editorInstance.setSize('100%', '100vh');
+
+            fpcm.dom.fromTag('button.fpcm-ui-template-tags').click(function() {
+
+                var tag = fpcm.dom.fromTag(this).attr('data-tag');
+                var doc = fpcm.templates.editorInstance.doc;
+                var cursorPos = doc.getCursor();
+
+                doc.replaceRange(tag, cursorPos, cursorPos);
+                fpcm.templates.editorInstance.focus();
+
+                return false;
+            });
+
+            fpcm.dom.fromClass('fpcm-editor-html-click').click(function() {
+
+                var tag     = fpcm.dom.fromTag(this).data('htmltag');
+                fpcm.editor_codemirror.initToInstance(
+                    fpcm.templates.editorInstance,
+                    '<' + tag + '>',
+                    '</' + tag + '>'
+                );
+
+                return false;
+            });
+
 
         } catch (_e) {
             return false;

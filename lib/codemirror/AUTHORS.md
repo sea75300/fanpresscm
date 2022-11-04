@@ -111,6 +111,7 @@ benhormann
 Ben Hormann
 Beni Cherniavsky-Paskin
 Benjamin DeCoste
+benjaminr-ps
 Benjamin Young
 Ben Keen
 Ben Miller
@@ -123,6 +124,7 @@ Billiam
 Billy Moon
 Bin Ni
 binny
+Bjarki Ágúst Guðmundsson
 Bjorn Hansen
 B Krishna Chaitanya
 Blaine G
@@ -132,6 +134,7 @@ boomyjee
 Bo Peng
 borawjm
 Boris K
+Boris Verkhovskiy
 Brad Metcalf
 Brandon Frohs
 Brandon Wamboldt
@@ -261,6 +264,7 @@ Enam Mijbah Noor
 Eric Allam
 Eric Bogard
 Erik Demaine
+Erik Krogh Kristensen
 Erik Welander
 erosman
 eustas
@@ -269,6 +273,7 @@ Fabien Dubosson
 Fabien O'Carroll
 Fabio Zendhi Nagao
 Faiza Alsaied
+Faris Masad
 Fauntleroy
 fbuchinger
 feizhang365
@@ -293,6 +298,7 @@ Frank Wiegand
 fraxx001
 Fredrik Borg
 FUJI Goro (gfx)
+fzipp
 Gabriel Gheorghian
 Gabriel Horner
 Gabriel Nahmias
@@ -300,6 +306,7 @@ galambalazs
 Gary Sheng
 Gautam Mehta
 Gavin Douglas
+Geist-zz
 gekkoe
 Geordie Hall
 George Stephanis
@@ -333,6 +340,7 @@ Haoran Yu
 Harald Schilly
 Hardest
 Harshvardhan Gupta
+Harutyun Amirjanyan
 Hasan Delibaş
 Hasan Karahan
 Heanes
@@ -378,9 +386,11 @@ Jake Peyser
 Jake Zimmerman
 Jakob Kummerow
 Jakob Miland
+Jakub Nowak
 Jakub T. Jankiewicz
 Jakub Vrana
 Jakub Vrána
+James Baicoianu
 James Campos
 James Cockshull
 James Howard
@@ -473,6 +483,7 @@ karevn
 Karol
 Kaushik Kulkarni
 Kayur Patel
+kazk
 Kazuhisa Ishizaka
 Kazuhito Hokamura
 kcwiakala
@@ -492,6 +503,8 @@ Kim-Anh Tran
 Klaus Silveira
 Koh Zi Han, Cliff
 komakino
+kometenstaub
+Konrad Zapotoczny
 Konstantin Chernenko
 Konstantin Lopuhin
 koops
@@ -535,6 +548,7 @@ Lu Fangjian
 Łukasz Wielgus
 Luke Browning
 Luke Granger-Brown
+Luke Haas
 Luke Stagner
 lynschinzer
 M1cha
@@ -728,6 +742,7 @@ Pi Delport
 Pierre Gerold
 Pieter Ouwerkerk
 Piyush
+Pontus Granström
 Pontus Melke
 prasanthj
 Prasanth J
@@ -756,6 +771,7 @@ Remi Nyborg
 Renaud Durlin
 Reynold Xin
 Richard Denton
+Richard Fung
 Richard van der Meer
 Richard Z.H. Wang
 Rishi Goomar
@@ -779,6 +795,7 @@ Ryan Petrello
 Ryan Prior
 ryu-sato
 sabaca
+sach.gupta
 Sachin Gupta
 Sam Lee
 Sam Rawlins
@@ -821,6 +838,7 @@ Shubham Jain
 Siamak Mokhtari
 Siddhartha Gunti
 silverwind
+Simone Di Nuovo
 Simon Edwards
 Simon Huber
 sinkuu
@@ -876,6 +894,7 @@ thomasmaclean
 Thomas Schmid
 Tim Alby
 Tim Baumann
+Tim Down
 Tim Gates
 Tim Nguyen
 Timothy Farrell
@@ -915,6 +934,7 @@ Vestimir Markov
 vf
 Victor Bocharsky
 Vincent Woo
+Vladislav Voitenok
 Volker Mische
 vtripolitakis
 wdouglashall
@@ -935,6 +955,7 @@ Wojtek Ptak
 wonderboyjon
 Wu Cheng-Han
 Xavier Mendez
+Yakov Manshin
 Yang Guo
 Yash Singh
 Yash-Singh1
@@ -949,6 +970,7 @@ Zachary Dremann
 ZeeshanNoor
 Zeno Rocha
 Zhang Hao
+Ziran Sun
 Ziv
 zoobestik
 zziuni
