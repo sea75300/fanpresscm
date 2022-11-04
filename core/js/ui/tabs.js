@@ -132,7 +132,7 @@ fpcm.ui_tabs = {
 
             _el.addEventListener('shown.bs.tab', function (_ev) {
 
-                if (typeof params.onRenderHtmlBefore === 'function') {
+                if (typeof params.onTabShowAfter === 'function') {
                     params.onTabShowAfter(_ev);
                 }
 

@@ -948,6 +948,13 @@ Help language file
         <![CDATA[
         <p>Benutzer mit entsprechenden Rechten können die Templates zur Ausgabe von Artikeln, Kommentaren etc. bearbeiten.
         Für eine bessere Übersicht bietet der Template-Editor Syntax-Highlighting und eine Liste der verfügbaren Platzhalter.</p>
+        
+        <div class="alert alert-warning mx-2" role="alert">
+            <ul>
+                <li>In Templates darf die Gestaltung nur über <strong>CSS-Klassen/IDs oder Inline-"style"-Angaben</strong> erfolgen.</li>
+                <li>HTML-Tags wie <em>body, style, etc.</em> machen den Code invalide und können Probleme verursachen!</li>
+            </ul>
+        </div>
 
         <h3 class="pt-5 fs-1">Templates</h3>
         
@@ -986,6 +993,7 @@ Help language file
             <dt>Vorschau anzeigen:</dt>
             <dd class="pb-2">Der Button <strong>Vorschau anzeigen</strong> ermöglicht es, den im Editor vorhandenen Template-Inhalt
             als Vorschau anzeigen zu lassen und somit die Wirkung, Formatierungsfehler etc. sofort zu erkennen.</dd>
+            <dd class="pb-2">Platzhaltern mit einem öffnenden und schließendem Tag in der Form "{{A}}:{{/A}}" kann der Doppelpunkt durch einen eigenen Text ersetzt werden.</dd>
         </dl>
         
         <h3 class="pt-5 fs-1">Vorlagen</h3>

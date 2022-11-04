@@ -87,7 +87,7 @@ fpcm.templates = {
 
             fpcm.templates.editorInstance.setSize('100%', '100vh');
 
-            fpcm.dom.fromTag('button.fpcm-ui-template-tags').click(function() {
+            fpcm.dom.fromTag('a.fpcm-ui-template-tags').click(function() {
 
                 var tag = fpcm.dom.fromTag(this).attr('data-tag');
                 var doc = fpcm.templates.editorInstance.doc;
