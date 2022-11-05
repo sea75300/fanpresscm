@@ -38,7 +38,7 @@
         <div class="col-12 col-lg-7 col-xl-9">
                     
             <?php if (count($allowedTagsList)) : ?>
-            <div class="row my-2">
+            <div class="row mt-2">
 
                 <div class="btn-toolbar" role="toolbar" aria-label="<?php $theView->write('TEMPLATE_EDITOR'); ?>">
                 <?php foreach ($allowedTagsList as $allowedTags) : ?>
@@ -54,7 +54,7 @@
             <?php endif; ?>
 
 
-            <div class="row">
+            <div class="row my-2">
                 <div class="col-12">
                     <?php $theView->textarea('template[content]', 'content_'.$tplId)->setValue($content, ENT_QUOTES)->setClass('fpcm-editor-html-click'); ?>
                 </div>
