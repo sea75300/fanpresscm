@@ -85,6 +85,7 @@ class permissions extends \fpcm\controller\abstracts\controller
                 ->setFile($this->getViewPath() . '.php')
         ], 'm-2');
 
+        $this->view->setBodyClass('fpcm ui-classic-backdrop');
         $this->view->render();
     }
 

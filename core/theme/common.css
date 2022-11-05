@@ -1,5 +1,3 @@
-@import url(droid_sans/stylesheet.css);
-@import url(expletus-sans/stylesheet.css);
 
 :root {
   --bs-font-sans-serif: 'Droid Sans', sans-serif ;
@@ -113,4 +111,116 @@ legend {
 
 * [draggable=false] {
     cursor: not-allowed;
+}
+
+/* ------ Text aligns */
+label,
+.fpcm.ui-align-ellipsis,
+.fpcm-ui-ellipsis    {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+ul.fpcm-ui-csv-fields {
+    min-height: 100px;
+}
+
+.fpcm.ui-mh-100vh {
+    min-height: 100vh;
+}
+
+/* ------ Opacities */
+.fpcm-ui-status-0 {
+    opacity: 0.2;
+}
+
+.fpcm-ui-status-1 {
+    opacity: 1.0;
+}
+
+
+/* ------ Badge styles */
+span.fpcm-ui-badge {
+    z-index: 999;
+}
+
+.fpcm.ui-font-small,
+.fpcm-ui-font-small {
+    font-size: 0.85em;
+}
+
+li.fpcm-ui-smileylist-preview {
+    line-height: 30px;
+}
+
+img.fpcm-ui-smileylist-preview {
+    max-width:30px;
+    max-height:30px;
+    margin-right: 0.4em;
+}
+
+.fpcm-editor-htmlsmiley {
+    cursor: pointer;
+}
+
+.fpcm-ui-progressbar {
+    height: 35px;
+}
+
+.pre-box {
+    white-space: pre-line;
+}
+
+textarea.fpcm-ui-textarea-medium,
+textarea.fpcm.ui-textarea-medium {
+    min-height: 25vh;
+}
+
+textarea.fpcm.ui-textarea-noresize {
+    resize: none;
+}
+
+div.fileupload-progress.in {
+    display: block;
+}
+
+.fpcm.ui-hidden,
+.fpcm-ui-hidden {
+    display: none !important;
+}
+
+.fpcm.ui-z-index-top {
+    z-index : 1021;
+}
+
+.fpcm.ui-max-width-md {
+    max-width: 30em;
+}
+
+/* ID selectors */
+#fpcm-filemanager-upload-drop {
+    cursor: copy;
+}
+
+#fpcm-filemanager-upload-drop h4 {
+    padding: 1.75em 0em;
+}
+
+#fpcm-filemanager-upload-drop h4:before {
+    font-size: 5em;
+    padding-bottom: 0.1em;
+}
+
+#fpcm-ui-toolbar .form-select {
+    display: inline-block;
+    width: auto;
+}
+
+#fpcm-loader {
+    display : none;
+}
+
+#fpcm-loader > div:first-child {
+    z-index : 9999;
 }

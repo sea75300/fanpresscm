@@ -1,17 +1,11 @@
-/* ------ General colors */
-:root {
-  --bs-primary: #0073ea;
-  --bs-red: #cc0000;
-  --bs-body-color: #454545;
-  --fpcm-blue-light: #3399ff;
-  --fpcm-grey-light: #ebe7f2;
-}
-
 body {
-    background-image: url(bgmain.svg);
-    background-color: var(--fpcm-grey-light);
+    background-image: var(--fpcm-var-backdrop-image);
     background-size: cover;
     background-attachment: fixed;
+}
+
+body.fpcm.ui-classic-backdrop {
+    background-image: var(--fpcm-var-backdrop-classic);
 }
 
 body,
@@ -68,7 +62,7 @@ span.fpcm-ui-badge,
 }
 
 .fpcm.ui-background-white-50p {
-    background: rgba(var(--bs-white-rgb), 0.5);
+    background: rgba(var(--bs-white-rgb), 0.6);
 }
 
 .fpcm.ui-background-blue-75 {
@@ -175,4 +169,26 @@ div.fpcm.ui-logs-deprecation-warning {
 
 div.fpcm.ui-dataview-head .form-check-input:checked {
     background-color: var(--bs-dark);
+}
+
+.fpcm.ui-blurring {
+    backdrop-filter: blur(var(--fpcm-var-blurring));
+}
+
+.fpcm.ui-invert-1 {
+    filter: invert(1);
+}
+
+.fpcm.ui-background-transition {
+    transition: background-color var(--fpcm-var-easing) ease;
+}
+
+div.fileupload-progress.fpcm-ui-fade {
+    opacity: 0;
+    transition: opacity .15s linear;
+}
+
+div.fileupload-progress.in {
+    opacity: 1;
+    transition: opacity .15s linear;
 }

@@ -55,9 +55,7 @@ fpcm.fileuploader = {
     },
     
     initAfter: function () {
-        
         fpcm.dom.fromClass('uppy-FileInput-btn').addClass('w-100');
-        
     }
     
 };

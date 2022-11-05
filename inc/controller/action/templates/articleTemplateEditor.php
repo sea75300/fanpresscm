@@ -109,7 +109,7 @@ class articleTemplateEditor extends \fpcm\controller\abstracts\controller
         $this->view->addJsFiles($jsFiles);
         $this->view->addJsVars($editor->getJsVars());
         $this->view->setFormAction($this->file->getEditLink(),[], true);
-
+        $this->view->setBodyClass('fpcm ui-classic-backdrop');
         $this->view->render();
     }
 

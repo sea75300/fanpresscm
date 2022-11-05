@@ -61,7 +61,7 @@ class filelist extends \fpcm\controller\abstracts\controller
         }
 
         $this->view->showHeaderFooter(\fpcm\view\view::INCLUDE_HEADER_SIMPLE);
-        $this->view->setBodyClass('m-2');
+        $this->view->setBodyClass('m-2 fpcm ui-classic-backdrop');
         $this->view->assign('toolbarClass', 'd-none');
         return true;
     }

@@ -26,7 +26,7 @@
             <?php include_once $theView->getIncludePath('common/menutop.php'); ?>
         </header>
 
-        <div class="d-lg-flex fpcm ui-mh-100vh">
+        <div class="d-lg-flex fpcm ui-mh-100vh fpcm ui-wrapper-content">
             
             <div class="d-flex flex-column flex-shrink-0 w-auto fpcm ui-background-white-50p border-bottom border-1 border-secondary">
 

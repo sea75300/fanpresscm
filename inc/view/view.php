@@ -1166,7 +1166,7 @@ class view {
             self::ROOTURL_LIB.'bootstrap/css/bootstrap.min.css',
             self::ROOTURL_LIB.'fancybox/jquery.fancybox.min.css',
             self::ROOTURL_LIB.'font-awesome/css/all.min.css',
-            self::ROOTURL_CORE_THEME.'style.php'
+            self::ROOTURL_CORE_THEME.'style.css'
         ]);
 
         return $this->cssFiles;
