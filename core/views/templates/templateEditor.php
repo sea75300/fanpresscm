@@ -36,12 +36,17 @@
         </div>
 
         <div class="col-12 col-lg-7 col-xl-9">
-            <?php if (count($allowedTagsList)) : ?>
-            <div class="row mt-2">
-                <div class="col-12 overflow-auto">
+            <div class="card my-2">
+                <div class="card-header text-bg-secondary">
+                  <?php $theView->icon('code'); ?> <?php $theView->write('TEMPLATE_EDITOR'); ?>
+                </div>
+                
+                <div class="card-body">
                     
-                    <div class="btn-toolbar" role="toolbar" aria-label="<?php $theView->write('TEMPLATE_EDITOR'); ?>">
-
+                    <?php if (count($allowedTagsList)) : ?>
+                    <div class="row g-0 mb-2">
+                        
+                        <div class="btn-toolbar" role="toolbar" aria-label="<?php $theView->write('TEMPLATE_EDITOR'); ?>">
                         <?php foreach ($allowedTagsList as $allowedTags) : ?>
                         <div class="btn-group m-1" role="group" aria-label="<?php $theView->write('TEMPLATE_EDITOR'); ?>">
                             <?php foreach ($allowedTags as $i => $tag) : ?>
@@ -49,17 +54,20 @@
                             <?php endforeach; ?>
                         </div>
                         <?php endforeach; ?>
+                        </div>
+                        
                     </div>
-                </div>            
+                    <?php endif; ?>
+                    
 
-            </div>
-            <?php endif; ?>
+                    <div class="row g-0">
+                        <div class="col-12">
+                            <?php $theView->textarea('template[content]', 'content_'.$tplId)->setValue($content, ENT_QUOTES)->setClass('fpcm-editor-html-click'); ?>
+                        </div>
+                    </div>
 
-            <div class="row my-2">
-                <div class="col-12">
-                    <?php $theView->textarea('template[content]', 'content_'.$tplId)->setValue($content, ENT_QUOTES)->setClass('fpcm-editor-html-click'); ?>
                 </div>
-            </div>
+
         </div>
 
     </div>
