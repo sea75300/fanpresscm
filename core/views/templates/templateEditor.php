@@ -36,39 +36,31 @@
         </div>
 
         <div class="col-12 col-lg-7 col-xl-9">
-            <div class="card my-2">
-                <div class="card-header text-bg-secondary">
-                  <?php $theView->icon('code'); ?> <?php $theView->write('TEMPLATE_EDITOR'); ?>
+                    
+            <?php if (count($allowedTagsList)) : ?>
+            <div class="row my-2">
+
+                <div class="btn-toolbar" role="toolbar" aria-label="<?php $theView->write('TEMPLATE_EDITOR'); ?>">
+                <?php foreach ($allowedTagsList as $allowedTags) : ?>
+                <div class="btn-group m-1" role="group" aria-label="<?php $theView->write('TEMPLATE_EDITOR'); ?>">
+                    <?php foreach ($allowedTags as $i => $tag) : ?>
+                        <?php $theView->button('tps-editor-'.substr($tag, 1, -1))->setText(htmlentities($tag))->setClass('fpcm-editor-html-click')->setData(['htmltag' => substr($tag, 1, -1)]); ?>
+                    <?php endforeach; ?>
                 </div>
-                
-                <div class="card-body">
-                    
-                    <?php if (count($allowedTagsList)) : ?>
-                    <div class="row g-0 mb-2">
-                        
-                        <div class="btn-toolbar" role="toolbar" aria-label="<?php $theView->write('TEMPLATE_EDITOR'); ?>">
-                        <?php foreach ($allowedTagsList as $allowedTags) : ?>
-                        <div class="btn-group m-1" role="group" aria-label="<?php $theView->write('TEMPLATE_EDITOR'); ?>">
-                            <?php foreach ($allowedTags as $i => $tag) : ?>
-                                <?php $theView->button('tps-editor-'.substr($tag, 1, -1))->setText(htmlentities($tag))->setClass('fpcm-editor-html-click')->setData(['htmltag' => substr($tag, 1, -1)]); ?>
-                            <?php endforeach; ?>
-                        </div>
-                        <?php endforeach; ?>
-                        </div>
-                        
-                    </div>
-                    <?php endif; ?>
-                    
-
-                    <div class="row g-0">
-                        <div class="col-12">
-                            <?php $theView->textarea('template[content]', 'content_'.$tplId)->setValue($content, ENT_QUOTES)->setClass('fpcm-editor-html-click'); ?>
-                        </div>
-                    </div>
-
+                <?php endforeach; ?>
                 </div>
 
-        </div>
+            </div>
+            <?php endif; ?>
+
+
+            <div class="row">
+                <div class="col-12">
+                    <?php $theView->textarea('template[content]', 'content_'.$tplId)->setValue($content, ENT_QUOTES)->setClass('fpcm-editor-html-click'); ?>
+                </div>
+            </div>
+
+
 
     </div>
 
