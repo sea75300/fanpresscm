@@ -62,7 +62,6 @@ class crons extends \fpcm\controller\abstracts\controller
 
         $this->view->addJsFiles(['system/crons.js']);
         $this->view->addJsLangVars(['CRONJOB_ECEDUTING']);
-        $this->view->setBodyClass('fpcm-content-nobuttons');
         $this->view->render();
     }
 
