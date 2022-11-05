@@ -199,11 +199,10 @@ trait lists {
     {
         return [
             (new \fpcm\components\dataView\column('select', (new \fpcm\view\helper\checkbox('fpcm-select-all'))->setClass('fpcm-select-all')))->setSize(1)->setAlign('center'),
-            (new \fpcm\components\dataView\column('button', ''))->setSize(1),
-            (new \fpcm\components\dataView\column('name', 'COMMMENT_AUTHOR'))->setSize(2),
-            (new \fpcm\components\dataView\column('email', 'GLOBAL_EMAIL'))->setSize(3),
-            (new \fpcm\components\dataView\column('create', 'COMMMENT_CREATEDATE'))->setAlign('center'),
-            (new \fpcm\components\dataView\column('metadata', ''))->setAlign('center'),
+            (new \fpcm\components\dataView\column('button', ''))->setSize(2),
+            (new \fpcm\components\dataView\column('name', 'COMMMENT_AUTHOR'))->setSize(4),
+            (new \fpcm\components\dataView\column('create', 'COMMMENT_CREATEDATE'))->setAlign('center')->setSize(2),
+            (new \fpcm\components\dataView\column('metadata', ''))->setAlign('center')->setSize(2)
         ];
     }
 
@@ -247,7 +246,8 @@ trait lists {
         $this->page          = $this->request->getPage();
         $this->listShowStart = \fpcm\classes\tools::getPageOffset($this->page, $this->config->articles_acp_limit);
 
-        if ($this->getMode() < 2) {
+        $isList = $this->getMode() < 2;
+        if ($isList) {
             $this->conditions->limit = [$this->config->articles_acp_limit, $this->listShowStart];
         }
         
@@ -289,13 +289,16 @@ trait lists {
             $buttons = (new \fpcm\view\helper\controlgroup('itemactions'.$commentId))
                         ->addItem( (new \fpcm\view\helper\openButton('commentfe'))->setUrlbyObject($comment)->setTarget('_blank') )
                         ->addItem( (new \fpcm\view\helper\editButton('commentedit'))->setUrlbyObject($comment, '&mode=' . $this->getMode())->setClass('fpcm-ui-commentlist-link') );
+            
+            if ($isList) {
+                $buttons->addItem( (new \fpcm\view\helper\linkButton('article'))->setUrl( \fpcm\classes\tools::getControllerLink('articles/edit', ['id' => $comment->getApproved()]) )->setText('COMMENTS_EDITARTICLE')->setIcon('book')->setIconOnly() );
+            }
 
             $this->dataView->addRow(
                 new \fpcm\components\dataView\row([
                 new \fpcm\components\dataView\rowCol('select', (new \fpcm\view\helper\checkbox('ids[' . ($comment->getEditPermission() ? '' : 'ro') . ']', 'chbx' . $commentId))->setClass('fpcm-ui-list-checkbox')->setValue($commentId)->setReadonly(!$comment->getEditPermission()), '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
                 new \fpcm\components\dataView\rowCol('button', $buttons, 'fpcm-ui-dataview-align-center fpcm-ui-font-small', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
-                new \fpcm\components\dataView\rowCol('name', $comment->getName(), 'fpcm-ui-ellipsis'),
-                new \fpcm\components\dataView\rowCol('email', $comment->getEmail(), 'fpcm-ui-ellipsis'),
+                new \fpcm\components\dataView\rowCol('name', sprintf('<strong>%s</strong><span class="fpcm ui-font-small d-block">%s %s</span>', $comment->getName(), (new \fpcm\view\helper\icon('at'))->setText('GLOBAL_EMAIL'), $comment->getEmail()), 'fpcm-ui-ellipsis'),
                 new \fpcm\components\dataView\rowCol('create', new \fpcm\view\helper\dateText($comment->getCreatetime()), 'fpcm-ui-ellipsis'),
                 new \fpcm\components\dataView\rowCol('metadata', implode('', $comment->getMetaDataStatusIcons()), 'fs-5', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
             ]));

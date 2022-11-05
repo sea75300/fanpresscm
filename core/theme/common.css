@@ -60,8 +60,6 @@ a:hover, a:focus, a:active {
     text-decoration: none;
 }
 
-b,
-strong,
 dt {
     font-weight: bold;
 }
