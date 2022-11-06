@@ -738,6 +738,7 @@ implements \fpcm\model\interfaces\isCsvImportable {
         }
 
         $this->deleteRevisions();
+        (new articleCategory($this->id, 0))->deleteByArticle();
 
         $commentList = new \fpcm\model\comments\commentList();
         $commentList->deleteCommentsByArticle($this->id);
@@ -874,6 +875,24 @@ implements \fpcm\model\interfaces\isCsvImportable {
 
         $this->getRevision($revisionTime);
         return $this->update();
+    }
+
+    /**
+     * 
+     * @return bool
+     * @since 5.1.0-a1
+     */
+    public function pushcategories() : bool
+    {
+        $categories = $this->getCategories();
+        
+        if (!(new articleCategory($this->id, 0))->deleteByArticle()) {
+            trigger_error(sprintf('Error while clean up article category assignement table for article %s', $this->id));
+            return true;
+        }
+
+        array_walk($categories, fn($cid) => (new articleCategory($this->id, (int) $cid))->save() );
+        return true;
     }
 
     /**
@@ -1226,6 +1245,7 @@ implements \fpcm\model\interfaces\isCsvImportable {
      */
     protected function afterSaveInternal(): bool
     {
+        $this->pushcategories();
         $this->cleanupCaches();
         $this->createTweet();
         return true;
@@ -1239,6 +1259,7 @@ implements \fpcm\model\interfaces\isCsvImportable {
      */
     protected function afterUpdateInternal(): bool
     {
+        $this->pushcategories();
         $this->cleanupCaches();
         $this->init();
         $this->createTweet();

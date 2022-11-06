@@ -99,6 +99,12 @@ final class database {
     const tableRevisions = 'revisions';
 
     /**
+     * Article categories tables
+     * @since 5.1-a1
+     */
+    const tableArticleCategories = 'articles_categories';    
+    
+    /**
      * View for session and user data
      * @since 4.4.3
      */
