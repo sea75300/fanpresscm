@@ -183,6 +183,10 @@ abstract class articlebase extends \fpcm\controller\abstracts\controller impleme
         if ($this->canChangeAuthor) {
             $this->view->assign('changeuserList', (new \fpcm\model\users\userList())->getUsersNameList());
         }
+        
+        if (!$this->article->getId()) {
+            $this->article->setComments($this->config->comments_default_active);
+        }
 
         $this->view->assign('approvalRequired', $this->approvalRequired);
         $this->view->assign('article', $this->article);
@@ -327,17 +331,17 @@ abstract class articlebase extends \fpcm\controller\abstracts\controller impleme
             $this->article->setPostponed(0);
         }
 
-        $this->article->setPinned(isset($data['pinned']) ? 1 : 0);
-        $this->article->setDraft(isset($data['draft']) ? 1 : 0);
-        $this->article->setComments(isset($data['comments']) ? 1 : 0);
+        $this->article->setPinned($data['pinned'] ?? 0);
+        $this->article->setDraft($data['draft'] ?? 0);
+        $this->article->setComments($data['comments'] ?? $this->config->comments_default_active);
         
-        $this->article->setApproval($this->approvalRequired ? 1 : ( isset($data['approval']) ? 1 : 0 ));
+        $this->article->setApproval($this->approvalRequired ? 1 : ( $data['approval'] ?? 0 ));
         $this->article->setImagepath($data['imagepath'] ?? '');
         $this->article->setSources($data['sources'] ?? '');
         $this->article->setUrl($data['url'] ?? '');
 
         if ($this->permissions->article->archive) {
-            $this->article->setArchived(isset($data['archived']) ? 1 : 0);
+            $this->article->setArchived($data['archived'] ?? 0);
             if ($this->article->getArchived()) {
                 $this->article->setPinned(0);
                 $this->article->setDraft(0);

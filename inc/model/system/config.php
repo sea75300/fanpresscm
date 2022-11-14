@@ -63,6 +63,7 @@ use fpcm\model\traits\eventModuleEmpty;
  * @property int    $comments_notify Send notification for new comments to: 0 = General e-mail address, 1 = article auhor, 2 = both)
  * @property int    $comments_markspam_commentcount Mark comments as spam, in case the author has been flagged as spammed before
  * @property bool   $comments_privacy_optin GDPR privacy opt-in
+ * @property bool   $comments_default_active Set comments enabled by default for articles
  * 
  * @property int    $file_thumb_size Thumbnail size
  * @property int    $file_list_limit Nubmer of files per page

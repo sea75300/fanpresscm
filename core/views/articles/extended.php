@@ -22,9 +22,11 @@
                                 <?php $theView->checkbox('article[draft]')->setText('EDITOR_DRAFT')->setSelected($article->getDraft())->setClass('fpcm-ui-editor-metainfo-checkbox')->setData(['icon' => 'draft'])->setSwitch(true); ?>
                             </div>
                         <?php endif; ?>
+                        <?php if ($commentEnabledGlobal) : ?>
                             <div class="list-group-item">
                                 <?php $theView->checkbox('article[comments]')->setText('EDITOR_COMMENTS')->setSelected($article->getComments())->setClass('fpcm-ui-editor-metainfo-checkbox')->setData(['icon' => 'comments'])->setSwitch(true); ?>
                             </div>
+                        <?php endif; ?>
                         <?php if (!$approvalRequired) : ?>
                             <div class="list-group-item">
                                 <?php $theView->checkbox('article[approval]')->setText('EDITOR_STATUS_APPROVAL')->setSelected($article->getApproval())->setClass('fpcm-ui-editor-metainfo-checkbox')->setData(['icon' => 'approval'])->setSwitch(true); ?>
@@ -134,25 +136,14 @@
 
         <div class="row">
             <div class="col-12 col-md-8">
-                    <?php $theView->dateTimeInput('article[postponedate]')
-                        ->setText('EDITOR_POSTPONED_DATE')
-                        ->setValue($theView->dateText($postponedTimer, 'Y-m-d'))
-                        ->setIcon('calendar-plus')
-                        ->setSize('lg')
-                        ->setData(['mindate' => '0d', 'maxdate' => '+2m']); ?>
-            </div>
 
-            <div class="col-12 col-md-4 col-lg-2">
-                <div class="row">
-                
-                    <div class="col-12 align-self-center">
-                        
-                        <div class="input-group mb-3">
-                            <input class="form-control" name="article[postponehour]" type="number" min="0" max="23" value="<?php print $theView->dateText($postponedTimer, 'H'); ?>">
-                            <input class="form-control" name="article[postponeminute]" type="number" class="form-control" min="0" max="59" value="<?php print $theView->dateText($postponedTimer, 'i'); ?>">
-                        </div>
-
-                    </div>
+                <div class="input-group">
+                    <label class="col-form-label pe-3  col-12 col-sm-6 col-md-4" for="article_postponedate">
+                        <?php $theView->icon('calendar-plus')->setSize('lg'); ?> <?php $theView->write('EDITOR_POSTPONED_DATE'); ?>
+                    </label>
+                    <input class="form-control" name="article[postponedate]" id="article_postponedate" type="date" mindate="0d" maxdate="+2m" value="<?php print $theView->dateText($postponedTimer, 'Y-m-d'); ?>">
+                    <input class="form-control" name="article[postponehour]" type="number" min="0" max="23" value="<?php print $theView->dateText($postponedTimer, 'H'); ?>">
+                    <input class="form-control" name="article[postponeminute]" type="number" class="form-control" min="0" max="59" value="<?php print $theView->dateText($postponedTimer, 'i'); ?>">
                 </div>
             </div>
         </div>

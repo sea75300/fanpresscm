@@ -134,7 +134,7 @@ class navigation extends \fpcm\model\abstracts\staticModel {
             $submenu[] = (new navigationItem())->setUrl('system/import')->setDescription('IMPORT_MAIN')->setIcon('file-import');
         }
 
-        if (FPCM_DEBUG && defined('FPCM_LANG_XML')) {
+        if (defined('FPCM_LANG_XML') && FPCM_LANG_XML) {
             $submenu[] = (new navigationItem())->setUrl('system/langedit')->setDescription('Language Editor')->setIcon('language');
         }
 

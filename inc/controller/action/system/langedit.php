@@ -29,7 +29,7 @@ class langedit extends \fpcm\controller\abstracts\controller implements \fpcm\co
 
     public function isAccessible(): bool
     {
-        return $this->permissions->system->options && FPCM_DEBUG && defined('FPCM_LANG_XML');
+        return $this->permissions->system->options && defined('FPCM_LANG_XML') && FPCM_LANG_XML;
     }
 
     public function request()

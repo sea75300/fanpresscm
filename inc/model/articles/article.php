@@ -1140,7 +1140,7 @@ implements \fpcm\model\interfaces\isCsvImportable {
 
         $obj->setPinned($data['pinned'] ?? 0);
         $obj->setDraft($data['draft'] ?? 0);
-        $obj->setComments($data['comments'] ?? 0);
+        $obj->setComments($data['comments'] ?? $this->config->comments_default_active);
         $obj->setApproval($data['approval'] ?? 0);
         $obj->setImagepath($data['imagepath'] ?? '');
         $obj->setSources($data['sources'] ?? '');
