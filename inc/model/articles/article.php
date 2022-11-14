@@ -1278,13 +1278,18 @@ implements \fpcm\model\interfaces\isCsvImportable {
             return true;
         }
         
+        $sources = preg_split('/([,;]\ )/', $sources);
+        if (!is_array($sources)) {
+            $sources = [];
+        }
+
         $fopt = new \fpcm\model\files\fileOption(self::SOURCES_AUTOCOMPLETE);
         $data = $fopt->read();
         if (!is_array($data)) {
             $data = [];
         }
 
-        return $fopt->write(array_slice(array_unique(array_merge($data, [$sources])), 0, FPCM_ARTICLES_SOURCES_AUTOCOMPLETE));
+        return $fopt->write(array_slice(array_unique(array_merge($data, $sources)), 0, FPCM_ARTICLES_SOURCES_AUTOCOMPLETE));
     }
 
     /**
