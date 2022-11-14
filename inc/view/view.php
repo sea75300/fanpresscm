@@ -1162,13 +1162,18 @@ class view {
      */
     private function initCssFiles()
     {
-        $this->addCssFiles([
+        $css = [
             self::ROOTURL_LIB.'bootstrap/css/bootstrap.min.css',
             self::ROOTURL_LIB.'fancybox/jquery.fancybox.min.css',
             self::ROOTURL_LIB.'font-awesome/css/all.min.css',
             self::ROOTURL_CORE_THEME.'style.css'
-        ]);
+        ];
 
+        if (file_exists(\fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_THEME, 'custom.css'))) {
+            $css[] = \fpcm\classes\dirs::getCoreUrl(\fpcm\classes\dirs::CORE_THEME, 'custom.css');
+        }
+
+        $this->addCssFiles($css);
         return $this->cssFiles;
     }
 
