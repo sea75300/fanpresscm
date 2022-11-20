@@ -78,7 +78,7 @@
 
             </div>
             <div class="col-12 col-md-1">
-                <?php $theView->button('editsources')->setText('SYSTEM_OPTIONS_NEWS_SOURCESLIST')->setIcon('pen')->setIconOnly(true); ?>
+                <?php $theView->button('editsources')->setText('SYSTEM_OPTIONS_NEWS_SOURCESLIST')->setIcon('pen')->setIconOnly(); ?>
             </div>  
         </div>
     </fieldset>
@@ -96,7 +96,7 @@
                     ->setSize('lg'); ?>
             </div>        
             <div class="col-12 col-md-1">
-                <?php $theView->button('insertarticleimg', 'insertarticleimg')->setText('HL_FILES_MNG')->setIcon('folder-open')->setIconOnly(true); ?>
+                <?php $theView->button('insertarticleimg', 'insertarticleimg')->setText('HL_FILES_MNG')->setIcon('folder-open')->setIconOnly(); ?>
             </div>        
         </div>
     </fieldset>

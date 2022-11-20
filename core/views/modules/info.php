@@ -5,17 +5,17 @@
     </div>
     <div class="col-12 col-md-auto">
         <div class="btn-group" role="group">
-            <?php $theView->button('install')->overrideButtonType('outline-secondary')->setReadonly(!$moduleInstall)->setIcon('plus-circle')->setText('MODULES_LIST_INSTALL')->setIconOnly(true)->setData(['hash' => $moduleKeyHash]); ?>
-            <?php $theView->linkButton('download')->overrideButtonType('outline-secondary')->setRel('external')->setReadonly(!$moduleDownload)->setUrl($moduleDownload)->setIcon('cloud-download-alt')->setIconOnly(true)->setText('MODULES_LIST_DOWNLOAD'); ?>
-            <?php $theView->linkButton('link')->overrideButtonType('outline-secondary')->setRel('external')->setUrl($moduleLink)->setIconOnly(true)->setTarget('_blank')->setText($moduleLink)->setIcon('house'); ?>
+            <?php $theView->button('install')->overrideButtonType('outline-secondary')->setReadonly(!$moduleInstall)->setIcon('plus-circle')->setText('MODULES_LIST_INSTALL')->setIconOnly()->setData(['hash' => $moduleKeyHash]); ?>
+            <?php $theView->linkButton('download')->overrideButtonType('outline-secondary')->setRel('external')->setReadonly(!$moduleDownload)->setUrl($moduleDownload)->setIcon('cloud-download-alt')->setIconOnly()->setText('MODULES_LIST_DOWNLOAD'); ?>
+            <?php $theView->linkButton('link')->overrideButtonType('outline-secondary')->setRel('external')->setUrl($moduleLink)->setIconOnly()->setTarget('_blank')->setText($moduleLink)->setIcon('house'); ?>
         <?php if ($moduleLicenceUrl) : ?>
-            <?php $theView->linkButton('licence')->overrideButtonType('outline-secondary')->setRel('external')->setUrl($moduleLicenceUrl)->setIconOnly(true)->setTarget('_blank')->setText('HL_HELP_LICENCE')->setIcon('certificate'); ?>
+            <?php $theView->linkButton('licence')->overrideButtonType('outline-secondary')->setRel('external')->setUrl($moduleLicenceUrl)->setIconOnly()->setTarget('_blank')->setText('HL_HELP_LICENCE')->setIcon('certificate'); ?>
         <?php endif; ?>
     <?php if (trim($moduleSupport)) : ?>
         <?php if (filter_var($moduleSupport, FILTER_VALIDATE_EMAIL)) : ?>
-            <?php $theView->linkButton('support')->overrideButtonType('outline-secondary')->setUrl('mailto:' . $moduleSupport)->setIconOnly(true)->setText('MODULES_LIST_SUPPORT')->setIcon('headset'); ?>
+            <?php $theView->linkButton('support')->overrideButtonType('outline-secondary')->setUrl('mailto:' . $moduleSupport)->setIconOnly()->setText('MODULES_LIST_SUPPORT')->setIcon('headset'); ?>
         <?php elseif (filter_var($moduleSupport, FILTER_VALIDATE_URL)) : ?>
-            <?php $theView->linkButton('support')->overrideButtonType('outline-secondary')->setRel('external')->setUrl($moduleSupport)->setIconOnly(true)->setTarget('_blank')->setText('MODULES_LIST_SUPPORT')->setIcon('headset'); ?>
+            <?php $theView->linkButton('support')->overrideButtonType('outline-secondary')->setRel('external')->setUrl($moduleSupport)->setIconOnly()->setTarget('_blank')->setText('MODULES_LIST_SUPPORT')->setIcon('headset'); ?>
         <?php endif; ?>    
     <?php endif; ?>
 

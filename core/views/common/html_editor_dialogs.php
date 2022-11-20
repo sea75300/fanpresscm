@@ -120,7 +120,7 @@
             </div>
         </div>
         <div class="col text-center mb-3 align-self-center">
-            <?php $theView->icon('photo-video')->setText('EDITOR_INSERTMEDIA_FORMAT_SELECT')->setIconOnly(true); ?>
+            <?php $theView->icon('photo-video')->setText('EDITOR_INSERTMEDIA_FORMAT_SELECT')->setIconOnly(); ?>
         </div>
         <div class="col-11 col-md-3">
             <?php $theView->select('media[format]', 'mediaformat')->setOptions($playerFormats)->setClass('fpcm-editor-mediaformat')->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
@@ -139,7 +139,7 @@
             </div>
         </div>
         <div class="col text-center mb-3 align-self-center">
-            <?php $theView->icon('photo-video')->setText('EDITOR_INSERTMEDIA_FORMAT_SELECT')->setIconOnly(true); ?>
+            <?php $theView->icon('photo-video')->setText('EDITOR_INSERTMEDIA_FORMAT_SELECT')->setIconOnly(); ?>
         </div>
         <div class="col-11 col-md-3">
             <?php $theView->select('media[format2]', 'mediaformat2')->setOptions($playerFormats)->setClass('fpcm-editor-mediaformat')->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
@@ -158,7 +158,7 @@
             </div>
         </div>
         <div class="col mb-3 align-self-center">
-            <?php $theView->button('insertposterimg', 'insertposterimg')->setText('HL_FILES_MNG')->setIcon('image')->setIconOnly(true); ?>
+            <?php $theView->button('insertposterimg', 'insertposterimg')->setText('HL_FILES_MNG')->setIcon('image')->setIconOnly(); ?>
         </div>
     </div> 
     

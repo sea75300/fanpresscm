@@ -13,13 +13,13 @@
                         ])
                         ->setText('GLOBAL_EDIT')
                         ->setIcon('edit')
-                        ->setIconOnly(true)
+                        ->setIconOnly()
                         ->setClass('fpcm-language-edit'); ?>
 
                         <?php $theView->button('delete'. strtolower($key))
                         ->setText('GLOBAL_DELETE')
                         ->setIcon('trash')
-                        ->setIconOnly(true)
+                        ->setIconOnly()
                         ->setClass('fpcm-language-delete'); ?>
                     </div>
 

@@ -38,7 +38,7 @@
             </div>
         </div>
         <div class="col-auto align-self-center mb-3">
-            <?php $theView->button('genPasswd', 'genPasswd')->setText('USERS_PASSGEN')->setIcon('key')->setIconOnly(true); ?>
+            <?php $theView->button('genPasswd', 'genPasswd')->setText('USERS_PASSGEN')->setIcon('key')->setIconOnly(); ?>
         </div>
         <div class="col-auto align-self-center mb-3">
             <?php $theView->shorthelpButton('dtmask')->setText('USERS_REQUIREMENTS'); ?>

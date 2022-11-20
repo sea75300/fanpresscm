@@ -24,7 +24,7 @@
                 <?php if ($editorButton instanceof \fpcm\view\helper\toolbarSeperator) : ?>
                     <?php print $editorButton; ?>
                 <?php else : ?>
-                    <?php print $editorButton->setClass('fpcm-editor-html-click')->setIconOnly(true); ?>
+                    <?php print $editorButton->setClass('fpcm-editor-html-click')->setIconOnly(); ?>
                 <?php endif; ?>
             <?php endforeach; ?>
         </div>

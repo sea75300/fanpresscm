@@ -8,14 +8,14 @@
 <?php if ($file->existsFolder()) : ?>
     <?php if (in_array($mode, [2, 4])) : ?>
         <div class="nav-item">
-            <?php $theView->linkButton(uniqid('thumbsurl'))->setUrl($file->getThumbnailUrl())->setText('FILE_LIST_INSERT_THUMB')->setClass('fpcm-filelist-tinymce-thumb')->setIcon('compress')->setIconOnly(true)->setData(['imgtext' => $file->getAltText() ? $file->getAltText() : $file->getFilename()]); ?>
+            <?php $theView->linkButton(uniqid('thumbsurl'))->setUrl($file->getThumbnailUrl())->setText('FILE_LIST_INSERT_THUMB')->setClass('fpcm-filelist-tinymce-thumb')->setIcon('compress')->setIconOnly()->setData(['imgtext' => $file->getAltText() ? $file->getAltText() : $file->getFilename()]); ?>
         </div>
         <div class="nav-item">
-            <?php $theView->linkButton(uniqid('imgsurl'))->setUrl($file->getImageUrl())->setText('FILE_LIST_INSERT_FULL')->setClass('fpcm-filelist-tinymce-full')->setIcon('expand')->setIconOnly(true)->setData(['imgtext' => $file->getAltText() ? $file->getAltText() : $file->getFilename()]); ?>
+            <?php $theView->linkButton(uniqid('imgsurl'))->setUrl($file->getImageUrl())->setText('FILE_LIST_INSERT_FULL')->setClass('fpcm-filelist-tinymce-full')->setIcon('expand')->setIconOnly()->setData(['imgtext' => $file->getAltText() ? $file->getAltText() : $file->getFilename()]); ?>
         </div>
     <?php elseif ($mode == 3) : ?>                    
         <div class="nav-item">
-            <?php $theView->linkButton(uniqid('articleimg'))->setUrl($file->getImageUrl())->setText('EDITOR_ARTICLEIMAGE')->setClass('fpcm-filelist-articleimage')->setIcon('image')->setIconOnly(true)->setData(['imgtext' => $file->getFilename()]); ?>
+            <?php $theView->linkButton(uniqid('articleimg'))->setUrl($file->getImageUrl())->setText('EDITOR_ARTICLEIMAGE')->setClass('fpcm-filelist-articleimage')->setIcon('image')->setIconOnly()->setData(['imgtext' => $file->getFilename()]); ?>
         </div>
     <?php endif; ?>
         <div class="nav-item dropdown dropup-center dropup">
@@ -23,7 +23,7 @@
             <?php $theView->button('nbexp'.$file->getFileNameHash())
                 ->setText('GLOBAL_ACTIONS')
                 ->setIcon('bars')
-                ->setIconOnly(true)
+                ->setIconOnly()
                 ->setData(['bs-toggle' => 'dropdown', 'bs-auto-close' => 'true'])
                 ->setAria(['expanded' => 'false'])
                 ->setClass('dropdown-toggle');
