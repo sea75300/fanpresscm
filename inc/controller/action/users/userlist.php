@@ -351,7 +351,7 @@ class userlist extends \fpcm\controller\abstracts\controller
         if ($this->permissions->system->rolls) {
             $tabs[] = (new \fpcm\view\helper\tabItem('rolls'))
                     ->setText('USERS_LIST_ROLLS')
-                    ->setFile('users/rollslist')
+                    ->setFile('components/dataview__inline.php')
                     ->setTabToolbar(2);
         }
         
