@@ -63,7 +63,7 @@ class articlelisttrash extends \fpcm\controller\abstracts\controller
             (new \fpcm\view\helper\button('emptyTrash'))
                 ->setIcon('recycle')
                 ->setText('ARTICLE_LIST_EMPTYTRASH')
-                ->setIconOnly(true)
+                ->setIconOnly()
                 ->setOnClick('articles_trash.emptyTrash')
         ]);        
         

@@ -214,7 +214,7 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController
         $buttons[] = (new \fpcm\view\helper\button('info'.$hash))
             ->setText('MODULES_LIST_INFORMATIONS')
             ->setIcon('info-circle')
-            ->setIconOnly(true)
+            ->setIconOnly()
             ->setData([
                 'bs-toggle' => 'offcanvas',
                 'bs-target' => '#offcanvasInfo',
@@ -236,22 +236,22 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController
                         $buttons[]  = (new \fpcm\view\helper\linkButton('configure'.$hash))
                                         ->setText('MODULES_LIST_CONFIGURE')
                                         ->setIcon('cogs')
-                                        ->setIconOnly(true)
+                                        ->setIconOnly()
                                         ->setClass('fpcm-ui-modulelist-action-local')
                                         ->setUrl(\fpcm\classes\tools::getFullControllerLink('modules/configure', ['key' => $item->getKey()]));
                     }
                     
-                    $buttons[]  = (new \fpcm\view\helper\button('disable'.$hash))->setText('MODULES_LIST_DISABLE')->setIcon('toggle-off')->setIconOnly(true)->setData(['key' => $item->getKey(), 'action' => 'disable'])->setClass('fpcm-ui-modulelist-action-local');
+                    $buttons[]  = (new \fpcm\view\helper\button('disable'.$hash))->setText('MODULES_LIST_DISABLE')->setIcon('toggle-off')->setIconOnly()->setData(['key' => $item->getKey(), 'action' => 'disable'])->setClass('fpcm-ui-modulelist-action-local');
                 }
                 else {
                     
-                    $buttons[]  = (new \fpcm\view\helper\button('enable'.$hash))->setText('MODULES_LIST_ENABLE')->setIcon('toggle-on')->setIconOnly(true)->setData(['key' => $item->getKey(), 'action' => 'enable'])->setClass('fpcm-ui-modulelist-action-local');
+                    $buttons[]  = (new \fpcm\view\helper\button('enable'.$hash))->setText('MODULES_LIST_ENABLE')->setIcon('toggle-on')->setIconOnly()->setData(['key' => $item->getKey(), 'action' => 'enable'])->setClass('fpcm-ui-modulelist-action-local');
                 }
                 
             }
 
             if ($this->permissions->modules->uninstall && !$item->isActive() && $item->isWritable()) {
-                $buttons[] = (new \fpcm\view\helper\button('uninstall'.$hash))->setText('MODULES_LIST_UNINSTALL')->setIcon('minus-circle')->setIconOnly(true)->setData(['key' => $item->getKey(), 'action' => 'uninstall'])->setClass('fpcm-ui-modulelist-action-local');
+                $buttons[] = (new \fpcm\view\helper\button('uninstall'.$hash))->setText('MODULES_LIST_UNINSTALL')->setIcon('minus-circle')->setIconOnly()->setData(['key' => $item->getKey(), 'action' => 'uninstall'])->setClass('fpcm-ui-modulelist-action-local');
             }
 
             if ($hasUpdates) {
@@ -259,7 +259,7 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController
                         ->setUrl(\fpcm\classes\tools::getFullControllerLink('package/modupdate', ['key' => $item->getKey()]))
                         ->setText('MODULES_LIST_UPDATE')
                         ->setIcon('sync')
-                        ->setIconOnly(true)
+                        ->setIconOnly()
                         ->setPrimary(true)
                         ->setClass('fpcm-ui-modulelist-action-local-update');
             }
@@ -269,7 +269,7 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController
                     ->setUrl(\fpcm\classes\tools::getFullControllerLink('package/modupdate', ['key' => $item->getKey(), 'update-db' => 1]))
                     ->setText('MODULES_LIST_UPDATE')
                     ->setIcon('sync')
-                    ->setIconOnly(true)
+                    ->setIconOnly()
                     ->setPrimary(true)
                     ->setClass('fpcm-ui-modulelist-action-local-update');
             }
@@ -277,11 +277,11 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController
         
         if (!$item->isInstalled()) {
             if ($this->permissions->modules->install) {
-                $buttons[] = (new \fpcm\view\helper\button('install'.$hash))->setText('MODULES_LIST_INSTALL')->setIcon('plus-circle')->setIconOnly(true)->setData(['key' => $item->getKey(), 'action' => 'install', 'dir' => true])->setClass('fpcm-ui-modulelist-action-local')->setReadonly(!$item->isInstallable());
+                $buttons[] = (new \fpcm\view\helper\button('install'.$hash))->setText('MODULES_LIST_INSTALL')->setIcon('plus-circle')->setIconOnly()->setData(['key' => $item->getKey(), 'action' => 'install', 'dir' => true])->setClass('fpcm-ui-modulelist-action-local')->setReadonly(!$item->isInstallable());
             }            
 
             if ($this->permissions->modules->uninstall && $item->isWritable()) {
-                $buttons[] = (new \fpcm\view\helper\button('delete'.$hash))->setText('MODULES_LIST_DELETE')->setIcon('trash')->setIconOnly(true)->setData(['key' => $item->getKey(), 'action' => 'delete'])->setClass('fpcm-ui-modulelist-action-local');
+                $buttons[] = (new \fpcm\view\helper\button('delete'.$hash))->setText('MODULES_LIST_DELETE')->setIcon('trash')->setIconOnly()->setData(['key' => $item->getKey(), 'action' => 'delete'])->setClass('fpcm-ui-modulelist-action-local');
             }            
         }
 
@@ -315,7 +315,7 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController
         $buttons[] = (new \fpcm\view\helper\button('info'.$hash))
             ->setText('MODULES_LIST_INFORMATIONS')
             ->setIcon('info-circle')
-            ->setIconOnly(true)
+            ->setIconOnly()
             ->setData([
                 'bs-toggle' => 'offcanvas',
                 'bs-target' => '#offcanvasInfo',
@@ -333,7 +333,7 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController
                     ->setUrl(\fpcm\classes\tools::getFullControllerLink('package/modinstall', ['key' => $item->getKey()]))
                     ->setText('MODULES_LIST_INSTALL')
                     ->setIcon('plus-circle')
-                    ->setIconOnly(true)
+                    ->setIconOnly()
                     ->setClass('fpcm-ui-modulelist-action-remote')
                     ->setReadonly(!$item->isInstallable());
         }

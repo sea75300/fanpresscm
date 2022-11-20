@@ -12,6 +12,7 @@ if (fpcm === undefined) {
 fpcm.editor = {
 
     init: function () {
+
         fpcm.editor[fpcm.vars.jsvars.editorInitFunction].call();
         fpcm.editor.initToolbar();
 
@@ -19,9 +20,8 @@ fpcm.editor = {
             source: fpcm.vars.ajaxActionPath + 'autocomplete&src=articles',
             minLength: 3
         });
-
-        fpcm.dom.fromId('btnLockIp').unbind('click');
-        fpcm.dom.fromId('btnLockIp').click(function (event, ui) {
+        
+        fpcm.dom.bindClick('#btnLockIp', function (event, ui) {
 
             var cid = fpcm.dom.fromTag(event.currentTarget).data('commentid');
 
@@ -41,6 +41,7 @@ fpcm.editor = {
 
             return false;
         });
+
     },
 
     initCodeMirror: function() {

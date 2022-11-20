@@ -352,6 +352,7 @@ $lang = array (
   'HL_FILES_MNG' => 'File manager',
   'HL_FRONTEND' => 'Front end',
   'HL_HELP' => 'Help',
+  'HL_HELP_BACKDROP' => 'Backdrop image by',
   'HL_HELP_CACHE' => 'Cache',
   'HL_HELP_LICENCE' => 'License information',
   'HL_HELP_SUPPORT' => 'Contact & Support',

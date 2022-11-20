@@ -44,7 +44,7 @@ class userlist extends \fpcm\model\abstracts\dashcontainer {
             
             $content[] = '<div class="row fpcm-ui-font-small py-2">';
             $content[] = $this->get2ColRowSmallLeftAuto(
-                (new \fpcm\view\helper\linkButton(uniqid('createMail')))->setUrl('mailto:' . $emailAddress)->setText('GLOBAL_WRITEMAIL')->setTarget('_blank')->setIcon('envelope')->setIconOnly(true),
+                (new \fpcm\view\helper\linkButton(uniqid('createMail')))->setUrl('mailto:' . $emailAddress)->setText('GLOBAL_WRITEMAIL')->setTarget('_blank')->setIcon('envelope')->setIconOnly(),
                 '<strong>' . (new \fpcm\view\helper\escape($item->getDisplayname())) . '</strong><br><span>' . $emailAddress . '</span>'
             );
             $content[] = '</div>';

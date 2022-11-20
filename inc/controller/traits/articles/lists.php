@@ -282,7 +282,7 @@ trait lists {
                 $extMenuOptions[] = (new \fpcm\view\helper\dropdownItem('newtweet'.$article->getId(), 'newtweet'.$article->getId()))
                     ->setText('ARTICLE_LIST_NEWTWEET')
                     ->setIcon('twitter', 'fab')
-                    ->setIconOnly(true)
+                    ->setIconOnly()
                     ->setClass('fpcm-ui-article-twitter-single')
                     ->setData(['articleid' => $article->getId()]);
                 

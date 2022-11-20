@@ -123,10 +123,10 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller
         }
 
         if ($this->permissions->editArticlesMass()) {
-            $buttons[] = (new \fpcm\view\helper\button('massEdit', 'massEdit'))->setText('GLOBAL_EDIT')->setIcon('edit')->setIconOnly(true);
+            $buttons[] = (new \fpcm\view\helper\button('massEdit', 'massEdit'))->setText('GLOBAL_EDIT')->setIcon('edit')->setIconOnly();
         }
 
-        $buttons[] = (new \fpcm\view\helper\button('opensearch', 'opensearch'))->setText('ARTICLES_SEARCH')->setIcon('search')->setIconOnly(true);
+        $buttons[] = (new \fpcm\view\helper\button('opensearch', 'opensearch'))->setText('ARTICLES_SEARCH')->setIcon('search')->setIconOnly();
         
         $tweet = $this->getTwitterInstace();
 
@@ -134,7 +134,7 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller
             $buttons[] = (new \fpcm\view\helper\button('newtweet'))
                     ->setText('ARTICLE_LIST_NEWTWEET')
                     ->setIcon('twitter', 'fab')
-                    ->setIconOnly(true)
+                    ->setIconOnly()
                     ->setOnClick('articles.articleActionsTweet');
             
             $this->view->addJsLangVars(['EDITOR_TWEET_TEXT', 'ARTICLE_LIST_NEWTWEET']);
@@ -166,14 +166,14 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller
         $buttons[] = (new \fpcm\view\helper\button('articlecache'))
                 ->setText('ARTICLES_CACHE_CLEAR')
                 ->setIcon('recycle')
-                ->setIconOnly(true)
+                ->setIconOnly()
                 ->setOnClick('articles.clearMultipleArticleCache');
 
         if ($this->permissions->article && $this->permissions->article->delete) {
             $buttons[] = (new \fpcm\view\helper\button('delete'))
                     ->setText('GLOBAL_DELETE')
                     ->setIcon('trash')
-                    ->setIconOnly(true)
+                    ->setIconOnly()
                     ->setOnClick('articles.deleteMultipleArticle');
         }
         

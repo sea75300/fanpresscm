@@ -101,7 +101,6 @@ class articleedit extends articlebase {
             return true;
         }
 
-        $this->handleCommentActions();
         return true;
     }
 
@@ -170,11 +169,11 @@ class articleedit extends articlebase {
         ]));
 
         $this->view->addButtons([
-            (new \fpcm\view\helper\openButton('articlefe'))->setUrlbyObject($this->article)->setTarget('_blank')->setIconOnly(true)->setClass('fpcm-ui-maintoolbarbuttons-tab1'),
+            (new \fpcm\view\helper\openButton('articlefe'))->setUrlbyObject($this->article)->setTarget('_blank')->setIconOnly()->setClass('fpcm-ui-maintoolbarbuttons-tab1'),
             (new \fpcm\view\helper\button('shortlink'))
                 ->setText('EDITOR_ARTICLE_SHORTLINK')
                 ->setIcon('external-link-square-alt')
-                ->setIconOnly(true)
+                ->setIconOnly()
                 ->setClass('fpcm-ui-maintoolbarbuttons-tab1')
                 ->setData([
                     'article' => $this->article->getId()
@@ -182,7 +181,7 @@ class articleedit extends articlebase {
         ]);
 
         if ($this->article->getImagepath()) {
-            $this->view->addButton((new \fpcm\view\helper\linkButton('articleimg'))->setUrl($this->article->getImagepath())->setText('EDITOR_ARTICLEIMAGE_SHOW')->setIcon('image')->setIconOnly(true)->setClass('fpcm ui-link-fancybox fpcm-ui-maintoolbarbuttons-tab1'));
+            $this->view->addButton((new \fpcm\view\helper\linkButton('articleimg'))->setUrl($this->article->getImagepath())->setText('EDITOR_ARTICLEIMAGE_SHOW')->setIcon('image')->setIconOnly()->setClass('fpcm ui-link-fancybox fpcm-ui-maintoolbarbuttons-tab1'));
         }
 
         if ($this->permissions->article->delete && !$this->request->fromGET('rev')) {
@@ -211,16 +210,18 @@ class articleedit extends articlebase {
         $this->view->assign('showComments', $editComments);
 
         if ($editComments) {
-            
-            $this->initCommentPermissions();
-            
-            $this->view->addJsFiles(['comments/module.js']);
+
+            $this->view->addJsFiles(['comments/module.js', 'articles/deleteCallback.js']);
             if ($this->permissions->editCommentsMass()) {
-                $this->view->addButton((new \fpcm\view\helper\button('massEdit', 'massEdit'))->setText('GLOBAL_EDIT')->setIcon('edit')->setIconOnly(true)->setClass('fpcm-ui-maintoolbarbuttons-tab2 fpcm-ui-hidden'));
+                $this->view->addButton((new \fpcm\view\helper\button('massEdit', 'massEdit'))->setText('GLOBAL_EDIT')->setIcon('edit')->setIconOnly()->setClass('fpcm-ui-maintoolbarbuttons-tab2 fpcm-ui-hidden'));
             }
 
             if ($this->permissions->comment->delete) {
-                $this->view->addButton((new \fpcm\view\helper\deleteButton('deleteComment'))->setClass('fpcm ui-button-confirm fpcm-ui-maintoolbarbuttons-tab2 fpcm-ui-hidden')->setText('EDITOR_COMMENTS_DELETE'));
+                $this->view->addButton((new \fpcm\view\helper\deleteButton('deleteComment'))
+                    ->setClass('fpcm fpcm-ui-maintoolbarbuttons-tab2 fpcm-ui-hidden')
+                    ->setText('EDITOR_COMMENTS_DELETE')
+                    ->setOnClick('comments.deleteMultipleArticle')
+                );
             }
 
             $this->initCommentMassEditForm(2);
@@ -228,19 +229,6 @@ class articleedit extends articlebase {
 
         $this->view->assign('currentUserId', $this->session->getUserId());
         $this->view->assign('isAdmin', $this->session->getCurrentUser()->isAdmin());
-    }
-
-    /**
-     * Kommentar-Aktionen ausführen
-     * @return bool
-     */
-    protected function handleCommentActions()
-    {
-        if (!$this->checkPageToken || !$this->buttonClicked('deleteComment')) {
-            return false;
-        }
-
-        $this->processCommentActions($this->commentList);
     }
 
     /**

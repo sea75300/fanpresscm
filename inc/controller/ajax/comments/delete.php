@@ -5,14 +5,14 @@
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
-namespace fpcm\controller\ajax\articles;
+namespace fpcm\controller\ajax\comments;
 
 /**
  * Delete articles single/multiple
  * 
  * @package fpcm\controller\ajax\articles\inedit
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @since 3.5
+ * @since 5.1.0-a1
  */
 class delete extends \fpcm\controller\abstracts\ajaxController
 {
@@ -23,7 +23,7 @@ class delete extends \fpcm\controller\abstracts\ajaxController
      */
     public function isAccessible(): bool
     {
-        return $this->permissions->article->delete;
+        return $this->config->system_comments_enabled && $this->permissions->comment->delete;
     }
 
     /**
@@ -32,7 +32,7 @@ class delete extends \fpcm\controller\abstracts\ajaxController
      */
     public function request() : bool
     {
-        if (!$this->checkPageToken('articles/delete')) {
+        if (!$this->checkPageToken('comments/delete')) {
             return false;
         }
         
@@ -53,14 +53,11 @@ class delete extends \fpcm\controller\abstracts\ajaxController
         ]);
 
         if ($isMultiple) {
-            $this->response->setReturnData(new \fpcm\model\http\responseData( (new \fpcm\model\articles\articlelist())->deleteArticles($id) ? 1 : 0 ))->fetch();
+            $this->response->setReturnData(new \fpcm\model\http\responseData( (new \fpcm\model\comments\commentList )->deleteComments($id) ? 1 : 0 ) )->fetch();
         }
         
-        $article = new \fpcm\model\articles\article($id);
-
-        $this->response->setReturnData(new \fpcm\model\http\responseData(
-            $article->exists() && $article->delete() ? 1 : 0
-        ))->fetch();
+        $comment = new \fpcm\model\comments\comment($id);
+        $this->response->setReturnData( new \fpcm\model\http\responseData( $comment->exists() && $comment->delete() ? 1 : 0 ) )->fetch();
     }
 
 }

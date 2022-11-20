@@ -80,8 +80,8 @@ final class jqupload extends uploader {
     {
         return [
             'uploadListButtons' => [
-                'start' => (string) (new \fpcm\view\helper\button('startlist', 'startlist_{{id}}'))->setClass('start')->setText('FILE_FORM_UPLOADSTART')->setIcon('upload')->setIconOnly(true),
-                'cancel' => (string) (new \fpcm\view\helper\button('cancellist', 'cancellist_{{id}}'))->setClass('cancel')->setText('FILE_FORM_UPLOADCANCEL')->setIcon('ban')->setIconOnly(true)
+                'start' => (string) (new \fpcm\view\helper\button('startlist', 'startlist_{{id}}'))->setClass('start')->setText('FILE_FORM_UPLOADSTART')->setIcon('upload')->setIconOnly(),
+                'cancel' => (string) (new \fpcm\view\helper\button('cancellist', 'cancellist_{{id}}'))->setClass('cancel')->setText('FILE_FORM_UPLOADCANCEL')->setIcon('ban')->setIconOnly()
             ]
         ];
     }

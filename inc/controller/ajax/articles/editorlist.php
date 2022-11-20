@@ -136,7 +136,7 @@ class editorlist extends \fpcm\controller\abstracts\ajaxController
                 $button = (new \fpcm\view\helper\linkButton('rev' . $revisionTime))
                         ->setText('EDITOR_STATUS_REVISION_SHOW')
                         ->setIcon('play')
-                        ->setIconOnly(true)
+                        ->setIconOnly()
                         ->setUrl(\fpcm\classes\tools::getControllerLink('articles/revision', [
                             'aid' => $this->article->getId(), 
                             'rid' => $revisionTime

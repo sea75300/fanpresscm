@@ -206,7 +206,7 @@ class commentedit extends \fpcm\controller\abstracts\controller
                         ->setTarget('_blank')
                         ->setText('Whois')
                         ->setIcon('home')
-                        ->setIconOnly(true)
+                        ->setIconOnly()
                         ->setClass($hiddenClass)
                         ->setRel('noreferrer,noopener,external');
 
@@ -215,7 +215,7 @@ class commentedit extends \fpcm\controller\abstracts\controller
                     ->setText('COMMMENT_LOCKIP')
                     ->setIcon('globe')
                     ->setClass($hiddenClass)
-                    ->setIconOnly(true)
+                    ->setIconOnly()
                     ->setData([
                         'commentid' => $this->comment->getId()
                     ]);
@@ -291,8 +291,6 @@ class commentedit extends \fpcm\controller\abstracts\controller
         if ($this->mode === 1 && $this->permissions->comment->move && $commentData['article'] != $this->comment->getArticleid()) {
             $this->comment->setArticleid((int) $commentData['article']);
         }
-
-        $this->view->addJsVars([ 'reloadList' => $this->mode === 2 ? true : false ]);
 
         if ($this->comment->update()) {
             $this->view->addNoticeMessage('SAVE_SUCCESS_COMMENT');

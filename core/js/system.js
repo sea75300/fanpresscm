@@ -385,7 +385,12 @@ fpcm.system = {
     
     addAjaxNotifications: function(_nstring, _count) {
         
-        fpcm.dom.assignHtml('#fpcm-id-notifications', _nstring);
+        let _idStr = '#fpcm-id-notifications';
+        if (!fpcm.dom.fromId(_idStr).length) {
+            return false;
+        }
+
+        fpcm.dom.assignHtml(_idStr, _nstring);
         let _el = fpcm.dom.fromId('notificationsCount').html(_count);
         
         if (_count) {

@@ -242,7 +242,7 @@ class userlist extends \fpcm\controller\abstracts\controller
                 
                 $buttons = [
                     (new \fpcm\view\helper\editButton('useredit'.$userId))->setUrlbyObject($user),
-                    (new \fpcm\view\helper\linkButton('usermail'.$userId))->setUrl('mailto:'.$user->getEmail())->setIcon('envelope')->setIconOnly(true)->setText('GLOBAL_WRITEMAIL'),
+                    (new \fpcm\view\helper\linkButton('usermail'.$userId))->setUrl('mailto:'.$user->getEmail())->setIcon('envelope')->setIconOnly()->setText('GLOBAL_WRITEMAIL'),
                 ];
                 
                 if ($user->getDisabled()) {
@@ -250,7 +250,7 @@ class userlist extends \fpcm\controller\abstracts\controller
                         ->setText('GLOBAL_ENABLE')
                         ->setClass('fpcm ui-userlist-actione')
                         ->setIcon('user-check')
-                        ->setIconOnly(true)
+                        ->setIconOnly()
                         ->setReadonly($noRb)
                         ->setData(['oid' => $userId, 'fn' => 'enableUser', 'dest' => 'confirmExec']);
                 }
@@ -259,14 +259,14 @@ class userlist extends \fpcm\controller\abstracts\controller
                         ->setText('GLOBAL_DISABLE')
                         ->setClass('fpcm ui-userlist-actione')
                         ->setIcon('user-lock')
-                        ->setIconOnly(true)
+                        ->setIconOnly()
                         ->setReadonly($noRb)
                         ->setData(['oid' => $userId, 'fn' => 'disableUser', 'dest' => 'confirmExec']);
                 }
                 
                 $buttons[] = (new \fpcm\view\helper\deleteButton(uniqid('deleteUser')))
                         ->setClass('fpcm ui-userlist-actione')
-                        ->setIconOnly(true)
+                        ->setIconOnly()
                         ->setReadonly($noRb)
                         ->setData(['oid' => $userId, 'fn' => 'deleteUser', 'dest' => 'moveDeleteArticles']);
 
@@ -315,7 +315,7 @@ class userlist extends \fpcm\controller\abstracts\controller
                 $buttons[] = (new \fpcm\view\helper\linkButton('rollPermBtn'.$rollId))->setUrl(\fpcm\classes\tools::getFullControllerLink('users/permissions', [
                     'id' => $rollId
                 ]))->setIcon('key')
-                    ->setIconOnly(true)
+                    ->setIconOnly()
                     ->setText('USERS_ROLLS_PERMISSIONS')
                     ->setClass('fpcm ui-rolls-edit')
                     ->setData(['type' => 'iframe']);
@@ -323,7 +323,7 @@ class userlist extends \fpcm\controller\abstracts\controller
             
             $buttons[] = (new \fpcm\view\helper\deleteButton(uniqid('deleteROll')))
                     ->setClass('fpcm ui-rollslist-action-delete')
-                    ->setIconOnly(true)
+                    ->setIconOnly()
                     ->setReadonly($rollId <= 3)
                     ->setData(['oid' => $rollId, 'fn' => 'deleteRoll']);
             

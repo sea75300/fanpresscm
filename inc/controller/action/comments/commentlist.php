@@ -53,46 +53,34 @@ class commentlist extends \fpcm\controller\abstracts\controller
     }
 
     /**
-     * @see \fpcm\controller\abstracts\controller::request()
-     * @return bool
-     */
-    public function request()
-    {
-        $this->initCommentPermissions();
-        
-        if (!$this->buttonClicked('deleteComment')) {
-            return true;
-        }
-
-        if (!$this->checkPageToken()) {
-            $this->view->addErrorMessage('CSRF_INVALID');
-            return true;
-        }
-
-        return $this->processCommentActions($this->list);
-    }
-
-    /**
      * @see \fpcm\controller\abstracts\controller::process()
      * @return mixed
      */
     public function process()
     {
+        $this->view->addAjaxPageToken('comments/delete');
         $this->view->assign('commentsMode', 1);
+        $this->view->addJsLangVars(['DELETE_SUCCESS_COMMENTS', 'DELETE_FAILED_COMMENTS']);
+
         $this->initSearchForm();
         $this->initCommentMassEditForm(1);
 
-        $this->view->addJsFiles(['comments/module.js']);
+        $this->view->addJsFiles(['comments/module.js', 'comments/deleteCallback.js']);
         $this->view->setFormAction('comments/list');
 
         if ($this->permissions->editCommentsMass()) {
             $this->view->addButton((new \fpcm\view\helper\button('massEdit', 'massEdit'))->setText('GLOBAL_EDIT')->setIcon('edit'));
         }
 
-        $this->view->addButton((new \fpcm\view\helper\button('opensearch', 'opensearch'))->setText('ARTICLES_SEARCH')->setIcon('search')->setIconOnly(true));
+        $this->view->addButton((new \fpcm\view\helper\button('opensearch', 'opensearch'))->setText('ARTICLES_SEARCH')->setIcon('search')->setIconOnly());
 
         if ($this->permissions->comment->delete) {
-            $this->view->addButton((new \fpcm\view\helper\deleteButton('deleteComment'))->setClass('fpcm ui-button-confirm'));
+            $this->view->addButton( (new \fpcm\view\helper\button('deleteComment'))
+                ->setText('GLOBAL_DELETE')
+                ->setIcon('trash')
+                ->setIconOnly()
+                ->setOnClick('comments.deleteMultipleArticle')
+            );            
         }
 
         $this->initDataView();

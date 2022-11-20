@@ -130,7 +130,7 @@ class crons extends \fpcm\controller\abstracts\controller
         
         return new \fpcm\components\dataView\row([
             
-            new \fpcm\components\dataView\rowCol('button', (new \fpcm\view\helper\button($cronjob->getCronName()))->setText('CRONJOB_LIST_EXECDEMAND')->setClass($playClass)->setIcon($processingIcon)->setIconOnly(true)->setReadonly($btnReadonly)->setData([
+            new \fpcm\components\dataView\rowCol('button', (new \fpcm\view\helper\button($cronjob->getCronName()))->setText('CRONJOB_LIST_EXECDEMAND')->setClass($playClass)->setIcon($processingIcon)->setIconOnly()->setReadonly($btnReadonly)->setData([
                 'cjid' => $cronjob->getCronName(),
                 'cjdescr' => $this->language->translate($cronjob->getCronNameLangVar()),
                 'cjmod' => $cronjob->getModuleKey()
