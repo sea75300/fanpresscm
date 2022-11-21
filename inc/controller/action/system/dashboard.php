@@ -52,7 +52,7 @@ class dashboard extends \fpcm\controller\abstracts\controller
         $this->view->addOffCanvas('DASHBOARD_MANAGE_CONTAINER_ENABLE', 'dashboard/manage');
 
         $dropdown = new \fpcm\view\helper\dropdown('dashboardAction');
-        $dropdown->setText('DASHBOARD_MANAGE_CONTAINER')->setUiSize('btn-sm')->setIcon('bars');
+        $dropdown->setText('DASHBOARD_MANAGE_CONTAINER')->setIcon('bars');
         $dropdown->setOptions([
             
             (new \fpcm\view\helper\dropdownItem('resetDashboardSettings'))
