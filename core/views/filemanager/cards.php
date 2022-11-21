@@ -1,5 +1,5 @@
 <?php /* @var $theView fpcm\view\viewVars */ /* @var $file fpcm\model\files\image */ ?>
-<div class="justify-content-end border-top border-5 border-primary">
+<div class="justify-content-end">
     
     <?php if ($showPager && in_array($mode, [2, 3, 4])) : ?>
     <div class="navbar">

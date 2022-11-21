@@ -1,5 +1,5 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>  
-<div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 border-top border-5 border-primary">
+<div class="row row-cols-1 row-cols-md-2 row-cols-xl-3">
     <div class="col">
         <div class="list-group my-2">
             <div class="list-group-item bg-secondary text-white"><?php $theView->icon('book'); ?> <?php $theView->write('PERMISSION_ARTICLES'); ?></div>

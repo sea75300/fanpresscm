@@ -1,6 +1,6 @@
 <?php /* @var $theView fpcm\view\viewVars */ ?>
 <?php if ($theView->loggedIn) : ?>
-<nav class="navbar navbar-expand navbar-dark bg-primary bg-gradient ui-navigation" id="fpcm-top-menu">
+<nav class="navbar navbar-expand navbar-dark bg-primary bg-gradient ui-navigation border-5 border-bottom border-white border-opacity-25" id="fpcm-top-menu">
     <div class="container-fluid g-0">
         
         <div class="navbar-brand ms-1 ms-md-3">

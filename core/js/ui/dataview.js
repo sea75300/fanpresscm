@@ -87,7 +87,7 @@ fpcm.dataview = {
 
         row.class           = baseclass + (row.class ? ' ' + row.class : '');
 
-        obj.lines.append('<div class="row py-2 border-bottom border-secondary ' + row.class + '" id="' + rowId + '"></span>');
+        obj.lines.append('<div class="row py-2 border-bottom border-2 border-secondary border-opacity-50 ' + row.class + '" id="' + rowId + '"></span>');
 
         jQuery.each(row.columns, function (index, rowCol) {
 

@@ -1,7 +1,7 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
 <?php /* @var $tab \fpcm\view\helper\tabItem */ ?>
 <div class="fpcm ui-tabs-wrapper <?php print $tabsClass; ?>" id="<?php print $tabsId; ?>">
-    <ul class="nav nav-tabs flex-column flex-md-row" role="tablist">
+    <ul class="nav nav-tabs flex-column flex-md-row border-5 border-bottom border-white border-opacity-25" role="tablist">
     <?php foreach ($tabs as $tabIdx => $tab) : ?>
         <?php print $tab->setSaveIndex($tabIdx); ?>
     <?php endforeach; ?>

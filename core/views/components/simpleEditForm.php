@@ -1,5 +1,5 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
-<div class="row border-top border-5 border-primary">
+<div class="row">
     <div class="col-12 col-lg-8 col-xl-6">
         <fieldset class="my-3">
             
