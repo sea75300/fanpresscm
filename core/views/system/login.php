@@ -1,19 +1,15 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
-<div class="position-absolute top-50 start-50 translate-middle col-12 col-md-8 col-lg-6 col-xl-4">
-    <div class="shadow-lg rounded p-4 fpcm ui-background-white-50p ui-blurring">
-
+<div class="position-absolute top-50 start-50 translate-middle shadow-lg rounded p-4 fpcm ui-background-white-50p ui-blurring rounded-5 d-flex col-12 col-sm-auto">
+    <div class="w-100">
+        
         <header>
-            <div class="row g-0 mb-3 text-truncate">
+            <div class="row mb-3 text-truncate">
                 <!-- FanPress CM News System <?php print $theView->version; ?> -->
-                <div class="col-auto">
-                    <img class="border-bottom border-5 border-info" src="<?php print $theView->themePath; ?>logo.svg" role="presentation" alt="FanPress CM News System <?php print $theView->version; ?>">
+                <div class="align-self-center">
+                    <img class="d-inline-block border-bottom border-5 border-info" src="<?php print $theView->themePath; ?>logo.svg" role="presentation" alt="FanPress CM News System <?php print $theView->version; ?>">
+                    <h1 class="d-none d-sm-inline-block fs-3 text-end ms-5">FanPress CM News System</h1>
                 </div>
-                <div class="col align-self-center">
-                    <h1 class="d-none d-xl-block fs-3 text-end">FanPress CM News System</h1>
-                </div>
-                
             </div>
-            
         </header>
 
         <?php if ($twoFactorAuth) : ?>
@@ -59,4 +55,5 @@
         <?php endif; ?>
         </div>
     </div>
+
 </div>

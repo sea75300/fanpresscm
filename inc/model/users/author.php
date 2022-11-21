@@ -599,7 +599,9 @@ class author extends \fpcm\model\abstracts\dataset {
         $res = parent::createFromDbObject($object);
         $this->groupname = $this->language->translate($this->groupname);
         $this->image = preg_replace('/[^a-z0-9_\-\w]/', '', strtolower($this->username));
-        $this->usrmeta = new usrmeta($this->usrmeta);
+        if (!$this->usrmeta instanceof usrmeta) {
+            $this->usrmeta = new usrmeta($this->usrmeta);
+        }
 
         return $res;
     }
