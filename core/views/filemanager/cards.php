@@ -46,7 +46,9 @@
                 </div>
                 
                 <div class="card-footer bg-transparent">
-                    <?php include $theView->getIncludePath('filemanager/buttons.php'); ?>
+                    <div class="navbar gap-1 justify-content-center">
+                        <?php include $theView->getIncludePath('filemanager/buttons.php'); ?>
+                    </div>
                 </div>
             </div>        
         <?php if ($is_last($i)) : ?></div><div class="card-group g-0 fpcm ui-files-card"><?php endif; ?>

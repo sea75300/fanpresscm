@@ -174,7 +174,7 @@ class filelist extends \fpcm\controller\abstracts\controller
 
         $tabs = [
             (new \fpcm\view\helper\tabItem('files-list'))
-                ->setText('FILE_LIST_AVAILABLE')
+                ->setText('HL_FILES_MNG')
                 ->setData(['ajax-quiet' => true])
                 ->setTabToolbar(1)
                 ->setUrl(\fpcm\classes\tools::getControllerLink('ajax/files/lists', [ 'mode' => $this->mode ]) )

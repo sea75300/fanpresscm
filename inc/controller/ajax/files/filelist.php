@@ -138,7 +138,6 @@ class filelist extends \fpcm\controller\abstracts\ajaxController
 
         $userList = new \fpcm\model\users\userList();
         $this->initViewAssigns($list, $userList->getUsersAll());
-        $this->initPermissions();
 
         $this->view->assign('is_last', function ($i) {
             return $i % FPCM_FILEMAGER_ITEMS_ROW === 0;

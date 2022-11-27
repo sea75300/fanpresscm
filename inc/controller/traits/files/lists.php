@@ -19,30 +19,9 @@ trait lists {
 
     /**
      *
-     * @var array
-     */
-    protected $permissionsData = [];
-
-    /**
-     *
      * @var \fpcm\view\message
      */
     protected $filterError = null;
-
-    /**
-     * Berechtigungen initialisieren
-     */
-    public function initPermissions()
-    {
-        $this->permissionsData['permUpload'] = $this->permissions->uploads->add;
-        $this->permissionsData['permDelete'] = $this->permissions->uploads->delete;
-        $this->permissionsData['permThumbs'] = $this->permissions->uploads->thumbs;
-        $this->permissionsData['permRename'] = $this->permissions->uploads->rename;
-
-        foreach ($this->permissionsData as $key => $value) {
-            $this->view->assign($key, $value);
-        }
-    }
 
     /**
      * View-Variablen initialisieren

@@ -1,5 +1,4 @@
 <?php /* @var $theView fpcm\view\viewVars */ /* @var $file fpcm\model\files\image */ ?>
-<div class="navbar gap-1 justify-content-center">
     <div class="nav-item">
         <div class="btn btn-light">
             <?php $theView->checkbox('filenames[]', 'cb_'. $file->getFileNameHash())->setClass('fpcm-ui-list-checkbox')->setValue(base64_encode($file->getFilename()))->setData(['gallery' => $file->getFilename()]); ?>
@@ -62,4 +61,3 @@
             </ul>
         </div>
 <?php endif; ?>
-</div>
