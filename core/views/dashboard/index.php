@@ -1,5 +1,5 @@
 <?php /* @var $theView fpcm\view\viewVars */ ?>
-<div class="row g-0 my-2" id="fpcm-dashboard-containers">
+<div class="row g-0 my-0" id="fpcm-dashboard-containers">
     <div class="card-group row-cols-1 row-cols-md-3">
         <div class="col">
             <div class="card m-1 shadow-sm fpcm dashboard-container ui-background-white-50p ui-blurrin">
