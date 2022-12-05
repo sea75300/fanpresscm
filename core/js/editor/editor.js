@@ -86,7 +86,10 @@ fpcm.editor = {
             },
             resetAfter: true
         });
-        
+
+        fpcm.dom.bindEvent('.fpcm-ui-editor-metainfo-checkbox', 'change', function (_e, _ui) {
+            fpcm.dom.fromTag('span.fpcm-ui-editor-metainfo-' + _ui.dataset.icon).toggleClass('fpcm-ui-status-1 fpcm-ui-status-0');
+        });        
 
         if (!fpcm.vars.jsvars.articleId) {
             return true;
@@ -133,11 +136,6 @@ fpcm.editor = {
             });
 
              return false;
-        });
-
-        fpcm.dom.fromTag('.fpcm-ui-editor-metainfo-checkbox').on('change', function () {
-            fpcm.dom.fromTag('span.fpcm-ui-editor-metainfo-' + fpcm.dom.fromTag(this).data('icon')).toggleClass('fpcm-ui-status-1 fpcm-ui-status-0');
-            return true;
         });
     },
     

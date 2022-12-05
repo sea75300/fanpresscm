@@ -24,13 +24,11 @@
         <div class="col-12 col-sm flex-grow-1 fpcm-ui-editor-categories">
             <?php $theView->select('article[categories][]')->setIsMultiple(true)->setOptions($categories)->setSelected($article->getCategories()); ?>                    
         </div>
-        <?php if ($editorMode) : ?>
         <div class="col-12 col-sm-auto">
             <div class="d-flex justify-content-center justify-content-md-end fs-5">
                 <?php print implode(PHP_EOL, $article->getMetaDataStatusIcons($showDraftStatus, $commentEnabledGlobal, $showArchiveStatus)); ?>
             </div>
         </div>
-        <?php endif; ?>
     </div>
                 
 </div>                
