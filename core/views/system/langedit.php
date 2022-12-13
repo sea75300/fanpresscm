@@ -22,11 +22,11 @@
                     ->setClass('fpcm-language-delete'); ?>
                 </div>
 
-                <div class="col-4 align-self-center fpcm-ui-ellipsis">
+                <div class="col-4 align-self-center text-truncate">
                     <?php print $theView->escapeVal($key); ?>
                 </div>
 
-                <div class="col-6 align-self-center fpcm-ui-ellipsis" id="lang_descr_<?php print strtolower($key); ?>">
+                <div class="col-4 align-self-center text-truncate" id="lang_descr_<?php print strtolower($key); ?>">
                     <?php print $theView->escapeVal( (is_array($value) ? serialize($value) : str_replace(PHP_EOL, fpcm\classes\language::VARTEXT_NEWLINE, $value)) ); ?>
                 </div>
 
