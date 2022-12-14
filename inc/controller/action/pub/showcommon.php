@@ -126,6 +126,10 @@ abstract class showcommon extends \fpcm\controller\abstracts\pubController {
             'module'
         ]);
 
+        if (isset($params['isUtf8'])) {
+            trigger_error('isUtf8 is deprecated and will be removed in FanPress CM 5.2.', E_USER_DEPRECATED);
+        }
+
         $this->apiMode = (bool) ($params['apiMode'] ?? false);
         $this->category = $params['category'] ?? 0;
         $this->search = empty($params['search']) ? null : filter_var($params['search'], FILTER_SANITIZE_STRING);
@@ -184,7 +188,6 @@ abstract class showcommon extends \fpcm\controller\abstracts\pubController {
         $content = implode(PHP_EOL, $this->parseArticles());
 
         $this->view->assign('content', $this->isUtf8 ? $content : utf8_decode($content));
-        $this->view->assign('systemMode', $this->config->system_mode);
         $this->view->assign('isArchive', $this->isArchive());
         $this->view->assign('archievDate', $this->config->articles_archive_datelimit);
         $this->view->render();

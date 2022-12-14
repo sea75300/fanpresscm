@@ -42,6 +42,10 @@ class showtitle extends \fpcm\controller\abstracts\pubController {
     {
         parent::__construct();
 
+        if ($isUtf8 !== true) {
+            trigger_error('isUtf8 is deprecated and will be removed in FanPress CM 5.2.', E_USER_DEPRECATED);
+        }
+
         $this->action = $action;
         $this->param = $param;
         $this->isUtf8 = $isUtf8;

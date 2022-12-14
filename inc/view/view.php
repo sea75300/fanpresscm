@@ -828,8 +828,9 @@ class view {
                     'lang' => $this->jsLangVars,
                 ],
                 'jsvars' => $this->jsVars,
+                'ajaxActionPath' => \fpcm\classes\tools::getFullControllerLink('ajax/')
             ]
-        ];        
+        ];
         
         if ($this->showHeader === self::INCLUDE_HEADER_NONE && !$this->fullJsVarsNoheader) {
             $this->defaultViewVars->varsJs = $varsJs;
@@ -848,7 +849,6 @@ class view {
 
         $varsJs['vars']['ui']['dialogTpl'] = new \fpcm\model\files\jsViewTemplate('dialog');
         $varsJs['vars']['actionPath'] = \fpcm\classes\tools::getFullControllerLink('');
-        $varsJs['vars']['ajaxActionPath'] = \fpcm\classes\tools::getFullControllerLink('ajax/');
 
         $this->defaultViewVars->varsJs = $varsJs;
         

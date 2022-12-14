@@ -111,6 +111,10 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
             'module'
         ]);
 
+        if (isset($params['isUtf8'])) {
+            trigger_error('isUtf8 is deprecated and will be removed in FanPress CM 5.2.', E_USER_DEPRECATED);
+        }
+
         $this->templateString = isset($params['template']) && trim($params['template']) ? $params['template'] : false;
         $this->apiMode = isset($params['apiMode']) ? (bool) $params['apiMode'] : false;
         $this->isUtf8 = isset($params['isUtf8']) ? (bool) $params['isUtf8'] : true;
@@ -121,7 +125,6 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
             'article' => '',
             'comments' => '',
             'commentform' => '',
-            'systemMode' => $this->config->system_mode
         ];
 
         $this->view->showHeaderFooter($this->apiMode ? \fpcm\view\view::INCLUDE_HEADER_NONE : \fpcm\view\view::INCLUDE_HEADER_SIMPLE);

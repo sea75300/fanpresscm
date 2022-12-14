@@ -64,6 +64,11 @@ class showlatest extends \fpcm\controller\abstracts\pubController {
      */
     public function __construct(array $params = [])
     {
+
+        if (isset($params['isUtf8'])) {
+            trigger_error('isUtf8 is deprecated and will be removed in FanPress CM 5.2.', E_USER_DEPRECATED);
+        }
+
         $this->apiMode = isset($params['apiMode']) ? $params['apiMode'] : false;
         $this->category = isset($params['category']) ? $params['category'] : 0;
         $this->isUtf8 = isset($params['isUtf8']) ? $params['isUtf8'] : true;
@@ -147,7 +152,6 @@ class showlatest extends \fpcm\controller\abstracts\pubController {
         }
 
         $this->view->assign('content', $content);
-        $this->view->assign('systemMode', $this->config->system_mode);
         $this->view->render();
     }
 
