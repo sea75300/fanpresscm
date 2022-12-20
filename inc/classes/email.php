@@ -286,6 +286,48 @@ final class email {
     }
 
     /**
+     * 
+     * @param string $path
+     * @param array $variables
+     * @param bool $fromData
+     * @return bool
+     * @since 5.1.0-a1
+     */
+    public function fromTemplate(string $path, array $variables = [], bool $fromData = false) : bool
+    {
+        $filename = $path . ($this->html ? '.html' : '.txt');
+
+        $tplPath = $fromData
+                 ? dirs::getDataDirPath(dirs::DATA_BACKUP, $filename)
+                 : dirs::getCoreDirPath(dirs::CORE_VIEWS, 'mailtemplates/' . $filename);
+
+        $tplPathR = realpath($tplPath);
+        if (!$tplPathR || !str_starts_with($tplPath, \fpcm\classes\dirs::getFullDirPath('/')) ) {
+            trigger_error(sprintf('Invalid mail template path found in "%s".', $tplPath), E_USER_ERROR);
+            $this->text = '';
+            return false;
+        }
+        
+        $tplPath = $tplPathR;
+        
+        $this->text = file_get_contents($tplPath);
+        if (!trim($this->text)) {
+            trigger_error(sprintf('Unable to read mail template content from "%s".', $tplPath), E_USER_ERROR);
+            $this->text = '';
+            return false;
+        }
+
+        $this->text = vsprintf($this->text, $variables);
+        if (!trim($this->text)) {
+            trigger_error(sprintf('Unable render mail template content "%s".', $tplPath), E_USER_ERROR);
+            $this->text = '';
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
      * E-Mail versenden via PHP versenden
      * @return bool
      * @since 3.5

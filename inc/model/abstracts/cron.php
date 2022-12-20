@@ -189,18 +189,20 @@ abstract class cron implements \fpcm\model\interfaces\cron {
     {
         return $this->cronName;
     }
-
+    
     /**
-     * Gibt Sprachvariable zur Übersetzung des Cronjob-Namen zurück
+     * Returns translatetable language variable from cronjob names
+     * @param string $label
      * @return string
      */
-    public function getCronNameLangVar()
+    public function getCronNameLangVar(string $label = '') : string
     {
+        $return = 'CRONJOB_' . $label . strtoupper($this->cronName);
         if ($this->modulekey) {
-            return \fpcm\module\module::getLanguageVarPrefixed($this->modulekey). 'CRONJOB_' . strtoupper($this->cronName);
+            $return = \fpcm\module\module::getLanguageVarPrefixed($this->modulekey) . $return;
         }
-        
-        return 'CRONJOB_' . strtoupper($this->cronName);
+
+        return $return;
     }
 
     /**
@@ -319,6 +321,38 @@ abstract class cron implements \fpcm\model\interfaces\cron {
     {
         $this->isrunning = 0;
         return $this->dbcon->update($this->table, ['isrunning'], [$this->isrunning, $this->cronName], 'cjname=?');        
+    }
+    
+    /**
+     * Creates email from a template
+     * @param array $vars
+     * @param array $html
+     * @param array $fromData
+     * @param array $attachments
+     * @return bool
+     * @since 5.1.0-a1
+     */
+    protected function submitMailNotification(array $vars = [], bool $html = false, bool $fromData = false, array $attachments = []) : bool
+    {
+        /* @var $conf \fpcm\model\system\config */
+        $conf = \fpcm\model\system\config::getInstance();
+
+        /* @var $lang \fpcm\classes\language */
+        $lang = \fpcm\classes\loader::getObject('\fpcm\classes\language');
+
+        $lkey = $this->getCronNameLangVar('MAIL_SUBJECT_');
+
+        $email = new \fpcm\classes\email( $conf->system_email, $lang->translate($lkey), '', false, $html);
+        
+        if (!$email->fromTemplate($this->cronName, $vars, $fromData)) {
+            return false;
+        }
+
+        if (count($attachments)) {
+            $email->setAttachments($attachments);
+        }
+
+        return $email->submit();
     }
 
     /**

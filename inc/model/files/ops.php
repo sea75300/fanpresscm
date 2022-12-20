@@ -267,7 +267,7 @@ final class ops {
             $realpath = self::realpathNoExists($path);
         }
 
-        if (strpos($realpath, $dataPath) === 0) {
+        if (str_starts_with($realpath, $dataPath)) {
             return true;
         }
         

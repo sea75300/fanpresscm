@@ -1,0 +1,3 @@
+Um %s wurden folgende Artikel automatisch veröffentlicht:
+
+%s

@@ -88,6 +88,7 @@ $lang = array (
   'CRONJOB_LIST_LASTEXEC' => 'Last executed',
   'CRONJOB_LIST_NAME' => 'Description',
   'CRONJOB_LIST_NEXTEXEC' => 'Next execution',
+  'CRONJOB_MAIL_SUBJECT_POSTPONEDARTICLES' => 'Postponed articles were just published',
   'CRONJOB_POSTPONEDARTICLES' => 'Publish postponed articles',
   'CRONJOB_REMOVEREVISIONS' => 'Clean up article revisions',
   'CRONJOB_UPDATECHECK' => 'Check for updates',
