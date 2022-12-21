@@ -55,32 +55,41 @@ class main extends \fpcm\controller\abstracts\controller {
         1 => [
             'tpl' => '01_selectlang',
             'descr' => 'INSTALLER_LANGUAGE_SELECT',
+            'icon' => 'language',
             'back' => 1
         ],
         2 => [
             'tpl' => '02_syscheck',
             'descr' => 'INSTALLER_SYSCHECK',
-            'back' => 2
+            'icon' => 'medkit',
+            'back' => 2,
+            'fill' => true
         ],
         3 => [
             'tpl' => '03_dbdata',
             'descr' => 'INSTALLER_DBCONNECTION',
+            'icon' => 'circle-nodes',
             'back' => 3
         ],
         4 => [
             'tpl' => '04_createtables',
             'descr' => 'INSTALLER_CREATETABLES',
+            'icon' => 'database',
             'back' => 4
         ],
         5 => [
             'tpl' => '05_sysconfig',
             'descr' => 'INSTALLER_SYSTEMCONFIG',
-            'back' => 5
+            'icon' => 'cog',
+            'back' => 5,
+            'fill' => true
         ],
         6 => [
             'tpl' => '06_firstuser',
             'descr' => 'INSTALLER_ADMINUSER',
-            'back' => 6
+            'icon' => 'user-plus',
+            'back' => 6,
+            'fill' => true
         ],
         7 => [
             'tpl' => '07_finalize',
@@ -183,6 +192,8 @@ class main extends \fpcm\controller\abstracts\controller {
             call_user_func([$this, 'runStep' . $this->step]);
         }
 
+        $tplData = $this->tabsDef[$this->step] ?? $this->tabsDef[1];
+        
         $buttons = [];
         if ($this->showReloadBtn) {
             $buttons[] = (new \fpcm\view\helper\linkButton('reloadbtn'))->setText('GLOBAL_RELOAD')->setUrl(\fpcm\classes\tools::getControllerLink('installer', [
@@ -192,12 +203,24 @@ class main extends \fpcm\controller\abstracts\controller {
         }
         elseif ($this->step < $tabCount) {
             
+            if ($this->step > 1) {
+
+                $buttons[] = (new \fpcm\view\helper\linkButton('backNext'))
+                    ->setText('GLOBAL_BACK')
+                    ->setClass('fpcm-installer-next-'.$this->step)
+                    ->setIcon('chevron-circle-left')
+                    ->setUrl(\fpcm\classes\tools::getControllerLink('installer', ['step' => $prevStep, 'language' => $this->langCode]) );
+            }
+            
             $fn = $this->step === 3 ? 'installer.checkDBData' : 0;            
             $buttons[] = (new \fpcm\view\helper\submitButton('submitNext'))
                 ->setText('GLOBAL_NEXT')
                 ->setClass('fpcm-installer-next-'.$this->step)
                 ->setIcon('chevron-circle-right')
+                ->setPrimary()
                 ->setOnClick($fn);
+            
+
         }
 
         $this->view->addButtons($buttons);
@@ -206,38 +229,21 @@ class main extends \fpcm\controller\abstracts\controller {
             'step' => $nextStep,
             'language' => $this->langCode
         ]);
-        
-        
-        $this->initTabs();
+
+        $this->view->assign('tpl', $tplData['tpl']);
+        $this->view->assign('headline', $tplData['descr']);
+        $this->view->assign('icon', $tplData['icon']);
+        $this->view->assign('fill', $tplData['fill'] ?? false);
+        $this->view->assign('step', $this->step);
+        $this->view->assign('progressWidth', ceil( ($this->step / $tabCount * 100) ) );
         
         $this->view->showHeaderFooter(\fpcm\view\view::INCLUDE_HEADER_SIMPLE);
         $this->view->assign('languages', array_flip($this->language->getLanguages()));
         $this->view->addJsFiles(['{$coreJs}installer.js', '{$coreJs}systemcheck.js']);
         $this->view->addFromLibrary('nkorg/passgen', ['passgen.js']);
         $this->view->showPageToken(true);
-        $this->view->render();
-    }
-    
-    private function initTabs()
-    {
-        $tabs = [];
-        foreach ($this->tabsDef as $id => $value) {
-            
-            
-            $state  = $id === $this->step
-                    ? \fpcm\view\helper\tabItem::STATE_ACTIVE
-                    : \fpcm\view\helper\tabItem::STATE_DISABLED;
-
-            $tabs[] = (new \fpcm\view\helper\tabItem($value['tpl']))
-                    ->setFile('installer/'.$value['tpl'])
-                    ->setText($value['descr'])
-                    ->setState($state)
-                    ->setPreload($id === $this->step);
-        }
-        
-        
-        $this->view->addTabs('installer', $tabs, 'fpcm ui-tabs-function-autoinit', ($this->step - 1));
         $this->view->setViewPath($this->getViewPath());
+        $this->view->render();
     }
 
     /**

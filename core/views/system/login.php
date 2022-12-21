@@ -1,5 +1,5 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
-<div class="position-absolute top-50 start-50 translate-middle shadow-lg rounded p-4 fpcm ui-background-white-50p ui-blurring rounded-5 d-flex col-12 col-sm-auto">
+<div class="position-absolute top-50 start-50 translate-middle shadow-lg p-4 fpcm ui-background-white-50p ui-blurring rounded-5 d-flex col-12 col-sm-auto">
     <div class="w-100">
         
         <header>
