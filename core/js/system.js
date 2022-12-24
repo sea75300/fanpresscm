@@ -27,6 +27,10 @@ fpcm.system = {
         fpcm.dom.bindClick('#fpcm-clear-cache', function () {
             return fpcm.system.clearCache();
         });
+        
+        fpcm.dom.bindClick('#btnMinifyMenu', function () {
+            fpcm.dom.fromTag('a.fpcm.ui-nav-link.nav-link > span.fpcm.nav-text').toggleClass('d-lg-none');
+        });
     },
 
     togglePasswordField: function (_event, _callee)

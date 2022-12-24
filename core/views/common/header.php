@@ -34,6 +34,7 @@
                 
                 <hr class="d-none d-lg-block">
                 <div class="d-none d-lg-block mb-2 text-center">
+                    <?php $theView->button('minifyMenu')->setText('Zuklappen')->setIcon('chevron-left')->setIconOnly()->setClass('btn-sm'); ?>
                     <?php $theView->linkButton('scrollTopLeft')->setText('GLOBAL_SCROLLTOP')->setUrl('#fpcm-body')->setIcon('chevron-up')->setIconOnly()->setClass('btn-sm'); ?>
                 </div>
             </div>

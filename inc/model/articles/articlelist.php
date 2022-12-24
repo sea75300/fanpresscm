@@ -620,7 +620,8 @@ implements \fpcm\model\interfaces\gsearchIndex {
 
         });
 
-        return $this->data[__METHOD__] = $return;
+        $this->data[__METHOD__] = $return;
+        return $return;
     }
 
     /**
@@ -686,12 +687,14 @@ implements \fpcm\model\interfaces\gsearchIndex {
         }
 
         if ($conditions->category !== null) {
-            $catId = (int) $conditions->category;
-            $where[] = "(categories " . $this->dbcon->dbLike() . " ? OR categories " . $this->dbcon->dbLike() . " ? OR categories " . $this->dbcon->dbLike() . " ? OR categories " . $this->dbcon->dbLike() . " ?)";
-            $valueParams[] = "[{$catId}]";
-            $valueParams[] = "%,{$catId},%";
-            $valueParams[] = "[{$catId},%";
-            $valueParams[] = "%,{$catId}]";
+
+            $where[] =  sprintf(
+                'id IN (select distinct article_id from %s where %s)',
+                $this->dbcon->getTablePrefixed(\fpcm\classes\database::tableArticleCategories),
+                'category_id IN (?)'
+            );
+            
+            $valueParams[] = (int) $conditions->category;
         }
 
         if ($conditions->datefrom !== null) {
@@ -785,12 +788,16 @@ implements \fpcm\model\interfaces\gsearchIndex {
         }
 
         if ($conditions->category !== null) {
-            $catId = (int) $conditions->category;
-            $where[] = $conditions->getCondition('categoryid', "(categories " . $this->dbcon->dbLike() . " :categories1 OR categories " . $this->dbcon->dbLike() . " :categories2 OR categories " . $this->dbcon->dbLike() . " :categories3 OR categories " . $this->dbcon->dbLike() . " :categories4)");
-            $valueParams[':categories1'] = "[{$catId}]";
-            $valueParams[':categories2'] = "%,{$catId},%";
-            $valueParams[':categories3'] = "[{$catId},%";
-            $valueParams[':categories4'] = "%,{$catId}]";
+            $where[] = $conditions->getCondition(
+                'categoryid',
+                sprintf(
+                    'id IN (select distinct article_id from %s where %s)',
+                    $this->dbcon->getTablePrefixed(\fpcm\classes\database::tableArticleCategories),
+                    'category_id IN (:categories)'
+                )
+            );
+            
+            $valueParams[':categories'] = (int) $conditions->category;            
         }
 
         if ($conditions->pinned !== null) {
