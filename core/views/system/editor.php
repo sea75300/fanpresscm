@@ -47,7 +47,8 @@
             <?php $theView->textarea('system_editor_css')
                     ->setValue($globalConfig->system_editor_css, ENT_QUOTES)
                     ->setClass('fpcm ui-textarea-medium ui-textarea-noresize')
-                    ->setText('SYSTEM_OPTIONS_NEWS_EDITOR_CSS'); ?>
+                    ->setText('SYSTEM_OPTIONS_NEWS_EDITOR_CSS')
+                    ->setPlaceholder('.your_css_class{}'); ?>
         </div>
     </div>
 

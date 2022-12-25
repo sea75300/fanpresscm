@@ -44,7 +44,7 @@ final class textarea extends input {
             }            
 
             return sprintf(
-                '<div class="%s %s"><label title="%s" class="col-form-label pe-3 %s" for="%s">%s%s</label><textarea %s %s %s %s>%s</textarea></div>',                    
+                '<div class="%s %s"><label title="%s" class="col-form-label pe-3 %s" for="%s">%s%s</label><textarea %s %s %s %s %s>%s</textarea></div>',                    
                 $this->labelType,
                 $this->bottomSpace,
                 $this->text,
@@ -55,16 +55,18 @@ final class textarea extends input {
                 $this->getNameIdString(),
                 $this->getClassString(),
                 $this->getReadonlyString(),
+                $this->getPlaceholderString(),
                 $this->getDataString(),
                 $this->value
             );
         }
         
         return sprintf(
-            '<textarea %s %s %s %s>%s</textarea>',
+            '<textarea %s %s %s %s %s>%s</textarea>',
             $this->getNameIdString(),
             $this->getClassString(),
             $this->getReadonlyString(),
+            $this->getPlaceholderString(),
             $this->getDataString(),
             $this->value
         );
