@@ -267,7 +267,8 @@ class view {
             'GLOBAL_NOTFOUND2', 'SAVE_FAILED_ARTICLES', 'AJAX_REQUEST_ERROR',
             'AJAX_RESPONSE_ERROR', 'CONFIRM_MESSAGE', 'CACHE_CLEARED_OK',
             'SELECT_ITEMS_MSG', 'HL_HELP', 'CSRF_INVALID', 'HEADLINE',
-            'GLOBAL_RESET', 'GLOBAL_PLEASEWAIT', 'LABEL_SEARCH_GLOBAL_RESULTSIZE'
+            'GLOBAL_RESET', 'GLOBAL_PLEASEWAIT', 'LABEL_SEARCH_GLOBAL_RESULTSIZE',
+            'GLOBAL_HIDE', 'GLOBAL_SHOW'
         ]);
 
         $this->jsLangVars['calendar']['days'] = $this->language->getDays();

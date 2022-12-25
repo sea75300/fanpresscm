@@ -34,12 +34,12 @@
                 
                 <hr class="d-none d-lg-block">
                 <div class="d-none d-lg-block mb-2 text-center">
-                    <?php $theView->button('minifyMenu')->setText('Zuklappen')->setIcon('chevron-left')->setIconOnly()->setClass('btn-sm'); ?>
+                    <?php $theView->button('minifyMenu')->setText('GLOBAL_HIDE')->setIcon('chevron-left')->setIconOnly()->setClass('btn-sm')->setData(['navhidden' => 0]); ?>
                     <?php $theView->linkButton('scrollTopLeft')->setText('GLOBAL_SCROLLTOP')->setUrl('#fpcm-body')->setIcon('chevron-up')->setIconOnly()->setClass('btn-sm'); ?>
                 </div>
             </div>
 
-            <div class="d-flex flex-column flex-grow-1 col-12 col-sm">
+            <div class="d-flex flex-column flex-grow-1 col-12 col-sm z-n1">
 
                 <?php include_once $theView->getIncludePath('common/buttons.php'); ?>
           

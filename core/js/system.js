@@ -28,8 +28,31 @@ fpcm.system = {
             return fpcm.system.clearCache();
         });
         
-        fpcm.dom.bindClick('#btnMinifyMenu', function () {
+        fpcm.dom.bindClick('#btnMinifyMenu', function (_el) {
+            
+            let _descr = [
+                {
+                    text: 'GLOBAL_HIDE',
+                    icon: 'fa-chevron-left'
+                },
+                {
+                    text: 'GLOBAL_SHOW',
+                    icon: 'fa-chevron-right'
+                }
+            ];
+
             fpcm.dom.fromTag('a.fpcm.ui-nav-link.nav-link > span.fpcm.nav-text').toggleClass('d-lg-none');
+            fpcm.dom.fromTag('a.fpcm.ui-nav-link.nav-link').toggleClass('text-center');
+            
+            _el.currentTarget.dataset.navhidden = parseInt(_el.currentTarget.dataset.navhidden) ? 0 : 1;
+
+            let _current = _descr[_el.currentTarget.dataset.navhidden];
+            if (!_current) {
+                return false;
+            }
+
+            _el.currentTarget.title = fpcm.ui.translate(_current.text);
+            _el.delegateTarget.childNodes[0].classList.replace(_el.delegateTarget.childNodes[0].classList[3], _current.icon);
         });
     },
 
