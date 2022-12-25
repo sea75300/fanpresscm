@@ -32,12 +32,42 @@ final class textarea extends input {
      */
     protected function getString()
     {
-        return  '<textarea '.$this->getNameIdString().' '.
-                $this->getClassString().' '.
-                $this->getReadonlyString().' '.
-                $this->getDataString().' '.">".
-                $this->value."</textarea>"
-        ;
+        
+        if (str_starts_with($this->text, 'LABEL_FIELD_')) {
+            $this->text = '';
+        }
+        
+        if ($this->text) {
+            
+            if (!trim($this->labelSize) && !trim($this->fieldSize)) {
+                $this->setDisplaySizesDefault();
+            }            
+
+            return sprintf(
+                '<div class="%s %s"><label title="%s" class="col-form-label pe-3 %s" for="%s">%s%s</label><textarea %s %s %s %s>%s</textarea></div>',                    
+                $this->labelType,
+                $this->bottomSpace,
+                $this->text,
+                $this->getLabelSize(),
+                $this->id,
+                $this->getIconString(),
+                $this->getDescriptionTextString('ps-1'),
+                $this->getNameIdString(),
+                $this->getClassString(),
+                $this->getReadonlyString(),
+                $this->getDataString(),
+                $this->value
+            );
+        }
+        
+        return sprintf(
+            '<textarea %s %s %s %s>%s</textarea>',
+            $this->getNameIdString(),
+            $this->getClassString(),
+            $this->getReadonlyString(),
+            $this->getDataString(),
+            $this->value
+        );
     }
 
 }

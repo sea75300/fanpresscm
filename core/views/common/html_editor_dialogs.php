@@ -256,14 +256,8 @@
 <!-- Vorlage einfügen -->
 <div class="d-none" id="fpcm-dialog-editor-html-insertquote">
     <div class="row">
-        <div class="col-12">
-            <label for="quotetext">
-                <?php $theView->icon('keyboard')->setSize('lg'); ?>
-                <?php $theView->write('EDITOR_HTML_BUTTONS_QUOTE_TEXT'); ?>:
-            </label>
-        </div>
         <div class="col-12 mb-2">
-            <?php $theView->textarea('quote[text]')->setPlaceholder(true)->setText('EDITOR_HTML_BUTTONS_QUOTE')->setClass('fpcm ui-textarea-medium ui-textarea-noresize w-100'); ?>
+            <?php $theView->textarea('quote[text]')->setPlaceholder(true)->setText('EDITOR_HTML_BUTTONS_QUOTE_TEXT')->setIcon('keyboard')->setClass('fpcm ui-textarea-medium ui-textarea-noresize'); ?>
         </div>
     </div>
     <div class="row">

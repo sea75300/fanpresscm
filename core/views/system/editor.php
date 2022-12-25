@@ -32,7 +32,6 @@
         </div>
     </div>
 
-
     <div class="row my-2">
         <div class="col-12 col-md-8">
             <?php $theView->select('articles_revisions_limit')
@@ -43,20 +42,16 @@
         </div>
     </div>
 
-</fieldset>
-
-<fieldset class="mb-2">
-    <legend><?php $theView->write('SYSTEM_OPTIONS_NEWS_EDITOR_CSS'); ?></legend>
-
-    <div class="row">
+    <div class="row my-2">
         <div class="col-12 col-md-8">
-                <?php $theView->textarea('system_editor_css')
-                        ->setValue($globalConfig->system_editor_css, ENT_QUOTES)
-                        ->setClass('fpcm ui-textarea-medium ui-textarea-noresize w-100'); ?>
+            <?php $theView->textarea('system_editor_css')
+                    ->setValue($globalConfig->system_editor_css, ENT_QUOTES)
+                    ->setClass('fpcm ui-textarea-medium ui-textarea-noresize')
+                    ->setText('SYSTEM_OPTIONS_NEWS_EDITOR_CSS'); ?>
         </div>
     </div>
-</fieldset>
 
+</fieldset>
 
 <fieldset class="mb-2">
     <legend><?php $theView->write('HL_FILES_MNG'); ?></legend>                       

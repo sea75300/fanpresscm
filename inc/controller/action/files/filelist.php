@@ -123,7 +123,6 @@ class filelist extends \fpcm\controller\abstracts\controller
 
         $buttons = [
             new \fpcm\view\helper\wrapper('div', 'btn btn-light', (new \fpcm\view\helper\checkbox('fpcm-select-all'))->setText('GLOBAL_SELECTALL')->setIconOnly()->setClass('fpcm-select-all') ),
-            (new \fpcm\view\helper\button('openSearch'))->setText('ARTICLES_SEARCH')->setIcon('search')->setIconOnly()
         ];
 
         if ($this->permissions->uploads->add) {
@@ -144,6 +143,7 @@ class filelist extends \fpcm\controller\abstracts\controller
 
         }
         
+        $buttons[] = (new \fpcm\view\helper\button('openSearch'))->setText('ARTICLES_SEARCH')->setIcon('search')->setIconOnly();
 
         if ($this->mode === 2) {
             $buttons[] = (new \fpcm\view\helper\submitButton('insertGallery'))->setText('FILE_LIST_INSERTGALLERY')->setIcon('images', 'far')->setIconOnly();
