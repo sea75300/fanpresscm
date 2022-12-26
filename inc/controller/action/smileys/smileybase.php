@@ -10,6 +10,7 @@
 namespace fpcm\controller\action\smileys;
 
 abstract class smileybase extends \fpcm\controller\abstracts\controller
+implements \fpcm\controller\interfaces\requestFunctions
 {
 
     use \fpcm\controller\traits\common\simpleEditForm,
@@ -42,7 +43,6 @@ abstract class smileybase extends \fpcm\controller\abstracts\controller
             return true;
         }
 
-        $this->save();
         return true;
     }
 
@@ -74,7 +74,7 @@ abstract class smileybase extends \fpcm\controller\abstracts\controller
                 ->setText('FILE_LIST_SMILEY'.$this->getActionText())
                 ->setFile($this->getViewPath().'.php')
         ]);
-
+        
         $this->assignFields([
             (new \fpcm\view\helper\textInput('smiley[code]'))
                     ->setValue($this->smiley->getSmileyCode())
@@ -92,12 +92,8 @@ abstract class smileybase extends \fpcm\controller\abstracts\controller
         $this->view->render();
     }
 
-    final protected function save() : bool
+    protected function onSaveSmiley() : bool
     {
-        if (!$this->buttonClicked('saveSmiley')) {
-            return false;
-        }
-
         $smileyData = $this->request->fromPOST('smiley');
         if (empty($smileyData['filename']) || !$smileyData['code']) {
             $this->view->addErrorMessage('SAVE_FAILED_SMILEY');

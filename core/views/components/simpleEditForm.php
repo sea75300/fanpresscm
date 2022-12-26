@@ -1,9 +1,12 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
+<?php if ($theView->debugMode) : ?>
+<div class="d-flex justify-content-end text-muted fs-6 p-2">Form: <?php $theView->escape($formFields->area); ?></div>
+<?php endif; ?>
+
 <div class="row">
     <div class="col-12 col-lg-8 col-xl-6">
-        <fieldset class="my-3">
-            
-        <?php foreach ($formFields as $field) : ?>
+        <fieldset class="my-3">            
+        <?php foreach ($formFields->fields as $field) : ?>
             <div class="row">
                 <?php if ($field instanceof \fpcm\components\fieldGroup) : ?>
                     <div class="col-form-label col-12 col-sm-6 col-md-4">

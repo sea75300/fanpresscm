@@ -14,6 +14,15 @@ class imagesTest extends testBase {
         $this->className = 'files\\imagelist';
         parent::setUp();
     }
+    
+    public function tearDown() : void
+    {
+        if (!file_exists($GLOBALS['imageObj']->getFullpath())) {
+            return;
+        }
+        
+        unlink($GLOBALS['imageObj']->getFullpath());
+    }
 
     public function testGetDatabaseListByCondition()
     {

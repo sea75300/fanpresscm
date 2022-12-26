@@ -782,6 +782,7 @@ class view {
         $this->defaultViewVars->self = trim(filter_var($_SERVER['PHP_SELF'], FILTER_SANITIZE_URL));
         $this->defaultViewVars->basePath = \fpcm\classes\tools::getFullControllerLink();
         $this->defaultViewVars->themePath = \fpcm\classes\dirs::getCoreUrl(\fpcm\classes\dirs::CORE_THEME);
+        $this->defaultViewVars->debugMode = defined('FPCM_DEBUG') && FPCM_DEBUG;
 
         /* @var $req \fpcm\model\http\request */
         $req = \fpcm\classes\loader::getObject('\fpcm\model\http\request');

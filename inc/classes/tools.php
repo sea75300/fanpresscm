@@ -261,4 +261,15 @@ final class tools {
         return $matches[1] ?? $str;
     }
 
+    /**
+     * 
+     * @param string $prefix
+     * @return string
+     * @since 5.1.0-a1
+     */
+    public static function getAreaName(string $prefix) : string
+    {
+        return 'extend' . ucfirst($prefix) . ucfirst(str_replace('/', '', \fpcm\classes\loader::getObject('\fpcm\model\http\request')->getModule()));
+    }
+
 }

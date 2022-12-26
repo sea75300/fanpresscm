@@ -46,6 +46,7 @@ namespace fpcm\view;
  * @property array  $buttons
  * @property array  $profileMenuButtons
  * @property bool   $loggedIn
+ * @property bool   $debugMode
  * @property bool   $fullWrapper
  * @property bool   $showPageToken
  * @property bool   $showOffCanvas

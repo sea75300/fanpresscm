@@ -284,7 +284,7 @@ abstract class event {
             return $data;
         }
 
-        return (new \fpcm\module\eventResult())->setData($data);       
+        return (new \fpcm\module\eventResult())->setData($data);
     }
 
 }
