@@ -13,7 +13,8 @@ class profile extends \fpcm\controller\abstracts\controller
 {
 
     use \fpcm\controller\traits\common\timezone,
-        \fpcm\controller\traits\users\authorImages;
+        \fpcm\controller\traits\users\authorImages,
+        \fpcm\controller\traits\users\settings;
 
     /**
      *
@@ -196,12 +197,9 @@ class profile extends \fpcm\controller\abstracts\controller
      */
     public function process()
     {        
-        $userRolls = new \fpcm\model\users\userRollList();
-        $this->view->assign('userRolls', $userRolls->getUserRollsTranslated());
-        $this->view->assign('languages', array_flip($this->language->getLanguages()));
+        $this->settingsToView();
         $this->twoFactorAuthForm();
 
-        $this->view->assign('timezoneAreas', $this->getTimeZonesAreas());
         $this->view->assign('externalSave', true);
         $this->view->assign('inProfile', true);
         $this->view->assign('showExtended', true);
@@ -214,9 +212,6 @@ class profile extends \fpcm\controller\abstracts\controller
         ]);
 
         $this->view->setActiveTab($this->getActiveTab());
-        $this->view->assign('articleLimitList', \fpcm\model\system\config::getAcpArticleLimits());
-        $this->view->assign('defaultFontsizes', \fpcm\model\system\config::getDefaultFontsizes());
-        $this->view->assign('filemanagerViews', \fpcm\components\components::getFilemanagerViews());
         $this->view->assign('showDisableButton', false);
         $this->view->addJsFiles([ \fpcm\classes\loader::libGetFileUrl('nkorg/passgen/passgen.js'), 'users/profile.js', 'users/edit.js' ]);
 

@@ -13,6 +13,7 @@ namespace fpcm\model\users;
  * @property string $system_lang System language
  * @property string $system_dtmask Date time mask
  * @property string $system_timezone System timezone
+ * @property string $backdrop Backdrop image
  * @property int    $system_editor_fontsize Default editor fontsize
  * @property int    $articles_acp_limit Number of articles per page in ACP
  * @property int    $file_list_limit Nubmer of files per page
@@ -163,6 +164,7 @@ implements  \ArrayAccess,
             'system_editor_fontsize' => $co->system_editor_fontsize,
             'system_lang' => $co->system_lang,
             'system_timezone' => $co->system_timezone,
+            'backdrop' => '',
             'dashboard_containers_disabled' => [],
             'dashboardpos' => []
         ];

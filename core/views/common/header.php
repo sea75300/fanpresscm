@@ -17,7 +17,7 @@
         <?php include_once 'vars.php'; ?>
     </head>    
 
-    <body class="fpcm-body <?php print $theView->bodyClass; ?>" id="fpcm-body">
+    <body class="fpcm-body <?php print $theView->bodyClass; ?>" id="fpcm-body" <?php if ($theView->backdrop) : ?>style="background-image: url(<?php print $theView->backdrop; ?>);"<?php endif; ?>>
 
         <?php if ($theView->formActionTarget) : ?><form method="post" action="<?php print $theView->formActionTarget; ?>" enctype="multipart/form-data" id="fpcm-ui-form"><?php endif; ?>
 

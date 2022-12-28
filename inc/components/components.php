@@ -125,4 +125,16 @@ final class components {
         return \fpcm\classes\dirs::getLibUrl('jquery/jquery-3.6.3.min.js');
     }
 
+    /**
+     * Return backdrop images from core/themes/backdrops
+     * @return array
+     * @since 5.1.0-a1
+     */
+    public static function getBackdropImages() : array
+    {
+        $base = \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_THEME, 'backdrops/');
+        $res = array_merge_recursive( glob($base . '*.jpg'), glob($base . '*.png'), glob($base . '*.svg') );
+        return is_array($res) ? array_map('basename', $res) : [];
+    }
+
 }
