@@ -34,6 +34,7 @@ namespace fpcm\view;
  * @property string $includeForms
  * @property string $backdrop
  * @property int    $loginTime
+ * @property int    $activeTab
  * 
  * @property \fpcm\model\permissions\permissions  $permissions
  * @property \fpcm\model\theme\navigationList  $navigation

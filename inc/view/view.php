@@ -1004,7 +1004,7 @@ class view {
     public function setActiveTab(int $tab)
     {
         $this->jsVars['activeTab'] = $tab;
-        $this->viewVars['activeTab'] = $tab;
+        $this->defaultViewVars->activeTab = $tab;
     }
 
     /**

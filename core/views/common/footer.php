@@ -9,9 +9,10 @@
     </div>
     <?php if ($theView->formActionTarget && $theView->showPageToken) : ?>
         <?php $theView->pageTokenField(); ?>
-        <?php $theView->hiddenInput('activeTab')->setValue((isset($activeTab) ? $activeTab : 0)); ?>
     </form>
     <?php endif; ?>
+    
+    <?php $theView->hiddenInput('activeTab')->setValue($theView->activeTab ?? 0); ?>
 
     <?php if ($theView->loggedIn) : ?><?php fpcmDebugOutput(); ?><?php endif; ?>
 

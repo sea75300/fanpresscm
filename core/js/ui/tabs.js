@@ -43,17 +43,23 @@ fpcm.ui_tabs = {
             var _obj = new bootstrap.Tab(_el);
 
             _el.addEventListener('click', function (_ev) {
-                _ev.preventDefault();
-                
-                if (params.reload && fpcm.dom.fromTag(_ev.target).hasClass('active') ) {
-                    fpcm.dom.fromTag(_ev.target).removeClass('active');
-                }
 
-                if (_ev.target.dataset.tabIndex !== undefined) {
+                if (!params.reload) {
                     fpcm.dom.fromId('activeTab').val(_ev.target.dataset.tabIndex);
+                    return true;
                 }
 
-                (new bootstrap.Tab(_ev.target)).show();
+                _ev.preventDefault();
+
+                let _currentTab = fpcm.dom.fromId('activeTab').val();
+
+                if (_ev.target.classList.contains('active') && _ev.target.dataset.tabIndex == _currentTab) {
+                    _ev.target.classList.remove('active');
+                    (new bootstrap.Tab(_ev.target)).show();
+                    
+                }
+
+                fpcm.dom.fromId('activeTab').val(_ev.target.dataset.tabIndex);
             });
 
             _el.addEventListener('show.bs.tab', function (_ev) {

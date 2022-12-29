@@ -34,7 +34,7 @@ fpcm.logs = {
                 _str += fpcm.ui.getIcon('weight', { size: 'lg' }) + fpcm.ui.translate('FILE_LIST_FILESIZE') + ': ' + _result.logsize;
                 _str += '</div>';
                 _str += '</div>';
-                fpcm.dom.appendHtml(_el.target.dataset.bsTarget, _str);                
+                fpcm.dom.appendHtml(_el.target.dataset.bsTarget, _str);
             }
             
         });
