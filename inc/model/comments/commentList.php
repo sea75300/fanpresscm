@@ -669,4 +669,49 @@ implements \fpcm\model\interfaces\gsearchIndex {
         return sprintf('%s<br><span class="fpcm ui-font-small text-muted">%s</span>', new \fpcm\view\helper\escape($name), new \fpcm\view\helper\dateText($date));
     }
 
+    /**
+     * Checks for new comments
+     * @return int
+     * @since 5.1.0-a1
+     */
+    public function getNewCommentCount() : int
+    {
+        $session = \fpcm\model\system\session::getInstance();
+        if (!$session->exists()) {
+            return 0;
+        }
+        
+        $opt = new \fpcm\model\files\userFileOption('user'.$session->getUserId().'/lastcomments');
+        $oVal = $opt->read();
+        
+        if (!is_object($oVal)) {
+            $oVal = new \stdClass();
+        }
+        
+        $last = $oVal->last ?? $session->getLogin();
+        
+        $now = time();
+
+        if ($now - $last < 60) {
+            return $oVal->count ?? 0;
+        }
+
+        $count = $this->dbcon->count(
+            $this->table,
+            'id',
+            'deleted = 0 AND createtime >= :createtime',
+            [':createtime' => $last]
+        );
+
+        if ($count === false) {
+            return 0;
+        }
+        
+        $oVal->last = $last;
+        $oVal->count = $count;
+
+        $opt->write($oVal);
+        return $count;
+    }
+
 }

@@ -15,9 +15,10 @@ namespace fpcm\model\system;
  * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-final class session extends \fpcm\model\abstracts\dataset {
+final class session extends \fpcm\model\abstracts\dataset implements \fpcm\model\interfaces\isObjectInstancable {
 
-    use \fpcm\model\traits\eventModuleEmpty;
+    use \fpcm\model\traits\eventModuleEmpty,
+        \fpcm\model\traits\getObjectInstance;
 
     /**
      * Session-ID
@@ -540,6 +541,14 @@ final class session extends \fpcm\model\abstracts\dataset {
         return \fpcm\classes\tools::getHash(bin2hex(random_bytes(64)));
     }
 
-}
+    /**
+     * Returns config class instance
+     * @return session
+     * @since 5.1.a-a1
+     */
+    public static function getInstance()
+    {
+        return self::getObjectInstance();
+    }
 
-?>
+}

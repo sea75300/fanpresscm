@@ -37,11 +37,23 @@ class notifications implements \Countable {
      */
     final public function prependSystemNotifications(): void
     {
-        if (\fpcm\classes\loader::getObject('\fpcm\model\system\config')->system_maintenance) {
+        $cgf = \fpcm\model\system\config::getInstance();
+        
+        if ($cgf->system_maintenance) {
             $this->addNotification(new \fpcm\model\theme\notificationItem(
                 (new \fpcm\view\helper\icon('lightbulb'))->setText('SYSTEM_OPTIONS_MAINTENANCE'),
                 '', '', 'text-danger'
             ));
+        }
+
+        if ($cgf->system_comments_enabled && $ctr = (new \fpcm\model\comments\commentList)->getNewCommentCount()) {
+
+            $this->addNotification(new \fpcm\model\theme\notificationItem(
+                (new \fpcm\view\helper\icon('comments'))->setText('COMMENTS_NOTIFICATION_NEW_COUNT', [$ctr], true),
+                '',
+                \fpcm\classes\tools::getControllerLink('comments/list')
+            ));
+
         }
 
         if (!\fpcm\classes\baseconfig::asyncCronjobsEnabled()) {

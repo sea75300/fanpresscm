@@ -396,9 +396,9 @@ abstract class helper implements \Stringable {
      * @param array $params
      * @return $this
      */
-    final public function setText($text, $params = [])
+    final public function setText($text, $params = [], bool $spf = false)
     {
-        $this->text = $this->language->translate($text, $params);
+        $this->text = $this->language->translate($text, $params, $spf);
         return $this;
     }
     

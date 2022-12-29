@@ -92,7 +92,17 @@ class notificationItem implements \Stringable {
      */
     public function __toString() : string
     {
-        return "<li id=\"{$this->id}\" class=\"{$this->class} text-truncate\"".$this->getCallback(). $this->icon . $this->icon->getText() . "</li>";
+        $callback = $this->getCallback();
+        
+        return sprintf(
+            '<li id="%s" class="%s text-truncate" %s %s %s</li>',
+            $this->id,
+            $this->class,
+            $this->getCallback(),
+            !str_contains($callback, '<a href') ? $this->icon : '',
+            $this->icon->getText()
+        );
+
     }
 
     /**
@@ -107,7 +117,6 @@ class notificationItem implements \Stringable {
         }
 
         if (strpos($this->callback, 'http') === 0) {
-            $this->class .= ' nav-link';
             return "><a href=\"{$this->callback}\">" . $this->icon . "</a>";
         }
 

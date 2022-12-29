@@ -52,6 +52,7 @@ $lang = array (
   'CATEGORIES_ROLLS' => 'Available for rolls',
   'COMMENTS_EDIT' => 'Edit comment',
   'COMMENTS_EDITARTICLE' => 'Edit related article',
+  'COMMENTS_NOTIFICATION_NEW_COUNT' => 'There are %s new comments.',
   'COMMENTS_PUBLIC_FORMHEADLINE' => 'Leave a comment',
   'COMMENTS_SEARCH_TYPE_ALL' => 'All AND',
   'COMMENTS_SEARCH_TYPE_ALLOR' => 'All OR',
