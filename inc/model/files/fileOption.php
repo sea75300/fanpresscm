@@ -65,6 +65,7 @@ class fileOption {
      */
     public function write($data)
     {
+
         if (!file_put_contents($this->path, json_encode($data))) {
             trigger_error('Unable to write file option ' . ops::removeBaseDir($this->path, true));
             return false;

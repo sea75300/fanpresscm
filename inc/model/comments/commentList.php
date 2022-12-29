@@ -683,7 +683,7 @@ implements \fpcm\model\interfaces\gsearchIndex {
         
         $opt = new \fpcm\model\files\userFileOption('user'.$session->getUserId().'/lastcomments');
         $oVal = $opt->read();
-        
+
         if (!is_object($oVal)) {
             $oVal = new \stdClass();
         }
@@ -691,11 +691,10 @@ implements \fpcm\model\interfaces\gsearchIndex {
         $last = $oVal->last ?? $session->getLogin();
         
         $now = time();
-
         if ($now - $last < 60) {
             return $oVal->count ?? 0;
         }
-
+        
         $count = $this->dbcon->count(
             $this->table,
             'id',
@@ -707,10 +706,10 @@ implements \fpcm\model\interfaces\gsearchIndex {
             return 0;
         }
         
-        $oVal->last = $last;
+        $oVal->last = $now;
         $oVal->count = $count;
 
-        $opt->write($oVal);
+        $opt->write($oVal);        
         return $count;
     }
 
