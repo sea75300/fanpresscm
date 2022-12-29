@@ -9,9 +9,11 @@
     <h3 class="pt-5 fs-1"><?php $theView->icon('copyright')->setSize('lg'); ?> <?php $theView->write('HL_HELP_LICENCE'); ?></h3>
     <?php print nl2br($theView->escapeVal($licence)); ?>
 
+    <?php if ($backdrop) : ?>
     <p class="pt-5">
         <strong><?php $theView->icon('image')->setSize('lg'); ?> <?php $theView->write('HL_HELP_BACKDROP'); ?></strong>
-        <a class="link-secondary" href="https://www.pexels.com/de-de/foto/klares-blaues-ufer-457881/" rel="external" target="_blank">https://www.pexels.com/de-de/foto/klares-blaues-ufer-457881/</a>.
+        <?php $theView->linkButton('backdropCredits')->setText($backdrop)->setUrl($backdrop)->setTarget('_blank')->setRel('external')->overrideButtonType('link'); ?>
     </p>
+    <?php endif; ?>
 
 </div>
