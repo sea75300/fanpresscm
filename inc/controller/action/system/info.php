@@ -31,18 +31,10 @@ class info extends \fpcm\controller\abstracts\controller {
      */
     public function process() : bool
     {
-        
-        $img = $this->session->getCurrentUser()->getUserMeta()->backdrop;
-        if (!trim($img)) {
-            $img = 'pexels-asad-photo-maldives-4578810.jpg';
-        }
-        
-        $backdropPath = \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_THEME, 'backdrops/' . $img . '.txt');
-
         $this->view->setViewVars([
             'content' => simplexml_load_string($this->language->getHelp())->xpath("/chapters/chapter[@ref=\"HL_HELP_SUPPORT\"]")[0],
             'licence' => file_get_contents(\fpcm\classes\dirs::getFullDirPath('', 'licence.txt')),
-            'backdrop' => file_exists($backdropPath) ? file_get_contents($backdropPath) : false
+            'backdrop' => (new \fpcm\model\files\backdropImage(true))->getCredits()
         ]);
         
         $this->view->assign('tabContentClass', 'fpcm ui-background-white-50p');

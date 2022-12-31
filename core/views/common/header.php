@@ -15,9 +15,15 @@
         <link rel="manifest" href="<?php print $theView->themePath; ?>manifest.json">
         <?php include_once 'includefiles.php'; ?>
         <?php include_once 'vars.php'; ?>
+        
+        <?php if ($theView->backdrop) : ?>
+        <style>
+            :root { --fpcm-var-backdrop-image: url('<?php print $theView->backdrop; ?>'); }
+        </style>
+        <?php endif; ?>
     </head>    
 
-    <body class="fpcm-body <?php print $theView->bodyClass; ?>" id="fpcm-body" <?php if ($theView->backdrop) : ?>style="background-image: url(<?php print $theView->backdrop; ?>);"<?php endif; ?>>
+    <body class="fpcm-body <?php print $theView->bodyClass; ?>" id="fpcm-body">
 
         <?php if ($theView->formActionTarget) : ?><form method="post" action="<?php print $theView->formActionTarget; ?>" enctype="multipart/form-data" id="fpcm-ui-form"><?php endif; ?>
 

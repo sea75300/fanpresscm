@@ -59,7 +59,7 @@
                             ->setOptions(array_combine($backdrops, $backdrops))
                             ->setSelected($author->getUserMeta()->backdrop)
                             ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED)
-                            ->setText('SYSTEM_OPTIONS_ACPARTICLES_LIMIT')
+                            ->setText('SYSTEM_OPTIONS_BACKDROP_IMAGE')
                             ->setIcon('panorama'); ?>
         </div>
     </div>

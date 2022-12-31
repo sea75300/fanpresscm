@@ -9,10 +9,10 @@
     <h3 class="pt-5 fs-1"><?php $theView->icon('copyright')->setSize('lg'); ?> <?php $theView->write('HL_HELP_LICENCE'); ?></h3>
     <?php print nl2br($theView->escapeVal($licence)); ?>
 
-    <?php if ($backdrop) : ?>
-    <p class="pt-5">
+    <?php if (trim($backdrop)) : ?>
+    <p class="d-flex align-self-center align-items-center  pt-5">
         <strong><?php $theView->icon('image')->setSize('lg'); ?> <?php $theView->write('HL_HELP_BACKDROP'); ?></strong>
-        <?php $theView->linkButton('backdropCredits')->setText($backdrop)->setUrl($backdrop)->setTarget('_blank')->setRel('external')->overrideButtonType('link'); ?>
+        <?php $theView->linkButton('backdropCredits')->setText($backdrop)->setUrl($backdrop)->setTarget('_blank')->setRel('external')->overrideButtonType('link')->setClass('p-0 m-0'); ?>
     </p>
     <?php endif; ?>
 

@@ -762,9 +762,8 @@ class view {
             
             $this->defaultViewVars->loggedIn = true;
             $this->defaultViewVars->permissions = \fpcm\classes\loader::getObject('\fpcm\model\permissions\permissions');
-            
-            $bg = $this->session->getCurrentUser()->getUserMeta()->backdrop;
-            $this->defaultViewVars->backdrop = trim($bg) ? \fpcm\classes\dirs::getCoreUrl(\fpcm\classes\dirs::CORE_THEME, 'backdrops/' . $bg) : false;
+
+            $this->defaultViewVars->backdrop = (new \fpcm\model\files\backdropImage())->getUrl();
         }
 
         if ($hasDbConfig) {
