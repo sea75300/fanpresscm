@@ -12,7 +12,7 @@ namespace fpcm\model\traits;
  * 
  * @package fpcm\model\traits\
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2013, Stefan Seehafer
+ * @copyright (c) 2019, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @since 4.3.1
  */

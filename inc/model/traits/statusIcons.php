@@ -8,11 +8,11 @@
 namespace fpcm\model\traits;
 
 /**
- * Trait for dashboard containrs based to table structure
+ * Trait to colorize status icons based on their status
  * 
  * @package fpcm\model\traits\
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2013, Stefan Seehafer
+ * @copyright (c) 2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @since 5.1.0-a1
  */
