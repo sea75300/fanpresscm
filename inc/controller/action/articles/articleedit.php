@@ -121,6 +121,7 @@ class articleedit extends articlebase {
         $this->view->assign('editorMode', 1);
         $this->view->assign('postponedTimer', $this->article->getCreatetime());
         $this->view->assign('commentsMode', 2);
+        $this->view->assign('showArchiveStatus', true);
         
         $this->view->addDataView(new \fpcm\components\dataView\dataView('commentlist', false));
         $this->view->addDataView(new \fpcm\components\dataView\dataView('revisionslist', false));

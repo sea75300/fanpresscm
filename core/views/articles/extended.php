@@ -156,6 +156,8 @@
             <?php $theView->checkbox('article[tweet]')
                     ->setText('EDITOR_TWEET_ENABLED')
                     ->setSelected($article->tweetCreationEnabled())
+                    ->setValue($article)
+                    ->setClass('fpcm-ui-editor-metainfo-checkbox')->setData(['icon' => 'twitter'])
                     ->setSwitch(true); ?>
         </div>
     </div>

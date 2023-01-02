@@ -247,6 +247,11 @@ class revision extends \fpcm\controller\abstracts\controller implements \fpcm\co
     
     protected function onRevisionRestore()
     {
+        if (!$this->checkPageToken()) {
+            $this->view->addErrorMessage('CSRF_INVALID');
+            return true;
+        }
+
         if (!$this->rid || !$this->article->restoreRevision($this->rid)) {
             $this->view->addErrorMessage('SAVE_FAILED_ARTICLEREVRESTORE');
             return false;

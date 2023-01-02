@@ -192,7 +192,6 @@ abstract class articlebase extends \fpcm\controller\abstracts\controller impleme
         $this->view->assign('article', $this->article);
         $this->view->assign('categories', $this->categoryList->getCategoriesNameListCurrent());
         $this->view->assign('commentEnabledGlobal', $this->config->system_comments_enabled);
-        $this->view->assign('showArchiveStatus', true);
         $this->view->assign('showDraftStatus', true);
         $this->view->assign('userfields', $this->getUserFields());
         $this->view->assign('rollCodex', (new \fpcm\model\users\userRoll($this->session->getCurrentUser()->getRoll()))->getCodex());
@@ -376,6 +375,11 @@ abstract class articlebase extends \fpcm\controller\abstracts\controller impleme
      */
     protected function onArticleSave() : bool
     {
+        if (!$this->checkPageToken()) {
+            $this->view->addErrorMessage('CSRF_INVALID');
+            return true;
+        }
+
         $allTimer = time();
         
         $data = $this->request->fromPOST('article', [

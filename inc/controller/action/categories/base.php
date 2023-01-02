@@ -70,6 +70,11 @@ class base extends \fpcm\controller\abstracts\controller implements \fpcm\contro
     
     public function oncategorySave()
     {
+        if (!$this->checkPageToken()) {
+            $this->view->addErrorMessage('CSRF_INVALID');
+            return true;
+        }
+
         $data = $this->request->fromPOST('category', [
             \fpcm\model\http\request::FILTER_STRIPSLASHES,
             \fpcm\model\http\request::FILTER_TRIM

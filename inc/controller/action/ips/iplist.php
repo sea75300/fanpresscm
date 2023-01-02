@@ -17,7 +17,8 @@ class iplist extends \fpcm\controller\abstracts\controller implements \fpcm\cont
 {
 
     use \fpcm\controller\traits\common\dataView,
-        \fpcm\controller\traits\theme\nav\ips;
+        \fpcm\controller\traits\theme\nav\ips,
+        \fpcm\model\traits\statusIcons;
 
     /**
      *
@@ -126,9 +127,9 @@ class iplist extends \fpcm\controller\abstracts\controller implements \fpcm\cont
                     : $this->notfoundStr;
         
         $metaData   = [
-            (new \fpcm\view\helper\icon('comment-slash fa-inverse'))->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $item->getNocomments())->setText('IPLIST_NOCOMMENTS')->setStack('square'),
-            (new \fpcm\view\helper\icon('sign-in-alt fa-inverse'))->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $item->getNologin())->setText('IPLIST_NOLOGIN')->setStack('square'),
-            (new \fpcm\view\helper\icon('ban fa-inverse'))->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $item->getNoaccess())->setText('IPLIST_NOACCESS')->setStack('square')
+            $this->getStatusColor( (new \fpcm\view\helper\icon('comment-slash fa-inverse'))->setClass('fpcm-ui-editor-metainfo')->setText('IPLIST_NOCOMMENTS')->setStack('square'), $item->getNocomments() ),
+            $this->getStatusColor( (new \fpcm\view\helper\icon('sign-in-alt fa-inverse'))->setClass('fpcm-ui-editor-metainfo')->setText('IPLIST_NOLOGIN')->setStack('square'), $item->getNologin() ),
+            $this->getStatusColor( (new \fpcm\view\helper\icon('ban fa-inverse'))->setClass('fpcm-ui-editor-metainfo')->setText('IPLIST_NOACCESS')->setStack('square') , $item->getNoaccess() ),
         ];
 
         return new \fpcm\components\dataView\row([

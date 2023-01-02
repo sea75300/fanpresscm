@@ -116,7 +116,7 @@ class crons extends \fpcm\controller\abstracts\controller
         elseif ( $cronjob->getModuleKey() && !in_array($cronjob->getModuleKey(), $modules) ) {
             $btnReadonly = true;
             $processingIcon = 'play-circle';
-            $rowClass = 'text-muted';
+            $rowClass = 'text-secondary';
             $playClass = '';
         }
         else {

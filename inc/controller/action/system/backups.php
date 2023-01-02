@@ -42,6 +42,12 @@ implements \fpcm\controller\interfaces\requestFunctions
     
     protected function onDelete()
     {
+
+        if (!$this->checkPageToken()) {
+            $this->view->addErrorMessage('CSRF_INVALID');
+            return true;
+        }
+
         $deleteFile = $this->request->fromPOST('files', [
             \fpcm\model\http\request::FILTER_URLDECODE,
             \fpcm\model\http\request::FILTER_BASE64DECODE,

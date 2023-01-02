@@ -27,7 +27,7 @@ fpcm.article = {
         fpcm.article._initEdit();
         
         fpcm.dom.bindEvent('.fpcm-ui-editor-metainfo-checkbox', 'change', function (_e, _ui) {
-            fpcm.dom.fromTag('span.fpcm-ui-editor-metainfo-' + _ui.dataset.icon).toggleClass('fpcm-ui-status-1 fpcm-ui-status-0');
+            fpcm.dom.fromTag('span.fpcm-ui-editor-metainfo-' + _ui.dataset.icon).toggleClass('text-info text-secondary');
         });
 
         window.categoryMs = fpcm.ui.multiselect('articlecategories');

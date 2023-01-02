@@ -18,7 +18,8 @@ namespace fpcm\model\articles;
 class article extends \fpcm\model\abstracts\dataset
 implements \fpcm\model\interfaces\isCsvImportable {
 
-    use \fpcm\model\traits\autoTable;
+    use \fpcm\model\traits\autoTable,
+        \fpcm\model\traits\statusIcons;
     
     /**
      * Cache-Name für einzelnen Artikel
@@ -1013,10 +1014,10 @@ implements \fpcm\model\interfaces\isCsvImportable {
         return [
             $this->getStatusIconPinned(),
             $showDraftStatus ? $this->getStatusIconDraft() : '',
-            $this->getStatusIconPostponed(),
-            $this->getStatusIconApproval(),
             $showCommentsStatus ? $this->getStatusIconComments() : '',
+            $this->getStatusIconApproval(),
             $showArchivedStatus ? $this->getStatusIconArchive() : '',
+            $this->getStatusIconPostponed(),
         ];
     }
 
@@ -1026,10 +1027,10 @@ implements \fpcm\model\interfaces\isCsvImportable {
      */
     public function getStatusIconPinned()
     {
-        return (new \fpcm\view\helper\icon('thumbtack fa-rotate-90 fa-inverse'))
-                        ->setClass('fpcm-ui-editor-metainfo fpcm-ui-editor-metainfo-pinned fpcm-ui-status-' . $this->getPinned())
+        return $this->getStatusColor((new \fpcm\view\helper\icon('thumbtack fa-rotate-90 fa-inverse'))
+                        ->setClass('fpcm-ui-editor-metainfo fpcm-ui-editor-metainfo-pinned')
                         ->setText('EDITOR_STATUS_PINNED')
-                        ->setStack('square');
+                        ->setStack('square'), $this->getPinned());
     }
 
     /**
@@ -1038,10 +1039,10 @@ implements \fpcm\model\interfaces\isCsvImportable {
      */
     public function getStatusIconDraft()
     {
-        return (new \fpcm\view\helper\icon('file-alt fa-inverse', 'far'))
-                        ->setClass('fpcm-ui-editor-metainfo fpcm-ui-editor-metainfo-draft fpcm-ui-status-' . $this->getDraft())
+        return $this->getStatusColor((new \fpcm\view\helper\icon('file-alt fa-inverse', 'far'))
+                        ->setClass('fpcm-ui-editor-metainfo fpcm-ui-editor-metainfo-draft')
                         ->setText('EDITOR_STATUS_DRAFT')
-                        ->setStack('square');
+                        ->setStack('square'), $this->getDraft());
     }
 
     /**
@@ -1050,10 +1051,10 @@ implements \fpcm\model\interfaces\isCsvImportable {
      */
     public function getStatusIconPostponed()
     {
-        return (new \fpcm\view\helper\icon('calendar-plus fa-inverse'))
-                        ->setClass('fpcm-ui-editor-metainfo fpcm-ui-editor-metainfo-postponed fpcm-ui-status-' . $this->getPostponed())
+        return $this->getStatusColor((new \fpcm\view\helper\icon('calendar-plus fa-inverse'))
+                        ->setClass('fpcm-ui-editor-metainfo fpcm-ui-editor-metainfo-postponed')
                         ->setText($this->language->translate('EDITOR_STATUS_POSTPONETO') . ( $this->getPostponed() ? ' ' . new \fpcm\view\helper\dateText($this->getCreatetime()) : ''))
-                        ->setStack('square');
+                        ->setStack('square'), $this->getPostponed());
     }
 
     /**
@@ -1062,10 +1063,10 @@ implements \fpcm\model\interfaces\isCsvImportable {
      */
     public function getStatusIconApproval()
     {
-        return (new \fpcm\view\helper\icon('thumbs-up fa-inverse', 'far'))
-                        ->setClass('fpcm-ui-editor-metainfo fpcm-ui-editor-metainfo-approval fpcm-ui-status-' . $this->getApproval())
+        return $this->getStatusColor((new \fpcm\view\helper\icon('thumbs-up fa-inverse', 'far'))
+                        ->setClass('fpcm-ui-editor-metainfo fpcm-ui-editor-metainfo-approval')
                         ->setText('EDITOR_STATUS_APPROVAL')
-                        ->setStack('square');
+                        ->setStack('square'), $this->getApproval());
     }
 
     /**
@@ -1074,10 +1075,10 @@ implements \fpcm\model\interfaces\isCsvImportable {
      */
     public function getStatusIconComments()
     {
-        return (new \fpcm\view\helper\icon('comments fa-inverse', 'far'))
-                        ->setClass('fpcm-ui-editor-metainfo fpcm-ui-editor-metainfo-comments fpcm-ui-status-' . $this->getComments())
+        return $this->getStatusColor((new \fpcm\view\helper\icon('comments fa-inverse', 'far'))
+                        ->setClass('fpcm-ui-editor-metainfo fpcm-ui-editor-metainfo-comments')
                         ->setText('EDITOR_STATUS_COMMENTS')
-                        ->setStack('square');
+                        ->setStack('square'), $this->getComments());
     }
 
     /**
@@ -1086,10 +1087,22 @@ implements \fpcm\model\interfaces\isCsvImportable {
      */
     public function getStatusIconArchive()
     {
-        return (new \fpcm\view\helper\icon('archive fa-inverse'))
-                        ->setClass('fpcm-ui-editor-metainfo fpcm-ui-editor-metainfo-archived fpcm-ui-status-' . $this->getArchived())
+        return $this->getStatusColor((new \fpcm\view\helper\icon('archive fa-inverse'))
+                        ->setClass('fpcm-ui-editor-metainfo fpcm-ui-editor-metainfo-archived')
                         ->setText('EDITOR_STATUS_ARCHIVE')
-                        ->setStack('square');
+                        ->setStack('square'), $this->getArchived());
+    }
+
+    /**
+     * Returns archive status icon
+     * @return \fpcm\view\helper\icon
+     */
+    public function getStatusIconTwitter()
+    {
+        return $this->getStatusColor((new \fpcm\view\helper\icon('twitter fab fa-inverse'))
+                        ->setClass('fpcm-ui-editor-metainfo fpcm-ui-editor-metainfo-twitter')
+                        ->setText('EDITOR_TWEET_ENABLED')
+                        ->setStack('square'), $this->tweetCreationEnabled());
     }
 
     /**

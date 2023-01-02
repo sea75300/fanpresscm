@@ -897,7 +897,7 @@ implements \fpcm\model\interfaces\gsearchIndex {
     public function prepareText(string $text): string
     {
         list($name, $date) = explode(';', $text);
-        return sprintf('%s<br><span class="fpcm ui-font-small text-muted">%s</span>', new \fpcm\view\helper\escape($name), new \fpcm\view\helper\dateText($date));        
+        return sprintf('%s<br><span class="fpcm ui-font-small text-secondary">%s</span>', new \fpcm\view\helper\escape($name), new \fpcm\view\helper\dateText($date));        
     }
 
 }

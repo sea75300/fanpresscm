@@ -494,7 +494,7 @@ implements \fpcm\model\interfaces\gsearchIndex {
         $name = basename($name);
         
         return sprintf(
-            '%s%s<br><span class="fpcm ui-font-small text-muted">%s</span>',
+            '%s%s<br><span class="fpcm ui-font-small text-secondary">%s</span>',
             new \fpcm\view\helper\escape($alttext ? $alttext : $name),
             new \fpcm\view\helper\escape($alttext ? ' ('.$name.')' : ''),
             new \fpcm\view\helper\dateText($date)

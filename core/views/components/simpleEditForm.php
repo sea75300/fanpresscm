@@ -1,6 +1,6 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
 <?php if ($theView->debugMode) : ?>
-<div class="d-flex justify-content-end text-muted fs-6 p-2">Form: <?php $theView->escape($formFields->area); ?></div>
+<div class="d-flex justify-content-end text-secondary fs-6 p-2">Form: <?php $theView->escape($formFields->area); ?></div>
 <?php endif; ?>
 
 <div class="row">

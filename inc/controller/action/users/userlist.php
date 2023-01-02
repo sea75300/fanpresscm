@@ -12,7 +12,8 @@ namespace fpcm\controller\action\users;
 class userlist extends \fpcm\controller\abstracts\controller
 {
 
-    use \fpcm\controller\traits\theme\nav\users;
+    use \fpcm\controller\traits\theme\nav\users,
+        \fpcm\model\traits\statusIcons;
     
     /**
      *
@@ -237,7 +238,7 @@ class userlist extends \fpcm\controller\abstracts\controller
 
                 $metadata = [
                     (new \fpcm\view\helper\badge('art'.$userId))->setValue($count)->setText('USERS_ARTICLE_COUNT')->setIcon('book'),
-                    (new \fpcm\view\helper\icon('user-slash'))->setText('USERS_DISABLED')->setClass('ms-1 fpcm-ui-editor-metainfo fpcm-ui-status-' . $user->getDisabled())
+                    $this->getStatusColor( (new \fpcm\view\helper\icon('user-slash fa-inverse'))->setText('USERS_DISABLED')->setClass('fpcm-ui-editor-metainfo')->setStack('square') , $user->getDisabled() )
                 ];
                 
                 $buttons = [
@@ -277,7 +278,7 @@ class userlist extends \fpcm\controller\abstracts\controller
                         new \fpcm\components\dataView\rowCol('email', new \fpcm\view\helper\escape($user->getEmail())),
                         new \fpcm\components\dataView\rowCol('registered', new \fpcm\view\helper\dateText($user->getRegistertime())),
                         new \fpcm\components\dataView\rowCol('metadata', implode('', $metadata), 'fs-5', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
-                    ], $user->getDisabled() ? 'text-muted' : ''
+                    ], $user->getDisabled() ? 'text-secondary' : ''
                 ));
 
             }

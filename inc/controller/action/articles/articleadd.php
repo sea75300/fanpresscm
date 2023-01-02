@@ -34,6 +34,7 @@ class articleadd extends articlebase {
 
         $this->view->setFormAction('articles/add');
         $this->view->assign('editorMode', 0);
+        $this->view->assign('showArchiveStatus', false);
         $this->view->assign('showComments', false);
         $this->view->assign('showRevisions', false);
         $this->view->assign('showShares', false);

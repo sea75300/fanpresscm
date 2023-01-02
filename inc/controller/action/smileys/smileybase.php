@@ -94,6 +94,12 @@ implements \fpcm\controller\interfaces\requestFunctions
 
     protected function onSaveSmiley() : bool
     {
+
+        if (!$this->checkPageToken()) {
+            $this->view->addErrorMessage('CSRF_INVALID');
+            return true;
+        }
+
         $smileyData = $this->request->fromPOST('smiley');
         if (empty($smileyData['filename']) || !$smileyData['code']) {
             $this->view->addErrorMessage('SAVE_FAILED_SMILEY');
