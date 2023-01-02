@@ -606,9 +606,9 @@ class view {
      * @param array $params
      * @since 4.2
      */
-    public function addTopDescription(string $descr, array $params = [])
+    public function addTopDescription(string $descr, array $params = [], bool $spf = false)
     {
-        $this->viewVars['topDescription'] = $this->language->translate($descr, $params);
+        $this->viewVars['topDescription'] = $this->language->translate($descr, $params, $spf);
     }
 
     /**

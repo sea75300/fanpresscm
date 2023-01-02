@@ -43,7 +43,6 @@ $lang = array (
   'ARTICLE_SEARCH_TYPE_TITLE' => 'nur Titel',
   'ARTICLE_SEARCH_USER' => 'Benutzer einschränken',
   'BACKUPS_NOTICE_POSTGRES' => 'Die automatische Sicherung der Datenbank wird Postgres aktuell nicht unterstützt.',
-  'BACKUPS_TOP_DESCRIPTION' => 'Die erzeugten Backups kannst du via FTP/ SSH etc. aus dem Verzeichnis <em>{{path}}</em> herunterladen.',
   'CACHE_CLEARED_OK' => 'Der Cache wurde geleert!',
   'CATEGORIES_ADD' => 'Kategorie hinzufügen',
   'CATEGORIES_EDIT' => 'Kategorie bearbeiten',
