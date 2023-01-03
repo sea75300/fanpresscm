@@ -46,7 +46,6 @@ implements  \ArrayAccess,
         $this->initDefaults();
         $this->data = array_merge($this->data, is_array($data) ? $data : []);
     }
-
     
     /**
      * Check is offset exists

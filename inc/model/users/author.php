@@ -670,6 +670,7 @@ class author extends \fpcm\model\abstracts\dataset {
      * @param string $opt
      * @param mixed $data
      * @return bool
+     * @deprecated 5.1.0-a1
      */
     final public function writeOption($opt, $data)
     {
@@ -680,6 +681,7 @@ class author extends \fpcm\model\abstracts\dataset {
      * Read content from file option for current user
      * @param string $opt
      * @return mixed
+     * @deprecated 5.1.0-a1
      */
     final public function readOption($opt)
     {
@@ -690,6 +692,7 @@ class author extends \fpcm\model\abstracts\dataset {
      * Removes file option for current user
      * @param string $opt
      * @return mixed
+     * @deprecated 5.1.0-a1
      */
     final public function removeOption($opt)
     {
@@ -700,6 +703,7 @@ class author extends \fpcm\model\abstracts\dataset {
      * Generates file option object for current user
      * @param string $opt
      * @return string
+     * @deprecated 5.1.0-a1
      */
     private function getFileOptionObject($opt)
     {

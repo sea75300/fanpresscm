@@ -66,7 +66,7 @@ class fsBackend implements \fpcm\model\interfaces\cacheBackend {
 
         $parent = dirname($this->path);
         if ($this->module && !is_dir($parent) && !mkdir($parent)) {
-            trigger_error('Unable to create cache subdirectory in ' . ops::removeBaseDir($parent, true));
+            trigger_error('Unable to create cache subdirectory in ' . \fpcm\model\files\ops::removeBaseDir($parent, true));
             return false;
         }
 
@@ -82,7 +82,7 @@ class fsBackend implements \fpcm\model\interfaces\cacheBackend {
         ];
 
         if (!file_put_contents($this->path, json_encode($data))) {
-            trigger_error('Unable to write cache file ' . ops::removeBaseDir($this->path, true));
+            trigger_error('Unable to write cache file ' . \fpcm\model\files\ops::removeBaseDir($this->path, true));
             return false;
         }
 
@@ -96,12 +96,21 @@ class fsBackend implements \fpcm\model\interfaces\cacheBackend {
      */
     public function read($raw = false)
     {
-        if (file_exists($this->path)) {
-            $return = json_decode(file_get_contents($this->path));
-            return $raw ? $return : ($return->data ?? null);
+        if (!file_exists($this->path)) {
+            return null;
         }
 
-        return null;
+        if (!is_readable($this->path)) {
+            trigger_error('Unable to read cache file ' . \fpcm\model\files\ops::removeBaseDir($this->path, true));
+            return null;
+        }
+
+        $return = json_decode(file_get_contents($this->path));
+        if ($raw) {
+            return $return;
+        }
+        
+        return $return->data ?? null;
     }
 
     /**

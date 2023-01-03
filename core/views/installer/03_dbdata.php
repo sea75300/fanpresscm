@@ -5,7 +5,6 @@
             ->setOptions($sqlDrivers)
             ->setClass('fpcm-installer-data')
             ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
-            ->setText('INSTALLER_DBCONNECTION_TYPE')
             ->setLabelTypeFloat(); ?>
 </div>       
 
