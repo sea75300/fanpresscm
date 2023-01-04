@@ -11,7 +11,6 @@ body.fpcm.ui-classic-backdrop {
 body,
 a, a:visited, a.fpcm-link
 i, em,
-span.fpcm.ui-button-shorthelp,
 .cm-s-fpcm.CodeMirror,
 .fpcm-ui-color-grey-dark,
 a.nav-link {
@@ -31,7 +30,6 @@ h1,
 h3,
 ins,
 .text-primary,
-span.fpcm.ui-button-shorthelp:hover,
 span.fpcm-ui-editor-metainfo {
     color: var(--bs-primary);
 }

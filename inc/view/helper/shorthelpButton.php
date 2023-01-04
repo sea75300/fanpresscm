@@ -23,7 +23,7 @@ class shorthelpButton extends linkButton {
      */
     protected function init()
     {
-        $this->class = 'fpcm ui-button-shorthelp';
+        $this->class = 'fpcm ui-button-shorthelp btn btn-outline-secondary';
         $this->iconOnly = true;
         $this->target = '_blank';
         $this->rel = 'noreferrer,noopener,external';

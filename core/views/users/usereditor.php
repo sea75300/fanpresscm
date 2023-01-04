@@ -10,6 +10,8 @@
                     ->setAutoFocused(true)
                     ->setRequired(true)
                     ->setText('USERS_DISPLAYNAME')
+                    ->setPlaceholder('USERS_DISPLAYNAME')
+                    ->setLabelTypeFloat()
                     ->setIcon('signature'); ?>
         </div>
     </div>
@@ -22,38 +24,40 @@
                     ->setAutocomplete(false)
                     ->setRequired(true)
                     ->setText('GLOBAL_USERNAME')
+                    ->setPlaceholder('GLOBAL_USERNAME')
+                    ->setLabelTypeFloat()                        
                     ->setIcon('user'); ?>
         </div>
     </div>
 
-    <div class="row my-2">
-        <div class="col-12 col-md-6 align-self-center">
-            <div class="row g-0">
+    <div class="row row-cols-1 row-cols-md-4 gap-1 my-2">
+        <div class="col align-self-center">
                 <?php $theView->textInput('data[password]', 'password')
                     ->setAutocomplete(false)
                     ->setText('GLOBAL_PASSWORD')
+                    ->setPlaceholder('GLOBAL_PASSWORD')
+                    ->setLabelTypeFloat()
                     ->setIcon('passport')
                     ->setRequired(!$author->getId())
                     ->setPattern('^.*(?=.{6,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*$'); ?>
-            </div>
         </div>
-        <div class="col-auto align-self-center mb-3">
-            <?php $theView->button('genPasswd', 'genPasswd')->setText('USERS_PASSGEN')->setIcon('key')->setIconOnly(); ?>
-        </div>
-        <div class="col-auto align-self-center mb-3">
-            <?php $theView->shorthelpButton('dtmask')->setText('USERS_REQUIREMENTS'); ?>
-        </div>
-    </div>
-
-    <div class="row my-2">
-        <div class="col-12 col-md-6">
+        
+        <div class="col ps-md-0">
                 <?php $theView->textInput('data[password_confirm]', 'password_confirm')
                     ->setAutocomplete(false)
                     ->setText('USERS_PASSWORD_CONFIRM')
+                    ->setPlaceholder('USERS_DISPLAYNAME')
+                    ->setLabelTypeFloat()
                     ->setIcon('passport')
                     ->setRequired(!$author->getId())
                     ->setPattern('^.*(?=.{6,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*$'); ?>
         </div>
+        
+        <div class="col-auto align-self-center mb-3">
+            <?php $theView->button('genPasswd', 'genPasswd')->setText('USERS_PASSGEN')->setIcon('key')->setIconOnly(); ?>
+            <?php $theView->shorthelpButton('pass')->setText('USERS_REQUIREMENTS'); ?>
+        </div>
+
     </div>
 
     <div class="row my-2">
@@ -62,6 +66,8 @@
                     ->setType('email')
                     ->setValue($author->getEmail())
                     ->setText('GLOBAL_EMAIL')
+                    ->setPlaceholder('GLOBAL_EMAIL')
+                    ->setLabelTypeFloat()
                     ->setRequired(true)
                     ->setIcon('at'); ?>
         </div>
@@ -73,6 +79,8 @@
                 <?php $theView->passwordInput('data[current_pass]')
                     ->setAutocomplete(false)
                     ->setText('GLOBAL_PASSWORD_CONFIRM')
+                    ->setPlaceholder('GLOBAL_PASSWORD_CONFIRM')
+                    ->setLabelTypeFloat()
                     ->setIcon('exclamation-triangle text-danger')
                     ->setSize('lg'); ?>
         </div>
@@ -87,6 +95,7 @@
                     ->setReadonly((isset($inProfile) && $inProfile))
                     ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
                     ->setText('USERS_ROLL')
+                    ->setLabelTypeFloat()
                     ->setIcon('users'); ?>
         </div>
     </div>
@@ -95,9 +104,10 @@
     <div class="row my-2 <?php print $inProfile ? 'fpcm-ui-hidden' : '' ?>">
         <div class="col-12 col-md-6">
                 <?php $theView->boolSelect('data[disabled]')
-                        ->setSelected($author->getDisabled())
-                            ->setText('GLOBAL_DISABLE')
-                            ->setIcon('user-slash'); ?>
+                ->setSelected($author->getDisabled())
+                ->setText('GLOBAL_DISABLE')
+                ->setLabelTypeFloat()
+                ->setIcon('user-slash'); ?>
 
         </div>
     </div>
@@ -116,7 +126,8 @@
                 ->setMaxlenght(6)
                 ->setAutocomplete(false)
                 ->setText('USERS_AUTHTOKEN_SAVE')
-                ->setPlaceholder($theView->translate('LOGIN_AUTHCODE'))
+                ->setPlaceholder('USERS_AUTHTOKEN_SAVE')
+                ->setLabelTypeFloat()
                 ->setLabelClass('pe-3')
                 ->setIcon('exclamation-triangle text-danger')
                 ->setSize('lg'); ?>                    

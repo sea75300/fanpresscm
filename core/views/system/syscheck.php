@@ -3,7 +3,7 @@
         <div class="row py-3 border-bottom border-1 border-secondary fpcm ui-background-transition">
             <div class="col-auto flex-grow-1 align-self-center text-center">
                 <?php if ($checkResult->isFolder()) : ?>
-                    <?php print (new \fpcm\view\helper\icon('folder')); ?>
+                    <span class="p-3"><?php print (new \fpcm\view\helper\icon('folder')); ?></span>
                 <?php elseif ($checkResult->getHelplink()) : ?>
                     <?php $theView->shorthelpButton($checkOption)->setText('GLOBAL_INFO')->setUrl($checkResult->getHelplink())->setSize('lg'); ?>
                 <?php endif; ?>
