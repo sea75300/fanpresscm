@@ -44,10 +44,10 @@ Help language file
             oder es ist ein Schnellzugriff auf bestimmte Funktionen möglich.</p>
 
             <p>Die Position der Container kann durch Klick auf den Button 
-            <span class="btn btn-link btn-sm"><span class="fpcm-ui-icon fa fa-fw fa-arrows-alt  "></span></span>
+            <span class="btn btn-sm btn-link btn-sm"><span class="fpcm-ui-icon fa fa-fw fa-arrows-alt  "></span></span>
             verändert werden. Die Reihenfolge legt jeder Benutzer selbst fest.
             Um bestimmte Container zu deaktivieren, klicke in der Fußzeile auf
-            den Button <span class="btn btn-link btn-sm"><span class="fpcm-ui-icon fa fa-fw fa-toggle-off"></span></span>.</p>
+            den Button <span class="btn btn-sm btn-link btn-sm"><span class="fpcm-ui-icon fa fa-fw fa-toggle-off"></span></span>.</p>
             
             <p>Über das Dropdown "Container verwalten" in der Toolbar des Startbildschirms kann die Reihenfolge auf den Standard zurückgesetzt bzw.
             deaktivierte Container wieder reaktiviert werden.</p>
@@ -416,7 +416,7 @@ Help language file
     </chapter>
     <chapter ref="HL_PROFILE">
         <![CDATA[
-        <p>Das eigene <b>Profil</b> können alle Benutzer über das Profil-Menü oben rechts aufrufen. Über den Button <strong>Zurücksetzen</strong>
+        <p>Das eigene <b>Profil</b> können alle Benutzer über das Profil-Menü oben rechts aufrufen. Über den Button <span class="btn btn-sm btn-outline-dark">Zurücksetzen</span>
         können die Einstellungen auf die Systemweiten Vorgaben zurücksetzen.</p>
         
         <h3 class="pt-5 fs-1">Profil</h3>
@@ -427,7 +427,7 @@ Help language file
             <dt>Benutzername:</dt>
             <dd class="pb-2">Dein Name für den Login. Deinen Benutzernamen kannst du nicht selbst ändern. Wende dich hierfür an einen Administrator.</dd>
             <dt>Passwort:</dt>
-            <dd class="pb-2">Zeichenkette welches für den Login verwendet wird. Neben dem Eingabefeld findest du den Button <strong>Password generieren</strong>.
+            <dd class="pb-2">Zeichenkette welches für den Login verwendet wird. Neben dem Eingabefeld findest du den Button <span class="btn btn-sm btn-outline-dark">Password generieren</span>.
             Über diesen kannst du eine zufällige Zeichenkette erzeugen lassen und als Passwort abspeichern.</dd>
             <dt>E-Mail-Adresse:</dt>
             <dd class="pb-2">E-Mail-Adresse für Benachrichtigungen, ein neu gesetztes Passwort etc.</dd>
@@ -437,12 +437,17 @@ Help language file
 
         <h3 class="pt-5 fs-1">Zwei-Faktor-Authentifizierung (optional)</h3>
         
-        <p>Die Zwei-Faktor-Authentifizierung bietet einen zusätzlichen Schutz deines Logins gegen Fishing, Bots und ähnliches. Die Nutzung ist
-        optional und kann durch einen Administrator bei Bedarf aktiviert werden. Der zweite Faktor zum Login wird mittels der App "Google Authenticator" auf deinem Smartphone
-        realisiert. </p>
+        <p>Die Zwei-Faktor-Authentifizierung bietet einen zusätzlichen Schutz deines Logins gegen Fishing, Bots und ähnliches. Die Nutzung ist optional und kann
+        durch einen Administrator bei Bedarf aktiviert werden. Der zweite Faktor zum Login wird mittels einer App bspw. auf deinem Smartphone realisiert.</p>
         
-        <p>Zur Aktivierung der Zwei-Faktor-Authentifizierung scanne den angezeigten QR-Code mit deinem Smartphone mit der App. Trage im Anschluss den ersten Zahlencode
-        in das Eingabefeld ein und speicher den Vorgang..</p>
+        <p>Zur Aktivierung der Zwei-Faktor-Authentifizierung gehe wie folgt vor:</p>
+        
+        <ol>
+            <li>Lade dir via Google Play, App-Store usw. eine Authenticator herunter (bsppw. "Google Authenticator").</li>
+            <li>Klick zeurst den Button <span class="btn btn-sm btn-outline-dark"><span class="fa fa-fw fa-qrcode"></span> QR-Code öffnen</span> an.</li>
+            <li>Scanne den angezeigten QR-Code mit der App auf deinem Gerät.</li>
+            <li>Trage im Anschluss den ersten sechsstelligen Zahlencode in das Eingabefeld ein und speichere den Vorgang</li>
+        </ol>
 
         <h3 class="pt-5 fs-1">Erweitert</h3>
         <dl>
@@ -1233,26 +1238,26 @@ Help language file
             erzeugen zu lassen.</p>
         <p>Um die Verbindung zu Twitter herzustellen, folge einfach der Anleitung.</p>
         <ol class="list-large">
-            <li>Logge dich zuerst über die Twitter-Webseite ganz normal ein. <a rel="noreferrer,noopener,external" target="_blank" href="https://twitter.com/login" class="ui-button ui-corner-all ui-widget fpcm-ui-button">zum Login</a></li>
+            <li>Logge dich zuerst über die Twitter-Webseite ganz normal ein. <a rel="noreferrer,noopener,external" target="_blank" href="https://twitter.com/login" class="btn btn-sm btn-outline-dark">zum Login</a></li>
             <li>Öffne die Einstellungen der Twitter-Verbindungen über <strong>Optionen &rarr; Systemeinstellungen &rarr;
                     Twitter-Verbindung</strong>.</li>
-            <li><strong>API-Schlüssel und Token:</strong> Klicke auf den Button <span class="ui-button ui-corner-all ui-widget fpcm-ui-button">API-Schlüssel bzw. Token anfordern
+            <li><strong>API-Schlüssel und Token:</strong> Klicke auf den Button <span class="btn btn-sm btn-outline-dark">API-Schlüssel bzw. Token anfordern
                     anzufordern</span>, du wirst zur AppVerwaltung von Twitter weitergeleitet.</li>
-            <li>Wähle den Button <span class="ui-button ui-corner-all ui-widget fpcm-ui-button">Create new app</span>.</li>
-            <li>Fülle das angezeigte Formular aus und bestätige mit <span class="ui-button ui-corner-all ui-widget fpcm-ui-button">Create your Twitter application</span>.</li>
+            <li>Wähle den Button <span class="btn btn-sm btn-outline-dark">Create new app</span>.</li>
+            <li>Fülle das angezeigte Formular aus und bestätige mit <span class="btn btn-sm btn-outline-dark">Create your Twitter application</span>.</li>
             <li>Öffne den Tab <strong>Keys and Access Tokens</strong> und kopiere von dort <strong>Consumer Key (API Key)</strong>
                 und <strong>Consumer Secret (API Secret)</strong> in die Felder in den Systemeinstellungen.</li>
             <li>Um Tweets erzeugen zu können, stelle den <strong>Access Level</strong> über den Reiter <strong>Permissions</strong>
                 von <strong>Read-only</strong> auf <strong>Read and Write</strong>.</li>
             <li><strong>Access Token:</strong> Nach dem API-Key musst du nun einen Access Token erzeugen. Scrolle dafür runter zum
-                Punkt <strong>Your Access Token</strong> und klicke auf den Button <span class="ui-button ui-corner-all ui-widget fpcm-ui-button">Create my access
+                Punkt <strong>Your Access Token</strong> und klicke auf den Button <span class="btn btn-sm btn-outline-dark">Create my access
                     token</span>. Kopiere anschließend <strong>Access Token</strong> und <strong>Access Token Secret</strong> in
                 in die Felder in den Systemeinstellungen.</li>
 
             <li>Klicke nun in den <strong>Systemeinstellungen</strong> auf Speichern, um die Daten zu speichern.</li>
             <li>Wurden alle Schritte richtig durchgeführt, so erhältst du einen entsprechenden Hinweis.</li>
         </ol>
-        <p>Um die Twitter-Verbindung zu löschen, klicke auf den Button <span class="ui-button ui-corner-all ui-widget fpcm-ui-button">Verbindung löschen</span>.</p>
+        <p>Um die Twitter-Verbindung zu löschen, klicke auf den Button <span class="btn btn-sm btn-outline-dark">Verbindung löschen</span>.</p>
         ]]>
     </chapter>
     <chapter ref="ARTICLES_TRASH">
@@ -1384,7 +1389,7 @@ Help language file
 
             <dt>Zurücksetzen</dt>
             <dd>Wurde die falsche CSV-Datei hochgeladen oder diese nach dem Upload nochmals verändert, starte den Import
-            über den Button "Zurücksetzen" neu.</dd>
+            über den Button <span class="btn btn-sm btn-outline-dark">Zurücksetzen</span> neu.</dd>
 
         </dl>
 
