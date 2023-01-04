@@ -144,7 +144,7 @@
             <?php $theView->alert('success')->setText('USERS_AUTHTOKEN_ACTIVE')->setIcon('user-secret'); ?>
         </div>
         <div class="col-12 col-md-auto align-self-center">
-            <?php $theView->checkbox('disable2Fa')->setText('GLOBAL_DISABLE'); ?>
+            <?php $theView->checkbox('disable2Fa')->setText('GLOBAL_DISABLE')->setSwitch(true); ?>
         </div>
     <?php endif; ?>
     </div>
