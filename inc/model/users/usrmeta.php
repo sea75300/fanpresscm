@@ -42,9 +42,21 @@ implements  \ArrayAccess,
         if (is_string($data)) {
             $data = json_decode($data, true);
         }
+        
+        if (!is_array($data)) {
+            $data = [];
+        }
 
         $this->initDefaults();
-        $this->data = array_merge($this->data, is_array($data) ? $data : []);
+
+        foreach ($data as $key => $value) {
+            if ($value === false || $value === null) {
+                continue;
+            }
+            
+            $this->data[$key] = $value;
+        }
+
     }
     
     /**

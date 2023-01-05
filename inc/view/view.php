@@ -767,7 +767,7 @@ class view {
         }
 
         if ($hasDbConfig) {
-            $this->defaultViewVars->version = $this->config->system_version;
+            $this->defaultViewVars->version = trim($this->config->system_version) ? $this->config->system_version : \fpcm\classes\baseconfig::getVersionFromFile();
             $this->defaultViewVars->dateTimeMask = $this->config->system_dtmask;
             $this->defaultViewVars->dateTimeZone = $this->config->system_timezone;
             $this->defaultViewVars->frontEndLink = $this->config->system_url;            
