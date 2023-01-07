@@ -448,6 +448,7 @@ $lang = array (
   'LOGIN_AUTHCODE' => 'Sechsstelligen Authenticator-Code eingeben',
   'LOGIN_BTN' => 'Anmelden',
   'LOGIN_FAILED' => 'Der Benutzername oder das Passwort sind falsch. Bitte versuche es erneut.',
+  'LOGIN_FAILED_CODE' => 'Der eingegebene Authenticator-Code war falsch. Bitte versuche es erneut.',
   'LOGIN_FAILED_DISABLED' => 'Der angegebene Benutzername wurde deaktiviert.',
   'LOGIN_NEWPASSWORD' => 'Neues Passwort anfordern',
   'LOGIN_PASSWORD_RESET' => 'Dein Passwort wurde erfolgreich zurückgesetzt! Prüfe deinen Posteingang auf die E-Mail mit dem neuen Passwort.',

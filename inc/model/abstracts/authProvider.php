@@ -19,6 +19,11 @@ namespace fpcm\model\abstracts;
 abstract class authProvider extends model {
 
     /**
+     * @var int
+     */
+    const AUTH_2FA_ERROR = -400;
+
+    /**
      * Execute authentication
      * @param array $param
      * @return mixed

@@ -190,6 +190,11 @@ implements \fpcm\controller\interfaces\requestFunctions {
             return true;
         }
 
+        if ($loginRes === \fpcm\model\abstracts\authProvider::AUTH_2FA_ERROR) {
+            $this->view->addErrorMessage('LOGIN_FAILED_CODE');
+            return true;
+        }
+
         $this->view->addErrorMessage('LOGIN_FAILED');
         return true;
     }

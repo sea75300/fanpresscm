@@ -27,7 +27,7 @@ class shorthelpButton extends linkButton {
         $this->iconOnly = true;
         $this->target = '_blank';
         $this->rel = 'noreferrer,noopener,external';
-        $this->setIcon('question-circle');
+        $this->setIcon('question');
     }
 
     /**
