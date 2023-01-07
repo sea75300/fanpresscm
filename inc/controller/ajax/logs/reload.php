@@ -363,6 +363,10 @@ class reload extends \fpcm\controller\abstracts\ajaxController
     
     private function getusername(\fpcm\model\system\session $session) : string
     {
+        if (!isset($this->userList[$session->getUserId()])) {
+            return $this->notfoundStr;
+        }
+        
         $name = $this->userList[$session->getUserId()]?->getDisplayName();
         return $name ?? $this->notfoundStr;
     }

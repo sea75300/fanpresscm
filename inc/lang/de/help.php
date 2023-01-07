@@ -44,10 +44,10 @@ Help language file
             oder es ist ein Schnellzugriff auf bestimmte Funktionen möglich.</p>
 
             <p>Die Position der Container kann durch Klick auf den Button 
-            <span class="btn btn-sm btn-link btn-sm"><span class="fpcm-ui-icon fa fa-fw fa-arrows-alt  "></span></span>
+            <span class="btn btn-sm btn-outline-dark"><span class="fpcm-ui-icon fa fa-fw fa-arrows-alt  "></span></span>
             verändert werden. Die Reihenfolge legt jeder Benutzer selbst fest.
             Um bestimmte Container zu deaktivieren, klicke in der Fußzeile auf
-            den Button <span class="btn btn-sm btn-link btn-sm"><span class="fpcm-ui-icon fa fa-fw fa-toggle-off"></span></span>.</p>
+            den Button <span class="btn btn-sm btn-outline-dark"><span class="fpcm-ui-icon fa fa-fw fa-toggle-off"></span></span>.</p>
             
             <p>Über das Dropdown "Container verwalten" in der Toolbar des Startbildschirms kann die Reihenfolge auf den Standard zurückgesetzt bzw.
             deaktivierte Container wieder reaktiviert werden.</p>
@@ -79,8 +79,9 @@ Help language file
         <dl>
             <dt>Artikelbild:</dt>
             <dd class="pb-2">Mit dem Artikelbild kannst du einen Artikel eine zusätzliche Dekoration, optische
-                Beschreibung etc. geben. Die Position und Größe des Artikelbildes kann über das Artikel-Template festgelegt werden. Über den Button rechts neben dem
-            Eingabefeld kannst du ein bereits hochgeladenes Bild auswählen und weitere Bilder hochladen.</dd>
+                Beschreibung etc. geben. Die Position und Größe des Artikelbildes kann über das Artikel-Template festgelegt werden.
+                Über den Button <span class="btn btn-sm btn-outline-dark"><span class="fpcm-ui-icon fa fa-fw fa-folder-open"></span></span> 
+                rechts neben dem Eingabefeld kannst du ein bereits hochgeladenes Bild auswählen und weitere Bilder hochladen.</dd>
 
             <dt>Text für Artikellinks:</dt>
             <dd class="pb-2">Ist die Systemeinstellung "URL-Rewriting für Artikellinks aktivieren" aktiv, kann durch dieses Feld Einfluss auf
@@ -91,7 +92,7 @@ Help language file
             <dd class="pb-2">Der Inhalt dieses Feldes wird durch den Template-Tag "{{sources}}" dargestellt. Hier kannst du Links zu deinen Informationsquellen,
                 Quellen von Bildern, Videos etc. oder zu weiterführenden Informationen angeben. Links werden so weit es geht automatisch in HTML-Links umgewandelt.</dd>
             <dd class="pb-2">Einträge im Quellenverzeichnis werden gespeichert und bei Übereinstimmung zur Auswahl angezeigt. Über den Button 
-                "Quellenverzeichnis-Einträge" können die Einträge aus der Autovervollständigung entfernt werden.</dd>
+                "Quellenverzeichnis-Einträge" <span class="btn btn-sm btn-outline-dark"><span class="fpcm-ui-icon fa fa-fw fa-pen"></span></span> können die Einträge aus der Autovervollständigung entfernt werden.</dd>
 
             <dt>Tweet erzeugen:</dt>
             <dd class="pb-2">Über diese Option kann die Erzeugung eines Tweets bei aktiver Twitter-Verbindung manuell
@@ -100,7 +101,7 @@ Help language file
             <dt>Tweet erzeugen:</dt>
             <dd class="pb-2">Über das Textfeld kann das Standard-Template für einen Beitrag bei Twitter
                 überschrieben und durch einen eigenen Text ersetzt werden. Der Inhalt dieses Feldes wird nicht gespeichert.
-                Das Dropdown bietet einen Schnellzugriff auf die Template-Platzhalter. Über die Checkbox am Ende kann zudem festgelegt werden,
+                Das Dropdown <span class="btn btn-sm btn-outline-dark"><span class="fpcm-ui-icon fa fa-fw fa-square-plus"></span></span> bietet einen Schnellzugriff auf die Template-Platzhalter. Über die Checkbox am Ende kann zudem festgelegt werden,
                 ob beim nächsten Speicher-Vorgang der Tweet erzeugt wird oder nicht.
             </dd>
 
@@ -146,6 +147,7 @@ Help language file
             <dt>Kommentare:</dt>
             <dd class="pb-2">Dieses Register beinhaltet Auflistung aller Kommentare, welche zum ausgewählten Artikel
             geschrieben wurden. Die Liste bietet dir die Möglichkeit, einzelne Kommentare zu löschen. Über einen Klick auf den Bearbeiten-Button
+            <span class="btn btn-sm btn-outline-dark"><span class="fpcm-ui-icon fa fa-fw fa-edit"></span></span>
             kann der entsprechende Kommentar bearbeitet werden (freischalten, auf privat setzen etc.). Der Zugriff auf die Kommentare 
             wird über die Berechtigungen geregelt. Ausführliche Informationen hierzu findest du in der Hilfe den "Kommentare"-Bereichs
             über das Hauptmenü.</dd>
@@ -161,28 +163,29 @@ Help language file
         
         <dl>
             <dt>Löschen-Buttons</dt>
-            <dd class="pb-2">Je nach geöffnetem Register werden unterschiedlichen Löschen-Buttons angezeigt. Diese dienen dazu, entsprechende Elemente des
+            <dd class="pb-2">Je nach geöffnetem Register werden unterschiedlichen Löschen-Buttons <span class="btn btn-sm btn-outline-dark"><span class="fpcm-ui-icon fa fa-fw fa-trash"></span></span> angezeigt. Diese dienen dazu, entsprechende Elemente des
             angezeigten Tabs zu löschen.</dd>
             <dt>Artikel auf Webseite anzeigen</dt>
-            <dd class="pb-2">Über diesen Button wird der aktuell im Editor geöffnete Artikel im Frontend, d. h. auf deiner Webseite geöffnet.</dd>
+            <dd class="pb-2">Über diesen Button <span class="btn btn-sm btn-outline-dark"><span class="fpcm-ui-icon fa fa-fw fa-play"></span></span> wird der aktuell im Editor geöffnete Artikel im Frontend, d. h. auf deiner Webseite geöffnet.</dd>
             <dt>Kurzlink</dt>
-            <dd class="pb-2">Über diesen Button ist es bei gespeicherten Artikeln möglich, die URL über den Dienst <a rel="noreferrer,noopener,external" href=http://is.gd>is.gd</a> kürzen
+            <dd class="pb-2">Über diesen Button <span class="btn btn-sm btn-outline-dark"><span class="fpcm-ui-icon fa fa-fw fa-external-link-square-alt"></span></span> ist es bei gespeicherten Artikeln möglich, die URL über den Dienst <a rel="noreferrer,noopener,external" href=http://is.gd>is.gd</a> kürzen
             zu lassen und bei Twitter etc. zu nutzen. Der genutzte Dienst kann über ein Modul-Event geändert werden.</dd>
             <dt>Artikelbild anzeigen</dt>
-            <dd class="pb-2">Wurde für den Artikel ein Artikelbild definiert, so kann dieses über diese Schaltfläche angezeigt werden.</dd>
+            <dd class="pb-2">Wurde für den Artikel ein Artikelbild definiert, so kann dieses über diese Schaltfläche <span class="btn btn-sm btn-outline-dark"><span class="fpcm-ui-icon fa fa-fw fa-image"></span></span> angezeigt werden.</dd>
             <dt>Bearbeiten (Kommentare)</dt>
-            <dd class="pb-2">Die Schaltfläche <strong>Bearbeiten</strong> in der Toolbar des Kommentar-Registers öffnen einen Massenbearbeitung-Dialog analog der
+            <dd class="pb-2">Die Schaltfläche <strong>Bearbeiten</strong> <span class="btn btn-sm btn-outline-dark"><span class="fpcm-ui-icon fa fa-fw fa-edit"></span></span> in der Toolbar des Kommentar-Registers öffnen einen Massenbearbeitung-Dialog analog der
             globalen Kommentar-Liste. Hierüber kommen bestimmte Status der ausgewählten Kommentare verändert werden. Die gleiche Schaltfläche in der Kommentar-Liste
             öffnet des ausgewählten Kommentars in einem Dialog, wo dieser komplett bearbeitet werden kann.</dd>
             <dt>Revision wiederherstellen (Revisionen)</dt>
-            <dd class="pb-2">Diese Schaltfläche ermöglicht es, den aktuellen Artikel auf die ausgewählte Artikel-Revision zurückzusetzen. Beim Zurücksetzen wird
+            <dd class="pb-2">Diese Schaltfläche <span class="btn btn-sm btn-outline-dark"><span class="fpcm-ui-icon fa fa-fw fa-undo"></span></span> ermöglicht es, den aktuellen Artikel auf die ausgewählte Artikel-Revision zurückzusetzen. Beim Zurücksetzen wird
             automatisch eine neue Revision des aktuellen Stands erzeugt, bevor die ältere Version wiederhergestellt wird.</dd>
             <dt>Revision öffnen (Revisionen)</dt>
-            <dd class="pb-2">Über diesen Button kann eine bestimmte Revision geöffnet werden. Es wird eine Vergleichansicht zwischen der ausgewählten
+            <dd class="pb-2">Über diesen Button <span class="btn btn-sm btn-outline-dark"><span class="fpcm-ui-icon fa fa-fw fa-play"></span></span> kann eine bestimmte Revision geöffnet werden. Es wird eine Vergleichansicht zwischen der ausgewählten
             Revision (linke Seite) und dem aktuellen Zustand des Artikels (rechte Seite) angezeigt. Der Artikeltext selbst wird in einer DIFF-Ansicht dargestellt, d. h. Veränderungen werden
             innerhalb des Textes dargestellt.</dd>
             <dt>Zurück zur aktuellen Ansicht (Revisionen)</dt>
-            <dd class="pb-2">Wurde eine Revision geöffnet, so gelangst du durch diese Schaltfläche zurück in den aktuellen Artikel.</dd>
+            <dd class="pb-2">Wurde eine Revision geöffnet, so gelangst du durch diese Schaltfläche <span class="btn btn-sm btn-outline-dark"><span class="fpcm-ui-icon fa fa-fw fa-chevron-circle-left"></span></span> 
+            zurück in den aktuellen Artikel.</dd>
         </dl>
  
         <h3 class="pt-5 fs-1">Erweiterte Funktionen</h3>
