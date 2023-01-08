@@ -100,7 +100,7 @@ class reload extends \fpcm\controller\abstracts\ajaxController
      * @return bool
      */
     public function process()
-    {    
+    {
         if (!$this->isSystem) {
             return $this->getModuleLog();
         }

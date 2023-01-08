@@ -45,21 +45,20 @@ fpcm.ui_tabs = {
             _el.addEventListener('click', function (_ev) {
 
                 if (!params.reload) {
-                    fpcm.dom.fromId('activeTab').val(_ev.target.dataset.tabIndex);
+                    fpcm.ui_tabs.setActiveTab(_ev.target.dataset.tabIndex);
                     return true;
                 }
 
                 _ev.preventDefault();
 
-                let _currentTab = fpcm.dom.fromId('activeTab').val();
-
+                let _currentTab = fpcm.ui_tabs.getActiveTab();
                 if (_ev.target.classList.contains('active') && _ev.target.dataset.tabIndex == _currentTab) {
                     _ev.target.classList.remove('active');
                     (new bootstrap.Tab(_ev.target)).show();
                     
                 }
 
-                fpcm.dom.fromId('activeTab').val(_ev.target.dataset.tabIndex);
+                fpcm.ui_tabs.setActiveTab(_ev.target.dataset.tabIndex);
             });
 
             _el.addEventListener('show.bs.tab', function (_ev) {
@@ -86,9 +85,23 @@ fpcm.ui_tabs = {
                              ? _ev.target.dataset.dataviewList
                              : false; 
 
+                if (!_ev.target.dataset.ajaxQuiet) {
+
+                    var _ldr = document.createElement('span');
+                    _ldr.classList.add('spinner-border');
+                    _ldr.classList.add('spinner-border-sm'); 
+                    _ldr.classList.add('ms-2'); 
+                    _ev.target.appendChild(_ldr);
+                    
+                }
+
                 fpcm.ajax.get(_ev.target.href, {
-                    quiet: _ev.target.dataset.ajaxQuiet ? true : false,
+                    quiet: true, //_ev.target.dataset.ajaxQuiet ? true : false,
                     execDone: function (_result) {
+
+                        if (!_ev.target.dataset.ajaxQuiet && _ldr) {
+                            _ev.target.removeChild(_ldr);
+                        }
 
                         if (!_tabList) {
 
@@ -211,6 +224,24 @@ fpcm.ui_tabs = {
         }
 
         (new bootstrap.Tab(_nodes[_tabId])).show();
+    },
+    
+    getActiveTab: function () {
+        
+        let _el = document.getElementById('activeTab');
+        return _el ? _el.value : 0;
+        
+    },
+    
+    setActiveTab: function (_val) {
+        
+        let _el = document.getElementById('activeTab');
+        if (!_el) {
+            return false;
+        }
+        
+        _el.value = _val;
+        return true;
     }
     
 }
