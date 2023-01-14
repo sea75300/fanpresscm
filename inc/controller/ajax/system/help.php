@@ -16,7 +16,8 @@ namespace fpcm\controller\ajax\system;
 class help extends \fpcm\controller\abstracts\controller
 {
 
-    use \fpcm\controller\traits\common\isAccessibleTrue;
+    use \fpcm\controller\traits\common\isAccessibleTrue,
+        \fpcm\controller\traits\common\fetchHelp;
 
     /**
      * 
@@ -46,8 +47,7 @@ class help extends \fpcm\controller\abstracts\controller
             $chapter = 0;
         }
 
-        $xml = simplexml_load_string($this->language->getHelp());
-        $data = $xml->xpath("/chapters/chapter[@ref=\"{$ref}\"]");
+        $data = $this->getChapter($ref);
 
         $this->view->showHeaderFooter(\fpcm\view\view::INCLUDE_HEADER_NONE);
         $this->view->setViewVars([

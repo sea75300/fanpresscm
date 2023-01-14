@@ -1236,32 +1236,79 @@ Help language file
         ]]>
     </chapter>
     <chapter ref="SYSTEM_HL_OPTIONS_TWITTER">
+        
+        <description>
         <![CDATA[
-        <p>FanPress CM bietet dir die Möglichkeit, beim Schreiben/ Aktualisieren eines Artikels automatisch einen Tweet bei Twitter
+            <p>FanPress CM bietet dir die Möglichkeit, beim Schreiben/
+            Aktualisieren eines Artikels automatisch einen Tweet bei Twitter
             erzeugen zu lassen.</p>
-        <p>Um die Verbindung zu Twitter herzustellen, folge einfach der Anleitung.</p>
-        <ol class="list-large">
-            <li>Logge dich zuerst über die Twitter-Webseite ganz normal ein. <a rel="noreferrer,noopener,external" target="_blank" href="https://twitter.com/login" class="btn btn-sm btn-outline-dark">zum Login</a></li>
-            <li>Öffne die Einstellungen der Twitter-Verbindungen über <strong>Optionen &rarr; Systemeinstellungen &rarr;
-                    Twitter-Verbindung</strong>.</li>
-            <li><strong>API-Schlüssel und Token:</strong> Klicke auf den Button <span class="btn btn-sm btn-outline-dark">API-Schlüssel bzw. Token anfordern
-                    anzufordern</span>, du wirst zur AppVerwaltung von Twitter weitergeleitet.</li>
-            <li>Wähle den Button <span class="btn btn-sm btn-outline-dark">Create new app</span>.</li>
-            <li>Fülle das angezeigte Formular aus und bestätige mit <span class="btn btn-sm btn-outline-dark">Create your Twitter application</span>.</li>
-            <li>Öffne den Tab <strong>Keys and Access Tokens</strong> und kopiere von dort <strong>Consumer Key (API Key)</strong>
-                und <strong>Consumer Secret (API Secret)</strong> in die Felder in den Systemeinstellungen.</li>
-            <li>Um Tweets erzeugen zu können, stelle den <strong>Access Level</strong> über den Reiter <strong>Permissions</strong>
-                von <strong>Read-only</strong> auf <strong>Read and Write</strong>.</li>
-            <li><strong>Access Token:</strong> Nach dem API-Key musst du nun einen Access Token erzeugen. Scrolle dafür runter zum
-                Punkt <strong>Your Access Token</strong> und klicke auf den Button <span class="btn btn-sm btn-outline-dark">Create my access
-                    token</span>. Kopiere anschließend <strong>Access Token</strong> und <strong>Access Token Secret</strong> in
-                in die Felder in den Systemeinstellungen.</li>
+            <p>Um die Verbindung zu Twitter herzustellen, führe die folgenden
+            Schritte durch.</p>
+            <p>FanPress CM nutzt derzeit Version 1.1 der Twitter-API!</p>
+        ]]>        
+        </description>
 
-            <li>Klicke nun in den <strong>Systemeinstellungen</strong> auf Speichern, um die Daten zu speichern.</li>
-            <li>Wurden alle Schritte richtig durchgeführt, so erhältst du einen entsprechenden Hinweis.</li>
-        </ol>
-        <p>Um die Twitter-Verbindung zu löschen, klicke auf den Button <span class="btn btn-sm btn-outline-dark">Verbindung löschen</span>.</p>
+        <step id="1" title="Schritt 1" btn-href="https://twitter.com/login" btn-descr="Twitter.com öffnen">
+        <![CDATA[
+            Logge dich zuerst über die Twitter-Webseite ganz normal ein.
         ]]>
+        </step>
+        <step id="2" title="Schritt 2" btn-href="https://twitter.com/settings/connected_apps" btn-descr="App-Verwaltung öffnen">
+        <![CDATA[
+            Öffne nun die App-Verwaltung von Twitter.
+        ]]>
+        </step>
+        <step id="3" title="Schritt 3" btn-href="https://developer.twitter.com/en/portal/projects-and-apps" btn-descr="Developer Portal öffnen">
+        <![CDATA[
+            Rufe nun das Developer Portal auf, lege ein neues Projekt an
+            (z. B. FanPress CM) und erstelle eine neue App. Führe dazu
+            den Assistenten von Twitter durch.
+            
+            <p class="alert alert-warning mt-3">Zum Anlegen einer App muss eine gültige
+            Telefonnummer in deinem profil hinterlegt sein.</p>
+        ]]>
+        </step>
+        <step id="4" title="Schritt 4">
+        <![CDATA[
+            <p>
+                Rufe den Punkt <span class="btn btn-sm btn-outline-dark">User 
+                authentication settings</span> und führe den Assistenten zur 
+                Einrichtung eines App-Logins durch. Sichere die "Client ID" und
+                "Client Secret" - diese müssen du später in den Systemeinstellungen
+                von FanPress CM hinterlegt werden.
+            </p>
+            <p>Wähle als "App-Type" den Eintrag "Web App, Automated App or Bot".</p>
+            <p>FanPress CM benötigt Lese- und Schreibrechte.</p>
+        ]]>
+        </step>
+        <step id="5" title="Schritt 5">
+        <![CDATA[
+            Öffne das Register "Keys and tokens" udn erzeuge ein "Access Token 
+            and Secret" über den Button <span class="btn btn-sm btn-outline-dark">Generate</span>.
+        ]]>
+        </step>
+        <step id="6" title="Schritt 6">
+        <![CDATA[
+            Öffne nun die Systemeinstellungen in FanPress CM und das Register 
+            "Twitter". Trage dort die Schlüssel in die entsprechenden Felder
+            ein:
+            
+            <ul>
+                <li>Consumer Key (API Key)</li>
+                <li>Consumer Secret (API Secret)</li>
+                <li>Access Token</li>
+                <li>Access Token Secret</li>
+                
+            </ul>
+        ]]>
+        </step>
+        <step id="7" title="Schritt 7">
+        <![CDATA[
+            Speichere nun die Systemeinstellungen. Wurden alle Schritte korrekt
+            durchgeführt, erhälst du eine Erfolgsmeldung, dass die Verbindung
+            hergestellt werden konnte.
+        ]]>
+        </step>
     </chapter>
     <chapter ref="ARTICLES_TRASH">
         <![CDATA[
