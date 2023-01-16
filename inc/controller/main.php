@@ -73,6 +73,9 @@ class main {
                                 . 'Please remove the implements statement.'
                     , $class),
                     E_USER_DEPRECATED);
+            
+            define('FPCM_NOTIFICATION_DEPRECATED_ISACCESSIBLE_INTERFACE', true);
+            
         }
 
         if (!$controller->hasAccess() || !$controller->request()) {

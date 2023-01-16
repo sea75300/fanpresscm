@@ -85,7 +85,7 @@ class notifications implements \Countable {
             $this->addNotification(new \fpcm\model\theme\notificationItem(
                 (new \fpcm\view\helper\icon('flask'))->setText('memcache cache backend is enabled!')
             ));
-        }    
+        }
     }
 
     /**

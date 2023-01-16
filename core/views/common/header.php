@@ -46,19 +46,9 @@
             </div>
 
             <div class="d-flex flex-column flex-grow-1 col-12 col-sm z-n1">
-
+                
                 <?php include_once $theView->getIncludePath('common/buttons.php'); ?>
           
                 <div class="container-fluid px-2 pe-md-3 py-2">
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
 
+                <?php if (trim($theView->deprecationNotice)) : ?><?php $theView->alert('warning')->setText($theView->deprecationNotice); ?><?php endif; ?>

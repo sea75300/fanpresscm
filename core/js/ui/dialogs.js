@@ -111,6 +111,7 @@ fpcm.ui_dialogs = {
                   .replace('{$modalClass}', _params.modalClass)
                   .replace('{$modalBodyClass}', _params.modalBodyClass)
                   .replace('{$size}', _params.size ? 'modal-' + _params.size : '')
+                  .replace('{$icon}', _params.icon ? fpcm.ui.getIcon(_params.icon.icon, _params.icon.params) : fpcm.ui.getIcon('info') )
                   .replace('{$buttons}', ''));
         }
 
@@ -266,6 +267,9 @@ fpcm.ui_dialogs = {
             title: 'GLOBAL_CONFIRM',
             content: fpcm.ui.translate('CONFIRM_MESSAGE'),
             size: '',
+            icon: {
+                icon: 'circle-check'
+            },
             dlButtons: [
                 {
                     text: 'GLOBAL_YES',

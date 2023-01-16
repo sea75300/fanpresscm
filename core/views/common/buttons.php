@@ -1,7 +1,7 @@
 <?php /* @var $theView fpcm\view\viewVars */ ?>
 <?php if ($theView->buttons || $theView->pager) : ?>
 <div 
-    class="navbar navbar-dark border-bottom border-1 border-secondary sticky-lg-top fpcm ui-background-white-50p py-0 <?php if (!empty($toolbarClass)) : print $toolbarClass; endif; ?>"
+    class="navbar navbar-dark border-bottom border-1 border-secondary sticky-lg-top fpcm ui-background-white-50p ui-blurring py-0 <?php if (!empty($toolbarClass)) : print $toolbarClass; endif; ?>"
     id="fpcm-ui-toolbar" 
     data-fpcm-toolbar="<?php $theView->escape($theView->toolbarArea); ?>"
     <?php if ($theView->debugMode) : ?>title="Toolbar: <?php $theView->escape($theView->toolbarArea); ?>"<?php endif; ?> >

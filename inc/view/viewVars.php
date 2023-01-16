@@ -33,6 +33,7 @@ namespace fpcm\view;
  * @property string $ipAddress
  * @property string $includeForms
  * @property string $backdrop
+ * @property string $deprecationNotice
  * @property int    $loginTime
  * @property int    $activeTab
  * 
