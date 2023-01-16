@@ -303,7 +303,7 @@ class controller implements \fpcm\controller\interfaces\controller {
     {
         $ref = $_SERVER['HTTP_REFERER'] ?? false;
         if (!trim($ref)) {
-            trigger_error('No referer set in '. $this->request->getModule() . '.', E_USER_ERROR);
+            trigger_error(sprintf('No referer set in %s on request from %s.', $this->request->getModule(), $this->request->getIp()), E_USER_WARNING);
             return false;
         }
 
@@ -316,7 +316,7 @@ class controller implements \fpcm\controller\interfaces\controller {
         }
 
         if ( strpos($_SERVER['HTTP_REFERER'], $root) === false ) {
-            trigger_error('Referer ' . $ref . ' does not match ' . $root . ' in '. $this->request->getModule() .'.', E_USER_WARNING);
+            trigger_error(sprintf('Referer %s does not match %s in %s.', $ref, $root, $this->request->getModule()), E_USER_WARNING);
             return false;
         }
 
