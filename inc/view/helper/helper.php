@@ -409,6 +409,10 @@ abstract class helper implements \Stringable {
      */
     public function setLabelTypeFloat()
     {
+        if (method_exists($this, 'setPlaceholder')) {
+            $this->setPlaceholder($this->text);
+        }
+
         $this->labelType = 'form-floating';
         return $this;
     }

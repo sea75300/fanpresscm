@@ -20,7 +20,7 @@ class twitter extends \fpcm\model\abstracts\staticModel {
 
     /**
      * tmhOAuth-Objekt
-     * @var \tmhOAuth 
+     * @var \Abraham\TwitterOAuth
      */
     protected $oAuth;
 
@@ -44,13 +44,19 @@ class twitter extends \fpcm\model\abstracts\staticModel {
     {
         parent::__construct();
 
-        include_once \fpcm\classes\loader::libGetFilePath('tmhoauth/tmhOAuth.php');
+        include_once \fpcm\classes\loader::libGetFilePath('twitteroauth');
+        include_once \fpcm\classes\loader::libGetFilePath('ca-bundle/src/CaBundle.php');
 
         if (!$this->checkRequirements()) {
             return;
         }
 
-        $this->oAuth = new \tmhOAuth((array) $this->config->twitter_data);
+        $this->oAuth = new \Abraham\TwitterOAuth\TwitterOAuth(
+            $this->config->twitter_data->consumer_key,
+            $this->config->twitter_data->consumer_secret,
+            $this->config->twitter_data->user_token,
+            $this->config->twitter_data->user_secret
+        );
     }
 
     /**
@@ -88,14 +94,11 @@ class twitter extends \fpcm\model\abstracts\staticModel {
             return false;
         }
 
-        $code = $this->oAuth->request(
-            'GET',
-            $this->oAuth->url('1.1/account/verify_credentials')
-        );
+        $result = $this->oAuth->get( 'account/verify_credentials', ['skip_status' => 1] );
 
-        $this->log();
+        $this->log($result);
 
-        $return = ($code != 200 ? false : true);
+        $return = $this->oAuth->getLastHttpCode() != 200 ? false : true;
         $this->cache->write($cacheName, $return, $this->config->system_cache_timeout);
 
         return $return;
@@ -113,16 +116,13 @@ class twitter extends \fpcm\model\abstracts\staticModel {
             return false;
         }
 
-        $code = $this->oAuth->request(
-            'POST',
-            $this->oAuth->url('1.1/statuses/update'), [ 'status' => $text ]
-        );
+        $result = $this->oAuth->post('statuses/update', [ 'status' => $text ]);
         
         fpcmLogSystem(sprintf('Create new tweet: "%s"...', $text));
-        $this->log();
+        $this->log($result);
 
-        fpcmLogSystem(sprintf('Create tweet retuned code: %s', $code));
-        return ($code != 200 ? false : true);
+        fpcmLogSystem(sprintf('Create tweet retuned code: %s', $this->oAuth->getLastHttpCode()));
+        return $this->oAuth->getLastHttpCode() != 200 ? false : true;
     }
 
     /**
@@ -131,52 +131,49 @@ class twitter extends \fpcm\model\abstracts\staticModel {
      */
     public function fetchTimeline() : string
     {
-        $code = $this->oAuth->request(
-            'GET',
-            $this->oAuth->url('1.1/statuses/user_timeline'),
+        $result = $this->oAuth->get(
+            'statuses/user_timeline',
             [
                 'count' => $this->config->articles_acp_limit,
                 'trim_user' => 1
             ]
         );
         
-        if ($code != 200) {
+        if ($this->oAuth->getLastHttpCode() != 200) {
             trigger_error('Failed to fetch twitetr timeline');
             return '';
         }
-        
-        $this->log();
-        return $this->oAuth->response['response'] ?? [];
+
+        $this->log($result);
+        return json_encode($result);
     }
 
     /**
      * Loggt Twitter-response-Daten
      * @return bool
      */
-    private function log()
+    private function log($responseData)
     {
-        $responseData = json_decode($this->oAuth->response['response'], true);
-
-        if (isset($responseData['errors'])) {
+        if (isset($responseData->errors)) {
 
             $i = 0;
 
-            foreach ($responseData['errors'] as $value) {
+            foreach ($responseData->errors as $value) {
 
-                if ($value['code'] == 187) {
-                    fpcmLogSystem("Twitter retuned Code {$value['code']}: {$value['message']}");
+                if ($value->code == 187) {
+                    fpcmLogSystem("Twitter retuned Code {$value->code}: {$value->message}");
                     continue;
                 }
 
                 $i++;
-                trigger_error("Twitter error code {$value['code']} return. Message was: {$value['message']}");
+                trigger_error("Twitter error code {$value->code} return. Message was: {$value->message}");
             }
 
             return $i ? false : true;
         }
 
-        if (isset($responseData['screen_name'])) {
-            $this->username = $responseData['screen_name'];
+        if (isset($responseData->screen_name)) {
+            $this->username = $responseData->screen_name;
             $this->cache->write('twitter/getUsername', $this->username, $this->config->system_cache_timeout);
         }
 
