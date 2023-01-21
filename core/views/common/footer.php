@@ -7,12 +7,14 @@
         </div>
         
     </div>
+
+    <?php $theView->hiddenInput('activeTab')->setValue($theView->activeTab ?? 0); ?>
+
     <?php if ($theView->formActionTarget && $theView->showPageToken) : ?>
         <?php $theView->pageTokenField(); ?>
     </form>
     <?php endif; ?>
     
-    <?php $theView->hiddenInput('activeTab')->setValue($theView->activeTab ?? 0); ?>
 
     <?php if ($theView->loggedIn) : ?><?php fpcmDebugOutput(); ?><?php endif; ?>
 
