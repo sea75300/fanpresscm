@@ -106,6 +106,11 @@ class moduleInfo extends \fpcm\controller\abstracts\ajaxController
         $this->view->assign('moduleInstall', $this->module->isInstallable() && !$this->module->isInstalled());
         $this->view->assign('moduleHash', $data['hash'] ?? false);
         $this->view->assign('moduleVersion', $data['version'] ?? '');
+        
+        $this->view->assign('statusInstalled', $this->module->isInstalled() );
+        $this->view->assign('statusInstallable', $this->module->isInstallable() );
+        $this->view->assign('statusFilesList', $this->module->hasFilesListFile() );
+        $this->view->assign('statusWritable', $this->module->isWritable() );
 
         $this->view->render();
     }

@@ -22,7 +22,19 @@
         </div>
     </div>
 
-</div>    
+</div>
+
+<?php if (!$statusInstallable) : ?>
+    <?php $theView->alert('danger')->setText('MODULES_FAILED_DEPENCIES')->setIcon('project-diagram'); ?>
+<?php endif; ?>
+
+<?php if ($statusInstalled && !$statusFilesList) : ?>
+    <?php $theView->alert('warning')->setText('UPDATE_VERSIONCECK_FILETXT_ERR2')->setIcon('exclamation-triangle'); ?>
+<?php endif; ?>
+
+<?php if ($statusInstalled && !$statusWritable) : ?>
+    <?php $theView->alert('danger')->setText('MODULES_FAILED_FSWRITE')->setIcon('ban'); ?>
+<?php endif; ?>
 
 <div class="row row-cols-1 row-cols-lg-2 mb-3">
     <div class="col fw-bold">

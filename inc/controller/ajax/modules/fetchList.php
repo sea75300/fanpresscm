@@ -196,99 +196,15 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController
         $config = $item->getConfig();
         
         $key = $config->key;
-        $hash = \fpcm\classes\tools::getHash($key);
-        
-        $buttons = [];        
-        if (!$item->isInstallable()) {
-            $buttons[] = (new \fpcm\view\helper\icon('project-diagram'))->setText('MODULES_FAILED_DEPENCIES')->setClass('pe-3 text-danger')->setSize('lg');
-        }
-
-        if (!$item->hasFilesListFile()) {
-            $buttons[] = (new \fpcm\view\helper\icon('exclamation-triangle'))->setText('UPDATE_VERSIONCECK_FILETXT_ERR2')->setClass('pe-3 text-danger')->setSize('lg');
-        }
-
-        if (!$item->isWritable()) {
-            $buttons[] = (new \fpcm\view\helper\icon('times-circle'))->setText('MODULES_FAILED_FSWRITE')->setClass('pe-3 text-danger')->setSize('lg');
-        }
-
-        $buttons[] = (new \fpcm\view\helper\button('info'.$hash))
-            ->setText('MODULES_LIST_INFORMATIONS')
-            ->setIcon('info-circle')
-            ->setIconOnly()
-            ->setData([
-                'bs-toggle' => 'offcanvas',
-                'bs-target' => '#offcanvasInfo',
-                'key' => $item->getKey()
-            ])
-            ->setAria([
-                'bs-controls' => 'offcanvasInfo',
-            ]);      
+        $hash = \fpcm\classes\tools::getHash($key);  
 
         $hasUpdates = $this->permissions->modules->install && $item->hasUpdates();
         $hasLocalUpdates = $this->permissions->modules->install && $item->hasLocalUpdates();
-        if ($item->isInstalled()) {
-
-            if ($this->permissions->modules->configure) {
-                
-                if ($item->isActive()) {
-                    
-                    if ($item->hasConfigure()) {
-                        $buttons[]  = (new \fpcm\view\helper\linkButton('configure'.$hash))
-                                        ->setText('MODULES_LIST_CONFIGURE')
-                                        ->setIcon('cogs')
-                                        ->setIconOnly()
-                                        ->setClass('fpcm-ui-modulelist-action-local')
-                                        ->setUrl(\fpcm\classes\tools::getFullControllerLink('modules/configure', ['key' => $item->getKey()]));
-                    }
-                    
-                    $buttons[]  = (new \fpcm\view\helper\button('disable'.$hash))->setText('MODULES_LIST_DISABLE')->setIcon('toggle-off')->setIconOnly()->setData(['key' => $item->getKey(), 'action' => 'disable'])->setClass('fpcm-ui-modulelist-action-local');
-                }
-                else {
-                    
-                    $buttons[]  = (new \fpcm\view\helper\button('enable'.$hash))->setText('MODULES_LIST_ENABLE')->setIcon('toggle-on')->setIconOnly()->setData(['key' => $item->getKey(), 'action' => 'enable'])->setClass('fpcm-ui-modulelist-action-local');
-                }
-                
-            }
-
-            if ($this->permissions->modules->uninstall && !$item->isActive() && $item->isWritable()) {
-                $buttons[] = (new \fpcm\view\helper\button('uninstall'.$hash))->setText('MODULES_LIST_UNINSTALL')->setIcon('minus-circle')->setIconOnly()->setData(['key' => $item->getKey(), 'action' => 'uninstall'])->setClass('fpcm-ui-modulelist-action-local');
-            }
-
-            if ($hasUpdates) {
-                $buttons[] = (new \fpcm\view\helper\linkButton('update'.$hash))
-                        ->setUrl(\fpcm\classes\tools::getFullControllerLink('package/modupdate', ['key' => $item->getKey()]))
-                        ->setText('MODULES_LIST_UPDATE')
-                        ->setIcon('sync')
-                        ->setIconOnly()
-                        ->setPrimary(true)
-                        ->setClass('fpcm-ui-modulelist-action-local-update');
-            }
-
-            if ($hasLocalUpdates && !$hasUpdates) {
-                $buttons[] = (new \fpcm\view\helper\linkButton('update'.$hash))
-                    ->setUrl(\fpcm\classes\tools::getFullControllerLink('package/modupdate', ['key' => $item->getKey(), 'update-db' => 1]))
-                    ->setText('MODULES_LIST_UPDATE')
-                    ->setIcon('sync')
-                    ->setIconOnly()
-                    ->setPrimary(true)
-                    ->setClass('fpcm-ui-modulelist-action-local-update');
-            }
-        }
-        
-        if (!$item->isInstalled()) {
-            if ($this->permissions->modules->install) {
-                $buttons[] = (new \fpcm\view\helper\button('install'.$hash))->setText('MODULES_LIST_INSTALL')->setIcon('plus-circle')->setIconOnly()->setData(['key' => $item->getKey(), 'action' => 'install', 'dir' => true])->setClass('fpcm-ui-modulelist-action-local')->setReadonly(!$item->isInstallable());
-            }            
-
-            if ($this->permissions->modules->uninstall && $item->isWritable()) {
-                $buttons[] = (new \fpcm\view\helper\button('delete'.$hash))->setText('MODULES_LIST_DELETE')->setIcon('trash')->setIconOnly()->setData(['key' => $item->getKey(), 'action' => 'delete'])->setClass('fpcm-ui-modulelist-action-local');
-            }            
-        }
 
         $class = ($hasUpdates ? 'text-danger' : '');
         
         return new \fpcm\components\dataView\row([
-            new \fpcm\components\dataView\rowCol('buttons', implode('', $buttons)),
+            new \fpcm\components\dataView\rowCol('buttons', implode('', $this->getButtonsLocal($item, $hash, $hasUpdates, $hasLocalUpdates) )),
             new \fpcm\components\dataView\rowCol('description', new \fpcm\view\helper\escape($config->name ), $class ),
             new \fpcm\components\dataView\rowCol('key', new \fpcm\view\helper\escape($key), $class ),
             new \fpcm\components\dataView\rowCol('version', new \fpcm\view\helper\escape($config->version), $class )
@@ -309,7 +225,7 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController
         
         $buttons = [];        
         if (!$item->isInstallable()) {
-            $buttons[] = (new \fpcm\view\helper\icon('project-diagram'))->setText('MODULES_FAILED_DEPENCIES')->setClass('pe-3 text-danger');
+            $buttons[] = (new \fpcm\view\helper\badge('installable'.$hash))->setIcon('project-diagram')->setText('MODULES_FAILED_DEPENCIES')->setClass('text-bg-danger fs-6')->setSize('lg');
         }
         
         $buttons[] = (new \fpcm\view\helper\button('info'.$hash))
@@ -356,6 +272,103 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController
         return true;
     }
 
-}
+    /**
+     * 
+     * @param \fpcm\module\module $item
+     * @param string $hash
+     * @param bool $hasUpdates
+     * @param bool $hasLocalUpdates
+     * @return array
+     */
+    private function getButtonsLocal(\fpcm\module\module $item, string $hash, bool $hasUpdates, bool $hasLocalUpdates) : array
+    {
+        $buttons = [];
 
-?>
+        if (!$item->isInstallable()) {
+            $buttons[] = (new \fpcm\view\helper\badge('installable'.$hash))->setIcon('project-diagram')->setText('MODULES_FAILED_DEPENCIES')->setClass('text-bg-danger fs-6')->setSize('lg');
+        }
+
+        if (!$item->hasFilesListFile()) {
+            $buttons[] = (new \fpcm\view\helper\badge('fileslist'.$hash))->setIcon('exclamation-triangle')->setText('UPDATE_VERSIONCECK_FILETXT_ERR2')->setClass('text-bg-warning fs-6')->setSize('lg');
+        }
+
+        if (!$item->isWritable()) {
+            $buttons[] = (new \fpcm\view\helper\badge('writable'.$hash))->setIcon('ban')->setText('MODULES_FAILED_FSWRITE')->setClass('text-bg-danger fs-6')->setSize('lg');
+        }
+
+        $buttons[] = (new \fpcm\view\helper\button('info'.$hash))
+            ->setText('MODULES_LIST_INFORMATIONS')
+            ->setIcon('info-circle')
+            ->setIconOnly()
+            ->setData([
+                'bs-toggle' => 'offcanvas',
+                'bs-target' => '#offcanvasInfo',
+                'key' => $item->getKey()
+            ])
+            ->setAria([
+                'bs-controls' => 'offcanvasInfo',
+            ]);           
+
+        if (!$item->isInstalled()) {
+
+            if ($this->permissions->modules->install) {
+                $buttons[] = (new \fpcm\view\helper\button('install'.$hash))->setText('MODULES_LIST_INSTALL')->setIcon('plus-circle')->setIconOnly()->setData(['key' => $item->getKey(), 'action' => 'install', 'dir' => true])->setClass('fpcm-ui-modulelist-action-local')->setReadonly(!$item->isInstallable());
+            }
+
+            if ($this->permissions->modules->uninstall && $item->isWritable()) {
+                $buttons[] = (new \fpcm\view\helper\button('delete'.$hash))->setText('MODULES_LIST_DELETE')->setIcon('trash')->setIconOnly()->setData(['key' => $item->getKey(), 'action' => 'delete'])->setClass('fpcm-ui-modulelist-action-local');
+            }
+
+            return $buttons;
+        }
+        
+        if ($this->permissions->modules->configure) {
+
+            if ($item->isActive()) {
+
+                if ($item->hasConfigure()) {
+                    $buttons[]  = (new \fpcm\view\helper\linkButton('configure'.$hash))
+                                    ->setText('MODULES_LIST_CONFIGURE')
+                                    ->setIcon('cogs')
+                                    ->setIconOnly()
+                                    ->setClass('fpcm-ui-modulelist-action-local')
+                                    ->setUrl(\fpcm\classes\tools::getFullControllerLink('modules/configure', ['key' => $item->getKey()]));
+                }
+
+                $buttons[]  = (new \fpcm\view\helper\button('disable'.$hash))->setText('MODULES_LIST_DISABLE')->setIcon('toggle-off')->setIconOnly()->setData(['key' => $item->getKey(), 'action' => 'disable'])->setClass('fpcm-ui-modulelist-action-local');
+            }
+            else {
+
+                $buttons[]  = (new \fpcm\view\helper\button('enable'.$hash))->setText('MODULES_LIST_ENABLE')->setIcon('toggle-on')->setIconOnly()->setData(['key' => $item->getKey(), 'action' => 'enable'])->setClass('fpcm-ui-modulelist-action-local');
+            }
+
+        }
+
+        if ($this->permissions->modules->uninstall && !$item->isActive() && $item->isWritable()) {
+            $buttons[] = (new \fpcm\view\helper\button('uninstall'.$hash))->setText('MODULES_LIST_UNINSTALL')->setIcon('minus-circle')->setIconOnly()->setData(['key' => $item->getKey(), 'action' => 'uninstall'])->setClass('fpcm-ui-modulelist-action-local');
+        }
+
+        if ($hasUpdates) {
+            $buttons[] = (new \fpcm\view\helper\linkButton('update'.$hash))
+                    ->setUrl(\fpcm\classes\tools::getFullControllerLink('package/modupdate', ['key' => $item->getKey()]))
+                    ->setText('MODULES_LIST_UPDATE')
+                    ->setIcon('sync')
+                    ->setIconOnly()
+                    ->setPrimary(true)
+                    ->setClass('fpcm-ui-modulelist-action-local-update');
+        }
+
+        if ($hasLocalUpdates && !$hasUpdates) {
+            $buttons[] = (new \fpcm\view\helper\linkButton('update'.$hash))
+                ->setUrl(\fpcm\classes\tools::getFullControllerLink('package/modupdate', ['key' => $item->getKey(), 'update-db' => 1]))
+                ->setText('MODULES_LIST_UPDATE')
+                ->setIcon('sync')
+                ->setIconOnly()
+                ->setPrimary(true)
+                ->setClass('fpcm-ui-modulelist-action-local-update');
+        }
+
+        return $buttons;
+    }
+
+}
