@@ -97,6 +97,12 @@ class CaBundle
             '/usr/local/etc/openssl@1.1/cert.pem', // OS X homebrew, openssl@1.1 package
         );
 
+        $open_base_dir = ini_get('open_basedir');        
+        if (trim($open_base_dir)) {
+            $otherLocations = array_filter($open_base_dir, fn($loc) => ( str_contains(dirname($loc), $open_base_dir) ) );
+            $otherLocations = array_values($otherLocations);
+        }        
+
         foreach($otherLocations as $location) {
             $otherLocations[] = dirname($location);
         }
