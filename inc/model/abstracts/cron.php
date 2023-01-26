@@ -30,6 +30,18 @@ abstract class cron implements \fpcm\model\interfaces\cron {
     protected $dbcon;
 
     /**
+     * Database table
+     * @var string
+     */
+    protected $table;
+
+    /**
+     * Events object
+     * @var \fpcm\events\events
+     */
+    protected $event;
+
+    /**
      * Name des Crons
      * @var string
      */

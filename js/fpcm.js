@@ -21,7 +21,7 @@ if (fpcm === undefined) {
                     _newvalue = [];
                 }
 
-                return jQuery.extend(fpcm, _newvalue);
+                return jQuery.extend(true, fpcm, _newvalue);
             }
         }
     };

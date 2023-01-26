@@ -12,11 +12,13 @@ namespace fpcm\model\pubtemplates;
  * 
  * @package fpcm\model\system
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2022, Stefan Seehafer
+ * @copyright (c) 2011-2023, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 final class sharebuttons extends template {
 
+    use \fpcm\model\traits\shareLinks;
+    
     const TEMPLATE_ID = 'shareButtons';
     
     const CACHE_MODULE = 'sharebtn';
@@ -33,6 +35,7 @@ final class sharebuttons extends template {
         '{{pinterest}}' => '',
         '{{reddit}}' => '',
         '{{whatsapp}}' => '',
+        '{{telegram}}' => '',
         '{{email}}' => '',
         '{{link}}' => '',
         '{{description}}' => '',
@@ -173,7 +176,7 @@ final class sharebuttons extends template {
                 ]
             ],
             '{{facebook}}' => [
-                'link' => "https://www.facebook.com/sharer/sharer.php?u={$this->link}&amp;t={$this->description}",
+                'link' => $this->getLink('facebook', $this->description, $this->link),
                 'icon' => "default/facebook.png",
                 'text' => "Facebook",
                 'data' => [
@@ -182,7 +185,7 @@ final class sharebuttons extends template {
                 ]
             ],
             '{{twitter}}' => [
-                'link' => "https://twitter.com/intent/tweet?source={$this->link}&amp;text={$this->description}",
+                'link' => $this->getLink('twitter', $this->description, $this->link),
                 'icon' => "default/twitter.png",
                 'text' => "Twitter",
                 'data' => [
@@ -191,7 +194,7 @@ final class sharebuttons extends template {
                 ]
             ],
             '{{tumblr}}' => [
-                'link' => "http://www.tumblr.com/share?v=3&amp;u={$this->link}&amp;t={$this->description}&amp;s=",
+                'link' => $this->getLink('tumblr', $this->description, $this->link),
                 'icon' => "default/tumblr.png",
                 'text' => "Share on Tumblr",
                 'data' => [
@@ -200,7 +203,7 @@ final class sharebuttons extends template {
                 ]
             ],
             '{{pinterest}}' => [
-                'link' => "http://pinterest.com/pin/create/button/?url={$this->link}&amp;description={$this->description}",
+                'link' => $this->getLink('pinterest', $this->description, $this->link),
                 'icon' => "default/pinterest.png",
                 'text' => "Pin it",
                 'data' => [
@@ -209,7 +212,7 @@ final class sharebuttons extends template {
                 ]
             ],
             '{{reddit}}' => [
-                'link' => "http://www.reddit.com/submit?url={$this->link}&amp;title={$this->description}",
+                'link' => $this->getLink('reddit', $this->description, $this->link),
                 'icon' => "default/reddit.png",
                 'text' => "Submit to Reddit",
                 'data' => [
@@ -218,7 +221,7 @@ final class sharebuttons extends template {
                 ]
             ],
             '{{whatsapp}}' => [
-                'link' => "whatsapp://send?text={$this->description}: {$this->link}",
+                'link' => $this->getLink('whatsapp', $this->description, $this->link),
                 'icon' => "default/whatsapp.png",
                 'text' => "Share on WhatsApp",
                 'data' => [
@@ -227,8 +230,17 @@ final class sharebuttons extends template {
                     'oid' => $this->articleId
                 ]
             ],
+            '{{telegram}}' => [
+                'link' => $this->getLink('telegram', $this->description, $this->link),
+                'icon' => "default/telegram.png",
+                'text' => "Share on Telegram",
+                'data' => [
+                    'onclick' => 'telegram',
+                    'oid' => $this->articleId
+                ]
+            ],
             '{{email}}' => [
-                'link' => "mailto:?subject={$this->description}&amp;body={$this->link}",
+                'link' => $this->getLink('email', $this->description, $this->link),
                 'icon' => "default/email.png",
                 'text' => "Share via E-Mail",
                 'data' => [

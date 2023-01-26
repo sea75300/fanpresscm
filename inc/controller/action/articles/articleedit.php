@@ -16,7 +16,8 @@ namespace fpcm\controller\action\articles;
 class articleedit extends articlebase {
 
     use \fpcm\controller\traits\comments\lists,
-        \fpcm\model\articles\permissions;
+        \fpcm\model\articles\permissions,
+        \fpcm\model\traits\shareLinks;
 
     /**
      *
@@ -169,37 +170,12 @@ class articleedit extends articlebase {
             '{{time}}'     => new \fpcm\view\helper\dateText($this->article->getChangetime())
         ]));
 
-        $this->view->addButtons([
-            (new \fpcm\view\helper\openButton('articlefe'))->setUrlbyObject($this->article)->setTarget('_blank')->setIconOnly()->setClass('fpcm-ui-maintoolbarbuttons-tab1'),
-            (new \fpcm\view\helper\button('shortlink'))
-                ->setText('EDITOR_ARTICLE_SHORTLINK')
-                ->setIcon('external-link-square-alt')
-                ->setIconOnly()
-                ->setClass('fpcm-ui-maintoolbarbuttons-tab1')
-                ->setData([
-                    'article' => $this->article->getId()
-                ]),
-        ]);
-
-        if ($this->article->getImagepath()) {
-            $this->view->addButton((new \fpcm\view\helper\linkButton('articleimg'))->setUrl($this->article->getImagepath())->setText('EDITOR_ARTICLEIMAGE_SHOW')->setIcon('image')->setIconOnly()->setClass('fpcm ui-link-fancybox fpcm-ui-maintoolbarbuttons-tab1'));
-        }
-
-        if ($this->permissions->article->delete && !$this->request->fromGET('rev')) {
-            $this->view->addButton((new \fpcm\view\helper\deleteButton('articleDelete'))->setClass('fpcm-ui-maintoolbarbuttons-tab1 fpcm ui-button-confirm')->setReadonly($this->article->isInEdit()));
-        }
+        $this->addButtons();
 
         $shares = (new \fpcm\model\shares\shares())->getByArticleId($this->article->getId());
 
         $this->view->assign('shares', $shares);
         $this->view->assign('showShares', $this->config->system_share_count);
-        
-        if ($this->permissions->article->revisions) {
-            $this->view->addButton((new \fpcm\view\helper\submitButton('articleRevisionRestore'))->setText('EDITOR_REVISION_RESTORE')->setIcon('undo')->setReadonly($this->article->isInEdit())->setClass('fpcm-ui-maintoolbarbuttons-tab3 fpcm-ui-hidden'));
-            $this->view->addButton((new \fpcm\view\helper\deleteButton('revisionDelete'))->setClass('fpcm-ui-maintoolbarbuttons-tab3 fpcm-ui-hidden fpcm ui-button-confirm')->setText('EDITOR_REVISION_DELETE'));
-        }
-
-        $this->view->render();
     }
 
     /**
@@ -308,6 +284,75 @@ class articleedit extends articlebase {
         $this->view->addNoticeMessage('SAVE_SUCCESS_ARTICLE');
         
         return true;
+    }
+    
+    private function addButtons()
+    {
+        $this->view->addButtons([
+            (new \fpcm\view\helper\openButton('articlefe'))->setUrlbyObject($this->article)->setTarget('_blank')->setIconOnly()->setClass('fpcm-ui-maintoolbarbuttons-tab1'),
+            (new \fpcm\view\helper\button('shortlink'))
+                ->setText('EDITOR_ARTICLE_SHORTLINK')
+                ->setIcon('external-link-square-alt')
+                ->setIconOnly()
+                ->setClass('fpcm-ui-maintoolbarbuttons-tab1')
+                ->setData([
+                    'article' => $this->article->getId()
+                ])
+        ]);
+
+        if ($this->article->getImagepath()) {
+            $this->view->addButton((new \fpcm\view\helper\linkButton('articleimg'))->setUrl($this->article->getImagepath())->setText('EDITOR_ARTICLEIMAGE_SHOW')->setIcon('image')->setIconOnly()->setClass('fpcm ui-link-fancybox fpcm-ui-maintoolbarbuttons-tab1'));
+        }
+
+        if ($this->permissions->article->delete && !$this->request->fromGET('rev')) {
+            $this->view->addButton((new \fpcm\view\helper\deleteButton('articleDelete'))->setClass('fpcm-ui-maintoolbarbuttons-tab1 fpcm ui-button-confirm')->setReadonly($this->article->isInEdit()));
+        }
+        
+        if ($this->permissions->article->revisions) {
+            
+            
+            
+            $this->view->addButton((new \fpcm\view\helper\submitButton('articleRevisionRestore'))->setText('EDITOR_REVISION_RESTORE')->setIcon('undo')->setReadonly($this->article->isInEdit())->setClass('fpcm-ui-maintoolbarbuttons-tab3 fpcm-ui-hidden'));
+            $this->view->addButton((new \fpcm\view\helper\deleteButton('revisionDelete'))->setClass('fpcm-ui-maintoolbarbuttons-tab3 fpcm-ui-hidden fpcm ui-button-confirm')->setText('EDITOR_REVISION_DELETE'));
+        }
+        
+        $this->addShareButtons();
+        
+        return true;
+    }
+    
+    private function addShareButtons()
+    {
+        
+        $shares = \fpcm\model\shares\shares::getAllRegisteredShares();
+        
+        
+        $options = [];
+        foreach ($shares as $share) {
+            
+            $url = $this->getLink($share, $this->article->getTitle(), rawurlencode($this->article->getElementLink()));
+            if (!$url) {
+                continue;
+            }
+            
+            $icon = \fpcm\model\pubtemplates\sharebuttons::getShareItemClass($share);
+            $options[] = (new \fpcm\view\helper\dropdownItem('share'.$share))
+                    ->setIcon($icon['icon'], $icon['prefix'])
+                    ->setSize('lg')
+                    ->setUrl($url)
+                    ->setValue(md5($share))
+                    ->setText(ucfirst($share));
+        }
+        
+        $this->view->addButton(
+            (new \fpcm\view\helper\dropdown('shareArticle'))
+                ->setText('EDITOR_SHARE')
+                ->setIcon('share')
+                ->setIconOnly()
+                ->setOptions($options)
+                ->setSelected(false)
+        );      
+        
     }
 
 }
