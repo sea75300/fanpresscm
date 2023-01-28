@@ -20,7 +20,7 @@ namespace fpcm\migrations;
 class v510a1 extends migration {
 
     protected function alterTablesAfter(): bool {
-        
+
         $obj = new \fpcm\model\dbal\selectParams(\fpcm\classes\database::tableArticles);
         $obj->setItem('id, categories');
         $obj->setWhere('1=1 '.$this->getDB()->orderBy(['id ASC']));
@@ -57,16 +57,6 @@ class v510a1 extends migration {
         }
 
         return true;
-    }
-
-    /**
-     * return preview version string
-     * @return string
-     * @since 4.5.1-b1
-     */
-    protected function getPreviewsVersion() : string
-    {
-        return '5.0.2';
     }
 
 }
