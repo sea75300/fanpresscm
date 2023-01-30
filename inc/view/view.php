@@ -845,7 +845,8 @@ class view {
                     'lang' => $this->jsLangVars,
                 ],
                 'jsvars' => $this->jsVars,
-                'ajaxActionPath' => \fpcm\classes\tools::getFullControllerLink('ajax/')
+                'ajaxActionPath' => \fpcm\classes\tools::getFullControllerLink('ajax/'),
+                'ajaxRefreshDisable' => defined('FPCM_DISABLE_AJAX_CRONJOBS_PUB') && FPCM_DISABLE_AJAX_CRONJOBS_PUB
             ]
         ];
         

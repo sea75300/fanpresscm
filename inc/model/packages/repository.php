@@ -111,5 +111,3 @@ final class repository extends remoteModel {
     }
 
 }
-
-?>

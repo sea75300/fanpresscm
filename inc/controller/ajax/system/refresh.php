@@ -70,6 +70,11 @@ class refresh extends \fpcm\controller\abstracts\ajaxController
      */
     private function runCrons()
     {
+        if (defined('FPCM_DISABLE_AJAX_CRONJOBS_REFRESH') && FPCM_DISABLE_AJAX_CRONJOBS_REFRESH) {
+            fpcmLogCron('Asynchronous cronjob execution was disabled');
+            return true;
+        }
+
         if (!\fpcm\classes\baseconfig::asyncCronjobsEnabled()) {
             fpcmLogCron('Asynchronous cronjob execution was disabled');
             return false;
@@ -82,10 +87,7 @@ class refresh extends \fpcm\controller\abstracts\ajaxController
             return true;
         }
 
-        foreach ($crons as $cron) {
-            $cronlist->registerCronAjax($cron);
-        }
-        
+        array_map([$cronlist, 'registerCronAjax'] , $crons);
         $this->returnDataObj->crons = true;
         return true;
     }

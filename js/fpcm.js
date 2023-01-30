@@ -191,6 +191,10 @@ window.onload = function() {
                     return false;
                 }
                 
+                if (fpcm.vars.ajaxRefreshDisable) {
+                    return false;
+                }
+                
                 fpcm.pub.doAjax({
                     action: 'refresh',
                     data: {

@@ -245,4 +245,21 @@ if (!defined('FPCM_SMTP_TIMEOUT')) {
      * @since 5.1-dev
      */
     define('FPCM_SMTP_TIMEOUT', 5);
-}   
+}
+
+if (!defined('FPCM_DISABLE_AJAX_CRONJOBS_PUB')) {
+    /**
+     * Disable AJAX cronjobs on public controller
+     * @since 5.1.0-b3
+     */
+    define('FPCM_DISABLE_AJAX_CRONJOBS_PUB', false);
+}
+
+if (!defined('FPCM_DISABLE_AJAX_CRONJOBS_REFRESH')) {
+
+    /**
+     * Disable AJAX cronjobs on refresh controller
+     * @since 5.1.0-b3
+     */
+    define('FPCM_DISABLE_AJAX_CRONJOBS_REFRESH', false);
+}
