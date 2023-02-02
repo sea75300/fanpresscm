@@ -62,16 +62,12 @@ implements \fpcm\controller\interfaces\viewByNamespace
     public function process()
     {
         $xml = $this->getChapter('SYSTEM_HL_OPTIONS_TWITTER');
-        $descr = $xml[0]; //->xpath('/description/');
-        
-        fpcmLogSystem((string) $descr->description);
-        
+        $descr = $xml[0];
+
         $this->view->assign('xml', $descr);
         
         $this->view->addTabs('twitterassistant', [
-            
-            (new \fpcm\view\helper\tabItem('twitter-steps'))->setText('SYSTEM_OPTIONS_TWITTER_CONNECT')->setFile($this->getViewPath())
-            
+            (new \fpcm\view\helper\tabItem('twitter-steps'))->setText('SYSTEM_OPTIONS_TWITTER_CONNECT')->setFile($this->getViewPath())            
         ]);
         
     }
