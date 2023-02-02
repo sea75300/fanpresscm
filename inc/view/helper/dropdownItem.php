@@ -56,9 +56,7 @@ class dropdownItem extends helper {
      */
     protected function getString(): string
     {        
-        return "<li><a href=\"{$this->url}\" {$this->getIdString()} {$this->getClassString()} {$this->getDataString()} >{$this->getIconString()}{$this->language->translate($this->text)}</a></li>";
+        return "<li><a href=\"{$this->url}\" {$this->getIdString()} {$this->getClassString()} {$this->getDataString()} {$this->getTargetString()}>{$this->getIconString()}{$this->language->translate($this->text)}</a></li>";
     }
 
 }
-
-?>

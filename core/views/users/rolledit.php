@@ -13,7 +13,8 @@
                         ->setText('USERS_ROLLS_NAME')
                         ->setRequired(!$userRoll->isSystemRoll())
                         ->setAutoFocused(!$userRoll->isSystemRoll())
-                        ->setReadonly($userRoll->isSystemRoll()); ?>
+                        ->setReadonly($userRoll->isSystemRoll())
+                        ->setLabelTypeFloat(); ?>
                 </div>
             </div>
 
@@ -22,7 +23,8 @@
                     <?php $theView->textarea('rollcodex')
                         ->setValue($userRoll->getCodex(), ENT_QUOTES | ENT_COMPAT)
                         ->setClass('fpcm ui-textarea-medium ui-textarea-noresize')
-                        ->setText('USERS_ROLLS_CODEX'); ?>
+                        ->setText('USERS_ROLLS_CODEX')
+                        ->setLabelTypeFloat(); ?>
                 </div>
             </div>
     

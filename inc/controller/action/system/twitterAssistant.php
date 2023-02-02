@@ -49,7 +49,7 @@ implements \fpcm\controller\interfaces\viewByNamespace
             return false;
         }
         
-        if (!$this->obj->checkRequirements()) {
+        if ($this->obj->checkRequirements()) {
             return true;
         }
         

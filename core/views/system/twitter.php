@@ -3,6 +3,12 @@
     <div class="col align-self-center">
     <?php if ($twitterIsActive) : ?>
         <?php $theView->alert('success')->setText('SYSTEM_OPTIONS_TWITTER_ACTIVE', ['{{screenname}}' => $twitterScreenName])->setIcon('twitter', 'fab')->setClass('mb-1 mb-md-0'); ?>
+    <?php elseif (defined('FPCM_TWITTER_DSIABLE_API') && FPCM_TWITTER_DSIABLE_API) : ?>
+        <?php $theView->alert('dark')
+                ->setText('Twitter API connector has been disabled, see https://www.heise.de/news/Twitter-macht-API-Zugang-kostenpflichtig-mit-einer-Woche-Vorlaufzeit-7480995.html.')
+                ->setIcon('ban text-danger')
+                ->setSize('lg')
+                ->setClass('mb-1 mb-md-0'); ?>
     <?php else : ?>
         <?php $theView->alert('secondary')->setText('SYSTEM_OPTIONS_TWITTER_CONSTATE')->setIcon('twitter', 'fab')->setClass('mb-1 mb-md-0'); ?>
     <?php endif; ?>

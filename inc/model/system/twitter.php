@@ -67,6 +67,10 @@ class twitter extends \fpcm\model\abstracts\staticModel {
      */
     public function checkRequirements(bool $force = false) : bool
     {
+        if (defined('FPCM_TWITTER_DSIABLE_API') && FPCM_TWITTER_DSIABLE_API) {
+            return false;
+        }
+        
         if ($this->requ !== null && !$force) {
             return $this->requ;
         }
@@ -84,6 +88,10 @@ class twitter extends \fpcm\model\abstracts\staticModel {
      */
     public function checkConnection()
     {
+        if (defined('FPCM_TWITTER_DSIABLE_API') && FPCM_TWITTER_DSIABLE_API) {
+            return false;
+        }        
+        
         $cacheName = 'twitter/checkConnection';
 
         if (!$this->cache->isExpired($cacheName)) {
@@ -111,6 +119,10 @@ class twitter extends \fpcm\model\abstracts\staticModel {
      */
     public function updateStatus($text) : bool
     {
+        if (defined('FPCM_TWITTER_DSIABLE_API') && FPCM_TWITTER_DSIABLE_API) {
+            return false;
+        }
+
         if (!trim($text)) {
             fpcmLogSystem('Create tweet failed, no text given!');
             return false;
@@ -131,6 +143,10 @@ class twitter extends \fpcm\model\abstracts\staticModel {
      */
     public function fetchTimeline() : string
     {
+        if (defined('FPCM_TWITTER_DSIABLE_API') && FPCM_TWITTER_DSIABLE_API) {
+            return '';
+        }
+
         $result = $this->oAuth->get(
             'statuses/user_timeline',
             [
@@ -154,6 +170,10 @@ class twitter extends \fpcm\model\abstracts\staticModel {
      */
     private function log($responseData)
     {
+        if (defined('FPCM_TWITTER_DSIABLE_API') && FPCM_TWITTER_DSIABLE_API) {
+            return false;
+        }
+
         if (isset($responseData->errors)) {
 
             $i = 0;
@@ -186,6 +206,10 @@ class twitter extends \fpcm\model\abstracts\staticModel {
      */
     public function getUsername()
     {
+        if (defined('FPCM_TWITTER_DSIABLE_API') && FPCM_TWITTER_DSIABLE_API) {
+            return '';
+        }
+
         $cacheName = 'twitter/getUsername';
 
         if (!$this->cache->isExpired($cacheName) && !trim($this->username)) {

@@ -1,20 +1,23 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
 <?php if ( trim($rollCodex) ) : ?>
-<div class="row mt-3">
+<div class="row">
     <div class="col-12">
-        <?php $theView->alert('warning')->setText('<span class="fw-bold">'. $theView->translate('EDITOR_CODEX') . '</span><br>' .   nl2br($theView->escapeVal($rollCodex))); ?>
+        <?php $theView->alert('warning')
+                ->setText('<span class="fw-bold">'. $theView->translate('EDITOR_CODEX') . '</span><br>' .   nl2br($theView->escapeVal($rollCodex)))
+                ->setClass('mt-3'); ?>
     </div>
 </div>    
 <?php endif; ?>
 
 <div class="row">
-    <div class="col mt-3">
+    <div class="col <?php if (!trim($rollCodex) ) : ?>mt-3<?php endif; ?>">
         <?php $theView->textInput('article[title]')->setValue($article->getTitle())
-                ->setText('ARTICLE_LIST_TITLE')
-                ->setPlaceholder('ARTICLE_LIST_TITLE')
-                ->setAutoFocused(true)
-                ->setIcon('pen')
-                ->setLabelTypeFloat(); ?>
+            ->setText('ARTICLE_LIST_TITLE')
+            ->setPlaceholder('ARTICLE_LIST_TITLE')
+            ->setAutoFocused(true)
+            ->setRequired()
+            ->setIcon('pen')
+            ->setLabelTypeFloat(); ?>
 
     </div>
 </div>

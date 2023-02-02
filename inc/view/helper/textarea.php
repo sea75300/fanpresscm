@@ -43,15 +43,37 @@ final class textarea extends input {
                 $this->setDisplaySizesDefault();
             }            
 
+            if ($this->labelType === self::LABEL_TYPE_FLOATING) {
+                
+                return sprintf(
+                    '<div class="%s %s"><textarea %s %s %s %s %s>%s</textarea><label title="%s" class="col-form-label pe-3 %s" for="%s">%s%s</label></div>',
+                    $this->labelType,
+                    $this->bottomSpace,
+                    $this->getNameIdString(),
+                    $this->getClassString(),
+                    $this->getReadonlyString(),
+                    $this->getPlaceholderString(),
+                    $this->getDataString(),
+                    $this->value,
+                    $this->text,
+                    $this->getLabelSize(),
+                    $this->id,
+                    $this->getIconString(),
+                    $this->getDescriptionTextString('ps-0'),
+                );                
+                
+            }
+            
+            
             return sprintf(
-                '<div class="%s %s"><label title="%s" class="col-form-label pe-3 %s" for="%s">%s%s</label><textarea %s %s %s %s %s>%s</textarea></div>',                    
+                '<div class="%s %s"><label title="%s" class="col-form-label pe-3 %s" for="%s">%s%s</label><textarea %s %s %s %s %s>%s</textarea></div>',
                 $this->labelType,
                 $this->bottomSpace,
                 $this->text,
                 $this->getLabelSize(),
                 $this->id,
                 $this->getIconString(),
-                $this->getDescriptionTextString('ps-1'),
+                $this->getDescriptionTextString(),
                 $this->getNameIdString(),
                 $this->getClassString(),
                 $this->getReadonlyString(),
@@ -73,5 +95,3 @@ final class textarea extends input {
     }
 
 }
-
-?>

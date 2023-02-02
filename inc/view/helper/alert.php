@@ -35,7 +35,7 @@ class alert extends helper {
      */
     protected function getString()
     {
-        return "<div {$this->getAriaString()}{$this->getClassString()}>{$this->getIconString()}{$this->text}</div>";
+        return "<div {$this->getAriaString()}{$this->getClassString()} role=\"alert\">{$this->getIconString()}{$this->text}</div>";
     }
 
     /**
@@ -49,5 +49,3 @@ class alert extends helper {
     }
 
 }
-
-?>

@@ -309,9 +309,6 @@ class articleedit extends articlebase {
         }
         
         if ($this->permissions->article->revisions) {
-            
-            
-            
             $this->view->addButton((new \fpcm\view\helper\submitButton('articleRevisionRestore'))->setText('EDITOR_REVISION_RESTORE')->setIcon('undo')->setReadonly($this->article->isInEdit())->setClass('fpcm-ui-maintoolbarbuttons-tab3 fpcm-ui-hidden'));
             $this->view->addButton((new \fpcm\view\helper\deleteButton('revisionDelete'))->setClass('fpcm-ui-maintoolbarbuttons-tab3 fpcm-ui-hidden fpcm ui-button-confirm')->setText('EDITOR_REVISION_DELETE'));
         }
@@ -340,6 +337,7 @@ class articleedit extends articlebase {
                     ->setIcon($icon['icon'], $icon['prefix'])
                     ->setSize('lg')
                     ->setUrl($url)
+                    ->setTarget('_blank')
                     ->setValue(md5($share))
                     ->setText(ucfirst($share));
         }

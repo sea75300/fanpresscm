@@ -24,6 +24,12 @@ trait urlHelper {
     protected $url = '';
 
     /**
+     * Link URL target
+     * @var string
+     */
+    protected $target = '';
+
+    /**
      * Set link url
      * @param string $url
      * @return $this
@@ -34,6 +40,29 @@ trait urlHelper {
         return $this;
     }
 
-}
+    /**
+     * Set link target
+     * @param string $target
+     * @return $this
+     */
+    public function setTarget($target)
+    {
+        $this->target = $target;
+        return $this;
+    }
 
-?>
+    /**
+     * 
+     * @return string
+     * @since 5.1.0-b4
+     */
+    protected function getTargetString() : string
+    {
+        if (!$this->target) {
+            return '';
+        }
+        
+        return sprintf('target="%s"', $this->target);
+    }
+
+}

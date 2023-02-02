@@ -20,12 +20,6 @@ class linkButton extends button {
     use traits\urlHelper;
 
     /**
-     * Link URL target
-     * @var string
-     */
-    protected $target = '';
-
-    /**
      * rel-Attribute
      * @var string
      * @since 4.1
@@ -90,7 +84,7 @@ class linkButton extends button {
 
         return implode(' ', [
             "<a href=\"{$this->url}\"",
-            $this->target ? "target=\"{$this->target}\"" : '',
+            $this->getTargetString(),
             "id=\"{$this->id}\"",
             $this->getClassString(),
             $this->getRelString(),
@@ -98,17 +92,6 @@ class linkButton extends button {
             ($this->iconOnly ? "title=\"{$this->text}\">{$this->getIconString()}" : ">{$icon}{$this->getDescriptionTextString()}"),
             '</a>'
         ]);
-    }
-
-    /**
-     * Set link target
-     * @param string $target
-     * @return $this
-     */
-    public function setTarget($target)
-    {
-        $this->target = $target;
-        return $this;
     }
 
     /**
