@@ -237,4 +237,15 @@ if (!defined('FPCM_SMTP_TIMEOUT')) {
      * @since 5.0.1
      */
     define('FPCM_SMTP_TIMEOUT', 30);
-}   
+}
+
+if (!defined('FPCM_TWITTER_DSIABLE_API')) {
+
+    /**
+     * Disable twitter api connector
+     * @link https://www.heise.de/news/Twitter-macht-API-Zugang-kostenpflichtig-mit-einer-Woche-Vorlaufzeit-7480995.html
+     * @since 5.1.0-b4
+     */
+    define('FPCM_TWITTER_DSIABLE_API', true);
+}
+
