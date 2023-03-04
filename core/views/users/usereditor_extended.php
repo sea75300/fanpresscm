@@ -38,7 +38,7 @@
                     <?php $theView->submitButton('uploadFile')->setText('FILE_FORM_UPLOADSTART')->setIcon('upload')->overrideButtonType('outline-secondary'); ?>
                     <?php $theView->resetButton('cancelUpload')->setText('FILE_FORM_UPLOADCANCEL')->setIcon('ban')->overrideButtonType('outline-secondary'); ?>
                 </div>            
-                <input type="file" name="files" class="fpcm-ui-fileinput-select d-none invisible" id="fpcm-id-avatar-upload-files">
+                <input type="file" name="files" class="fpcm-ui-fileinput-select invisible" id="fpcm-id-avatar-upload-files">
             </div>
 
             <div class="list-group my-2" id="fpcm-id-upload-list" role="presentation"></div>

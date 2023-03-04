@@ -48,11 +48,6 @@ fpcm.fileuploader = {
             });
 
         });
-        
-
-        fpcm.dom.bindClick('#btnUploadFile', function () {
-            fpcm.ui_loader.show();
-        });
 
         fpcm.dom.bindClick('#btnCancelUpload', function () {
             fpcm.dom.fromClass('fpcm-ui-fileinput-select').empty();
