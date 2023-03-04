@@ -2,8 +2,8 @@
 <fieldset class="mb-2">
     <legend><?php $theView->write('SYSTEM_HL_OPTIONS_GENERAL'); ?></legend>
 
-    <div class="row my-2">
-        <div class="col-12 col-md-6">
+    <div class="row row-cols-1 row-cols-md-4 gap-1 my-2">
+        <div class="col">
             <?php $theView->select('usermeta[system_timezone]')
                     ->setOptions($timezoneAreas)
                     ->setSelected($author->getUserMeta()->system_timezone)
@@ -12,11 +12,7 @@
                     ->setLabelTypeFloat()
                     ->setIcon('globe'); ?>
         </div>
-    </div>
-
-    <div class="row my-2">
-        <div class="col-12 col-md-6">
-            <div class="row g-0">
+        <div class="col ps-md-0">
                 <?php $theView->textInput('usermeta[system_dtmask]')
                     ->setValue($author->getUserMeta()->system_dtmask)
                     ->setAutocomplete(false)
@@ -24,15 +20,15 @@
                     ->setPlaceholder('SYSTEM_OPTIONS_DATETIMEMASK')
                     ->setLabelTypeFloat()
                     ->setIcon('calendar'); ?>
+        </div>
+        <div class="col align-self-center mb-3">
+            <div class="d-flex justify-content-center justify-content-md-start">                
+                <?php $theView->shorthelpButton('dtmask')
+                        ->setText('SYSTEM_OPTIONS_DATETIMEMASK_HELP')
+                        ->setUrl('http://php.net/manual/function.date.php'); ?>
             </div>
         </div>
-        <div class="col-auto align-self-center mx-3 mb-3">
-            <?php $theView->shorthelpButton('dtmask')
-                    ->setText('SYSTEM_OPTIONS_DATETIMEMASK_HELP')
-                    ->setUrl('http://php.net/manual/function.date.php'); ?>
-
-        </div>
-    </div>  
+    </div>            
 
     <div class="row my-2">
         <div class="col-12 col-md-6">
@@ -67,6 +63,18 @@
                 ->setText('SYSTEM_OPTIONS_BACKDROP_IMAGE')
                 ->setLabelTypeFloat()
                 ->setIcon('panorama'); ?>
+        </div>
+    </div>
+
+    <div class="row my-2">
+        <div class="col-12 col-md-6">
+            <?php $theView->boolSelect('usermeta[system_darkmode]')
+                ->setSelected($author->getUserMeta()->system_darkmode)
+                ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED)
+                ->setText('SYSTEM_OPTIONS_DARKMODE')
+                ->setLabelTypeFloat()
+                ->setReadonly(true)
+                ->setIcon('moon'); ?>
         </div>
     </div>
 </fieldset>

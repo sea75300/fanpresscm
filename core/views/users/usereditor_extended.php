@@ -23,7 +23,7 @@
                         <?php $theView->deleteButton('fileDelete')->setClass('fpcm ui-button-confirm'); ?>
                     </div>
                     <?php endif; ?>
-                </div>     
+                </div>
             </div>
         </div>
         
@@ -31,12 +31,17 @@
             <?php if (!empty($uploadTemplatePath)) : ?>
                 <?php include $uploadTemplatePath; ?>
             <?php else : ?>
-                <div class="m-3" id="user_profile_image_buttons">
-                    <?php $theView->button('addFile')->setText('FILE_FORM_FILEADD')->setIcon('plus'); ?>
-                    <?php $theView->submitButton('uploadFile')->setText('FILE_FORM_UPLOADSTART')->setIcon('upload'); ?>
-                    <?php $theView->resetButton('cancelUpload')->setText('FILE_FORM_UPLOADCANCEL')->setIcon('ban'); ?>
-                    <input type="file" name="files" class="fpcm-ui-fileinput-select fpcm-ui-hidden">
+            
+            <div class="rounded-2 p-2 bg-white shadow-sm">
+                <div class="btn-group-vertical back w-100" role="group">
+                    <?php $theView->button('addFile')->setText('FILE_FORM_FILEADD')->setIcon('plus')->setPrimary()->setData(['click-trigger' => 'avatar-upload-files']); ?>
+                    <?php $theView->submitButton('uploadFile')->setText('FILE_FORM_UPLOADSTART')->setIcon('upload')->overrideButtonType('outline-secondary'); ?>
+                    <?php $theView->resetButton('cancelUpload')->setText('FILE_FORM_UPLOADCANCEL')->setIcon('ban')->overrideButtonType('outline-secondary'); ?>
                 </div>            
+                <input type="file" name="files" class="fpcm-ui-fileinput-select d-none invisible" id="fpcm-id-avatar-upload-files">
+            </div>
+
+            <div class="list-group my-2" id="fpcm-id-upload-list" role="presentation"></div>
             <?php endif; ?>
         </div>
         

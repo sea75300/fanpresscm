@@ -1,7 +1,7 @@
 /**
  * FanPress CM File Uploader Namespace
  * @article Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2017, Stefan Seehafer
+ * @copyright (c) 2017-2023, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 if (fpcm === undefined) {
@@ -9,47 +9,56 @@ if (fpcm === undefined) {
 }
 
 fpcm.fileuploader = {
-    
-    _hasDomList: false,
 
     init: function() {
 
-        fpcm.fileuploader._hasDomList = fpcm.dom.fromId('fpcm-ui-phpupload-filelist').length ? true : false;
-
-        fpcm.dom.fromId('btnAddFile').click(function () {
+        fpcm.fileuploader._hasDomList = fpcm.dom.fromId('fpcm-id-upload-list').length ? true : false;
+        
+        fpcm.dom.bindClick('#btnAddFile', function (_e, _ui) {
 
             fpcm.fileuploader.emptyFileList();
 
-            fpcm.dom.fromTag(this).parent().find('.fpcm-ui-fileinput-select').trigger('click');
-            fpcm.dom.fromClass('fpcm-ui-fileinput-select').change(function () {
+            if (_ui.dataset.clickTrigger != undefined) {               
+                fpcm.dom.fromId('fpcm-id-' + _ui.dataset.clickTrigger).click();
+            }
+            else {
+                fpcm.dom.fromTag(this).parent().find('.fpcm-ui-fileinput-select').trigger('click');
+            }
+
+            fpcm.dom.bindEvent('.fpcm-ui-fileinput-select', 'change', function (_e, _ui) {
 
                 fpcm.fileuploader.emptyFileList();
-                if (!fpcm.fileuploader._hasDomList || !fpcm.dom.fromTag(this)[0] || !fpcm.dom.fromTag(this)[0].files) {
+                if (!_ui.files) {
                     return false;
                 }
 
-                var fileList = fpcm.dom.fromTag(this)[0].files;
-                for (var i=0;i<fileList.length;i++) {
-                    fpcm.ui.appendHtml('#fpcm-ui-phpupload-filelist', '<div class="row g-0 py-2"><div class="col-12 my-1">' + fpcm.ui.getIcon('file-image', { prefix: 'far', size: 'lg' }) + fileList[i].name +'</div></div>')
+                let _html = '';
+                let _icon = fpcm.ui.getIcon('file-image', {
+                    prefix: 'far',
+                    size: 'lg'
+                });
+                
+                for (var _i=0;_i<_ui.files.length;_i++) {
+                    _html += `<div class="list-group-item">${_icon} ${_ui.files[_i].name}</div>`
                 }
                 
-                fpcm.dom.fromId('fpcm-ui-fileupload-list').fadeIn();
-                return false;
+                _html += '';
+                
+                fpcm.dom.appendHtml('#fpcm-id-upload-list', _html);
             });
 
-            return false;
-
         });
+        
 
-        fpcm.dom.fromId('btnUploadFile').click(function () {
+        fpcm.dom.bindClick('#btnUploadFile', function () {
             fpcm.ui_loader.show();
         });
 
-        fpcm.dom.fromId('btnCancelUpload').click(function () {
-            fpcm.dom.fromId('fpcm-ui-fileupload-list').fadeOut();
+        fpcm.dom.bindClick('#btnCancelUpload', function () {
             fpcm.dom.fromClass('fpcm-ui-fileinput-select').empty();
             fpcm.fileuploader.emptyFileList();
         });
+
     },
     
     emptyFileList: function() {
@@ -58,7 +67,7 @@ fpcm.fileuploader = {
             return false;
         }
 
-        fpcm.dom.fromId('fpcm-ui-phpupload-filelist').empty();
+        fpcm.dom.fromId('fpcm-id-upload-list').empty();
         return true;
     }
 

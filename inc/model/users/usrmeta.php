@@ -14,13 +14,13 @@ namespace fpcm\model\users;
  * @property string $system_dtmask Date time mask
  * @property string $system_timezone System timezone
  * @property string $backdrop Backdrop image
+ * @property bool   $system_darkmode Dark mode
  * @property int    $system_editor_fontsize Default editor fontsize
  * @property int    $articles_acp_limit Number of articles per page in ACP
  * @property int    $file_list_limit Nubmer of files per page
  * @property string $file_view File manager view
  * @property array  $dashboardpos Dashboard container positions
  * @property array  $dashboard_containers_disabled Disabled dashboard container
- * 
  * 
  * @package fpcm\model\user
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
@@ -175,6 +175,7 @@ implements  \ArrayAccess,
             'system_editor_fontsize' => $co->system_editor_fontsize,
             'system_lang' => $co->system_lang,
             'system_timezone' => $co->system_timezone,
+            'system_darkmode' => false,
             'backdrop' => '',
             'dashboard_containers_disabled' => [],
             'dashboardpos' => []

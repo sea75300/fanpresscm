@@ -1,6 +1,6 @@
 <?php /* @var $theView fpcm\view\viewVars */ ?>
 <!DOCTYPE HTML>
-<HTML lang="<?php print $theView->langCode; ?>">
+<HTML lang="<?php print $theView->langCode; ?>" <?php if ($theView->darkMode) : ?>data-bs-theme="dark"<?php endif; ?>>
     <head>
         <title><?php $theView->write('HEADLINE'); ?> <?php print $theView->version; ?> | <?php $theView->escape($theView->currentUser->getDisplayName()); ?></title>
         <meta charset="utf-8"> 

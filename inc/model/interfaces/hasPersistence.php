@@ -23,6 +23,5 @@ interface hasPersistence {
      * @return int|string
      */
     public function getPersistentData(): int|string;
-}
 
-?>
+}

@@ -53,6 +53,7 @@ namespace fpcm\view;
  * @property bool   $fullWrapper
  * @property bool   $showPageToken
  * @property bool   $showOffCanvas
+ * @property bool   $darkMode
  * @property \fpcm\model\users\author $currentUser
  * @property helper\pager $pager
  * 

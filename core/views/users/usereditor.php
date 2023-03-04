@@ -41,7 +41,6 @@
                     ->setRequired(!$author->getId())
                     ->setPattern('^.*(?=.{6,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*$'); ?>
         </div>
-        
         <div class="col ps-md-0">
                 <?php $theView->textInput('data[password_confirm]', 'password_confirm')
                     ->setAutocomplete(false)
@@ -52,12 +51,12 @@
                     ->setRequired(!$author->getId())
                     ->setPattern('^.*(?=.{6,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*$'); ?>
         </div>
-        
-        <div class="col-auto align-self-center mb-3">
-            <?php $theView->button('genPasswd', 'genPasswd')->setText('USERS_PASSGEN')->setIcon('key')->setIconOnly(); ?>
-            <?php $theView->shorthelpButton('pass')->setText('USERS_REQUIREMENTS'); ?>
+        <div class="col align-self-center mb-3">
+            <div class="d-flex justify-content-center justify-content-md-start">                
+                <?php $theView->button('genPasswd', 'genPasswd')->setText('USERS_PASSGEN')->setIcon('key')->setIconOnly(); ?>&nbsp;
+                <?php $theView->shorthelpButton('pass')->setText('USERS_REQUIREMENTS'); ?>
+            </div>
         </div>
-
     </div>
 
     <div class="row my-2">
