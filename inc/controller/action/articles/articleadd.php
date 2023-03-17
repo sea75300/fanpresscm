@@ -10,7 +10,7 @@ namespace fpcm\controller\action\articles;
 /**
  * Article add controller
  * @article Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 class articleadd extends articlebase {
@@ -34,6 +34,7 @@ class articleadd extends articlebase {
 
         $this->view->setFormAction('articles/add');
         $this->view->assign('editorMode', 0);
+        $this->view->assign('showArchiveStatus', false);
         $this->view->assign('showComments', false);
         $this->view->assign('showRevisions', false);
         $this->view->assign('showShares', false);

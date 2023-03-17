@@ -55,6 +55,12 @@
         <?php $theView->boolSelect('comments_confirm')->setText('SYSTEM_OPTIONS_COMMENT_APPROVE')->setSelected($globalConfig->comments_confirm); ?>		
         </div>
     </div>
+
+    <div class="row my-2">
+        <div class="col-12 col-md-8">
+        <?php $theView->boolSelect('comments_default_active')->setText('SYSTEM_OPTIONS_COMMENT_DEFAULT_ACTIVE')->setSelected($globalConfig->comments_default_active); ?>		
+        </div>
+    </div>
 </fieldset>
 
 <fieldset class="mb-2">

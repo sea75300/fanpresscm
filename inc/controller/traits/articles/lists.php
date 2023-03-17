@@ -12,7 +12,7 @@ namespace fpcm\controller\traits\articles;
  * 
  * @package fpcm\controller\traits\articles\lists
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 trait lists {
@@ -70,6 +70,11 @@ trait lists {
      * @var bool
      */
     protected $showDraftStatus = true;
+    /**
+     *
+     * @var bool
+     */
+    protected $showTwitter = false;
 
     /**
      *
@@ -129,9 +134,12 @@ trait lists {
             return true;
         }
         
+        
+        
         $showCommentsStatus = $this->config->system_comments_enabled;
         $showSharesCount = $this->config->system_share_count;
         $showDeleteButton = $this->permissions->article->delete && !($this->isTrash ?? false);
+        $showTwitterButton = $this->showTwitter;
 
         /* @var $article \fpcm\model\articles\article */
         foreach ($this->items as $articleMonth => $articles) {
@@ -155,20 +163,8 @@ trait lists {
                 $buttons = (new \fpcm\view\helper\controlgroup('articlebuttons' . $article->getId() ))
                             ->addItem( (new \fpcm\view\helper\openButton('articlefe'))->setUrlbyObject($article)->setTarget('_blank') )
                             ->addItem( (new \fpcm\view\helper\editButton('articleedit'))->setUrlbyObject($article) );
-
-                if (!$this->isTrash) {
-                    $buttons->addItem( (new \fpcm\view\helper\clearArticleCacheButton('cac'))->setDatabyObject($article) );
-                }
-
-                if ($showDeleteButton) {
-
-                    $buttons->addItem( (new \fpcm\view\helper\button('delete'.$articleId))
-                            ->setText('GLOBAL_DELETE')
-                            ->setIcon('trash')
-                            ->setIconOnly(true)
-                            ->setClass('fpcm-ui-button-delete fpcm-ui-button-delete-article-single')
-                            ->setData(['articleid' => $articleId]) );
-                }
+                
+                $this->getExtLineMenu($buttons, $article, $showDeleteButton, $showTwitterButton);
 
                 $title = [
                     '<strong>' . strip_tags($article->getTitle()) . '</strong>',
@@ -260,6 +256,66 @@ trait lists {
             ]),
             '</span>'
         ]);
+    }
+    
+    private function getExtLineMenu(
+        \fpcm\view\helper\controlgroup &$buttons,
+        \fpcm\model\articles\article $article,
+        bool $showDeleteButton,
+        bool $showTweetButton = false,
+    ) : bool
+    {
+        $extMenuOptions = [];
+
+        if (!$this->isTrash) {
+            $extMenuOptions[] = (new \fpcm\view\helper\dropdownItem('cac'.$article->getId(), 'cac'.$article->getId()))
+                ->setIcon('recycle')
+                ->setText('ARTICLES_CACHE_CLEAR')
+                ->setClass('fpcm-article-cache-clear')
+                ->setReadonly($article->getEditPermission())
+                ->setData($article->getArticleCacheParams());
+            
+
+        
+            if ($showTweetButton) {
+
+                $extMenuOptions[] = (new \fpcm\view\helper\dropdownItem('newtweet'.$article->getId(), 'newtweet'.$article->getId()))
+                    ->setText('ARTICLE_LIST_NEWTWEET')
+                    ->setIcon('twitter', 'fab')
+                    ->setIconOnly()
+                    ->setClass('fpcm-ui-article-twitter-single')
+                    ->setData(['articleid' => $article->getId()]);
+                
+            }
+            
+            if ($showDeleteButton || $showTweetButton) {
+                $extMenuOptions[] = new \fpcm\view\helper\dropdownSpacer();
+            }
+            
+        }
+
+        if ($showDeleteButton) {
+            $extMenuOptions[] = (new \fpcm\view\helper\dropdownItem('ddDelete'.$article->getId()))
+                                ->setIcon('trash')
+                                ->setText('GLOBAL_DELETE')
+                                ->setClass('fpcm-ui-button-delete fpcm-ui-button-delete-article-single')
+                                ->setData(['articleid' => $article->getId()]);
+        }
+
+        if (!count($extMenuOptions)) {
+            return true;
+        }
+
+        $buttons->addItem((new \fpcm\view\helper\dropdown('articlebuttonsdd' . $article->getId()))
+            ->setIcon('bars')
+            ->setIconOnly()
+            ->setText('')
+            ->setSelected('-1')
+            ->setClass('d-inline-block')
+            ->setOptions($extMenuOptions)
+        );
+        
+        return true;
     }
 
     /**

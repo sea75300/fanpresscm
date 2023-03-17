@@ -62,7 +62,7 @@ final class progress {
     {
         $this->maxValue = $maxValue;
         $this->currentValue = $currentValue;
-        $this->isCli = \fpcm\classes\baseconfig::isCli();
+        $this->isCli = \fpcm\classes\baseconfig::isCli() && !defined('FPCM_CLI_OUTPUT_NONE');
         
         if (!$this->isCli) {
             return;

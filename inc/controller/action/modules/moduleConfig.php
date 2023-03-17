@@ -5,12 +5,12 @@ namespace fpcm\controller\action\modules;
 /**
  * Option edit controller
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
-class moduleConfig extends \fpcm\controller\abstracts\controller
-implements \fpcm\controller\interfaces\isAccessible, \fpcm\controller\interfaces\requestFunctions {
+class moduleConfig extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\requestFunctions
+{
 
     use \fpcm\module\tools;
     

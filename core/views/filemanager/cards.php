@@ -1,5 +1,5 @@
 <?php /* @var $theView fpcm\view\viewVars */ /* @var $file fpcm\model\files\image */ ?>
-<div class="justify-content-end border-top border-5 border-primary">
+<div class="justify-content-end">
     
     <?php if ($showPager && in_array($mode, [2, 3, 4])) : ?>
     <div class="navbar">
@@ -18,7 +18,7 @@
     <p class="p-3"><?php $theView->icon('images', 'far')->setStack('ban text-danger')->setSize('lg')->setStackTop(true); ?> <?php $theView->write('GLOBAL_NOTFOUND2'); ?></p>
     <?php else : ?>
         <?php $i = 0; ?>
-        <div class="card-group row row-cols-1 row-cols-md-5 g-0 fpcm ui-files-card">
+        <div class="card-group g-0 fpcm ui-files-card">
         <?php foreach($files AS $file) : ?>
         <?php $i++; ?>
             <div class="card my-2 mx-sm-2 rounded fpcm ui-files-item ui-background-transition shadow">
@@ -46,10 +46,12 @@
                 </div>
                 
                 <div class="card-footer bg-transparent">
-                    <?php include $theView->getIncludePath('filemanager/buttons.php'); ?>
+                    <div class="navbar gap-1 justify-content-center">
+                        <?php include $theView->getIncludePath('filemanager/buttons.php'); ?>
+                    </div>
                 </div>
             </div>        
-        <?php if ($is_last($i)) : ?></div><div class="card-group row-cols-1 row-cols-md-5 g-0 fpcm ui-files-card"><?php endif; ?>
+        <?php if ($is_last($i)) : ?></div><div class="card-group g-0 fpcm ui-files-card"><?php endif; ?>
         <?php endforeach; ?>
         </div>
     <?php endif; ?>

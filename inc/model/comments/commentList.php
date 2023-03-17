@@ -12,10 +12,12 @@ namespace fpcm\model\comments;
  * 
  * @package fpcm\model\comments
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class commentList extends \fpcm\model\abstracts\tablelist {
+class commentList
+extends \fpcm\model\abstracts\tablelist
+implements \fpcm\model\interfaces\gsearchIndex {
 
     use permissions;
 
@@ -112,7 +114,7 @@ class commentList extends \fpcm\model\abstracts\tablelist {
             'conditions' => $conditions,
             'where' => $where,
             'values' => $valueParams
-        ]);
+        ])->getData();
 
         $where = $eventData['where'];
         $valueParams = $eventData['values'];
@@ -289,7 +291,7 @@ class commentList extends \fpcm\model\abstracts\tablelist {
         return $this->dbcon->count(
             $this->table,
             '*',
-            $this->events->trigger('comments\getByConditionCount', implode(" {$combination} ", $where))
+            $this->events->trigger('comments\getByConditionCount', implode(" {$combination} ", $where))->getData()
         );
     }
 
@@ -346,7 +348,7 @@ class commentList extends \fpcm\model\abstracts\tablelist {
         $result = $this->events->trigger('comments\massEditBefore', [
             'fields' => $fields,
             'commentIds' => $commentIds
-        ]);
+        ])->getData();
 
         foreach ($result as $key => $val) {
             ${$key} = $val;
@@ -602,6 +604,113 @@ class commentList extends \fpcm\model\abstracts\tablelist {
         $valueParams[] = $conditions->deleted !== null ? $conditions->deleted : 0;
         
         return true;
+    }
+
+    /**
+     * Get count query string
+     * @return \fpcm\model\dbal\selectParams
+     * @since 5.1-dev
+     */
+    public function getCountQuery(): \fpcm\model\dbal\selectParams
+    {
+        return $this->getSearchQueryObj()->setItem('\'comments\' as model, count(id) as count');
+    }
+
+    /**
+     * Get query string
+     * @return \fpcm\model\dbal\selectParams
+     */
+    public function getSearchQuery(): \fpcm\model\dbal\selectParams
+    {
+        return $this->getSearchQueryObj()->setItem('\'comments\' as model, id as oid, '.$this->dbcon->concatString(['name', '";"', 'createtime']).' as text')->setFetchAll(true);
+    }
+
+    /**
+     * Return link to element link
+     * @return string
+     * @since 5.1-dev
+     */
+    public function getElementLink(mixed $id): string
+    {
+        $tmp = \fpcm\classes\loader::getObject('\fpcm\model\comments\comment', null);
+        $tmp->setId($id);
+   
+        return $tmp->getEditLink();
+    }
+
+    /**
+     * Return link icon
+     * @return \fpcm\view\helper\icon
+     * @since 5.1-dev
+     */
+    public function getElementIcon(): \fpcm\view\helper\icon
+    {
+        return new \fpcm\view\helper\icon('comments');
+    }
+
+    /**
+     * Returns selectParams object instance
+     * @return \fpcm\model\dbal\selectParams
+     * @since 5.1-dev
+     */
+    private function getSearchQueryObj(): \fpcm\model\dbal\selectParams
+    {
+        return (new \fpcm\model\dbal\selectParams($this->table))->setWhere('deleted = 0 AND (name LIKE :term OR email LIKE :term OR website LIKE :term OR text LIKE :term OR ipaddress LIKE :term)');
+    }
+
+    /**
+     * Prepare result text
+     * @param string $text
+     * @return string
+     */
+    public function prepareText(string $text): string
+    {
+        list($name, $date) = explode(';', $text);
+        return sprintf('%s<br><span class="fpcm ui-font-small text-secondary">%s</span>', new \fpcm\view\helper\escape($name), new \fpcm\view\helper\dateText($date));
+    }
+
+    /**
+     * Checks for new comments
+     * @return int
+     * @since 5.1.0-a1
+     */
+    public function getNewCommentCount() : int
+    {
+        $session = \fpcm\model\system\session::getInstance();
+        if (!$session->exists()) {
+            return 0;
+        }
+        
+        $opt = new \fpcm\model\files\userFileOption('user'.$session->getUserId().'/lastcomments');
+        $oVal = $opt->read();
+
+        if (!is_object($oVal)) {
+            $oVal = new \stdClass();
+        }
+        
+        $last = $oVal->last ?? $session->getLogin();
+        
+        $now = time();
+        if ($now - $last < 60) {
+            return $oVal->count ?? 0;
+        }
+        
+        $count = $this->dbcon->count(
+            $this->table,
+            'id',
+            'deleted = 0 AND createtime >= :createtime',
+            [':createtime' => $last]
+        );
+
+        if ($count === false) {
+            return 0;
+        }
+        
+        $oVal->last = $now;
+        $oVal->count = $count;
+
+        $opt->write($oVal);        
+        return $count;
     }
 
 }

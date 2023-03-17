@@ -12,7 +12,7 @@ namespace fpcm\classes;
  * 
  * @package fpcm\classes\email
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 final class email {
@@ -217,6 +217,10 @@ final class email {
             ],
             'attachments' => $this->attachments
         ]);
+        
+        if (is_object($eventData) && $eventData instanceof \fpcm\module\eventResult) {
+            $eventData = $eventData->getData();
+        }
 
         $this->headers = $eventData['headers'];
         $this->attachments = $eventData['attachments'];
@@ -269,7 +273,7 @@ final class email {
 
         $this->getMailerObj();
         $this->initSmtpSettings();
-        
+
         try {
             $res = $this->mailer->smtpConnect();
         } catch (\PHPMailer\PHPMailer\Exception $e) {
@@ -279,6 +283,48 @@ final class email {
 
         $this->mailer->smtpClose();
         return $res ? true : false;
+    }
+
+    /**
+     * 
+     * @param string $path
+     * @param array $variables
+     * @param bool $fromData
+     * @return bool
+     * @since 5.1.0-a1
+     */
+    public function fromTemplate(string $path, array $variables = [], bool $fromData = false) : bool
+    {
+        $filename = $path . ($this->html ? '.html' : '.txt');
+
+        $tplPath = $fromData
+                 ? dirs::getDataDirPath(dirs::DATA_BACKUP, $filename)
+                 : dirs::getCoreDirPath(dirs::CORE_VIEWS, 'mailtemplates/' . $filename);
+
+        $tplPathR = realpath($tplPath);
+        if (!$tplPathR || !str_starts_with($tplPath, \fpcm\classes\dirs::getFullDirPath('/')) ) {
+            trigger_error(sprintf('Invalid mail template path found in "%s".', $tplPath), E_USER_ERROR);
+            $this->text = '';
+            return false;
+        }
+        
+        $tplPath = $tplPathR;
+        
+        $this->text = file_get_contents($tplPath);
+        if (!trim($this->text)) {
+            trigger_error(sprintf('Unable to read mail template content from "%s".', $tplPath), E_USER_ERROR);
+            $this->text = '';
+            return false;
+        }
+
+        $this->text = vsprintf($this->text, $variables);
+        if (!trim($this->text)) {
+            trigger_error(sprintf('Unable render mail template content "%s".', $tplPath), E_USER_ERROR);
+            $this->text = '';
+            return false;
+        }
+
+        return true;
     }
 
     /**
@@ -331,8 +377,8 @@ final class email {
         $this->mailer->isHTML($this->html);
         $this->mailer->setFrom($this->config->smtp_settings['addr']);
         $this->mailer->setLanguage($this->config->system_lang);
-        $this->mailer->Timeout = FPCM_SMTP_TIMEOUT;        
-        
+        $this->mailer->Timeout = FPCM_SMTP_TIMEOUT ?? 5;        
+
         $this->mailer->Debugoutput = function($str, $level) {
             trigger_error($str);
         };
@@ -381,6 +427,21 @@ final class email {
             'SSL' => 'ssl',
             'TLS' => 'tls',
             'Auto' => 'auto'
+        ];
+    }
+    
+    /**
+     * Return SMTP authentication types
+     * @return array
+     * @since 5
+     */
+    public static function getAuthenticationTypes() : array
+    {
+        return [
+            'CRAM-MD5' => 'CRAM-MD5',
+            'LOGIN' => 'LOGIN',
+            'PLAIN' => 'PLAIN',
+//            'XOAUTH2 (Gmail)' => 'XOAUTH2',
         ];
     }
 

@@ -12,7 +12,7 @@ namespace fpcm\view;
  * 
  * @package fpcm\view
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 class view {
@@ -261,10 +261,14 @@ class view {
         }
 
         $this->addJsLangVars([
-            'GLOBAL_CONFIRM', 'GLOBAL_CLOSE', 'GLOBAL_OK', 'GLOBAL_YES', 'GLOBAL_NO', 'GLOBAL_SAVE', 'GLOBAL_CLOSE',
-            'GLOBAL_OPENNEWWIN', 'GLOBAL_EXTENDED', 'GLOBAL_EDIT_SELECTED', 'GLOBAL_NOTFOUND', 'SAVE_FAILED_ARTICLES',
-            'AJAX_REQUEST_ERROR', 'AJAX_RESPONSE_ERROR', 'CONFIRM_MESSAGE', 'CACHE_CLEARED_OK', 'SELECT_ITEMS_MSG',
-            'HL_HELP', 'CSRF_INVALID', 'HEADLINE', 'GLOBAL_RESET', 'GLOBAL_PLEASEWAIT'
+            'GLOBAL_CONFIRM', 'GLOBAL_CLOSE', 'GLOBAL_OK', 'GLOBAL_YES',
+            'GLOBAL_NO', 'GLOBAL_SAVE', 'GLOBAL_CLOSE', 'GLOBAL_OPENNEWWIN',
+            'GLOBAL_EXTENDED', 'GLOBAL_EDIT_SELECTED', 'GLOBAL_NOTFOUND',
+            'GLOBAL_NOTFOUND2', 'SAVE_FAILED_ARTICLES', 'AJAX_REQUEST_ERROR',
+            'AJAX_RESPONSE_ERROR', 'CONFIRM_MESSAGE', 'CACHE_CLEARED_OK',
+            'SELECT_ITEMS_MSG', 'HL_HELP', 'CSRF_INVALID', 'HEADLINE',
+            'GLOBAL_RESET', 'GLOBAL_PLEASEWAIT', 'LABEL_SEARCH_GLOBAL_RESULTSIZE',
+            'GLOBAL_HIDE', 'GLOBAL_SHOW'
         ]);
 
         $this->jsLangVars['calendar']['days'] = $this->language->getDays();
@@ -317,6 +321,63 @@ class view {
     }
 
     /**
+     * Prepares profile menu
+     * @return bool
+     * @since 5.1-dev
+     */
+    private function prepareProfileMenu()
+    {
+        
+        $default = [
+            sprintf('<a class="text-truncate" href="%s">%s%s</a>',
+                    \fpcm\classes\tools::getControllerLink('system/profile'),
+                    new helper\icon('wrench'),
+                    $this->language->translate('PROFILE_MENU_OPENPROFILE')),
+
+            sprintf('<a class="text-truncate" href="%s" rel="license">%s%s</a>',
+                    \fpcm\classes\tools::getControllerLink('system/info'),
+                    new helper\icon('info-circle'),
+                    $this->language->translate('HL_HELP_SUPPORT')),
+
+            sprintf('<a class="text-truncate" href="%s" rel="license">%s%s</a>',
+                    \fpcm\classes\tools::getControllerLink('system/logout'),
+                    new helper\icon('sign-out-alt'),
+                    $this->language->translate('LOGOUT_BTN')),
+ 
+        ];
+
+        $result = $this->events->trigger('view\extendProfileMenu', $default);
+        if (!$result->getSuccessed() || !$result->getContinue()) {
+            $this->defaultViewVars->profileMenuButtons = $default;
+            return false;
+        }
+
+        $this->defaultViewVars->profileMenuButtons = $result->getData();
+        return true;
+    }
+
+    /**
+     * Prepares toolbar
+     * @return bool
+     * @since 5.1-dev
+     */
+    private function prepareToolbar()
+    {
+        $toolbarButtons = new \fpcm\events\view\extendToolbarResult();
+        $toolbarButtons->buttons = $this->buttons;
+
+        /* @var $toolbarButtons \fpcm\events\view\extendToolbarResult */
+        $toolbarButtons = $this->events->trigger('view\extendToolbar', $toolbarButtons);        
+        if ($toolbarButtons instanceof \fpcm\module\eventResult) {
+            $toolbarButtons = $toolbarButtons->getData();
+        }
+        
+        $this->defaultViewVars->toolbarArea = $toolbarButtons->area;
+        $this->defaultViewVars->buttons = $toolbarButtons->buttons;
+        return true;
+    }
+
+    /**
      * Initializes notifications
      * @return bool
      */
@@ -326,41 +387,7 @@ class view {
             return false;
         }
         
-        if ($this->config->system_maintenance) {
-            $this->notifications->addNotification(new \fpcm\model\theme\notificationItem(
-                (new helper\icon('lightbulb'))->setText('SYSTEM_OPTIONS_MAINTENANCE'),
-                '', '', 'text-danger'
-            ));
-        }
-
-        if (!\fpcm\classes\baseconfig::asyncCronjobsEnabled()) {
-            $this->notifications->addNotification(new \fpcm\model\theme\notificationItem(
-                (new helper\icon('history'))->setText('SYSTEM_OPTIONS_CRONJOBS'),
-                '', '', 'text-danger'
-            ));
-        }
-        
-        if (defined('FPCM_DEBUG') && FPCM_DEBUG) {
-            $this->notifications->addNotification(new \fpcm\model\theme\notificationItem(
-                (new helper\icon('terminal'))->setText('DEBUG_MODE'),
-                '', '', 'text-danger'
-            ));
-        }
-        
-        if (defined('FPCM_VIEW_JS_USE_MINIFIED') && FPCM_VIEW_JS_USE_MINIFIED) {
-            $this->notifications->addNotification(new \fpcm\model\theme\notificationItem(
-                (new helper\icon('js', 'fab'))->setText('NOTIFICATION_EXPERIMENTAL_MINJS'),
-                '', '', 'text-danger'
-            ));
-        }
-        
-        if (defined('FPCM_UPLOADER_UPPY') && FPCM_UPLOADER_UPPY) {
-            $this->notifications->addNotification(new \fpcm\model\theme\notificationItem(
-                (new helper\icon('arrow-up-from-bracket'))->setText('NOTIFICATION_EXPERIMENTAL_UPPY'),
-                '', '', 'text-danger'
-            ));
-        }
-
+        $this->notifications->prependSystemNotifications();
         $this->defaultViewVars->notifications = $this->notifications;
         return true;
     }
@@ -530,7 +557,7 @@ class view {
 
     /**
      * Add button to toolbar
-     * @param \fpcm\view\helper\button $button
+     * @param helper\helper $button
      * @param type $pos
      * @return void
      */
@@ -579,9 +606,9 @@ class view {
      * @param array $params
      * @since 4.2
      */
-    public function addTopDescription(string $descr, array $params = [])
+    public function addTopDescription(string $descr, array $params = [], bool $spf = false)
     {
-        $this->viewVars['topDescription'] = $this->language->translate($descr, $params);
+        $this->viewVars['topDescription'] = $this->language->translate($descr, $params, $spf);
     }
 
     /**
@@ -678,7 +705,7 @@ class view {
         }
 
         $this->initAssigns();
-        extract($this->events->trigger('view\renderBefore', $this->viewVars));
+        extract($this->events->trigger('view\renderBefore', $this->viewVars)->getData());
 
         switch ($this->showHeader) {
             case self::INCLUDE_HEADER_FULL :
@@ -728,14 +755,20 @@ class view {
 
             $this->defaultViewVars->currentUser = $this->session->getCurrentUser();
             $this->defaultViewVars->loginTime = $this->session->getLogin();
-            $this->defaultViewVars->navigation = (new \fpcm\model\theme\navigation($this->navigationActiveModule))->render();
+            $this->defaultViewVars->darkMode = $this->session->getCurrentUser()->getUserMeta();
+            
+            if ($this->showHeader === self::INCLUDE_HEADER_FULL) {
+                $this->defaultViewVars->navigation = (new \fpcm\model\theme\navigation($this->navigationActiveModule))->render();
+            }
             
             $this->defaultViewVars->loggedIn = true;
             $this->defaultViewVars->permissions = \fpcm\classes\loader::getObject('\fpcm\model\permissions\permissions');
+
+            $this->defaultViewVars->backdrop = (new \fpcm\model\files\backdropImage())->getUrl();
         }
 
         if ($hasDbConfig) {
-            $this->defaultViewVars->version = $this->config->system_version;
+            $this->defaultViewVars->version = trim($this->config->system_version) ? $this->config->system_version : \fpcm\classes\baseconfig::getVersionFromFile();
             $this->defaultViewVars->dateTimeMask = $this->config->system_dtmask;
             $this->defaultViewVars->dateTimeZone = $this->config->system_timezone;
             $this->defaultViewVars->frontEndLink = $this->config->system_url;            
@@ -752,21 +785,32 @@ class view {
         $this->defaultViewVars->self = trim(filter_var($_SERVER['PHP_SELF'], FILTER_SANITIZE_URL));
         $this->defaultViewVars->basePath = \fpcm\classes\tools::getFullControllerLink();
         $this->defaultViewVars->themePath = \fpcm\classes\dirs::getCoreUrl(\fpcm\classes\dirs::CORE_THEME);
+        $this->defaultViewVars->debugMode = defined('FPCM_DEBUG') && FPCM_DEBUG;
 
         /* @var $req \fpcm\model\http\request */
         $req = \fpcm\classes\loader::getObject('\fpcm\model\http\request');
         $this->defaultViewVars->currentModule = $req->getModule();
         $this->defaultViewVars->ipAddress = $req->getIp();
+        
+        $this->prepareToolbar();
+        
+        if ($this->showHeader === self::INCLUDE_HEADER_FULL) {
+            $this->prepareProfileMenu();
+
+            if (defined('FPCM_NOTIFICATION_DEPRECATED_ISACCESSIBLE_INTERFACE') && FPCM_NOTIFICATION_DEPRECATED_ISACCESSIBLE_INTERFACE) {
+                
+                $this->defaultViewVars->deprecationNotice =
+                    sprintf('{{icon="bomb"}} The interface "fpcm\controller\interfaces\isAccessible" '
+                        . 'in "%s" is deprecated since version 5.0.0-a3. '
+                        . 'The interface will be removed in future versions. '
+                        . 'Please remove the implements statement or contact the '
+                        . 'developer of the module to get any further information '
+                        . 'how to suppress this message.', $req->getModule() );
+            }            
+            
+        }
+
         unset($req);
-        
-        $toolbarButtons = new \fpcm\events\view\extendToolbarResult();
-        $toolbarButtons->buttons = $this->buttons;
-        
-        /* @var $toolbarButtons \fpcm\events\view\extendToolbarResult */
-        $toolbarButtons = $this->events->trigger('view\extendToolbar', $toolbarButtons);        
-        $this->defaultViewVars->toolbarArea = $toolbarButtons->area;
-        $this->defaultViewVars->buttons = $toolbarButtons->buttons;
-        unset($toolbarButtons);
 
         $this->defaultViewVars->formActionTarget = $this->formAction;
         $this->defaultViewVars->bodyClass = $this->bodyClass;
@@ -802,9 +846,10 @@ class view {
                     'lang' => $this->jsLangVars,
                 ],
                 'jsvars' => $this->jsVars,
-                'ajaxActionPath' => \fpcm\classes\tools::getFullControllerLink('ajax/')
+                'ajaxActionPath' => \fpcm\classes\tools::getFullControllerLink('ajax/'),
+                'ajaxRefreshDisable' => defined('FPCM_DISABLE_AJAX_CRONJOBS_PUB') && FPCM_DISABLE_AJAX_CRONJOBS_PUB
             ]
-        ];        
+        ];
         
         if ($this->showHeader === self::INCLUDE_HEADER_NONE && !$this->fullJsVarsNoheader) {
             $this->defaultViewVars->varsJs = $varsJs;
@@ -827,7 +872,7 @@ class view {
         $this->defaultViewVars->varsJs = $varsJs;
         
         if ($this->showHeader === self::INCLUDE_HEADER_FULL) {
-            $this->prepareNotifications();
+            $this->prepareNotifications();            
         }
 
         /* @var $theView viewVars */
@@ -973,7 +1018,7 @@ class view {
     public function setActiveTab(int $tab)
     {
         $this->jsVars['activeTab'] = $tab;
-        $this->viewVars['activeTab'] = $tab;
+        $this->defaultViewVars->activeTab = $tab;
     }
 
     /**
@@ -1110,8 +1155,8 @@ class view {
             return false;
         }
         
-        $this->jsFiles = $this->events->trigger($type.'\addJsFiles', $this->jsFiles);
-        $this->cssFiles = $this->events->trigger($type.'\addCssFiles', $this->cssFiles);    
+        $this->jsFiles = $this->events->trigger($type.'\addJsFiles', $this->jsFiles)->getData();
+        $this->cssFiles = $this->events->trigger($type.'\addCssFiles', $this->cssFiles)->getData();    
 
         return true;
     }
@@ -1140,7 +1185,7 @@ class view {
             self::ROOTURL_LIB.'bootstrap/css/bootstrap.min.css',
             self::ROOTURL_LIB.'fancybox/jquery.fancybox.min.css',
             self::ROOTURL_LIB.'font-awesome/css/all.min.css',
-            self::ROOTURL_CORE_THEME.'style.php'
+            self::ROOTURL_CORE_THEME.'style.css'
         ]);
 
         return $this->cssFiles;

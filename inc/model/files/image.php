@@ -12,10 +12,12 @@ namespace fpcm\model\files;
  * 
  * @package fpcm\model\files
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class image extends \fpcm\model\abstracts\file implements \fpcm\model\interfaces\validateFileType {
+class image
+extends \fpcm\model\abstracts\file
+implements \fpcm\model\interfaces\validateFileType {
 
     /**
      * Erlaubte Dateitypen
@@ -323,7 +325,7 @@ class image extends \fpcm\model\abstracts\file implements \fpcm\model\interfaces
         $saveValues = $this->getSaveValues();
         $saveValues['filesize'] = (int) $saveValues['filesize'];
 
-        return $this->dbcon->insert($this->table, $this->events->trigger('image\save', $saveValues));
+        return $this->dbcon->insert($this->table, $this->events->trigger('image\save', $saveValues)->getData());
     }
 
     /**
@@ -340,7 +342,7 @@ class image extends \fpcm\model\abstracts\file implements \fpcm\model\interfaces
         $saveValues['filesize'] = (int) $saveValues['filesize'];
 
         $saveValues[] = $this->filename;
-        $saveValues = $this->events->trigger('image\update', $saveValues);
+        $saveValues = $this->events->trigger('image\update', $saveValues)->getData();
 
         return $this->dbcon->update($this->table, $this->dbParams, array_values($saveValues), "filename = ?");
     }
@@ -466,7 +468,7 @@ class image extends \fpcm\model\abstracts\file implements \fpcm\model\interfaces
             return false;
         }        
 
-        $this->events->trigger('image\thumbnailCreate', $this);
+        $this->events->trigger('image\thumbnailCreate', $this)->getData();
         if (!file_exists($fullThumbPath)) {
             trigger_error('Unable to create thumbnail: ' . $this->getThumbnail());
             return false;
@@ -483,6 +485,11 @@ class image extends \fpcm\model\abstracts\file implements \fpcm\model\interfaces
     public function addUploadFolder() : bool
     {
         $this->fullpath = ops::getUploadPath($this->filename, $this->config->file_subfolders);
+        
+        if (!file_exists(dirname($this->fullpath))) {
+            mkdir(dirname($this->fullpath));
+        }
+        
         return true;
     }
 
@@ -613,7 +620,7 @@ class image extends \fpcm\model\abstracts\file implements \fpcm\model\interfaces
             $filename[0] = $fn;
         }
 
-        return implode('/', $filename);;
+        return implode('/', $filename);
     }
 
     /**

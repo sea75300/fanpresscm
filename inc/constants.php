@@ -3,7 +3,7 @@
 /**
  * FanPress CM constants
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 if (file_exists(dirname(__DIR__) . '/data/config/constants.custom.php')) {
@@ -15,7 +15,7 @@ if (file_exists(dirname(__DIR__) . '/data/config/constants.custom.php')) {
  * @since 3.5
  * @ignore
  */
-define('FPCM_PHP_REQUIRED', '7.2.0');
+define('FPCM_PHP_REQUIRED', '8.0.0');
 
 /**
  * Constant of seconds per day
@@ -231,12 +231,37 @@ if (!defined('FPCM_FILEMAGER_ITEMS_ROW')) {
     define('FPCM_FILEMAGER_ITEMS_ROW', 5);
 }
 
+if (!defined('FPCM_CACHE_BACKEND')) {
+    /**
+     * Cache backend
+     * @since 5.1-dev
+     */
+    define('FPCM_CACHE_BACKEND', '\\fpcm\\model\\cache\\fsBackend');
+}   
+
 if (!defined('FPCM_SMTP_TIMEOUT')) {
     /**
      * SMTP connection timeout
-     * @since 5.0.1
+     * @since 5.1-dev
      */
-    define('FPCM_SMTP_TIMEOUT', 30);
+    define('FPCM_SMTP_TIMEOUT', 5);
+}
+
+if (!defined('FPCM_DISABLE_AJAX_CRONJOBS_PUB')) {
+    /**
+     * Disable AJAX cronjobs on public controller
+     * @since 5.1.0-b3
+     */
+    define('FPCM_DISABLE_AJAX_CRONJOBS_PUB', false);
+}
+
+if (!defined('FPCM_DISABLE_AJAX_CRONJOBS_REFRESH')) {
+
+    /**
+     * Disable AJAX cronjobs on refresh controller
+     * @since 5.1.0-b3
+     */
+    define('FPCM_DISABLE_AJAX_CRONJOBS_REFRESH', false);
 }
 
 if (!defined('FPCM_TWITTER_DSIABLE_API')) {

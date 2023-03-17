@@ -116,6 +116,22 @@ class articlesTest extends testBase {
         $this->assertInstanceOf('\\fpcm\\model\\articles\\article', $object);
     }
 
+    public function testGetArticlesByCategoryCondition()
+    {
+
+        $cond = new \fpcm\model\articles\search();
+        $cond->category = 1;
+
+        $data = $this->object->getArticlesByCondition($cond);
+
+        $this->assertTrue(is_array($data));
+        $this->assertGreaterThanOrEqual(1, count($data));
+
+        /* @var $object \fpcm\model\articles\article */
+        $object = $data[$GLOBALS['articleId']];
+        $this->assertInstanceOf('\\fpcm\\model\\articles\\article', $object);
+    }
+
     public function testGetArticleIDsByUser()
     {
 

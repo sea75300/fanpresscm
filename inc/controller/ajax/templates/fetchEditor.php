@@ -10,11 +10,12 @@ namespace fpcm\controller\ajax\templates;
 /**
  * Template controller
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
-class fetchEditor extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
+class fetchEditor extends \fpcm\controller\abstracts\ajaxController
+{
 
     use \fpcm\controller\traits\templates\edit;
     
@@ -72,7 +73,7 @@ class fetchEditor extends \fpcm\controller\abstracts\ajaxController implements \
         
         $this->view->assign('replacements', $this->template->getReplacementTranslations($this->prefix));
         $this->view->assign('attributes', $this->template->getReplacementAttributesMap());
-        $this->view->assign('allowedTagsList', $tagCount ? array_chunk($allowedTags, $tagCount / 2) : []);
+        $this->view->assign('allowedTagsList', $tagCount ? array_chunk($allowedTags, $tagCount / 8) : []);
         $this->view->assign('content', $this->template->getContent());
         $this->view->assign('isWritable', $this->template->isWritable());
         $this->view->assign('tplId', $this->templateId);

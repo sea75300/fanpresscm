@@ -14,6 +14,8 @@ namespace fpcm\components\dataView;
  * @author Stefan Seehafer <sea75300@yahoo.de>
  */
 final class row implements \JsonSerializable {
+    
+    use \fpcm\model\traits\jsonSerializeReturnObject;
 
     /**
      * Row columns
@@ -52,16 +54,6 @@ final class row implements \JsonSerializable {
         $this->class        = $class;
         $this->isheadline   = (bool) $isheadline;
         $this->isNotFound   = (bool) $isNotFound;
-    }
-
-    /**
-     * 
-     * @return array
-     * @ignore
-     */
-    public function jsonSerialize()
-    {
-        return get_object_vars($this);
     }
 
 }

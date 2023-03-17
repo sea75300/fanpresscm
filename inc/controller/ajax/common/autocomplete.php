@@ -12,11 +12,12 @@ namespace fpcm\controller\ajax\common;
  * 
  * @package fpcm\controller\ajax\commom
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @since 3.6
  */
-class autocomplete extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
+class autocomplete extends \fpcm\controller\abstracts\ajaxController
+{
 
     use \fpcm\controller\traits\common\isAccessibleTrue;
 
@@ -27,12 +28,17 @@ class autocomplete extends \fpcm\controller\abstracts\ajaxController implements 
     protected $term = '';
 
     /**
+     * 
+     * @var array
+     */
+    protected $returnData = [];
+
+    /**
      * Request-Handler
      * @return bool
      */
     public function request()
     {
-        $this->returnData = [];
         $this->term = $this->request->fetchAll('term', [
             \fpcm\model\http\request::FILTER_STRIPTAGS,
             \fpcm\model\http\request::FILTER_STRIPSLASHES,
@@ -55,7 +61,7 @@ class autocomplete extends \fpcm\controller\abstracts\ajaxController implements 
         $this->response->setReturnData($this->events->trigger('autocompleteGetData', [
             'module'     => $this->request->fetchAll('src'),
             'returnData' => $this->returnData
-        ]))->fetch();
+        ])->getData()['returnData'])->fetch();
 
     }
 
@@ -118,7 +124,7 @@ class autocomplete extends \fpcm\controller\abstracts\ajaxController implements 
         }
         
         $this->returnData = array_filter($this->returnData, function ($value) {
-            return $this->term && stripos($value['value'], $this->term) === false ? false : true;
+            return str_contains($value['value'], $this->term);
         });
         
         return true;
@@ -153,6 +159,8 @@ class autocomplete extends \fpcm\controller\abstracts\ajaxController implements 
         }
 
         $data = \fpcm\components\components::getArticleEditor()->getEditorLinks();
+        array_shift($data);
+
         $this->returnData = array_filter($data, function ($value) {
             return $this->term && stripos($value['label'], $this->term) === false && stripos($value['value'], $this->term) === false ? false : true;
         });

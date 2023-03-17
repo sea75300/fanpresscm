@@ -3,13 +3,14 @@
 /**
  * Comment edit controller
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
 namespace fpcm\controller\action\comments;
 
-class commentedit extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\isAccessible {
+class commentedit extends \fpcm\controller\abstracts\controller
+{
 
     use \fpcm\model\comments\permissions;
 
@@ -111,7 +112,7 @@ class commentedit extends \fpcm\controller\abstracts\controller implements \fpcm
     {
         if ($this->mode === 2) {
             $this->view->showHeaderFooter(\fpcm\view\view::INCLUDE_HEADER_SIMPLE);
-            $this->view->setBodyClass('m-2');
+            $this->view->setBodyClass('m-2 fpcm ui-classic-backdrop');
         }
         
         $editorPlugin = \fpcm\components\components::getArticleEditor();
@@ -152,7 +153,7 @@ class commentedit extends \fpcm\controller\abstracts\controller implements \fpcm
             'editorGalleryTagStart' => \fpcm\model\pubtemplates\article::GALLERY_TAG_START,
             'editorGalleryTagEnd' => \fpcm\model\pubtemplates\article::GALLERY_TAG_END,
             'editorGalleryTagThumb' => \fpcm\model\pubtemplates\article::GALLERY_TAG_THUMB,
-            'editorGalleryTagLink' => \fpcm\model\pubtemplates\article::GALLERY_TAG_LINK            
+            'editorGalleryTagLink' => \fpcm\model\pubtemplates\article::GALLERY_TAG_LINK
         );
 
         $this->view->addJsVars($jsVars);
@@ -187,7 +188,7 @@ class commentedit extends \fpcm\controller\abstracts\controller implements \fpcm
                 $showArticleIdField = false;
                 
                 if ($article->getEditPermission()) {
-                    $buttons[] = (new \fpcm\view\helper\editButton('editArticle'))->setUrlbyObject($article)->setText('COMMENTS_EDITARTICLE');
+                    $buttons[] = (new \fpcm\view\helper\editButton('editArticle'))->setUrlbyObject($article)->setText('COMMENTS_EDITARTICLE')->setIcon('book');
                 }
 
                 $buttons[] = (new \fpcm\view\helper\openButton('commentfe'))->setUrlbyObject($this->comment)->setTarget('_blank');           
@@ -205,7 +206,7 @@ class commentedit extends \fpcm\controller\abstracts\controller implements \fpcm
                         ->setTarget('_blank')
                         ->setText('Whois')
                         ->setIcon('home')
-                        ->setIconOnly(true)
+                        ->setIconOnly()
                         ->setClass($hiddenClass)
                         ->setRel('noreferrer,noopener,external');
 
@@ -214,7 +215,7 @@ class commentedit extends \fpcm\controller\abstracts\controller implements \fpcm
                     ->setText('COMMMENT_LOCKIP')
                     ->setIcon('globe')
                     ->setClass($hiddenClass)
-                    ->setIconOnly(true)
+                    ->setIconOnly()
                     ->setData([
                         'commentid' => $this->comment->getId()
                     ]);
@@ -290,8 +291,6 @@ class commentedit extends \fpcm\controller\abstracts\controller implements \fpcm
         if ($this->mode === 1 && $this->permissions->comment->move && $commentData['article'] != $this->comment->getArticleid()) {
             $this->comment->setArticleid((int) $commentData['article']);
         }
-
-        $this->view->addJsVars([ 'reloadList' => $this->mode === 2 ? true : false ]);
 
         if ($this->comment->update()) {
             $this->view->addNoticeMessage('SAVE_SUCCESS_COMMENT');

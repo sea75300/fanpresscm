@@ -12,7 +12,7 @@ namespace fpcm\classes;
  * 
  * @package fpcm\classes\database
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  */
 final class database {
 
@@ -98,6 +98,12 @@ final class database {
      */
     const tableRevisions = 'revisions';
 
+    /**
+     * Article categories tables
+     * @since 5.1-a1
+     */
+    const tableArticleCategories = 'articles_categories';    
+    
     /**
      * View for session and user data
      * @since 4.4.3
@@ -306,7 +312,7 @@ final class database {
      * @return array
      * @since 4.5
      */
-    public function unionSelectFetch(array $selects, int $fetchStyle = \PDO::FETCH_OBJ, bool $returnResult = false)
+    public function unionSelectFetch(array $selects, int $fetchStyle = \PDO::FETCH_OBJ, bool $returnResult = false, ?int $count = null, ?int $offset = null)
     {
         $selects = array_filter($selects, function ($item) {            
             return ($item instanceof \fpcm\model\dbal\selectParams);
@@ -327,7 +333,7 @@ final class database {
             return [];
         }
 
-        $result = $this->query('('.implode(') UNION (', $queries).')', $params);
+        $result = $this->query('('.implode(') UNION (', $queries).')' . ( $count !== null && $offset !== null ? $this->limitQuery($count, $offset) : ''), $params);
         if ($returnResult) {
             return $result;
         }
@@ -568,6 +574,16 @@ final class database {
         }
 
         $this->lastQueryString = $statement->queryString;
+
+        array_walk($bindParams, function (&$value) {
+
+            if (!is_object($value) || !$value instanceof \fpcm\model\interfaces\hasPersistence) {
+                return false;
+            }
+
+            $value = $value->getPersistentData();
+            return true;
+        });
 
         try {
             $res = $statement->execute($bindParams);

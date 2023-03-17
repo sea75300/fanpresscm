@@ -12,7 +12,7 @@ namespace fpcm\classes;
  * 
  * @package fpcm\classes\crypt
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @since 3.5
  */
@@ -163,7 +163,7 @@ final class crypt {
         $config = [
             'method' => $method,
             'passwd' => security::createPasswordHash(uniqid(mt_rand()), security::createSalt()),
-            'iv' => substr(uniqid(mt_rand() . microtime(true)), 0, openssl_cipher_iv_length($method))
+            'iv' => substr(uniqid(random_int(100000, PHP_INT_MAX) . hrtime(true)), 0, openssl_cipher_iv_length($method))
         ];
 
         if (!$config['iv']) {
@@ -214,7 +214,7 @@ final class crypt {
      */
     public static function getRandomString($length = 32) : string
     {
-        return openssl_random_pseudo_bytes($length);
+        return random_bytes($length);
     }
 
 }

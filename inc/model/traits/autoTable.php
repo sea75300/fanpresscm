@@ -29,7 +29,7 @@ trait autoTable {
             return $this->table;
         }
 
-        list($object, $item) = array_slice(explode('\\', get_called_class()), -2);
+        list($object, $item) = array_slice(explode('\\', static::class), -2);
 
         $this->table = in_array($item, ['item', 'items']) ? $object : $item;
         if (substr($this->table, -1) === 's') {

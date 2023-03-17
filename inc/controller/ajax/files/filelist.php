@@ -12,10 +12,11 @@ namespace fpcm\controller\ajax\files;
  * 
  * @package fpcm\controller\ajax\files
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class filelist extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
+class filelist extends \fpcm\controller\abstracts\ajaxController
+{
 
     use \fpcm\controller\traits\files\lists,
         \fpcm\controller\traits\common\searchParams;
@@ -133,11 +134,10 @@ class filelist extends \fpcm\controller\abstracts\ajaxController implements \fpc
             $this->showPager ? $fileList->getDatabaseCountByCondition($this->filter) : 1
         );
         
-        $list = $this->events->trigger('reloadFileList', $list);
+        $list = $this->events->trigger('reloadFileList', $list)->getData();
 
         $userList = new \fpcm\model\users\userList();
         $this->initViewAssigns($list, $userList->getUsersAll());
-        $this->initPermissions();
 
         $this->view->assign('is_last', function ($i) {
             return $i % FPCM_FILEMAGER_ITEMS_ROW === 0;

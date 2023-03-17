@@ -12,10 +12,10 @@ namespace fpcm\view\helper;
  * 
  * @package fpcm\view\helper
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-abstract class helper {
+abstract class helper implements \Stringable {
     
     use traits\cssClassHelper,
         traits\ariaHelper;
@@ -117,6 +117,12 @@ abstract class helper {
     protected $labelType = 'input-group';
 
     /**
+     * UI element bottom spance
+     * @var string
+     */
+    protected $bottomSpace = 'mb-3';
+
+    /**
      * Konstruktor
      * @param string $name
      * @param string $id
@@ -180,7 +186,7 @@ abstract class helper {
      */
     public function __call($name, $arguments)
     {
-        print $name . ' does not exists in ' . get_class($this);
+        print $name . ' does not exists in ' . static::class;
         return $this;
     }
 
@@ -249,6 +255,16 @@ abstract class helper {
     protected function getDataString()
     {
         return $this->assocArrayToString('data', $this->data);
+    }
+
+    /**
+     * 
+     * @return bool
+     * @since 5.1-dev
+     */
+    protected function isFloating() : bool
+    {
+        return $this->labelType === self::LABEL_TYPE_FLOATING;;
     }
 
     /**
@@ -351,12 +367,24 @@ abstract class helper {
     }
 
     /**
+     * Set bottom space class
+     * @param string $bottomSpace
+     * @return $this
+     * @since 5.1-dev
+     */
+    public function setBottomSpace(string $bottomSpace)
+    {
+        $this->bottomSpace = $bottomSpace;
+        return $this;
+    }
+        
+    /**
      * Set required flag
      * @param bool $required
      * @return $this
      * @since 5.0.0-a3
      */
-    public function setRequired(bool $requ)
+    public function setRequired(bool $requ = true)
     {
         $this->requ = $requ;
         return $this;
@@ -368,9 +396,9 @@ abstract class helper {
      * @param array $params
      * @return $this
      */
-    final public function setText($text, $params = [])
+    final public function setText($text, $params = [], bool $spf = false)
     {
-        $this->text = $this->language->translate($text, $params);
+        $this->text = $this->language->translate($text, $params, $spf);
         return $this;
     }
     
@@ -381,6 +409,10 @@ abstract class helper {
      */
     public function setLabelTypeFloat()
     {
+        if (method_exists($this, 'setPlaceholder')) {
+            $this->setPlaceholder($this->text);
+        }
+
         $this->labelType = 'form-floating';
         return $this;
     }

@@ -3,18 +3,20 @@
 /**
  * Article list controller base
  * @article Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
 namespace fpcm\controller\action\articles;
 
-abstract class articlelistbase extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\isAccessible {
+abstract class articlelistbase extends \fpcm\controller\abstracts\controller
+{
 
     use \fpcm\controller\traits\articles\listsCommon,
         \fpcm\controller\traits\articles\listsView,
         \fpcm\controller\traits\common\massedit,
-        \fpcm\controller\traits\common\searchParams;
+        \fpcm\controller\traits\common\searchParams,
+        \fpcm\controller\traits\articles\newteets;
 
 
     /**
@@ -121,32 +123,57 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller imp
         }
 
         if ($this->permissions->editArticlesMass()) {
-            $buttons[] = (new \fpcm\view\helper\button('massEdit', 'massEdit'))->setText('GLOBAL_EDIT')->setIcon('edit')->setIconOnly(true);
+            $buttons[] = (new \fpcm\view\helper\button('massEdit', 'massEdit'))->setText('GLOBAL_EDIT')->setIcon('edit')->setIconOnly();
         }
 
-        $buttons[] = (new \fpcm\view\helper\button('opensearch', 'opensearch'))->setText('ARTICLES_SEARCH')->setIcon('search')->setIconOnly(true);
+        $buttons[] = (new \fpcm\view\helper\button('opensearch', 'opensearch'))->setText('ARTICLES_SEARCH')->setIcon('search')->setIconOnly();
         
-        $tweet = new \fpcm\model\system\twitter();
+        $tweet = $this->getTwitterInstace();
 
-        if ($tweet->checkRequirements() && $tweet->checkConnection()) {
+        if ($tweet->checkConnection()) {
             $buttons[] = (new \fpcm\view\helper\button('newtweet'))
                     ->setText('ARTICLE_LIST_NEWTWEET')
                     ->setIcon('twitter', 'fab')
-                    ->setIconOnly(true)
+                    ->setIconOnly()
                     ->setOnClick('articles.articleActionsTweet');
+            
+            $this->view->addJsLangVars(['EDITOR_TWEET_TEXT', 'ARTICLE_LIST_NEWTWEET']);
+            
+            $ttpl = $this->getTemplateContent();
+            
+            $this->view->addJsVars([
+                'newTweetFields' => [
+                    (string) (new \fpcm\view\helper\textInput('twitterText'))
+                        ->setPlaceholder($ttpl['tpl'])
+                        ->setText($ttpl['tpl'])
+                        ->setLabelTypeFloat()
+                        ->setValue('')
+                        ->setSize(280)
+                        ->setIcon('twitter', 'fab')
+                        ->setSize('lg'),
+                    (string) (new \fpcm\view\helper\dropdown('twitterReplacements'))
+                        ->setOptions($ttpl['vars'])
+                        ->setSelected('')
+                        ->setText('TEMPLATE_REPLACEMENTS')
+                        ->setDdType('end')
+                        ->setIcon('square-plus')
+                        ->setIconOnly()
+                ]
+            ]);
+            
         }
 
         $buttons[] = (new \fpcm\view\helper\button('articlecache'))
                 ->setText('ARTICLES_CACHE_CLEAR')
                 ->setIcon('recycle')
-                ->setIconOnly(true)
+                ->setIconOnly()
                 ->setOnClick('articles.clearMultipleArticleCache');
 
         if ($this->permissions->article && $this->permissions->article->delete) {
             $buttons[] = (new \fpcm\view\helper\button('delete'))
                     ->setText('GLOBAL_DELETE')
                     ->setIcon('trash')
-                    ->setIconOnly(true)
+                    ->setIconOnly()
                     ->setOnClick('articles.deleteMultipleArticle');
         }
         
@@ -250,10 +277,10 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller imp
         $this->view->addJsLangVars(['EDITOR_CATEGORIES_SEARCH']);
 
         $this->view->addFromLibrary(
-            'selectize_js',
-            [ 'dist/js/selectize.min.js' ],
-            [ 'dist/css/selectize.default.css' ]
-        );        
+            'tom-select_js',
+            [ 'tom-select.min.js' ],
+            [ 'tom-select.bootstrap5.min.css' ]
+        );   
 
         if (!$this->permissions->editArticlesMass()) {
             return [];
@@ -270,6 +297,7 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller imp
                     ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
                     ->setText('EDITOR_CHANGEAUTHOR')
                     ->setIcon('users')
+                    ->setLabelTypeFloat()
             );
         }
 
@@ -279,6 +307,7 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller imp
                 ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
                 ->setText('EDITOR_PINNED')
                 ->setIcon('thumbtack fa-rotate-90')
+                    ->setLabelTypeFloat()
         );
         
         if ($this->showDraftStatus()) {
@@ -288,6 +317,7 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller imp
                     ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
                     ->setText('EDITOR_DRAFT')
                     ->setIcon('file-alt')
+                    ->setLabelTypeFloat()
             );
         }
         
@@ -298,6 +328,7 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller imp
                     ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
                     ->setText('EDITOR_STATUS_APPROVAL')
                     ->setIcon('thumbs-up', 'far')
+                    ->setLabelTypeFloat()
             );
         }
         
@@ -308,6 +339,7 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller imp
                     ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
                     ->setText('EDITOR_COMMENTS')
                     ->setIcon('comments', 'far')
+                    ->setLabelTypeFloat()
             );
         }
         
@@ -318,6 +350,7 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller imp
                     ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
                     ->setText('EDITOR_ARCHIVE')
                     ->setIcon('archive')
+                    ->setLabelTypeFloat()
             );
         }
         
@@ -325,9 +358,8 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller imp
                 (new \fpcm\view\helper\select('categories[]'))
                     ->setIsMultiple(true)
                     ->setOptions($this->categories)
-                    ->setText('TEMPLATE_ARTICLE_CATEGORYTEXTS')
+                    ->setText('')
                     ->setIcon('tags')
-                    ->setClass('col-12 col-sm-6 col-md-8')
                     ->setSelected([]),
                 null
         );

@@ -15,10 +15,10 @@ use fpcm\classes\loader;
  * @package fpcm\model\abstracts
  * @abstract
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-abstract class dashcontainer extends model implements \fpcm\model\interfaces\dashcontainer {
+abstract class dashcontainer extends model implements \fpcm\model\interfaces\dashcontainer, \Stringable {
 
     /**
      * Default container cache module
@@ -131,6 +131,21 @@ abstract class dashcontainer extends model implements \fpcm\model\interfaces\das
     }
 
     /**
+     * Returns stored container position
+     * @return int|bool
+     * @since 4.1
+     */
+    final public function isDisabled() : bool
+    {
+        $conf = loader::getObject('\fpcm\model\system\session')->getCurrentUser()->getUserMeta('dashboard_containers_disabled');
+        if (!is_array($conf)) {
+            return false;
+        }
+
+        return in_array(static::class, $conf);
+    }
+
+    /**
      * Container-Berechtigungen, die geprüft werden müssen, zurückgeben
      * @return string
      */
@@ -228,28 +243,33 @@ abstract class dashcontainer extends model implements \fpcm\model\interfaces\das
         
         $btn = $this->getButton();
         if ($btn instanceof \fpcm\view\helper\button) {
-            $btn->setClass('btn-sm')->overrideButtonType('link');
+            $btn->overrideButtonType('link')->setClass('btn-sm link-dark');
         }
         else {
             $btn = '<span class="d-block p-1">&nbsp;</span>';
         }
         
         $html = [];
-        $html[] = '<div id="fpcm-dashboard-container-' . $this->getName() . '" class="fpcm dashboard-container-wrapper col-12 col-md-' . $this->getWidth() . '  vh-25" data-cname="' . $this->getName() . '" data-cpos="' . $pos . '">';
+        $html[] = '<div id="fpcm-dashboard-container-' . $this->getName() . '" class="fpcm dashboard-container-wrapper col-12 col-lg-' . $this->getWidth() . '" data-cname="' . $this->getName() . '" data-cpos="' . $pos . '">';
         $html[] = ' <div class="card m-1 shadow-sm fpcm dashboard-container ui-background-white-50p ui-blurring">';
-        $html[] = '     <div class="card-body pt-1 ps-1 pe-1 pb-2 ui-align-ellipsis">';
-        $html[] = '         <h3 class="card-title fpcm dashboard-container headline ui-headline-font m-2 fs-5 border-1 border-bottom border-primary" title="' . strip_tags($this->language->translate($this->getHeadline())) . '">';
+        
+        
+        $html[] = '     <div class="card-header bg-transparent border-1 border-bottom border-primary">';
+        $html[] = '         <h3 class="card-title fpcm dashboard-container headline ui-headline-font mx-0 mt-2 mb-0 p-0 fs-5" title="' . strip_tags($this->language->translate($this->getHeadline())) . '">';
         $html[] = '             <span class="d-inline-block text-truncate w-100">' . $this->language->translate($this->getHeadline()) . '</span> ';
         $html[] = '         </h3>';
+        $html[] = '     </div>';
+        
+        $html[] = '     <div class="card-body p-2 pe-0 ui-align-ellipsis">';
         $html[] = '         <div class="card-text fpcm dashboard-container content">' . $this->getContent() . '</div>';
         $html[] = '     </div>';
         $html[] = '     <div class="card-footer bg-transparent">';
         $html[] = '         <div class="row g-0">';
-        $html[] = '             <div class="col flex-grow-1">';
+        $html[] = '             <div class="col-12 col-xl flex-grow-1">';
         $html[] = '             ' . $btn;
         $html[] = '             </div>';
-        $html[] = '             <div class="col-auto  align-self-center" draggable="true">';
-        $html[] = '             ' . (new \fpcm\view\helper\icon('arrows-alt'))->setText('FILE_LIST_EDIT_MOVE')->setClass('fpcm dashboard-container-move');            
+        $html[] = '             <div class="col-12 col-xl-auto  align-self-center btn-group" draggable="true">';
+        $html[] = '             ' . $this->getSystemButtons();
         $html[] = '             </div>';
         $html[] = '         </div>';
         $html[] = '     </div>';
@@ -257,6 +277,35 @@ abstract class dashcontainer extends model implements \fpcm\model\interfaces\das
         $html[] = '</div>';
 
         return implode(PHP_EOL, $html);
+    }
+
+    /**
+     * Add disable button if not disabled
+     * @return string
+     * @since 5.1-dev
+     */
+    private function getSystemButtons()
+    {
+        $return = (string) (new \fpcm\view\helper\button('move'. md5($this->getName())))
+                ->overrideButtonType('link')
+                ->setClass('btn-sm shadow-none link-secondary dashboard-container-move')
+                ->setIcon('arrows-alt')
+                ->setIconOnly()
+                ->setText('FILE_LIST_EDIT_MOVE');
+
+        if ($this->isDisabled()) {
+            return $return;
+        }
+
+        $return = (string)  (new \fpcm\view\helper\button('disable'. md5($this->getName())))
+                ->overrideButtonType('link')
+                ->setClass('btn-sm shadow-none link-secondary ui-dashboard-container-disable')
+                ->setIcon('toggle-off')
+                ->setIconOnly()
+                ->setText('GLOBAL_DISABLE')
+                ->setData(['cname' => base64_encode($this::class) ]) . $return;
+        
+        return $return;
     }
     
 }

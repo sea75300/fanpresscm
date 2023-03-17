@@ -12,14 +12,21 @@ namespace fpcm\controller\ajax\system;
  * 
  * @package fpcm\controller\ajax\system\refresh
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class refresh extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
+class refresh extends \fpcm\controller\abstracts\ajaxController
+{
 
     use \fpcm\controller\traits\common\isAccessibleTrue;
     
     private $ext = false;
+
+    /**
+     * 
+     * @var \fpcm\model\http\responseDataRefresh
+     */
+    private $returnDataObj;
 
     /**
      * @see \fpcm\controller\abstracts\controller::hasAccess()
@@ -44,6 +51,8 @@ class refresh extends \fpcm\controller\abstracts\ajaxController implements \fpcm
      */
     public function process()
     {
+        $this->returnDataObj = new \fpcm\model\http\responseDataRefresh();
+        
         $this->runCrons();
         if ($this->ext) {
             exit('{}');
@@ -51,7 +60,8 @@ class refresh extends \fpcm\controller\abstracts\ajaxController implements \fpcm
 
         $this->runSessionCheck();
         $this->runArticleInEdit();
-        $this->response->setReturnData($this->returnData)->fetch();
+        $this->getNotifications();
+        $this->response->setReturnData($this->returnDataObj)->fetch();
     }
 
     /**
@@ -60,6 +70,11 @@ class refresh extends \fpcm\controller\abstracts\ajaxController implements \fpcm
      */
     private function runCrons()
     {
+        if (defined('FPCM_DISABLE_AJAX_CRONJOBS_REFRESH') && FPCM_DISABLE_AJAX_CRONJOBS_REFRESH) {
+            fpcmLogCron('Asynchronous cronjob execution was disabled');
+            return true;
+        }
+
         if (!\fpcm\classes\baseconfig::asyncCronjobsEnabled()) {
             fpcmLogCron('Asynchronous cronjob execution was disabled');
             return false;
@@ -72,11 +87,8 @@ class refresh extends \fpcm\controller\abstracts\ajaxController implements \fpcm
             return true;
         }
 
-        foreach ($crons as $cron) {
-            $cronlist->registerCronAjax($cron);
-        }
-
-        $this->returnData['crons'] = true;
+        array_map([$cronlist, 'registerCronAjax'] , $crons);
+        $this->returnDataObj->crons = true;
         return true;
     }
 
@@ -87,16 +99,16 @@ class refresh extends \fpcm\controller\abstracts\ajaxController implements \fpcm
     private function runSessionCheck()
     {
         if (!is_object($this->session)) {
-            $this->returnData['sessionCode'] = -1;
+            $this->returnDataObj->sessionCode = -1;
             return true;
         }
 
         if (!$this->session->exists() || $this->ipList->ipIsLocked($this->getIpLockedModul()) ) {
-            $this->returnData['sessionCode'] = 0;
+            $this->returnDataObj->sessionCode = 0;
             return true;
         }
 
-        $this->returnData['sessionCode'] = 1;
+        $this->returnDataObj->sessionCode = 1;
         return true;
     }
 
@@ -106,14 +118,13 @@ class refresh extends \fpcm\controller\abstracts\ajaxController implements \fpcm
      */
     private function runArticleInEdit()
     {
-        $this->returnData['articleCode'] = 0;
-        $this->returnData['articleUser'] = false;
+        $this->returnDataObj->articleCode = 0;
 
         $articleId = $this->request->fetchAll('articleId', [
             \fpcm\model\http\request::FILTER_CASTINT
         ]);
 
-        if ($this->returnData['sessionCode'] < 1 || !$this->permissions->editArticles() || !$articleId) {
+        if ($this->returnDataObj->sessionCode < 1 || !$this->permissions->editArticles() || !$articleId) {
             return true;
         }
         
@@ -127,17 +138,39 @@ class refresh extends \fpcm\controller\abstracts\ajaxController implements \fpcm
             $article->setInEdit();
             return true;
         }
-        
-        $this->returnData['articleCode'] = 1;
+
+        $this->returnDataObj->articleCode = 1;
         $data = $article->getInEdit();
 
         if (is_array($data)) {
             $user = new \fpcm\model\users\author($data[1]);
 
-            $this->returnData['username'] = $user->exists() ? $user->getDisplayname() : $this->language->translate('GLOBAL_NOTFOUND');
+            $this->returnDataObj->username = $user->exists() ? $user->getDisplayname() : $this->language->translate('GLOBAL_NOTFOUND');
         }
 
         return true;
+    }
+
+    private function getNotifications()
+    {
+        $notifications = new \fpcm\model\theme\notifications();
+        $notifications->prependSystemNotifications();
+        
+        /* @var $result \fpcm\module\eventResult */
+        $result = $this->events->trigger('ajaxRefresh', $notifications);
+        
+        if (!$result->getSuccessed() || !$result->getContinue()) {
+            $this->returnDataObj->notificationCount = $notifications->count();
+            $this->returnDataObj->notifications = (string) $notifications;
+            return false;
+        }
+
+        /* @var $notifications \fpcm\model\theme\notifications */
+        $notifications = $result->getData();
+        
+        $this->returnDataObj->notificationCount = $notifications->count();
+        $this->returnDataObj->notifications = (string) $notifications;
+        
     }
 
 }

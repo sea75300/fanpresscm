@@ -12,7 +12,7 @@ namespace fpcm\view\helper;
  * 
  * @package fpcm\view\helper
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 final class deleteButton extends submitButton {
@@ -28,7 +28,7 @@ final class deleteButton extends submitButton {
         $this->class .= ' fpcm-ui-button-delete';
         $this->setText('GLOBAL_DELETE');
         $this->setIcon('trash');
-        $this->setIconOnly(true);
+        $this->setIconOnly();
     }
 
 }

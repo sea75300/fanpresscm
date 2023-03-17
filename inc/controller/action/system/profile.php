@@ -3,16 +3,18 @@
 /**
  * Pofil controller
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
 namespace fpcm\controller\action\system;
 
-class profile extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\isAccessible {
+class profile extends \fpcm\controller\abstracts\controller
+{
 
     use \fpcm\controller\traits\common\timezone,
-        \fpcm\controller\traits\users\authorImages;
+        \fpcm\controller\traits\users\authorImages,
+        \fpcm\controller\traits\users\settings;
 
     /**
      *
@@ -69,7 +71,6 @@ class profile extends \fpcm\controller\abstracts\controller implements \fpcm\con
         $this->reloadSite = 0;
 
         $this->resetProfileSettings();
-        $this->resetDashboardSettings();
         $this->saveProfile();
 
         $this->view->assign('author', $this->user);
@@ -99,25 +100,6 @@ class profile extends \fpcm\controller\abstracts\controller implements \fpcm\con
     }
     
     /**
-     * Reset dashboard container positions
-     * @return bool
-     */
-    private function resetDashboardSettings() : bool
-    {
-        if (!$this->buttonClicked('resetDashboardSettings') || !$this->checkPageToken) {
-            return false;
-        }
-
-        if ($this->user->resetDashboard() === false) {
-            $this->view->addErrorMessage('SAVE_FAILED_USER_RESETDASHCONTAINER');
-            return false;
-        }
-
-        $this->view->addNoticeMessage('SAVE_SUCCESS_RESETDASHCONTAINER');
-        return true;
-    }
-    
-    /**
      * Execute save process
      * @return bool
      */
@@ -135,7 +117,9 @@ class profile extends \fpcm\controller\abstracts\controller implements \fpcm\con
         $this->user->setEmail($saveData['email']);
         $this->user->setDisplayName($saveData['displayname']);
 
-        $metaData = $this->request->fromPOST('usermeta');
+        $metaData = $this->user->getUserMeta();
+        $metaData->mergeData($this->request->fromPOST('usermeta'));
+        
         $this->user->setUserMeta($metaData);
         $this->user->setUsrinfo($saveData['usrinfo']);
         $this->user->setChangeTime(time());
@@ -213,12 +197,9 @@ class profile extends \fpcm\controller\abstracts\controller implements \fpcm\con
      */
     public function process()
     {        
-        $userRolls = new \fpcm\model\users\userRollList();
-        $this->view->assign('userRolls', $userRolls->getUserRollsTranslated());
-        $this->view->assign('languages', array_flip($this->language->getLanguages()));
+        $this->settingsToView();
         $this->twoFactorAuthForm();
 
-        $this->view->assign('timezoneAreas', $this->getTimeZonesAreas());
         $this->view->assign('externalSave', true);
         $this->view->assign('inProfile', true);
         $this->view->assign('showExtended', true);
@@ -231,9 +212,6 @@ class profile extends \fpcm\controller\abstracts\controller implements \fpcm\con
         ]);
 
         $this->view->setActiveTab($this->getActiveTab());
-        $this->view->assign('articleLimitList', \fpcm\model\system\config::getAcpArticleLimits());
-        $this->view->assign('defaultFontsizes', \fpcm\model\system\config::getDefaultFontsizes());
-        $this->view->assign('filemanagerViews', \fpcm\components\components::getFilemanagerViews());
         $this->view->assign('showDisableButton', false);
         $this->view->addJsFiles([ \fpcm\classes\loader::libGetFileUrl('nkorg/passgen/passgen.js'), 'users/profile.js', 'users/edit.js' ]);
 

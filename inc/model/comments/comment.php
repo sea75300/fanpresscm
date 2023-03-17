@@ -3,7 +3,7 @@
 /**
  * FanPress CM Comment Model
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -17,6 +17,8 @@ namespace fpcm\model\comments;
  */
 class comment extends \fpcm\model\abstracts\dataset
 implements \fpcm\model\interfaces\isCsvImportable {
+    
+    use \fpcm\model\traits\statusIcons;
 
     /**
      * Erlaubte HTML-Tags in einem Kommentar, für Formular
@@ -449,8 +451,8 @@ implements \fpcm\model\interfaces\isCsvImportable {
     public function getMetaDataStatusIcons()
     {
         return [
-            $this->getStatusIconSpam(),
             $this->getStatusIconApproved(),
+            $this->getStatusIconSpam(),
             $this->getStatusIconPrivate()
         ];
     }
@@ -461,7 +463,7 @@ implements \fpcm\model\interfaces\isCsvImportable {
      */
     public function getStatusIconSpam()
     {
-        return (new \fpcm\view\helper\icon('fire fa-inverse'))->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $this->getSpammer())->setText('COMMMENT_SPAM')->setStack('square');
+        return $this->getStatusColor((new \fpcm\view\helper\icon('fire fa-inverse'))->setClass('fpcm-ui-editor-metainfo')->setText('COMMMENT_SPAM')->setStack('square'), $this->getSpammer());
     }
 
     /**
@@ -470,7 +472,7 @@ implements \fpcm\model\interfaces\isCsvImportable {
      */
     public function getStatusIconApproved()
     {
-        return (new \fpcm\view\helper\icon('check-circle fa-inverse', 'far'))->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $this->getApproved())->setText('COMMMENT_APPROVE')->setStack('square');
+        return $this->getStatusColor((new \fpcm\view\helper\icon('check-circle fa-inverse', 'far'))->setClass('fpcm-ui-editor-metainfo')->setText('COMMMENT_APPROVE')->setStack('square'), $this->getApproved());
     }
 
     /**
@@ -479,7 +481,7 @@ implements \fpcm\model\interfaces\isCsvImportable {
      */
     public function getStatusIconPrivate()
     {
-        return (new \fpcm\view\helper\icon('eye-slash fa-inverse'))->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $this->getPrivate())->setText('COMMMENT_PRIVATE')->setStack('square');
+        return $this->getStatusColor((new \fpcm\view\helper\icon('eye-slash fa-inverse'))->setClass('fpcm-ui-editor-metainfo')->setText('COMMMENT_PRIVATE')->setStack('square'), $this->getPrivate());
     }
 
     /**

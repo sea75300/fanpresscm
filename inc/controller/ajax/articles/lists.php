@@ -16,11 +16,13 @@ namespace fpcm\controller\ajax\articles;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @since 4.5
  */
-class lists extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
+class lists extends \fpcm\controller\abstracts\ajaxController
+{
 
     use \fpcm\controller\traits\common\searchParams,
         \fpcm\controller\traits\articles\listsCommon,
-        \fpcm\controller\traits\articles\lists;
+        \fpcm\controller\traits\articles\lists,
+        \fpcm\controller\traits\articles\newteets;
     
     const MODE_ALL = 'all';
 
@@ -215,7 +217,7 @@ class lists extends \fpcm\controller\abstracts\ajaxController implements \fpcm\c
 
         $this->conditions->combinationDeleted = \fpcm\model\articles\search::COMBINATION_AND;
 
-        $this->conditions = $this->events->trigger('article\prepareSearch', $this->conditions);
+        $this->conditions = $this->events->trigger('article\prepareSearch', $this->conditions)->getData();
     }
 
     /**
@@ -244,6 +246,7 @@ class lists extends \fpcm\controller\abstracts\ajaxController implements \fpcm\c
             $this->conditions->limit = [$this->config->articles_acp_limit, \fpcm\classes\tools::getPageOffset($this->page, $this->config->articles_acp_limit)];
         }
 
+        $this->showTwitter = $this->getTwitterInstace()->checkConnection();
         return true;
     }
 

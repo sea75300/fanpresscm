@@ -10,10 +10,11 @@ namespace fpcm\controller\action\system;
 /**
  * Cronjob manager controller
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class crons extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\isAccessible {
+class crons extends \fpcm\controller\abstracts\controller
+{
 
     use \fpcm\controller\traits\common\dataView;
 
@@ -61,7 +62,6 @@ class crons extends \fpcm\controller\abstracts\controller implements \fpcm\contr
 
         $this->view->addJsFiles(['system/crons.js']);
         $this->view->addJsLangVars(['CRONJOB_ECEDUTING']);
-        $this->view->setBodyClass('fpcm-content-nobuttons');
         $this->view->render();
     }
 
@@ -116,7 +116,7 @@ class crons extends \fpcm\controller\abstracts\controller implements \fpcm\contr
         elseif ( $cronjob->getModuleKey() && !in_array($cronjob->getModuleKey(), $modules) ) {
             $btnReadonly = true;
             $processingIcon = 'play-circle';
-            $rowClass = 'text-muted';
+            $rowClass = 'text-secondary';
             $playClass = '';
         }
         else {
@@ -127,10 +127,10 @@ class crons extends \fpcm\controller\abstracts\controller implements \fpcm\contr
         }
         
         $nextExecTs = $cronjob->getNextExecTime();
-
+        
         return new \fpcm\components\dataView\row([
             
-            new \fpcm\components\dataView\rowCol('button', (new \fpcm\view\helper\button($cronjob->getCronName()))->setText('CRONJOB_LIST_EXECDEMAND')->setClass($playClass)->setIcon($processingIcon)->setIconOnly(true)->setReadonly($btnReadonly)->setData([
+            new \fpcm\components\dataView\rowCol('button', (new \fpcm\view\helper\button($cronjob->getCronName()))->setText('CRONJOB_LIST_EXECDEMAND')->setClass($playClass)->setIcon($processingIcon)->setIconOnly()->setReadonly($btnReadonly)->setData([
                 'cjid' => $cronjob->getCronName(),
                 'cjdescr' => $this->language->translate($cronjob->getCronNameLangVar()),
                 'cjmod' => $cronjob->getModuleKey()

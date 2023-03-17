@@ -305,3 +305,8 @@ defaultvalues:
             config_name: "smtp_settings"
             config_value: '{"srvurl":"","user":"","pass":"","encr":"","port":"25","addr":""}'
             modulekey: ""
+        comments_default_active:
+            id: 55
+            config_name: "comments_default_active"
+            config_value: "1"
+            modulekey: ""            

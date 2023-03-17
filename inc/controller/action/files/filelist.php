@@ -3,13 +3,14 @@
 /**
  * File manager controller
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
 namespace fpcm\controller\action\files;
 
-class filelist extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\isAccessible {
+class filelist extends \fpcm\controller\abstracts\controller
+{
 
     use \fpcm\controller\traits\files\lists,
         \fpcm\controller\traits\common\searchParams,
@@ -60,7 +61,7 @@ class filelist extends \fpcm\controller\abstracts\controller implements \fpcm\co
         }
 
         $this->view->showHeaderFooter(\fpcm\view\view::INCLUDE_HEADER_SIMPLE);
-        $this->view->setBodyClass('m-2');
+        $this->view->setBodyClass('m-2 fpcm ui-classic-backdrop');
         $this->view->assign('toolbarClass', 'd-none');
         return true;
     }
@@ -121,8 +122,7 @@ class filelist extends \fpcm\controller\abstracts\controller implements \fpcm\co
         $this->initViewAssigns([], []);
 
         $buttons = [
-            new \fpcm\view\helper\wrapper('div', 'btn btn-light', (new \fpcm\view\helper\checkbox('fpcm-select-all'))->setText('GLOBAL_SELECTALL')->setIconOnly(true)->setClass('fpcm-select-all') ),
-            (new \fpcm\view\helper\button('openSearch'))->setText('ARTICLES_SEARCH')->setIcon('search')->setIconOnly(true)
+            new \fpcm\view\helper\wrapper('div', 'btn btn-light', (new \fpcm\view\helper\checkbox('fpcm-select-all'))->setText('GLOBAL_SELECTALL')->setIconOnly()->setClass('fpcm-select-all') ),
         ];
 
         if ($this->permissions->uploads->add) {
@@ -143,36 +143,38 @@ class filelist extends \fpcm\controller\abstracts\controller implements \fpcm\co
 
         }
         
+        $buttons[] = (new \fpcm\view\helper\button('openSearch'))->setText('ARTICLES_SEARCH')->setIcon('search')->setIconOnly();
 
         if ($this->mode === 2) {
-            $buttons[] = (new \fpcm\view\helper\submitButton('insertGallery'))->setText('FILE_LIST_INSERTGALLERY')->setIcon('images', 'far')->setIconOnly(true);
+            $buttons[] = (new \fpcm\view\helper\submitButton('insertGallery'))->setText('FILE_LIST_INSERTGALLERY')->setIcon('images', 'far')->setIconOnly();
         }
 
         if ($this->permissions->uploads->thumbs) {
             $buttons[] = (new \fpcm\view\helper\submitButton('createThumbs'))
                     ->setText('FILE_LIST_NEWTHUMBS')
                     ->setIcon('image', 'far')
-                    ->setIconOnly(true);
+                    ->setIconOnly();
         }
 
         if ($this->permissions->uploads->delete) {
             $buttons[] = (new \fpcm\view\helper\deleteButton('deleteFiles'));
         }
 
-        if ($this->mode === 1) {
-            $buttons[] = (new \fpcm\view\helper\select('listView'))
-                    ->setOptions(\fpcm\components\components::getFilemanagerViews())
-                    ->setClass('fpcm-ui-listeview-setting')
-                    ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
-                    ->setSelected($this->config->file_view);
-        }
-
         $this->view->addButtons($buttons);
         $this->view->setFormAction('files/list', ['mode' => $this->mode]);
         
+
+        if ($this->mode === 1) {
+            $this->view->addToolbarRight((string) (new \fpcm\view\helper\select('listView'))
+                    ->setOptions(\fpcm\components\components::getFilemanagerViews())
+                    ->setClass('fpcm-ui-listeview-setting')
+                    ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
+                    ->setSelected($this->config->file_view) );
+        }
+
         $tabs = [
             (new \fpcm\view\helper\tabItem('files-list'))
-                ->setText('FILE_LIST_AVAILABLE')
+                ->setText('HL_FILES_MNG')
                 ->setData(['ajax-quiet' => true])
                 ->setTabToolbar(1)
                 ->setUrl(\fpcm\classes\tools::getControllerLink('ajax/files/lists', [ 'mode' => $this->mode ]) )

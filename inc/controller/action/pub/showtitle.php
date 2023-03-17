@@ -10,7 +10,7 @@ namespace fpcm\controller\action\pub;
 /**
  * Public article title controller
  * @article Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 class showtitle extends \fpcm\controller\abstracts\pubController {
@@ -41,6 +41,10 @@ class showtitle extends \fpcm\controller\abstracts\pubController {
     public function __construct($action, $param, $isUtf8 = true)
     {
         parent::__construct();
+
+        if ($isUtf8 !== true) {
+            trigger_error('isUtf8 is deprecated and will be removed in FanPress CM 5.2.', E_USER_DEPRECATED);
+        }
 
         $this->action = $action;
         $this->param = $param;

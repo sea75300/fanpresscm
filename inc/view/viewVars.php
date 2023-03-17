@@ -12,7 +12,7 @@ namespace fpcm\view;
  * 
  * @package fpcm\view
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * 
  * @property string $version
@@ -32,7 +32,10 @@ namespace fpcm\view;
  * @property string $toolbarArea
  * @property string $ipAddress
  * @property string $includeForms
+ * @property string $backdrop
+ * @property string $deprecationNotice
  * @property int    $loginTime
+ * @property int    $activeTab
  * 
  * @property \fpcm\model\permissions\permissions  $permissions
  * @property \fpcm\model\theme\navigationList  $navigation
@@ -44,10 +47,13 @@ namespace fpcm\view;
  * @property array  $filesCss
  * @property array  $varsJs
  * @property array  $buttons
+ * @property array  $profileMenuButtons
  * @property bool   $loggedIn
+ * @property bool   $debugMode
  * @property bool   $fullWrapper
  * @property bool   $showPageToken
  * @property bool   $showOffCanvas
+ * @property bool   $darkMode
  * @property \fpcm\model\users\author $currentUser
  * @property helper\pager $pager
  * 
@@ -83,6 +89,9 @@ namespace fpcm\view;
  * @method helper\dropdown          dropdown(string $name , string $id)
  * @method helper\dropdownItem      dropdownItem(string $name , string $id)
  * @method helper\rangeInput        rangeInput(string $name , string $id)
+ * @method helper\wrapper           wrapper(string $el, string $class, $item)
+ * @method helper\accordion         accordion(string $name , string $id)
+ * @method helper\accordionItem     accordionItem(string $name , string $id)
  */
 class viewVars {
 

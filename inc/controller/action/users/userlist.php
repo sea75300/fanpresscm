@@ -3,15 +3,17 @@
 /**
  * Login controller
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
 namespace fpcm\controller\action\users;
 
-class userlist extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\isAccessible {
+class userlist extends \fpcm\controller\abstracts\controller
+{
 
-    use \fpcm\controller\traits\theme\nav\users;
+    use \fpcm\controller\traits\theme\nav\users,
+        \fpcm\model\traits\statusIcons;
     
     /**
      *
@@ -124,9 +126,9 @@ class userlist extends \fpcm\controller\abstracts\controller implements \fpcm\co
             $ddOpt[] = (new \fpcm\view\helper\dropdownItem('addRoll'))->setUrl(\fpcm\classes\tools::getFullControllerLink('users/addroll'))->setText('USERS_ROLL_ADD')->setValue('roll')->setIcon('user-tag');
         }
 
-        $this->view->addButtons([
-            (new \fpcm\view\helper\dropdown('new'))->setText('GLOBAL_NEW')->setIcon('plus')->setOptions($ddOpt),
-            (new \fpcm\view\helper\button('userStats'))
+        $this->view->addButton( (new \fpcm\view\helper\dropdown('new'))->setText('GLOBAL_NEW')->setIcon('plus')->setOptions($ddOpt) );
+        
+        $this->view->addToolbarRight((string) (new \fpcm\view\helper\button('userStats'))
                 ->setText('USERS_STATS_ARTICLE')
                 ->setIcon('chart-pie')
                 ->setData([
@@ -135,8 +137,7 @@ class userlist extends \fpcm\controller\abstracts\controller implements \fpcm\co
                 ])
                 ->setAria([
                     'bs-controls' => 'offcanvasUserStats',
-                ])
-        ]);
+                ]) );
 
         $this->createUsersView();
         
@@ -237,12 +238,12 @@ class userlist extends \fpcm\controller\abstracts\controller implements \fpcm\co
 
                 $metadata = [
                     (new \fpcm\view\helper\badge('art'.$userId))->setValue($count)->setText('USERS_ARTICLE_COUNT')->setIcon('book'),
-                    (new \fpcm\view\helper\icon('user-slash'))->setText('USERS_DISABLED')->setClass('ms-1 fpcm-ui-editor-metainfo fpcm-ui-status-' . $user->getDisabled())
+                    $this->getStatusColor( (new \fpcm\view\helper\icon('user-slash fa-inverse'))->setText('USERS_DISABLED')->setClass('fpcm-ui-editor-metainfo')->setStack('square') , $user->getDisabled() )
                 ];
                 
                 $buttons = [
                     (new \fpcm\view\helper\editButton('useredit'.$userId))->setUrlbyObject($user),
-                    (new \fpcm\view\helper\linkButton('usermail'.$userId))->setUrl('mailto:'.$user->getEmail())->setIcon('envelope')->setIconOnly(true)->setText('GLOBAL_WRITEMAIL'),
+                    (new \fpcm\view\helper\linkButton('usermail'.$userId))->setUrl('mailto:'.$user->getEmail())->setIcon('envelope')->setIconOnly()->setText('GLOBAL_WRITEMAIL'),
                 ];
                 
                 if ($user->getDisabled()) {
@@ -250,7 +251,7 @@ class userlist extends \fpcm\controller\abstracts\controller implements \fpcm\co
                         ->setText('GLOBAL_ENABLE')
                         ->setClass('fpcm ui-userlist-actione')
                         ->setIcon('user-check')
-                        ->setIconOnly(true)
+                        ->setIconOnly()
                         ->setReadonly($noRb)
                         ->setData(['oid' => $userId, 'fn' => 'enableUser', 'dest' => 'confirmExec']);
                 }
@@ -259,14 +260,14 @@ class userlist extends \fpcm\controller\abstracts\controller implements \fpcm\co
                         ->setText('GLOBAL_DISABLE')
                         ->setClass('fpcm ui-userlist-actione')
                         ->setIcon('user-lock')
-                        ->setIconOnly(true)
+                        ->setIconOnly()
                         ->setReadonly($noRb)
                         ->setData(['oid' => $userId, 'fn' => 'disableUser', 'dest' => 'confirmExec']);
                 }
                 
                 $buttons[] = (new \fpcm\view\helper\deleteButton(uniqid('deleteUser')))
                         ->setClass('fpcm ui-userlist-actione')
-                        ->setIconOnly(true)
+                        ->setIconOnly()
                         ->setReadonly($noRb)
                         ->setData(['oid' => $userId, 'fn' => 'deleteUser', 'dest' => 'moveDeleteArticles']);
 
@@ -277,7 +278,7 @@ class userlist extends \fpcm\controller\abstracts\controller implements \fpcm\co
                         new \fpcm\components\dataView\rowCol('email', new \fpcm\view\helper\escape($user->getEmail())),
                         new \fpcm\components\dataView\rowCol('registered', new \fpcm\view\helper\dateText($user->getRegistertime())),
                         new \fpcm\components\dataView\rowCol('metadata', implode('', $metadata), 'fs-5', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
-                    ]
+                    ], $user->getDisabled() ? 'text-secondary' : ''
                 ));
 
             }
@@ -315,7 +316,7 @@ class userlist extends \fpcm\controller\abstracts\controller implements \fpcm\co
                 $buttons[] = (new \fpcm\view\helper\linkButton('rollPermBtn'.$rollId))->setUrl(\fpcm\classes\tools::getFullControllerLink('users/permissions', [
                     'id' => $rollId
                 ]))->setIcon('key')
-                    ->setIconOnly(true)
+                    ->setIconOnly()
                     ->setText('USERS_ROLLS_PERMISSIONS')
                     ->setClass('fpcm ui-rolls-edit')
                     ->setData(['type' => 'iframe']);
@@ -323,7 +324,7 @@ class userlist extends \fpcm\controller\abstracts\controller implements \fpcm\co
             
             $buttons[] = (new \fpcm\view\helper\deleteButton(uniqid('deleteROll')))
                     ->setClass('fpcm ui-rollslist-action-delete')
-                    ->setIconOnly(true)
+                    ->setIconOnly()
                     ->setReadonly($rollId <= 3)
                     ->setData(['oid' => $rollId, 'fn' => 'deleteRoll']);
             
@@ -351,7 +352,7 @@ class userlist extends \fpcm\controller\abstracts\controller implements \fpcm\co
         if ($this->permissions->system->rolls) {
             $tabs[] = (new \fpcm\view\helper\tabItem('rolls'))
                     ->setText('USERS_LIST_ROLLS')
-                    ->setFile('users/rollslist')
+                    ->setFile('components/dataview__inline.php')
                     ->setTabToolbar(2);
         }
         

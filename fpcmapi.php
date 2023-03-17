@@ -205,9 +205,10 @@ class fpcmAPI {
         $this->initObjects();
 
         return fpcm\classes\loader::getObject('fpcm\events\events')->trigger('apiCallFunction', [
-                    'name' => $name,
-                    'args' => $arguments
-        ]);
+            'name' => $name,
+            'args' => $arguments
+        ])->getData();
+
     }
 
     /**
@@ -230,7 +231,7 @@ class fpcmAPI {
         return fpcm\classes\loader::getObject('fpcm\events\events')->trigger('apiCallFunction', [
                     'name' => $name,
                     'args' => $arguments
-        ]);
+        ])->getData();
     }
 
     /**

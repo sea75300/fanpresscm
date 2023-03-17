@@ -19,10 +19,10 @@ use fpcm\model\dbal\selectParams;
  * @package fpcm\model\abstracts
  * @abstract
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-abstract class dataset implements \fpcm\model\interfaces\dataset {
+abstract class dataset implements \fpcm\model\interfaces\dataset, \Stringable {
 
     /**
      * DB-Verbindung
@@ -208,7 +208,7 @@ abstract class dataset implements \fpcm\model\interfaces\dataset {
     {
         $data = $this->dbcon->selectFetch((new selectParams($this->table))->setWhere('id = :id')->setParams(['id' => $this->id]));
         if (!$data) {
-            trigger_error('Failed to load data for object of type "' . get_class($this) . '" with given id ' . $this->id . '!', E_USER_WARNING);
+            trigger_error('Failed to load data for object of type "' . static::class . '" with given id ' . $this->id . '!', E_USER_WARNING);
             return false;
         }
 
@@ -279,7 +279,7 @@ abstract class dataset implements \fpcm\model\interfaces\dataset {
                         $this->table, $this->events->trigger(
                                 $this->getEventName('save'),
                                 $this->getPreparedSaveParams()
-                        )
+                        )->getData()
                 )
         ) {
             return false;
@@ -291,7 +291,7 @@ abstract class dataset implements \fpcm\model\interfaces\dataset {
         
         $afterEvent = $this->getEventName('saveAfter');
         if (class_exists(event::getEventNamespace($afterEvent))) {
-            $this->events->trigger($afterEvent, $this->id);
+            $this->events->trigger($afterEvent, $this->id)->getData();
         }
 
         return $this->id;
@@ -312,7 +312,7 @@ abstract class dataset implements \fpcm\model\interfaces\dataset {
         $fields = array_keys($params);
 
         $params[] = $this->getId();
-        $params = $this->events->trigger($this->getEventName('update'), $params);
+        $params = $this->events->trigger($this->getEventName('update'), $params)->getData();
 
         $return = false;
         if ($this->dbcon->update(
@@ -329,7 +329,7 @@ abstract class dataset implements \fpcm\model\interfaces\dataset {
 
         $afterEvent = $this->getEventName('updateAfter');
         if (class_exists(event::getEventNamespace($afterEvent))) {
-            $this->events->trigger($afterEvent, $this->id);
+            $this->events->trigger($afterEvent, $this->id)->getData();
         }
 
         return $return;

@@ -17,7 +17,7 @@ final class Context extends AbstractText
     /**
      * {@inheritdoc}
      */
-    const INFO = [
+    public const INFO = [
         'desc' => 'Context',
         'type' => 'Text',
     ];
@@ -25,7 +25,7 @@ final class Context extends AbstractText
     /**
      * @var int the union of OPs that indicate there is a change
      */
-    const OP_BLOCK_CHANGED =
+    public const OP_BLOCK_CHANGED =
         SequenceMatcher::OP_DEL |
         SequenceMatcher::OP_INS |
         SequenceMatcher::OP_REP;
@@ -72,7 +72,7 @@ final class Context extends AbstractText
             "{$symbol}{$symbol}{$symbol} " .
             ($a1x < $a2 ? "{$a1x},{$a2}" : $a2) .
             " {$symbol}{$symbol}{$symbol}{$symbol}\n",
-            '@' // symbol
+            '@', // symbol
         );
     }
 
@@ -99,7 +99,7 @@ final class Context extends AbstractText
             $ret .= $this->renderContext(
                 self::SYMBOL_MAP[$op],
                 $differ->getOld($i1, $i2),
-                $i2 === $noEolAtEofIdx
+                $i2 === $noEolAtEofIdx,
             );
         }
 
@@ -130,7 +130,7 @@ final class Context extends AbstractText
             $ret .= $this->renderContext(
                 self::SYMBOL_MAP[$op],
                 $differ->getNew($j1, $j2),
-                $j2 === $noEolAtEofIdx
+                $j2 === $noEolAtEofIdx,
             );
         }
 
@@ -151,7 +151,7 @@ final class Context extends AbstractText
             return '';
         }
 
-        $ret = "{$symbol} " . \implode("\n{$symbol} ", $context) . "\n";
+        $ret = "{$symbol} " . implode("\n{$symbol} ", $context) . "\n";
         $ret = $this->cliColoredString($ret, $symbol);
 
         if ($noEolAtEof) {

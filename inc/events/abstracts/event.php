@@ -40,6 +40,12 @@ abstract class event {
      * Object returntype für Module-Event
      * @since 4
      */
+    const RETURNTYPE_EVENTRESULT = '\\fpcm\\module\\eventResult';
+
+    /**
+     * Object returntype für Module-Event
+     * @since 4
+     */
     const RETURNTYPE_VOID = null;
 
     /**
@@ -123,7 +129,7 @@ abstract class event {
      */
     public function __call($name, $arguments)
     {
-        print "Function '{$name}' not found in " . get_class($this) . '<br>';
+        print "Function '{$name}' not found in " . static::class . '<br>';
         return false;
     }
 
@@ -136,7 +142,7 @@ abstract class event {
      */
     public static function __callStatic($name, $arguments)
     {
-        print "Static function '{$name}' not found in " . get_called_class() . '<br>';
+        printf('Static function %s not found in %s!<br>', $name, static::class);
         return false;
     }
 
@@ -209,9 +215,8 @@ abstract class event {
      */
     protected function getEventClassBase()
     {
-        return str_replace('fpcm\\events\\', '', get_class($this));
+        return str_replace('fpcm\\events\\', '', static::class);
     }
-
 
     /**
      * Executes a certain event
@@ -221,8 +226,9 @@ abstract class event {
     public function run()
     {
         $eventClasses = $this->getEventClasses();
+        
         if (!count($eventClasses)) {
-            return $this->data;
+            return (new \fpcm\module\eventResult())->setData($this->data);     
         }
 
         $base = $this->getEventClassBase();
@@ -235,6 +241,10 @@ abstract class event {
                 continue;
             }
             
+            if ($eventResult instanceof \fpcm\module\eventResult) {
+                $eventResult = $eventResult->getData();
+            }
+            
             /* @var \fpcm\module\event $module */
             $module = new $class($eventResult);
             if (!$this->is_a($module)) {
@@ -242,27 +252,15 @@ abstract class event {
             }
 
             $eventResult = $module->run();
+            
+            if (empty($eventResult)) {
+                trigger_error(sprintf('The return value of the module event "%s" cannot be empty. An instance of "\fpcm\module\eventResult" is required at least.', $module::class), E_USER_ERROR);
+                $eventResult = $this->toEventResult($this->data);
+            }
+            
         }
-
-        $returnDataType = $this->getReturnType();
-        if ($returnDataType === self::RETURNTYPE_VOID && $eventResult !== null) {
-            trigger_error('Invalid data type. Returned data type must be null for '.$base);
-            return null;
-        }
-        elseif ($returnDataType === self::RETURNTYPE_ARRAY && !is_array($eventResult)) {
-            trigger_error('Invalid data type. Returned data type must be an array for '.$base);
-            return $this->data;
-        }
-        elseif ($returnDataType === self::RETURNTYPE_OBJ && !is_object($eventResult)) {
-            trigger_error('Invalid data type. Returned data type must be an object for '.$base);
-            return $this->data;
-        }
-        elseif ($returnDataType === self::RETURNTYPE_SCALAR && !is_scalar($eventResult) ) {
-            trigger_error('Invalid data type. Returned data type must be instance of ' . $returnDataType.' for '.$base);
-            return $this->data;
-        }
-
-        return $eventResult;
+        
+        return $this->toEventResult($eventResult);
     }
 
     /**
@@ -273,6 +271,20 @@ abstract class event {
     final public static function getEventNamespace(string $event) : string
     {
         return 'fpcm\\events\\'.$event;
+    }
+
+    /**
+     * Convert event result to eventResult object
+     * @param mixed $data
+     * @return \fpcm\module\eventResult
+     */
+    final protected function toEventResult(mixed $data): \fpcm\module\eventResult
+    {
+        if ($data instanceof \fpcm\module\eventResult) {
+            return $data;
+        }
+
+        return (new \fpcm\module\eventResult())->setData($data);
     }
 
 }

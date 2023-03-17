@@ -1,11 +1,10 @@
 <?php /* @var $theView fpcm\view\viewVars */ ?>
-<div class="row p-2 justify-content-center border-top border-5 border-primary">
-    <div class="col-8 text-center">
-        <p><?php $theView->write('INSTALLER_FINALIZE_TEXT'); ?></p>
-        <?php if ($disableInstallerMsg) : ?>
-        <p class="text-danger"><?php $theView->write('INSTALLER_FINALIZE_DIABLED'); ?></p>
-        <?php endif; ?>
+<div class="text-center">    
+    <?php $theView->alert('success')->setText('INSTALLER_FINALIZE_TEXT'); ?>
+    
+    <?php if ($disableInstallerMsg) : ?>
+        <?php $theView->alert('danger')->setText('INSTALLER_FINALIZE_DIABLED'); ?>    
+    <?php endif; ?>
 
-        <?php $theView->linkButton('toLogin')->setUrl($theView->controllerLink('system/login'))->setText('LOGIN_BTN')->setIcon('sign-in-alt'); ?>
-    </div>
+    <?php $theView->linkButton('toLogin')->setUrl($theView->controllerLink('system/login'))->setText('LOGIN_BTN')->setIcon('sign-in-alt'); ?>
 </div>

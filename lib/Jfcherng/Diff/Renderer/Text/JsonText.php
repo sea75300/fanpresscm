@@ -15,7 +15,7 @@ final class JsonText extends AbstractText
     /**
      * {@inheritdoc}
      */
-    const INFO = [
+    public const INFO = [
         'desc' => 'Text JSON',
         'type' => 'Text',
     ];
@@ -35,7 +35,7 @@ final class JsonText extends AbstractText
             $this->convertTagToString($ret);
         }
 
-        return \json_encode($ret, $this->options['jsonEncodeFlags']);
+        return json_encode($ret, $this->options['jsonEncodeFlags']);
     }
 
     /**

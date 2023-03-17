@@ -15,7 +15,8 @@ namespace fpcm\controller\ajax\system;
  * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class cronasync extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
+class cronasync extends \fpcm\controller\abstracts\ajaxController
+{
 
     /**
      * 

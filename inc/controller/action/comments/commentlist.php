@@ -10,10 +10,11 @@ namespace fpcm\controller\action\comments;
 /**
  * Comment list controller
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class commentlist extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\isAccessible {
+class commentlist extends \fpcm\controller\abstracts\controller
+{
 
     use \fpcm\controller\traits\comments\lists,
         \fpcm\controller\traits\common\searchParams;
@@ -52,46 +53,34 @@ class commentlist extends \fpcm\controller\abstracts\controller implements \fpcm
     }
 
     /**
-     * @see \fpcm\controller\abstracts\controller::request()
-     * @return bool
-     */
-    public function request()
-    {
-        $this->initCommentPermissions();
-        
-        if (!$this->buttonClicked('deleteComment')) {
-            return true;
-        }
-
-        if (!$this->checkPageToken()) {
-            $this->view->addErrorMessage('CSRF_INVALID');
-            return true;
-        }
-
-        return $this->processCommentActions($this->list);
-    }
-
-    /**
      * @see \fpcm\controller\abstracts\controller::process()
      * @return mixed
      */
     public function process()
     {
+        $this->view->addAjaxPageToken('comments/delete');
         $this->view->assign('commentsMode', 1);
+        $this->view->addJsLangVars(['DELETE_SUCCESS_COMMENTS', 'DELETE_FAILED_COMMENTS']);
+
         $this->initSearchForm();
         $this->initCommentMassEditForm(1);
 
-        $this->view->addJsFiles(['comments/module.js']);
+        $this->view->addJsFiles(['comments/module.js', 'comments/deleteCallback.js']);
         $this->view->setFormAction('comments/list');
 
         if ($this->permissions->editCommentsMass()) {
             $this->view->addButton((new \fpcm\view\helper\button('massEdit', 'massEdit'))->setText('GLOBAL_EDIT')->setIcon('edit'));
         }
 
-        $this->view->addButton((new \fpcm\view\helper\button('opensearch', 'opensearch'))->setText('ARTICLES_SEARCH')->setIcon('search')->setIconOnly(true));
+        $this->view->addButton((new \fpcm\view\helper\button('opensearch', 'opensearch'))->setText('ARTICLES_SEARCH')->setIcon('search')->setIconOnly());
 
         if ($this->permissions->comment->delete) {
-            $this->view->addButton((new \fpcm\view\helper\deleteButton('deleteComment'))->setClass('fpcm ui-button-confirm'));
+            $this->view->addButton( (new \fpcm\view\helper\button('deleteComment'))
+                ->setText('GLOBAL_DELETE')
+                ->setIcon('trash')
+                ->setIconOnly()
+                ->setOnClick('comments.deleteMultipleArticle')
+            );            
         }
 
         $this->initDataView();

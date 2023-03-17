@@ -12,7 +12,7 @@ namespace fpcm\model\auth;
  * 
  * @package fpcm\model\auth
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 final class htmlLogin extends \fpcm\model\abstracts\authProvider {
@@ -60,10 +60,15 @@ final class htmlLogin extends \fpcm\model\abstracts\authProvider {
             return $user->getId();
         }
 
-        include_once \fpcm\classes\loader::libGetFilePath('sonata-project'.DIRECTORY_SEPARATOR.'GoogleAuthenticator');
-        if (!isset($param['authcode']) || !(new \Sonata\GoogleAuthenticator\GoogleAuthenticator())->checkCode($user->getAuthtoken(), $param['authcode'])) {
+        if (!isset($param['authcode'])) {
             $this->triggerError('Login failed for username ' . $param['username'] . ', invalid auth token given!');
             return false;
+        }
+        
+        include_once \fpcm\classes\loader::libGetFilePath('sonata-project'.DIRECTORY_SEPARATOR.'GoogleAuthenticator');
+        if (!(new \Sonata\GoogleAuthenticator\GoogleAuthenticator())->checkCode($user->getAuthtoken(), $param['authcode'])) {
+            $this->triggerError('Login failed for username ' . $param['username'] . ', invalid auth token given!');
+            return self::AUTH_2FA_ERROR;
         }
 
         return $user->getId();
@@ -89,5 +94,3 @@ final class htmlLogin extends \fpcm\model\abstracts\authProvider {
 
 
 }
-
-?>

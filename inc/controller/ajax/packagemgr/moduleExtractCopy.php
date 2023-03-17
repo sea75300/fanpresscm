@@ -15,7 +15,8 @@ namespace fpcm\controller\ajax\packagemgr;
  * @copyright (c) 2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class moduleExtractCopy extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
+class moduleExtractCopy extends \fpcm\controller\abstracts\ajaxController
+{
 
     /**
      * 

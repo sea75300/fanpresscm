@@ -19,7 +19,8 @@
                 ->setClass('fpcm-ui-options-smtp-input'); ?>
         </div>
     </div>
-
+    
+    <?php if ($globalConfig->smtp_settings->auth != 'XOAUTH2') : ?>
     <div class="row my-2">
         <div class="col-12 col-md-8">
         <?php $theView->textInput('smtp_settings[srvurl]')
@@ -73,4 +74,42 @@
                 ->setReadonly(($globalConfig->smtp_enabled ? false : true)); ?>
         </div>
     </div>
+    <?php endif; ?>
+
+    <div class="row my-2">
+        <div class="col-12 col-md-8">
+        <?php $theView->select('smtp_settings[auth]')
+                ->setOptions($smtpAuthTypes)
+                ->setText('SYSTEM_OPTIONS_EMAIL_AUTHTYPE')
+                ->setSelected($globalConfig->smtp_settings->auth)
+                ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED)
+                ->setReadonly(($globalConfig->smtp_enabled ? false : true)); ?>
+        </div>
+    </div>
+
+    <?php if ($globalConfig->smtp_settings->auth == 'XOAUTH2') : ?>
+
+    <div class="row my-2">
+        <div class="col-12 col-md-8">
+            <div class="input-group">
+                <div class="col-12 col-md-4">
+                    <?php $theView->write('SYSTEM_OPTIONS_TWITTER_USER_SECRET'); ?>
+                </div>            
+
+                <div class="col-12 col-md-8 p-0">
+                    <?php $theView->textarea('smtp_settings[token]')
+                        ->setValue($globalConfig->smtp_settings->token)
+                        ->setClass('fpcm ui-textarea-medium ui-textarea-noresize w-100'); ?>
+                </div>
+            </div>
+        </div>
+    </div>    
+    
+    
+    <div class="row my-2">
+        <div class="col-12 col-md-8">
+        <?php $theView->linkButton('oauth-auth')->setUrl('')->setText('SYSTEM_OPTIONS_EMAIL_OAUTH'); ?>
+        </div>
+    </div>
+    <?php endif; ?>
 </fieldset>

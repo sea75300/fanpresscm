@@ -29,6 +29,7 @@ class articleTest extends testBase {
         $object->setSources('https://nobody-knows.org');
         $object->setCategories(array(1));
         $object->setImagepath('test.jpg');
+        $object->setUrl('fpcm_unittest_article_url');
 
         $result = $object->save();
         $this->assertGreaterThanOrEqual(1, $result);

@@ -3,17 +3,19 @@
 /**
  * User edit controller
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
 namespace fpcm\controller\action\users;
 
-class userbase extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\isAccessible {
+class userbase extends \fpcm\controller\abstracts\controller
+{
 
     use \fpcm\controller\traits\common\timezone,
         \fpcm\controller\traits\users\authorImages,
-        \fpcm\controller\traits\theme\nav\users;
+        \fpcm\controller\traits\theme\nav\users,
+        \fpcm\controller\traits\users\settings;
 
     /**
      *
@@ -86,16 +88,9 @@ class userbase extends \fpcm\controller\abstracts\controller implements \fpcm\co
     public function process()
     {
         $this->initTabs();
+        $this->settingsToView();
         
-        $userRolls = new \fpcm\model\users\userRollList();
-        $this->view->assign('userRolls', $userRolls->getUserRollsTranslated());
-        $this->view->assign('languages', array_flip($this->language->getLanguages()));
-
-        $this->view->assign('timezoneAreas', $this->getTimeZonesAreas());
         $this->view->assign('externalSave', true);
-        $this->view->assign('articleLimitList', \fpcm\model\system\config::getAcpArticleLimits());
-        $this->view->assign('defaultFontsizes', \fpcm\model\system\config::getDefaultFontsizes());
-        $this->view->assign('filemanagerViews', \fpcm\components\components::getFilemanagerViews());
         $this->view->assign('inProfile', false);
 
         $this->view->addJsFiles([ \fpcm\classes\loader::libGetFileUrl('nkorg/passgen/passgen.js'), ]);
@@ -189,16 +184,23 @@ class userbase extends \fpcm\controller\abstracts\controller implements \fpcm\co
             return [];
         }
 
-        $userMeta = $this->request->fromPOST('usermeta');
-        if (!is_array($userMeta)) {
-            $userMeta = [];
-        }
-        
         $this->user->setUserName($data['username']);
         $this->user->setEmail($data['email']);
         $this->user->setDisplayName($data['displayname']);
         $this->user->setRoll($data['roll']);
-        $this->user->setUserMeta($userMeta);
+
+        $metaData = $this->user->getUserMeta();
+        if (is_object($metaData)) {
+            
+            $userMetaForm = $this->request->fromPOST('usermeta');
+            if (!is_array($userMetaForm)) {
+                $userMetaForm = [];
+            }            
+            
+            $metaData->mergeData($userMetaForm);
+            $this->user->setUserMeta($metaData);
+        }
+
         $this->user->setUsrinfo(isset($data['usrinfo']) ? $data['usrinfo'] : '');
         $this->user->setDisabled(isset($data['disabled']) ? $data['disabled'] : 0);
         $this->user->setChangeTime(time());
@@ -208,5 +210,3 @@ class userbase extends \fpcm\controller\abstracts\controller implements \fpcm\co
     }
 
 }
-
-?>

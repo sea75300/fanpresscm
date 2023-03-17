@@ -64,60 +64,81 @@
 
 <div class="fpcm ui-hidden" id="fpcm-dialog-files-search">
 
-    <div class="row mb-2">
+    <div class="row mb-3">
         <div class="col-12 col-md-9 my-2 my-md-0">
-            <?php $theView->textInput('filename')->setText('FILE_LIST_SEARCHTEXT')->setMaxlenght(255)->setPlaceholder(true)->setClass('fpcm-files-search-input'); ?>
+            <?php $theView->textInput('filename')
+                    ->setText('FILE_LIST_SEARCHTEXT')
+                    ->setMaxlenght(255)
+                    ->setPlaceholder(true)
+                    ->setClass('fpcm-files-search-input')
+                    ->setPlaceholder($theView->translate('FILE_LIST_SEARCHTEXT'))
+                    ->setLabelTypeFloat()
+                    ->setBottomSpace(''); ?>
         </div>
-        <div class="col-12 col-md-3"></div>
+        <div class="col-12 col-md-3 align-self-center"></div>
     </div>
 
-    <div class="row mb-2">
+    <div class="row mb-3">
 
         <div class="col-12 col-md-9">
             <?php $theView->dateTimeInput('datefrom')
                     ->setClass('fpcm-files-search-input')
-                    ->setText('ARTICLE_SEARCH_DATE_FROM'); ?>
+                    ->setText('ARTICLE_SEARCH_DATE_FROM')
+                    ->setLabelTypeFloat()
+                    ->setBottomSpace(''); ?>
         </div>
         
-        <div class="col-12 col-md-3">
+        <div class="col-12 col-md-3 align-self-center">
             <?php $theView->select('combinationDatefrom')
                     ->setOptions($searchCombination)
                     ->setClass('fpcm-ui-input-select-filessearch-combination')
                     ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED)
+                    ->setText($theView->translate('ARTICLE_SEARCH_LOGIC'))
+                    ->setLabelTypeFloat()
                     ->setData(['']); ?>
         </div>
     </div>
 
-    <div class="row mb-2">
+    <div class="row mb-3">
         <div class="col-12 col-md-9">
             <?php $theView->dateTimeInput('dateto')
                     ->setClass('fpcm-files-search-input')
-                    ->setText('ARTICLE_SEARCH_DATE_TO'); ?>
+                    ->setText('ARTICLE_SEARCH_DATE_TO')
+                    ->setLabelTypeFloat()
+                    ->setBottomSpace(''); ?>
         </div>
         
-        <div class="col-12 col-md-3">
+        <div class="col-12 col-md-3 align-self-center">
             <?php $theView->select('combinationDateto')
                     ->setOptions($searchCombination)
                     ->setClass('fpcm-ui-input-select-filessearch-combination')
-                    ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
+                    ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED)
+                    ->setText($theView->translate('ARTICLE_SEARCH_LOGIC'))
+                    ->setLabelTypeFloat()
+                    ->setBottomSpace(''); ?>
         </div>
 
     </div>
 
-    <div class="row mb-2">
+    <div class="row mb-3">
         <div class="col-12 col-md-9">
             <?php $theView->select('userid')
                     ->setOptions($searchUsers)
                     ->setText('ARTICLE_SEARCH_USER')
                     ->setClass('fpcm-files-search-input fpcm-ui-input-select-filessearch')
-                    ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
+                    ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED)
+                    ->setLabelTypeFloat()
+                    ->setBottomSpace(''); ?>
         </div>
         
-        <div class="col-12 col-md-3">
+        <div class="col-12 col-md-3 align-self-center">
             <?php $theView->select('combinationUserid')
                     ->setOptions($searchCombination)
                     ->setClass('fpcm-ui-input-select-filessearch-combination')
-                    ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
+                    ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED)
+                    ->setText($theView->translate('ARTICLE_SEARCH_LOGIC'))
+                    ->setLabelTypeFloat()
+                    ->setBottomSpace(''); ?>
         </div>
 
     </div>

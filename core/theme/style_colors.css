@@ -1,35 +1,35 @@
-/* ------ General colors */
-:root {
-  --bs-primary: #0073ea;
-  --bs-red: #cc0000;
-  --bs-body-color: #454545;
-  --fpcm-blue-light: #3399ff;
-  --fpcm-grey-light: #ebe7f2;
-}
-
 body {
-    background-image: url(bgmain.svg);
-    background-color: var(--fpcm-grey-light);
+    background-image: var(--fpcm-var-backdrop-image);
     background-size: cover;
     background-attachment: fixed;
+}
+
+body.fpcm.ui-classic-backdrop {
+    background-image: var(--fpcm-var-backdrop-classic);
 }
 
 body,
 a, a:visited, a.fpcm-link
 i, em,
-span.fpcm.ui-button-shorthelp,
 .cm-s-fpcm.CodeMirror,
 .fpcm-ui-color-grey-dark,
 a.nav-link {
     color: var(--bs-body-color);
 }
 
+#fpcm-top-menu a.nav-link {
+    color: var(--bs-nav-link-color);
+}
+
+#fpcm-top-menu a.nav-link:focus,
+#fpcm-top-menu a.nav-link:hover {
+  color: var(--bs-nav-link-hover-color);
+}
+
 h1,
 h3,
 ins,
 .text-primary,
-a.fpcm.ui-nav-link.nav-link.active,
-span.fpcm.ui-button-shorthelp:hover,
 span.fpcm-ui-editor-metainfo {
     color: var(--bs-primary);
 }
@@ -41,7 +41,9 @@ h3.fpcm.dashboard-container.headline span.fpcm-ui-icon {
 .btn-primary,
 .form-check-input:checked,
 .progress-bar,
-span.fpcm-ui-badge {
+span.fpcm-ui-badge,
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
     background-color: var(--bs-primary);
 }
 
@@ -58,11 +60,15 @@ span.fpcm-ui-badge {
 }
 
 .fpcm.ui-background-white-50p {
-    background: rgba(var(--bs-white-rgb), 0.5);
+    background: rgba(var(--bs-white-rgb), 0.6);
 }
 
 .fpcm.ui-background-blue-75 {
     background: rgba(var(--bs-primary-rgb), 0.75);
+}
+
+.fpcm.ui-background-grey-75 {
+    background: rgba(var(--bs-secondary-rgb), 0.75);
 }
 
 div.fpcm.ui-files-item:nth-child(even) {
@@ -127,7 +133,7 @@ div.fpcm-ui-dataview div.row:hover {
 
 .fpcm-ui-input:invalid,
 .fpcm-ui-input:required:invalid {
-    box-shadow: 0 0 0 .1rem var(--bs-red);
+    background-color: rgba(var(--bs-warning-rgb), 0.75);
 }
 
 div.row.fpcm-ui-dataview-row.fpcm-ui-logs-error {
@@ -161,4 +167,26 @@ div.fpcm.ui-logs-deprecation-warning {
 
 div.fpcm.ui-dataview-head .form-check-input:checked {
     background-color: var(--bs-dark);
+}
+
+.fpcm.ui-blurring {
+    backdrop-filter: blur(var(--fpcm-var-blurring));
+}
+
+.fpcm.ui-invert-1 {
+    filter: invert(1);
+}
+
+.fpcm.ui-background-transition {
+    transition: background-color var(--fpcm-var-easing) ease;
+}
+
+div.fileupload-progress.fpcm-ui-fade {
+    opacity: 0;
+    transition: opacity .15s linear;
+}
+
+div.fileupload-progress.in {
+    opacity: 1;
+    transition: opacity .15s linear;
 }

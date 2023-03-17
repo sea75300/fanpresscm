@@ -63,6 +63,7 @@ use fpcm\model\traits\eventModuleEmpty;
  * @property int    $comments_notify Send notification for new comments to: 0 = General e-mail address, 1 = article auhor, 2 = both)
  * @property int    $comments_markspam_commentcount Mark comments as spam, in case the author has been flagged as spammed before
  * @property bool   $comments_privacy_optin GDPR privacy opt-in
+ * @property bool   $comments_default_active Set comments enabled by default for articles
  * 
  * @property int    $file_thumb_size Thumbnail size
  * @property int    $file_list_limit Nubmer of files per page
@@ -81,7 +82,7 @@ use fpcm\model\traits\eventModuleEmpty;
  * @copyright (c) 2011-2021, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-final class config extends dataset {
+final class config extends dataset implements \fpcm\model\interfaces\isObjectInstancable {
 
     use eventModuleEmpty;
 
@@ -153,7 +154,7 @@ final class config extends dataset {
             return false;
         }
 
-        $params = $this->events->trigger('configUpdate', $this->newConfig);
+        $params = $this->events->trigger('configUpdate', $this->newConfig)->getData();
 
         $data = [];
         $where = [];
@@ -226,14 +227,7 @@ final class config extends dataset {
             return false;
         }
 
-        $userData = $user->getUserMeta();
-        if (!is_array($userData)) {
-            return false;
-        }
-
-        foreach ($userData as $key => $value) {
-            $this->data[$key] = $value;
-        }
+        $user->getUserMeta()->mergeToConfig($this->data);
 
         loader::getObject('\fpcm\classes\language', $this->system_lang, false);
         $this->userConfigSet = true;
@@ -522,5 +516,23 @@ final class config extends dataset {
             50 => 50
         ];
     }
+
+    /**
+     * Returns config class instance
+     * @return config
+     * @since 5.1-dev
+     */
+    public static function getInstance()
+    {
+        $iClass = static::class;
+        
+        if (!isset($GLOBALS['fpcm']['objects'][$iClass])) {
+            $GLOBALS['fpcm']['objects'][$iClass] = new $iClass();
+        }
+        
+        return $GLOBALS['fpcm']['objects'][$iClass];
+        
+    }
+
 
 }

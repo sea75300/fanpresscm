@@ -13,10 +13,10 @@ namespace fpcm\model\abstracts;
  * @package fpcm\model\abstracts
  * @abstract
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-abstract class model implements \fpcm\model\interfaces\model {
+abstract class model implements \fpcm\model\interfaces\model, \Stringable {
 
     /**
      * DB-Verbindung
@@ -199,7 +199,7 @@ abstract class model implements \fpcm\model\interfaces\model {
     {
         $data = $this->dbcon->selectFetch((new \fpcm\model\dbal\selectParams($this->table))->setWhere('id = ?')->setParams([$this->id]));
         if (!$data) {
-            trigger_error('Failed to load data for object of type "' . get_class($this) . '" with given id ' . $this->id . '!');
+            trigger_error('Failed to load data for object of type "' . static::class . '" with given id ' . $this->id . '!');
             return false;
         }
 

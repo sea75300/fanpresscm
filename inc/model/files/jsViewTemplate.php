@@ -106,7 +106,7 @@ final class jsViewTemplate extends \fpcm\model\abstracts\file implements \JsonSe
      * 
      * @return string
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): mixed
     {
         return $this->getContent();
     }

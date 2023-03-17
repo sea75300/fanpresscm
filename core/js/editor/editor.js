@@ -16,12 +16,6 @@ fpcm.editor = {
         
         fpcm.editor.initToolbar();
 
-        fpcm.ui_tabs.render('#tabs-editor', {
-            initDataViewOnRenderAfter: function () {
-                fpcm.editor.initCommentListActions();
-            }
-        });
-
         if (!fpcm.vars.jsvars.isRevision) {
             fpcm.editor[fpcm.vars.jsvars.editorInitFunction].call();
         }
@@ -52,131 +46,11 @@ fpcm.editor = {
     
     initAfter: function() {
 
-        fpcm.ui.multiselect('articlecategories', {
-            placeholder: 'EDITOR_CATEGORIES_SEARCH'
-        });
-
-        fpcm.dom.fromClass('fpcm-editor-articleimage').fancybox();
-
-        fpcm.dom.fromId('insertarticleimg').click(function () {
-            fpcm.editor.showFileManager(3);
-            return false;
-        });
-
         fpcm.ui.autocomplete('#articleimagepath', {
             source: fpcm.vars.ajaxActionPath + 'autocomplete&src=editorfiles',
             minLength: 3
         });
 
-        fpcm.ui.autocomplete('#articlesources', {
-            source: fpcm.vars.ajaxActionPath + 'autocomplete&src=articlesources',
-            minLength: 3
-        });
-
-        fpcm.editor.tweetTextInput = fpcm.dom.fromId('articletweettxt');
-        fpcm.ui.selectmenu('#twitterReplacements', {
-            change: function( event, ui ) {
-
-                if (ui.value) {
-                    var currentText = fpcm.editor.tweetTextInput.val();
-                    var currentpos = fpcm.dom.fromTag(fpcm.editor.tweetTextInput).prop('selectionStart');
-                    fpcm.editor.tweetTextInput.val(currentText.substring(0, currentpos) + ui.value +  currentText.substring(currentpos));
-                }
-
-            },
-            resetAfter: true
-        });
-
-        fpcm.dom.bindEvent('.fpcm-ui-editor-metainfo-checkbox', 'change', function (_e, _ui) {
-            fpcm.dom.fromTag('span.fpcm-ui-editor-metainfo-' + _ui.dataset.icon).toggleClass('fpcm-ui-status-1 fpcm-ui-status-0');
-        });        
-
-        if (!fpcm.vars.jsvars.articleId) {
-            return true;
-        }
-
-        fpcm.dom.fromId('btnShortlink').click(function (event, handler) {
-
-            fpcm.ajax.get('editor/editorlist', {
-                dataType: 'json',
-                data: {
-                    id: fpcm.dom.fromTag(this).data().article,
-                    view: 'shortlink'
-                },
-                execDone: function (result) {
-
-
-                    let _par = {
-                        id: 'editor-shortlink',
-                        title: fpcm.ui.translate('EDITOR_ARTICLE_SHORTLINK'),
-                        closeButton: true,
-                        dlButtons: [{
-                            text: 'EDITOR_ARTICLE_SHORTLINK_COPY',
-                            icon: 'copy',
-                            click: function () {
-
-                                let _el = fpcm.dom.fromId('fpcm-editor-shotlink');
-                                 if (!_el.length) {
-                                     return true;
-                                 }
-
-                                 _el.select();
-                                document.execCommand('copy');
-                            }
-                        }]
-                    };
-
-                    _par.content = '<div class="form-floating mb-3">' +
-                                    '<input type="url" class="form-control" id="fpcm-editor-shotlink" name="fpcm-editor-shotlink" placeholder="' + fpcm.ui.translate('EDITOR_ARTICLE_SHORTLINK') + '" value="' + result.shortend + '">' +
-                                    '<label for="fpcm-editor-shotlink">' + fpcm.ui.translate('EDITOR_ARTICLE_SHORTLINK') + '</label>' +
-                                  '</div>';
-
-                    fpcm.ui_dialogs.create(_par);
-                }
-            });
-
-             return false;
-        });
-    },
-    
-    showCommentLayer: function(_url) {
-
-        fpcm.ui_dialogs.create({
-            id: 'editor-comments',
-            title: 'COMMENTS_EDIT',
-            url: _url,
-            closeButton: true,
-            dlButtons  : [
-                {
-                    text: 'COMMMENT_LOCKIP',
-                    icon: "lock",
-                    disabled: fpcm.vars.jsvars.lkIp ? false : true,
-                    click: function(_ui) {
-                        fpcm.dom.findElementInDialogFrame(_ui, '#btnLockIp').click();
-                    }
-                },
-                {
-                    text: 'Whois',
-                    icon: "globe",
-                    click: function(_ui) {
-                        let _el = fpcm.dom.findElementInDialogFrame(_ui, '#whoisIp');
-                        window.open(_el[0].href, '_blank', 'width=700,height=500,scrollbars=yes,resizable=yes,');
-                    }
-                },
-                {
-                    text: 'GLOBAL_SAVE',
-                    icon: "save",
-                    primary: true,
-                    click: function(_ui) {
-                        fpcm.dom.findElementInDialogFrame(_ui, '#btnCommentSave').click();
-                        fpcm.ui_tabs.show('#tabs-editor', 2);
-                    }
-                }
-            ]
-        });
-        
-        fpcm.ui_loader.hide();
-        return false;
     },
     
     initTinyMce: function() {
@@ -514,7 +388,7 @@ fpcm.editor = {
 
     showInEditDialog: function(result){
 
-        if (fpcm.vars.jsvars.checkLastState == 1 && result.articleCode == 0 && !result.articleUser) {
+        if (fpcm.vars.jsvars.checkLastState == 1 && result.articleCode == 0) {
 
             fpcm.ui.addMessage({
                 type : 'notice',
@@ -524,7 +398,7 @@ fpcm.editor = {
             }, true);
         }
 
-        if (fpcm.vars.jsvars.checkLastState == 0 && result.articleCode == 1 && result.articleUser) {
+        if (fpcm.vars.jsvars.checkLastState == 0 && result.articleCode == 1) {
             var msg = fpcm.ui.translate('EDITOR_STATUS_INEDIT');
             fpcm.ui.addMessage({
                 type : 'neutral',
@@ -537,27 +411,80 @@ fpcm.editor = {
         fpcm.vars.jsvars.checkLastState = result.articleCode;
     },
     
-    initCommentListActions: function () {
-        
-        if (!fpcm.comments) {
-            return true;
-        }
-        
-        fpcm.comments.assignActionsList();
-        
-        fpcm.dom.fromClass('fpcm-ui-commentlist-link').click(function () {
-            fpcm.ui_loader.hide();
-            fpcm.editor.showCommentLayer(fpcm.dom.fromTag(this).attr('href'));
-            return false;
-        });
-
-    },
-    
     getGalleryReplacement: function (_values) {
         return fpcm.vars.jsvars.editorGalleryTagStart.replace(
             '{{IMAGES}}',
             fpcm.vars.jsvars.editorGalleryTagThumb + _values.join(fpcm.vars.jsvars.editorGalleryTagLink + '|' + fpcm.vars.jsvars.editorGalleryTagThumb) + fpcm.vars.jsvars.editorGalleryTagLink
         );
+    },
+    
+    manageSources: function (_result, _receiver) {
+
+        if (!_result.length) {
+
+            let _notFound = fpcm.ui.getIcon('list-ul', {
+                stack: 'ban fpcm-ui-important-text',
+                stackTop: true,
+            }) + ' ' + fpcm.ui.translate('GLOBAL_NOTFOUND2');                        
+
+            _result = [{
+                value: false,
+                label: _notFound
+            }];
+        }
+
+        let _delDescr = fpcm.ui.translate('GLOBAL_DELETE');
+
+        let _content = '<div class="list-group">';
+        for (var _i in _result) {
+
+            let _item = _result[_i];
+            let _btn = '';
+            let _link = _item.label;
+
+            if (_item.value) {
+                _btn = ` <button type="button" class="btn-close" aria-label="${_delDescr}" title="${_delDescr}" data-src-del-item="${_item.value}"></button>`;
+                _link = ` <a href="${_item.value}" target="_blank" rel='external'>${_item.label}</a>`;
+            }
+
+            _content += `<div class="list-group-item d-flex justify-content-between align-items-start"><div class="align-self-center">${_link}</div>${_btn}</div>`;
+        }
+
+        _content += '</div>';
+        
+        if (_receiver) {
+            _receiver.innerHTML = _content;
+            return false;
+        }
+
+        fpcm.ui_dialogs.create({
+            id: 'sources-mgr',
+            title: fpcm.ui.translate('SYSTEM_OPTIONS_NEWS_SOURCESLIST'),
+            content: _content,
+            closeButton: true,
+            dlOnOpenAfter: function (_ui, _bsObj) {
+
+                fpcm.dom.bindClick('button[data-src-del-item]', function (_ev, _bui) {
+                    fpcm.ajax.post('autocompleteCleanup', {
+                        data: {
+                            term: _bui.dataset.srcDelItem,
+                            src: 'articlesources'
+                        },
+                        execDone: function (_result) {
+
+                            let _parent = _bui.parentElement.parentElement;
+                            _bui.parentElement.remove();
+
+                            if (_parent.childNodes.length) {
+                                return true;
+                            }
+
+                            fpcm.editor.manageSources([], _ui.children[0].children[0].children[2]);
+                        }
+                    });
+                });
+            }
+        });
     }
 
 };

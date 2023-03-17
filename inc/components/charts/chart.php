@@ -12,11 +12,11 @@ namespace fpcm\components\charts;
  * 
  * @package fpcm\components\charts
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2019-2021, Stefan Seehafer
+ * @copyright (c) 2019-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @since 4.3
  */
-class chart implements \JsonSerializable {
+class chart implements \JsonSerializable, \Stringable {
     
     const TYPE_BAR = 'bar';
     const TYPE_LINE = 'line';
@@ -193,7 +193,7 @@ class chart implements \JsonSerializable {
      * @return array
      * @ignore
      */
-    final public function jsonSerialize()
+    final public function jsonSerialize(): mixed
     {
         if (!isset($this->options['responsive'])) {
             $this->options['responsive'] = true;

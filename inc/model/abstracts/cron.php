@@ -18,7 +18,7 @@ use fpcm\model\files\fileOption;
  * @package fpcm\model\abstracts
  * @abstract
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 abstract class cron implements \fpcm\model\interfaces\cron {
@@ -28,6 +28,18 @@ abstract class cron implements \fpcm\model\interfaces\cron {
      * @var \fpcm\classes\database
      */
     protected $dbcon;
+
+    /**
+     * Database table
+     * @var string
+     */
+    protected $table;
+
+    /**
+     * Events object
+     * @var \fpcm\events\events
+     */
+    protected $event;
 
     /**
      * Name des Crons
@@ -97,7 +109,7 @@ abstract class cron implements \fpcm\model\interfaces\cron {
         $this->table = database::tableCronjobs;
         $this->dbcon = loader::getObject('\fpcm\classes\database');
         $this->events = loader::getObject('\fpcm\events\events');
-        $this->cronName = basename(str_replace('\\', DIRECTORY_SEPARATOR, get_class($this)));
+        $this->cronName = basename(str_replace('\\', DIRECTORY_SEPARATOR, static::class));
 
         if (!$init) {
             return;
@@ -189,18 +201,20 @@ abstract class cron implements \fpcm\model\interfaces\cron {
     {
         return $this->cronName;
     }
-
+    
     /**
-     * Gibt Sprachvariable zur Übersetzung des Cronjob-Namen zurück
+     * Returns translatetable language variable from cronjob names
+     * @param string $label
      * @return string
      */
-    public function getCronNameLangVar()
+    public function getCronNameLangVar(string $label = '') : string
     {
+        $return = 'CRONJOB_' . $label . strtoupper($this->cronName);
         if ($this->modulekey) {
-            return \fpcm\module\module::getLanguageVarPrefixed($this->modulekey). 'CRONJOB_' . strtoupper($this->cronName);
+            $return = \fpcm\module\module::getLanguageVarPrefixed($this->modulekey) . $return;
         }
-        
-        return 'CRONJOB_' . strtoupper($this->cronName);
+
+        return $return;
     }
 
     /**
@@ -319,6 +333,38 @@ abstract class cron implements \fpcm\model\interfaces\cron {
     {
         $this->isrunning = 0;
         return $this->dbcon->update($this->table, ['isrunning'], [$this->isrunning, $this->cronName], 'cjname=?');        
+    }
+    
+    /**
+     * Creates email from a template
+     * @param array $vars
+     * @param array $html
+     * @param array $fromData
+     * @param array $attachments
+     * @return bool
+     * @since 5.1.0-a1
+     */
+    protected function submitMailNotification(array $vars = [], bool $html = false, bool $fromData = false, array $attachments = []) : bool
+    {
+        /* @var $conf \fpcm\model\system\config */
+        $conf = \fpcm\model\system\config::getInstance();
+
+        /* @var $lang \fpcm\classes\language */
+        $lang = \fpcm\classes\loader::getObject('\fpcm\classes\language');
+
+        $lkey = $this->getCronNameLangVar('MAIL_SUBJECT_');
+
+        $email = new \fpcm\classes\email( $conf->system_email, $lang->translate($lkey), '', false, $html);
+        
+        if (!$email->fromTemplate($this->cronName, $vars, $fromData)) {
+            return false;
+        }
+
+        if (count($attachments)) {
+            $email->setAttachments($attachments);
+        }
+
+        return $email->submit();
     }
 
     /**

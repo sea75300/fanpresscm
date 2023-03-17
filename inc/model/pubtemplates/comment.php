@@ -11,7 +11,7 @@ namespace fpcm\model\pubtemplates;
  * Public comment template file object
  * 
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\model\system
  */
@@ -58,7 +58,7 @@ final class comment extends template {
             return false;
         }
 
-        $this->replacementTags = $this->events->trigger('template\parseComment', $this->replacementTags);
+        $this->replacementTags = $this->events->trigger('template\parseComment', $this->replacementTags)->getData();
 
         $content = $this->content;
 

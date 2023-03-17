@@ -10,11 +10,12 @@ namespace fpcm\controller\action\templates;
 /**
  * Template preview controller
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
-class preview extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\isAccessible {
+class preview extends \fpcm\controller\abstracts\controller
+{
 
     use \fpcm\controller\traits\templates\preview;
 
@@ -91,9 +92,9 @@ class preview extends \fpcm\controller\abstracts\controller implements \fpcm\con
         $this->view->overrideJsFiles($this->events->trigger('pub\addJsFiles', [
             \fpcm\components\components::getjQuery(),
             \fpcm\classes\dirs::getRootUrl('js/fpcm.js')
-        ]));
+        ])->getData());
         
-        $this->view->overrideCssFiles($this->events->trigger('pub\addCssFiles', $cssfiles));
+        $this->view->overrideCssFiles($this->events->trigger('pub\addCssFiles', $cssfiles)->getData());
         $this->view->render();
     }
 

@@ -58,7 +58,7 @@ fpcm.filemanager = {
         
     },
 
-    initListActions: function (_hideLoader) {
+    initListActions: function () {
         fpcm.ui.assignCheckboxes();
         fpcm.ui.initLightbox();
         fpcm.filemanager.initPagination();

@@ -2,7 +2,7 @@
 <!--
 Help language file
 @author Stefan Seehafer <sea75300@yahoo.de>
-@copyright (c) 2011-2020, Stefan Seehafer
+@copyright (c) 2011-2022, Stefan Seehafer
 @license http://www.gnu.org/licenses/gpl.txt GPLv3
 */
 -->
@@ -42,10 +42,16 @@ Help language file
             
             <p>Über die zusätzlichen Links am Ende der Container können zusätzliche Informationen abgerufen werden
             oder es ist ein Schnellzugriff auf bestimmte Funktionen möglich.</p>
-            
+
             <p>Die Position der Container kann durch Klick auf den Button 
-            <span class="btn btn-link btn-sm"><span class="fpcm-ui-icon fa fa-fw fa-arrows-alt  "></span></span>
-            verändert werden. Die Reihenfolge legt jeder Benutzer selbst fest.</p>
+            <span class="btn btn-sm btn-outline-dark"><span class="fpcm-ui-icon fa fa-fw fa-arrows-alt  "></span></span>
+            verändert werden. Die Reihenfolge legt jeder Benutzer selbst fest.
+            Um bestimmte Container zu deaktivieren, klicke in der Fußzeile auf
+            den Button <span class="btn btn-sm btn-outline-dark"><span class="fpcm-ui-icon fa fa-fw fa-toggle-off"></span></span>.</p>
+            
+            <p>Über das Dropdown "Container verwalten" in der Toolbar des Startbildschirms kann die Reihenfolge auf den Standard zurückgesetzt bzw.
+            deaktivierte Container wieder reaktiviert werden.</p>
+            
             
         ]]>
     </chapter>
@@ -73,38 +79,55 @@ Help language file
         <dl>
             <dt>Artikelbild:</dt>
             <dd class="pb-2">Mit dem Artikelbild kannst du einen Artikel eine zusätzliche Dekoration, optische
-                Beschreibung etc. geben. Die Position und Größe des Artikelbildes kann über das Artikel-Template festgelegt werden. Über den Button rechts neben dem
-            Eingabefeld kannst du ein bereits hochgeladenes Bild auswählen und weitere Bilder hochladen.</dd>
+                Beschreibung etc. geben. Die Position und Größe des Artikelbildes kann über das Artikel-Template festgelegt werden.
+                Über den Button <span class="btn btn-sm btn-outline-dark"><span class="fpcm-ui-icon fa fa-fw fa-folder-open"></span></span> 
+                rechts neben dem Eingabefeld kannst du ein bereits hochgeladenes Bild auswählen und weitere Bilder hochladen.</dd>
+
+            <dt>Text für Artikellinks:</dt>
+            <dd class="pb-2">Ist die Systemeinstellung "URL-Rewriting für Artikellinks aktivieren" aktiv, kann durch dieses Feld Einfluss auf
+            die erzeugten Artikel-URLs gemnommen werden. Diese setzen sich immer aus der Artikel-ID + dem hier angegeben Text zusammen. Standardmäßig
+            wird für die URL immer eine bereinigte Version des Artikel-Titels verwendet.</dd>
+
             <dt>Quellenverzeichnis:</dt>
             <dd class="pb-2">Der Inhalt dieses Feldes wird durch den Template-Tag "{{sources}}" dargestellt. Hier kannst du Links zu deinen Informationsquellen,
                 Quellen von Bildern, Videos etc. oder zu weiterführenden Informationen angeben. Links werden so weit es geht automatisch in HTML-Links umgewandelt.</dd>
+            <dd class="pb-2">Einträge im Quellenverzeichnis werden gespeichert und bei Übereinstimmung zur Auswahl angezeigt. Über den Button 
+                "Quellenverzeichnis-Einträge" <span class="btn btn-sm btn-outline-dark"><span class="fpcm-ui-icon fa fa-fw fa-pen"></span></span> können die Einträge aus der Autovervollständigung entfernt werden.</dd>
+
             <dt>Tweet erzeugen:</dt>
             <dd class="pb-2">Über diese Option kann die Erzeugung eines Tweets bei aktiver Twitter-Verbindung manuell
                 deaktiviert werden, wenn sie in den Systemoptionen aktiviert wurde.</dd>
+
             <dt>Tweet erzeugen:</dt>
             <dd class="pb-2">Über das Textfeld kann das Standard-Template für einen Beitrag bei Twitter
                 überschrieben und durch einen eigenen Text ersetzt werden. Der Inhalt dieses Feldes wird nicht gespeichert.
-                Das Dropdown bietet einen Schnellzugriff auf die Template-Platzhalter. Über die Checkbox am Ende kann zudem festgelegt werden,
+                Das Dropdown <span class="btn btn-sm btn-outline-dark"><span class="fpcm-ui-icon fa fa-fw fa-square-plus"></span></span> bietet einen Schnellzugriff auf die Template-Platzhalter. Über die Checkbox am Ende kann zudem festgelegt werden,
                 ob beim nächsten Speicher-Vorgang der Tweet erzeugt wird oder nicht.
             </dd>
+
             <dt>Artikel freischalten:</dt>
             <dd class="pb-2">Mittels dieser Option kannst du einen neuen Artikel verfassen und zu einem bestimmten
                 Zeitpunkt automatisch veröffentlichen lassen. Der Zeitpunkt kann maximal zwei Monate in der Zukunft liegen.</dd>
+
             <dt>Artikel als Entwurf speichern:</dt>
             <dd class="pb-2">Wird diese Option aktiviert, so wird der Artikel beim Speichern nicht als
                 Entwurf abgelegt. Entwürfe werden nicht sofort veröffentlicht, sondern sind nur für angemeldete Benutzer sichtbar
                 und können vor der Veröffentlichung noch bearbeitet werden.</dd>
+
             <dt>Artikel pinnen:</dt>
             <dd class="pb-2">"Gepinnte" Artikel werden im Frontend vor allen anderen verfügbaren Artikeln angezeigt, auch
                 auch wenn das Datum ihrer Veröffentlichung vor neueren Artikeln liegt.</dd>
             <dt>Kommentare aktiv:</dt>
             <dd class="pb-2">Über diese Option kann das Kommentar-System für einen einzelnen Artikel gesteuert werden.
                 ist die Option nicht aktiv, so können keine Kommentare auf der Artikel verfasst werden.</dd>
+
             <dt>Artikel archivieren:</dt>
             <dd class="pb-2">Bestehende Artikel können über diese Option ins Archiv verschoben werden bzw.
                 herausgenommen werden.</dd>
+
             <dt>Autor ändern:</dt>
             <dd class="pb-2">Benutzer mit entsprechenden Rechten können hierüber den Verfasser eines Artikeln ändern.</dd>
+
             <dt>Geteilte Inhalte und Likes:</dt>
             <dd class="pb-2">Sofern das Zählen von Klicks auf die Share-Buttons aktiviert wurde, wird in diesem Bereich
             die aktuelle Anzahl pro Artikel angezeigt, diese umfasst sowohl Teilungen bei den verfügbaren sozialen Netzwerken als auch Klicks auf den
@@ -124,6 +147,7 @@ Help language file
             <dt>Kommentare:</dt>
             <dd class="pb-2">Dieses Register beinhaltet Auflistung aller Kommentare, welche zum ausgewählten Artikel
             geschrieben wurden. Die Liste bietet dir die Möglichkeit, einzelne Kommentare zu löschen. Über einen Klick auf den Bearbeiten-Button
+            <span class="btn btn-sm btn-outline-dark"><span class="fpcm-ui-icon fa fa-fw fa-edit"></span></span>
             kann der entsprechende Kommentar bearbeitet werden (freischalten, auf privat setzen etc.). Der Zugriff auf die Kommentare 
             wird über die Berechtigungen geregelt. Ausführliche Informationen hierzu findest du in der Hilfe den "Kommentare"-Bereichs
             über das Hauptmenü.</dd>
@@ -139,28 +163,29 @@ Help language file
         
         <dl>
             <dt>Löschen-Buttons</dt>
-            <dd class="pb-2">Je nach geöffnetem Register werden unterschiedlichen Löschen-Buttons angezeigt. Diese dienen dazu, entsprechende Elemente des
+            <dd class="pb-2">Je nach geöffnetem Register werden unterschiedlichen Löschen-Buttons <span class="btn btn-sm btn-outline-dark"><span class="fpcm-ui-icon fa fa-fw fa-trash"></span></span> angezeigt. Diese dienen dazu, entsprechende Elemente des
             angezeigten Tabs zu löschen.</dd>
             <dt>Artikel auf Webseite anzeigen</dt>
-            <dd class="pb-2">Über diesen Button wird der aktuell im Editor geöffnete Artikel im Frontend, d. h. auf deiner Webseite geöffnet.</dd>
+            <dd class="pb-2">Über diesen Button <span class="btn btn-sm btn-outline-dark"><span class="fpcm-ui-icon fa fa-fw fa-play"></span></span> wird der aktuell im Editor geöffnete Artikel im Frontend, d. h. auf deiner Webseite geöffnet.</dd>
             <dt>Kurzlink</dt>
-            <dd class="pb-2">Über diesen Button ist es bei gespeicherten Artikeln möglich, die URL über den Dienst <a rel="noreferrer,noopener,external" href=http://is.gd>is.gd</a> kürzen
+            <dd class="pb-2">Über diesen Button <span class="btn btn-sm btn-outline-dark"><span class="fpcm-ui-icon fa fa-fw fa-external-link-square-alt"></span></span> ist es bei gespeicherten Artikeln möglich, die URL über den Dienst <a rel="noreferrer,noopener,external" href=http://is.gd>is.gd</a> kürzen
             zu lassen und bei Twitter etc. zu nutzen. Der genutzte Dienst kann über ein Modul-Event geändert werden.</dd>
             <dt>Artikelbild anzeigen</dt>
-            <dd class="pb-2">Wurde für den Artikel ein Artikelbild definiert, so kann dieses über diese Schaltfläche angezeigt werden.</dd>
+            <dd class="pb-2">Wurde für den Artikel ein Artikelbild definiert, so kann dieses über diese Schaltfläche <span class="btn btn-sm btn-outline-dark"><span class="fpcm-ui-icon fa fa-fw fa-image"></span></span> angezeigt werden.</dd>
             <dt>Bearbeiten (Kommentare)</dt>
-            <dd class="pb-2">Die Schaltfläche <strong>Bearbeiten</strong> in der Toolbar des Kommentar-Registers öffnen einen Massenbearbeitung-Dialog analog der
+            <dd class="pb-2">Die Schaltfläche <strong>Bearbeiten</strong> <span class="btn btn-sm btn-outline-dark"><span class="fpcm-ui-icon fa fa-fw fa-edit"></span></span> in der Toolbar des Kommentar-Registers öffnen einen Massenbearbeitung-Dialog analog der
             globalen Kommentar-Liste. Hierüber kommen bestimmte Status der ausgewählten Kommentare verändert werden. Die gleiche Schaltfläche in der Kommentar-Liste
             öffnet des ausgewählten Kommentars in einem Dialog, wo dieser komplett bearbeitet werden kann.</dd>
             <dt>Revision wiederherstellen (Revisionen)</dt>
-            <dd class="pb-2">Diese Schaltfläche ermöglicht es, den aktuellen Artikel auf die ausgewählte Artikel-Revision zurückzusetzen. Beim Zurücksetzen wird
+            <dd class="pb-2">Diese Schaltfläche <span class="btn btn-sm btn-outline-dark"><span class="fpcm-ui-icon fa fa-fw fa-undo"></span></span> ermöglicht es, den aktuellen Artikel auf die ausgewählte Artikel-Revision zurückzusetzen. Beim Zurücksetzen wird
             automatisch eine neue Revision des aktuellen Stands erzeugt, bevor die ältere Version wiederhergestellt wird.</dd>
             <dt>Revision öffnen (Revisionen)</dt>
-            <dd class="pb-2">Über diesen Button kann eine bestimmte Revision geöffnet werden. Es wird eine Vergleichansicht zwischen der ausgewählten
+            <dd class="pb-2">Über diesen Button <span class="btn btn-sm btn-outline-dark"><span class="fpcm-ui-icon fa fa-fw fa-play"></span></span> kann eine bestimmte Revision geöffnet werden. Es wird eine Vergleichansicht zwischen der ausgewählten
             Revision (linke Seite) und dem aktuellen Zustand des Artikels (rechte Seite) angezeigt. Der Artikeltext selbst wird in einer DIFF-Ansicht dargestellt, d. h. Veränderungen werden
             innerhalb des Textes dargestellt.</dd>
             <dt>Zurück zur aktuellen Ansicht (Revisionen)</dt>
-            <dd class="pb-2">Wurde eine Revision geöffnet, so gelangst du durch diese Schaltfläche zurück in den aktuellen Artikel.</dd>
+            <dd class="pb-2">Wurde eine Revision geöffnet, so gelangst du durch diese Schaltfläche <span class="btn btn-sm btn-outline-dark"><span class="fpcm-ui-icon fa fa-fw fa-chevron-circle-left"></span></span> 
+            zurück in den aktuellen Artikel.</dd>
         </dl>
  
         <h3 class="pt-5 fs-1">Erweiterte Funktionen</h3>
@@ -394,7 +419,7 @@ Help language file
     </chapter>
     <chapter ref="HL_PROFILE">
         <![CDATA[
-        <p>Das eigene <b>Profil</b> können alle Benutzer über das Profil-Menü oben rechts aufrufen. Über den Button <strong>Zurücksetzen</strong>
+        <p>Das eigene <b>Profil</b> können alle Benutzer über das Profil-Menü oben rechts aufrufen. Über den Button <span class="btn btn-sm btn-outline-dark">Zurücksetzen</span>
         können die Einstellungen auf die Systemweiten Vorgaben zurücksetzen.</p>
         
         <h3 class="pt-5 fs-1">Profil</h3>
@@ -405,7 +430,7 @@ Help language file
             <dt>Benutzername:</dt>
             <dd class="pb-2">Dein Name für den Login. Deinen Benutzernamen kannst du nicht selbst ändern. Wende dich hierfür an einen Administrator.</dd>
             <dt>Passwort:</dt>
-            <dd class="pb-2">Zeichenkette welches für den Login verwendet wird. Neben dem Eingabefeld findest du den Button <strong>Password generieren</strong>.
+            <dd class="pb-2">Zeichenkette welches für den Login verwendet wird. Neben dem Eingabefeld findest du den Button <span class="btn btn-sm btn-outline-dark">Password generieren</span>.
             Über diesen kannst du eine zufällige Zeichenkette erzeugen lassen und als Passwort abspeichern.</dd>
             <dt>E-Mail-Adresse:</dt>
             <dd class="pb-2">E-Mail-Adresse für Benachrichtigungen, ein neu gesetztes Passwort etc.</dd>
@@ -415,12 +440,17 @@ Help language file
 
         <h3 class="pt-5 fs-1">Zwei-Faktor-Authentifizierung (optional)</h3>
         
-        <p>Die Zwei-Faktor-Authentifizierung bietet einen zusätzlichen Schutz deines Logins gegen Fishing, Bots und ähnliches. Die Nutzung ist
-        optional und kann durch einen Administrator bei Bedarf aktiviert werden. Der zweite Faktor zum Login wird mittels der App "Google Authenticator" auf deinem Smartphone
-        realisiert. </p>
+        <p>Die Zwei-Faktor-Authentifizierung bietet einen zusätzlichen Schutz deines Logins gegen Fishing, Bots und ähnliches. Die Nutzung ist optional und kann
+        durch einen Administrator bei Bedarf aktiviert werden. Der zweite Faktor zum Login wird mittels einer App bspw. auf deinem Smartphone realisiert.</p>
         
-        <p>Zur Aktivierung der Zwei-Faktor-Authentifizierung scanne den angezeigten QR-Code mit deinem Smartphone mit der App. Trage im Anschluss den ersten Zahlencode
-        in das Eingabefeld ein und speicher den Vorgang..</p>
+        <p>Zur Aktivierung der Zwei-Faktor-Authentifizierung gehe wie folgt vor:</p>
+        
+        <ol>
+            <li>Lade dir via Google Play, App-Store usw. eine Authenticator herunter (bsppw. "Google Authenticator").</li>
+            <li>Klick zeurst den Button <span class="btn btn-sm btn-outline-dark"><span class="fa fa-fw fa-qrcode"></span> QR-Code öffnen</span> an.</li>
+            <li>Scanne den angezeigten QR-Code mit der App auf deinem Gerät.</li>
+            <li>Trage im Anschluss den ersten sechsstelligen Zahlencode in das Eingabefeld ein und speichere den Vorgang</li>
+        </ol>
 
         <h3 class="pt-5 fs-1">Erweitert</h3>
         <dl>
@@ -926,6 +956,13 @@ Help language file
         <![CDATA[
         <p>Benutzer mit entsprechenden Rechten können die Templates zur Ausgabe von Artikeln, Kommentaren etc. bearbeiten.
         Für eine bessere Übersicht bietet der Template-Editor Syntax-Highlighting und eine Liste der verfügbaren Platzhalter.</p>
+        
+        <div class="alert alert-warning mx-2" role="alert">
+            <ul>
+                <li>In Templates darf die Gestaltung nur über <strong>CSS-Klassen/IDs oder Inline-"style"-Angaben</strong> erfolgen.</li>
+                <li>HTML-Tags wie <em>body, style, etc.</em> machen den Code invalide und können Probleme verursachen!</li>
+            </ul>
+        </div>
 
         <h3 class="pt-5 fs-1">Templates</h3>
         
@@ -964,6 +1001,7 @@ Help language file
             <dt>Vorschau anzeigen:</dt>
             <dd class="pb-2">Der Button <strong>Vorschau anzeigen</strong> ermöglicht es, den im Editor vorhandenen Template-Inhalt
             als Vorschau anzeigen zu lassen und somit die Wirkung, Formatierungsfehler etc. sofort zu erkennen.</dd>
+            <dd class="pb-2">Platzhaltern mit einem öffnenden und schließendem Tag in der Form "{{A}}:{{/A}}" kann der Doppelpunkt durch einen eigenen Text ersetzt werden.</dd>
         </dl>
         
         <h3 class="pt-5 fs-1">Vorlagen</h3>
@@ -1198,32 +1236,79 @@ Help language file
         ]]>
     </chapter>
     <chapter ref="SYSTEM_HL_OPTIONS_TWITTER">
+        
+        <description>
         <![CDATA[
-        <p>FanPress CM bietet dir die Möglichkeit, beim Schreiben/ Aktualisieren eines Artikels automatisch einen Tweet bei Twitter
+            <p>FanPress CM bietet dir die Möglichkeit, beim Schreiben/
+            Aktualisieren eines Artikels automatisch einen Tweet bei Twitter
             erzeugen zu lassen.</p>
-        <p>Um die Verbindung zu Twitter herzustellen, folge einfach der Anleitung.</p>
-        <ol class="list-large">
-            <li>Logge dich zuerst über die Twitter-Webseite ganz normal ein. <a rel="noreferrer,noopener,external" target="_blank" href="https://twitter.com/login" class="ui-button ui-corner-all ui-widget fpcm-ui-button">zum Login</a></li>
-            <li>Öffne die Einstellungen der Twitter-Verbindungen über <strong>Optionen &rarr; Systemeinstellungen &rarr;
-                    Twitter-Verbindung</strong>.</li>
-            <li><strong>API-Schlüssel und Token:</strong> Klicke auf den Button <span class="ui-button ui-corner-all ui-widget fpcm-ui-button">API-Schlüssel bzw. Token anfordern
-                    anzufordern</span>, du wirst zur AppVerwaltung von Twitter weitergeleitet.</li>
-            <li>Wähle den Button <span class="ui-button ui-corner-all ui-widget fpcm-ui-button">Create new app</span>.</li>
-            <li>Fülle das angezeigte Formular aus und bestätige mit <span class="ui-button ui-corner-all ui-widget fpcm-ui-button">Create your Twitter application</span>.</li>
-            <li>Öffne den Tab <strong>Keys and Access Tokens</strong> und kopiere von dort <strong>Consumer Key (API Key)</strong>
-                und <strong>Consumer Secret (API Secret)</strong> in die Felder in den Systemeinstellungen.</li>
-            <li>Um Tweets erzeugen zu können, stelle den <strong>Access Level</strong> über den Reiter <strong>Permissions</strong>
-                von <strong>Read-only</strong> auf <strong>Read and Write</strong>.</li>
-            <li><strong>Access Token:</strong> Nach dem API-Key musst du nun einen Access Token erzeugen. Scrolle dafür runter zum
-                Punkt <strong>Your Access Token</strong> und klicke auf den Button <span class="ui-button ui-corner-all ui-widget fpcm-ui-button">Create my access
-                    token</span>. Kopiere anschließend <strong>Access Token</strong> und <strong>Access Token Secret</strong> in
-                in die Felder in den Systemeinstellungen.</li>
+            <p>Um die Verbindung zu Twitter herzustellen, führe die folgenden
+            Schritte durch.</p>
+            <p>FanPress CM nutzt derzeit Version 1.1 der Twitter-API!</p>
+        ]]>        
+        </description>
 
-            <li>Klicke nun in den <strong>Systemeinstellungen</strong> auf Speichern, um die Daten zu speichern.</li>
-            <li>Wurden alle Schritte richtig durchgeführt, so erhältst du einen entsprechenden Hinweis.</li>
-        </ol>
-        <p>Um die Twitter-Verbindung zu löschen, klicke auf den Button <span class="ui-button ui-corner-all ui-widget fpcm-ui-button">Verbindung löschen</span>.</p>
+        <step id="1" title="Schritt 1" btn-href="https://twitter.com/login" btn-descr="Twitter.com öffnen">
+        <![CDATA[
+            Logge dich zuerst über die Twitter-Webseite ganz normal ein.
         ]]>
+        </step>
+        <step id="2" title="Schritt 2" btn-href="https://twitter.com/settings/connected_apps" btn-descr="App-Verwaltung öffnen">
+        <![CDATA[
+            Öffne nun die App-Verwaltung von Twitter.
+        ]]>
+        </step>
+        <step id="3" title="Schritt 3" btn-href="https://developer.twitter.com/en/portal/projects-and-apps" btn-descr="Developer Portal öffnen">
+        <![CDATA[
+            Rufe nun das Developer Portal auf, lege ein neues Projekt an
+            (z. B. FanPress CM) und erstelle eine neue App. Führe dazu
+            den Assistenten von Twitter durch.
+            
+            <p class="alert alert-warning mt-3">Zum Anlegen einer App muss eine gültige
+            Telefonnummer in deinem profil hinterlegt sein.</p>
+        ]]>
+        </step>
+        <step id="4" title="Schritt 4">
+        <![CDATA[
+            <p>
+                Rufe den Punkt <span class="btn btn-sm btn-outline-dark">User 
+                authentication settings</span> und führe den Assistenten zur 
+                Einrichtung eines App-Logins durch. Sichere die "Client ID" und
+                "Client Secret" - diese müssen du später in den Systemeinstellungen
+                von FanPress CM hinterlegt werden.
+            </p>
+            <p>Wähle als "App-Type" den Eintrag "Web App, Automated App or Bot".</p>
+            <p>FanPress CM benötigt Lese- und Schreibrechte.</p>
+        ]]>
+        </step>
+        <step id="5" title="Schritt 5">
+        <![CDATA[
+            Öffne das Register "Keys and tokens" udn erzeuge ein "Access Token 
+            and Secret" über den Button <span class="btn btn-sm btn-outline-dark">Generate</span>.
+        ]]>
+        </step>
+        <step id="6" title="Schritt 6">
+        <![CDATA[
+            Öffne nun die Systemeinstellungen in FanPress CM und das Register 
+            "Twitter". Trage dort die Schlüssel in die entsprechenden Felder
+            ein:
+            
+            <ul>
+                <li>Consumer Key (API Key)</li>
+                <li>Consumer Secret (API Secret)</li>
+                <li>Access Token</li>
+                <li>Access Token Secret</li>
+                
+            </ul>
+        ]]>
+        </step>
+        <step id="7" title="Schritt 7">
+        <![CDATA[
+            Speichere nun die Systemeinstellungen. Wurden alle Schritte korrekt
+            durchgeführt, erhälst du eine Erfolgsmeldung, dass die Verbindung
+            hergestellt werden konnte.
+        ]]>
+        </step>
     </chapter>
     <chapter ref="ARTICLES_TRASH">
         <![CDATA[
@@ -1354,7 +1439,7 @@ Help language file
 
             <dt>Zurücksetzen</dt>
             <dd>Wurde die falsche CSV-Datei hochgeladen oder diese nach dem Upload nochmals verändert, starte den Import
-            über den Button "Zurücksetzen" neu.</dd>
+            über den Button <span class="btn btn-sm btn-outline-dark">Zurücksetzen</span> neu.</dd>
 
         </dl>
 

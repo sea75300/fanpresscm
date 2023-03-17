@@ -18,10 +18,6 @@ fpcm.comments = {
         }
     
         fpcm.comments.assignActionsList();
-
-        if (parent.fpcm.editor && parent.fpcm.editor.editorTabs && fpcm.vars.jsvars.reloadList) {
-            parent.fpcm.editor.editorTabs.tabs('load', 2);
-        }
     },
     
     initAfter: function() {
@@ -31,14 +27,15 @@ fpcm.comments = {
         }
         
         if (fpcm.dataview.exists('commenttrash')) {
-            fpcm.dataview.render('commenttrash');
-            
+            fpcm.dataview.render('commenttrash');            
             return true;
         }
         
         if (fpcm.dataview.exists('commentlist')) {
             fpcm.dataview.render('commentlist');
+            fpcm.comments.deleteSingleArticle();
         }
+        
         
     },
 
@@ -50,12 +47,12 @@ fpcm.comments = {
             }
         }
 
-        fpcm.dom.fromId('massEdit').unbind('click');
-        fpcm.dom.fromId('massEdit').click(function () {
+        fpcm.dom.bindClick('#massEdit', function () {
             fpcm.system.initMassEditDialog('comments/massedit', 'comments-massedit', fpcm.comments);
             return false;
         });
-
+        
+        fpcm.comments.deleteSingleArticle();
         return true;
     },
 
@@ -168,6 +165,58 @@ fpcm.comments = {
         return true;
 
     },
+    
+    deleteSingleArticle: function() {
+        
+        fpcm.dom.bindClick('.fpcm-ui-button-delete-comment-single', function (_e, _ui) {
+
+            fpcm.ui_dialogs.confirm({
+                
+                clickYes: function () {
+                    fpcm.ajax.exec('comments/delete', {
+                        dataType: 'json',
+                        pageToken: 'comments/delete',
+                        data: {
+                            id: _ui.dataset.comid
+                        },
+                        execDone: function (result) {
+                            return fpcm.commentCallbacks.deleteCallback(result);
+                        }
+                    });
+                }                
+            });
+
+        });
+    },
+    
+    deleteMultipleArticle: function() {
+
+        var _comIds = fpcm.dom.getCheckboxCheckedValues('.fpcm-ui-list-checkbox');
+        if (_comIds.length === 0) {
+            fpcm.ui_loader.hide();
+            return false;
+        }
+
+        fpcm.ui_dialogs.confirm({
+
+            clickYes: function () {
+                fpcm.ajax.exec('comments/delete', {
+                    dataType: 'json',
+                    pageToken: 'comments/delete',
+                    data: {
+                        id: _comIds,
+                        multiple: 1
+                    },
+                    execDone: function (result) {
+                        return fpcm.commentCallbacks.deleteCallback(result);
+                    }
+                });
+            }
+
+        });
+
+        return true;    
+    },
 
     restoreFromTrash: function() {
 
@@ -184,6 +233,11 @@ fpcm.comments = {
 
         return true;
 
+    },
+    
+    resetActionsMenu: function () {
+        fpcm.dom.resetValuesByIdsSelect('ids');
+        return true;
     }
 
 };

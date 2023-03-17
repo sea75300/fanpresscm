@@ -12,7 +12,7 @@ namespace fpcm\model\users;
  * 
  * @package fpcm\model\user
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 class userRoll extends \fpcm\model\abstracts\dataset {
@@ -136,7 +136,7 @@ class userRoll extends \fpcm\model\abstracts\dataset {
             'leveltitle' => $this->leveltitle,
             'codex' => $this->codex,
             'is_system' => $this->is_system
-        ]);
+        ])->getData();
 
         $newId = $this->dbcon->insert($this->table, $params);
 
@@ -206,7 +206,7 @@ class userRoll extends \fpcm\model\abstracts\dataset {
         $params = $this->events->trigger('userroll\update', [
             'leveltitle' => $this->leveltitle,
             'codex' => $this->codex,
-        ]);
+        ])->getData();
         
         $params[] = $this->id;
 

@@ -21,7 +21,7 @@ final class Arr
         $count = \count($array);
 
         // make $end set
-        $end = $end ?? $count;
+        $end ??= $count;
 
         // make $start non-negative
         if ($start < 0) {
@@ -42,6 +42,6 @@ final class Arr
         }
 
         // make the length non-negative
-        return \array_slice($array, $start, \max(0, $end - $start));
+        return \array_slice($array, $start, max(0, $end - $start));
     }
 }

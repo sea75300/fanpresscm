@@ -37,7 +37,7 @@ final class cache {
     public function __construct()
     {
         $this->crypt = loader::getObject('\fpcm\classes\crypt');
-        $this->basePath = dirs::getDataDirPath(dirs::DATA_CACHE);
+        $this->basePath = dirs::getDataDirPath(dirs::DATA_CACHE);     
 
         if (!isset($GLOBALS['fpcm']['stack'])) {
             $GLOBALS['fpcm']['stack'] = [];
@@ -55,8 +55,7 @@ final class cache {
             return true;
         }
 
-        $file = new \fpcm\model\files\cacheFile($cacheName);
-        return $file->expires() <= time() ? true : false;
+        return $this->getBackendInstance($cacheName)->expires() <= time() ? true : false;
     }
 
     /**
@@ -72,8 +71,7 @@ final class cache {
             return false;
         }
 
-        $file = new \fpcm\model\files\cacheFile($cacheName);
-        return $file->write($data, $expires ? $expires : FPCM_CACHE_DEFAULT_TIMEOUT);
+        return $this->getBackendInstance($cacheName)->write($data, $expires ? $expires : FPCM_CACHE_DEFAULT_TIMEOUT);
     }
 
     /**
@@ -88,10 +86,8 @@ final class cache {
             return false;
         }
 
-        $file = new \fpcm\model\files\cacheFile($cacheName);
-        $content = $file->read();
-
-        return substr($content, 0, 2) == 'a:' || substr($content, 0, 2) == 'o:' ? unserialize($content) : $content;
+        $obj = $this->getBackendInstance($cacheName);
+        return $obj->prepareReturnedValue( $obj->read() );
     }
 
     /**
@@ -105,8 +101,7 @@ final class cache {
             return false;
         }
 
-        $file = new \fpcm\model\files\cacheFile($cacheName);
-        return $file->expires();
+        return $this->getBackendInstance($cacheName)->expires();
     }
 
     /**
@@ -115,41 +110,8 @@ final class cache {
      * @return bool
      */
     public function cleanup($cacheName = null)
-    {
-        if ($cacheName === null) {
-            $cacheFiles = $this->getCacheComplete();
-        }
-        elseif (substr($cacheName, -1) !== \fpcm\classes\cache::CLEAR_ALL) {
-            $file = new \fpcm\model\files\cacheFile($cacheName);
-            return $file->cleanup();
-        }
-        else {
-            $cacheName = strtolower(substr($cacheName, 0, -2));
-            if (!defined('FPCM_CACHEMODULE_DEBUG') || !FPCM_CACHEMODULE_DEBUG) {
-                $cacheName = md5($cacheName);
-            }
-
-            $cacheFiles = glob($this->basePath . DIRECTORY_SEPARATOR . $cacheName . DIRECTORY_SEPARATOR . '*' . \fpcm\model\files\cacheFile::EXTENSION_CACHE);            
-        }
-        
-        if (defined('FPCM_CACHELIST_DEBUG') && FPCM_CACHELIST_DEBUG) {
-            fpcmLogSystem($cacheFiles);
-        }
-
-        if (!is_array($cacheFiles) || !count($cacheFiles)) {
-            return false;
-        }
-
-        $cacheFiles = array_filter($cacheFiles, function ($cacheFile) {
-            return file_exists($cacheFile) && is_writable($cacheFile);            
-        });
-
-        if (!count($cacheFiles)) {
-            return true;
-        }
-        
-        array_map('unlink', $cacheFiles);
-        return true;
+    {        
+        return call_user_func(FPCM_CACHE_BACKEND . '::cleanupByCacheName', $this->basePath, $cacheName);
     }
 
     /**
@@ -157,18 +119,29 @@ final class cache {
      * @return int
      */
     public function getSize()
-    {
-        return array_sum(array_map('filesize', $this->getCacheComplete()));
+    {        
+        return $this->getBackendInstance(null)->getSize($this->basePath);
     }
 
     /**
-     * Liefert alle *.cache-Dateien in cache-ordner zurück
-     * @return array
-     * @since 3.4
+     * Create cache backend object instance
+     * @param string $cacheName
+     * @return \fpcm\model\interfaces\cacheBackend
      */
-    public function getCacheComplete()
+    private function getBackendInstance(?string $cacheName)
     {
-        return array_unique(array_merge_recursive(glob($this->basePath . '/*' . \fpcm\model\files\cacheFile::EXTENSION_CACHE), glob($this->basePath . '/*/*' . \fpcm\model\files\cacheFile::EXTENSION_CACHE)));
+        $cbe = FPCM_CACHE_BACKEND;
+        return new $cbe($cacheName);
+    }
+
+    /**
+     * Get cache backend name
+     * @return string
+     * @since 5.1-dev
+     */
+    public static function getCacheBackendName() : string
+    {
+        return strtoupper(preg_replace('/(.*\\\\)(.*)/', 'SYSTEM_OPTIONS_SYSCHECK_CACHE_$2', FPCM_CACHE_BACKEND));
     }
 
 }

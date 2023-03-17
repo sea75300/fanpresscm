@@ -153,7 +153,7 @@ fpcm.ui = {
         else if (value.txtComplete) {
             value.txt = value.txtComplete;
         }
-;
+
         fpcm.ui.appendMessageToBody(fpcm.ui.createMessageBox(value));
     },
     
@@ -388,6 +388,11 @@ fpcm.ui = {
     
     multiselect: function(_id, _params) {
 
+        if (TomSelect === undefined) {
+            alert('Multiselect ui init error, "TomSelect" not defined. Check if you included the library.');
+            return null;
+        }
+
         if (!_params) {
             _params = {};
         }
@@ -403,12 +408,20 @@ fpcm.ui = {
         if (!_params.placeholder) {
             _params.placeholder = 'EDITOR_CATEGORIES_SEARCH';
         }
+        
+        if (!_params.hidePlaceholder) {
+            _params.hidePlaceholder = true;
+        }
 
         _params.placeholder = fpcm.ui.translate(_params.placeholder);
         _params.plugins.push('remove_button');
 
-        return fpcm.dom.fromId(_id).selectize(_params);    
 
+        if (!document.getElementById(_id)) {
+            return false;
+        }
+
+        return new TomSelect('#' + _id, _params);
     },
 
     createIFrame: function(params) {
@@ -609,5 +622,9 @@ fpcm.ui = {
     getUniqueID: function (_descr) {
         return (new Date()).getMilliseconds() + Math.random().toString(36).substr(2, 9) + (_descr ? _descr : '');
     },
+    
+    replaceIcon: function (_id, _haystack, _needle) {
+        fpcm.dom.fromId(_id).find('span.fpcm-ui-icon').removeClass('fa-' + _haystack).addClass('fa-' + _needle);
+    }
 
 };

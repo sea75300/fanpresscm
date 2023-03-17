@@ -3,13 +3,15 @@
 /**
  * Smiley add controller
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
 namespace fpcm\controller\action\smileys;
 
-abstract class smileybase extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\isAccessible {
+abstract class smileybase extends \fpcm\controller\abstracts\controller
+implements \fpcm\controller\interfaces\requestFunctions
+{
 
     use \fpcm\controller\traits\common\simpleEditForm,
         \fpcm\controller\traits\theme\nav\smileys;
@@ -41,7 +43,6 @@ abstract class smileybase extends \fpcm\controller\abstracts\controller implemen
             return true;
         }
 
-        $this->save();
         return true;
     }
 
@@ -73,26 +74,30 @@ abstract class smileybase extends \fpcm\controller\abstracts\controller implemen
                 ->setText('FILE_LIST_SMILEY'.$this->getActionText())
                 ->setFile($this->getViewPath().'.php')
         ]);
-
+        
         $this->assignFields([
             (new \fpcm\view\helper\textInput('smiley[code]'))
                     ->setValue($this->smiley->getSmileyCode())
                     ->setText('FILE_LIST_SMILEYCODE')
                     ->setIcon('bookmark')
-                    ->setAutoFocused(true),
+                    ->setAutoFocused(true)
+                    ->setRequired(),
             (new \fpcm\view\helper\textInput('smiley[filename]', 'smileyfilename'))
                     ->setValue($this->smiley->getFilename())
                     ->setText('FILE_LIST_FILENAME')
                     ->setIcon('link')
+                    ->setRequired()
         ]);
 
         $this->view->render();
     }
 
-    final protected function save() : bool
+    protected function onSaveSmiley() : bool
     {
-        if (!$this->buttonClicked('saveSmiley')) {
-            return false;
+
+        if (!$this->checkPageToken()) {
+            $this->view->addErrorMessage('CSRF_INVALID');
+            return true;
         }
 
         $smileyData = $this->request->fromPOST('smiley');

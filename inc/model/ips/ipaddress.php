@@ -12,7 +12,7 @@ namespace fpcm\model\ips;
  * 
  * @package fpcm\model\system
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 class ipaddress extends \fpcm\model\abstracts\dataset {
@@ -190,7 +190,7 @@ class ipaddress extends \fpcm\model\abstracts\dataset {
         }
 
         $params = $this->getPreparedSaveParams();
-        $params = $this->events->trigger('ipaddressSave', $params);
+        $params = $this->events->trigger('ipaddressSave', $params)->getData();
 
         $return = false;
         if ($this->dbcon->insert($this->table, $params)) {
@@ -214,7 +214,7 @@ class ipaddress extends \fpcm\model\abstracts\dataset {
         }
 
         $params = $this->getPreparedSaveParams();
-        $params = $this->events->trigger('ipaddressUpdate', $params);        
+        $params = $this->events->trigger('ipaddressUpdate', $params)->getData();        
         $fields = array_keys($params);
         $params[] = $this->getId();
 

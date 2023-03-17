@@ -12,7 +12,7 @@ namespace fpcm\view\helper;
  * 
  * @package fpcm\view\helper
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 class pager extends helper {
@@ -152,9 +152,9 @@ class pager extends helper {
     protected function getString()
     {
         $return = implode('', [
-            '<div class="nav-item">' . (new linkButton('pagerBack'))->setText('GLOBAL_BACK')->setUrl('#')->setReadonly($this->showBackButton ? false : true)->setIcon('chevron-circle-left')->setIconOnly(true)->setClass('fpcm-ui-pager-element shadow-sm') . '</div>',
+            '<div class="nav-item">' . (new linkButton('pagerBack'))->setText('GLOBAL_BACK')->setUrl('#')->setReadonly($this->showBackButton ? false : true)->setIcon('chevron-circle-left')->setIconOnly()->setClass('fpcm-ui-pager-element shadow-sm') . '</div>',
             '<div class="nav-item d-none d-sm-block">' . (new select('pageSelect'))->setOptions([])->setFirstOption(select::FIRST_OPTION_DISABLED)->setClass('fpcm-ui-pager-element shadow-sm') . '</div>',
-            '<div class="nav-item">' . (new linkButton('pagerNext'))->setText('GLOBAL_NEXT')->setUrl('#')->setReadonly($this->showNextButton ? false : true)->setIcon('chevron-circle-right')->setIconOnly(true)->setClass('fpcm-ui-pager-element shadow-sm') . '</div>',
+            '<div class="nav-item">' . (new linkButton('pagerNext'))->setText('GLOBAL_NEXT')->setUrl('#')->setReadonly($this->showNextButton ? false : true)->setIcon('chevron-circle-right')->setIconOnly()->setClass('fpcm-ui-pager-element shadow-sm') . '</div>',
         ]);
 
         return $return;

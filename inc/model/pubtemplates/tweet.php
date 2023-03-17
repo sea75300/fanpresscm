@@ -4,7 +4,7 @@
  * Public tweet template file object
  * 
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -58,7 +58,7 @@ final class tweet extends template {
             return false;
         }
 
-        $this->replacementTags = $this->events->trigger('template\parseTweet', $this->replacementTags);
+        $this->replacementTags = $this->events->trigger('template\parseTweet', $this->replacementTags)->getData();
 
         $content = $this->content;
         $tags = array_merge($this->replacementInternal, $this->replacementTags);
@@ -76,7 +76,7 @@ final class tweet extends template {
      */
     public function save()
     {
-        $this->content = $this->events->trigger('template\save', array('file' => $this->fullpath, 'content' => strip_tags($this->content)))['content'];
+        $this->content = $this->events->trigger('template\save', array('file' => $this->fullpath, 'content' => strip_tags($this->content)))->getData()['content'];
         return parent::save();
     }
 

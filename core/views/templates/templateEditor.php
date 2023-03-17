@@ -1,77 +1,70 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
 <?php if (!$isWritable) : ?>
-<div class="row pb-2">
+<div class="row pb-3">
     <div class="col-auto align-self-center"><?php $theView->icon('lock')->setSize('2x')->setClass('text-danger'); ?></div>
     <div class="col-auto align-self-center"><?php $theView->write('TEMPLATE_NOT_WRITABLE'); ?></div>
 </div>
 <?php endif; ?>
 
-<div class="row g-0 pb-2">
-    <div class="col-12">
-        <fieldset>
-            <legend><?php $theView->write('GLOBAL_INFO'); ?></legend>
-            <p class="mx-2"><?php $theView->write('TEMPLATE_NOTES'); ?></p>
-        </fieldset>
-    </div>
-</div>
+<div class="row g-0">
 
-<div class="row g-0 mt-3">
-    
-    <div class="col-12 col-md-6 col-lg-3">
-        <fieldset>
-            <legend><?php $theView->write('TEMPLATE_REPLACEMENTS'); ?></legend>
+    <div class="col-12 col-lg-5 col-xl-3">
+        <div class="m-2">
+            <div class="list-group h-100">
+                <div class="list-group-item bg-secondary text-white"><?php $theView->icon('plus'); ?> <?php $theView->write('TEMPLATE_REPLACEMENTS'); ?></div>
 
-            <div class="m-2">
-                <dl class="fpcm-ui-monospace">
-                <?php foreach ($replacements as $tag => $descr) : ?>
-                    <dt class="pb-2">
-                        <?php $theView->button('in'. trim($tag, '{}'))
-                                ->setText(strip_tags($descr))
-                                ->setIconOnly(true)
-                                ->setIcon('plus-square')
-                                ->setSize('lg')
-                                ->setClass('btn-sm')
-                                ->setClass('fpcm-ui-template-tags')
-                                ->setData(['tag' => $tag]); ?>
-                        <?php print $tag; ?>
-                    </dt>
-                    <dd<?php if (!isset($attributes[$tag])) : ?> class="pb-2 border-bottom border-secondary"<?php endif; ?>><?php print $descr; ?></dd>
+            <?php foreach ($replacements as $tag => $descr) : ?>
+                <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center fpcm-ui-template-tags" data-tag="<?php print $tag; ?>">
+
+                    <div class="d-block">
+                        <h5 class="mb-1"><?php print $tag; ?></h5>
+                        <p class="p-0 m-0 text-secondary"><?php print $descr; ?></p>
                     <?php if (isset($attributes[$tag])) : ?>
-                    <dd class="fpcm-ui-font-small pb-2 border-bottom border-secondary"><?php $theView->write('TEMPLATE_ATTRIBUTES') ?>: <?php print implode(', ', $attributes[$tag]); ?></dd>
+                        <div class="mt-1 fpcm ui-font-small">
+                            <?php $theView->write('TEMPLATE_ATTRIBUTES') ?>: <?php print implode(', ', $attributes[$tag]); ?>
+                        </div>
                     <?php endif; ?>
-                <?php endforeach; ?>
-                </dl>
+
+                    </div>
+                    <?php $theView->icon('plus')->setSize('lg')->setClass('ms-3'); ?>                        
+                </a>
+            <?php endforeach; ?>
             </div>
-        </fieldset>
+
+        </div>
     </div>
 
-    <div class="col-12 col-md-6 col-lg-9">
-        <?php if (count($allowedTagsList)) : ?>
-        <div class="row">
-            <div class="col-12 mb-2 pe-0 overflow-auto">
-                <fieldset>
-                    <legend><?php $theView->write('TEMPLATE_EDITOR'); ?></legend>
-                    
-                    <?php foreach ($allowedTagsList as $allowedTags) : ?>
-                        <div class="btn-group mb-1" role="group" aria-label="<?php $theView->write('TEMPLATE_EDITOR'); ?>">
-                        <?php foreach ($allowedTags as $tag) : ?>
-                            <?php $theView->button('tps-editor-'.substr($tag, 1, -1))->setText(htmlentities($tag))->setClass('fpcm-editor-html-click')->setData(['htmltag' => substr($tag, 1, -1)]); ?>
-                        <?php endforeach; ?>
-                        </div>
-                    <?php endforeach; ?>
+    <div class="col-12 col-lg-7 col-xl-9">
 
-                </fieldset>
+        <?php if (count($allowedTagsList)) : ?>
+        <div class="row mt-2">
+
+            <div class="btn-toolbar" role="toolbar" aria-label="<?php $theView->write('TEMPLATE_EDITOR'); ?>">
+            <?php foreach ($allowedTagsList as $allowedTags) : ?>
+            <div class="btn-group m-1" role="group" aria-label="<?php $theView->write('TEMPLATE_EDITOR'); ?>">
+                <?php foreach ($allowedTags as $i => $tag) : ?>
+                    <?php $theView->button('tps-editor-'.substr($tag, 1, -1))->setText(htmlentities($tag))->setClass('fpcm-editor-html-click')->setData(['htmltag' => substr($tag, 1, -1)]); ?>
+                <?php endforeach; ?>
             </div>
+            <?php endforeach; ?>
+            </div>
+
         </div>
         <?php endif; ?>
-        
-        <div class="row">
+
+
+        <div class="row my-2">
             <div class="col-12">
                 <?php $theView->textarea('template[content]', 'content_'.$tplId)->setValue($content, ENT_QUOTES)->setClass('fpcm-editor-html-click'); ?>
             </div>
         </div>
-    </div>
-    
+
+
+
 </div>
 
 <?php $theView->hiddenInput('template[id]')->setValue($tplId); ?>
+
+<script>
+fpcm.templates.createEditorInstance('<?php print $tplId; ?>');
+</script>

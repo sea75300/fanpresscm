@@ -12,7 +12,7 @@ namespace fpcm\model\users;
  * 
  * @package fpcm\model\user
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 class author extends \fpcm\model\abstracts\dataset {
@@ -83,7 +83,7 @@ class author extends \fpcm\model\abstracts\dataset {
 
     /**
      * Meta-Daten für persönliche Einstellungen
-     * @var string
+     * @var usrmeta
      */
     protected $usrmeta = '';
 
@@ -158,7 +158,7 @@ class author extends \fpcm\model\abstracts\dataset {
             $this->cacheName = 'author' . $id;
         }
 
-        parent::__construct($id);
+        parent::__construct($id);        
     }
 
     /**
@@ -289,22 +289,17 @@ class author extends \fpcm\model\abstracts\dataset {
     }
 
     /**
-     * Liefert ben.-def. Einstellungen zurück
+     * Returns user settings
      * @param string $valueName
-     * @return string|array
+     * @return usrmeta
      */
     public function getUserMeta($valueName = null)
     {
-        $userMeta = json_decode($this->usrmeta, true);
         if ($valueName === null) {
-            return $userMeta;
+            return $this->usrmeta;
         }
 
-        if (isset($userMeta[$valueName])) {
-            return $userMeta[$valueName];
-        }
-
-        return $this->config->{$valueName};
+        return $this->usrmeta->{$valueName};
     }
 
     /**
@@ -374,9 +369,9 @@ class author extends \fpcm\model\abstracts\dataset {
      * ben.-def. Einstellungen setzen
      * @param array $usrmeta
      */
-    public function setUserMeta(array $usrmeta)
+    public function setUserMeta($usrmeta)
     {
-        $this->usrmeta = json_encode($usrmeta);
+        $this->usrmeta = is_array($usrmeta) ? new usrmeta($usrmeta) : $usrmeta;
     }
 
     /**
@@ -480,7 +475,7 @@ class author extends \fpcm\model\abstracts\dataset {
         $fields = array_keys($params);
         $params[] = $this->getId();
 
-        $this->events->trigger($this->getEventName('update'), $params);
+        $this->events->trigger($this->getEventName('update'), $params)->getData();
 
         $return = false;
         if ($this->dbcon->update($this->table, $fields, array_values($params), 'id = ?')) {
@@ -573,7 +568,7 @@ class author extends \fpcm\model\abstracts\dataset {
      */
     public function resetProfileSettings()
     {
-        $this->setUserMeta([]);
+        $this->getUserMeta()->resetSettings();
         $this->disablePasswordSecCheck();
         $this->setPassword(null);
         return $this->update();
@@ -587,7 +582,7 @@ class author extends \fpcm\model\abstracts\dataset {
     public function resetDashboard()
     {
         $meta = $this->getUserMeta();
-        $meta['dashboardpos'] = [];
+        $meta->dashboardpos = [];
         $this->setUserMeta($meta);
         $this->disablePasswordSecCheck();
         $this->setPassword(null);
@@ -604,6 +599,9 @@ class author extends \fpcm\model\abstracts\dataset {
         $res = parent::createFromDbObject($object);
         $this->groupname = $this->language->translate($this->groupname);
         $this->image = preg_replace('/[^a-z0-9_\-\w]/', '', strtolower($this->username));
+        if (!$this->usrmeta instanceof usrmeta) {
+            $this->usrmeta = new usrmeta($this->usrmeta);
+        }
 
         return $res;
     }
@@ -659,7 +657,7 @@ class author extends \fpcm\model\abstracts\dataset {
         );
 
         if (!$data) {
-            trigger_error('Failed to load data for object of type "' . get_class($this) . '" with given id ' . $this->id . '!');
+            trigger_error('Failed to load data for object of type "' . static::class . '" with given id ' . $this->id . '!');
             return false;
         }
 
@@ -672,6 +670,7 @@ class author extends \fpcm\model\abstracts\dataset {
      * @param string $opt
      * @param mixed $data
      * @return bool
+     * @deprecated 5.1.0-a1
      */
     final public function writeOption($opt, $data)
     {
@@ -682,6 +681,7 @@ class author extends \fpcm\model\abstracts\dataset {
      * Read content from file option for current user
      * @param string $opt
      * @return mixed
+     * @deprecated 5.1.0-a1
      */
     final public function readOption($opt)
     {
@@ -692,6 +692,7 @@ class author extends \fpcm\model\abstracts\dataset {
      * Removes file option for current user
      * @param string $opt
      * @return mixed
+     * @deprecated 5.1.0-a1
      */
     final public function removeOption($opt)
     {
@@ -702,6 +703,7 @@ class author extends \fpcm\model\abstracts\dataset {
      * Generates file option object for current user
      * @param string $opt
      * @return string
+     * @deprecated 5.1.0-a1
      */
     private function getFileOptionObject($opt)
     {

@@ -3,15 +3,14 @@
 /**
  * Option edit controller
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
 namespace fpcm\controller\action\system;
 
-class options extends \fpcm\controller\abstracts\controller
-implements \fpcm\controller\interfaces\isAccessible,
-\fpcm\controller\interfaces\requestFunctions {
+class options extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\requestFunctions
+{
 
     use \fpcm\controller\traits\common\timezone;
 
@@ -118,6 +117,7 @@ implements \fpcm\controller\interfaces\isAccessible,
             'SYSTEM_OPTIONS_COMMENT_NOTIFY_ALL' => 2
         ]);
 
+        $this->view->assign('smtpAuthTypes', \fpcm\classes\email::getAuthenticationTypes());
         $this->view->assign('smtpEncryption', \fpcm\classes\email::getEncryptions());
         $this->view->assign('filemanagerViews', \fpcm\components\components::getFilemanagerViews());
         $this->view->assign('articleLimitList', \fpcm\model\system\config::getArticleLimits());
@@ -145,23 +145,23 @@ implements \fpcm\controller\interfaces\isAccessible,
 
     private function initButtons()
     {
-        $buttons = [
-            (new \fpcm\view\helper\saveButton('configSave'))->setPrimary()->setClass('fpcm-ui-maintoolbarbuttons-tab1'.($this->syscheck ? ' fpcm-ui-hidden' : '')),
-            (new \fpcm\view\helper\button('syschecksubmitstats', 'syschecksubmitstats'))->setPrimary()->setText('SYSTEM_OPTIONS_SYSCHECK_SUBMITSTATS')->setClass('fpcm-ui-maintoolbarbuttons-tab2'.($this->syscheck ? '' : ' fpcm-ui-hidden'))->setIcon('chart-line'),
+        $actions = [
+            (new \fpcm\view\helper\dropdownItem('syschecksubmitstats'))->setText('SYSTEM_OPTIONS_SYSCHECK_SUBMITSTATS')->setIcon('chart-line')->setValue('1'),
+            new \fpcm\view\helper\dropdownSpacer()
         ];
 
-        if (!\fpcm\classes\baseconfig::canConnect() || !$this->permissions->system->update) {
-            $this->view->addButtons($buttons);
-            return true;
+        if (\fpcm\classes\baseconfig::canConnect() && $this->permissions->system->update) {
+            $actions[] = (new \fpcm\view\helper\dropdownItem('checkUpdate'))->setText('PACKAGES_MANUALCHECK')->setIcon('sync')->setValue('3');
         }
-
-        $buttons[] = (new \fpcm\view\helper\button('checkUpdate', 'checkUpdate'))->setText('PACKAGES_MANUALCHECK')->setIcon('sync');
-
+        
         if ($this->config->smtp_enabled) {
-            $buttons[] = (new \fpcm\view\helper\button('testSmtp'))->setText('SYSTEM_OPTIONS_EMAIL_CHECK')->setIcon('envelope-circle-check');
+            $actions[] = (new \fpcm\view\helper\dropdownItem('testSmtp'))->setText('SYSTEM_OPTIONS_EMAIL_CHECK')->setIcon('envelope-circle-check')->setValue('2');
         }
 
-        $this->view->addButtons($buttons);
+        $this->view->addButtons([
+            (new \fpcm\view\helper\saveButton('configSave'))->setPrimary(),
+            (new \fpcm\view\helper\dropdown('actions'))->setText('GLOBAL_EXTENDED')->setIcon('bars')->setOptions($actions)
+        ]);
         return true;
     }
 
@@ -248,7 +248,7 @@ implements \fpcm\controller\interfaces\isAccessible,
             $this->view->addErrorMessage('SAVE_FAILED_OPTIONS');
             return false;
         }
-        
+
         $this->view->addNoticeMessage('SAVE_SUCCESS_OPTIONS');
         return true;
     }

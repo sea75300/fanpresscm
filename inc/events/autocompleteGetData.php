@@ -15,7 +15,7 @@ namespace fpcm\events;
  * Rückgabe: array mit Daten für Autocomplete
  * 
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\events
  * @since 3.6
@@ -30,11 +30,12 @@ final class autocompleteGetData extends \fpcm\events\abstracts\eventReturnArray 
     public function run()
     {
         $result = parent::run();
-        if (!count($result) || !isset($result['returnData'])) {
-            return $this->data['returnData'];
+        $tmp = $result->getData();
+        if (!count($tmp) || !isset($tmp['returnData'])) {
+            return (new \fpcm\module\eventResult)->setContinue(true)->setData($this->data['returnData']);
         }
 
-        return $result['returnData'];
+        return $result;
     }
 
 }

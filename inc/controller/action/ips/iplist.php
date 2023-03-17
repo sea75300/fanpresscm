@@ -10,15 +10,15 @@ namespace fpcm\controller\action\ips;
 /**
  * IP address list controller
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class iplist extends \fpcm\controller\abstracts\controller
-implements \fpcm\controller\interfaces\isAccessible,
-           \fpcm\controller\interfaces\requestFunctions {
+class iplist extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\requestFunctions
+{
 
     use \fpcm\controller\traits\common\dataView,
-        \fpcm\controller\traits\theme\nav\ips;
+        \fpcm\controller\traits\theme\nav\ips,
+        \fpcm\model\traits\statusIcons;
 
     /**
      *
@@ -82,9 +82,10 @@ implements \fpcm\controller\interfaces\isAccessible,
         $this->view->addJsFiles(['ipadresses.js']);
         $this->view->addButtons([
             (new \fpcm\view\helper\linkButton('addnew'))->setUrl(\fpcm\classes\tools::getFullControllerLink('ips/add'))->setText('GLOBAL_NEW')->setIcon('globe'),
-            (new \fpcm\view\helper\select('sortlist'))->setOptions($this->sorts)->setSelected($sort)->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED),
             (new \fpcm\view\helper\deleteButton('delete'))->setClass('fpcm ui-button-confirm'),
         ]);
+
+        $this->view->addToolbarRight((string) (new \fpcm\view\helper\select('sortlist'))->setOptions($this->sorts)->setSelected($sort)->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED));        
 
         $this->view->render();
     }
@@ -126,9 +127,9 @@ implements \fpcm\controller\interfaces\isAccessible,
                     : $this->notfoundStr;
         
         $metaData   = [
-            (new \fpcm\view\helper\icon('comment-slash fa-inverse'))->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $item->getNocomments())->setText('IPLIST_NOCOMMENTS')->setStack('square'),
-            (new \fpcm\view\helper\icon('sign-in-alt fa-inverse'))->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $item->getNologin())->setText('IPLIST_NOLOGIN')->setStack('square'),
-            (new \fpcm\view\helper\icon('ban fa-inverse'))->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $item->getNoaccess())->setText('IPLIST_NOACCESS')->setStack('square')
+            $this->getStatusColor( (new \fpcm\view\helper\icon('comment-slash fa-inverse'))->setClass('fpcm-ui-editor-metainfo')->setText('IPLIST_NOCOMMENTS')->setStack('square'), $item->getNocomments() ),
+            $this->getStatusColor( (new \fpcm\view\helper\icon('sign-in-alt fa-inverse'))->setClass('fpcm-ui-editor-metainfo')->setText('IPLIST_NOLOGIN')->setStack('square'), $item->getNologin() ),
+            $this->getStatusColor( (new \fpcm\view\helper\icon('ban fa-inverse'))->setClass('fpcm-ui-editor-metainfo')->setText('IPLIST_NOACCESS')->setStack('square') , $item->getNoaccess() ),
         ];
 
         return new \fpcm\components\dataView\row([

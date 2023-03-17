@@ -21,7 +21,7 @@ if (fpcm === undefined) {
                     _newvalue = [];
                 }
 
-                return jQuery.extend(fpcm, _newvalue);
+                return jQuery.extend(true, fpcm, _newvalue);
             }
         }
     };
@@ -188,6 +188,10 @@ window.onload = function() {
             doRefresh: function() {
                 
                 if (!fpcm.vars.ajaxActionPath) {
+                    return false;
+                }
+                
+                if (fpcm.vars.ajaxRefreshDisable) {
                     return false;
                 }
                 

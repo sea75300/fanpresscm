@@ -10,7 +10,7 @@ namespace fpcm\events;
 /**
  * FanPress CM event list model
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2019, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\events
  */
@@ -20,17 +20,17 @@ final class events {
      * Run event $eventName with params $dataParams
      * @param string $eventName
      * @param mixed $dataParams
-     * @return mixed
+     * @return mixed|\fpcm\module\eventResult
      */
     public function trigger($eventName, $dataParams = null)
     {
         if (!\fpcm\classes\baseconfig::dbConfigExists() || \fpcm\classes\baseconfig::installerEnabled()) {
-            return $dataParams;
+            return (new \fpcm\module\eventResult())->setData($dataParams);
         }
 
         if (!file_exists($this->getFullPath($eventName . '.php'))) {
             trigger_error('ERROR: Undefined event called: ' . $eventName);
-            return $dataParams;
+            return (new \fpcm\module\eventResult())->setData($dataParams);
         }
 
         fpcmLogEvents('Event: '.$eventName);
@@ -39,27 +39,29 @@ final class events {
         }
 
         try {
+            
             /* @var $event abstracts\event */
             $eventClassName = "\\fpcm\\events\\" . $eventName;
             $event = new $eventClassName($dataParams);
 
             if (!$event->isExecutable()) {
-                return $dataParams;
+                return (new \fpcm\module\eventResult())->setData($dataParams);
             }
 
             return $event->run();
             
         } catch (\Throwable $e) {
-            trigger_error(sprintf("Unable to trigger event \"%s\" in \"%s\".\nError-Code: %s\n%s", $eventName, $eventClassName, $e->getCode(), $e->getTraceAsString()), E_USER_ERROR);
+            trigger_error(sprintf("Unable to trigger event \"%s\" in \"%s\".\n- - - - -\nError-Code: %s\n- - - - -\n", $eventName, $eventClassName, $e), E_USER_ERROR);
             \fpcm\classes\loader::getObject('\fpcm\model\theme\notifications')->addNotification(
                 new \fpcm\model\theme\notificationItem(
                     (new \fpcm\view\helper\icon('bomb'))->setText('NOTIFICATION_ERROR_EVENTS', ['eventName' => $eventName])
                 )
             );
-            return $dataParams;
+            
+            return (new \fpcm\module\eventResult())->setData($dataParams);
         }
 
-        return $dataParams;
+        return (new \fpcm\module\eventResult())->setData($dataParams);
     }
 
     /**

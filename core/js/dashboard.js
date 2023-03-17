@@ -15,7 +15,13 @@ fpcm.dashboard = {
 
     init: function () {
 
-        fpcm.ajax.exec('dashboard', {
+        fpcm.dom.bindClick('#resetDashboardSettings', fpcm.dashboard.resetPositions);
+        fpcm.dom.bindEvent('#offcanvasInfo', 'shown.bs.offcanvas', fpcm.dashboard.fetchDisabledContainer);
+        fpcm.dom.bindEvent('#offcanvasInfo', 'hidden.bs.offcanvas', function () {
+            let _el = fpcm.dom.fromId('fpcm-ui-container-disabled-list').empty();
+        });
+
+        fpcm.ajax.exec('dashboard/load', {
             quiet: true,
             async: true,
             execDone: function(result) {
@@ -72,7 +78,7 @@ fpcm.dashboard = {
 
                  for (var _i = 0; _i < _containers.length; _i++) {
 
-                     if (!_containers[_i]) {
+                     if (!_containers[_i] || !_containers[_i].dataset || !_containers[_i].dataset.cname) {
                          continue;
                      }
 
@@ -86,10 +92,99 @@ fpcm.dashboard = {
                      },
                      execDone: fpcm.dashboard.init,
                      quiet: true
-                 });                
+                 });
             }
         });
 
+        fpcm.dom.bindClick('.fpcm.ui-dashboard-container-disable', function (_e, _ui) {
+            fpcm.dashboard.disableContainer(_ui.dataset.cname);
+        });
+    },
+    
+    resetPositions: function ()
+    {
+        fpcm.ui_dialogs.confirm({
+            clickYes: function () {
+                fpcm.ajax.post('setconfig', {
+                    data: {
+                        op: 'reset',
+                        var: 'dashboardpos'
+                    },
+                    execDone: fpcm.dashboard.init,
+                    quiet: true
+                });
+            }
+        });
+
+        return false;
+    },
+    
+    fetchDisabledContainer: function() {
+
+        fpcm.ajax.exec('dashboard/manager', {
+            quiet: true,
+            async: true,
+            execDone: function(_result) {
+
+                let _el = fpcm.dom.fromId('fpcm-ui-container-disabled-list');
+                _el.empty();
+
+                let _btn = '';
+                if (_result[0].code !== -1) {
+                    _btn = '<button type="button" class="btn-close"></button>';
+                }
+
+                for (var _i in _result) {
+                    _el.append(`<a class="list-group-item d-flex justify-content-between align-items-start" data-container="${_result[_i].code}"><div class="align-self-center">${_result[_i].hl}</div> ${_btn}</a>`);
+                }
+
+                fpcm.dom.bindClick('#fpcm-ui-container-disabled-list > a[data-container]', function (_e, _ui) {
+                    fpcm.dashboard.enableContainer(_ui);
+                });
+
+            }
+        });    
+    },
+    
+    disableContainer: function (_value)
+    {
+        fpcm.ui_dialogs.confirm({
+            clickYes: function () {
+                fpcm.ajax.post('setconfig', {
+                    data: {
+                        op: 'change',
+                        var: 'dashboard_containers_disabled',
+                        value: _value
+                    },
+                    execDone: fpcm.dashboard.init,
+                    quiet: true
+                });
+            }
+        });
+
+        return false;
+    },
+    
+    enableContainer: function (_ui)
+    {
+        fpcm.ui_dialogs.confirm({
+            clickYes: function () {
+                fpcm.ajax.post('setconfig', {
+                    data: {
+                        op: 'reset',
+                        var: 'dashboard_containers_disabled',
+                        value: _ui.dataset.container
+                    },
+                    execDone: function () {
+                        fpcm.dashboard.fetchDisabledContainer();
+                        fpcm.dashboard.init();
+                    },
+                    quiet: true
+                });
+            }
+        });
+
+        return false;
     }
 
 };

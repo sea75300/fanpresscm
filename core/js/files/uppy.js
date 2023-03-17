@@ -12,8 +12,8 @@ fpcm.fileuploader = {
 
     init: function() {
 
-        var _uppy = new Uppy.Core({
-            locale: Uppy.locales.de_DE,
+        var _uppy = new window.Uppy.Core({
+            locale: window.Uppy.locales.de_DE,
             restrictions: {
                 allowedFileTypes: fpcm.filemanager.getAcceptTypesArr
                                 ? fpcm.filemanager.getAcceptTypesArr()
@@ -22,24 +22,26 @@ fpcm.fileuploader = {
         });
 
         _uppy
-            .use(Uppy.XHRUpload, { endpoint: 
+            .use(window.Uppy.XHRUpload, { endpoint: 
                 fpcm.vars.ajaxActionPath + 'upload/uppy&dest=' + fpcm.vars.jsvars.uploadDest
             })
-            .use(Uppy.FileInput, {
-                target: '#fpcm-uppy-select'
+            .use(window.Uppy.FileInput, {
+                target: '#fpcm-id-uppy-select'
             })
-            .use(Uppy.DragDrop, {
-                target: '#fpcm-uppy-drop-area'
+            .use(window.Uppy.DragDrop, {
+                target: '#fpcm-id-uppy-drop-area'
             })
-            .use(Uppy.StatusBar, {
-                target: '#fpcm-uppy-progress',
-                hideAfterFinish: true,
-                showProgressDetails: true,
-                hideUploadButton: true
+            .use(window.Uppy.StatusBar, {
+                target: '#fpcm-id-uppy-progress',
+                hideAfterFinish: false,
+                showProgressDetails: true
+            })
+            .use(window.Uppy.Informer, {
+                target: '#fpcm-id-uppy-informer',
             })
             .on('complete', function (_file, _response) {
                 fpcm.filemanager.runFileIndexUpdate(_file);
-                _uppy.reset();
+                _uppy.cancelAll();
             });
 
         fpcm.dom.bindClick('#btnUpload', function () {
@@ -53,9 +55,7 @@ fpcm.fileuploader = {
     },
     
     initAfter: function () {
-        
         fpcm.dom.fromClass('uppy-FileInput-btn').addClass('w-100');
-        
     }
     
 };

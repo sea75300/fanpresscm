@@ -12,10 +12,10 @@ namespace fpcm\controller\interfaces;
  * 
  * @package fpcm\controller\interfaces
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2019-2020, Stefan Seehafer
+ * @copyright (c) 2019-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @since 4.4
- * @deprecated 5.0.0-a3
+ * @deprecated 5.0.0-a3, to be removed in FPCM 5.2
  */
 interface isAccessible {
 

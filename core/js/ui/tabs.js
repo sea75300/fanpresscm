@@ -43,17 +43,22 @@ fpcm.ui_tabs = {
             var _obj = new bootstrap.Tab(_el);
 
             _el.addEventListener('click', function (_ev) {
+
+                if (!params.reload) {
+                    fpcm.ui_tabs.setActiveTab(_ev.target.dataset.tabIndex);
+                    return true;
+                }
+
                 _ev.preventDefault();
-                
-                if (params.reload && fpcm.dom.fromTag(_ev.target).hasClass('active') ) {
-                    fpcm.dom.fromTag(_ev.target).removeClass('active');
+
+                let _currentTab = fpcm.ui_tabs.getActiveTab();
+                if (_ev.target.classList.contains('active') && _ev.target.dataset.tabIndex == _currentTab) {
+                    _ev.target.classList.remove('active');
+                    (new bootstrap.Tab(_ev.target)).show();
+                    
                 }
 
-                if (_ev.target.dataset.tabIndex !== undefined) {
-                    fpcm.dom.fromId('activeTab').val(_ev.target.dataset.tabIndex);
-                }
-
-                (new bootstrap.Tab(_ev.target)).show();
+                fpcm.ui_tabs.setActiveTab(_ev.target.dataset.tabIndex);
             });
 
             _el.addEventListener('show.bs.tab', function (_ev) {
@@ -80,9 +85,23 @@ fpcm.ui_tabs = {
                              ? _ev.target.dataset.dataviewList
                              : false; 
 
+                if (!_ev.target.dataset.ajaxQuiet) {
+
+                    var _ldr = document.createElement('span');
+                    _ldr.classList.add('spinner-border');
+                    _ldr.classList.add('spinner-border-sm'); 
+                    _ldr.classList.add('ms-2'); 
+                    _ev.target.appendChild(_ldr);
+                    
+                }
+
                 fpcm.ajax.get(_ev.target.href, {
-                    quiet: _ev.target.dataset.ajaxQuiet ? true : false,
+                    quiet: true, //_ev.target.dataset.ajaxQuiet ? true : false,
                     execDone: function (_result) {
+
+                        if (!_ev.target.dataset.ajaxQuiet && _ldr) {
+                            _ev.target.removeChild(_ldr);
+                        }
 
                         if (!_tabList) {
 
@@ -132,7 +151,7 @@ fpcm.ui_tabs = {
 
             _el.addEventListener('shown.bs.tab', function (_ev) {
 
-                if (typeof params.onRenderHtmlBefore === 'function') {
+                if (typeof params.onTabShowAfter === 'function') {
                     params.onTabShowAfter(_ev);
                 }
 
@@ -152,12 +171,15 @@ fpcm.ui_tabs = {
     
     _updateMainToolbar: function (_active, _prev) {
 
-        if (_active === undefined || _prev === undefined || 
-            _active.dataset === undefined || _prev.dataset === undefined) {
+        if (!_active || !_prev) {
             return true;
         }
 
-        if (_active.dataset.toolbarButtons === undefined || _prev.dataset.toolbarButtons === undefined ||
+        if (!_active.dataset || !_prev.dataset) {
+            return true;
+        }
+
+        if (!_active.dataset.toolbarButtons || !_prev.dataset.toolbarButtons ||
             _active.dataset.toolbarButtons === _prev.dataset.toolbarButtons) {
             return true;
         }
@@ -202,6 +224,24 @@ fpcm.ui_tabs = {
         }
 
         (new bootstrap.Tab(_nodes[_tabId])).show();
+    },
+    
+    getActiveTab: function () {
+        
+        let _el = document.getElementById('activeTab');
+        return _el ? _el.value : 0;
+        
+    },
+    
+    setActiveTab: function (_val) {
+        
+        let _el = document.getElementById('activeTab');
+        if (!_el) {
+            return false;
+        }
+        
+        _el.value = _val;
+        return true;
     }
     
 }

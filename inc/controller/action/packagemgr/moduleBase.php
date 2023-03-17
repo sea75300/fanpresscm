@@ -3,13 +3,14 @@
 /**
  * AJAX module installer controller
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
 namespace fpcm\controller\action\packagemgr;
 
-class moduleBase extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\isAccessible {
+class moduleBase extends \fpcm\controller\abstracts\controller
+{
 
     use \fpcm\controller\traits\packagemgr\initialize;
 
@@ -141,7 +142,7 @@ class moduleBase extends \fpcm\controller\abstracts\controller implements \fpcm\
             \fpcm\model\http\request::FILTER_BASE64DECODE,
             \fpcm\model\http\request::FILTER_DECRYPT
         ]);
-        
+
         if ($updateKeys === null || !trim($updateKeys)) {
             return false;
         }
@@ -155,7 +156,7 @@ class moduleBase extends \fpcm\controller\abstracts\controller implements \fpcm\
             (new \fpcm\view\helper\linkButton('runUpdateNext'))
                 ->setUrl(\fpcm\classes\tools::getFullControllerLink('package/modupdate', [
                     'key' => array_shift($updateKeys),
-                    'updateKeys' => base64_decode(implode(';', $updateKeys))
+                    'updateKeys' => base64_decode($this->crypt->encrypt(implode(';', $updateKeys)))
                 ])
             )->setText('MODULES_LIST_UPDATE_NEXT')
             ->setIcon('sync')

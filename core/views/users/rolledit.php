@@ -2,35 +2,32 @@
 /* @var $theView \fpcm\view\viewVars */
 /* @var $userRoll \fpcm\model\users\userRoll */
 ?>
-<div class="row border-top border-5 border-primary">
-    <div class="col-12 col-md-6">
+<div class="row">
+    <div class="col-12">
         <fieldset class="my-3">
 
-            <div class="row">
-                <?php $theView->textInput('rollname')
-                    ->setValue($userRoll->getRollName())
-                    ->setText('USERS_ROLLS_NAME')
-                    ->setRequired(!$userRoll->isSystemRoll())
-                    ->setAutoFocused(!$userRoll->isSystemRoll())
-                    ->setReadonly($userRoll->isSystemRoll()); ?>
-            </div>
-               
-        </fieldset>
-    </div>
-</div>
-
-<div class="row g-0">
-    <div class="col-12">
-        <fieldset>
-            <legend><?php $theView->write('USERS_ROLLS_CODEX'); ?></legend>
-
-            <div class="row my-3">
+            <div class="row mb-3">
                 <div class="col-12 col-md-6">
-                        <?php $theView->textarea('rollcodex')
-                            ->setValue($userRoll->getCodex(), ENT_QUOTES | ENT_COMPAT)
-                            ->setClass('fpcm-ui-textarea-medium w-100'); ?>                      
+                    <?php $theView->textInput('rollname')
+                        ->setValue($userRoll->getRollName())
+                        ->setText('USERS_ROLLS_NAME')
+                        ->setRequired(!$userRoll->isSystemRoll())
+                        ->setAutoFocused(!$userRoll->isSystemRoll())
+                        ->setReadonly($userRoll->isSystemRoll())
+                        ->setLabelTypeFloat(); ?>
                 </div>
             </div>
+
+            <div class="row mb-3">
+                <div class="col-12 col-md-6">
+                    <?php $theView->textarea('rollcodex')
+                        ->setValue($userRoll->getCodex(), ENT_QUOTES | ENT_COMPAT)
+                        ->setClass('fpcm ui-textarea-medium ui-textarea-noresize')
+                        ->setText('USERS_ROLLS_CODEX')
+                        ->setLabelTypeFloat(); ?>
+                </div>
+            </div>
+    
         </fieldset>
     </div>
 </div>

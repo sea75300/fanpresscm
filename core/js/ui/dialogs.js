@@ -111,6 +111,7 @@ fpcm.ui_dialogs = {
                   .replace('{$modalClass}', _params.modalClass)
                   .replace('{$modalBodyClass}', _params.modalBodyClass)
                   .replace('{$size}', _params.size ? 'modal-' + _params.size : '')
+                  .replace('{$icon}', _params.icon ? fpcm.ui.getIcon(_params.icon.icon, _params.icon.params) : fpcm.ui.getIcon('info') )
                   .replace('{$buttons}', ''));
         }
 
@@ -200,7 +201,7 @@ fpcm.ui_dialogs = {
                     try {
                         
                         if (_obj.click) {
-                            _obj.click.call(this, _bsObj);
+                            _obj.click.call(this, _bsObj, _btn);
                         }
 
                         if (!_obj.clickClose) {
@@ -250,12 +251,6 @@ fpcm.ui_dialogs = {
 
         fpcm.dom.fromId(_dlgId + '-navbar').find('ul').append(_links.join('')).removeClass('d-none');
         fpcm.dom.fromId(_dlgId + '-navbar').removeClass('d-none');
-
-        var dataSpyList = [].slice.call(document.querySelectorAll('#' + _dlgId + ' [data-bs-spy="scroll"]'))
-        dataSpyList.forEach(function (dataSpyEl) {
-            bootstrap.ScrollSpy.getOrCreateInstance(dataSpyEl).refresh();
-        });
-
     },
     
     confirm: function(_params) {
@@ -272,6 +267,9 @@ fpcm.ui_dialogs = {
             title: 'GLOBAL_CONFIRM',
             content: fpcm.ui.translate('CONFIRM_MESSAGE'),
             size: '',
+            icon: {
+                icon: 'circle-check'
+            },
             dlButtons: [
                 {
                     text: 'GLOBAL_YES',
@@ -367,6 +365,13 @@ fpcm.ui_dialogs = {
 
         _bsObj.toggle(_domEl);
         return true;
+    },
+    
+    initScrollspy: function (_id) {
+        var _spylist = [].slice.call(document.querySelectorAll('#' + _id + ' [data-bs-spy="scroll"]'));
+        _spylist.forEach(function (_el) {
+            bootstrap.ScrollSpy.getOrCreateInstance(_el).refresh();
+        });   
     }
     
 }

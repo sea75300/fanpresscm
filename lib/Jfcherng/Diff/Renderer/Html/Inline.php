@@ -14,7 +14,7 @@ final class Inline extends AbstractHtml
     /**
      * {@inheritdoc}
      */
-    const INFO = [
+    public const INFO = [
         'desc' => 'Inline',
         'type' => 'Html',
     ];
@@ -28,13 +28,13 @@ final class Inline extends AbstractHtml
             return $this->getResultForIdenticals();
         }
 
-        $wrapperClasses = \array_merge(
-            $this->options['wrapperClasses'],
-            ['diff', 'diff-html', 'diff-inline']
-        );
+        $wrapperClasses = [
+            ...$this->options['wrapperClasses'],
+            'diff', 'diff-html', 'diff-inline',
+        ];
 
         return
-            '<table class="' . \implode(' ', $wrapperClasses) . '">' .
+            '<table class="' . implode(' ', $wrapperClasses) . '">' .
                 $this->renderTableHeader() .
                 $this->renderTableHunks($changes) .
             '</table>';
@@ -112,17 +112,24 @@ final class Inline extends AbstractHtml
      */
     protected function renderTableBlock(array $block): string
     {
-        static $callbacks = [
-            SequenceMatcher::OP_EQ => 'renderTableBlockEqual',
-            SequenceMatcher::OP_INS => 'renderTableBlockInsert',
-            SequenceMatcher::OP_DEL => 'renderTableBlockDelete',
-            SequenceMatcher::OP_REP => 'renderTableBlockReplace',
-        ];
+        switch ($block['tag']) {
+            case SequenceMatcher::OP_EQ:
+                $content = $this->renderTableBlockEqual($block);
+                break;
+            case SequenceMatcher::OP_INS:
+                $content = $this->renderTableBlockInsert($block);
+                break;
+            case SequenceMatcher::OP_DEL:
+                $content = $this->renderTableBlockDelete($block);
+                break;
+            case SequenceMatcher::OP_REP:
+                $content = $this->renderTableBlockReplace($block);
+                break;
+            default:
+                $content = '';
+        }
 
-        return
-            '<tbody class="change change-' . self::TAG_CLASS_MAP[$block['tag']] . '">' .
-                $this->{$callbacks[$block['tag']]}($block) .
-            '</tbody>';
+        return '<tbody class="change change-' . self::TAG_CLASS_MAP[$block['tag']] . '">' . $content . '</tbody>';
     }
 
     /**
@@ -145,7 +152,7 @@ final class Inline extends AbstractHtml
                 SequenceMatcher::OP_EQ,
                 $newLine,
                 $block['old']['offset'] + $no + 1,
-                $block['new']['offset'] + $no + 1
+                $block['new']['offset'] + $no + 1,
             );
         }
 
@@ -167,7 +174,7 @@ final class Inline extends AbstractHtml
                 SequenceMatcher::OP_INS,
                 $newLine,
                 null,
-                $block['new']['offset'] + $no + 1
+                $block['new']['offset'] + $no + 1,
             );
         }
 
@@ -189,7 +196,7 @@ final class Inline extends AbstractHtml
                 SequenceMatcher::OP_DEL,
                 $oldLine,
                 $block['old']['offset'] + $no + 1,
-                null
+                null,
             );
         }
 

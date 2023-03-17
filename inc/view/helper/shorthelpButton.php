@@ -12,7 +12,7 @@ namespace fpcm\view\helper;
  * 
  * @package fpcm\view\helper
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 class shorthelpButton extends linkButton {
@@ -23,11 +23,11 @@ class shorthelpButton extends linkButton {
      */
     protected function init()
     {
-        $this->class = 'fpcm ui-button-shorthelp';
+        $this->class = 'fpcm ui-button-shorthelp btn btn-outline-secondary';
         $this->iconOnly = true;
         $this->target = '_blank';
         $this->rel = 'noreferrer,noopener,external';
-        $this->setIcon('question-circle');
+        $this->setIcon('question');
     }
 
     /**

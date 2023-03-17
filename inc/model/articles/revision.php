@@ -11,7 +11,7 @@ namespace fpcm\model\articles;
  * Article revision object for storage in database
  * 
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\model\articles
  * @since 3.3
@@ -212,7 +212,7 @@ class revision extends \fpcm\model\abstracts\dataset {
 
         $object = $this->dbcon->fetch($result);
         if (!$object) {
-            trigger_error('Failed to load data for object of type "' . get_class($this) . '" with given id ' . $this->id . '!');
+            trigger_error('Failed to load data for object of type "' . static::class . '" with given id ' . $this->id . '!');
             return false;
         }
 

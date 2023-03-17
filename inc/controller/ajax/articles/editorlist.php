@@ -9,7 +9,8 @@ namespace fpcm\controller\ajax\articles;
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @since 3.6
  */
-class editorlist extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
+class editorlist extends \fpcm\controller\abstracts\ajaxController
+{
 
     use \fpcm\controller\traits\comments\lists,
         \fpcm\model\articles\permissions;
@@ -135,7 +136,7 @@ class editorlist extends \fpcm\controller\abstracts\ajaxController implements \f
                 $button = (new \fpcm\view\helper\linkButton('rev' . $revisionTime))
                         ->setText('EDITOR_STATUS_REVISION_SHOW')
                         ->setIcon('play')
-                        ->setIconOnly(true)
+                        ->setIconOnly()
                         ->setUrl(\fpcm\classes\tools::getControllerLink('articles/revision', [
                             'aid' => $this->article->getId(), 
                             'rid' => $revisionTime

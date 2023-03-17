@@ -12,7 +12,7 @@ namespace fpcm\classes;
  * 
  * @package fpcm\classes\language
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 final class language {
@@ -275,13 +275,26 @@ final class language {
      * * Aufbau: Key = Platzhalter => Value = Text
      * @return string
      */
-    public function translate($langvar, array $replaceParams = [])
+    
+    /**
+     * Return value of language variable
+     * @param string|null $langvar language variable
+     * @param array $replaceParams replacement values for placeholder in variable text
+     * @param bool $spf use vsprintf instead of old {{placehodler}} variables (@since 5.1-dev)
+     * @return string
+     */
+    public function translate(?string $langvar, array $replaceParams = [], bool $spf = false)
     {
         if ($langvar === null || !trim($langvar)) {
             return '';
         }
 
         $langData = $GLOBALS['langdata'][strtoupper($langvar)] ?? $langvar;
+        
+        if ($spf) {
+            \fpcm\view\helper\icon::parseLangvarIcon($langData);
+            return vsprintf($langData, array_values($replaceParams));
+        }
 
         $replacement = [];
         foreach ($replaceParams as $key => $val) {
@@ -368,16 +381,17 @@ final class language {
         }
         return $days;
     }
-
+    
     /**
-     * Schreibt Text für übergebene Sprachavriable an die Stelle des Aufrufs, sbwp. in einer View
-     * @param string $langvar Sprachvariable
-     * @param array $replaceParams Liste von Platzhaltern in der Sprachvariable mit zu ersetzendem Text
-     * * Aufbau: Key = Platzhalter => Value = Text
+     * Directly writes text of given language variable 
+     * @param string|null $langvar language variable
+     * @param array $replaceParams replacement values for placeholder in variable text
+     * @param bool $spf use vsprintf instead of old {{placehodler}} variables (@since 5.1-dev)
+     * @return void
      */
-    public function write($langvar, array $replaceParams = [])
+    public function write(?string $langvar, array $replaceParams = [], bool $spf = false): void
     {
-        print $this->translate($langvar, $replaceParams);
+        print $this->translate($langvar, $replaceParams, $spf);
     }
 
     /**

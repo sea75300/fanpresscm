@@ -15,7 +15,7 @@ namespace fpcm\events\template;
  * Rückgabe: array Liste mit Platzhaltern und Daten
  * 
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\events
  */

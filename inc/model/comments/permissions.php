@@ -11,7 +11,7 @@ namespace fpcm\model\comments;
  * Comments permissions model trait
  * 
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\model\traits\comments
  * @since 3.4.4

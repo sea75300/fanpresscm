@@ -1,6 +1,6 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
 
-<div class="row g-0 border-5 border-top border-primary">
+<div class="row g-0">
     <div class="col-12 fpcm-ui-ellipsis">    
     <?php if (trim($diffResultTitle)) : ?>
         <div class="m-2">
@@ -82,6 +82,32 @@
             <div class="row">
                 <div class="col-12 mb-2">
                     <?php print $article->getImagepath() ? $article->getImagepath() : '-'; ?>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+</div>
+
+<div class="row g-0">
+    <div class="<?php $theView->defaultBoxHalf(); ?>">
+        <fieldset>
+            <legend class="fs-6 bg-secondary"><?php $theView->write('EDITOR_ARTICLE_ARTICLELINK', ['articleId' => $article->getId()]); ?></legend>
+            
+            <div class="row">
+                <div class="col-12 mb-2">
+                    <?php print $revision->getNicePathString(); ?>
+                </div>
+            </div>
+
+        </fieldset>
+    </div>
+    <div class="<?php $theView->defaultBoxHalf(); ?> ps-0 ps-md-2">
+        <fieldset>
+            <legend class="fs-6"><?php $theView->write('EDITOR_ARTICLE_ARTICLELINK', ['articleId' => $article->getId()]); ?></legend>
+            
+            <div class="row">
+                <div class="col-12 mb-2">
+                    <?php print $article->getNicePathString(); ?>
                 </div>
             </div>
         </fieldset>

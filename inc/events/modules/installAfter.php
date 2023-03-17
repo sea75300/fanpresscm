@@ -15,7 +15,7 @@ namespace fpcm\events\modules;
  * Rückgabe: void
  * 
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\events
  * @since 4
@@ -30,15 +30,15 @@ class installAfter extends \fpcm\events\abstracts\event {
     {
         $class = \fpcm\module\module::getEventNamespace($this->data, $this->getEventClassBase());
         if (!class_exists($class)) {
-            return true;
+            return (new \fpcm\module\eventResult)->setData(true);
         }
 
         $obj = new $class($this->data);
         if (!$this->is_a($obj)) {
-            return false;
+            return (new \fpcm\module\eventResult)->setData(false);
         }
 
-        return $obj->run();
+        return (new \fpcm\module\eventResult)->setData($obj->run());
     }
 
 }

@@ -1,7 +1,7 @@
 # php-diff
 
 [![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/jfcherng/php-diff/Main/v6?style=flat-square)](https://github.com/jfcherng/php-diff/actions)
-[![Codacy grade](https://img.shields.io/codacy/grade/3a7a07d2ed67434e8e8582ea4ec9867b/v6?style=flat-square)](https://app.codacy.com/project/jfcherng/php-diff/dashboard)
+[![Codacy grade](https://img.shields.io/codacy/grade/5b7ab5ed613d48b99f12cd334f6489ff/v6?style=flat-square)](https://app.codacy.com/project/jfcherng/php-diff/dashboard)
 [![Packagist](https://img.shields.io/packagist/dt/jfcherng/php-diff?style=flat-square)](https://packagist.org/packages/jfcherng/php-diff)
 [![Packagist Version](https://img.shields.io/packagist/v/jfcherng/php-diff?style=flat-square)](https://packagist.org/packages/jfcherng/php-diff)
 [![Project license](https://img.shields.io/github/license/jfcherng/php-diff?style=flat-square)](https://github.com/jfcherng/php-diff/blob/v6/LICENSE)
@@ -37,7 +37,7 @@ which can be used to get the content of the `example/diff-table.css`.
 
 ## Requirements
 
-![php](https://img.shields.io/badge/php-%E2%89%A57.1.3-blue?style=flat-square)
+![php](https://img.shields.io/badge/php-%E2%89%A57.4.0-blue?style=flat-square)
 ![ext-iconv](https://img.shields.io/badge/ext-iconv-brightgreen?style=flat-square)
 
 
@@ -222,7 +222,7 @@ About the `Unified` diff format: https://en.wikipedia.org/wiki/Diff#Unified_form
 +Do you know in Japanese, "魚の缶詰" means fish can.
  This is just a useless line.
  G
--// @todo Remember to delete this line
+-// remember to delete this line
  Say hello to my neighbors.
 ```
 
@@ -250,7 +250,7 @@ About the `Context` diff format: https://en.wikipedia.org/wiki/Diff#Context_form
 ! Do you know in Chinese, "金槍魚罐頭" means tuna can.
   This is just a useless line.
   G
-- // @todo Remember to delete this line
+- // remember to delete this line
   Say hello to my neighbors.
 --- 8,12 ----
   N
@@ -355,7 +355,7 @@ This renderer has no detailed diff.
       "tag": "del",
       "old": {
         "offset": 10,
-        "lines": ["// @todo Remember to delete this line"]
+        "lines": ["// remember to delete this line"]
       },
       "new": {
         "offset": 11,
@@ -530,7 +530,7 @@ If you don't need those detailed diff, consider using the `JsonText` renderer.
       "tag": "del",
       "old": {
         "offset": 10,
-        "lines": ["// @todo Remember to delete this line"]
+        "lines": ["// remember to delete this line"]
       },
       "new": {
         "offset": 11,

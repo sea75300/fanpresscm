@@ -12,7 +12,7 @@ namespace fpcm\controller\traits\comments;
  * 
  * @package fpcm\controller\traits\comments\lists
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 trait lists {
@@ -85,46 +85,25 @@ trait lists {
     protected $filterError = null;
 
     /**
-     * Initialisiert Berechtigungen
-     */
-    protected function initCommentPermissions()
-    {
-        if (!$this->permissions) {
-            return false;
-        }
-
-        $this->permissionsArray['canEditComments'] = $this->permissions->editComments();
-        $this->permissionsArray['canApprove'] = $this->permissions->comment->approve;
-        $this->permissionsArray['canPrivate'] = $this->permissions->comment->private;
-        $this->permissionsArray['canMove'] = $this->permissions->comment->move;
-        $this->permissionsArray['canDelete'] = $this->permissions->comment->delete;
-        $this->permissionsArray['canMassEdit'] = $this->permissions->comment->massedit;
-
-        foreach ($this->permissionsArray as $key => $value) {
-            $this->view->assign($key, $value);
-        }
-    }
-
-    /**
      * Kommentar-Aktionen ausführen
      * @param \fpcm\model\comments\commentList $commentList
      * @return bool
      */
     protected function processCommentActions(\fpcm\model\comments\commentList $commentList)
     {
-        $ids = $this->request->fromPOST('ids', [ \fpcm\model\http\request::FILTER_CASTINT ]);
-        if (!is_array($ids) || !count($ids)) {
-            $this->view->addErrorMessage('SELECT_ITEMS_MSG');
-            return true;
-        }
-
-        if ($this->permissions->comment->delete && $commentList->deleteComments($ids)) {
-            $this->view->addNoticeMessage('DELETE_SUCCESS_COMMENTS');
-            return true;
-        }
-
-        $this->view->addErrorMessage('DELETE_FAILED_COMMENTS');
-        return true;
+//        $ids = $this->request->fromPOST('ids', [ \fpcm\model\http\request::FILTER_CASTINT ]);
+//        if (!is_array($ids) || !count($ids)) {
+//            $this->view->addErrorMessage('SELECT_ITEMS_MSG');
+//            return true;
+//        }
+//
+//        if ($this->permissions->comment->delete && $commentList->deleteComments($ids)) {
+//            $this->view->addNoticeMessage('DELETE_SUCCESS_COMMENTS');
+//            return true;
+//        }
+//
+//        $this->view->addErrorMessage('DELETE_FAILED_COMMENTS');
+//        return true;
     }
 
     /**
@@ -137,20 +116,23 @@ trait lists {
         
         if ($this->permissions->comment->approve) {
             $fields[] = new \fpcm\components\masseditField(
-                (new \fpcm\view\helper\select('isSpam'))
-                    ->setOptions($this->yesNoChangeList)
-                    ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
-                    ->setText('COMMMENT_SPAM')
-                    ->setIcon('flag')
-            );
-
-            $fields[] = new \fpcm\components\masseditField(
                 (new \fpcm\view\helper\select('isApproved'))
                     ->setOptions($this->yesNoChangeList)
                     ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
                     ->setText('COMMMENT_APPROVE')
                     ->setIcon('check-circle', 'far')
+                    ->setLabelTypeFloat()
             );
+
+            $fields[] = new \fpcm\components\masseditField(
+                (new \fpcm\view\helper\select('isSpam'))
+                    ->setOptions($this->yesNoChangeList)
+                    ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
+                    ->setText('COMMMENT_SPAM')
+                    ->setIcon('flag')
+                    ->setLabelTypeFloat()
+            );
+
         }
         
         if ($this->permissions->comment->private) {
@@ -160,6 +142,7 @@ trait lists {
                     ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
                     ->setText('COMMMENT_PRIVATE')
                     ->setIcon('eye-slash')
+                    ->setLabelTypeFloat()
             );
         }
         
@@ -169,6 +152,8 @@ trait lists {
                     ->setClass('fpcm-ui-input-articleid')
                     ->setText('COMMMENT_MOVE')
                     ->setIcon('clipboard')
+                    ->setLabelTypeFloat()
+                    ->setPlaceholder('COMMMENT_MOVE')
             );
         }
 
@@ -194,11 +179,10 @@ trait lists {
     {
         return [
             (new \fpcm\components\dataView\column('select', (new \fpcm\view\helper\checkbox('fpcm-select-all'))->setClass('fpcm-select-all')))->setSize(1)->setAlign('center'),
-            (new \fpcm\components\dataView\column('button', ''))->setSize(2),
-            (new \fpcm\components\dataView\column('name', 'COMMMENT_AUTHOR'))->setSize(2),
-            (new \fpcm\components\dataView\column('email', 'GLOBAL_EMAIL'))->setSize(3),
-            (new \fpcm\components\dataView\column('create', 'COMMMENT_CREATEDATE'))->setSize(3)->setAlign('center'),
-            (new \fpcm\components\dataView\column('metadata', ''))->setAlign('center'),
+            (new \fpcm\components\dataView\column('button', ''))->setSize(2)->setAlign('center'),
+            (new \fpcm\components\dataView\column('name', 'COMMMENT_AUTHOR'))->setSize(5),
+            (new \fpcm\components\dataView\column('create', 'COMMMENT_CREATEDATE'))->setAlign('center')->setSize(2),
+            (new \fpcm\components\dataView\column('metadata', ''))->setAlign('center')->setSize(2)
         ];
     }
 
@@ -242,7 +226,8 @@ trait lists {
         $this->page          = $this->request->getPage();
         $this->listShowStart = \fpcm\classes\tools::getPageOffset($this->page, $this->config->articles_acp_limit);
 
-        if ($this->getMode() < 2) {
+        $isList = $this->getMode() < 2;
+        if ($isList) {
             $this->conditions->limit = [$this->config->articles_acp_limit, $this->listShowStart];
         }
         
@@ -278,19 +263,19 @@ trait lists {
             return true;
         }
 
+        $showDeleteButton = $this->permissions?->comment?->delete;
+        
         /* @var $comment \fpcm\model\comments\comment */
         foreach ($comments as $commentId => $comment) {
 
-            $buttons = (new \fpcm\view\helper\controlgroup('itemactions'.$commentId))
-                        ->addItem( (new \fpcm\view\helper\openButton('commentfe'))->setUrlbyObject($comment)->setTarget('_blank') )
-                        ->addItem( (new \fpcm\view\helper\editButton('commentedit'))->setUrlbyObject($comment, '&mode=' . $this->getMode())->setClass('fpcm-ui-commentlist-link') );
+            $buttons = (new \fpcm\view\helper\controlgroup('itemactions'.$commentId));
+            $this->getExtLineMenu($buttons, $comment, $isList, $showDeleteButton);
 
             $this->dataView->addRow(
                 new \fpcm\components\dataView\row([
                 new \fpcm\components\dataView\rowCol('select', (new \fpcm\view\helper\checkbox('ids[' . ($comment->getEditPermission() ? '' : 'ro') . ']', 'chbx' . $commentId))->setClass('fpcm-ui-list-checkbox')->setValue($commentId)->setReadonly(!$comment->getEditPermission()), '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
                 new \fpcm\components\dataView\rowCol('button', $buttons, 'fpcm-ui-dataview-align-center fpcm-ui-font-small', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
-                new \fpcm\components\dataView\rowCol('name', $comment->getName(), 'fpcm-ui-ellipsis'),
-                new \fpcm\components\dataView\rowCol('email', $comment->getEmail(), 'fpcm-ui-ellipsis'),
+                new \fpcm\components\dataView\rowCol('name', sprintf('<strong>%s</strong><span class="fpcm ui-font-small d-block">%s %s</span>', $comment->getName(), (new \fpcm\view\helper\icon('at'))->setText('GLOBAL_EMAIL'), $comment->getEmail()), 'fpcm-ui-ellipsis'),
                 new \fpcm\components\dataView\rowCol('create', new \fpcm\view\helper\dateText($comment->getCreatetime()), 'fpcm-ui-ellipsis'),
                 new \fpcm\components\dataView\rowCol('metadata', implode('', $comment->getMetaDataStatusIcons()), 'fs-5', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
             ]));
@@ -306,5 +291,53 @@ trait lists {
     protected function getMode()
     {
         return 1;
+    }
+    
+    private function getExtLineMenu(
+        \fpcm\view\helper\controlgroup &$buttons,
+        \fpcm\model\comments\comment $comment,
+        bool $isList,
+        bool $showDeleteButton,
+    ) : bool
+    {
+
+        $extMenuOptions = [];
+        
+        $buttons->addItem( (new \fpcm\view\helper\openButton('commentfe'))->setUrlbyObject($comment)->setTarget('_blank') );
+        $buttons->addItem( (new \fpcm\view\helper\editButton('commentedit'))->setUrlbyObject($comment, '&mode=' . $this->getMode())->setClass('fpcm-ui-commentlist-link') );
+        
+
+        if ($isList) {
+            $extMenuOptions[] = (new \fpcm\view\helper\dropdownItem('article'.$comment->getId()))->setUrl( \fpcm\classes\tools::getControllerLink('articles/edit', ['id' => $comment->getArticleid()]) )->setText('COMMENTS_EDITARTICLE')->setIcon('book')->setIconOnly();
+        }
+
+        if ($comment->getEmail()) {
+            $extMenuOptions[] = (new \fpcm\view\helper\dropdownItem('commentmail'.$comment->getId()))->setUrl('mailto:'.$comment->getEmail())->setIcon('envelope')->setIconOnly()->setText('GLOBAL_WRITEMAIL');
+        }
+        
+        if ($showDeleteButton) {
+            $extMenuOptions[] = new \fpcm\view\helper\dropdownSpacer();
+            $extMenuOptions[] = (new \fpcm\view\helper\dropdownItem('ddDelete'.$comment->getId()))
+                                ->setIcon('trash')
+                                ->setText('GLOBAL_DELETE')
+                                ->setClass('fpcm-ui-button-delete fpcm-ui-button-delete-comment-single')
+                                ->setData(['comid' => $comment->getId()]);
+        }        
+        
+        if (!count($extMenuOptions)) {
+            return true;
+        }
+
+        $buttons->addItem((new \fpcm\view\helper\dropdown('commentbuttonsdd' . $comment->getId()))
+            ->setIcon('bars')
+            ->setIconOnly()
+            ->setText('')
+            ->setSelected('-1')
+            ->setClass('d-inline-block')
+            ->setOptions($extMenuOptions)
+        );        
+        
+        
+        return true;
     }
 }

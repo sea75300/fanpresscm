@@ -12,13 +12,14 @@ namespace fpcm\model\articles;
  * 
  * @package fpcm\model\articles
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 class article extends \fpcm\model\abstracts\dataset
 implements \fpcm\model\interfaces\isCsvImportable {
 
-    use \fpcm\model\traits\autoTable;
+    use \fpcm\model\traits\autoTable,
+        \fpcm\model\traits\statusIcons;
     
     /**
      * Cache-Name für einzelnen Artikel
@@ -160,6 +161,13 @@ implements \fpcm\model\interfaces\isCsvImportable {
      * @since 3.5
      */
     protected $inedit = '';
+
+    /**
+     * Article url
+     * @var string
+     * @since 5.1-dev
+     */
+    protected $url = '';
 
     /**
      * richtiges Löschen erzwingen
@@ -551,6 +559,27 @@ implements \fpcm\model\interfaces\isCsvImportable {
     }
 
     /**
+     * Get article URL string
+     * @return string
+     * @since 5.1-dev
+     */
+    public function getUrl(): string
+    {
+        return $this->url;
+    }
+
+    /**
+     * Get article URL string
+     * @param string $url
+     * @return void
+     * @since 5.1-dev
+     */
+    public function setUrl(string $url): void
+    {
+        $this->url = $this->cleanupUrlString($url);
+    }
+
+    /**
      * Setzt Status, ob Artikel bearbeitet werden kann
      * @param bool $editPermission
      * @since 3.3
@@ -603,9 +632,19 @@ implements \fpcm\model\interfaces\isCsvImportable {
      * schönen URL-Pfad zurückgeben
      * @return string
      */
-    public function getArticleNicePath()
+    public function getArticleNicePath() : string
     {
-        return rawurlencode($this->id . '-' . str_replace(array(' ', '---'), '-', strtolower($this->title)));
+        return rawurlencode($this->id . '-' . $this->getNicePathString() );
+    }
+
+    /**
+     * Get nice article path string
+     * @return string
+     * @since 5.1-dev
+     */
+    public function getNicePathString() : string
+    {
+        return $this->cleanupUrlString( trim($this->url) ? $this->url : $this->title );
     }
     
     /**
@@ -652,7 +691,7 @@ implements \fpcm\model\interfaces\isCsvImportable {
             'encoded' => $elLinkEncode,
             'active' => $external,
             'default' => true,
-        ]);
+        ])->getData();
 
         if (!$external) {
             return $elLink;
@@ -700,6 +739,7 @@ implements \fpcm\model\interfaces\isCsvImportable {
         }
 
         $this->deleteRevisions();
+        (new articleCategory($this->id, 0))->deleteByArticle();
 
         $commentList = new \fpcm\model\comments\commentList();
         $commentList->deleteCommentsByArticle($this->id);
@@ -727,7 +767,7 @@ implements \fpcm\model\interfaces\isCsvImportable {
     public function createRevision($timer = 0)
     {
         $content = $this->getPreparedSaveParams();
-        $content = $this->events->trigger('revision\create', $content);
+        $content = $this->events->trigger('revision\create', $content)->getData();
 
         if (!$timer) {
             $timer = $this->changetime;
@@ -770,7 +810,7 @@ implements \fpcm\model\interfaces\isCsvImportable {
         if (!is_array($revisionSets) || !count($revisionSets)) {
             return [];
         }
-        $revisionFiles = $this->events->trigger('revision\getBefore', $revisionSets);
+        $revisionFiles = $this->events->trigger('revision\getBefore', $revisionSets)->getData();
 
         $revisions = [];
         foreach ($revisionSets as $revisionSet) {
@@ -788,7 +828,7 @@ implements \fpcm\model\interfaces\isCsvImportable {
             $revisions[$revTime] = $full ? $revData : $revData['title'];
         }
 
-        $revisions = $this->events->trigger('revision\getAfter', array('full' => $full, 'revisions' => $revisions))['revisions'];
+        $revisions = $this->events->trigger('revision\getAfter', array('full' => $full, 'revisions' => $revisions))->getData()['revisions'];
 
         return $revisions;
     }
@@ -815,7 +855,7 @@ implements \fpcm\model\interfaces\isCsvImportable {
             return false;
         }
 
-        $revision = $this->events->trigger('revision\get', $revision);
+        $revision = $this->events->trigger('revision\get', $revision)->getData();
         foreach ($revision->getContent() as $key => $value) {
             $this->$key = $value;
         }
@@ -836,6 +876,24 @@ implements \fpcm\model\interfaces\isCsvImportable {
 
         $this->getRevision($revisionTime);
         return $this->update();
+    }
+
+    /**
+     * 
+     * @return bool
+     * @since 5.1.0-a1
+     */
+    public function pushcategories() : bool
+    {
+        $categories = $this->getCategories();
+        
+        if (!(new articleCategory($this->id, 0))->deleteByArticle()) {
+            trigger_error(sprintf('Error while clean up article category assignement table for article %s', $this->id));
+            return true;
+        }
+
+        array_walk($categories, fn($cid) => (new articleCategory($this->id, (int) $cid))->save() );
+        return true;
     }
 
     /**
@@ -868,7 +926,7 @@ implements \fpcm\model\interfaces\isCsvImportable {
         }
 
         /* @var $eventResult article */
-        $eventResult = $this->events->trigger('article\createTweet', $this);
+        $eventResult = $this->events->trigger('article\createTweet', $this)->getData();
 
         $author = new \fpcm\model\users\author($eventResult->getCreateuser());
 
@@ -956,10 +1014,10 @@ implements \fpcm\model\interfaces\isCsvImportable {
         return [
             $this->getStatusIconPinned(),
             $showDraftStatus ? $this->getStatusIconDraft() : '',
-            $this->getStatusIconPostponed(),
-            $this->getStatusIconApproval(),
             $showCommentsStatus ? $this->getStatusIconComments() : '',
+            $this->getStatusIconApproval(),
             $showArchivedStatus ? $this->getStatusIconArchive() : '',
+            $this->getStatusIconPostponed(),
         ];
     }
 
@@ -969,10 +1027,10 @@ implements \fpcm\model\interfaces\isCsvImportable {
      */
     public function getStatusIconPinned()
     {
-        return (new \fpcm\view\helper\icon('thumbtack fa-rotate-90 fa-inverse'))
-                        ->setClass('fpcm-ui-editor-metainfo fpcm-ui-editor-metainfo-pinned fpcm-ui-status-' . $this->getPinned())
+        return $this->getStatusColor((new \fpcm\view\helper\icon('thumbtack fa-rotate-90 fa-inverse'))
+                        ->setClass('fpcm-ui-editor-metainfo fpcm-ui-editor-metainfo-pinned')
                         ->setText('EDITOR_STATUS_PINNED')
-                        ->setStack('square');
+                        ->setStack('square'), $this->getPinned());
     }
 
     /**
@@ -981,10 +1039,10 @@ implements \fpcm\model\interfaces\isCsvImportable {
      */
     public function getStatusIconDraft()
     {
-        return (new \fpcm\view\helper\icon('file-alt fa-inverse', 'far'))
-                        ->setClass('fpcm-ui-editor-metainfo fpcm-ui-editor-metainfo-draft fpcm-ui-status-' . $this->getDraft())
+        return $this->getStatusColor((new \fpcm\view\helper\icon('file-alt fa-inverse', 'far'))
+                        ->setClass('fpcm-ui-editor-metainfo fpcm-ui-editor-metainfo-draft')
                         ->setText('EDITOR_STATUS_DRAFT')
-                        ->setStack('square');
+                        ->setStack('square'), $this->getDraft());
     }
 
     /**
@@ -993,10 +1051,10 @@ implements \fpcm\model\interfaces\isCsvImportable {
      */
     public function getStatusIconPostponed()
     {
-        return (new \fpcm\view\helper\icon('calendar-plus fa-inverse'))
-                        ->setClass('fpcm-ui-editor-metainfo fpcm-ui-editor-metainfo-postponed fpcm-ui-status-' . $this->getPostponed())
+        return $this->getStatusColor((new \fpcm\view\helper\icon('calendar-plus fa-inverse'))
+                        ->setClass('fpcm-ui-editor-metainfo fpcm-ui-editor-metainfo-postponed')
                         ->setText($this->language->translate('EDITOR_STATUS_POSTPONETO') . ( $this->getPostponed() ? ' ' . new \fpcm\view\helper\dateText($this->getCreatetime()) : ''))
-                        ->setStack('square');
+                        ->setStack('square'), $this->getPostponed());
     }
 
     /**
@@ -1005,10 +1063,10 @@ implements \fpcm\model\interfaces\isCsvImportable {
      */
     public function getStatusIconApproval()
     {
-        return (new \fpcm\view\helper\icon('thumbs-up fa-inverse', 'far'))
-                        ->setClass('fpcm-ui-editor-metainfo fpcm-ui-editor-metainfo-approval fpcm-ui-status-' . $this->getApproval())
+        return $this->getStatusColor((new \fpcm\view\helper\icon('thumbs-up fa-inverse', 'far'))
+                        ->setClass('fpcm-ui-editor-metainfo fpcm-ui-editor-metainfo-approval')
                         ->setText('EDITOR_STATUS_APPROVAL')
-                        ->setStack('square');
+                        ->setStack('square'), $this->getApproval());
     }
 
     /**
@@ -1017,10 +1075,10 @@ implements \fpcm\model\interfaces\isCsvImportable {
      */
     public function getStatusIconComments()
     {
-        return (new \fpcm\view\helper\icon('comments fa-inverse', 'far'))
-                        ->setClass('fpcm-ui-editor-metainfo fpcm-ui-editor-metainfo-comments fpcm-ui-status-' . $this->getComments())
+        return $this->getStatusColor((new \fpcm\view\helper\icon('comments fa-inverse', 'far'))
+                        ->setClass('fpcm-ui-editor-metainfo fpcm-ui-editor-metainfo-comments')
                         ->setText('EDITOR_STATUS_COMMENTS')
-                        ->setStack('square');
+                        ->setStack('square'), $this->getComments());
     }
 
     /**
@@ -1029,10 +1087,22 @@ implements \fpcm\model\interfaces\isCsvImportable {
      */
     public function getStatusIconArchive()
     {
-        return (new \fpcm\view\helper\icon('archive fa-inverse'))
-                        ->setClass('fpcm-ui-editor-metainfo fpcm-ui-editor-metainfo-archived fpcm-ui-status-' . $this->getArchived())
+        return $this->getStatusColor((new \fpcm\view\helper\icon('archive fa-inverse'))
+                        ->setClass('fpcm-ui-editor-metainfo fpcm-ui-editor-metainfo-archived')
                         ->setText('EDITOR_STATUS_ARCHIVE')
-                        ->setStack('square');
+                        ->setStack('square'), $this->getArchived());
+    }
+
+    /**
+     * Returns archive status icon
+     * @return \fpcm\view\helper\icon
+     */
+    public function getStatusIconTwitter()
+    {
+        return $this->getStatusColor((new \fpcm\view\helper\icon('twitter fab fa-inverse'))
+                        ->setClass('fpcm-ui-editor-metainfo fpcm-ui-editor-metainfo-twitter')
+                        ->setText('EDITOR_TWEET_ENABLED')
+                        ->setStack('square'), $this->tweetCreationEnabled());
     }
 
     /**
@@ -1083,7 +1153,7 @@ implements \fpcm\model\interfaces\isCsvImportable {
 
         $obj->setPinned($data['pinned'] ?? 0);
         $obj->setDraft($data['draft'] ?? 0);
-        $obj->setComments($data['comments'] ?? 0);
+        $obj->setComments($data['comments'] ?? $this->config->comments_default_active);
         $obj->setApproval($data['approval'] ?? 0);
         $obj->setImagepath($data['imagepath'] ?? '');
         $obj->setSources($data['sources'] ?? '');
@@ -1160,6 +1230,16 @@ implements \fpcm\model\interfaces\isCsvImportable {
     }
 
     /**
+     * Cleanup article url string
+     * @param string $str
+     * @return string
+     */
+    private function cleanupUrlString(string $str) : string
+    {
+        return rtrim(str_replace(['----', '--'], ['-', '-'], preg_replace( '/[\s\\\\\/\.\!\?\(\)\[\]]/i', '-', strtolower($str) ) ), '-');
+    }
+
+    /**
      * Returns event base string
      * @see \fpcm\model\abstracts\dataset::getEventModule
      * @return string
@@ -1178,6 +1258,7 @@ implements \fpcm\model\interfaces\isCsvImportable {
      */
     protected function afterSaveInternal(): bool
     {
+        $this->pushcategories();
         $this->cleanupCaches();
         $this->createTweet();
         return true;
@@ -1191,6 +1272,7 @@ implements \fpcm\model\interfaces\isCsvImportable {
      */
     protected function afterUpdateInternal(): bool
     {
+        $this->pushcategories();
         $this->cleanupCaches();
         $this->init();
         $this->createTweet();
@@ -1209,13 +1291,18 @@ implements \fpcm\model\interfaces\isCsvImportable {
             return true;
         }
         
+        $sources = preg_split('/([,;]\ )/', $sources);
+        if (!is_array($sources)) {
+            $sources = [];
+        }
+
         $fopt = new \fpcm\model\files\fileOption(self::SOURCES_AUTOCOMPLETE);
         $data = $fopt->read();
         if (!is_array($data)) {
             $data = [];
         }
 
-        return $fopt->write(array_slice(array_unique(array_merge($data, [$sources])), 0, FPCM_ARTICLES_SOURCES_AUTOCOMPLETE));
+        return $fopt->write(array_slice(array_unique(array_merge($data, $sources)), 0, FPCM_ARTICLES_SOURCES_AUTOCOMPLETE));
     }
 
     /**

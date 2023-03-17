@@ -18,6 +18,9 @@ namespace fpcm\module;
  * @property string $version Module version
  * @property string $basePath Module base path
  * @property string $help Help item
+ * @property string $support Support link
+ * @property string $licence License name, default value is GPLv3
+ * @property string $licenceUrl License fiel url
  * @property bool $useDataFolder Use data folder
  * @property bool $removeDataFolder Removce data folder
  * @property array $requirements Module requirements array
@@ -26,7 +29,7 @@ namespace fpcm\module;
  * @property array $crons Module cronjob data
  * 
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\module
  */
@@ -61,7 +64,7 @@ class config implements \JsonSerializable {
      */
     public function __get($name)
     {
-        $return = isset($this->data[$name]) ? $this->data[$name] : null;
+        $return = $this->data[$name] ?? null;
 
         return  is_string($return) && substr($return, 0, 1) === '{' && substr($return, 0, -1) === '}'
                 ? json_decode($return)
@@ -84,9 +87,7 @@ class config implements \JsonSerializable {
      * @return array
      * @ignore
      */
-    
-    #[\ReturnTypeWillChange]
-    public function jsonSerialize()
+    public function jsonSerialize(): mixed
     {
         $return = $this->data;
         unset($return['basePath'], $return['key']);

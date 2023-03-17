@@ -8,7 +8,8 @@ namespace fpcm\controller\ajax\modules;
  * @copyright (c) 2011-2021, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class moduleInfo extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
+class moduleInfo extends \fpcm\controller\abstracts\ajaxController
+{
 
     /**
      *
@@ -90,6 +91,10 @@ class moduleInfo extends \fpcm\controller\abstracts\ajaxController implements \f
         $this->view->assign('moduleName', $config->name);
         $this->view->assign('moduleAuthor', $config->author);
         $this->view->assign('moduleLink', $config->link);
+        $this->view->assign('moduleHelp', $config->help);
+        $this->view->assign('moduleLicence', $config->licence ?? 'GPLv3');
+        $this->view->assign('moduleLicenceUrl', $config->licenceUrl ?? 'https://www.gnu.org/licenses/gpl-3.0.html');
+        $this->view->assign('moduleSupport', $config->support ?? $config->link);
         $this->view->assign('moduleSysVer', $config->requirements['system']);
         $this->view->assign('modulePhpVer', $config->requirements['php']);
         $this->view->assign('moduleDescription', $config->description);
@@ -101,6 +106,11 @@ class moduleInfo extends \fpcm\controller\abstracts\ajaxController implements \f
         $this->view->assign('moduleInstall', $this->module->isInstallable() && !$this->module->isInstalled());
         $this->view->assign('moduleHash', $data['hash'] ?? false);
         $this->view->assign('moduleVersion', $data['version'] ?? '');
+        
+        $this->view->assign('statusInstalled', $this->module->isInstalled() );
+        $this->view->assign('statusInstallable', $this->module->isInstallable() );
+        $this->view->assign('statusFilesList', $this->module->hasFilesListFile() );
+        $this->view->assign('statusWritable', $this->module->isWritable() );
 
         $this->view->render();
     }

@@ -12,18 +12,12 @@ namespace fpcm\view\helper;
  * 
  * @package fpcm\view\helper
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 class linkButton extends button {
     
     use traits\urlHelper;
-
-    /**
-     * Link URL target
-     * @var string
-     */
-    protected $target = '';
 
     /**
      * rel-Attribute
@@ -78,7 +72,7 @@ class linkButton extends button {
         
         if ($this->readonly) {
             
-            $this->class .= ' fpcm-ui-readonly';
+            $this->class .= ' disabled';
             return implode(' ', [
                 "<a href=\"#\"",
                 "id=\"{$this->id}\"",
@@ -90,7 +84,7 @@ class linkButton extends button {
 
         return implode(' ', [
             "<a href=\"{$this->url}\"",
-            $this->target ? "target=\"{$this->target}\"" : '',
+            $this->getTargetString(),
             "id=\"{$this->id}\"",
             $this->getClassString(),
             $this->getRelString(),
@@ -98,17 +92,6 @@ class linkButton extends button {
             ($this->iconOnly ? "title=\"{$this->text}\">{$this->getIconString()}" : ">{$icon}{$this->getDescriptionTextString()}"),
             '</a>'
         ]);
-    }
-
-    /**
-     * Set link target
-     * @param string $target
-     * @return $this
-     */
-    public function setTarget($target)
-    {
-        $this->target = $target;
-        return $this;
     }
 
     /**

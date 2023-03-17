@@ -16,7 +16,8 @@ namespace fpcm\controller\ajax\common;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @since 4.4
  */
-class clearTrash extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
+class clearTrash extends \fpcm\controller\abstracts\ajaxController
+{
 
     /**
      * 

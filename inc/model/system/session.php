@@ -12,12 +12,13 @@ namespace fpcm\model\system;
  * 
  * @package fpcm\model\system
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-final class session extends \fpcm\model\abstracts\dataset {
+final class session extends \fpcm\model\abstracts\dataset implements \fpcm\model\interfaces\isObjectInstancable {
 
-    use \fpcm\model\traits\eventModuleEmpty;
+    use \fpcm\model\traits\eventModuleEmpty,
+        \fpcm\model\traits\getObjectInstance;
 
     /**
      * Session-ID
@@ -296,16 +297,10 @@ final class session extends \fpcm\model\abstracts\dataset {
      */
     public function save()
     {
-        if ($this->dbcon->insert(
-                $this->table, $this->events->trigger(
-                    'session\create', $this->getPreparedSaveParams()
-                )
-            )
-        ) {
-            return true;
-        }
-
-        return false;
+        return $this->dbcon->insert(
+            $this->table,
+            $this->events->trigger('session\create', $this->getPreparedSaveParams())->getData()
+        ) ? true : false;
     }
 
     /**
@@ -318,7 +313,7 @@ final class session extends \fpcm\model\abstracts\dataset {
         $fields = array_keys($params);
 
         $params[] = $this->getSessionId();
-        $params = $this->events->trigger('session\update', $params);
+        $params = $this->events->trigger('session\update', $params)->getData();
 
         $return = false;
         if ($this->dbcon->update($this->table, $fields, array_values($params), 'sessionid = ?')) {
@@ -546,6 +541,14 @@ final class session extends \fpcm\model\abstracts\dataset {
         return \fpcm\classes\tools::getHash(bin2hex(random_bytes(64)));
     }
 
-}
+    /**
+     * Returns config class instance
+     * @return session
+     * @since 5.1.a-a1
+     */
+    public static function getInstance()
+    {
+        return self::getObjectInstance();
+    }
 
-?>
+}

@@ -12,7 +12,7 @@ namespace fpcm\view\helper;
  * 
  * @package fpcm\view\helper
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 abstract class input extends helper {
@@ -65,12 +65,12 @@ abstract class input extends helper {
             $this->setDisplaySizesDefault();
         }
 
-        $isFloating = $this->labelType === self::LABEL_TYPE_FLOATING;
+        $isFloating = $this->isFloating();
 
         $wrapperStart = '';
         $wrapperEnd = '';
 
-        $wrapperStart = "<div class=\"{$this->labelType} mb-3\">";
+        $wrapperStart = "<div class=\"{$this->labelType} {$this->bottomSpace}\">";
         $wrapperEnd = "</div>";
         
         $mlstr = $this->maxlenght ? "maxlength=\"{$this->maxlenght}\"" : '';

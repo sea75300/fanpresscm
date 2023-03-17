@@ -12,7 +12,7 @@ namespace fpcm\controller\traits\common;
  * 
  * @package fpcm\controller\traits\common
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2021, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 trait simpleEditForm {
@@ -24,7 +24,16 @@ trait simpleEditForm {
      */
     protected function assignFields(array $fields)
     {
-        $this->view->assign('formFields', $fields);
+        $res = new \fpcm\events\view\extendFieldsResult;
+        $res->fields = $fields;
+        
+        $event = $this->events->trigger('view\extendFields', $res);
+        if (!$event->getSuccessed() || !$event->getContinue()) {
+            $this->view->assign('formFields', []);
+            return true;
+        }
+
+        $this->view->assign('formFields', $event->getData());
         return true;
     }
 

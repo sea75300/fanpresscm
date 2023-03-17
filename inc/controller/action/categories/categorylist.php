@@ -10,12 +10,11 @@ namespace fpcm\controller\action\categories;
 /**
  * Category list controller
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2019, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class categorylist extends \fpcm\controller\abstracts\controller
-implements \fpcm\controller\interfaces\isAccessible,
-            \fpcm\controller\interfaces\requestFunctions {
+class categorylist extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\requestFunctions
+{
 
     use \fpcm\controller\traits\common\dataView,
         \fpcm\controller\traits\theme\nav\categories;
@@ -83,9 +82,9 @@ implements \fpcm\controller\interfaces\isAccessible,
         $this->view->addJsFiles(['system/categories.js']);
 
         $this->view->addFromLibrary(
-            'selectize_js',
-            [ 'dist/js/selectize.min.js' ],
-            [ 'dist/css/selectize.default.css' ]
+            'tom-select_js',
+            [ 'tom-select.min.js' ],
+            [ 'tom-select.bootstrap5.min.css' ]
         ); 
 
         $this->view->addJsLangVars(['CATEGORIES_ROLLS', 'SAVE_FAILED_CATEGORY']);
@@ -95,7 +94,7 @@ implements \fpcm\controller\interfaces\isAccessible,
 
         $this->view->addButtons([
             (new \fpcm\view\helper\linkButton('addnew'))->setUrl(\fpcm\classes\tools::getFullControllerLink('categories/add'))->setText('GLOBAL_NEW')->setIcon('tag'),
-            (new \fpcm\view\helper\button('massEdit', 'massEdit'))->setText('GLOBAL_EDIT')->setIcon('edit')->setIconOnly(true),
+            (new \fpcm\view\helper\button('massEdit', 'massEdit'))->setText('GLOBAL_EDIT')->setIcon('edit')->setIconOnly(),
             (new \fpcm\view\helper\deleteButton('delete'))->setClass('fpcm ui-button-confirm')
         ]);
 
@@ -108,7 +107,9 @@ implements \fpcm\controller\interfaces\isAccessible,
                         ->setText('')
                         ->setType('url')
                         ->setText('CATEGORIES_ICON_PATH')
-                        ->setIcon('link'),
+                        ->setIcon('link')
+                        ->setLabelTypeFloat()
+                        ->setPlaceholder('CATEGORIES_ICON_PATH'),
                     ''
                 ),
                 'fieldRolls' => (string) new \fpcm\components\masseditField(
@@ -116,8 +117,7 @@ implements \fpcm\controller\interfaces\isAccessible,
                         ->setOptions($rolls)
                         ->setIsMultiple(true)
                         ->setSelected([])
-                        ->setClass('col-12 col-sm-6 col-md-8')
-                        ->setText('CATEGORIES_ROLLS')
+                        ->setText('')
                         ->setIcon('users'),
                 ),
             ],
@@ -144,7 +144,7 @@ implements \fpcm\controller\interfaces\isAccessible,
     protected function getDataViewCols()
     {
         return [
-            (new \fpcm\components\dataView\column('select', ''))->setSize(1)->setAlign('center'),
+            (new \fpcm\components\dataView\column('select', (new \fpcm\view\helper\checkbox('fpcm-select-all'))->setClass('fpcm-select-all')))->setSize(1)->setAlign('center'),
             (new \fpcm\components\dataView\column('button', ''))->setSize(1)->setAlign('center'),
             (new \fpcm\components\dataView\column('name', 'CATEGORIES_NAME'))->setSize(3),
             (new \fpcm\components\dataView\column('groups', 'CATEGORIES_ROLLS'))->setSize(3),

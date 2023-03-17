@@ -12,10 +12,11 @@ namespace fpcm\controller\ajax\articles;
  * 
  * @package fpcm\controller\ajax\articles
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2019, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class listnewtweets extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
+class listnewtweets extends \fpcm\controller\abstracts\ajaxController
+{
 
     /**
      * Artikel-Listen-objekt
@@ -28,6 +29,18 @@ class listnewtweets extends \fpcm\controller\abstracts\ajaxController implements
      * @var array
      */
     protected $articleItems;
+
+    /**
+     * 
+     * @var array
+     */
+    protected $returnData;
+
+    /**
+     * 
+     * @var string
+     */
+    protected $tpl;
 
     /**
      * 
@@ -45,7 +58,7 @@ class listnewtweets extends \fpcm\controller\abstracts\ajaxController implements
     public function request()
     {
         $this->returnData = ['notice' => 0, 'error' => 0];
-        
+
         if (!(new \fpcm\model\system\twitter())->checkRequirements()) {
             $this->response->setReturnData($this->returnData)->fetch();
         }
@@ -61,6 +74,8 @@ class listnewtweets extends \fpcm\controller\abstracts\ajaxController implements
             $this->response->setReturnData($this->returnData)->fetch();
         }
 
+        $this->tpl = $this->request->fromPOST('text');
+        
         $conditions = new \fpcm\model\articles\search();
         $conditions->ids = array_map('intval', $ids);
 
@@ -82,7 +97,12 @@ class listnewtweets extends \fpcm\controller\abstracts\ajaxController implements
         foreach ($this->articleItems as $article) {
             
             $article->enableTweetCreation(true);
-            if (!$article->createTweet()) {
+            
+            if ($this->tpl) {
+                $article->setTweetOverride($this->tpl);
+            }
+
+            if (!$article->createTweet(true)) {
                 $resError[] = $article->getTitle();
                 continue;
             }

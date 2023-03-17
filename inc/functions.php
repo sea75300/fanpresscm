@@ -3,7 +3,7 @@
 /**
  * Base functions
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 spl_autoload_register(function($class)
@@ -103,7 +103,7 @@ set_error_handler(function($ecode, $etext, $efile, $eline)
 
 set_exception_handler(function(Throwable $ex) {
 
-    print '<pre>----- FATAL ERROR: Loading terminated :-S'.PHP_EOL.'Detailed error message is available within system error log.<pre>';
+    printf("<pre>----- FATAL ERROR: Loading terminated :-S\n\nDetailed error message is available within system error log.\n%s\n%s<pre>", $ex->getMessage(), $ex->getTraceAsString());
     
     $errorLog = dirname(__DIR__) . '/data/logs/phplog.txt';
 

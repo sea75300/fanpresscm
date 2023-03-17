@@ -39,7 +39,7 @@ trait tools {
      */
     final protected function getModuleKey() : string
     {
-        $class = get_class($this);
+        $class = static::class;
         $stack = \fpcm\classes\loader::stackPull('modulekeys');
         if (isset($stack[$class])) {
             return $stack[$class];

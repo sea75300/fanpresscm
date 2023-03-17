@@ -12,7 +12,7 @@ namespace fpcm\model\cli;
  * 
  * @package fpcm\model\cli
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @since 3.5.1
  */
@@ -24,12 +24,17 @@ final class cron extends \fpcm\model\abstracts\cli {
      */
     public function process()
     {
-                        
+
         if ($this->funcParams[0] === self::PARAM_LIST) {
             $this->listCrons();
             return true;
-        }        
+        }
 
+        
+        if ($this->funcParams[0] === self::PARAM_EXEC && $this->funcParams[1] === 'all') {
+            return $this->execAllCrons();
+        }
+        
         $cjClassName    = in_array($this->funcParams[0], [self::PARAM_EXEC, self::PARAM_RESET])
                         ? "\\fpcm\\model\\crons\\{$this->funcParams[1]}"
                         : false;
@@ -43,7 +48,7 @@ final class cron extends \fpcm\model\abstracts\cli {
         if (!is_a($cronjob, '\fpcm\model\abstracts\cron')) {
             $this->output("Cronjob class {$this->funcParams[1]} must be an instance of \"\fpcm\model\abstracts\cron\"!", true);
         }
-                        
+
         if ($this->funcParams[0] === self::PARAM_EXEC) {
             $this->execCron($cronjob);
         }
@@ -52,6 +57,28 @@ final class cron extends \fpcm\model\abstracts\cli {
             $this->resetCron($cronjob);
         }
 
+        return true;
+    }
+
+    /**
+     * Execute all executable cronjobs
+     * @return bool
+     */
+    private function execAllCrons()
+    {
+        $cronlist = new \fpcm\model\crons\cronlist();
+        $crons = $cronlist->getExecutableCrons();
+
+        if (!count($crons)) {
+            io::output('none;0');
+            return true;
+        }
+        
+        define('FPCM_CLI_OUTPUT_NONE', true);
+
+        array_map(function (\fpcm\model\abstracts\cron $cron) use ($cronlist) {
+            io::output(sprintf('%s;%u', $cron->getCronName(), $cronlist->registerCronAjax($cron)));
+        }, $crons);
         return true;
     }
 
@@ -121,6 +148,10 @@ final class cron extends \fpcm\model\abstracts\cli {
         $lines[] = '';
         $lines[] = '      --exec        executes given cronjob';
         $lines[] = '      --reset       resets cronjob running state data';
+        $lines[] = '';
+        $lines[] = '> Cronjob name param:';
+        $lines[] = '';
+        $lines[] = '        all         all executable cronjobs';
         return $lines;
     }
 

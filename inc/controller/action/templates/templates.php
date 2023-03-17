@@ -10,13 +10,12 @@ namespace fpcm\controller\action\templates;
 /**
  * Template controller
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
-class templates extends \fpcm\controller\abstracts\controller
-implements \fpcm\controller\interfaces\isAccessible,
-           \fpcm\controller\interfaces\requestFunctions {
+class templates extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\requestFunctions
+{
 
     use \fpcm\controller\traits\templates\edit;
 
@@ -255,7 +254,7 @@ implements \fpcm\controller\interfaces\isAccessible,
 
             $buttons = [
                 '<div class="fpcm-ui-controlgroup">',
-                (new \fpcm\view\helper\linkButton(uniqid()))->setText('GLOBAL_DOWNLOAD')->setUrl($templateFile->getFileUrl())->setIcon('download')->setIconOnly(true)->setTarget('_blank'),
+                (new \fpcm\view\helper\linkButton(uniqid()))->setText('GLOBAL_DOWNLOAD')->setUrl($templateFile->getFileUrl())->setIcon('download')->setIconOnly()->setTarget('_blank'),
                 (new \fpcm\view\helper\editButton(uniqid()))->setUrlbyObject($templateFile)->setClass('fpcm-articletemplates-edit'),
                 '</div>'
             ];

@@ -10,7 +10,7 @@ namespace fpcm\controller\action\pub;
 /**
  * Public article list controller
  * @article Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 class showall extends showcommon {
@@ -38,7 +38,7 @@ class showall extends showcommon {
             $res = str_replace('</ul>', '<li><a href="?module=fpcm/archive" class="fpcm-pub-pagination-archive">' . $this->language->translate('ARTICLES_PUBLIC_ARCHIVE') . '</a></li>' . PHP_EOL . '</ul>' . PHP_EOL, $res);
         }
 
-        $res = $this->events->trigger('pub\pageinationShowAll', $res);
+        $res = $this->events->trigger('pub\pageinationShowAll', $res)->getData();
 
         return $res ? $res : '';
     }
@@ -59,7 +59,7 @@ class showall extends showcommon {
         $this->assignConditions($countConditions);
 
         $parsed[] = $this->createPagination($this->articleList->countArticlesByCondition($countConditions));
-        return $this->events->trigger('pub\showAll', $parsed);
+        return $this->events->trigger('pub\showAll', $parsed)->getData();
     }
 
     protected function isArchive(): bool

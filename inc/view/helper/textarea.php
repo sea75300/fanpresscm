@@ -12,7 +12,7 @@ namespace fpcm\view\helper;
  * 
  * @package fpcm\view\helper
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 final class textarea extends input {
@@ -32,14 +32,66 @@ final class textarea extends input {
      */
     protected function getString()
     {
-        return  '<textarea '.$this->getNameIdString().' '.
-                $this->getClassString().' '.
-                $this->getReadonlyString().' '.
-                $this->getDataString().' '.">".
-                $this->value."</textarea>"
-        ;
+        
+        if (str_starts_with($this->text, 'LABEL_FIELD_')) {
+            $this->text = '';
+        }
+        
+        if ($this->text) {
+            
+            if (!trim($this->labelSize) && !trim($this->fieldSize)) {
+                $this->setDisplaySizesDefault();
+            }            
+
+            if ($this->labelType === self::LABEL_TYPE_FLOATING) {
+                
+                return sprintf(
+                    '<div class="%s %s"><textarea %s %s %s %s %s>%s</textarea><label title="%s" class="col-form-label pe-3 %s" for="%s">%s%s</label></div>',
+                    $this->labelType,
+                    $this->bottomSpace,
+                    $this->getNameIdString(),
+                    $this->getClassString(),
+                    $this->getReadonlyString(),
+                    $this->getPlaceholderString(),
+                    $this->getDataString(),
+                    $this->value,
+                    $this->text,
+                    $this->getLabelSize(),
+                    $this->id,
+                    $this->getIconString(),
+                    $this->getDescriptionTextString('ps-0'),
+                );                
+                
+            }
+            
+            
+            return sprintf(
+                '<div class="%s %s"><label title="%s" class="col-form-label pe-3 %s" for="%s">%s%s</label><textarea %s %s %s %s %s>%s</textarea></div>',
+                $this->labelType,
+                $this->bottomSpace,
+                $this->text,
+                $this->getLabelSize(),
+                $this->id,
+                $this->getIconString(),
+                $this->getDescriptionTextString(),
+                $this->getNameIdString(),
+                $this->getClassString(),
+                $this->getReadonlyString(),
+                $this->getPlaceholderString(),
+                $this->getDataString(),
+                $this->value
+            );
+        }
+        
+        return sprintf(
+            '<textarea %s %s %s %s %s>%s</textarea>',
+            $this->getNameIdString(),
+            $this->getClassString(),
+            $this->getReadonlyString(),
+            $this->getPlaceholderString(),
+            $this->getDataString(),
+            $this->value
+        );
     }
 
 }
-
-?>

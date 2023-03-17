@@ -18,7 +18,7 @@ use fpcm\model\packages\update;
 /**
  * System updater object
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\model\updater
  * 
@@ -111,7 +111,7 @@ final class system extends staticModel {
         $foptData = \Spyc::YAMLLoadString($this->fileOption->read());
         
         $currentVersionComplete = $this->config->system_version;
-        $currentVersionMinor    = implode('.', array_slice(explode('.', $currentVersionComplete), 0, 2));
+        $currentVersionMinor    = \fpcm\classes\tools::getMajorMinorReleaseFromString($currentVersionComplete);
 
         if ($this->config->system_updates_devcheck) {
             $currentVersionComplete .= '-'.self::PREFIX_DEV;

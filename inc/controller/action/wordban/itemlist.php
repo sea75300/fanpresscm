@@ -13,11 +13,12 @@ namespace fpcm\controller\action\wordban;
  * @copyright (c) 2011-2021, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class itemlist extends \fpcm\controller\abstracts\controller
-implements \fpcm\controller\interfaces\isAccessible,
-           \fpcm\controller\interfaces\requestFunctions {
+class itemlist extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\requestFunctions
+{
 
-    use \fpcm\controller\traits\common\dataView, \fpcm\controller\traits\theme\nav\texts;
+    use \fpcm\controller\traits\common\dataView,
+        \fpcm\controller\traits\theme\nav\texts,
+        \fpcm\model\traits\statusIcons;
 
     /**
      *
@@ -40,6 +41,7 @@ implements \fpcm\controller\interfaces\isAccessible,
             $this->view->addNoticeMessage('SAVE_SUCCESS_WORDBAN');
         }
 
+        $this->list = new \fpcm\model\wordban\items();
         return true;
     }
 
@@ -49,7 +51,6 @@ implements \fpcm\controller\interfaces\isAccessible,
      */
     public function process()
     {
-        $this->list = new \fpcm\model\wordban\items();
         $this->items = $this->list->getItems();
         $this->initDataView();
 
@@ -94,11 +95,11 @@ implements \fpcm\controller\interfaces\isAccessible,
      */
     protected function initDataViewRow($item)
     {
-        $metaData = [
-            (new \fpcm\view\helper\icon('search fa-inverse'))->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $item->getReplaceTxt())->setText('WORDBAN_REPLACETEXT')->setStack('square'),
-            (new \fpcm\view\helper\icon('thumbs-up fa-inverse', 'far'))->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $item->getLockArticle())->setText('WORDBAN_APPROVE_ARTICLE')->setStack('square'),
-            (new \fpcm\view\helper\icon('check-circle fa-inverse', 'far'))->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $item->getCommentApproval())->setText('WORDBAN_APPROVA_COMMENT')->setStack('square')
-        ];
+        $metaData   = [
+            $this->getStatusColor( (new \fpcm\view\helper\icon('search fa-inverse'))->setClass('fpcm-ui-editor-metainfo')->setText('WORDBAN_REPLACETEXT')->setStack('square'), $item->getReplaceTxt() ),
+            $this->getStatusColor( (new \fpcm\view\helper\icon('thumbs-up fa-inverse', 'far'))->setClass('fpcm-ui-editor-metainfo')->setText('WORDBAN_APPROVE_ARTICLE')->setStack('square'), $item->getLockArticle() ),
+            $this->getStatusColor( (new \fpcm\view\helper\icon('check-circle fa-inverse', 'far'))->setClass('fpcm-ui-editor-metainfo')->setText('WORDBAN_APPROVA_COMMENT')->setStack('square'), $item->getCommentApproval() ),
+        ];        
 
         return new \fpcm\components\dataView\row([
             new \fpcm\components\dataView\rowCol('select', (new \fpcm\view\helper\checkbox('ids[]', 'chbx' . $item->getId()))->setClass('fpcm-ui-list-checkbox')->setValue($item->getId()), '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),

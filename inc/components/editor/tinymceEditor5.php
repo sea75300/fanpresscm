@@ -106,7 +106,7 @@ class tinymceEditor5 extends articleEditor {
             'uploadFileRoot' => \fpcm\classes\dirs::getDataUrl(\fpcm\classes\dirs::DATA_UPLOADS, ''),
             'galleryThumbStr' => \fpcm\model\pubtemplates\article::GALLERY_TAG_THUMB,
             'editorInitFunction' => 'initTinyMce'
-        ]);
+        ])->getData();
     }
 
     /**
@@ -136,7 +136,7 @@ class tinymceEditor5 extends articleEditor {
             $editorStyles[] = array('title' => $class, 'value' => $class);
         }
 
-        return $this->events->trigger('editor\addStyles', $editorStyles);
+        return $this->events->trigger('editor\addStyles', $editorStyles)->getData();
     }
 
     /**
@@ -145,12 +145,18 @@ class tinymceEditor5 extends articleEditor {
      */
     public function getEditorLinks()
     {
-        $links = $this->events->trigger('editor\addLinks');
+        $links = $this->events->trigger('editor\addLinks')->getData();
         if (!is_array($links) || !count($links)) {
             return [];
         }
 
-        return json_decode(str_replace('label', 'title', json_encode($links)), false);
+        return array_map(function ($item) {
+            return [
+                'title' => $item['label'],
+                'value' => $item['value']
+            ];
+
+        }, $links);
     }
 
     /**

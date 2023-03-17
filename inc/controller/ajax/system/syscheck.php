@@ -12,10 +12,11 @@ namespace fpcm\controller\ajax\system;
  * 
  * @package fpcm\controller\ajax\system
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class syscheck extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
+class syscheck extends \fpcm\controller\abstracts\ajaxController
+{
 
     use \fpcm\controller\traits\system\syscheck;
 
@@ -101,7 +102,7 @@ class syscheck extends \fpcm\controller\abstracts\ajaxController implements \fpc
      */
     private function getCheckOptions()
     {
-        return $this->events->trigger('runSystemCheck', $this->getCheckOptionsSystem());
+        return $this->events->trigger('runSystemCheck', $this->getCheckOptionsSystem())->getData();
     }
 
     /**
@@ -149,7 +150,7 @@ class syscheck extends \fpcm\controller\abstracts\ajaxController implements \fpc
 
     public function processCli()
     {
-        return $this->events->trigger('runSystemCheck', $this->getCheckOptionsSystem());
+        return $this->events->trigger('runSystemCheck', $this->getCheckOptionsSystem())->getData();
     }
 
     public function getOptions() : array

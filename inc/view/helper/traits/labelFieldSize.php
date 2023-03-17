@@ -12,7 +12,7 @@ namespace fpcm\view\helper\traits;
  * 
  * @package fpcm\view\helper
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @since 4.3
  */
@@ -57,17 +57,6 @@ trait labelFieldSize {
     }
 
     /**
-     * Fetch field size classes
-     * @return string
-     * @deprecated 5.0-dev
-     */
-    public function getFieldSize()
-    {
-        trigger_error(__METHOD__ . ' is deprecated and is not in use anymore. The function will be removed in future releases.');
-        return $this->fieldSize;
-    }
-
-    /**
      * Sets default label and field sizes values,
      * Label: xs: 12, sm: 6, md: 5
      * Fields: xs: 12, sm: 6, md: 7
@@ -81,18 +70,11 @@ trait labelFieldSize {
     /**
      * Sets label and field sizes
      * @param array $label
-     * @param array $field (@deprecated 5.0-dev)
      * @return $this
      */
-    public function setDisplaySizes(array $label, array $field = [])
+    public function setDisplaySizes(array $label)
     {
-        $this->setLabelSize($label);
-        
-        if (count($field)) {
-            trigger_error(__METHOD__ . '::$field is deprecated and is not in use anymore. The parameter will be removed in future releases.');
-        }
-        
-        
+        $this->setLabelSize($label);        
         return $this;
     }
 
@@ -105,18 +87,6 @@ trait labelFieldSize {
     {
         array_walk($labelSizes, [$this, 'mapSizes']);
         $this->labelSize = ' '.implode(' ', $labelSizes);
-        return $this;
-    }
-
-    /**
-     * Sets field sizes only
-     * @param array $fieldSizes
-     * @return $this
-     * @deprecated 5.0-dev
-     */
-    public function setFieldSize(array $fieldSizes)
-    {
-        trigger_error(__METHOD__ . ' is deprecated and is not in use anymore. The function will be removed in future releases.');
         return $this;
     }
 

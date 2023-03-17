@@ -13,9 +13,8 @@ namespace fpcm\controller\action\system;
  * @copyright (c) 2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class langedit extends \fpcm\controller\abstracts\controller
-implements \fpcm\controller\interfaces\isAccessible,
-           \fpcm\controller\interfaces\requestFunctions {
+class langedit extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\requestFunctions
+{
 
     /**
      *
@@ -30,7 +29,7 @@ implements \fpcm\controller\interfaces\isAccessible,
 
     public function isAccessible(): bool
     {
-        return $this->permissions->system->options && FPCM_DEBUG && defined('FPCM_LANG_XML');
+        return $this->permissions->system->options && defined('FPCM_LANG_XML') && FPCM_LANG_XML;
     }
 
     public function request()

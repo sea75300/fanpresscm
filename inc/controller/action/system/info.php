@@ -10,7 +10,7 @@ namespace fpcm\controller\action\system;
 /**
  * Dashboard controller
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -33,7 +33,8 @@ class info extends \fpcm\controller\abstracts\controller {
     {
         $this->view->setViewVars([
             'content' => simplexml_load_string($this->language->getHelp())->xpath("/chapters/chapter[@ref=\"HL_HELP_SUPPORT\"]")[0],
-            'licence' => file_get_contents(\fpcm\classes\dirs::getFullDirPath('', 'licence.txt'))
+            'licence' => file_get_contents(\fpcm\classes\dirs::getFullDirPath('', 'licence.txt')),
+            'backdrop' => (new \fpcm\model\files\backdropImage(true))->getCredits()
         ]);
         
         $this->view->assign('tabContentClass', 'fpcm ui-background-white-50p');

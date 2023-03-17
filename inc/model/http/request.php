@@ -160,6 +160,10 @@ final class request {
             self::PARAM_REGEX => '/^([a-z0-9]+)\/{1}([a-z0-9]+)\/?([a-z0-9]*)/i'
         ]);
 
+        if (!is_array($value) || !isset($value[0])) {
+            return '';
+        }
+        
         unset($value[0]);
         if (isset($value[3]) && !trim($value[3])) {
             unset($value[3]);

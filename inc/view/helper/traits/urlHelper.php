@@ -12,7 +12,7 @@ namespace fpcm\view\helper\traits;
  * 
  * @package fpcm\view\helper
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 trait urlHelper {
@@ -22,6 +22,12 @@ trait urlHelper {
      * @var string
      */
     protected $url = '';
+
+    /**
+     * Link URL target
+     * @var string
+     */
+    protected $target = '';
 
     /**
      * Set link url
@@ -34,6 +40,29 @@ trait urlHelper {
         return $this;
     }
 
-}
+    /**
+     * Set link target
+     * @param string $target
+     * @return $this
+     */
+    public function setTarget($target)
+    {
+        $this->target = $target;
+        return $this;
+    }
 
-?>
+    /**
+     * 
+     * @return string
+     * @since 5.1.0-b4
+     */
+    protected function getTargetString() : string
+    {
+        if (!$this->target) {
+            return '';
+        }
+        
+        return sprintf('target="%s"', $this->target);
+    }
+
+}

@@ -12,7 +12,7 @@ namespace fpcm\model\permissions;
  * 
  * @package fpcm\model\permissions
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @since 4.4
  */
@@ -193,7 +193,7 @@ class permissions extends \fpcm\model\abstracts\dataset {
         }
 
         $params = $this->getPreparedSaveParams();
-        $params = $this->events->trigger($this->getEventName('update'), $params);
+        $params = $this->events->trigger($this->getEventName('update'), $params)->getData();
 
         $fields = array_keys($params);
 
@@ -378,55 +378,6 @@ class permissions extends \fpcm\model\abstracts\dataset {
     protected function getEventModule(): string
     {
         return 'permission';
-    }
-
-    /**
-     * Prüft ob Benutzer Berechtigung hat
-     * @param array $permissionArray
-     * @return bool
-     * @deprecated since version FPCM 4.4
-     */
-    final public function check(array $permissionArray) : bool
-    {
-        trigger_error('Method "check" or permissions objects of instance \\fpcm\\model\\system\\permissions are deprecated. Use \\fpcm\\model\\permissions\\permissions instead', E_USER_DEPRECATED);
-        if (!count($this->permissiondata)) {
-            return false;
-        }
-
-        $res = true;
-
-        $permissionArrayHash = \fpcm\classes\tools::getHash(json_encode($permissionArray));
-        if (isset($this->checkedData[$permissionArrayHash])) {
-            return $this->checkedData[$permissionArrayHash];
-        }
-
-        $permissionArray = \fpcm\classes\loader::getObject('\fpcm\events\events')->trigger('permission\check', $permissionArray);
-        foreach ($permissionArray as $module => $permission) {
-
-            if (!isset($this->permissiondata[$module])) {
-                trigger_error("No permissions available for module \"{$module}\" and roll \"{$this->rollid}\"!". PHP_EOL.
-                              "   > Permission-Debug: ".PHP_EOL.(is_array($permission) ? implode(PHP_EOL, $permission) : $permission) );
-                return false;
-            }
-
-            $check = false;
-            if (is_array($permission)) {
-
-                foreach ($permission as $permissionItem) {
-                    $check = isset($this->permissiondata[$module][$permissionItem]) ? $this->permissiondata[$module][$permissionItem] : false;
-                    if ($check) {
-                        break;
-                    }
-                }
-            } else {
-                $check = isset($this->permissiondata[$module][$permission]) ? (bool) $this->permissiondata[$module][$permission] : false;
-            }
-
-            $res = $res && $check;
-        }
-
-        $this->checkedData[$permissionArrayHash] = $res;
-        return $res;
     }
 
     /**

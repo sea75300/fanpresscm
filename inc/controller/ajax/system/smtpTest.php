@@ -8,8 +8,8 @@
 namespace fpcm\controller\ajax\system;
 
 /**
- * Check if password is powned
- *
+ * Test SMTP connection
+ * 
  * @package fpcm\controller\ajax\system\passcheck
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2022, Stefan Seehafer
@@ -18,16 +18,13 @@ namespace fpcm\controller\ajax\system;
  */
 class smtpTest extends \fpcm\controller\abstracts\ajaxController
 {
-
-    use \fpcm\controller\traits\common\isAccessibleTrue;
-
     /**
      * Check controlelr acccess
      * @return boolean
      */
-    public function hasAccess()
+    public function isAccessible(): bool
     {
-        return parent::hasAccess() && $this->config->smtp_enabled && $this->permissions->system->options;
+        return $this->config->smtp_enabled && $this->permissions->system->options;
     }
 
     /**

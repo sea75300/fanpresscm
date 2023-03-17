@@ -1,8 +1,4 @@
 /* ------ Bootstrap */
-div.tab-pane {
-    min-height: 50vh;
-}
-
 div.fpcm.ui-tabs-wrapper > ul.nav.nav-tabs li.nav-item {
     margin-left: 0.1rem;
     margin-right: 0.1rem;
@@ -22,8 +18,21 @@ div.fpcm.offcanvas-large {
     max-width: 994px;
 }
 
+.vh-25 {
+    height: 25vh;
+}
+
+.vh-50 {
+    height: 50vh;
+}
+
 .vh-75 {
     height: 75vh;
+}
+
+div.row {
+    margin-left: 0;
+    margin-right: 0;
 }
 
 /* ------ TinyMCE */
@@ -112,4 +121,13 @@ table.diff-wrapper {
   border-collapse: separate;
   border: none;
   padding: 0 0.35rem;
+}
+
+/* ------ Selectize.js */
+.fpcm.ui-image-editor-cropper .cropper-drag-box.cropper-crop.cropper-modal {
+    opacity: .5 !important;
+}
+
+.toast-container.position-fixed {
+    z-index : 1021;
 }

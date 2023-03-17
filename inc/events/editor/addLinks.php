@@ -15,7 +15,7 @@ namespace fpcm\events\editor;
  * Rückgabe: array mit Link-Informationen gemäß dem übergebenen Dummy-Eintrag
  * 
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\events
  */
@@ -29,11 +29,7 @@ final class addLinks extends \fpcm\events\abstracts\eventReturnArray {
     public function run()
     {
         $this->data = [ ['label' => 'Example', 'value' => 'Example'] ];
-
-        $result = parent::run();
-        array_shift($result);
-
-        return $result;
+        return parent::run();
     }
 
 }

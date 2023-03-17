@@ -12,7 +12,7 @@ namespace fpcm\model\files;
  * 
  * @package fpcm\model\files
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 final class smiley extends \fpcm\model\abstracts\file implements \Serializable, \JsonSerializable {
@@ -188,7 +188,7 @@ final class smiley extends \fpcm\model\abstracts\file implements \Serializable, 
         }
 
         $saveValues = $this->getSaveValues();
-        $saveValues = $this->events->trigger('smileySave', $saveValues);
+        $saveValues = $this->events->trigger('smileySave', $saveValues)->getData();
 
         $this->cache->cleanup();
         return $this->dbcon->insert($this->table, $saveValues);
@@ -205,7 +205,7 @@ final class smiley extends \fpcm\model\abstracts\file implements \Serializable, 
         }
 
         $saveValues = $this->getSaveValues();
-        $saveValues = $this->events->trigger('smileyUpdate', $saveValues);
+        $saveValues = $this->events->trigger('smileyUpdate', $saveValues)->getData();
         
         $fields = array_keys($saveValues);
         $saveValues[] = $this->getId();
@@ -356,7 +356,7 @@ final class smiley extends \fpcm\model\abstracts\file implements \Serializable, 
      * @return array
      * @ignore
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): mixed
     {
         return [
             'img' => $this->getEditorImageTag(),

@@ -12,7 +12,7 @@ namespace fpcm\classes;
  * 
  * @package fpcm\classes\tools
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @since 3.1.2
  */
@@ -250,7 +250,7 @@ final class tools {
      * Retreives Major.Minor release version from version string of type Major.Minor.Bugfix
      * @param string $str
      * @return string
-     * @since 5.0.2
+     * @since 5.1-dev
      */
     public static function getMajorMinorReleaseFromString(string $str) : string
     {
@@ -259,6 +259,17 @@ final class tools {
         }
         
         return $matches[1] ?? $str;
+    }
+
+    /**
+     * 
+     * @param string $prefix
+     * @return string
+     * @since 5.1.0-a1
+     */
+    public static function getAreaName(string $prefix) : string
+    {
+        return 'extend' . ucfirst($prefix) . ucfirst(str_replace('/', '', \fpcm\classes\loader::getObject('\fpcm\model\http\request')->getModule()));
     }
 
 }

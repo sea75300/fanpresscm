@@ -15,7 +15,7 @@ namespace fpcm\events\article;
  * Rückgabe: array Felder und Artikel-IDs
  * 
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\events
  * @since 3.6
@@ -29,8 +29,9 @@ final class massEditBefore extends \fpcm\events\abstracts\eventReturnArray {
     public function run()
     {
         $result = parent::run();
-        if (!count($result) || !isset($result['fields']) || !isset($result['articleIds'])) {
-            return $this->data;
+        $tmp = $result->getData();
+        if (!count($tmp) || !isset($tmp['fields']) || !isset($tmp['articleIds'])) {
+            return (new \fpcm\module\eventResult)->setContinue(true)->setData($this->data);
         }
 
         return $result;

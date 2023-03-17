@@ -12,7 +12,7 @@ namespace fpcm\controller\traits\system;
  * 
  * @package fpcm\controller\traits\system\syscheck
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 trait syscheck {
@@ -87,7 +87,7 @@ trait syscheck {
             'http://php.net/manual/info.configuration.php',
             ($curVal >= $recomVal ? true : false),
             true
-        );
+        );     
 
         $dbDrivers      = \PDO::getAvailableDrivers();
         $resultMySql    = in_array(\fpcm\classes\database::DBTYPE_MYSQLMARIADB, $dbDrivers);
@@ -133,6 +133,13 @@ trait syscheck {
                 $db->checkDbVersion()
             );
         }
+
+        $checkOptions[$this->language->translate('SYSTEM_OPTIONS_SYSCHECK_CACHE')] =
+            new \fpcm\model\system\syscheckOption (
+                $this->language->translate(\fpcm\classes\cache::getCacheBackendName()),
+                'https://sea75300.github.io/fanpresscm/',
+                true
+        ); 
 
         $current = in_array('pdo', $loadedExtensions) && in_array('pdo_mysql', $loadedExtensions);
         $checkOptions['PHP Data Objects (PDO)'] = new \fpcm\model\system\syscheckOption(
@@ -215,6 +222,15 @@ trait syscheck {
                 $opcache ? 'true' : 'false',
                 'https://www.php.net/manual/de/book.opcache.php',
                 (true && $opcache),
+                true
+            );
+
+        $memcache = \fpcm\classes\baseconfig::hasMemcache();
+        $checkOptions[$this->language->translate('SYSTEM_OPTIONS_SYSCHECK_MEMCACHE') . ' (' . $this->language->translate('GLOBAL_OPTIONAL') . ')']
+            = new \fpcm\model\system\syscheckOption(
+                $memcache ? 'true' : 'false',
+                'https://www.php.net/manual/de/book.memcache.php',
+                (true && $memcache),
                 true
             );
                 

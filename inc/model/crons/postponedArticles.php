@@ -3,7 +3,7 @@
 /**
  * FanPress CM Postponed Article Cronjob
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -33,21 +33,32 @@ class postponedArticles extends \fpcm\model\abstracts\cron {
             return false;
         }
 
-        $config = \fpcm\classes\loader::getObject('\fpcm\model\system\config');
-        if (!\fpcm\classes\baseconfig::canConnect() || (!$config->twitter_events['create'] && !$config->twitter_events['update'])) {
-            return true;
-        }
-
         $params = new \fpcm\model\articles\search();
         $params->ids = $articleIds;
         $articles = $articlesList->getArticlesByCondition($params, false);
 
-        $failed = [];
-        foreach ($articles as $article) {
+        /* @var $art \fpcm\model\articles\article */
+        $this->submitMailNotification([
+            (string) new \fpcm\view\helper\dateText(time()),
+            implode(
+                PHP_EOL,
+                array_map(
+                    fn ($art) => sprintf( '%s: %s (veröffentlichung am: %s)' , $art->getTitle(), $art->getEditLink(), (string) new \fpcm\view\helper\dateText($art->getCreatetime() ) ),
+                    $articles
+                )
+            )
+        ]);
 
-            /**
-             * @var \fpcm\model\articles\article $article
-             */
+        $config = \fpcm\classes\loader::getObject('\fpcm\model\system\config');
+        if (!\fpcm\classes\baseconfig::canConnect() || (!$config->twitter_events->create && !$config->twitter_events->update)) {
+            return true;
+        }
+
+        $failed = [];
+        
+        foreach ($articles as $article) {
+            
+            /* @var $article \fpcm\model\articles\article */
             if ($article->createTweet(true)) {
                 continue;
             }
@@ -56,7 +67,7 @@ class postponedArticles extends \fpcm\model\abstracts\cron {
             sleep(1);
         }
 
-        if (!count($failed)) {
+        if (!count($failed)) {            
             return true;
         }
 

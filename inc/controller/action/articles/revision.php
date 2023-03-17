@@ -14,12 +14,11 @@ use Jfcherng\Diff\Renderer\RendererConstant;
 /**
  * Article edit controller
  * @article Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class revision extends \fpcm\controller\abstracts\controller
-implements \fpcm\controller\interfaces\isAccessible,
-           \fpcm\controller\interfaces\requestFunctions {
+class revision extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\requestFunctions
+{
 
     /**
      *
@@ -248,6 +247,11 @@ implements \fpcm\controller\interfaces\isAccessible,
     
     protected function onRevisionRestore()
     {
+        if (!$this->checkPageToken()) {
+            $this->view->addErrorMessage('CSRF_INVALID');
+            return true;
+        }
+
         if (!$this->rid || !$this->article->restoreRevision($this->rid)) {
             $this->view->addErrorMessage('SAVE_FAILED_ARTICLEREVRESTORE');
             return false;

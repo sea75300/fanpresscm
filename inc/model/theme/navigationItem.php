@@ -11,12 +11,12 @@ namespace fpcm\model\theme;
  * ACP navigation item object
  * 
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2017-2019, Stefan Seehafer
+ * @copyright (c) 2017-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\model\theme
  * @since 3.5
  */
-class navigationItem extends \fpcm\model\abstracts\staticModel {
+class navigationItem extends \fpcm\model\abstracts\staticModel implements \Stringable {
 
     const AREA_DASHBOARD = 'dashboard';
     const AREA_ADDNEWS = 'addnews';
@@ -113,7 +113,6 @@ class navigationItem extends \fpcm\model\abstracts\staticModel {
     {
         $this->config = \fpcm\classes\loader::getObject('\fpcm\model\system\config');
         $this->language = \fpcm\classes\loader::getObject('\fpcm\classes\language');
-
         $this->id = uniqid('fpcm-nav-item-');
         $this->currentModule = \fpcm\classes\tools::getNavigationActiveCheckStr();
     }
@@ -295,7 +294,7 @@ class navigationItem extends \fpcm\model\abstracts\staticModel {
      * Status, dass Spacer nach Element angezeigt werden soll
      * @param bool $spacer
      */
-    public function setSpacer($spacer)
+    public function setSpacer($spacer = true)
     {
         $this->spacer = (bool) $spacer;
         return $this;
@@ -340,7 +339,7 @@ class navigationItem extends \fpcm\model\abstracts\staticModel {
         if ($this->getId() === 'fpcm-nav-item-' . $id) {
             return true;
         }
-        
+
         return ( substr($this->url, 0, strlen($this->currentModule)) === $this->currentModule ? true : false );
     }
 
@@ -394,52 +393,65 @@ class navigationItem extends \fpcm\model\abstracts\staticModel {
     {
         $this->activeSetModule = $mod;
     }
-    
+
+    /**
+     * 
+     * @return string
+     * @ignore
+     */
     public function __toString() : string
     {
         $css = [];
-        
-        
+
         if (!$this->submenuItem) {
-            $css[] = 'nav-item';
-            
+            $css[] = 'nav-link';
         }
 
         if ($this->hasSubmenu()) {
             $css[] = 'dropdown';
         }
         
+        if ($this->hasActiveSubmenuItem()) {
+            $this->setClass('active text-white');
+        }
+        
         $css = implode(' ', $css);
 
-        $str =  "<li class= \"{$css}\" id=\"{$this->getId()}\">" .
-                $this->getLinkString();
-        
-        $str = $this->getSubmenuString($str) . "</li>";
-        
-        return $str;
+        $str =  "<li class= \"{$css}\" id=\"{$this->getId()}\">" . $this->getLinkString();
+
+        return $this->getSubmenuString($str) . "</li>";
     }
-    
+
+    /**
+     * Return Link string
+     * @return string
+     */
     private function getLinkString() : string
     {
-        $css = ( $this->submenuItem ? 'dropdown-item px-2 ' : 'text-center p-3 fpcm ui-nav-link ' ) . $this->getDefaultCss($this->activeSetModule) . ' nav-link';
+        $css = ( $this->submenuItem ? 'dropdown-item  ' : 'fpcm ui-nav-link ' ) . $this->getDefaultCss($this->activeSetModule) . ' nav-link';
    
-        return "<a class=\"{$css}\" href=\"{$this->getFullUrl()}\" " .
+        return "<a class=\"{$css} text-truncate\" href=\"{$this->getFullUrl()}\" " .
                 ($this->hasSubmenu() ? "role=\"button\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\" " : '' ) .
                 ($this->isActive($this->activeSetModule) ? "aria-current=\"page\" " : '' ) .
                 ">" .
-                ($this->submenuItem ? $this->getIcon() : "<span class=\"d-block\">{$this->getIcon()}</span>") .
+                ($this->submenuItem ? $this->getIcon() : "{$this->getIcon()}") .
                 ($this->submenuItem ? $this->getDescription() : "<span class=\"fpcm nav-text text-nowrap\">{$this->getDescription()}</span>" ) .
                 "</a>";
     }
 
-    private function getSubmenuString($str) : string
+    /**
+     * Returns submenu string
+     * @param string $str
+     * @return string
+     */
+    private function getSubmenuString(string $str) : string
     {
         
         if (!$this->hasSubmenu()) {
             return $str;
         }
         
-        $str .= "<ul class=\"dropdown-menu shadow fpcm ui-blurring\" aria-labelledby=\"{$this->getId()}\"> ";
+        $str .= "<ul class=\"dropdown-menu shadow fpcm ui-blurring w-100\" aria-labelledby=\"{$this->getId()}\"> ";
         
         /* @var $si navigationItem */
         foreach ($this->getSubmenu() as $si) {
@@ -450,7 +462,7 @@ class navigationItem extends \fpcm\model\abstracts\staticModel {
             $str .= (string) $si;
             
             if ($si->hasSpacer()) {
-                $str .= '<li><hr class=\"dropdown-divider\"></li>';
+                $str .= '<li><hr class="dropdown-divider"></li>';
             }
 
         }
@@ -459,6 +471,24 @@ class navigationItem extends \fpcm\model\abstracts\staticModel {
         
         
         return $str;
+    }
+
+    /**
+     * Check if submenu has active item
+     * @return bool
+     * @since 5.1-dev
+     */
+    private function hasActiveSubmenuItem() : bool
+    {
+        if (!$this->hasSubmenu()) {
+            return false;
+        }
+        
+        $items = array_filter($this->getSubmenu(), function (navigationItem $item) {
+            return $item->isActive();            
+        });
+
+        return count($items);
     }
     
 }

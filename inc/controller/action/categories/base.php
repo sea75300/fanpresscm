@@ -10,11 +10,11 @@ namespace fpcm\controller\action\categories;
 /**
  * Category edit controller
  * @category Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2019, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class base extends \fpcm\controller\abstracts\controller
-implements \fpcm\controller\interfaces\isAccessible, \fpcm\controller\interfaces\requestFunctions {
+class base extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\requestFunctions
+{
 
     use \fpcm\controller\traits\common\simpleEditForm,
         \fpcm\controller\traits\theme\nav\categories;
@@ -70,6 +70,11 @@ implements \fpcm\controller\interfaces\isAccessible, \fpcm\controller\interfaces
     
     public function oncategorySave()
     {
+        if (!$this->checkPageToken()) {
+            $this->view->addErrorMessage('CSRF_INVALID');
+            return true;
+        }
+
         $data = $this->request->fromPOST('category', [
             \fpcm\model\http\request::FILTER_STRIPSLASHES,
             \fpcm\model\http\request::FILTER_TRIM

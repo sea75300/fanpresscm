@@ -4,7 +4,7 @@
  * Public template file object
  * 
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -206,7 +206,7 @@ class template extends \fpcm\model\abstracts\file {
             return false;
         }
 
-        $this->content = $this->events->trigger('template\save', ['file' => $this->fullpath, 'content' => $this->content])['content'];
+        $this->content = $this->events->trigger('template\save', ['file' => $this->fullpath, 'content' => $this->content])->getData()['content'];
         if (!$this->writeContent()) {
             trigger_error('Unable to update template ' . $this->fullpath);
             return false;
@@ -227,7 +227,7 @@ class template extends \fpcm\model\abstracts\file {
             return false;
         }
 
-        $this->replacementTags = $this->events->trigger('template\parse', $this->replacementTags);
+        $this->replacementTags = $this->events->trigger('template\parse', $this->replacementTags)->getData();
 
         $tags = array_merge($this->replacementInternal, $this->replacementTags);
         return \fpcm\classes\tools::strReplaceArray($this->content, $tags);
@@ -298,7 +298,7 @@ class template extends \fpcm\model\abstracts\file {
         }
         
         $this->loadContent();
-        $this->allowedTags = $this->events->trigger('pub\templateHtmlTags', $this->allowedTags);
+        $this->allowedTags = $this->events->trigger('pub\templateHtmlTags', $this->allowedTags)->getData();
     }
 
     /**

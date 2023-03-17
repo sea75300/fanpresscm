@@ -11,11 +11,13 @@ namespace fpcm\model\articles;
  * FanPress CM Article List Model
  * 
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\model\articles
  */
-class articlelist extends \fpcm\model\abstracts\tablelist {
+class articlelist
+extends \fpcm\model\abstracts\tablelist
+implements \fpcm\model\interfaces\gsearchIndex {
 
     use permissions;
 
@@ -209,7 +211,7 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
             'conditions' => $conditions,
             'where' => $where,
             'values' => $valueParams
-        ]);
+        ])->getData();
 
         $conditions = $eventData['conditions'];
         $where = $eventData['where'];
@@ -393,7 +395,7 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
         $eventData = $this->events->trigger('article\getByConditionCount', [
             'where' => $where,
             'values' => $valueParams
-        ]);
+        ])->getData();
 
         return $this->dbcon->count(
             $this->table,
@@ -528,7 +530,7 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
         $result = $this->events->trigger('article\massEditBefore', [
             'fields' => $fields,
             'articleIds' => $articleIds
-        ]);
+        ])->getData();
 
         foreach ($result as $key => $val) {
             ${$key} = $val;
@@ -575,7 +577,7 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
             'result' => $result,
             'fields' => $fields,
             'articleIds' => $articleIds
-        ]);
+        ])->getData();
 
         return $result['result'];
     }
@@ -618,7 +620,8 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
 
         });
 
-        return $this->data[__METHOD__] = $return;
+        $this->data[__METHOD__] = $return;
+        return $return;
     }
 
     /**
@@ -684,12 +687,14 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
         }
 
         if ($conditions->category !== null) {
-            $catId = (int) $conditions->category;
-            $where[] = "(categories " . $this->dbcon->dbLike() . " ? OR categories " . $this->dbcon->dbLike() . " ? OR categories " . $this->dbcon->dbLike() . " ? OR categories " . $this->dbcon->dbLike() . " ?)";
-            $valueParams[] = "[{$catId}]";
-            $valueParams[] = "%,{$catId},%";
-            $valueParams[] = "[{$catId},%";
-            $valueParams[] = "%,{$catId}]";
+
+            $where[] =  sprintf(
+                'id IN (select distinct article_id from %s where %s)',
+                $this->dbcon->getTablePrefixed(\fpcm\classes\database::tableArticleCategories),
+                'category_id IN (?)'
+            );
+            
+            $valueParams[] = (int) $conditions->category;
         }
 
         if ($conditions->datefrom !== null) {
@@ -783,12 +788,16 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
         }
 
         if ($conditions->category !== null) {
-            $catId = (int) $conditions->category;
-            $where[] = $conditions->getCondition('categoryid', "(categories " . $this->dbcon->dbLike() . " :categories1 OR categories " . $this->dbcon->dbLike() . " :categories2 OR categories " . $this->dbcon->dbLike() . " :categories3 OR categories " . $this->dbcon->dbLike() . " :categories4)");
-            $valueParams[':categories1'] = "[{$catId}]";
-            $valueParams[':categories2'] = "%,{$catId},%";
-            $valueParams[':categories3'] = "[{$catId},%";
-            $valueParams[':categories4'] = "%,{$catId}]";
+            $where[] = $conditions->getCondition(
+                'categoryid',
+                sprintf(
+                    'id IN (select distinct article_id from %s where %s)',
+                    $this->dbcon->getTablePrefixed(\fpcm\classes\database::tableArticleCategories),
+                    'category_id IN (:categories)'
+                )
+            );
+            
+            $valueParams[':categories'] = (int) $conditions->category;            
         }
 
         if ($conditions->pinned !== null) {
@@ -825,6 +834,70 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
         $valueParams[':deleted'] = $conditions->deleted !== null ? $conditions->deleted : 0;
 
         return true;
+    }
+
+    /**
+     * Get count query string
+     * @return \fpcm\model\dbal\selectParams
+     * @since 5.1-dev
+     */
+    public function getCountQuery(): \fpcm\model\dbal\selectParams
+    {
+        return $this->getSearchQueryObj()->setItem('\'articles\' as model, count(id) as count');
+    }
+
+    /**
+     * Get query string
+     * @return \fpcm\model\dbal\selectParams
+     * @since 5.1-dev
+     */
+    public function getSearchQuery(): \fpcm\model\dbal\selectParams
+    {
+        return $this->getSearchQueryObj()->setItem('\'articles\' as model, id as oid, '.$this->dbcon->concatString(['title', '";"', 'createtime']).' as text')->setFetchAll(true);
+    }
+
+    /**
+     * Return link to element link
+     * @return string
+     * @since 5.1-dev
+     */
+    public function getElementLink(mixed $id): string
+    {
+        $tmp = \fpcm\classes\loader::getObject('\fpcm\model\articles\article', null);
+        $tmp->setId($id);
+   
+        return $tmp->getEditLink();
+    }
+
+    /**
+     * Return link icon
+     * @return \fpcm\view\helper\icon
+     * @since 5.1-dev
+     */
+    public function getElementIcon(): \fpcm\view\helper\icon
+    {
+        return new \fpcm\view\helper\icon('book');
+    }
+    
+    /**
+     * Returns selectParams object instance
+     * @return \fpcm\model\dbal\selectParams
+     * @since 5.1-dev
+     */
+    private function getSearchQueryObj(): \fpcm\model\dbal\selectParams
+    {
+        return (new \fpcm\model\dbal\selectParams($this->table))->setWhere('deleted = 0 AND (title LIKE :term OR content LIKE :term OR sources LIKE :term OR url LIKE :term)');
+    }
+
+    /**
+     * Prepare result text
+     * @param string $text
+     * @return string
+     */
+    public function prepareText(string $text): string
+    {
+        list($name, $date) = explode(';', $text);
+        return sprintf('%s<br><span class="fpcm ui-font-small text-secondary">%s</span>', new \fpcm\view\helper\escape($name), new \fpcm\view\helper\dateText($date));        
     }
 
 }

@@ -3,7 +3,7 @@
 /**
  * FanPress CM Category List Model
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -173,7 +173,7 @@ class categoryList extends \fpcm\model\abstracts\tablelist {
         $result = $this->events->trigger('category\massEditBefore', [
             'fields' => $fields,
             'ids' => $ids
-        ]);
+        ])->getData();
 
         foreach ($result as $key => $val) {
             ${$key} = $val;
@@ -203,7 +203,7 @@ class categoryList extends \fpcm\model\abstracts\tablelist {
             'result' => $result,
             'fields' => $fields,
             'ids' => $ids
-        ]);
+        ])->getData();
 
         return $result['result'];
     }

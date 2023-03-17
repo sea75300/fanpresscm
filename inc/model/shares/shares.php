@@ -12,7 +12,7 @@ namespace fpcm\model\shares;
  * 
  * @package fpcm\model\shares
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 class shares extends \fpcm\model\abstracts\tablelist {
@@ -111,15 +111,25 @@ class shares extends \fpcm\model\abstracts\tablelist {
     {
         $item = strtolower($item);
         
-        $shares = \fpcm\classes\loader::getObject('\fpcm\events\events')->trigger('pub\registerShares', [
-            'facebook', 'twitter', 'tumblr', 'pinterest', 'reddit', 'whatsapp', 'email',
-            'likebutton'
-        ]);
-        
+        $shares = self::getAllRegisteredShares();
         if (in_array($item, $shares)) {
             return $item;
         }
         
         return '';
     }
+
+    /**
+     * Get all registered share button providers
+     * @return array
+     * @since 5.1.0-a1
+     */
+    public static function getAllRegisteredShares() : array
+    {
+        return \fpcm\classes\loader::getObject('\fpcm\events\events')->trigger('pub\registerShares', [
+            'facebook', 'twitter', 'tumblr', 'pinterest', 'reddit', 'whatsapp', 'email',
+            'likebutton', 'telegram'
+        ])->getData();
+    }
+
 }

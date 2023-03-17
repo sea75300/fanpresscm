@@ -10,6 +10,8 @@ if (fpcm === undefined) {
 }
 
 fpcm.categories = {
+    
+    rollsMs: null,
 
     init: function () {        
 
@@ -21,9 +23,13 @@ fpcm.categories = {
                 fields: fpcm.vars.jsvars.masseditFields
             });
 
-            fpcm.ui.multiselect('rolls', {
-                placeholder: 'CATEGORIES_ROLLS'
-            });
+            if (!fpcm.categories.rollsMs) {
+
+                fpcm.categories.rollsMs = fpcm.ui.multiselect('rolls', {
+                    placeholder: 'CATEGORIES_ROLLS'
+                });
+
+            }
 
             return false;
         });
@@ -38,5 +44,16 @@ fpcm.categories = {
         });
 
     },
+    
+    onMassEditorDialogClose: function () {
+        
+        if (!fpcm.categories.rollsMs) {
+            return false;
+        }
+        
+        fpcm.categories.rollsMs.clear();
+        fpcm.categories.rollsMs = null;
+        return true;
+    }
 
 };

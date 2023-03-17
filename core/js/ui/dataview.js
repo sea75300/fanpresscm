@@ -11,6 +11,8 @@ if (fpcm === undefined) {
 
 fpcm.dataview = {
 
+    _baseItem: {},
+
     render: function (id, params) {
 
         if (!params) {
@@ -42,80 +44,21 @@ fpcm.dataview = {
         obj.headId      = obj.fullId + '-head';
         obj.rowsId      = obj.fullId + '-rows';
 
-        obj.wrapper     = fpcm.dom.fromId(obj.fullId).addClass('fpcm-ui-dataview');
-        obj.wrapper.append('<div class="row bg-primary text-light py-1 fpcm ui-dataview-head" id="' + obj.headId + '"></div>');
-        obj.wrapper.append('<div class="fpcm-ui-dataview-rows" id="' + obj.rowsId + '"></div>');
-        
-        obj.headline    = fpcm.dom.fromId(obj.headId);
-        obj.lines       = fpcm.dom.fromId(obj.rowsId);
+        fpcm.dataview._baseItem = document.getElementById(obj.fullId);        
+        fpcm.dataview._createHead(obj, obj.columns);
+        fpcm.dataview._createRows(obj);
 
-        jQuery.each(obj.columns, function (index, column) {
-            let _style = (column.class ? column.class + ' ' : '') + fpcm.dataview.getAlignString(column.align, 'md', 'text-center') + 
-                     ' align-self-center py-0 py-md-1 ' + 
-                     fpcm.dataview.getSizeString(column) +
-                     (!column.descr ? ' d-none d-lg-block' : '');
-
-            obj.headline.append('<div class="' + _style + '" id="' + obj.fullId + '-dataview-headcol-' + column.name + index + '">' + (column.descr ? fpcm.ui.translate(column.descr) : '&nbsp;') + '</div>');            
-        });
-
-        jQuery.each(obj.rows, function (index, row) {
-            fpcm.dataview.addRow(obj.fullId, index, row, obj);
-        });
-        
         if (typeof params.onRenderAfter === 'function') {
             params.onRenderAfter.call();
         }
         
         fpcm.ui.assignCheckboxes();
         
-        fpcm.vars.jsvars.dataviews[id].dataViewHeight = fpcm.dom.fromId(obj.fullId).height() + 'px';
-        fpcm.dom.fromId(obj.fullId).find('div.row.placeholder-wave').remove();
-        
-    },
-
-    addRow: function(id, index, row, obj) {
-
-        if (!fpcm.vars.jsvars.dataviews) {
-            return;
+        let _placeholder = fpcm.dataview._baseItem.querySelectorAll('div.row.placeholder-wave');
+        for (var _i = 0; _i < _placeholder.length; _i++) {
+            _placeholder[_i].remove();
         }
 
-        var _notFound       = row.isNotFound === true ? true : false;
-
-        var rowId           = id + '-dataview-row-' + index;
-        var baseclass       = row.isheadline ? 'fpcm-ui-dataview-subhead bg-secondary text-light' : 'fpcm ui-background-transition';
-        baseclass          += _notFound ? ' fpcm-ui-dataview-notfound' : '';
-
-        row.class           = baseclass + (row.class ? ' ' + row.class : '');
-
-        obj.lines.append('<div class="row py-2 border-bottom border-secondary ' + row.class + '" id="' + rowId + '"></span>');
-
-        jQuery.each(row.columns, function (index, rowCol) {
-
-            var rowColumn   = obj.columns[index] ? obj.columns[index] : false;
-            if (!rowColumn) {
-                return;
-            }
-            
-            if (!rowColumn.size) {
-                rowColumn.size = 'auto';
-            }
-
-            var colId = rowId + '-dataview-rowcol-' + rowCol.name + index;
-
-            var style       = ( rowColumn.class ? rowColumn.class + ' ' : '') 
-                            + ( _notFound === true ? ' text-start' : fpcm.dataview.getAlignString(rowColumn.align) )
-                            + ( _notFound === true ? ' col' : fpcm.dataview.getSizeString(rowColumn) )
-                            + ' fpcm-ui-dataview-type' 
-                            + rowCol.type + ' align-self-center my-1'
-                            + (rowCol.class ? ' ' + rowCol.class : '');
-
-            var valueStr    = ( rowCol.type == fpcm.vars.jsvars.dataviews.rolColTypes.coltypeValue
-                            ? '<div class="fpcm-ui-dataview-col-value">' + (rowCol.value !== '' ? fpcm.ui.translate(rowCol.value) : '&nbsp;') + '</div>'
-                            : (rowCol.value !== '' ? fpcm.ui.translate(rowCol.value) : '&nbsp;') );
-
-            fpcm.dom.appendHtml('#' + rowId, '<div class="' + style + '" id="' + colId + '">' + valueStr + '</div>');
-            
-        });
     },
     
     updateAndRender: function (id, params) {
@@ -180,6 +123,132 @@ fpcm.dataview = {
         
         if (!fpcm.vars.jsvars.dataviews[id]) {
             return false;
+        }
+
+        return true;
+    },
+    
+    _createHead: function (_cfg) {
+        
+        let _el = document.createElement('div');
+        _el.classList.add('row');
+        _el.classList.add('text-bg-primary');
+        _el.classList.add('py-1');
+        _el.classList.add('fpcm');
+        _el.classList.add('ui-dataview-head');
+        _el.id = _cfg.headId;
+
+        for (var _i in _cfg.columns) {
+            
+            let _col = _cfg.columns[_i];
+            
+            let _style = (_col.class ? _col.class + ' ' : '') + fpcm.dataview.getAlignString(_col.align, 'md', 'text-center') + 
+                     ' align-self-center py-0 py-md-1 ' + 
+                     fpcm.dataview.getSizeString(_col) +
+                     (!_col.descr ? ' d-none d-lg-block' : '');
+
+            let _colEl = document.createElement('div');
+            
+            _colEl.id = _cfg.fullId + '-dataview-headcol-' + _col.name + _i;
+            _colEl.innerHTML = (_col.descr ? fpcm.ui.translate(_col.descr) : '&nbsp;');
+            fpcm.dataview._assignStyles(_style, _colEl);
+            
+            _el.appendChild(_colEl);
+            _colEl = null;
+        }        
+        
+        fpcm.dataview._baseItem.appendChild(_el);
+    },
+    
+    _createRows: function (_cfg) {
+        
+        let _el = document.createElement('div');
+        _el.classList.add('fpcm');
+        _el.classList.add('ui-dataview-rows');
+        _el.id = _cfg.rowsId;
+        
+        for (var _i in _cfg.rows) {
+            fpcm.dataview._addRow(_i, _cfg.rows[_i], _cfg, _el);
+        }
+
+        
+        fpcm.dataview._baseItem.appendChild(_el);
+    },
+    
+    _addRow: function(index, row, obj, _domEl) {
+
+        var _notFound       = row.isNotFound === true ? true : false;
+
+        var rowId           = obj.fullId + '-dataview-row-' + index;
+        var baseclass       = row.isheadline ? 'fpcm-ui-dataview-subhead bg-secondary text-light' : 'fpcm ui-background-transition';
+        baseclass          += _notFound ? ' fpcm-ui-dataview-notfound' : '';
+
+        row.class           = baseclass + (row.class ? ' ' + row.class : '');
+
+        let _rowEl = document.createElement('div');
+        _rowEl.id = rowId;
+
+        _rowEl.classList.add('row');
+        _rowEl.classList.add('py-2');
+        _rowEl.classList.add('border-bottom');
+        _rowEl.classList.add('border-2');
+        _rowEl.classList.add('border-secondary');
+        _rowEl.classList.add('border-opacity-50');        
+        fpcm.dataview._assignStyles(row.class, _rowEl);
+
+        for (var _i in row.columns) {
+            
+            var _colMeta   = obj.columns[_i] ? obj.columns[_i] : false;
+            if (!_colMeta) {
+                return;
+            }
+            
+            let _colData = row.columns[_i];
+            
+            if (!_colMeta.size) {
+                _colMeta.size = 'auto';
+            }
+
+            var colId = rowId + '-dataview-rowcol-' + _colData.name + index;
+
+            var style       = ( _colMeta.class ? _colMeta.class + ' ' : '') 
+                            + ( _notFound === true ? ' text-start' : fpcm.dataview.getAlignString(_colMeta.align) )
+                            + ( _notFound === true ? ' col' : fpcm.dataview.getSizeString(_colMeta) )
+                            + ' fpcm-ui-dataview-type' 
+                            + _colData.type + ' align-self-center my-1'
+                            + (_colData.class ? ' ' + _colData.class : '');
+
+            var valueStr    = ( _colData.type == fpcm.vars.jsvars.dataviews.rolColTypes.coltypeValue
+                            ? '<div class="fpcm-ui-dataview-col-value">' + (_colData.value !== '' ? fpcm.ui.translate(_colData.value) : '&nbsp;') + '</div>'
+                            : (_colData.value !== '' ? fpcm.ui.translate(_colData.value) : '&nbsp;') );   
+
+            let _colEl = document.createElement('div');
+            fpcm.dataview._assignStyles(style, _colEl);
+
+            _colEl.id = colId;
+            _colEl.innerHTML = valueStr;
+            _rowEl.appendChild(_colEl);
+
+            _colEl = null;
+        }
+
+        _domEl.appendChild(_rowEl);
+    },    
+    
+    _assignStyles: function (_style, _element) {
+
+        if (!_style) {
+            return false;
+        }
+
+        _style = _style.split(' ');
+        for (var _x in _style) {
+
+            if (!_style[_x]) {
+                continue;
+            }
+
+            _element.classList.add(_style[_x]);                
         }
 
         return true;

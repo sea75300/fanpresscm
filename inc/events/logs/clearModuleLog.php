@@ -29,17 +29,19 @@ final class clearModuleLog extends \fpcm\events\abstracts\event {
 
         $obj = new \fpcm\module\module($this->data['key']);
         if (!$obj->isInstalled() || !$obj->isActive()) {
-            return null;
+            return (new \fpcm\module\eventResult)->setData(null);
         }
         
         $class = \fpcm\module\module::getEventNamespace($obj->getKey(), 'logs\\clearModuleLog');
         if (!class_exists($class)) {
             trigger_error('Undefined event class '.$class);
-            return null;
+            return (new \fpcm\module\eventResult)->setData(null);
         }
 
         $eventOb = new $class($this->data['log']);
-        return $this->is_a($eventOb) ? $eventOb->run() : true;
+        $return = $this->is_a($eventOb) ? $eventOb->run() : true;
+
+        return $this->toEventResult($return);
     }
 
     

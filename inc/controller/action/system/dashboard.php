@@ -10,11 +10,12 @@ namespace fpcm\controller\action\system;
 /**
  * Dashboard controller
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
-class dashboard extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\isAccessible {
+class dashboard extends \fpcm\controller\abstracts\controller
+{
 
     use \fpcm\controller\traits\common\isAccessibleTrue;
     
@@ -47,8 +48,33 @@ class dashboard extends \fpcm\controller\abstracts\controller implements \fpcm\c
         $this->view->addFromLibrary('sortable_js', [
             'Sortable.min.js'
         ]);
+        
+        $this->view->addOffCanvas('DASHBOARD_MANAGE_CONTAINER_ENABLE', 'dashboard/manage');
+
+        $dropdown = new \fpcm\view\helper\dropdown('dashboardAction');
+        $dropdown->setText('DASHBOARD_MANAGE_CONTAINER')->setIcon('bars');
+        $dropdown->setOptions([
+            
+            (new \fpcm\view\helper\dropdownItem('resetDashboardSettings'))
+                ->setText('USERS_META_RESET_DASHBOARD')
+                ->setIcon('undo')
+                ->setValue('1'),
+            
+            (new \fpcm\view\helper\dropdownItem('resetDashboardSettings2'))
+                ->setText('DASHBOARD_MANAGE_CONTAINER_ENABLE')
+                ->setValue('2')
+                ->setAria([
+                    'controls' => 'offcanvasInfo'
+                ])
+                ->setData([
+                    'bs-toggle' => "offcanvas",
+                    'bs-target' => "#offcanvasInfo",
+                    
+                ])
+        ]);
+        
+        $this->view->addButton($dropdown);
+        
     }
 
 }
-
-?>

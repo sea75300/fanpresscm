@@ -46,7 +46,7 @@ final class fileuploader extends \fpcm\model\abstracts\staticModel {
      */
     public function processUpload($userId)
     {
-        $this->uploader = $this->events->trigger('fileupload\phpBefore', $this->uploader);
+        $this->uploader = $this->events->trigger('fileupload\phpBefore', $this->uploader)->getData();
 
         $tempNames = $this->uploader['tmp_name'];
         $fileNames = $this->uploader['name'];
@@ -112,7 +112,7 @@ final class fileuploader extends \fpcm\model\abstracts\staticModel {
         $this->events->trigger('fileupload\phpAfter', [
             'uploader' => $this->uploader,
             'results' => $res
-        ]);
+        ])->getData();
 
         return $res;
     }

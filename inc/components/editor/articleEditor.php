@@ -13,7 +13,7 @@ namespace fpcm\components\editor;
  * @abstract
  * @package fpcm\components\editor
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @since 3.1.0
  */
@@ -102,7 +102,7 @@ abstract class articleEditor extends \fpcm\model\abstracts\staticModel {
             $editorStyles[$class] = $class;
         }
 
-        return $this->events->trigger('editor\addStyles', $editorStyles);
+        return $this->events->trigger('editor\addStyles', $editorStyles)->getData();
     }
 
     /**
@@ -111,7 +111,7 @@ abstract class articleEditor extends \fpcm\model\abstracts\staticModel {
      */
     public function getEditorLinks()
     {
-        $links = $this->events->trigger('editor\addLinks');
+        $links = $this->events->trigger('editor\addLinks')->getData();
         if (!is_array($links) || !count($links)) {
             return [];
         }
@@ -140,7 +140,7 @@ abstract class articleEditor extends \fpcm\model\abstracts\staticModel {
         $res = $this->events->trigger('editor\getFileList', [
             'label' => 'label',
             'files' => $data
-        ]);
+        ])->getData();
 
         return $res['files'] ?? [];
     }

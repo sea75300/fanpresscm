@@ -10,13 +10,14 @@ namespace fpcm\controller\action\articles;
 /**
  * Article controller base
  * @article Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-abstract class articlebase extends \fpcm\controller\abstracts\controller
-implements \fpcm\controller\interfaces\isAccessible,
-           \fpcm\controller\interfaces\requestFunctions {
+abstract class articlebase extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\requestFunctions
+{
 
+    use \fpcm\controller\traits\articles\newteets;
+    
     /**
      *
      * @var \fpcm\model\articles\article
@@ -158,6 +159,7 @@ implements \fpcm\controller\interfaces\isAccessible,
         }
         
         $this->view->addJsFiles(array_merge([
+                'articles/articlebase.js',
                 'editor/editor.js',
                 'editor/editor_videolinks.js',
             ],
@@ -167,10 +169,10 @@ implements \fpcm\controller\interfaces\isAccessible,
         $this->view->addCssFiles($this->editorPlugin->getCssFiles());
         
         $this->view->addFromLibrary(
-            'selectize_js',
-            [ 'dist/js/selectize.min.js' ],
-            [ 'dist/css/selectize.default.css' ]
-        );
+            'tom-select_js',
+            [ 'tom-select.min.js' ],
+            [ 'tom-select.bootstrap5.min.css' ]
+        ); 
 
         $viewVars = $this->editorPlugin->getViewVars();
         foreach ($viewVars as $key => $value) {
@@ -181,34 +183,39 @@ implements \fpcm\controller\interfaces\isAccessible,
         if ($this->canChangeAuthor) {
             $this->view->assign('changeuserList', (new \fpcm\model\users\userList())->getUsersNameList());
         }
+        
+        if (!$this->article->getId()) {
+            $this->article->setComments($this->config->comments_default_active);
+        }
 
         $this->view->assign('approvalRequired', $this->approvalRequired);
         $this->view->assign('article', $this->article);
         $this->view->assign('categories', $this->categoryList->getCategoriesNameListCurrent());
         $this->view->assign('commentEnabledGlobal', $this->config->system_comments_enabled);
-        $this->view->assign('showArchiveStatus', true);
         $this->view->assign('showDraftStatus', true);
         $this->view->assign('userfields', $this->getUserFields());
         $this->view->assign('rollCodex', (new \fpcm\model\users\userRoll($this->session->getCurrentUser()->getRoll()))->getCodex());
 
-        $twitter    = new \fpcm\model\system\twitter();
+        $twitter    = $this->getTwitterInstace();
         $twitterOk  = $twitter->checkRequirements();
-        $twitterReplacements = ['TEMPLATE_REPLACEMENTS' => '', 'tplCode' => ''];
 
         if ($twitterOk) {
-            $twitterTpl = new \fpcm\model\pubtemplates\tweet();
-            foreach ($twitterTpl->getReplacementTranslations('TEMPLATE_ARTICLE_') as $tag => $descr) {
-                $twitterReplacements[$descr.': '.$tag] = $tag;
-            }
 
-            $twitterReplacements['tplCode'] = $twitterTpl->getContent();
+            $tpl = $this->getTemplateContent();
+            
+            $this->view->assign('twitterTplPlaceholder', $tpl['tpl'] );
+            $this->view->assign('twitterReplacements', $tpl['vars'] );
+            $this->view->assign('showTwitter', true);
+        }
+        else {
+            
+            $this->view->assign('twitterTplPlaceholder', null);
+            $this->view->assign('twitterReplacements', null);
+            $this->view->assign('showTwitter', false);
         }
 
-        $this->view->assign('twitterTplPlaceholder', $twitterReplacements['tplCode']);
-        unset($twitterReplacements['tplCode']);
 
-        $this->view->assign('twitterReplacements', $twitterReplacements);
-        $this->view->assign('showTwitter', $twitterOk);
+        $this->view->assign('urlRewrite', $this->config->articles_link_urlrewrite);
         $this->view->setActiveTab($this->getActiveTab());
 
         $this->jsVars  = $this->editorPlugin->getJsVars();
@@ -222,7 +229,12 @@ implements \fpcm\controller\interfaces\isAccessible,
             'editorGalleryTagLink' => \fpcm\model\pubtemplates\article::GALLERY_TAG_LINK
         );
 
-        $this->view->addJsLangVars(array_merge(['HL_FILES_MNG', 'ARTICLES_SEARCH', 'FILE_LIST_NEWTHUMBS', 'GLOBAL_DELETE', 'EDITOR_CATEGORIES_SEARCH', 'FILE_LIST_INSERTGALLERY', 'FILE_LIST_UPLOADFORM'], $this->editorPlugin->getJsLangVars()));
+        $this->view->addJsLangVars(array_merge([
+            'HL_FILES_MNG', 'ARTICLES_SEARCH', 'FILE_LIST_NEWTHUMBS', 'GLOBAL_DELETE',
+            'EDITOR_CATEGORIES_SEARCH', 'FILE_LIST_INSERTGALLERY', 'FILE_LIST_UPLOADFORM',
+            'SYSTEM_OPTIONS_NEWS_SOURCESLIST'
+        ], $this->editorPlugin->getJsLangVars()));
+
         $this->view->addJsVars($this->jsVars);
 
         $this->view->addButton((new \fpcm\view\helper\saveButton('articleSave'))
@@ -244,7 +256,7 @@ implements \fpcm\controller\interfaces\isAccessible,
                 ->setTabToolbar(1);
 
         $tabs[] = (new \fpcm\view\helper\tabItem('extended'))
-                ->setFile('articles/buttons.php')
+                ->setFile('articles/extended.php')
                 ->setText('GLOBAL_EXTENDED')
                 ->setTabToolbar(1);
         
@@ -318,16 +330,17 @@ implements \fpcm\controller\interfaces\isAccessible,
             $this->article->setPostponed(0);
         }
 
-        $this->article->setPinned(isset($data['pinned']) ? 1 : 0);
-        $this->article->setDraft(isset($data['draft']) ? 1 : 0);
-        $this->article->setComments(isset($data['comments']) ? 1 : 0);
+        $this->article->setPinned($data['pinned'] ?? 0);
+        $this->article->setDraft($data['draft'] ?? 0);
+        $this->article->setComments($data['comments'] ?? $this->config->comments_default_active);
         
-        $this->article->setApproval( $this->approvalRequired ? 1 : ( isset($data['approval']) ? 1 : 0 ) );
-        $this->article->setImagepath(isset($data['imagepath']) ? $data['imagepath'] : '');
-        $this->article->setSources(isset($data['sources']) ? $data['sources'] : '');
+        $this->article->setApproval($this->approvalRequired ? 1 : ( $data['approval'] ?? 0 ));
+        $this->article->setImagepath($data['imagepath'] ?? '');
+        $this->article->setSources($data['sources'] ?? '');
+        $this->article->setUrl($data['url'] ?? '');
 
         if ($this->permissions->article->archive) {
-            $this->article->setArchived(isset($data['archived']) ? 1 : 0);
+            $this->article->setArchived($data['archived'] ?? 0);
             if ($this->article->getArchived()) {
                 $this->article->setPinned(0);
                 $this->article->setDraft(0);
@@ -348,7 +361,7 @@ implements \fpcm\controller\interfaces\isAccessible,
      */
     protected function getUserFields()
     {
-        $fields = $this->events->trigger('editor\addUserFields');
+        $fields = $this->events->trigger('editor\addUserFields')->getData();
 
         if (!is_array($fields) || !count($fields))
             return [];
@@ -362,6 +375,11 @@ implements \fpcm\controller\interfaces\isAccessible,
      */
     protected function onArticleSave() : bool
     {
+        if (!$this->checkPageToken()) {
+            $this->view->addErrorMessage('CSRF_INVALID');
+            return true;
+        }
+
         $allTimer = time();
         
         $data = $this->request->fromPOST('article', [

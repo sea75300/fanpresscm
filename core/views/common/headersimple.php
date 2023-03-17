@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<HTML lang="<?php print $theView->langCode; ?>">
+<HTML lang="<?php print $theView->langCode; ?>" <?php if ($theView->darkMode) : ?>data-bs-theme="dark"<?php endif; ?>>
     <head>
         <title><?php $theView->write('HEADLINE'); ?></title>
         <meta charset="utf-8"> 

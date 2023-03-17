@@ -4,7 +4,7 @@
  * AJAX logs clear controller
  * 
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -16,7 +16,8 @@ namespace fpcm\controller\ajax\logs;
  * @package fpcm\controller\ajax\logs\clear
  * @author Stefan Seehafer <sea75300@yahoo.de>
  */
-class clear extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
+class clear extends \fpcm\controller\abstracts\ajaxController
+{
 
     /**
      * System-Log-Typ
@@ -82,7 +83,7 @@ class clear extends \fpcm\controller\abstracts\ajaxController implements \fpcm\c
             $res = $this->events->trigger('logs\clearModuleLog', [
                 'key' => $this->moduleKey,
                 'log' => $this->log
-            ]);
+            ])->getData();
         }
 
         $this->response->setReturnData(new \fpcm\view\message(

@@ -42,7 +42,8 @@ if ($cache->isExpired($cacheName) || \fpcm\classes\baseconfig::installerEnabled(
         __DIR__.DIRECTORY_SEPARATOR.'ui'.DIRECTORY_SEPARATOR.'tabs'.$jsExt,
         __DIR__.DIRECTORY_SEPARATOR.'ui'.DIRECTORY_SEPARATOR.'pager'.$jsExt,
         __DIR__.DIRECTORY_SEPARATOR.'ui'.DIRECTORY_SEPARATOR.'deprecated'.$jsExt,
-        __DIR__.DIRECTORY_SEPARATOR.'system'.$jsExt
+        __DIR__.DIRECTORY_SEPARATOR.'system'.$jsExt,
+        __DIR__.DIRECTORY_SEPARATOR.'gsearch'.$jsExt
     ];
 
     foreach (array_merge($jsFilesDefault, $jsFiles) as $jsFile) {

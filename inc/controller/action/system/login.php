@@ -10,7 +10,7 @@ namespace fpcm\controller\action\system;
 /**
  * Login controller
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 class login extends \fpcm\controller\abstracts\controller
@@ -158,7 +158,7 @@ implements \fpcm\controller\interfaces\requestFunctions {
             return true;
         }
 
-        $data = $this->events->trigger('session\loginBefore', $data);
+        $data = $this->events->trigger('session\loginBefore', $data)->getData();
 
         if (!empty($data['formData'])) {
             $tmp = json_decode((new \fpcm\classes\crypt)->decrypt(base64_decode($data['formData'])), true);
@@ -187,6 +187,11 @@ implements \fpcm\controller\interfaces\requestFunctions {
         if ($this->currentAttempts >= $this->config->system_loginfailed_locked) {
             $this->loginLocked();
             $this->showLockedForm();
+            return true;
+        }
+
+        if ($loginRes === \fpcm\model\abstracts\authProvider::AUTH_2FA_ERROR) {
+            $this->view->addErrorMessage('LOGIN_FAILED_CODE');
             return true;
         }
 
