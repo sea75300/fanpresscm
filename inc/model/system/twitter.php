@@ -58,7 +58,7 @@ class twitter extends \fpcm\model\abstracts\staticModel {
             $this->config->twitter_data->user_secret
         );
     }
-    
+
     /**
      * Check, if connection requriements fit
      * @param bool $force force check

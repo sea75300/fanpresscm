@@ -81,12 +81,14 @@ implements \fpcm\controller\interfaces\requestFunctions
                     ->setText('FILE_LIST_SMILEYCODE')
                     ->setIcon('bookmark')
                     ->setAutoFocused(true)
-                    ->setRequired(),
+                    ->setRequired()
+                    ->setLabelTypeFloat(),
             (new \fpcm\view\helper\textInput('smiley[filename]', 'smileyfilename'))
                     ->setValue($this->smiley->getFilename())
                     ->setText('FILE_LIST_FILENAME')
                     ->setIcon('link')
                     ->setRequired()
+                    ->setLabelTypeFloat()
         ]);
 
         $this->view->render();

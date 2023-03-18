@@ -268,7 +268,7 @@ class tabItem extends helper {
                 break;
         }
 
-        $html[] = '><a class="nav-link '.$css.'" href="'.$this->url.'" role="tab" '.$this->getDataString().' '.$this->getAriaString().'>'.$this->text.'</a>';
+        $html[] = '><a class="nav-link '.$css.' user-select-none" href="'.$this->url.'" role="tab" '.$this->getDataString().' '.$this->getAriaString().'>'.$this->text.'</a>';
         $html[] = '</li>';
 
         return implode(' ', $html);

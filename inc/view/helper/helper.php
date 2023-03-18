@@ -495,5 +495,3 @@ abstract class helper implements \Stringable {
     abstract protected function getString();
 
 }
-
-?>

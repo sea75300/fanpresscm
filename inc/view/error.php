@@ -69,5 +69,3 @@ final class error extends \fpcm\view\view {
     }
 
 }
-
-?>

@@ -920,7 +920,7 @@ class view {
      */
     public function getViewVars($var = false)
     {
-        return $var ? $this->viewVars[$var] : $this->viewVars;
+        return $this->viewVars[$var] ?? $this->viewVars;
     }
 
     /**

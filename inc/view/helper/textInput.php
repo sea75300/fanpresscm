@@ -29,5 +29,3 @@ final class textInput extends input {
     }
 
 }
-
-?>

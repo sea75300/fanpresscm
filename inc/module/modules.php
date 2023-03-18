@@ -229,7 +229,7 @@ class modules extends \fpcm\model\abstracts\tablelist {
         
         if (!$this->cache->isExpired($cacheName)) {
             $this->enabledCache = $this->cache->read($cacheName);
-            return $this->enabledCache;
+            return is_array($this->enabledCache) ? $this->enabledCache : [];
         }
 
         $this->enabledCache = [];

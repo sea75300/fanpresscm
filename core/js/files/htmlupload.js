@@ -48,7 +48,7 @@ fpcm.fileuploader = {
             });
 
         });
-
+        
         fpcm.dom.bindClick('#btnCancelUpload', function () {
             fpcm.dom.fromClass('fpcm-ui-fileinput-select').empty();
             fpcm.fileuploader.emptyFileList();

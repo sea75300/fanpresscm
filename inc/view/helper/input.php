@@ -252,5 +252,3 @@ abstract class input extends helper {
     }
 
 }
-
-?>
