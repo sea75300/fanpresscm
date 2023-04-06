@@ -658,7 +658,8 @@ implements \fpcm\model\interfaces\validateFileType {
 
         }, $info);
 
-        $this->iptcStr = htmlspecialchars(strip_tags(utf8_encode(implode(PHP_EOL, $this->iptcStr))));
+        $tmp = iconv("UTF-8", "ISO-8859-1", $this->iptcStr);
+        $this->iptcStr = htmlspecialchars(strip_tags($tmp));
         return true;
     }
 
