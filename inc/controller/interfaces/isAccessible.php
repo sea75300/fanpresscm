@@ -25,5 +25,3 @@ interface isAccessible {
      */
     public function isAccessible() : bool;
 }
-
-?>

@@ -112,5 +112,3 @@ final class jsViewTemplate extends \fpcm\model\abstracts\file implements \JsonSe
     }
 
 }
-
-?>

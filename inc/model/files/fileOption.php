@@ -15,6 +15,8 @@ namespace fpcm\model\files;
  */
 class fileOption {
 
+    use \fpcm\model\traits\cryptHelper;
+    
     const EXTENSION_CACHE = '.fpcm';
 
     /**
@@ -27,8 +29,10 @@ class fileOption {
      * Constructor
      * @param string $option
      */
-    public function __construct($option)
+    public function __construct(string $option, bool $doCrypt)
     {
+        $this->doCrypt = $doCrypt;
+        
         $option = explode('/', $option, 2);
         $hasSubdir = isset($option[1]) && count($option) === 2 ? true : false;
 
@@ -66,6 +70,8 @@ class fileOption {
     public function write($data)
     {
 
+        $data = $this->encrypt($data);
+        
         if (!file_put_contents($this->path, json_encode($data))) {
             trigger_error('Unable to write file option ' . ops::removeBaseDir($this->path, true));
             return false;
@@ -84,7 +90,9 @@ class fileOption {
             return null;
         }
 
-        return json_decode(file_get_contents($this->path));
+        $return = json_decode(file_get_contents($this->path));
+
+        return $this->decrypt($return);
     }
 
     /**
@@ -119,5 +127,3 @@ class fileOption {
     }
 
 }
-
-?>

@@ -674,6 +674,7 @@ class author extends \fpcm\model\abstracts\dataset {
      */
     final public function writeOption($opt, $data)
     {
+        trigger_error(sprintf('%s is deprecated as of FPCM 5.1.0-a1. Use %s object instead.', __METHOD__, '\fpcm\model\files\userFileOption'), E_USER_DEPRECATED);
         return $this->getFileOptionObject($opt)->write($data);
     }
 
@@ -685,6 +686,7 @@ class author extends \fpcm\model\abstracts\dataset {
      */
     final public function readOption($opt)
     {
+        trigger_error(sprintf('%s is deprecated as of FPCM 5.1.0-a1. Use %s object instead.', __METHOD__, '\fpcm\model\files\userFileOption'), E_USER_DEPRECATED);
         return $this->getFileOptionObject($opt)->read();
     }
 
@@ -696,6 +698,7 @@ class author extends \fpcm\model\abstracts\dataset {
      */
     final public function removeOption($opt)
     {
+        trigger_error(sprintf('%s is deprecated as of FPCM 5.1.0-a1. Use %s object instead.', __METHOD__, '\fpcm\model\files\userFileOption'), E_USER_DEPRECATED);
         return $this->getFileOptionObject($opt)->remove();
     }
 
