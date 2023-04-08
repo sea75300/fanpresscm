@@ -24,12 +24,14 @@ class fileOption {
      * @var string
      */
     private $path;
-
+    
     /**
      * Constructor
      * @param string $option
+     * @param bool $doCrypt
+     * @return void
      */
-    public function __construct(string $option, bool $doCrypt)
+    public function __construct(string $option, bool $doCrypt = false)
     {
         $this->doCrypt = $doCrypt;
         

@@ -25,7 +25,7 @@ trait autoTable {
      */
     final public function getTableName() : string
     {
-        if (trim($this->table)) {
+        if ($this->table !== null && trim($this->table)) {
             return $this->table;
         }
 

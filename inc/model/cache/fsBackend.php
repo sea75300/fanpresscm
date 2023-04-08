@@ -42,6 +42,10 @@ class fsBackend implements \fpcm\model\interfaces\cacheBackend {
      */
     public function __construct(?string $cacheName)
     {
+        if ($cacheName === null) {
+            $cacheName = '';
+        }
+        
         $cacheName = explode('/', $cacheName, 2);
 
         $this->module = isset($cacheName[1]) && trim($cacheName[1]) ? $cacheName[0] : '';
@@ -149,6 +153,10 @@ class fsBackend implements \fpcm\model\interfaces\cacheBackend {
      */
     public function prepareReturnedValue(mixed $value): mixed
     {
+        if ($value === null) {
+            return $value;
+        }
+
         return substr($value, 0, 2) == 'a:' || substr($value, 0, 2) == 'o:' ? unserialize($value) : $value;
     }
 

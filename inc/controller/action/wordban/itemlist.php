@@ -28,6 +28,12 @@ class itemlist extends \fpcm\controller\abstracts\controller implements \fpcm\co
 
     /**
      * 
+     * @var \fpcm\components\dataView\dataView
+     */
+    protected $dataView;
+
+    /**
+     * 
      * @return bool
      */
     public function request()

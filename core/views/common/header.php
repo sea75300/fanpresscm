@@ -51,4 +51,4 @@
           
                 <div class="container-fluid px-2 pe-md-3 py-2">
 
-                <?php if (trim($theView->deprecationNotice)) : ?><?php $theView->alert('warning')->setText($theView->deprecationNotice); ?><?php endif; ?>
+                <?php if ($theView->deprecationNotice !== null && trim($theView->deprecationNotice)) : ?><?php $theView->alert('warning')->setText($theView->deprecationNotice); ?><?php endif; ?>

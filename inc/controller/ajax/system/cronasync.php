@@ -38,7 +38,7 @@ class cronasync extends \fpcm\controller\abstracts\ajaxController
             return true;
         }
 
-        if (trim($module)) {
+        if ($module !== null && trim($module)) {
             
             if (!(new \fpcm\module\module($module))->isActive()) {
                 trigger_error("Undefined cronjon {$cronName} called");

@@ -39,7 +39,7 @@ abstract class cron implements \fpcm\model\interfaces\cron {
      * Events object
      * @var \fpcm\events\events
      */
-    protected $event;
+    protected $events;
 
     /**
      * Name des Crons

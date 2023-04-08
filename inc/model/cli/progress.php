@@ -74,7 +74,7 @@ final class progress {
                 return;
             }
 
-            $this->maxLineChars = (int) $cols - 7;
+            $this->maxLineChars = (int) $cols - 8;
 
         } catch (\Exception $exc) {
             io::output($exc->getMessage(), true);

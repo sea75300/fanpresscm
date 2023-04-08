@@ -521,7 +521,7 @@ class view {
      */
     final public function addFromModule(array $jsFiles = [], array $cssFiles = [], ?string $moduleKey = null) : bool
     {
-        if (!trim($moduleKey)) {
+        if ($moduleKey === null || !trim($moduleKey)) {
             $moduleKey = $this->module;
         }
 

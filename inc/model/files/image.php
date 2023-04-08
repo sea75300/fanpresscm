@@ -631,7 +631,7 @@ implements \fpcm\model\interfaces\validateFileType {
      */
     public function parseIptc($info)
     {
-        if (trim($this->iptcStr)) {
+        if ($this->iptcStr === null || trim($this->iptcStr)) {
             return true;
         }
         

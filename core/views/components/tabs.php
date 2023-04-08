@@ -19,7 +19,7 @@
     </div>
 </div>        
 
-<?php if (trim($theView->includeForms)) : ?>
+<?php if ($theView->includeForms !== null && trim($theView->includeForms)) : ?>
 <?php include $theView->getIncludePath($theView->includeForms); ?>
 <?php endif; ?>
 

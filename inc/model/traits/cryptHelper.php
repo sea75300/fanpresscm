@@ -39,7 +39,7 @@ trait cryptHelper {
      * @param mixed $param
      * @return string
      */
-    protected function encrypt($param) : string
+    protected function encrypt($param) : mixed
     {
         if (!$this->doCrypt) {
             return $param;
@@ -53,7 +53,7 @@ trait cryptHelper {
      * @param mixed $param
      * @return string
      */
-    protected function decrypt($param) : string
+    protected function decrypt($param) : mixed
     {
         if (!$this->doCrypt) {
             return $param;

@@ -36,11 +36,18 @@ class dropdown extends helper {
     protected $returnString = [];
 
     /**
-     * 
+     * Dropdown type
      * @var string
      * @since 5.0.0-b5
      */
     protected $ddType = '';
+
+    /**
+     * Value property
+     * @var string
+     * @since 5.1.1-dev
+     */
+    protected $value = '';
 
     /**
      * Return element string

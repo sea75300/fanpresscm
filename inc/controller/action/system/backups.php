@@ -28,6 +28,12 @@ implements \fpcm\controller\interfaces\requestFunctions
 
     /**
      * 
+     * @var \fpcm\components\dataView\dataView
+     */
+    protected $dataView;
+
+    /**
+     * 
      * @return bool
      */
     public function isAccessible(): bool

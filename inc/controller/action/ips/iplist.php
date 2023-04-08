@@ -34,6 +34,12 @@ class iplist extends \fpcm\controller\abstracts\controller implements \fpcm\cont
 
     /**
      * 
+     * @var \fpcm\components\dataView\dataView
+     */
+    protected $dataView;
+
+    /**
+     * 
      * @var array
      */
     private $sorts = [
@@ -65,7 +71,7 @@ class iplist extends \fpcm\controller\abstracts\controller implements \fpcm\cont
     public function process()
     {
         $sort = $this->request->fromPOST('sortlist');
-        if (!in_array(strtoupper($sort), $this->sorts)) {
+        if ($sort === null || !in_array(strtoupper($sort), $this->sorts)) {
             $sort = '';
         }
 

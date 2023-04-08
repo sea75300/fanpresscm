@@ -25,6 +25,10 @@ trait escapeHelper {
      */
     public function escapeVal($value, $mode = null)
     {
+        if ($value === null) {
+            return $value;
+        }
+
         return htmlentities($value, ($mode !== null ? (int) $mode : ENT_COMPAT | ENT_HTML5));
     }
 

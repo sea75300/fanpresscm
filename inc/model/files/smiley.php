@@ -15,7 +15,7 @@ namespace fpcm\model\files;
  * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-final class smiley extends \fpcm\model\abstracts\file implements \Serializable, \JsonSerializable {
+final class smiley extends \fpcm\model\abstracts\file implements \JsonSerializable {
 
     /**
      * ID von Datei-Eintrag in DB
@@ -321,11 +321,11 @@ final class smiley extends \fpcm\model\abstracts\file implements \Serializable, 
     }
 
     /**
-     * Serialisiert Smiley-Objekt für Cache-Speicherung
-     * @return string
+     * Serialize smiley object for cache storage
+     * @return array
      * @ignore
      */
-    public function serialize()
+    public function __serialize() : array
     {
         $internal = get_object_vars($this);
         foreach ($internal as $key => $value) {
@@ -334,17 +334,19 @@ final class smiley extends \fpcm\model\abstracts\file implements \Serializable, 
             }
         }
 
-        return serialize($internal);
+        return $internal;
     }
 
     /**
-     * Unserialisiert Smiley-Objekt aus Cache-Speicherung
-     * @param string $serialized
-     * @ignore
+     * Unserialize smiley cache storage data
+     * @param array $data
+     * @return void
      */
-    public function unserialize($serialized)
+    public function __unserialize(array $data)
     {
-        $data = unserialize($serialized);
+        if (!count($data)) {
+            return;
+        }
 
         foreach ($data as $key => $value) {
             $this->$key = $value;

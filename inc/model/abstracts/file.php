@@ -254,6 +254,10 @@ abstract class file implements \Stringable {
      */
     public function exists()
     {
+        if ($this->fullpath === null) {
+            return false;
+        }
+        
         return file_exists($this->fullpath);
     }
 

@@ -63,6 +63,11 @@ final class components {
     public static function getAuthProvider() : object
     {
         $class = \fpcm\classes\loader::getObject('\fpcm\events\events')->trigger('getAuthProvider')->getData();
+        
+        if (!$class) {
+            return \fpcm\classes\loader::getObject('\fpcm\model\auth\htmlLogin');
+        }
+
         if (class_exists($class) && is_subclass_of($class, 'fpcm\model\abstracts\authProvider')) {
             return \fpcm\classes\loader::getObject($class);
         }
@@ -77,6 +82,11 @@ final class components {
     public static function getChatptchaProvider() : object
     {
         $class = \fpcm\classes\loader::getObject('\fpcm\events\events')->trigger('pub\replaceSpamCaptcha')->getData();
+        
+        if (!$class) {
+            return \fpcm\classes\loader::getObject('\fpcm\model\captchas\fpcmDefault');
+        }
+        
         if (class_exists($class) && is_subclass_of($class, '\fpcm\model\abstracts\spamCaptcha')) {
             return \fpcm\classes\loader::getObject($class);
         }

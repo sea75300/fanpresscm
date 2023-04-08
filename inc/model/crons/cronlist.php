@@ -175,6 +175,10 @@ final class cronlist extends \fpcm\model\abstracts\staticModel {
                 continue;
             }
 
+            if ($value->modulekey === null) {
+                $value->modulekey = '';
+            }
+            
             $cronName   = trim($value->modulekey)
                         ? \fpcm\module\module::getCronNamespace($value->modulekey, $value->cjname)
                         : \fpcm\model\abstracts\cron::getCronNamespace($value->cjname);

@@ -44,7 +44,11 @@ fpcm.dataview = {
         obj.headId      = obj.fullId + '-head';
         obj.rowsId      = obj.fullId + '-rows';
 
-        fpcm.dataview._baseItem = document.getElementById(obj.fullId);        
+        fpcm.dataview._baseItem = document.getElementById(obj.fullId);   
+        if (!fpcm.dataview._baseItem) {
+            return false;
+        }
+
         fpcm.dataview._createHead(obj, obj.columns);
         fpcm.dataview._createRows(obj);
 

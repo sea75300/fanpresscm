@@ -39,6 +39,12 @@ class categorylist extends \fpcm\controller\abstracts\controller implements \fpc
 
     /**
      * 
+     * @var \fpcm\components\dataView\dataView
+     */
+    protected $dataView;
+
+    /**
+     * 
      * @return string
      */
     protected function getDataViewName()

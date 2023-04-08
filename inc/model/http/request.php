@@ -422,6 +422,10 @@ final class request {
      */
     private function assignFilterCommon(&$value, string $function, array $filters)
     {
+        if ($value === null) {
+            return true;
+        }
+
         $value = $function($value, $filters[self::PARAM_HTML_MODE] ?? (ENT_COMPAT | ENT_HTML401) );
         return true;
     }

@@ -43,6 +43,12 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController
     protected $installed;
 
     /**
+     * 
+     * @var \fpcm\components\dataView\dataView
+     */
+    protected $dataView;
+
+    /**
      *
      * @var array
      */

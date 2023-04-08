@@ -63,6 +63,12 @@ class reload extends \fpcm\controller\abstracts\ajaxController
     private $logObj = '';
 
     /**
+     * 
+     * @var \fpcm\components\dataView\dataView
+     */
+    protected $dataView;
+
+    /**
      * Request-Handler
      * @return bool
      */
@@ -118,7 +124,7 @@ class reload extends \fpcm\controller\abstracts\ajaxController
      */
     private function getModuleLog() : bool
     {
-        if ($this->isSystem || !trim($this->moduleKey) || !\fpcm\module\module::validateKey($this->moduleKey)) {
+        if ($this->isSystem || $this->moduleKey === null || !trim($this->moduleKey) || !\fpcm\module\module::validateKey($this->moduleKey)) {
             return false;
         }
 
