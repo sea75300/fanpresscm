@@ -1,6 +1,45 @@
 
 ## VERSION 6  UNIFIED
 
+ * Version **6.14** - add differ option: ignoreLineEnding
+   * 2023-03-16 03:26  **6.14.2**  (Combined) fix unmerge-able block
+      * aeb1c3c fix: (Combined) unmerge-able block shouldn't be repeated
+      * 341f943 Release of new version 6.14.1
+   * 2023-03-11 15:24  **6.14.1**  tidy codes
+      * 71f0b0e refactor: move "ignoreLineEnding" implementation to sequence matcher
+      * 77d4dbb test: tidy codes
+      * 25d344b chore: update deps
+      * df6db81 chore: fix typos
+   * 2023-03-10 20:33  **6.14.0**  initial release
+      * 3b1e344 feat: add differ option: ignoreLineEnding
+      * b194161 chore: move test files
+      * 882ea1a chore: update deps
+
+ * Version **6.13** - override language
+   * 2023-02-27 19:28  **6.13.1**  another way to fix #34
+      * 7b89fd7 fix: another way to fix \r shouldn't be visualized like a newline in Combined renderer
+      * c069031 chore: add missing type hint
+   * 2023-01-19 00:29  **6.13.0**  initial release
+      * bfb89b6 feat: provide a way to override an existing language
+      * 775a043 chore: update deps
+      * c1638b3 style: format readme with prettier
+      * 5eb2dab docs: fix build status badge in readme
+      * 33b5bf5 chore: update deps
+      * 8063d63 style: reduce indentation for the demo codes
+      * 815eb0f test: test against PHP 8.2
+
+ * Version **6.12** - new rendererOption: spaceToHtmlTag
+   * 2022-09-26 22:33  **6.12.1**  fix: side-by-side column too narrow
+      * e12a477 style: make CI happy
+   * 2022-09-25 21:58  **6.12.0**  initial release
+      * 97791ea feat: new rendererOption: spaceToHtmlTag (#60)
+      * 47f9e74 revert: partially revert ef08158
+      * df88798 fix: select the code only (#59)
+      * ef08158 fix: wrong visual tabSize on browser
+      * 397fb17 chore: fix typo/spelling (#57)
+      * 7da0452 chore: update deps
+      * e579d7e chore: update CI deps
+
  * Version **6.11** - Bump PHP version to 7.4
    * 2022-06-26 13:42  **6.11.6**  fix Combined::renderArray
       * 710be7f test: update tests

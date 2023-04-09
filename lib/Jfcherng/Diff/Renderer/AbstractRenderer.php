@@ -59,6 +59,7 @@ abstract class AbstractRenderer implements RendererInterface
         'detailLevel' => 'line',
         // renderer language: eng, cht, chs, jpn, ...
         // or an array which has the same keys with a language file
+        // check the "Custom Language" section in the readme for more advanced usage
         'language' => 'eng',
         // show line numbers in HTML renderers
         'lineNumbers' => true,
@@ -66,6 +67,10 @@ abstract class AbstractRenderer implements RendererInterface
         'separateBlock' => true,
         // show the (table) header
         'showHeader' => true,
+        // convert spaces/tabs into HTML codes like `<span class="ch sp"> </span>`
+        // and the frontend is responsible for rendering them with CSS.
+        // when using this, "spacesToNbsp" should be false and "tabSize" is not respected.
+        'spaceToHtmlTag' => false,
         // the frontend HTML could use CSS "white-space: pre;" to visualize consecutive whitespaces
         // but if you want to visualize them in the backend with "&nbsp;", you can set this to true
         'spacesToNbsp' => false,

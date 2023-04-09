@@ -106,9 +106,11 @@ final class Differ
         // Differ::CONTEXT_ALL can be used to show the whole file
         'context' => 3,
         // ignore case difference
-        'ignoreWhitespace' => false,
-        // ignore whitespace difference
         'ignoreCase' => false,
+        // ignore line ending difference
+        'ignoreLineEnding' => false,
+        // ignore whitespace difference
+        'ignoreWhitespace' => false,
     ];
 
     /**

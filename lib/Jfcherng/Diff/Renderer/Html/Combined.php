@@ -239,7 +239,7 @@ final class Combined extends AbstractHtml
                     $this->renderTableBlockDelete($block) .
                     $this->renderTableBlockInsert($block);
 
-                continue;
+                break;
             }
 
             $ret .= $this->renderTableRow('rep', SequenceMatcher::OP_REP, $mergedLine);
@@ -512,6 +512,8 @@ final class Combined extends AbstractHtml
             if ($htmlClosures) {
                 $line = str_replace(RendererConstant::HTML_CLOSURES, $htmlClosures, $line);
             }
+            // fixes https://github.com/jfcherng/php-diff/issues/34
+            $line = str_replace("\r\n", "\n", $line);
         }
 
         return $lines;

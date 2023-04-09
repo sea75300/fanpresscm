@@ -1,6 +1,6 @@
 # php-diff
 
-[![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/jfcherng/php-diff/Main/v6?style=flat-square)](https://github.com/jfcherng/php-diff/actions)
+[![GitHub Workflow Status (branch)](https://img.shields.io/github/actions/workflow/status/jfcherng/php-diff/php.yml?branch=v6&style=flat-square)](https://github.com/jfcherng/php-diff/actions)
 [![Codacy grade](https://img.shields.io/codacy/grade/5b7ab5ed613d48b99f12cd334f6489ff/v6?style=flat-square)](https://app.codacy.com/project/jfcherng/php-diff/dashboard)
 [![Packagist](https://img.shields.io/packagist/dt/jfcherng/php-diff?style=flat-square)](https://packagist.org/packages/jfcherng/php-diff)
 [![Packagist Version](https://img.shields.io/packagist/v/jfcherng/php-diff?style=flat-square)](https://packagist.org/packages/jfcherng/php-diff)
@@ -9,7 +9,6 @@
 [![Donate to this project using Paypal](https://img.shields.io/badge/paypal-donate-blue.svg?style=flat-square&logo=paypal)](https://www.paypal.me/jfcherng/5usd)
 
 A comprehensive library for generating diff between two strings.
-
 
 ## Introduction
 
@@ -34,12 +33,10 @@ You may modify one from `example/diff-table.css` or write your own from zero.
 If you are okay with the default CSS, there is `\Jfcherng\Diff\DiffHelper::getStyleSheet()`
 which can be used to get the content of the `example/diff-table.css`.
 
-
 ## Requirements
 
 ![php](https://img.shields.io/badge/php-%E2%89%A57.4.0-blue?style=flat-square)
 ![ext-iconv](https://img.shields.io/badge/ext-iconv-brightgreen?style=flat-square)
-
 
 ## Installation
 
@@ -48,7 +45,6 @@ This package is available on `Packagist` by the name of [jfcherng/php-diff](http
 ```bash
 composer require jfcherng/php-diff
 ```
-
 
 ## Example
 
@@ -82,6 +78,8 @@ $differOptions = [
     'context' => 3,
     // ignore case difference
     'ignoreCase' => false,
+    // ignore line ending difference
+    'ignoreLineEnding' => false,
     // ignore whitespace difference
     'ignoreWhitespace' => false,
 ];
@@ -92,6 +90,7 @@ $rendererOptions = [
     'detailLevel' => 'line',
     // renderer language: eng, cht, chs, jpn, ...
     // or an array which has the same keys with a language file
+    // check the "Custom Language" section in the readme for more advanced usage
     'language' => 'eng',
     // show line numbers in HTML renderers
     'lineNumbers' => true,
@@ -150,9 +149,7 @@ $htmlRenderer = RendererFactory::make('Inline', $rendererOptions);
 $result = $htmlRenderer->renderArray(json_decode($jsonResult, true));
 ```
 
-
 ## Rendered Results
-
 
 ### HTML Diff In-line Detailed Rendering
 
@@ -175,7 +172,6 @@ $result = $htmlRenderer->renderArray(json_decode($jsonResult, true));
   </tr>
 </table>
 
-
 ### Renderer: Inline
 
 ```php
@@ -184,7 +180,6 @@ $result = $htmlRenderer->renderArray(json_decode($jsonResult, true));
 
 ![Inline](https://raw.githubusercontent.com/jfcherng/php-diff/v6/example/images/inline-renderer.png)
 
-
 ### Renderer: Side By Side
 
 ```php
@@ -192,7 +187,6 @@ $result = $htmlRenderer->renderArray(json_decode($jsonResult, true));
 ```
 
 ![Side By Side](https://raw.githubusercontent.com/jfcherng/php-diff/v6/example/images/side-by-side-renderer.png)
-
 
 ### Renderer: Combined
 
@@ -203,7 +197,6 @@ $result = $htmlRenderer->renderArray(json_decode($jsonResult, true));
 This renderer is suitable for articles and always has no line number information.
 
 ![Combined](https://raw.githubusercontent.com/jfcherng/php-diff/v6/example/images/combined-renderer-word-level.png)
-
 
 ### Renderer: Unified
 
@@ -225,7 +218,6 @@ About the `Unified` diff format: https://en.wikipedia.org/wiki/Diff#Unified_form
 -// remember to delete this line
  Say hello to my neighbors.
 ```
-
 
 ### Renderer: Context
 
@@ -261,7 +253,6 @@ About the `Context` diff format: https://en.wikipedia.org/wiki/Diff#Context_form
 ```
 
 </details>
-
 
 ### Renderer: Text JSON
 
@@ -344,11 +335,11 @@ This renderer has no detailed diff.
       "tag": "eq",
       "old": {
         "offset": 8,
-        "lines": ["\t  \tTab visulization test.", "G"]
+        "lines": ["\t  \tTab visualization test.", "G"]
       },
       "new": {
         "offset": 9,
-        "lines": ["\t  \tTab visulization test.", "G"]
+        "lines": ["\t  \tTab visualization test.", "G"]
       }
     },
     {
@@ -436,7 +427,6 @@ This renderer has no detailed diff.
 
 </details>
 
-
 ### Renderer: HTML JSON
 
 For a `"tag": "rep" (8)` block, this renderer has HTML-style detailed diff.
@@ -519,11 +509,11 @@ If you don't need those detailed diff, consider using the `JsonText` renderer.
       "tag": "eq",
       "old": {
         "offset": 8,
-        "lines": ["\t  \tTab visulization test.", "G"]
+        "lines": ["\t  \tTab visualization test.", "G"]
       },
       "new": {
         "offset": 9,
-        "lines": ["\t  \tTab visulization test.", "G"]
+        "lines": ["\t  \tTab visualization test.", "G"]
       }
     },
     {
@@ -611,6 +601,26 @@ If you don't need those detailed diff, consider using the `JsonText` renderer.
 
 </details>
 
+## Custom Language
+
+### Override an Existing Language
+
+If you just want to override some translations of an existing language...
+
+```php
+$rendererOptions = [
+  'language' => [
+    // use English as the base language
+    'eng',
+    // your custom overrides
+    [
+      // use "Diff" as the new value of the "differences" key
+      'differences' => 'Diff',
+    ],
+    // maybe more overrides if you somehow need them...
+  ],
+]
+```
 
 ## Acknowledgment
 

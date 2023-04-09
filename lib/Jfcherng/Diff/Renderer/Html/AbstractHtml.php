@@ -255,11 +255,18 @@ abstract class AbstractHtml extends AbstractRenderer
      */
     protected function formatStringFromLines(string $string): string
     {
-        $string = $this->expandTabs($string, $this->options['tabSize']);
+        if (!$this->options['spaceToHtmlTag']) {
+            $string = $this->expandTabs($string, $this->options['tabSize']);
+        }
+
         $string = $this->htmlSafe($string);
 
         if ($this->options['spacesToNbsp']) {
             $string = $this->htmlFixSpaces($string);
+        }
+
+        if ($this->options['spaceToHtmlTag']) {
+            $string = $this->htmlReplaceSpacesToHtmlTag($string);
         }
 
         return $string;
@@ -312,15 +319,22 @@ abstract class AbstractHtml extends AbstractRenderer
      */
     protected function htmlFixSpaces(string $string): string
     {
-        return preg_replace_callback(
-            '/ {2,}/S', // only fix for more than 1 space
-            static function (array $matches): string {
-                $count = \strlen($matches[0]);
+        return str_replace(' ', '&nbsp;', $string);
+    }
 
-                return str_repeat(' &nbsp;', $count >> 1) . ($count & 1 ? ' ' : '');
-            },
-            $string,
-        );
+    /**
+     * Replace spaces/tabs with HTML tags, which may be styled in frontend with CSS.
+     *
+     * @param string $string the string of spaces
+     *
+     * @return string the HTML representation of the string
+     */
+    protected function htmlReplaceSpacesToHtmlTag(string $string): string
+    {
+        return strtr($string, [
+            ' ' => '<span class="ch sp"> </span>',
+            "\t" => "<span class=\"ch tab\">\t</span>",
+        ]);
     }
 
     /**
