@@ -44,6 +44,8 @@ class moduleTest extends \PHPUnit\Framework\TestCase {
         /* @var fpcm\module\module $GLOBALS['module'] */
         $GLOBALS['module'] = new \fpcm\module\module($this->testMkey);
         $this->assertDirectoryExists($GLOBALS['module']->getConfig()->basePath);
+        $this->assertFalse($GLOBALS['module']->isInstalled(), sprintf('%s is already installed on this test instance', $this->testMkey));
+        
         $success = $GLOBALS['module']->install();
 
         $this->assertTrue($success);
@@ -74,6 +76,9 @@ class moduleTest extends \PHPUnit\Framework\TestCase {
 
         $tab2 = $db->selectFetch( (new \fpcm\model\dbal\selectParams('module_nkorgexample_tab2')) );
         $this->assertNotFalse($tab2);
+        
+        $this->assertTrue($GLOBALS['module']->enable());
+        $this->assertStringContainsString('/data/module_nkorgexample', $GLOBALS['module']->getDataPath());
     }
     
     public function testSetOptions()
@@ -110,7 +115,20 @@ class moduleTest extends \PHPUnit\Framework\TestCase {
 
     }
 
-    public function testGetInstalledModules()
+    public function testGetFromDatabase()
+    {
+        $testModList = (new fpcm\module\modules())->getFromDatabase();
+
+        $testModKey = $this->testMkey;
+
+        $this->assertTrue(is_array($testModList));
+        $this->assertArrayHasKey($testModKey, $testModList);
+
+        $moduleObj = $testModList[$testModKey];
+        $this->assertEquals($testModKey, $moduleObj->getConfig()->key);        
+    }
+
+    public function testGetInstalledDatabase()
     {
         $testModList = (new fpcm\module\modules())->getInstalledDatabase();
 
@@ -121,6 +139,26 @@ class moduleTest extends \PHPUnit\Framework\TestCase {
 
         $moduleObj = $testModList[$testModKey];
         $this->assertEquals($testModKey, $moduleObj->getConfig()->key);        
+    }
+
+    public function testGetEnabledDatabase()
+    {
+        $testModList = (new fpcm\module\modules())->getEnabledDatabase();
+
+        $testModKey = $this->testMkey;
+
+        $this->assertTrue(is_array($testModList));
+        $this->assertContains($testModKey, $testModList);  
+    }
+
+    public function testGetFromRepository()
+    {
+        $testModList = (new fpcm\module\modules())->getFromRepository();
+
+        $testModKey = $this->testMkey;
+
+        $this->assertTrue(is_array($testModList));
+        $this->assertArrayHasKey($testModKey, $testModList);  
     }
 
     public function testUninstall()

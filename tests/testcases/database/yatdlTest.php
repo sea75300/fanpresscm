@@ -82,6 +82,7 @@ class yatdlTest extends testBase {
             \nkorg\yatdl\parser::ERROR_YAMLPARSER_COLS,
             \nkorg\yatdl\parser::ERROR_YAMLPARSER_AUTOINCREMENT,
             \nkorg\yatdl\parser::ERROR_YAMLPARSER_INDICES,
+            \nkorg\yatdl\parser::ERROR_YAMLPARSER_VIEW,
             0
         ]));
     }
