@@ -175,6 +175,7 @@ fpcm.ui = {
         }
         
         _msg.cbtn = '';
+        _msg.bstm = 'light';
 
         if (_msg.type == 'error') {
             _msg.type = 'danger';
@@ -193,7 +194,7 @@ fpcm.ui = {
         _msgCode += '   <div class="toast-header text-white bg-'  + _msg.type +'">';
         _msgCode += fpcm.ui.getIcon(_msg.icon);
         _msgCode += '   <span class="d-inline-block w-100"></span>';
-        _msgCode += '   <button type="button" class="btn-close '+_msg.cbtn+'" data-bs-dismiss="toast" aria-label="' + fpcm.ui.translate('GLOBAL_CLOSE') + '"></button>';
+        _msgCode += '   <button type="button" class="btn-close '+_msg.cbtn+'" data-bs-dismiss="toast" data-bs-theme="'+_msg.bstm + '"  aria-label="' + fpcm.ui.translate('GLOBAL_CLOSE') + '"></button>';
         _msgCode += '   </div>';
         _msgCode += '       <div class="toast-body">';
         _msgCode += '           <div class="mx-3">' + _msg.txt + '</div>';
