@@ -21,6 +21,11 @@ class v510a1 extends migration {
 
     protected function alterTablesAfter(): bool {
 
+        $alreadyDone = $this->getDB()->count(\fpcm\classes\database::tableArticleCategories, 'id');
+        if ($alreadyDone) {
+            return true;
+        }
+
         $obj = new \fpcm\model\dbal\selectParams(\fpcm\classes\database::tableArticles);
         $obj->setItem('id, categories');
         $obj->setWhere('1=1 '.$this->getDB()->orderBy(['id ASC']));
