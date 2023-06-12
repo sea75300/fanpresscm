@@ -755,7 +755,7 @@ class view {
 
             $this->defaultViewVars->currentUser = $this->session->getCurrentUser();
             $this->defaultViewVars->loginTime = $this->session->getLogin();
-            $this->defaultViewVars->darkMode = $this->session->getCurrentUser()->getUserMeta();
+            $this->defaultViewVars->darkMode = $this->session->getCurrentUser()->getUserMeta()->system_darkmode;
             
             if ($this->showHeader === self::INCLUDE_HEADER_FULL) {
                 $this->defaultViewVars->navigation = (new \fpcm\model\theme\navigation($this->navigationActiveModule))->render();
