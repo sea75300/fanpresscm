@@ -111,6 +111,16 @@ class twitter extends \fpcm\model\abstracts\staticModel {
 
         return $return;
     }
+    
+    /**
+     * Load twitter timeline
+     * @return bool
+     * @since 5.1.2-beta
+     */
+    public function canLoadTimeline() : bool
+    {
+        return $this->checkConnection() && (bool) $this->config->twitter_events->timeline;
+    }
 
     /**
      * Sendet Request an Twitter, um Status zu aktualisieren
@@ -143,7 +153,7 @@ class twitter extends \fpcm\model\abstracts\staticModel {
      */
     public function fetchTimeline() : string
     {
-        if (defined('FPCM_TWITTER_DSIABLE_API') && FPCM_TWITTER_DSIABLE_API) {
+        if (!$this->canLoadTimeline()) {
             return '';
         }
 
@@ -156,7 +166,8 @@ class twitter extends \fpcm\model\abstracts\staticModel {
         );
         
         if ($this->oAuth->getLastHttpCode() != 200) {
-            trigger_error('Failed to fetch twitetr timeline');
+            $this->log($result);            
+            fpcmLogSystem(sprintf('Failed to fetch twitter timeline, code: %s', $this->oAuth->getLastHttpCode()));
             return '';
         }
 

@@ -66,6 +66,16 @@
                         ->setSwitch(true); ?>
             </div>
         </div>
+        
+        <div class="list-group mt-3">
+            <div class="list-group-item bg-secondary text-white"><?php $theView->icon('timeline'); ?> <?php $theView->write('GLOBAL_EXTENDED'); ?></div>
+            <div class="list-group-item">
+                <?php $theView->checkbox('twitter_events[timeline]', 'twitter_events_timeline')
+                        ->setText('SYSTEM_OPTIONS_TWITTER_EVENTTIMELINE')
+                        ->setSelected($globalConfig->twitter_events->timeline)
+                        ->setSwitch(true); ?>
+            </div>
+        </div>
     </div>
 </div>
 

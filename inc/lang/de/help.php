@@ -98,7 +98,6 @@ Help language file
             <dd class="pb-2">Über diese Option kann die Erzeugung eines Tweets bei aktiver Twitter-Verbindung manuell
                 deaktiviert werden, wenn sie in den Systemoptionen aktiviert wurde.</dd>
 
-            <dt>Tweet erzeugen:</dt>
             <dd class="pb-2">Über das Textfeld kann das Standard-Template für einen Beitrag bei Twitter
                 überschrieben und durch einen eigenen Text ersetzt werden. Der Inhalt dieses Feldes wird nicht gespeichert.
                 Das Dropdown <span class="btn btn-sm btn-outline-dark"><span class="fpcm-ui-icon fa fa-fw fa-square-plus"></span></span> bietet einen Schnellzugriff auf die Template-Platzhalter. Über die Checkbox am Ende kann zudem festgelegt werden,
@@ -712,6 +711,8 @@ Help language file
             <dt>Tweet zu Artikel erzeugen beim:</dt>
             <dd class="pb-2">Über die beiden Punkte kann festgelegt werden, wann neue Tweets nur beim Veröffentlichen bzw. Ändern
             eines Artikels oder beiden Aktionen erzeugt werden sollen.</dd>
+            <dt>Tweet-Timeline abrufen:</dt>
+            <dd class="pb-2">Über diese Option kann der Timeline-Container im Startbildschirm dauerhaft deaktiviert werden..</dd>
             <dt>Zugangsdaten:</dt>
             <dd class="pb-2">Diese Eingabe-Felder beinhalten die Informationen, welche für den erfolgreichen Zugriff auf die
             Twitter-API benötigt werden. Welche Daten hier eingetragen werden müssen, erfährst du in der Hilfe zur Einrichtung.</dd>

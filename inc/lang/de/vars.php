@@ -3,7 +3,7 @@
 /**
  * FanPress CM language variables file: de
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2022, Stefan Seehafer
+ * @copyright (c) 2011-2023, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -840,6 +840,7 @@ Logge dich ein, um den Kommentar zu moderieren. {{systemurl}}',
   'SYSTEM_OPTIONS_TWITTER_DISCONNECT' => 'Verbindung löschen',
   'SYSTEM_OPTIONS_TWITTER_EVENTCREATE' => 'Veröffentlichen',
   'SYSTEM_OPTIONS_TWITTER_EVENTS' => 'Tweet zu Artikel erzeugen beim',
+  'SYSTEM_OPTIONS_TWITTER_EVENTTIMELINE' => 'Tweet-Timeline abrufen',
   'SYSTEM_OPTIONS_TWITTER_EVENTUPDATE' => 'Aktualisieren',
   'SYSTEM_OPTIONS_TWITTER_USER_SECRET' => 'Access Token Secret',
   'SYSTEM_OPTIONS_TWITTER_USER_TOKEN' => 'Access Token',

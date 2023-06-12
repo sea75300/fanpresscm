@@ -26,9 +26,15 @@ class twitterEvents extends \fpcm\model\abstracts\configObj
 
     /**
      * Tweet on update/ additional saves
-     * @var boll
+     * @var bool
      */
     public $update = 0;
+
+    /**
+     * Fetch twitter timeline
+     * @var bool
+     */
+    public $timeline = 0;
 
     /**
      * Constructor
@@ -57,6 +63,7 @@ class twitterEvents extends \fpcm\model\abstracts\configObj
     {
         $this->create = 0;
         $this->update = 0;
+        $this->timeline = 0;
         return true;
     }
 

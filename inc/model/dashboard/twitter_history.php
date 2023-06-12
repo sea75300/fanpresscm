@@ -139,7 +139,7 @@ class twitter_history extends \fpcm\model\abstracts\dashcontainer implements \fp
      */
     public function isAccessible(): bool
     {
-        return $this->twitter->checkConnection();
+        return $this->twitter->canLoadTimeline();
     }
 
     /**

@@ -3,7 +3,7 @@
 /**
  * FanPress CM language list file: de
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2021, Stefan Seehafer
+ * @copyright (c) 2011-2023, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
