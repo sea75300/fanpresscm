@@ -63,7 +63,15 @@ class twitter_history extends \fpcm\model\abstracts\dashcontainer implements \fp
         $data = json_decode($data, true);
         
         if (!is_array($data) || !count($data)) {
-            return '';
+
+            $return = '';
+
+            if ((new \fpcm\model\files\fileOption('twitterHistoryAPILevel'))->read()) {
+                $return = (string) (new \fpcm\view\helper\alert('secondary'))->setText('RECENT_TWEETS_LOAD_FAILURE');
+            }
+
+            return $return;
+
         }
 
         $rows = '';

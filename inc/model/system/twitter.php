@@ -195,6 +195,10 @@ class twitter extends \fpcm\model\abstracts\staticModel {
                     fpcmLogSystem("Twitter retuned Code {$value->code}: {$value->message}");
                     continue;
                 }
+                
+                if ($value->code == 453) {
+                    (new \fpcm\model\files\fileOption('twitterHistoryAPILevel'))->write(true);
+                }
 
                 $i++;
                 trigger_error("Twitter error code {$value->code} return. Message was: {$value->message}");
