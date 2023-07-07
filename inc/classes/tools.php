@@ -179,6 +179,10 @@ final class tools {
      */
     public static function getHash($data) : string
     {
+        if (!is_string($data)) {
+            $data = '';
+        }
+        
         return hash(security::defaultHashAlgo, $data);
     }
 
