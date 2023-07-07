@@ -76,7 +76,7 @@ class passCheck extends \fpcm\model\abstracts\remoteModel {
         }
 
         $this->remoteData = $this->cache->read($this->cacheName);
-        if (!$this->remoteData === false) {
+        if (!is_string($this->remoteData)) {
             $this->remoteData = '';
         }
         
