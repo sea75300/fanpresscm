@@ -322,9 +322,6 @@ fpcm.filemanager = {
         if (_params === undefined) {
             return false;
         }
-        
-        debugger;
-        
 
         let _fileName = '';
 

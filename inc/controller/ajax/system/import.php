@@ -146,7 +146,7 @@ class import extends \fpcm\controller\abstracts\ajaxController
             ))->fetch();
         }
 
-        if ( \fpcm\model\files\csvFile::isValidType($csv->getExtension(), $csv->getMimeType())  ) {
+        if ( !\fpcm\model\files\csvFile::isValidType($csv->getExtension(), $csv->getMimeType())  ) {
             $this->response->setReturnData(new \fpcm\view\message(
                 $this->language->translate('IMPORT_MSG_CSVINVALID'),
                 \fpcm\view\message::TYPE_ERROR,

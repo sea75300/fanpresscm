@@ -8,7 +8,7 @@
     </div>
 </div>
 
-<div class="row">
+<div class="row pb-3">
     <div class="col">
         <div class="accordion" id="fpcm-id-import">
             <div class="accordion-item">
