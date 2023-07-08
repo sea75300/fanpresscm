@@ -68,9 +68,8 @@ class search extends \fpcm\controller\abstracts\ajaxController
             $this->conditions->text = $this->request->filter($filter['text'], [
                 \fpcm\model\http\request::FILTER_URLDECODE,
                 \fpcm\model\http\request::FILTER_TRIM,
-                \fpcm\model\http\request::FILTER_SANITIZE,
                 \fpcm\model\http\request::FILTER_HTMLENTITY_DECODE,
-                \fpcm\model\http\request::PARAM_SANITIZE => FILTER_SANITIZE_STRING
+                \fpcm\model\http\request::FILTER_HTMLSPECIALCHARS
             ]);
         }
 

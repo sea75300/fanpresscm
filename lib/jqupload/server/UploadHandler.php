@@ -796,8 +796,8 @@ class UploadHandler
             return true;
         }
         if (empty($options['crop'])) {
-            $new_width = $img_width * $scale;
-            $new_height = $img_height * $scale;
+            $new_width = (int) ($img_width * $scale);
+            $new_height = (int) ($img_height * $scale);
             $dst_x = 0;
             $dst_y = 0;
             $new_img = imagecreatetruecolor($new_width, $new_height);
@@ -1346,7 +1346,13 @@ class UploadHandler
         $this->response = $content;
         if ($print_response) {
             $json = json_encode($content);
-            $redirect = stripslashes($this->get_post_param('redirect'));
+            
+            $rdir = $this->get_post_param('redirect');
+            if ($rdir === null) {
+                $rdir = '';
+            }
+
+            $redirect = stripslashes($rdir);
             if ($redirect && preg_match($this->options['redirect_allow_target'], $redirect)) {
                 return $this->header('Location: '.sprintf($redirect, rawurlencode($json)));
             }
@@ -1478,7 +1484,7 @@ class UploadHandler
         return $this->generate_response($response, $print_response);
     }
 
-    protected function basename($filepath, $suffix = null) {
+    protected function basename($filepath, $suffix = '') {
         $splited = preg_split('/\//', rtrim ($filepath, '/ '));
         return substr(basename('X'.$splited[count($splited)-1], $suffix), 1);
     }

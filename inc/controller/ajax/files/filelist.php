@@ -77,9 +77,8 @@ class filelist extends \fpcm\controller\abstracts\ajaxController
             $this->filter->filename = $this->request->filter($filter['filename'], [
                 \fpcm\model\http\request::FILTER_URLDECODE,
                 \fpcm\model\http\request::FILTER_TRIM,
-                \fpcm\model\http\request::FILTER_SANITIZE,
                 \fpcm\model\http\request::FILTER_HTMLENTITY_DECODE,
-                \fpcm\model\http\request::PARAM_SANITIZE => FILTER_SANITIZE_STRING
+                \fpcm\model\http\request::FILTER_HTMLSPECIALCHARS
             ]);
         }
 

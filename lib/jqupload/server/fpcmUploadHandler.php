@@ -16,7 +16,7 @@ require_once __DIR__.'/UploadHandler.php';
  */
 class fpcmUploadHandler extends UploadHandler
 {
-    protected function basename($filepath, $suffix = null)
+    protected function basename($filepath, $suffix = '')
     {
         return fpcm\classes\tools::escapeFileName(parent::basename($filepath, $suffix));
     }
