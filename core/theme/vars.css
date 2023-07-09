@@ -1,9 +1,9 @@
 /* ------ General colors */
 :root {
-        --fpcm-var-blurring: 5px;
-        --fpcm-var-easing: 0.5s;
-        --fpcm-var-backdrop-image: url('./backdrops/pexels-asad-photo-maldives-4578810.jpg');
-        --fpcm-var-backdrop-classic: url('./backdrops/trianglify-classic.svg'); 
+    --fpcm-var-blurring: 5px;
+    --fpcm-var-easing: 0.5s;
+    --fpcm-var-backdrop-image: url('./backdrops/pexels-asad-photo-maldives-4578810.jpg');
+    --fpcm-var-backdrop-classic: url('./backdrops/trianglify-classic.svg'); 
 }
 
 :root,
