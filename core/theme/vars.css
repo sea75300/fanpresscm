@@ -1,12 +1,24 @@
 /* ------ General colors */
 :root {
-  --bs-primary: #0073ea;
-  --bs-red: #cc0000;
-  --bs-body-color: #454545;
-  --fpcm-blue-light: #3399ff;
-  --fpcm-grey-light: #ebe7f2;
-  --fpcm-var-blurring: 5px;
-  --fpcm-var-easing: 0.5s;
-  --fpcm-var-backdrop-image: url('./backdrops/pexels-asad-photo-maldives-4578810.jpg');
-  --fpcm-var-backdrop-classic: url('./backdrops/trianglify-classic.svg');
+        --fpcm-var-blurring: 5px;
+        --fpcm-var-easing: 0.5s;
+        --fpcm-var-backdrop-image: url('./backdrops/pexels-asad-photo-maldives-4578810.jpg');
+        --fpcm-var-backdrop-classic: url('./backdrops/trianglify-classic.svg'); 
+}
+
+:root,
+[data-bs-theme=light] {
+    --bs-primary: #0073ea;
+    --bs-red: #cc0000;
+    --bs-body-color: #454545;
+    --fpcm-blue-light: #3399ff;
+    --fpcm-grey-light: #ebe7f2;
+}
+
+[data-bs-theme=dark] {
+    --bs-primary: #0073ea;
+    --bs-red: #cc0000;
+    --bs-body-color: #454545;
+    --fpcm-blue-light: #3399ff;
+    --fpcm-grey-light: #ebe7f2;
 }
