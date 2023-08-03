@@ -45,7 +45,7 @@
                 </div>
             </div>
 
-            <div class="d-flex flex-column flex-grow-1 col-12 col-sm z-n1">
+            <div class="d-flex flex-column flex-grow-1 col-12 col-sm">
                 
                 <?php include_once $theView->getIncludePath('common/buttons.php'); ?>
           
