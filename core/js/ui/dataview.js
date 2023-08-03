@@ -136,7 +136,7 @@ fpcm.dataview = {
         
         let _el = document.createElement('div');
         _el.classList.add('row');
-        _el.classList.add('text-bg-primary');
+        _el.classList.add('bg-primary-subtle');
         _el.classList.add('py-1');
         _el.classList.add('fpcm');
         _el.classList.add('ui-dataview-head');
@@ -184,7 +184,7 @@ fpcm.dataview = {
         var _notFound       = row.isNotFound === true ? true : false;
 
         var rowId           = obj.fullId + '-dataview-row-' + index;
-        var baseclass       = row.isheadline ? 'fpcm-ui-dataview-subhead bg-secondary text-light' : 'fpcm ui-background-transition';
+        var baseclass       = row.isheadline ? 'fpcm-ui-dataview-subhead bg-dark-subtle text-light' : 'fpcm ui-background-transition';
         baseclass          += _notFound ? ' fpcm-ui-dataview-notfound' : '';
 
         row.class           = baseclass + (row.class ? ' ' + row.class : '');

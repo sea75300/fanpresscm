@@ -3,22 +3,25 @@
     --fpcm-var-blurring: 5px;
     --fpcm-var-easing: 0.5s;
     --fpcm-var-backdrop-image: url('./backdrops/pexels-asad-photo-maldives-4578810.jpg');
-    --fpcm-var-backdrop-classic: url('./backdrops/trianglify-classic.svg'); 
+    --fpcm-modal-bg: var(--bs-light-bg-subtle);
 }
 
-:root,
 [data-bs-theme=light] {
     --bs-primary: #0073ea;
     --bs-red: #cc0000;
     --bs-body-color: #454545;
+    --fpcm-link-color: var(--bs-body-color);
     --fpcm-blue-light: #3399ff;
     --fpcm-grey-light: #ebe7f2;
+    --fpcm-white-50: rgba(var(--bs-white-rgb), 0.6);
+    --fpcm-text-disabled-dark: rgba(var(--bs-dark-rgb),var(--bs-text-opacity)) !important;
+    --fpcm-dashboard-icons: var(--bs-dark);
+    --fpcm-toolbar-select: var(--bs-gray-100);
+    
 }
 
 [data-bs-theme=dark] {
-    --bs-primary: #0073ea;
-    --bs-red: #cc0000;
-    --bs-body-color: #454545;
-    --fpcm-blue-light: #3399ff;
-    --fpcm-grey-light: #ebe7f2;
+    --bs-primary: rgba(13,110,253,0.6);
+    --fpcm-var-backdrop-image: '';
+    --fpcm-white-50: rgba(var(--bs-tertiary-bg-rgb), 0.6);
 }

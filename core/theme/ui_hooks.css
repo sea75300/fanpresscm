@@ -35,6 +35,10 @@ div.row {
     margin-right: 0;
 }
 
+div.modal-body {
+    background-color: var(--fpcm-modal-bg);
+}
+
 /* ------ TinyMCE */
 td.fpcm-tinymce-emoticons img {
     padding: 0.5em !important;

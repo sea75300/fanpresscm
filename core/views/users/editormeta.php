@@ -73,7 +73,6 @@
                 ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED)
                 ->setText('SYSTEM_OPTIONS_DARKMODE')
                 ->setLabelTypeFloat()
-                ->setReadonly(true)
                 ->setIcon('moon'); ?>
         </div>
     </div>
