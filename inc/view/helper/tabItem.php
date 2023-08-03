@@ -266,7 +266,7 @@ class tabItem extends helper {
         
         
         return sprintf(
-            '<li id="fpcm-tab-%s" %s class="nav-item"><a class="nav-link %s" href="%s" role="tab" %s %s>%s</a></li>',
+            '<li id="fpcm-tab-%s" %s class="nav-item"><a class="nav-link user-select-none %s" href="%s" role="tab" %s %s>%s</a></li>',
             $this->id,
             !$this->useWrapper ? '' : $this->getDataString(),
             $css,
