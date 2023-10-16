@@ -211,7 +211,6 @@ class profile extends \fpcm\controller\abstracts\controller
             'reloadPage' => $this->reloadSite,
         ]);
 
-        $this->view->setActiveTab($this->getActiveTab());
         $this->view->assign('showDisableButton', false);
         $this->view->addJsFiles([ \fpcm\classes\loader::libGetFileUrl('nkorg/passgen/passgen.js'), 'users/profile.js', 'users/edit.js' ]);
 
