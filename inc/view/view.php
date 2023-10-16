@@ -568,6 +568,9 @@ class view {
             return;
         }
 
+        
+        $button->setClass('shadow-sm');
+        
         if ($pos) {
             $this->buttons[$pos] = $button;
             ksort($this->buttons);

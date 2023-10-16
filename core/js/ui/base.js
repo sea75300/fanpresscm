@@ -626,6 +626,10 @@ fpcm.ui = {
     
     replaceIcon: function (_id, _haystack, _needle) {
         fpcm.dom.fromId(_id).find('span.fpcm-ui-icon').removeClass('fa-' + _haystack).addClass('fa-' + _needle);
+    },
+    
+    darkModeEnabled: function () {
+        return document.documentElement.dataset.bsTheme == 'dark';
     }
 
 };

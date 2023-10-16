@@ -32,7 +32,7 @@ class linkButton extends button {
      */
     protected function init()
     {
-        $this->class = 'btn btn-light shadow-sm fpcm-ui-button fpcm-ui-button-link';
+        $this->class = sprintf('btn btn-%s shadow-sm fpcm-ui-button fpcm-ui-button-link', $this->getColorMode());
     }
 
     /**
