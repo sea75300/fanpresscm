@@ -146,16 +146,11 @@ fpcm.ui_dialogs = {
                 once: true
             });
         }
-        
-        if (_params.dlOnOpenAfter) {
-            _domEl.addEventListener('shown.bs.modal', function (event) {
-                _params.dlOnOpenAfter(this, _bsObj);
-            }, {
-                once: true
-            });
-        }
 
         _bsObj.toggle(_domEl);
+        
+        let _focused = '';
+        
         if (_params.dlButtons !== undefined) {
             
             let _footer = document.querySelector('#' + _dlgId + ' div.modal-footer');
@@ -175,8 +170,10 @@ fpcm.ui_dialogs = {
                 
                 let _btn = document.createElement('button');
 
+                _btn.id = _obj.id ? _obj.id : fpcm.ui.getUniqueID('fpcm-id-dialogbtn');
                 _btn.type = 'button';
                 _btn.className = 'btn' + (_obj.primary ? ' btn-primary' : '') + (_obj.class ? ' ' + _obj.class : '');
+                _btn.tabIndex = (_idx + 1);
                 
                 if (!_obj.showLabel) {
                     _btn.innerHTML = fpcm.ui.getIcon(_obj.icon);
@@ -222,11 +219,32 @@ fpcm.ui_dialogs = {
                 };
 
                 _footer.appendChild(_btn);
-                if (_obj.primary || _obj.autofocus) {
-                    _btn.focus();
+                if (!_obj.disabled && (_obj.primary || _obj.autofocus)) {
+                    _focused = _btn.id;
+                    
                 }
-
             }
+
+
+
+        }
+        
+        if (_focused || _params.dlOnOpenAfter) {
+
+            _domEl.addEventListener('shown.bs.modal', function (event) {
+            
+                if (_focused) {
+                    document.getElementById(_focused).focus({ focusVisible: true });
+                }                
+                
+                if (_params.dlOnOpenAfter) {
+                    _params.dlOnOpenAfter(this, _bsObj);
+                }
+                
+                
+            }, {
+                once: true
+            });
 
         }
 
@@ -254,10 +272,6 @@ fpcm.ui_dialogs = {
     },
     
     confirm: function(_params) {
-
-        if (_params.defaultYes === undefined && _params.defaultNo === undefined) {
-            _params.defaultYes = true;
-        }
         
         if (_params.clickNoDefault === undefined) {
             _params.clickNoDefault = true;
@@ -275,6 +289,7 @@ fpcm.ui_dialogs = {
                     text: 'GLOBAL_YES',
                     icon: "check",
                     click: _params.clickYes,
+                    autofocus: _params.focusYes ? true : false,
                     class: 'btn-success',
                     clickClose: true
                 },
@@ -283,7 +298,8 @@ fpcm.ui_dialogs = {
                     icon: "times",
                     click: _params.clickNo,
                     primary: _params.defaultNo ? true : false,
-                    class: 'btn-outline-danger',
+                    autofocus: _params.focusNo ? true : false,
+                    class: 'btn-danger',
                     clickClose: _params.clickNoDefault
                 }
             ]

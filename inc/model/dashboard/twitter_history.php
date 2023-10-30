@@ -67,7 +67,7 @@ class twitter_history extends \fpcm\model\abstracts\dashcontainer implements \fp
             $return = '';
 
             if ((new \fpcm\model\files\fileOption('twitterHistoryAPILevel'))->read()) {
-                $return = (string) (new \fpcm\view\helper\alert('secondary'))->setText('RECENT_TWEETS_LOAD_FAILURE');
+                $return = (string) (new \fpcm\view\helper\alert('secondary'))->setText('RECENT_TWEETS_LOAD_FAILURE')->setClass('me-2');
             }
 
             return $return;

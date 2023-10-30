@@ -116,7 +116,7 @@
                 <div class="col-12 col-sm-6 col-md-4">&nbsp;</div>
                 <div class="col-auto justify-content-center">
                     <figure class="figure" id="fpcm-thumb-preview">
-                        <img title="<?php $theView->write('GLOBAL_PREVIEW'); ?>" class="img-thumbnail" src="<?php print $theView->themePath; ?>logo.svg" role="presentation" style="width:<?php print $globalConfig->file_thumb_size; ?>px;height: <?php print $globalConfig->file_thumb_size; ?>px;">
+                        <img title="<?php $theView->write('GLOBAL_PREVIEW'); ?>" class="img-thumbnail bg-light border border-2 border-info" src="<?php print $theView->themePath; ?>logo.svg" role="presentation" style="width:<?php print $globalConfig->file_thumb_size; ?>px;height: <?php print $globalConfig->file_thumb_size; ?>px;">
                         <figcaption class="figure-caption text-end"><span><?php print $theView->escapeVal($globalConfig->file_thumb_size); ?></span> <?php $theView->write('FILE_LIST_RESOLUTION_PIXEL') ?></figcaption>
                     </figure>
                 </div>

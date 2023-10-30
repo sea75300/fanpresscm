@@ -2,13 +2,18 @@
 /**
  * Combined JavaScript file
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2019, Stefan Seehafer
+ * @copyright (c) 2011-2023, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
 require_once dirname(dirname(__DIR__)).'/inc/common.php';
 
-$unique = preg_replace('/([^a-z0-9]*)/', '', \fpcm\classes\loader::getObject('\fpcm\model\http\request')->fromGet('uq', [\fpcm\model\http\request::FILTER_TRIM ]));
+$qu = \fpcm\classes\loader::getObject('\fpcm\model\http\request')->fromGet('uq', [\fpcm\model\http\request::FILTER_TRIM ]);
+if ($qu === null) {
+    $qu = '';
+}
+
+$unique = preg_replace('/([^a-z0-9]*)/', '', $qu);
 $cacheName = fpcm\view\view::JS_FILES_CACHE.'data'.$unique;
 
 /* @var $cache fpcm\classes\cache */

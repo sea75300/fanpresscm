@@ -72,7 +72,7 @@ final class baseconfig {
      * Installer aktiv Status-Datei
      * @var string
      */
-    private static $installerEnabledFile;
+    private static $installerEnabledFile = '';
 
     /**
      * Initiiert Grundsystem

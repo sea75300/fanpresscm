@@ -86,16 +86,16 @@ class import extends \fpcm\controller\abstracts\ajaxController
         $csvParams = !$this->preview && $this->opt->read() !== null ? (array) $this->opt->read() : $this->request->fromPOST('csv');
         $this->opt->write($csvParams);
 
-        $this->item = filter_var($csvParams['item'] ?? null, FILTER_SANITIZE_STRING);
+        $this->item = filter_var($csvParams['item'] ?? null, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-        $this->file = basename(filter_var($csvParams['file'] ?? null, FILTER_SANITIZE_STRING), '.csv');
+        $this->file = basename(filter_var($csvParams['file'] ?? null, FILTER_SANITIZE_FULL_SPECIAL_CHARS), '.csv');
 
-        $this->delim = substr(filter_var($csvParams['delim'] ?? null, FILTER_SANITIZE_STRING), 0, 1);
+        $this->delim = substr(filter_var($csvParams['delim'] ?? null, FILTER_SANITIZE_FULL_SPECIAL_CHARS), 0, 1);
         if (!in_array($this->delim, [';', ','])) {
             $this->delim = ';';
         }
         
-        $this->enclosure = substr(filter_var($csvParams['enclo'] ?? null, FILTER_SANITIZE_STRING), 0, 1);
+        $this->enclosure = substr(filter_var($csvParams['enclo'] ?? null, FILTER_SANITIZE_FULL_SPECIAL_CHARS), 0, 1);
         if (!in_array($this->enclosure, ['"', '\''])) {
             $this->enclosure = '"';
         }

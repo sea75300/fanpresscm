@@ -76,6 +76,10 @@ class ImageWorkshopLib
      */
     public static function convertHexToRGB($hex)
     {
+        if ($hex === null) {
+            $hex = '';
+        }
+        
         return array(
             'R' => (int) base_convert(substr($hex, 0, 2), 16, 10),
             'G' => (int) base_convert(substr($hex, 2, 2), 16, 10),

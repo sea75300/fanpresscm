@@ -132,7 +132,7 @@ abstract class showcommon extends \fpcm\controller\abstracts\pubController {
 
         $this->apiMode = (bool) ($params['apiMode'] ?? false);
         $this->category = $params['category'] ?? 0;
-        $this->search = empty($params['search']) ? null : filter_var($params['search'], FILTER_SANITIZE_STRING);
+        $this->search = empty($params['search']) ? '' : addslashes(strip_tags(htmlspecialchars($params['search'])));
         $this->isUtf8 = (bool) ($params['isUtf8'] ?? true);
         $this->templateString = isset($params['template']) && trim($params['template']) ? $params['template'] : false;
 

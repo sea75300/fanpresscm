@@ -94,7 +94,7 @@ final class comment extends template {
                 $values = $value;
             }
 
-            $content = str_replace($splitTags, $values, $content);
+            $content = str_replace($splitTags, $values ?? [], $content);
         }
 
         $this->lazyReplace($content);

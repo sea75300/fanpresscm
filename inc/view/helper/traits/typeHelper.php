@@ -35,5 +35,3 @@ trait typeHelper {
     }
 
 }
-
-?>

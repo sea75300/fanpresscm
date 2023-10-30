@@ -38,21 +38,16 @@ fpcm.logs = {
             }
             
         });
-
-        var cleanEl = fpcm.dom.fromId('btnCleanLogs');
-        cleanEl.unbind('click');
-        cleanEl.click(function () {
-            
-            var elData = fpcm.dom.fromTag(this).data();
-            
+        
+        fpcm.dom.bindClick('#btnCleanLogs', function (_event, _ui) {
+      
             fpcm.ui_dialogs.confirm({
-                clickNoDefault: true,
+                focusNo: true,
                 clickYes: function () {
                     fpcm.logs.clearLogs(fpcm.vars.jsvars.currentLog);
                 }
             });
-            
-            return false;
+      
         });
 
     },

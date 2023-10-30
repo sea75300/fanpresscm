@@ -58,10 +58,6 @@ final class pageTokens {
             return true;
         }
 
-        if (hash_equals($this->getValue($name), $token)) {
-            return true;
-        }
-
         trigger_error('Submitted page token was inavlid.');
         return false;
     }

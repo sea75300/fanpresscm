@@ -23,11 +23,13 @@ class main {
     public function __construct()
     {
         if (version_compare(PHP_VERSION, FPCM_PHP_REQUIRED, '<')) {
-            exit('FanPress CM requires at least PHP ' . FPCM_PHP_REQUIRED . ' or better!');
+            printf('FanPress CM requires at least PHP %s or better!', FPCM_PHP_REQUIRED);
+            exit;                        
         }
 
         if (!\fpcm\classes\baseconfig::installerEnabled() && !\fpcm\classes\baseconfig::dbConfigExists()) {
-            exit('You have to install FanPress CM 5 before using it.');
+            printf('You have to install FanPress CM %s before using it.', \fpcm\classes\baseconfig::getVersionFromFile());
+            exit;
         }
     }
 
@@ -39,7 +41,7 @@ class main {
     {
         $controllers = \fpcm\classes\baseconfig::getControllers();
 
-        $module = \fpcm\classes\loader::getObject('\fpcm\model\http\request')->fromGet('module');
+        $module = \fpcm\model\http\request::getInstance()->getModule();
         if (!$module) {
             header('Location: ' . \fpcm\classes\tools::getControllerLink('system/login'));
             return true;
@@ -56,8 +58,8 @@ class main {
         }
 
         if (!class_exists($class)) {
-            trigger_error('Undefined controller called: ' . $module.', Class: '.$class, E_USER_ERROR);
-            $this->errorPage("The requested controller <b>{$module}</b> does not exist! <span class=\"fa fa-frown-o\"></span>");
+            trigger_error(sprintf('Undefined controller called: %s, Class: %s', $module, $class), E_USER_ERROR);
+            $this->errorPage(sprintf("The requested controller <b>%s</b> does not exist! <span class=\"fa fa-frown-o\"></span>", $module));
         }
 
         /**

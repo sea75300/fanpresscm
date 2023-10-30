@@ -216,6 +216,7 @@ abstract class articlebase extends \fpcm\controller\abstracts\controller impleme
 
 
         $this->view->assign('urlRewrite', $this->config->articles_link_urlrewrite);
+        $this->view->setActiveTab($this->getActiveTab());
 
         $this->jsVars  = $this->editorPlugin->getJsVars();
         $this->jsVars += array(

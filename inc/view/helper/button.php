@@ -116,5 +116,3 @@ class button extends helper {
     }
 
 }
-
-?>

@@ -132,7 +132,7 @@ final class components {
      */
     public static function getjQuery() : string
     {
-        return \fpcm\classes\dirs::getLibUrl('jquery/jquery-3.6.4.min.js');
+        return \fpcm\classes\dirs::getLibUrl('jquery/jquery-3.7.1.min.js');
     }
 
     /**

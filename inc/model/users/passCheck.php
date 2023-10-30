@@ -76,6 +76,10 @@ class passCheck extends \fpcm\model\abstracts\remoteModel {
         }
 
         $this->remoteData = $this->cache->read($this->cacheName);
+        if (!is_string($this->remoteData)) {
+            $this->remoteData = '';
+        }
+
         if (!trim($this->remoteData) || $this->cache->isExpired($this->cacheName)) {
             $this->remoteServer = $this->remoteServerBase . strtoupper(substr($this->passHash, 0, $this->passLimit));
             $this->fetchRemoteData();

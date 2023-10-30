@@ -323,9 +323,6 @@ fpcm.filemanager = {
             return false;
         }
         
-        debugger;
-        
-
         let _fileName = '';
 
         if (_params.uploadID && _params.successful && _params.successful[0] && _params.successful[0].name) {

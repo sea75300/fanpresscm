@@ -286,7 +286,7 @@ final class config extends dataset implements \fpcm\model\interfaces\isObjectIns
             $this->newConfig['system_css_path'] = filter_var($this->newConfig['system_css_path'], FILTER_SANITIZE_URL);
         }
 
-        $classes = $this->newConfig['system_editor_css'] ?? null;
+        $classes = $this->newConfig['system_editor_css'] ?? '';
         if (trim($classes)) {
             $classes = explode(PHP_EOL, trim($classes));
             if (count($classes)) {

@@ -41,7 +41,7 @@ final class error extends \fpcm\view\view {
      * @param string $backController
      * @param string $icon
      */
-    public function __construct($errorMessage, $backController = null, $icon = null)
+    public function __construct($errorMessage, $backController = '', $icon = '')
     {
         parent::__construct('common/error');
         $this->errorMessage = $this->language->translate($errorMessage);
