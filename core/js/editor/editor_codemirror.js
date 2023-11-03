@@ -98,7 +98,7 @@ fpcm.editor_codemirror = {
             autoCloseTags    : true,
             id               : config.editorId,
             mode             : "text/html",            
-            theme            : 'fpcm',
+            theme            : 'fpcm' + (fpcm.ui.darkModeEnabled() ? '-dark' : ''),
             matchTags        : {
                 bothTags     : true
             },

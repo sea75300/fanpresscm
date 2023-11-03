@@ -38,6 +38,7 @@ class htmlEditor extends articleEditor {
         return [
             \fpcm\classes\dirs::getLibUrl('codemirror/lib/codemirror.css'),
             \fpcm\classes\dirs::getLibUrl('codemirror/theme/fpcm.css'),
+            \fpcm\classes\dirs::getLibUrl('codemirror/theme/fpcm-dark.css'),
             \fpcm\classes\dirs::getLibUrl('codemirror/addon/hint/show-hint.css')
         ];
     }

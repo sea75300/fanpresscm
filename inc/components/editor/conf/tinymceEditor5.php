@@ -134,6 +134,12 @@ class tinymceEditor5 implements \JsonSerializable {
     public $image_caption = true;
 
     /**
+     * image_caption setting
+     * @var string
+     */
+    public $skin = 'oxide';
+
+    /**
      * Constructor
      * @param \fpcm\model\system\config $config
      * @param array $pluginFolders
@@ -178,6 +184,10 @@ class tinymceEditor5 implements \JsonSerializable {
         $this->images_upload_url = \fpcm\classes\tools::getFullControllerLink('ajax/editor/imgupload');
         $this->automatic_uploads = true;
 
+        if (\fpcm\model\system\session::getInstance()?->getCurrentUser()?->getUserMeta()?->system_darkmode) {
+            $this->skin .= '-dark';
+        }
+        
         $this->language = $config->system_lang;
         
     }

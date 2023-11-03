@@ -194,3 +194,9 @@ div.fileupload-progress.in {
     opacity: 1;
     transition: opacity .15s linear;
 }
+
+[data-bs-theme=dark] {
+    div.fpcm.ui-help-content > h3 {
+        color: var(--bs-primary-text-emphasis);
+    }
+}
