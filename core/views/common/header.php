@@ -23,7 +23,7 @@
         <?php endif; ?>
     </head>    
 
-    <body class="fpcm-body <?php print $theView->bodyClass; ?>" id="fpcm-body">
+    <body class="fpcm-body <?php if ($theView->darkMode) : ?>bg-gradient<?php endif; ?> <?php print $theView->bodyClass; ?>" id="fpcm-body">
 
         <?php if ($theView->formActionTarget) : ?><form method="post" action="<?php print $theView->formActionTarget; ?>" enctype="multipart/form-data" id="fpcm-ui-form"><?php endif; ?>
 

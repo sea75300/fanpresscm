@@ -17,7 +17,7 @@
         <?php endif; ?>
     </head>
 
-    <body class="fpcm-body bg-gradient" id="fpcm-body">
+    <body class="fpcm-body <?php if ($theView->darkMode) : ?>bg-gradient<?php endif; ?>" id="fpcm-body">
         <div class="position-absolute top-50 start-50 translate-middle col-12 col-md-8 col-lg-6 col-xl-4">
             <div class="shadow-lg rounded p-4 fpcm ui-background-white-50p ui-blurring">
 

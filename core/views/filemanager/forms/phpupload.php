@@ -2,7 +2,7 @@
 <fieldset class="mb-2">
     <legend><?php $theView->write('FILE_LIST_UPLOADFORM'); ?>: <?php print $maxFilesInfo; ?></legend>
 
-    <div class="rounded-2 p-2 bg-white shadow-sm">
+    <div class="rounded-2 p-2 bg-body-tertiary rounded shadow-sm">
         <div class="btn-group-vertical back w-100" role="group">
             <?php $theView->button('addFile')->setText('FILE_FORM_FILEADD')->setIcon('plus')->setData(['click-trigger' => 'upload-files-select']); ?>
             <?php $theView->submitButton('uploadFile')->setText('FILE_FORM_UPLOADSTART')->setIcon('upload'); ?>

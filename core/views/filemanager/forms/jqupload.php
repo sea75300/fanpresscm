@@ -14,7 +14,7 @@
             </div>
         </div>
         <div class="col align-self-center">
-            <div id="fpcm-filemanager-upload-drop" class="col-12 bg-light d-none d-lg-block">
+            <div id="fpcm-filemanager-upload-drop" class="col-12 bg-body-tertiary rounded shadow-sm d-none d-lg-block">
                 <h4 class="text-center d-block"><?php $theView->icon('file-upload')->setSize('2x')->setClass('opacity-75'); ?><br><span class="fs-6"><?php $theView->write('FILE_LIST_UPLOADDROP'); ?></span></h4>
             </div>
         </div>

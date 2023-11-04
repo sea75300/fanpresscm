@@ -14,7 +14,7 @@
         <?php include_once 'vars.php'; ?>
     </head>     
 
-    <body class="fpcm-body <?php print $theView->bodyClass; ?>" id="fpcm-body">
+    <body class="fpcm-body <?php if ($theView->darkMode) : ?>bg-gradient<?php endif; ?> <?php print $theView->bodyClass; ?>" id="fpcm-body">
         
         <?php include_once $theView->getIncludePath('common/messagesTpl.php'); ?>
 
