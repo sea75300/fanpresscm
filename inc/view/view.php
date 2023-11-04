@@ -466,6 +466,7 @@ class view {
     /**
      * Overrides new JS language vars
      * @param array $jsVars
+     * @deprecated 5.2
      */
     public function overrideJsLangVars(array $jsVars)
     {
@@ -486,6 +487,26 @@ class view {
                           : array_merge($this->jsLangVars, array_combine($keys, $values));
     }
 
+    /**
+     * Add JavaScritp ECMA module files
+     * @param array $jsModuleFiles
+     * @return $this
+     * @since 5.2
+     */
+    public function setJsModuleFiles(array $jsModuleFiles)
+    {
+        $base = \fpcm\classes\dirs::getECMAurl();
+
+        $this->jsModuleFiles = array_merge(
+            $this->jsModuleFiles,
+            array_map(function ($item) use ($base) {
+                return $base.$item;
+            }, $jsModuleFiles)
+        );
+        
+        return $this;
+    }
+        
     /**
      * Add js and css files from 3rd party library
      * @param string $lib
@@ -839,6 +860,7 @@ class view {
             return str_replace(self::ROOTURL_UNIQUE, $this->viewHash, $item);
         }, $this->jsFilesLate);
         
+        $this->defaultViewVars->filesECMAFiles = $this->jsModuleFiles;
         $this->defaultViewVars->filesJs = $this->jsFiles;
         $this->defaultViewVars->filesJsLate = $this->jsFilesLate;
         $this->cache->write(self::JS_FILES_CACHE.$this->getViewHash(), $this->jsFilesLocal);

@@ -43,6 +43,7 @@ namespace fpcm\view;
  * 
  * @property array  $messages
  * @property array  $filesJs
+ * @property array  $filesECMAFiles
  * @property array  $filesJsLate
  * @property array  $filesCss
  * @property array  $varsJs
