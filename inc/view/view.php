@@ -98,6 +98,13 @@ class view {
     protected $jsFilesLocal = [];
 
     /**
+     * Javascript ECMA-modules
+     * @var array
+     * @since 5.2.0
+     */
+    protected $jsModuleFiles = [];
+
+    /**
      * View CSS files
      * @var array
      */
@@ -462,22 +469,21 @@ class view {
      */
     public function overrideJsLangVars(array $jsVars)
     {
-        $keys = array_values($jsVars);
-        $values = array_map([$this->language, 'translate'], array_values($jsVars));
-
-        $this->jsLangVars = array_combine($keys, $values);
+        $this->addJsLangVars($jsVars, true);
     }
 
     /**
      * Add new JS language vars
      * @param mixed $jsVars
      */
-    public function addJsLangVars(array $jsVars)
+    public function addJsLangVars(array $jsVars, bool $override = false)
     {
         $keys = array_values($jsVars);
         $values = array_map([$this->language, 'translate'], array_values($jsVars));
 
-        $this->jsLangVars = array_merge($this->jsLangVars, array_combine($keys, $values));
+        $this->jsLangVars = $override
+                          ? array_combine($keys, $values)
+                          : array_merge($this->jsLangVars, array_combine($keys, $values));
     }
 
     /**
