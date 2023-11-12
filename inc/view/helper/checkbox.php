@@ -15,7 +15,7 @@ namespace fpcm\view\helper;
  * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-final class checkbox extends radiocheck {
+class checkbox extends radiocheck {
 
     /**
      * Optional init function
@@ -29,5 +29,3 @@ final class checkbox extends radiocheck {
     }
 
 }
-
-?>

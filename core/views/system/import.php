@@ -89,7 +89,7 @@
 
                                 <fieldset>
                                     <legend><?php $theView->write('IMPORT_FIELDS_OBJECT'); ?></legend>
-                                    <ul class="list-group fpcm-ui-csv-fields mb-2 bg-light" id="fpcm-ui-csv-fields-select"></ul>
+                                    <ul class="list-group fpcm-ui-csv-fields mb-2 bg-body-tertiary" id="fpcm-ui-csv-fields-select"></ul>
                                 </fieldset>
 
                             </div>
@@ -102,7 +102,7 @@
                             <div class="col-12 col-lg-5 px-0 ps-lg-1">
                                 <fieldset class="h-100">
                                     <legend><?php $theView->write('IMPORT_FIELDS_CSV'); ?></legend>
-                                    <ul class="list-group fpcm-ui-csv-fields mb-2 bg-light" id="fpcm-ui-csv-fields-list"></ul>
+                                    <ul class="list-group fpcm-ui-csv-fields mb-2 bg-body-tertiary" id="fpcm-ui-csv-fields-list"></ul>
                                 </fieldset>
                             </div>
                         </div>

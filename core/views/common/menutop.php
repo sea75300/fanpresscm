@@ -74,11 +74,11 @@
                         <span class="d-none d-md-inline"><?php $theView->write('PROFILE_MENU_LOGGEDINAS',  ['{{username}}' => $theView->currentUser->getDisplayName()]); ?></span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end fpcm ui-z-index-top" aria-labelledby="fpcm-profile-menu">
-                        <li class="dropdown-item fpcm-ui-font-small disabled text-dark">
+                        <li class="dropdown-item disabled fpcm ui-font-small ui-color-font-disabled-dark">
                             <b><?php $theView->write('PROFILE_MENU_LOGGEDINSINCE'); ?>:</b><br>
                             <?php $theView->dateText($theView->loginTime); ?> (<?php print $theView->dateTimeZone; ?>)
                         </li>
-                        <li class="dropdown-item fpcm-ui-font-small disabled text-dark">
+                        <li class="dropdown-item disabled fpcm ui-font-small ui-color-font-disabled-dark">
                             <b><?php $theView->write('PROFILE_MENU_YOURIP'); ?></b><br>
                             <?php print $theView->ipAddress; ?>
                         </li>

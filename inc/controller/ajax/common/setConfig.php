@@ -27,14 +27,19 @@ class setConfig extends \fpcm\controller\abstracts\ajaxController {
     public function request()
     {
         $op = $this->request->fromPOST('op');
-        if (!trim($op)) {
+        if ($op === null || !trim($op)) {
             $op = 'change';
         }
 
         $fn = match ($op) {
             'change' => 'setOptionValue',
-            'reset' => 'resetOptionValue'
+            'reset' => 'resetOptionValue',
+            default => null
         };
+        
+        if (!$fn) {
+            return false;
+        }
 
         return $this->{$fn}();
     }

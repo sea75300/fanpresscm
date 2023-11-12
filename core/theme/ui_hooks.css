@@ -35,6 +35,10 @@ div.row {
     margin-right: 0;
 }
 
+div.modal-body {
+    background-color: var(--fpcm-modal-bg);
+}
+
 /* ------ TinyMCE */
 td.fpcm-tinymce-emoticons img {
     padding: 0.5em !important;
@@ -123,11 +127,27 @@ table.diff-wrapper {
   padding: 0 0.35rem;
 }
 
-/* ------ Selectize.js */
 .fpcm.ui-image-editor-cropper .cropper-drag-box.cropper-crop.cropper-modal {
     opacity: .5 !important;
 }
 
 .toast-container.position-fixed {
     z-index : 1021;
+}
+
+
+[data-bs-theme=dark] {
+    
+    .ts-control, .ts-wrapper.single.input-active .ts-control, .ts-dropdown {
+        background: var(--bs-body-bg);
+    }
+    
+    .ts-control, .ts-wrapper.single.input-active .ts-control, .ts-dropdown, div.fpcm.ui-help-content .btn-outline-dark {
+        border: var(--bs-border-width) solid var(--bs-border-color);
+    }
+    
+    .ts-control, .ts-control input, .ts-dropdown, div.fpcm.ui-help-content .btn-outline-dark {
+        color: var(--bs-body-color);
+    }
+ 
 }

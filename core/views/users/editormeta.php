@@ -53,9 +53,9 @@
                     ->setIcon('list'); ?>
         </div>
     </div>          
-
-    <div class="row my-2">
-        <div class="col-12 col-md-6">
+    
+    <div class="row row-cols-1 row-cols-md-4 gap-1 my-2">
+        <div class="col">
             <?php $theView->select('usermeta[backdrop]')
                 ->setOptions(array_combine($backdrops, $backdrops))
                 ->setSelected($author->getUserMeta()->backdrop)
@@ -64,19 +64,15 @@
                 ->setLabelTypeFloat()
                 ->setIcon('panorama'); ?>
         </div>
-    </div>
-
-    <div class="row my-2">
-        <div class="col-12 col-md-6">
+        <div class="col ps-md-0">
             <?php $theView->boolSelect('usermeta[system_darkmode]')
                 ->setSelected($author->getUserMeta()->system_darkmode)
                 ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED)
                 ->setText('SYSTEM_OPTIONS_DARKMODE')
                 ->setLabelTypeFloat()
-                ->setReadonly(true)
                 ->setIcon('moon'); ?>
         </div>
-    </div>
+    </div>        
 </fieldset>
 
 <fieldset class="mb-2">
@@ -93,9 +89,9 @@
                 ->setIcon('text-height'); ?>
         </div>
     </div>
-
-    <div class="row my-2">
-        <div class="col-12 col-md-6">
+    
+    <div class="row row-cols-1 row-cols-md-4 gap-1 my-2">
+        <div class="col">
             <?php $theView->select('usermeta[file_list_limit]')
                 ->setOptions($articleLimitList)
                 ->setSelected($author->getUserMeta()->file_list_limit)
@@ -104,10 +100,7 @@
                 ->setLabelTypeFloat()
                 ->setIcon('folder-open'); ?>
         </div>
-    </div>
-
-    <div class="row my-2">
-        <div class="col-12 col-md-6">
+        <div class="col ps-md-0">
             <?php $theView->select('usermeta[file_view]')
                 ->setOptions($filemanagerViews)
                 ->setSelected($author->getUserMeta()->file_view)
@@ -116,6 +109,5 @@
                 ->setLabelTypeFloat()
                 ->setIcon('grip-horizontal'); ?>
         </div>
-    </div>    
-
+    </div>     
 </fieldset>

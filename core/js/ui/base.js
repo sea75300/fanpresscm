@@ -192,7 +192,7 @@ fpcm.ui = {
 
         _msgCode = '   <div class="fpcm ui-message shadow ' + _css + '" role="alert" aria-live="assertive" aria-atomic="true">';
         _msgCode += '   <div class="toast-header text-white bg-'  + _msg.type +'">';
-        _msgCode += fpcm.ui.getIcon(_msg.icon);
+        _msgCode += fpcm.ui.getIcon(_msg.icon, { size: '2x' });
         _msgCode += '   <span class="d-inline-block w-100"></span>';
         _msgCode += '   <button type="button" class="btn-close '+_msg.cbtn+'" data-bs-dismiss="toast" data-bs-theme="'+_msg.bstm + '"  aria-label="' + fpcm.ui.translate('GLOBAL_CLOSE') + '"></button>';
         _msgCode += '   </div>';
@@ -206,7 +206,7 @@ fpcm.ui = {
     
     appendMessageToBody: function(_boxes)
     {
-        fpcm.dom.appendHtml('#fpcm-body', '<div class="toast-container position-fixed top-0 end-0 p-3">' + _boxes + '</div>');
+        fpcm.dom.appendHtml('#fpcm-body', '<div class="toast-container position-fixed top-0 start-50 translate-middle-x p-3">' + _boxes + '</div>');
 
         let _el = document.getElementsByClassName('fpcm ui-message');
         for (var i = 0; i < _el.length; i++) {
@@ -626,6 +626,10 @@ fpcm.ui = {
     
     replaceIcon: function (_id, _haystack, _needle) {
         fpcm.dom.fromId(_id).find('span.fpcm-ui-icon').removeClass('fa-' + _haystack).addClass('fa-' + _needle);
+    },
+    
+    darkModeEnabled: function () {
+        return document.documentElement.dataset.bsTheme == 'dark';
     }
 
 };

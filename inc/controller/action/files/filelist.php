@@ -120,14 +120,32 @@ class filelist extends \fpcm\controller\abstracts\controller
 
         $this->assignSearchFromVars();
         $this->initViewAssigns([], []);
+        $this->initButtons( $uploader->getTemplate() );
 
+        $this->view->setFormAction('files/list', ['mode' => $this->mode]);
+
+        $tabs = [
+            (new \fpcm\view\helper\tabItem('files-list'))
+                ->setText('HL_FILES_MNG')
+                ->setData(['ajax-quiet' => true])
+                ->setTabToolbar(1)
+                ->setUrl(\fpcm\classes\tools::getControllerLink('ajax/files/lists', [ 'mode' => $this->mode ]) )
+        ];
+
+        $this->view->includeForms('filemanager');
+        $this->view->addTabs('files', $tabs);
+        $this->view->render();
+    }
+    
+    private function initButtons(string $tpl)
+    {
         $buttons = [
-            new \fpcm\view\helper\wrapper('div', 'btn btn-light', (new \fpcm\view\helper\checkbox('fpcm-select-all'))->setText('GLOBAL_SELECTALL')->setIconOnly()->setClass('fpcm-select-all') ),
+            new \fpcm\view\helper\filesSelectAllCheckbox('fpcm-select-all')
         ];
 
         if ($this->permissions->uploads->add) {
 
-            $this->view->assign('uploadFormPath', $uploader->getTemplate());
+            $this->view->assign('uploadFormPath', $tpl);
 
             $buttons[] =  (new \fpcm\view\helper\button('fileUpload'))
                 ->setText('FILE_LIST_UPLOADFORM')
@@ -160,29 +178,18 @@ class filelist extends \fpcm\controller\abstracts\controller
             $buttons[] = (new \fpcm\view\helper\deleteButton('deleteFiles'));
         }
 
-        $this->view->addButtons($buttons);
-        $this->view->setFormAction('files/list', ['mode' => $this->mode]);
+        $this->view->addButtons($buttons);      
         
+        if ($this->mode !== 1) {
+            return;
+        }        
 
-        if ($this->mode === 1) {
-            $this->view->addToolbarRight((string) (new \fpcm\view\helper\select('listView'))
-                    ->setOptions(\fpcm\components\components::getFilemanagerViews())
-                    ->setClass('fpcm-ui-listeview-setting')
-                    ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
-                    ->setSelected($this->config->file_view) );
-        }
-
-        $tabs = [
-            (new \fpcm\view\helper\tabItem('files-list'))
-                ->setText('HL_FILES_MNG')
-                ->setData(['ajax-quiet' => true])
-                ->setTabToolbar(1)
-                ->setUrl(\fpcm\classes\tools::getControllerLink('ajax/files/lists', [ 'mode' => $this->mode ]) )
-        ];
-
-        $this->view->includeForms('filemanager');
-        $this->view->addTabs('files', $tabs);
-        $this->view->render();
+        $this->view->addToolbarRight((string) (new \fpcm\view\helper\select('listView'))
+                ->setOptions(\fpcm\components\components::getFilemanagerViews())
+                ->setClass('fpcm-ui-listeview-setting')
+                ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
+                ->setSelected($this->config->file_view) );
+        
     }
 
 }

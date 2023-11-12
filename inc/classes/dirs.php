@@ -169,4 +169,18 @@ final class dirs {
         return $GLOBALS['fpcm']['urls']['lib'] . $path;
     }
 
+    /**
+     * Get full url for fpcm-installation/modules
+     * @return string
+     * @since 5.2
+     */
+    public static function getECMAurl() : string
+    {
+        if (!isset($GLOBALS['fpcm']['url']['ecma'])) {
+            $GLOBALS['fpcm']['url']['ecma'] = $this->getRootUrl('modules');
+        }
+     
+        return $GLOBALS['fpcm']['url']['ecma'];
+    }
+
 }

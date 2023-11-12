@@ -112,13 +112,13 @@ final class pageTokens {
      * @param string $name
      * @return null|string
      */
-    private function getValue(string $name)
+    private function getValue(string $name) : string
     {
         if (!$this->isActive()) {
-            return null;
+            return '';
         }
 
-        return $_SESSION['pageTokens'][$name] ?? null;
+        return $_SESSION['pageTokens'][$name] ?? '';
     }
 
     /**

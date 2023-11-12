@@ -149,6 +149,10 @@ final class security {
                 return 0;
             }
 
+            if ($varData === null) {
+                return 0;
+            }
+
             $res = preg_match_all($regEx, $varData);
             return ($res === false || $res === 0) ? 0 : 1;
         }, $vars);

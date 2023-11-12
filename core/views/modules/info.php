@@ -1,7 +1,7 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
 <div class="row justify-content-end mb-3">
     <div class="col-12 col-md-auto fw-bold fs-3 text-start flex-grow-1 align-self-center text-truncate">
-        <h3 class="d-inline"><?php print $theView->escape($moduleName); ?></h3>
+        <h3 class="d-inline <?php if ($theView->darkMode) : ?>text-primary-emphasis<?php endif; ?>"><?php print $theView->escape($moduleName); ?></h3>
     </div>
     <div class="col-12 col-md-auto">
         <div class="btn-group" role="group">

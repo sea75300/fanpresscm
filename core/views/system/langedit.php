@@ -22,11 +22,12 @@
                     ->setClass('fpcm-language-delete'); ?>
                 </div>
 
-                <div class="col-4 align-self-center text-truncate">
+                <div class="col-4 align-self-center flex-grow-0 text-truncate">
+                    <?php if ( is_array($value) ) : $theView->icon('rectangle-list')->setSize('lg')->setClass('text-info-emphasis'); endif; ?>
                     <?php print $theView->escapeVal($key); ?>
                 </div>
 
-                <div class="col-4 align-self-center text-truncate" id="lang_descr_<?php print strtolower($key); ?>">
+                <div class="col-4 align-self-center flex-grow-1 text-wrap" id="lang_descr_<?php print strtolower($key); ?>">   
                     <?php print $theView->escapeVal( (is_array($value) ? serialize($value) : str_replace(PHP_EOL, fpcm\classes\language::VARTEXT_NEWLINE, $value)) ); ?>
                 </div>
 

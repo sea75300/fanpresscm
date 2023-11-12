@@ -1,6 +1,6 @@
 <?php /* @var $theView fpcm\view\viewVars */ ?>
 <!DOCTYPE HTML>
-<HTML lang="<?php print $theView->langCode; ?>" data-bs-theme="<?php if ($theView->system_darkmode) : ?>dark<?php else : ?>light<?php endif; ?>">
+<HTML lang="<?php print $theView->langCode; ?>" data-bs-theme="<?php if ($theView->darkMode) : ?>dark<?php else : ?>light<?php endif; ?>">
     <head>
         <title><?php $theView->write('HEADLINE'); ?> <?php print $theView->version; ?> | <?php $theView->escape($theView->currentUser->getDisplayName()); ?></title>
         <meta charset="utf-8"> 
@@ -16,14 +16,14 @@
         <?php include_once 'includefiles.php'; ?>
         <?php include_once 'vars.php'; ?>
         
-        <?php if ($theView->backdrop) : ?>
+        <?php if ($theView->backdrop && !$theView->darkMode) : ?>
         <style>
             :root { --fpcm-var-backdrop-image: url('<?php print $theView->backdrop; ?>'); }
         </style>
         <?php endif; ?>
     </head>    
 
-    <body class="fpcm-body <?php print $theView->bodyClass; ?>" id="fpcm-body">
+    <body class="fpcm-body <?php if ($theView->darkMode) : ?>bg-gradient<?php endif; ?> <?php print $theView->bodyClass; ?>" id="fpcm-body">
 
         <?php if ($theView->formActionTarget) : ?><form method="post" action="<?php print $theView->formActionTarget; ?>" enctype="multipart/form-data" id="fpcm-ui-form"><?php endif; ?>
 
@@ -45,7 +45,7 @@
                 </div>
             </div>
 
-            <div class="d-flex flex-column flex-grow-1 col-12 col-sm z-n1">
+            <div class="d-flex flex-column flex-grow-1 col-12 col-sm">
                 
                 <?php include_once $theView->getIncludePath('common/buttons.php'); ?>
           

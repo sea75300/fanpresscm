@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<HTML lang="<?php print $theView->langCode; ?>" data-bs-theme="<?php if ($theView->system_darkmode) : ?>dark<?php else : ?>light<?php endif; ?>">
+<HTML lang="<?php print $theView->langCode; ?>" data-bs-theme="<?php if ($theView->darkMode) : ?>dark<?php else : ?>light<?php endif; ?>">
     <head>
         <title><?php $theView->write('HEADLINE'); ?></title>
         <meta charset="utf-8"> 
@@ -14,7 +14,7 @@
         <?php include_once 'vars.php'; ?>
     </head>     
 
-    <body class="fpcm-body <?php print $theView->bodyClass; ?>" id="fpcm-body">
+    <body class="fpcm-body <?php if ($theView->darkMode) : ?>bg-gradient<?php endif; ?> <?php print $theView->bodyClass; ?>" id="fpcm-body">
         
         <?php include_once $theView->getIncludePath('common/messagesTpl.php'); ?>
 

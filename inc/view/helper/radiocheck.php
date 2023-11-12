@@ -113,5 +113,3 @@ abstract class radiocheck extends helper {
     }
 
 }
-
-?>

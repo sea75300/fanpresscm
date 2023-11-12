@@ -796,18 +796,19 @@ class UploadHandler
             return true;
         }
         if (empty($options['crop'])) {
-            $new_width = (int) ($img_width * $scale);
-            $new_height = (int) ($img_height * $scale);
+            $new_width = intval($img_width * $scale);
+            $new_height = intval($img_height * $scale);
+
             $dst_x = 0;
             $dst_y = 0;
             $new_img = imagecreatetruecolor($new_width, $new_height);
         } else {
             if (($img_width / $img_height) >= ($max_width / $max_height)) {
-                $new_width = $img_width / ($img_height / $max_height);
-                $new_height = $max_height;
+                $new_width = intval($img_width / ($img_height / $max_height));
+                $new_height = intval($max_height);
             } else {
-                $new_width = $max_width;
-                $new_height = $img_height / ($img_width / $max_width);
+                $new_width = intval($max_width);
+                $new_height = intval($img_height / ($img_width / $max_width));
             }
             $dst_x = 0 - ($new_width - $max_width) / 2;
             $dst_y = 0 - ($new_height - $max_height) / 2;
@@ -1346,13 +1347,14 @@ class UploadHandler
         $this->response = $content;
         if ($print_response) {
             $json = json_encode($content);
-            
-            $rdir = $this->get_post_param('redirect');
-            if ($rdir === null) {
-                $rdir = '';
+
+            $redirect = $this->get_post_param('redirect');
+            if ($redirect === null) {
+                $redirect = '';
             }
 
-            $redirect = stripslashes($rdir);
+            $redirect = stripslashes($redirect);
+
             if ($redirect && preg_match($this->options['redirect_allow_target'], $redirect)) {
                 return $this->header('Location: '.sprintf($redirect, rawurlencode($json)));
             }

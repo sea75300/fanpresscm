@@ -233,6 +233,7 @@ fpcm.filemanager = {
         fpcm.dom.bindClick('.fpcm-filelist-delete',function (_e, _ui) {
             fpcm.ui_dialogs.confirm({
                 clickNoDefault: true,
+                focusNo: true,
                 clickYes: function () {
 
                     fpcm.ajax.post('files/delete', {
@@ -302,6 +303,7 @@ fpcm.filemanager = {
             }
 
             fpcm.ui_dialogs.confirm({
+                focusNo: true,
                 clickYes: function () {
                     fpcm.ajax.post('files/delete', {
                         dataType: 'json',

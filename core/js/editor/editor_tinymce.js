@@ -144,6 +144,10 @@ fpcm.editor_tinymce = {
             params.emoticons_append = config.emoticons_append;
         }
         
+        if (config.skin) {
+            params.skin = config.skin;
+        }
+        
         params.deprecation_warnings = false;
 
         tinymce.init(params);

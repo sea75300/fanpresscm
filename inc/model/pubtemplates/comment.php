@@ -93,7 +93,7 @@ final class comment extends template {
             if (!count($values)) {
                 $values = $value;
             }
-            
+
             $content = str_replace($splitTags, $values ?? [], $content);
         }
 

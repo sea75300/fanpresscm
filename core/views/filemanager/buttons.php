@@ -1,6 +1,6 @@
 <?php /* @var $theView fpcm\view\viewVars */ /* @var $file fpcm\model\files\image */ ?>
     <div class="nav-item">
-        <div class="btn btn-light">
+        <div class="btn btn-<?php if ($theView->darkMode) : ?>dark<?php else : ?>light<?php endif; ?>">
             <?php $theView->checkbox('filenames[]', 'cb_'. $file->getFileNameHash())->setClass('fpcm-ui-list-checkbox')->setValue(base64_encode($file->getFilename()))->setData(['gallery' => $file->getFilename()]); ?>
         </div>
     </div>

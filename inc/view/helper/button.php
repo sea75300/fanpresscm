@@ -69,7 +69,7 @@ class button extends helper {
     protected function init()
     {
         $this->prefix = self::NAME_PREFIX;
-        $this->class = 'btn btn-light shadow-sm fpcm ui-button';
+        $this->class = sprintf('btn btn-%s shadow-sm fpcm ui-button', $this->getColorMode());
         $this->type = 'button';
     }
     
@@ -116,5 +116,3 @@ class button extends helper {
     }
 
 }
-
-?>

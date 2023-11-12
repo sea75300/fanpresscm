@@ -241,15 +241,8 @@ class tabItem extends helper {
      */
     protected function getString()
     {
-        $html = [];
-        $html[] = '<li id="fpcm-tab-'.$this->id.'" class="nav-item"';
-
         if ($this->dataViewId) {
             $this->data['dataview-list'] = $this->dataViewId;
-        }
-
-        if (!$this->useWrapper) {
-            $html[] = $this->getDataString();
         }
 
         $this->data['bs-target'] = '#fpcm-tab-'.$this->id.'-pane';
@@ -268,10 +261,20 @@ class tabItem extends helper {
                 break;
         }
 
-        $html[] = '><a class="nav-link '.$css.' user-select-none" href="'.$this->url.'" role="tab" '.$this->getDataString().' '.$this->getAriaString().'>'.$this->text.'</a>';
+        $html[] = '><a class="nav-link '.$css.'" href="'.$this->url.'" role="tab" '.$this->getDataString().' '.$this->getAriaString().'>'.$this->text.'</a>';
         $html[] = '</li>';
-
-        return implode(' ', $html);
+        
+        
+        return sprintf(
+            '<li id="fpcm-tab-%s" %s class="nav-item"><a class="nav-link user-select-none %s" href="%s" role="tab" %s %s>%s</a></li>',
+            $this->id,
+            !$this->useWrapper ? '' : $this->getDataString(),
+            $css,
+            $this->url,
+            $this->getDataString(),
+            $this->getAriaString(),
+            $this->text
+        );
     }
 
 }
