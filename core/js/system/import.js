@@ -322,7 +322,7 @@ fpcm.filemanager = {
         if (_params === undefined) {
             return false;
         }
-        
+
         let _fileName = '';
 
         if (_params.uploadID && _params.successful && _params.successful[0] && _params.successful[0].name) {

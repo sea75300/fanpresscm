@@ -144,6 +144,10 @@ final class security {
             if (is_array($varData)) {
                 return 0;
             }
+            
+            if ($varData === null) {
+                return 0;
+            }
 
             if ($varData === null) {
                 return 0;

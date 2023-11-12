@@ -272,6 +272,6 @@ class ImageWorkshopLib
      */
     public static function mergeTwoImages(&$destinationImage, $sourceImage, $destinationPosX = 0, $destinationPosY = 0, $sourcePosX = 0, $sourcePosY = 0)
     {
-        imageCopy($destinationImage, $sourceImage, $destinationPosX, $destinationPosY, $sourcePosX, $sourcePosY, imageSX($sourceImage), imageSY($sourceImage));
+        imageCopy($destinationImage, $sourceImage, (int) $destinationPosX, (int) $destinationPosY, (int) $sourcePosX, (int) $sourcePosY, imageSX($sourceImage), imageSY($sourceImage));
     }
 }

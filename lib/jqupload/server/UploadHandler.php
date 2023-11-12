@@ -798,6 +798,7 @@ class UploadHandler
         if (empty($options['crop'])) {
             $new_width = intval($img_width * $scale);
             $new_height = intval($img_height * $scale);
+
             $dst_x = 0;
             $dst_y = 0;
             $new_img = imagecreatetruecolor($new_width, $new_height);
@@ -1346,13 +1347,14 @@ class UploadHandler
         $this->response = $content;
         if ($print_response) {
             $json = json_encode($content);
-            
+
             $redirect = $this->get_post_param('redirect');
             if ($redirect === null) {
                 $redirect = '';
             }
 
             $redirect = stripslashes($redirect);
+
             if ($redirect && preg_match($this->options['redirect_allow_target'], $redirect)) {
                 return $this->header('Location: '.sprintf($redirect, rawurlencode($json)));
             }
