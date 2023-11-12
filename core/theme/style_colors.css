@@ -199,4 +199,16 @@ div.fileupload-progress.in {
     div.fpcm.ui-help-content > h3 {
         color: var(--bs-primary-text-emphasis);
     }
+    
+    h1,
+    h3,
+    ins,
+    .text-primary,
+    span.fpcm-ui-editor-metainfo {
+        color: inherit;
+    }
+    
+    legend {
+        background-color: var(--bs-dark-bg-subtle);
+    }
 }

@@ -60,4 +60,11 @@ abstract class uploader extends \fpcm\model\abstracts\staticModel {
      */
     abstract public function getTemplate() : string;
 
+    /**
+     * Returns list of JavaScript ECMA module files
+     * @return array
+     * @since 5.2
+     */
+    abstract public function getJsModuleFiles() : array;
+
 }

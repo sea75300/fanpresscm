@@ -149,6 +149,7 @@ class modulelist extends \fpcm\controller\abstracts\controller
         $uploader = \fpcm\components\components::getFileUploader();
         $this->view->addJsFiles($uploader->getJsFiles());
         $this->view->addJsFilesLate($uploader->getJsFilesLate());
+        $this->view->setJsModuleFiles($uploader->getJsModuleFiles());
         $this->view->addCssFiles($uploader->getCssFiles());
         $this->view->addJsVars($uploader->getJsVars());
         $this->view->addJsLangVars($uploader->getJsLangVars());
@@ -164,5 +165,3 @@ class modulelist extends \fpcm\controller\abstracts\controller
     }
 
 }
-
-?>

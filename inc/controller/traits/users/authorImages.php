@@ -134,12 +134,7 @@ trait authorImages {
      */
     protected function initUploader(\fpcm\model\users\author $author) : bool
     {
-        if (defined('FPCM_UPLOADER_UPPY') && FPCM_UPLOADER_UPPY) {
-            $this->uploader = \fpcm\components\components::getFileUploader();
-        }
-        else {
-            $this->uploader = \fpcm\components\components::getFileUploader('\\fpcm\\components\\fileupload\\htmlupload');
-        }
+        $this->uploader = \fpcm\components\components::getFileUploader();
 
         if (!trim($this->uploader->getTemplate()) || !realpath($this->uploader->getTemplate())) {
             trigger_error('Undefined file upload template given in '.$this->uploader->getTemplate());
@@ -161,6 +156,7 @@ trait authorImages {
         $this->view->addCssFiles($this->uploader->getCssFiles());
         $this->view->addJsLangVars($this->uploader->getJsLangVars());        
         $this->view->addJsFilesLate($this->uploader->getJsFilesLate());
+        $this->view->setJsModuleFiles($this->uploader->getJsModuleFiles());
         
         return true;
     }

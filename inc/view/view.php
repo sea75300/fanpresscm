@@ -497,13 +497,20 @@ class view {
     {
         $base = \fpcm\classes\dirs::getECMAurl();
 
-        $this->jsModuleFiles = array_merge(
-            $this->jsModuleFiles,
-            array_map(function ($item) use ($base) {
+        $jsModuleFiles = array_map(
+            function ($item) use ($base) {
+            
+                if (str_starts_with($item, 'http')) {
+                    return $item;
+                }
+
                 return $base.$item;
-            }, $jsModuleFiles)
+            },
+            $jsModuleFiles
         );
         
+        
+        $this->jsModuleFiles = array_merge($this->jsModuleFiles, $jsModuleFiles);
         return $this;
     }
         

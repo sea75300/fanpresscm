@@ -50,6 +50,7 @@ class import extends \fpcm\controller\abstracts\controller
 
         $this->view->addJsFiles(array_merge(['system/import.js', 'ui/dnd.js'], $uploader->getJsFiles() ));
         $this->view->addJsFilesLate($uploader->getJsFilesLate());
+        $this->view->setJsModuleFiles($uploader->getJsModuleFiles());
         $this->view->setViewVars($uploader->getViewVars());
         $this->view->addFromLibrary('sortable_js/', [
             'Sortable.min.js'
@@ -105,5 +106,3 @@ class import extends \fpcm\controller\abstracts\controller
     }
 
 }
-
-?>

@@ -55,7 +55,16 @@ fpcm.fileuploader = {
     },
     
     initAfter: function () {
-        fpcm.dom.fromClass('uppy-FileInput-btn').addClass('w-100');
+        
+        
+        let _uploadBtn = fpcm.dom.fromClass('uppy-FileInput-btn');
+        _uploadBtn.addClass('w-100');
+        
+        if (fpcm.ui.darkModeEnabled()) {
+            _uploadBtn.addClass('btn btn-outline-info');
+            
+        }
+
     }
     
 };

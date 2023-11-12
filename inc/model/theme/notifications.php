@@ -74,12 +74,6 @@ class notifications implements \Countable {
                 (new \fpcm\view\helper\icon('js', 'fab'))->setText('NOTIFICATION_EXPERIMENTAL_MINJS')
             ));
         }
-        
-        if (defined('FPCM_UPLOADER_UPPY') && FPCM_UPLOADER_UPPY) {
-            $this->addNotification(new \fpcm\model\theme\notificationItem(
-                (new \fpcm\view\helper\icon('arrow-up-from-bracket'))->setText('NOTIFICATION_EXPERIMENTAL_UPPY')
-            ));
-        }
 
         if (str_contains(FPCM_CACHE_BACKEND, 'memcacheBackend')) {
             $this->addNotification(new \fpcm\model\theme\notificationItem(

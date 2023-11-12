@@ -44,7 +44,6 @@ final class uppy extends uploader {
     public function getJsFiles(): array
     {
         $return = [
-            \fpcm\classes\dirs::getLibUrl('uppy/uppy.min.js'),
             'files/uppy.js',
             'files/imageEditor.js',
             \fpcm\classes\dirs::getLibUrl('cropper_js/cropper.min.js')
@@ -106,4 +105,15 @@ final class uppy extends uploader {
         ];
     }
 
+    /**
+     * Returns list of JavaScript ECMA module files
+     * @return array
+     * @since 5.2
+     */
+    public function getJsModuleFiles(): array
+    {
+        return [
+            \fpcm\classes\dirs::getLibUrl('uppy/uppy.min.js')
+        ];
+    }
 }

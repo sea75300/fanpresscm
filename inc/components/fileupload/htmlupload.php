@@ -86,4 +86,14 @@ final class htmlupload extends uploader {
         ];
     }
 
+    /**
+     * Returns list of JavaScript ECMA module files
+     * @return array
+     * @since 5.2
+     */
+    public function getJsModuleFiles(): array
+    {
+        return [];
+    }
+
 }

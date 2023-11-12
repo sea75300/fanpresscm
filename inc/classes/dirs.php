@@ -177,7 +177,7 @@ final class dirs {
     public static function getECMAurl() : string
     {
         if (!isset($GLOBALS['fpcm']['url']['ecma'])) {
-            $GLOBALS['fpcm']['url']['ecma'] = $this->getRootUrl('modules');
+            $GLOBALS['fpcm']['url']['ecma'] = dirs::getRootUrl('modules');
         }
      
         return $GLOBALS['fpcm']['url']['ecma'];

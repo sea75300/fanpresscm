@@ -70,7 +70,7 @@ class filelist extends \fpcm\controller\abstracts\controller
     {
         $hasFiles = ($this->fileList->getDatabaseFileCount() ? true : false);
 
-        /* @var $uploader \fpcm\components\fileupload\jqupload */
+        /* @var $uploader \fpcm\components\fileupload\uploader */
         $uploader = \fpcm\components\components::getFileUploader();
         
         $this->view->addCssFiles($uploader->getCssFiles());
@@ -112,6 +112,7 @@ class filelist extends \fpcm\controller\abstracts\controller
         $this->view->addPager((new \fpcm\view\helper\pager('ajax/files/lists&mode='.$this->mode, 1, 1, $this->config->file_list_limit, 1)));
         $this->view->addJsFiles(array_merge( $jsFiles, $uploader->getJsFiles() ));
         $this->view->addJsFilesLate($uploader->getJsFilesLate());
+        $this->view->setJsModuleFiles($uploader->getJsModuleFiles());
         $this->view->setViewVars(array_merge([
             'searchUsers' =>  ['' => -1] + (new \fpcm\model\users\userList)->getUsersNameList(),
             'mode' => $this->mode,

@@ -509,7 +509,6 @@ $lang = array (
   'NAVIGATION_SHOW' => 'Menu',
   'NOTIFICATION_ERROR_EVENTS' => 'An error occurred during the event "{{eventName}}". Check the system logs and update your installed modules.',
   'NOTIFICATION_EXPERIMENTAL_MINJS' => 'Minimized JavaScript files are used. Changes may not be applied immediately.',
-  'NOTIFICATION_EXPERIMENTAL_UPPY' => 'Uppy File Upload is active. Experimental function! Some uploads might work unexpected.',
   'PACKAGEMANAGER_BACKUPFS' => 'Create filesystem backup...',
   'PACKAGEMANAGER_CHECKLOCAL' => 'Checking file system...',
   'PACKAGEMANAGER_CHECKPKG' => 'Check package information <em>{{var}}</em>',
