@@ -2,7 +2,7 @@
 <div id="fileupload">
     <div class="row row-cols-1 row-cols-md-2">
         <div class="col mb-3">
-            <div id="fpcm-id-uppy-select"></div>
+            <div id="fpcm-id-uppy-select" class=" mb-2"></div>
             <?php $theView->button('upload')->setText('FILE_FORM_UPLOADSTART')->setClass('w-100 mb-2')->setIcon('upload')->overrideButtonType('outline-secondary'); ?>
             <?php $theView->button('cancel')->setText('FILE_FORM_UPLOADCANCEL')->setClass('w-100')->setIcon('ban')->overrideButtonType('outline-secondary'); ?>
         </div>

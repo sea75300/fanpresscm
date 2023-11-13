@@ -149,16 +149,5 @@ table.diff-wrapper {
     .ts-control, .ts-control input, .ts-dropdown, div.fpcm.ui-help-content .btn-outline-dark {
         color: var(--bs-body-color);
     }
-    
-    .uppy-FileInput-btn {
-        color: var(--bs-btn-color);
-        border: var(--bs-btn-border-width) solid var(--bs-btn-border-color);
-    }
-    
-    .uppy-FileInput-btn:hover {
-        color: var(--bs-btn-hover-color);
-        background: var(--bs-btn-hover-bg);
-        border: var(--bs-btn-border-width) solid var(--bs-btn-hover-border-color);           
-    }
  
 }

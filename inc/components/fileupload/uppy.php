@@ -59,7 +59,9 @@ final class uppy extends uploader {
      */
     public function getJsFilesLate(): array
     {
-        return [];
+        return [
+            \fpcm\classes\dirs::getLibUrl('uppy/uppy.min.js')
+        ];
     }
 
     /**
@@ -112,8 +114,6 @@ final class uppy extends uploader {
      */
     public function getJsModuleFiles(): array
     {
-        return [
-            \fpcm\classes\dirs::getLibUrl('uppy/uppy.min.js')
-        ];
+        return [];
     }
 }

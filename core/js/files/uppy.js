@@ -12,7 +12,7 @@ fpcm.fileuploader = {
 
     init: function() {
 
-        var _uppy = new window.Uppy.Core({
+        var _uppy = new window.Uppy({
             locale: window.Uppy.locales.de_DE,
             restrictions: {
                 allowedFileTypes: fpcm.filemanager.getAcceptTypesArr
@@ -59,11 +59,9 @@ fpcm.fileuploader = {
         
         let _uploadBtn = fpcm.dom.fromClass('uppy-FileInput-btn');
         _uploadBtn.addClass('w-100');
-        
-        if (fpcm.ui.darkModeEnabled()) {
-            _uploadBtn.addClass('btn btn-outline-info');
-            
-        }
+
+        let _btnclass = fpcm.ui.darkModeEnabled() ? 'info' : 'primary';
+        _uploadBtn.addClass('btn btn-outline-' + _btnclass);
 
     }
     
