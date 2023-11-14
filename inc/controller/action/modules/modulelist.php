@@ -145,7 +145,7 @@ class modulelist extends \fpcm\controller\abstracts\controller
             return false;
         }
 
-        /* @var $uploader \fpcm\components\fileupload\jqupload */
+        /* @var $uploader \fpcm\components\fileupload\uploader */
         $uploader = \fpcm\components\components::getFileUploader();
         $this->view->addJsFiles($uploader->getJsFiles());
         $this->view->addJsFilesLate($uploader->getJsFilesLate());

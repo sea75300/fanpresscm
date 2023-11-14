@@ -60,7 +60,7 @@ class templates extends \fpcm\controller\abstracts\controller implements \fpcm\c
     public function process()
     {
 
-        /* @var $uploader \fpcm\components\fileupload\jqupload */
+        /* @var $uploader \fpcm\components\fileupload\uploader */
         $uploader = \fpcm\components\components::getFileUploader();
 
         $this->view->addJsVars(array_merge([

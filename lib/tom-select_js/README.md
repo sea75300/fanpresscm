@@ -6,7 +6,7 @@
 <a href="https://github.com/orchidjs/tom-select" class="m-1 d-inline-block"><img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/orchidjs/tom-select?label=GitHub%20stars&color=007ec6"></a>
 <a href="https://www.jsdelivr.com/package/npm/tom-select" class="m-1 d-inline-block"><img alt="jsDelivr hits (npm)" src="https://img.shields.io/jsdelivr/npm/hm/tom-select?label=jsDelivr%20hits&color=007ec6"></a>
 <a href="https://www.npmjs.com/package/tom-select" class="m-1 d-inline-block"><img alt="npmjs.org" src="https://img.shields.io/npm/v/tom-select.svg?color=007ec6"></a>
-<a href="https://travis-ci.com/github/orchidjs/tom-select" class="m-1 d-inline-block"><img alt="travis-ci.com" src="https://img.shields.io/travis/com/orchidjs/tom-select?color=4c1"></a>
+<a href="https://github.com/orchidjs/tom-select/actions/workflows/tests.yml" class="m-1 d-inline-block"><img alt="tests" src="https://github.com/orchidjs/tom-select/actions/workflows/tests.yml/badge.svg"></a>
 <a href="https://coveralls.io/github/orchidjs/tom-select" class="m-1 d-inline-block"><img alt="Coveralls Coverage" src="https://img.shields.io/coveralls/github/orchidjs/tom-select?color=4c1"></a>
 <a href="https://github.com/orchidjs/tom-select/issues" class="m-1 d-inline-block"><img alt="GitHub Issues" src="https://img.shields.io/github/issues/orchidjs/tom-select"></a>
 </p>
@@ -97,7 +97,7 @@ Many thanks to all our sponsors who help make development possible. <a href="htt
 
 ## License
 
-Copyright &copy; 2013–2021 [Contributors](https://github.com/orchidjs/tom-select/graphs/contributors)
+Copyright &copy; 2013–2023 [Contributors](https://github.com/orchidjs/tom-select/graphs/contributors)
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 
