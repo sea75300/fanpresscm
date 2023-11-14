@@ -12,11 +12,12 @@ namespace fpcm\components\fileupload;
  * 
  * @package fpcm\components\fileupload
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2020, Stefan Seehafer
+ * @copyright (c) 2020-2023, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @since 4.5
  */
-abstract class uploader extends \fpcm\model\abstracts\staticModel {
+abstract class uploader extends \fpcm\model\abstracts\staticModel
+implements \fpcm\model\interfaces\JsModuleFiles {
 
     /**
      * Returns JavaScript files for uploader

@@ -1,5 +1,5 @@
 <div class="modal fade rounded {$modalClass}" id="{$id}" tabindex="-1" aria-labelledby="{$opener}" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered rounded-3 {$size} {$class}">
+    <div class="modal-dialog modal-dialog-centered modal-fullscreen-md-down {$size} {$class}">
         <div class="modal-content shadow fpcm ui-background-white-0">
             <div class="modal-header text-white fpcm ui-background-grey-75 ui-blurring">
                 <h5 class="modal-title" id="exampleModalLabel">{$icon}{$title}</h5>

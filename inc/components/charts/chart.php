@@ -12,11 +12,12 @@ namespace fpcm\components\charts;
  * 
  * @package fpcm\components\charts
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2019-2022, Stefan Seehafer
+ * @copyright (c) 2019-2023, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @since 4.3
  */
-class chart implements \JsonSerializable, \Stringable {
+class chart
+implements \JsonSerializable, \Stringable, \fpcm\model\interfaces\JsModuleFiles {
     
     const TYPE_BAR = 'bar';
     const TYPE_LINE = 'line';
@@ -110,9 +111,18 @@ class chart implements \JsonSerializable, \Stringable {
     public function getJsFiles() : array
     {
         return [
-            \fpcm\classes\dirs::getLibUrl('chart-js/chart.min.js'),
+            \fpcm\classes\dirs::getLibUrl('chart-js/chart.umd.js'),
             'ui/chart.js'
         ];
+    }
+
+    /**
+     * Returns list of JS files
+     * @return array
+     */
+    public function getJsModuleFiles() : array
+    {
+        return [];
     }
 
     /**
