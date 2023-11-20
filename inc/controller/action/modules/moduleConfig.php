@@ -176,6 +176,10 @@ class moduleConfig extends \fpcm\controller\abstracts\controller implements \fpc
             if (method_exists($obj, 'prependLabel')) {
                 $obj->prependLabel();
             }
+            
+            if (method_exists($obj, 'setLabelTypeFloat')) {
+                $obj->setLabelTypeFloat();
+            }
 
             $data['fields'][$option] = (string) $obj;
             unset($obj,$valueFunc);
