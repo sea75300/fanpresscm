@@ -137,7 +137,7 @@ div.fpcm-ui-dataview div.row:hover {
 .fpcm-ui-input:required:invalid {
     background-color: var(--bs-danger-bg-subtle);
     border-color: var(--bs-danger-border-subtle);
-    color: var(--bs-danger-bg-subtle);
+    color: var(--bs-danger-text-emphasis);
 }
 
 div.row.fpcm-ui-dataview-row.fpcm-ui-logs-error {
@@ -211,4 +211,5 @@ div.fileupload-progress.in {
     legend {
         background-color: var(--bs-dark-bg-subtle);
     }
+
 }

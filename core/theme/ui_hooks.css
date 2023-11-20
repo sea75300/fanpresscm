@@ -92,11 +92,11 @@ table.diff-wrapper {
 }
 
 .diff-wrapper.diff.diff-html .change .new {
-  background: #e1fbe1;
+  background: var(--bs-success);
 }
 
 .diff-wrapper.diff.diff-html .change .rep {
-  background: #fef6d9;
+  background: var(--bs-warning-bg-subtle);
 }
 
 .diff-wrapper.diff.diff-html .change .old.none,
@@ -113,7 +113,7 @@ table.diff-wrapper {
 }
 
 .diff-wrapper.diff.diff-html .change ins {
-  background: #94f094;
+  background: var(--bs-success);
 }
 
 .diff-wrapper.diff.diff-html .change del {
