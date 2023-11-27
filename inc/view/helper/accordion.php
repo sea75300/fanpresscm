@@ -94,5 +94,3 @@ class accordion extends helper {
     }
 
 }
-
-?>

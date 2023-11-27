@@ -30,10 +30,8 @@
             <?php foreach ($fields as $option => $field) : ?>
             <div class="row my-3">
                 <div class="col g-0">
-                    <?php print $field; ?>
-                    
-                </div>
-                
+                    <?php print $field; ?>                    
+                </div>                
             </div>
             <?php endforeach; ?>
         </fieldset>

@@ -67,12 +67,9 @@ abstract class input extends helper {
 
         $isFloating = $this->isFloating();
 
-        $wrapperStart = '';
-        $wrapperEnd = '';
+        $wrapperStart = $this->getWrapperStart();
+        $wrapperEnd = $this->getWrapperEnd();
 
-        $wrapperStart = "<div class=\"{$this->labelType} {$this->bottomSpace}\">";
-        $wrapperEnd = "</div>";
-        
         $mlstr = $this->maxlenght ? "maxlength=\"{$this->maxlenght}\"" : '';
 
         $input = "<input type=\"{$this->type}\" {$mlstr} {$this->getAttributeStrings()}>";
@@ -210,7 +207,7 @@ abstract class input extends helper {
     }
 
     /**
-     * 
+     * Appends item to input field before wrapper
      * @param string $str
      * @return bool
      * @since 4.5.2
@@ -218,6 +215,26 @@ abstract class input extends helper {
     protected function appendItems(string &$str) : bool
     {
         return true;
+    }
+
+    /**
+     * Get input start wrapper
+     * @return string
+     * @since 5.2.0
+     */
+    protected function getWrapperStart() : string
+    {
+        return "<div class=\"{$this->labelType} {$this->bottomSpace}\">";
+    }
+
+    /**
+     * Get input end wrapper
+     * @return string
+     * @since 5.2.0
+     */
+    protected function getWrapperEnd() : string
+    {
+        return '</div>';
     }
 
     /**

@@ -27,5 +27,3 @@ class hiddenInput extends input {
     }
 
 }
-
-?>

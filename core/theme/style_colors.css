@@ -130,7 +130,7 @@ div.fpcm.ui-files-item:hover,
 div.fpcm.ui-files-item:focus,
 div.fpcm.ui-files-item:active,
 div.fpcm-ui-dataview div.row:hover {
-    background: rgba(255, 239, 143, 0.5);
+    background: rgba(var(--bs-secondary-bg-rgb), 0.5);
 }
 
 .fpcm-ui-input:invalid,
@@ -210,13 +210,6 @@ div.fileupload-progress.in {
     
     legend {
         background-color: var(--bs-dark-bg-subtle);
-    }
-
-    div.fpcm.ui-files-item:hover,
-    div.fpcm.ui-files-item:focus,
-    div.fpcm.ui-files-item:active,
-    div.fpcm-ui-dataview div.row:hover {
-        background: rgba(255, 239, 143, 0.25);
-    }    
+    } 
     
 }

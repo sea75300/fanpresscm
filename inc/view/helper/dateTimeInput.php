@@ -80,5 +80,3 @@ final class dateTimeInput extends input {
     }
 
 }
-
-?>

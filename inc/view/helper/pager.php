@@ -161,5 +161,3 @@ class pager extends helper {
     }
 
 }
-
-?>

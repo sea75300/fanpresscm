@@ -32,5 +32,3 @@ final class deleteButton extends submitButton {
     }
 
 }
-
-?>

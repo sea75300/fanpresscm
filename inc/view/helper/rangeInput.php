@@ -32,5 +32,3 @@ final class rangeInput extends input {
 
 
 }
-
-?>

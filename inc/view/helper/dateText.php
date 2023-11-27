@@ -73,5 +73,3 @@ final class dateText implements \Stringable {
     }
 
 }
-
-?>

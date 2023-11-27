@@ -32,5 +32,3 @@ final class boolSelect extends select {
     }
 
 }
-
-?>

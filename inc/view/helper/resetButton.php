@@ -31,5 +31,3 @@ final class resetButton extends button {
     }
 
 }
-
-?>

@@ -56,5 +56,3 @@ class badge extends helper {
     }
 
 }
-
-?>

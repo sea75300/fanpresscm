@@ -27,53 +27,63 @@ final class passwordInput extends input {
         $this->type = 'password';
     }
 
-    protected function appendItems(string &$str): bool
-    {
-     
-        $this->getLabelTypeConfig($wrprS, $wrprE, $class, $type, $icoO);
-        
-        $str .= $wrprS .
-                (string) (new button($this->name . '-toggle'))
-                    ->overrideButtonType($type)
-                    ->setText('PASSWORD_TOGGLE')
-                    ->setIcon('eye')
-                    ->setIconOnly($icoO)
-                    ->setClass('fpcm ui-put-pass-toggle' . $class)
-                    ->setOnClick('system.togglePasswordField')
-                    ->setReadonly($this->readonly) .
-                $wrprE;
-
-        return true;
-    }
-
     /**
-     * 
-     * @param string $wrprS
-     * @param string $wrprE
-     * @param string $class
-     * @param string $type
-     * @param string $icoO
+     * Appends item to input field before wrapper
+     * @param string $str
      * @return bool
+     * @since 4.5.2
      */
-    private function getLabelTypeConfig(&$wrprS, &$wrprE, &$class, &$type, &$icoO) : bool
+    protected function appendItems(string &$str) : bool
     {
-        if ($this->labelType === 'form-floating') {
-            $wrprS = '<div class="d-block d-flex justify-content-end">';
-            $wrprE = '</div>';
-            $class = ' shadow-none ui-font-small';
-            $type  = 'link';
-            $icoO  = false;
+        if ($this->labelType === self::LABEL_TYPE_FLOATING) {
             return true;
         }
 
-        $wrprS = '';
-        $wrprE = '';
-        $class = '';
-        $type  = 'light';
-        $icoO  = true;
+        $str .= (string) $this->getButtonObject();
         return true;
+    }
+    
+    
+
+    /**
+     * Adds input end wrapper
+     * @return string
+     * @since 5.2.0-a1
+     */
+    protected function getWrapperEnd(): string
+    {
+        if ($this->labelType !== self::LABEL_TYPE_FLOATING) {
+            return parent::getWrapperEnd();
+        }
+
+        return '</div>' . (string) $this->getButtonObject();        
+
+    }
+
+    /**
+     * Adds input start wrapper
+     * @return string
+     * @since 5.2.0-a1
+     */
+    protected function getWrapperStart(): string
+    {
+        return $this->labelType === self::LABEL_TYPE_FLOATING ? "<div class= \"input-group {$this->bottomSpace}\"><div class=\"{$this->labelType}\">" : parent::getWrapperStart();
+    }
+
+    /**
+     * Return button object
+     * @return button
+     * @since 5.2.0-a1
+     */
+    protected function getButtonObject() : button
+    {
+        return (new button($this->name . '-toggle'))
+                    ->setText('PASSWORD_TOGGLE')
+                    ->setIcon('eye')
+                    ->setIconOnly()
+                    ->setClass('fpcm ui-put-pass-toggle')
+                    ->setOnClick('system.togglePasswordField')
+                    ->setReadonly($this->readonly);
     }
 
 }
-
-?>

@@ -58,7 +58,9 @@
         <div class="col-12 col-md-6">
             <?php $theView->textarea('data[usrinfo]')
                 ->setValue($author->getUsrinfo(), ENT_QUOTES | ENT_COMPAT)
-                ->setClass('fpcm-ui-textarea-medium'); ?>                    
+                ->setClass('fpcm ui-textarea-medium')
+                ->setText('USERS_BIOGRAPHY')
+                ->setLabelTypeFloat(); ?>
         </div>
     </div>
 </fieldset>

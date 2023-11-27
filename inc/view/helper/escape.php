@@ -74,5 +74,3 @@ final class escape implements \Stringable {
     }
 
 }
-
-?>
