@@ -2,27 +2,28 @@
 <fieldset class="mb-2">
     <legend><?php $theView->write('SYSTEM_OPTIONS_NEWS_EDITOR_SETTINGS'); ?></legend>
 
-    <div class="row my-2">
+    <div class="row g-0 my-2">
         <div class="col-12 col-md-8">
-                <?php $theView->select('system_editor')
-                    ->setText('SYSTEM_OPTIONS_NEWS_EDITOR')
-                    ->setOptions($editors)
-                    ->setSelected(base64_encode($globalConfig->system_editor))
-                    ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); 
-                ?>
+            <div class="row row-cols-1 row-cols-sm-2">
+                <div class="col">
+                        <?php $theView->select('system_editor')
+                            ->setText('SYSTEM_OPTIONS_NEWS_EDITOR')
+                            ->setOptions($editors)
+                            ->setSelected(base64_encode($globalConfig->system_editor))
+                            ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); 
+                        ?>
+                </div>
+
+                <div class="col">
+                <?php $theView->select('system_editor_fontsize')
+                    ->setText('SYSTEM_OPTIONS_NEWS_EDITOR_FONTSIZE')
+                        ->setOptions($defaultFontsizes)
+                        ->setSelected($globalConfig->system_editor_fontsize)
+                        ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
+                </div>
+            </div>            
         </div>
     </div>
-
-    <div class="row my-2">
-        <div class="col-12 col-md-8">
-        <?php $theView->select('system_editor_fontsize')
-            ->setText('SYSTEM_OPTIONS_NEWS_EDITOR_FONTSIZE')
-                ->setOptions($defaultFontsizes)
-                ->setSelected($globalConfig->system_editor_fontsize)
-                ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
-        </div>
-    </div>
-
 
     <div class="row my-2">
         <div class="col-12 col-md-8">

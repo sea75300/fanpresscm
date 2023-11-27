@@ -30,5 +30,12 @@ final class rangeInput extends input {
         $this->class = 'form-range';
     }
 
-
+    /**
+     * Ovverides floating label type
+     * @return $this
+     */
+    public function setLabelTypeFloat()
+    {
+        return $this;
+    }
 }

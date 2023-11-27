@@ -56,7 +56,7 @@ final class passwordInput extends input {
             return parent::getWrapperEnd();
         }
 
-        return '</div>' . (string) $this->getButtonObject();        
+        return '</div>' . (string) $this->getButtonObject() . '</div>';
 
     }
 
