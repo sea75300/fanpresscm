@@ -15,6 +15,8 @@ namespace fpcm\controller\action\pub;
  */
 class showlatest extends \fpcm\controller\abstracts\pubController {
 
+    use \fpcm\controller\traits\pub\apiMode;    
+    
     /**
      *
      * @var \fpcm\model\articles\articlelist

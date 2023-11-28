@@ -15,6 +15,8 @@ namespace fpcm\controller\action\pub;
  */
 class showsingle extends \fpcm\controller\abstracts\pubController {
 
+    use \fpcm\controller\traits\pub\apiMode;
+    
     /**
      *
      * @var \fpcm\model\categories\categoryList
@@ -92,12 +94,6 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
      * @var bool
      */
     protected $viewVars = [];
-
-    /**
-     * Comment count
-     * @var int
-     */
-    protected $commentCount = 0;
 
     /**
      * 

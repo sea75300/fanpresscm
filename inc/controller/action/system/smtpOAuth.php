@@ -43,5 +43,3 @@ class smtpOAuth extends \fpcm\controller\abstracts\controller
     }
 
 }
-
-?>

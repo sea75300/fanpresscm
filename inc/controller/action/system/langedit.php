@@ -112,5 +112,3 @@ class langedit extends \fpcm\controller\abstracts\controller implements \fpcm\co
     }
     
 }
-
-?>

@@ -153,6 +153,5 @@ implements \fpcm\controller\interfaces\requestFunctions
             new \fpcm\components\dataView\rowCol('size', \fpcm\classes\tools::calcSize(filesize($file)) ),
         ]);
     }
-
     
 }

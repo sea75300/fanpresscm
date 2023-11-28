@@ -38,5 +38,3 @@ class testing extends \fpcm\controller\abstracts\controller implements \fpcm\con
     }
 
 }
-
-?>

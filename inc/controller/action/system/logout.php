@@ -73,5 +73,3 @@ class logout extends \fpcm\controller\abstracts\controller {
     }
 
 }
-
-?>

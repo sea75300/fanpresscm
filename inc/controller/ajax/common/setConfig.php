@@ -26,8 +26,8 @@ class setConfig extends \fpcm\controller\abstracts\ajaxController {
      */
     public function request()
     {
-        $op = $this->request->fromPOST('op');
-        if ($op === null || !trim($op)) {
+        $op = $this->request->fromPOST('op') ?? '';
+        if (!trim($op)) {
             $op = 'change';
         }
 

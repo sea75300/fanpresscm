@@ -373,5 +373,3 @@ implements \fpcm\controller\interfaces\requestFunctions {
     }
 
 }
-
-?>

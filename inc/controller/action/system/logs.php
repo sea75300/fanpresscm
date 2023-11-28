@@ -108,5 +108,3 @@ class logs extends \fpcm\controller\abstracts\controller {
     }
 
 }
-
-?>

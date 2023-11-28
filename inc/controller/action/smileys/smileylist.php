@@ -23,6 +23,12 @@ class smileylist extends \fpcm\controller\abstracts\controller
 
     /**
      * 
+     * @var \fpcm\components\dataView\dataView
+     */
+    protected $dataView;
+
+    /**
+     * 
      * @return bool
      */
     public function request()
@@ -131,5 +137,3 @@ class smileylist extends \fpcm\controller\abstracts\controller
     }
 
 }
-
-?>

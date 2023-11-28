@@ -32,6 +32,12 @@ class crons extends \fpcm\controller\abstracts\controller
 
     /**
      * 
+     * @var \fpcm\components\dataView\dataView
+     */
+    protected $dataView;
+
+    /**
+     * 
      * @return bool
      */
     public function isAccessible(): bool
@@ -153,5 +159,3 @@ class crons extends \fpcm\controller\abstracts\controller
     }
 
 }
-
-?>

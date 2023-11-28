@@ -15,6 +15,8 @@ namespace fpcm\controller\action\pub;
  */
 abstract class showcommon extends \fpcm\controller\abstracts\pubController {
 
+    use \fpcm\controller\traits\pub\apiMode;
+    
     /**
      * Articles list instance
      * @var \fpcm\model\articles\articlelist
@@ -68,12 +70,6 @@ abstract class showcommon extends \fpcm\controller\abstracts\pubController {
      * @var int
      */
     protected $offset = 0;
-
-    /**
-     * API mode
-     * @var bool
-     */
-    protected $apiMode = false;
 
     /**
      * Search term

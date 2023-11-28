@@ -59,5 +59,3 @@ class info extends \fpcm\controller\abstracts\controller {
     }
 
 }
-
-?>

@@ -39,7 +39,7 @@ class base extends \fpcm\controller\abstracts\controller implements \fpcm\contro
                 ->setFile($this->getViewPath() . '.php')
         ]);
         
-        $selectedGroups = explode(';', $this->category->getGroups());
+        $selectedGroups = explode(';', $this->category->getGroups() ?? '');
         
         $checkFields = [];
         foreach ((new \fpcm\model\users\userRollList())->getUserRollsTranslated() as $rollname => $rollid) {
@@ -109,5 +109,3 @@ class base extends \fpcm\controller\abstracts\controller implements \fpcm\contro
     }
     
 }
-
-?>
