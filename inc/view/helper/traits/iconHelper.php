@@ -30,7 +30,7 @@ trait iconHelper {
     protected $iconOnly = false;
 
     /**
-     * Button text
+     * Icon stack class
      * @var string
      */
     protected $iconStack = '';
@@ -42,7 +42,7 @@ trait iconHelper {
     protected $stackTop = false;
 
     /**
-     * Button text
+     * Icon size
      * @var string
      */
     protected $size = '';

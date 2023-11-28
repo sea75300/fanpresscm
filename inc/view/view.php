@@ -1240,10 +1240,11 @@ class view {
             self::ROOTURL_LIB.'bootstrap/js/bootstrap.bundle.min.js',
             self::ROOTURL_LIB.'bs-autocomplete/autocomplete.js',
             self::ROOTURL_LIB.'fancybox/jquery.fancybox.min.js',
-            self::ROOTURL_CORE_JS.'script.php?uq=' . self::ROOTURL_UNIQUE
+            self::ROOTURL_CORE_JS.'script.php?uq=' . self::ROOTURL_UNIQUE,
         ]);
 
         $this->addJsFilesLate([self::ROOTURL_CORE_JS.'init'.self::getJsExt()]);
+        $this->setJsModuleFiles(['/ui/forms.js']);
         return $this->jsFiles;
     }
 

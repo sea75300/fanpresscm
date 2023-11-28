@@ -633,3 +633,7 @@ fpcm.ui = {
     }
 
 };
+
+if (fpcm.ui.forms === undefined) {
+    fpcm.ui.forms = {};
+}
