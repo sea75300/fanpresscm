@@ -103,10 +103,17 @@ fpcm.ui_dialogs = {
         if (!fpcm.dom.fromId(_dlgId).length) {            
             let _modal = fpcm.vars.ui.dialogTpl;
 
+            debugger;
+
+            _content = _params.content;
+            if (_content instanceof Object) {
+                _content = '';
+            }
+
             fpcm.dom.appendHtml('#fpcm-body', _modal.replace('{$title}', fpcm.ui.translate(_params.title))
                   .replace(/\{\$id\}/g, _dlgId)
                   .replace('{$opener}', _params.opener)
-                  .replace('{$content}', _params.content)
+                  .replace('{$content}',  _content)
                   .replace('{$class}', _params.class)
                   .replace('{$modalClass}', _params.modalClass)
                   .replace('{$modalBodyClass}', _params.modalBodyClass)
@@ -116,6 +123,16 @@ fpcm.ui_dialogs = {
         }
 
         let _domEl = document.getElementById(_dlgId);
+        
+        if (_params.content instanceof Object) {
+
+            let _bodyEl = _domEl.querySelector('div.modal-body');
+            if (_bodyEl) {
+                _params.content.assignToDom(_bodyEl);
+            }
+
+        }
+
         let _bsObj = new bootstrap.Modal(_domEl);
         
         if (!_params.keepDom) {

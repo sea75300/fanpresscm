@@ -138,17 +138,17 @@ fpcm.filemanager = {
             
             var _docname = this.dataset.file;
 
+            var _input = new fpcm.ui.forms.input();
+            _input.name = 'new-filename-dialog';
+            _input.label = fpcm.ui.translate('FILE_LIST_FILENAME');
+            _input.value = this.dataset.oldname;
+            _input.placeholder = this.dataset.oldname;
+
             fpcm.ui_dialogs.create({
                 id: 'files-rename',
                 title: 'FILE_LIST_RENAME_NEWNAME',
                 closeButton: true,
-                content: fpcm.ui.getTextInput({
-                    name: 'newFilenameDialog',
-                    text: fpcm.ui.translate('FILE_LIST_FILENAME'),
-                    icon: 'edit',
-                    value: this.dataset.oldname,
-                    placeholder: this.dataset.oldname
-                }),
+                content: _input,
                 dlButtons: [
                     {
                         text: 'GLOBAL_SAVE',
@@ -158,7 +158,7 @@ fpcm.filemanager = {
                         click: function() {
                             fpcm.ajax.post('files/rename', {
                                 data: {
-                                    newName: fpcm.dom.fromId('newFilenameDialog').val(),
+                                    newName: fpcm.dom.fromId('fpcm-id-new-filename-dialog').val(),
                                     oldName: _docname
                                 },
                                 execDone: function (result) {
@@ -188,17 +188,18 @@ fpcm.filemanager = {
     initAltTextButtons: function() {
 
         fpcm.dom.bindClick('.fpcm-filelist-link-alttext', function (_e, _ui) {
+            
+            var _input = new fpcm.ui.forms.input();
+            _input.name = 'alt-text-dialog';
+            _input.label = fpcm.ui.translate('FILE_LIST_ALTTEXT');
+            _input.value = _ui.dataset.alttext;
+            _input.placeholder = _ui.dataset.alttext;
+
             fpcm.ui_dialogs.create({
                 id: 'files-alttext',
                 title: 'FILE_LIST_ALTTEXT',
                 closeButton: true,
-                    content: fpcm.ui.getTextInput({
-                        name: 'altTextDialog',
-                        text: fpcm.ui.translate('FILE_LIST_ALTTEXT'),
-                        icon: 'edit',
-                        value: _ui.dataset.alttext,
-                        placeholder: _ui.dataset.alttext
-                    }),
+                content: _input,
                 dlButtons: [
                     {
                         text: fpcm.ui.translate('GLOBAL_SAVE'),
@@ -209,7 +210,7 @@ fpcm.filemanager = {
                             fpcm.ajax.post('files/alttext', {
                                 data: {
                                     file: _ui.dataset.file,
-                                    alttext: fpcm.dom.fromId('altTextDialog').val()
+                                    alttext: fpcm.dom.fromId('fpcm-id-alt-text-dialog').val()
                                 },
                                 execDone: function (result) {
                                     fpcm.ui.addMessage(result);

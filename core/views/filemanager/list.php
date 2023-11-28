@@ -35,7 +35,7 @@
                         <div class="card-body">
                             <p class="card-title"><?php print $theView->escapeVal(basename($file->getFilename())); ?></p>
                             <?php if ($file->getAltText()) : ?>
-                            <p class="card-subtitle fs-6 text-secondary"><?php print $theView->escapeVal($file->getAltText()); ?></p>           
+                            <p class="card-subtitle fs-6 text-secondary-emphasis"><?php print $theView->escapeVal($file->getAltText()); ?></p>           
                             <?php endif; ?>
                             <div class="card-text mb-3">
                                 <?php if (!$file->existsFolder()) : ?>
