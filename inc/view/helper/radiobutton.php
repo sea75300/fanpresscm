@@ -29,5 +29,3 @@ final class radiobutton extends radiocheck {
     }
 
 }
-
-?>

@@ -83,5 +83,3 @@ class accordionItem extends helper {
     }
 
 }
-
-?>

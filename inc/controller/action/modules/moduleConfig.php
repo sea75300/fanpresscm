@@ -126,8 +126,11 @@ class moduleConfig extends \fpcm\controller\abstracts\controller implements \fpc
             (new \fpcm\view\helper\linkButton('backbtn'))->setText('MODULES_LIST_BACKTOLIST')->setUrl(\fpcm\classes\tools::getFullControllerLink('modules/list'))->setIcon('chevron-circle-left'),
             (new \fpcm\view\helper\saveButton('save'))->setPrimary()
         ]);
-        $this->view->addTabs('-module'.$this->module->getKey(), [
-            (new \fpcm\view\helper\tabItem('configure-modul'.$this->module->getKey()))->setFile($this->getViewPath())->setText('SYSTEM_HL_OPTIONS_GENERAL')
+        
+        $prefix = $this->module->getFullPrefix();
+        
+        $this->view->addTabs('-'.$prefix, [
+            (new \fpcm\view\helper\tabItem('configure-'.$prefix))->setFile($this->getViewPath())->setText('SYSTEM_HL_OPTIONS_GENERAL')
         ]);
         $this->view->render();
     }
@@ -175,6 +178,10 @@ class moduleConfig extends \fpcm\controller\abstracts\controller implements \fpc
             
             if (method_exists($obj, 'prependLabel')) {
                 $obj->prependLabel();
+            }
+            
+            if (method_exists($obj, 'setLabelTypeFloat')) {
+                $obj->setLabelTypeFloat();
             }
 
             $data['fields'][$option] = (string) $obj;

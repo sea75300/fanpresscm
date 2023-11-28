@@ -52,5 +52,3 @@ final class boolToText extends helper {
     }
 
 }
-
-?>

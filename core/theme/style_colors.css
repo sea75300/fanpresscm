@@ -130,14 +130,14 @@ div.fpcm.ui-files-item:hover,
 div.fpcm.ui-files-item:focus,
 div.fpcm.ui-files-item:active,
 div.fpcm-ui-dataview div.row:hover {
-    background: rgba(255, 239, 143, 0.5);
+    background: rgba(var(--bs-secondary-bg-rgb), 0.5);
 }
 
 .fpcm-ui-input:invalid,
 .fpcm-ui-input:required:invalid {
     background-color: var(--bs-danger-bg-subtle);
     border-color: var(--bs-danger-border-subtle);
-    color: var(--bs-danger-bg-subtle);
+    color: var(--bs-danger-text-emphasis);
 }
 
 div.row.fpcm-ui-dataview-row.fpcm-ui-logs-error {
@@ -210,5 +210,6 @@ div.fileupload-progress.in {
     
     legend {
         background-color: var(--bs-dark-bg-subtle);
-    }
+    } 
+    
 }

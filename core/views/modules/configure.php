@@ -29,7 +29,9 @@
         <fieldset>            
             <?php foreach ($fields as $option => $field) : ?>
             <div class="row my-3">
-                <?php print $field; ?>
+                <div class="col g-0">
+                    <?php print $field; ?>                    
+                </div>                
             </div>
             <?php endforeach; ?>
         </fieldset>

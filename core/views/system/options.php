@@ -104,23 +104,30 @@
         </div>
     </div>
 
-
-    <div class="row my-2">
+    <div class="row g-0 my-2">
         <div class="col-12 col-md-8">
-        <?php $theView->select('system_mode')->setText('SYSTEM_OPTIONS_USEMODE')->setOptions($systemModes)->setSelected($globalConfig->system_mode)->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
-        </div>
-    </div>
+            <div class="row row-cols-1 row-cols-xl-2">
+                <div class="col">
+                    <?php $theView->select('system_mode')
+                        ->setText('SYSTEM_OPTIONS_USEMODE')
+                        ->setOptions($systemModes)
+                        ->setSelected($globalConfig->system_mode)
+                        ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
+                </div>
 
-    <div class="row my-2">
-        <div class="col-12 col-md-8">
-            <div class="row g-0">
-                <?php $theView->boolSelect('system_loader_jquery')
-                        ->setText('SYSTEM_OPTIONS_INCLUDEJQUERY')
-                        ->setSelected($globalConfig->system_loader_jquery); ?>
-            </div>
-        </div>
-        <div class="col-auto align-self-center mx-3 mb-3">
-            <?php $theView->shorthelpButton('jqueryInclude')->setText('SYSTEM_OPTIONS_INCLUDEJQUERY_YES'); ?>
+                <div class="col">
+                    <div class="row g-0">
+                        <div class="col flex-grow-1">
+                            <?php $theView->boolSelect('system_loader_jquery')
+                                ->setText('SYSTEM_OPTIONS_INCLUDEJQUERY')
+                                ->setSelected($globalConfig->system_loader_jquery); ?>
+                        </div>
+                        <div class="col-auto align-self-center mx-3 mb-3">
+                            <?php $theView->shorthelpButton('jqueryInclude')->setText('SYSTEM_OPTIONS_INCLUDEJQUERY_YES'); ?>
+                        </div>
+                    </div>
+                </div>
+            </div>            
         </div>
     </div>
 </fieldset>

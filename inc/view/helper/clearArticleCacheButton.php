@@ -45,5 +45,3 @@ final class clearArticleCacheButton extends button {
     }
 
 }
-
-?>

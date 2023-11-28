@@ -142,6 +142,10 @@ abstract class helper implements \Stringable {
         $this->initLabel();
 
         $this->id = trim($id) ? $id : $this->getCleanName();
+        
+        if (defined('FPCM_VIEW_FLOATING_LABEL_ALL') && FPCM_VIEW_FLOATING_LABEL_ALL) {
+            $this->setLabelTypeFloat();
+        }
     }
 
     /**

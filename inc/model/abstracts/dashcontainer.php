@@ -243,7 +243,11 @@ abstract class dashcontainer extends model implements \fpcm\model\interfaces\das
         
         $btn = $this->getButton();
         if ($btn instanceof \fpcm\view\helper\button) {
-            $btn->overrideButtonType('link')->setClass('btn-sm link-dark');
+            
+            $class = 'btn-sm link-';
+            $class .= \fpcm\model\system\session::getInstance()->getCurrentUser()->getUserMeta()->system_darkmode ? 'light' : 'dark';
+
+            $btn->overrideButtonType('link')->setClass($class);
         }
         else {
             $btn = '<span class="d-block p-1">&nbsp;</span>';

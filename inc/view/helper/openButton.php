@@ -51,5 +51,3 @@ final class openButton extends linkButton {
     }
 
 }
-
-?>

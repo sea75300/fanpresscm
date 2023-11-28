@@ -35,5 +35,3 @@ class pageTokenField extends hiddenInput {
     }
 
 }
-
-?>

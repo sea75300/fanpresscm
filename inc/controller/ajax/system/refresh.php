@@ -80,6 +80,10 @@ class refresh extends \fpcm\controller\abstracts\ajaxController
             return false;
         }
         
+        if ( (new \fpcm\model\ips\iplist)->ipIsLocked($this->getIpLockedModul()) ) {
+            return false;
+        }
+        
         $cronlist = new \fpcm\model\crons\cronlist();
         $crons = $cronlist->getExecutableCrons();
 

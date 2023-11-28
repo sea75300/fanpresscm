@@ -32,25 +32,27 @@
         </div>
     </div>
 
-    <div class="row my-2">
+    <div class="row g-0 my-2">
         <div class="col-12 col-md-8">
-        <?php $theView->select('articles_sort')
-                ->setText('SYSTEM_OPTIONS_NEWS_SORTING')
-                ->setOptions($sorts)
-                ->setSelected($globalConfig->articles_sort)
-                ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
-        </div>
-    </div>
+            <div class="row row-cols-1 row-cols-xl-2">
+                <div class="col">
+                    <?php $theView->select('articles_sort')
+                        ->setText('SYSTEM_OPTIONS_NEWS_SORTING')
+                        ->setOptions($sorts)
+                        ->setSelected($globalConfig->articles_sort)
+                        ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
+                </div>
 
-    <div class="row my-2">
-        <div class="col-12 col-md-8">
-        <?php $theView->select('articles_sort_order')
-                ->setText('SYSTEM_OPTIONS_NEWS_SORTING_ORDER')
-                ->setOptions($sortsOrders)
-                ->setSelected($globalConfig->articles_sort_order)
-                ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
+                <div class="col">
+                    <?php $theView->select('articles_sort_order')
+                        ->setText('SYSTEM_OPTIONS_NEWS_SORTING_ORDER')
+                        ->setOptions($sortsOrders)
+                        ->setSelected($globalConfig->articles_sort_order)
+                        ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
+                </div>
+            </div>            
         </div>
-    </div>
+    </div>    
 
     <div class="row my-2">
         <div class="col-12 col-md-8">
@@ -79,22 +81,30 @@
 
 <fieldset class="mb-2">
     <legend><?php $theView->write('HL_ARCHIVE'); ?></legend>
-    <div class="row my-2">
+    
+    <div class="row g-0 my-2">
         <div class="col-12 col-md-8">
-        <?php $theView->boolSelect('articles_archive_show')->setText('SYSTEM_OPTIONS_ARCHIVE_LINK')->setSelected($globalConfig->articles_archive_show); ?>
-        </div>
-    </div>
+            <div class="row row-cols-1 row-cols-xl-2">
+                <div class="col">
+                    <?php $theView->boolSelect('articles_archive_show')->setText('SYSTEM_OPTIONS_ARCHIVE_LINK')->setSelected($globalConfig->articles_archive_show); ?>
+                </div>
 
-    <div class="row my-2">
-        <div class="col-12 col-md-8">
-        <?php $theView->dateTimeInput('articles_archive_datelimit')
-                ->setValue($globalConfig->articles_archive_datelimit ? $theView->dateText($globalConfig->articles_archive_datelimit, 'Y-m-d') : '')
-                ->setText('SYSTEM_OPTIONS_NEWS_ARCHIVELIMIT')
-                ->setData(['maxDate' => '-3m']); ?>
+                <div class="col">
+                    <div class="row g-0">
+                        <div class="col flex-grow-1">
+                        <?php $theView->dateTimeInput('articles_archive_datelimit')
+                                ->setValue($globalConfig->articles_archive_datelimit ? $theView->dateText($globalConfig->articles_archive_datelimit, 'Y-m-d') : '')
+                                ->setText('SYSTEM_OPTIONS_NEWS_ARCHIVELIMIT')
+                                ->setData(['maxDate' => '-3m']); ?>
+                        </div>
+                        <div class="col-auto align-self-center mx-3 mb-3">
+                            <?php $theView->shorthelpButton('dtmask')
+                                    ->setText('SYSTEM_OPTIONS_NEWS_ARCHIVELIMIT_EMPTY'); ?>                    
+                        </div>
+                    </div>
+                </div>
+            </div>            
         </div>
-        <div class="col-auto align-self-center mx-3 mb-3">
-            <?php $theView->shorthelpButton('dtmask')
-                    ->setText('SYSTEM_OPTIONS_NEWS_ARCHIVELIMIT_EMPTY'); ?>                    
-        </div>
-    </div>
+    </div>    
+
 </fieldset>

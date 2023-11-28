@@ -36,5 +36,3 @@ class dropdownSpacer extends helper {
     }
 
 }
-
-?>

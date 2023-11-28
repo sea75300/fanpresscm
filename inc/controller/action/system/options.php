@@ -81,6 +81,8 @@ class options extends \fpcm\controller\abstracts\controller implements \fpcm\con
      */
     public function process()
     {
+        define('FPCM_VIEW_FLOATING_LABEL_ALL', true);
+
         $this->view->assign('timezoneAreas', $this->getTimeZonesAreas());
 
         $this->view->assign('systemModes', [
