@@ -69,12 +69,8 @@ span.fpcm-ui-badge,
     background: rgba(var(--bs-secondary-rgb), 0.75);
 }
 
-div.fpcm.ui-files-item:nth-child(even) {
-    background: rgba( var(--bs-light-rgb), 0.66);
-}
-
-div.fpcm.ui-files-item:nth-child(odd) {
-    background: rgba( var(--bs-light-rgb), 0.33);
+div.fpcm.ui-files-item {
+    background: rgba(var(--bs-body-bg-rgb), 0.75);
 }
 
 .fpcm.ui-color-blue-light {

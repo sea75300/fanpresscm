@@ -44,10 +44,6 @@ fpcm.fileuploader = {
                 _uppy.cancelAll();
             });
 
-        fpcm.dom.bindClick('#btnUpload', function () {
-           _uppy.upload(); 
-        });
-
         fpcm.dom.bindClick('#btnCancel', function () {
            _uppy.cancelAll(); 
         });

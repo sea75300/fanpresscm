@@ -497,7 +497,7 @@ fpcm.filemanager = {
     
     runFileIndexUpdate: function () {
 
-        fpcm.ajax.get('cronasync', {
+        fpcm.ajax.get('crons/exec', {
             data    : {
                 cjId: 'fileindex'
             },

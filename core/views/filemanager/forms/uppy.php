@@ -1,17 +1,19 @@
 <?php /* @var $theView fpcm\view\viewVars */ ?>
 <div id="fileupload">
-    <div class="row row-cols-1 row-cols-md-2">
-        <div class="col mb-3">
-            <div id="fpcm-id-uppy-select" class=" mb-2"></div>
-            <?php $theView->button('upload')->setText('FILE_FORM_UPLOADSTART')->setClass('w-100 mb-2')->setIcon('upload')->overrideButtonType('outline-secondary'); ?>
+    <div class="row">
+        <div class="col">
+            <div id="fpcm-id-uppy-select" class="mb-3"></div>
             <?php $theView->button('cancel')->setText('FILE_FORM_UPLOADCANCEL')->setClass('w-100')->setIcon('ban')->overrideButtonType('outline-secondary'); ?>
         </div>
+    </div>
+
+    <div class="row my-3">
         <div class="col align-self-center">
             <div id="fpcm-id-uppy-drop-area"></div>
         </div>
     </div>
 
-    <div class="row my-3">
+    <div class="row my-3 g-0">
         <div class="col-12">
             <div id="fpcm-id-uppy-progress"></div>
         </div>

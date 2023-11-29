@@ -316,6 +316,16 @@ abstract class cron implements \fpcm\model\interfaces\cron {
     }
 
     /**
+     * Is cronjob running longer than interval
+     * @return bool
+     * @since 5.2.0
+     */
+    public function forceCancelation() : bool
+    {
+        return $this->isrunning && time() > $this->getNextExecTime();
+    }
+
+    /**
      * Set file option, that cronjob is running
      * @return bool
      */

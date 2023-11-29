@@ -133,7 +133,7 @@ class commenttrash extends \fpcm\controller\abstracts\controller
     protected function initDataViewRow($item)
     {
         $buttons = [
-            '<div class="fpcm-ui-controlgroup">',
+            '<div>',
             (new \fpcm\view\helper\openButton('commentfe'))->setUrlbyObject($item)->setTarget('_blank'),
             (new \fpcm\view\helper\editButton('commentedit'))->setUrlbyObject($item, '&mode=1')->setClass('fpcm-ui-commentlist-link'),
             '</div>'

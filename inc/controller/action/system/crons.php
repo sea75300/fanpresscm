@@ -136,11 +136,8 @@ class crons extends \fpcm\controller\abstracts\controller
         
         return new \fpcm\components\dataView\row([
             
-            new \fpcm\components\dataView\rowCol('button', (new \fpcm\view\helper\button($cronjob->getCronName()))->setText('CRONJOB_LIST_EXECDEMAND')->setClass($playClass)->setIcon($processingIcon)->setIconOnly()->setReadonly($btnReadonly)->setData([
-                'cjid' => $cronjob->getCronName(),
-                'cjdescr' => $this->language->translate($cronjob->getCronNameLangVar()),
-                'cjmod' => $cronjob->getModuleKey()
-            ]), '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
+            new \fpcm\components\dataView\rowCol('button', $this->getButtons($cronjob, $processingIcon, $playClass, $btnReadonly), '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
+
             new \fpcm\components\dataView\rowCol('interval',
                 (new \fpcm\view\helper\select('intervals_' . $cronjob->getCronName()))
                     ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
@@ -158,4 +155,51 @@ class crons extends \fpcm\controller\abstracts\controller
         ], $rowClass);
     }
 
+    /**
+     * 
+     * @param \fpcm\model\abstracts\cron $cronjob
+     * @param string $processingIcon
+     * @param string $playClass
+     * @param bool $btnReadonly
+     * @return type
+     */
+    private function getButtons($cronjob, string $processingIcon, string $playClass, bool $btnReadonly) : string
+    {
+        
+        $buttons = [];
+        $buttons[] = (new \fpcm\view\helper\button($cronjob->getCronName()))
+            ->setText('CRONJOB_LIST_EXECDEMAND')
+            ->setClass($playClass)
+            ->setIcon($processingIcon)
+            ->setIconOnly()
+            ->setReadonly($btnReadonly)
+            ->setData([
+                'cjid' => $cronjob->getCronName(),
+                'cjdescr' => $this->language->translate($cronjob->getCronNameLangVar()),
+                'cjmod' => $cronjob->getModuleKey()
+            ]
+        );
+        
+        if ($cronjob->forceCancelation()) {
+            
+            $buttons[] = (string) (new \fpcm\view\helper\button('release'.$cronjob->getCronName()))
+            ->setText('CRONJOB_BTN_CANCEL')
+            ->setClass('fpcm-cronjoblist-release')
+            ->setIcon('stop')
+            ->setIconOnly()
+            ->overrideButtonType('outline-danger')
+            ->setData([
+                'cjid' => $cronjob->getCronName(),
+                'cjmod' => $cronjob->getModuleKey()
+            ]);
+            
+        }
+        else {
+            $buttons[] = '';
+        }
+        
+        
+        return vsprintf('<div>%s%s</div>', $buttons);
+    }
 }
+

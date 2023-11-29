@@ -30,7 +30,9 @@ export class element_input {
 
     min = '';
     
-    readonly = '';
+    readonly = false;
+    
+    autofocus = false;
 
     assignToDom(_destination) {
         
@@ -73,6 +75,10 @@ export class element_input {
             _input.readonly = true;
         }
         
+        if (this.autofocus) {
+            _input.autofocus = true;
+        }
+        
         if (this.placeholder) {
             _input.placeholder = this.placeholder;
         }
@@ -96,7 +102,7 @@ export class element_input {
         _wrapper.appendChild(_label);
         
         _destination.appendChild(_wrapper);
-        
+
         delete(_label, _input, _wrapper);
         
     }

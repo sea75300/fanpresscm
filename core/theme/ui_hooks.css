@@ -134,6 +134,10 @@ table.diff-wrapper {
 .toast-container.position-fixed {
     z-index : 1021;
 }
+    
+.uppy-Informer p[role=alert] {
+    color: var(--bs-danger);
+}
 
 
 [data-bs-theme=dark] {
@@ -150,4 +154,13 @@ table.diff-wrapper {
         color: var(--bs-body-color);
     }
  
+    .uppy-DragDrop-container {
+        background: var(--bs-body-bg);
+        color: var(--bs-body-color);
+    }
+    
+    .uppy-DragDrop-browse {
+        color: var(--bs-link-color);
+    }
+    
 }

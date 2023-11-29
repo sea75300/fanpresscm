@@ -17,15 +17,16 @@ fpcm.crons = {
             onRenderAfter: function () {
 
                 fpcm.dom.bindClick('.fpcm-cronjoblist-exec', function (_e, _ui) {
-                    let _data = fpcm.dom.fromTag(_ui).data();
-                    
-                    _data.dest = _ui.name;
-                    
                     fpcm.worker.postMessage({
                         namespace: 'crons',
                         function: 'execCronjobDemand',
                         id: 'crons.execCronjobDemand',
-                        param: _data
+                        param: {
+                            cjdescr: _ui.dataset.cjdescr,
+                            cjid: _ui.dataset.cjid,
+                            cjmod: _ui.dataset.cjmod,
+                            dest: _ui.name
+                        }
                     });
 
                     _ui.disabled = true;
@@ -42,13 +43,28 @@ fpcm.crons = {
                     }
                 });
 
+                fpcm.dom.bindClick('.fpcm-cronjoblist-release', function (_e, _ui) {
+                    
+                    fpcm.worker.postMessage({
+                        namespace: 'crons',
+                        function: 'releaseCronjob',
+                        id: 'crons.releaseCronjob',
+                        param: {
+                            cjid: _ui.dataset.cjid,
+                            cjmod: _ui.dataset.cjmod
+                        }
+                    });                    
+                    
+                });
+
             }
         });
 
     },
 
-    execCronjobDemand : function(_data) {
-        fpcm.ajax.get('cronasync', {
+    execCronjobDemand : function(_data)
+    {
+        fpcm.ajax.get('crons/exec', {
             data    : {
                 cjId: _data.cjid,
                 cjmod: _data.cjmod
@@ -62,16 +78,30 @@ fpcm.crons = {
                     id: 'crons.execCronjobDemand'
                 });
 
-            },
+            }
         });
     },
     
-    setCronjobInterval : function(cronjobId, cronjobInterval, modulekey) {
-        fpcm.ajax.post('croninterval', {
+    setCronjobInterval : function(cronjobId, cronjobInterval, modulekey)
+    {
+        fpcm.ajax.post('crons/interval', {
             data    : {
                 cjId:cronjobId,
                 interval:cronjobInterval,
                 cjmod: modulekey
+            }
+        });
+    },
+    
+    releaseCronjob: function (_data)
+    {
+        fpcm.ajax.post('crons/interval', {
+            data: {
+                cjId: _data.cjid,
+                cjmod: _data.cjmod
+            },
+            execDone: function (result) {
+                window.location.reload();
             }
         });
     }

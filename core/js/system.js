@@ -429,12 +429,14 @@ fpcm.system = {
     },
 
     checkForUpdates: function () {
-        fpcm.dom.fromId('checkUpdate').click(function () {
-            fpcm.ajax.get('cronasync', {
-                data: {
+        
+        fpcm.dom.bindClick('#checkUpdate', function () {
+            fpcm.ajax.get('crons/exec', {
+                data: { 
                     cjId: 'updateCheck'
                 }
             });
+            
         });
 
         return true;

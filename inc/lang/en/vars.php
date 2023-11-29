@@ -74,6 +74,7 @@ $lang = array (
   'COMMMENT_WEBSITE' => 'Website',
   'CONFIRM_MESSAGE' => 'Do you really want to do this action?',
   'CRONJOB_ANONYMIZEIPS' => 'Anonymize IP addresses from comments',
+  'CRONJOB_BTN_CANCEL' => 'Cancel and release cronjob',
   'CRONJOB_CLEANUPTRASH' => 'Clean trash',
   'CRONJOB_CLEARLOGS' => 'Empty system logs',
   'CRONJOB_CLEARTEMP' => 'Clean up temporary files',

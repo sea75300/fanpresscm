@@ -5,15 +5,15 @@
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
-namespace fpcm\controller\ajax\system;
+namespace fpcm\controller\ajax\crons;
 
 /**
  * Set cron execution interval
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2022, Stefan Seehafer
+ * @copyright (c) 2023, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class croninterval extends \fpcm\controller\abstracts\ajaxController
+class setinterval extends \fpcm\controller\abstracts\ajaxController
 {
 
     /**
@@ -31,10 +31,9 @@ class croninterval extends \fpcm\controller\abstracts\ajaxController
     public function process()
     {
         $cronName = $this->request->fromPOST('cjId');
-        $interval = $this->request->fromPOST('interval', [\fpcm\model\http\request::FILTER_CASTINT ]);
         $module = $this->request->fromPOST('cjmod');
 
-        if (!$cronName || $interval === null) {
+        if (!$cronName) {
             return false;
         }
 
@@ -50,20 +49,20 @@ class croninterval extends \fpcm\controller\abstracts\ajaxController
         else {
             $cronName = \fpcm\model\abstracts\cron::getCronNamespace($cronName);
         }
-
+        
         /* @var $cronjob \fpcm\model\abstracts\cron */
         $cronjob = new $cronName();
         if (!$cronjob instanceof \fpcm\model\abstracts\cron) {
-            trigger_error("Cronjob class {$cronjobId} must be an instance of \"\fpcm\model\abstracts\cron\"!");
+            trigger_error("Cronjob class {$cronName} must be an instance of \"\fpcm\model\abstracts\cron\"!");
+            return false;
+        }
+        
+        if (!$cronjob->forceCancelation()) {
             return false;
         }
 
-        $cronjob->setExecinterval($interval);
-        $cronjob->update();
-
+        $cronjob->setFinished();
         return true;
     }
 
 }
-
-?>

@@ -5,17 +5,16 @@
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
-namespace fpcm\controller\ajax\system;
+namespace fpcm\controller\ajax\crons;
 
 /**
  * Cron on demand execution controller
- * 
  * @package fpcm\controller\ajax\system\cronasync
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2022, Stefan Seehafer
+ * @copyright (c) 2011-2023, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class cronasync extends \fpcm\controller\abstracts\ajaxController
+class execasync extends \fpcm\controller\abstracts\ajaxController
 {
 
     /**
@@ -84,5 +83,3 @@ class cronasync extends \fpcm\controller\abstracts\ajaxController
     }
 
 }
-
-?>

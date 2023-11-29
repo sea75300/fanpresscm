@@ -29,8 +29,9 @@ ajax/dashboard/load: ajax/dashboard/loader
 ajax/dashboard/manager: ajax/dashboard/containerManager
 ajax/syscheck: ajax/system/syscheck
 ajax/refresh: ajax/system/refresh
-ajax/cronasync: ajax/system/cronasync
-ajax/croninterval: ajax/system/croninterval
+ajax/crons/exec: ajax/crons/execasync
+ajax/crons/interval: ajax/crons/setinterval
+ajax/crons/release: ajax/crons/release
 ajax/packagemgr/processUpdate: ajax/packagemgr/processUpdate
 ajax/packagemgr/moduleInstaller: ajax/packagemgr/moduleInstaller
 ajax/packagemgr/unzcp: ajax/packagemgr/moduleExtractCopy

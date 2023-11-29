@@ -103,17 +103,9 @@ fpcm.ui_dialogs = {
         if (!fpcm.dom.fromId(_dlgId).length) {            
             let _modal = fpcm.vars.ui.dialogTpl;
 
-            debugger;
-
-            _content = _params.content;
-            if (_content instanceof Object) {
-                _content = '';
-            }
-
             fpcm.dom.appendHtml('#fpcm-body', _modal.replace('{$title}', fpcm.ui.translate(_params.title))
                   .replace(/\{\$id\}/g, _dlgId)
                   .replace('{$opener}', _params.opener)
-                  .replace('{$content}',  _content)
                   .replace('{$class}', _params.class)
                   .replace('{$modalClass}', _params.modalClass)
                   .replace('{$modalBodyClass}', _params.modalBodyClass)
@@ -124,13 +116,41 @@ fpcm.ui_dialogs = {
 
         let _domEl = document.getElementById(_dlgId);
         
-        if (_params.content instanceof Object) {
+        let _bodyEl = _domEl.querySelector('div.modal-body');
+        if (_bodyEl) {
 
-            let _bodyEl = _domEl.querySelector('div.modal-body');
-            if (_bodyEl) {
-                _params.content.assignToDom(_bodyEl);
+            if (_params.content instanceof Array && _params.content.length > 0) {
+                
+                for (_element of _params.content) {
+                    
+                    if (!_element instanceof Object) {
+                        console.error('Dialog content element in array must be an object.');
+                        console.error(_element);
+                        continue;
+                    }
+                    
+                    if (!_element.assignToDom instanceof Function) {
+                        console.error('Dialog content element in array must provide a method "assignToDom".');
+                        console.error(_element);
+                        continue;
+                    }
+
+                    _element.assignToDom(_bodyEl);
+                }
+                
             }
-
+            else if (_params.content instanceof Object) {
+                if (!_params.content.assignToDom instanceof Function) {
+                        console.error('Dialog content element in array must provide a method "assignToDom".');
+                        console.error(_params.content);                    
+                }
+                else {
+                    _params.content.assignToDom(_bodyEl);
+                }
+            }
+            else {
+                _bodyEl.innerHTML = _params.content;
+            }
         }
 
         let _bsObj = new bootstrap.Modal(_domEl);
