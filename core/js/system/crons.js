@@ -13,6 +13,21 @@ fpcm.crons = {
 
     init: function () {
 
+        fpcm.dom.bindClick('#btnReleaseall', function (_e, _ui) {
+            
+            fpcm.ajax.post('crons/release', {
+                data: {
+                    cjId: _ui.dataset.cjid,
+                    unlock: true
+
+                },
+                execDone: function (result) {
+                    window.location.reload();
+                }
+            });            
+
+        });
+
         fpcm.dataview.render('cronlist', {
             onRenderAfter: function () {
 
@@ -95,10 +110,11 @@ fpcm.crons = {
     
     releaseCronjob: function (_data)
     {
-        fpcm.ajax.post('crons/interval', {
+        fpcm.ajax.post('crons/release', {
             data: {
                 cjId: _data.cjid,
-                cjmod: _data.cjmod
+                cjmod: _data.cjmod,
+                
             },
             execDone: function (result) {
                 window.location.reload();

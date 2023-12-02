@@ -4,7 +4,10 @@
 
     <div class="row my-2">
         <div class="col-12 col-md-8">
-        <?php $theView->boolSelect('system_maintenance')->setText('SYSTEM_OPTIONS_MAINTENANCE')->setSelected($globalConfig->system_maintenance); ?>
+        <?php $theView->boolSelect('system_maintenance')
+                ->setText('SYSTEM_OPTIONS_MAINTENANCE')
+                ->setSelected($globalConfig->system_maintenance)
+                ->setClass($globalConfig->system_maintenance ? 'text-danger' : ''); ?>
         </div>
     </div>
 

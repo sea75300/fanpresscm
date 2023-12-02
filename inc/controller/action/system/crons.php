@@ -65,6 +65,17 @@ class crons extends \fpcm\controller\abstracts\controller
         $this->currentTime = time();
 
         $this->initDataView();
+        
+        if (!\fpcm\classes\baseconfig::asyncCronjobsEnabled()) {
+            $this->view->addButton(
+                (new \fpcm\view\helper\button('releaseall'))
+                    ->setText('GLOBAL_RESET')
+                    ->setIcon('unlock')
+                    ->setData([
+                        'cjid' => base64_encode($this->crypt->getRandomString())
+                    ])
+            );
+        }
 
         $this->view->addJsFiles(['system/crons.js']);
         $this->view->addJsLangVars(['CRONJOB_ECEDUTING']);

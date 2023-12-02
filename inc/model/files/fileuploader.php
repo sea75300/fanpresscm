@@ -190,6 +190,24 @@ final class fileuploader extends \fpcm\model\abstracts\staticModel {
         return $this->finfo->file($filename, $option);
     }
 
+    /**
+     * Check and match upload error codes from $_FILES
+     * @param int $code
+     * @return string
+     * @since 5.2.0-a1
+     */
+    public static function matchUploadError(int $code) : string
+    {
+        return match ($code) {
+            1 => 'The file %s exceeds the maximum file size of PHP.',
+            2 => 'The file %s exceeds the maximum file size  in the HTML form.',
+            3 => 'The file %s was only partially uploaded.',
+            4 => 'No file was uploaded.',
+            6 => 'Temporary folder not found.',
+            7 => 'Failed to write file %s to disk.',
+            8 => 'A PHP extension stopped the upload of file %s.',
+            default => ''
+        };
+ 
+    }
 }
-
-?>

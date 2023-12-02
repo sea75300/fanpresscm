@@ -13,7 +13,7 @@ namespace fpcm\controller\ajax\crons;
  * @copyright (c) 2023, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class setinterval extends \fpcm\controller\abstracts\ajaxController
+class release extends \fpcm\controller\abstracts\ajaxController
 {
 
     /**
@@ -30,6 +30,12 @@ class setinterval extends \fpcm\controller\abstracts\ajaxController
      */
     public function process()
     {
+        
+        if ( $this->request->fromPOST('unlock')) {
+            \fpcm\classes\baseconfig::enableAsyncCronjobs(true);
+            return true;
+        }
+
         $cronName = $this->request->fromPOST('cjId');
         $module = $this->request->fromPOST('cjmod');
 

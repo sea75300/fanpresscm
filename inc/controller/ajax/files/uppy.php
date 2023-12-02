@@ -60,8 +60,14 @@ class uppy extends \fpcm\controller\abstracts\ajaxController
         if ($file === null) {
             $this->response->setCode(400)->fetch();
         }
-        
+
         $realFile = $file['name'];
+
+        if ($file['error'] !== UPLOAD_ERR_OK) {
+            trigger_error(sprintf( \fpcm\model\files\fileuploader::matchUploadError($file['error']) , $realFile) );
+            $this->response->setCode(400)->fetch();
+        }
+
         $tmpFile = $file['tmp_name'];
         if (!is_uploaded_file($tmpFile)) {
             $this->response->setCode(400)->fetch();
