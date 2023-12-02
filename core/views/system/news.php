@@ -7,8 +7,7 @@
         <?php $theView->select('articles_limit')
                 ->setText('SYSTEM_OPTIONS_NEWSSHOWLIMIT')
                 ->setOptions($articleLimitList)
-                ->setSelected($globalConfig->articles_limit)
-                ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
+                ->setSelected($globalConfig->articles_limit); ?>
         </div>
     </div>
 
@@ -17,8 +16,7 @@
         <?php $theView->select('articles_template_active')
                 ->setText('SYSTEM_OPTIONS_ACTIVENEWSTEMPLATE')
                 ->setOptions($articleTemplates)
-                ->setSelected($globalConfig->articles_template_active)
-                ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
+                ->setSelected($globalConfig->articles_template_active); ?>
         </div>
     </div>
 
@@ -27,8 +25,7 @@
         <?php $theView->select('article_template_active')
                 ->setText('SYSTEM_OPTIONS_ACTIVENEWSTEMPLATESINGLE')
                 ->setOptions($articleTemplates)
-                ->setSelected($globalConfig->article_template_active)
-                ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>	
+                ->setSelected($globalConfig->article_template_active); ?>	
         </div>
     </div>
 
@@ -39,16 +36,14 @@
                     <?php $theView->select('articles_sort')
                         ->setText('SYSTEM_OPTIONS_NEWS_SORTING')
                         ->setOptions($sorts)
-                        ->setSelected($globalConfig->articles_sort)
-                        ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
+                        ->setSelected($globalConfig->articles_sort); ?>
                 </div>
 
                 <div class="col">
                     <?php $theView->select('articles_sort_order')
                         ->setText('SYSTEM_OPTIONS_NEWS_SORTING_ORDER')
                         ->setOptions($sortsOrders)
-                        ->setSelected($globalConfig->articles_sort_order)
-                        ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
+                        ->setSelected($globalConfig->articles_sort_order); ?>
                 </div>
             </div>            
         </div>

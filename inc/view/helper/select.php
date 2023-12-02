@@ -67,6 +67,10 @@ class select extends helper {
      */
     protected function getString()
     {
+        if (defined('FPCM_VIEW_DISABLE_FIRST_OPTION') && FPCM_VIEW_DISABLE_FIRST_OPTION) {
+            $this->setFirstOption(self::FIRST_OPTION_DISABLED);
+        }        
+
         if (trim($this->text) && substr($this->text, 0, strlen(self::TEXT_DEFAULT_LABEL)) !== self::TEXT_DEFAULT_LABEL) {
             $this->prependLabel();
         }

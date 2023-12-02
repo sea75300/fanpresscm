@@ -30,23 +30,19 @@
 
             <?php $theView->textInput('twitter_data[consumer_key]')
                 ->setValue($globalConfig->twitter_data->consumer_key)
-                ->setText('SYSTEM_OPTIONS_TWITTER_CONSUMER_KEY')
-                ->setLabelTypeFloat(); ?>
+                ->setText('SYSTEM_OPTIONS_TWITTER_CONSUMER_KEY'); ?>
 
             <?php $theView->textInput('twitter_data[consumer_secret]')
                 ->setValue($globalConfig->twitter_data->consumer_secret)
-                ->setText('SYSTEM_OPTIONS_TWITTER_CONSUMER_SECRET')
-                ->setLabelTypeFloat(); ?>
+                ->setText('SYSTEM_OPTIONS_TWITTER_CONSUMER_SECRET'); ?>
 
             <?php $theView->textInput('twitter_data[user_token]')
                 ->setValue($globalConfig->twitter_data->user_token)
-                ->setText('SYSTEM_OPTIONS_TWITTER_USER_TOKEN')
-                ->setLabelTypeFloat(); ?>
+                ->setText('SYSTEM_OPTIONS_TWITTER_USER_TOKEN'); ?>
 
             <?php $theView->textInput('twitter_data[user_secret]')
                 ->setValue($globalConfig->twitter_data->user_secret)
-                ->setText('SYSTEM_OPTIONS_TWITTER_USER_SECRET')
-                ->setLabelTypeFloat(); ?>
+                ->setText('SYSTEM_OPTIONS_TWITTER_USER_SECRET'); ?>
     </div>
     <div class="col">
         

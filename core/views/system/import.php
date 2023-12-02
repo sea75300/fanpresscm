@@ -34,25 +34,28 @@
                     <div class="accordion-body">
 
                         <div class="row my-2">
+                            <div class="col">
                             <?php $theView->select('import_destination')
-                                    ->setOptions($theView->translate('SYSTEM_IMPORT_ITEMS'))
-                                    ->setText('IMPORT_ITEM')
-                                    ->setIcon('file-csv'); ?>
+                                ->setOptions($theView->translate('SYSTEM_IMPORT_ITEMS'))
+                                ->setText('IMPORT_ITEM')
+                                ->setIcon('file-csv'); ?>                                
+                            </div>
                         </div>
-
-                        <div class="row my-2">
-                            <?php $theView->textInput('import_delimiter')
+                        
+                        <div class="row row-cols-1 row-cols-md-2 my-2">
+                            <div class="col">
+                                <?php $theView->textInput('import_delimiter')
                                     ->setValue(';')->setMaxlenght(1)
                                     ->setText('IMPORT_DELIMITER')
                                     ->setIcon('cut'); ?>
-                        </div>
-
-                        <div class="row my-2">
+                            </div>
+                            <div class="col ps-md-0">
                             <?php $theView->textInput('import_enclosure')
-                                    ->setValue('"')->setMaxlenght(1)
-                                    ->setText('IMPORT_ENCLOSURE')
-                                    ->setIcon('quote-left'); ?>
-                        </div>
+                                ->setValue('"')->setMaxlenght(1)
+                                ->setText('IMPORT_ENCLOSURE')
+                                ->setIcon('quote-left'); ?>
+                            </div>
+                        </div>     
 
                         <div class="row my-2">
                                 <div class="col-form-label col-12 col-sm-6 col-md-4 align-self-center">

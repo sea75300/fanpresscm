@@ -22,20 +22,25 @@
         <?php $theView->boolSelect('system_2fa_auth')->setText('SYSTEM_OPTIONS_LOGIN_TWOFACTORAUTH')->setSelected($globalConfig->system_2fa_auth); ?>
         </div>
     </div>
-
-
+    
     <div class="row my-2">
         <div class="col-12 col-md-8">
             <div class="row g-0">
+                <div class="col flex-grow-1">
                 <?php $theView->boolSelect('system_passcheck_enabled')
-                        ->setText('SYSTEM_OPTIONS_USERS_PASSCHECK')
-                        ->setSelected($globalConfig->system_passcheck_enabled); ?>
-            </div>
+                    ->setText('SYSTEM_OPTIONS_USERS_PASSCHECK')
+                    ->setSelected($globalConfig->system_passcheck_enabled); ?>
+                </div>
+                <div class="col-auto align-self-center mx-3 mb-3">
+                    <?php $theView->shorthelpButton('pwndpass')->setText('GLOBAL_OPENNEWWIN')->setUrl('https://haveibeenpwned.com/passwords'); ?>
+                </div>
+            </div>        
         </div>
-        <div class="col-auto align-self-center mx-3 mb-3">
-            <?php $theView->shorthelpButton('pwndpass')->setText('GLOBAL_OPENNEWWIN')->setUrl('https://haveibeenpwned.com/passwords'); ?>
-        </div>
-    </div>
+    </div>    
+    
+    
+    
+    
 </fieldset>
 
 <fieldset class="my-2" >
@@ -58,8 +63,7 @@
         <?php $theView->select('system_updates_manual')
                 ->setOptions($theView->translate('SYSTEM_OPTIONS_UPDATESMANUAL'))
                 ->setText('SYSTEM_OPTIONS_EXTENDED_UPDATESMANCHK')
-                ->setSelected($globalConfig->system_updates_manual)
-                ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
+                ->setSelected($globalConfig->system_updates_manual); ?>
         </div>
     </div>
 </fieldset>

@@ -19,7 +19,7 @@ class setConfig extends \fpcm\controller\abstracts\ajaxController {
 
     use \fpcm\controller\traits\common\isAccessibleTrue;
 
-    private $whiteList = ['file_view', 'dashboardpos', 'dashboard_containers_disabled'];
+    private $whiteList = ['file_view', 'file_list_limit', 'dashboardpos', 'dashboard_containers_disabled'];
 
     /**
      * Controller-Processing
@@ -58,6 +58,9 @@ class setConfig extends \fpcm\controller\abstracts\ajaxController {
                 $tmp = $usrmeta->{$var};
                 $tmp[] = $this->request->fromPOST('value', [ \fpcm\model\http\request::FILTER_BASE64DECODE ]);
                 $usrmeta->{$var} = $tmp;
+                break;
+            case 'file_list_limit' :
+                $usrmeta->{$var} = $this->request->fromPOST('value', [\fpcm\model\http\request::FILTER_CASTINT ]);
                 break;
             default:
                 $usrmeta->{$var} = $this->request->fromPOST('value');

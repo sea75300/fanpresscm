@@ -9,8 +9,7 @@
                         <?php $theView->select('system_editor')
                             ->setText('SYSTEM_OPTIONS_NEWS_EDITOR')
                             ->setOptions($editors)
-                            ->setSelected(base64_encode($globalConfig->system_editor))
-                            ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); 
+                            ->setSelected(base64_encode($globalConfig->system_editor)); 
                         ?>
                 </div>
 
@@ -18,28 +17,28 @@
                 <?php $theView->select('system_editor_fontsize')
                     ->setText('SYSTEM_OPTIONS_NEWS_EDITOR_FONTSIZE')
                         ->setOptions($defaultFontsizes)
-                        ->setSelected($globalConfig->system_editor_fontsize)
-                        ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
+                        ->setSelected($globalConfig->system_editor_fontsize); ?>
                 </div>
             </div>            
         </div>
     </div>
 
-    <div class="row my-2">
+    <div class="row g-0 my-2">
         <div class="col-12 col-md-8">
-        <?php $theView->boolSelect('articles_revisions')
-                ->setText('SYSTEM_OPTIONS_REVISIONS_ENABLED')
-                ->setSelected($globalConfig->articles_revisions); ?>
-        </div>
-    </div>
+            <div class="row row-cols-1 row-cols-sm-2">
+                <div class="col">
+                    <?php $theView->boolSelect('articles_revisions')
+                            ->setText('SYSTEM_OPTIONS_REVISIONS_ENABLED')
+                            ->setSelected($globalConfig->articles_revisions); ?>
+                </div>
 
-    <div class="row my-2">
-        <div class="col-12 col-md-8">
-            <?php $theView->select('articles_revisions_limit')
-                    ->setText('SYSTEM_OPTIONS_NEWS_REVISIONS_LIMIT')
-                    ->setOptions($theView->translate('SYSTEM_OPTIONS_NEWS_REVISIONS_LIMIT_LIST'))
-                    ->setSelected($globalConfig->articles_revisions_limit)
-                    ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
+                <div class="col">
+                    <?php $theView->select('articles_revisions_limit')
+                            ->setText('SYSTEM_OPTIONS_NEWS_REVISIONS_LIMIT')
+                            ->setOptions($theView->translate('SYSTEM_OPTIONS_NEWS_REVISIONS_LIMIT_LIST'))
+                            ->setSelected($globalConfig->articles_revisions_limit); ?>
+                </div>
+            </div>            
         </div>
     </div>
 
@@ -56,7 +55,28 @@
 </fieldset>
 
 <fieldset class="mb-2">
-    <legend><?php $theView->write('HL_FILES_MNG'); ?></legend>                       
+    <legend><?php $theView->write('HL_FILES_MNG'); ?></legend>
+
+    <div class="row g-0 my-2">
+        <div class="col-12 col-md-8">
+            <div class="row row-cols-1 row-cols-sm-2">
+                <div class="col">
+                <?php $theView->select('file_list_limit')
+                    ->setText('SYSTEM_OPTIONS_FILEMANAGER_LIMIT')
+                    ->setOptions($articleLimitListAcp)
+                    ->setSelected($globalConfig->file_list_limit); ?>
+                </div>
+
+                <div class="col">
+                <?php $theView->select('file_view')
+                    ->setText('SYSTEM_OPTIONS_FILEMANAGER_VIEW')
+                    ->setOptions($filemanagerViews)
+                    ->setSelected($globalConfig->file_view); ?>
+                </div>
+            </div>            
+        </div>
+    </div>
+    
     <div class="row my-2">
         <div class="col-12 col-md-8">
         <?php $theView->boolSelect('file_subfolders')
@@ -64,38 +84,17 @@
                 ->setSelected($globalConfig->file_subfolders); ?>
         </div>
     </div>
-
-
-    <div class="row my-2">
-        <div class="col-12 col-md-8">
-        <?php $theView->select('file_list_limit')
-                ->setText('SYSTEM_OPTIONS_FILEMANAGER_LIMIT')
-                ->setOptions($articleLimitListAcp)
-                ->setSelected($globalConfig->file_list_limit)
-                ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
-        </div>
-    </div>
-
-
-    <div class="row my-2">
-        <div class="col-12 col-md-8">
-            <?php $theView->select('file_view')
-                    ->setText('SYSTEM_OPTIONS_FILEMANAGER_VIEW')
-                    ->setOptions($filemanagerViews)
-                    ->setSelected($globalConfig->file_view)
-                    ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
-        </div>
-    </div>
     
     <div class="row my-2">
         <div class="col-12 col-md-8">
             <div class="row g-0">
-                <?php $theView->textInput('file_cropper_name')->setValue($globalConfig->file_cropper_name); ?>
-            </div>
-        </div>
-        <div class="col-auto align-self-center mx-3 mb-3">
-            <?php $theView->shorthelpButton('cropper_name')
-                    ->setText('LABEL_FIELD_FILE_CROPPER_NAME_HELP'); ?>                    
+                <div class="col flex-grow-1">
+                    <?php $theView->textInput('file_cropper_name')->setValue($globalConfig->file_cropper_name); ?>
+                </div>
+                <div class="col-auto align-self-center mx-3 mb-3">
+                    <?php $theView->shorthelpButton('cropper_name')->setText('LABEL_FIELD_FILE_CROPPER_NAME_HELP'); ?>                    
+                </div>
+            </div>        
         </div>
     </div>
 

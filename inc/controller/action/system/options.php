@@ -82,6 +82,7 @@ class options extends \fpcm\controller\abstracts\controller implements \fpcm\con
     public function process()
     {
         define('FPCM_VIEW_FLOATING_LABEL_ALL', true);
+        define('FPCM_VIEW_DISABLE_FIRST_OPTION', true);
 
         $this->view->assign('timezoneAreas', $this->getTimeZonesAreas());
 

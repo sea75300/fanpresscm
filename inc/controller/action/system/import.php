@@ -30,6 +30,8 @@ class import extends \fpcm\controller\abstracts\controller
      */
     public function process()
     {
+        define('FPCM_VIEW_FLOATING_LABEL_ALL', true);
+        
         $this->view = new \fpcm\view\view('dummy');
         
         $uploader = \fpcm\components\components::getFileUploader();

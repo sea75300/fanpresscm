@@ -39,17 +39,18 @@ fpcm.filemanager = {
 
         if (fpcm.vars.jsvars.fmgrMode === 1) {
             
-            fpcm.ui.selectmenu('#listView', {
+            fpcm.ui.selectmenu('select[data-user_setting]', {
                 change: function (_ev, _ui) {
                     fpcm.ajax.post('setconfig', {
                         data: {
-                            var: 'file_view',
+                            var: _ui.dataset.user_setting,
                             value: _ui.value
                         },
                         execDone: fpcm.filemanager.reloadFiles
                     });
                 }
             });            
+         
         }
 
         fpcm.dom.fromId('btnFmgrUploadBack').click(function () {

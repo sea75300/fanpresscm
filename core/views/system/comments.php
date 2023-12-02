@@ -19,8 +19,7 @@
         <?php $theView->select('comments_notify')
                 ->setOptions($notify)
                 ->setText('SYSTEM_OPTIONS_COMMENT_NOTIFY')
-                ->setSelected($globalConfig->comments_notify)
-                ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
+                ->setSelected($globalConfig->comments_notify); ?>
         </div>
     </div>
 
@@ -29,8 +28,7 @@
         <?php $theView->select('comments_template_active')
                 ->setOptions($commentTemplates)
                 ->setText('SYSTEM_OPTIONS_ACTIVECOMMENTTEMPLATE')
-                ->setSelected($globalConfig->comments_template_active)
-                ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
+                ->setSelected($globalConfig->comments_template_active); ?>
         </div>
     </div>
 
@@ -39,8 +37,7 @@
         <?php $theView->select('comments_flood')
                 ->setOptions($theView->translate('SYSTEM_OPTIONS_FLOODPROTECTION_INTERVALS'))
                 ->setText('SYSTEM_OPTIONS_FLOODPROTECTION')
-                ->setSelected($globalConfig->comments_flood)
-                ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
+                ->setSelected($globalConfig->comments_flood); ?>
         </div>
     </div>
 

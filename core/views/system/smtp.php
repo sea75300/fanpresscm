@@ -74,7 +74,6 @@
                     ->setOptions($smtpEncryption)
                     ->setText('SYSTEM_OPTIONS_EMAIL_ENCRYPTED')
                     ->setSelected($globalConfig->smtp_settings->encr)
-                    ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED)
                     ->setReadonly(($globalConfig->smtp_enabled ? false : true)); ?>
                     
                 </div>
@@ -85,7 +84,6 @@
                     ->setOptions($smtpAuthTypes)
                     ->setText('SYSTEM_OPTIONS_EMAIL_AUTHTYPE')
                     ->setSelected($globalConfig->smtp_settings->auth)
-                    ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED)
                     ->setReadonly(($globalConfig->smtp_enabled ? false : true)); ?>
                 </div>
             </div>            
