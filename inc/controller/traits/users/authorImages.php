@@ -157,6 +157,7 @@ trait authorImages {
         $this->view->addJsLangVars($this->uploader->getJsLangVars());        
         $this->view->addJsFilesLate($this->uploader->getJsFilesLate());
         $this->view->setJsModuleFiles($this->uploader->getJsModuleFiles());
+        $this->view->assign('hideDropArea', true);
         
         return true;
     }

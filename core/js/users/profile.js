@@ -20,7 +20,7 @@ fpcm.profile = {
             }, 1500);
         }
         
-        fpcm.dom.fromId('dataemail').focusout(function () {
+        fpcm.dom.bindEvent('#dataemail', 'focusout', function () {
             fpcm.ui.showCurrentPasswordConfirmation();
         });
 

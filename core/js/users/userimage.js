@@ -30,13 +30,13 @@ fpcm.filemanager = {
         
         let _el = document.getElementById('fpcm-ui-avatar');        
         _el.src = _first.uploadURL;
-        _el.className = 'img-thumbnail';
+        _el.className = 'card-img-top';
         
         setTimeout(function () {
             fpcm.ui_loader.show();
             fpcm.ui.relocate(fpcm.vars.jsvars.userImgRedir);
         }, 1500);        
-        
+
         return true;
     },
     

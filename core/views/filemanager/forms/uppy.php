@@ -7,7 +7,7 @@
         </div>
     </div>
 
-    <div class="row my-3">
+    <div class="row my-3 <?php if (isset($hideDropArea)) : ?>d-none<?php endif; ?>">
         <div class="col align-self-center">
             <div id="fpcm-id-uppy-drop-area"></div>
         </div>

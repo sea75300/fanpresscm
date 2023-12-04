@@ -340,9 +340,12 @@ implements \fpcm\model\interfaces\validateFileType {
 
         $saveValues = $this->getSaveValues();
         $saveValues['filesize'] = (int) $saveValues['filesize'];
+        $saveValues['filetime'] = (int) $saveValues['filetime'];
+        $saveValues['userid'] = (int) $saveValues['userid'];
 
         $saveValues[] = $this->filename;
         $saveValues = $this->events->trigger('image\update', $saveValues)->getData();
+
 
         return $this->dbcon->update($this->table, $this->dbParams, array_values($saveValues), "filename = ?");
     }

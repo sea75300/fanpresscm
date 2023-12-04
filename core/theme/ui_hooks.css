@@ -163,4 +163,11 @@ table.diff-wrapper {
         color: var(--bs-link-color);
     }
     
+    .uppy-StatusBar::before,
+    .uppy-StatusBar:not([aria-hidden="true"]).is-waiting,
+    .uppy-StatusBar.is-waiting .uppy-StatusBar-actions {
+        background: none !important;
+        border: none;
+    }
+
 }
