@@ -274,4 +274,13 @@ if (!defined('FPCM_TWITTER_DSIABLE_API')) {
     define('FPCM_TWITTER_DSIABLE_API', true);
 }
 
+if (!defined('FPCM_LOGIN_DARKMODE')) {
+
+    /**
+     * Dark mode for login screen
+     * @since 5.2.0-a1
+     */
+    define('FPCM_LOGIN_DARKMODE', false);
+}
+
 

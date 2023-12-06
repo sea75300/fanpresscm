@@ -308,12 +308,13 @@ abstract class helper implements \Stringable {
     /**
      * Returns color mode
      * @return string
-     * @since 5.2
+     * @since 5.2.0-a1
      */
     protected function getColorMode() : string
     {
-        $darkMode = \fpcm\model\system\session::getInstance()?->getCurrentUser()?->getUserMeta()?->system_darkmode;
-        
+        $session = \fpcm\model\system\session::getInstance();
+        $darkMode = $session->exists() ? $session->getCurrentUser()?->getUserMeta()?->system_darkmode : FPCM_LOGIN_DARKMODE;
+
         return $darkMode ? 'dark' : 'light';
     }
 

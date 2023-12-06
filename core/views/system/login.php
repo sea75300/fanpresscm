@@ -5,9 +5,11 @@
         <header>
             <div class="row mb-3 text-truncate">
                 <!-- FanPress CM News System <?php print $theView->version; ?> -->
-                <div class="align-self-center">
-                    <img class="d-inline-block border-bottom border-5 border-info" src="<?php print $theView->themePath; ?>logo.svg" role="presentation" alt="FanPress CM News System <?php print $theView->version; ?>">
-                    <h1 class="d-none d-sm-inline-block fs-3 text-end ms-5">FanPress CM News System</h1>
+                <div class="d-flex align-items-center">
+                    <div class="border-bottom border-5 border-info d-inline-block">
+                        <img src="<?php print $theView->themePath; ?>logo.svg" alt="FanPress CM News System <?php print $theView->version; ?>" <?php if ($theView->darkMode) : ?>class="fpcm ui-invert-1"<?php endif; ?>>
+                    </div>                    
+                    <h1 class="d-none d-sm-inline-block fs-3 text-end align-self-center p-0 m-0 ms-5">FanPress CM News System</h1>
                 </div>
             </div>
         </header>
@@ -45,12 +47,15 @@
         <div class="row row-cols-auto gap-2 justify-content-center">
         <?php if ($resetPasswort) : ?>
             <?php $theView->submitButton('reset')->setText('GLOBAL_OK')->setIcon('check')->setPrimary(); ?>
-            <?php $theView->linkButton('loginback')->setText('GLOBAL_BACK')->setUrl($theView->controllerLink('system/login'))->setIcon('chevron-circle-left'); ?>
         <?php elseif ($twoFactorAuth) : ?>
             <?php $theView->submitButton('login')->setText('GLOBAL_OK')->setIcon('sign-in-alt')->setPrimary(); ?>
-            <?php $theView->linkButton('loginback')->setText('GLOBAL_BACK')->setUrl($theView->controllerLink('system/login'))->setIcon('chevron-circle-left'); ?>
         <?php else : ?>
             <?php $theView->submitButton('login')->setText('LOGIN_BTN')->setIcon('sign-in-alt')->setPrimary(); ?>
+        <?php endif; ?>
+            
+        <?php if ($resetPasswort || $twoFactorAuth) : ?>
+            <?php $theView->linkButton('loginback')->setText('GLOBAL_BACK')->setUrl($theView->controllerLink('system/login'))->setIcon('chevron-circle-left'); ?>
+        <?php else : ?>
             <?php $theView->linkButton('newpass')->setText('LOGIN_NEWPASSWORD')->setUrl($theView->controllerLink('system/login', ['reset' => 1]))->setIcon('passport'); ?>
         <?php endif; ?>
         </div>

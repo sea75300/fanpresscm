@@ -803,6 +803,9 @@ class view {
 
             $this->defaultViewVars->backdrop = (new \fpcm\model\files\backdropImage())->getUrl();
         }
+        elseif (defined('FPCM_LOGIN_DARKMODE')) {
+            $this->defaultViewVars->darkMode = FPCM_LOGIN_DARKMODE;
+        }
 
         if ($hasDbConfig) {
             $this->defaultViewVars->version = trim($this->config->system_version) ? $this->config->system_version : \fpcm\classes\baseconfig::getVersionFromFile();
