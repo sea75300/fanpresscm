@@ -43,5 +43,3 @@ trait simpleEditForm {
     }
 
 }
-
-?>

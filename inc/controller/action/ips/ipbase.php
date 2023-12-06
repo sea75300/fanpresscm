@@ -117,5 +117,3 @@ abstract class ipbase extends \fpcm\controller\abstracts\controller implements \
     }
 
 }
-
-?>

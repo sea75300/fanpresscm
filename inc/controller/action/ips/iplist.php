@@ -185,5 +185,3 @@ class iplist extends \fpcm\controller\abstracts\controller implements \fpcm\cont
 
     
 }
-
-?>

@@ -32,5 +32,3 @@ class ipedit extends ipbase {
     }
 
 }
-
-?>
