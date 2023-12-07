@@ -242,15 +242,19 @@ class TwitterOAuth extends Config
      *
      * @param string $path
      * @param array  $parameters
-     * @param bool   $json
+     * @param ?bool  $json
      *
      * @return array|object
      */
     public function post(
         string $path,
         array $parameters = [],
-        bool $json = false,
+        ?bool $json = null,
     ) {
+        if (is_null($json)) {
+            $json = $this->useJsonBody();
+        }
+
         return $this->http('POST', self::API_HOST, $path, $parameters, $json);
     }
 
@@ -272,15 +276,19 @@ class TwitterOAuth extends Config
      *
      * @param string $path
      * @param array  $parameters
-     * @param bool   $json
+     * @param ?bool  $json
      *
      * @return array|object
      */
     public function put(
         string $path,
         array $parameters = [],
-        bool $json = false,
+        ?bool $json = null,
     ) {
+        if (is_null($json)) {
+            $json = $this->useJsonBody();
+        }
+
         return $this->http('PUT', self::API_HOST, $path, $parameters, $json);
     }
 
@@ -364,6 +372,7 @@ class TwitterOAuth extends Config
      */
     private function uploadMediaChunked(string $path, array $parameters)
     {
+        /** @var object $init */
         $init = $this->http(
             'POST',
             self::UPLOAD_HOST,
@@ -371,6 +380,9 @@ class TwitterOAuth extends Config
             $this->mediaInitParameters($parameters),
             false,
         );
+        if (!property_exists($init, 'media_id_string')) {
+            throw new TwitterOAuthException('Missing "media_id_string"');
+        }
         // Append
         $segmentIndex = 0;
         $media = fopen($parameters['media'], 'rb');
@@ -460,6 +472,19 @@ class TwitterOAuth extends Config
         return [
             '1.1' => '.json',
             '2' => '',
+        ][$this->apiVersion];
+    }
+
+    /**
+     * Default content type for sending data.
+     *
+     * @return bool
+     */
+    private function useJsonBody()
+    {
+        return [
+            '1.1' => false,
+            '2' => true,
         ][$this->apiVersion];
     }
 
