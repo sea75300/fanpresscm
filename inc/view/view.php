@@ -1129,6 +1129,24 @@ class view {
             $active = 0;
         }
         
+        $etRes = new \fpcm\events\view\extendTabsResult;
+        $etRes->tabsId = $tabsId;
+        $etRes->tabs = $tabs;
+        $etRes->tabsClass = $tabsClass;
+        $etRes->activeTab = $active;
+
+        $ev = $this->events->trigger('view\extendTabs', $etRes);
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            return false;
+        }
+        
+        $etRes = $ev->getData();
+
+        $tabsId = $etRes->tabsId;
+        $tabs = $etRes->tabs;
+        $tabsClass = $etRes->tabsClass;
+        $active = $etRes->activeTab;
+        
         if ($active > -1 && isset($tabs[$active])) {
             $tabs[$active]->setState(helper\tabItem::STATE_ACTIVE);
             
