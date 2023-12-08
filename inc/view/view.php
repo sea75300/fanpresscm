@@ -1215,6 +1215,8 @@ class view {
         }
         
         $this->jsFiles = $this->events->trigger($type.'\addJsFiles', $this->jsFiles)->getData();
+        $this->jsFilesLate = $this->events->trigger($type.'\addJsFilesLate', $this->jsFilesLate)->getData();
+        $this->jsModuleFiles = $this->events->trigger($type.'\addJsModules', $this->jsModuleFiles)->getData();
         $this->cssFiles = $this->events->trigger($type.'\addCssFiles', $this->cssFiles)->getData();    
 
         return true;
