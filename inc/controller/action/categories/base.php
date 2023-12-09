@@ -33,7 +33,7 @@ class base extends \fpcm\controller\abstracts\controller implements \fpcm\contro
     {
         define('FPCM_VIEW_FLOATING_LABEL_ALL', true);
         
-        $this->view->addButton(new \fpcm\view\helper\saveButton('categorySave'));
+        $this->view->addButton( (new \fpcm\view\helper\saveButton('categorySave'))->setPrimary( $this->category->getId() > 0 ) );
         $this->view->addJsFiles(['system/categories.js']);
         $this->view->addTabs('fpcm-category-tabs', [
             (new \fpcm\view\helper\tabItem('tabs-category'))

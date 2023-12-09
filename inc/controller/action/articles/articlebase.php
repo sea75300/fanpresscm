@@ -196,24 +196,7 @@ abstract class articlebase extends \fpcm\controller\abstracts\controller impleme
         $this->view->assign('userfields', $this->getUserFields());
         $this->view->assign('rollCodex', (new \fpcm\model\users\userRoll($this->session->getCurrentUser()->getRoll()))->getCodex());
 
-        $twitter    = $this->getTwitterInstace();
-        $twitterOk  = $twitter->checkRequirements();
-
-        if ($twitterOk) {
-
-            $tpl = $this->getTemplateContent();
-            
-            $this->view->assign('twitterTplPlaceholder', $tpl['tpl'] );
-            $this->view->assign('twitterReplacements', $tpl['vars'] );
-            $this->view->assign('showTwitter', true);
-        }
-        else {
-            
-            $this->view->assign('twitterTplPlaceholder', null);
-            $this->view->assign('twitterReplacements', null);
-            $this->view->assign('showTwitter', false);
-        }
-
+        $this->initTwitter();
 
         $this->view->assign('urlRewrite', $this->config->articles_link_urlrewrite);
         $this->view->setActiveTab($this->getActiveTab());
@@ -229,19 +212,43 @@ abstract class articlebase extends \fpcm\controller\abstracts\controller impleme
             'editorGalleryTagLink' => \fpcm\model\pubtemplates\article::GALLERY_TAG_LINK
         );
 
+        $this->view->addJsVars($this->jsVars);
+
         $this->view->addJsLangVars(array_merge([
             'HL_FILES_MNG', 'ARTICLES_SEARCH', 'FILE_LIST_NEWTHUMBS', 'GLOBAL_DELETE',
             'EDITOR_CATEGORIES_SEARCH', 'FILE_LIST_INSERTGALLERY', 'FILE_LIST_UPLOADFORM',
             'SYSTEM_OPTIONS_NEWS_SOURCESLIST'
         ], $this->editorPlugin->getJsLangVars()));
 
-        $this->view->addJsVars($this->jsVars);
 
-        $this->view->addButton((new \fpcm\view\helper\saveButton('articleSave'))
+        $this->view->addButton(
+            (new \fpcm\view\helper\saveButton('articleSave'))
                 ->setClass( 'fpcm-ui-maintoolbarbuttons-tab1')
                 ->setReadonly($this->article->isInEdit())
-                ->setPrimary($this->article->getId() > 0));
+                ->setPrimary()
+        );
 
+        return true;
+    }
+    
+    private function initTwitter()
+    {
+        $twitter    = $this->getTwitterInstace();
+        $twitterOk  = $twitter->checkRequirements();
+
+        if ($twitterOk) {
+            $tpl = $this->getTemplateContent();
+
+            $this->view->assign('twitterTplPlaceholder', $tpl['tpl'] );
+            $this->view->assign('twitterReplacements', $tpl['vars'] );
+            $this->view->assign('showTwitter', true);
+            
+            return true;
+        }
+            
+        $this->view->assign('twitterTplPlaceholder', null);
+        $this->view->assign('twitterReplacements', null);
+        $this->view->assign('showTwitter', false);
         return true;
     }
     

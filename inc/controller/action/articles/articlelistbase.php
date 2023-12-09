@@ -119,7 +119,11 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller
         $buttons = [];
 
         if ($this->permissions->article->add) {
-            $buttons[] = (new \fpcm\view\helper\linkButton('addArticle'))->setUrl(\fpcm\classes\tools::getFullControllerLink('articles/add'))->setText('GLOBAL_NEW')->setIcon('plus');
+            $buttons[] = (new \fpcm\view\helper\linkButton('addArticle'))
+                ->setUrl(\fpcm\classes\tools::getFullControllerLink('articles/add'))
+                ->setText('GLOBAL_NEW')
+                ->setIcon('plus')
+                ->overrideButtonType('secondary');
         }
 
         if ($this->permissions->editArticlesMass()) {

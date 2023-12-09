@@ -25,7 +25,7 @@ abstract class itembase extends \fpcm\controller\abstracts\controller implements
     {
         define('FPCM_VIEW_FLOATING_LABEL_ALL', true);
         
-        $this->view->addButton(new \fpcm\view\helper\saveButton('save'));
+        $this->view->addButton( (new \fpcm\view\helper\saveButton('save'))->setPrimary() );
         $this->view->addJsFiles(['texts.js']);
 
         $this->view->addTabs('texts', [

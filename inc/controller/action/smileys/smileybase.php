@@ -69,7 +69,7 @@ implements \fpcm\controller\interfaces\requestFunctions
         ]);
 
         $this->view->addJsFiles(['smileys.js']);
-        $this->view->addButton(new \fpcm\view\helper\saveButton('saveSmiley'));
+        $this->view->addButton( (new \fpcm\view\helper\saveButton('saveSmiley'))->setPrimary() );
 
         $this->view->addTabs('smileys', [
             (new \fpcm\view\helper\tabItem('smiley'))

@@ -46,7 +46,7 @@ abstract class ipbase extends \fpcm\controller\abstracts\controller implements \
 
         $this->ipaddress = new \fpcm\model\ips\ipaddress($this->id ? $this->id : null);
 
-        $this->view->addButton(new \fpcm\view\helper\saveButton('ipSave'));
+        $this->view->addButton( (new \fpcm\view\helper\saveButton('ipSave'))->setPrimary() );
         $this->view->addJsFiles(['ipadresses.js']);
 
         $this->view->addTabs('ips', [

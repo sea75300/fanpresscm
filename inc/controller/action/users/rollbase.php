@@ -32,7 +32,6 @@ abstract class rollbase extends \fpcm\controller\abstracts\controller
 
     public function request()
     {
-        $this->view->addButton(new \fpcm\view\helper\saveButton('saveRoll'));
         return true;
     }
     
@@ -44,6 +43,8 @@ abstract class rollbase extends \fpcm\controller\abstracts\controller
 
     protected function save($update = false)
     {
+        $this->view->addButton( (new \fpcm\view\helper\saveButton('saveRoll'))->setPrimary() );
+        
         if (!$this->buttonClicked('saveRoll')) {
             return false;
         }
