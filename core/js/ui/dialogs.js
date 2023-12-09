@@ -92,7 +92,7 @@ fpcm.ui_dialogs = {
             _params.size = 'lg';
         }
         
-        if (_params.content === undefined) {
+        if (_params.content === undefined && !_params.keepDom) {
             _params.content = '';
         }
         
@@ -148,7 +148,7 @@ fpcm.ui_dialogs = {
                     _params.content.assignToDom(_bodyEl);
                 }
             }
-            else {
+            else if (_params.content !== undefined) {
                 _bodyEl.innerHTML = _params.content;
             }
         }
