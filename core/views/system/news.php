@@ -49,17 +49,19 @@
         </div>
     </div>    
 
-    <div class="row my-2">
+    <div class="row g-0 my-2">
         <div class="col-12 col-md-8">
-            <?php $theView->boolSelect('system_show_share')->setText('SYSTEM_OPTIONS_NEWSSHOWSHARELINKS')->setSelected($globalConfig->system_show_share); ?>
-        </div>
-    </div>
+            <div class="row row-cols-1 row-cols-xl-2">
+                <div class="col">
+                    <?php $theView->boolSelect('system_show_share')->setText('SYSTEM_OPTIONS_NEWSSHOWSHARELINKS')->setSelected($globalConfig->system_show_share); ?>
+                </div>
 
-    <div class="row my-2">
-        <div class="col-12 col-md-8">
-        <?php $theView->boolSelect('system_share_count')->setText('SYSTEM_OPTIONS_NEWSSHARECOUNT')->setSelected($globalConfig->system_share_count); ?>
+                <div class="col">
+                    <?php $theView->boolSelect('system_share_count')->setText('SYSTEM_OPTIONS_NEWSSHARECOUNT')->setSelected($globalConfig->system_share_count); ?>
+                </div>
+            </div>            
         </div>
-    </div>
+    </div>    
 
     <div class="row my-2">
         <div class="col-12 col-md-8">

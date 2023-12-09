@@ -1183,14 +1183,18 @@ class view {
         $this->assign('offcanvasHeadline', $headline);
         $this->defaultViewVars->showOffCanvas = true;
     }
-
+    
     /**
-     * Add HTML items into toolbar right hand to pager
-     * @param string $data
+     * Add items to right hand position in toolbar
+     * @param string|array $data
      * @since 4.3
      */
-    public function addToolbarRight(string $data)
+    public function addToolbarRight(string|array $data)
     {
+        if (is_array($data)) {
+            $data = implode('', $data);
+        }
+        
         $this->defaultViewVars->toolbarItemRight = $data;
     }
 

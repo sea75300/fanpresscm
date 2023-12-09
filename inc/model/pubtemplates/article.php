@@ -62,7 +62,8 @@ final class article extends template {
         '{{permaLink}}:{{/permaLink}}' => '',
         '{{commentLink}}:{{/commentLink}}' => '',
         '{{articleImage}}' => '',
-        '{{sources}}' => ''
+        '{{sources}}' => '',
+        '{{oldarticle}}' => ''
     );
 
     /**
@@ -216,7 +217,8 @@ final class article extends template {
             '{{commentLink}}:{{/commentLink}}' => $article->getElementLink('#comments'),
             '<readmore>:</readmore>' => $article->getId(),
             '{{articleImage}}' => $article->getArticleImage(),
-            '{{sources}}' => $article->getSources()
+            '{{sources}}' => $article->getSources(),
+            '{{oldarticle}}' => $article->isOldArticle() ? $this->language->translate('PUBLIC_ARTICLE_OLD') : ''
         ]);
         
         return true;
@@ -363,5 +365,3 @@ final class article extends template {
     }
 
 }
-
-?>

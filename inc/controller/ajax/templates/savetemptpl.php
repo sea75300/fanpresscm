@@ -40,5 +40,3 @@ class savetemptpl extends \fpcm\controller\abstracts\ajaxController
     }
 
 }
-
-?>

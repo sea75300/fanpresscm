@@ -2,17 +2,19 @@
 <fieldset class="mb-2">
     <legend><?php $theView->write('COMMMENT_HEADLINE'); ?></legend>
 
-    <div class="row my-2">
+    <div class="row g-0 my-2">
         <div class="col-12 col-md-8">
-        <?php $theView->boolSelect('system_comments_enabled')->setText('SYSTEM_OPTIONS_COMMENT_ENABLED_GLOBAL')->setSelected($globalConfig->system_comments_enabled); ?>		
-        </div>
-    </div>
+            <div class="row row-cols-1 row-cols-xl-2">
+                <div class="col">
+                    <?php $theView->boolSelect('system_comments_enabled')->setText('SYSTEM_OPTIONS_COMMENT_ENABLED_GLOBAL')->setSelected($globalConfig->system_comments_enabled); ?>
+                </div>
 
-    <div class="row my-2">
-        <div class="col-12 col-md-8">
-        <?php $theView->boolSelect('comments_privacy_optin')->setText('SYSTEM_OPTIONS_COMMENT_PRIVACYOPTIN')->setSelected($globalConfig->comments_privacy_optin); ?>		
+                <div class="col">
+                    <?php $theView->boolSelect('comments_default_active')->setText('SYSTEM_OPTIONS_COMMENT_DEFAULT_ACTIVE')->setSelected($globalConfig->comments_default_active); ?>
+                </div>
+            </div>            
         </div>
-    </div>
+    </div>       
 
     <div class="row my-2">
         <div class="col-12 col-md-8">
@@ -43,6 +45,12 @@
 
     <div class="row my-2">
         <div class="col-12 col-md-8">
+        <?php $theView->boolSelect('comments_privacy_optin')->setText('SYSTEM_OPTIONS_COMMENT_PRIVACYOPTIN')->setSelected($globalConfig->comments_privacy_optin); ?>		
+        </div>
+    </div>
+
+    <div class="row my-2">
+        <div class="col-12 col-md-8">
         <?php $theView->boolSelect('comments_email_optional')->setText('SYSTEM_OPTIONS_COMMENTEMAIL')->setSelected($globalConfig->comments_email_optional); ?>
         </div>
     </div>
@@ -50,12 +58,6 @@
     <div class="row my-2">
         <div class="col-12 col-md-8">
         <?php $theView->boolSelect('comments_confirm')->setText('SYSTEM_OPTIONS_COMMENT_APPROVE')->setSelected($globalConfig->comments_confirm); ?>		
-        </div>
-    </div>
-
-    <div class="row my-2">
-        <div class="col-12 col-md-8">
-        <?php $theView->boolSelect('comments_default_active')->setText('SYSTEM_OPTIONS_COMMENT_DEFAULT_ACTIVE')->setSelected($globalConfig->comments_default_active); ?>		
         </div>
     </div>
 </fieldset>

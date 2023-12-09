@@ -28,5 +28,3 @@ trait viewAjaxDummy {
     }
 
 }
-
-?>

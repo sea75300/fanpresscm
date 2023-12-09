@@ -185,20 +185,18 @@ class filelist extends \fpcm\controller\abstracts\controller
             return;
         }        
 
-        $this->view->addToolbarRight(sprintf(
-            '%s %s', 
+        $this->view->addToolbarRight([
             (new \fpcm\view\helper\select('listView'))
                 ->setOptions(\fpcm\components\components::getFilemanagerViews())
                 ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
                 ->setSelected($this->config->file_view)
                 ->setData(['user_setting' => 'file_view']),
-
-                (new \fpcm\view\helper\select('listamount'))
+            (new \fpcm\view\helper\select('listamount'))
                 ->setOptions( \fpcm\model\system\config::getAcpArticleLimits() )
                 ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
                 ->setSelected($this->config->file_list_limit)
                 ->setData(['user_setting' => 'file_list_limit'])
-        ));
+        ]);
 
     }
 

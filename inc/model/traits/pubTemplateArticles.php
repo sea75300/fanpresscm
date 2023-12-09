@@ -50,5 +50,3 @@ trait pubTemplateArticles {
     }
 
 }
-
-?>

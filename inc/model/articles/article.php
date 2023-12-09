@@ -1022,6 +1022,20 @@ implements \fpcm\model\interfaces\isCsvImportable {
     }
 
     /**
+     * Check if articles was created to display old article message
+     * @return bool
+     * @since 5.2.0-a1
+     */
+    public function isOldArticle() : bool
+    {
+        if ($this->archived) {
+            return true;
+        }
+
+        return $this->createtime <= time() - FPCM_ARTICLES_OLDMESSAGE_INTERVALL;
+    }
+
+    /**
      * Returns pinned status icon
      * @return \fpcm\view\helper\icon
      */

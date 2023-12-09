@@ -464,5 +464,3 @@ class template extends \fpcm\model\abstracts\file {
     }
 
 }
-
-?>

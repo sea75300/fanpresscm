@@ -36,7 +36,7 @@ cols:
 indices:
     filename:
         col: filename
-        isUnqiue: false
+        isUnqiue: true
     alttext:
         col: alttext
         isUnqiue: false
