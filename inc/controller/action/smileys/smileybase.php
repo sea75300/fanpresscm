@@ -48,6 +48,8 @@ implements \fpcm\controller\interfaces\requestFunctions
 
     public function process()
     {
+        define('FPCM_VIEW_FLOATING_LABEL_ALL', true);
+        
         $smileyList = new \fpcm\model\files\smileylist();
 
         $files = [];

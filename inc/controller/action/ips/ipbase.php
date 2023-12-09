@@ -62,7 +62,8 @@ abstract class ipbase extends \fpcm\controller\abstracts\controller implements \
                     ->setPlaceholder('127.0.0.1')
                     ->setIcon('network-wired')
                     ->setAutoFocused(true)
-                    ->setPattern("^(?!.*({$this->current})).*"),
+                    ->setPattern("^(?!.*({$this->current})).*")
+                    ->setLabelTypeFloat(),
             new \fpcm\components\fieldGroup([
                 (new \fpcm\view\helper\checkbox('nocomments'))->setText('IPLIST_NOCOMMENTS')->setSelected($this->ipaddress->getNocomments())->setSwitch(true),
                 (new \fpcm\view\helper\checkbox('nologin'))->setText('IPLIST_NOLOGIN')->setSelected($this->ipaddress->getNologin())->setSwitch(true),

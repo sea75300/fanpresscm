@@ -64,5 +64,3 @@ class delete extends \fpcm\controller\abstracts\ajaxController
     }
 
 }
-
-?>

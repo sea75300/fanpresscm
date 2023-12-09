@@ -55,6 +55,27 @@ fpcm.templates = {
             
         });
         
+        fpcm.dom.bindClick('#save1', function () {
+            fpcm.ui_dialogs.confirm({
+                clickYes: function () {
+                    fpcm.ajax.post('templates/save', {
+                        data: {
+                            content: fpcm.templates.editorInstance.getValue(),
+                            tplid  : fpcm.dom.fromId('templateid').val()
+                        },
+                        execDone: function (_result) {
+                            
+                            if (_result instanceof Object && _result.txt) {
+                                fpcm.ui.addMessage(_result);
+                                return true;
+                            }
+                            
+                        }
+                    });                     
+                }
+            });
+        });
+        
     },
 
     saveTemplatePreview: function() {

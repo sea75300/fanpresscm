@@ -23,6 +23,8 @@ abstract class itembase extends \fpcm\controller\abstracts\controller implements
 
     public function process()
     {
+        define('FPCM_VIEW_FLOATING_LABEL_ALL', true);
+        
         $this->view->addButton(new \fpcm\view\helper\saveButton('save'));
         $this->view->addJsFiles(['texts.js']);
 

@@ -41,6 +41,9 @@ fpcm.filemanager = {
             
             fpcm.ui.selectmenu('select[data-user_setting]', {
                 change: function (_ev, _ui) {
+
+                    document.getElementById('pageSelect').selectedIndex = 0;
+                    
                     fpcm.ajax.post('setconfig', {
                         data: {
                             var: _ui.dataset.user_setting,

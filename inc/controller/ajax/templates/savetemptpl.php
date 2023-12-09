@@ -12,7 +12,7 @@ namespace fpcm\controller\ajax\templates;
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
- * @package fpcm\controller\ajax\system\cronasync
+ * @package fpcm\controller\ajax\system\templates
  * @since 3.4
  */
 class savetemptpl extends \fpcm\controller\abstracts\ajaxController
