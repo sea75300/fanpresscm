@@ -20,6 +20,9 @@ abstract class helper implements \Stringable {
     use traits\cssClassHelper,
         traits\ariaHelper;
 
+    /*  @since 5.2.0 */
+    const ID_START_PREFIX = 'fpcm-id-';
+
     /*  @since 4.3.0 */
     const TEXT_DEFAULT_LABEL = 'LABEL_FIELD_';
 

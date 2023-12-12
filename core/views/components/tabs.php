@@ -17,7 +17,12 @@
         </div>
     <?php endforeach; ?>
     </div>
-</div>        
+</div>
+<?php if ($theView->debugMode) : ?>
+<div class="d-flex justify-content-end m-3 text-body-tertiary fpcm ui-font-small">
+    Tab: <?php $theView->escape($tabsId); ?>
+</div>
+<?php endif; ?>  
 
 <?php if ($theView->includeForms !== null && trim($theView->includeForms)) : ?>
 <?php include $theView->getIncludePath($theView->includeForms); ?>

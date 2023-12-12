@@ -630,6 +630,23 @@ fpcm.ui = {
     
     darkModeEnabled: function () {
         return document.documentElement.dataset.bsTheme == 'dark';
+    },
+    
+    prepareId: function(_id) {
+
+        if (_id.startsWith('#' + fpcm.vars.ui.idPrefix)) {
+            return _id;
+        }
+
+        if (_id.startsWith('#')) {
+            _id = _id.substring(1);
+        }
+
+        if (!_id.startsWith(fpcm.vars.ui.idPrefix)) {
+            _id = '#' + fpcm.vars.ui.idPrefix + _id;
+        }
+
+        return _id;
     }
 
 };

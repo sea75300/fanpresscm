@@ -885,6 +885,7 @@ class view {
                 'ui' => [
                     'messages' => $this->messages,
                     'lang' => $this->jsLangVars,
+                    'idPrefix' => helper\helper::ID_START_PREFIX
                 ],
                 'jsvars' => $this->jsVars,
                 'ajaxActionPath' => \fpcm\classes\tools::getFullControllerLink('ajax/'),
@@ -1150,6 +1151,10 @@ class view {
         if ($active > -1 && isset($tabs[$active])) {
             $tabs[$active]->setState(helper\tabItem::STATE_ACTIVE);
             
+        }
+        
+        if (!str_starts_with($tabsId, helper\helper::ID_START_PREFIX)) {
+            $tabsId = helper\helper::ID_START_PREFIX . $tabsId;
         }
 
         $this->setViewPath('components/tabs');

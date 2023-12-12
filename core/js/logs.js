@@ -70,8 +70,11 @@ fpcm.logs = {
     },
     
     reloadLogs: function() {
-        let _dom = document.querySelector('#tabs-logs a.nav-link.active');
-        fpcm.dom.fromTag('#tabs-logs a.nav-link.active').removeClass('active');
+        
+        let _id = fpcm.ui.prepareId('tabs-logs');
+        
+        let _dom = document.querySelector(_id + ' a.nav-link.active');
+        fpcm.dom.fromTag(_id + ' a.nav-link.active').removeClass('active');
         (new bootstrap.Tab(_dom)).show();
     }
 

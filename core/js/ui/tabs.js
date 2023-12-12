@@ -28,6 +28,8 @@ fpcm.ui_tabs = {
             return false;
         }
 
+        _elemClassId = fpcm.ui.prepareId(_elemClassId);
+
         if (params === undefined) {
             params = {};
         }
@@ -191,6 +193,8 @@ fpcm.ui_tabs = {
     
     getNodes: function(_elemClassId) {
 
+        _elemClassId = fpcm.ui.prepareId(_elemClassId);
+
         let _nodes = document.querySelectorAll(_elemClassId + ' a.nav-link');
 
         if (!_nodes.length) {
@@ -207,6 +211,8 @@ fpcm.ui_tabs = {
             console.error('Invalid params data given data given "_elemClassId" or "_tabId" cennot be empty!');
             return false;
         }
+        
+        _elemClassId = fpcm.ui.prepareId(_elemClassId);
 
         let _nodes = fpcm.ui_tabs.getNodes(_elemClassId);
         if (!_nodes) {

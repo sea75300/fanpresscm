@@ -146,11 +146,20 @@ table.diff-wrapper {
         background: var(--bs-body-bg);
     }
     
+    .ts-wrapper.multi .ts-control > div {
+        background: var(--bs-secondary-bg);
+    }
+    
+    .ts-wrapper.plugin-remove_button:not(.rtl) .item .remove {
+        border-color: var(--bs-border-color);
+    }
+    
     .ts-control, .ts-wrapper.single.input-active .ts-control, .ts-dropdown, div.fpcm.ui-help-content .btn-outline-dark {
         border: var(--bs-border-width) solid var(--bs-border-color);
     }
     
-    .ts-control, .ts-control input, .ts-dropdown, div.fpcm.ui-help-content .btn-outline-dark {
+    .ts-control, .ts-control input, .ts-dropdown, div.fpcm.ui-help-content .btn-outline-dark,
+    .ts-wrapper.multi .ts-control > div {
         color: var(--bs-body-color);
     }
  

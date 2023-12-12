@@ -65,13 +65,16 @@ class langedit extends \fpcm\controller\abstracts\controller implements \fpcm\co
         
         $fullLang = array_diff_key($fullLang, array_flip(array_keys($fullLang, $skipVal)));
         $this->view->addButtons([
-            (new \fpcm\view\helper\saveButton('save')),
-            (new \fpcm\view\helper\button('new'))->setText('Neue Variable')->setIcon('plus'),
+            (new \fpcm\view\helper\saveButton('save'))->setPrimary(),
+            (new \fpcm\view\helper\button('new'))->setText('Neue Variable')->setIcon('plus')
+        ]);
+        
+        $this->view->addToolbarRight([
             (new \fpcm\view\helper\select('langselect'))
                 ->setOptions(array_flip($this->language->getLanguages()))
                 ->setSelected($this->langObj->getLangCode())
                 ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED),
-            (new \fpcm\view\helper\submitButton('selectLang'))->setText('GLOBAL_OK')
+            (new \fpcm\view\helper\submitButton('selectLang'))->setText('GLOBAL_OK')->setIcon('check')->setIconOnly()
         ]);
         
         ksort($fullLang);

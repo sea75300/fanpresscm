@@ -63,10 +63,13 @@ class import extends \fpcm\controller\abstracts\controller
         ]);
 
         $this->view->addButtons([
-            (new \fpcm\view\helper\button('importStart'))->setText('IMPORT_START')->setIcon('file-import'),
+            (new \fpcm\view\helper\button('importStart'))->setText('IMPORT_START')->setIcon('file-import')->setPrimary(),
             (new \fpcm\view\helper\button('importPreview'))->setText('GLOBAL_PREVIEW')->setIcon('eye'),
+        ]);
+        
+        $this->view->addToolbarRight([
             (new \fpcm\view\helper\button('importReset'))->setText('GLOBAL_RESET')->setIcon('recycle'),
-            (new \fpcm\view\helper\linkButton('protobtn'))->setText('HL_LOGS')->setUrl(\fpcm\classes\tools::getFullControllerLink('system/logs'))->setIcon('exclamation-triangle')->setTarget('_blank'),
+            (new \fpcm\view\helper\linkButton('protobtn'))->setText('HL_LOGS')->setUrl(\fpcm\classes\tools::getFullControllerLink('system/logs'))->setIcon('exclamation-triangle')->setTarget('_blank')            
         ]);
         
         $this->view->assign('progressbarName', 'csvimport');
