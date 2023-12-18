@@ -18,9 +18,9 @@
 
                     <div class="d-block">
                         <h5 class="mb-1"><?php print $tag; ?></h5>
-                        <p class="p-0 m-0 text-secondary"><?php print $descr; ?></p>
+                        <p class="p-0 m-0 text-body-secondary"><?php print $descr; ?></p>
                     <?php if (isset($attributes[$tag])) : ?>
-                        <div class="mt-1 fpcm ui-font-small">
+                        <div class="mt-1 fpcm ui-font-small text-body-secondary">
                             <?php $theView->write('TEMPLATE_ATTRIBUTES') ?>: <?php print implode(', ', $attributes[$tag]); ?>
                         </div>
                     <?php endif; ?>
