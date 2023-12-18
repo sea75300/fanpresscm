@@ -113,6 +113,7 @@ table.diff-wrapper {
 }
 
 .diff-wrapper.diff.diff-html .change ins {
+  color: var(--bs-light);
   background: var(--bs-success);
 }
 

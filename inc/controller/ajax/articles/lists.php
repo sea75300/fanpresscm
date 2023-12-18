@@ -274,5 +274,3 @@ class lists extends \fpcm\controller\abstracts\ajaxController
     }
 
 }
-
-?>

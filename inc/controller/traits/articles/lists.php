@@ -241,14 +241,14 @@ trait lists {
         $notFound = $this->language->translate('GLOBAL_NOTFOUND');
 
         return implode('', [
-            '<span class="fpcm ui-font-small d-block">',
+            '<span class="text-body-secondary fpcm ui-font-small d-block">',
             (new \fpcm\view\helper\icon('calendar'))->setText('GLOBAL_AUTHOR_EDITOR'),
             $this->language->translate('GLOBAL_USER_ON_TIME', [
                 '{{username}}' => isset($createuser[0]) ? $createuser[0] : $notFound,
                 '{{time}}' => new \fpcm\view\helper\dateText($article->getCreatetime())
             ]),
             '</span>',
-            '<span class="fpcm ui-font-small d-block">',
+            '<span class="text-body-secondary fpcm ui-font-small d-block">',
             (new \fpcm\view\helper\icon('clock', 'far'))->setText('GLOBAL_LASTCHANGE'),
             $this->language->translate('GLOBAL_USER_ON_TIME', [
                 '{{username}}' => isset($changeuser[0]) ? $changeuser[0] : $notFound,

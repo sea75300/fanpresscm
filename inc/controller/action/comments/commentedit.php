@@ -10,6 +10,7 @@
 namespace fpcm\controller\action\comments;
 
 class commentedit extends \fpcm\controller\abstracts\controller
+implements \fpcm\controller\interfaces\requestFunctions
 {
 
     use \fpcm\model\comments\permissions;
@@ -100,7 +101,6 @@ class commentedit extends \fpcm\controller\abstracts\controller
             return false;
         }
 
-        $this->save();
         return true;
     }
 
@@ -181,8 +181,7 @@ class commentedit extends \fpcm\controller\abstracts\controller
         $showArticleIdField = false;
         if ($this->mode === 1) {
             $article     = new \fpcm\model\articles\article($this->comment->getArticleid());
-            $articleList = new \fpcm\model\articles\articlelist();
-            $articleList->checkEditPermissions($article);
+            $this->articleList->checkEditPermissions($article);
             if ($article->exists()) {
                 
                 $showArticleIdField = false;
@@ -238,13 +237,8 @@ class commentedit extends \fpcm\controller\abstracts\controller
         return true;
     }
     
-    private function save() : bool
+    protected function onCommentSave() : bool
     {
-        if (!$this->buttonClicked('commentSave')) {
-            return false;
-        }
-        
-        
         if (!$this->checkPageToken()) {
             $this->view->addErrorMessage('CSRF_INVALID');
             return false;
@@ -301,5 +295,3 @@ class commentedit extends \fpcm\controller\abstracts\controller
     }
 
 }
-
-?>

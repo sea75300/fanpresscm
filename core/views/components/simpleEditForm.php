@@ -3,24 +3,24 @@
 <div class="d-flex justify-content-end text-secondary fs-6 p-2">Form: <?php $theView->escape($formFields->area); ?></div>
 <?php endif; ?>
 
-<div class="row">
-    <div class="col-12 col-lg-8 col-xl-6">
+<div class="row row-cols-1 row-cols-md-2">
+    <div class="col">
         <fieldset class="my-3">            
         <?php foreach ($formFields->fields as $field) : ?>
             <div class="row g-0">
                 <?php if ($field instanceof \fpcm\components\fieldGroup) : ?>
-                    <div class="col-form-label col-12 col-sm-6 col-md-4">
-                        <?php if ($field->getIcon() !== null) : print $field->getIcon(); endif; ?> 
-                        <span class="fpcm-ui-label ps-1"> <?php $theView->write($field->getDescr()); ?></span>
-                    </div>
-
                     <div class="col">
                         <div class="list-group">
-                    <?php foreach ($field->getFields() as $subField) : ?>
+                            <div class="list-group-item bg-secondary text-white" aria-label="<?php $theView->write($field->getDescr()); ?>">
+                                <?php if ($field->getIcon() !== null) : print $field->getIcon(); endif; ?> 
+                                <span class="fpcm-ui-label ps-1"> <?php $theView->write($field->getDescr()); ?></span>
+                            </div>                            
+                            
+                        <?php foreach ($field->getFields() as $subField) : ?>
                             <div class="list-group-item">
                             <?php print $subField; ?>
                             </div>
-                    <?php endforeach; ?>
+                        <?php endforeach; ?>
                         </div>
                     </div>
                 <?php else : ?>

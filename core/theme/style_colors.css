@@ -24,6 +24,10 @@ a, a:visited, a.fpcm-link, a.nav-link {
   color: var(--bs-nav-link-hover-color);
 }
 
+#fpcm-ui-toolbar a.btn {
+    color: var(--bs-btn-color);
+}
+
 h1,
 h3,
 ins,

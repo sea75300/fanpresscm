@@ -65,7 +65,7 @@
 
         <div class="col">
             <div class="list-group">
-                <div class="list-group-item bg-secondary text-white">
+                <div class="list-group-item bg-secondary text-white" aria-label="<?php $theView->write('COMMMENT_STATUS'); ?>">
                     <?php $theView->icon('cogs')->setSize('lg'); ?> <span class="fpcm-ui-label ps-1"> <?php $theView->write('COMMMENT_STATUS'); ?>
                 </div>
                 <div class="list-group-item">

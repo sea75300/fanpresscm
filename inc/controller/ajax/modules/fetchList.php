@@ -214,7 +214,7 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController
             new \fpcm\components\dataView\rowCol('description', new \fpcm\view\helper\escape($config->name ), $class ),
             new \fpcm\components\dataView\rowCol('key', new \fpcm\view\helper\escape($key), $class ),
             new \fpcm\components\dataView\rowCol('version', new \fpcm\view\helper\escape($config->version), $class )
-        ], !$item->isActive() ? 'text-secondary' : '');
+        ], !$item->isActive() ? 'text-body-secondary' : '');
     }
 
     /**
@@ -265,7 +265,7 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController
             new \fpcm\components\dataView\rowCol('description', new \fpcm\view\helper\escape($config->name ) ),
             new \fpcm\components\dataView\rowCol('key', new \fpcm\view\helper\escape($key) ),
             new \fpcm\components\dataView\rowCol('version', new \fpcm\view\helper\escape($config->version) )
-        ], $isInstalled || !$item->isInstallable() ? 'text-secondary' : '');
+        ], $isInstalled || !$item->isInstallable() ? 'text-body-secondary' : '');
     }
 
     /**

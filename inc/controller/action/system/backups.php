@@ -149,7 +149,7 @@ implements \fpcm\controller\interfaces\requestFunctions
         
         return new \fpcm\components\dataView\row([
             new \fpcm\components\dataView\rowCol('select', (new \fpcm\view\helper\radiobutton('files', 'files'.$hash))->setValue($val)->setReadonly($this->i <= $this->deletePrevent), '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
-            new \fpcm\components\dataView\rowCol('name', sprintf('%s<br><span class="text-secondary fpcm ui-font-small">%s %s/%s</span>', $basename, (new \fpcm\view\helper\icon('folder-tree'))->setText('MODULES_LIST_DATAPATH'), $this->basePath, $basename)),
+            new \fpcm\components\dataView\rowCol('name', sprintf('%s<br><span class="text-body-secondary fpcm ui-font-small">%s %s/%s</span>', $basename, (new \fpcm\view\helper\icon('folder-tree'))->setText('MODULES_LIST_DATAPATH'), $this->basePath, $basename)),
             new \fpcm\components\dataView\rowCol('size', \fpcm\classes\tools::calcSize(filesize($file)) ),
         ]);
     }
