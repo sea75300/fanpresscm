@@ -109,7 +109,7 @@ abstract class articleEditor extends \fpcm\model\abstracts\staticModel {
      * Editor-Links initialisieren
      * @return string
      */
-    public function getEditorLinks()
+    public function getEditorLinks(string $labelString = 'label')
     {
         $links = $this->events->trigger('editor\addLinks')->getData();
         if (!is_array($links) || !count($links)) {
@@ -123,15 +123,19 @@ abstract class articleEditor extends \fpcm\model\abstracts\staticModel {
      * Dateiliste initialisieren
      * @return array
      */
-    public function getFileList()
+    public function getFileList(string $labelString = '')
     {
+        if (!$labelString) {
+            $labelString = static::FILELIST_LABEL;
+        }
+        
         $data = [];
         foreach ($this->fileList->getDatabaseList() as $image) {
 
             $base = basename($image->getFilename());
 
             $data[] = [   
-                static::FILELIST_LABEL => $image->getAltText() ? $image->getAltText() . " ({$base})" : $base,
+                $labelString => $image->getAltText() ? $image->getAltText() . " ({$base})" : $base,
                 static::FILELIST_VALUE => $image->getImageUrl()
             ];
 

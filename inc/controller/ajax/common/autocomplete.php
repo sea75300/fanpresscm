@@ -28,6 +28,12 @@ class autocomplete extends \fpcm\controller\abstracts\ajaxController
     protected $term = '';
 
     /**
+     * Suchbegriff
+     * @var bool
+     */
+    protected $tinyMce = true;
+
+    /**
      * 
      * @var array
      */
@@ -45,7 +51,13 @@ class autocomplete extends \fpcm\controller\abstracts\ajaxController
             \fpcm\model\http\request::FILTER_TRIM,
             \fpcm\model\http\request::FILTER_URLDECODE
         ]);
+        
+        if ($this->term === null) {
+            $this->term = '';
+        }
 
+        $this->tinyMce = (bool) $this->request->fetchAll('tinyMce');
+        
         return true;
     }
 
@@ -118,10 +130,6 @@ class autocomplete extends \fpcm\controller\abstracts\ajaxController
                 'label' => $value
             ];
         }
-
-        if (!$this->term) {
-            return true;
-        }
         
         $this->returnData = array_filter($this->returnData, function ($value) {
             return str_contains($value['value'], $this->term);
@@ -140,10 +148,13 @@ class autocomplete extends \fpcm\controller\abstracts\ajaxController
             return false;
         }
 
-        $data = \fpcm\components\components::getArticleEditor()->getFileList();
-        $this->returnData = array_filter($data, function ($value) {
-            return $this->term && stripos($value['label'], $this->term) === false && stripos($value['value'], $this->term) === false ? false : true;
-        });        
+        $labelString = $this->tinyMce ? 'title' : 'label';
+        
+        $data = \fpcm\components\components::getArticleEditor()->getFileList($labelString);
+
+        $this->returnData = array_filter($data, function ($value) use($labelString) {
+            return str_contains($value[$labelString], $this->term) || str_contains($value['value'], $this->term);
+        });
 
         return true;
     }
@@ -157,12 +168,14 @@ class autocomplete extends \fpcm\controller\abstracts\ajaxController
         if ($this->hasNoArticlesAccess()) {
             return false;
         }
+        
+        $labelString = $this->tinyMce ? 'title' : 'label';
 
-        $data = \fpcm\components\components::getArticleEditor()->getEditorLinks();
+        $data = \fpcm\components\components::getArticleEditor()->getEditorLinks($labelString);
         array_shift($data);
 
-        $this->returnData = array_filter($data, function ($value) {
-            return $this->term && stripos($value['label'], $this->term) === false && stripos($value['value'], $this->term) === false ? false : true;
+        $this->returnData = array_filter($data, function ($value) use($labelString) {
+            return str_contains($value[$labelString], $this->term) || str_contains($value['value'], $this->term);
         });
 
         return true;

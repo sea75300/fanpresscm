@@ -178,8 +178,8 @@ class tinymceEditor5 implements \JsonSerializable {
         $this->templates = $drafts;
         $this->autosave_prefix = 'fpcm-editor-as-' . $userId;
         $this->pagebreak_separator = \fpcm\model\pubtemplates\article::PAGEBREAK_TAG;
-        $this->link_list = \fpcm\classes\tools::getFullControllerLink('ajax/autocomplete', ['src' => 'editorlinks']);
-        $this->image_list = \fpcm\classes\tools::getFullControllerLink('ajax/autocomplete', ['src' => 'editorfiles']);
+        $this->link_list = \fpcm\classes\tools::getFullControllerLink('ajax/autocomplete', ['src' => 'editorlinks', 'tinyMce' => true]);
+        $this->image_list = \fpcm\classes\tools::getFullControllerLink('ajax/autocomplete', ['src' => 'editorfiles', 'tinyMce' => true]);
 
         $this->images_upload_url = \fpcm\classes\tools::getFullControllerLink('ajax/editor/imgupload');
         $this->automatic_uploads = true;

@@ -143,16 +143,16 @@ class tinymceEditor5 extends articleEditor {
      * Editor-Links initialisieren
      * @return string
      */
-    public function getEditorLinks()
+    public function getEditorLinks(string $labelString = 'title')
     {
         $links = $this->events->trigger('editor\addLinks')->getData();
         if (!is_array($links) || !count($links)) {
             return [];
         }
 
-        return array_map(function ($item) {
+        return array_map(function ($item) use ($labelString) {
             return [
-                'title' => $item['label'],
+                $labelString => $item['label'],
                 'value' => $item['value']
             ];
 
