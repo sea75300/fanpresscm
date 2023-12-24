@@ -374,6 +374,10 @@ fpcm.ui_dialogs = {
         if (_params.dlOnOpen) {
             _var.dlOnOpen = _params.dlOnOpen;
         }
+         
+        if (_params.dlOnOpenAfter) {
+            _var.dlOnOpenAfter = _params.dlOnOpenAfter;
+        }
         
         if (_params.dlOnClose) {
             _var.dlOnClose = _params.dlOnClose;

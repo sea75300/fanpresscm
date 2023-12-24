@@ -33,6 +33,8 @@ export class element_input {
     readonly = false;
     
     autofocus = false;
+    
+    labelIcon = false;
 
     assignToDom(_destination) {
         
@@ -58,9 +60,7 @@ export class element_input {
         }
         
         _input.id = 'fpcm-id-' + this.id;
-
         _input.value = this.value;
-
         _input.className = this.class;
         
         if (this.maxlenght) {
@@ -96,11 +96,15 @@ export class element_input {
         }
         
         _wrapper.appendChild(_input);
-        
 
         let _label = document.createElement('label');
         _label.htmlFor = _input.id;
         _label.className = 'fpcm ui-label';
+        
+        if (this.labelIcon) {
+            this.label = this.labelIcon.getString() + ' ' + this.label;
+        }
+
         _label.innerHTML = this.label;
         
         _wrapper.appendChild(_label);

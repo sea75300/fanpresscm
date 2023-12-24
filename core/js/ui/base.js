@@ -632,7 +632,7 @@ fpcm.ui = {
         return document.documentElement.dataset.bsTheme == 'dark';
     },
     
-    prepareId: function(_id) {
+    prepareId: function(_id, _skipHash) {
 
         if (_id.startsWith('#' + fpcm.vars.ui.idPrefix)) {
             return _id;
@@ -643,7 +643,7 @@ fpcm.ui = {
         }
 
         if (!_id.startsWith(fpcm.vars.ui.idPrefix)) {
-            _id = '#' + fpcm.vars.ui.idPrefix + _id;
+            _id = (_skipHash ? '' : '#' ) + fpcm.vars.ui.idPrefix + _id;
         }
 
         return _id;

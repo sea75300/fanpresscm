@@ -279,6 +279,30 @@ if (fpcm.editor) {
     };
     
     fpcm.editor.insertList = function (listtype) {
+        
+        if (!listtype) {
+            console.warn('Empty listtype parameter given');
+            return false;
+        }
+        
+        var _inRows = new fpcm.ui.forms.input();
+        _inRows.name = 'list-rows';
+        _inRows.type = 'number';
+        _inRows.label = fpcm.ui.translate('EDITOR_INSERTTABLE_ROWS');
+        _inRows.value = 1;
+        _inRows.min = 1;
+        _inRows.labelIcon = new fpcm.ui.forms.icon();
+        _inRows.labelIcon.icon = 'keyboard';
+        
+        var _inType = new fpcm.ui.forms.input();
+        _inType.name = 'list-type';
+        _inType.label = fpcm.ui.translate('EDITOR_INSERTLIST_TYPESIGN');
+        _inType.value = '';
+        _inType.placehodler = '-';
+        _inType.labelIcon = new fpcm.ui.forms.icon();
+        _inType.labelIcon.icon = 'list-ul';
+
+        let _tId = fpcm.ui.prepareId('list-type');
 
         fpcm.ui_dialogs.insert({
             id: 'editor-html-insertlist',
@@ -286,11 +310,14 @@ if (fpcm.editor) {
             icon: {
                 icon: 'list'
             },
-            dlOnClose: function() {
-                fpcm.dom.fromId('listrows').val('1');
-                fpcm.dom.fromId('listtype').val('');
+            content: [
+                _inRows,
+                _inType
+            ],
+            dlOnClose: function() {                
+                delete(fpcm.ui._autocompletes[_tId]);
             },
-            dlOnOpen: function() {
+            dlOnOpenAfter: function() {
 
                 var _src = [];
                 
@@ -340,18 +367,19 @@ if (fpcm.editor) {
                     ];
                 }
 
-                if (fpcm.ui._autocompletes['#listtype'] !== undefined) {
-                    fpcm.ui._autocompletes['#listtype'].setData(_src);
+                if (fpcm.ui._autocompletes[_tId] !== undefined) {
+                    fpcm.ui._autocompletes[_tId].setData(_src);
                     return false;
                 }
 
-                fpcm.ui.autocomplete('#listtype', {
+                fpcm.ui.autocomplete(_tId, {
                     source: _src
                 });
             },
             insertAction: function() {
-                var rowCount = fpcm.dom.fromId('listrows').val();
-                var cssType = fpcm.dom.fromId('listtype').val();
+
+                var rowCount = document.getElementById(fpcm.ui.prepareId('list-rows', true)).value;
+                var cssType = document.getElementById(fpcm.ui.prepareId('list-type', true)).value;
 
                 aTag = '<' + listtype + (cssType ? ' style="list-style-type:' + cssType + '"' : '') + '>\n';
                 for (i=0;i<rowCount;i++) {
@@ -361,6 +389,8 @@ if (fpcm.editor) {
                 fpcm.editor.insert(aTag, '</' + listtype + '>');
             }
         });
+        
+        delete(_inRows, _inType);
     };
     
     fpcm.editor.insertSmilies = function () {
@@ -544,30 +574,54 @@ if (fpcm.editor) {
     
     fpcm.editor.insertTable = function () {
 
+        var _inRows = new fpcm.ui.forms.input();
+        _inRows.name = 'table-rows';
+        _inRows.label = fpcm.ui.translate('EDITOR_INSERTTABLE_ROWS');
+        _inRows.type = 'number';
+        _inRows.value = 1;
+        _inRows.min = 1;
+        _inRows.labelIcon = new fpcm.ui.forms.icon();
+        _inRows.labelIcon.icon = 'arrow-down';        
+        
+        var _inCols = new fpcm.ui.forms.input();
+        _inCols.name = 'table-cols';
+        _inCols.label = fpcm.ui.translate('EDITOR_INSERTTABLE_COLS');
+        _inCols.type = 'number';
+        _inCols.value = 1;
+        _inCols.min = 1;
+        _inCols.labelIcon = new fpcm.ui.forms.icon();
+        _inCols.labelIcon.icon = 'arrow-right';
+
         fpcm.ui_dialogs.insert({
             id: 'editor-html-inserttable',
             title: 'EDITOR_INSERTTABLE',
             icon: {
                 icon: 'table'
-            },            
-            dlOnClose: function() {
-                fpcm.dom.resetValuesByIdsString(['tablerows', 'tablecols'], '1')
             },
+            content: [
+                _inRows,
+                _inCols
+            ],
             insertAction: function() {
                 
-                let _formData = fpcm.dom.getValuesFromIds(['tablerows', 'tablecols']);
+                let _tablerows = parseInt(document.getElementById(fpcm.ui.prepareId('table-rows', true)).value);
+                let _tablecols = parseInt(document.getElementById(fpcm.ui.prepareId('table-cols', true)).value);
+                
                 let aTag = '<table>\n';
 
-                for (i=0;i< parseInt(_formData.tablerows) ;i++) {        
+                for (i=0;i<_tablerows ;i++) {        
                     aTag += '    <tr>\n';        
-                    for (x=0;x< parseInt(_formData.tablecols);x++) {
+                    for (x=0;x < _tablecols;x++) {
                         aTag += '        <td></td>\n';
                     }        
                     aTag += '    </tr>\n';        
                 }
+
                 fpcm.editor.insert(aTag, '</table>');
             }
         });
+        
+        delete(_inRows, _inCols);
     };
     
     fpcm.editor.insertPicture = function () {
@@ -864,6 +918,8 @@ if (fpcm.editor) {
         _input.label = fpcm.ui.translate('EDITOR_LINKURL');
         _input.value = '';
         _input.placeholder = 'https://';
+        _input.labelIcon = new fpcm.ui.forms.icon();
+        _input.labelIcon.icon = 'external-link-alt';
         
         fpcm.ui_dialogs.insert({
             id: 'editor-html-insertiframe',
@@ -890,6 +946,8 @@ if (fpcm.editor) {
                 
             }
         });
+        
+        delete(_input);
 
     };
 }

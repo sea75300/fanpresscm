@@ -67,9 +67,7 @@ export class element_icon {
 
 
     assignToDom(_destination) {
-        
 
-        
     }
 
 }

@@ -54,44 +54,6 @@
     <?php endif; ?>
 </div>
 
-<!-- Tabelle einfügen -->  
-<div class="d-none" id="fpcm-dialog-editor-html-inserttable">
-    <div class="row">
-        <?php $theView->numberInput('table[rows]', 'tablerows')
-                ->setValue(1)
-                ->setMin(1)
-                ->setText('EDITOR_INSERTTABLE_ROWS')
-                ->setIcon('arrow-down')
-                ->setSize('lg'); ?>
-    </div>
-    <div class="row">
-        <?php $theView->numberInput('table[rows]', 'tablecols')
-                ->setValue(1)
-                ->setMin(1)
-                ->setText('EDITOR_INSERTTABLE_COLS')
-                ->setIcon('arrow-right')
-                ->setSize('lg'); ?>
-    </div>
-</div>
-
-<!-- Liste einfügen -->  
-<div class="d-none" id="fpcm-dialog-editor-html-insertlist">
-    <div class="row">
-        <?php $theView->numberInput('list[rows]', 'listrows')
-                ->setValue(1)
-                ->setText('EDITOR_INSERTTABLE_ROWS')
-                ->setIcon('keyboard')
-                ->setSize('lg'); ?>
-    </div>
-    <div class="row">
-        <?php $theView->textInput('list[type]', 'listtype')
-                ->setValue('')
-                ->setText('EDITOR_INSERTLIST_TYPESIGN')
-                ->setIcon('list-ul')
-                ->setSize('lg'); ?>
-    </div>
-</div>
-
 <!-- Player einfügen -->  
 <div class="d-none" id="fpcm-dialog-editor-html-insertmedia">
     
