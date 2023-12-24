@@ -223,7 +223,7 @@ abstract class articlebase extends \fpcm\controller\abstracts\controller impleme
 
         $this->view->addButton(
             (new \fpcm\view\helper\saveButton('articleSave'))
-                ->setClass( 'fpcm-ui-maintoolbarbuttons-tab1')
+                ->setClass( $this->getToolbarButtonToggleClass(1, '', true) )
                 ->setReadonly($this->article->isInEdit())
                 ->setPrimary()
         );
@@ -340,6 +340,7 @@ abstract class articlebase extends \fpcm\controller\abstracts\controller impleme
         $this->article->setPinned($data['pinned'] ?? 0);
         $this->article->setDraft($data['draft'] ?? 0);
         $this->article->setComments($data['comments'] ?? $this->config->comments_default_active);
+        $this->article->setRelatesTo(intval($data['relatesto'] ?? 0));
         
         $this->article->setApproval($this->approvalRequired ? 1 : ( $data['approval'] ?? 0 ));
         $this->article->setImagepath($data['imagepath'] ?? '');

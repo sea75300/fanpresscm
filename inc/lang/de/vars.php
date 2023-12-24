@@ -433,6 +433,7 @@ $lang = array (
   'IPLIST_NOACCESS' => 'Kein Frontend-Zugriff',
   'IPLIST_NOCOMMENTS' => 'Keine Kommentare schreiben',
   'IPLIST_NOLOGIN' => 'Kein ACP-Login',
+  'LABEL_FIELD_ARTICLE_RELATESTO' => 'Artikel bezieht sich auf',
   'LABEL_FIELD_FILE_CROPPER_NAME' => 'Dateiname-Muster bearbeiteter Bilder',
   'LABEL_FIELD_FILE_CROPPER_NAME_HELP' => '{{filename}}: Dateiname, {{date}}: aktuelles Datum, {{datelong}}: aktuelles Datum mit Zeit, {{hash}}: Dateihash, {{userid}}:  Benutzer-ID, {{random}}: Zufallszahl',
   'LABEL_FIELD_OPENQR' => 'QR-Code anzeigen',

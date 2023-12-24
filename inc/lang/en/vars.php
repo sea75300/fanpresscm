@@ -433,6 +433,7 @@ $lang = array (
   'IPLIST_NOACCESS' => 'No front end access',
   'IPLIST_NOCOMMENTS' => 'Do not post comments',
   'IPLIST_NOLOGIN' => 'No ACP login',
+  'LABEL_FIELD_ARTICLE_RELATESTO' => 'Artikel relates to',
   'LABEL_FIELD_FILE_CROPPER_NAME' => 'Filename pattern for edited images',
   'LABEL_FIELD_FILE_CROPPER_NAME_HELP' => '{{filename}}: filename, {{date}}: current date, {{datelong}}: current date with time, {{hash}}: fiel hash, {{userid}}:  user id, {{random}}: random number',
   'LABEL_FIELD_OPENQR' => 'Display QR code',

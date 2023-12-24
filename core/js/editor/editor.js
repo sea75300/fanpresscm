@@ -28,10 +28,12 @@ fpcm.editor = {
         /**
          * Keycodes
          * http://www.brain4.de/programmierecke/js/tastatur.php
-         */
-        fpcm.dom.fromTag(document).keydown(function(thekey) {
+         */        
+        document.addEventListener('keydown', function(_e) {
 
-            if (thekey.ctrlKey && thekey.which == 83) {
+            if (_e.ctrlKey && _e.which == 83) {
+            
+                _e.preventDefault();
                 
                 var _saveBtnEl = fpcm.dom.fromId('btnArticleSave');
                 if(_saveBtnEl) {

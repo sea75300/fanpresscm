@@ -1066,7 +1066,7 @@ final class database {
                 $type .= ' CHARSET `'.$attr['charset'].'`';
             }
 
-            $type .= trim($attr['params']) ? ' ' . $attr['params'] : '';
+            $type .= $attr['params'] !== null && trim($attr['params']) ? ' ' . $attr['params'] : '';
             if (!$this->alter($table, 'ADD', $col, $type, false)) {
                 fpcmLogSql($this->lastQueryString);
                 return false;

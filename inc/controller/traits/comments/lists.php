@@ -85,28 +85,6 @@ trait lists {
     protected $filterError = null;
 
     /**
-     * Kommentar-Aktionen ausführen
-     * @param \fpcm\model\comments\commentList $commentList
-     * @return bool
-     */
-    protected function processCommentActions(\fpcm\model\comments\commentList $commentList)
-    {
-//        $ids = $this->request->fromPOST('ids', [ \fpcm\model\http\request::FILTER_CASTINT ]);
-//        if (!is_array($ids) || !count($ids)) {
-//            $this->view->addErrorMessage('SELECT_ITEMS_MSG');
-//            return true;
-//        }
-//
-//        if ($this->permissions->comment->delete && $commentList->deleteComments($ids)) {
-//            $this->view->addNoticeMessage('DELETE_SUCCESS_COMMENTS');
-//            return true;
-//        }
-//
-//        $this->view->addErrorMessage('DELETE_FAILED_COMMENTS');
-//        return true;
-    }
-
-    /**
      * Initialisiert Suchformular-Daten
      * @param array $users
      */

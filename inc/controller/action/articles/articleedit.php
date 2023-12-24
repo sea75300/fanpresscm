@@ -190,12 +190,15 @@ class articleedit extends articlebase {
 
             $this->view->addJsFiles(['comments/module.js', 'articles/deleteCallback.js']);
             if ($this->permissions->editCommentsMass()) {
-                $this->view->addButton((new \fpcm\view\helper\button('massEdit', 'massEdit'))->setText('GLOBAL_EDIT')->setIcon('edit')->setIconOnly()->setClass('fpcm-ui-maintoolbarbuttons-tab2 fpcm-ui-hidden'));
+                $this->view->addButton((new \fpcm\view\helper\button('massEdit', 'massEdit'))
+                        ->setText('GLOBAL_EDIT')
+                        ->setIcon('edit')
+                        ->setClass( $this->getToolbarButtonToggleClass(2) ));
             }
 
             if ($this->permissions->comment->delete) {
                 $this->view->addButton((new \fpcm\view\helper\deleteButton('deleteComment'))
-                    ->setClass('fpcm fpcm-ui-maintoolbarbuttons-tab2 fpcm-ui-hidden')
+                    ->setClass( $this->getToolbarButtonToggleClass(2) )
                     ->setText('EDITOR_COMMENTS_DELETE')
                     ->setOnClick('comments.deleteMultipleArticle')
                 );
@@ -289,30 +292,48 @@ class articleedit extends articlebase {
     private function addButtons()
     {
         $this->view->addButtons([
-            (new \fpcm\view\helper\openButton('articlefe'))->setUrlbyObject($this->article)->setTarget('_blank')->setIconOnly()->setClass('fpcm-ui-maintoolbarbuttons-tab1'),
+            (new \fpcm\view\helper\openButton('articlefe'))
+                ->setUrlbyObject($this->article)
+                ->setTarget('_blank')
+                ->setIconOnly()
+                ->setClass( $this->getToolbarButtonToggleClass(1, ',', true) ),
             (new \fpcm\view\helper\button('shortlink'))
                 ->setText('EDITOR_ARTICLE_SHORTLINK')
                 ->setIcon('external-link-square-alt')
                 ->setIconOnly()
-                ->setClass('fpcm-ui-maintoolbarbuttons-tab1')
+                ->setClass( $this->getToolbarButtonToggleClass(1, ',', true) )
                 ->setData([
                     'article' => $this->article->getId()
                 ])
         ]);
 
         if ($this->article->getImagepath()) {
-            $this->view->addButton((new \fpcm\view\helper\linkButton('articleimg'))->setUrl($this->article->getImagepath())->setText('EDITOR_ARTICLEIMAGE_SHOW')->setIcon('image')->setIconOnly()->setClass('fpcm ui-link-fancybox fpcm-ui-maintoolbarbuttons-tab1'));
+            $this->view->addButton((new \fpcm\view\helper\linkButton('articleimg'))
+                    ->setUrl($this->article->getImagepath())
+                    ->setText('EDITOR_ARTICLEIMAGE_SHOW')
+                    ->setIcon('image')
+                    ->setIconOnly()
+                    ->setClass($this->getToolbarButtonToggleClass(1, 'fpcm ui-link-fancybox', true) ));
         }
 
         if ($this->permissions->article->delete && !$this->request->fromGET('rev')) {
-            $this->view->addButton((new \fpcm\view\helper\deleteButton('articleDelete'))->setClass('fpcm-ui-maintoolbarbuttons-tab1 fpcm ui-button-confirm')->setReadonly($this->article->isInEdit()));
+            $this->view->addButton((new \fpcm\view\helper\deleteButton('articleDelete'))
+                    ->setClass( $this->getToolbarButtonToggleClass(1, 'fpcm ui-button-confirm', true))
+                    ->setReadonly($this->article->isInEdit()));
         }
         
         if ($this->permissions->article->revisions) {
-            $this->view->addButton((new \fpcm\view\helper\submitButton('articleRevisionRestore'))->setText('EDITOR_REVISION_RESTORE')->setIcon('undo')->setReadonly($this->article->isInEdit())->setClass('fpcm-ui-maintoolbarbuttons-tab3 fpcm-ui-hidden'));
-            $this->view->addButton((new \fpcm\view\helper\deleteButton('revisionDelete'))->setClass('fpcm-ui-maintoolbarbuttons-tab3 fpcm-ui-hidden fpcm ui-button-confirm')->setText('EDITOR_REVISION_DELETE'));
+            $this->view->addButton((new \fpcm\view\helper\submitButton('articleRevisionRestore'))
+                    ->setText('EDITOR_REVISION_RESTORE')
+                    ->setIcon('undo')
+                    ->setReadonly($this->article->isInEdit())
+                    ->setClass( $this->getToolbarButtonToggleClass(3) ));
+            $this->view->addButton((new \fpcm\view\helper\deleteButton('revisionDelete'))
+                    ->setClass($this->getToolbarButtonToggleClass(3, 'fpcm ui-button-confirm') )
+                    ->setText('EDITOR_REVISION_DELETE'));
         }
         
+        $this->addRelationButton();
         $this->addShareButtons();
         
         return true;
@@ -342,15 +363,43 @@ class articleedit extends articlebase {
                     ->setText(ucfirst($share));
         }
         
-        $this->view->addButton(
+        $this->view->addToolbarRight(
             (new \fpcm\view\helper\dropdown('shareArticle'))
                 ->setText('EDITOR_SHARE')
                 ->setIcon('share')
                 ->setIconOnly()
                 ->setOptions($options)
                 ->setSelected(false)
-        );      
+        );
         
+    }
+    
+    private function addRelationButton()
+    {
+        if (!$this->article->getRelatesTo()) {
+            return;
+        }
+
+        $tmp = new \fpcm\model\articles\article($this->article->getRelatesTo());
+        if (!$tmp->exists()) {
+            return;
+        }
+
+        $this->checkEditPermissions($tmp);
+
+        if (!$tmp->getEditPermission()) {
+            return;
+        }
+
+        $this->view->addButton(
+            (new \fpcm\view\helper\linkButton('open-relation'))
+                ->setText('COMMENTS_EDITARTICLE')
+                ->setIcon('arrow-down-up-across-line')
+                ->setClass( $this->getToolbarButtonToggleClass(1, '', true) )
+                ->setIconOnly()
+                ->setReadonly($tmp->isInEdit())
+                ->setUrl($tmp->getElementLink())
+        );
     }
 
 }

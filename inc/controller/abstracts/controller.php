@@ -133,6 +133,12 @@ class controller implements \fpcm\controller\interfaces\controller {
     protected $moduleElement = false;
 
     /**
+     * Active tab save
+     * @var int
+     */
+    private $activeTab;
+
+    /**
      * Konstruktor
      */
     public function __construct()
@@ -544,17 +550,24 @@ class controller implements \fpcm\controller\interfaces\controller {
      */
     final protected function getActiveTab() : int
     {
+        if ($this->activeTab !== null) {
+            return $this->activeTab;
+        }
+
         $activeTab = $this->request->fromGET('rg');
         if ($activeTab !== null) {
-            return (int) $activeTab;
+            $this->activeTab = (int) $activeTab;
+            return $this->activeTab;
         }
 
         $activeTab = $this->request->fromPOST('activeTab');
         if ($activeTab !== null) {
-            return (int) $activeTab;
+            $this->activeTab = (int) $activeTab;
+            return $this->activeTab;
         }
         
-        return 0;
+        $this->activeTab = 0;
+        return $this->activeTab;
     }
     
     /**
@@ -595,6 +608,25 @@ class controller implements \fpcm\controller\interfaces\controller {
     {
         $this->permissions = \fpcm\classes\loader::getObject('\fpcm\model\permissions\permissions');
         return true;
+    }
+
+    /**
+     * Get toolbar button toggle class
+     * @param int $tabIndex
+     * @param int $active
+     * @return string
+     * @since 5.2.0.a1
+     */
+    protected function getToolbarButtonToggleClass(int $tabIndex, string $class = '', bool $notIfNull = false): string
+    {
+        $active = $this->getActiveTab();
+        
+        $hidden = $tabIndex !== $active ? 'fpcm-ui-hidden' : '';
+        if ($notIfNull && $active === 0) {
+            $hidden = '';
+        }
+
+        return sprintf('fpcm-ui-maintoolbarbuttons-tab%s %s %s', $tabIndex, $hidden, $class);
     }
 
 }

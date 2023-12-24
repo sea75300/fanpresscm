@@ -23,5 +23,3 @@ interface isCsvImportable {
     public function assignCsvRow(array $csvRow) : bool;
     
 }
-
-?>

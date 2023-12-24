@@ -19,7 +19,12 @@ class article extends \fpcm\model\abstracts\dataset
 implements \fpcm\model\interfaces\isCsvImportable {
 
     use \fpcm\model\traits\autoTable,
-        \fpcm\model\traits\statusIcons;
+        \fpcm\model\traits\statusIcons,
+        \fpcm\model\traits\articles\csvUtils,
+        \fpcm\model\traits\articles\iconUtils,
+        \fpcm\model\traits\articles\revisionUtils,
+        \fpcm\model\traits\articles\twitterUtils,
+        \fpcm\model\traits\articles\sourcesUtils;
     
     /**
      * Cache-Name für einzelnen Artikel
@@ -156,6 +161,13 @@ implements \fpcm\model\interfaces\isCsvImportable {
     protected $sources = '';
 
     /**
+     * Article relation id
+     * @var int
+     * @since 5.2.0-a1
+     */
+    protected $relates_to;
+
+    /**
      * Artikel-Quellen
      * @var int
      * @since 3.5
@@ -214,20 +226,6 @@ implements \fpcm\model\interfaces\isCsvImportable {
      * @since 3.3
      */
     protected $editPermission = true;
-
-    /**
-     * Text für überschriebenes Tweet-Template
-     * @var string
-     * @since 3.3
-     */
-    protected $tweetOverride = false;
-
-    /**
-     * TWeet Erstellung aktivieren
-     * @var bool
-     * @since 3.5.2
-     */
-    protected $tweetCreate = null;
 
     /**
      * Konstruktor
@@ -402,16 +400,6 @@ implements \fpcm\model\interfaces\isCsvImportable {
     }
 
     /**
-     * Tweet-Erstellung aktiv?
-     * @return bool
-     * @since 3.5.2
-     */
-    function tweetCreationEnabled()
-    {
-        return (bool) $this->tweetCreate;
-    }
-
-    /**
      * Ttiel setzen
      * @param string $title
      */
@@ -580,6 +568,27 @@ implements \fpcm\model\interfaces\isCsvImportable {
     }
 
     /**
+     * Fetch article relation id
+     * @return int
+     * @since 5.2.0-a1
+     */
+    public function getRelatesTo(): int
+    {
+        return (int) $this->relates_to;
+    }
+
+    /**
+     * Set article relation
+     * @param int $relatesTo
+     * @return void
+     * @since 5.2.0-a1
+     */
+    public function setRelatesTo(int $relatesTo): void
+    {
+        $this->relates_to = $relatesTo;
+    }
+
+    /**
      * Setzt Status, ob Artikel bearbeitet werden kann
      * @param bool $editPermission
      * @since 3.3
@@ -596,36 +605,6 @@ implements \fpcm\model\interfaces\isCsvImportable {
     public function setForceDelete($forceDelete)
     {
         $this->forceDelete = $forceDelete;
-    }
-
-    /**
-     * Text für überschriebenes Tweet-Template zurückgeben
-     * @return string
-     * @since 3.3
-     */
-    function getTweetOverride()
-    {
-        return $this->tweetOverride;
-    }
-
-    /**
-     * Text für überschriebenes Tweet-Template setzen
-     * @param string $tweetOverride
-     * @since 3.3
-     */
-    function setTweetOverride($tweetOverride)
-    {
-        $this->tweetOverride = $tweetOverride;
-    }
-
-    /**
-     * Tweet-Erstellung aktivieren
-     * @param bool $tweetCreate
-     * @since 3.5.2
-     */
-    function enableTweetCreation($tweetCreate)
-    {
-        $this->tweetCreate = (bool) $tweetCreate;
     }
 
     /**
@@ -751,139 +730,11 @@ implements \fpcm\model\interfaces\isCsvImportable {
     }
 
     /**
-     * Artikel-Daten für Revision vorbereiten
-     * @since 3.4
-     */
-    public function prepareRevision()
-    {
-        $this->data['preparedRevision'] = $this->getPreparedSaveParams();
-    }
-
-    /**
-     * Erzeugt eine Revision des Artikels
-     * @param int $timer
-     * @return bool
-     */
-    public function createRevision($timer = 0)
-    {
-        $content = $this->getPreparedSaveParams();
-        $content = $this->events->trigger('revision\create', $content)->getData();
-
-        if (!$timer) {
-            $timer = $this->changetime;
-        }
-
-        $revision = new revision();
-        $revision->setArticleId($this->id);
-        $revision->setRevisionIdx($timer);
-        $revision->setContent($content);
-
-        $newHash = $revision->createHashSum();
-        $revision->setHashsum($newHash);
-
-        if (isset($this->data['preparedRevision']) &&
-                is_array($this->data['preparedRevision']) &&
-                $revision->createHashSum($this->data['preparedRevision']) === $newHash) {
-            return true;
-        }
-
-        if (!$revision->save()) {
-            trigger_error('Unable to create revision for article ' . $this->id);
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
-     * Gib Revisionen des Artikels zurück
-     * @param bool $full Soll die Revision ganz zurückgegebn werden oder nur Titel
-     * @return array
-     */
-    public function getRevisions($full = false)
-    {
-        $result = $this->dbcon->select(
-                \fpcm\classes\database::tableRevisions, 'article_id, revision_idx, content', 'article_id = ? ' . $this->dbcon->orderBy(array('revision_idx DESC')), array($this->id)
-        );
-
-        $revisionSets = $this->dbcon->fetch($result, true);
-        if (!is_array($revisionSets) || !count($revisionSets)) {
-            return [];
-        }
-        $revisionFiles = $this->events->trigger('revision\getBefore', $revisionSets)->getData();
-
-        $revisions = [];
-        foreach ($revisionSets as $revisionSet) {
-
-            $revisionObj = new revision($this->id);
-            $revisionObj->createFromDbObject($revisionSet);
-
-            $revData = $revisionObj->getContent();
-            $revTime = $revisionObj->getRevisionIdx();
-
-            if (!is_array($revData) || !$revTime) {
-                continue;
-            }
-
-            $revisions[$revTime] = $full ? $revData : $revData['title'];
-        }
-
-        $revisions = $this->events->trigger('revision\getAfter', array('full' => $full, 'revisions' => $revisions))->getData()['revisions'];
-
-        return $revisions;
-    }
-
-    /**
-     * Anzahl Revisionen des Artikels
-     * @return array
-     * @since 3.6
-     */
-    public function getRevisionsCount()
-    {
-        return $this->dbcon->count(\fpcm\classes\database::tableRevisions, 'id', 'article_id = ? ', [$this->id]);
-    }
-
-    /**
-     * Lädt Revision eines Artikels
-     * @param int $revisionTime Revisions-ID
-     * @return bool
-     */
-    public function getRevision($revisionTime)
-    {
-        $revision = new revision($this->id, $revisionTime);
-        if (!$revision->exists()) {
-            return false;
-        }
-
-        $revision = $this->events->trigger('revision\get', $revision)->getData();
-        foreach ($revision->getContent() as $key => $value) {
-            $this->$key = $value;
-        }
-
-        return true;
-    }
-
-    /**
-     * Stellt Revision eines Artikels wieder her
-     * @param int $revisionTime Revisions-ID
-     * @return bool
-     */
-    public function restoreRevision($revisionTime)
-    {
-        if (!$this->createRevision(time())) {
-            return false;
-        }
-
-        $this->getRevision($revisionTime);
-        return $this->update();
-    }
-
-    /**
      * 
      * @return bool
      * @since 5.1.0-a1
      */
-    public function pushcategories() : bool
+    public function pushCategories() : bool
     {
         $categories = $this->getCategories();
         
@@ -894,57 +745,6 @@ implements \fpcm\model\interfaces\isCsvImportable {
 
         array_walk($categories, fn($cid) => (new articleCategory($this->id, (int) $cid))->save() );
         return true;
-    }
-
-    /**
-     * Löscht Revisionen
-     * @param array $revisionList Liste von Revisions-IDs
-     * @return bool
-     */
-    public function deleteRevisions(array $revisionList = [])
-    {
-        if (!count($revisionList)) {
-            return $this->dbcon->delete(\fpcm\classes\database::tableRevisions, 'article_id = ?', array($this->id));
-        }
-
-        return $this->dbcon->delete(\fpcm\classes\database::tableRevisions, 'article_id = ? AND revision_idx IN (' . implode(',', array_map('intval', $revisionList)) . ')', array($this->id));
-    }
-
-    /**
-     * Erzeugt einen Tweet bei Twitter, wenn Verbindung aktiv und Events ausgewählt
-     * @param bool $force
-     * @return bool
-     */
-    public function createTweet($force = false)
-    {
-        if (!$this->config->twitter_data->isConfigured() || (!$this->config->twitter_events->create && !$this->config->twitter_events->update && !$force)) {
-            return false;
-        }
-
-        if (!$force && (!$this->tweetCreate || $this->approval || $this->postponed || $this->draft || $this->deleted || $this->archived)) {
-            return false;
-        }
-
-        /* @var $eventResult article */
-        $eventResult = $this->events->trigger('article\createTweet', $this)->getData();
-
-        $author = new \fpcm\model\users\author($eventResult->getCreateuser());
-
-        $tpl = new \fpcm\model\pubtemplates\tweet();
-        $tpl->setReplacementTags(array(
-            '{{headline}}' => $eventResult->getTitle(),
-            '{{author}}' => $author->getDisplayname(),
-            '{{date}}' => date($this->config->system_dtmask, $this->getCreatetime()),
-            '{{changeDate}}' => date($this->config->system_dtmask, $this->getChangetime()),
-            '{{permaLink}}' => $eventResult->getElementLink(),
-            '{{shortLink}}' => $eventResult->getArticleShortLink()
-        ));
-
-        if ($this->tweetOverride !== false) {
-            $tpl->setContent($this->tweetOverride);
-        }
-
-        return (new \fpcm\model\system\twitter())->updateStatus($tpl->parse());
     }
 
     /**
@@ -1003,25 +803,6 @@ implements \fpcm\model\interfaces\isCsvImportable {
     }
 
     /**
-     * Returns array with all status icons
-     * @param bool $showDraftStatus
-     * @param bool $showCommentsStatus
-     * @param bool $showArchivedStatus
-     * @return array
-     */
-    public function getMetaDataStatusIcons($showDraftStatus, $showCommentsStatus, $showArchivedStatus)
-    {
-        return [
-            $this->getStatusIconPinned(),
-            $showDraftStatus ? $this->getStatusIconDraft() : '',
-            $showCommentsStatus ? $this->getStatusIconComments() : '',
-            $this->getStatusIconApproval(),
-            $showArchivedStatus ? $this->getStatusIconArchive() : '',
-            $this->getStatusIconPostponed(),
-        ];
-    }
-
-    /**
      * Check if articles was created to display old article message
      * @return bool
      * @since 5.2.0-a1
@@ -1036,182 +817,6 @@ implements \fpcm\model\interfaces\isCsvImportable {
     }
 
     /**
-     * Returns pinned status icon
-     * @return \fpcm\view\helper\icon
-     */
-    public function getStatusIconPinned()
-    {
-        return $this->getStatusColor((new \fpcm\view\helper\icon('thumbtack fa-rotate-90 fa-inverse'))
-                        ->setClass('fpcm-ui-editor-metainfo fpcm-ui-editor-metainfo-pinned')
-                        ->setText('EDITOR_STATUS_PINNED')
-                        ->setStack('square'), $this->getPinned());
-    }
-
-    /**
-     * Returns draft status icon
-     * @return \fpcm\view\helper\icon
-     */
-    public function getStatusIconDraft()
-    {
-        return $this->getStatusColor((new \fpcm\view\helper\icon('file-alt fa-inverse', 'far'))
-                        ->setClass('fpcm-ui-editor-metainfo fpcm-ui-editor-metainfo-draft')
-                        ->setText('EDITOR_STATUS_DRAFT')
-                        ->setStack('square'), $this->getDraft());
-    }
-
-    /**
-     * Returns postponed status icon
-     * @return \fpcm\view\helper\icon
-     */
-    public function getStatusIconPostponed()
-    {
-        return $this->getStatusColor((new \fpcm\view\helper\icon('calendar-plus fa-inverse'))
-                        ->setClass('fpcm-ui-editor-metainfo fpcm-ui-editor-metainfo-postponed')
-                        ->setText($this->language->translate('EDITOR_STATUS_POSTPONETO') . ( $this->getPostponed() ? ' ' . new \fpcm\view\helper\dateText($this->getCreatetime()) : ''))
-                        ->setStack('square'), $this->getPostponed());
-    }
-
-    /**
-     * Returns approval status icon
-     * @return \fpcm\view\helper\icon
-     */
-    public function getStatusIconApproval()
-    {
-        return $this->getStatusColor((new \fpcm\view\helper\icon('thumbs-up fa-inverse', 'far'))
-                        ->setClass('fpcm-ui-editor-metainfo fpcm-ui-editor-metainfo-approval')
-                        ->setText('EDITOR_STATUS_APPROVAL')
-                        ->setStack('square'), $this->getApproval());
-    }
-
-    /**
-     * Returns comments enabled status icon
-     * @return \fpcm\view\helper\icon
-     */
-    public function getStatusIconComments()
-    {
-        return $this->getStatusColor((new \fpcm\view\helper\icon('comments fa-inverse', 'far'))
-                        ->setClass('fpcm-ui-editor-metainfo fpcm-ui-editor-metainfo-comments')
-                        ->setText('EDITOR_STATUS_COMMENTS')
-                        ->setStack('square'), $this->getComments());
-    }
-
-    /**
-     * Returns archive status icon
-     * @return \fpcm\view\helper\icon
-     */
-    public function getStatusIconArchive()
-    {
-        return $this->getStatusColor((new \fpcm\view\helper\icon('archive fa-inverse'))
-                        ->setClass('fpcm-ui-editor-metainfo fpcm-ui-editor-metainfo-archived')
-                        ->setText('EDITOR_STATUS_ARCHIVE')
-                        ->setStack('square'), $this->getArchived());
-    }
-
-    /**
-     * Returns archive status icon
-     * @return \fpcm\view\helper\icon
-     */
-    public function getStatusIconTwitter()
-    {
-        return $this->getStatusColor((new \fpcm\view\helper\icon('twitter fab fa-inverse'))
-                        ->setClass('fpcm-ui-editor-metainfo fpcm-ui-editor-metainfo-twitter')
-                        ->setText('EDITOR_TWEET_ENABLED')
-                        ->setStack('square'), $this->tweetCreationEnabled());
-    }
-
-    /**
-     * Assigns csv row to internal fields
-     * @param array $csvRow
-     * @return bool
-     * @since 4.5-b8
-     */
-    public function assignCsvRow(array $csvRow): bool
-    {
-        $data = array_intersect_key($csvRow, array_flip($this->getFields()));
-        
-        if (!count($data)) {
-            trigger_error('Failed to assign data, empty field set!');
-            return false;
-        }
-
-        if (empty($data['title'])) {
-            trigger_error('Failed to assign data, title cannot be empty!');
-            return false;
-        }
-
-        if (empty($data['content'])) {
-            trigger_error('Failed to assign data, content cannot be empty!');
-            return false;
-        }
-        
-        $obj = clone $this;
-
-        $obj->setTitle($data['title']);
-        $obj->setContent($data['content']);        
-        
-        if (!empty($csvRow['categories'])) {
-            $obj->setCategories(array_map('intval', explode(';', $data['categories'])) );
-        }
-
-        $timer = false;
-        if (isset($data['createtime']) && \fpcm\classes\tools::validateDateString($data['createtime'], true)) {
-            $timer = strtotime($data['createtime']);
-        }
-
-        if ($timer === false) {
-            $timer = time();
-        }
-
-        $obj->setCreatetime($timer);
-        $obj->setCreateuser( $data['createuser'] ?? \fpcm\classes\loader::getObject('\fpcm\model\system\session')->getUserId() );
-
-        $obj->setPinned($data['pinned'] ?? 0);
-        $obj->setDraft($data['draft'] ?? 0);
-        $obj->setComments($data['comments'] ?? $this->config->comments_default_active);
-        $obj->setApproval($data['approval'] ?? 0);
-        $obj->setImagepath($data['imagepath'] ?? '');
-        $obj->setSources($data['sources'] ?? '');
-
-        if (isset($data['archived']) && $data['archived']) {
-            $obj->setArchived(1);
-            $obj->setPinned(0);
-            $obj->setPostponed(0);
-        }
-
-        if (!$obj->save())  {
-            trigger_error('Failed to import article.'.PHP_EOL.PHP_EOL.print_r($data, true));
-            return false;
-        }
-
-        unset($obj);
-        return true;
-    }
-
-    /**
-     * Fetch fields for mapping
-     * @return array
-     * @since 4.5-b8
-     */
-    public function getFields(): array
-    {
-        return [
-            'TEMPLATE_ARTICLE_HEADLINE' => 'title',
-            'TEMPLATE_ARTICLE_TEXT' => 'content',
-            'TEMPLATE_ARTICLE_CATEGORYTEXTS' => 'categories',
-            'EDITOR_STATUS_DRAFT' => 'draft',
-            'EDITOR_STATUS_ARCHIVE' => 'archived',
-            'EDITOR_STATUS_PINNED' => 'pinned',
-            'EDITOR_STATUS_POSTPONETO' => 'postponed',
-            'EDITOR_STATUS_COMMENTS' => 'comments',
-            'EDITOR_STATUS_APPROVAL' => 'approval',
-            'EDITOR_ARTICLEIMAGE' => 'imagepath',
-            'SYSTEM_OPTIONS_NEWS_BYWRITTENTIME' => 'createtime',
-            'TEMPLATE_ARTICLE_AUTHOR' => 'createuser',
-            'TEMPLATE_ARTICLE_SOURCES' => 'sources',
-        ];
-    }
-
-        /**
      * Führt Ersetzung von gesperrten Texten in Artikel-Daten durch
      * @return bool
      * @since 3.2.0
@@ -1219,7 +824,7 @@ implements \fpcm\model\interfaces\isCsvImportable {
     protected function removeBannedTexts()
     {
         if ($this->wordbanList->checkArticleApproval($this->title) ||
-                $this->wordbanList->checkArticleApproval($this->content)) {
+            $this->wordbanList->checkArticleApproval($this->content)) {
             $this->setApproval(1);
         }
 
@@ -1272,7 +877,7 @@ implements \fpcm\model\interfaces\isCsvImportable {
      */
     protected function afterSaveInternal(): bool
     {
-        $this->pushcategories();
+        $this->pushCategories();
         $this->cleanupCaches();
         $this->createTweet();
         return true;
@@ -1286,48 +891,11 @@ implements \fpcm\model\interfaces\isCsvImportable {
      */
     protected function afterUpdateInternal(): bool
     {
-        $this->pushcategories();
+        $this->pushCategories();
         $this->cleanupCaches();
         $this->init();
         $this->createTweet();
         return true;
-    }
-
-    /**
-     * Add sources string to auto-complete file option, max. 25 values saved
-     * @param string $sources
-     * @return bool
-     * @since 4.1
-     */
-    static public function addSourcesAutocomplete(string $sources) : bool
-    {
-        if (!trim($sources)) {
-            return true;
-        }
-        
-        $sources = preg_split('/([,;]\ )/', $sources);
-        if (!is_array($sources)) {
-            $sources = [];
-        }
-
-        $fopt = new \fpcm\model\files\fileOption(self::SOURCES_AUTOCOMPLETE);
-        $data = $fopt->read();
-        if (!is_array($data)) {
-            $data = [];
-        }
-
-        return $fopt->write(array_slice(array_unique(array_merge($data, $sources)), 0, FPCM_ARTICLES_SOURCES_AUTOCOMPLETE));
-    }
-
-    /**
-     * Fetch sources strings from auto-complete file option
-     * @return array
-     * @since 4.1
-     */
-    static public function fetchSourcesAutocomplete() : array
-    {
-        $data = (new \fpcm\model\files\fileOption(self::SOURCES_AUTOCOMPLETE))->read();
-        return is_array($data) ? $data : [];
     }
 
 }

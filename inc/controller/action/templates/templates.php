@@ -88,11 +88,10 @@ class templates extends \fpcm\controller\abstracts\controller implements \fpcm\c
         
         $hiddenClass1 = in_array($this->getActiveTab(), [6,7]) ? 'fpcm-ui-hidden' : '';
         $hiddenClass2 = $this->getActiveTab() != 7 ? 'fpcm-ui-hidden' : '';
-        
+
         $buttons = [
-            (new \fpcm\view\helper\saveButton('saveTemplates', 'save1'))->setClass('fpcm-ui-maintoolbarbuttons-tab1 fpcm ui-button-confirm ' . $hiddenClass1)->setPrimary(),
-            (new \fpcm\view\helper\button('showpreview', 'showpreview'))->setText('GLOBAL_PREVIEW')->setIcon('eye')->setClass('fpcm-ui-maintoolbarbuttons-tab1 ' . $hiddenClass1),
-            (new \fpcm\view\helper\saveButton('saveTemplates', 'save2'))->setClass('fpcm-ui-maintoolbarbuttons-tab2 fpcm ui-button-confirm ' . ( $this->getActiveTab() == 6 ? '' : 'fpcm-ui-hidden' ) ),
+            (new \fpcm\view\helper\saveButton('saveTemplates'))->setClass( $this->getToolbarButtonToggleClass(1, '', true) )->setPrimary(),
+            (new \fpcm\view\helper\button('showpreview'))->setText('GLOBAL_PREVIEW')->setIcon('eye')->setClass( $this->getToolbarButtonToggleClass(1, '', true) )
         ];
         
         if ($this->permissions->system->drafts) {
@@ -194,7 +193,7 @@ class templates extends \fpcm\controller\abstracts\controller implements \fpcm\c
                     'tpl' => \fpcm\model\pubtemplates\tweet::TEMPLATE_ID
                 ]))
                 ->setData(['tplId' => \fpcm\model\pubtemplates\tweet::TEMPLATE_ID])
-                ->setTabToolbar(2)
+                ->setTabToolbar(1)
                 ->setDataViewId(''),
         ]);
         
@@ -318,56 +317,4 @@ class templates extends \fpcm\controller\abstracts\controller implements \fpcm\c
         return true;
     }
 
-    /**
-     * 
-     * @return bool
-     */
-    protected function onSaveTemplates()
-    {
-        $tplData = $this->request->fromPOST('template', [
-            \fpcm\model\http\request::FILTER_TRIM,
-            \fpcm\model\http\request::FILTER_STRIPSLASHES
-        ]);
-
-        if ($tplData === null) {
-            return true;
-        }
-
-        if (!$this->checkPageToken()) {
-            $this->view->addErrorMessage('CSRF_INVALID');
-            return false;
-        }
-        
-        $fn = 'get'. ucfirst($tplData['id']).'Template';
-        if (!method_exists($this, $fn)) {
-            return false;
-        }
-
-        if (!call_user_func([$this, $fn]) ||
-            !$this->prefix || !is_object($this->template) ||
-            !$this->template instanceof \fpcm\model\pubtemplates\template) {
-            return false;
-        }
-        
-        $this->template->setContent($tplData['content']);
-        $res = $this->template->save();
-
-        $isCommentForm = $tplData['id'] == \fpcm\model\pubtemplates\commentform::TEMPLATE_ID ? true : false;
-        if ($res === \fpcm\model\pubtemplates\commentform::SAVE_ERROR_FORMURL && $isCommentForm) {
-            $this->view->addErrorMessage('SAVE_FAILED_TEMPLATE_CF_URLMISSING');
-            return false;
-        }
-        elseif ($this->config->comments_privacy_optin && $res === \fpcm\model\pubtemplates\commentform::SAVE_ERROR_PRIVACY && $isCommentForm) {
-            $this->view->addErrorMessage('SAVE_FAILED_TEMPLATE_CF_PRIVACYMISSING');
-            return false;
-        }
-
-        if (!$res) {
-            $this->view->addErrorMessage('SAVE_FAILED_TEMPLATE', [ '{{filename}}' => $this->template->getFilename() ]);
-            return false;
-        }
-
-        $this->view->addNoticeMessage('SAVE_SUCCESS_TEMPLATE', [ '{{filename}}' => $this->template->getFilename() ]);
-        return true;
-    }
 }

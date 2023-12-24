@@ -85,6 +85,18 @@
 <fieldset class="py-3">
     <div class="row">
         <div class="col-12 col-md-8">
+            <?php $theView->textInput('article[relatesto]', 'fpcm-id-articles-relates-to')
+                ->setValue($article->getRelatesTo())
+                ->setIcon('arrow-down-up-across-line')
+                ->setSize('lg'); ?>
+
+        </div>
+    </div>
+</fieldset>
+
+<fieldset class="py-3">
+    <div class="row">
+        <div class="col-12 col-md-8">
             <?php $theView->textInput('article[imagepath]')
                 ->setType('url')
                 ->setPlaceholder('http://')
@@ -115,7 +127,6 @@
         </div>
     </div>
 </fieldset>
-
 <?php endif; ?>
 
 <hr>
@@ -125,11 +136,11 @@
     <div class="row">
         <div class="col">
             <?php $theView->checkbox('article[postponed]')
-                    ->setText('EDITOR_POSTPONETO')
-                    ->setSelected($article->getPostponed())
-                    ->setClass('fpcm-ui-editor-metainfo-checkbox')
-                    ->setData(['icon' => 'postponed'])
-                    ->setSwitch(true); ?>
+                ->setText('EDITOR_POSTPONETO')
+                ->setSelected($article->getPostponed())
+                ->setClass('fpcm-ui-editor-metainfo-checkbox')
+                ->setData(['icon' => 'postponed'])
+                ->setSwitch(true); ?>
         </div>
     </div>
 

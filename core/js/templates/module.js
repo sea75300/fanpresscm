@@ -22,6 +22,10 @@ fpcm.templates = {
                     return true;
                 }
 
+                if (_ui.target.dataset.tplid) {
+                    document.getElementById('btnShowpreview').disabled = _ui.target.dataset.tplid === 'tweet';
+                }
+
                 fpcm.templates.editorInstance.toTextArea();
                 fpcm.templates.editorInstance = null;                
                 fpcm.dom.fromTag(_ui.relatedTarget.dataset.bsTarget).empty();
@@ -29,7 +33,7 @@ fpcm.templates = {
             }
         });
 
-        fpcm.dom.bindClick('#showpreview', fpcm.templates.saveTemplatePreview);
+        fpcm.dom.bindClick('#btnShowpreview', fpcm.templates.saveTemplatePreview);
 
         fpcm.dom.bindClick('.fpcm-articletemplates-edit', function(_ev, _ui) {
 
@@ -55,7 +59,7 @@ fpcm.templates = {
             
         });
         
-        fpcm.dom.bindClick('#save1', function () {
+        fpcm.dom.bindClick('#btnSaveTemplates', function () {
             fpcm.ui_dialogs.confirm({
                 clickYes: function () {
                     fpcm.ajax.post('templates/save', {
@@ -80,11 +84,16 @@ fpcm.templates = {
 
     saveTemplatePreview: function() {
 
+        let _tplId = fpcm.dom.fromId('templateid').val();
+        if (_tplId === 'tweet') {
+            return false;
+        }
+
         fpcm.ajax.post('templates/savetemp', {
             quiet: true,
             data: {
                 content: fpcm.templates.editorInstance.getValue(),
-                tplid  : fpcm.dom.fromId('templateid').val()
+                tplid  : _tplId
             },
             execDone: function() {
                 fpcm.ui_dialogs.create({
