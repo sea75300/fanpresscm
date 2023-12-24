@@ -28,19 +28,6 @@
     </div>
 </div>
 
-<!-- iFrame einfügen -->  
-<div class="d-none" id="fpcm-dialog-editor-html-insertiframe">
-    <div class="row">
-        <?php $theView->textInput('frame[url]')
-                ->setType('url')
-                ->setValue('')
-                ->setPlaceholder('http://')
-                ->setText('EDITOR_LINKURL')
-                ->setIcon('external-link-alt')
-                ->setSize('lg') ?>
-    </div>
-</div>
-
 <!-- Bild einfügen -->  
 <div class="d-none" id="fpcm-dialog-editor-html-insertimage">
     <div class="row">

@@ -828,13 +828,21 @@ if (fpcm.editor) {
     
     fpcm.editor.insertIFrame = function() {
         
+        var _input = new fpcm.ui.forms.input();
+        _input.name = 'frame-url';
+        _input.type = 'url';
+        _input.label = fpcm.ui.translate('EDITOR_LINKURL');
+        _input.value = '';
+        _input.placeholder = 'https://';
+        
         fpcm.ui_dialogs.insert({
             id: 'editor-html-insertiframe',
             title: 'EDITOR_HTML_BUTTONS_IFRAME',
             closeButton: true,
+            content: _input,
             insertAction: function () {
 
-                let _url = fpcm.dom.fromId('frameurl').val();
+                let _url = fpcm.dom.fromId('fpcm-id-frame-url').val();
                 if (!_url) {
                     return false;
                 }
@@ -847,10 +855,7 @@ if (fpcm.editor) {
                 
                 fpcm.editor.insert(_code, '');
                 
-            },
-            dlOnClose: function() {
-                fpcm.dom.resetValuesByIdsString(['frameurl']);
-            },
+            }
         });
 
     };

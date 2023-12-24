@@ -91,6 +91,10 @@ export class element_input {
             _input.min = this.min;
         }
         
+        if (this.type) {
+            _input.type = this.type;
+        }
+        
         _wrapper.appendChild(_input);
         
 
