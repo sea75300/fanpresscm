@@ -90,6 +90,9 @@ if (fpcm.editor !== undefined) {
             useSize: true,
             size: 'xl modal-fullscreen-lg-down',
             modalBodyClass: 'vh-75',
+            icon: {
+                icon: 'folder-open'
+            },
             dlButtons: _btns
         });   
     };

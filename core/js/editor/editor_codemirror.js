@@ -283,6 +283,9 @@ if (fpcm.editor) {
         fpcm.ui_dialogs.insert({
             id: 'editor-html-insertlist',
             title: 'EDITOR_HTML_BUTTONS_LIST' + listtype.toUpperCase(),
+            icon: {
+                icon: 'list'
+            },
             dlOnClose: function() {
                 fpcm.dom.fromId('listrows').val('1');
                 fpcm.dom.fromId('listtype').val('');
@@ -365,6 +368,9 @@ if (fpcm.editor) {
         fpcm.ui_dialogs.insert({
             id: 'editor-html-insertsmileys',
             title: 'EDITOR_INSERTSMILEY',
+            icon: {
+                icon: 'face-smile'
+            },
             dlOnOpen: function (_ui, _bso) {
                 fpcm.ajax.exec('editor/smileys', {
                     quiet: true,
@@ -386,7 +392,10 @@ if (fpcm.editor) {
         fpcm.ui_dialogs.insert({
             id: 'editor-html-insertsymbol',
             title: 'EDITOR_INSERTSYMBOL',
-            content: nkorgJSCharMap.createList()
+            content: nkorgJSCharMap.createList(),
+            icon: {
+                icon: 'font'
+            }
         });
 
         nkorgJSCharMap.addClickEvent(function() {
@@ -401,6 +410,9 @@ if (fpcm.editor) {
         fpcm.ui_dialogs.insert({
             id: 'editor-html-insertcolor',
             title: 'EDITOR_INSERTCOLOR',
+            icon: {
+                icon: 'palette'
+            },
             insertAction: function() {
                 var mode    = fpcm.dom.fromClass('fpcm-ui-editor-colormode:checked').val();
                 var color   = fpcm.dom.fromId('colorhexcode').val();
@@ -442,6 +454,9 @@ if (fpcm.editor) {
         fpcm.ui_dialogs.insert({
             id: 'editor-html-insertdraft',
             title: 'EDITOR_HTML_BUTTONS_ARTICLETPL',
+            icon: {
+                icon: 'file-alt'
+            },            
             dlOnOpen: function() {
 
                 fpcm.ui.selectmenu('#tpldraft',{
@@ -494,6 +509,9 @@ if (fpcm.editor) {
         fpcm.ui_dialogs.insert({
             id: 'editor-html-insertmedia',
             title: 'EDITOR_INSERTMEDIA',
+            icon: {
+                icon: 'play'
+            },
             dlButtons: [{
                 text: fpcm.ui.translate('GLOBAL_PREVIEW'),
                 icon: "film",
@@ -529,6 +547,9 @@ if (fpcm.editor) {
         fpcm.ui_dialogs.insert({
             id: 'editor-html-inserttable',
             title: 'EDITOR_INSERTTABLE',
+            icon: {
+                icon: 'table'
+            },            
             dlOnClose: function() {
                 fpcm.dom.resetValuesByIdsString(['tablerows', 'tablecols'], '1')
             },
@@ -554,6 +575,9 @@ if (fpcm.editor) {
         fpcm.ui_dialogs.insert({
             id: 'editor-html-insertimage',
             title: 'EDITOR_INSERTPIC',
+            icon: {
+                icon: 'images'
+            },
             dlButtons: [{
                 text: 'EDITOR_INSERTPIC_ASLINK',
                 icon: "link",
@@ -601,6 +625,9 @@ if (fpcm.editor) {
         fpcm.ui_dialogs.insert({
             id: 'editor-html-insertlink',
             title: 'EDITOR_INSERTLINK',
+            icon: {
+                icon: 'link'
+            },            
             dlOnOpen: function () {
                 
                 fpcm.ajax.get('autocomplete', {
@@ -678,6 +705,9 @@ if (fpcm.editor) {
         fpcm.ui_dialogs.insert({
             id: 'editor-html-insertquote',
             title: 'EDITOR_HTML_BUTTONS_QUOTE',
+            icon: {
+                icon: 'quote-left'
+            },
             dlOnClose: function () {
                 fpcm.dom.resetValuesByIdsString(['quotetext', 'quotesrc']);
                 fpcm.dom.resetValuesByIdsChecked(['quotetype1', 'quotetype2']);
@@ -840,6 +870,9 @@ if (fpcm.editor) {
             title: 'EDITOR_HTML_BUTTONS_IFRAME',
             closeButton: true,
             content: _input,
+            icon: {
+                icon: 'puzzle-piece'
+            },
             insertAction: function () {
 
                 let _url = fpcm.dom.fromId('fpcm-id-frame-url').val();

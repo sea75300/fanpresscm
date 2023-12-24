@@ -150,6 +150,9 @@ fpcm.article = {
             title: 'COMMENTS_EDIT',
             url: _url,
             closeButton: true,
+            icon: {
+                icon: 'comment'
+            },
             dlButtons  : [
                 {
                     text: 'COMMMENT_LOCKIP',

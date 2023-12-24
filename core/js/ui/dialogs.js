@@ -384,6 +384,10 @@ fpcm.ui_dialogs = {
         if (_params.content) {
             _var.content = _params.content;
         }
+        
+        if (_params.icon) {
+            _var.icon = _params.icon;
+        }
 
         fpcm.ui_dialogs.create(_var);
     },

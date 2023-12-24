@@ -41,6 +41,9 @@ fpcm.templates = {
             fpcm.ui_dialogs.create({
                 title: 'TEMPLATE_HL_DRAFTS_EDIT',
                 url: _ui.attributes.href.value,
+                icon: {
+                    icon: 'file-code'
+                },
                 closeButton: true,
                 dlButtons : [
                     {
