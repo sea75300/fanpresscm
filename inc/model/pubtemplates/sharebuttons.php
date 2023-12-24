@@ -120,7 +120,7 @@ final class sharebuttons extends template {
             $value['icon'] = \fpcm\classes\dirs::getDataUrl(\fpcm\classes\dirs::DATA_SHARE, $value['icon']);
             
             if (!isset($value['target'])) {
-                $value['target'] = '_blank';
+                $value['target'] = \fpcm\view\helper\linkButton::TARGET_NEW;
             }
 
             $dataStr = '';

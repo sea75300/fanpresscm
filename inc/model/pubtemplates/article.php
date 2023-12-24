@@ -288,7 +288,7 @@ final class article extends template {
     {
         $this->parseLinks($value, [
             'rel' => 'noopener noreferrer,external',
-            'target' => '_blank',
+            'target' => \fpcm\view\helper\linkButton::TARGET_NEW,
         ]);
 
         $this->processAttributes('sources', $value, $return, function($attr, $value, $newVal) {

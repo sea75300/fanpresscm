@@ -102,7 +102,7 @@ class recentarticles extends \fpcm\model\abstracts\dashcontainer implements \fpc
 
             $content[] = '<div class="row fpcm-ui-font-small py-1">';
             $content[] = '  <div class="col-12 col-md-auto px-3 text-center">';
-            $content[] = (string) (new \fpcm\view\helper\openButton('openBtn'))->setUrlbyObject($article)->setTarget('_blank');
+            $content[] = (string) (new \fpcm\view\helper\openButton('openBtn'))->setUrlbyObject($article)->setTarget(\fpcm\view\helper\linkButton::TARGET_NEW);
             $content[] = (string) (new \fpcm\view\helper\editButton('editBtn'))->setUrlbyObject($article)->setReadonly($article->getEditPermission() ? false : true);
             $content[] = '  </div>';
 

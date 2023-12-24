@@ -294,7 +294,7 @@ class articleedit extends articlebase {
         $this->view->addButtons([
             (new \fpcm\view\helper\openButton('articlefe'))
                 ->setUrlbyObject($this->article)
-                ->setTarget('_blank')
+                ->setTarget(\fpcm\view\helper\linkButton::TARGET_NEW)
                 ->setIconOnly()
                 ->setClass( $this->getToolbarButtonToggleClass(1, ',', true) ),
             (new \fpcm\view\helper\button('shortlink'))
@@ -358,7 +358,7 @@ class articleedit extends articlebase {
                     ->setIcon($icon['icon'], $icon['prefix'])
                     ->setSize('lg')
                     ->setUrl($url)
-                    ->setTarget('_blank')
+                    ->setTarget(\fpcm\view\helper\linkButton::TARGET_NEW)
                     ->setValue(md5($share))
                     ->setText(ucfirst($share));
         }
@@ -398,7 +398,8 @@ class articleedit extends articlebase {
                 ->setClass( $this->getToolbarButtonToggleClass(1, '', true) )
                 ->setIconOnly()
                 ->setReadonly($tmp->isInEdit())
-                ->setUrl($tmp->getElementLink())
+                ->setUrl($tmp->getEditLink())
+                ->setTarget(\fpcm\view\helper\linkButton::TARGET_NEW)
         );
     }
 

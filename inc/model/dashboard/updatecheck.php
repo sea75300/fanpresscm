@@ -219,7 +219,7 @@ class updatecheck extends \fpcm\model\abstracts\dashcontainer implements \fpcm\m
             ->setUrl(\fpcm\classes\baseconfig::$updateServerManualLink)
             ->setIcon('square-up-right')
             ->setText('PACKAGES_MANUALCHECK')
-            ->setTarget('_blank')
+            ->setTarget(\fpcm\view\helper\linkButton::TARGET_NEW)
             ->setRel('noreferrer,noopener,external');
     }
 

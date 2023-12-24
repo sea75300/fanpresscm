@@ -190,7 +190,7 @@ implements \fpcm\controller\interfaces\requestFunctions
                     $buttons[] = (new \fpcm\view\helper\editButton('editArticle'))->setUrlbyObject($article)->setText('COMMENTS_EDITARTICLE')->setIcon('book');
                 }
 
-                $buttons[] = (new \fpcm\view\helper\openButton('commentfe'))->setUrlbyObject($this->comment)->setTarget('_blank');           
+                $buttons[] = (new \fpcm\view\helper\openButton('commentfe'))->setUrlbyObject($this->comment)->setTarget(\fpcm\view\helper\linkButton::TARGET_NEW);           
             }
             else {
                 $showArticleIdField = true;
@@ -202,7 +202,7 @@ implements \fpcm\controller\interfaces\requestFunctions
 
         $buttons[] = (new \fpcm\view\helper\linkButton('whoisIp'))
                 ->setUrl("http://www.whois.com/whois/{$this->comment->getIpaddress()}")
-                        ->setTarget('_blank')
+                        ->setTarget(\fpcm\view\helper\linkButton::TARGET_NEW)
                         ->setText('Whois')
                         ->setIcon('home')
                         ->setIconOnly()

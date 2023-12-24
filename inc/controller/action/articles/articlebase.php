@@ -340,7 +340,12 @@ abstract class articlebase extends \fpcm\controller\abstracts\controller impleme
         $this->article->setPinned($data['pinned'] ?? 0);
         $this->article->setDraft($data['draft'] ?? 0);
         $this->article->setComments($data['comments'] ?? $this->config->comments_default_active);
-        $this->article->setRelatesTo(intval($data['relatesto'] ?? 0));
+
+        $relates_to = intval($data['relatesto'] ?? 0);
+        if ($relates_to && $relates_to !== $this->article->getId()) {
+            $this->article->setRelatesTo($relates_to);
+        }
+        
         
         $this->article->setApproval($this->approvalRequired ? 1 : ( $data['approval'] ?? 0 ));
         $this->article->setImagepath($data['imagepath'] ?? '');

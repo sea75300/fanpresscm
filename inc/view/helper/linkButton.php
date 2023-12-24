@@ -18,6 +18,8 @@ namespace fpcm\view\helper;
 class linkButton extends button {
     
     use traits\urlHelper;
+    
+    const TARGET_NEW = '_blank';
 
     /**
      * rel-Attribute

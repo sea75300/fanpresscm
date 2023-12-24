@@ -67,6 +67,11 @@ fpcm.article = {
             source: fpcm.vars.ajaxActionPath + 'autocomplete&src=articlesources',
             minLength: 3
         });
+        
+        fpcm.ui.autocomplete('#fpcm-id-articles-relates-to', {
+            source: fpcm.vars.ajaxActionPath + 'autocomplete&src=articles',
+            minLength: 3
+        });
 
         fpcm.dom.bindClick('#insertarticleimg', function () {
             fpcm.editor.showFileManager(3);

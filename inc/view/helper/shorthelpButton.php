@@ -25,7 +25,7 @@ class shorthelpButton extends linkButton {
     {
         $this->class = 'fpcm ui-button-shorthelp btn btn-outline-secondary';
         $this->iconOnly = true;
-        $this->target = '_blank';
+        $this->target = \fpcm\view\helper\linkButton::TARGET_NEW;
         $this->rel = 'noreferrer,noopener,external';
         $this->setIcon('question');
     }

@@ -254,7 +254,7 @@ class templates extends \fpcm\controller\abstracts\controller implements \fpcm\c
 
             $buttons = [
                 '<div>',
-                (new \fpcm\view\helper\linkButton(uniqid()))->setText('GLOBAL_DOWNLOAD')->setUrl($templateFile->getFileUrl())->setIcon('download')->setIconOnly()->setTarget('_blank'),
+                (new \fpcm\view\helper\linkButton(uniqid()))->setText('GLOBAL_DOWNLOAD')->setUrl($templateFile->getFileUrl())->setIcon('download')->setIconOnly()->setTarget(\fpcm\view\helper\linkButton::TARGET_NEW),
                 (new \fpcm\view\helper\editButton(uniqid()))->setUrlbyObject($templateFile)->setClass('fpcm-articletemplates-edit'),
                 '</div>'
             ];

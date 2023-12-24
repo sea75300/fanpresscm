@@ -161,7 +161,7 @@ trait lists {
             foreach ($articles as $articleId => $article) {
 
                 $buttons = (new \fpcm\view\helper\controlgroup('articlebuttons' . $article->getId() ))
-                            ->addItem( (new \fpcm\view\helper\openButton('articlefe'))->setUrlbyObject($article)->setTarget('_blank') )
+                            ->addItem( (new \fpcm\view\helper\openButton('articlefe'))->setUrlbyObject($article)->setTarget(\fpcm\view\helper\linkButton::TARGET_NEW) )
                             ->addItem( (new \fpcm\view\helper\editButton('articleedit'))->setUrlbyObject($article) );
                 
                 $this->getExtLineMenu($buttons, $article, $showDeleteButton, $showTwitterButton);

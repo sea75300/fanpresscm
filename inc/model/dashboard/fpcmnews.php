@@ -117,7 +117,7 @@ class fpcmnews extends \fpcm\model\abstracts\dashcontainer {
     {
         return (new \fpcm\view\helper\linkButton('toActiveArticles'))
                 ->setUrl('https://github.com/sea75300/fanpresscm/releases')
-                ->setTarget('_blank')
+                ->setTarget(\fpcm\view\helper\linkButton::TARGET_NEW)
                 ->setIcon('github', 'fa-brands')
                 ->setText('GitHub');
     }

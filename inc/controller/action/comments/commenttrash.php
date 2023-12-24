@@ -134,7 +134,7 @@ class commenttrash extends \fpcm\controller\abstracts\controller
     {
         $buttons = [
             '<div>',
-            (new \fpcm\view\helper\openButton('commentfe'))->setUrlbyObject($item)->setTarget('_blank'),
+            (new \fpcm\view\helper\openButton('commentfe'))->setUrlbyObject($item)->setTarget(\fpcm\view\helper\linkButton::TARGET_NEW),
             (new \fpcm\view\helper\editButton('commentedit'))->setUrlbyObject($item, '&mode=1')->setClass('fpcm-ui-commentlist-link'),
             '</div>'
         ];

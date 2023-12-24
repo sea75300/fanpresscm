@@ -170,9 +170,7 @@ class autocomplete extends \fpcm\controller\abstracts\ajaxController
     
     private function hasNoArticlesAccess() : bool
     {
-        return !$this->permissions->article->edit && !$this->permissions->article->editall ? true : false;
+        return !$this->permissions->article->edit && !$this->permissions->article->editall;
     }
 
 }
-
-?>
