@@ -47,5 +47,3 @@ trait valueHelper {
     }
 
 }
-
-?>

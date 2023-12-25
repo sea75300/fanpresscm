@@ -237,31 +237,31 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller
         ]);
 
         $this->view->assign('searchPinned', [
-            '' => -1,
+            'GLOBAL_SELECT' => -1,
             'GLOBAL_YES' => 1,
             'GLOBAL_NO' => 0
         ]);
 
         $this->view->assign('searchPostponed', [
-            '' => -1,
+            'GLOBAL_SELECT' => -1,
             'GLOBAL_YES' => 1,
             'GLOBAL_NO' => 0
         ]);
 
         $this->view->assign('searchComments', [
-            '' => -1,
+            'GLOBAL_SELECT' => -1,
             'GLOBAL_YES' => 1,
             'GLOBAL_NO' => 0
         ]);
 
         $this->view->assign('searchApproval', [
-            '' => -1,
+            'GLOBAL_SELECT' => -1,
             'GLOBAL_YES' => 1,
             'GLOBAL_NO' => 0
         ]);
 
         $this->view->assign('searchDraft', [
-            '' => -1,
+            'GLOBAL_SELECT' => -1,
             'GLOBAL_YES' => 1,
             'GLOBAL_NO' => 0
         ]);

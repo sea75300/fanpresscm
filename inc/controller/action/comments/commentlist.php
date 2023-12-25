@@ -112,19 +112,19 @@ class commentlist extends \fpcm\controller\abstracts\controller
         ]);
 
         $this->view->assign('searchApproval', array(
-            '' => -1,
+            'GLOBAL_SELECT' => -1,
             'GLOBAL_YES' => 1,
             'GLOBAL_NO' => 0
         ));
 
         $this->view->assign('searchSpam', array(
-            '' => -1,
+            'GLOBAL_SELECT' => -1,
             'GLOBAL_YES' => 1,
             'GLOBAL_NO' => 0
         ));
 
         $this->view->assign('searchPrivate', array(
-            '' => -1,
+            'GLOBAL_SELECT' => -1,
             'GLOBAL_YES' => 1,
             'GLOBAL_NO' => 0
         ));
@@ -146,5 +146,3 @@ class commentlist extends \fpcm\controller\abstracts\controller
     }
 
 }
-
-?>
