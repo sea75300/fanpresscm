@@ -567,6 +567,14 @@ class module {
             return [];
         }
 
+        if (isset($this->config->configOptions['add'])) {
+            trigger_error(sprintf('The "configOptions::add" block in module.yml is deprecated as of as of FPCM 5.2.0. Use migrations instead for "%s".', $this->mkey), E_USER_DEPRECATED);
+        }
+
+        if (isset($this->config->configOptions['remove'])) {
+            trigger_error(sprintf('The "configOptions::remove" block in module.yml is deprecated as of FPCM 5.2.0. Use migrations instead for "%s".', $this->mkey), E_USER_DEPRECATED);
+        }
+
         $addcfg = isset($this->config->configOptions['add']) && is_array($this->config->configOptions['add'])
                 ? $this->config->configOptions['add']
                 : [];
@@ -575,6 +583,11 @@ class module {
                 ? $this->config->configOptions['remove']
                 : [];
 
+        if (!count($addcfg) && !count($delcfg)) {
+            $configOptions = $this->config->configOptions;
+            return is_array($configOptions) && count($configOptions) ? $configOptions : [];
+        }
+        
         $configOptions = array_unique(array_merge($addcfg, $delcfg));
         if (!count($configOptions)) {
             return [];
@@ -927,6 +940,11 @@ class module {
         $this->cache->cleanup();
 
         $this->config = new config($this->mkey);
+
+        if (!$this->runMigrations()) {
+            return false;
+        }
+
         if (!$this->updateTables()) {
             return false;
         }
@@ -940,10 +958,6 @@ class module {
         }
 
         if (!$this->createDataFolder()) {
-            return false;
-        }
-
-        if (!$this->runMigrations()) {
             return false;
         }
 
@@ -1051,6 +1065,9 @@ class module {
         fpcmLogSystem('Update modules table for ' . $this->mkey . ' during update');
 
         $tables = $this->config->tables;
+        if (is_array($tables) && count($tables)) {
+            trigger_error(sprintf('The "tables" block in module.yml is deprecated as of FPCM 5.2.0. Use migrations instead for "%s".', $this->mkey), E_USER_DEPRECATED);
+        }
 
         $addTables = $tables['add'] ?? [];
         if (!is_array($addTables)) {
@@ -1141,7 +1158,6 @@ class module {
      */
     private function runMigrations() : bool
     {
-
         $migrations = $this->getMigrations();
         if (!count($migrations)) {
             return true;
