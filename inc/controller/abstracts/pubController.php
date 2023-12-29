@@ -11,6 +11,10 @@ if (!defined('FPCM_MODE_NOPAGETOKEN')) {
     define('FPCM_MODE_NOPAGETOKEN', true);
 }
 
+if (!defined('FPCM_MODE_PUBVIEW')) {
+    define('FPCM_MODE_PUBVIEW', true);
+}
+
 
 /**
  * Basis für "public"-Controller

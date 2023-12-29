@@ -13,7 +13,6 @@ class filelist extends \fpcm\controller\abstracts\controller
 {
 
     use \fpcm\controller\traits\files\lists,
-        \fpcm\controller\traits\common\searchParams,
         \fpcm\controller\traits\theme\viewAjaxDummy;
 
     /**
@@ -95,7 +94,10 @@ class filelist extends \fpcm\controller\abstracts\controller
             'SYSTEM_OPTIONS_NEWSSHOWMAXIMGSIZEHEIGHT',
             'SYSTEM_OPTIONS_NEWSSHOWMAXIMGSIZEWIDTH',
             'FILE_LIST_EDIT_RESIZE_NOTICE', 'FILE_LIST_ALTTEXT',
-            'FILE_LIST_ALTTEXT', 'FILE_LIST_FILENAME', 'MSG_FILES_CREATETHUMBS'
+            'FILE_LIST_ALTTEXT', 'FILE_LIST_FILENAME', 'MSG_FILES_CREATETHUMBS',
+            'GLOBAL_LASTCHANGE', 'FILE_LIST_UPLOAD_BY', 'FILE_LIST_FILESIZE',
+            'FILE_LIST_RESOLUTION', 'FILE_LIST_FILETYPE', 'FILE_LIST_FILEHASH',
+            'FILE_LIST_FILECREDITS'
         ], $uploader->getJsLangVars()));
 
         if (!trim($uploader->getTemplate()) || !realpath($uploader->getTemplate())) {
@@ -114,7 +116,7 @@ class filelist extends \fpcm\controller\abstracts\controller
         $this->view->addJsFilesLate($uploader->getJsFilesLate());
         $this->view->setJsModuleFiles($uploader->getJsModuleFiles());
         $this->view->setViewVars(array_merge([
-            'searchUsers' =>  ['GLOBAL_SELECT' => -1] + (new \fpcm\model\users\userList)->getUsersNameList(),
+            /*'searchUsers' =>  ['GLOBAL_SELECT' => -1] + (new \fpcm\model\users\userList)->getUsersNameList(),*/
             'mode' => $this->mode,
             'hasFiles' => $hasFiles,
         ], $uploader->getViewVars() ));
@@ -198,6 +200,57 @@ class filelist extends \fpcm\controller\abstracts\controller
                 ->setData(['user_setting' => 'file_list_limit'])
         ]);
 
+    }
+    
+    public function assignSearchFromVars()
+    {
+        
+        $fields = [
+            'filename' => [
+                'call' => 'input',
+                'class' => 'fpcm-files-search-input',
+                'maxlenght' => 255,
+                'placeholder' => 'FILE_LIST_SEARCHTEXT',
+                'label' => 'FILE_LIST_SEARCHTEXT',
+                'autofocus' => true,
+                'noCombination' => true
+            ],
+            'datefrom' => [
+                'call' => 'input',
+                'type' => 'date',
+                'class' => 'fpcm-files-search-input',
+                'label' => 'ARTICLE_SEARCH_DATE_FROM',
+            ],
+            'dateto' => [
+                'call' => 'input',
+                'type' => 'date',
+                'class' => 'fpcm-files-search-input',
+                'label' => 'ARTICLE_SEARCH_DATE_TO',
+            ],
+            'userid' => [
+                'call' => 'select',
+                'class' => 'fpcm-files-search-input',
+                'options' => ['GLOBAL_SELECT' => -1] + (new \fpcm\model\users\userList)->getUsersNameList(),
+                'label' => 'ARTICLE_SEARCH_USER',
+            ]
+        ];
+        
+        $combinations = [
+            'default' => [
+                'ARTICLE_SEARCH_LOGICNONE' => -1,
+                'ARTICLE_SEARCH_LOGICAND' => 0,
+                'ARTICLE_SEARCH_LOGICOR' => 1,
+            ]
+        ];
+        
+        $this->view->addSearchForm($fields, $combinations);
+        
+        $this->view->addJsLangVars([
+            'SEARCH_WAITMSG', 'ARTICLES_SEARCH', 'ARTICLE_SEARCH_START',
+            'ARTICLE_SEARCH_USER', 'ARTICLE_SEARCH_DATE_TO', 'ARTICLE_SEARCH_DATE_FROM',
+            'FILE_LIST_SEARCHTEXT', 'ARTICLE_SEARCH_LOGICNONE', 'ARTICLE_SEARCH_LOGICAND',
+            'ARTICLE_SEARCH_LOGICOR', 'ARTICLE_SEARCH_LOGIC', 'GLOBAL_SELECT'
+        ]);
     }
 
 }

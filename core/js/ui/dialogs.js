@@ -119,7 +119,12 @@ fpcm.ui_dialogs = {
         let _bodyEl = _domEl.querySelector('div.modal-body');
         if (_bodyEl) {
 
-            if (_params.content instanceof Array && _params.content.length > 0) {
+            if (_params.directAssignToDom) {
+                if (_params.content instanceof Object) {
+                    _bodyEl.appendChild(_params.content);
+                }
+            }
+            else if (_params.content instanceof Array && _params.content.length > 0) {
                 
                 for (_element of _params.content) {
                     
@@ -141,8 +146,8 @@ fpcm.ui_dialogs = {
             }
             else if (_params.content instanceof Object) {
                 if (!_params.content.assignToDom instanceof Function) {
-                        console.error('Dialog content element in array must provide a method "assignToDom".');
-                        console.error(_params.content);                    
+                    console.error('Dialog content element in array must provide a method "assignToDom".');
+                    console.error(_params.content);
                 }
                 else {
                     _params.content.assignToDom(_bodyEl);

@@ -29,11 +29,6 @@ class view {
     const PATH_COMPONENTS = '{$components}';
     const PATH_MODULE = '{$module}';
 
-    const JS_FILETYP_URL  = 0b100;
-    const JS_FILETYP_FILE = 0b010;
-    const JS_FILETYP_FILE_EXT = 0b001;
-    const JS_FILES_CACHE = 'themejsfiles/';
-
     /**
      * Complete view path
      * @var string
@@ -89,15 +84,7 @@ class view {
      * @since 4.5
      */
     protected $jsFilesLate = [];
-
-    /**
-     * Local view files in core/js
-     * @var array
-     * @since 4.1
-     */
-    protected $jsFilesLocal = [];
-
-    /**
+/**
      * Javascript ECMA-modules
      * @var array
      * @since 5.2.0
@@ -289,42 +276,33 @@ class view {
      * @param string $item
      * @since 3.6
      */
-    private function addRootPath($item)
+    private function addRootPath(string $item) : string
     {
         if (!$item) {
             return '';
         }
 
-        $jsCorePath = '';
-
-        $type = $this->getJsFileType($item, $jsCorePath);
-        if ($type === self::JS_FILETYP_FILE) {
-            $this->jsFilesLocal[] = $jsCorePath;
-            return $jsCorePath;
+        if (str_starts_with($item, 'http') || str_starts_with($item, '//') ||
+           ( !str_ends_with($item, '.js') && !str_ends_with($item, '.css') ) 
+           ) {
+            return $item;
+        }  
+        
+        if (str_starts_with($item, self::ROOTURL_CORE_THEME) ||
+            str_starts_with($item, self::ROOTURL_CORE_JS) ||
+            str_starts_with($item, self::ROOTURL_LIB) ) {
+            return \fpcm\classes\tools::strReplaceArray($item, $this->rootUrls);
         }
 
-        return \fpcm\classes\tools::strReplaceArray($item, $this->rootUrls);
-    }
-
-    /**
-     * Checks path type of given JS file
-     * @param string $item
-     * @param string $jsCorePath
-     * @since 4.1
-     */
-    private function getJsFileType(string $item, &$jsCorePath) : int
-    {
-        $item = trim($item);
-        if (!$item || substr($item, -3) !== '.js' || substr($item, 0, 4) === 'http' || substr($item, 0, 2) === '//') {
-            return self::JS_FILETYP_URL;
+        if (str_ends_with($item, '.css') && !str_starts_with($item, self::ROOTURL_CORE_THEME)) {
+            $prefix = self::ROOTURL_CORE_THEME;
         }
         
-        $jsCorePath = \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_JS, $item);
-        if (file_exists($jsCorePath)) {
-            return self::JS_FILETYP_FILE;
+        if (!str_starts_with($item, self::ROOTURL_LIB) && !str_starts_with($item, self::ROOTURL_CORE_JS)) {
+            $prefix = self::ROOTURL_CORE_JS;
         }
         
-        return self::JS_FILETYP_FILE_EXT;
+        return \fpcm\classes\tools::strReplaceArray($prefix . $item, $this->rootUrls);
     }
 
     /**
@@ -527,11 +505,9 @@ class view {
         if (!trim($lib)) {
             return false;
         }
-        
-        $lib = \fpcm\classes\dirs::getLibUrl($lib. '/' );
-        
+
         $this->addJsFiles(array_map(function ($item) use ($lib) {
-            return $lib.$item;
+            return self::ROOTURL_LIB . $lib . '/' . $item;
         }, $jsFiles));
 
         if (!count($cssFiles)) {
@@ -539,7 +515,7 @@ class view {
         }
         
         $this->addCssFiles(array_map(function ($item) use ($lib) {
-            return $lib.$item;
+            return self::ROOTURL_LIB . $lib . '/' . $item;
         }, $cssFiles));
 
         return true;
@@ -562,7 +538,7 @@ class view {
         $jsPath = \fpcm\module\module::getJsDirByKey($moduleKey, '');
 
         $this->addJsFiles(array_map(function ($item) use ($jsPath) {
-            return $jsPath.$item;
+            return $jsPath . $item;
         }, $jsFiles));
 
         if (!count($cssFiles)) {
@@ -855,25 +831,16 @@ class view {
         $this->defaultViewVars->formActionTarget = $this->formAction;
         $this->defaultViewVars->bodyClass = $this->bodyClass;
         $this->defaultViewVars->lang = \fpcm\classes\loader::getObject('\fpcm\classes\language');
-        $this->defaultViewVars->filesCss = array_unique(array_map([$this, 'addRootPath'], $this->cssFiles));
-
-        $this->jsFiles = array_unique(array_diff(array_map([$this, 'addRootPath'], $this->jsFiles), $this->jsFilesLocal));
-        $this->jsFilesLate = array_unique(array_map([$this, 'addRootPath'], $this->jsFilesLate));
-        $this->jsFilesLocal = array_unique($this->jsFilesLocal);
-
-        $this->viewHash = \fpcm\classes\tools::getHash($this->viewPath.$this->viewHash. implode('-', $this->jsFilesLocal));
-        $this->jsFiles = array_map(function($item) {
-            return str_replace(self::ROOTURL_UNIQUE, $this->viewHash, $item);
-        }, $this->jsFiles);
-
-        $this->jsFilesLate = array_map(function($item) {
-            return str_replace(self::ROOTURL_UNIQUE, $this->viewHash, $item);
-        }, $this->jsFilesLate);
-        
+        $this->defaultViewVars->filesCss = array_unique( array_map([$this, 'addRootPath'], $this->cssFiles) );
         $this->defaultViewVars->filesECMAFiles = $this->jsModuleFiles;
-        $this->defaultViewVars->filesJs = $this->jsFiles;
-        $this->defaultViewVars->filesJsLate = $this->jsFilesLate;
-        $this->cache->write(self::JS_FILES_CACHE.$this->getViewHash(), $this->jsFilesLocal);
+        
+        
+        if (defined('FPCM_VIEW_JS_USE_MINIFIED') || !FPCM_VIEW_JS_USE_MINIFIED) {
+            $this->rootUrls['.js'] = $this->getJsExt();
+        }        
+        
+        $this->defaultViewVars->filesJs = array_unique( array_map([$this, 'addRootPath'], $this->jsFiles) );
+        $this->defaultViewVars->filesJsLate = array_unique( array_map([$this, 'addRootPath'], $this->jsFilesLate) );
 
         $this->defaultViewVars->fullWrapper = in_array($this->defaultViewVars->currentModule, ['installer']);
         $this->defaultViewVars->showPageToken = $this->showPageToken;
@@ -1204,6 +1171,22 @@ class view {
     }
 
     /**
+     * Adds Javascript parameters for search form
+     * @param array $fields
+     * @param array $combinations
+     * @since 5.2.0-a1
+     */
+    public function addSearchForm(array $fields, array $combinations = [])
+    {
+        $this->jsVars['searchForm'] = [
+            'combinations' => $combinations,
+            'fields' => $fields
+        ];
+        
+        
+    }
+
+    /**
      * Add path for default forms.php view file
      * @param string str
      * @since 5.0-dev
@@ -1251,6 +1234,10 @@ class view {
      */
     private function initCssFiles()
     {
+        if (defined('FPCM_MODE_PUBVIEW') && FPCM_MODE_PUBVIEW) {
+            return;
+        }        
+        
         $this->addCssFiles([
             self::ROOTURL_LIB.'bootstrap/css/bootstrap.min.css',
             self::ROOTURL_LIB.'fancybox/jquery.fancybox.min.css',
@@ -1267,12 +1254,29 @@ class view {
      */
     private function initJsFiles()
     {
+        if (defined('FPCM_MODE_PUBVIEW') && FPCM_MODE_PUBVIEW) {
+            return;
+        }
+        
+        $ext = self::getJsExt();
+        
         $this->addJsFiles([
             \fpcm\components\components::getjQuery(),
             self::ROOTURL_LIB.'bootstrap/js/bootstrap.bundle.min.js',
             self::ROOTURL_LIB.'bs-autocomplete/autocomplete.js',
             self::ROOTURL_LIB.'fancybox/jquery.fancybox.min.js',
-            self::ROOTURL_CORE_JS.'script.php?uq=' . self::ROOTURL_UNIQUE,
+            '{$coreJs}/ajax' . $ext,
+            '{$coreJs}/dom' . $ext,
+            '{$coreJs}/ui/base' . $ext,
+            '{$coreJs}/ui/dialogs' . $ext,
+            '{$coreJs}/ui/webnotify' . $ext,
+            '{$coreJs}/ui/notifications' . $ext,
+            '{$coreJs}/ui/loader' . $ext,
+            '{$coreJs}/ui/tabs' . $ext,
+            '{$coreJs}/ui/pager' . $ext,
+            '{$coreJs}/ui/deprecated' . $ext,
+            '{$coreJs}/system' . $ext,
+            '{$coreJs}/gsearch' . $ext
         ]);
 
         $this->addJsFilesLate([self::ROOTURL_CORE_JS.'init'.self::getJsExt()]);

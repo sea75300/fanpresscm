@@ -4,7 +4,7 @@
  * @copyright (c) 2023, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-export class element_input {
+export class element_select {
     
     name = '';
 
@@ -14,27 +14,19 @@ export class element_input {
     
     value = '';
     
-    class = 'form-control';
+    class = 'form-select';
     
     wrapper = 'form-floating mb-3';
-    
-    placeholder = '';
 
     label = '';
-
-    pattern = '';
-
-    maxlenght = 255;
-
-    max = '';
-
-    min = '';
     
-    readonly = false;
-    
-    autofocus = false;
+    disabled = false;
     
     labelIcon = false;
+    
+    options = [];
+    
+    preSelected = false;
 
     assignToDom(_destination) {
         
@@ -46,10 +38,10 @@ export class element_input {
         let _wrapper = document.createElement('div');
         _wrapper.className = this.wrapper;              
         
-        let _input = document.createElement('input');
+        let _input = document.createElement('select');
         
         if (!this.name && !this.id) {
-            console.warn('An element of fpcm_ui_input requires at least a name or id');
+            console.error('An element of fpcm_ui_input requires at least a name or id');
             return false;
         }
         
@@ -63,38 +55,24 @@ export class element_input {
         _input.value = this.value;
         _input.className = this.class;
         
-        if (this.maxlenght) {
-            _input.maxLength = this.maxlenght;
+        if (this.disabled) {
+            _input.disabled = true;
         }
-        
-        if (this.pattern) {
-            _input.pattern = this.pattern;
+
+        if (this.options) {
+            
+            if (!fpcm.vars.jsvars.search instanceof Object) {
+                console.error('The options of fpcm_ui_select requires to be an Object or Array instance');
+                return false;                
+            }
+
+            for (var _opt in this.options) {
+                let _val = this.options[_opt];
+                _input.options.add( new Option(fpcm.ui.translate(_opt), _val, this.preSelected === _val) );
+            }
+            
         }
-        
-        if (this.readonly) {
-            _input.readonly = true;
-        }
-        
-        if (this.autofocus) {
-            _input.autofocus = true;
-        }
-        
-        if (this.placeholder) {
-            _input.placeholder = fpcm.ui.translate(this.placeholder);
-        }
-        
-        if (this.max) {
-            _input.max = this.max;
-        }
-        
-        if (this.min) {
-            _input.min = this.min;
-        }
-        
-        if (this.type) {
-            _input.type = this.type;
-        }
-        
+
         _wrapper.appendChild(_input);
 
         if (this.label) {
@@ -112,7 +90,7 @@ export class element_input {
 
             _wrapper.appendChild(_label);
         }
-       
+        
         _destination.appendChild(_wrapper);
     }
     

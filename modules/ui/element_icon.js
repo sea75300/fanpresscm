@@ -28,6 +28,19 @@ export class element_icon {
     
     stackClass = '';
 
+    constructor(_icon, _size, _prefix) {
+
+        this.icon = _icon;
+
+        if (_prefix) {
+            this.prefix = _prefix;
+        }
+        
+        if (_size) {
+            this.size = _size;
+        }
+    }
+
     getString() {
         
         let _bottomStack = '';

@@ -174,7 +174,7 @@ fpcm.system = {
                 });                
                 
 
-                if (fpcm.vars.jsvars.articleId > 0) {
+                if (fpcm.vars.jsvars.articleId > 0 && fpcm.editor && fpcm.editor.showInEditDialog) {
                     fpcm.editor.showInEditDialog(result);
                 }
 
@@ -223,6 +223,10 @@ fpcm.system = {
         };
 
         if (!_ajaxParams.ids.length) {
+            fpcm.ui.addMessage({
+                type: 'error',
+                txt: 'SELECT_ITEMS_MSG'
+            }, true);
             return false;
         }
         

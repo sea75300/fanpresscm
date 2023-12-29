@@ -408,7 +408,7 @@ implements \fpcm\model\interfaces\gsearchIndex {
     private function assignMultipleSearchParams(search $conditions, array &$where, array &$valueParams, string $combination) : bool
     {
         if ($conditions->filename) {
-            $where[] = "filename ".$this->dbcon->dbLike()." ? OR alttext ".$this->dbcon->dbLike()." ?";
+            $where[] = "(filename ".$this->dbcon->dbLike()." ? OR alttext ".$this->dbcon->dbLike()." ?)";
             $valueParams[] = '%' . $conditions->filename . '%';
             $valueParams[] = '%' . $conditions->filename . '%';
         }
