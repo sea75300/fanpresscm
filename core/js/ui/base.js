@@ -88,6 +88,10 @@ fpcm.ui = {
     
     initLightbox: function() {
 
+        if (jQuery.fancybox == undefined) {
+            return false;
+        }
+
         fpcm.dom.fromClass('fpcm.ui-link-fancybox').fancybox({
             buttons: [
                 "zoom",

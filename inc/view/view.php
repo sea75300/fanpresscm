@@ -1241,6 +1241,7 @@ class view {
         $this->addCssFiles([
             self::ROOTURL_LIB.'bootstrap/css/bootstrap.min.css',
             self::ROOTURL_LIB.'fancybox/jquery.fancybox.min.css',
+            self::ROOTURL_LIB.'photoswipe/dist/photoswipe.css',
             self::ROOTURL_LIB.'font-awesome/css/all.min.css',
             self::ROOTURL_CORE_THEME.'style.css'
         ]);
@@ -1280,7 +1281,7 @@ class view {
         ]);
 
         $this->addJsFilesLate([self::ROOTURL_CORE_JS.'init'.self::getJsExt()]);
-        $this->setJsModuleFiles(['/ui/forms.js']);
+        $this->setJsModuleFiles(['/ui/forms.js' /*, '/lightbox.js'*/]);
         return $this->jsFiles;
     }
 
