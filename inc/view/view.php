@@ -249,6 +249,7 @@ class view {
 
         $this->initCssFiles();
         $this->initJsFiles();
+        $this->initComponents();
 
         if (!is_object($this->language)) {
             return true;
@@ -555,6 +556,31 @@ class view {
     }
 
     /**
+     * Add view data from component
+     * @param \fpcm\model\interfaces\viewComponent $component
+     * @return bool
+     * @since 5.2.0-a1
+     */
+    final public function addFromCpomponent($component) : bool
+    {
+        
+        if (!$component instanceof \fpcm\model\interfaces\viewComponent) {
+            trigger_error(sprintf('Parameter 1 for %s msut be an instance of \fpcm\model\interfaces\viewComponent. Class given: %s', __METHOD__, $component::class));
+            return false;
+        }
+        
+        $this->addCssFiles($component->getCssFiles());
+        $this->addJsFiles($component->getJsFiles());
+        $this->addJsFilesLate($component->getJsFilesLate());
+        $this->setJsModuleFiles($component->getJsModuleFiles());
+        $this->addJsVars($component->getJsVars());
+        $this->addJsLangVars($component->getJsLangVars());
+        $this->viewVars += $component->getViewVars();
+
+        return true;
+    }
+
+    /**
      * Add array of buttons to toolbar
      * @param array $buttons Array of fpcm/view/helper/helper items
      */
@@ -833,8 +859,7 @@ class view {
         $this->defaultViewVars->lang = \fpcm\classes\loader::getObject('\fpcm\classes\language');
         $this->defaultViewVars->filesCss = array_unique( array_map([$this, 'addRootPath'], $this->cssFiles) );
         $this->defaultViewVars->filesECMAFiles = $this->jsModuleFiles;
-        
-        
+
         if (defined('FPCM_VIEW_JS_USE_MINIFIED') || !FPCM_VIEW_JS_USE_MINIFIED) {
             $this->rootUrls['.js'] = $this->getJsExt();
         }        
@@ -1240,8 +1265,6 @@ class view {
         
         $this->addCssFiles([
             self::ROOTURL_LIB.'bootstrap/css/bootstrap.min.css',
-            self::ROOTURL_LIB.'fancybox/jquery.fancybox.min.css',
-            self::ROOTURL_LIB.'photoswipe/dist/photoswipe.css',
             self::ROOTURL_LIB.'font-awesome/css/all.min.css',
             self::ROOTURL_CORE_THEME.'style.css'
         ]);
@@ -1265,7 +1288,6 @@ class view {
             \fpcm\components\components::getjQuery(),
             self::ROOTURL_LIB.'bootstrap/js/bootstrap.bundle.min.js',
             self::ROOTURL_LIB.'bs-autocomplete/autocomplete.js',
-            self::ROOTURL_LIB.'fancybox/jquery.fancybox.min.js',
             '{$coreJs}/ajax' . $ext,
             '{$coreJs}/dom' . $ext,
             '{$coreJs}/ui/base' . $ext,
@@ -1281,8 +1303,23 @@ class view {
         ]);
 
         $this->addJsFilesLate([self::ROOTURL_CORE_JS.'init'.self::getJsExt()]);
-        $this->setJsModuleFiles(['/ui/forms.js' /*, '/lightbox.js'*/]);
+        $this->setJsModuleFiles(['/ui/forms.js']);
         return $this->jsFiles;
+    }
+
+    /**
+     * Inits components
+     * @return void
+     * @since 5.2.0-a1
+     */
+    private function initComponents() : void
+    {
+        if (defined('FPCM_MODE_PUBVIEW') && FPCM_MODE_PUBVIEW) {
+            return;
+        }
+
+        $this->addFromCpomponent( \fpcm\components\components::getLightbox() );
+        return;
     }
 
     /**

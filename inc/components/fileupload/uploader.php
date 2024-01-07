@@ -17,7 +17,8 @@ namespace fpcm\components\fileupload;
  * @since 4.5
  */
 abstract class uploader extends \fpcm\model\abstracts\staticModel
-implements \fpcm\model\interfaces\JsModuleFiles {
+implements \fpcm\model\interfaces\JsModuleFiles,
+           \fpcm\model\interfaces\viewComponent {
 
     /**
      * Returns JavaScript files for uploader

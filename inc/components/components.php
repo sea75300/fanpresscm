@@ -143,4 +143,17 @@ final class components {
         return is_array($res) ? array_map('basename', $res) : [];
     }
 
+    /**
+     * Return lightbox component object
+     * @return \fpcm\components\lightbox\fanybox
+     * @since 5.2.0-a1
+     */
+    public static function getLightbox()
+    {
+        if (defined('FPCM_COMPONENT_PHOTOSWIPE') && FPCM_COMPONENT_PHOTOSWIPE) {
+            return new lightbox\photoswipe();
+        }
+        
+        return new lightbox\fanybox();
+    }
 }
