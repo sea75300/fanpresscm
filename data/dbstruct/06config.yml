@@ -310,3 +310,8 @@ defaultvalues:
             config_name: "comments_default_active"
             config_value: "1"
             modulekey: ""            
+        system_darkmode:
+            id: 56
+            config_name: "system_darkmode"
+            config_value: "0"
+            modulekey: ""            

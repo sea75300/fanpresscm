@@ -786,42 +786,8 @@ class view {
     {
         $this->defaultViewVars->loggedIn = false;
 
-        $hasDbConfig = \fpcm\classes\baseconfig::dbConfigExists();
-
-        if ($hasDbConfig && $this->session->exists()) {
-            $this->addJsLangVars(['SESSION_TIMEOUT']);
-            $this->addJsVars(['sessionCheck' => true]);
-
-            $this->defaultViewVars->currentUser = $this->session->getCurrentUser();
-            $this->defaultViewVars->loginTime = $this->session->getLogin();
-            $this->defaultViewVars->darkMode = $this->session->getCurrentUser()->getUserMeta()->system_darkmode;
-            
-            if ($this->showHeader === self::INCLUDE_HEADER_FULL) {
-                $this->defaultViewVars->navigation = (new \fpcm\model\theme\navigation($this->navigationActiveModule))->render();
-            }
-            
-            $this->defaultViewVars->loggedIn = true;
-            $this->defaultViewVars->permissions = \fpcm\classes\loader::getObject('\fpcm\model\permissions\permissions');
-
-            $this->defaultViewVars->backdrop = (new \fpcm\model\files\backdropImage())->getUrl();
-        }
-        elseif (defined('FPCM_LOGIN_DARKMODE')) {
-            $this->defaultViewVars->darkMode = FPCM_LOGIN_DARKMODE;
-        }
-
-        if ($hasDbConfig) {
-            $this->defaultViewVars->version = trim($this->config->system_version) ? $this->config->system_version : \fpcm\classes\baseconfig::getVersionFromFile();
-            $this->defaultViewVars->dateTimeMask = $this->config->system_dtmask;
-            $this->defaultViewVars->dateTimeZone = $this->config->system_timezone;
-            $this->defaultViewVars->frontEndLink = $this->config->system_url;            
-        }
-        else {
-            $this->defaultViewVars->version = \fpcm\classes\baseconfig::getVersionFromFile();
-            $this->defaultViewVars->dateTimeMask = 'd.m.Y H:i';
-            $this->defaultViewVars->dateTimeZone = 'Europe/Berlin';
-        }
-        
-        unset($hasDbConfig);
+        $this->initAssignsWithDb();
+        $this->initAssignsWidthSession();
 
         $this->defaultViewVars->langCode = $this->language->getLangCode();
         $this->defaultViewVars->self = trim(filter_var($_SERVER['PHP_SELF'], FILTER_SANITIZE_URL));
@@ -912,6 +878,52 @@ class view {
         /* @var $theView viewVars */
         $this->assign('theView', $this->defaultViewVars);
         return true;
+    }
+
+    /**
+     * 
+     * @return bool
+     * @since 5.2.0-a1
+     */
+    private function initAssignsWithDb() : bool
+    {
+        if ( !\fpcm\classes\baseconfig::dbConfigExists() ) {
+            $this->defaultViewVars->version = \fpcm\classes\baseconfig::getVersionFromFile();
+            $this->defaultViewVars->dateTimeMask = 'd.m.Y H:i';
+            $this->defaultViewVars->dateTimeZone = 'Europe/Berlin';
+            return false;
+        }
+
+        $this->defaultViewVars->version = trim($this->config->system_version) ? $this->config->system_version : \fpcm\classes\baseconfig::getVersionFromFile();
+        $this->defaultViewVars->dateTimeMask = $this->config->system_dtmask;
+        $this->defaultViewVars->dateTimeZone = $this->config->system_timezone;
+        $this->defaultViewVars->frontEndLink = $this->config->system_url;
+        $this->defaultViewVars->darkMode = $this->config->system_darkmode;
+        return true;
+    }
+    
+    private function initAssignsWidthSession() : bool
+    {
+        if ( !$this->session->exists() ) {
+            return false;
+        }
+        
+        $this->addJsLangVars(['SESSION_TIMEOUT']);
+        $this->addJsVars(['sessionCheck' => true]);
+
+        $this->defaultViewVars->currentUser = $this->session->getCurrentUser();
+        $this->defaultViewVars->loginTime = $this->session->getLogin();
+
+        if ($this->showHeader === self::INCLUDE_HEADER_FULL) {
+            $this->defaultViewVars->navigation = (new \fpcm\model\theme\navigation($this->navigationActiveModule))->render();
+        }
+
+        $this->defaultViewVars->loggedIn = true;
+        $this->defaultViewVars->permissions = \fpcm\classes\loader::getObject('\fpcm\model\permissions\permissions');
+
+        $this->defaultViewVars->backdrop = (new \fpcm\model\files\backdropImage())->getUrl();
+        $this->defaultViewVars->darkMode = $this->session->getCurrentUser()->getUserMeta()->system_darkmode;
+        return true;        
     }
 
     /**

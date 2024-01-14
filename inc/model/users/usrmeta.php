@@ -175,7 +175,7 @@ implements  \ArrayAccess,
             'system_editor_fontsize' => $co->system_editor_fontsize,
             'system_lang' => $co->system_lang,
             'system_timezone' => $co->system_timezone,
-            'system_darkmode' => false,
+            'system_darkmode' => $co->system_darkmode,
             'backdrop' => '',
             'dashboard_containers_disabled' => [],
             'dashboardpos' => []

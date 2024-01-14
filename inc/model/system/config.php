@@ -40,6 +40,7 @@ use fpcm\model\traits\eventModuleEmpty;
  * @property bool   $system_2fa_auth Two factor authentication enabled
  * @property int    $system_trash_cleanup Age of datasets in trash to cleanup
  * @property bool   $system_passcheck_enabled Password check enabled
+ * @property bool   $system_darkmode Dark mode enabled on default for all users
  * 
  * @property bool   $articles_revisions Enable revision system for articles
  * @property int    $articles_limit Number of articles per page in frontend
@@ -385,6 +386,10 @@ final class config extends dataset implements \fpcm\model\interfaces\isObjectIns
             
         if (isset($this->newConfig['system_trash_cleanup'])) {
             $this->newConfig['system_trash_cleanup'] = (int) $this->newConfig['system_trash_cleanup'];
+        }
+            
+        if (isset($this->newConfig['system_darkmode'])) {
+            $this->newConfig['system_darkmode'] = (int) $this->newConfig['system_darkmode'];
         }
 
         if (isset($this->newConfig['articles_archive_datelimit'])) {

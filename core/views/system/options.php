@@ -49,16 +49,26 @@
             </div>            
         </div>
     </div>        
- 
-    <div class="row my-2">
-        <div class="col-12 col-md-8">
-        <?php $theView->select('system_lang')
-                ->setText('SYSTEM_OPTIONS_LANG')
-                ->setOptions($languages)
-                ->setSelected($globalConfig->system_lang); ?>
-        </div>
-    </div>
 
+    <div class="row g-0 my-2">
+        <div class="col-12 col-md-8">
+            <div class="row row-cols-1 row-cols-sm-2">
+                <div class="col">
+                <?php $theView->select('system_lang')
+                        ->setText('SYSTEM_OPTIONS_LANG')
+                        ->setOptions($languages)
+                        ->setSelected($globalConfig->system_lang); ?>
+                </div>
+
+                <div class="col">
+                <?php $theView->boolSelect('system_darkmode')
+                    ->setSelected($globalConfig->system_darkmode)
+                    ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED)
+                    ->setText('SYSTEM_OPTIONS_DARKMODE'); ?>
+                </div>
+            </div>            
+        </div>
+    </div>    
 
     <div class="row my-2">
         <div class="col-12 col-md-8">
