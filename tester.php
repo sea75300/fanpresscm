@@ -2,6 +2,10 @@
 
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'fpcmapi.php';
 
+if (defined('FPCM_FLAGS_DATABASE_CONNECTION_ERROR') && FPCM_FLAGS_DATABASE_CONNECTION_ERROR) {
+    exit('Databse connection failed!');
+}
+
 $api = new fpcmAPI();
 
 //printf('<script src="%s"></script>', $api->getPublicJsFile());

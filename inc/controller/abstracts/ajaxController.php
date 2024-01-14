@@ -80,5 +80,14 @@ class ajaxController extends controller {
         
         return true;
     }
+    
+    protected function maintenanceMode($simplemsg = true) : bool
+    {
+        if (!$this->config->system_maintenance || ($this->session->exists() && $this->session->getCurrentUser()->isAdmin())) {
+            return true;
+        }
+        
+        $this->response->setCode(503)->addHeaders('HTTP/1.1 401 Service in is maintenance')->fetch();
+    }
 
 }

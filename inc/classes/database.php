@@ -243,9 +243,12 @@ final class database {
             $this->connection->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
         } catch (\PDOException $e) {
             fpcmLogSql($e->getMessage());
+            define('FPCM_FLAGS_DATABASE_CONNECTION_ERROR', true);
+
             if (!$dieOnError) {
                 return;
             }
+
             $this->dieError();
         }
 
@@ -1268,6 +1271,7 @@ final class database {
      */
     private function dieError()
     {
+        http_response_code(503);
         exit('Connection to database failed!');
     }
 

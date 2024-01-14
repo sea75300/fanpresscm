@@ -258,7 +258,7 @@ class controller implements \fpcm\controller\interfaces\controller {
      * @param boolean $simplemsg
      * @return bool
      */
-    final protected function maintenanceMode($simplemsg = true)
+    protected function maintenanceMode($simplemsg = true)
     {
         if (!$this->config->system_maintenance || ($this->session->exists() && $this->session->getCurrentUser()->isAdmin())) {
             return true;

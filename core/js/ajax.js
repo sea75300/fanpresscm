@@ -61,6 +61,13 @@ fpcm.ajax = {
                     fpcm.ajax.showAjaxErrorMessage();
                     fpcm.ui_loader.hide();
                 },
+                503: function() {
+                    fpcm.ui.addMessage({
+                        txt: 'Connection to database failed!',
+                        type: 'error'
+                    }, true );
+                    fpcm.ui_loader.hide();
+                },
                 400: function() {
                     fpcm.ui.addMessage({
                         txt: 'CSRF_INVALID',
