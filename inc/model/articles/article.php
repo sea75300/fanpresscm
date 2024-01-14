@@ -165,7 +165,7 @@ implements \fpcm\model\interfaces\isCsvImportable {
      * @var int
      * @since 5.2.0-a1
      */
-    protected $relates_to;
+    protected $relates_to = 0;
 
     /**
      * Artikel-Quellen
