@@ -16,6 +16,8 @@ class main extends \fpcm\controller\abstracts\controller {
 
     use \fpcm\controller\traits\system\syscheck,
         \fpcm\controller\traits\common\timezone;
+    
+    const ACTION = 'system/installer';
 
     /**
      *
@@ -196,7 +198,7 @@ class main extends \fpcm\controller\abstracts\controller {
         
         $buttons = [];
         if ($this->showReloadBtn) {
-            $buttons[] = (new \fpcm\view\helper\linkButton('reloadbtn'))->setText('GLOBAL_RELOAD')->setUrl(\fpcm\classes\tools::getControllerLink('installer', [
+            $buttons[] = (new \fpcm\view\helper\linkButton('reloadbtn'))->setText('GLOBAL_RELOAD')->setUrl(\fpcm\classes\tools::getControllerLink(self::ACTION, [
                 'step' => $this->step,
                 'language' => $this->step > 1 ? $this->langCode : ''
             ]))->setIcon('sync');
@@ -209,7 +211,7 @@ class main extends \fpcm\controller\abstracts\controller {
                     ->setText('GLOBAL_BACK')
                     ->setClass('fpcm-installer-next-'.$this->step)
                     ->setIcon('chevron-circle-left')
-                    ->setUrl(\fpcm\classes\tools::getControllerLink('installer', ['step' => $prevStep, 'language' => $this->langCode]) );
+                    ->setUrl(\fpcm\classes\tools::getControllerLink(self::ACTION, ['step' => $prevStep, 'language' => $this->langCode]) );
             }
             
             $fn = $this->step === 3 ? 'installer.checkDBData' : 0;            
@@ -225,7 +227,7 @@ class main extends \fpcm\controller\abstracts\controller {
 
         $this->view->addButtons($buttons);
 
-        $this->view->setFormAction('installer', [
+        $this->view->setFormAction(self::ACTION, [
             'step' => $nextStep,
             'language' => $this->langCode
         ]);
@@ -338,7 +340,7 @@ class main extends \fpcm\controller\abstracts\controller {
         $config->prepareDataSave();
 
         if (!$config->update()) {
-            $this->redirect('installer', [
+            $this->redirect(self::ACTION, [
                 'step' => '5',
                 'cserr' => '1',
                 'language' => $this->langCode
@@ -418,7 +420,7 @@ class main extends \fpcm\controller\abstracts\controller {
                 continue;
             }
 
-            $this->redirect('installer', [
+            $this->redirect(self::ACTION, [
                 'step' => '6',
                 'msg' => -6,
                 'language' => $this->langCode
@@ -428,7 +430,7 @@ class main extends \fpcm\controller\abstracts\controller {
         }
 
         if (in_array($data['username'], FPCM_INSECURE_USERNAMES)) {
-            $this->redirect('installer', [
+            $this->redirect(self::ACTION, [
                 'step' => '6',
                 'msg' => -5,
                 'language' => $this->langCode
@@ -461,7 +463,7 @@ class main extends \fpcm\controller\abstracts\controller {
             }
         }
 
-        $this->redirect('installer', [
+        $this->redirect(self::ACTION, [
             'step' => '6',
             'msg' => $res,
             'language' => $this->langCode

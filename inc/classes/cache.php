@@ -12,7 +12,7 @@ namespace fpcm\classes;
  * 
  * @package fpcm\classes\cache
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2022, Stefan Seehafer
+ * @copyright (c) 2011-2024, Stefan Seehafer
  */
 final class cache {
 
@@ -31,6 +31,12 @@ final class cache {
     private $basePath;
 
     /**
+     * Cache active
+     * @var bool
+     */
+    private $active = true;
+
+    /**
      * Konstruktor
      * @return void
      */
@@ -38,7 +44,8 @@ final class cache {
     {
         $this->crypt = loader::getObject('\fpcm\classes\crypt');
         $this->basePath = dirs::getDataDirPath(dirs::DATA_CACHE);     
-
+        $this->active = ! (defined('FPCM_INSTALLER_NOCACHE') && FPCM_INSTALLER_NOCACHE);
+        
         if (!isset($GLOBALS['fpcm']['stack'])) {
             $GLOBALS['fpcm']['stack'] = [];
         }
@@ -51,7 +58,7 @@ final class cache {
      */
     public function isExpired($cacheName)
     {
-        if (defined('FPCM_INSTALLER_NOCACHE') && FPCM_INSTALLER_NOCACHE) {
+        if ($this->active) {
             return true;
         }
 
@@ -67,7 +74,7 @@ final class cache {
      */
     public function write($cacheName, $data, $expires = 0)
     {
-        if (defined('FPCM_INSTALLER_NOCACHE') && FPCM_INSTALLER_NOCACHE) {
+        if ($this->active) {
             return false;
         }
 
@@ -82,7 +89,7 @@ final class cache {
      */
     public function read($cacheName)
     {
-        if (defined('FPCM_INSTALLER_NOCACHE') && FPCM_INSTALLER_NOCACHE) {
+        if ($this->active) {
             return false;
         }
 
@@ -97,7 +104,7 @@ final class cache {
      */
     public function getExpirationTime($cacheName)
     {
-        if (defined('FPCM_INSTALLER_NOCACHE') && FPCM_INSTALLER_NOCACHE) {
+        if ($this->active) {
             return false;
         }
 
