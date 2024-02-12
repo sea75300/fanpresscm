@@ -833,7 +833,7 @@ class view {
         $this->defaultViewVars->filesJs = array_unique( array_map([$this, 'addRootPath'], $this->jsFiles) );
         $this->defaultViewVars->filesJsLate = array_unique( array_map([$this, 'addRootPath'], $this->jsFilesLate) );
 
-        $this->defaultViewVars->fullWrapper = in_array($this->defaultViewVars->currentModule, ['installer']);
+        $this->defaultViewVars->fullWrapper = in_array($this->defaultViewVars->currentModule, ['system/installer']);
         $this->defaultViewVars->showPageToken = $this->showPageToken;
 
         $this->jsVars['currentModule'] = $this->defaultViewVars->currentModule;
@@ -901,10 +901,15 @@ class view {
         $this->defaultViewVars->darkMode = $this->config->system_darkmode;
         return true;
     }
-    
+
+    /**
+     * Init with existing session
+     * @return bool
+     * @since 5.2.0-a1
+     */
     private function initAssignsWidthSession() : bool
     {
-        if ( !$this->session->exists() ) {
+        if ( !$this->session?->exists() ) {
             return false;
         }
         

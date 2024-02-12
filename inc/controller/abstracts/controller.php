@@ -146,7 +146,7 @@ class controller implements \fpcm\controller\interfaces\controller {
         $this->request = \fpcm\classes\loader::getObject('\fpcm\model\http\request');
 
         if (\fpcm\classes\baseconfig::installerEnabled() && !\fpcm\classes\baseconfig::dbConfigExists()) {
-            $this->redirect('installer');
+            $this->redirect('system/installer');
             exit;
         }
 

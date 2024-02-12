@@ -57,6 +57,6 @@ fpcm/article: action/pub/showsingle
 fpcm/latest: action/pub/showlatest
 fpcm/feed: action/pub/feed
 ## Installer
-installer: action/installer/main
+system/installer: action/installer/main
 ## Installer
-testing: action/system/testing
+system/testing: action/system/testing

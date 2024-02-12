@@ -31,7 +31,7 @@ trait syscheck {
             $updater = new \fpcm\model\updater\system();
             $updater->updateAvailable();
 
-            $remoteVersion = $updater->version;
+            $remoteVersion = $updater->version ?? '';
 
             $result = version_compare($this->config->system_version, $remoteVersion, '>=');
             $option = new \fpcm\model\system\syscheckOption(

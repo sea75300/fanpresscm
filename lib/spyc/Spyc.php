@@ -548,6 +548,11 @@ class Spyc {
   }
 
   private function loadFromString ($input) {
+
+    if ($input === null) {
+        $input = '';
+    }
+
     $lines = explode("\n",$input);
     foreach ($lines as $k => $_) {
       $lines[$k] = rtrim ($_, "\r");
