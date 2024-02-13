@@ -76,6 +76,10 @@ class userList extends \fpcm\model\abstracts\tablelist {
         }
 
         $this->userNameList = $this->dbcon->selectFetch( (new \fpcm\model\dbal\selectParams($this->table))->setItem('displayname, id')->setFetchAll(true)->setFetchStyle(\PDO::FETCH_KEY_PAIR) );
+        if (!is_array($this->userNameList)) {
+            $this->userNameList = [];
+        }
+
         return $this->userNameList;
     }
 
@@ -90,6 +94,10 @@ class userList extends \fpcm\model\abstracts\tablelist {
         }
         
         $this->userEmailList = $this->dbcon->selectFetch( (new \fpcm\model\dbal\selectParams($this->table))->setItem('email, id')->setFetchAll(true)->setFetchStyle(\PDO::FETCH_KEY_PAIR) );
+        if (!is_array($this->userNameList)) {
+            $this->userEmailList = [];
+        }
+
         return $this->userEmailList;
     }
 
