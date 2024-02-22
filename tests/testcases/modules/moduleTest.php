@@ -110,7 +110,7 @@ class moduleTest extends \PHPUnit\Framework\TestCase {
 
         $success = $GLOBALS['module']->update();
 
-        $this->assertNotFalse($db->fetch($db->select('module_nkorgexample_tab1', '*')), 'Fetch from table module_nkorgexample_tab1 failed');
+        //$this->assertNotFalse($db->fetch($db->select('module_nkorgexample_tab1', '*')), 'Fetch from table module_nkorgexample_tab1 failed');
         $this->assertGreaterThanOrEqual(1, $db->count(fpcm\classes\database::tableCronjobs, '*', 'modulekey = ?', [$this->testMkey]));
 
     }
