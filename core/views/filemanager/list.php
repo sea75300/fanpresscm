@@ -23,9 +23,14 @@
             <div class="card w-100 my-2 fpcm ui-files-item ui-background-transition shadow">
                 <div class="row g-0">
                     <div class="col-auto align-self-center me-3">
-                        <a href="<?php print $file->getImageUrl(); ?>" class="fpcm ui-link-fancybox" data-fancybox="group" <?php if ($file->getAltText()) : ?>data-caption="<?php print $theView->escapeVal($file->getAltText()); ?>"<?php endif; ?>>
-                        <?php if (file_exists($file->getFileManagerThumbnail())) : ?>
-                            <img class="img-fluid rounded-start" loading="lazy" src="<?php print $file->getFileManagerThumbnailUrl(); ?>" title="<?php print $file->getFileName(); ?>" width="<?php print $thumbsize; ?>" height="<?php print $thumbsize; ?>">
+                        <a href="<?php print $file->getImageUrl(); ?>" 
+                           class="fpcm ui-link-fancybox" 
+                           data-fancybox="group" 
+                           data-pswp-width="<?php print $file->getWidth(); ?>" 
+                           data-pswp-height="<?php print $file->getHeight(); ?>"                                
+                           <?php if ($file->getAltText()) : ?>data-caption="<?php print $theView->escapeVal($file->getAltText()); ?>"<?php endif; ?>>
+                        <?php if ($file->hasFileManageThumbnail()) : ?>
+                            <img class="img-fluid rounded-start" loading="lazy" src="<?php print $file->getFileManagerThumbnailUrl(); ?>" title="<?php print $file->getFileName(); ?>" <?php if ($file->getAltText()) : ?>alt="<?php print $theView->escapeVal($file->getAltText()); ?>"<?php endif; ?> width="<?php print $thumbsize; ?>" height="<?php print $thumbsize; ?>">
                         <?php else : ?>
                             <img class="img-fluid rounded-start p-5" loading="lazy" src="<?php print fpcm\classes\loader::libGetFileUrl('font-awesome/svg/image.svg'); ?>" title="<?php print $file->getFileName(); ?>" width="<?php print $thumbsize; ?>" height="<?php print $thumbsize; ?>">
                         <?php endif; ?>

@@ -181,3 +181,8 @@ table.diff-wrapper {
     }
 
 }
+
+.pswp__dynamic-caption--below
+{
+    font-size: var(--fpcm-font-size-small);
+}

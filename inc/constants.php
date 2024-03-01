@@ -289,7 +289,7 @@ if (!defined('FPCM_COMPONENT_PHOTOSWIPE')) {
      * Enable PhotoSwipe Lightbox
      * @since 5.2.0-a1
      */
-    define('FPCM_COMPONENT_PHOTOSWIPE', 0);
+    define('FPCM_COMPONENT_PHOTOSWIPE', true);
 }
 
 
