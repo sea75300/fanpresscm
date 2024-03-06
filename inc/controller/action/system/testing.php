@@ -46,6 +46,8 @@ class testing extends \fpcm\controller\abstracts\controller implements \fpcm\con
         $this->view->addButton( (new \fpcm\view\helper\button('next'))->setText('Weiter')->setData(['month' => $next->format('Y-m') ])->setOnClick('testing.update') );
         
         $this->view->assign('progressbarName', 'testing');
+        
+        $this->view->setJsModuleFiles(['/calendar.js']);
 
         return true;
     }
