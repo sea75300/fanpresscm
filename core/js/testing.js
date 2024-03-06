@@ -13,10 +13,20 @@ fpcm.testing = {
 
     init: function() {
 
+        var _c = new fpcm.ui.calendar('testing-calendar');
+        _c.render(); 
+
     },
     
     exec: function (_params) {
         
+    },
+    
+    update: function (_e, _ui) {
+
+        var _c = new fpcm.ui.calendar('testing-calendar');
+        _c.setStart(_ui.dataset.month);
+        _c.render();   
     }
 
 };

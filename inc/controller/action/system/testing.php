@@ -32,6 +32,19 @@ class testing extends \fpcm\controller\abstracts\controller implements \fpcm\con
             'testing.js'
         ]);
         
+        $intv = new \DateInterval('P1M');
+        
+        $prev = new \DateTime();
+        $prev->sub($intv);
+
+        $next = new \DateTime();
+        $next->add($intv);
+        
+        
+        
+        $this->view->addButton( (new \fpcm\view\helper\button('prev'))->setText('Zurück')->setData(['month' => $prev->format('Y-m') ])->setOnClick('testing.update') );
+        $this->view->addButton( (new \fpcm\view\helper\button('next'))->setText('Weiter')->setData(['month' => $next->format('Y-m') ])->setOnClick('testing.update') );
+        
         $this->view->assign('progressbarName', 'testing');
 
         return true;
