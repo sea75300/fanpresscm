@@ -463,21 +463,32 @@ Help language file
         <dl>
             <dt>Zeitzone:</dt>
             <dd class="pb-2">Zeitzone für Datums- und Zeit-Angaben.</dd>
-            <dt>Sprache:</dt>
-            <dd class="pb-2">Sprach-Einstellung für das FanPress-ACP.</dd>
             <dt>Datum- und Zeitanzeige:</dt>
             <dd class="pb-2">Muster, in welcher Art Datums- und Zeitangaben dargestellt werden.</dd>
+            <dt>Sprache:</dt>
+            <dd class="pb-2">Sprach-Einstellung für das FanPress-ACP.</dd>
             <dt>Anzahl Elemente pro Seite im ACP:</dt>
             <dd class="pb-2">Anzahl an dargestellten Elementen pro Seite im ACP</dd>
             <dt>Standard-Schriftgröße im Editor:</dt>
             <dd class="pb-2">Schriftgröße, die standardmäßig im Artikel-Editor genutzt wird</dd>
-            in Kürze entfernt.</dd>
             <dt>Dateimanager-Ansicht:</dt>
             <dd class="pb-2">Über diese Auswahl kann die Darstellung des Dateimanagers angepasst werden,
             die Optionen können auch über die Systemeinstellungen bzw. das Profil angepasst werden.</dd>
-            <dt>Container-Positionen zurücksetzen:</dt>
-            <dd class="pb-2">Über den Button können die Positionen der Dashboard-Container
-            auf die Standard-Einstellungen zurücksetzen.</dd>
+            <dt>Dunkles Design verwenden:</dt>
+            <dd class="pb-2">Diese Option ermöglich die (De-)Aktivierung eines Dark Modes.
+            Statt der normalerweise hellen Farben erfolgt die Anzeige
+            in dunkel Farben. Dies kann für dies angenehmer bei der Nutzung von FPCM
+            bspw. abends sein.
+            Dieser kann bereits standardmäßig aktiv sein.</dd>
+            <dt>Hintergrundbild:</dt>
+            <dd class="pb-2">Über diese Auswahl kann der Hintergrund mit einem Bild versehen werden. 
+            Es werden drei Motive ausgeliefert.<br>
+            Eigene Grafiken können unter <em>/core/theme/backdrops</em> in den Formaten
+            JPG; PNG und SVG hinterlegt werden. Die Grafiken sollten mindestens 
+            Full-HD oder besser WAHD-Auflösung besitzen. Credits können in der Datei der Form <em>bildName.jpg.txt</em> mitgeliefert
+            werden.<br>
+            Großen Grafiken im JPG- oder PNG-Format können die Ladezeit von 
+            FanPress CM negativ beinflussen.</dd>
         </dl>
 
         ]]>
@@ -516,6 +527,11 @@ Help language file
             neu aufgebaut wird. Diese Einstellung ist vor allem für den Frontend-Inhalt wichtig.</dd>
             <dt>Allgemein - Vorhaltezeit für gelöschte Elemente:</dt>
             <dd class="pb-2">Anzahl an Tagen, bis Elemente im Papierkorb automatisch gelöscht werden.</dd>
+            <dt>Dunkles Design verwenden:</dt>
+            <dd class="pb-2">Diese Option ermöglich die (De-)Aktivierung eines Dark Modes.
+            Statt der normalerweise hellen Farben erfolgt die Anzeige
+            in dunkel Farben. Dies kann für dies angenehmer bei der Nutzung von FPCM
+            bspw. abends sein.</dd>
             <dt><em>Frontend</em> - Pfad zu deiner CSS-Datei:</dt>
             <dd class="pb-2">Pfad zu deiner CSS-Datei mit deinen eigenen Style-Angaben. Wichtig
             wenn du FanPress CM via iframe oder die Template-Vorschau nutzt.</dd>
@@ -676,25 +692,36 @@ Help language file
             so wird dir in regelmäßigem Abstand ein Dialog angezeigt, welcher die Download-Seite auf
             <a rel="noreferrer,noopener,external" href="https://Nobody-Knows.org">Nobody-Knows.org</a> angezeigt. Mit dieser Einstellung kann festgelegt werden, in welchem
             zeitlichen Abstand dies passiert.</dd>
-
-            <dt>E-Mail-Versand - E-Mails via SMTP versenden:</dt>
+        </dl>
+        
+        <h3 class="pt-5 fs-1">E-Mail-Versand </h3>
+        
+        <dl>
+            <dt>E-Mails via SMTP versenden:</dt>
             <dd class="pb-2">Wenn diese Option aktiv ist, erfolgt der E-Mail-Versand unter
             welche durch die SMTP-Zugangsdaten definiert wird. Zur Nutzung des SMTP-Versands muss dein Host die Verbindung zu anderen Servern
             zulassen. Standardmäßig erfolgt der Versand von E-Mails über die PHP-eigenen Funktionen.</dd>
-            <dt>E-Mail-Versand - E-Mail-Adresse:</dt>
+            <dt>E-Mail-Adresse:</dt>
             <dd class="pb-2">E-Mail-Server, die als Absender-Konto verwendet wird</dd>
-            <dt>E-Mail-Versand - SMTP-Server-Adresse:</dt>
+            <dt>SMTP-Server-Adresse:</dt>
             <dd class="pb-2">E-Mail-Server-Adresse</dd>
-            <dt>E-Mail-Versand - SMTP-Server-Port:</dt>
+            <dt>SMTP-Server-Port:</dt>
             <dd class="pb-2">E-Mail-Server-Port. Der Port ist abhängig davon, ob eine verschlüsselte Verbindung verwendet wird
             oder nicht.</dd>
-            <dt>E-Mail-Versand - SMTP-Benutzername:</dt>
-            <dt>E-Mail-Versand - SMTP-Passwort:</dt>
-            <dd class="pb-2">Benutzername und Passwort für das zu verwendende E-Mail-Konto</dd>
-            <dt>E-Mail-Versand - SMTP-Verschlüsselung:</dt>
+            <dt>SMTP-Benutzername:</dt>
+            <dt>SMTP-Passwort:</dt>
+            <dd class="pb-2">Benutzername und Passwort für das zu verwendende E-Mail-Konto. Das Passwort wird nach der ersten
+            Eingaben udn Speicherung nicht erneut angezeigt.</dd>
+            <dt>SMTP-Verschlüsselung:</dt>
             <dd class="pb-2">Legt fest, ob die Verbindung zum E-Mail-Server verschlüsselt erfolgen soll oder nicht. Die
             gewählte Verschlüsselung muss vom E-Mail-Server unterstützt werden. Bei Aktivierung von "Auto" wird versucht, dies automatisch zu
             erkennen.</dd>
+            <dt>Authentifizierungsart:</dt>
+            <dd class="pb-2">E-Mail-Server können verschiedene Wege nutzen, wie sich der
+            Client authentifizieren soll. Dies kann durch Übertragung der Daten im Klartext erfolgen oder
+            via CRAM-MD5, welches ggf. sicherer sein kann. Welche Methode verwendet
+            wird, verrät dir dein E-Mail-Provider.
+            </dd>
         </dl>
 
         <h3 class="pt-5 fs-1">Twitter-Verbindung</h3>

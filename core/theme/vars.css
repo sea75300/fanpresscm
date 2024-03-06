@@ -4,6 +4,7 @@
     --fpcm-var-easing: 0.5s;
     --fpcm-var-backdrop-image: url('./backdrops/pexels-asad-photo-maldives-4578810.jpg');
     --fpcm-modal-bg: var(--bs-light-bg-subtle);
+    --fpcm-font-size-small: 0.85em;
 }
 
 [data-bs-theme=light] {

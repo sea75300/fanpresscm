@@ -23,12 +23,13 @@
         <?php $i++; ?>
             <div class="card my-2 mx-sm-2 rounded fpcm ui-files-item ui-background-transition shadow">
 
-                <a href="<?php print $file->getImageUrl(); ?>" class="fpcm ui-link-fancybox"
-                    data-pswp-width="<?php print $file->getWidth(); ?>" 
-                    data-pswp-height="<?php print $file->getHeight(); ?>" 
-                    <?php if ($file->getAltText()) : ?>data-caption="<?php print $theView->escapeVal($file->getAltText()); ?>"<?php endif; ?>>
-                <?php if (file_exists($file->getFileManagerThumbnail())) : ?>
-                    <img class="card-img-top rounded-top overflow-hidden" loading="lazy" src="<?php print $file->getFileManagerThumbnailUrl(); ?>" title="<?php print $file->getFileName(); ?>">                    
+                <a href="<?php print $file->getImageUrl(); ?>" 
+                   class="fpcm ui-link-fancybox"
+                   data-pswp-width="<?php print $file->getWidth(); ?>" 
+                   data-pswp-height="<?php print $file->getHeight(); ?>" 
+                   <?php if ($file->getAltText()) : ?>data-caption="<?php print $theView->escapeVal($file->getAltText()); ?>"<?php endif; ?>>
+                <?php if ($file->hasFileManageThumbnail()) : ?>
+                    <img class="card-img-top rounded-top overflow-hidden" loading="lazy" src="<?php print $file->getFileManagerThumbnailUrl(); ?>" title="<?php print $file->getFileName(); ?>" <?php if ($file->getAltText()) : ?>alt="<?php print $theView->escapeVal($file->getAltText()); ?>"<?php endif; ?> >                    
                 <?php else : ?>
                     <img class="card-img-top rounded-top overflow-hidden p-5" loading="lazy" src="<?php print fpcm\classes\loader::libGetFileUrl('font-awesome/svg/image.svg'); ?>" title="<?php print $file->getFileName(); ?>">
                 <?php endif; ?>            

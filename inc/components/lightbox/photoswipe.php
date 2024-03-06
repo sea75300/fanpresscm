@@ -26,6 +26,7 @@ final class photoswipe implements \fpcm\model\interfaces\viewComponent {
     {
         return [
             \fpcm\view\view::ROOTURL_LIB.'photoswipe/dist/photoswipe.css',
+            \fpcm\view\view::ROOTURL_LIB.'photoswipe/dist/photoswipe-dynamic-caption-plugin.css',
         ];
     }
 

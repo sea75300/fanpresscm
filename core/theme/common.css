@@ -147,7 +147,7 @@ span.fpcm-ui-badge {
 
 .fpcm.ui-font-small,
 .fpcm-ui-font-small {
-    font-size: 0.85em;
+    font-size: var(--fpcm-font-size-small);
 }
 
 li.fpcm-ui-smileylist-preview {
