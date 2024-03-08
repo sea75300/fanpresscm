@@ -13,6 +13,7 @@ export class calendar {
     _dayArray = [ [] ];
     _ctr = 0;
     _today = 0;
+    _dblClick = null;
 
     constructor(_element) {
 
@@ -28,6 +29,10 @@ export class calendar {
     
     setStart(_start) {
         this._start = _start;
+    }
+    
+    setDoubleClick(_event) {
+        this._dblClick = _event;
     }
 
     render() {
@@ -62,45 +67,25 @@ export class calendar {
         }
         
         _wrapper.innerHTML = '';
+        var _dbEv = this._dblClick;
 
         for (var i = 0; i < this._dayArray.length; i++) {
 
             let _row = document.createElement('div');
             _row.id = 'fpcm-id-calendar-' + this._id + '-row-' + i;
             _row.classList.add('row');
-            _row.classList.add('g-0');
 
             let _is = this._dayArray[i];
 
             for (var z = 0; z < _is.length; z++) {
 
-                let _col = document.createElement('div');
-                _col.id = 'fpcm-id-calendar-' + this._id + '-col-' + _is[z].getMilliseconds();
-                _col.classList.add('col');
-                _col.classList.add('px-2');
-                _col.classList.add('pt-2');
-                _col.classList.add('pb-5');
-                _col.classList.add('m-1');
-                _col.classList.add('border');
-                _col.classList.add('border-1');
-                _col.classList.add('h-25');
+                let _col = this._colCell(_is[z], _dbEv);
+                let _txt = this._colText(_is[z]);
 
-                if (this._today === _is[z].toDateString()) {
-                    _col.classList.add('bg-body-tertiary');
-                    _col.classList.add('bg-opacity-50');
-                }
-                
-                let _txt = document.createElement('span');
-                _txt.innerHTML = _is[z].getDate();
-                _txt.classList.add('d-flex');
-                _txt.classList.add('justify-content-end');
-                _txt.classList.add('fs-6');
                 _col.appendChild(_txt);
-
                 _row.appendChild(_col);
             }
-            
-            
+
             _wrapper.appendChild(_row);
             _wrapper.classList.add('w-100');
 
@@ -128,10 +113,6 @@ export class calendar {
     }
     
     _prependDays(_fdow, _y, _m) {
-        
-//        if (_fdow === 1) {
-//            return;
-//        }        
 
         let _domPrev = ( new Date(_y, _m, 0) ).getDate();
 
@@ -171,6 +152,54 @@ export class calendar {
             this._pushDay(_y, _nrvm, _x);
         }     
         
+    }
+    
+    _colCell(_date, _dbEv) {
+
+        let _col = document.createElement('div');
+        _col.id = 'fpcm-id-calendar-' + this._id + '-col-' + _date.getMilliseconds();
+        _col.classList.add('col');
+        _col.classList.add('px-2');
+        _col.classList.add('pt-2');
+        _col.classList.add('pb-5');
+        _col.classList.add('m-2');
+        _col.classList.add('border');
+        _col.classList.add('border-1');
+        _col.classList.add('border-secondary-subtle');
+        _col.classList.add('h-25');
+
+        _col.dataset.date = _date.toDateString();
+        _col.dataset.timestamp = Date.parse(_date) / 1000;
+
+        if (this._today === _date.toDateString()) {
+            _col.classList.add('bg-body-tertiary');
+            _col.classList.add('bg-opacity-50');
+        }
+
+        if (this._dblClick === null) {
+            return _col;    
+        }
+
+        _col.addEventListener('dblclick', function (_e) {
+            _e.preventDefault();
+            _dbEv(_e);
+        });
+
+        return _col;
+    }
+    
+    _colText(_date) {
+
+        let _txt = document.createElement('span');
+        _txt.innerHTML = _date.getDate();
+        _txt.classList.add('d-flex');
+        _txt.classList.add('justify-content-end');
+        _txt.classList.add('fs-6');
+        _txt.classList.add('pe-none');
+        _txt.dataset.date = _date.toDateString();
+        _txt.dataset.timestamp = Date.parse(_date) / 1000;
+
+        return _txt;
     }
 
 }
