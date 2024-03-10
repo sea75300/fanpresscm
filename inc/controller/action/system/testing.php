@@ -16,6 +16,8 @@ namespace fpcm\controller\action\system;
 
 class testing extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\viewByNamespace
 {
+    
+    private $entries;
 
     public function isAccessible(): bool
     {
@@ -31,6 +33,8 @@ class testing extends \fpcm\controller\abstracts\controller implements \fpcm\con
         $this->view->addJsFiles([
             'testing.js'
         ]);
+        
+        $this->createEntries();
         
         $intv = new \DateInterval('P1M');
         
@@ -48,8 +52,33 @@ class testing extends \fpcm\controller\abstracts\controller implements \fpcm\con
         $this->view->assign('progressbarName', 'testing');
         
         $this->view->setJsModuleFiles(['/calendar.js']);
+        $this->view->addJsVars(['centries' => $this->entries]);
 
         return true;
+    }
+    
+    private function createEntries()
+    {
+    
+        $intv = new \DateInterval('P1D');
+        
+        $d = new \DateTime();
+        $d->setTime(0, 0, 0);
+        
+        for ($i = 0; $i < 10; $i++) {
+
+            
+            $this->entries[$d->format('Y-n-d')][] = [
+                'label' => sprintf('%s: %s', 'Testtermin am', $d->format('d.m.Y')),
+                'class' => 'btn-info bg-opacity-75',
+                'src' => '',
+            ];
+
+            $d->add($intv);
+
+        }
+        
+        
     }
 
 }

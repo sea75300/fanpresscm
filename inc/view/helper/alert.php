@@ -44,7 +44,7 @@ class alert extends helper {
      */
     protected function init()
     {
-        $this->class = 'shadow-sm alert alert-';
+        $this->class = 'shadow-sm alert';
         $this->aria['role'] = 'alert';
     }
 

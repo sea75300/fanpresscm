@@ -13,7 +13,9 @@ export class calendar {
     _dayArray = [ [] ];
     _ctr = 0;
     _today = 0;
+
     _dblClick = null;
+    _entryClick = null;
 
     constructor(_element) {
 
@@ -33,6 +35,10 @@ export class calendar {
     
     setDoubleClick(_event) {
         this._dblClick = _event;
+    }
+    
+    setEntryClick(_event) {
+        this._entryClick = _event;
     }
 
     render() {
@@ -68,6 +74,7 @@ export class calendar {
         
         _wrapper.innerHTML = '';
         var _dbEv = this._dblClick;
+        var _eDbEv = this._entryClick;
 
         for (var i = 0; i < this._dayArray.length; i++) {
 
@@ -77,12 +84,30 @@ export class calendar {
 
             let _is = this._dayArray[i];
 
-            for (var z = 0; z < _is.length; z++) {
+            for (var _d = 0; _d < _is.length; _d++) {
+                
+                let _cur = _is[_d];
+                let _ts = this._toTimeStamp(_is[_d]);
 
-                let _col = this._colCell(_is[z], _dbEv);
-                let _txt = this._colText(_is[z]);
-
+                let _col = this._colCell(_cur, _dbEv);
+                let _txt = this._colText(_cur);
+                
                 _col.appendChild(_txt);
+
+                let _lookup = `${_cur.getFullYear()}-${_cur.getMonth()+1}-${_cur.getDate()}`;
+
+                if (!this._entries[_lookup]) {
+                    _row.appendChild(_col);
+                    continue;
+                }
+
+                for (var _e in this._entries[_lookup]) {
+
+                    let _entry = this._colEntry(this._entries[_lookup][_e], _eDbEv);
+                    _col.appendChild(_entry);
+
+                }                    
+
                 _row.appendChild(_col);
             }
 
@@ -103,7 +128,6 @@ export class calendar {
             this._ctr++;
             this._dayArray[this._ctr] = [];
         }
-
 
         this._dayArray[this._ctr].push(_tmp);
         
@@ -158,7 +182,8 @@ export class calendar {
 
         let _col = document.createElement('div');
         _col.id = 'fpcm-id-calendar-' + this._id + '-col-' + _date.getMilliseconds();
-        _col.classList.add('col');
+        _col.classList.add('col-12');
+        _col.classList.add('col-md');
         _col.classList.add('px-2');
         _col.classList.add('pt-2');
         _col.classList.add('pb-5');
@@ -166,13 +191,12 @@ export class calendar {
         _col.classList.add('border');
         _col.classList.add('border-1');
         _col.classList.add('border-secondary-subtle');
-        _col.classList.add('h-25');
-
-        _col.dataset.date = _date.toDateString();
-        _col.dataset.timestamp = Date.parse(_date) / 1000;
+        _col.classList.add('text-wrap');
+        
+        this._addDataset(_col, _date.toDateString());
 
         if (this._today === _date.toDateString()) {
-            _col.classList.add('bg-body-tertiary');
+            _col.classList.add('bg-body-secondary');
             _col.classList.add('bg-opacity-50');
         }
 
@@ -190,16 +214,69 @@ export class calendar {
     
     _colText(_date) {
 
-        let _txt = document.createElement('span');
+        let _txt = document.createElement('div');
         _txt.innerHTML = _date.getDate();
         _txt.classList.add('d-flex');
         _txt.classList.add('justify-content-end');
-        _txt.classList.add('fs-6');
         _txt.classList.add('pe-none');
-        _txt.dataset.date = _date.toDateString();
-        _txt.dataset.timestamp = Date.parse(_date) / 1000;
+        _txt.classList.add('user-select-none');
+        _txt.classList.add('border-bottom');
+        _txt.classList.add('border-1');
+        _txt.classList.add('mb-1');
+        _txt.classList.add('fs-3');
+        
+        if (this._today === _date.toDateString()) {
+            _txt.classList.add('fw-bold');
+        }        
+        else {
+            _txt.classList.add('text-body-tertiary');
+        }
 
         return _txt;
+    }
+    
+    _colEntry(_entry, _eDbEv) {
+
+        let _colEntry = document.createElement('div');
+        _colEntry.innerHTML = _entry.label;
+        
+        if (!_entry.id) {
+            _entry.id = fpcm.ui.getUniqueID();
+        }
+
+        _colEntry.dataset.id = _entry.id;
+        
+        _colEntry.classList.add('d-flex');
+        _colEntry.classList.add('btn');
+        _colEntry.classList.add('btn-sm');
+        
+        if (_entry.class) {
+            _colEntry.className += ' ' + _entry.class;
+        }
+        
+        if (_entry.src) {
+            _colEntry.dataset.src = _entry.src;
+        }
+
+        if (this._entryClick === null) {
+            return _colEntry;    
+        }
+
+        _colEntry.addEventListener('click', function (_e) {
+            _e.preventDefault();
+            _eDbEv(_e);
+        });
+
+        return _colEntry;
+    }
+    
+    _addDataset(_item, _date) {
+        _item.dataset.date = _date;
+        _item.dataset.timestamp = this._toTimeStamp(_date);
+    }
+    
+    _toTimeStamp(_dateStr) {
+        return Date.parse(_dateStr) / 1000;
     }
 
 }

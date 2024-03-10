@@ -59,7 +59,7 @@ class main {
 
         if (!class_exists($class)) {
             trigger_error(sprintf('Undefined controller called: %s, Class: %s', $module, $class), E_USER_ERROR);
-            $this->errorPage(sprintf("The requested controller <b>%s</b> does not exist! <span class=\"fa fa-frown-o\"></span>", $module));
+            $this->errorPage(sprintf("The requested controller <b class=\"px-1\">%s</b> does not exist!", $module));
         }
 
         /**
