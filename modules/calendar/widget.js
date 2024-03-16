@@ -16,13 +16,29 @@ export class calendar {
 
     _dblClick = null;
     _entryClick = null;
+    
+    _cfg = {
+        styles: {
+            days: {
+                fontSize: '3',
+                textStyle: 'text-body-tertiary'
+            },
+            appendingDays: {
+                opacity: '75'
+            },
+            currentDate: {
+                bgColor: 'bg-body-secondary',
+                bgOpacity: 'bgOpacity',
+                textStyle: 'fw-bold'
+            }            
+        }
+    };
 
     constructor(_element) {
 
         this._id = _element;
         this._element = fpcm.ui.prepareId(this._id, true);
         this._today = (new Date()).toDateString();
-
     }
     
     setData(_data) {
@@ -89,7 +105,7 @@ export class calendar {
                 let _cur = _is[_d];
                 let _ts = this._toTimeStamp(_is[_d]);
 
-                let _col = this._colCell(_cur, _dbEv);
+                let _col = this._colCell(_cur, _dbEv,_m);
                 let _txt = this._colText(_cur);
                 
                 _col.appendChild(_txt);
@@ -143,7 +159,7 @@ export class calendar {
         let _count = 0;
         
         if (_fdow === 0) {
-            _count = 5;
+            _count = 6;
         }
         else {
             _count = _fdow - 1;
@@ -166,7 +182,7 @@ export class calendar {
         
         if (_fdow === 0) {
             return;
-        }      
+        }
 
         let _count = 7 - _fdow;
 
@@ -178,7 +194,7 @@ export class calendar {
         
     }
     
-    _colCell(_date, _dbEv) {
+    _colCell(_date, _dbEv, _curMonth) {
 
         let _col = document.createElement('div');
         _col.id = 'fpcm-id-calendar-' + this._id + '-col-' + _date.getMilliseconds();
@@ -196,8 +212,12 @@ export class calendar {
         this._addDataset(_col, _date.toDateString());
 
         if (this._today === _date.toDateString()) {
-            _col.classList.add('bg-body-secondary');
-            _col.classList.add('bg-opacity-50');
+            _col.classList.add(this._cfg.styles.currentDate.bgColor);
+            _col.classList.add('bg-opacity-' + this._cfg.styles.currentDate.bgOpacity);
+        }
+        
+        if (_date.getMonth() !== _curMonth) {
+            _col.classList.add('opacity-' + this._cfg.styles.appendingDays.opacity);
         }
 
         if (this._dblClick === null) {
@@ -223,13 +243,13 @@ export class calendar {
         _txt.classList.add('border-bottom');
         _txt.classList.add('border-1');
         _txt.classList.add('mb-1');
-        _txt.classList.add('fs-3');
+        _txt.classList.add('fs-' + this._cfg.styles.days.fontSize);
         
         if (this._today === _date.toDateString()) {
-            _txt.classList.add('fw-bold');
+            _txt.classList.add(this._cfg.styles.currentDate.textStyle);
         }        
         else {
-            _txt.classList.add('text-body-tertiary');
+            _txt.classList.add(this._cfg.styles.days.textStyle);
         }
 
         return _txt;

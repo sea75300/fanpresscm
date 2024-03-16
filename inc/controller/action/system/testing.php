@@ -36,22 +36,37 @@ class testing extends \fpcm\controller\abstracts\controller implements \fpcm\con
         
         $this->createEntries();
         
-        $intv = new \DateInterval('P1M');
+        $drop = new \fpcm\view\helper\select('calMonths');
         
-        $prev = new \DateTime();
-        $prev->sub($intv);
+        $opts = [];
+        
+        for ($index = -18; $index <= 6; $index++) {
+            
+            
+            $intv = new \DateInterval('P'.abs($index).'M');
+            $date = new \DateTime();
+            
+            if ($index < 0) {
+                $date->sub($intv);
+            }
+            elseif ($index > 0) {
+                $date->add($intv);
+            }
 
-        $next = new \DateTime();
-        $next->add($intv);
+            $opts[$date->format('F Y')] = $date->format('Y-m');
+            
+        }
         
+        $drop->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED);
+        $drop->setOptions($opts);
+        $drop->setSelected(date('Y-m'));
+
+        $this->view->addButton($drop);
         
-        
-        $this->view->addButton( (new \fpcm\view\helper\button('prev'))->setText('Zurück')->setData(['month' => $prev->format('Y-m') ])->setOnClick('testing.update') );
-        $this->view->addButton( (new \fpcm\view\helper\button('next'))->setText('Weiter')->setData(['month' => $next->format('Y-m') ])->setOnClick('testing.update') );
         
         $this->view->assign('progressbarName', 'testing');
         
-        $this->view->setJsModuleFiles(['/calendar.js']);
+        $this->view->setJsModuleFiles(['/testing.js']);
         $this->view->addJsVars(['centries' => $this->entries]);
 
         return true;
@@ -68,7 +83,7 @@ class testing extends \fpcm\controller\abstracts\controller implements \fpcm\con
         for ($i = 0; $i < 10; $i++) {
 
             
-            $this->entries[$d->format('Y-n-d')][] = [
+            $this->entries[$d->format('Y-n-j')][] = [
                 'label' => sprintf('%s: %s', 'Testtermin am', $d->format('d.m.Y')),
                 'class' => 'btn-info bg-opacity-75',
                 'src' => '',
@@ -77,6 +92,15 @@ class testing extends \fpcm\controller\abstracts\controller implements \fpcm\con
             $d->add($intv);
 
         }
+        
+        $d2 = new \DateTime('2023-04-06');
+        $d2->setTime(0, 0, 0);        
+        
+        $this->entries[$d2->format('Y-n-j')][] = [
+            'label' => sprintf('%s %s', 'Enjoy!', $d2->format('d.m.Y')),
+            'class' => 'btn-danger bg-opacity-75',
+            'src' => '',
+        ];        
         
         
     }

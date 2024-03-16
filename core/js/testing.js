@@ -12,33 +12,6 @@ fpcm.testing = {
 
     init: function() {
 
-        var _c = new fpcm.ui.calendar('testing-calendar');
-        _c.setData(fpcm.vars.jsvars.centries);
-
-        _c.setDoubleClick(function (_e) {
-           
-            console.log(_e.target);
-            
-        });
-
-        _c.setEntryClick(function (_e) {
-           
-            console.log(_e.target);
-            
-        });
-
-        _c.render(); 
-    },
-    
-    exec: function (_params) {
-        
-    },
-    
-    update: function (_e, _ui) {
-
-        var _c = new fpcm.ui.calendar('testing-calendar');
-        _c.setStart(_ui.dataset.month);
-        _c.render();   
     }
 
 };
