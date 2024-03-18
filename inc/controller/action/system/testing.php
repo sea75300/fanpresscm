@@ -40,7 +40,7 @@ class testing extends \fpcm\controller\abstracts\controller implements \fpcm\con
         
         $opts = [];
         
-        for ($index = -18; $index <= 6; $index++) {
+        for ($index = -36; $index <= 12; $index++) {
             
             
             $intv = new \DateInterval('P'.abs($index).'M');
@@ -75,34 +75,21 @@ class testing extends \fpcm\controller\abstracts\controller implements \fpcm\con
     private function createEntries()
     {
     
-        $intv = new \DateInterval('P1D');
+        $intv = new \DateInterval('P2D');
         
         $d = new \DateTime();
-        $d->setTime(0, 0, 0);
-        
-        for ($i = 0; $i < 10; $i++) {
 
-            
-            $this->entries[$d->format('Y-n-j')][] = [
-                'label' => sprintf('%s: %s', 'Testtermin am', $d->format('d.m.Y')),
-                'class' => 'btn-info bg-opacity-75',
-                'src' => '',
-            ];
-
+        for ($i = 0; $i < 28; $i++) {
+            $ci = new \fpcm\model\calendar\item($d);
+            $ci->setLabel('Testtermin am %s', [ $ci->getDate() ], true);
+            $this->entries[$ci->getId()][] = $ci;
             $d->add($intv);
-
         }
+
+        $ci2 = new \fpcm\model\calendar\item('2023-04-06');
+        $ci2->setLabel('Enjoy!')->setClass('btn-danger bg-opacity-75');
         
-        $d2 = new \DateTime('2023-04-06');
-        $d2->setTime(0, 0, 0);        
-        
-        $this->entries[$d2->format('Y-n-j')][] = [
-            'label' => sprintf('%s %s', 'Enjoy!', $d2->format('d.m.Y')),
-            'class' => 'btn-danger bg-opacity-75',
-            'src' => '',
-        ];        
-        
-        
+        $this->entries[$ci2->getId()][] = $ci2;
     }
 
 }

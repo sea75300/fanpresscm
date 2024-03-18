@@ -28,7 +28,7 @@ export class calendar {
             },
             currentDate: {
                 bgColor: 'bg-body-secondary',
-                bgOpacity: 'bgOpacity',
+                bgOpacity: '50',
                 textStyle: 'fw-bold'
             }            
         }
