@@ -162,7 +162,7 @@ final class cronlist extends \fpcm\model\abstracts\staticModel {
      * @return array
      * @since 4.3
      */
-    private function getResult(array $values, $activeOnly = false) : array
+    private function getResult(array|bool $values, $activeOnly = false) : array
     {
         if (!count($values)) {
             return [];
