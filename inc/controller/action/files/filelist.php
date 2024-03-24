@@ -97,7 +97,7 @@ class filelist extends \fpcm\controller\abstracts\controller
             'FILE_LIST_ALTTEXT', 'FILE_LIST_FILENAME', 'MSG_FILES_CREATETHUMBS',
             'GLOBAL_LASTCHANGE', 'FILE_LIST_UPLOAD_BY', 'FILE_LIST_FILESIZE',
             'FILE_LIST_RESOLUTION', 'FILE_LIST_FILETYPE', 'FILE_LIST_FILEHASH',
-            'FILE_LIST_FILECREDITS'
+            'FILE_LIST_FILECREDITS', 'RENAME_FAILED_FILE'
         ], $uploader->getJsLangVars()));
 
         if (!trim($uploader->getTemplate()) || !realpath($uploader->getTemplate())) {

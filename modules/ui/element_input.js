@@ -35,6 +35,8 @@ export class element_input {
     autofocus = false;
     
     labelIcon = false;
+    
+    required = false;
 
     assignToDom(_destination) {
         
@@ -93,6 +95,10 @@ export class element_input {
         
         if (this.type) {
             _input.type = this.type;
+        }
+        
+        if (this.required) {
+            _input.required = this.required;
         }
         
         _wrapper.appendChild(_input);

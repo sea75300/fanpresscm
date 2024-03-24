@@ -147,6 +147,8 @@ fpcm.filemanager = {
             _input.label = fpcm.ui.translate('FILE_LIST_FILENAME');
             _input.value = this.dataset.oldname;
             _input.placeholder = this.dataset.oldname;
+            _input.pattern = /^[a-z0-9_.\-\(\)]+$/i;
+            _input.required = true;
 
             fpcm.ui_dialogs.create({
                 id: 'files-rename',
@@ -160,9 +162,22 @@ fpcm.filemanager = {
                         clickClose: true,
                         primary: true,
                         click: function() {
+
+                            let _inputEl = document.getElementById('fpcm-id-new-filename-dialog');
+
+                            if (_inputEl.validity && ( _inputEl.validity.valueMissing || _inputEl.validity.patternMismatch )) {
+
+                                fpcm.ui.addMessage({
+                                    txt: _inputEl.validationMessage,
+                                    type: 'error'
+                                });
+
+                                return;
+                            }
+                            
                             fpcm.ajax.post('files/rename', {
                                 data: {
-                                    newName: fpcm.dom.fromId('fpcm-id-new-filename-dialog').val(),
+                                    newName: _inputEl.value,
                                     oldName: _docname
                                 },
                                 execDone: function (result) {

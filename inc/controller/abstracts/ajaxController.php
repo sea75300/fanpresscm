@@ -73,14 +73,19 @@ class ajaxController extends controller {
     {
         $res = parent::checkPageToken($this->request->fetchAll('module'));
         if (!$res) {
-            http_response_code(400);
-            header('Bad Request');
+            $this->response->setCode(400)->addHeaders('HTTP/1.1 400 Bad Request')->fetch();
             return false;
         }
         
         return true;
     }
-    
+
+    /**
+     * Maintenance mode check
+     * @param string $simplemsg
+     * @return bool
+     * @since 5.2.0-a1
+     */
     protected function maintenanceMode($simplemsg = true) : bool
     {
         if (!$this->config->system_maintenance || ($this->session->exists() && $this->session->getCurrentUser()->isAdmin())) {
