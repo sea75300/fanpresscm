@@ -33,5 +33,14 @@ class v500rc2 extends migration {
         $obj->setPermissionData($data);
         return $obj->update();
     }
+    
+    /**
+     * Returns new version, e. g. from version.txt
+     * @return string
+     */
+    protected function getNewVersion() : string
+    {
+        return '5.0.0-rc2';
+    }
 
 }

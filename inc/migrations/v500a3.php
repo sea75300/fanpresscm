@@ -31,7 +31,7 @@ class v500a3 extends migration {
 
         return $this->getConfig()->remove('system_session_length');
     }
-
+    
     /**
      * Returns new version, e. g. from version.txt
      * @return string

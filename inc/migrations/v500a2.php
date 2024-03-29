@@ -85,7 +85,7 @@ class v500a2 extends migration {
 
         return true;
     }
-
+    
     /**
      * Returns new version, e. g. from version.txt
      * @return string
