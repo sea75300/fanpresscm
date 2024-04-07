@@ -59,7 +59,7 @@ class v500a1 extends migration {
 
         return $res;
     }
-
+    
     /**
      * Returns new version, e. g. from version.txt
      * @return string
@@ -69,5 +69,4 @@ class v500a1 extends migration {
         return '5.0.0-a1';
     }
 
-    
 }

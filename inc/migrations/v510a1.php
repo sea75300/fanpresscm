@@ -63,5 +63,14 @@ class v510a1 extends migration {
 
         return true;
     }
+    
+    /**
+     * Returns new version, e. g. from version.txt
+     * @return string
+     */
+    protected function getNewVersion() : string
+    {
+        return '5.1.0-a1';
+    }
 
 }
