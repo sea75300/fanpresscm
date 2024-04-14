@@ -129,6 +129,7 @@ class showlatest extends \fpcm\controller\abstracts\pubController {
             $conditions->limit = [$this->limit, 0];
             $conditions->archived = 0;
             $conditions->postponed = 0;
+            $conditions->draft = 0;
 
             if ($this->category !== 0) {
                 $conditions->category = $this->category;
