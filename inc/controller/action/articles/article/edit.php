@@ -5,7 +5,7 @@
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
-namespace fpcm\controller\action\articles;
+namespace fpcm\controller\action\articles\article;
 
 /**
  * Article edit controller
@@ -13,7 +13,7 @@ namespace fpcm\controller\action\articles;
  * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class articleedit extends articlebase {
+class edit extends base {
 
     use \fpcm\controller\traits\comments\lists,
         \fpcm\model\articles\permissions,

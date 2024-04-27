@@ -7,9 +7,9 @@
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
-namespace fpcm\controller\action\articles;
+namespace fpcm\controller\action\articles\articlelist;
 
-class articlelistarchive extends articlelistbase {
+class archive extends base {
 
     /**
      * 

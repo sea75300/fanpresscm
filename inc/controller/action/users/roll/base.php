@@ -7,9 +7,9 @@
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
-namespace fpcm\controller\action\users;
+namespace fpcm\controller\action\users\roll;
 
-abstract class rollbase extends \fpcm\controller\abstracts\controller
+abstract class base extends \fpcm\controller\abstracts\controller
 {
 
     use \fpcm\controller\traits\theme\nav\users;

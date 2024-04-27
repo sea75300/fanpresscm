@@ -1,15 +1,15 @@
 <?php
 
 /**
- * Article list all controller
+ * Article list active controller
  * @article Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
-namespace fpcm\controller\action\articles;
+namespace fpcm\controller\action\articles\articlelist;
 
-class articlelistall extends articlelistbase {
+class active extends base {
 
     /**
      * 
@@ -17,22 +17,22 @@ class articlelistall extends articlelistbase {
      */
     public function isAccessible(): bool
     {
-        return $this->permissions->article->edit || $this->permissions->article->editall;
+        return $this->permissions->article->edit;
     }
-
+    
     protected function getListAction() : void
     {
-        $this->listAction = 'articles/listall';
+        $this->listAction = 'articles/listactive';
     }
 
     protected function getSearchMode() : string
     {
-        return \fpcm\controller\ajax\articles\lists::MODE_ALL;
+        return \fpcm\controller\ajax\articles\lists::MODE_ACTIVE;
     }
 
     protected function showDraftStatus() : bool
     {
-        return true;
+        return false;
     }
 
 }

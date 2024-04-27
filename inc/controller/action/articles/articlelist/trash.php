@@ -8,9 +8,9 @@
  * @since 3.5
  */
 
-namespace fpcm\controller\action\articles;
+namespace fpcm\controller\action\articles\articlelist;
 
-class articlelisttrash extends \fpcm\controller\abstracts\controller
+class trash extends \fpcm\controller\abstracts\controller
 {
 
     use \fpcm\controller\traits\articles\listsCommon,
