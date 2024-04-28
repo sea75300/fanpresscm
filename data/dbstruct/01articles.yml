@@ -91,6 +91,10 @@ cols:
         type: bigint
         length: 20
         params: NULL
+    pinned_until:
+        type: bigint
+        length: 20
+        params: NULL
 indices:
     title:
         col: title

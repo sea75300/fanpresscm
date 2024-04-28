@@ -168,6 +168,13 @@ implements \fpcm\model\interfaces\isCsvImportable {
     protected $relates_to = 0;
 
     /**
+     * Pin article until a certain date
+     * @var int
+     * @since 5.2.0-b4
+     */
+    protected $pinned_until = 0;
+
+    /**
      * Artikel-Quellen
      * @var int
      * @since 3.5
@@ -588,6 +595,24 @@ implements \fpcm\model\interfaces\isCsvImportable {
         $this->relates_to = $relatesTo;
     }
 
+    /**
+     * Get pinned until
+     * @return int
+     * @since 5.2.0-b4
+     */
+    public function getPinnedUntil(): int {
+        return $this->pinned_until;
+    }
+
+    /**
+     * Set pinned until
+     * @param int $pinnedUntil
+     * @since 5.2.0-b4
+     */
+    public function setPinnedUntil(int $pinnedUntil) {
+        $this->pinned_until = $pinnedUntil;
+    }
+        
     /**
      * Setzt Status, ob Artikel bearbeitet werden kann
      * @param bool $editPermission

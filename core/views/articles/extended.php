@@ -15,9 +15,6 @@
                     <div class="list-group">
                     <?php if (!$article->getArchived()) : ?>
                         <div class="list-group-item">
-                            <?php $theView->checkbox('article[pinned]')->setText('EDITOR_PINNED')->setSelected($article->getPinned())->setClass('fpcm-ui-editor-metainfo-checkbox')->setData(['icon' => 'pinned'])->setSwitch(true); ?>
-                        </div>
-                        <div class="list-group-item">
                             <?php $theView->checkbox('article[draft]')->setText('EDITOR_DRAFT')->setSelected($article->getDraft())->setClass('fpcm-ui-editor-metainfo-checkbox')->setData(['icon' => 'draft'])->setSwitch(true); ?>
                         </div>
                     <?php endif; ?>
@@ -45,6 +42,35 @@
 </fieldset>
 
 <hr>
+
+<?php if (!$article->getArchived()) : ?>
+<fieldset class="py-3">
+    <div class="row">
+        <div class="col">
+            <?php $theView->checkbox('article[pinned]')
+                    ->setText('EDITOR_PINNED')
+                    ->setSelected($article->getPinned())
+                    ->setClass('fpcm-ui-editor-metainfo-checkbox')
+                    ->setData(['icon' => 'pinned'])
+                    ->setSwitch(true); ?>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12 col-md-8">
+
+            <div class="input-group">
+                <label class="col-form-label pe-3  col-12 col-sm-6 col-md-4" for="article_postponedate">
+                    <?php $theView->icon('calendar-plus')->setSize('lg'); ?> <?php $theView->write('EDITOR_PINNED_DATE'); ?>
+                </label>
+                <input class="form-control" name="article[pinned_until]" id="article_pinned_until" type="date" mindate="+1d" maxdate="+4w" value="<?php print $theView->dateText($pinnedTimer, 'Y-m-d'); ?>">
+            </div>
+        </div>
+    </div>
+</fieldset>
+
+<hr>
+<?php endif; ?>
 
 <?php if ($changeAuthor) : ?>
 <fieldset class="py-3">

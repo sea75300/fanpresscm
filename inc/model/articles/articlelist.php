@@ -9,7 +9,7 @@ namespace fpcm\model\articles;
 
 /**
  * FanPress CM Article List Model
- * 
+ *
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
  * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
@@ -160,6 +160,30 @@ implements \fpcm\model\interfaces\gsearchIndex {
     }
 
     /**
+     * Returns List of pinned articles with date in the past
+     * @return array
+     * @since 5.2.0-b4
+     */
+    public function getArticlesPinnedIDs()
+    {
+        $t = time();
+
+        $res = $this->dbcon->update(
+            $this->table,
+            ['pinned'],
+            [ 0, $t ],
+            'pinned = 1 AND pinned_until <= ? AND approval = 0 AND deleted = 0 AND draft = 0'
+        );
+
+        if (!$res) {
+            trigger_error('Unable to unpin articles before ' . date($this->config->system_dtmask, $t) );
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
      * Gibt Liste mit allen gelöschten Artikeln zurück (Papierkorb)
      * @param bool $monthIndex
      * @return array
@@ -231,7 +255,7 @@ implements \fpcm\model\interfaces\gsearchIndex {
         $where .= ' ' . implode(' ', $where2);
 
         $item   = $conditions->metaOnly
-                ? 'id, title, categories, createtime, createuser, changetime, changeuser, draft, archived, pinned, postponed, deleted, comments, approval, imagepath, sources, inedit'
+                ? 'id, title, categories, createtime, createuser, changetime, changeuser, draft, archived, pinned, postponed, deleted, comments, approval, imagepath, sources, inedit ,pinned_until'
                 : '*';
 
         $obj = (new \fpcm\model\dbal\selectParams($this->table))
@@ -311,18 +335,18 @@ implements \fpcm\model\interfaces\gsearchIndex {
         if (!count($ids)) {
             return true;
         }
-        
+
         $return = $this->dbcon->update(
             $this->table,
             ['postponed'],
             array_merge([0], $ids),
             $this->dbcon->inQuery('id', $ids) . ' AND postponed = 1 AND approval = 0 AND deleted = 0 AND draft = 0'
         );
-        
+
         if (!$return) {
             return false;
         }
-        
+
         $this->cache->cleanup();
         return true;
     }
@@ -593,24 +617,24 @@ implements \fpcm\model\interfaces\gsearchIndex {
         if (isset($this->data[__METHOD__])) {
             return $this->data[__METHOD__];
         }
-        
+
         $obj = (new \fpcm\model\dbal\selectParams(\fpcm\classes\database::viewArticleCounts))
                 ->setItem('*')
                 ->setFetchAll(true);
-        
+
         if (count($ids)) {
             $obj->setWhere($this->dbcon->inQuery('article_id', $ids));
             $obj->setParams($ids);
         }
-        
+
         $data = $this->dbcon->selectFetch($obj);
         if (!is_array($data) || !count($data)) {
             return [];
         }
-        
+
         $return = [];
         array_walk($data, function ($value) use (&$return) {
-           
+
             $return[$value->article_id] = new relatedCountItem(
                 (int) $value->article_id,
                 (int) $value->ccount,
@@ -693,7 +717,7 @@ implements \fpcm\model\interfaces\gsearchIndex {
                 $this->dbcon->getTablePrefixed(\fpcm\classes\database::tableArticleCategories),
                 'category_id IN (?)'
             );
-            
+
             $valueParams[] = (int) $conditions->category;
         }
 
@@ -718,7 +742,7 @@ implements \fpcm\model\interfaces\gsearchIndex {
             $valueParams[] = $conditions->postponed;
         }
 
-        if ($conditions->archived !== null) {           
+        if ($conditions->archived !== null) {
             $where[] = "archived = ?";
             $valueParams[] = $conditions->archived;
         }
@@ -741,6 +765,11 @@ implements \fpcm\model\interfaces\gsearchIndex {
         if ($conditions->approval !== null) {
             $where[] = "approval = ?";
             $valueParams[] = $conditions->approval > -1 ? $conditions->approval : 0;
+        }
+
+        if ($conditions->pinned_until !== null) {
+            $where[] = "pinned_until <= ?";
+            $valueParams[] = $conditions->pinned_until;
         }
 
         $where[] = "deleted = ?";
@@ -796,8 +825,8 @@ implements \fpcm\model\interfaces\gsearchIndex {
                     'category_id IN (:categories)'
                 )
             );
-            
-            $valueParams[':categories'] = (int) $conditions->category;            
+
+            $valueParams[':categories'] = (int) $conditions->category;
         }
 
         if ($conditions->pinned !== null) {
@@ -825,9 +854,14 @@ implements \fpcm\model\interfaces\gsearchIndex {
             $valueParams[':draft'] = $conditions->draft > -1 ? $conditions->draft : 0;
         }
 
-        if ($conditions->archived !== null) {           
+        if ($conditions->archived !== null) {
             $where[] = $conditions->getCondition('archived', 'archived = :archived');
             $valueParams[':archived'] = $conditions->archived;
+        }
+
+        if ($conditions->pinned_until !== null) {
+            $where[] = $conditions->getCondition('pinned_until', 'pinned_until <= :pinned_until');
+            $valueParams[':pinned_until'] = $conditions->pinned_until;
         }
 
         $where[] = $conditions->getCondition('deleted', "deleted = :deleted");
@@ -865,7 +899,7 @@ implements \fpcm\model\interfaces\gsearchIndex {
     {
         $tmp = \fpcm\classes\loader::getObject('\fpcm\model\articles\article', null);
         $tmp->setId($id);
-   
+
         return $tmp->getEditLink();
     }
 
@@ -878,7 +912,7 @@ implements \fpcm\model\interfaces\gsearchIndex {
     {
         return new \fpcm\view\helper\icon('book');
     }
-    
+
     /**
      * Returns selectParams object instance
      * @return \fpcm\model\dbal\selectParams
@@ -897,7 +931,7 @@ implements \fpcm\model\interfaces\gsearchIndex {
     public function prepareText(string $text): string
     {
         list($name, $date) = explode(';', $text);
-        return sprintf('%s<br><span class="fpcm ui-font-small text-secondary">%s</span>', new \fpcm\view\helper\escape($name), new \fpcm\view\helper\dateText($date));        
+        return sprintf('%s<br><span class="fpcm ui-font-small text-secondary">%s</span>', new \fpcm\view\helper\escape($name), new \fpcm\view\helper\dateText($date));
     }
 
 }

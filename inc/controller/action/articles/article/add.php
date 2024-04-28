@@ -39,6 +39,7 @@ class add extends base {
         $this->view->assign('showRevisions', false);
         $this->view->assign('showShares', false);
         $this->view->assign('postponedTimer', time());
+        $this->view->assign('pinnedTimer', time()+3600*24);
         $this->view->render();
     }
 

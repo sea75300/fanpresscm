@@ -121,6 +121,7 @@ class edit extends base {
         $this->view->setFormAction($this->article->getEditLink(), [], true);
         $this->view->assign('editorMode', 1);
         $this->view->assign('postponedTimer', $this->article->getCreatetime());
+        $this->view->assign('pinnedTimer', $this->article->getPinnedUntil());
         $this->view->assign('commentsMode', 2);
         $this->view->assign('showArchiveStatus', true);
         

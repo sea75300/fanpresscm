@@ -13,12 +13,12 @@ namespace fpcm\controller\action\articles\article;
  * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-abstract class base extends \fpcm\controller\abstracts\controller 
+abstract class base extends \fpcm\controller\abstracts\controller
 implements \fpcm\controller\interfaces\requestFunctions
 {
 
     use \fpcm\controller\traits\articles\newteets;
-    
+
     /**
      *
      * @var \fpcm\model\articles\article
@@ -101,7 +101,7 @@ implements \fpcm\controller\interfaces\requestFunctions
     }
 
     /**
-     * 
+     *
      * @return string
      */
     protected function getHelpLink()
@@ -119,7 +119,7 @@ implements \fpcm\controller\interfaces\requestFunctions
     }
 
     /**
-     * 
+     *
      * @return void
      */
     protected function initObject()
@@ -128,12 +128,12 @@ implements \fpcm\controller\interfaces\requestFunctions
         if (!$id) {
             $id = null;
         }
-        
+
         $this->article = new \fpcm\model\articles\article($id);
     }
 
     /**
-     * 
+     *
      * @return void
      */
     public function request()
@@ -146,19 +146,19 @@ implements \fpcm\controller\interfaces\requestFunctions
     }
 
     /**
-     * 
+     *
      * @return void
      */
     public function process()
     {
         $this->initTabs();
-        
+
         $this->editorPlugin = \fpcm\components\components::getArticleEditor();
         if (!$this->editorPlugin) {
             $this->view = new \fpcm\view\error('Error loading article editor component '.$this->config->system_editor);
             $this->view->render();
         }
-        
+
         $this->view->addJsFiles(array_merge([
                 'articles/articlebase.js',
                 'editor/editor.js',
@@ -168,23 +168,23 @@ implements \fpcm\controller\interfaces\requestFunctions
         ));
 
         $this->view->addCssFiles($this->editorPlugin->getCssFiles());
-        
+
         $this->view->addFromLibrary(
             'tom-select_js',
             [ 'tom-select.min.js' ],
             [ 'tom-select.bootstrap5.min.css' ]
-        ); 
+        );
 
         $viewVars = $this->editorPlugin->getViewVars();
         foreach ($viewVars as $key => $value) {
             $this->view->assign($key, $value);
-        }            
+        }
 
         $this->view->assign('changeAuthor', $this->canChangeAuthor);
         if ($this->canChangeAuthor) {
             $this->view->assign('changeuserList', (new \fpcm\model\users\userList())->getUsersNameList());
         }
-        
+
         if (!$this->article->getId()) {
             $this->article->setComments($this->config->comments_default_active);
         }
@@ -231,7 +231,7 @@ implements \fpcm\controller\interfaces\requestFunctions
 
         return true;
     }
-    
+
     private function initTwitter()
     {
         $twitter    = $this->getTwitterInstace();
@@ -243,21 +243,21 @@ implements \fpcm\controller\interfaces\requestFunctions
             $this->view->assign('twitterTplPlaceholder', $tpl['tpl'] );
             $this->view->assign('twitterReplacements', $tpl['vars'] );
             $this->view->assign('showTwitter', true);
-            
+
             return true;
         }
-            
+
         $this->view->assign('twitterTplPlaceholder', null);
         $this->view->assign('twitterReplacements', null);
         $this->view->assign('showTwitter', false);
         return true;
     }
-    
+
     private function initTabs()
     {
-    
+
         $tabs = [];
-        
+
         $tabs[] = (new \fpcm\view\helper\tabItem('editor'))
                 ->setFile('articles/editor.php')
                 ->setText('ARTICLES_EDITOR')
@@ -267,7 +267,7 @@ implements \fpcm\controller\interfaces\requestFunctions
                 ->setFile('articles/extended.php')
                 ->setText('GLOBAL_EXTENDED')
                 ->setTabToolbar(1);
-        
+
         if ($this->showComments && $this->config->system_comments_enabled) {
 
             $tabs[] = (new \fpcm\view\helper\tabItem('comments'))
@@ -278,9 +278,9 @@ implements \fpcm\controller\interfaces\requestFunctions
                     ->setText('HL_ARTICLE_EDIT_COMMENTS', [ 'count' => $this->commentCount ])
                     ->setDataViewId('commentlist')
                     ->setTabToolbar(2);
-            
+
         }
-        
+
         if ($this->showRevisions) {
 
             $tabs[] = (new \fpcm\view\helper\tabItem('revisions'))
@@ -291,16 +291,16 @@ implements \fpcm\controller\interfaces\requestFunctions
                     ->setText('HL_ARTICLE_EDIT_REVISIONS', [ 'count' => $this->revisionCount ])
                     ->setDataViewId('revisionslist')
                     ->setTabToolbar(3);
-            
+
         }
-        
-        
+
+
         $this->view->addTabs('tabs-editor', $tabs, '', $this->getActiveTab());
-        
+
     }
 
     /**
-     * 
+     *
      * @param array $data
      * @param int $allTimer
      * @return bool
@@ -340,14 +340,26 @@ implements \fpcm\controller\interfaces\requestFunctions
 
         $this->article->setPinned($data['pinned'] ?? 0);
         $this->article->setDraft($data['draft'] ?? 0);
+
+        if ($this->article->getPinned() &&
+            isset($data['pinned_until']) && trim($data['pinned_until']) &&
+            \fpcm\classes\tools::validateDateString($data['pinned_until'])
+        ) {
+            $puDt = new \DateTime($data['pinned_until']);
+            $puDt->setTime(23, 59, 59);
+            $this->article->setPinnedUntil($puDt->getTimestamp());
+        }
+        else {
+            $this->article->setPinnedUntil(0);
+        }
+
         $this->article->setComments($data['comments'] ?? $this->config->comments_default_active);
 
         $relates_to = intval($data['relatesto'] ?? 0);
         if ($relates_to && $relates_to !== $this->article->getId()) {
             $this->article->setRelatesTo($relates_to);
         }
-        
-        
+
         $this->article->setApproval($this->approvalRequired ? 1 : ( $data['approval'] ?? 0 ));
         $this->article->setImagepath($data['imagepath'] ?? '');
         $this->article->setSources($data['sources'] ?? '');
@@ -357,13 +369,17 @@ implements \fpcm\controller\interfaces\requestFunctions
             $this->article->setArchived($data['archived'] ?? 0);
             if ($this->article->getArchived()) {
                 $this->article->setPinned(0);
+                $this->article->setPinnedUntil(0);
                 $this->article->setDraft(0);
             }
         }
 
-        $authorId = (isset($data['author']) && trim($data['author']) && $this->canChangeAuthor ? $data['author'] : $this->session->getUserId());
-        $this->article->setCreateuser($authorId);
+        if (!$this->canChangeAuthor || empty($data['author'])) {
+            $this->article->setCreateuser($this->session->getUserId());
+            return true;
+        }
 
+        $this->article->setCreateuser((int) $data['author']);
         return true;
     }
 
@@ -384,7 +400,7 @@ implements \fpcm\controller\interfaces\requestFunctions
     }
 
     /**
-     * 
+     *
      * @return bool
      */
     protected function onArticleSave() : bool
@@ -395,7 +411,7 @@ implements \fpcm\controller\interfaces\requestFunctions
         }
 
         $allTimer = time();
-        
+
         $data = $this->request->fromPOST('article', [
             \fpcm\model\http\request::FILTER_STRIPSLASHES,
             \fpcm\model\http\request::FILTER_TRIM
@@ -405,13 +421,13 @@ implements \fpcm\controller\interfaces\requestFunctions
             $this->view->addErrorMessage('CSRF_INVALID');
             return false;
         }
-        
+
         if ($this->article->getId()) {
             $this->article->prepareRevision();
         }
 
         $this->assignArticleFormData($data, $allTimer);
-        
+
         $fn = 'save';
         if ($this->article->getId()) {
 
@@ -423,7 +439,7 @@ implements \fpcm\controller\interfaces\requestFunctions
 
             if ($this->article->isInEdit()) {
                 return false;
-            }            
+            }
 
         }
         elseif (!$this->article->getCreatetime()) {
@@ -442,7 +458,7 @@ implements \fpcm\controller\interfaces\requestFunctions
         $this->article->setChangetime($allTimer);
         $this->article->setChangeuser($this->session->getUserId());
 
-        $this->article->enableTweetCreation(isset($data['tweet']) ? true : false);        
+        $this->article->enableTweetCreation(isset($data['tweet']) ? true : false);
 
         $res = $this->article->{$fn}();
 
@@ -453,10 +469,10 @@ implements \fpcm\controller\interfaces\requestFunctions
 
         \fpcm\model\articles\article::addSourcesAutocomplete($this->article->getSources());
 
-        $this->onArticleSaveAfterSuccess((int) $res);        
+        $this->onArticleSaveAfterSuccess((int) $res);
         return true;
     }
-    
+
     abstract protected function onArticleSaveAfterSuccess(int $id) : bool;
-    
+
 }
