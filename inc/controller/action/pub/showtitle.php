@@ -28,27 +28,16 @@ class showtitle extends \fpcm\controller\abstracts\pubController {
     protected $param = '';
 
     /**
-     * UTF8-Encoding aktiv
-     * @var bool
-     */
-    protected $isUtf8 = true;
-
-    /**
      * Konstruktor
      * @param string $action
      * @param string $param
      */
-    public function __construct($action, $param, $isUtf8 = true)
+    public function __construct($action, $param)
     {
         parent::__construct();
 
-        if ($isUtf8 !== true) {
-            trigger_error('isUtf8 is deprecated and will be removed in FanPress CM 5.2.', E_USER_DEPRECATED);
-        }
-
         $this->action = $action;
         $this->param = $param;
-        $this->isUtf8 = $isUtf8;
     }
 
     /**
@@ -100,7 +89,7 @@ class showtitle extends \fpcm\controller\abstracts\pubController {
                 break;
         }
         
-        print $this->isUtf8 ? $content : utf8_decode($content);
+        print $content;
     }
 
 }

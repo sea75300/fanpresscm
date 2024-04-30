@@ -91,12 +91,6 @@ abstract class showcommon extends \fpcm\controller\abstracts\pubController {
     protected $limit = 0;
 
     /**
-     * Use UTF-8 encoding
-     * @var bool
-     */
-    protected $isUtf8 = true;
-
-    /**
      * Template to use
      * @var bool
      */
@@ -122,14 +116,9 @@ abstract class showcommon extends \fpcm\controller\abstracts\pubController {
             'module'
         ]);
 
-        if (isset($params['isUtf8'])) {
-            trigger_error('isUtf8 is deprecated and will be removed in FanPress CM 5.2.', E_USER_DEPRECATED);
-        }
-
         $this->apiMode = (bool) ($params['apiMode'] ?? false);
         $this->category = $params['category'] ?? 0;
         $this->search = empty($params['search']) ? '' : addslashes(strip_tags(htmlspecialchars($params['search'])));
-        $this->isUtf8 = (bool) ($params['isUtf8'] ?? true);
         $this->templateString = isset($params['template']) && trim($params['template']) ? $params['template'] : false;
 
         parent::__construct();
@@ -183,7 +172,7 @@ abstract class showcommon extends \fpcm\controller\abstracts\pubController {
         $this->view->addJsLangVars(['PUBLIC_SHARE_LIKE', 'AJAX_RESPONSE_ERROR']);
         $content = implode(PHP_EOL, $this->parseArticles());
 
-        $this->view->assign('content', $this->isUtf8 ? $content : utf8_decode($content));
+        $this->view->assign('content', $content);
         $this->view->assign('isArchive', $this->isArchive());
         $this->view->assign('archievDate', $this->config->articles_archive_datelimit);
         $this->view->render();

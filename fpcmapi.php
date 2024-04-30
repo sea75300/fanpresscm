@@ -19,7 +19,7 @@ require_once __DIR__ . '/inc/common.php';
 
 /**
  * FanPress CM API, class for integration into a website
- * 
+ *
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2021, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
@@ -91,7 +91,7 @@ class fpcmAPI {
         $this->initObjects();
 
         $module = (new \fpcm\model\http\request)->getModule();
-        
+
         if (!trim($module)) {
             $module = 'fpcm/list';
         }
@@ -125,7 +125,7 @@ class fpcmAPI {
     }
 
     /**
-     * 
+     *
      * Exec Latest News display
      * @param array $params params @see \fpcm\controller\action\pub\showlatest
      * @return bool
@@ -158,9 +158,8 @@ class fpcmAPI {
     /**
      * Display current page number
      * @param string $divider
-     * @param bool $isUtf8
      */
-    public function showPageNumber($divider = "&bull; Page", $isUtf8 = true)
+    public function showPageNumber($divider = "&bull; Page")
     {
         if ($this->versionFailed) {
             return false;
@@ -168,15 +167,14 @@ class fpcmAPI {
 
         $this->initObjects();
 
-        (new fpcm\controller\action\pub\showtitle('page', $divider, $isUtf8))->process();
+        (new fpcm\controller\action\pub\showtitle('page', $divider))->process();
     }
 
     /**
      * Display title of currently requested article
      * @param string $divider
-     * @param bool $isUtf8
      */
-    public function showTitle($divider = "&bull;", $isUtf8 = true)
+    public function showTitle($divider = "&bull;")
     {
         if ($this->versionFailed) {
             return false;
@@ -184,13 +182,13 @@ class fpcmAPI {
 
         $this->initObjects();
 
-        (new fpcm\controller\action\pub\showtitle('title', $divider, $isUtf8))->process();
+        (new fpcm\controller\action\pub\showtitle('title', $divider))->process();
     }
 
     /**
      * PHP-Magic-Methode __call, ruft Event apiCallFunction auf
      * Form: MODULEKEY mit _ statt _ + "_" +  FUNCTIONNAME (Bsp.: nkorg_example_foo)
-     * 
+     *
      * @param string $name
      * @param array $arguments
      * @return mixed
@@ -214,7 +212,7 @@ class fpcmAPI {
     /**
      * PHP-Magic-Methode __callStatic, ruft Event apiCallFunction auf
      * Form: MODULEKEY mit _ statt _ + "_" +  FUNCTIONNAME (Bsp.: nkorg_example_foo)
-     * 
+     *
      * @param string $name
      * @param array $arguments
      * @return mixed
@@ -375,17 +373,17 @@ class fpcmAPI {
             trigger_error('No message content set!');
             return false;
         }
-        
+
         if (!isset($param['html'])) {
             $param['html'] = false;
         }
-        
-        
+
+
         $mail = new fpcm\classes\email($param['to'], $param['subject'], $param['text'], false, $param['html']);
         if (isset($param['attachments'])) {
             $mail->setAttachments($param['attachments']);
         }
-        
+
         return $mail->submit();
     }
 
@@ -406,8 +404,8 @@ class fpcmAPI {
     public function getPublicJsFile() : string
     {
         define('FPCM_PUBJS_LOADED', 1);
-        
-        if ( defined('FPCM_DEBUG') && FPCM_DEBUG || 
+
+        if ( defined('FPCM_DEBUG') && FPCM_DEBUG ||
              !file_exists(\fpcm\classes\dirs::getFullDirPath('js/fpcm.min.js') ) )  {
             return \fpcm\classes\dirs::getRootUrl('js/fpcm.js');
         }

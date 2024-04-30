@@ -78,12 +78,6 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
     protected $articleId = 0;
 
     /**
-     * UTF8-Encoding aktiv
-     * @var bool
-     */
-    protected $isUtf8 = true;
-
-    /**
      * Article template to use
      * @var bool
      */
@@ -107,13 +101,8 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
             'module'
         ]);
 
-        if (isset($params['isUtf8'])) {
-            trigger_error('isUtf8 is deprecated and will be removed in FanPress CM 5.2.', E_USER_DEPRECATED);
-        }
-
         $this->templateString = isset($params['template']) && trim($params['template']) ? $params['template'] : false;
         $this->apiMode = isset($params['apiMode']) ? (bool) $params['apiMode'] : false;
-        $this->isUtf8 = isset($params['isUtf8']) ? (bool) $params['isUtf8'] : true;
 
         parent::__construct();
 
@@ -196,11 +185,6 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
             }
         } else {
             $parsed = $this->cache->read($this->cacheName);
-        }
-
-        if (!$this->isUtf8) {
-            $parsed['articles'] = utf8_decode($parsed['articles']);
-            $parsed['comments'] = utf8_decode($parsed['comments']);
         }
 
         $this->viewVars['article'] = $parsed['articles'];
@@ -312,10 +296,6 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
 
         $this->commentFormTemplate->assignByObject($this->article, $this->newComment, $this->captcha);
         $parsed = $this->commentFormTemplate->parse();
-
-        if (!$this->isUtf8) {
-            $parsed = utf8_decode($parsed);
-        }
 
         return $parsed;
     }
