@@ -7,9 +7,9 @@
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
-namespace fpcm\controller\action\users;
+namespace fpcm\controller\action\users\user;
 
-class useradd extends userbase {
+class add extends base {
 
     /**
      *

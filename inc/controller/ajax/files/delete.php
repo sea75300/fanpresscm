@@ -25,6 +25,12 @@ class delete extends \fpcm\controller\abstracts\ajaxController
     private $fileName = '';
 
     /**
+     * 
+     * @var array
+     */
+    protected $returnData;
+
+    /**
      *
      * @var bool
      */

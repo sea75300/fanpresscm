@@ -21,6 +21,7 @@ namespace fpcm\model\articles;
  * @property int $category via Kategorie
  * @property int $datefrom seit Datum X.Y.Z
  * @property int $dateto bis Datum X.Y.Z
+ * @property int $pinned_until pinned until to date
  * @property int $combinationDatefrom AND/OR for datefrom
  * @property int $combinationDateto AND/OR for dateto
  * @property int $combinationUserid AND/OR for userid

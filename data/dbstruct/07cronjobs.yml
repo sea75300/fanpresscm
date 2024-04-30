@@ -116,3 +116,10 @@ defaultvalues:
             execinterval: 86400
             modulekey: 
             isrunning: 0
+        11:
+            id: 11
+            cjname: "unpinArticles"
+            lastexec: 0
+            execinterval: 86400
+            modulekey: 
+            isrunning: 0

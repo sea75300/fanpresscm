@@ -7,9 +7,9 @@
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
-namespace fpcm\controller\action\articles;
+namespace fpcm\controller\action\articles\articlelist;
 
-abstract class articlelistbase extends \fpcm\controller\abstracts\controller
+abstract class base extends \fpcm\controller\abstracts\controller
 {
 
     use \fpcm\controller\traits\articles\listsCommon,

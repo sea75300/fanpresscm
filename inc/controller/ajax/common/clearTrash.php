@@ -21,6 +21,12 @@ class clearTrash extends \fpcm\controller\abstracts\ajaxController
 
     /**
      * 
+     * @var array
+     */
+    protected $returnData;
+
+    /**
+     * 
      * @return bool
      */
     public function isAccessible(): bool
