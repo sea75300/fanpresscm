@@ -24,4 +24,10 @@ trait apiMode {
      */
     protected $commentCount = 0;
 
+    /**
+     * API mode
+     * @var bool
+     */
+    protected $apiMode = false;
+
 }

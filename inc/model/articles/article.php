@@ -601,7 +601,7 @@ implements \fpcm\model\interfaces\isCsvImportable {
      * @since 5.2.0-b4
      */
     public function getPinnedUntil(): int {
-        return $this->pinned_until;
+        return (int) $this->pinned_until;
     }
 
     /**
