@@ -28,7 +28,7 @@ class moduleUpdater extends moduleBase {
         $this->steps['tabHeadline'] = 'MODULES_LIST_UPDATE';
         $this->steps['successMsg'] = 'PACKAGEMANAGER_SUCCESS_UPDATE';
         $this->steps['errorMsg'] = 'PACKAGEMANAGER_FAILED_UPDATE';
-        
+
         $this->jsVars = [
             'pkgdata' => [
                 'action' => 'update',

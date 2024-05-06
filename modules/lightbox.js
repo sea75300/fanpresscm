@@ -12,5 +12,18 @@ fpcm.lightbox.captionPlugin = new PhotoSwipeDynamicCaption(fpcm.lightbox, {
   type: 'below',
 });
 
-
 fpcm.lightbox.init();
+
+if (fpcm.gsearch !== undefined) {
+    fpcm.gsearch._lightbox = new PhotoSwipeLightBox({
+        gallery: '#fpcm-id-search-global',
+        children: 'a.fpcm.ui-link-fancybox',
+        pswpModule: () => PhotoSwipeCore
+    });
+
+    fpcm.gsearch._lightbox .captionPlugin = new PhotoSwipeDynamicCaption(fpcm.lightbox, {
+      type: 'below',
+    });
+
+    fpcm.gsearch._lightbox .init();
+}

@@ -3,7 +3,7 @@
 /**
  * AJAX module installer controller
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2022, Stefan Seehafer
+ * @copyright (c) 2011-2024, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -27,7 +27,7 @@ class moduleBase extends \fpcm\controller\abstracts\controller
     protected $updateMultiple = false;
 
     /**
-     * 
+     *
      * @var array
      */
     protected $jsVars = [];
@@ -54,7 +54,7 @@ class moduleBase extends \fpcm\controller\abstracts\controller
     ];
 
     /**
-     * 
+     *
      * @return bool
      */
     public function isAccessible(): bool
@@ -63,7 +63,7 @@ class moduleBase extends \fpcm\controller\abstracts\controller
     }
 
     /**
-     * 
+     *
      * @return string
      */
     protected function getViewPath(): string
@@ -84,7 +84,7 @@ class moduleBase extends \fpcm\controller\abstracts\controller
         $this->key = $this->request->fromGET('key', [
             \fpcm\model\http\request::FILTER_URLDECODE
         ]);
-        
+
         if (!\fpcm\module\module::validateKey($this->key)) {
             $this->view = new \fpcm\view\error('MODULES_KEY_INVALID');
             return false;
@@ -114,17 +114,17 @@ class moduleBase extends \fpcm\controller\abstracts\controller
             (new \fpcm\view\helper\linkButton('backbtn'))->setText('MODULES_LIST_BACKTOLIST')->setUrl(\fpcm\classes\tools::getFullControllerLink('modules/list'))->setIcon('chevron-circle-left'),
             (new \fpcm\view\helper\linkButton('protobtn'))->setText('HL_LOGS')->setUrl(\fpcm\classes\tools::getFullControllerLink('system/logs'))->setIcon('exclamation-triangle')->setTarget(\fpcm\view\helper\linkButton::TARGET_NEW),
         ]);
-        
+
         $tabText = $this->language->translate($this->steps['tabHeadline']).': '. $this->key;
-        
+
         $this->view->addTabs('updater', [
             (new \fpcm\view\helper\tabItem('sysupdate'))->setText($tabText)->setFile($this->getViewPath())
         ]);
-        
+
         $this->assignMultipleUpdates();
         $this->view->addJsFiles(['modules/installer.js']);
         $this->view->render();
-  
+
     }
 
     /**
@@ -146,7 +146,7 @@ class moduleBase extends \fpcm\controller\abstracts\controller
         if ($updateKeys === null || !trim($updateKeys)) {
             return false;
         }
-        
+
         $updateKeys = explode(';', $updateKeys);
         if (!count($updateKeys)) {
             return false;
@@ -156,7 +156,7 @@ class moduleBase extends \fpcm\controller\abstracts\controller
             (new \fpcm\view\helper\linkButton('runUpdateNext'))
                 ->setUrl(\fpcm\classes\tools::getFullControllerLink('package/modupdate', [
                     'key' => array_shift($updateKeys),
-                    'updateKeys' => base64_decode($this->crypt->encrypt(implode(';', $updateKeys)))
+                    'updateKeys' => base64_encode($this->crypt->encrypt(implode(';', $updateKeys)))
                 ])
             )->setText('MODULES_LIST_UPDATE_NEXT')
             ->setIcon('sync')
@@ -166,5 +166,5 @@ class moduleBase extends \fpcm\controller\abstracts\controller
 
         return true;
     }
-    
+
 }

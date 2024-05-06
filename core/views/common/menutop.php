@@ -25,7 +25,7 @@
                         <div class="dropdown-item-text">
                             <div class="input-group input-group-sm w-auto">
                                 <input type="text" class="form-control" id="fpcm-id-search-global-text" placeholder="<?php $theView->write('ARTICLE_SEARCH_TEXT'); ?>" aria-label="<?php $theView->write('ARTICLE_SEARCH_TEXT'); ?>">
-                                <?php $theView->button('searchGlobalStart')
+                                <?php $theView->button('fpcm-id-search-global-start')
                                         ->overrideButtonType('outline-secondary')
                                         ->setText('ARTICLE_SEARCH_START')
                                         ->setIcon('magnifying-glass-arrow-right')

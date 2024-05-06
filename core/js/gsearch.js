@@ -11,6 +11,8 @@ if (fpcm === undefined) {
 
 fpcm.gsearch = {
 
+    _lightbox: null,
+
     init: function ()
     {
 
@@ -18,18 +20,21 @@ fpcm.gsearch = {
             fpcm.dom.fromClass('fpcm.ui-search-global-results').remove();
             fpcm.dom.fromId('fpcm-id-search-global-text').val('');
         });
+
+        fpcm.dom.bindEvent('#fpcm-id-search-global-btn', 'shown.bs.dropdown', function (_e, _ui) {
+            fpcm.dom.fromId('fpcm-id-search-global-text').focus();
+        });
         
         fpcm.dom.bindEvent('#fpcm-id-search-global-text', 'keydown', function (_e,_ui) {
 
-            var _sterm = fpcm.dom.fromId('fpcm-id-search-global-text').val();
-            if (!_sterm || _sterm.length < 3) {
+            if (!_ui.value || _ui.value.length < 3) {
                 return true;
             }
 
-            fpcm.gsearch.results(_sterm);
+            fpcm.gsearch.results(_ui.value);
         }, false, true);
         
-        fpcm.dom.bindClick('#btnSearchGlobalStart', function () {
+        fpcm.dom.bindClick('#fpcm-id-search-global-start', function () {
             
             var _sterm = fpcm.dom.fromId('fpcm-id-search-global-text').val();
             if (!_sterm || _sterm.length < 3) {
@@ -43,7 +48,7 @@ fpcm.gsearch = {
     
     results: function (_sterm) {
         
-        fpcm.ui.replaceIcon('btnSearchGlobalStart', 'magnifying-glass-arrow-right', 'circle-notch fa-spin-pulse');
+        fpcm.ui.replaceIcon('fpcm-id-search-global-start', 'magnifying-glass-arrow-right', 'circle-notch fa-spin-pulse');
         
         fpcm.ajax.post('searchall', {
             quiet: true,
@@ -80,7 +85,16 @@ fpcm.gsearch = {
                         let text = _result.items[i].text;
                         let icon = _result.items[i].icon;
                         let linkCss = _result.items[i].lightbox ? 'fpcm ui-link-fancybox' : '';
-                        let linkData = _result.items[i].lightbox ? 'data-fancybox="group"' : '';
+
+                        let linkData = '';
+                        if (_result.items[i].lightbox) {
+                            
+                            _img = new Image();
+                            _img.src = link;
+
+                            linkData = `data-pswp-width="${_img.naturalWidth}" data-pswp-height="${_img.naturalHeight}"`;
+                        }
+                        
 
                         _list += `<div class="${_resCss}"><a href="${link}" target="_blank" class="text-truncate ${linkCss}" ${linkData}>${icon}${text}</a></div>`;
                     }
@@ -92,7 +106,7 @@ fpcm.gsearch = {
                     fpcm.ui.initLightbox();
                 }
                 
-                fpcm.ui.replaceIcon('btnSearchGlobalStart', 'circle-notch fa-spin-pulse', 'magnifying-glass-arrow-right');
+                fpcm.ui.replaceIcon('fpcm-id-search-global-start', 'circle-notch fa-spin-pulse', 'magnifying-glass-arrow-right');
             }
         });
         
