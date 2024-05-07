@@ -61,7 +61,7 @@ class author extends \fpcm\model\abstracts\dataset {
      * Benutzername
      * @var string
      */
-    protected $username;
+    protected $username = '';
 
     /**
      * sha256-Hash des Passwortes
