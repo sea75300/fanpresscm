@@ -1,7 +1,7 @@
 <?php
 
 /**
- * php-diff Libary Autoloader
+ * php-diff Library Autoloader
  * 
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2020, Stefan Seehafer

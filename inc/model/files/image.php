@@ -9,7 +9,7 @@ namespace fpcm\model\files;
 
 /**
  * Image file objekt
- * 
+ *
  * @package fpcm\model\files
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2022, Stefan Seehafer
@@ -97,7 +97,7 @@ implements \fpcm\model\interfaces\validateFileType {
      * @var array
      */
     protected $dbParams = ['userid', 'filename', 'filetime', 'filesize', 'alttext'];
-    
+
     /**
      * Konstruktor
      * @param string $filename file name including sub path
@@ -171,7 +171,7 @@ implements \fpcm\model\interfaces\validateFileType {
         if (count($fnArr) == 2) {
             return $fnArr[0].'/thumbs/'.$fnArr[1];
         }
-                
+
         return 'thumbs/' . $this->filename;
     }
 
@@ -274,7 +274,7 @@ implements \fpcm\model\interfaces\validateFileType {
     public function getIptcStr() {
         return $this->iptcStr;
     }
-    
+
     /**
      * Datensatz-ID setzen
      * @param int $id
@@ -359,7 +359,7 @@ implements \fpcm\model\interfaces\validateFileType {
         if (!$this->isValidDataFolder('', \fpcm\classes\dirs::DATA_UPLOADS)) {
             return false;
         }
-        
+
         parent::delete();
         if ($this->hasFileManageThumbnail()) {
             unlink($this->getFileManagerThumbnail());
@@ -412,7 +412,7 @@ implements \fpcm\model\interfaces\validateFileType {
 
         return true;
     }
-    
+
     /**
      * Check if image exists
      * @param type $dbOnly
@@ -423,7 +423,7 @@ implements \fpcm\model\interfaces\validateFileType {
         if (!$this->filename) {
             return false;
         }
-        
+
         $fileExists = $this->existsFolder();
         if ($dbOnly) {
             return (bool) $this->isIndexed;
@@ -452,27 +452,18 @@ implements \fpcm\model\interfaces\validateFileType {
      */
     public function createThumbnail()
     {
-        include_once \fpcm\classes\loader::libGetFilePath('PHPImageWorkshop');
+        $fullPath = $this->getThumbnailFull();
 
-        try {
-            $phpImgWsp = \PHPImageWorkshop\ImageWorkshop::initFromPath($this->getFullpath());
-            $phpImgWsp->cropToAspectRatio(
-                \PHPImageWorkshop\Core\ImageWorkshopLayer::UNIT_PIXEL,
-                $this->config->file_thumb_size,
-                $this->config->file_thumb_size,
-                0, 0, 'MM'
-            );
+        $proc = new thumbnailCreator($this->getFullpath(), $fullPath);
 
-            $fullThumbPath = $this->getThumbnailFull();
-            $phpImgWsp->resizeInPixel($this->config->file_thumb_size, $this->config->file_thumb_size);
-            $phpImgWsp->save(dirname($fullThumbPath), basename($fullThumbPath), true, null, 85);
-        } catch (\ErrorException $exc) {
-            trigger_error('Error while creating file thumbnail '.$this->getThumbnail().PHP_EOL.$exc->getMessage());
+        $fn = thumbnailCreator::getFunctionName();
+
+        if (!$proc->{$fn}()) {
             return false;
-        }        
+        }
 
         $this->events->trigger('image\thumbnailCreate', $this)->getData();
-        if (!file_exists($fullThumbPath)) {
+        if (!file_exists($fullPath)) {
             trigger_error('Unable to create thumbnail: ' . $this->getThumbnail());
             return false;
         }
@@ -488,11 +479,11 @@ implements \fpcm\model\interfaces\validateFileType {
     public function addUploadFolder() : bool
     {
         $this->fullpath = ops::getUploadPath($this->filename, $this->config->file_subfolders);
-        
+
         if (!file_exists(dirname($this->fullpath))) {
             mkdir(dirname($this->fullpath));
         }
-        
+
         return true;
     }
 
@@ -519,10 +510,10 @@ implements \fpcm\model\interfaces\validateFileType {
     {
         if ($initDB) {
             $dbData = $this->dbcon->selectFetch((new \fpcm\model\dbal\selectParams($this->table))->setWhere('filename = ?')->setParams([$this->filename]));
-            if (!$dbData) {  
+            if (!$dbData) {
                 $this->isIndexed = false;
             }
-            else {                
+            else {
                 foreach ($dbData as $key => $value) {
                     $this->$key = $value;
                 }
@@ -531,11 +522,11 @@ implements \fpcm\model\interfaces\validateFileType {
             }
         }
         else {
-            $this->isIndexed = false;            
+            $this->isIndexed = false;
         }
 
         if (!parent::exists()) {
-            return true;            
+            return true;
         }
 
         $this->extension = self::retrieveFileExtension($this->fullpath);
@@ -630,14 +621,14 @@ implements \fpcm\model\interfaces\validateFileType {
      * reads IPTC data from file
      * @param array $info
      * @return bool
-     * @since 4.2.1 
+     * @since 4.2.1
      */
     public function parseIptc($info)
     {
         if ($this->iptcStr === null || trim($this->iptcStr)) {
             return true;
         }
-        
+
         if (!function_exists('iptcparse') || !is_array($info) || !count($info)) {
             return false;
         }
@@ -650,12 +641,12 @@ implements \fpcm\model\interfaces\validateFileType {
                 return [];
             }
 
-            foreach (array_keys($iptc) as $s) {             
+            foreach (array_keys($iptc) as $s) {
                 $c = count ($iptc[$s]);
                 for ($i=0; $i <$c; $i++) {
                     $this->iptcStr[$s] = $iptc[$s][$i];
                 }
-            }  
+            }
 
             $this->iptcStr = array_intersect_key($this->iptcStr, ['2#080' => 1, '2#110' => 1, '2#116' => 1]);
 
@@ -683,7 +674,7 @@ implements \fpcm\model\interfaces\validateFileType {
             'fileresy' => $this->getHeight(),
             'filehash' => $this->getFileHash(),
             'filemime' => $this->getMimetype(),
-            'credits' => $this->getIptcStr()  
+            'credits' => $this->getIptcStr()
         ];
     }
 
@@ -693,7 +684,7 @@ implements \fpcm\model\interfaces\validateFileType {
      * @since 5.0.0-a1
      */
     public static function getCropperFilename(string &$filename)
-    {            
+    {
         $repl = [
             '{{filename}}' => self::retrieveFileName($filename),
             '{{date}}' => date('Y-m-d'),
@@ -702,8 +693,8 @@ implements \fpcm\model\interfaces\validateFileType {
             '{{userid}}' => \fpcm\classes\loader::getObject('\fpcm\model\system\session')->getUserId(),
             '{{random}}' => mt_rand()
         ];
-        
-        $pattern = \fpcm\classes\loader::getObject('\fpcm\model\system\config')->file_cropper_name;        
+
+        $pattern = \fpcm\classes\loader::getObject('\fpcm\model\system\config')->file_cropper_name;
         if (!trim($pattern)) {
             $pattern = '{{filename}}_cropped_{{date}}';
         }
@@ -738,5 +729,3 @@ implements \fpcm\model\interfaces\validateFileType {
     }
 
 }
-
-?>

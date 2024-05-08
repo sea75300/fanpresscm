@@ -3,7 +3,7 @@
 namespace nkorg\yatdl;
 
 /**
- * YaML Table Definition Language Parser Libary\n
+ * YaML Table Definition Language Parser Library\n
  * Parser
  * 
  * @package nkorg\yatdl

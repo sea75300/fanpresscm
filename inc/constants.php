@@ -292,4 +292,13 @@ if (!defined('FPCM_COMPONENT_PHOTOSWIPE')) {
     define('FPCM_COMPONENT_PHOTOSWIPE', true);
 }
 
+if (!defined('FPCM_IMAGE_PROCESSOR_NEW')) {
+
+    /**
+     * Enable PhotoSwipe Lightbox
+     * @since 5.2.0-rc2
+     */
+    define('FPCM_IMAGE_PROCESSOR_NEW', true);
+}
+
 

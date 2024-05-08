@@ -1,7 +1,7 @@
 <?php
 
 /**
- * nkorg Libary Autoloader
+ * nkorg Library Autoloader
  * 
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2017, Stefan Seehafer

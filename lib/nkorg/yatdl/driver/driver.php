@@ -3,7 +3,7 @@
 namespace nkorg\yatdl\driver;
 
 /**
- * YaML Table Definition Language Parser Libary\n
+ * YaML Table Definition Language Parser Library\n
  * Driver Abstract
  * 
  * @package nkorg\yatdl

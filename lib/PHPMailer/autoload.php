@@ -1,7 +1,7 @@
 <?php
 
 /**
- * PHPMailer Libary Autoloader
+ * PHPMailer Library Autoloader
  * 
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2018, Stefan Seehafer

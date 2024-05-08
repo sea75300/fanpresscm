@@ -5,7 +5,7 @@ namespace nkorg\yatdl\driver;
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'driver.php';
 
 /**
- * YaML Table Definition Language Parser Libary\n
+ * YaML Table Definition Language Parser Library\n
  * Postgres Driver
  * 
  * @package nkorg\yatdl

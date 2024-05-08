@@ -97,7 +97,7 @@ implements \fpcm\model\interfaces\gsearchIndex {
         $where = [];
         $valueParams = [];
         $combination = '';
-        
+
         if ($conditions->isMultiple()) {
             $this->assignMultipleSearchParams($conditions, $where, $valueParams, $combination);
         }
@@ -163,7 +163,7 @@ implements \fpcm\model\interfaces\gsearchIndex {
      * Aktualisiert Dateiindex in Datenbank
      * @param int $userId
      */
-    
+
     /**
      * Updates file index
      * @param int $userId
@@ -177,15 +177,15 @@ implements \fpcm\model\interfaces\gsearchIndex {
         if (!$fsIdx || !count($fsIdx)) {
             return true;
         }
-        
+
         if ($userId === '' || $userId === null) {
             $userId = 0;
         }
 
         array_walk($fsIdx, [$this, 'removeBasePath']);
-        
+
         $fsIdx = array_flip($fsIdx);
-        
+
         $notInDb  = array_diff_key($fsIdx, $dbIdx);
         $notInFs  = array_diff_key($dbIdx, $fsIdx);
 
@@ -254,10 +254,10 @@ implements \fpcm\model\interfaces\gsearchIndex {
             trigger_error("Unable to save image \"{$image->getFullpath()}\" to database, file is already indexed.");
             return false;
         }
-        
+
         if (!$res) {
             trigger_error("Unable to save image \"{$image->getFullpath()}\" to database, due to unknows reason.");
-            return false;            
+            return false;
         }
 
         return true;
@@ -272,7 +272,7 @@ implements \fpcm\model\interfaces\gsearchIndex {
     {
         return $this->dbcon->count($this->table);
     }
-    
+
     /**
      * Creates file manager thumbnails
      * @param array|null $folderFiles
@@ -281,7 +281,8 @@ implements \fpcm\model\interfaces\gsearchIndex {
      */
     public function createFilemanagerThumbs(?array $folderFiles = null, ?bool $forceAll = null) : bool
     {
-        include_once \fpcm\classes\loader::libGetFilePath('PHPImageWorkshop');
+        $fn = thumbnailCreator::getFunctionName();
+
         if ($folderFiles === null) {
             $folderFiles = $this->getFolderList();
         }
@@ -292,7 +293,7 @@ implements \fpcm\model\interfaces\gsearchIndex {
 
         $filesizeLimit = \fpcm\classes\baseconfig::memoryLimit(true) * 0.025;
         $folderFiles = array_filter($folderFiles, function ($folderFile) use ($filesizeLimit) {
-            
+
             if (filesize($folderFile) >= $filesizeLimit) {
                 $msgPath = ops::removeBaseDir($folderFile);
                 fpcmLogSystem("Skip filemanager thumbnail generation for {$msgPath} because of image dimension. You may reduce file size?");
@@ -305,20 +306,21 @@ implements \fpcm\model\interfaces\gsearchIndex {
                 fpcmLogSystem("Skip filemanager thumbnail generation for {$msgPath}, \"".$ext."\" is no supported. You may use another image type?");
                 return false;
             }
-            
+
             return true;
         });
-        
+
         if (!count($folderFiles)) {
             return false;
         }
-        
+
         $thumbSize = $this->config->file_thumb_size;
 
         foreach ($folderFiles as $folderFile) {
 
             $imgPath = $folderFile;
             $this->removeBasePath($imgPath);
+
             $image = new \fpcm\model\files\image($imgPath);
 
             if ($image->hasFileManageThumbnail() && !$forceAll) {
@@ -326,17 +328,9 @@ implements \fpcm\model\interfaces\gsearchIndex {
                 $phpImgWsp = null;
                 continue;
             }
-            
-            try {
-                $phpImgWsp = \PHPImageWorkshop\ImageWorkshop::initFromPath($folderFile);
-                $phpImgWsp->cropToAspectRatio(
-                    \PHPImageWorkshop\Core\ImageWorkshopLayer::UNIT_PIXEL,
-                    $thumbSize, $thumbSize, 0, 0, 'MM'
-                );
 
-                $phpImgWsp->resizeInPixel($thumbSize, $thumbSize);
-                $phpImgWsp->save(dirname($image->getFileManagerThumbnail()), basename($image->getFileManagerThumbnail()));
-            } catch (\Exception $exc) {
+            $proc = new thumbnailCreator($folderFile, $image->getFileManagerThumbnail());
+            if (!$proc->{$fn}()) {
                 trigger_error('Error while creating filemanager thumbnail '.$image->getFileManagerThumbnail().PHP_EOL.$exc->getMessage());
                 continue;
             }
@@ -346,7 +340,7 @@ implements \fpcm\model\interfaces\gsearchIndex {
             }
 
             $image = null;
-            $phpImgWsp = null;
+            $proc = null;
         }
 
         return true;
@@ -392,7 +386,7 @@ implements \fpcm\model\interfaces\gsearchIndex {
             $where[] = "filetime <= :filetimet";
             $valueParams[':filetimet'] = $conditions->dateto;
         }
-        
+
         $combination = $conditions->combination ? $conditions->combination : 'AND';
         return true;
     }
@@ -458,7 +452,7 @@ implements \fpcm\model\interfaces\gsearchIndex {
      */
     public function getElementLink(mixed $filename): string
     {
-        $tmp = new image($filename, false);   
+        $tmp = new image($filename, false);
         return $tmp->getImageUrl();
     }
 
@@ -490,15 +484,15 @@ implements \fpcm\model\interfaces\gsearchIndex {
     public function prepareText(string $text): string
     {
         list($name, $alttext, $date) = explode(';', $text);
-        
+
         $name = basename($name);
-        
+
         return sprintf(
             '%s%s<br><span class="fpcm ui-font-small text-secondary">%s</span>',
             new \fpcm\view\helper\escape($alttext ? $alttext : $name),
             new \fpcm\view\helper\escape($alttext ? ' ('.$name.')' : ''),
             new \fpcm\view\helper\dateText($date)
-        );        
+        );
     }
 
 }

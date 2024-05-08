@@ -1,7 +1,7 @@
 <?php
 
 /**
- * GoogleAuthenticator Libary Autoloader
+ * GoogleAuthenticator Library Autoloader
  * 
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2017/18, Stefan Seehafer
