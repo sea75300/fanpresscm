@@ -68,14 +68,14 @@ class thumbnailCreator {
      * Create thumbnail with \Intervention\Image
      * @return bool
      */
-    public function create() : bool
+    public function create(string $type) : bool
     {
         try {
             $mgr = new \Intervention\Image\ImageManager( \Intervention\Image\Drivers\Gd\Driver::class );
             $img = $mgr->read($this->source);
             $img->coverDown($this->thumbSize, $this->thumbSize);
 
-            if (!ops::isValidDataFolder($this->parent, \fpcm\classes\dirs::DATA_UPLOADS)) {
+            if (!ops::isValidDataFolder($this->parent, $type)) {
                 trigger_error(sprintf('Error while creating file thumbnail %s, invalid data path: %s', $this->destination, $this->parent));
                 return false;
             }

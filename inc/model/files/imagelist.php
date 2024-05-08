@@ -330,7 +330,7 @@ implements \fpcm\model\interfaces\gsearchIndex {
             }
 
             $proc = new thumbnailCreator($folderFile, $image->getFileManagerThumbnail());
-            if (!$proc->{$fn}()) {
+            if (!$proc->{$fn}(\fpcm\classes\dirs::DATA_FMTMP)) {
                 trigger_error('Error while creating filemanager thumbnail '.$image->getFileManagerThumbnail().PHP_EOL.$exc->getMessage());
                 continue;
             }

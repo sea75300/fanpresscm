@@ -458,7 +458,7 @@ implements \fpcm\model\interfaces\validateFileType {
 
         $fn = thumbnailCreator::getFunctionName();
 
-        if (!$proc->{$fn}()) {
+        if (!$proc->{$fn}(\fpcm\classes\dirs::DATA_UPLOADS)) {
             return false;
         }
 
