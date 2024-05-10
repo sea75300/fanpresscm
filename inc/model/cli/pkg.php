@@ -13,7 +13,7 @@ use fpcm\model\updater\system;
 
 /**
  * FanPress CM cli help module
- * 
+ *
  * @package fpcm\model\cli
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2022, Stefan Seehafer
@@ -77,11 +77,11 @@ final class pkg extends \fpcm\model\abstracts\cli {
         if (!trim($this->funcParams[0])) {
             $this->output('Invalid parameter on position 0', true);
         }
-        
+
         if (!isset($this->funcParams[1])) {
             $this->funcParams[1] = '';
         }
-        
+
         if (!isset($this->funcParams[2])) {
             $this->funcParams[2] = '';
         }
@@ -148,10 +148,10 @@ final class pkg extends \fpcm\model\abstracts\cli {
         $this->output('-- successful!');
         $this->output('FanPress CM ' . $this->updaterSys->version . ' was relesed on ' . $this->updaterSys->release . ', size is ' . \fpcm\classes\tools::calcSize($this->updaterSys->size));
         if ($successSys === true) {
-            $this->output('-- You are NOT up to date.');            
+            $this->output('-- You are NOT up to date.');
         }
         elseif ($successSys === false) {
-            $this->output('-- You are up to date.');            
+            $this->output('-- You are up to date.');
         }
         elseif ($successSys === system::FORCE_UPDATE) {
             $this->output('-- This released is forced to be installed, you should run fpcmcli.php pkg --update system as soon as possible.');
@@ -187,7 +187,7 @@ final class pkg extends \fpcm\model\abstracts\cli {
         $this->output('-- Finished.' . PHP_EOL);
 
         $this->output('Download package from ' . $pkg->getRemotePath() . ($this->updaterSys->size ? ' (' . \fpcm\classes\tools::calcSize($this->updaterSys->size) . ')' : '') . '...');
-        
+
         $progress = new \fpcm\model\cli\progress($this->updaterSys->size);
 
         $success = $pkg->download($progress);
@@ -390,6 +390,20 @@ final class pkg extends \fpcm\model\abstracts\cli {
             $this->output('-- Required: ');
             $this->output('     System: ' . $module->getConfig()->requirements['system']);
             $this->output('     PHP: ' . $module->getConfig()->requirements['php']);
+            $this->output('--   Uses /data folder: ' . $this->boolText( $module->getConfig()->useDataFolder ));
+
+            $cj = $module->getConfig()->crons;
+            if (is_array($cj) && count($cj)) {
+
+                $cjl = '';
+
+                foreach ($cj as $key => $value) {
+                    $cjl .= sprintf("     | %-20.20s | %-10.10s |\n", $key, $value);
+                }
+
+                $this->output('--   Cronjobs: ' . PHP_EOL . $cjl );
+            }
+
         }
 
         $this->output('-- Status: ');
@@ -430,12 +444,12 @@ final class pkg extends \fpcm\model\abstracts\cli {
             $this->output('No module updates are available or were already updated.' . PHP_EOL);
             return true;
         }
-                
+
         $this->output('Module updates are available for ' . PHP_EOL . implode(', ', $updates). PHP_EOL );
         $this->input('Press enter to continue update for all modules...');
 
         $addDelim = count($updates) > 1;
-        
+
         array_map(function($module) use ($addDelim) {
 
             $this->output('Start update of module ' . $module . PHP_EOL );
@@ -447,7 +461,7 @@ final class pkg extends \fpcm\model\abstracts\cli {
             if (!$addDelim) {
                 return true;
             }
-            
+
             $this->output( '-------------------------' . PHP_EOL);
             return true;
 
@@ -523,7 +537,7 @@ final class pkg extends \fpcm\model\abstracts\cli {
         $this->output('-- Finished.' . PHP_EOL);
 
         $this->output('Update local database...');
-        
+
         $module = new \fpcm\module\module($this->modulekey);
         if (!method_exists($module, $mode)) {
             fpcmLogSystem('Undefined function ' . $mode . ' for module database update ' . $this->modulekey . '!');
@@ -551,7 +565,7 @@ final class pkg extends \fpcm\model\abstracts\cli {
     }
 
     /**
-     * 
+     *
      * Returns module key by cli params and run check for existance
      * @param int $pos
      * @return bool

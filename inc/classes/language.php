@@ -9,7 +9,7 @@ namespace fpcm\classes;
 
 /**
  * FanPress CM Language handler
- * 
+ *
  * @package fpcm\classes\language
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2022, Stefan Seehafer
@@ -24,7 +24,7 @@ final class language {
     public const VARTEXT_NEWLINE = '[NL]';
 
     public const LANGCODE_VALIDATION = '/[^a-zA-Z0-9\-]/';
-    
+
     /**
      * Languages list
      * @var array
@@ -70,14 +70,14 @@ final class language {
         if (!trim($langCode)) {
             $langCode = FPCM_DEFAULT_LANGUAGE_CODE;
         }
-        
+
         $this->langPath = dirs::getIncDirPath('lang' . DIRECTORY_SEPARATOR . $langCode);
 
         if (!is_dir($this->langPath)) {
             trigger_error('Try to load undefined language: ' . $langCode);
             return false;
         }
-        
+
         if ($langCode && $this->langCode !== $langCode) {
             $GLOBALS['langdata'] = [];
         }
@@ -111,18 +111,18 @@ final class language {
 
         $this->cache = loader::getObject('\fpcm\classes\cache');
         $cacheName = 'system/langcache' . strtoupper($this->langCode);
-        
+
         if (!$this->cache->isExpired($cacheName)) {
             $GLOBALS['langdata'] = $this->cache->read($cacheName);
             return true;
         }
-        
+
         if (count($GLOBALS['langdata'])) {
             return true;
         }
 
         $this->loadDataFromSystem(self::FILENAME_VARS);
-        $this->loadDataFromSystem(self::FILENAME_LISTS);        
+        $this->loadDataFromSystem(self::FILENAME_LISTS);
         $this->getModuleLanguage();
 
         $this->cache->write($cacheName, $GLOBALS['langdata'], FPCM_LANGCACHE_TIMEOUT);
@@ -155,7 +155,7 @@ final class language {
             print 'ERR LANG 1 vars';
             return;
         }
-        
+
         include $file;
         if (!isset($lang) || !is_array($lang)) {
             trigger_error('No language data defined in:' . $file);
@@ -181,9 +181,9 @@ final class language {
         if (!count($activeModules)) {
             return;
         }
-        
+
         foreach ($activeModules as $module) {
-            
+
             $file = \fpcm\module\module::getLanguageFileByKey($module, $this->langCode);
             if (!file_exists($file)) {
                 $file = \fpcm\module\module::getLanguageFileByKey($module, FPCM_DEFAULT_LANGUAGE_CODE);
@@ -204,9 +204,9 @@ final class language {
             if (!count($lang)) {
                 continue;
             }
-            
+
             $prefix = \fpcm\module\module::getLanguageVarPrefixed($module);
-            
+
             $keys = array_keys($lang);
             array_walk($keys, [$this, 'addModulePrefix'], ['prefix' => $prefix]);
 
@@ -214,7 +214,7 @@ final class language {
             $GLOBALS['langdata'] = array_merge($GLOBALS['langdata'], $lang);
         }
 
-        return;        
+        return;
     }
 
     /**
@@ -228,7 +228,7 @@ final class language {
         if (strpos($val, 'SYSCHECK_FOLDER_') === 0) {
             return true;
         }
-        
+
         $val = $args['prefix'].$val;
     }
 
@@ -275,7 +275,7 @@ final class language {
      * * Aufbau: Key = Platzhalter => Value = Text
      * @return string
      */
-    
+
     /**
      * Return value of language variable
      * @param string|null $langvar language variable
@@ -290,7 +290,7 @@ final class language {
         }
 
         $langData = $GLOBALS['langdata'][strtoupper($langvar)] ?? $langvar;
-        
+
         if ($spf) {
             \fpcm\view\helper\icon::parseLangvarIcon($langData);
             return vsprintf($langData, array_values($replaceParams));
@@ -305,13 +305,13 @@ final class language {
 
             $replacement[$key] = $val;
         }
-        
+
         unset($val);
 
         if (!method_exists('\fpcm\view\helper\icon', 'parseLangvarIcon')) {
             return tools::strReplaceArray($langData, $replacement);
         }
-        
+
         \fpcm\view\helper\icon::parseLangvarIcon($langData);
         return tools::strReplaceArray($langData, $replacement);
     }
@@ -365,7 +365,7 @@ final class language {
 
             return $GLOBALS['langdata'];
         }
-        
+
         return $GLOBALS['langdata'];
     }
 
@@ -383,7 +383,23 @@ final class language {
     }
     
     /**
-     * Directly writes text of given language variable 
+     * Replaces special characters of current language
+     * @param string $str
+     * @return string
+     * @since 5.2.0-rc2
+     */
+    public function replaceSpecialCharacters(string $str) : string
+    {
+        $map = $GLOBALS['langdata']['LANGUAGE_CHARACTER_REPLACE'] ?? [];
+        if (!$map) {
+            return $str;
+        }
+        
+        return strtr($str, $map);
+    }
+
+    /**
+     * Directly writes text of given language variable
      * @param string|null $langvar language variable
      * @param array $replaceParams replacement values for placeholder in variable text
      * @param bool $spf use vsprintf instead of old {{placehodler}} variables (@since 5.1-dev)

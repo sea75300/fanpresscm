@@ -261,5 +261,3 @@ trait syscheck {
     }
 
 }
-
-?>

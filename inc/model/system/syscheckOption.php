@@ -9,7 +9,7 @@ namespace fpcm\model\system;
 
 /**
  * System config Objekt
- * 
+ *
  * @package fpcm\model\system
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2022, Stefan Seehafer
@@ -17,42 +17,44 @@ namespace fpcm\model\system;
  */
 final class syscheckOption {
 
+    const CLI_MASK = '| %-40.40s | %-20.20s | %1s |';
+
     /**
      * Current value
      * @var string
      */
     protected $current  = '';
-    
+
     /**
      * Help link
      * @var string
      */
     protected $helplink = '';
-    
+
     /**
      * Check result
      * @var bool
      */
     protected $result   = false;
-    
+
     /**
      * Option is not required
      * @var bool
      */
     protected $optional = false;
-    
+
     /**
      * Option is checked folder
      * @var bool
      */
     protected $isFolder = false;
-    
+
     /**
      * Option is checked folder
      * @var \fpcm\view\helper\linkButton
      */
     protected $actionButton;
-    
+
     /**
      * Add Notice
      * @var string
@@ -111,7 +113,7 @@ final class syscheckOption {
     {
         $this->notice = $notice;
     }
-        
+
     /**
      * Returns current value
      * @return string
@@ -164,7 +166,14 @@ final class syscheckOption {
      */
     public function asString($descr)
     {
-        $line = str_pad($descr, 55, ' ',  STR_PAD_RIGHT).": {$this->current}".($this->result ? '' : ' !!!');
+        $descr = \fpcm\classes\loader::getObject('\fpcm\classes\language')->replaceSpecialCharacters($descr);
+
+        if (mb_strlen($descr) > 40) {
+            $descr = substr($descr, 0, 37).'...';
+        }
+
+        $line = sprintf(self::CLI_MASK, $descr, $this->current, ($this->result ? '+' : '-'));
+
         if (!$this->notice) {
             return $line;
         }
