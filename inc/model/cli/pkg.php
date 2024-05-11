@@ -161,7 +161,7 @@ final class pkg extends \fpcm\model\abstracts\cli {
         }
 
         $count = count($updates);
-        $this->output('Modules: ' . $count . ' module updates are available.' . ($count ? '-- Module keys are:' . PHP_EOL . implode(', ', $updates) : ''));
+        $this->output('Modules: ' . $count . ' module updates are available.' . ($count ? '-- Module keys are:' . PHP_EOL . implode(', ', $updates) : PHP_EOL . '-- You are up to date.'));
 
         return true;
     }
@@ -331,14 +331,31 @@ final class pkg extends \fpcm\model\abstracts\cli {
             $this->output('No modules installed, exit...', true);
         }
 
-        /* @var $module \fpcm\module\module */
+        $lmax = "| %-30.30s | %-20.20s | %-8.8s | %-15.15s | %-6.6s | %-9.9s | %-7.7s |\n";
+
+        $out = 'Status: UPD = Update | INS = Installed)' . PHP_EOL;
+
+        $out .= PHP_EOL . PHP_EOL . sprintf($lmax, 'Key', 'Name', 'Version', 'Author', 'PHP', 'System', 'Status');
+
+        /* @var $module \fpcm\module\repoModule */
         foreach ($list as $module) {
-            $this->moduleslIstDetails($module, true);
-            $this->output('     Update available: ' . $this->boolText($module->hasUpdates()));
-            $this->output(PHP_EOL);
+            $out .= sprintf(
+                $lmax,
+                $module->getKey(),
+                $module->getConfig()->name,
+                $module->getConfig()->version,
+                $module->getConfig()->author,
+                $module->getConfig()->requirements['php'],
+                $module->getConfig()->requirements['system'],
+                $module->hasUpdates() ? 'UPDATE' : ($module->isInstalled() ? 'INSTALL' : '-')
+            );
+
         }
 
+        $this->output($out);
         return true;
+
+
     }
 
     /**
@@ -352,12 +369,28 @@ final class pkg extends \fpcm\model\abstracts\cli {
             $this->output('No modules installed, exit...', true);
         }
 
+        $lmax = "| %-30.30s | %-20.20s | %-8.8s | %-15.15s | %-6.6s | %-9.9s | %6s |\n";
+
+        $out = 'Status - Installable (yes: +, no: X)' . PHP_EOL;
+        $out .= PHP_EOL . PHP_EOL . sprintf($lmax, 'Key', 'Name', 'Version', 'Author', 'PHP', 'System', 'Status');
+
         /* @var $module \fpcm\module\repoModule */
         foreach ($list as $module) {
-            $this->moduleslIstDetails($module, true);
-            $this->output(PHP_EOL);
+
+            $out .= sprintf(
+                $lmax,
+                $module->getKey(),
+                $module->getConfig()->name,
+                $module->getConfig()->version,
+                $module->getConfig()->author,
+                $module->getConfig()->requirements['php'],
+                $module->getConfig()->requirements['system'],
+                $module->isInstallable() ? '+' : 'X'
+            );
+
         }
 
+        $this->output($out);
         return true;
     }
 
@@ -370,46 +403,65 @@ final class pkg extends \fpcm\model\abstracts\cli {
         $this->initObjects();
 
         $this->getModuleKey();
-        $this->moduleslIstDetails(new \fpcm\module\module($this->modulekey), true, true);
-        return true;
-    }
 
-    /**
-     * Displays information for given module
-     * @param \fpcm\module\module $module
-     * @param bool $remote
-     * @param bool $descr
-     */
-    private function moduleslIstDetails(\fpcm\module\module $module, $remote = false, $descr = false)
-    {
-        $this->output('>> ' . $module->getConfig()->name);
-        $this->output($module->getKey() . ' - ' . $module->getConfig()->version . ' - ' . $module->getConfig()->author . ' - ' . $module->getConfig()->link . PHP_EOL);
+        $module = new \fpcm\module\module($this->modulekey);
 
-        if ($descr) {
-            $this->output('-- Description:' . PHP_EOL . wordwrap(strip_tags($module->getConfig()->description)) . PHP_EOL);
-            $this->output('-- Required: ');
-            $this->output('     System: ' . $module->getConfig()->requirements['system']);
-            $this->output('     PHP: ' . $module->getConfig()->requirements['php']);
-            $this->output('--   Uses /data folder: ' . $this->boolText( $module->getConfig()->useDataFolder ));
 
-            $cj = $module->getConfig()->crons;
-            if (is_array($cj) && count($cj)) {
+        $out = sprintf(
+            "Key: %s\nName: %s | Version: %s\n\n--------------------" .
+            "\n\nAuthor: %s (%s)\nSupport: %s\nLicence: %s (%s)\n\n--------------------\n\n",
+            $module->getKey(),
+            $module->getConfig()->name,
+            $module->getConfig()->version,
+            $module->getConfig()->author,
+            $module->getConfig()->link,
+            $module->getConfig()->support ?? $module->getConfig()->link,
+            $module->getConfig()->licence ?? 'GPLv3',
+            $module->getConfig()->licenceUrl ?? 'https://www.gnu.org/licenses/gpl-3.0.html',
+        );
 
-                $cjl = '';
+        $out .= sprintf(
+            "Requirements:\n\nSystem: %s\nPHP: %s\n\n--------------------\n\n",
+            $module->getConfig()->requirements['system'],
+            $module->getConfig()->requirements['php']
+        );
 
-                foreach ($cj as $key => $value) {
-                    $cjl .= sprintf("     | %-20.20s | %-10.10s |\n", $key, $value);
-                }
+        $cj = $module->getConfig()->crons;
+        $cjl = '';
 
-                $this->output('--   Cronjobs: ' . PHP_EOL . $cjl );
+        if (is_array($cj) && count($cj)) {
+            foreach ($cj as $key => $value) {
+                $cjl .= sprintf("| %-20.20s | %-10.10s |\n", $key, $value);
             }
-
         }
 
-        $this->output('-- Status: ');
-        $this->output('     Installable: ' . $this->boolText($module->isInstallable()) . ( $remote && !$module->isInstalled() ? ', Command: fpcmcli.php pkg --install module ' . $module->getKey() : ''));
-        $this->output('     Installed: ' . $this->boolText($module->isInstalled()));
+        $out .= sprintf(
+            "Config:\n\n* Data path: %s\n* Config Options: %s\n* Cronjobs:\n%s\n--------------------\n\n",
+            $module->getConfig()->useDataFolder ? \fpcm\model\files\ops::removeBaseDir($module->getDataPath(), true) : '-',
+            implode(', ', array_keys($module->getConfig()->configOptions)),
+            $cjl,
+        );
 
+        $out .= sprintf("Description:\n\n%s\n\n--------------------\n\n", wordwrap(strip_tags($module->getConfig()->description)));
+
+        $out .= sprintf(
+            "Installable: %-3.3s | Installed: %-3.3s | Updates: %-3.3s | Migrations: %-3.3s\n\n--------------------\n\n",
+            $this->boolText($module->isInstallable()),
+            $this->boolText($module->isInstalled()),
+            $this->boolText($module->hasUpdates()),
+            $this->boolText($module->hasMigrations())
+        );
+
+        $out .= sprintf(
+            "Commands:\n\n* Install: %s\n* Update: %s\n* Update databse only: %s\n* Remove: %s\n* Delete: %s\n\n",
+            sprintf("php fpcmcli.php pkg --install module %s", $module->getKey()),
+            sprintf("php fpcmcli.php pkg --upgrade module %s", $module->getKey()),
+            sprintf("php fpcmcli.php pkg --upgrade-db module %s", $module->getKey()),
+            sprintf("php fpcmcli.php pkg --remove module %s", $module->getKey()),
+            sprintf("php fpcmcli.php pkg --delete module %s", $module->getKey()),
+        );
+
+        $this->output($out);
         return true;
     }
 

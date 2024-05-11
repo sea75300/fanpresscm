@@ -179,8 +179,7 @@ class modules extends \fpcm\model\abstracts\tablelist {
             
             $modules[$key] = $module;
         }
-        
-        
+
         return $modules;
     }
 
