@@ -22,7 +22,7 @@ class unpinArticles extends \fpcm\model\abstracts\cron {
      */
     public function run()
     {
-        return (new \fpcm\model\articles\articlelist)->getArticlesPinnedIDs();
+        return (new \fpcm\model\articles\articlelist)->checkArticlesPinnedUntil();
     }
 
 }

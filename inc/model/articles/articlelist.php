@@ -164,7 +164,7 @@ implements \fpcm\model\interfaces\gsearchIndex {
      * @return array
      * @since 5.2.0-b4
      */
-    public function getArticlesPinnedIDs()
+    public function checkArticlesPinnedUntil()
     {
         $t = time();
 

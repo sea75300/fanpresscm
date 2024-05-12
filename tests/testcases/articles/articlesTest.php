@@ -47,7 +47,7 @@ class articlesTest extends testBase {
 
         $data = $this->object->getArticlesPostponed();
 
-        $this->assertTrue(is_array($data));
+        $this->assertIsArray($data);
         $this->assertGreaterThanOrEqual(1, count($data));
 
         /* @var $object \fpcm\model\articles\article */
@@ -58,12 +58,21 @@ class articlesTest extends testBase {
         $this->assertEquals(0, $object->getDeleted());
         $this->assertEquals(0, $object->getDraft());
         $this->assertEquals(0, $object->getApproval());
-        
+
         $res = (new fpcm\model\crons\postponedArticles())->run();
         $this->assertTrue($res);
 
         $this->assertEquals(0, (new \fpcm\model\articles\article($GLOBALS['articleId']))->getPostponed());
 
+        usleep(1000);
+    }
+
+    public function testCheckArticlesPinnedUntil()
+    {
+        $res = $this->object->checkArticlesPinnedUntil();
+        $this->assertTrue($res);
+
+        $this->assertEquals(0, (new \fpcm\model\articles\article($GLOBALS['articleId']))->getPinned());
         usleep(1000);
     }
 
@@ -277,6 +286,7 @@ class articlesTest extends testBase {
         $GLOBALS['articleObj']->setCreatetime($GLOBALS['article_created']);
         $GLOBALS['articleObj']->setCreateuser(1);
         $GLOBALS['articleObj']->setPinned(1);
+        $GLOBALS['articleObj']->setPinnedUntil(time()-3600*24);
         $GLOBALS['articleObj']->setComments(1);
         $GLOBALS['articleObj']->setSources('https://nobody-knows.org');
         $GLOBALS['articleObj']->setCategories([1]);
@@ -292,7 +302,7 @@ class articlesTest extends testBase {
         $share->setArticleId($GLOBALS['articleId']);
         $share->setSharecount(5);
         $share->setShareitem('likebutton');
-        $share->setLastshare(time());        
+        $share->setLastshare(time());
         $this->assertGreaterThanOrEqual(1, $share->save());
 
     }

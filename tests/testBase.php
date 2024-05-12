@@ -8,7 +8,7 @@ class testBase extends \PHPUnit\Framework\TestCase {
      * @var string
      */
     protected $className;
-    
+
     /**
      * @var \fpcm\model\abstracts\model
      */
@@ -28,7 +28,6 @@ class testBase extends \PHPUnit\Framework\TestCase {
         }
         
         $this->object = new $class($GLOBALS['objectId']);
-        $this->name   = __CLASS__;
     }
 
     public function tearDown() : void {

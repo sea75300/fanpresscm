@@ -350,7 +350,7 @@ class controller implements \fpcm\controller\interfaces\controller {
     protected function getViewPath() : string
     {
         if ($this instanceof \fpcm\controller\interfaces\viewByNamespace) {
-            return preg_replace('/(\\\\?fpcm\\\\controller\\\\action\\\\){1}(.*)\\\\(.*)/i', '$2' . DIRECTORY_SEPARATOR . '$3', static::class );
+            return str_replace('\\', DIRECTORY_SEPARATOR, preg_replace('/(\\\\?fpcm\\\\controller\\\\action\\\\){1}(.*)\\\\(.*)/i', '$2' . DIRECTORY_SEPARATOR . '$3', static::class ));
         }
 
         return '';

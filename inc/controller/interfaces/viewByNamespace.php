@@ -19,5 +19,3 @@ namespace fpcm\controller\interfaces;
 interface viewByNamespace {
 
 }
-
-?>
