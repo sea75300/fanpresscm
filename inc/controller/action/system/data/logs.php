@@ -16,13 +16,13 @@ namespace fpcm\controller\action\system\data;
 class logs extends \fpcm\controller\abstracts\controller {
 
     /**
-     * 
+     *
      * @var array
      */
     private $logs = [];
 
     /**
-     * 
+     *
      * @return bool
      */
     public function isAccessible(): bool
@@ -31,7 +31,7 @@ class logs extends \fpcm\controller\abstracts\controller {
     }
 
     /**
-     * 
+     *
      * @return string
      */
     protected function getViewPath() : string
@@ -40,7 +40,7 @@ class logs extends \fpcm\controller\abstracts\controller {
     }
 
     /**
-     * 
+     *
      * @return string
      */
     protected function getHelpLink()
@@ -54,11 +54,11 @@ class logs extends \fpcm\controller\abstracts\controller {
     public function process()
     {
         $this->initLogs();
-        
+
 
         $this->view->addTabs('tabs-logs', $this->events->trigger('logs\addToList', $this->logs)->getData(), false, $this->getActiveTab() );
         $this->view->addJsFiles(['logs.js']);
-        $this->view->addJsLangVars(['LOGS_CLEARED_LOG_OK', 'LOGS_CLEARED_LOG_FAILED', 'FILE_LIST_FILESIZE']);
+        $this->view->addJsLangVars(['LOGS_CLEARED_LOG_OK', 'LOGS_CLEARED_LOG_FAILED', 'FILE_LIST_FILESIZE', 'ARTICLES_SEARCH', 'ARTICLE_SEARCH_TEXT', 'ARTICLE_SEARCH_START']);
         $this->view->addJsVars([
             'currentLog' => [
                 'name' => \fpcm\model\files\logfile::FPCM_LOGFILETYPE_SESSION,
@@ -73,7 +73,7 @@ class logs extends \fpcm\controller\abstracts\controller {
     }
 
     /**
-     * 
+     *
      * @return bool
      */
     private function initLogs() : bool
@@ -82,7 +82,7 @@ class logs extends \fpcm\controller\abstracts\controller {
             'system' => 1,
             'log' => '',
         ]);
-        
+
         $map = \fpcm\model\files\logfile::getLogMap();
         if (!defined('FPCM_DEBUG_EVENTS') || !FPCM_DEBUG_EVENTS) {
             unset($map[\fpcm\model\files\logfile::FPCM_LOGFILETYPE_EVENTS]);
@@ -94,14 +94,14 @@ class logs extends \fpcm\controller\abstracts\controller {
             if ($key === \fpcm\model\files\logfile::FPCM_LOGFILETYPE_PKGMGR) {
                 return $tab;
             }
-            
+
             $tab->setDataViewId('logs-'.$key);
-            
+
             $this->view->addDataView(new \fpcm\components\dataView\dataView('logs-'.$key, false));
             return $tab;
 
         }, array_keys($map));
-        
+
         array_unshift($this->logs, (new \fpcm\view\helper\tabItem('logs-sessions'))->setText('HL_LOGS_SESSIONS')->setUrl($baseUrl . \fpcm\model\files\logfile::FPCM_LOGFILETYPE_SESSION)->setDataViewId('logs-sessions'));
         $this->view->addDataView(new \fpcm\components\dataView\dataView('logs-sessions', false));
         return true;

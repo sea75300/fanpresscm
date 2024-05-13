@@ -11,7 +11,7 @@ if (fpcm === undefined) {
 fpcm.ui_tabs = {
 
     init: function() {
-        
+
         var _el = fpcm.dom.fromClass('fpcm.ui-tabs-function-autoinit');
         if (_el === false || !_el.length) {
             return true;
@@ -36,7 +36,7 @@ fpcm.ui_tabs = {
 
         let _nodes = fpcm.ui_tabs.getNodes(_elemClassId);
         if (!_nodes) {
-            return false;            
+            return false;
         }
 
         let _tb = [].slice.call(_nodes);
@@ -57,7 +57,7 @@ fpcm.ui_tabs = {
                 if (_ev.target.classList.contains('active') && _ev.target.dataset.tabIndex == _currentTab) {
                     _ev.target.classList.remove('active');
                     (new bootstrap.Tab(_ev.target)).show();
-                    
+
                 }
 
                 fpcm.ui_tabs.setActiveTab(_ev.target.dataset.tabIndex);
@@ -67,13 +67,13 @@ fpcm.ui_tabs = {
 
                 fpcm.ui_tabs._updateMainToolbar(_ev.target, _ev.relatedTarget);
                 if (params.emptyPanel && _ev.relatedTarget) {
-                    
-                    if (typeof params.onRenderHtmlBefore === 'function') {
+
+                    if (typeof params.onEmptyPanelBefore === 'function') {
                         params.onEmptyPanelBefore(_ev);
                     }
-                    
+
                     fpcm.dom.fromId(_ev.relatedTarget.dataset.bsTarget).empty();
-                }   
+                }
 
                 if (typeof params.onShow === 'function') {
                     params.onShow(_ev);
@@ -85,16 +85,16 @@ fpcm.ui_tabs = {
 
                 var _tabList = _ev.target.dataset.dataviewList
                              ? _ev.target.dataset.dataviewList
-                             : false; 
+                             : false;
 
                 if (!_ev.target.dataset.ajaxQuiet) {
 
                     var _ldr = document.createElement('span');
                     _ldr.classList.add('spinner-border');
-                    _ldr.classList.add('spinner-border-sm'); 
-                    _ldr.classList.add('ms-2'); 
+                    _ldr.classList.add('spinner-border-sm');
+                    _ldr.classList.add('ms-2');
                     _ev.target.appendChild(_ldr);
-                    
+
                 }
 
                 fpcm.ajax.get(_ev.target.href, {
@@ -109,22 +109,22 @@ fpcm.ui_tabs = {
 
                             if (typeof params.onRenderHtmlBefore === 'function') {
                                 params.onRenderHtmlBefore(_ev, _result);
-                            }                            
+                            }
 
                             let _assignment = _result instanceof Object && _result.html ? _result.html : _result;
                             fpcm.dom.assignHtml(_ev.target.dataset.bsTarget, _assignment);
-                            
+
                             if (typeof params.onRenderHtmlAfter === 'function') {
                                 params.onRenderHtmlAfter(_ev, _result);
-                            }                            
+                            }
 
                             return false;
                         }
-                        
+
                         if (!_result.dataViewVars) {
                             return false;
                         }
-                            
+
                         if (typeof params.onRenderJsonBefore === 'function') {
                             params.onRenderJsonBefore(_ev, _result);
                         }
@@ -141,7 +141,7 @@ fpcm.ui_tabs = {
                             {
                                 onRenderAfter: params.initDataViewOnRenderAfter
                         });
-                            
+
                         if (typeof params.onRenderJsonAfter === 'function') {
                             params.onRenderJsonAfter(_ev, _result);
                         }
@@ -170,7 +170,7 @@ fpcm.ui_tabs = {
 
         (new bootstrap.Tab(_tb[fpcm.vars.jsvars.activeTab])).show();
     },
-    
+
     _updateMainToolbar: function (_active, _prev) {
 
         if (!_active || !_prev) {
@@ -186,11 +186,11 @@ fpcm.ui_tabs = {
             return true;
         }
 
-        fpcm.ui.mainToolbar.find('.fpcm-ui-maintoolbarbuttons-tab'+ _active.dataset.toolbarButtons).removeClass('fpcm-ui-hidden');        
+        fpcm.ui.mainToolbar.find('.fpcm-ui-maintoolbarbuttons-tab'+ _active.dataset.toolbarButtons).removeClass('fpcm-ui-hidden');
         fpcm.ui.mainToolbar.find('.fpcm-ui-maintoolbarbuttons-tab'+ _prev.dataset.toolbarButtons).addClass('fpcm-ui-hidden');
-        
+
     },
-    
+
     getNodes: function(_elemClassId) {
 
         _elemClassId = fpcm.ui.prepareId(_elemClassId);
@@ -201,22 +201,22 @@ fpcm.ui_tabs = {
             console.error('No tab nodes fround for "' + _elemClassId + ' a.nav-link"!');
             return false;
         }
-        
+
         return _nodes;
     },
-    
+
     show: function (_elemClassId, _tabId) {
-        
+
         if (!_elemClassId || !_tabId === undefined) {
             console.error('Invalid params data given data given "_elemClassId" or "_tabId" cennot be empty!');
             return false;
         }
-        
+
         _elemClassId = fpcm.ui.prepareId(_elemClassId);
 
         let _nodes = fpcm.ui_tabs.getNodes(_elemClassId);
         if (!_nodes) {
-            return false;            
+            return false;
         }
 
         _nodes = [].slice.call(_nodes);
@@ -231,23 +231,23 @@ fpcm.ui_tabs = {
 
         (new bootstrap.Tab(_nodes[_tabId])).show();
     },
-    
+
     getActiveTab: function () {
-        
+
         let _el = document.getElementById('activeTab');
         return _el ? _el.value : 0;
-        
+
     },
-    
+
     setActiveTab: function (_val) {
-        
+
         let _el = document.getElementById('activeTab');
         if (!_el) {
             return false;
         }
-        
+
         _el.value = _val;
         return true;
     }
-    
+
 }

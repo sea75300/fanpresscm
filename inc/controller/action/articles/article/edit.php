@@ -32,7 +32,7 @@ class edit extends base {
     protected $commentList;
 
     /**
-     * 
+     *
      * @return bool
      */
     public function isAccessible(): bool
@@ -41,7 +41,7 @@ class edit extends base {
     }
 
     /**
-     * 
+     *
      * @return string
      */
     protected function getActiveNavigationElement()
@@ -58,7 +58,7 @@ class edit extends base {
         $this->showRevisions = $this->permissions->article->revisions;
 
         if (!parent::request()) {
-            
+
             $data = $this->request->fromPOST('article', [
                 \fpcm\model\http\request::FILTER_STRIPSLASHES,
                 \fpcm\model\http\request::FILTER_TRIM
@@ -79,15 +79,15 @@ class edit extends base {
             $this->view = new \fpcm\view\error('PERMISSIONS_REQUIRED');
             return false;
         }
-        
+
         $this->userList     = new \fpcm\model\users\userList();
         $this->commentList  = new \fpcm\model\comments\commentList();
 
         $this->handleRevisionActions();
         $this->handleDeleteAction();
-        
+
         $res = false;
-        
+
         $added = $this->request->fromGET('added', [
             \fpcm\model\http\request::FILTER_CASTINT
         ]);
@@ -112,10 +112,10 @@ class edit extends base {
     public function process()
     {
         $this->article->enableTweetCreation($this->config->twitter_events['update']);
-        
+
         $this->commentCount = array_sum($this->commentList->countComments([$this->article->getId()]));
         $this->revisionCount = $this->article->getRevisionsCount();
-        
+
         parent::process();
 
         $this->view->setFormAction($this->article->getEditLink(), [], true);
@@ -124,7 +124,7 @@ class edit extends base {
         $this->view->assign('pinnedTimer', $this->article->getPinnedUntil());
         $this->view->assign('commentsMode', 2);
         $this->view->assign('showArchiveStatus', true);
-        
+
         $this->view->addDataView(new \fpcm\components\dataView\dataView('commentlist', false));
         $this->view->addDataView(new \fpcm\components\dataView\dataView('revisionslist', false));
 
@@ -163,7 +163,7 @@ class edit extends base {
 
         $this->view->assign('createInfo', $this->language->translate('GLOBAL_USER_ON_TIME', [
             '{{username}}' => $createUser ? $createUser->getDisplayname() : $this->language->translate('GLOBAL_NOTFOUND'),
-            '{{time}}'     => new \fpcm\view\helper\dateText($this->article->getCreatetime())           
+            '{{time}}'     => new \fpcm\view\helper\dateText($this->article->getCreatetime())
         ]));
 
         $this->view->assign('changeInfo', $this->language->translate('GLOBAL_USER_ON_TIME', [
@@ -213,7 +213,7 @@ class edit extends base {
     }
 
     /**
-     * 
+     *
      * @return bool
      */
     private function handleDeleteAction()
@@ -236,7 +236,7 @@ class edit extends base {
     }
 
     /**
-     * 
+     *
      * @return bool
      */
     private function handleRevisionActions()
@@ -244,7 +244,7 @@ class edit extends base {
         if ($this->request->fromGET('revrestore')) {
             $this->view->addNoticeMessage('SAVE_SUCCESS_ARTICLEREVRESTORE');
         }
-        
+
         if (!$this->permissions->article->revisions) {
             return false;
         }
@@ -257,21 +257,21 @@ class edit extends base {
         if (!$this->checkPageToken) {
             return false;
         }
-        
+
         if ($this->buttonClicked('revisionDelete')) {
             if ($this->article->deleteRevisions($revisionIdsArray)) {
                 $this->view->addNoticeMessage('DELETE_SUCCESS_REVISIONS');
             } else {
                 $this->view->addErrorMessage('DELETE_FAILED_REVISIONS');
             }
-            
+
             return true;
         }
 
         if (!$this->buttonClicked('articleRevisionRestore')) {
             return true;
         }
-        
+
         $rid = array_shift($revisionIdsArray);
         if ($this->article->restoreRevision($rid)) {
             $this->redirect('articles/edit&id=' . $this->article->getId() . '&revrestore=1');
@@ -283,13 +283,13 @@ class edit extends base {
     }
 
     protected function onArticleSaveAfterSuccess(int $id): bool
-    {            
+    {
         $this->article->createRevision();
         $this->view->addNoticeMessage('SAVE_SUCCESS_ARTICLE');
-        
+
         return true;
     }
-    
+
     private function addButtons()
     {
         $this->view->addButtons([
@@ -322,7 +322,7 @@ class edit extends base {
                     ->setClass( $this->getToolbarButtonToggleClass(1, 'fpcm ui-button-confirm', true))
                     ->setReadonly($this->article->isInEdit()));
         }
-        
+
         if ($this->permissions->article->revisions) {
             $this->view->addButton((new \fpcm\view\helper\submitButton('articleRevisionRestore'))
                     ->setText('EDITOR_REVISION_RESTORE')
@@ -333,27 +333,27 @@ class edit extends base {
                     ->setClass($this->getToolbarButtonToggleClass(3, 'fpcm ui-button-confirm') )
                     ->setText('EDITOR_REVISION_DELETE'));
         }
-        
+
         $this->addRelationButton();
         $this->addShareButtons();
-        
+
         return true;
     }
-    
+
     private function addShareButtons()
     {
-        
+
         $shares = \fpcm\model\shares\shares::getAllRegisteredShares();
-        
-        
+
+
         $options = [];
         foreach ($shares as $share) {
-            
+
             $url = $this->getLink($share, $this->article->getTitle(), rawurlencode($this->article->getElementLink()));
             if (!$url) {
                 continue;
             }
-            
+
             $icon = \fpcm\model\pubtemplates\sharebuttons::getShareItemClass($share);
             $options[] = (new \fpcm\view\helper\dropdownItem('share'.$share))
                     ->setIcon($icon['icon'], $icon['prefix'])
@@ -363,7 +363,7 @@ class edit extends base {
                     ->setValue(md5($share))
                     ->setText(ucfirst($share));
         }
-        
+
         $this->view->addToolbarRight(
             (new \fpcm\view\helper\dropdown('shareArticle'))
                 ->setText('EDITOR_SHARE')
@@ -372,9 +372,9 @@ class edit extends base {
                 ->setOptions($options)
                 ->setSelected(false)
         );
-        
+
     }
-    
+
     private function addRelationButton()
     {
         if (!$this->article->getRelatesTo()) {

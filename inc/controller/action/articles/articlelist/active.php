@@ -12,14 +12,14 @@ namespace fpcm\controller\action\articles\articlelist;
 class active extends base {
 
     /**
-     * 
+     *
      * @return bool
      */
     public function isAccessible(): bool
     {
         return $this->permissions->article->edit;
     }
-    
+
     protected function getListAction() : void
     {
         $this->listAction = 'articles/listactive';

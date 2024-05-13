@@ -11,13 +11,14 @@ use Jfcherng\Diff\Differ;
 use Jfcherng\Diff\DiffHelper;
 use Jfcherng\Diff\Factory\RendererFactory;
 use Jfcherng\Diff\Renderer\RendererConstant;
+
 /**
  * Article edit controller
  * @article Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class revision extends \fpcm\controller\abstracts\controller 
+class revision extends \fpcm\controller\abstracts\controller
 implements \fpcm\controller\interfaces\requestFunctions
 {
 
@@ -58,7 +59,7 @@ implements \fpcm\controller\interfaces\requestFunctions
     protected $aid = 0;
 
     /**
-     * 
+     *
      * @return bool
      */
     public function isAccessible(): bool
@@ -67,7 +68,7 @@ implements \fpcm\controller\interfaces\requestFunctions
     }
 
     /**
-     * 
+     *
      * @return string
      */
     protected function getHelpLink()
@@ -85,7 +86,7 @@ implements \fpcm\controller\interfaces\requestFunctions
     }
 
     /**
-     * 
+     *
      * @return string
      */
     protected function getActiveNavigationElement()
@@ -98,15 +99,15 @@ implements \fpcm\controller\interfaces\requestFunctions
      * @return bool
      */
     public function request()
-    {        
+    {
         $this->aid = $this->request->fromGET('aid', [
             \fpcm\model\http\request::FILTER_CASTINT
         ]);
-        
+
         $this->rid = $this->request->fromGET('rid', [
             \fpcm\model\http\request::FILTER_CASTINT
         ]);
-        
+
         if (!$this->aid || !$this->rid) {
             $this->view = new \fpcm\view\error('GLOBAL_NOTFOUND');
             return false;
@@ -136,9 +137,9 @@ implements \fpcm\controller\interfaces\requestFunctions
     {
         $this->view->assign('article', $this->article);
         $this->view->assign('revision', $this->revision);
-        
+
         $categories = $this->categoryList->getCategoriesNameListAll();
-        
+
         $this->view->assign('categoriesArticle', array_keys(array_intersect($categories, $this->article->getCategories())));
         $this->view->assign('categoriesRevision', array_keys(array_intersect($categories, $this->revision->getCategories())));
         $this->view->assign('commentEnabledGlobal', false);
@@ -147,19 +148,19 @@ implements \fpcm\controller\interfaces\requestFunctions
 
         $this->view->setFormAction(
             'articles/revision', [
-                'aid' => $this->aid, 
+                'aid' => $this->aid,
                 'rid' => $this->rid
             ]
         );
-        
+
         $this->view->addJsVars([
             'articleId' => $this->aid
         ]);
-        
+
         $revision = [];
 
         array_map(function ($value) use (&$revision) {
-            
+
             $ddI = new \fpcm\view\helper\dropdownItem('rv-'.$value);
             $ddI->setUrl($this->getControllerLink('articles/revision', [
                     'aid' => $this->aid,
@@ -170,7 +171,7 @@ implements \fpcm\controller\interfaces\requestFunctions
             $revision[] = $ddI;
 
         }, array_keys($this->article->getRevisions()));
-        
+
         $this->view->addButtons([
             (new \fpcm\view\helper\dropdown('revisionList'))
                 ->setOptions($revision)
@@ -178,13 +179,13 @@ implements \fpcm\controller\interfaces\requestFunctions
             (new \fpcm\view\helper\linkButton('backToArticel'))
                 ->setUrl($this->article->getEditLink().'&rg=3')
                 ->setText('EDITOR_BACKTOCURRENT')
-                ->setIcon('chevron-circle-left'),    
+                ->setIcon('chevron-circle-left'),
             (new \fpcm\view\helper\submitButton('revisionRestore'))
                 ->setText('EDITOR_REVISION_RESTORE')
                 ->setIcon('undo')
                 ->setReadonly($this->article->isInEdit()),
         ]);
-        
+
         include_once \fpcm\classes\loader::libGetFilePath('Jfcherng');
 
         $users = $this->userList->getUsersByIds([
@@ -193,27 +194,27 @@ implements \fpcm\controller\interfaces\requestFunctions
             $this->revision->getCreateuser(),
             $this->revision->getChangeuser(),
         ]);
-        
+
         $this->view->assign('articleCreate', $this->language->translate('GLOBAL_USER_ON_TIME', [
             '{{username}}' => isset($users[$this->article->getCreateuser()]) ? $users[$this->article->getCreateuser()]->getDisplayname() : $this->language->translate('GLOBAL_NOTFOUND'),
-            '{{time}}'     => new \fpcm\view\helper\dateText($this->article->getCreatetime())           
+            '{{time}}'     => new \fpcm\view\helper\dateText($this->article->getCreatetime())
         ]));
 
         $this->view->assign('articleChange', $this->language->translate('GLOBAL_USER_ON_TIME', [
             '{{username}}' => isset($users[$this->article->getChangeuser()]) ? $users[$this->article->getChangeuser()]->getDisplayname() : $this->language->translate('GLOBAL_NOTFOUND'),
             '{{time}}'     => new \fpcm\view\helper\dateText($this->article->getChangetime())
         ]));
-        
+
         $this->view->assign('revisionCreate', $this->language->translate('GLOBAL_USER_ON_TIME', [
             '{{username}}' => isset($users[$this->revision->getCreateuser()]) ? $users[$this->revision->getCreateuser()]->getDisplayname() : $this->language->translate('GLOBAL_NOTFOUND'),
-            '{{time}}'     => new \fpcm\view\helper\dateText($this->revision->getCreatetime())           
+            '{{time}}'     => new \fpcm\view\helper\dateText($this->revision->getCreatetime())
         ]));
 
         $this->view->assign('revisionChange', $this->language->translate('GLOBAL_USER_ON_TIME', [
             '{{username}}' => isset($users[$this->revision->getChangeuser()]) ? $users[$this->revision->getChangeuser()]->getDisplayname() : $this->language->translate('GLOBAL_NOTFOUND'),
             '{{time}}'     => new \fpcm\view\helper\dateText($this->revision->getChangetime())
         ]));
-        
+
         try {
             $differContent = new Differ([$this->revision->getContent()], [$this->article->getContent()]);
             $rendererContent = RendererFactory::make('Combined', [
@@ -230,22 +231,22 @@ implements \fpcm\controller\interfaces\requestFunctions
                 'lineNumbers' => false,
                 'showHeader' => false
             ]);
-            
+
         } catch (\Exception $exc) {
             $this->view = new \fpcm\view\error($exc->getMessage());
             exit;
         }
-        
+
         $this->view->assign('diffResultTitle', html_entity_decode($rendererTitle->render($differTitel)) );
         $this->view->assign('diffResultText', html_entity_decode($rendererContent->render($differContent)) );
-        
+
         $this->view->addTabs('article', [
             (new \fpcm\view\helper\tabItem('article'))->setText('EDITOR_STATUS_REVISION')->setFile('articles/revisiondiff.php')
         ]);
-        
+
         $this->view->render();
     }
-    
+
     protected function onRevisionRestore()
     {
         if (!$this->checkPageToken()) {

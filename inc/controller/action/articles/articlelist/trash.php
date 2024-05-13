@@ -14,10 +14,10 @@ class trash extends \fpcm\controller\abstracts\controller
 {
 
     use \fpcm\controller\traits\articles\listsCommon,
-        \fpcm\controller\traits\articles\lists; 
+        \fpcm\controller\traits\articles\lists;
 
     /**
-     * 
+     *
      * @return bool
      */
     public function isAccessible(): bool
@@ -26,7 +26,7 @@ class trash extends \fpcm\controller\abstracts\controller
     }
 
     /**
-     * 
+     *
      * @return string
      */
     protected function getHelpLink()
@@ -35,7 +35,7 @@ class trash extends \fpcm\controller\abstracts\controller
     }
 
     /**
-     * 
+     *
      * @return string
      */
     protected function getViewPath() : string
@@ -46,7 +46,7 @@ class trash extends \fpcm\controller\abstracts\controller
     public function process()
     {
         $this->isTrash = true;
-        
+
         $this->initActionObjects();
 
         $this->view->addAjaxPageToken('clearTrash');
@@ -65,15 +65,15 @@ class trash extends \fpcm\controller\abstracts\controller
                 ->setText('ARTICLE_LIST_EMPTYTRASH')
                 ->setIconOnly()
                 ->setOnClick('articles_trash.emptyTrash')
-        ]);        
-        
-        
+        ]);
+
+
         $this->items = $this->articleList->getArticlesDeleted(true);
         $this->translateCategories();
 
         $this->initDataView();
         $this->view->addDataView($this->dataView);
-        
+
         $this->view->addTabs('articles', [
             (new \fpcm\view\helper\tabItem('articles'))->setText('ARTICLES_TRASH')->setFile('articles/listouter.php')
         ]);

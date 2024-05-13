@@ -13,16 +13,16 @@ fpcm.logs = {
     init: function () {
 
         fpcm.ui_tabs.render('#tabs-logs', {
-            
+
             reload: true,
-            
+
             onShow: function (_el) {
                 let _logParams = fpcm.system.parseUrlQuery(_el.target.attributes.href.value);
                 fpcm.vars.jsvars.currentLog.name = _logParams.log ? _logParams.log : null;
                 fpcm.vars.jsvars.currentLog.key = _logParams.key ? _logParams.key : null;
                 fpcm.vars.jsvars.currentLog.system = _logParams.system ? _logParams.system : null;
             },
-            
+
             onRenderJsonAfter: function (_el, _result) {
 
                 if (!_result.logsize) {
@@ -36,18 +36,18 @@ fpcm.logs = {
                 _str += '</div>';
                 fpcm.dom.appendHtml(_el.target.dataset.bsTarget, _str);
             }
-            
+
         });
-        
+
         fpcm.dom.bindClick('#btnCleanLogs', function (_event, _ui) {
-      
+
             fpcm.ui_dialogs.confirm({
                 focusNo: true,
                 clickYes: function () {
                     fpcm.logs.clearLogs(fpcm.vars.jsvars.currentLog);
                 }
             });
-      
+
         });
 
     },
@@ -68,11 +68,11 @@ fpcm.logs = {
 
         return false;
     },
-    
+
     reloadLogs: function() {
-        
+
         let _id = fpcm.ui.prepareId('tabs-logs');
-        
+
         let _dom = document.querySelector(_id + ' a.nav-link.active');
         fpcm.dom.fromTag(_id + ' a.nav-link.active').removeClass('active');
         (new bootstrap.Tab(_dom)).show();

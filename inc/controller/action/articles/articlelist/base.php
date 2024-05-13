@@ -56,7 +56,7 @@ abstract class base extends \fpcm\controller\abstracts\controller
     protected $conditionItems;
 
     /**
-     * 
+     *
      * @return string
      */
     protected function getViewPath() : string
@@ -65,7 +65,7 @@ abstract class base extends \fpcm\controller\abstracts\controller
     }
 
     /**
-     * 
+     *
      * @return string
      */
     protected function getHelpLink()
@@ -93,8 +93,8 @@ abstract class base extends \fpcm\controller\abstracts\controller
     {
         $this->page = $this->request->getPage();
         $this->getListAction();
-        
-        
+
+
         return true;
     }
 
@@ -131,7 +131,7 @@ abstract class base extends \fpcm\controller\abstracts\controller
         }
 
         $buttons[] = (new \fpcm\view\helper\button('opensearch', 'opensearch'))->setText('ARTICLES_SEARCH')->setIcon('search')->setIconOnly();
-        
+
         $tweet = $this->getTwitterInstace();
 
         if ($tweet->checkConnection()) {
@@ -140,11 +140,11 @@ abstract class base extends \fpcm\controller\abstracts\controller
                     ->setIcon('twitter', 'fab')
                     ->setIconOnly()
                     ->setOnClick('articles.articleActionsTweet');
-            
+
             $this->view->addJsLangVars(['EDITOR_TWEET_TEXT', 'ARTICLE_LIST_NEWTWEET']);
-            
+
             $ttpl = $this->getTemplateContent();
-            
+
             $this->view->addJsVars([
                 'newTweetFields' => [
                     (string) (new \fpcm\view\helper\textInput('twitterText'))
@@ -164,7 +164,7 @@ abstract class base extends \fpcm\controller\abstracts\controller
                         ->setIconOnly()
                 ]
             ]);
-            
+
         }
 
         $buttons[] = (new \fpcm\view\helper\button('articlecache'))
@@ -180,7 +180,7 @@ abstract class base extends \fpcm\controller\abstracts\controller
                     ->setIconOnly()
                     ->setOnClick('articles.deleteMultipleArticle');
         }
-        
+
         $this->view->addPager((new \fpcm\view\helper\pager($this->listAction, $this->page, 1, $this->config->articles_acp_limit, 1)));
         $this->view->addButtons($buttons);
         $this->view->addJsVars([
@@ -194,10 +194,10 @@ abstract class base extends \fpcm\controller\abstracts\controller
         if ($this->page) {
             $formActionParams['page'] = $this->page;
         }
-        
+
         $this->view->setFormAction($this->listAction, $formActionParams);
         $this->view->addDataView( new \fpcm\components\dataView\dataView('articlelist') );
-        
+
         $this->view->addTabs('articles', [
             (new \fpcm\view\helper\tabItem('articles'))->setText($this->getTabHeadline())->setFile('articles/listouter.php')
         ]);
@@ -226,7 +226,7 @@ abstract class base extends \fpcm\controller\abstracts\controller
     {
         $this->view->assign('searchUsers', ['' => -1] + $this->users);
         $this->view->assign('searchCategories', ['' => -1] + $this->categories);
-        
+
         $this->assignSearchFromVars();
 
         $this->view->assign('searchTypes', [
@@ -284,16 +284,16 @@ abstract class base extends \fpcm\controller\abstracts\controller
             'tom-select_js',
             [ 'tom-select.min.js' ],
             [ 'tom-select.bootstrap5.min.css' ]
-        );   
+        );
 
         if (!$this->permissions->editArticlesMass()) {
             return [];
         }
-        
+
         $this->assignPageToken('articles');
-        
+
         $fields = [];
-        
+
         if ($this->permissions->article->authors) {
             $fields[] = new \fpcm\components\masseditField(
                 (new \fpcm\view\helper\select('userid', 'meUserid'))
@@ -313,7 +313,7 @@ abstract class base extends \fpcm\controller\abstracts\controller
                 ->setIcon('thumbtack fa-rotate-90')
                     ->setLabelTypeFloat()
         );
-        
+
         if ($this->showDraftStatus()) {
             $fields[] = new \fpcm\components\masseditField(
                 (new \fpcm\view\helper\select('draft', 'meDraft'))
@@ -324,7 +324,7 @@ abstract class base extends \fpcm\controller\abstracts\controller
                     ->setLabelTypeFloat()
             );
         }
-        
+
         if (!$this->permissions->article->approve) {
             $fields[] = new \fpcm\components\masseditField(
                 (new \fpcm\view\helper\select('approval', 'meApproval'))
@@ -335,7 +335,7 @@ abstract class base extends \fpcm\controller\abstracts\controller
                     ->setLabelTypeFloat()
             );
         }
-        
+
         if ($this->config->system_comments_enabled && $this->permissions->editComments()) {
             $fields[] = new \fpcm\components\masseditField(
                 (new \fpcm\view\helper\select('comments', 'meComments'))
@@ -346,7 +346,7 @@ abstract class base extends \fpcm\controller\abstracts\controller
                     ->setLabelTypeFloat()
             );
         }
-        
+
         if ($this->permissions->article->archive) {
             $fields[] = new \fpcm\components\masseditField(
                 (new \fpcm\view\helper\select('archived', 'meArchived'))
@@ -357,7 +357,7 @@ abstract class base extends \fpcm\controller\abstracts\controller
                     ->setLabelTypeFloat()
             );
         }
-        
+
         $fields[] = new \fpcm\components\masseditField(
                 (new \fpcm\view\helper\select('categories[]'))
                     ->setIsMultiple(true)
@@ -372,7 +372,7 @@ abstract class base extends \fpcm\controller\abstracts\controller
     }
 
     /**
-     * 
+     *
      * @return string
      */
     protected function getTabHeadline() : string

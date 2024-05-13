@@ -19,7 +19,7 @@ implements \fpcm\controller\interfaces\requestFunctions
 {
 
     use \fpcm\controller\traits\common\dataView;
-    
+
     protected $i = 0;
 
     protected $deletePrevent = 5;
@@ -27,13 +27,13 @@ implements \fpcm\controller\interfaces\requestFunctions
     protected $basePath;
 
     /**
-     * 
+     *
      * @var \fpcm\components\dataView\dataView
      */
     protected $dataView;
 
     /**
-     * 
+     *
      * @return bool
      */
     public function isAccessible(): bool
@@ -45,7 +45,7 @@ implements \fpcm\controller\interfaces\requestFunctions
     {
         return 'HL_BACKUPS';
     }
-    
+
     protected function onDelete()
     {
 
@@ -77,7 +77,7 @@ implements \fpcm\controller\interfaces\requestFunctions
         $this->view->addNoticeMessage('DELETE_SUCCESS_FILES', [
             '{{filenames}}' => $deleteFile
         ]);
-        
+
         return true;
     }
 
@@ -87,9 +87,9 @@ implements \fpcm\controller\interfaces\requestFunctions
     public function process()
     {
         $this->basePath = \fpcm\model\files\ops::removeBaseDir(\fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_DBDUMP), true);
-        
+
         $isPg = \fpcm\classes\loader::getObject('\fpcm\classes\database')->getDbtype() === \fpcm\classes\database::DBTYPE_POSTGRES;
-        
+
         $this->view->addButton((new \fpcm\view\helper\deleteButton('delete'))->setClass('fpcm ui-button-confirm')->setReadonly($isPg)->setIconOnly(false));
         $this->view->addJsFiles(['backups.js']);
 
@@ -99,9 +99,9 @@ implements \fpcm\controller\interfaces\requestFunctions
             $this->initDataView();
             $this->view->render();
             return true;
-        }        
-        
-        
+        }
+
+
         $folderList = new \fpcm\model\files\backuplist();
         $this->items = $folderList->getFolderList();
         rsort($this->items);
@@ -134,7 +134,7 @@ implements \fpcm\controller\interfaces\requestFunctions
     }
 
     /**
-     * 
+     *
      * @param string $file
      * @return \fpcm\components\dataView\row
      */
@@ -142,16 +142,16 @@ implements \fpcm\controller\interfaces\requestFunctions
     {
         $basename = basename($file);
         $hash = md5($basename);
-        
+
         $val = urlencode(base64_encode( $this->crypt->encrypt($basename)));
 
         $this->i++;
-        
+
         return new \fpcm\components\dataView\row([
             new \fpcm\components\dataView\rowCol('select', (new \fpcm\view\helper\radiobutton('files', 'files'.$hash))->setValue($val)->setReadonly($this->i <= $this->deletePrevent), '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
             new \fpcm\components\dataView\rowCol('name', sprintf('%s<br><span class="text-body-secondary fpcm ui-font-small">%s %s/%s</span>', $basename, (new \fpcm\view\helper\icon('folder-tree'))->setText('MODULES_LIST_DATAPATH'), $this->basePath, $basename)),
             new \fpcm\components\dataView\rowCol('size', \fpcm\classes\tools::calcSize(filesize($file)) ),
         ]);
     }
-    
+
 }

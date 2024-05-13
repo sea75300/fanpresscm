@@ -12,7 +12,7 @@ namespace fpcm\controller\action\articles\articlelist;
 class all extends base {
 
     /**
-     * 
+     *
      * @return bool
      */
     public function isAccessible(): bool

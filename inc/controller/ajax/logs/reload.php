@@ -9,7 +9,7 @@ namespace fpcm\controller\ajax\logs;
 
 /**
  * AJAX-Controller zum Reload der Systemloads
- * 
+ *
  * @package fpcm\controller\ajax\logs
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2022, Stefan Seehafer
@@ -63,7 +63,7 @@ class reload extends \fpcm\controller\abstracts\ajaxController
     private $logObj = '';
 
     /**
-     * 
+     *
      * @var \fpcm\components\dataView\dataView
      */
     protected $dataView;
@@ -79,12 +79,12 @@ class reload extends \fpcm\controller\abstracts\ajaxController
         $this->isSystem = $this->request->fromGET('system', [
             \fpcm\model\http\request::FILTER_CASTINT
         ]);
-        
+
         return $this->log !== null;
     }
 
     /**
-     * 
+     *
      * @return bool
      */
     public function isAccessible(): bool
@@ -93,7 +93,7 @@ class reload extends \fpcm\controller\abstracts\ajaxController
     }
 
     /**
-     * 
+     *
      * @return string
      */
     protected function getViewPath() : string
@@ -110,7 +110,7 @@ class reload extends \fpcm\controller\abstracts\ajaxController
         if (!$this->isSystem) {
             return $this->getModuleLog();
         }
-        
+
         if (method_exists($this, 'loadLog' . $this->log)) {
             return call_user_func(array($this, 'loadLog' . $this->log));
         }
@@ -119,7 +119,7 @@ class reload extends \fpcm\controller\abstracts\ajaxController
     }
 
     /**
-     * 
+     *
      * @return bool
      */
     private function getModuleLog() : bool
@@ -208,7 +208,7 @@ class reload extends \fpcm\controller\abstracts\ajaxController
     }
 
     /**
-     * 
+     *
      * @return bool
      */
     private function assignDataViewvars()
@@ -224,7 +224,7 @@ class reload extends \fpcm\controller\abstracts\ajaxController
     }
 
     /**
-     * 
+     *
      * @return string
      */
     protected function getDataViewName()
@@ -239,7 +239,7 @@ class reload extends \fpcm\controller\abstracts\ajaxController
     protected function getDataViewCols()
     {
         if ($this->isSystem) {
-            
+
             if (method_exists($this, 'getCols' . $this->log)) {
                 return call_user_func(array($this, 'getCols' . $this->log));
             }
@@ -250,7 +250,7 @@ class reload extends \fpcm\controller\abstracts\ajaxController
         if (!$this->logObj instanceof \fpcm\model\logs\logfileResult) {
             return [];
         }
-        
+
         return $this->logObj->colsCallback()();
     }
 
@@ -288,14 +288,14 @@ class reload extends \fpcm\controller\abstracts\ajaxController
     protected function initDataViewRow($item)
     {
         if ($this->isSystem) {
-            
+
             if (method_exists($this, 'getRow' . $this->log)) {
                 return call_user_func([$this, 'getRow' . $this->log], $item);
             }
 
             return $this->getRowGeneric($item);
         }
-        
+
         if (!$this->logObj instanceof \fpcm\model\logs\logfileResult) {
             return [];
         }
@@ -316,7 +316,7 @@ class reload extends \fpcm\controller\abstracts\ajaxController
             new \fpcm\components\dataView\rowCol('text', str_replace(['&NewLine;', PHP_EOL], '<br>', new \fpcm\view\helper\escape($item->text)), 'pre-box'),
         ], ( isset($item->type) && trim($item->type) ? 'fpcm ui-logs-'.$item->type : '' ) );
     }
-    
+
     /**
      * Session log row
      * @param \fpcm\model\system\session $item
@@ -325,7 +325,7 @@ class reload extends \fpcm\controller\abstracts\ajaxController
     private function getRowSessions($item) : \fpcm\components\dataView\row
     {
         $ip = new \fpcm\view\helper\escape($item->getIp());
-        
+
         $username = sprintf(
             '<b>%s</b><br>%s <span class="d-inline-block" title="%s">%s</span><br><span class="text-secondary">%s %s</span>',
             new \fpcm\view\helper\escape($this->getusername($item)),
@@ -339,13 +339,13 @@ class reload extends \fpcm\controller\abstracts\ajaxController
         $period = sprintf(
             '%s %s<br>%s %s',
             (new \fpcm\view\helper\icon('right-to-bracket'))->setText('LOGS_LIST_LOGIN'),
-            new \fpcm\view\helper\dateText($item->getLogin()),    
+            new \fpcm\view\helper\dateText($item->getLogin()),
             (new \fpcm\view\helper\icon('arrow-right-from-bracket'))->setText('LOGS_LIST_LOGOUT'),
-            new \fpcm\view\helper\dateText( $item->getLogout() ? $item->getLogout() : $item->getLastaction()),                
+            new \fpcm\view\helper\dateText( $item->getLogout() ? $item->getLogout() : $item->getLastaction()),
         );
-        
+
         $sid = new \fpcm\view\helper\escape($item->getSessionId());
-        
+
         return new \fpcm\components\dataView\row([
             new \fpcm\components\dataView\rowCol('user', $username),
             new \fpcm\components\dataView\rowCol('period', $period),
@@ -366,13 +366,13 @@ class reload extends \fpcm\controller\abstracts\ajaxController
             new \fpcm\components\dataView\rowCol('text', str_replace(['&NewLine;', PHP_EOL], '<br>', new \fpcm\view\helper\escape($item->text)), 'pre-box'),
         ]);
     }
-    
+
     private function getusername(\fpcm\model\system\session $session) : string
     {
         if (!isset($this->userList[$session->getUserId()])) {
             return $this->notfoundStr;
         }
-        
+
         $name = $this->userList[$session->getUserId()]?->getDisplayName();
         return $name ?? $this->notfoundStr;
     }

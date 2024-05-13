@@ -9,7 +9,7 @@ namespace fpcm\view\helper;
 
 /**
  * Text input view helper object
- * 
+ *
  * @package fpcm\view\helper
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2022, Stefan Seehafer

@@ -31,13 +31,13 @@ class crons extends \fpcm\controller\abstracts\controller
     private $intervals = [];
 
     /**
-     * 
+     *
      * @var \fpcm\components\dataView\dataView
      */
     protected $dataView;
 
     /**
-     * 
+     *
      * @return bool
      */
     public function isAccessible(): bool
@@ -46,7 +46,7 @@ class crons extends \fpcm\controller\abstracts\controller
     }
 
     /**
-     * 
+     *
      * @return string
      */
     protected function getHelpLink()
@@ -65,7 +65,7 @@ class crons extends \fpcm\controller\abstracts\controller
         $this->currentTime = time();
 
         $this->initDataView();
-        
+
         if (!\fpcm\classes\baseconfig::asyncCronjobsEnabled()) {
             $this->view->addButton(
                 (new \fpcm\view\helper\button('releaseall'))
@@ -83,7 +83,7 @@ class crons extends \fpcm\controller\abstracts\controller
     }
 
     /**
-     * 
+     *
      * @return array
      */
     protected function getDataViewCols()
@@ -107,7 +107,7 @@ class crons extends \fpcm\controller\abstracts\controller
     }
 
     /**
-     * 
+     *
      * @return string
      */
     protected function getDataViewName()
@@ -116,7 +116,7 @@ class crons extends \fpcm\controller\abstracts\controller
     }
 
     /**
-     * 
+     *
      * @param \fpcm\model\abstracts\cron $cronjob
      * @return \fpcm\components\dataView\row
      */
@@ -142,11 +142,11 @@ class crons extends \fpcm\controller\abstracts\controller
             $rowClass = '';
             $btnReadonly = false;
         }
-        
+
         $nextExecTs = $cronjob->getNextExecTime();
-        
+
         return new \fpcm\components\dataView\row([
-            
+
             new \fpcm\components\dataView\rowCol('button', $this->getButtons($cronjob, $processingIcon, $playClass, $btnReadonly), '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
 
             new \fpcm\components\dataView\rowCol('interval',
@@ -167,7 +167,7 @@ class crons extends \fpcm\controller\abstracts\controller
     }
 
     /**
-     * 
+     *
      * @param \fpcm\model\abstracts\cron $cronjob
      * @param string $processingIcon
      * @param string $playClass
@@ -176,7 +176,7 @@ class crons extends \fpcm\controller\abstracts\controller
      */
     private function getButtons($cronjob, string $processingIcon, string $playClass, bool $btnReadonly) : string
     {
-        
+
         $buttons = [];
         $buttons[] = (new \fpcm\view\helper\button($cronjob->getCronName()))
             ->setText('CRONJOB_LIST_EXECDEMAND')
@@ -190,9 +190,9 @@ class crons extends \fpcm\controller\abstracts\controller
                 'cjmod' => $cronjob->getModuleKey()
             ]
         );
-        
+
         if ($cronjob->forceCancelation()) {
-            
+
             $buttons[] = (string) (new \fpcm\view\helper\button('release'.$cronjob->getCronName()))
             ->setText('CRONJOB_BTN_CANCEL')
             ->setClass('fpcm-cronjoblist-release')
@@ -203,13 +203,13 @@ class crons extends \fpcm\controller\abstracts\controller
                 'cjid' => $cronjob->getCronName(),
                 'cjmod' => $cronjob->getModuleKey()
             ]);
-            
+
         }
         else {
             $buttons[] = '';
         }
-        
-        
+
+
         return vsprintf('<div>%s%s</div>', $buttons);
     }
 }

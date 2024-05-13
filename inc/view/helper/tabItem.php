@@ -262,8 +262,7 @@ class tabItem extends helper {
         }
 
         $html[] = '><a class="nav-link '.$css.'" href="'.$this->url.'" role="tab" '.$this->getDataString().' '.$this->getAriaString().'>'.$this->text.'</a>';
-        $html[] = '</li>';
-        
+        $html[] = '</li>';        
         
         return sprintf(
             '<li id="fpcm-tab-%s" %s class="nav-item"><a class="nav-link user-select-none %s" href="%s" role="tab" %s %s>%s</a></li>',

@@ -52,23 +52,23 @@ class langedit extends \fpcm\controller\abstracts\controller implements \fpcm\co
         $skipVal = '{{skip}}';
 
         $this->view->addTabs('langedit', [
-            (new \fpcm\view\helper\tabItem('editor'))->setText('Language variable editor')->setFile('system/langedit.php'), 
+            (new \fpcm\view\helper\tabItem('editor'))->setText('Language variable editor')->setFile('system/langedit.php'),
         ]);
 
         $this->cache->cleanup('system/langcache' . strtoupper($this->langObj->getLangCode()));
-        
+
         $fullLang = $this->langObj->getAll(true);
 
         array_walk($fullLang, function (&$value, $index) use ($skipVal) {
             $value = strpos(strtoupper($index), 'MODULE_') !== FALSE ? $skipVal : $value;
         });
-        
+
         $fullLang = array_diff_key($fullLang, array_flip(array_keys($fullLang, $skipVal)));
         $this->view->addButtons([
             (new \fpcm\view\helper\saveButton('save'))->setPrimary(),
             (new \fpcm\view\helper\button('new'))->setText('Neue Variable')->setIcon('plus')
         ]);
-        
+
         $this->view->addToolbarRight([
             (new \fpcm\view\helper\select('langselect'))
                 ->setOptions(array_flip($this->language->getLanguages()))
@@ -76,9 +76,9 @@ class langedit extends \fpcm\controller\abstracts\controller implements \fpcm\co
                 ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED),
             (new \fpcm\view\helper\submitButton('selectLang'))->setText('GLOBAL_OK')->setIcon('check')->setIconOnly()
         ]);
-        
+
         ksort($fullLang);
-        
+
         $this->view->setFormAction('system/langedit');
         $this->view->assign('langVars', $fullLang);
         $this->view->addJsFiles(['system/langedit.js']);
@@ -89,11 +89,11 @@ class langedit extends \fpcm\controller\abstracts\controller implements \fpcm\co
     {
         $langsave = $this->request->fromPOST('lang', [\fpcm\model\http\request::FILTER_TRIM ]);
         ksort($langsave);
-        
+
         $lists = array_filter($langsave, function ($value) {
             return (substr($value, 0, 2) === 'a:') ? true : false;
         });
-        
+
         $vars = array_diff($langsave, $lists);
         array_walk($vars, function (&$value) {
             $value = str_replace(\fpcm\classes\language::VARTEXT_NEWLINE, PHP_EOL, $value);
@@ -111,7 +111,7 @@ class langedit extends \fpcm\controller\abstracts\controller implements \fpcm\co
 
         $this->view->addNoticeMessage('Änderungen gespeichert.');
         return true;
-        
+
     }
-    
+
 }

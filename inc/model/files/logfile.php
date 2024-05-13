@@ -9,7 +9,7 @@ namespace fpcm\model\files;
 
 /**
  * Log file object
- * 
+ *
  * @package fpcm\model\files
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2022, Stefan Seehafer
@@ -64,7 +64,7 @@ final class logfile extends \fpcm\model\abstracts\file {
      * @var array
      */
     protected $fileMap = [];
-    
+
     /**
      * Konstruktor
      * @param int $logFile
@@ -176,5 +176,3 @@ final class logfile extends \fpcm\model\abstracts\file {
     }
 
 }
-
-?>

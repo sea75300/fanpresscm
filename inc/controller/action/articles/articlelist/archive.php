@@ -12,7 +12,7 @@ namespace fpcm\controller\action\articles\articlelist;
 class archive extends base {
 
     /**
-     * 
+     *
      * @return bool
      */
     public function isAccessible(): bool
@@ -23,7 +23,7 @@ class archive extends base {
 
         return $this->permissions->article->archive;
     }
-    
+
     protected function getListAction() : void
     {
         $this->listAction = 'articles/listarchive';

@@ -17,7 +17,7 @@ class import extends \fpcm\controller\abstracts\controller
 {
 
     /**
-     * 
+     *
      * @return bool
      */
     public function isAccessible(): bool
@@ -31,9 +31,9 @@ class import extends \fpcm\controller\abstracts\controller
     public function process()
     {
         define('FPCM_VIEW_FLOATING_LABEL_ALL', true);
-        
+
         $this->view = new \fpcm\view\view('dummy');
-        
+
         $uploader = \fpcm\components\components::getFileUploader();
 
         $this->view->addJsVars(array_merge([
@@ -66,28 +66,28 @@ class import extends \fpcm\controller\abstracts\controller
             (new \fpcm\view\helper\button('importStart'))->setText('IMPORT_START')->setIcon('file-import')->setPrimary(),
             (new \fpcm\view\helper\button('importPreview'))->setText('GLOBAL_PREVIEW')->setIcon('eye'),
         ]);
-        
+
         $this->view->addToolbarRight([
             (new \fpcm\view\helper\button('importReset'))->setText('GLOBAL_RESET')->setIcon('recycle'),
-            (new \fpcm\view\helper\linkButton('protobtn'))->setText('HL_LOGS')->setUrl(\fpcm\classes\tools::getFullControllerLink('system/logs'))->setIcon('exclamation-triangle')->setTarget(\fpcm\view\helper\linkButton::TARGET_NEW)            
+            (new \fpcm\view\helper\linkButton('protobtn'))->setText('HL_LOGS')->setUrl(\fpcm\classes\tools::getFullControllerLink('system/logs'))->setIcon('exclamation-triangle')->setTarget(\fpcm\view\helper\linkButton::TARGET_NEW)
         ]);
-        
+
         $this->view->assign('progressbarName', 'csvimport');
         $this->view->assign('uploadMultiple', false);
         $this->view->setHelpLink('IMPORT_MAIN');
-        
+
         $this->view->render();
     }
-    
+
     private function fetchFields() : array
     {
         $list = $this->language->translate('SYSTEM_IMPORT_ITEMS');
         if (!is_array($list) || !count($list)) {
             return [];
         }
-        
+
         $ns = '\\fpcm\\model\\';
-        
+
         $list = array_filter($list, function ($item) use ($ns) {
             return is_subclass_of($ns.$item, '\fpcm\model\interfaces\isCsvImportable');
         });
@@ -97,14 +97,14 @@ class import extends \fpcm\controller\abstracts\controller
         }
 
         $result = [];
-        
+
         foreach ($list as $item) {
-            
+
             $class = $ns . $item;
             $result[str_replace('\\', '_', $item)] = (new $class)->getFields();
 
             $this->view->addJsLangVars(array_keys($result[str_replace('\\', '_', $item)]));
-            
+
         }
 
         return $result;
