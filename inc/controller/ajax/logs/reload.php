@@ -27,6 +27,12 @@ class reload extends \fpcm\controller\abstracts\ajaxController
     protected $log;
 
     /**
+     * Search term
+     * @var strubg
+     */
+    protected ?string $searchterm;
+
+    /**
      * Module key
      * @var int
      */
@@ -75,6 +81,7 @@ class reload extends \fpcm\controller\abstracts\ajaxController
     public function request()
     {
         $this->log = $this->request->fromGET('log');
+        $this->searchterm = $this->request->fromGET('term');
         $this->moduleKey = $this->request->fromGET('key');
         $this->isSystem = $this->request->fromGET('system', [
             \fpcm\model\http\request::FILTER_CASTINT
@@ -131,7 +138,8 @@ class reload extends \fpcm\controller\abstracts\ajaxController
         /* @var $log \fpcm\model\files\logfileResult */
         $this->logObj = $this->events->trigger('logs\getModuleLog', [
             'key' => $this->moduleKey,
-            'log' => $this->log
+            'log' => $this->log,
+            'term' => $this->searchterm
         ])->getData();
 
         if (!$this->logObj instanceof \fpcm\model\logs\logfileResult) {
@@ -160,7 +168,14 @@ class reload extends \fpcm\controller\abstracts\ajaxController
      */
     private function loadLogSessions()
     {
-        $this->items = $this->session->getSessions();
+        $where = '';
+        $params = [];
+        if ($this->searchterm !== null && strlen($this->searchterm) > 3) {
+            $where = 'AND (userid = ? OR useragent = ? OR ip = ?)';
+            $params = array_fill(0, 3, $this->searchterm);
+        }        
+
+        $this->items = $this->session->getSessionsByCondition($where, $params);
         $this->userList = (new \fpcm\model\users\userList())->getUsersAll();
 
         $this->notfoundStr = $this->language->translate('GLOBAL_NOTFOUND');
@@ -179,6 +194,10 @@ class reload extends \fpcm\controller\abstracts\ajaxController
         $log = new \fpcm\model\files\logfile($this->log, false);
         $this->items = $log->fetchData();
         $this->logsize = $log->getFilesize();
+
+        if ($this->searchterm !== null && strlen($this->searchterm) > 3) {
+            $this->items = $log->search($this->items, $this->searchterm);
+        }
 
         $this->initDataView();
         $this->assignDataViewvars();
@@ -202,7 +221,13 @@ class reload extends \fpcm\controller\abstracts\ajaxController
             );
         });
 
-        $this->view->assign('items', $log->fetchData());
+        $items = $log->fetchData();
+
+        if ($this->searchterm !== null && strlen($this->searchterm) > 3) {
+            $items = $log->search($items, $this->searchterm);
+        }
+
+        $this->view->assign('items', $items);
         $this->view->assign('size', \fpcm\classes\tools::calcSize($log->getFilesize()));
         $this->view->render();
     }
@@ -378,5 +403,3 @@ class reload extends \fpcm\controller\abstracts\ajaxController
     }
 
 }
-
-?>

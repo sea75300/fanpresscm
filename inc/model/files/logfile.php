@@ -146,6 +146,20 @@ final class logfile extends \fpcm\model\abstracts\file {
     }
 
     /**
+     *
+     * @param array $elements
+     * @param string $term
+     * @return array
+     * @since 5.2.0-rc2
+     */
+    public function search(array $elements, string $term) : array
+    {
+        return array_filter($elements, function($line) use ($term) {
+            return str_contains($line->text, $term);
+        });
+    }
+
+    /**
      * Initialisiert Objekt einer temporären Datei
      * @return void
      */

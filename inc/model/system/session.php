@@ -9,7 +9,7 @@ namespace fpcm\model\system;
 
 /**
  * Session Objekt
- * 
+ *
  * @package fpcm\model\system
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2022, Stefan Seehafer
@@ -373,7 +373,7 @@ final class session extends \fpcm\model\abstracts\dataset implements \fpcm\model
     public function setCookie()
     {
         if (!defined('FPCM_MODE_NOPAGETOKEN') && session_status() !== PHP_SESSION_ACTIVE) {
-            session_start();            
+            session_start();
         }
 
         $expire = $this->getLastaction() + (int) FPCM_USER_SESSION;
@@ -392,7 +392,7 @@ final class session extends \fpcm\model\abstracts\dataset implements \fpcm\model
         if (!defined('FPCM_MODE_NOPAGETOKEN') && session_status() === PHP_SESSION_ACTIVE) {
             session_destroy();
         }
-        
+
         (new \fpcm\classes\pageTokens)->delete();
 
         $expire = $this->getLogin() - ((int) FPCM_USER_SESSION * 5);
@@ -409,8 +409,47 @@ final class session extends \fpcm\model\abstracts\dataset implements \fpcm\model
 
         $listItems = $this->dbcon->fetch($this->dbcon->select($this->table, '*', "sessionid NOT " . $this->dbcon->dbLike() . " ?", array($this->sessionid)), true);
 
-        if (!$listItems)
+        if (!$listItems) {
             return $sessions;
+        }
+
+        foreach ($listItems as $listItem) {
+            $sessionItem = new session(false);
+            $sessionItem->createFromDbObject($listItem);
+
+            $sessions[] = $sessionItem;
+        }
+
+        return $sessions;
+    }
+    
+    /**
+     * Retrieve sessions list by condition
+     * @param string $search
+     * @param array $params
+     * @return array|\fpcm\model\system\session
+     */
+    public function getSessionsByCondition(string $search = '', array $params = [])
+    {
+        $sessions = [];
+        
+        $sparams = new \fpcm\model\dbal\selectParams($this->table);
+        
+        $where = "sessionid NOT " . $this->dbcon->dbLike() . " ?";
+        
+        if (trim($search)) {
+            $where = sprintf("%s %s" , $where, $search);
+        }
+
+        $sparams->setWhere($where);        
+        $sparams->setParams(array_merge([$this->sessionid], $params));
+        $sparams->setFetchAll(true);
+
+        $listItems = $this->dbcon->selectFetch($sparams);
+
+        if (!$listItems) {
+            return $sessions;
+        }
 
         foreach ($listItems as $listItem) {
             $sessionItem = new session(false);
@@ -440,7 +479,7 @@ final class session extends \fpcm\model\abstracts\dataset implements \fpcm\model
             $this->sessionExists = false;
             return;
         }
-        
+
         $this->currentUser = new \fpcm\model\users\author();
 
         $obj = (new \fpcm\model\dbal\selectParams( \fpcm\classes\database::viewSessionUserdata ))
@@ -469,7 +508,7 @@ final class session extends \fpcm\model\abstracts\dataset implements \fpcm\model
         $this->sessionExists = true;
 
         if (!defined('FPCM_MODE_NOPAGETOKEN') && session_status() !== PHP_SESSION_ACTIVE) {
-            session_start();            
+            session_start();
         }
     }
 

@@ -13,7 +13,7 @@ namespace fpcm\controller\action\ips\ip;
  * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class edit extends ipbase {
+class edit extends base {
 
     public function request()
     {

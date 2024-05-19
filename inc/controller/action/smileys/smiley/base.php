@@ -68,7 +68,7 @@ implements \fpcm\controller\interfaces\requestFunctions
             'smileypath' => \fpcm\classes\dirs::getDataUrl(\fpcm\classes\dirs::DATA_SMILEYS, '')
         ]);
 
-        $this->view->addJsFiles(['smileys.js']);
+        $this->view->addJsFiles(['system/smileys.js']);
         $this->view->addButtons($this->getButtons() );
 
         $this->view->addTabs('smileys', [

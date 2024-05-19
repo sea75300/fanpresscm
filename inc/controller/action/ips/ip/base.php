@@ -48,7 +48,7 @@ implements \fpcm\controller\interfaces\requestFunctions
         $this->ipaddress = new \fpcm\model\ips\ipaddress($this->id ? $this->id : null);
 
         $this->view->addButton( (new \fpcm\view\helper\saveButton('ipSave'))->setPrimary() );
-        $this->view->addJsFiles(['ipadresses.js']);
+        $this->view->addJsFiles(['system/ipadresses.js']);
 
         $this->view->addTabs('ips', [
             (new \fpcm\view\helper\tabItem('ip'))

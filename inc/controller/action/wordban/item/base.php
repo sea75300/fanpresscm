@@ -27,7 +27,7 @@ implements \fpcm\controller\interfaces\requestFunctions
         define('FPCM_VIEW_FLOATING_LABEL_ALL', true);
         
         $this->view->addButtons($this->getButtons());
-        $this->view->addJsFiles(['texts.js']);
+        $this->view->addJsFiles(['system/texts.js']);
 
         $this->view->addTabs('texts', [
             (new \fpcm\view\helper\tabItem('text'))

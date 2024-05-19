@@ -23,16 +23,27 @@ abstract class event {
     protected $data = '';
 
     /**
+     * Extra event params
+     * @var array
+     * @since 5.2.0-rc3
+     */
+    protected array $params = [];
+
+    /**
      * Konstruktor
      * @param mixed $data
      */
     final public function __construct($data)
     {
         $this->data = $data;
+        if (func_num_args() > 1) {
+            $this->params = func_get_args();
+            array_shift($this->params);
+        }        
 
         $this->init();
     }
-    
+        
     /**
      * Execute event
      * @return mixed

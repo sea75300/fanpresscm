@@ -66,7 +66,7 @@ implements \fpcm\controller\interfaces\requestFunctions
         $this->initDataView();
 
         $this->view->setFormAction('wordban/list');
-        $this->view->addJsFiles(['texts.js']);
+        $this->view->addJsFiles(['system/texts.js']);
         $this->view->addButtons([
             (new \fpcm\view\helper\linkButton('addnew'))->setUrl(\fpcm\classes\tools::getFullControllerLink('wordban/add'))->setText('GLOBAL_NEW')->setIcon('ban')->setPrimary(),
             (new \fpcm\view\helper\deleteButton('delete'))->setClass('fpcm ui-button-confirm')

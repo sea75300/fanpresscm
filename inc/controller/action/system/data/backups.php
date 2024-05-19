@@ -91,7 +91,7 @@ implements \fpcm\controller\interfaces\requestFunctions
         $isPg = \fpcm\classes\loader::getObject('\fpcm\classes\database')->getDbtype() === \fpcm\classes\database::DBTYPE_POSTGRES;
 
         $this->view->addButton((new \fpcm\view\helper\deleteButton('delete'))->setClass('fpcm ui-button-confirm')->setReadonly($isPg)->setIconOnly(false));
-        $this->view->addJsFiles(['backups.js']);
+        $this->view->addJsFiles(['system/backups.js']);
 
         if ($isPg) {
             $this->view->addErrorMessage('BACKUPS_NOTICE_POSTGRES');

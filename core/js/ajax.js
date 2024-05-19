@@ -36,8 +36,8 @@ fpcm.ajax = {
         if (!params.execFail) {
             params.execFail = false;
         }
-        
-        if (params.pageToken) {            
+
+        if (params.pageToken) {
             params.data._token  = fpcm.vars.jsvars.pageTokens[params.pageToken]
                                 ? fpcm.vars.jsvars.pageTokens[params.pageToken]
                                 : null;
@@ -48,7 +48,7 @@ fpcm.ajax = {
         }
 
         jQuery.ajax({
-            url         : fpcm.vars.ajaxActionPath + action.replace(fpcm.vars.ajaxActionPath, ''),
+            url         : fpcm.vars.ajaxActionPath + action.replace(/%2F/gm, '/').replace(fpcm.vars.ajaxActionPath, ''),
             type        : params.method.toUpperCase(),
             data        : params.data,
             async       : params.async,
@@ -105,14 +105,14 @@ fpcm.ajax = {
             if (typeof params.execDone == 'function') {
                 params.execDone(result);
             }
-            
+
             if (!params.quiet) {
                 fpcm.ui_loader.hide();
             }
 
         })
         .fail(function(jqXHR, textStatus, errorThrown) {
-            
+
             if (textStatus == 'parsererror') {
                 fpcm.ajax.showAjaxErrorMessage();
                 fpcm.ui_loader.hide();
@@ -130,21 +130,21 @@ fpcm.ajax = {
             if (typeof params.execFail == 'function') {
                 params.execFail();
             }
-            
+
         });
 
     },
-    
+
     get: function(action, params) {
-        
+
         if (!params) {
             params = {};
         }
-        
+
         params.method = 'GET';
         fpcm.ajax.exec(action, params);
     },
-    
+
     post: function(action, params) {
 
         if (!params) {
@@ -156,14 +156,14 @@ fpcm.ajax = {
     },
 
     fromJSON: function(data) {
-        
+
         if (data instanceof Object || data instanceof Array) {
             return data;
         }
 
         return JSON.parse(data);
     },
-    
+
     toJSON: function(data) {
 
         var isArray = data instanceof Array ? true : false;
@@ -174,36 +174,36 @@ fpcm.ajax = {
 
         return JSON.stringify(data);
     },
-    
+
     showAjaxErrorMessage: function () {
         fpcm.ui.addMessage({
             txt: 'AJAX_RESPONSE_ERROR',
             type: 'error'
         }, true );
     },
-    
+
     execFunction: function (_action, _function, _params) {
         _params.data.fn = _function;
         _params.dataType = 'json';
         fpcm.ajax.post(_action, _params);
     },
-    
+
     getItemList: function (_params) {
-        
+
         if (!_params.module) {
             console.error('Invalid module given.');
             return false;
         }
-        
+
         if (!_params.dataType) {
             _params.dataType = 'json';
         }
 
         let _data = {
             mode: _params.mode ? _params.mode : null,
-            page: _params.page !== undefined ? parseInt(_params.page) : 1,    
+            page: _params.page !== undefined ? parseInt(_params.page) : 1,
         };
-        
+
         if (_params.filter instanceof Object) {
             _data.filter = _params.filter;
         }
@@ -216,13 +216,13 @@ fpcm.ajax = {
                 if (!result) {
                     return false;
                 }
-                
+
                 if (_params.dataType !== 'json') {
                     fpcm.dom.assignHtml(_params.destination, result);
                     _params.onAssignHtmlAfter(result);
                     return true;
                 }
-                
+
                 if (result.html) {
                     fpcm.ui.togglePager(_params.filter ? true : false);
                     fpcm.dom.assignHtml(_params.destination, result.html);
@@ -234,12 +234,12 @@ fpcm.ajax = {
                     fpcm.ui.addMessage(result.message);
                     return false;
                 }
-                
+
                 fpcm.vars.jsvars.dataviews[result.dataViewName] = result.dataViewVars;
                 fpcm.dataview.updateAndRender(result.dataViewName, {
                     onRenderAfter: _params.onRenderDataViewAfter
                 });
-                
+
                 if (_params.filter) {
                     fpcm.ui.togglePager(true);
                 }
@@ -261,7 +261,7 @@ fpcm.ajax = {
                             return true;
                         },
                         backAction: function (event, ui) {
-                                
+
                             if (!fpcm.vars.jsvars.pager.showBackButton) {
                                 return false;
                             }
@@ -271,7 +271,7 @@ fpcm.ajax = {
 
                         },
                         selectAction: function( event, ui ) {
-                            
+
                             if (ui.item.value == fpcm.vars.jsvars.pager.currentPage) {
                                 return false;
                             }
@@ -287,5 +287,5 @@ fpcm.ajax = {
         });
 
     }
-    
+
 };

@@ -57,7 +57,7 @@ class logs extends \fpcm\controller\abstracts\controller {
 
 
         $this->view->addTabs('tabs-logs', $this->events->trigger('logs\addToList', $this->logs)->getData(), false, $this->getActiveTab() );
-        $this->view->addJsFiles(['logs.js']);
+        $this->view->addJsFiles(['system/logs.js']);
         $this->view->addJsLangVars(['LOGS_CLEARED_LOG_OK', 'LOGS_CLEARED_LOG_FAILED', 'FILE_LIST_FILESIZE', 'ARTICLES_SEARCH', 'ARTICLE_SEARCH_TEXT', 'ARTICLE_SEARCH_START']);
         $this->view->addJsVars([
             'currentLog' => [
@@ -67,7 +67,10 @@ class logs extends \fpcm\controller\abstracts\controller {
             ]
         ]);
 
-        $this->view->addButton((new \fpcm\view\helper\button('cleanLogs'))->setText('LOGS_CLEARLOG')->setIcon('recycle'));
+        $this->view->addButtons([
+            (new \fpcm\view\helper\button('cleanLogs'))->setText('LOGS_CLEARLOG')->setIcon('recycle'),
+            (new \fpcm\view\helper\button('searchLogs'))->setText('ARTICLES_SEARCH')->setIcon('search')->setIconOnly()
+        ]);
 
         $this->view->render();
     }

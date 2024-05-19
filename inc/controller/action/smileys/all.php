@@ -58,7 +58,7 @@ implements \fpcm\controller\interfaces\requestFunctions
         ]);
         
         $this->view->setFormAction('smileys/list');
-        $this->view->addJsFiles(['smileys.js']);
+        $this->view->addJsFiles(['system/smileys.js']);
         $this->view->render();
     }
 
