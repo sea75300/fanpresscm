@@ -171,8 +171,9 @@ class reload extends \fpcm\controller\abstracts\ajaxController
         $where = '';
         $params = [];
         if ($this->searchterm !== null && strlen($this->searchterm) > 3) {
-            $where = 'AND (userid = ? OR useragent = ? OR ip = ?)';
+            $where = 'AND (userid = ?OR ip = ? OR useragent LIKE ? )';
             $params = array_fill(0, 3, $this->searchterm);
+            $params[2] = '%'.$params[2].'%';
         }        
 
         $this->items = $this->session->getSessionsByCondition($where, $params);
