@@ -108,7 +108,7 @@ class userlist extends \fpcm\controller\abstracts\controller
         
         $chart = new \fpcm\components\charts\chart(\fpcm\components\charts\chart::TYPE_PIE, 'userArticles');
         $chart->setLegend([
-            'position' => 'bottom'
+            'position' => 'right'
         ]);
 
         $this->view->addCssFiles($chart->getCssFiles());

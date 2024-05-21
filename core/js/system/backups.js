@@ -13,7 +13,9 @@ fpcm.backups = {
 
     init: function() {
 
-        fpcm.dataview.render('backups');
+        fpcm.dataview.render('backups', {
+            onRenderAfter: fpcm.ui.assignCheckboxes
+        });
 
     },
 

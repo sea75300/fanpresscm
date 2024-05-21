@@ -46,7 +46,7 @@ implements \fpcm\controller\interfaces\requestFunctions
         return 'HL_BACKUPS';
     }
 
-    protected function onDelete()
+    protected function onDelete() : bool
     {
 
         if (!$this->checkPageToken()) {
@@ -54,28 +54,58 @@ implements \fpcm\controller\interfaces\requestFunctions
             return true;
         }
 
-        $deleteFile = $this->request->fromPOST('files', [
+        $files = $this->request->fromPOST('files', [
             \fpcm\model\http\request::FILTER_URLDECODE,
             \fpcm\model\http\request::FILTER_BASE64DECODE,
             \fpcm\model\http\request::FILTER_DECRYPT
         ]);
 
-        $file = new \fpcm\model\files\dbbackup($deleteFile);
-        if (!$file->exists()) {
-            $this->view->addErrorMessage('GLOBAL_NOTFOUND_FILE');
+        if (!count($files)) {
             return true;
         }
 
-        if (!$file->isValidDataFolder('', \fpcm\classes\dirs::DATA_DBDUMP) || !$file->delete()) {
+        $exists = [];
+        $failed = [];
+        $success = [];
+
+        array_walk($files, function ($file) use (&$success, &$exists, &$failed) {
+
+            $buf = new \fpcm\model\files\dbbackup($file);
+            if (!$buf->exists()) {
+                $exists[] = $file;
+                return;
+            }
+
+            if (!$buf->isValidDataFolder('', \fpcm\classes\dirs::DATA_DBDUMP)) {
+                $failed[] = $file;
+                return;
+            }
+
+            if (!$buf->delete()) {
+                $failed[] = $file;
+                return;
+            }
+
+            $success[] = $file;
+
+        });
+
+        if (count($exists)) {
+            $msg = $this->language->translate('GLOBAL_NOTFOUND_FILE').implode(', ', $exists);
+            $this->view->addErrorMessage($msg);
+            return true;
+        }
+
+        if (count($failed)) {
             $this->view->addErrorMessage('DELETE_FAILED_FILES', [
-                '{{filenames}}' => $deleteFile
+                '{{filenames}}' => implode(', ', $failed)
             ]);
 
             return true;
         }
 
         $this->view->addNoticeMessage('DELETE_SUCCESS_FILES', [
-            '{{filenames}}' => $deleteFile
+            '{{filenames}}' => implode(', ', $success)
         ]);
 
         return true;
@@ -121,8 +151,10 @@ implements \fpcm\controller\interfaces\requestFunctions
 
     protected function getDataViewCols()
     {
+        $cbxa = (new \fpcm\view\helper\checkbox('fpcm-select-all'))->setClass('fpcm-select-all');
+
         return [
-            (new \fpcm\components\dataView\column('select', ''))->setSize(1)->setAlign('center'),
+            (new \fpcm\components\dataView\column('select', $cbxa))->setSize(1)->setAlign('center'),
             (new \fpcm\components\dataView\column('name', 'FILE_LIST_FILENAME'))->setSize(10),
             (new \fpcm\components\dataView\column('size', 'FILE_LIST_FILESIZE'))->setSize(1),
         ];
@@ -147,8 +179,15 @@ implements \fpcm\controller\interfaces\requestFunctions
 
         $this->i++;
 
+        $ro = $this->i <= $this->deletePrevent;
+
+        $cbx = (new \fpcm\view\helper\checkbox('files[]', 'files'.$hash))
+                ->setClass($ro ? '' : 'fpcm-ui-list-checkbox')
+                ->setValue($val)
+                ->setReadonly($ro);
+
         return new \fpcm\components\dataView\row([
-            new \fpcm\components\dataView\rowCol('select', (new \fpcm\view\helper\radiobutton('files', 'files'.$hash))->setValue($val)->setReadonly($this->i <= $this->deletePrevent), '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
+            new \fpcm\components\dataView\rowCol('select', $cbx, '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
             new \fpcm\components\dataView\rowCol('name', sprintf('%s<br><span class="text-body-secondary fpcm ui-font-small">%s %s/%s</span>', $basename, (new \fpcm\view\helper\icon('folder-tree'))->setText('MODULES_LIST_DATAPATH'), $this->basePath, $basename)),
             new \fpcm\components\dataView\rowCol('size', \fpcm\classes\tools::calcSize(filesize($file)) ),
         ]);
