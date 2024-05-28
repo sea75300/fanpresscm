@@ -114,17 +114,13 @@
     </div>
 </div>
 
-<div class="row g-0">
-    <div class="col-12 fpcm-ui-ellipsis">
-        <div class="row">
-            <div class="col-12 my-2">
-                <?php if (trim($diffResultText)) : ?>
-                    <?php print $diffResultText; ?>
-                <?php else : ?>
-                    <?php print $revision->getContent(); ?>
-                <?php endif; ?>                
-            </div>
-        </div>
+<div class="row">
+    <div class="col-12 my-2">
+        <?php if (trim($diffResultText)) : ?>
+            <?php print $diffResultText; ?>
+        <?php else : ?>
+            <?php print $revision->getContent(); ?>
+        <?php endif; ?>                
     </div>
 </div>
 

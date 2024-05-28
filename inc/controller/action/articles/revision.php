@@ -216,29 +216,31 @@ implements \fpcm\controller\interfaces\requestFunctions
         ]));
 
         try {
-            $differContent = new Differ([$this->revision->getContent()], [$this->article->getContent()]);
-            $rendererContent = RendererFactory::make('Combined', [
+            
+            $differOptions = [];
+            
+            $rLang = match ($this->config->system_lang) {
+                'de' => 'deu',
+                default => 'eng',
+            };
+            
+            $rendererOptions = [
                 'detailLevel' => 'word',
-                'language' => 'eng',
+                'language' => $rLang,
                 'lineNumbers' => false,
                 'showHeader' => false
-            ]);
-
-            $differTitel = new Differ([$this->revision->getTitle()], [$this->article->getTitle()]);
-            $rendererTitle = RendererFactory::make('Combined', [
-                'detailLevel' => 'char',
-                'language' => 'eng',
-                'lineNumbers' => false,
-                'showHeader' => false
-            ]);
+            ];
+            
+            $resultTitle = DiffHelper::calculate($this->revision->getTitle(), $this->article->getTitle(), 'Combined');
+            $resultContent = DiffHelper::calculate($this->revision->getContent(), $this->article->getContent(), 'Combined', $differOptions, $rendererOptions);
 
         } catch (\Exception $exc) {
             $this->view = new \fpcm\view\error($exc->getMessage());
             exit;
         }
 
-        $this->view->assign('diffResultTitle', html_entity_decode($rendererTitle->render($differTitel)) );
-        $this->view->assign('diffResultText', html_entity_decode($rendererContent->render($differContent)) );
+        $this->view->assign('diffResultTitle', html_entity_decode($resultTitle) );
+        $this->view->assign('diffResultText', html_entity_decode($resultContent) );
 
         $this->view->addTabs('article', [
             (new \fpcm\view\helper\tabItem('article'))->setText('EDITOR_STATUS_REVISION')->setFile('articles/revisiondiff.php')

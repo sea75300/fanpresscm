@@ -113,12 +113,13 @@ table.diff-wrapper {
 }
 
 .diff-wrapper.diff.diff-html .change ins {
-  color: var(--bs-light);
-  background: var(--bs-success);
+  color: var(--bs-light-text-emphasis);
+  background: var(--bs-success-bg-subtle);
 }
 
 .diff-wrapper.diff.diff-html .change del {
-  background: #f09494;
+  color: var(--bs-light-text-emphasis) !important;
+  background: var(--bs-danger-border-subtle);
 }
 
 .diff-wrapper.diff td,
