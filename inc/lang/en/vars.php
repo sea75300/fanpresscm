@@ -206,6 +206,7 @@ $lang = array (
   'EDITOR_PINNED' => 'Pin article',
   'EDITOR_PINNED_DATE' => 'Pin article until',
   'EDITOR_POSTPONED_DATE' => 'Due date',
+  'EDITOR_POSTPONED_DATETIME' => 'Due time',
   'EDITOR_POSTPONETO' => 'Postpone article',
   'EDITOR_PRE' => 'Preformatted text',
   'EDITOR_REVISION_DATE' => 'Revision date',

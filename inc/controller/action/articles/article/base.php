@@ -247,8 +247,8 @@ implements \fpcm\controller\interfaces\requestFunctions
             return true;
         }
 
-        $this->view->assign('twitterTplPlaceholder', null);
-        $this->view->assign('twitterReplacements', null);
+        $this->view->assign('twitterTplPlaceholder', []);
+        $this->view->assign('twitterReplacements', []);
         $this->view->assign('showTwitter', false);
         return true;
     }
@@ -319,7 +319,7 @@ implements \fpcm\controller\interfaces\requestFunctions
         $this->article->setCategories($categories);
 
         if (!isset($data['archived']) && isset($data['postponed']) && \fpcm\classes\tools::validateDateString($data['postponedate'])) {
-            $timer = strtotime($data['postponedate'] . ' ' . (int) $data['postponehour'] . ':' . (int) $data['postponeminute'] . ':00');
+            $timer = strtotime($data['postponedate'] . ' ' . $data['postponetime'] . ':00');
 
             $postpone = 1;
             if ($timer === false) {

@@ -141,7 +141,6 @@ implements \fpcm\controller\interfaces\requestFunctions
         $categories = $this->categoryList->getCategoriesNameListAll();
 
         $this->view->assign('categoriesArticle', array_keys(array_intersect($categories, $this->article->getCategories())));
-        $this->view->assign('categoriesRevision', array_keys(array_intersect($categories, $this->revision->getCategories())));
         $this->view->assign('commentEnabledGlobal', false);
         $this->view->assign('showArchiveStatus', true);
         $this->view->assign('showDraftStatus', true);
@@ -216,23 +215,63 @@ implements \fpcm\controller\interfaces\requestFunctions
         ]));
 
         try {
-            
+
             $differOptions = [];
-            
+
             $rLang = match ($this->config->system_lang) {
                 'de' => 'deu',
                 default => 'eng',
             };
-            
+
             $rendererOptions = [
                 'detailLevel' => 'word',
                 'language' => $rLang,
                 'lineNumbers' => false,
                 'showHeader' => false
             ];
-            
-            $resultTitle = DiffHelper::calculate($this->revision->getTitle(), $this->article->getTitle(), 'Combined');
+
+            $resultTitle = DiffHelper::calculate($this->revision->getTitle(), $this->article->getTitle(), 'Combined', $differOptions, $rendererOptions);
             $resultContent = DiffHelper::calculate($this->revision->getContent(), $this->article->getContent(), 'Combined', $differOptions, $rendererOptions);
+
+            $resultCategories = DiffHelper::calculate(
+                implode(', ', array_keys( array_intersect( $categories, $this->revision->getCategories() ) ) ),
+                implode(', ', array_keys( array_intersect( $categories, $this->article->getCategories() ) ) ),
+                'Combined',
+                $differOptions,
+                $rendererOptions
+            );
+
+            $resultSource = DiffHelper::calculate(
+                $this->revision->getSources(),
+                $this->article->getSources(),
+                'Combined',
+                $differOptions,
+                $rendererOptions
+            );
+
+            $resultImagePath = DiffHelper::calculate(
+                $this->revision->getImagepath(),
+                $this->article->getImagepath(),
+                'Combined',
+                $differOptions,
+                $rendererOptions
+            );
+
+            $resultUrl = DiffHelper::calculate(
+                $this->revision->getNicePathString(),
+                $this->article->getNicePathString(),
+                'Combined',
+                $differOptions,
+                $rendererOptions
+            );
+
+            $resultRelation = DiffHelper::calculate(
+                (string) $this->revision->getRelatesTo(),
+                (string) $this->article->getRelatesTo(),
+                'Combined',
+                $differOptions,
+                $rendererOptions
+            );
 
         } catch (\Exception $exc) {
             $this->view = new \fpcm\view\error($exc->getMessage());
@@ -241,6 +280,11 @@ implements \fpcm\controller\interfaces\requestFunctions
 
         $this->view->assign('diffResultTitle', html_entity_decode($resultTitle) );
         $this->view->assign('diffResultText', html_entity_decode($resultContent) );
+        $this->view->assign('diffResultCategories', html_entity_decode($resultCategories) );
+        $this->view->assign('diffResultSources', html_entity_decode($resultSource) );
+        $this->view->assign('diffResultImagePath', html_entity_decode($resultImagePath) );
+        $this->view->assign('diffResultUrl', html_entity_decode($resultUrl) );
+        $this->view->assign('diffResultRelation', html_entity_decode($resultRelation) );
 
         $this->view->addTabs('article', [
             (new \fpcm\view\helper\tabItem('article'))->setText('EDITOR_STATUS_REVISION')->setFile('articles/revisiondiff.php')

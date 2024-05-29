@@ -64,6 +64,15 @@ class dropdown extends helper {
             $btn->setIcon($this->icon);
         }
         
+        if (!$this->useWrapper) {
+            return implode(' ', [
+                $btn,
+                "   <ul class=\"dropdown-menu {$this->ddType}\" aria-labelledby=\"{$btnId}\" {$this->getIdString()} {$this->getDataString()}\>",
+                    $options,
+                "   </ul>"
+            ]);            
+        }
+        
         return implode(' ', [
             "<div",
             $this->getIdString(),
