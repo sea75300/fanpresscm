@@ -2,7 +2,7 @@
 
 <div class="row py-3">
     <div class="col">
-        <div class="list-group list-group-horizontal">
+        <div class="list-group list-group-horizontal-md my-2 my-md-0">
             <div class="list-group-item col-12 col-md-3 py-2">
                 <label><?php $theView->icon('pen')->setSize('lg'); ?><?php $theView->write('ARTICLE_LIST_TITLE'); ?>:</label>
             </div>
@@ -14,7 +14,7 @@
             <?php endif; ?>
             </div>
         </div>
-        <div class="list-group list-group-horizontal">
+        <div class="list-group list-group-horizontal-md my-2 my-md-0">
             <div class="list-group-item col-12 col-md-3 py-2">
                 <label><?php $theView->icon('tag')->setSize('lg'); ?><?php $theView->write('TEMPLATE_ARTICLE_CATEGORYTEXTS'); ?>:</label>
             </div>
@@ -26,7 +26,7 @@
             <?php endif; ?>
             </div>
         </div>
-        <div class="list-group list-group-horizontal">
+        <div class="list-group list-group-horizontal-md my-2 my-md-0">
             <div class="list-group-item col-12 col-md-3 py-2">
                 <label><?php $theView->icon('external-link-alt')->setSize('lg'); ?><?php $theView->write('TEMPLATE_ARTICLE_SOURCES'); ?>:</label>
             </div>
@@ -38,7 +38,19 @@
             <?php endif; ?>
             </div>
         </div>
-        <div class="list-group list-group-horizontal">
+        <div class="list-group list-group-horizontal-md my-2 my-md-0">
+            <div class="list-group-item col-12 col-md-3 py-2">
+                <label><?php $theView->icon('external-link-alt')->setSize('lg'); ?><?php $theView->write('TEMPLATE_ARTICLE_ARTICLEIMAGE'); ?>:</label>
+            </div>
+            <div class="list-group-item col py-2 flex-grow-1 fpcm-ui-ellipsis">
+            <?php if (trim($diffResultImagePath)) : ?>
+                <?php print $diffResultImagePath; ?>
+            <?php else : ?>
+                <?php print $revision->getImagepath() ? $revision->getImagepath() : '-'; ?>
+            <?php endif; ?>
+            </div>
+        </div>
+        <div class="list-group list-group-horizontal-md my-2 my-md-0">
             <div class="list-group-item col-12 col-md-3 py-2">
                 <label><?php $theView->icon('link')->setSize('lg'); ?><?php $theView->write('EDITOR_ARTICLE_ARTICLELINK', ['articleId' => $article->getId()]); ?>:</label>
             </div>
@@ -50,7 +62,7 @@
             <?php endif; ?>
             </div>
         </div>
-        <div class="list-group list-group-horizontal">
+        <div class="list-group list-group-horizontal-md my-2 my-md-0">
             <div class="list-group-item col-12 col-md-3 py-2">
                 <label><?php $theView->icon('arrow-down-up-across-line')->setSize('lg'); ?><?php $theView->write('LABEL_FIELD_ARTICLE_RELATESTO', ['articleId' => $article->getId()]); ?>:</label>
             </div>
