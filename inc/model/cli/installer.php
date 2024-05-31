@@ -190,9 +190,10 @@ final class installer extends \fpcm\model\abstracts\cli {
         foreach ($files as $file) {
 
             $i++;
-            $progress->setCurrentValue($i)->output();            
-            
             $tabName = substr(basename($file, '.yml'), 2);
+
+            $progress->setCurrentValue($i)->setOutputText($tabName)->output();            
+
             $res = \fpcm\classes\loader::getObject('\fpcm\classes\database')->execYaTdl($file);
             usleep(50000);
 
