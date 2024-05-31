@@ -64,6 +64,7 @@ final class repository extends remoteModel {
     public function fetchRemoteData($cliOutput = false)
     {
         $cliProgress = new \fpcm\model\cli\progress(count($this->files));
+        $cliProgress->setOutputText('Fetch package information');
         $i = 0;
         
         clearstatcache();

@@ -79,19 +79,17 @@ final class finalizer extends \fpcm\model\abstracts\model {
             $item = new $item;
         });
 
-        $migrations = array_filter($migrations, function ($obj) {
+        $migrations = array_filter($migrations, function ($obj) {            
             return $obj->isRequired();
         });
 
-        
-        if (!count($migrations)) {
-            
-            fpcmLogSystem('Executing default migration...');
-
+        if (!count($migrations)) {    
             $migrations = [
                 new \fpcm\migrations\defaultAll()
             ];
         }
+        
+        fpcmLogSystem(sprintf("Migrations to execute:\n%s", implode(', ', $migrations)));
 
         $this->cliProgress = new \fpcm\model\cli\progress(count($migrations));
 
@@ -107,7 +105,7 @@ final class finalizer extends \fpcm\model\abstracts\model {
                 return false;
             }
 
-            $this->cliProgress->setCurrentValue($i)->output();
+            $this->cliProgress->setCurrentValue($i)->setOutputText((string) $migration)->output();
             usleep(100000);
         }
 

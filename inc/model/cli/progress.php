@@ -9,7 +9,7 @@ namespace fpcm\model\cli;
 
 /**
  * Cli progress bar object
- * 
+ *
  * @package fpcm\model\cli
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @author mayconbordin, https://gist.github.com/mayconbordin
@@ -21,6 +21,8 @@ final class progress {
 
     /* Progress char */
     const PROGRESS_CHAR = '#';
+
+    const LABEL_CHARS = 30;
 
     /**
      * Maxmimum progress value
@@ -53,6 +55,13 @@ final class progress {
     private $outputText = '';
 
     /**
+     * Recalc cols
+     * @var bool
+     * @since 5.2.0-rc3
+     */
+    private bool $recal = false;
+
+    /**
      * Constructor
      * @param int $maxValue
      * @param int $currentValue
@@ -63,11 +72,11 @@ final class progress {
         $this->maxValue = $maxValue;
         $this->currentValue = $currentValue;
         $this->isCli = \fpcm\classes\baseconfig::isCli() && !defined('FPCM_CLI_OUTPUT_NONE');
-        
+
         if (!$this->isCli) {
             return;
         }
-        
+
         try {
             $cols = exec('tput cols');
             if ($cols === false) {
@@ -80,7 +89,7 @@ final class progress {
             io::output($exc->getMessage(), true);
         }
 
-        
+
     }
 
     /**
@@ -101,11 +110,17 @@ final class progress {
      */
     public function setOutputText(string $outputText)
     {
-        $this->outputText = substr($outputText, 0, floor($this->maxLineChars / 2)) . ': ';
-        $this->maxLineChars -= mb_strlen($this->outputText);
+        $this->outputText = sprintf("%-". self::LABEL_CHARS ."s: ", mb_substr($outputText, 0, self::LABEL_CHARS));
+
+        if ($this->recal) {
+            return $this;
+        }
+
+        $this->maxLineChars -= self::LABEL_CHARS + 2;
+        $this->recal = true;
         return $this;
     }
-        
+
     /**
      * Show progress output
      * @return bool

@@ -122,7 +122,6 @@ final class pkg extends \fpcm\model\abstracts\cli {
     {
         $this->initObjects();
 
-        $this->output('Fetch package information from repository...');
         $repository = new repository();
         $successRepo = $repository->fetchRemoteData(true);
 
@@ -277,7 +276,7 @@ final class pkg extends \fpcm\model\abstracts\cli {
         }
 
         $this->config->init();
-        $this->output('-- Finished.' . PHP_EOL);
+        $this->output(PHP_EOL . '-- Finished.' . PHP_EOL);
         return true;
     }
 

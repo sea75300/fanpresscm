@@ -9,7 +9,7 @@
 
 namespace fpcm\controller\action\packagemgr\system;
 
-class updates extends \fpcm\controller\abstracts\controller
+class update extends \fpcm\controller\abstracts\controller
 {
 
     /**

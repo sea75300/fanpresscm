@@ -16,7 +16,7 @@ namespace fpcm\migrations;
  * @package fpcm\migrations
  * @since 4.3
  */
-abstract class migration {
+abstract class migration implements \Stringable {
 
     /**
      * Database object
@@ -478,6 +478,17 @@ abstract class migration {
         }
 
         return true;
+    }
+
+    /**
+     * Return migration class name
+     * @return string
+     * @ignore
+     * @since 5.2.0-rc3
+     */
+    public function __toString(): string
+    {
+        return get_called_class();
     }
 
 }

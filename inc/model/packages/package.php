@@ -244,8 +244,7 @@ abstract class package {
             
             $size += $res;
             if ($cliProgress) {
-                $progress->setCurrentValue($size);
-                $progress->output();
+                $progress->setCurrentValue($size)->setOutputText(\fpcm\classes\tools::calcSize($size))->output();
             }
 
         }

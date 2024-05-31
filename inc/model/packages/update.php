@@ -245,8 +245,7 @@ class update extends package {
         $failed = [];
         foreach ($files as $i => $file) {
             
-            $progress->setCurrentValue(($i+1));
-            $progress->output();
+            $progress->setCurrentValue(($i+1))->setOutputText(\fpcm\model\files\ops::removeBaseDir($file))->output();
             
             $src = $srcBasePath.DIRECTORY_SEPARATOR.$file;
             $dest = $this->replaceFanPressBaseFolder($file);

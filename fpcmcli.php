@@ -33,21 +33,21 @@ class fpcmCLI {
     public function __construct(array $params)
     {
 
-        $title = 'FanPress CM ' . \fpcm\classes\loader::getObject('\fpcm\model\system\config')->system_version . ' command line ';
+        $title = '## FPCM ' . fpcm\model\system\config::getInstance()->system_version . ' COMMAND LINE';
 
         if (!\fpcm\classes\baseconfig::isCli()) {
             \fpcm\model\cli\io::output($title . ' must be run from console!', true);
         }
-
-        \fpcm\model\cli\io::output(PHP_EOL . '--- ' . $title . ' ---' . PHP_EOL);
 
         if (version_compare(PHP_VERSION, FPCM_PHP_REQUIRED, '<')) {
             \fpcm\model\cli\io::output($title . ' requires PHP ' . FPCM_PHP_REQUIRED . ' or better!', true);
         }
 
         if (!count($params)) {
-            \fpcm\model\cli\io::output($title . ' requires at least on parameter.', true);
+            \fpcm\model\cli\io::output($title . ' requires at least one parameter. Use "fpcmcli.php" help to gain an overview of available parameters', true);
         }
+
+        \fpcm\model\cli\io::output($title);
 
         $this->params = $params;
     }
