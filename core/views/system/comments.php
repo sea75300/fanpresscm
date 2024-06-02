@@ -27,12 +27,23 @@
 
     <div class="row my-2">
         <div class="col-12 col-md-8">
-        <?php $theView->select('comments_template_active')
-                ->setOptions($commentTemplates)
-                ->setText('SYSTEM_OPTIONS_ACTIVECOMMENTTEMPLATE')
-                ->setSelected($globalConfig->comments_template_active); ?>
+            <div class="row g-0">
+                <div class="col flex-grow-1">
+                <?php $theView->select('comments_template_active')
+                    ->setOptions($commentTemplates)
+                    ->setText('SYSTEM_OPTIONS_ACTIVECOMMENTTEMPLATE')
+                    ->setSelected($globalConfig->comments_template_active); ?>
+                </div>
+                <div class="col-auto align-self-center mx-3 mb-3">
+                    <?php $theView->linkButton('system_url_link')
+                        ->setText('GLOBAL_EDIT')
+                        ->setUrl(sprintf('%s&module=templates/templates&rg=2', $theView->basePath))
+                        ->setIcon('file-pen')
+                        ->setIconOnly(); ?>
+                </div>
+            </div>
         </div>
-    </div>
+    </div>    
 
     <div class="row my-2">
         <div class="col-12 col-md-8">

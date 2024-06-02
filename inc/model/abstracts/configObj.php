@@ -86,7 +86,7 @@ abstract class configObj implements \ArrayAccess, \JsonSerializable {
     }
 
     /**
-     * Return JSOn string
+     * Return JSON string
      * @return string
      */
     final public function toJSON(): string

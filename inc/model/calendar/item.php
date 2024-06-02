@@ -162,7 +162,4 @@ class item extends \fpcm\model\abstracts\staticModel implements \JsonSerializabl
         ];
     }
 
-
-
-
 }

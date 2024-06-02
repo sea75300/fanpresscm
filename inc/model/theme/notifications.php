@@ -9,7 +9,7 @@ namespace fpcm\model\theme;
 
 /**
  * ACP notification list
- * 
+ *
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
  * @copyright (c) 2017, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
@@ -38,7 +38,7 @@ class notifications implements \Countable {
     final public function prependSystemNotifications(): void
     {
         $cgf = \fpcm\model\system\config::getInstance();
-        
+
         if ($cgf->system_maintenance) {
             $this->addNotification(new \fpcm\model\theme\notificationItem(
                 (new \fpcm\view\helper\icon('lightbulb'))->setText('SYSTEM_OPTIONS_MAINTENANCE'),
@@ -61,14 +61,14 @@ class notifications implements \Countable {
                 (new \fpcm\view\helper\icon('history'))->setText('SYSTEM_OPTIONS_CRONJOBS')
             ));
         }
-        
+
         if (defined('FPCM_DEBUG') && FPCM_DEBUG) {
             $this->addNotification(new \fpcm\model\theme\notificationItem(
                 (new \fpcm\view\helper\icon('terminal'))->setText('DEBUG_MODE'),
                 '', '', 'text-danger'
             ));
         }
-        
+
         if (defined('FPCM_VIEW_JS_USE_MINIFIED') && FPCM_VIEW_JS_USE_MINIFIED) {
             $this->addNotification(new \fpcm\model\theme\notificationItem(
                 (new \fpcm\view\helper\icon('js', 'fab'))->setText('NOTIFICATION_EXPERIMENTAL_MINJS')
@@ -79,6 +79,27 @@ class notifications implements \Countable {
             $this->addNotification(new \fpcm\model\theme\notificationItem(
                 (new \fpcm\view\helper\icon('flask'))->setText('memcache cache backend is enabled!')
             ));
+        }
+
+        /* @var $perm \fpcm\model\permissions\permissions */
+        $perm = \fpcm\classes\loader::getObject('\fpcm\model\permissions\permissions');
+        if ($perm?->system?->options && $perm?->system?->update) {
+
+            $updates = new \fpcm\model\updater\system();
+            
+            if ($updates->updateAvailable()) {
+
+                $this->addNotification(new \fpcm\model\theme\notificationItem(
+                    (new \fpcm\view\helper\icon('cloud-download-alt'))->setText('UPDATE_VERSIONCHECK_NEW', [
+                        '{{btn}}' => '',
+                        '{{version}}' => $updates->version                
+                    ]),
+                    '',
+                    \fpcm\classes\tools::getFullControllerLink('package/sysupdate')
+                ));
+
+            }
+
         }
     }
 

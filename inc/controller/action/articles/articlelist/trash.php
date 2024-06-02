@@ -59,7 +59,8 @@ class trash extends \fpcm\controller\abstracts\controller
             (new \fpcm\view\helper\button('restoreFromTrash'))
                 ->setIcon('trash-restore')
                 ->setText('ARTICLE_LIST_RESTOREARTICLE')
-                ->setOnClick('articles_trash.restoreFromTrash'),
+                ->setOnClick('articles_trash.restoreFromTrash')
+                ->setPrimary(),
             (new \fpcm\view\helper\button('emptyTrash'))
                 ->setIcon('recycle')
                 ->setText('ARTICLE_LIST_EMPTYTRASH')

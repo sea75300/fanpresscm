@@ -189,9 +189,8 @@ class progress implements \JsonSerializable {
     /**
      * JSON data serialization
      * @return array
-     * @ignore
      */
-    public function jsonSerialize() : array
+    public function jsonSerialize(): mixed
     {
         $return = get_object_vars($this);
         unset($return['callback'], $return['maxExec']);

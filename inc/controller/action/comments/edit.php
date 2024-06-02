@@ -40,7 +40,7 @@ implements \fpcm\controller\interfaces\requestFunctions
     protected $mode = 1;
 
     /**
-     * 
+     *
      * @return bool
      */
     public function isAccessible(): bool
@@ -49,7 +49,7 @@ implements \fpcm\controller\interfaces\requestFunctions
     }
 
     /**
-     * 
+     *
      * @return string
      */
     protected function getViewPath() : string
@@ -58,7 +58,7 @@ implements \fpcm\controller\interfaces\requestFunctions
     }
 
     /**
-     * 
+     *
      * @return string
      */
     protected function getHelpLink()
@@ -67,7 +67,7 @@ implements \fpcm\controller\interfaces\requestFunctions
     }
 
     /**
-     * 
+     *
      * @return string
      */
     protected function getActiveNavigationElement()
@@ -76,7 +76,7 @@ implements \fpcm\controller\interfaces\requestFunctions
     }
 
     /**
-     * 
+     *
      * @return bool
      */
     public function request()
@@ -105,7 +105,7 @@ implements \fpcm\controller\interfaces\requestFunctions
     }
 
     /**
-     * 
+     *
      * @return bool
      */
     public function process()
@@ -114,7 +114,7 @@ implements \fpcm\controller\interfaces\requestFunctions
             $this->view->showHeaderFooter(\fpcm\view\view::INCLUDE_HEADER_SIMPLE);
             $this->view->setBodyClass('m-2 fpcm ui-classic-backdrop');
         }
-        
+
         $editorPlugin = \fpcm\components\components::getArticleEditor();
         if (!$editorPlugin) {
             $this->view = new \fpcm\view\error('Error loading article editor component '.$this->config->system_editor);
@@ -124,7 +124,7 @@ implements \fpcm\controller\interfaces\requestFunctions
         $this->view->addCssFiles($editorPlugin->getCssFiles());
 
         $viewVars = $editorPlugin->getViewVars();
-        
+
         if (isset($viewVars['editorButtons']) && count($viewVars['editorButtons'])) {
             $viewVars['editorButtons']['frame']->setReturned(true);
             unset($viewVars['editorButtons']['frame']);
@@ -135,12 +135,12 @@ implements \fpcm\controller\interfaces\requestFunctions
             $viewVars['editorButtons']['restore']->setReturned(true);
             unset($viewVars['editorButtons']['restore']);
         }
-        
+
         foreach ($viewVars as $key => $value) {
             $this->view->assign($key, $value);
         }
-        
-        
+
+
         $jsVars = $editorPlugin->getJsVars();
         if (is_object($jsVars['editorConfig']) && $jsVars['editorConfig'] instanceof \fpcm\components\editor\conf\tinymceEditor5) {
             $jsVars['editorConfig']->prepareComments();
@@ -159,7 +159,6 @@ implements \fpcm\controller\interfaces\requestFunctions
         $this->view->addJsVars($jsVars);
         $this->view->addJsFiles(array_merge(['comments/module.js', 'comments/editor.js', 'editor/editor_videolinks.js'], $editorPlugin->getJsFiles()));
         $this->view->addJsLangVars(array_merge(['HL_FILES_MNG', 'ARTICLES_SEARCH', 'FILE_LIST_NEWTHUMBS', 'GLOBAL_DELETE', 'FILE_LIST_INSERTGALLERY', 'FILE_LIST_UPLOADFORM'], $editorPlugin->getJsLangVars()));
-        
 
         if ($this->comment->getChangeuser() && $this->comment->getChangetime()) {
             $changeUser = new \fpcm\model\users\author($this->comment->getChangeuser());
@@ -174,30 +173,30 @@ implements \fpcm\controller\interfaces\requestFunctions
         }
 
         $hiddenClass = $this->mode === 2 ? 'fpcm-ui-hidden' : '';
-        
+
         $buttons     = [];
         $buttons[]   = (new \fpcm\view\helper\saveButton('commentSave'))->setClass($hiddenClass)->setPrimary();
-        
+
         $showArticleIdField = false;
         if ($this->mode === 1) {
             $article     = new \fpcm\model\articles\article($this->comment->getArticleid());
             $this->articleList->checkEditPermissions($article);
             if ($article->exists()) {
-                
+
                 $showArticleIdField = false;
-                
+
                 if ($article->getEditPermission()) {
                     $buttons[] = (new \fpcm\view\helper\editButton('editArticle'))->setUrlbyObject($article)->setText('COMMENTS_EDITARTICLE')->setIcon('book');
                 }
 
-                $buttons[] = (new \fpcm\view\helper\openButton('commentfe'))->setUrlbyObject($this->comment)->setTarget(\fpcm\view\helper\linkButton::TARGET_NEW);           
+                $buttons[] = (new \fpcm\view\helper\openButton('commentfe'))->setUrlbyObject($this->comment)->setTarget(\fpcm\view\helper\linkButton::TARGET_NEW);
             }
             else {
                 $showArticleIdField = true;
                 $this->view->addErrorMessage('LOAD_FAILED_COMMENT_ARTICLE');
             }
         }
-        
+
         $this->view->assign('showArticleIdField', $showArticleIdField && $this->permissions->comment->move);
 
         $buttons[] = (new \fpcm\view\helper\linkButton('whoisIp'))
@@ -226,24 +225,24 @@ implements \fpcm\controller\interfaces\requestFunctions
         $this->view->setFormAction($this->comment->getEditLink(), ['mode' => $this->mode], true);
         $this->view->assign('comment', $this->comment);
         $this->view->assign('commentsMode', $this->mode);
-        
+
         $this->view->addTabs('comments', [
             (new \fpcm\view\helper\tabItem('comment'))->setText('COMMENTS_EDIT')->setFile($this->getViewPath() . '.php')
         ]);
-        
-        
+
+
         $this->view->render();
-        
+
         return true;
     }
-    
+
     protected function onCommentSave() : bool
     {
         if (!$this->checkPageToken()) {
             $this->view->addErrorMessage('CSRF_INVALID');
             return false;
         }
-        
+
         $commentData = $this->request->fromPOST('comment', [
             \fpcm\model\http\request::FILTER_STRIPSLASHES,
             \fpcm\model\http\request::FILTER_TRIM
@@ -253,7 +252,7 @@ implements \fpcm\controller\interfaces\requestFunctions
             $this->view->addErrorMessage('SAVE_FAILED_COMMENT');
             return false;
         }
-        
+
         $commentData['email'] = filter_var($commentData['email'], FILTER_VALIDATE_EMAIL);
         if ($this->config->comments_email_optional && !$commentData['email']) {
             $this->view->addErrorMessage('PUBLIC_FAILED_EMAIL');
@@ -281,7 +280,7 @@ implements \fpcm\controller\interfaces\requestFunctions
 
         $this->comment->setChangetime(time());
         $this->comment->setChangeuser($this->session->getUserId());
-        
+
         if ($this->mode === 1 && $this->permissions->comment->move && $commentData['article'] != $this->comment->getArticleid()) {
             $this->comment->setArticleid((int) $commentData['article']);
         }

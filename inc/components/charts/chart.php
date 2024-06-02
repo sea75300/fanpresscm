@@ -199,9 +199,8 @@ implements \JsonSerializable, \Stringable, \fpcm\model\interfaces\JsModuleFiles 
     }
 
     /**
-     * Returns Data for json_encode
+     * JSON serializer
      * @return array
-     * @ignore
      */
     final public function jsonSerialize(): mixed
     {

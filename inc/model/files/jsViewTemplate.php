@@ -103,8 +103,8 @@ final class jsViewTemplate extends \fpcm\model\abstracts\file implements \JsonSe
     }
 
     /**
-     * 
-     * @return string
+     * Returns JSON object
+     * @return mixed
      */
     public function jsonSerialize(): mixed
     {

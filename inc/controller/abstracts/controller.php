@@ -443,11 +443,14 @@ class controller implements \fpcm\controller\interfaces\controller {
         }
 
         if ($this->getIpLockedModul() && $this->ipList->ipIsLocked($this->getIpLockedModul())) {
+            trigger_error(sprintf("Access locked fro ip address %s!", $this->request->getIp()), E_USER_WARNING);
             $this->execDestruct = false;
             return false;
         }
 
         if (!$this->isAccessible()) {
+            trigger_error(sprintf("Access denied to \"%s\" from ip address %s!", $this->request->getModule(), $this->request->getIp()), E_USER_WARNING);
+
             $this->execDestruct = false;
             $this->view = new \fpcm\view\error('PERMISSIONS_REQUIRED');
             $this->view->render($this->moduleCheckExit);

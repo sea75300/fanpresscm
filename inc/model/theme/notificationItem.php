@@ -9,7 +9,7 @@ namespace fpcm\model\theme;
 
 /**
  * ACP notification item in top menu
- * 
+ *
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
  * @copyright (c) 2017-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
@@ -93,7 +93,7 @@ class notificationItem implements \Stringable {
     public function __toString() : string
     {
         $callback = $this->getCallback();
-        
+
         return sprintf(
             '<li id="%s" class="%s text-truncate" %s %s %s</li>',
             $this->id,
@@ -116,11 +116,16 @@ class notificationItem implements \Stringable {
             return '>';
         }
 
-        if (strpos($this->callback, 'http') === 0) {
-            return "><a href=\"{$this->callback}\">" . $this->icon . "</a>";
+        if ( str_starts_with($this->callback, 'http') ) {
+            return sprintf(
+                '><a href="%s" class="%s">%s</a>',
+                $this->callback,
+                'btn btn-sm btn-warning',
+                $this->icon
+            );
         }
 
-        return " data-callback=\"{$this->callback}\">";
+        return sprintf(' data-callback="%s">', $this->callback);
     }
 
 }

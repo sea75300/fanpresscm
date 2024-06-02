@@ -83,9 +83,8 @@ class config implements \JsonSerializable {
     }
 
     /**
-     * 
+     * JSON serializer
      * @return array
-     * @ignore
      */
     public function jsonSerialize(): mixed
     {

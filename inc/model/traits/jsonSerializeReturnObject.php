@@ -19,7 +19,6 @@ namespace fpcm\model\traits;
  */
 trait jsonSerializeReturnObject {
 
-
     /**
      * JSON data
      * @return array

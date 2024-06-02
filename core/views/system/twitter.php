@@ -26,7 +26,12 @@
 
 <div class="row my-2 row-cols-1 row-cols-md-2">
     <div class="col">
-        <legend class="rounded-top"><?php $theView->write('SYSTEM_OPTIONS_TWITTER_CREDENTIALS'); ?></legend>
+        
+        <fieldset>
+            
+            <legend class="rounded">
+                <?php $theView->write('SYSTEM_OPTIONS_TWITTER_CREDENTIALS'); ?>
+            </legend>
 
             <?php $theView->textInput('twitter_data[consumer_key]')
                 ->setValue($globalConfig->twitter_data->consumer_key)
@@ -43,6 +48,7 @@
             <?php $theView->textInput('twitter_data[user_secret]')
                 ->setValue($globalConfig->twitter_data->user_secret)
                 ->setText('SYSTEM_OPTIONS_TWITTER_USER_SECRET'); ?>
+        </fieldset>
     </div>
     <div class="col">
         

@@ -68,11 +68,13 @@ class all extends \fpcm\controller\abstracts\controller
         $this->view->addJsFiles(['comments/module.js', 'comments/deleteCallback.js']);
         $this->view->setFormAction('comments/list');
 
+        $searchPrimary = true;
         if ($this->permissions->editCommentsMass()) {
-            $this->view->addButton((new \fpcm\view\helper\button('massEdit', 'massEdit'))->setText('GLOBAL_EDIT')->setIcon('edit'));
+            $searchPrimary = false;
+            $this->view->addButton((new \fpcm\view\helper\button('massEdit', 'massEdit'))->setText('GLOBAL_EDIT')->setIcon('edit')->setPrimary());
         }
 
-        $this->view->addButton((new \fpcm\view\helper\button('opensearch', 'opensearch'))->setText('ARTICLES_SEARCH')->setIcon('search')->setIconOnly());
+        $this->view->addButton((new \fpcm\view\helper\button('opensearch', 'opensearch'))->setText('ARTICLES_SEARCH')->setIcon('search')->setIconOnly()->setPrimary($searchPrimary));
 
         if ($this->permissions->comment->delete) {
             $this->view->addButton( (new \fpcm\view\helper\button('deleteComment'))

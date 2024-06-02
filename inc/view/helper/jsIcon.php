@@ -64,6 +64,4 @@ class jsIcon extends icon implements \JsonSerializable {
         return $return;
     }
 
-    
-
 }

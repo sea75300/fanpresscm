@@ -123,7 +123,7 @@ abstract class base extends \fpcm\controller\abstracts\controller
                 ->setUrl(\fpcm\classes\tools::getFullControllerLink('articles/add'))
                 ->setText('GLOBAL_NEW')
                 ->setIcon('plus')
-                ->overrideButtonType('secondary');
+                ->setPrimary();
         }
 
         if ($this->permissions->editArticlesMass()) {

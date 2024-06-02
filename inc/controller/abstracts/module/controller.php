@@ -19,8 +19,8 @@ namespace fpcm\controller\abstracts\module;
  */
 class controller extends \fpcm\controller\abstracts\controller
 {
-
-    use \fpcm\module\tools;
+    use \fpcm\module\tools,
+        \fpcm\controller\traits\modules\controllerProperties;
     
     /**
      * Konstruktor

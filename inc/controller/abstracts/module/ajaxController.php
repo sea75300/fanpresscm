@@ -20,7 +20,8 @@ namespace fpcm\controller\abstracts\module;
 class ajaxController extends \fpcm\controller\abstracts\ajaxController
 {
 
-    use \fpcm\module\tools;
+    use \fpcm\module\tools,
+        \fpcm\controller\traits\modules\controllerProperties;
     
     /**
      * Konstruktor

@@ -68,7 +68,7 @@ class logs extends \fpcm\controller\abstracts\controller {
         ]);
 
         $this->view->addButtons([
-            (new \fpcm\view\helper\button('cleanLogs'))->setText('LOGS_CLEARLOG')->setIcon('recycle'),
+            (new \fpcm\view\helper\button('cleanLogs'))->setText('LOGS_CLEARLOG')->setIcon('recycle')->setPrimary(),
             (new \fpcm\view\helper\button('searchLogs'))->setText('ARTICLES_SEARCH')->setIcon('search')->setIconOnly()
         ]);
 

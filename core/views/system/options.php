@@ -5,7 +5,7 @@
     <div class="row my-2">
         <div class="col-12 col-md-8">
                 <?php $theView->textInput('system_email')
-                    ->setValue($globalConfig->system_email)                                        
+                    ->setValue($globalConfig->system_email)
                     ->setText('GLOBAL_EMAIL')
                     ->setType('email'); ?>
 
@@ -14,13 +14,25 @@
 
     <div class="row my-2">
         <div class="col-12 col-md-8">
-                <?php $theView->textInput('system_url')
-                    ->setValue($globalConfig->system_url)                                        
-                    ->setText('SYSTEM_OPTIONS_URL')
-                    ->setType('url'); ?>
+            <div class="row g-0">
+                <div class="col flex-grow-1">
+                    <?php $theView->textInput('system_url')
+                        ->setValue($globalConfig->system_url)
+                        ->setText('SYSTEM_OPTIONS_URL')
+                        ->setType('url'); ?>
+                </div>
+                <div class="col-auto align-self-center mx-3 mb-3">
+                    <?php $theView->linkButton('system_url_link')
+                        ->setText('GLOBAL_OPENNEWWIN')
+                        ->setTarget('_blank')
+                        ->setUrl($globalConfig->system_url)
+                        ->setIcon('link')
+                        ->setIconOnly(); ?>
+                </div>
+            </div>
         </div>
     </div>
-    
+
     <div class="row g-0 my-2">
         <div class="col-12 col-md-8">
             <div class="row row-cols-1 row-cols-xl-2">
@@ -36,7 +48,7 @@
                     <div class="row g-0">
                         <div class="col flex-grow-1">
                         <?php $theView->textInput('system_dtmask')
-                            ->setValue($globalConfig->system_dtmask)                                        
+                            ->setValue($globalConfig->system_dtmask)
                             ->setText('SYSTEM_OPTIONS_DATETIMEMASK'); ?>
                         </div>
                         <div class="col-auto align-self-center mx-3 mb-3">
@@ -46,9 +58,9 @@
                         </div>
                     </div>
                 </div>
-            </div>            
+            </div>
         </div>
-    </div>        
+    </div>
 
     <div class="row g-0 my-2">
         <div class="col-12 col-md-8">
@@ -66,29 +78,29 @@
                     ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED)
                     ->setText('SYSTEM_OPTIONS_DARKMODE'); ?>
                 </div>
-            </div>            
+            </div>
         </div>
-    </div>    
+    </div>
 
-    <div class="row my-2">
+    <div class="row g-0 my-2">
         <div class="col-12 col-md-8">
-            <?php $theView->select('articles_acp_limit')
+            <div class="row row-cols-1 row-cols-sm-2">
+                <div class="col">
+                <?php $theView->select('articles_acp_limit')
                     ->setText('SYSTEM_OPTIONS_ACPARTICLES_LIMIT')
                     ->setOptions($articleLimitListAcp)
                     ->setSelected($globalConfig->articles_acp_limit); ?>
-        </div>
-    </div>
+                </div>
 
-
-    <div class="row my-2">
-        <div class="col-12 col-md-8">
-            <?php $theView->select('system_cache_timeout')
+                <div class="col">
+                <?php $theView->select('system_cache_timeout')
                     ->setText('SYSTEM_OPTIONS_CACHETIMEOUT')
                     ->setOptions($theView->translate('SYSTEM_OPTIONS_CACHETIMEOUT_INTERVAL'))
                     ->setSelected($globalConfig->system_cache_timeout); ?>
+                </div>
+            </div>
         </div>
     </div>
-
 
     <div class="row my-2">
         <div class="col-12 col-md-8">
@@ -135,7 +147,7 @@
                         </div>
                     </div>
                 </div>
-            </div>            
+            </div>
         </div>
     </div>
 </fieldset>

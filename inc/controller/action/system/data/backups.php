@@ -60,7 +60,7 @@ implements \fpcm\controller\interfaces\requestFunctions
             \fpcm\model\http\request::FILTER_DECRYPT
         ]);
 
-        if (!count($files)) {
+        if (!is_array($files) || !count($files)) {
             return true;
         }
 

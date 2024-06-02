@@ -40,26 +40,25 @@
             </div>        
         </div>
     </div>    
-    
-    
-    
-    
+
 </fieldset>
 
 <fieldset class="my-2" >
     <legend><?php $theView->write('SYSTEM_OPTIONS_EXTENDED_UPDATES'); ?></legend>
 
-    <div class="row my-2">
+    <div class="row g-0 my-2">
         <div class="col-12 col-md-8">
-        <?php $theView->boolSelect('system_updates_emailnotify')->setText('SYSTEM_OPTIONS_EXTENDED_EMAILUPDATES')->setSelected($globalConfig->system_updates_emailnotify); ?>
-        </div>
-    </div>
+            <div class="row row-cols-1 row-cols-xl-2">
+                <div class="col">
+                    <?php $theView->boolSelect('system_updates_emailnotify')->setText('SYSTEM_OPTIONS_EXTENDED_EMAILUPDATES')->setSelected($globalConfig->system_updates_emailnotify); ?>
+                </div>
 
-    <div class="row my-2">
-        <div class="col-12 col-md-8">
-        <?php $theView->boolSelect('system_updates_devcheck')->setText('SYSTEM_OPTIONS_EXTENDED_DEVUPDATES')->setSelected($globalConfig->system_updates_devcheck); ?>
+                <div class="col">
+                    <?php $theView->boolSelect('system_updates_devcheck')->setText('SYSTEM_OPTIONS_EXTENDED_DEVUPDATES')->setSelected($globalConfig->system_updates_devcheck); ?>
+                </div>
+            </div>            
         </div>
-    </div>
+    </div>        
 
     <div class="row my-2">
         <div class="col-12 col-md-8">
