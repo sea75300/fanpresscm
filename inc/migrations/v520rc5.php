@@ -108,6 +108,8 @@ class v520rc5 extends migration {
 
             return unlink($p);
         }, $files);
+        
+        return true;
 
     }
 
