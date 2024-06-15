@@ -9,7 +9,7 @@ namespace fpcm\controller\abstracts;
 
 /**
  * Allgemeine Basis einen Controller
- * 
+ *
  * @package fpcm\controller\abstracts
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2021, Stefan Seehafer
@@ -17,7 +17,7 @@ namespace fpcm\controller\abstracts;
  * @abstract
  */
 class controller implements \fpcm\controller\interfaces\controller {
-    
+
     const ERROR_PROCESS_BYPARAMS = 0x404;
 
     const BYPARAM_DEFAULT_PREFIX = 'process';
@@ -183,7 +183,7 @@ class controller implements \fpcm\controller\interfaces\controller {
         if ($this->request->fromPOST('btn' . ucfirst($buttonName), []) !== null) {
             return true;
         }
-        
+
         return false;
     }
 
@@ -206,7 +206,7 @@ class controller implements \fpcm\controller\interfaces\controller {
         if (!$viewPath) {
             return false;
         }
-        
+
         $this->view = new \fpcm\view\view($viewPath, $this->moduleElement ? $this->getObject()->getKey() : false );
         $this->view->setHelpLink($this->getHelpLink());
         $this->view->setActiveNavigationElement($this->getActiveNavigationElement());
@@ -299,7 +299,7 @@ class controller implements \fpcm\controller\interfaces\controller {
     }
 
     /**
-     * 
+     *
      * Checks referrer
      * @param bool $ext
      * @return bool
@@ -307,12 +307,16 @@ class controller implements \fpcm\controller\interfaces\controller {
      */
     final protected function checkReferer(bool $ext = false) : bool
     {
+        if ( defined('FPCM_REFERRER_CHECK_DISABLED') && FPCM_REFERRER_CHECK_DISABLED) {
+            return true;
+        }
+
         $ref = $_SERVER['HTTP_REFERER'] ?? false;
         if (!trim($ref)) {
             trigger_error(sprintf('No referer set in %s on request from %s.', $this->request->getModule(), $this->request->getIp()), E_USER_WARNING);
             return false;
         }
-        
+
         $ref = parse_url($ref, PHP_URL_HOST);
         if (!$ref) {
             trigger_error(sprintf('No referer set in %s on request from %s.', $this->request->getModule(), $this->request->getIp()), E_USER_WARNING);
@@ -326,7 +330,7 @@ class controller implements \fpcm\controller\interfaces\controller {
         if (!defined('FPCM_REFERRER_BASE') && $ext) {
             $root = dirname($root);
         }
-        
+
         $root = parse_url($root, PHP_URL_HOST);
         if (!$root) {
             trigger_error(sprintf('Referer check error, invalid root url %s.', $root), E_USER_WARNING);
@@ -385,7 +389,7 @@ class controller implements \fpcm\controller\interfaces\controller {
     {
         return 'noaccess';
     }
-    
+
     /**
      * Must return true, if controller is accessible
      * @return bool
@@ -475,7 +479,7 @@ class controller implements \fpcm\controller\interfaces\controller {
     /**
      * Process click of form items as function
      * @return bool
-     * @since 4.4 
+     * @since 4.4
      * @todo experimental
      */
     public function processButtons() : bool
@@ -488,22 +492,22 @@ class controller implements \fpcm\controller\interfaces\controller {
         $items = array_filter($items, function ($item) {
             return substr($item, 0, 3) !== \fpcm\view\helper\button::NAME_PREFIX ? false : true;
         });
-        
+
         if (!count($items)) {
             return true;
         }
-        
+
         foreach ($items as $item) {
 
             $func = 'on'.substr($item, 3);
             if (!method_exists($this, $func)) {
                 continue;
             }
-            
+
             call_user_func([$this, $func]);
-   
-        }        
-        
+
+        }
+
         return true;
     }
 
@@ -580,11 +584,11 @@ class controller implements \fpcm\controller\interfaces\controller {
             $this->activeTab = (int) $activeTab;
             return $this->activeTab;
         }
-        
+
         $this->activeTab = 0;
         return $this->activeTab;
     }
-    
+
     /**
      * Executes function by param from GET-request in current controller
      * @param string $prefix
@@ -604,7 +608,7 @@ class controller implements \fpcm\controller\interfaces\controller {
         if (property_exists($this, $actionFrom)) {
             $this->{$actionFrom} = $actionName;
         }
-        
+
         $fn = trim($prefix.$actionName);
         if (!method_exists($this, $fn)) {
             trigger_error(sprintf('Request for undefined function %s in %s!', $fn, static::class) , E_USER_WARNING);
@@ -618,7 +622,7 @@ class controller implements \fpcm\controller\interfaces\controller {
      * Initialize permission object
      * @return bool
      * @since 4.4
-     */    
+     */
     protected function initPermissionObject() : bool
     {
         $this->permissions = \fpcm\classes\loader::getObject('\fpcm\model\permissions\permissions');
@@ -635,7 +639,7 @@ class controller implements \fpcm\controller\interfaces\controller {
     protected function getToolbarButtonToggleClass(int $tabIndex, string $class = '', bool $notIfNull = false): string
     {
         $active = $this->getActiveTab();
-        
+
         $hidden = $tabIndex !== $active ? 'fpcm-ui-hidden' : '';
         if ($notIfNull && $active === 0) {
             $hidden = '';
