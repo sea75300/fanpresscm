@@ -136,7 +136,7 @@ final class security {
         $regEx = '/('.implode('|', ['SELECT', 'CHR', 'UPPER', 'INFORMATION_SCHEMA', '\sAND', '\sOR', 'UNION', 'CONCAT', 'THEN']).')+/';
         
         /* @var $req \fpcm\model\http\request */
-        $req = \fpcm\classes\loader::getObject('\fpcm\model\http\request');        
+        $req = \fpcm\model\http\request::getInstance();
 
         $result = array_map(function($var) use ($regEx, $req) {
 

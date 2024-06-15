@@ -18,7 +18,7 @@ class dashboard extends \fpcm\controller\abstracts\controller
 {
 
     use \fpcm\controller\traits\common\isAccessibleTrue;
-    
+
     /**
      * Get view path for controller
      * @return string
@@ -29,7 +29,7 @@ class dashboard extends \fpcm\controller\abstracts\controller
     }
 
     /**
-     * 
+     *
      * @return string
      */
     protected function getHelpLink()
@@ -48,33 +48,21 @@ class dashboard extends \fpcm\controller\abstracts\controller
         $this->view->addFromLibrary('sortable_js', [
             'Sortable.min.js'
         ]);
-        
-        $this->view->addOffCanvas('DASHBOARD_MANAGE_CONTAINER_ENABLE', 'dashboard/manage');
 
-        $dropdown = new \fpcm\view\helper\dropdown('dashboardAction');
-        $dropdown->setText('DASHBOARD_MANAGE_CONTAINER')->setIcon('bars');
-        $dropdown->setOptions([
-            
-            (new \fpcm\view\helper\dropdownItem('resetDashboardSettings'))
-                ->setText('USERS_META_RESET_DASHBOARD')
-                ->setIcon('undo')
-                ->setValue('1'),
-            
-            (new \fpcm\view\helper\dropdownItem('resetDashboardSettings2'))
-                ->setText('DASHBOARD_MANAGE_CONTAINER_ENABLE')
-                ->setValue('2')
-                ->setAria([
-                    'controls' => 'offcanvasInfo'
-                ])
-                ->setData([
-                    'bs-toggle' => "offcanvas",
-                    'bs-target' => "#offcanvasInfo",
-                    
-                ])
-        ]);
-        
-        $this->view->addButton($dropdown);
-        
+        $this->view->addOffCanvas('DASHBOARD_MANAGE_CONTAINER', 'dashboard/manage');
+
+        $btn = new \fpcm\view\helper\button('dashboardAction');
+        $btn->setText('DASHBOARD_MANAGE_CONTAINER')->setIcon('bars')
+            ->setAria([
+                'controls' => 'offcanvasInfo'
+            ])
+            ->setData([
+                'bs-toggle' => "offcanvas",
+                'bs-target' => "#offcanvasInfo",
+            ]);
+
+        $this->view->addButton($btn);
+
     }
 
 }

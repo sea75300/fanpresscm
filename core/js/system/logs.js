@@ -46,7 +46,7 @@ fpcm.logs = {
                     return false;
                 }
 
-                let _str = '<div class="row fpcm-ui-font-small">';
+                let _str = '<div class="row fpcm-ui-font-small text-body-tertiary">';
                 _str += '<div class="col-12 align-self-center p-2">';
                 _str += fpcm.ui.getIcon('weight', { size: 'lg' }) + fpcm.ui.translate('FILE_LIST_FILESIZE') + ': ' + _result.logsize;
                 _str += '</div>';

@@ -22,7 +22,7 @@
 ?>
 
 <?php endif; ?>
-<div class="row fpcm-ui-font-small">
+<div class="row fpcm-ui-font-small text-body-tertiary">
     <div class="col-12 align-self-center p-2">
         <?php $theView->icon('weight')->setSize('lg'); ?>
         <?php $theView->write('FILE_LIST_FILESIZE'); ?>:

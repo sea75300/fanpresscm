@@ -15,10 +15,10 @@ fpcm.dashboard = {
 
     init: function () {
 
-        fpcm.dom.bindClick('#resetDashboardSettings', fpcm.dashboard.resetPositions);
+        fpcm.dom.bindClick('#btnResetDashboardSettings', fpcm.dashboard.resetPositions);
         fpcm.dom.bindEvent('#offcanvasInfo', 'shown.bs.offcanvas', fpcm.dashboard.fetchDisabledContainer);
         fpcm.dom.bindEvent('#offcanvasInfo', 'hidden.bs.offcanvas', function () {
-            let _el = fpcm.dom.fromId('fpcm-ui-container-disabled-list').empty();
+            fpcm.dom.fromTag('#fpcm-ui-container-disabled-list > a[data-container]').empty();
         });
 
         fpcm.ajax.exec('dashboard/load', {
@@ -101,16 +101,26 @@ fpcm.dashboard = {
         });
     },
     
-    resetPositions: function ()
+    resetPositions: function (_e)
     {
         fpcm.ui_dialogs.confirm({
             clickYes: function () {
+                
+                let _spin = document.createElement('span');
+                _spin.classList.add('spinner-border');
+                _spin.classList.add('spinner-border-sm');
+                _spin.classList.add('ms-1');
+                _e.delegateTarget.appendChild(_spin);
+                
                 fpcm.ajax.post('setconfig', {
                     data: {
                         op: 'reset',
                         var: 'dashboardpos'
                     },
-                    execDone: fpcm.dashboard.init,
+                    execDone: function () {
+                        fpcm.dashboard.init();
+                        _e.delegateTarget.removeChild(_spin);
+                    },
                     quiet: true
                 });
             }
@@ -126,8 +136,8 @@ fpcm.dashboard = {
             async: true,
             execDone: function(_result) {
 
+                fpcm.dom.fromTag('#fpcm-ui-container-disabled-list > a[data-container]').remove();
                 let _el = fpcm.dom.fromId('fpcm-ui-container-disabled-list');
-                _el.empty();
 
                 let _btn = '';
                 if (_result[0].code !== -1) {

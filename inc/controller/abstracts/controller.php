@@ -312,6 +312,12 @@ class controller implements \fpcm\controller\interfaces\controller {
             trigger_error(sprintf('No referer set in %s on request from %s.', $this->request->getModule(), $this->request->getIp()), E_USER_WARNING);
             return false;
         }
+        
+        $ref = parse_url($ref, PHP_URL_HOST);
+        if (!$ref) {
+            trigger_error(sprintf('No referer set in %s on request from %s.', $this->request->getModule(), $this->request->getIp()), E_USER_WARNING);
+            return false;
+        }
 
         $root = defined('FPCM_REFERRER_BASE') && trim(FPCM_REFERRER_BASE)
               ? FPCM_REFERRER_BASE
@@ -320,8 +326,14 @@ class controller implements \fpcm\controller\interfaces\controller {
         if (!defined('FPCM_REFERRER_BASE') && $ext) {
             $root = dirname($root);
         }
+        
+        $root = parse_url($root, PHP_URL_HOST);
+        if (!$root) {
+            trigger_error(sprintf('Referer check error, invalid root url %s.', $root), E_USER_WARNING);
+            return false;
+        }
 
-        if ( strpos($_SERVER['HTTP_REFERER'], $root) === false ) {
+        if ($ref !== $root) {
             trigger_error(sprintf('Referer %s does not match %s in %s.', $ref, $root, $this->request->getModule()), E_USER_WARNING);
             return false;
         }
