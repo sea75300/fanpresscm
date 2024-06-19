@@ -112,5 +112,14 @@ class v520rc5 extends migration {
         return true;
 
     }
+    
+    /**
+     * Returns new version, e. g. from version.txt
+     * @return string
+     */
+    protected function getNewVersion() : string
+    {
+        return '5.2.0-rc5';
+    }
 
 }
