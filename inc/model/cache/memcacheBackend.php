@@ -47,8 +47,12 @@ class memcacheBackend implements \fpcm\model\interfaces\cacheBackend {
      */
     public function __construct(?string $cacheName)
     {
+        if ($cacheName === null) {
+            $cacheName = '';
+        }
+
         $cacheName = explode('/', strtolower($cacheName), 2);
-        
+
         $this->module = isset($cacheName[1]) && trim($cacheName[1]) ? $cacheName[0] : '';
         $this->path = $cacheName[1] ?? $cacheName[0];
         $this->path = $this->module . '/'. $this->path;
@@ -76,7 +80,7 @@ class memcacheBackend implements \fpcm\model\interfaces\cacheBackend {
         ], $expires);
 
         if (!$r) {
-            trigger_error('Unable to write cache data for key ' . $this->path);
+            trigger_error(sprintf('Unable to write cache data for key %s with code %s', $this->path, $r));
             return false;
         }
 
@@ -116,6 +120,10 @@ class memcacheBackend implements \fpcm\model\interfaces\cacheBackend {
      */
     public function cleanup()
     {
+        if ($this->memcache === null) {
+            return true;
+        }
+
         return $this->memcache->getInstance()->flush();
     }
 
@@ -135,11 +143,15 @@ class memcacheBackend implements \fpcm\model\interfaces\cacheBackend {
      */
     public function getSize(string $basePath): int
     {
-        return $this->memcache->getStats('bytes');
+        if ($this->memcache === null) {
+            return 0;
+        }
+
+        return (int) $this->memcache->getStats('bytes');
     }
 
     /**
-     * 
+     *
      * @param string $basePath
      * @param type $cacheName
      * @return bool
@@ -149,16 +161,26 @@ class memcacheBackend implements \fpcm\model\interfaces\cacheBackend {
         /* @var $mem \Memcached */
         $mem = \fpcm\classes\loader::getObject('\fpcm\model\cache\memcacheConnector')->getInstance();
         if ($cacheName === null) {
-            return $mem->flush();
+            $r = $mem->flush();
+            if (!$r) {
+                trigger_error(sprintf('Unable to clear cache %s with code %s: %s', $cacheName, $mem->getResultCode(), $mem->getResultMessage()));
+                return false;
+            }
+            
+            return true;
         }
 
         if (substr($cacheName, -1) !== \fpcm\classes\cache::CLEAR_ALL) {
-            return $mem->delete( $cacheName );
-        }           
+            $r = $mem->delete( $cacheName );
+            if (!$r) {
+                trigger_error(sprintf('Unable to clear cache %s with code %s: %s', $cacheName, $mem->getResultCode(), $mem->getResultMessage()));
+                return false;
+            }            
+        }
 
         $mod = strtolower(substr($cacheName, 0, -2));
 
-        $all = \fpcm\classes\loader::getObject('\fpcm\model\cache\memcacheConnector')->getInstance()->getAllKeys();
+        $all = $mem->getAllKeys();
         if (!is_array($all) || !count($all)) {
             return true;
         }

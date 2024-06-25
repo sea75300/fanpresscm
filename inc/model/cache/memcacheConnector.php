@@ -64,7 +64,7 @@ class memcacheConnector {
             if(!count($servers) || !isset($servers[0]) || !isset($servers[0]['host']) || $servers[0]['host'] !== $this->host) {
                 $sec = $this->obj->addServer($this->host, $this->port);
             }
-            
+
         } catch (\Exception $e) {
             return null;
         }
@@ -82,7 +82,7 @@ class memcacheConnector {
      * @return mixed
      */
     final public function getStats(?string $var): mixed
-    {
+    {        
         $stats = $this->obj->getStats();
 
         if (isset($stats[$this->host.':'.$this->port][$var])) {

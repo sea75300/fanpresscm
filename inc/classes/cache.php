@@ -9,7 +9,7 @@ namespace fpcm\classes;
 
 /**
  * Cache system
- * 
+ *
  * @package fpcm\classes\cache
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
  * @copyright (c) 2011-2024, Stefan Seehafer
@@ -43,9 +43,9 @@ final class cache {
     public function __construct()
     {
         $this->crypt = loader::getObject('\fpcm\classes\crypt');
-        $this->basePath = dirs::getDataDirPath(dirs::DATA_CACHE);     
+        $this->basePath = dirs::getDataDirPath(dirs::DATA_CACHE);
         $this->active = ! (defined('FPCM_INSTALLER_NOCACHE') && FPCM_INSTALLER_NOCACHE);
-        
+
         if (!isset($GLOBALS['fpcm']['stack'])) {
             $GLOBALS['fpcm']['stack'] = [];
         }
@@ -58,7 +58,7 @@ final class cache {
      */
     public function isExpired($cacheName)
     {
-        if ($this->active) {
+        if (!$this->active) {
             return true;
         }
 
@@ -74,7 +74,7 @@ final class cache {
      */
     public function write($cacheName, $data, $expires = 0)
     {
-        if ($this->active) {
+        if (!$this->active) {
             return false;
         }
 
@@ -89,7 +89,7 @@ final class cache {
      */
     public function read($cacheName)
     {
-        if ($this->active) {
+        if (!$this->active) {
             return false;
         }
 
@@ -104,7 +104,7 @@ final class cache {
      */
     public function getExpirationTime($cacheName)
     {
-        if ($this->active) {
+        if (!$this->active) {
             return false;
         }
 
@@ -117,7 +117,11 @@ final class cache {
      * @return bool
      */
     public function cleanup($cacheName = null)
-    {        
+    {
+        if (!$this->active) {
+            return false;
+        }
+
         return call_user_func(FPCM_CACHE_BACKEND . '::cleanupByCacheName', $this->basePath, $cacheName);
     }
 
@@ -126,7 +130,7 @@ final class cache {
      * @return int
      */
     public function getSize()
-    {        
+    {
         return $this->getBackendInstance(null)->getSize($this->basePath);
     }
 
