@@ -218,7 +218,7 @@
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>(c) 2011-2020, Stefan Seehafer</p>
+                                                 <section class="phpdocumentor-description"><p>(c) 2011-2022, Stefan Seehafer</p>
 </section>
 
                                     </dd>
@@ -519,11 +519,25 @@
 <dd>CLI output</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a href="classes/fpcm-model-cli-cron.html#method_execAllCrons">execAllCrons()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+<dd>Execute all executable cronjobs</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/fpcm-model-cli-cron.html#method_execCron">execCron()</a>
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
 <dd>Executed cronjob</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a href="classes/fpcm-model-cli-cron.html#method_listCrons">listCrons()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+<dd>Lists executable cronjobs</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/fpcm-model-cli-cron.html#method_resetCron">resetCron()</a>
@@ -1602,7 +1616,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/cli/cron.php"><a href="files/inc-model-cli-cron.html"><abbr title="inc/model/cli/cron.php">cron.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">80</span>
+    <span class="phpdocumentor-element-found-in__line">140</span>
 
     </aside>
 
@@ -1847,6 +1861,39 @@
             -private
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_execAllCrons">
+        execAllCrons()
+        <a href="classes/fpcm-model-cli-cron.html#method_execAllCrons" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/cli/cron.php"><a href="files/inc-model-cli-cron.html"><abbr title="inc/model/cli/cron.php">cron.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">67</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Execute all executable cronjobs</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+                    <span class="phpdocumentor-signature__name">execAllCrons</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+    
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">bool</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_execCron">
         execCron()
         <a href="classes/fpcm-model-cli-cron.html#method_execCron" class="headerlink"><i class="fas fa-link"></i></a>
@@ -1854,7 +1901,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/cli/cron.php"><a href="files/inc-model-cli-cron.html"><abbr title="inc/model/cli/cron.php">cron.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">56</span>
+    <span class="phpdocumentor-element-found-in__line">89</span>
 
     </aside>
 
@@ -1890,6 +1937,39 @@
             -private
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_listCrons">
+        listCrons()
+        <a href="classes/fpcm-model-cli-cron.html#method_listCrons" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/cli/cron.php"><a href="files/inc-model-cli-cron.html"><abbr title="inc/model/cli/cron.php">cron.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">113</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Lists executable cronjobs</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+                    <span class="phpdocumentor-signature__name">listCrons</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+    
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">bool</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_resetCron">
         resetCron()
         <a href="classes/fpcm-model-cli-cron.html#method_resetCron" class="headerlink"><i class="fas fa-link"></i></a>
@@ -1897,7 +1977,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/cli/cron.php"><a href="files/inc-model-cli-cron.html"><abbr title="inc/model/cli/cron.php">cron.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">68</span>
+    <span class="phpdocumentor-element-found-in__line">101</span>
 
     </aside>
 

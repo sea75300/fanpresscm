@@ -185,6 +185,9 @@
                             </ul>
         </div>
     
+            <span class="phpdocumentor-element__implements">
+            implements
+                            <a href="classes/fpcm-model-interfaces-gsearchIndex.html"><abbr title="\fpcm\model\interfaces\gsearchIndex">gsearchIndex</abbr></a>                    </span>
     
             <span class="phpdocumentor-element__extends">
             Uses
@@ -221,7 +224,7 @@
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>(c) 2011-2020, Stefan Seehafer</p>
+                                                 <section class="phpdocumentor-description"><p>(c) 2011-2022, Stefan Seehafer</p>
 </section>
 
                                     </dd>
@@ -239,6 +242,18 @@
 
 
 
+<h3 id="interfaces_class_traits">
+    Interfaces, Classes, Traits and Enums
+    <a href="#interfaces_class_traits" class="headerlink"><i class="fas fa-link"></i></a>
+</h3>
+
+<dl class="phpdocumentor-table-of-contents">
+            <dt class="phpdocumentor-table-of-contents__entry -interface"><a href="classes/fpcm-model-interfaces-gsearchIndex.html"><abbr title="\fpcm\model\interfaces\gsearchIndex">gsearchIndex</abbr></a></dt>
+        <dd>FanPress CM Model global search indexer</dd>
+    
+    
+    
+    </dl>
 
 
 <h3 id="toc">
@@ -337,6 +352,13 @@
                                 &nbsp;: void    </span>
 </dt>
 <dd>Konstruktor</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-model-articles-articlelist.html#method_checkArticlesPinnedUntil">checkArticlesPinnedUntil()</a>
+    <span>
+                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+</dt>
+<dd>Returns List of pinned articles with date in the past</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/fpcm-model-articles-permissions.html#method_checkEditPermissions">checkEditPermissions()</a>
@@ -458,6 +480,27 @@
 <dd>Gibt Liste mit Artikel-IDs zurück, welche automatisch freigeschalten werden sollen</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-model-articles-articlelist.html#method_getCountQuery">getCountQuery()</a>
+    <span>
+                                &nbsp;: <a href="classes/fpcm-model-dbal-selectParams.html"><abbr title="\fpcm\model\dbal\selectParams">selectParams</abbr></a>    </span>
+</dt>
+<dd>Get count query string</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-model-articles-articlelist.html#method_getElementIcon">getElementIcon()</a>
+    <span>
+                                &nbsp;: <a href="classes/fpcm-view-helper-icon.html"><abbr title="\fpcm\view\helper\icon">icon</abbr></a>    </span>
+</dt>
+<dd>Return link icon</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-model-articles-articlelist.html#method_getElementLink">getElementLink()</a>
+    <span>
+                                &nbsp;: string    </span>
+</dt>
+<dd>Return link to element link</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/fpcm-model-articles-articlelist.html#method_getMinMaxDate">getMinMaxDate()</a>
     <span>
                                 &nbsp;: array&lt;string|int, mixed&gt;    </span>
@@ -472,11 +515,25 @@
 <dd>Fetch counts of comments amnd shares for articles</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-model-articles-articlelist.html#method_getSearchQuery">getSearchQuery()</a>
+    <span>
+                                &nbsp;: <a href="classes/fpcm-model-dbal-selectParams.html"><abbr title="\fpcm\model\dbal\selectParams">selectParams</abbr></a>    </span>
+</dt>
+<dd>Get query string</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/fpcm-model-articles-articlelist.html#method_moveArticlesToUser">moveArticlesToUser()</a>
     <span>
                                 &nbsp;: bool    </span>
 </dt>
 <dd>Verschiebt Artikel von einem Benutzer zu einem anderen</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-model-articles-articlelist.html#method_prepareText">prepareText()</a>
+    <span>
+                                &nbsp;: string    </span>
+</dt>
+<dd>Prepare result text</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/fpcm-model-articles-articlelist.html#method_publishPostponedArticles">publishPostponedArticles()</a>
@@ -512,6 +569,13 @@
                                 &nbsp;: array&lt;string|int, mixed&gt;    </span>
 </dt>
 <dd>Erzeugt Listen-Result-Array</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a href="classes/fpcm-model-articles-articlelist.html#method_getSearchQueryObj">getSearchQueryObj()</a>
+    <span>
+                                &nbsp;: <a href="classes/fpcm-model-dbal-selectParams.html"><abbr title="\fpcm\model\dbal\selectParams">selectParams</abbr></a>    </span>
+</dt>
+<dd>Returns selectParams object instance</dd>
 
         </dl>
 
@@ -880,7 +944,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/articlelist.php"><a href="files/inc-model-articles-articlelist.html"><abbr title="inc/model/articles/articlelist.php">articlelist.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">27</span>
+    <span class="phpdocumentor-element-found-in__line">29</span>
 
     </aside>
 
@@ -964,7 +1028,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/articlelist.php"><a href="files/inc-model-articles-articlelist.html"><abbr title="inc/model/articles/articlelist.php">articlelist.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">33</span>
+    <span class="phpdocumentor-element-found-in__line">35</span>
 
     </aside>
 
@@ -1013,6 +1077,53 @@
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">void</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_checkArticlesPinnedUntil">
+        checkArticlesPinnedUntil()
+        <a href="classes/fpcm-model-articles-articlelist.html#method_checkArticlesPinnedUntil" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/articlelist.php"><a href="files/inc-model-articles-articlelist.html"><abbr title="inc/model/articles/articlelist.php">articlelist.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">167</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Returns List of pinned articles with date in the past</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">checkArticlesPinnedUntil</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+
+    
+    
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">5.2.0-b4</span>
+                                                                                
+                                             
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
             &mdash;
         
     
@@ -1073,7 +1184,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/articlelist.php"><a href="files/inc-model-articles-articlelist.html"><abbr title="inc/model/articles/articlelist.php">articlelist.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">385</span>
+    <span class="phpdocumentor-element-found-in__line">411</span>
 
     </aside>
 
@@ -1116,7 +1227,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/articlelist.php"><a href="files/inc-model-articles-articlelist.html"><abbr title="inc/model/articles/articlelist.php">articlelist.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">355</span>
+    <span class="phpdocumentor-element-found-in__line">381</span>
 
     </aside>
 
@@ -1159,7 +1270,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/articlelist.php"><a href="files/inc-model-articles-articlelist.html"><abbr title="inc/model/articles/articlelist.php">articlelist.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">254</span>
+    <span class="phpdocumentor-element-found-in__line">280</span>
 
     </aside>
 
@@ -1202,7 +1313,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/articlelist.php"><a href="files/inc-model-articles-articlelist.html"><abbr title="inc/model/articles/articlelist.php">articlelist.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">498</span>
+    <span class="phpdocumentor-element-found-in__line">524</span>
 
     </aside>
 
@@ -1259,7 +1370,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/articlelist.php"><a href="files/inc-model-articles-articlelist.html"><abbr title="inc/model/articles/articlelist.php">articlelist.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">522</span>
+    <span class="phpdocumentor-element-found-in__line">548</span>
 
     </aside>
 
@@ -1323,7 +1434,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/articlelist.php"><a href="files/inc-model-articles-articlelist.html"><abbr title="inc/model/articles/articlelist.php">articlelist.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">332</span>
+    <span class="phpdocumentor-element-found-in__line">358</span>
 
     </aside>
 
@@ -1356,7 +1467,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/articlelist.php"><a href="files/inc-model-articles-articlelist.html"><abbr title="inc/model/articles/articlelist.php">articlelist.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">342</span>
+    <span class="phpdocumentor-element-found-in__line">368</span>
 
     </aside>
 
@@ -1389,7 +1500,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/articlelist.php"><a href="files/inc-model-articles-articlelist.html"><abbr title="inc/model/articles/articlelist.php">articlelist.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">411</span>
+    <span class="phpdocumentor-element-found-in__line">437</span>
 
     </aside>
 
@@ -1432,7 +1543,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/articlelist.php"><a href="files/inc-model-articles-articlelist.html"><abbr title="inc/model/articles/articlelist.php">articlelist.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">76</span>
+    <span class="phpdocumentor-element-found-in__line">78</span>
 
     </aside>
 
@@ -1495,7 +1606,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/articlelist.php"><a href="files/inc-model-articles-articlelist.html"><abbr title="inc/model/articles/articlelist.php">articlelist.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">51</span>
+    <span class="phpdocumentor-element-found-in__line">53</span>
 
     </aside>
 
@@ -1558,7 +1669,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/articlelist.php"><a href="files/inc-model-articles-articlelist.html"><abbr title="inc/model/articles/articlelist.php">articlelist.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">102</span>
+    <span class="phpdocumentor-element-found-in__line">104</span>
 
     </aside>
 
@@ -1630,7 +1741,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/articlelist.php"><a href="files/inc-model-articles-articlelist.html"><abbr title="inc/model/articles/articlelist.php">articlelist.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">194</span>
+    <span class="phpdocumentor-element-found-in__line">220</span>
 
     </aside>
 
@@ -1680,7 +1791,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/articlelist.php"><a href="files/inc-model-articles-articlelist.html"><abbr title="inc/model/articles/articlelist.php">articlelist.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">165</span>
+    <span class="phpdocumentor-element-found-in__line">191</span>
 
     </aside>
 
@@ -1723,7 +1834,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/articlelist.php"><a href="files/inc-model-articles-articlelist.html"><abbr title="inc/model/articles/articlelist.php">articlelist.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">179</span>
+    <span class="phpdocumentor-element-found-in__line">205</span>
 
     </aside>
 
@@ -1766,7 +1877,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/articlelist.php"><a href="files/inc-model-articles-articlelist.html"><abbr title="inc/model/articles/articlelist.php">articlelist.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">128</span>
+    <span class="phpdocumentor-element-found-in__line">130</span>
 
     </aside>
 
@@ -1809,7 +1920,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/articlelist.php"><a href="files/inc-model-articles-articlelist.html"><abbr title="inc/model/articles/articlelist.php">articlelist.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">142</span>
+    <span class="phpdocumentor-element-found-in__line">144</span>
 
     </aside>
 
@@ -1835,6 +1946,158 @@
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_getCountQuery">
+        getCountQuery()
+        <a href="classes/fpcm-model-articles-articlelist.html#method_getCountQuery" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/articlelist.php"><a href="files/inc-model-articles-articlelist.html"><abbr title="inc/model/articles/articlelist.php">articlelist.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">878</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Get count query string</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">getCountQuery</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/fpcm-model-dbal-selectParams.html"><abbr title="\fpcm\model\dbal\selectParams">selectParams</abbr></a></span></code>
+
+    
+    
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">5.1-dev</span>
+                                                                                
+                                             
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type"><a href="classes/fpcm-model-dbal-selectParams.html"><abbr title="\fpcm\model\dbal\selectParams">selectParams</abbr></a></span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getElementIcon">
+        getElementIcon()
+        <a href="classes/fpcm-model-articles-articlelist.html#method_getElementIcon" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/articlelist.php"><a href="files/inc-model-articles-articlelist.html"><abbr title="inc/model/articles/articlelist.php">articlelist.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">911</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Return link icon</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">getElementIcon</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/fpcm-view-helper-icon.html"><abbr title="\fpcm\view\helper\icon">icon</abbr></a></span></code>
+
+    
+    
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">5.1-dev</span>
+                                                                                
+                                             
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type"><a href="classes/fpcm-view-helper-icon.html"><abbr title="\fpcm\view\helper\icon">icon</abbr></a></span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getElementLink">
+        getElementLink()
+        <a href="classes/fpcm-model-articles-articlelist.html#method_getElementLink" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/articlelist.php"><a href="files/inc-model-articles-articlelist.html"><abbr title="inc/model/articles/articlelist.php">articlelist.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">898</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Return link to element link</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">getElementLink</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$id</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$id</span>
+                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">5.1-dev</span>
+                                                                                
+                                             
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">string</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_getMinMaxDate">
         getMinMaxDate()
         <a href="classes/fpcm-model-articles-articlelist.html#method_getMinMaxDate" class="headerlink"><i class="fas fa-link"></i></a>
@@ -1842,7 +2105,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/articlelist.php"><a href="files/inc-model-articles-articlelist.html"><abbr title="inc/model/articles/articlelist.php">articlelist.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">439</span>
+    <span class="phpdocumentor-element-found-in__line">465</span>
 
     </aside>
 
@@ -1899,7 +2162,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/articlelist.php"><a href="files/inc-model-articles-articlelist.html"><abbr title="inc/model/articles/articlelist.php">articlelist.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">589</span>
+    <span class="phpdocumentor-element-found-in__line">615</span>
 
     </aside>
 
@@ -1949,6 +2212,53 @@
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_getSearchQuery">
+        getSearchQuery()
+        <a href="classes/fpcm-model-articles-articlelist.html#method_getSearchQuery" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/articlelist.php"><a href="files/inc-model-articles-articlelist.html"><abbr title="inc/model/articles/articlelist.php">articlelist.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">888</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Get query string</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">getSearchQuery</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/fpcm-model-dbal-selectParams.html"><abbr title="\fpcm\model\dbal\selectParams">selectParams</abbr></a></span></code>
+
+    
+    
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">5.1-dev</span>
+                                                                                
+                                             
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type"><a href="classes/fpcm-model-dbal-selectParams.html"><abbr title="\fpcm\model\dbal\selectParams">selectParams</abbr></a></span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_moveArticlesToUser">
         moveArticlesToUser()
         <a href="classes/fpcm-model-articles-articlelist.html#method_moveArticlesToUser" class="headerlink"><i class="fas fa-link"></i></a>
@@ -1956,7 +2266,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/articlelist.php"><a href="files/inc-model-articles-articlelist.html"><abbr title="inc/model/articles/articlelist.php">articlelist.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">470</span>
+    <span class="phpdocumentor-element-found-in__line">496</span>
 
     </aside>
 
@@ -2013,6 +2323,49 @@
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_prepareText">
+        prepareText()
+        <a href="classes/fpcm-model-articles-articlelist.html#method_prepareText" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/articlelist.php"><a href="files/inc-model-articles-articlelist.html"><abbr title="inc/model/articles/articlelist.php">articlelist.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">931</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Prepare result text</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">prepareText</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$text</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$text</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">string</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_publishPostponedArticles">
         publishPostponedArticles()
         <a href="classes/fpcm-model-articles-articlelist.html#method_publishPostponedArticles" class="headerlink"><i class="fas fa-link"></i></a>
@@ -2020,7 +2373,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/articlelist.php"><a href="files/inc-model-articles-articlelist.html"><abbr title="inc/model/articles/articlelist.php">articlelist.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">307</span>
+    <span class="phpdocumentor-element-found-in__line">333</span>
 
     </aside>
 
@@ -2063,7 +2416,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/articlelist.php"><a href="files/inc-model-articles-articlelist.html"><abbr title="inc/model/articles/articlelist.php">articlelist.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">286</span>
+    <span class="phpdocumentor-element-found-in__line">312</span>
 
     </aside>
 
@@ -2106,7 +2459,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/articlelist.php"><a href="files/inc-model-articles-articlelist.html"><abbr title="inc/model/articles/articlelist.php">articlelist.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">754</span>
+    <span class="phpdocumentor-element-found-in__line">788</span>
 
     </aside>
 
@@ -2177,7 +2530,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/articlelist.php"><a href="files/inc-model-articles-articlelist.html"><abbr title="inc/model/articles/articlelist.php">articlelist.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">664</span>
+    <span class="phpdocumentor-element-found-in__line">691</span>
 
     </aside>
 
@@ -2234,7 +2587,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/articlelist.php"><a href="files/inc-model-articles-articlelist.html"><abbr title="inc/model/articles/articlelist.php">articlelist.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">630</span>
+    <span class="phpdocumentor-element-found-in__line">657</span>
 
     </aside>
 
@@ -2267,6 +2620,53 @@
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getSearchQueryObj">
+        getSearchQueryObj()
+        <a href="classes/fpcm-model-articles-articlelist.html#method_getSearchQueryObj" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/articlelist.php"><a href="files/inc-model-articles-articlelist.html"><abbr title="inc/model/articles/articlelist.php">articlelist.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">921</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Returns selectParams object instance</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+                    <span class="phpdocumentor-signature__name">getSearchQueryObj</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/fpcm-model-dbal-selectParams.html"><abbr title="\fpcm\model\dbal\selectParams">selectParams</abbr></a></span></code>
+
+    
+    
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">5.1-dev</span>
+                                                                                
+                                             
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type"><a href="classes/fpcm-model-dbal-selectParams.html"><abbr title="\fpcm\model\dbal\selectParams">selectParams</abbr></a></span>
             &mdash;
         
     
