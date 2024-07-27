@@ -12,7 +12,7 @@ namespace fpcm\controller\ajax\common;
  * 
  * @package fpcm\controller\ajax\commom
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2022, Stefan Seehafer
+ * @copyright (c) 2022-2024, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @since 5.1-dev
  */
@@ -20,6 +20,12 @@ class autocompleteCleanup extends \fpcm\controller\abstracts\ajaxController
 {
 
     use \fpcm\controller\traits\common\isAccessibleTrue;
+
+    /**
+     * 
+     * @var string|null
+     */
+    protected ?string $term;
 
     /**
      * Request-Handler

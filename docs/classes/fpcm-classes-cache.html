@@ -214,7 +214,7 @@
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>(c) 2011-2022, Stefan Seehafer</p>
+                                                 <section class="phpdocumentor-description"><p>(c) 2011-2024, Stefan Seehafer</p>
 </section>
 
                                     </dd>
@@ -239,6 +239,13 @@
 <dd></dd>
 
                     <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/fpcm-classes-cache.html#property_active">$active</a>
+    <span>
+                        &nbsp;: bool            </span>
+</dt>
+<dd>Cache active</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/fpcm-classes-cache.html#property_basePath">$basePath</a>
     <span>
                         &nbsp;: string            </span>
@@ -267,11 +274,11 @@
 <dd>Cachew bereinigen</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/fpcm-classes-cache.html#method_getCacheComplete">getCacheComplete()</a>
+    <a href="classes/fpcm-classes-cache.html#method_getCacheBackendName">getCacheBackendName()</a>
     <span>
-                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+                                &nbsp;: string    </span>
 </dt>
-<dd>Liefert alle *.cache-Dateien in cache-ordner zurück</dd>
+<dd>Get cache backend name</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/fpcm-classes-cache.html#method_getExpirationTime">getExpirationTime()</a>
@@ -307,6 +314,13 @@
                                 &nbsp;: bool    </span>
 </dt>
 <dd>Cache-Inhalt schreiben</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a href="classes/fpcm-classes-cache.html#method_getBackendInstance">getBackendInstance()</a>
+    <span>
+                                &nbsp;: <a href="classes/fpcm-model-interfaces-cacheBackend.html"><abbr title="\fpcm\model\interfaces\cacheBackend">cacheBackend</abbr></a>    </span>
+</dt>
+<dd>Create cache backend object instance</dd>
 
         </dl>
 
@@ -355,6 +369,39 @@
             Properties
             <a href="classes/fpcm-classes-cache.html#properties" class="headerlink"><i class="fas fa-link"></i></a>
         </h3>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_active">
+        $active
+        <a href="classes/fpcm-classes-cache.html#property_active" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/cache.php"><a href="files/inc-classes-cache.html"><abbr title="inc/classes/cache.php">cache.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">37</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Cache active</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type">bool</span>
+    <span class="phpdocumentor-signature__name">$active</span>
+     = <span class="phpdocumentor-signature__default-value">true</span></code>
+
+    
+    
+    
+
+</article>
                     <article
         class="
             phpdocumentor-element
@@ -441,7 +488,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/cache.php"><a href="files/inc-classes-cache.html"><abbr title="inc/classes/cache.php">cache.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">37</span>
+    <span class="phpdocumentor-element-found-in__line">43</span>
 
     </aside>
 
@@ -474,7 +521,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/cache.php"><a href="files/inc-classes-cache.html"><abbr title="inc/classes/cache.php">cache.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">117</span>
+    <span class="phpdocumentor-element-found-in__line">119</span>
 
     </aside>
 
@@ -508,24 +555,24 @@
         class="phpdocumentor-element
             -method
             -public
-                                                        "
+                                    -static                    "
 >
-    <h4 class="phpdocumentor-element__name" id="method_getCacheComplete">
-        getCacheComplete()
-        <a href="classes/fpcm-classes-cache.html#method_getCacheComplete" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="method_getCacheBackendName">
+        getCacheBackendName()
+        <a href="classes/fpcm-classes-cache.html#method_getCacheBackendName" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/cache.php"><a href="files/inc-classes-cache.html"><abbr title="inc/classes/cache.php">cache.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">169</span>
+    <span class="phpdocumentor-element-found-in__line">153</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Liefert alle *.cache-Dateien in cache-ordner zurück</p>
+        <p class="phpdocumentor-summary">Get cache backend name</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">getCacheComplete</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getCacheBackendName</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
 
     
     
@@ -539,14 +586,14 @@
                     <span class="phpdocumentor-tag__name">since</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
-                                            <span class="phpdocumentor-tag-link">3.4</span>
+                                            <span class="phpdocumentor-tag-link">5.1-dev</span>
                                                                                 
                                              
                                     </dd>
                         </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+    <span class="phpdocumentor-signature__response_type">string</span>
             &mdash;
         
     
@@ -564,7 +611,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/cache.php"><a href="files/inc-classes-cache.html"><abbr title="inc/classes/cache.php">cache.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">102</span>
+    <span class="phpdocumentor-element-found-in__line">105</span>
 
     </aside>
 
@@ -609,7 +656,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/cache.php"><a href="files/inc-classes-cache.html"><abbr title="inc/classes/cache.php">cache.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">159</span>
+    <span class="phpdocumentor-element-found-in__line">132</span>
 
     </aside>
 
@@ -642,7 +689,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/cache.php"><a href="files/inc-classes-cache.html"><abbr title="inc/classes/cache.php">cache.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">52</span>
+    <span class="phpdocumentor-element-found-in__line">59</span>
 
     </aside>
 
@@ -687,7 +734,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/cache.php"><a href="files/inc-classes-cache.html"><abbr title="inc/classes/cache.php">cache.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">85</span>
+    <span class="phpdocumentor-element-found-in__line">90</span>
 
     </aside>
 
@@ -732,7 +779,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/cache.php"><a href="files/inc-classes-cache.html"><abbr title="inc/classes/cache.php">cache.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">69</span>
+    <span class="phpdocumentor-element-found-in__line">75</span>
 
     </aside>
 
@@ -774,6 +821,49 @@
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">bool</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getBackendInstance">
+        getBackendInstance()
+        <a href="classes/fpcm-classes-cache.html#method_getBackendInstance" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/cache.php"><a href="files/inc-classes-cache.html"><abbr title="inc/classes/cache.php">cache.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">142</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Create cache backend object instance</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+                    <span class="phpdocumentor-signature__name">getBackendInstance</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$cacheName</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/fpcm-model-interfaces-cacheBackend.html"><abbr title="\fpcm\model\interfaces\cacheBackend">cacheBackend</abbr></a></span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$cacheName</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type"><a href="classes/fpcm-model-interfaces-cacheBackend.html"><abbr title="\fpcm\model\interfaces\cacheBackend">cacheBackend</abbr></a></span>
             &mdash;
         
     

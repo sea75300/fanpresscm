@@ -227,7 +227,7 @@
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>(c) 2011-2020, Stefan Seehafer</p>
+                                                 <section class="phpdocumentor-description"><p>(c) 2011-2022, Stefan Seehafer</p>
 </section>
 
                                     </dd>
@@ -273,6 +273,13 @@
                         &nbsp;: <a href="classes/fpcm-classes-database.html"><abbr title="\fpcm\classes\database">database</abbr></a>            </span>
 </dt>
 <dd>Datenbank-Objekt</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -protected">
+    <a href="classes/fpcm-model-abstracts-cron.html#property_events">$events</a>
+    <span>
+                        &nbsp;: <a href="classes/fpcm-events-events.html"><abbr title="\fpcm\events\events">events</abbr></a>            </span>
+</dt>
+<dd>Events object</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
     <a href="classes/fpcm-model-abstracts-cron.html#property_execinterval">$execinterval</a>
@@ -324,6 +331,13 @@
 <dd>asynchrone Ausführung über cronasync-AJAX-Controller deaktivieren,
 false wenn cronasync-AJAX nicht ausgführt werden soll</dd>
 
+            <dt class="phpdocumentor-table-of-contents__entry -property -protected">
+    <a href="classes/fpcm-model-abstracts-cron.html#property_table">$table</a>
+    <span>
+                        &nbsp;: string            </span>
+</dt>
+<dd>Database table</dd>
+
                 <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/fpcm-model-abstracts-cron.html#method___construct">__construct()</a>
     <span>
@@ -346,6 +360,13 @@ false wenn cronasync-AJAX nicht ausgführt werden soll</dd>
 <dd>Initialisiert anhand von Datenbank-Result-Set</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-model-abstracts-cron.html#method_forceCancelation">forceCancelation()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+<dd>Is cronjob running longer than interval</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/fpcm-model-abstracts-cron.html#method_getAsyncCurrent">getAsyncCurrent()</a>
     <span>
                                 &nbsp;: bool    </span>
@@ -364,7 +385,7 @@ false wenn cronasync-AJAX nicht ausgführt werden soll</dd>
     <span>
                                 &nbsp;: string    </span>
 </dt>
-<dd>Gibt Sprachvariable zur Übersetzung des Cronjob-Namen zurück</dd>
+<dd>Returns translatetable language variable from cronjob names</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/fpcm-model-abstracts-cron.html#method_getCronNamespace">getCronNamespace()</a>
@@ -500,6 +521,13 @@ getLastExecTime() + getIntervalTime()</dd>
 </dt>
 <dd>Gibt Zeitpunkt der letzten Ausführung des Cronjobs zurück</dd>
 
+            <dt class="phpdocumentor-table-of-contents__entry -method -protected">
+    <a href="classes/fpcm-model-abstracts-cron.html#method_submitMailNotification">submitMailNotification()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+<dd>Creates email from a template</dd>
+
         </dl>
 
 
@@ -528,7 +556,7 @@ getLastExecTime() + getIntervalTime()</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/cron.php"><a href="files/inc-model-abstracts-cron.html"><abbr title="inc/model/abstracts/cron.php">cron.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">82</span>
+    <span class="phpdocumentor-element-found-in__line">94</span>
 
     </aside>
 
@@ -561,7 +589,7 @@ getLastExecTime() + getIntervalTime()</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/cron.php"><a href="files/inc-model-abstracts-cron.html"><abbr title="inc/model/abstracts/cron.php">cron.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">36</span>
+    <span class="phpdocumentor-element-found-in__line">48</span>
 
     </aside>
 
@@ -618,6 +646,39 @@ getLastExecTime() + getIntervalTime()</dd>
             -protected
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="property_events">
+        $events
+        <a href="classes/fpcm-model-abstracts-cron.html#property_events" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/cron.php"><a href="files/inc-model-abstracts-cron.html"><abbr title="inc/model/abstracts/cron.php">cron.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">42</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Events object</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+        <span class="phpdocumentor-signature__type"><a href="classes/fpcm-events-events.html"><abbr title="\fpcm\events\events">events</abbr></a></span>
+    <span class="phpdocumentor-signature__name">$events</span>
+    </code>
+
+    
+    
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -protected
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="property_execinterval">
         $execinterval
         <a href="classes/fpcm-model-abstracts-cron.html#property_execinterval" class="headerlink"><i class="fas fa-link"></i></a>
@@ -627,7 +688,7 @@ getLastExecTime() + getIntervalTime()</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/cron.php"><a href="files/inc-model-abstracts-cron.html"><abbr title="inc/model/abstracts/cron.php">cron.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">49</span>
+    <span class="phpdocumentor-element-found-in__line">61</span>
 
     </aside>
 
@@ -674,7 +735,7 @@ getLastExecTime() + getIntervalTime()</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/cron.php"><a href="files/inc-model-abstracts-cron.html"><abbr title="inc/model/abstracts/cron.php">cron.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">89</span>
+    <span class="phpdocumentor-element-found-in__line">101</span>
 
     </aside>
 
@@ -721,7 +782,7 @@ getLastExecTime() + getIntervalTime()</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/cron.php"><a href="files/inc-model-abstracts-cron.html"><abbr title="inc/model/abstracts/cron.php">cron.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">63</span>
+    <span class="phpdocumentor-element-found-in__line">75</span>
 
     </aside>
 
@@ -768,7 +829,7 @@ getLastExecTime() + getIntervalTime()</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/cron.php"><a href="files/inc-model-abstracts-cron.html"><abbr title="inc/model/abstracts/cron.php">cron.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">42</span>
+    <span class="phpdocumentor-element-found-in__line">54</span>
 
     </aside>
 
@@ -801,7 +862,7 @@ getLastExecTime() + getIntervalTime()</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/cron.php"><a href="files/inc-model-abstracts-cron.html"><abbr title="inc/model/abstracts/cron.php">cron.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">56</span>
+    <span class="phpdocumentor-element-found-in__line">68</span>
 
     </aside>
 
@@ -848,7 +909,7 @@ getLastExecTime() + getIntervalTime()</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/cron.php"><a href="files/inc-model-abstracts-cron.html"><abbr title="inc/model/abstracts/cron.php">cron.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">76</span>
+    <span class="phpdocumentor-element-found-in__line">88</span>
 
     </aside>
 
@@ -881,7 +942,7 @@ getLastExecTime() + getIntervalTime()</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/cron.php"><a href="files/inc-model-abstracts-cron.html"><abbr title="inc/model/abstracts/cron.php">cron.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">70</span>
+    <span class="phpdocumentor-element-found-in__line">82</span>
 
     </aside>
 
@@ -893,6 +954,39 @@ false wenn cronasync-AJAX nicht ausgführt werden soll</p>
         <span class="phpdocumentor-signature__type">bool</span>
     <span class="phpdocumentor-signature__name">$runAsync</span>
      = <span class="phpdocumentor-signature__default-value">true</span></code>
+
+    
+    
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -protected
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_table">
+        $table
+        <a href="classes/fpcm-model-abstracts-cron.html#property_table" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/cron.php"><a href="files/inc-model-abstracts-cron.html"><abbr title="inc/model/abstracts/cron.php">cron.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">36</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Database table</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+        <span class="phpdocumentor-signature__type">string</span>
+    <span class="phpdocumentor-signature__name">$table</span>
+    </code>
 
     
     
@@ -919,7 +1013,7 @@ false wenn cronasync-AJAX nicht ausgführt werden soll</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/cron.php"><a href="files/inc-model-abstracts-cron.html"><abbr title="inc/model/abstracts/cron.php">cron.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">95</span>
+    <span class="phpdocumentor-element-found-in__line">107</span>
 
     </aside>
 
@@ -962,7 +1056,7 @@ false wenn cronasync-AJAX nicht ausgführt werden soll</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/cron.php"><a href="files/inc-model-abstracts-cron.html"><abbr title="inc/model/abstracts/cron.php">cron.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">113</span>
+    <span class="phpdocumentor-element-found-in__line">125</span>
 
     </aside>
 
@@ -995,7 +1089,7 @@ false wenn cronasync-AJAX nicht ausgführt werden soll</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/cron.php"><a href="files/inc-model-abstracts-cron.html"><abbr title="inc/model/abstracts/cron.php">cron.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">251</span>
+    <span class="phpdocumentor-element-found-in__line">265</span>
 
     </aside>
 
@@ -1031,6 +1125,53 @@ false wenn cronasync-AJAX nicht ausgführt werden soll</p>
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_forceCancelation">
+        forceCancelation()
+        <a href="classes/fpcm-model-abstracts-cron.html#method_forceCancelation" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/cron.php"><a href="files/inc-model-abstracts-cron.html"><abbr title="inc/model/abstracts/cron.php">cron.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">323</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Is cronjob running longer than interval</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">forceCancelation</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+    
+    
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">5.2.0</span>
+                                                                                
+                                             
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">bool</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_getAsyncCurrent">
         getAsyncCurrent()
         <a href="classes/fpcm-model-abstracts-cron.html#method_getAsyncCurrent" class="headerlink"><i class="fas fa-link"></i></a>
@@ -1038,7 +1179,7 @@ false wenn cronasync-AJAX nicht ausgführt werden soll</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/cron.php"><a href="files/inc-model-abstracts-cron.html"><abbr title="inc/model/abstracts/cron.php">cron.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">210</span>
+    <span class="phpdocumentor-element-found-in__line">224</span>
 
     </aside>
 
@@ -1071,7 +1212,7 @@ false wenn cronasync-AJAX nicht ausgführt werden soll</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/cron.php"><a href="files/inc-model-abstracts-cron.html"><abbr title="inc/model/abstracts/cron.php">cron.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">188</span>
+    <span class="phpdocumentor-element-found-in__line">200</span>
 
     </aside>
 
@@ -1104,18 +1245,28 @@ false wenn cronasync-AJAX nicht ausgführt werden soll</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/cron.php"><a href="files/inc-model-abstracts-cron.html"><abbr title="inc/model/abstracts/cron.php">cron.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">197</span>
+    <span class="phpdocumentor-element-found-in__line">210</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Gibt Sprachvariable zur Übersetzung des Cronjob-Namen zurück</p>
+        <p class="phpdocumentor-summary">Returns translatetable language variable from cronjob names</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">getCronNameLangVar</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+                    <span class="phpdocumentor-signature__name">getCronNameLangVar</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$label</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
 
     
-    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$label</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
@@ -1137,7 +1288,7 @@ false wenn cronasync-AJAX nicht ausgführt werden soll</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/cron.php"><a href="files/inc-model-abstracts-cron.html"><abbr title="inc/model/abstracts/cron.php">cron.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">356</span>
+    <span class="phpdocumentor-element-found-in__line">412</span>
 
     </aside>
 
@@ -1194,7 +1345,7 @@ false wenn cronasync-AJAX nicht ausgführt werden soll</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/cron.php"><a href="files/inc-model-abstracts-cron.html"><abbr title="inc/model/abstracts/cron.php">cron.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">341</span>
+    <span class="phpdocumentor-element-found-in__line">397</span>
 
     </aside>
 
@@ -1251,7 +1402,7 @@ false wenn cronasync-AJAX nicht ausgführt werden soll</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/cron.php"><a href="files/inc-model-abstracts-cron.html"><abbr title="inc/model/abstracts/cron.php">cron.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">161</span>
+    <span class="phpdocumentor-element-found-in__line">173</span>
 
     </aside>
 
@@ -1284,7 +1435,7 @@ false wenn cronasync-AJAX nicht ausgführt werden soll</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/cron.php"><a href="files/inc-model-abstracts-cron.html"><abbr title="inc/model/abstracts/cron.php">cron.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">125</span>
+    <span class="phpdocumentor-element-found-in__line">137</span>
 
     </aside>
 
@@ -1317,7 +1468,7 @@ false wenn cronasync-AJAX nicht ausgführt werden soll</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/cron.php"><a href="files/inc-model-abstracts-cron.html"><abbr title="inc/model/abstracts/cron.php">cron.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">153</span>
+    <span class="phpdocumentor-element-found-in__line">165</span>
 
     </aside>
 
@@ -1350,7 +1501,7 @@ false wenn cronasync-AJAX nicht ausgführt werden soll</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/cron.php"><a href="files/inc-model-abstracts-cron.html"><abbr title="inc/model/abstracts/cron.php">cron.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">273</span>
+    <span class="phpdocumentor-element-found-in__line">287</span>
 
     </aside>
 
@@ -1384,7 +1535,7 @@ getLastExecTime() + getIntervalTime()</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/cron.php"><a href="files/inc-model-abstracts-cron.html"><abbr title="inc/model/abstracts/cron.php">cron.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">170</span>
+    <span class="phpdocumentor-element-found-in__line">182</span>
 
     </aside>
 
@@ -1417,7 +1568,7 @@ getLastExecTime() + getIntervalTime()</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/cron.php"><a href="files/inc-model-abstracts-cron.html"><abbr title="inc/model/abstracts/cron.php">cron.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">144</span>
+    <span class="phpdocumentor-element-found-in__line">156</span>
 
     </aside>
 
@@ -1450,7 +1601,7 @@ getLastExecTime() + getIntervalTime()</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/cron.php"><a href="files/inc-model-abstracts-cron.html"><abbr title="inc/model/abstracts/cron.php">cron.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">236</span>
+    <span class="phpdocumentor-element-found-in__line">250</span>
 
     </aside>
 
@@ -1483,7 +1634,7 @@ getLastExecTime() + getIntervalTime()</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/cron.php"><a href="files/inc-model-abstracts-cron.html"><abbr title="inc/model/abstracts/cron.php">cron.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">299</span>
+    <span class="phpdocumentor-element-found-in__line">313</span>
 
     </aside>
 
@@ -1549,7 +1700,7 @@ getLastExecTime() + getIntervalTime()</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/cron.php"><a href="files/inc-model-abstracts-cron.html"><abbr title="inc/model/abstracts/cron.php">cron.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">219</span>
+    <span class="phpdocumentor-element-found-in__line">233</span>
 
     </aside>
 
@@ -1592,7 +1743,7 @@ getLastExecTime() + getIntervalTime()</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/cron.php"><a href="files/inc-model-abstracts-cron.html"><abbr title="inc/model/abstracts/cron.php">cron.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">228</span>
+    <span class="phpdocumentor-element-found-in__line">242</span>
 
     </aside>
 
@@ -1635,7 +1786,7 @@ getLastExecTime() + getIntervalTime()</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/cron.php"><a href="files/inc-model-abstracts-cron.html"><abbr title="inc/model/abstracts/cron.php">cron.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">330</span>
+    <span class="phpdocumentor-element-found-in__line">386</span>
 
     </aside>
 
@@ -1692,7 +1843,7 @@ getLastExecTime() + getIntervalTime()</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/cron.php"><a href="files/inc-model-abstracts-cron.html"><abbr title="inc/model/abstracts/cron.php">cron.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">318</span>
+    <span class="phpdocumentor-element-found-in__line">342</span>
 
     </aside>
 
@@ -1725,7 +1876,7 @@ getLastExecTime() + getIntervalTime()</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/cron.php"><a href="files/inc-model-abstracts-cron.html"><abbr title="inc/model/abstracts/cron.php">cron.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">179</span>
+    <span class="phpdocumentor-element-found-in__line">191</span>
 
     </aside>
 
@@ -1768,7 +1919,7 @@ getLastExecTime() + getIntervalTime()</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/cron.php"><a href="files/inc-model-abstracts-cron.html"><abbr title="inc/model/abstracts/cron.php">cron.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">308</span>
+    <span class="phpdocumentor-element-found-in__line">332</span>
 
     </aside>
 
@@ -1801,7 +1952,7 @@ getLastExecTime() + getIntervalTime()</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/cron.php"><a href="files/inc-model-abstracts-cron.html"><abbr title="inc/model/abstracts/cron.php">cron.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">290</span>
+    <span class="phpdocumentor-element-found-in__line">304</span>
 
     </aside>
 
@@ -1834,7 +1985,7 @@ getLastExecTime() + getIntervalTime()</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/cron.php"><a href="files/inc-model-abstracts-cron.html"><abbr title="inc/model/abstracts/cron.php">cron.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">134</span>
+    <span class="phpdocumentor-element-found-in__line">146</span>
 
     </aside>
 
@@ -1850,6 +2001,84 @@ getLastExecTime() + getIntervalTime()</p>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">int</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -protected
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_submitMailNotification">
+        submitMailNotification()
+        <a href="classes/fpcm-model-abstracts-cron.html#method_submitMailNotification" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/cron.php"><a href="files/inc-model-abstracts-cron.html"><abbr title="inc/model/abstracts/cron.php">cron.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">357</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Creates email from a template</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+                    <span class="phpdocumentor-signature__name">submitMailNotification</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$vars</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">[]</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$html</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">false</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$fromData</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">false</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$attachments</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">[]</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$vars</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">[]</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$html</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">false</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$fromData</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">false</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$attachments</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">[]</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">5.1.0-a1</span>
+                                                                                
+                                             
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">bool</span>
             &mdash;
         
     

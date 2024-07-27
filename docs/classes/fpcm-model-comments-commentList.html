@@ -185,6 +185,9 @@
                             </ul>
         </div>
     
+            <span class="phpdocumentor-element__implements">
+            implements
+                            <a href="classes/fpcm-model-interfaces-gsearchIndex.html"><abbr title="\fpcm\model\interfaces\gsearchIndex">gsearchIndex</abbr></a>                    </span>
     
             <span class="phpdocumentor-element__extends">
             Uses
@@ -221,7 +224,7 @@
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>(c) 2011-2020, Stefan Seehafer</p>
+                                                 <section class="phpdocumentor-description"><p>(c) 2011-2022, Stefan Seehafer</p>
 </section>
 
                                     </dd>
@@ -239,6 +242,18 @@
 
 
 
+<h3 id="interfaces_class_traits">
+    Interfaces, Classes, Traits and Enums
+    <a href="#interfaces_class_traits" class="headerlink"><i class="fas fa-link"></i></a>
+</h3>
+
+<dl class="phpdocumentor-table-of-contents">
+            <dt class="phpdocumentor-table-of-contents__entry -interface"><a href="classes/fpcm-model-interfaces-gsearchIndex.html"><abbr title="\fpcm\model\interfaces\gsearchIndex">gsearchIndex</abbr></a></dt>
+        <dd>FanPress CM Model global search indexer</dd>
+    
+    
+    
+    </dl>
 
 
 <h3 id="toc">
@@ -437,11 +452,53 @@
 <dd>Liefert ein array der Kommentare, welcher mit der Bedingung übereinstimmen</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-model-comments-commentList.html#method_getCountQuery">getCountQuery()</a>
+    <span>
+                                &nbsp;: <a href="classes/fpcm-model-dbal-selectParams.html"><abbr title="\fpcm\model\dbal\selectParams">selectParams</abbr></a>    </span>
+</dt>
+<dd>Get count query string</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-model-comments-commentList.html#method_getElementIcon">getElementIcon()</a>
+    <span>
+                                &nbsp;: <a href="classes/fpcm-view-helper-icon.html"><abbr title="\fpcm\view\helper\icon">icon</abbr></a>    </span>
+</dt>
+<dd>Return link icon</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-model-comments-commentList.html#method_getElementLink">getElementLink()</a>
+    <span>
+                                &nbsp;: string    </span>
+</dt>
+<dd>Return link to element link</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/fpcm-model-comments-commentList.html#method_getLastCommentTimeByIP">getLastCommentTimeByIP()</a>
     <span>
                                 &nbsp;: int    </span>
 </dt>
 <dd>Gibt Zeit zurück, wenn von der aktuellen IP der letzte Kommentar geschrieben wurde</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-model-comments-commentList.html#method_getNewCommentCount">getNewCommentCount()</a>
+    <span>
+                                &nbsp;: int    </span>
+</dt>
+<dd>Checks for new comments</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-model-comments-commentList.html#method_getSearchQuery">getSearchQuery()</a>
+    <span>
+                                &nbsp;: <a href="classes/fpcm-model-dbal-selectParams.html"><abbr title="\fpcm\model\dbal\selectParams">selectParams</abbr></a>    </span>
+</dt>
+<dd>Get query string</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-model-comments-commentList.html#method_prepareText">prepareText()</a>
+    <span>
+                                &nbsp;: string    </span>
+</dt>
+<dd>Prepare result text</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/fpcm-model-comments-commentList.html#method_retoreComments">retoreComments()</a>
@@ -478,6 +535,13 @@
 </dt>
 <dd>Erzeugt Listen-Result-Array</dd>
 
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a href="classes/fpcm-model-comments-commentList.html#method_getSearchQueryObj">getSearchQueryObj()</a>
+    <span>
+                                &nbsp;: <a href="classes/fpcm-model-dbal-selectParams.html"><abbr title="\fpcm\model\dbal\selectParams">selectParams</abbr></a>    </span>
+</dt>
+<dd>Returns selectParams object instance</dd>
+
         </dl>
 
 
@@ -506,7 +570,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/comments/commentList.php"><a href="files/inc-model-comments-commentlist.html"><abbr title="inc/model/comments/commentList.php">commentList.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">27</span>
+    <span class="phpdocumentor-element-found-in__line">29</span>
 
     </aside>
 
@@ -892,7 +956,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/comments/commentList.php"><a href="files/inc-model-comments-commentlist.html"><abbr title="inc/model/comments/commentList.php">commentList.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">34</span>
+    <span class="phpdocumentor-element-found-in__line">36</span>
 
     </aside>
 
@@ -939,7 +1003,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/comments/commentList.php"><a href="files/inc-model-comments-commentlist.html"><abbr title="inc/model/comments/commentList.php">commentList.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">41</span>
+    <span class="phpdocumentor-element-found-in__line">43</span>
 
     </aside>
 
@@ -1023,7 +1087,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/comments/commentList.php"><a href="files/inc-model-comments-commentlist.html"><abbr title="inc/model/comments/commentList.php">commentList.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">46</span>
+    <span class="phpdocumentor-element-found-in__line">48</span>
 
     </aside>
 
@@ -1132,7 +1196,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/comments/commentList.php"><a href="files/inc-model-comments-commentlist.html"><abbr title="inc/model/comments/commentList.php">commentList.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">203</span>
+    <span class="phpdocumentor-element-found-in__line">205</span>
 
     </aside>
 
@@ -1203,7 +1267,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/comments/commentList.php"><a href="files/inc-model-comments-commentlist.html"><abbr title="inc/model/comments/commentList.php">commentList.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">269</span>
+    <span class="phpdocumentor-element-found-in__line">271</span>
 
     </aside>
 
@@ -1246,7 +1310,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/comments/commentList.php"><a href="files/inc-model-comments-commentlist.html"><abbr title="inc/model/comments/commentList.php">commentList.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">238</span>
+    <span class="phpdocumentor-element-found-in__line">240</span>
 
     </aside>
 
@@ -1289,7 +1353,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/comments/commentList.php"><a href="files/inc-model-comments-commentlist.html"><abbr title="inc/model/comments/commentList.php">commentList.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">149</span>
+    <span class="phpdocumentor-element-found-in__line">151</span>
 
     </aside>
 
@@ -1332,7 +1396,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/comments/commentList.php"><a href="files/inc-model-comments-commentlist.html"><abbr title="inc/model/comments/commentList.php">commentList.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">174</span>
+    <span class="phpdocumentor-element-found-in__line">176</span>
 
     </aside>
 
@@ -1375,7 +1439,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/comments/commentList.php"><a href="files/inc-model-comments-commentlist.html"><abbr title="inc/model/comments/commentList.php">commentList.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">340</span>
+    <span class="phpdocumentor-element-found-in__line">342</span>
 
     </aside>
 
@@ -1439,7 +1503,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/comments/commentList.php"><a href="files/inc-model-comments-commentlist.html"><abbr title="inc/model/comments/commentList.php">commentList.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">386</span>
+    <span class="phpdocumentor-element-found-in__line">388</span>
 
     </aside>
 
@@ -1472,7 +1536,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/comments/commentList.php"><a href="files/inc-model-comments-commentlist.html"><abbr title="inc/model/comments/commentList.php">commentList.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">396</span>
+    <span class="phpdocumentor-element-found-in__line">398</span>
 
     </aside>
 
@@ -1505,7 +1569,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/comments/commentList.php"><a href="files/inc-model-comments-commentlist.html"><abbr title="inc/model/comments/commentList.php">commentList.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">61</span>
+    <span class="phpdocumentor-element-found-in__line">63</span>
 
     </aside>
 
@@ -1538,7 +1602,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/comments/commentList.php"><a href="files/inc-model-comments-commentlist.html"><abbr title="inc/model/comments/commentList.php">commentList.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">75</span>
+    <span class="phpdocumentor-element-found-in__line">77</span>
 
     </aside>
 
@@ -1610,7 +1674,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/comments/commentList.php"><a href="files/inc-model-comments-commentlist.html"><abbr title="inc/model/comments/commentList.php">commentList.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">93</span>
+    <span class="phpdocumentor-element-found-in__line">95</span>
 
     </aside>
 
@@ -1646,6 +1710,158 @@
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_getCountQuery">
+        getCountQuery()
+        <a href="classes/fpcm-model-comments-commentList.html#method_getCountQuery" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/comments/commentList.php"><a href="files/inc-model-comments-commentlist.html"><abbr title="inc/model/comments/commentList.php">commentList.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">614</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Get count query string</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">getCountQuery</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/fpcm-model-dbal-selectParams.html"><abbr title="\fpcm\model\dbal\selectParams">selectParams</abbr></a></span></code>
+
+    
+    
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">5.1-dev</span>
+                                                                                
+                                             
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type"><a href="classes/fpcm-model-dbal-selectParams.html"><abbr title="\fpcm\model\dbal\selectParams">selectParams</abbr></a></span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getElementIcon">
+        getElementIcon()
+        <a href="classes/fpcm-model-comments-commentList.html#method_getElementIcon" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/comments/commentList.php"><a href="files/inc-model-comments-commentlist.html"><abbr title="inc/model/comments/commentList.php">commentList.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">646</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Return link icon</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">getElementIcon</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/fpcm-view-helper-icon.html"><abbr title="\fpcm\view\helper\icon">icon</abbr></a></span></code>
+
+    
+    
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">5.1-dev</span>
+                                                                                
+                                             
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type"><a href="classes/fpcm-view-helper-icon.html"><abbr title="\fpcm\view\helper\icon">icon</abbr></a></span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getElementLink">
+        getElementLink()
+        <a href="classes/fpcm-model-comments-commentList.html#method_getElementLink" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/comments/commentList.php"><a href="files/inc-model-comments-commentlist.html"><abbr title="inc/model/comments/commentList.php">commentList.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">633</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Return link to element link</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">getElementLink</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$id</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$id</span>
+                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">5.1-dev</span>
+                                                                                
+                                             
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">string</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_getLastCommentTimeByIP">
         getLastCommentTimeByIP()
         <a href="classes/fpcm-model-comments-commentList.html#method_getLastCommentTimeByIP" class="headerlink"><i class="fas fa-link"></i></a>
@@ -1653,7 +1869,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/comments/commentList.php"><a href="files/inc-model-comments-commentlist.html"><abbr title="inc/model/comments/commentList.php">commentList.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">300</span>
+    <span class="phpdocumentor-element-found-in__line">302</span>
 
     </aside>
 
@@ -1679,6 +1895,129 @@
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_getNewCommentCount">
+        getNewCommentCount()
+        <a href="classes/fpcm-model-comments-commentList.html#method_getNewCommentCount" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/comments/commentList.php"><a href="files/inc-model-comments-commentlist.html"><abbr title="inc/model/comments/commentList.php">commentList.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">677</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Checks for new comments</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">getNewCommentCount</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
+
+    
+    
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">5.1.0-a1</span>
+                                                                                
+                                             
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">int</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getSearchQuery">
+        getSearchQuery()
+        <a href="classes/fpcm-model-comments-commentList.html#method_getSearchQuery" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/comments/commentList.php"><a href="files/inc-model-comments-commentlist.html"><abbr title="inc/model/comments/commentList.php">commentList.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">623</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Get query string</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">getSearchQuery</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/fpcm-model-dbal-selectParams.html"><abbr title="\fpcm\model\dbal\selectParams">selectParams</abbr></a></span></code>
+
+    
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type"><a href="classes/fpcm-model-dbal-selectParams.html"><abbr title="\fpcm\model\dbal\selectParams">selectParams</abbr></a></span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_prepareText">
+        prepareText()
+        <a href="classes/fpcm-model-comments-commentList.html#method_prepareText" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/comments/commentList.php"><a href="files/inc-model-comments-commentlist.html"><abbr title="inc/model/comments/commentList.php">commentList.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">666</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Prepare result text</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">prepareText</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$text</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$text</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">string</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_retoreComments">
         retoreComments()
         <a href="classes/fpcm-model-comments-commentList.html#method_retoreComments" class="headerlink"><i class="fas fa-link"></i></a>
@@ -1686,7 +2025,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/comments/commentList.php"><a href="files/inc-model-comments-commentlist.html"><abbr title="inc/model/comments/commentList.php">commentList.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">409</span>
+    <span class="phpdocumentor-element-found-in__line">411</span>
 
     </aside>
 
@@ -1731,7 +2070,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/comments/commentList.php"><a href="files/inc-model-comments-commentlist.html"><abbr title="inc/model/comments/commentList.php">commentList.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">316</span>
+    <span class="phpdocumentor-element-found-in__line">318</span>
 
     </aside>
 
@@ -1776,7 +2115,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/comments/commentList.php"><a href="files/inc-model-comments-commentlist.html"><abbr title="inc/model/comments/commentList.php">commentList.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">530</span>
+    <span class="phpdocumentor-element-found-in__line">532</span>
 
     </aside>
 
@@ -1847,7 +2186,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/comments/commentList.php"><a href="files/inc-model-comments-commentlist.html"><abbr title="inc/model/comments/commentList.php">commentList.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">453</span>
+    <span class="phpdocumentor-element-found-in__line">455</span>
 
     </aside>
 
@@ -1918,7 +2257,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/comments/commentList.php"><a href="files/inc-model-comments-commentlist.html"><abbr title="inc/model/comments/commentList.php">commentList.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">430</span>
+    <span class="phpdocumentor-element-found-in__line">432</span>
 
     </aside>
 
@@ -1944,6 +2283,53 @@
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getSearchQueryObj">
+        getSearchQueryObj()
+        <a href="classes/fpcm-model-comments-commentList.html#method_getSearchQueryObj" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/comments/commentList.php"><a href="files/inc-model-comments-commentlist.html"><abbr title="inc/model/comments/commentList.php">commentList.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">656</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Returns selectParams object instance</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+                    <span class="phpdocumentor-signature__name">getSearchQueryObj</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/fpcm-model-dbal-selectParams.html"><abbr title="\fpcm\model\dbal\selectParams">selectParams</abbr></a></span></code>
+
+    
+    
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">5.1-dev</span>
+                                                                                
+                                             
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type"><a href="classes/fpcm-model-dbal-selectParams.html"><abbr title="\fpcm\model\dbal\selectParams">selectParams</abbr></a></span>
             &mdash;
         
     

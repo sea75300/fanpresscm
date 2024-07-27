@@ -10,7 +10,7 @@ namespace fpcm\components\editor\conf;
 /**
  * TinyMCE 5 based editor plugin config class
  * 
- * @package fpcm\components\editor
+ * @package fpcm\components\editor\conf
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
  * @copyright (c) 2021, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3

@@ -191,7 +191,7 @@
     
             <span class="phpdocumentor-element__extends">
             Uses
-                            <a href="classes/fpcm-model-traits-autoTable.html"><abbr title="\fpcm\model\traits\autoTable">autoTable</abbr></a>                    </span>
+                            <a href="classes/fpcm-model-traits-autoTable.html"><abbr title="\fpcm\model\traits\autoTable">autoTable</abbr></a>,                             <a href="classes/fpcm-model-traits-statusIcons.html"><abbr title="\fpcm\model\traits\statusIcons">statusIcons</abbr></a>,                             <a href="classes/fpcm-model-traits-articles-csvUtils.html"><abbr title="\fpcm\model\traits\articles\csvUtils">csvUtils</abbr></a>,                             <a href="classes/fpcm-model-traits-articles-iconUtils.html"><abbr title="\fpcm\model\traits\articles\iconUtils">iconUtils</abbr></a>,                             <a href="classes/fpcm-model-traits-articles-revisionUtils.html"><abbr title="\fpcm\model\traits\articles\revisionUtils">revisionUtils</abbr></a>,                             <a href="classes/fpcm-model-traits-articles-twitterUtils.html"><abbr title="\fpcm\model\traits\articles\twitterUtils">twitterUtils</abbr></a>,                             <a href="classes/fpcm-model-traits-articles-sourcesUtils.html"><abbr title="\fpcm\model\traits\articles\sourcesUtils">sourcesUtils</abbr></a>                    </span>
     </h2>
 
         <aside class="phpdocumentor-element-found-in">
@@ -224,7 +224,7 @@
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>(c) 2011-2020, Stefan Seehafer</p>
+                                                 <section class="phpdocumentor-description"><p>(c) 2011-2022, Stefan Seehafer</p>
 </section>
 
                                     </dd>
@@ -515,11 +515,25 @@
 <dd>Status: gepinnt</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
+    <a href="classes/fpcm-model-articles-article.html#property_pinned_until">$pinned_until</a>
+    <span>
+                        &nbsp;: int            </span>
+</dt>
+<dd>Pin article until a certain date</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -protected">
     <a href="classes/fpcm-model-articles-article.html#property_postponed">$postponed</a>
     <span>
                         &nbsp;: int            </span>
 </dt>
 <dd>Status: automatisch freischalten</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -protected">
+    <a href="classes/fpcm-model-articles-article.html#property_relates_to">$relates_to</a>
+    <span>
+                        &nbsp;: int            </span>
+</dt>
+<dd>Article relation id</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
     <a href="classes/fpcm-model-abstracts-dataset.html#property_session">$session</a>
@@ -550,18 +564,25 @@
 <dd>News-Titel</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
-    <a href="classes/fpcm-model-articles-article.html#property_tweetCreate">$tweetCreate</a>
+    <a href="classes/fpcm-model-traits-articles-twitterUtils.html#property_tweetCreate">$tweetCreate</a>
     <span>
                         &nbsp;: bool            </span>
 </dt>
 <dd>TWeet Erstellung aktivieren</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
-    <a href="classes/fpcm-model-articles-article.html#property_tweetOverride">$tweetOverride</a>
+    <a href="classes/fpcm-model-traits-articles-twitterUtils.html#property_tweetOverride">$tweetOverride</a>
     <span>
                         &nbsp;: string            </span>
 </dt>
 <dd>Text für überschriebenes Tweet-Template</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -protected">
+    <a href="classes/fpcm-model-articles-article.html#property_url">$url</a>
+    <span>
+                        &nbsp;: string            </span>
+</dt>
+<dd>Article url</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
     <a href="classes/fpcm-model-articles-article.html#property_wordbanList">$wordbanList</a>
@@ -606,14 +627,14 @@
 <dd>Magic string</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/fpcm-model-articles-article.html#method_addSourcesAutocomplete">addSourcesAutocomplete()</a>
+    <a href="classes/fpcm-model-traits-articles-sourcesUtils.html#method_addSourcesAutocomplete">addSourcesAutocomplete()</a>
     <span>
                                 &nbsp;: bool    </span>
 </dt>
 <dd>Add sources string to auto-complete file option, max. 25 values saved</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/fpcm-model-articles-article.html#method_assignCsvRow">assignCsvRow()</a>
+    <a href="classes/fpcm-model-traits-articles-csvUtils.html#method_assignCsvRow">assignCsvRow()</a>
     <span>
                                 &nbsp;: bool    </span>
 </dt>
@@ -627,14 +648,14 @@
 <dd>Füllt Objekt mit Daten aus Datenbank-Result</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/fpcm-model-articles-article.html#method_createRevision">createRevision()</a>
+    <a href="classes/fpcm-model-traits-articles-revisionUtils.html#method_createRevision">createRevision()</a>
     <span>
                                 &nbsp;: bool    </span>
 </dt>
 <dd>Erzeugt eine Revision des Artikels</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/fpcm-model-articles-article.html#method_createTweet">createTweet()</a>
+    <a href="classes/fpcm-model-traits-articles-twitterUtils.html#method_createTweet">createTweet()</a>
     <span>
                                 &nbsp;: bool    </span>
 </dt>
@@ -648,14 +669,14 @@
 <dd>Löscht News in der Datenbank</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/fpcm-model-articles-article.html#method_deleteRevisions">deleteRevisions()</a>
+    <a href="classes/fpcm-model-traits-articles-revisionUtils.html#method_deleteRevisions">deleteRevisions()</a>
     <span>
                                 &nbsp;: bool    </span>
 </dt>
 <dd>Löscht Revisionen</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/fpcm-model-articles-article.html#method_enableTweetCreation">enableTweetCreation()</a>
+    <a href="classes/fpcm-model-traits-articles-twitterUtils.html#method_enableTweetCreation">enableTweetCreation()</a>
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
@@ -669,7 +690,7 @@
 <dd>Prüft ob Objekt existiert</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/fpcm-model-articles-article.html#method_fetchSourcesAutocomplete">fetchSourcesAutocomplete()</a>
+    <a href="classes/fpcm-model-traits-articles-sourcesUtils.html#method_fetchSourcesAutocomplete">fetchSourcesAutocomplete()</a>
     <span>
                                 &nbsp;: array&lt;string|int, mixed&gt;    </span>
 </dt>
@@ -809,7 +830,7 @@
 <dd>Return frontend article link</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/fpcm-model-articles-article.html#method_getFields">getFields()</a>
+    <a href="classes/fpcm-model-traits-articles-csvUtils.html#method_getFields">getFields()</a>
     <span>
                                 &nbsp;: array&lt;string|int, mixed&gt;    </span>
 </dt>
@@ -837,11 +858,18 @@
 <dd>In Bearbeitung Informationen auslesen</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/fpcm-model-articles-article.html#method_getMetaDataStatusIcons">getMetaDataStatusIcons()</a>
+    <a href="classes/fpcm-model-traits-articles-iconUtils.html#method_getMetaDataStatusIcons">getMetaDataStatusIcons()</a>
     <span>
                                 &nbsp;: array&lt;string|int, mixed&gt;    </span>
 </dt>
 <dd>Returns array with all status icons</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-model-articles-article.html#method_getNicePathString">getNicePathString()</a>
+    <span>
+                                &nbsp;: string    </span>
+</dt>
+<dd>Get nice article path string</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/fpcm-model-abstracts-dataset.html#method_getNodata">getNodata()</a>
@@ -858,6 +886,13 @@
 <dd>Gibt Artikel-gepinnt-Status zurück</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-model-articles-article.html#method_getPinnedUntil">getPinnedUntil()</a>
+    <span>
+                                &nbsp;: int    </span>
+</dt>
+<dd>Get pinned until</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/fpcm-model-articles-article.html#method_getPostponed">getPostponed()</a>
     <span>
                                 &nbsp;: bool    </span>
@@ -872,21 +907,28 @@
 <dd>Gibt array mit Values für Prepared Statements zurück</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/fpcm-model-articles-article.html#method_getRevision">getRevision()</a>
+    <a href="classes/fpcm-model-articles-article.html#method_getRelatesTo">getRelatesTo()</a>
+    <span>
+                                &nbsp;: int    </span>
+</dt>
+<dd>Fetch article relation id</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-model-traits-articles-revisionUtils.html#method_getRevision">getRevision()</a>
     <span>
                                 &nbsp;: bool    </span>
 </dt>
 <dd>Lädt Revision eines Artikels</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/fpcm-model-articles-article.html#method_getRevisions">getRevisions()</a>
+    <a href="classes/fpcm-model-traits-articles-revisionUtils.html#method_getRevisions">getRevisions()</a>
     <span>
                                 &nbsp;: array&lt;string|int, mixed&gt;    </span>
 </dt>
 <dd>Gib Revisionen des Artikels zurück</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/fpcm-model-articles-article.html#method_getRevisionsCount">getRevisionsCount()</a>
+    <a href="classes/fpcm-model-traits-articles-revisionUtils.html#method_getRevisionsCount">getRevisionsCount()</a>
     <span>
                                 &nbsp;: array&lt;string|int, mixed&gt;    </span>
 </dt>
@@ -900,46 +942,53 @@
 <dd>Gibt Artikel-Quellen zurück</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/fpcm-model-articles-article.html#method_getStatusIconApproval">getStatusIconApproval()</a>
+    <a href="classes/fpcm-model-traits-articles-iconUtils.html#method_getStatusIconApproval">getStatusIconApproval()</a>
     <span>
                                 &nbsp;: <a href="classes/fpcm-view-helper-icon.html"><abbr title="\fpcm\view\helper\icon">icon</abbr></a>    </span>
 </dt>
 <dd>Returns approval status icon</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/fpcm-model-articles-article.html#method_getStatusIconArchive">getStatusIconArchive()</a>
+    <a href="classes/fpcm-model-traits-articles-iconUtils.html#method_getStatusIconArchive">getStatusIconArchive()</a>
     <span>
                                 &nbsp;: <a href="classes/fpcm-view-helper-icon.html"><abbr title="\fpcm\view\helper\icon">icon</abbr></a>    </span>
 </dt>
 <dd>Returns archive status icon</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/fpcm-model-articles-article.html#method_getStatusIconComments">getStatusIconComments()</a>
+    <a href="classes/fpcm-model-traits-articles-iconUtils.html#method_getStatusIconComments">getStatusIconComments()</a>
     <span>
                                 &nbsp;: <a href="classes/fpcm-view-helper-icon.html"><abbr title="\fpcm\view\helper\icon">icon</abbr></a>    </span>
 </dt>
 <dd>Returns comments enabled status icon</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/fpcm-model-articles-article.html#method_getStatusIconDraft">getStatusIconDraft()</a>
+    <a href="classes/fpcm-model-traits-articles-iconUtils.html#method_getStatusIconDraft">getStatusIconDraft()</a>
     <span>
                                 &nbsp;: <a href="classes/fpcm-view-helper-icon.html"><abbr title="\fpcm\view\helper\icon">icon</abbr></a>    </span>
 </dt>
 <dd>Returns draft status icon</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/fpcm-model-articles-article.html#method_getStatusIconPinned">getStatusIconPinned()</a>
+    <a href="classes/fpcm-model-traits-articles-iconUtils.html#method_getStatusIconPinned">getStatusIconPinned()</a>
     <span>
                                 &nbsp;: <a href="classes/fpcm-view-helper-icon.html"><abbr title="\fpcm\view\helper\icon">icon</abbr></a>    </span>
 </dt>
 <dd>Returns pinned status icon</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/fpcm-model-articles-article.html#method_getStatusIconPostponed">getStatusIconPostponed()</a>
+    <a href="classes/fpcm-model-traits-articles-iconUtils.html#method_getStatusIconPostponed">getStatusIconPostponed()</a>
     <span>
                                 &nbsp;: <a href="classes/fpcm-view-helper-icon.html"><abbr title="\fpcm\view\helper\icon">icon</abbr></a>    </span>
 </dt>
 <dd>Returns postponed status icon</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-model-traits-articles-iconUtils.html#method_getStatusIconTwitter">getStatusIconTwitter()</a>
+    <span>
+                                &nbsp;: <a href="classes/fpcm-view-helper-icon.html"><abbr title="\fpcm\view\helper\icon">icon</abbr></a>    </span>
+</dt>
+<dd>Returns archive status icon</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/fpcm-model-traits-autoTable.html#method_getTableName">getTableName()</a>
@@ -956,11 +1005,18 @@
 <dd>Gibt Artikel- zurück</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/fpcm-model-articles-article.html#method_getTweetOverride">getTweetOverride()</a>
+    <a href="classes/fpcm-model-traits-articles-twitterUtils.html#method_getTweetOverride">getTweetOverride()</a>
     <span>
                                 &nbsp;: string    </span>
 </dt>
 <dd>Text für überschriebenes Tweet-Template zurückgeben</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-model-articles-article.html#method_getUrl">getUrl()</a>
+    <span>
+                                &nbsp;: string    </span>
+</dt>
+<dd>Get article URL string</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/fpcm-model-abstracts-dataset.html#method_init">init()</a>
@@ -977,6 +1033,13 @@
 <dd>Ist Artikel in Bearbeitung</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-model-articles-article.html#method_isOldArticle">isOldArticle()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+<dd>Check if articles was created to display old article message</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/fpcm-model-abstracts-dataset.html#method_prepareDataSave">prepareDataSave()</a>
     <span>
                                 &nbsp;: bool    </span>
@@ -984,7 +1047,7 @@
 <dd>Bereitet Daten für Speicherung in Datenbank vor</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/fpcm-model-articles-article.html#method_prepareRevision">prepareRevision()</a>
+    <a href="classes/fpcm-model-traits-articles-revisionUtils.html#method_prepareRevision">prepareRevision()</a>
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
@@ -998,7 +1061,14 @@
 <dd>Prüft, ob Artikel öffentlich sichtbar ist</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/fpcm-model-articles-article.html#method_restoreRevision">restoreRevision()</a>
+    <a href="classes/fpcm-model-articles-article.html#method_pushCategories">pushCategories()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-model-traits-articles-revisionUtils.html#method_restoreRevision">restoreRevision()</a>
     <span>
                                 &nbsp;: bool    </span>
 </dt>
@@ -1138,11 +1208,25 @@
 <dd>gepinnt Status</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-model-articles-article.html#method_setPinnedUntil">setPinnedUntil()</a>
+    <span>
+                                &nbsp;: mixed    </span>
+</dt>
+<dd>Set pinned until</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/fpcm-model-articles-article.html#method_setPostponed">setPostponed()</a>
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
 <dd>Geplant-Status setzen</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-model-articles-article.html#method_setRelatesTo">setRelatesTo()</a>
+    <span>
+                                &nbsp;: void    </span>
+</dt>
+<dd>Set article relation</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/fpcm-model-articles-article.html#method_setSources">setSources()</a>
@@ -1159,14 +1243,21 @@
 <dd>Ttiel setzen</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/fpcm-model-articles-article.html#method_setTweetOverride">setTweetOverride()</a>
+    <a href="classes/fpcm-model-traits-articles-twitterUtils.html#method_setTweetOverride">setTweetOverride()</a>
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
 <dd>Text für überschriebenes Tweet-Template setzen</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/fpcm-model-articles-article.html#method_tweetCreationEnabled">tweetCreationEnabled()</a>
+    <a href="classes/fpcm-model-articles-article.html#method_setUrl">setUrl()</a>
+    <span>
+                                &nbsp;: void    </span>
+</dt>
+<dd>Get article URL string</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-model-traits-articles-twitterUtils.html#method_tweetCreationEnabled">tweetCreationEnabled()</a>
     <span>
                                 &nbsp;: bool    </span>
 </dt>
@@ -1215,6 +1306,13 @@
 <dd>Bereitet Eigenschaften des Objects zum Speichern ind er Datenbank vor und entfernt nicht speicherbare Eigenschaften</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -protected">
+    <a href="classes/fpcm-model-traits-statusIcons.html#method_getStatusColor">getStatusColor()</a>
+    <span>
+                                &nbsp;: <a href="classes/fpcm-view-helper-icon.html"><abbr title="\fpcm\view\helper\icon">icon</abbr></a>    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -protected">
     <a href="classes/fpcm-model-articles-article.html#method_removeBannedTexts">removeBannedTexts()</a>
     <span>
                                 &nbsp;: bool    </span>
@@ -1227,6 +1325,13 @@
                                 &nbsp;: void    </span>
 </dt>
 <dd>Bereinigt Caches</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a href="classes/fpcm-model-articles-article.html#method_cleanupUrlString">cleanupUrlString()</a>
+    <span>
+                                &nbsp;: string    </span>
+</dt>
+<dd>Cleanup article url string</dd>
 
         </dl>
 
@@ -1247,7 +1352,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">33</span>
+    <span class="phpdocumentor-element-found-in__line">39</span>
 
     </aside>
 
@@ -1290,7 +1395,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">27</span>
+    <span class="phpdocumentor-element-found-in__line">33</span>
 
     </aside>
 
@@ -1333,7 +1438,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">45</span>
+    <span class="phpdocumentor-element-found-in__line">51</span>
 
     </aside>
 
@@ -1376,7 +1481,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">51</span>
+    <span class="phpdocumentor-element-found-in__line">57</span>
 
     </aside>
 
@@ -1419,7 +1524,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">57</span>
+    <span class="phpdocumentor-element-found-in__line">63</span>
 
     </aside>
 
@@ -1462,7 +1567,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">39</span>
+    <span class="phpdocumentor-element-found-in__line">45</span>
 
     </aside>
 
@@ -1520,7 +1625,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">117</span>
+    <span class="phpdocumentor-element-found-in__line">123</span>
 
     </aside>
 
@@ -1553,7 +1658,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">87</span>
+    <span class="phpdocumentor-element-found-in__line">93</span>
 
     </aside>
 
@@ -1652,7 +1757,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">75</span>
+    <span class="phpdocumentor-element-found-in__line">81</span>
 
     </aside>
 
@@ -1685,7 +1790,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">142</span>
+    <span class="phpdocumentor-element-found-in__line">148</span>
 
     </aside>
 
@@ -1718,7 +1823,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">148</span>
+    <span class="phpdocumentor-element-found-in__line">154</span>
 
     </aside>
 
@@ -1751,7 +1856,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">111</span>
+    <span class="phpdocumentor-element-found-in__line">117</span>
 
     </aside>
 
@@ -1817,7 +1922,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">69</span>
+    <span class="phpdocumentor-element-found-in__line">75</span>
 
     </aside>
 
@@ -1850,7 +1955,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">130</span>
+    <span class="phpdocumentor-element-found-in__line">136</span>
 
     </aside>
 
@@ -1883,7 +1988,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">136</span>
+    <span class="phpdocumentor-element-found-in__line">142</span>
 
     </aside>
 
@@ -1916,7 +2021,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">201</span>
+    <span class="phpdocumentor-element-found-in__line">228</span>
 
     </aside>
 
@@ -2029,7 +2134,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">174</span>
+    <span class="phpdocumentor-element-found-in__line">201</span>
 
     </aside>
 
@@ -2062,7 +2167,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">105</span>
+    <span class="phpdocumentor-element-found-in__line">111</span>
 
     </aside>
 
@@ -2095,7 +2200,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">81</span>
+    <span class="phpdocumentor-element-found-in__line">87</span>
 
     </aside>
 
@@ -2128,7 +2233,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">187</span>
+    <span class="phpdocumentor-element-found-in__line">214</span>
 
     </aside>
 
@@ -2161,7 +2266,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">208</span>
+    <span class="phpdocumentor-element-found-in__line">235</span>
 
     </aside>
 
@@ -2241,7 +2346,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">168</span>
+    <span class="phpdocumentor-element-found-in__line">195</span>
 
     </aside>
 
@@ -2307,7 +2412,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">124</span>
+    <span class="phpdocumentor-element-found-in__line">130</span>
 
     </aside>
 
@@ -2354,7 +2459,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">162</span>
+    <span class="phpdocumentor-element-found-in__line">182</span>
 
     </aside>
 
@@ -2547,7 +2652,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">93</span>
+    <span class="phpdocumentor-element-found-in__line">99</span>
 
     </aside>
 
@@ -2571,6 +2676,53 @@
             -protected
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="property_pinned_until">
+        $pinned_until
+        <a href="classes/fpcm-model-articles-article.html#property_pinned_until" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">175</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Pin article until a certain date</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+        <span class="phpdocumentor-signature__type">int</span>
+    <span class="phpdocumentor-signature__name">$pinned_until</span>
+     = <span class="phpdocumentor-signature__default-value">0</span></code>
+
+    
+    
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">5.2.0-b4</span>
+                                                                                
+                                             
+                                    </dd>
+                        </dl>
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -protected
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="property_postponed">
         $postponed
         <a href="classes/fpcm-model-articles-article.html#property_postponed" class="headerlink"><i class="fas fa-link"></i></a>
@@ -2580,7 +2732,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">99</span>
+    <span class="phpdocumentor-element-found-in__line">105</span>
 
     </aside>
 
@@ -2595,6 +2747,53 @@
     
     
     
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -protected
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_relates_to">
+        $relates_to
+        <a href="classes/fpcm-model-articles-article.html#property_relates_to" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">168</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Article relation id</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+        <span class="phpdocumentor-signature__type">int</span>
+    <span class="phpdocumentor-signature__name">$relates_to</span>
+     = <span class="phpdocumentor-signature__default-value">0</span></code>
+
+    
+    
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">5.2.0-a1</span>
+                                                                                
+                                             
+                                    </dd>
+                        </dl>
 
 </article>
                     <article
@@ -2646,7 +2845,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">155</span>
+    <span class="phpdocumentor-element-found-in__line">161</span>
 
     </aside>
 
@@ -2726,7 +2925,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">63</span>
+    <span class="phpdocumentor-element-found-in__line">69</span>
 
     </aside>
 
@@ -2752,14 +2951,14 @@
 >
     <h4 class="phpdocumentor-element__name" id="property_tweetCreate">
         $tweetCreate
-        <a href="classes/fpcm-model-articles-article.html#property_tweetCreate" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/fpcm-model-traits-articles-twitterUtils.html#property_tweetCreate" class="headerlink"><i class="fas fa-link"></i></a>
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/traits/articles/twitterUtils.php"><a href="files/inc-model-traits-articles-twitterutils.html"><abbr title="inc/model/traits/articles/twitterUtils.php">twitterUtils.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">222</span>
+    <span class="phpdocumentor-element-found-in__line">33</span>
 
     </aside>
 
@@ -2799,14 +2998,14 @@
 >
     <h4 class="phpdocumentor-element__name" id="property_tweetOverride">
         $tweetOverride
-        <a href="classes/fpcm-model-articles-article.html#property_tweetOverride" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/fpcm-model-traits-articles-twitterUtils.html#property_tweetOverride" class="headerlink"><i class="fas fa-link"></i></a>
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/traits/articles/twitterUtils.php"><a href="files/inc-model-traits-articles-twitterutils.html"><abbr title="inc/model/traits/articles/twitterUtils.php">twitterUtils.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">215</span>
+    <span class="phpdocumentor-element-found-in__line">26</span>
 
     </aside>
 
@@ -2844,6 +3043,53 @@
             -protected
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="property_url">
+        $url
+        <a href="classes/fpcm-model-articles-article.html#property_url" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">189</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Article url</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+        <span class="phpdocumentor-signature__type">string</span>
+    <span class="phpdocumentor-signature__name">$url</span>
+     = <span class="phpdocumentor-signature__default-value">&#039;&#039;</span></code>
+
+    
+    
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">5.1-dev</span>
+                                                                                
+                                             
+                                    </dd>
+                        </dl>
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -protected
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="property_wordbanList">
         $wordbanList
         <a href="classes/fpcm-model-articles-article.html#property_wordbanList" class="headerlink"><i class="fas fa-link"></i></a>
@@ -2853,7 +3099,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">194</span>
+    <span class="phpdocumentor-element-found-in__line">221</span>
 
     </aside>
 
@@ -2904,7 +3150,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">228</span>
+    <span class="phpdocumentor-element-found-in__line">241</span>
 
     </aside>
 
@@ -3101,12 +3347,12 @@
 >
     <h4 class="phpdocumentor-element__name" id="method_addSourcesAutocomplete">
         addSourcesAutocomplete()
-        <a href="classes/fpcm-model-articles-article.html#method_addSourcesAutocomplete" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/fpcm-model-traits-articles-sourcesUtils.html#method_addSourcesAutocomplete" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/traits/articles/sourcesUtils.php"><a href="files/inc-model-traits-articles-sourcesutils.html"><abbr title="inc/model/traits/articles/sourcesUtils.php">sourcesUtils.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1206</span>
+    <span class="phpdocumentor-element-found-in__line">28</span>
 
     </aside>
 
@@ -3158,12 +3404,12 @@
 >
     <h4 class="phpdocumentor-element__name" id="method_assignCsvRow">
         assignCsvRow()
-        <a href="classes/fpcm-model-articles-article.html#method_assignCsvRow" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/fpcm-model-traits-articles-csvUtils.html#method_assignCsvRow" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/traits/articles/csvUtils.php"><a href="files/inc-model-traits-articles-csvutils.html"><abbr title="inc/model/traits/articles/csvUtils.php">csvUtils.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1044</span>
+    <span class="phpdocumentor-element-found-in__line">28</span>
 
     </aside>
 
@@ -3258,12 +3504,12 @@
 >
     <h4 class="phpdocumentor-element__name" id="method_createRevision">
         createRevision()
-        <a href="classes/fpcm-model-articles-article.html#method_createRevision" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/fpcm-model-traits-articles-revisionUtils.html#method_createRevision" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/traits/articles/revisionUtils.php"><a href="files/inc-model-traits-articles-revisionutils.html"><abbr title="inc/model/traits/articles/revisionUtils.php">revisionUtils.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">727</span>
+    <span class="phpdocumentor-element-found-in__line">35</span>
 
     </aside>
 
@@ -3301,12 +3547,12 @@
 >
     <h4 class="phpdocumentor-element__name" id="method_createTweet">
         createTweet()
-        <a href="classes/fpcm-model-articles-article.html#method_createTweet" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/fpcm-model-traits-articles-twitterUtils.html#method_createTweet" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/traits/articles/twitterUtils.php"><a href="files/inc-model-traits-articles-twitterutils.html"><abbr title="inc/model/traits/articles/twitterUtils.php">twitterUtils.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">860</span>
+    <span class="phpdocumentor-element-found-in__line">50</span>
 
     </aside>
 
@@ -3349,7 +3595,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">692</span>
+    <span class="phpdocumentor-element-found-in__line">735</span>
 
     </aside>
 
@@ -3377,12 +3623,12 @@
 >
     <h4 class="phpdocumentor-element__name" id="method_deleteRevisions">
         deleteRevisions()
-        <a href="classes/fpcm-model-articles-article.html#method_deleteRevisions" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/fpcm-model-traits-articles-revisionUtils.html#method_deleteRevisions" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/traits/articles/revisionUtils.php"><a href="files/inc-model-traits-articles-revisionutils.html"><abbr title="inc/model/traits/articles/revisionUtils.php">revisionUtils.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">846</span>
+    <span class="phpdocumentor-element-found-in__line">154</span>
 
     </aside>
 
@@ -3422,12 +3668,12 @@
 >
     <h4 class="phpdocumentor-element__name" id="method_enableTweetCreation">
         enableTweetCreation()
-        <a href="classes/fpcm-model-articles-article.html#method_enableTweetCreation" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/fpcm-model-traits-articles-twitterUtils.html#method_enableTweetCreation" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/traits/articles/twitterUtils.php"><a href="files/inc-model-traits-articles-twitterutils.html"><abbr title="inc/model/traits/articles/twitterUtils.php">twitterUtils.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">597</span>
+    <span class="phpdocumentor-element-found-in__line">107</span>
 
     </aside>
 
@@ -3512,12 +3758,12 @@
 >
     <h4 class="phpdocumentor-element__name" id="method_fetchSourcesAutocomplete">
         fetchSourcesAutocomplete()
-        <a href="classes/fpcm-model-articles-article.html#method_fetchSourcesAutocomplete" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/fpcm-model-traits-articles-sourcesUtils.html#method_fetchSourcesAutocomplete" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/traits/articles/sourcesUtils.php"><a href="files/inc-model-traits-articles-sourcesutils.html"><abbr title="inc/model/traits/articles/sourcesUtils.php">sourcesUtils.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1226</span>
+    <span class="phpdocumentor-element-found-in__line">53</span>
 
     </aside>
 
@@ -3564,7 +3810,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">361</span>
+    <span class="phpdocumentor-element-found-in__line">374</span>
 
     </aside>
 
@@ -3597,7 +3843,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">280</span>
+    <span class="phpdocumentor-element-found-in__line">293</span>
 
     </aside>
 
@@ -3630,7 +3876,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">634</span>
+    <span class="phpdocumentor-element-found-in__line">677</span>
 
     </aside>
 
@@ -3677,7 +3923,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">679</span>
+    <span class="phpdocumentor-element-found-in__line">722</span>
 
     </aside>
 
@@ -3724,7 +3970,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">606</span>
+    <span class="phpdocumentor-element-found-in__line">639</span>
 
     </aside>
 
@@ -3757,7 +4003,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">643</span>
+    <span class="phpdocumentor-element-found-in__line">686</span>
 
     </aside>
 
@@ -3790,7 +4036,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">258</span>
+    <span class="phpdocumentor-element-found-in__line">271</span>
 
     </aside>
 
@@ -3823,7 +4069,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">334</span>
+    <span class="phpdocumentor-element-found-in__line">347</span>
 
     </aside>
 
@@ -3856,7 +4102,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">343</span>
+    <span class="phpdocumentor-element-found-in__line">356</span>
 
     </aside>
 
@@ -3889,7 +4135,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">352</span>
+    <span class="phpdocumentor-element-found-in__line">365</span>
 
     </aside>
 
@@ -3922,7 +4168,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">249</span>
+    <span class="phpdocumentor-element-found-in__line">262</span>
 
     </aside>
 
@@ -3955,7 +4201,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">316</span>
+    <span class="phpdocumentor-element-found-in__line">329</span>
 
     </aside>
 
@@ -3988,7 +4234,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">325</span>
+    <span class="phpdocumentor-element-found-in__line">338</span>
 
     </aside>
 
@@ -4054,7 +4300,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">307</span>
+    <span class="phpdocumentor-element-found-in__line">320</span>
 
     </aside>
 
@@ -4087,7 +4333,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">271</span>
+    <span class="phpdocumentor-element-found-in__line">284</span>
 
     </aside>
 
@@ -4153,7 +4399,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">381</span>
+    <span class="phpdocumentor-element-found-in__line">394</span>
 
     </aside>
 
@@ -4200,7 +4446,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">616</span>
+    <span class="phpdocumentor-element-found-in__line">659</span>
 
     </aside>
 
@@ -4238,12 +4484,12 @@
 >
     <h4 class="phpdocumentor-element__name" id="method_getFields">
         getFields()
-        <a href="classes/fpcm-model-articles-article.html#method_getFields" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/fpcm-model-traits-articles-csvUtils.html#method_getFields" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/traits/articles/csvUtils.php"><a href="files/inc-model-traits-articles-csvutils.html"><abbr title="inc/model/traits/articles/csvUtils.php">csvUtils.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1111</span>
+    <span class="phpdocumentor-element-found-in__line">95</span>
 
     </aside>
 
@@ -4323,7 +4569,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">371</span>
+    <span class="phpdocumentor-element-found-in__line">384</span>
 
     </aside>
 
@@ -4370,7 +4616,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">907</span>
+    <span class="phpdocumentor-element-found-in__line">790</span>
 
     </aside>
 
@@ -4412,12 +4658,12 @@
 >
     <h4 class="phpdocumentor-element__name" id="method_getMetaDataStatusIcons">
         getMetaDataStatusIcons()
-        <a href="classes/fpcm-model-articles-article.html#method_getMetaDataStatusIcons" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/fpcm-model-traits-articles-iconUtils.html#method_getMetaDataStatusIcons" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/traits/articles/iconUtils.php"><a href="files/inc-model-traits-articles-iconutils.html"><abbr title="inc/model/traits/articles/iconUtils.php">iconUtils.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">954</span>
+    <span class="phpdocumentor-element-found-in__line">112</span>
 
     </aside>
 
@@ -4457,6 +4703,53 @@
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getNicePathString">
+        getNicePathString()
+        <a href="classes/fpcm-model-articles-article.html#method_getNicePathString" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">649</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Get nice article path string</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">getNicePathString</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+
+    
+    
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">5.1-dev</span>
+                                                                                
+                                             
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">string</span>
             &mdash;
         
     
@@ -4507,7 +4800,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">289</span>
+    <span class="phpdocumentor-element-found-in__line">302</span>
 
     </aside>
 
@@ -4533,6 +4826,53 @@
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_getPinnedUntil">
+        getPinnedUntil()
+        <a href="classes/fpcm-model-articles-article.html#method_getPinnedUntil" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">603</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Get pinned until</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">getPinnedUntil</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
+
+    
+    
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">5.2.0-b4</span>
+                                                                                
+                                             
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">int</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_getPostponed">
         getPostponed()
         <a href="classes/fpcm-model-articles-article.html#method_getPostponed" class="headerlink"><i class="fas fa-link"></i></a>
@@ -4540,7 +4880,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">298</span>
+    <span class="phpdocumentor-element-found-in__line">311</span>
 
     </aside>
 
@@ -4609,14 +4949,61 @@
             -public
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method_getRevision">
-        getRevision()
-        <a href="classes/fpcm-model-articles-article.html#method_getRevision" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="method_getRelatesTo">
+        getRelatesTo()
+        <a href="classes/fpcm-model-articles-article.html#method_getRelatesTo" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">811</span>
+    <span class="phpdocumentor-element-found-in__line">582</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Fetch article relation id</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">getRelatesTo</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
+
+    
+    
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">5.2.0-a1</span>
+                                                                                
+                                             
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">int</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getRevision">
+        getRevision()
+        <a href="classes/fpcm-model-traits-articles-revisionUtils.html#method_getRevision" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/traits/articles/revisionUtils.php"><a href="files/inc-model-traits-articles-revisionutils.html"><abbr title="inc/model/traits/articles/revisionUtils.php">revisionUtils.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">119</span>
 
     </aside>
 
@@ -4656,12 +5043,12 @@
 >
     <h4 class="phpdocumentor-element__name" id="method_getRevisions">
         getRevisions()
-        <a href="classes/fpcm-model-articles-article.html#method_getRevisions" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/fpcm-model-traits-articles-revisionUtils.html#method_getRevisions" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/traits/articles/revisionUtils.php"><a href="files/inc-model-traits-articles-revisionutils.html"><abbr title="inc/model/traits/articles/revisionUtils.php">revisionUtils.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">763</span>
+    <span class="phpdocumentor-element-found-in__line">71</span>
 
     </aside>
 
@@ -4701,12 +5088,12 @@
 >
     <h4 class="phpdocumentor-element__name" id="method_getRevisionsCount">
         getRevisionsCount()
-        <a href="classes/fpcm-model-articles-article.html#method_getRevisionsCount" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/fpcm-model-traits-articles-revisionUtils.html#method_getRevisionsCount" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/traits/articles/revisionUtils.php"><a href="files/inc-model-traits-articles-revisionutils.html"><abbr title="inc/model/traits/articles/revisionUtils.php">revisionUtils.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">801</span>
+    <span class="phpdocumentor-element-found-in__line">109</span>
 
     </aside>
 
@@ -4753,7 +5140,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">391</span>
+    <span class="phpdocumentor-element-found-in__line">404</span>
 
     </aside>
 
@@ -4795,12 +5182,12 @@
 >
     <h4 class="phpdocumentor-element__name" id="method_getStatusIconApproval">
         getStatusIconApproval()
-        <a href="classes/fpcm-model-articles-article.html#method_getStatusIconApproval" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/fpcm-model-traits-articles-iconUtils.html#method_getStatusIconApproval" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/traits/articles/iconUtils.php"><a href="files/inc-model-traits-articles-iconutils.html"><abbr title="inc/model/traits/articles/iconUtils.php">iconUtils.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1006</span>
+    <span class="phpdocumentor-element-found-in__line">61</span>
 
     </aside>
 
@@ -4828,12 +5215,12 @@
 >
     <h4 class="phpdocumentor-element__name" id="method_getStatusIconArchive">
         getStatusIconArchive()
-        <a href="classes/fpcm-model-articles-article.html#method_getStatusIconArchive" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/fpcm-model-traits-articles-iconUtils.html#method_getStatusIconArchive" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/traits/articles/iconUtils.php"><a href="files/inc-model-traits-articles-iconutils.html"><abbr title="inc/model/traits/articles/iconUtils.php">iconUtils.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1030</span>
+    <span class="phpdocumentor-element-found-in__line">85</span>
 
     </aside>
 
@@ -4861,12 +5248,12 @@
 >
     <h4 class="phpdocumentor-element__name" id="method_getStatusIconComments">
         getStatusIconComments()
-        <a href="classes/fpcm-model-articles-article.html#method_getStatusIconComments" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/fpcm-model-traits-articles-iconUtils.html#method_getStatusIconComments" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/traits/articles/iconUtils.php"><a href="files/inc-model-traits-articles-iconutils.html"><abbr title="inc/model/traits/articles/iconUtils.php">iconUtils.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1018</span>
+    <span class="phpdocumentor-element-found-in__line">73</span>
 
     </aside>
 
@@ -4894,12 +5281,12 @@
 >
     <h4 class="phpdocumentor-element__name" id="method_getStatusIconDraft">
         getStatusIconDraft()
-        <a href="classes/fpcm-model-articles-article.html#method_getStatusIconDraft" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/fpcm-model-traits-articles-iconUtils.html#method_getStatusIconDraft" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/traits/articles/iconUtils.php"><a href="files/inc-model-traits-articles-iconutils.html"><abbr title="inc/model/traits/articles/iconUtils.php">iconUtils.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">982</span>
+    <span class="phpdocumentor-element-found-in__line">37</span>
 
     </aside>
 
@@ -4927,12 +5314,12 @@
 >
     <h4 class="phpdocumentor-element__name" id="method_getStatusIconPinned">
         getStatusIconPinned()
-        <a href="classes/fpcm-model-articles-article.html#method_getStatusIconPinned" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/fpcm-model-traits-articles-iconUtils.html#method_getStatusIconPinned" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/traits/articles/iconUtils.php"><a href="files/inc-model-traits-articles-iconutils.html"><abbr title="inc/model/traits/articles/iconUtils.php">iconUtils.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">970</span>
+    <span class="phpdocumentor-element-found-in__line">25</span>
 
     </aside>
 
@@ -4960,12 +5347,12 @@
 >
     <h4 class="phpdocumentor-element__name" id="method_getStatusIconPostponed">
         getStatusIconPostponed()
-        <a href="classes/fpcm-model-articles-article.html#method_getStatusIconPostponed" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/fpcm-model-traits-articles-iconUtils.html#method_getStatusIconPostponed" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/traits/articles/iconUtils.php"><a href="files/inc-model-traits-articles-iconutils.html"><abbr title="inc/model/traits/articles/iconUtils.php">iconUtils.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">994</span>
+    <span class="phpdocumentor-element-found-in__line">49</span>
 
     </aside>
 
@@ -4974,6 +5361,39 @@
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">getStatusIconPostponed</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/fpcm-view-helper-icon.html"><abbr title="\fpcm\view\helper\icon">icon</abbr></a></span></code>
+
+    
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type"><a href="classes/fpcm-view-helper-icon.html"><abbr title="\fpcm\view\helper\icon">icon</abbr></a></span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getStatusIconTwitter">
+        getStatusIconTwitter()
+        <a href="classes/fpcm-model-traits-articles-iconUtils.html#method_getStatusIconTwitter" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/traits/articles/iconUtils.php"><a href="files/inc-model-traits-articles-iconutils.html"><abbr title="inc/model/traits/articles/iconUtils.php">iconUtils.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">97</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Returns archive status icon</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">getStatusIconTwitter</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/fpcm-view-helper-icon.html"><abbr title="\fpcm\view\helper\icon">icon</abbr></a></span></code>
 
     
     
@@ -5045,7 +5465,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">240</span>
+    <span class="phpdocumentor-element-found-in__line">253</span>
 
     </aside>
 
@@ -5073,12 +5493,12 @@
 >
     <h4 class="phpdocumentor-element__name" id="method_getTweetOverride">
         getTweetOverride()
-        <a href="classes/fpcm-model-articles-article.html#method_getTweetOverride" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/fpcm-model-traits-articles-twitterUtils.html#method_getTweetOverride" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/traits/articles/twitterUtils.php"><a href="files/inc-model-traits-articles-twitterutils.html"><abbr title="inc/model/traits/articles/twitterUtils.php">twitterUtils.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">577</span>
+    <span class="phpdocumentor-element-found-in__line">87</span>
 
     </aside>
 
@@ -5101,6 +5521,53 @@
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">3.3</span>
+                                                                                
+                                             
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">string</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getUrl">
+        getUrl()
+        <a href="classes/fpcm-model-articles-article.html#method_getUrl" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">561</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Get article URL string</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">getUrl</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+
+    
+    
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">5.1-dev</span>
                                                                                 
                                              
                                     </dd>
@@ -5158,7 +5625,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">917</span>
+    <span class="phpdocumentor-element-found-in__line">800</span>
 
     </aside>
 
@@ -5181,6 +5648,53 @@
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">3.5</span>
+                                                                                
+                                             
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">bool</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_isOldArticle">
+        isOldArticle()
+        <a href="classes/fpcm-model-articles-article.html#method_isOldArticle" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">835</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Check if articles was created to display old article message</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">isOldArticle</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+    
+    
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">5.2.0-a1</span>
                                                                                 
                                              
                                     </dd>
@@ -5247,12 +5761,12 @@
 >
     <h4 class="phpdocumentor-element__name" id="method_prepareRevision">
         prepareRevision()
-        <a href="classes/fpcm-model-articles-article.html#method_prepareRevision" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/fpcm-model-traits-articles-revisionUtils.html#method_prepareRevision" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/traits/articles/revisionUtils.php"><a href="files/inc-model-traits-articles-revisionutils.html"><abbr title="inc/model/traits/articles/revisionUtils.php">revisionUtils.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">717</span>
+    <span class="phpdocumentor-element-found-in__line">25</span>
 
     </aside>
 
@@ -5299,7 +5813,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">932</span>
+    <span class="phpdocumentor-element-found-in__line">815</span>
 
     </aside>
 
@@ -5339,14 +5853,60 @@
             -public
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method_restoreRevision">
-        restoreRevision()
-        <a href="classes/fpcm-model-articles-article.html#method_restoreRevision" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="method_pushCategories">
+        pushCategories()
+        <a href="classes/fpcm-model-articles-article.html#method_pushCategories" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">831</span>
+    <span class="phpdocumentor-element-found-in__line">762</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">pushCategories</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+    
+    
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">5.1.0-a1</span>
+                                                                                
+                                             
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">bool</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_restoreRevision">
+        restoreRevision()
+        <a href="classes/fpcm-model-traits-articles-revisionUtils.html#method_restoreRevision" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/traits/articles/revisionUtils.php"><a href="files/inc-model-traits-articles-revisionutils.html"><abbr title="inc/model/traits/articles/revisionUtils.php">revisionUtils.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">139</span>
 
     </aside>
 
@@ -5438,7 +5998,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">527</span>
+    <span class="phpdocumentor-element-found-in__line">530</span>
 
     </aside>
 
@@ -5481,7 +6041,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">446</span>
+    <span class="phpdocumentor-element-found-in__line">449</span>
 
     </aside>
 
@@ -5524,7 +6084,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">428</span>
+    <span class="phpdocumentor-element-found-in__line">431</span>
 
     </aside>
 
@@ -5567,7 +6127,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">500</span>
+    <span class="phpdocumentor-element-found-in__line">503</span>
 
     </aside>
 
@@ -5610,7 +6170,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">509</span>
+    <span class="phpdocumentor-element-found-in__line">512</span>
 
     </aside>
 
@@ -5653,7 +6213,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">518</span>
+    <span class="phpdocumentor-element-found-in__line">521</span>
 
     </aside>
 
@@ -5696,7 +6256,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">419</span>
+    <span class="phpdocumentor-element-found-in__line">422</span>
 
     </aside>
 
@@ -5739,7 +6299,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">482</span>
+    <span class="phpdocumentor-element-found-in__line">485</span>
 
     </aside>
 
@@ -5782,7 +6342,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">491</span>
+    <span class="phpdocumentor-element-found-in__line">494</span>
 
     </aside>
 
@@ -5825,7 +6385,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">473</span>
+    <span class="phpdocumentor-element-found-in__line">476</span>
 
     </aside>
 
@@ -5868,7 +6428,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">437</span>
+    <span class="phpdocumentor-element-found-in__line">440</span>
 
     </aside>
 
@@ -5911,7 +6471,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">558</span>
+    <span class="phpdocumentor-element-found-in__line">621</span>
 
     </aside>
 
@@ -5968,7 +6528,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">567</span>
+    <span class="phpdocumentor-element-found-in__line">630</span>
 
     </aside>
 
@@ -6054,7 +6614,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">537</span>
+    <span class="phpdocumentor-element-found-in__line">540</span>
 
     </aside>
 
@@ -6111,7 +6671,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">897</span>
+    <span class="phpdocumentor-element-found-in__line">780</span>
 
     </aside>
 
@@ -6201,7 +6761,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">455</span>
+    <span class="phpdocumentor-element-found-in__line">458</span>
 
     </aside>
 
@@ -6237,6 +6797,63 @@
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_setPinnedUntil">
+        setPinnedUntil()
+        <a href="classes/fpcm-model-articles-article.html#method_setPinnedUntil" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">612</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Set pinned until</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">setPinnedUntil</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$pinnedUntil</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$pinnedUntil</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">5.2.0-b4</span>
+                                                                                
+                                             
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">mixed</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_setPostponed">
         setPostponed()
         <a href="classes/fpcm-model-articles-article.html#method_setPostponed" class="headerlink"><i class="fas fa-link"></i></a>
@@ -6244,7 +6861,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">464</span>
+    <span class="phpdocumentor-element-found-in__line">467</span>
 
     </aside>
 
@@ -6280,6 +6897,63 @@
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_setRelatesTo">
+        setRelatesTo()
+        <a href="classes/fpcm-model-articles-article.html#method_setRelatesTo" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">593</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Set article relation</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">setRelatesTo</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$relatesTo</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$relatesTo</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">5.2.0-a1</span>
+                                                                                
+                                             
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">void</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_setSources">
         setSources()
         <a href="classes/fpcm-model-articles-article.html#method_setSources" class="headerlink"><i class="fas fa-link"></i></a>
@@ -6287,7 +6961,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">548</span>
+    <span class="phpdocumentor-element-found-in__line">551</span>
 
     </aside>
 
@@ -6344,7 +7018,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">410</span>
+    <span class="phpdocumentor-element-found-in__line">413</span>
 
     </aside>
 
@@ -6382,12 +7056,12 @@
 >
     <h4 class="phpdocumentor-element__name" id="method_setTweetOverride">
         setTweetOverride()
-        <a href="classes/fpcm-model-articles-article.html#method_setTweetOverride" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/fpcm-model-traits-articles-twitterUtils.html#method_setTweetOverride" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/traits/articles/twitterUtils.php"><a href="files/inc-model-traits-articles-twitterutils.html"><abbr title="inc/model/traits/articles/twitterUtils.php">twitterUtils.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">587</span>
+    <span class="phpdocumentor-element-found-in__line">97</span>
 
     </aside>
 
@@ -6437,14 +7111,71 @@
             -public
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method_tweetCreationEnabled">
-        tweetCreationEnabled()
-        <a href="classes/fpcm-model-articles-article.html#method_tweetCreationEnabled" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="method_setUrl">
+        setUrl()
+        <a href="classes/fpcm-model-articles-article.html#method_setUrl" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">401</span>
+    <span class="phpdocumentor-element-found-in__line">572</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Get article URL string</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">setUrl</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$url</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$url</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">5.1-dev</span>
+                                                                                
+                                             
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">void</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_tweetCreationEnabled">
+        tweetCreationEnabled()
+        <a href="classes/fpcm-model-traits-articles-twitterUtils.html#method_tweetCreationEnabled" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/traits/articles/twitterUtils.php"><a href="files/inc-model-traits-articles-twitterutils.html"><abbr title="inc/model/traits/articles/twitterUtils.php">twitterUtils.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">40</span>
 
     </aside>
 
@@ -6538,7 +7269,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1179</span>
+    <span class="phpdocumentor-element-found-in__line">903</span>
 
     </aside>
 
@@ -6593,7 +7324,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1192</span>
+    <span class="phpdocumentor-element-found-in__line">917</span>
 
     </aside>
 
@@ -6648,7 +7379,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1168</span>
+    <span class="phpdocumentor-element-found-in__line">892</span>
 
     </aside>
 
@@ -6784,6 +7515,58 @@
         class="phpdocumentor-element
             -method
             -protected
+                                                -final        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getStatusColor">
+        getStatusColor()
+        <a href="classes/fpcm-model-traits-statusIcons.html#method_getStatusColor" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/traits/statusIcons.php"><a href="files/inc-model-traits-statusicons.html"><abbr title="inc/model/traits/statusIcons.php">statusIcons.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">21</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+        <span class="phpdocumentor-signature__final">final</span>            <span class="phpdocumentor-signature__name">getStatusColor</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/fpcm-view-helper-icon.html"><abbr title="\fpcm\view\helper\icon">icon</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$icon</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool|int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$status</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/fpcm-view-helper-icon.html"><abbr title="\fpcm\view\helper\icon">icon</abbr></a></span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$icon</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/fpcm-view-helper-icon.html"><abbr title="\fpcm\view\helper\icon">icon</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$status</span>
+                : <span class="phpdocumentor-signature__argument__return-type">bool|int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type"><a href="classes/fpcm-view-helper-icon.html"><abbr title="\fpcm\view\helper\icon">icon</abbr></a></span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -protected
                                                         "
 >
     <h4 class="phpdocumentor-element__name" id="method_removeBannedTexts">
@@ -6793,7 +7576,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1135</span>
+    <span class="phpdocumentor-element-found-in__line">849</span>
 
     </aside>
 
@@ -6840,7 +7623,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1154</span>
+    <span class="phpdocumentor-element-found-in__line">868</span>
 
     </aside>
 
@@ -6870,6 +7653,49 @@
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">void</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_cleanupUrlString">
+        cleanupUrlString()
+        <a href="classes/fpcm-model-articles-article.html#method_cleanupUrlString" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/articles/article.php"><a href="files/inc-model-articles-article.html"><abbr title="inc/model/articles/article.php">article.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">881</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Cleanup article url string</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+                    <span class="phpdocumentor-signature__name">cleanupUrlString</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$str</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$str</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">string</span>
             &mdash;
         
     

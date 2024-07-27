@@ -480,7 +480,6 @@ class controller implements \fpcm\controller\interfaces\controller {
      * Process click of form items as function
      * @return bool
      * @since 4.4
-     * @todo experimental
      */
     public function processButtons() : bool
     {

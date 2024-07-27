@@ -185,6 +185,9 @@
                             </ul>
         </div>
     
+            <span class="phpdocumentor-element__implements">
+            implements
+                            <a href="classes/fpcm-model-interfaces-gsearchIndex.html"><abbr title="\fpcm\model\interfaces\gsearchIndex">gsearchIndex</abbr></a>                    </span>
     
     </h2>
 
@@ -236,6 +239,18 @@
 
 
 
+<h3 id="interfaces_class_traits">
+    Interfaces, Classes, Traits and Enums
+    <a href="#interfaces_class_traits" class="headerlink"><i class="fas fa-link"></i></a>
+</h3>
+
+<dl class="phpdocumentor-table-of-contents">
+            <dt class="phpdocumentor-table-of-contents__entry -interface"><a href="classes/fpcm-model-interfaces-gsearchIndex.html"><abbr title="\fpcm\model\interfaces\gsearchIndex">gsearchIndex</abbr></a></dt>
+        <dd>FanPress CM Model global search indexer</dd>
+    
+    
+    
+    </dl>
 
 
 <h3 id="toc">
@@ -371,6 +386,13 @@
 <dd>Creates file manager thumbnails</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-model-files-imagelist.html#method_getCountQuery">getCountQuery()</a>
+    <span>
+                                &nbsp;: <a href="classes/fpcm-model-dbal-selectParams.html"><abbr title="\fpcm\model\dbal\selectParams">selectParams</abbr></a>    </span>
+</dt>
+<dd>Get count query string</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/fpcm-model-files-imagelist.html#method_getDatabaseCountByCondition">getDatabaseCountByCondition()</a>
     <span>
                                 &nbsp;: array&lt;string|int, mixed&gt;    </span>
@@ -399,6 +421,20 @@
 <dd>Fetch file index by condition</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-model-files-imagelist.html#method_getElementIcon">getElementIcon()</a>
+    <span>
+                                &nbsp;: <a href="classes/fpcm-view-helper-icon.html"><abbr title="\fpcm\view\helper\icon">icon</abbr></a>    </span>
+</dt>
+<dd>Return link icon</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-model-files-imagelist.html#method_getElementLink">getElementLink()</a>
+    <span>
+                                &nbsp;: string    </span>
+</dt>
+<dd>Return link to element link</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/fpcm-model-files-imagelist.html#method_getFolderList">getFolderList()</a>
     <span>
                                 &nbsp;: array&lt;string|int, mixed&gt;    </span>
@@ -413,11 +449,25 @@
 <dd>Gibt Pfadprefix zurück</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-model-files-imagelist.html#method_getSearchQuery">getSearchQuery()</a>
+    <span>
+                                &nbsp;: <a href="classes/fpcm-model-dbal-selectParams.html"><abbr title="\fpcm\model\dbal\selectParams">selectParams</abbr></a>    </span>
+</dt>
+<dd>Get query string</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/fpcm-model-files-imagelist.html#method_getUploadFolderSize">getUploadFolderSize()</a>
     <span>
                                 &nbsp;: int    </span>
 </dt>
 <dd>Gibt aktuelle Größe des upload-Ordners in byte zurück</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-model-files-imagelist.html#method_prepareText">prepareText()</a>
+    <span>
+                                &nbsp;: string    </span>
+</dt>
+<dd>Prepare result text</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/fpcm-model-abstracts-filelist.html#method_removeBasePath">removeBasePath()</a>
@@ -460,6 +510,13 @@
                                 &nbsp;: bool    </span>
 </dt>
 <dd>Assigns search params from search object to where condition</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a href="classes/fpcm-model-files-imagelist.html#method_getSearchQueryObj">getSearchQueryObj()</a>
+    <span>
+                                &nbsp;: <a href="classes/fpcm-model-dbal-selectParams.html"><abbr title="\fpcm\model\dbal\selectParams">selectParams</abbr></a>    </span>
+</dt>
+<dd>Returns selectParams object instance</dd>
 
         </dl>
 
@@ -960,7 +1017,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/imagelist.php"><a href="files/inc-model-files-imagelist.html"><abbr title="inc/model/files/imagelist.php">imagelist.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">31</span>
+    <span class="phpdocumentor-element-found-in__line">33</span>
 
     </aside>
 
@@ -1007,7 +1064,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/imagelist.php"><a href="files/inc-model-files-imagelist.html"><abbr title="inc/model/files/imagelist.php">imagelist.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">24</span>
+    <span class="phpdocumentor-element-found-in__line">26</span>
 
     </aside>
 
@@ -1058,7 +1115,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/imagelist.php"><a href="files/inc-model-files-imagelist.html"><abbr title="inc/model/files/imagelist.php">imagelist.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">36</span>
+    <span class="phpdocumentor-element-found-in__line">38</span>
 
     </aside>
 
@@ -1124,7 +1181,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/imagelist.php"><a href="files/inc-model-files-imagelist.html"><abbr title="inc/model/files/imagelist.php">imagelist.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">280</span>
+    <span class="phpdocumentor-element-found-in__line">282</span>
 
     </aside>
 
@@ -1167,6 +1224,53 @@
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_getCountQuery">
+        getCountQuery()
+        <a href="classes/fpcm-model-files-imagelist.html#method_getCountQuery" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/imagelist.php"><a href="files/inc-model-files-imagelist.html"><abbr title="inc/model/files/imagelist.php">imagelist.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">434</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Get count query string</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">getCountQuery</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/fpcm-model-dbal-selectParams.html"><abbr title="\fpcm\model\dbal\selectParams">selectParams</abbr></a></span></code>
+
+    
+    
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">5.1-dev</span>
+                                                                                
+                                             
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type"><a href="classes/fpcm-model-dbal-selectParams.html"><abbr title="\fpcm\model\dbal\selectParams">selectParams</abbr></a></span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_getDatabaseCountByCondition">
         getDatabaseCountByCondition()
         <a href="classes/fpcm-model-files-imagelist.html#method_getDatabaseCountByCondition" class="headerlink"><i class="fas fa-link"></i></a>
@@ -1174,7 +1278,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/imagelist.php"><a href="files/inc-model-files-imagelist.html"><abbr title="inc/model/files/imagelist.php">imagelist.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">145</span>
+    <span class="phpdocumentor-element-found-in__line">147</span>
 
     </aside>
 
@@ -1217,7 +1321,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/imagelist.php"><a href="files/inc-model-files-imagelist.html"><abbr title="inc/model/files/imagelist.php">imagelist.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">269</span>
+    <span class="phpdocumentor-element-found-in__line">271</span>
 
     </aside>
 
@@ -1264,7 +1368,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/imagelist.php"><a href="files/inc-model-files-imagelist.html"><abbr title="inc/model/files/imagelist.php">imagelist.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">66</span>
+    <span class="phpdocumentor-element-found-in__line">68</span>
 
     </aside>
 
@@ -1314,7 +1418,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/imagelist.php"><a href="files/inc-model-files-imagelist.html"><abbr title="inc/model/files/imagelist.php">imagelist.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">93</span>
+    <span class="phpdocumentor-element-found-in__line">95</span>
 
     </aside>
 
@@ -1350,6 +1454,111 @@
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_getElementIcon">
+        getElementIcon()
+        <a href="classes/fpcm-model-files-imagelist.html#method_getElementIcon" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/imagelist.php"><a href="files/inc-model-files-imagelist.html"><abbr title="inc/model/files/imagelist.php">imagelist.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">464</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Return link icon</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">getElementIcon</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/fpcm-view-helper-icon.html"><abbr title="\fpcm\view\helper\icon">icon</abbr></a></span></code>
+
+    
+    
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">5.1-dev</span>
+                                                                                
+                                             
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type"><a href="classes/fpcm-view-helper-icon.html"><abbr title="\fpcm\view\helper\icon">icon</abbr></a></span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getElementLink">
+        getElementLink()
+        <a href="classes/fpcm-model-files-imagelist.html#method_getElementLink" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/imagelist.php"><a href="files/inc-model-files-imagelist.html"><abbr title="inc/model/files/imagelist.php">imagelist.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">453</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Return link to element link</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">getElementLink</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$filename</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$filename</span>
+                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">5.1-dev</span>
+                                                                                
+                                             
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">string</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_getFolderList">
         getFolderList()
         <a href="classes/fpcm-model-files-imagelist.html#method_getFolderList" class="headerlink"><i class="fas fa-link"></i></a>
@@ -1357,7 +1566,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/imagelist.php"><a href="files/inc-model-files-imagelist.html"><abbr title="inc/model/files/imagelist.php">imagelist.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">49</span>
+    <span class="phpdocumentor-element-found-in__line">51</span>
 
     </aside>
 
@@ -1416,6 +1625,39 @@
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_getSearchQuery">
+        getSearchQuery()
+        <a href="classes/fpcm-model-files-imagelist.html#method_getSearchQuery" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/imagelist.php"><a href="files/inc-model-files-imagelist.html"><abbr title="inc/model/files/imagelist.php">imagelist.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">443</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Get query string</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">getSearchQuery</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/fpcm-model-dbal-selectParams.html"><abbr title="\fpcm\model\dbal\selectParams">selectParams</abbr></a></span></code>
+
+    
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type"><a href="classes/fpcm-model-dbal-selectParams.html"><abbr title="\fpcm\model\dbal\selectParams">selectParams</abbr></a></span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_getUploadFolderSize">
         getUploadFolderSize()
         <a href="classes/fpcm-model-files-imagelist.html#method_getUploadFolderSize" class="headerlink"><i class="fas fa-link"></i></a>
@@ -1423,7 +1665,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/imagelist.php"><a href="files/inc-model-files-imagelist.html"><abbr title="inc/model/files/imagelist.php">imagelist.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">357</span>
+    <span class="phpdocumentor-element-found-in__line">353</span>
 
     </aside>
 
@@ -1439,6 +1681,49 @@
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">int</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_prepareText">
+        prepareText()
+        <a href="classes/fpcm-model-files-imagelist.html#method_prepareText" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/imagelist.php"><a href="files/inc-model-files-imagelist.html"><abbr title="inc/model/files/imagelist.php">imagelist.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">484</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Prepare result text</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">prepareText</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$text</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$text</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">string</span>
             &mdash;
         
     
@@ -1542,7 +1827,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/imagelist.php"><a href="files/inc-model-files-imagelist.html"><abbr title="inc/model/files/imagelist.php">imagelist.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">170</span>
+    <span class="phpdocumentor-element-found-in__line">172</span>
 
     </aside>
 
@@ -1585,7 +1870,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/imagelist.php"><a href="files/inc-model-files-imagelist.html"><abbr title="inc/model/files/imagelist.php">imagelist.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">232</span>
+    <span class="phpdocumentor-element-found-in__line">234</span>
 
     </aside>
 
@@ -1642,7 +1927,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/imagelist.php"><a href="files/inc-model-files-imagelist.html"><abbr title="inc/model/files/imagelist.php">imagelist.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">406</span>
+    <span class="phpdocumentor-element-found-in__line">402</span>
 
     </aside>
 
@@ -1706,7 +1991,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/imagelist.php"><a href="files/inc-model-files-imagelist.html"><abbr title="inc/model/files/imagelist.php">imagelist.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">376</span>
+    <span class="phpdocumentor-element-found-in__line">372</span>
 
     </aside>
 
@@ -1767,6 +2052,53 @@
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">bool</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getSearchQueryObj">
+        getSearchQueryObj()
+        <a href="classes/fpcm-model-files-imagelist.html#method_getSearchQueryObj" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/imagelist.php"><a href="files/inc-model-files-imagelist.html"><abbr title="inc/model/files/imagelist.php">imagelist.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">474</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Returns selectParams object instance</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+                    <span class="phpdocumentor-signature__name">getSearchQueryObj</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/fpcm-model-dbal-selectParams.html"><abbr title="\fpcm\model\dbal\selectParams">selectParams</abbr></a></span></code>
+
+    
+    
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">5.1-dev</span>
+                                                                                
+                                             
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type"><a href="classes/fpcm-model-dbal-selectParams.html"><abbr title="\fpcm\model\dbal\selectParams">selectParams</abbr></a></span>
             &mdash;
         
     

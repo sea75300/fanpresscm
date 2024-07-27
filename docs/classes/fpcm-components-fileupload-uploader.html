@@ -185,6 +185,9 @@
                             </ul>
         </div>
     
+            <span class="phpdocumentor-element__implements">
+            implements
+                            <a href="classes/fpcm-model-interfaces-JsModuleFiles.html"><abbr title="\fpcm\model\interfaces\JsModuleFiles">JsModuleFiles</abbr></a>,                             <a href="classes/fpcm-model-interfaces-viewComponent.html"><abbr title="\fpcm\model\interfaces\viewComponent">viewComponent</abbr></a>                    </span>
     
     </h2>
 
@@ -218,7 +221,7 @@
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>(c) 2020, Stefan Seehafer</p>
+                                                 <section class="phpdocumentor-description"><p>(c) 2020-2023, Stefan Seehafer</p>
 </section>
 
                                     </dd>
@@ -244,6 +247,20 @@
 
 
 
+<h3 id="interfaces_class_traits">
+    Interfaces, Classes, Traits and Enums
+    <a href="#interfaces_class_traits" class="headerlink"><i class="fas fa-link"></i></a>
+</h3>
+
+<dl class="phpdocumentor-table-of-contents">
+            <dt class="phpdocumentor-table-of-contents__entry -interface"><a href="classes/fpcm-model-interfaces-JsModuleFiles.html"><abbr title="\fpcm\model\interfaces\JsModuleFiles">JsModuleFiles</abbr></a></dt>
+        <dd>JavaScript ECMA module files interface</dd>
+            <dt class="phpdocumentor-table-of-contents__entry -interface"><a href="classes/fpcm-model-interfaces-viewComponent.html"><abbr title="\fpcm\model\interfaces\viewComponent">viewComponent</abbr></a></dt>
+        <dd>View component interface</dd>
+    
+    
+    
+    </dl>
 
 
 <h3 id="toc">
@@ -363,6 +380,13 @@
                                 &nbsp;: array&lt;string|int, mixed&gt;    </span>
 </dt>
 <dd>Returns JavaScript language variables for uploader</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-components-fileupload-uploader.html#method_getJsModuleFiles">getJsModuleFiles()</a>
+    <span>
+                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+</dt>
+<dd>Returns list of JavaScript ECMA module files</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/fpcm-components-fileupload-uploader.html#method_getJsVars">getJsVars()</a>
@@ -865,7 +889,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/components/fileupload/uploader.php"><a href="files/inc-components-fileupload-uploader.html"><abbr title="inc/components/fileupload/uploader.php">uploader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">37</span>
+    <span class="phpdocumentor-element-found-in__line">39</span>
 
     </aside>
 
@@ -898,7 +922,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/components/fileupload/uploader.php"><a href="files/inc-components-fileupload-uploader.html"><abbr title="inc/components/fileupload/uploader.php">uploader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">25</span>
+    <span class="phpdocumentor-element-found-in__line">27</span>
 
     </aside>
 
@@ -931,7 +955,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/components/fileupload/uploader.php"><a href="files/inc-components-fileupload-uploader.html"><abbr title="inc/components/fileupload/uploader.php">uploader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">31</span>
+    <span class="phpdocumentor-element-found-in__line">33</span>
 
     </aside>
 
@@ -964,7 +988,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/components/fileupload/uploader.php"><a href="files/inc-components-fileupload-uploader.html"><abbr title="inc/components/fileupload/uploader.php">uploader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">49</span>
+    <span class="phpdocumentor-element-found-in__line">51</span>
 
     </aside>
 
@@ -990,6 +1014,53 @@
             -public
                         -abstract                                "
 >
+    <h4 class="phpdocumentor-element__name" id="method_getJsModuleFiles">
+        getJsModuleFiles()
+        <a href="classes/fpcm-components-fileupload-uploader.html#method_getJsModuleFiles" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/components/fileupload/uploader.php"><a href="files/inc-components-fileupload-uploader.html"><abbr title="inc/components/fileupload/uploader.php">uploader.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">70</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Returns list of JavaScript ECMA module files</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+    <span class="phpdocumentor-signature__abstract">abstract</span>                <span class="phpdocumentor-signature__name">getJsModuleFiles</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+
+    
+    
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">5.2</span>
+                                                                                
+                                             
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                        -abstract                                "
+>
     <h4 class="phpdocumentor-element__name" id="method_getJsVars">
         getJsVars()
         <a href="classes/fpcm-components-fileupload-uploader.html#method_getJsVars" class="headerlink"><i class="fas fa-link"></i></a>
@@ -997,7 +1068,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/components/fileupload/uploader.php"><a href="files/inc-components-fileupload-uploader.html"><abbr title="inc/components/fileupload/uploader.php">uploader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">43</span>
+    <span class="phpdocumentor-element-found-in__line">45</span>
 
     </aside>
 
@@ -1030,7 +1101,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/components/fileupload/uploader.php"><a href="files/inc-components-fileupload-uploader.html"><abbr title="inc/components/fileupload/uploader.php">uploader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">61</span>
+    <span class="phpdocumentor-element-found-in__line">63</span>
 
     </aside>
 
@@ -1063,7 +1134,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/components/fileupload/uploader.php"><a href="files/inc-components-fileupload-uploader.html"><abbr title="inc/components/fileupload/uploader.php">uploader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">55</span>
+    <span class="phpdocumentor-element-found-in__line">57</span>
 
     </aside>
 
