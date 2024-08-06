@@ -171,5 +171,3 @@ class clearTrash extends \fpcm\controller\abstracts\ajaxController
     }
 
 }
-
-?>

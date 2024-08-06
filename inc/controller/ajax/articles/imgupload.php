@@ -61,5 +61,3 @@ class imgupload extends \fpcm\controller\abstracts\ajaxController
     }
 
 }
-
-?>

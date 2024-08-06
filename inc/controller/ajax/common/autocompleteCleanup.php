@@ -80,5 +80,3 @@ class autocompleteCleanup extends \fpcm\controller\abstracts\ajaxController
     }
 
 }
-
-?>

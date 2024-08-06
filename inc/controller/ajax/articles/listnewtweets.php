@@ -124,5 +124,3 @@ class listnewtweets extends \fpcm\controller\abstracts\ajaxController
     }
 
 }
-
-?>

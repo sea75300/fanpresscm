@@ -76,5 +76,3 @@ class massedit extends \fpcm\controller\abstracts\ajaxController
     }
 
 }
-
-?>

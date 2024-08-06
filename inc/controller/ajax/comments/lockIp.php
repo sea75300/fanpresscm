@@ -68,5 +68,3 @@ class lockIp extends \fpcm\controller\abstracts\ajaxController
     }
 
 }
-
-?>

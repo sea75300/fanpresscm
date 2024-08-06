@@ -36,5 +36,3 @@ class removeeditortags extends \fpcm\controller\abstracts\ajaxController
     }
 
 }
-
-?>
