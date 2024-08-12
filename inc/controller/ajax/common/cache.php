@@ -109,5 +109,3 @@ class cache extends \fpcm\controller\abstracts\ajaxController
     }
 
 }
-
-?>

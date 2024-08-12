@@ -111,5 +111,3 @@ class search extends \fpcm\controller\abstracts\ajaxController
     }
 
 }
-
-?>

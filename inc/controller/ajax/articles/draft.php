@@ -40,5 +40,3 @@ class draft extends \fpcm\controller\abstracts\ajaxController
     }
 
 }
-
-?>

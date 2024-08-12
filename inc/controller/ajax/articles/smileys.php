@@ -51,5 +51,3 @@ class smileys extends \fpcm\controller\abstracts\ajaxController
     }
 
 }
-
-?>
