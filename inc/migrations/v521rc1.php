@@ -97,6 +97,7 @@ class v521rc1 extends migration {
                 return unlink($f);
             }, $diff);            
 
+            return true;
         }
 
     }
@@ -107,7 +108,8 @@ class v521rc1 extends migration {
      */
     protected function getNewVersion() : string
     {
-        return '5.2.1-rc1';
+        return parent::getNewVersion();
+        //return '5.2.1-rc1';
     }
 
 }
