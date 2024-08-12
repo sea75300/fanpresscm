@@ -155,5 +155,3 @@ class initdb extends \fpcm\controller\abstracts\ajaxController {
     }
 
 }
-
-?>

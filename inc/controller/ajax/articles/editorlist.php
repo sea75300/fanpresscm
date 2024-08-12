@@ -231,5 +231,3 @@ class editorlist extends \fpcm\controller\abstracts\ajaxController
     }
 
 }
-
-?>

@@ -84,5 +84,3 @@ class checkdb extends \fpcm\controller\abstracts\ajaxController {
     }
 
 }
-
-?>

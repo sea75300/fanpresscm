@@ -90,10 +90,10 @@ class v521rc1 extends migration {
 
             array_map(function ($f) {
                 
-                if ( !file_exists($f) ) {
+                if ( !file_exists($f) || !is_writable($f) ) {
                     return false;
                 }
-                
+
                 return unlink($f);
             }, $diff);            
 
