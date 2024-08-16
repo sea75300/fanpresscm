@@ -108,8 +108,7 @@ class v521rc1 extends migration {
      */
     protected function getNewVersion() : string
     {
-        return parent::getNewVersion();
-        //return '5.2.1-rc1';
+        return '5.2.1-rc1';
     }
 
 }
