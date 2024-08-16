@@ -512,7 +512,7 @@ class module {
     final public function getTableObject(string $tableName) : null|\fpcm\model\system\yatdl
     {
         $filePath = $this->getConfigPathFromCurrent('tables' . DIRECTORY_SEPARATOR . $tableName . '.yml');
-        if (!file_exists($t)) {
+        if (!file_exists($filePath)) {
             return null;
         }
 

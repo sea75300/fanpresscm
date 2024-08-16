@@ -105,7 +105,7 @@ class base extends \fpcm\controller\abstracts\controller
         $updater = (new \fpcm\model\updater\modules())->getDataCachedByKey($this->key);
         $this->steps['pkgKey'] = $this->key;
         $this->steps['pkgurl'] = $updater['packageUrl'] ?? '';
-        $this->steps['pkgname'] = $updater['packageUrl'] ? basename($updater['packageUrl']) : '';
+        $this->steps['pkgname'] = isset($updater['packageUrl']) ? basename($updater['packageUrl']) : '';
         $this->steps['pkgsize'] = isset($updater->size) && $updater->size ? '(' . \fpcm\classes\tools::calcSize($updater->size) . ')' : '';
 
         $this->view->setViewVars($this->steps);
