@@ -1186,7 +1186,18 @@ class module {
         });
 
         $migrations = array_filter($migrations, function ($class) {
-            return class_exists($class) && is_subclass_of($class, '\\fpcm\\module\\migration');
+            
+            if (!class_exists($class)) {
+                trigger_error(sprintf('Class not found %s', $class), E_USER_ERROR);
+                return false;
+            }
+            
+            if (!is_subclass_of($class, '\\fpcm\\module\\migration')) {
+                trigger_error(sprintf('Class %s must be an instance of \\fpcm\\module\\migration', $class), E_USER_ERROR);
+                return false;
+            }
+            
+            return true;
         });
 
         if (!count($migrations)) {
@@ -1341,6 +1352,10 @@ class module {
      */
     public static function getMigrationNamespace(string $key, string $migration) : string
     {
+        if (str_ends_with($migration, '.php')) {
+            $migration = basename($migration, '.php');
+        }
+        
         return "\\fpcm\\modules\\" . str_replace('/', '\\', $key) . "\\migrations\\{$migration}";
     }
 
