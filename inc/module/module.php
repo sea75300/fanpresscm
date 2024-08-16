@@ -9,7 +9,7 @@ namespace fpcm\module;
 
 /**
  * Module base model
- * 
+ *
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
@@ -232,7 +232,7 @@ class module {
     }
 
     /**
-     * 
+     *
      * @return paths
      * @since 5.0.0-b1
      */
@@ -259,7 +259,7 @@ class module {
      * Fetch system config options
      * @return array
      */
-    
+
     /**
      * Updates module options
      * @param array $options
@@ -271,11 +271,11 @@ class module {
 
         $this->systemConfig->setNewConfig($options);
         $res = $this->systemConfig->update();
-        
+
         if (!$res) {
             return false;
         }
-        
+
         $this->systemConfig->init();
         $this->cache->cleanup();
 
@@ -356,10 +356,10 @@ class module {
         if (defined('FPCM_MODULE_IGNORE_DEPENDENCIES') && FPCM_MODULE_IGNORE_DEPENDENCIES) {
             return true;
         }
-        
+
         $phpVersion = '';
         $sysVersion = '';
-        
+
         $this->getVersionStrings($phpVersion, $sysVersion);
         if (version_compare(PHP_VERSION, $phpVersion, '<')) {
             return false;
@@ -382,7 +382,7 @@ class module {
         if ($data === false) {
             return false;
         }
-        
+
         $phpVersion = '';
         $sysVersion = '';
 
@@ -411,9 +411,9 @@ class module {
 
         return version_compare((new config($this->mkey, null))->version, $this->config->version, '=') ? false : true;
     }
-    
+
     /**
-     * 
+     *
      * Check if configure action should be displayed
      * @return bool
      */
@@ -463,7 +463,7 @@ class module {
      */
     final public function getMigrations() : array
     {
-        $files = glob( $this->getConfigPathFromCurrent('migrations' . DIRECTORY_SEPARATOR . 'v*.php') );
+        $files = glob( $this->config->basePath . DIRECTORY_SEPARATOR . 'migrations' . DIRECTORY_SEPARATOR . 'v*.php' );
         if (!is_array($files) && !count($files)) {
             return [];
         }
@@ -498,9 +498,25 @@ class module {
      * @param string $key
      * @return string
      */
-    public function getFullPrefix($key = '') : string
+    final public function getFullPrefix($key = '') : string
     {
         return 'module_' . $this->prefix . '_' . $key;
+    }
+
+    /**
+     *
+     * @param string $tableName
+     * @return null|\fpcm\model\system\yatdl
+     * @since 5.2.1-rc2
+     */
+    final public function getTableObject(string $tableName) : null|\fpcm\model\system\yatdl
+    {
+        $filePath = $this->getConfigPathFromCurrent('tables' . DIRECTORY_SEPARATOR . $tableName . '.yml');
+        if (!file_exists($t)) {
+            return null;
+        }
+
+        return $this->getYaTdlObject($filePath);
     }
 
     /**
@@ -509,7 +525,7 @@ class module {
      * @return string
      * @since 4.5-rc3
      */
-    private function getConfigPathFromCurrent(string $dest) : string
+    final public function getConfigPathFromCurrent(string $dest) : string
     {
         return rtrim($this->config->basePath, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . $dest;
     }
@@ -587,7 +603,7 @@ class module {
             $configOptions = $this->config->configOptions;
             return is_array($configOptions) && count($configOptions) ? $configOptions : [];
         }
-        
+
         $configOptions = array_unique(array_merge($addcfg, $delcfg));
         if (!count($configOptions)) {
             return [];
@@ -662,7 +678,7 @@ class module {
             return false;
         }
 
-        $this->cache->cleanup();        
+        $this->cache->cleanup();
         return true;
     }
 
@@ -726,9 +742,9 @@ class module {
         if (!count($configOptions)) {
             return true;
         }
-        
+
         fpcmLogSystem('Add modules config options for ' . $this->mkey);
-        
+
         $sysConfig = new \fpcm\model\system\config(false);
         foreach ($configOptions as $key => $value) {
             $key = $this->getFullPrefix($key);
@@ -748,12 +764,12 @@ class module {
     private function installUpdateCronjobs() : bool
     {
         fpcmLogSystem('Add modules cronjobs for ' . $this->mkey);
-        
+
         $crons = $this->config->crons;
         if (!is_array($crons) || !count($crons)) {
             return true;
         }
-        
+
         $cronjobs = $this->db->selectFetch(
             (new \fpcm\model\dbal\selectParams(\fpcm\classes\database::tableCronjobs))
                 ->setItem('id, cjname')
@@ -762,15 +778,15 @@ class module {
                 ->setFetchStyle(\PDO::FETCH_KEY_PAIR)
                 ->setFetchAll(true)
         );
-        
+
         if (!is_array($cronjobs)) {
             $cronjobs = [];
         }
 
         $failed = [];
         foreach ($crons as $name => $interval) {
-            
-            
+
+
             $className = self::getCronNamespace($this->mkey, $name);
             if (!class_exists($className)) {
                 trigger_error("Unable to add cronjob, class {$className} does not exists!");
@@ -801,9 +817,9 @@ class module {
 
         return true;
     }
-    
+
     /**
-     * 
+     *
      * Uninstall module
      * @param bool $delete
      * @param bool $keepFiles
@@ -920,7 +936,7 @@ class module {
     private function removeCronjobs() : bool
     {
         fpcmLogSystem('Remove modules cronjobs for ' . $this->mkey);
-        
+
         $crons = $this->config->crons;
         if (!is_array($crons) || !count($crons)) {
             fpcmLogSystem('No cronjobs for ' . $this->mkey);
@@ -998,9 +1014,9 @@ class module {
             fpcmLogSystem('Module data path folder aready exists: ' . $this->getDataPath());
             return true;
         }
-        
+
         fpcmLogSystem('Create module data path ' . $this->mkey . ' : ' . $this->getDataPath());
-        
+
         if (mkdir($this->getDataPath())) {
             return true;
         }
@@ -1025,9 +1041,9 @@ class module {
             fpcmLogSystem('No data folder for ' . $this->mkey);
             return true;
         }
-        
+
         fpcmLogSystem('Remove module data path ' . $this->mkey . ' : ' . $this->getDataPath());
-        
+
         if (\fpcm\model\files\ops::deleteRecursive($this->getDataPath())) {
             fpcmLogSystem('Data folder removed for ' . $this->mkey);
             return true;
@@ -1161,7 +1177,7 @@ class module {
         $migrations = $this->getMigrations();
         if (!count($migrations)) {
             return true;
-        }        
+        }
 
         fpcmLogSystem("Processing module migrations for {$this->mkey}...");
 
@@ -1170,7 +1186,18 @@ class module {
         });
 
         $migrations = array_filter($migrations, function ($class) {
-            return class_exists($class) && is_subclass_of($class, '\\fpcm\\module\\migration');
+            
+            if (!class_exists($class)) {
+                trigger_error(sprintf('Class not found %s', $class), E_USER_ERROR);
+                return false;
+            }
+            
+            if (!is_subclass_of($class, '\\fpcm\\module\\migration')) {
+                trigger_error(sprintf('Class %s must be an instance of \\fpcm\\module\\migration', $class), E_USER_ERROR);
+                return false;
+            }
+            
+            return true;
         });
 
         if (!count($migrations)) {
@@ -1199,7 +1226,7 @@ class module {
             $this->output('Processing of migration '. get_class($migration).' failed!.');
             return false;
         }
-        
+
         return true;
     }
 
@@ -1222,7 +1249,7 @@ class module {
         }
 
         $phpRelease = \fpcm\classes\tools::getMajorMinorReleaseFromString(PHP_VERSION);
-        $phpVersion = is_array($data['php']) && 
+        $phpVersion = is_array($data['php']) &&
                       $data['php'][$phpRelease]
 
                     ? $data['php'][$phpRelease]
@@ -1264,7 +1291,7 @@ class module {
             return $filename;
         }
 
-        list($vendor, $key) = explode('_', $raw, 2); 
+        list($vendor, $key) = explode('_', $raw, 2);
         return $vendor . '/' . $key;
     }
 
@@ -1325,6 +1352,10 @@ class module {
      */
     public static function getMigrationNamespace(string $key, string $migration) : string
     {
+        if (str_ends_with($migration, '.php')) {
+            $migration = basename($migration, '.php');
+        }
+        
         return "\\fpcm\\modules\\" . str_replace('/', '\\', $key) . "\\migrations\\{$migration}";
     }
 
@@ -1431,7 +1462,7 @@ class module {
             return false;
         }
 
-        return isset($match[0]);        
+        return isset($match[0]);
     }
 
 }
