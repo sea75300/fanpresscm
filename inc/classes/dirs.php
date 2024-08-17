@@ -66,7 +66,12 @@ final class dirs {
      */
     private static function initUrls()
     {
-        $GLOBALS['fpcm']['urls']['base'] = baseconfig::isCli() ? 'localhost' :  ( (baseconfig::canHttps() ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . '/' ) ;
+        if (defined('FPCM_URLS_BASE') && trim(FPCM_URLS_BASE)) {
+            $GLOBALS['fpcm']['urls']['base'] = baseconfig::isCli() ? 'localhost' :  FPCM_URLS_BASE;
+        }
+        else {
+            $GLOBALS['fpcm']['urls']['base'] = baseconfig::isCli() ? 'localhost' :  ( (baseconfig::canHttps() ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . '/' ) ;
+        }
 
         $base = basename($GLOBALS['fpcm']['dir']['base']);
         if (strpos($GLOBALS['fpcm']['urls']['base'], $base) === false) {

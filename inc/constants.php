@@ -301,4 +301,11 @@ if (!defined('FPCM_IMAGE_PROCESSOR_NEW')) {
     define('FPCM_IMAGE_PROCESSOR_NEW', true);
 }
 
+//if (!defined('FPCM_URLS_BASE')) {
 
+    /**
+     * Set base URL for FanPress CM in case automatic retrieval does not work propperly
+     * @since 5.2.1-rc3
+     */
+//    define('FPCM_IMAGE_PROCESSOR_NEW', '');
+//}

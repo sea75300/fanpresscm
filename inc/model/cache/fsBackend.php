@@ -273,7 +273,18 @@ class fsBackend implements \fpcm\model\interfaces\cacheBackend {
             return true;
         }
         
-        array_map('unlink', $cacheFiles);
+        array_map(function ($f) {
+
+            if (unlink($f)) {
+                return true;
+            }
+            
+            trigger_error(sprintf("Failed to unlink cache file %s!", $f));
+            return false;
+            
+        }, $cacheFiles);
+        
+        fpcmLogSystem(sprintf('Cache cleanup %s finished.', $cacheName));
         return true;
     }
 
