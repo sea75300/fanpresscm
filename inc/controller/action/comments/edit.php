@@ -184,6 +184,7 @@ implements \fpcm\controller\interfaces\requestFunctions
             if ($article->exists()) {
 
                 $showArticleIdField = false;
+                $existsAlert = false;
 
                 if ($article->getEditPermission()) {
                     $buttons[] = (new \fpcm\view\helper\editButton('editArticle'))->setUrlbyObject($article)->setText('COMMENTS_EDITARTICLE')->setIcon('book');
@@ -193,11 +194,12 @@ implements \fpcm\controller\interfaces\requestFunctions
             }
             else {
                 $showArticleIdField = true;
-                $this->view->addErrorMessage('LOAD_FAILED_COMMENT_ARTICLE');
+                $existsAlert = true;
             }
         }
 
         $this->view->assign('showArticleIdField', $showArticleIdField && $this->permissions->comment->move);
+        $this->view->assign('existsAlert', $existsAlert);
 
         $buttons[] = (new \fpcm\view\helper\linkButton('whoisIp'))
                 ->setUrl("http://www.whois.com/whois/{$this->comment->getIpaddress()}")
