@@ -35,7 +35,7 @@
                     ->setValue($comment->getWebsite())
                     ->setType('url')
                     ->setIcon('home')
-                    ->setSize('lg'); ?>                
+                    ->setSize('lg'); ?>
             </div>
 
             <div class="row g-0">
@@ -45,7 +45,7 @@
                     ->setLabelTypeFloat()
                     ->setValue($comment->getIpaddress())
                     ->setIcon('network-wired')
-                    ->setSize('lg'); ?>                
+                    ->setSize('lg'); ?>
             </div>
 
             <div class="row g-0 <?php if($commentsMode === 2 || !$showArticleIdField) : ?>d-none<?php endif; ?>">
@@ -57,7 +57,13 @@
                     ->setMaxlenght(20)
                     ->setIcon('clipboard')
                     ->setSize('lg')
-                    ->setClass('fpcm-ui-input-articleid'); ?>                
+                    ->setClass('fpcm-ui-input-articleid'); ?>
+                
+                <?php if ($existsAlert) : ?>
+                <div class="d-block">
+                    <?php $theView->alert('danger')->setText('LOAD_FAILED_COMMENT_ARTICLE'); ?>                    
+                </div>
+                <?php endif; ?>
             </div>
 
 
@@ -77,7 +83,7 @@
                 <div class="list-group-item">
                     <?php $theView->checkbox('comment[private]', 'private')->setReadonly(!$theView->permissions->comment->private)->setText('COMMMENT_PRIVATE')->setSelected($comment->getPrivate())->setSwitch(true); ?>
                 </div>
-            </div>            
+            </div>
         </div>
     </div>
 </fieldset>
@@ -89,7 +95,7 @@
 
     <div class="row g-0 my-2 fpcm-ui-font-small">
         <div class="col-12 col-md-6">
-            
+
             <div class="row mb-1 row-cols-2">
                 <div class="col">
                     <?php $theView->icon('calendar')->setSize('lg'); ?>
@@ -99,10 +105,10 @@
                     <?php $theView->dateText($comment->getCreatetime()); ?>
                 </div>
             </div>
-            
+
             <div class="row mb-1 row-cols-2">
                 <div class="col">
-                    <?php $theView->icon('clock', 'far')->setSize('lg'); ?> 
+                    <?php $theView->icon('clock', 'far')->setSize('lg'); ?>
                     <strong><?php $theView->write('GLOBAL_LASTCHANGE'); ?>:</strong>
                 </div>
                 <div class="col">
