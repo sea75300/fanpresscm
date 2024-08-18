@@ -9,7 +9,7 @@ namespace fpcm\classes;
 
 /**
  * Directory base config
- * 
+ *
  * @package fpcm\classes\baseconfig
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2022, Stefan Seehafer
@@ -66,16 +66,34 @@ final class dirs {
      */
     private static function initUrls()
     {
-        if (defined('FPCM_URLS_BASE') && trim(FPCM_URLS_BASE)) {
-            $GLOBALS['fpcm']['urls']['base'] = baseconfig::isCli() ? 'localhost' :  FPCM_URLS_BASE;
+        $isCli = baseconfig::isCli();
+
+        if ($isCli) {
+            $GLOBALS['fpcm']['urls']['base'] = 'localhost';
+        }
+        elseif (defined('FPCM_URLS_BASE') && trim(FPCM_URLS_BASE)) {
+            $GLOBALS['fpcm']['urls']['base'] = FPCM_URLS_BASE;
         }
         else {
-            $GLOBALS['fpcm']['urls']['base'] = baseconfig::isCli() ? 'localhost' :  ( (baseconfig::canHttps() ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . '/' ) ;
+            $GLOBALS['fpcm']['urls']['base'] = sprintf(
+                "%s://%s/%s/",
+                baseconfig::canHttps() ? 'https' : 'http',
+                $_SERVER['HTTP_HOST'],
+                trim(dirname($_SERVER['PHP_SELF']), '/')
+            );
         }
+        
+        $fpcmBase = basename($GLOBALS['fpcm']['dir']['base']);
 
-        $base = basename($GLOBALS['fpcm']['dir']['base']);
-        if (strpos($GLOBALS['fpcm']['urls']['base'], $base) === false) {
-            $GLOBALS['fpcm']['urls']['base'] = $GLOBALS['fpcm']['urls']['base'] . $base . '/';
+        if ($isCli) {
+            $GLOBALS['fpcm']['urls']['base'] .= '/' . $fpcmBase . '/';
+        }
+        else {
+            $parsed = parse_url($GLOBALS['fpcm']['urls']['base']);
+
+            if ($parsed['path'] !== $fpcmBase) {
+                $GLOBALS['fpcm']['urls']['base'] = sprintf("%s://%s/%s/", $parsed['scheme'], $parsed['host'], $fpcmBase);
+            }
         }
 
         $GLOBALS['fpcm']['urls']['data'] = $GLOBALS['fpcm']['urls']['base'] . 'data/';
@@ -184,7 +202,7 @@ final class dirs {
         if (!isset($GLOBALS['fpcm']['url']['ecma'])) {
             $GLOBALS['fpcm']['url']['ecma'] = dirs::getRootUrl('modules');
         }
-     
+
         return $GLOBALS['fpcm']['url']['ecma'];
     }
 
