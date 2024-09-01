@@ -1,8 +1,14 @@
 <?php /* @var $theView fpcm\view\viewVars */ ?>
+<div class="row text-bg-primary py-1 fpcm ui-dataview-head">
+    <div class="text-center text-md-start align-self-center py-0 py-md-1 col">
+        <?php $theView->write('LOGS_LIST_TEXT'); ?>
+    </div>
+</div>
+
 <?php if (!count($items)) : ?>
 <p class="p-3 border-1 border-bottom border-secondary"><?php $theView->icon('copy', 'far')->setSize('lg')->setStack('ban text-danger')->setStackTop(true); ?> <?php $theView->write('GLOBAL_NOTFOUND2'); ?></p>
 <?php else : ?>
-<?php 
+<?php
 
     $items = array_filter($items, function ($value) {
         return is_object($value) && is_array($value->text);

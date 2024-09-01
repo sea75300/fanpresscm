@@ -155,7 +155,14 @@ final class logfile extends \fpcm\model\abstracts\file {
     public function search(array $elements, string $term) : array
     {
         return array_filter($elements, function($line) use ($term) {
-            return str_contains($line->text, $term);
+            
+            $text = $line->text;
+            
+            if (is_array($text)) {
+                $text = implode(' ', $text);
+            }
+            
+            return str_contains($text, $term);
         });
     }
 
