@@ -10,7 +10,7 @@ namespace fpcm\controller\action\articles\article;
 /**
  * Article controller base
  * @article Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2022, Stefan Seehafer
+ * @copyright (c) 2011-2024, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 abstract class base extends \fpcm\controller\abstracts\controller
@@ -470,6 +470,36 @@ implements \fpcm\controller\interfaces\requestFunctions
         \fpcm\model\articles\article::addSourcesAutocomplete($this->article->getSources());
 
         $this->onArticleSaveAfterSuccess((int) $res);
+        return true;
+    }
+
+    /**
+     * Run copy button action
+     * @return bool
+     */
+    protected function onArticleCopy() : bool
+    {
+        if (!$this->checkPageToken()) {
+            $this->view->addErrorMessage('CSRF_INVALID');
+            return true;
+        }
+
+        if (!$this->article->getId() || !$this->permissions->article->add) {
+            $this->view->addErrorMessage('SAVE_FAILED_ARTICLE');
+            return false;
+        }
+
+        $newId = $this->article->copy();
+        if (!$newId) {
+            $this->view->addErrorMessage('SAVE_FAILED_ARTICLE');
+            return false;
+        }
+
+        $this->redirect('articles/edit', [
+            'id' => $newId,
+            'added' => $this->permissions->article->approve ? 2 : 1
+        ]);
+
         return true;
     }
 

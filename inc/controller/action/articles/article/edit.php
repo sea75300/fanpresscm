@@ -10,7 +10,7 @@ namespace fpcm\controller\action\articles\article;
 /**
  * Article edit controller
  * @article Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2022, Stefan Seehafer
+ * @copyright (c) 2011-2024, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 class edit extends base {
@@ -307,6 +307,18 @@ class edit extends base {
                     'article' => $this->article->getId()
                 ])
         ]);
+
+        if ($this->article->getId() && $this->permissions->article->add) {
+
+            $this->view->addButton(
+                (new \fpcm\view\helper\submitButton('articleCopy'))
+                    ->setClass( $this->getToolbarButtonToggleClass(1, '', true) )
+                    ->setReadonly($this->article->isInEdit())
+                    ->setIcon('copy')->setIconOnly()
+                    ->setText('GLOBAL_COPY')
+            );
+
+        }
 
         if ($this->article->getImagepath()) {
             $this->view->addButton((new \fpcm\view\helper\linkButton('articleimg'))

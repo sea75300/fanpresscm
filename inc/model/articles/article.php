@@ -856,7 +856,7 @@ implements
 
         /* @var $copy article */
         $copy = new $cn();
-        $copy->setTitle($this->language->translate('GLOBAL_COPY_OF', [$this->title]));
+        $copy->setTitle($this->language->translate('GLOBAL_COPY_OF', [$this->title], true));
         $copy->setContent($this->content);
         $copy->setApproval($this->approval);
         $copy->setArchived($this->archived);
@@ -864,12 +864,12 @@ implements
         $copy->setPinnedUntil($this->pinned_until);
         $copy->setPostponed($this->postponed);
         $copy->setComments($this->comments);
-        $copy->setCategories($this->categories);
+        $copy->setCategories($this->getCategories());
         $copy->setImagepath($this->imagepath);
         $copy->setSources($this->sources);
 
         $copy->setRelatesTo($this->id);
-        $copy->setCreateuser($this->session->getUserId());
+        $copy->setCreateuser(\fpcm\model\system\session::getInstance()->getUserId());
         $copy->setCreatetime(time());
 
         return $copy->save() ?: 0;
