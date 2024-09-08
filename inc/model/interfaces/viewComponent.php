@@ -9,7 +9,7 @@ namespace fpcm\model\interfaces;
 
 /**
  * View component interface
- * 
+ *
  * @package fpcm\model\interfaces
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
  * @copyright (c) 2024, Stefan Seehafer
@@ -46,7 +46,7 @@ interface viewComponent {
      * @return array
      */
     public function getCssFiles() : array;
-    
+
     /**
      * Returns list of JavaScript files
      * @return array
@@ -58,4 +58,5 @@ interface viewComponent {
      * @return array
      */
     public function getViewVars() : array;
+
 }

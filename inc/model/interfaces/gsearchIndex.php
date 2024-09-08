@@ -39,11 +39,12 @@ interface gsearchIndex {
      * @return \fpcm\view\helper\icon
      */
     public function getElementIcon(): \fpcm\view\helper\icon;
-    
+
     /**
      * Prepare result text
      * @param string $text
      * @return string
      */
     public function prepareText(string $text): string;
+
 }

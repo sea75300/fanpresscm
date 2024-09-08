@@ -12,16 +12,16 @@ namespace fpcm\model\interfaces;
  * 
  * @package fpcm\model\interfaces
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2022, Stefan Seehafer
+ * @copyright (c) 2024, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
- * @since 5.1-dev
+ * @since 5.2.2-dev
  */
-interface isObjectInstancable {
-
+interface isCopyable {
+    
     /**
-     * Returns object of current class, caches instance for future use
-     * @return object
+     * Creates copy of current object
+     * @return int
      */
-    public static function getInstance();
+    public function copy() : int;
     
 }
