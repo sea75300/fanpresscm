@@ -311,11 +311,12 @@ class edit extends base {
         if ($this->article->getId() && $this->permissions->article->add) {
 
             $this->view->addButton(
-                (new \fpcm\view\helper\submitButton('articleCopy'))
+                (new \fpcm\view\helper\button('articleCopy'))
                     ->setClass( $this->getToolbarButtonToggleClass(1, '', true) )
                     ->setReadonly($this->article->isInEdit())
                     ->setIcon('copy')->setIconOnly()
                     ->setText('GLOBAL_COPY')
+                    ->setOnClick('system.createCopy', "article:{$this->article->getId()}")
             );
 
         }

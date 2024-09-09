@@ -27,9 +27,9 @@ fpcm.system = {
         fpcm.dom.bindClick('#fpcm-clear-cache', function () {
             return fpcm.system.clearCache();
         });
-        
+
         fpcm.dom.bindClick('#btnMinifyMenu', function (_el) {
-            
+
             let _descr = [
                 {
                     text: 'GLOBAL_HIDE',
@@ -43,7 +43,7 @@ fpcm.system = {
 
             fpcm.dom.fromTag('a.fpcm.ui-nav-link.nav-link > span.fpcm.nav-text').toggleClass('d-lg-none');
             fpcm.dom.fromTag('a.fpcm.ui-nav-link.nav-link').toggleClass('text-center');
-            
+
             _el.currentTarget.dataset.navhidden = parseInt(_el.currentTarget.dataset.navhidden) ? 0 : 1;
 
             let _current = _descr[_el.currentTarget.dataset.navhidden];
@@ -63,7 +63,7 @@ fpcm.system = {
             password: 'text',
             text: 'password',
         }
-        
+
         _el.type = _map[_el.type] ? _map[_el.type] : 'password';
     },
 
@@ -79,7 +79,7 @@ fpcm.system = {
                     txt: fpcm.ui.translate('SAVE_FAILED_PASSWORD_MATCH')
                 }, true);
             }
-            
+
             fpcm.ui.showCurrentPasswordConfirmation();
 
             fpcm.ajax.post('passcheck', {
@@ -104,7 +104,7 @@ fpcm.system = {
 
             return false;
         });
-        
+
         fpcm.dom.bindClick('#genPasswd', function () {
             fpcm.system.generatePasswdString();
             fpcm.ui.showCurrentPasswordConfirmation();
@@ -167,12 +167,12 @@ fpcm.system = {
                 articleId: fpcm.vars.jsvars.articleId
             },
             execDone: function (result) {
-                
+
                 fpcm.worker.postMessage({
                     cmd: 'remove',
                     id: 'system.refresh'
-                });                
-                
+                });
+
 
                 if (fpcm.vars.jsvars.articleId > 0 && fpcm.editor && fpcm.editor.showInEditDialog) {
                     fpcm.editor.showInEditDialog(result);
@@ -212,8 +212,8 @@ fpcm.system = {
             for (var _i in _params.fields) {
                 _content += _params.fields[_i];
             }
-            
-            
+
+
             _content = '<div class="mb-5">' + _content + '</div>';
         }
 
@@ -229,7 +229,7 @@ fpcm.system = {
             }, true);
             return false;
         }
-        
+
         _ajaxParams.ids = fpcm.ajax.toJSON(_ajaxParams.ids);
 
         fpcm.ui_dialogs.create({
@@ -250,7 +250,7 @@ fpcm.system = {
                         var catEl = fpcm.dom.fromId('categories');
                         if (catEl.length) {
                             list.massEditCategories = catEl.val();
-                        }  
+                        }
 
                         if (_params.multipleSelect) {
                             _ajaxParams.fields[_params.multipleSelectField] = fpcm.dom.fromId(_params.multipleSelect).val();
@@ -293,10 +293,10 @@ fpcm.system = {
     },
 
     execMassEdit: function (func, params) {
-        
+
         if (!params.onSuccess) {
             params.onSuccess = function () {
-                
+
                 if (fpcm.vars.jsvars.massEdit === undefined || !fpcm.vars.jsvars.massEdit.relocateParams === undefined) {
                     setTimeout(function () {
                         window.location.reload();
@@ -307,7 +307,7 @@ fpcm.system = {
                 fpcm.ui.relocate(window.location.href + fpcm.vars.jsvars.massEdit.relocateParams);
             };
         }
-        
+
         fpcm.ajax.post(func, {
             data: params,
             dataType: 'json',
@@ -350,7 +350,7 @@ fpcm.system = {
         fpcm.ui_dialogs.confirm({
 
             clickYes: function () {
-                
+
                 fpcm.ajax.execFunction('clearTrash', _params.fn, {
                     pageToken: 'ajax/clearTrash',
                     data: {
@@ -387,7 +387,7 @@ fpcm.system = {
         fpcm.dom.bindClick('.fpcm.ui-help-dialog', function (_event, _ui) {
 
             fpcm.ajax.get('help', {
-                
+
                 quiet: true,
                 data: {
                     ref: _ui.dataset.ref,
@@ -408,14 +408,14 @@ fpcm.system = {
                     });
                 }
             });
-            
+
             return false;
         });
 
     },
-    
+
     addAjaxNotifications: function(_nstring, _count) {
-        
+
         let _idStr = '#fpcm-id-notifications';
         if (!fpcm.dom.fromId(_idStr).length) {
             return false;
@@ -423,44 +423,44 @@ fpcm.system = {
 
         fpcm.dom.assignHtml(_idStr, _nstring);
         let _el = fpcm.dom.fromId('notificationsCount').html(_count);
-        
+
         if (_count) {
             _el.removeClass('d-none');
             return true;
         }
-        
+
         _el.addClass('d-none');
     },
 
     checkForUpdates: function () {
-        
+
         fpcm.dom.bindClick('#checkUpdate', function () {
             fpcm.ajax.get('crons/exec', {
-                data: { 
+                data: {
                     cjId: 'updateCheck'
                 }
             });
-            
+
         });
 
         return true;
     },
-    
+
     mergeToVars: function (_newvalue) {
 
         if (!_newvalue) {
             _newvalue = [];
         }
-        
+
         return jQuery.extend(fpcm, _newvalue);
     },
-    
+
     parseUrlQuery: function (_url) {
-        
+
         if (!_url) {
             return {};
         }
-        
+
         var urlItems = _url.replace(/.*\?/, '').split('&');
         var returnValues = {};
         for (var i = 0; i < urlItems.length; i++) {
@@ -474,6 +474,33 @@ fpcm.system = {
         }
 
         return returnValues;
+    },
+
+    createCopy: function (_e) {
+
+        let _params = _e.delegateTarget.dataset.fnArg.split(':');
+
+        fpcm.ui_dialogs.confirm({
+            clickYes: function () {
+                fpcm.ajax.execFunction('copy', _params[0], {
+                    data: {
+                        id: _params[1]
+                    },
+                    execDone: function(_result) {
+
+                        if (!_result.result) {
+                            fpcm.ui.addMessage(_result.message);
+                            return true;
+                        }
+
+                        fpcm.ui.relocate(_result.destination);
+                        return true;
+
+                    }
+                });                
+            }
+        });
+
     }
 
 };

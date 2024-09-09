@@ -1,6 +1,7 @@
 ## FanPress CM ajax controller file
 ---
 ajax/cache: ajax/common/cache
+ajax/copy: ajax/common/copy
 ajax/autocomplete: ajax/common/autocomplete
 ajax/autocompleteCleanup: ajax/common/autocompleteCleanup
 ajax/searchall: ajax/common/searchall
