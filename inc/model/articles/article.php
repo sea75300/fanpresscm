@@ -847,7 +847,7 @@ implements
 
     /**
      * Creates copy of current article
-     * @return bool
+     * @return int
      * @since 5.2.2-dev
      */
     public function copy(): int

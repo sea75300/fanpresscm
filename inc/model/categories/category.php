@@ -9,14 +9,18 @@ namespace fpcm\model\categories;
 
 /**
  * Kategorie-Objekt
- * 
+ *
  * @package fpcm\model\categories
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
  * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class category extends \fpcm\model\abstracts\dataset
-implements \fpcm\model\interfaces\isCsvImportable {
+class category
+extends
+    \fpcm\model\abstracts\dataset
+implements
+    \fpcm\model\interfaces\isCsvImportable,
+    \fpcm\model\interfaces\isCopyable {
 
     /**
      * Kategorie-Name
@@ -125,7 +129,7 @@ implements \fpcm\model\interfaces\isCsvImportable {
         if (!$this->getIconPath()) {
             return (new \fpcm\view\helper\icon('image'))->setStack('ban text-danger')->setStackTop(true)->setText('GLOBAL_NOTFOUND');
         }
-        
+
         return '<img src="' . $this->getIconPath() . '" alt="' . $this->getName() . '" title="' . $this->getName() . '" class="fpcm-pub-category-icon">';
     }
 
@@ -163,7 +167,7 @@ implements \fpcm\model\interfaces\isCsvImportable {
      * @return bool
      * @since 4.5-b8
      */
-    public function assignCsvRow(array $csvRow): bool 
+    public function assignCsvRow(array $csvRow): bool
     {
         $data = array_intersect_key($csvRow, array_flip($this->getFields()));
 
@@ -184,7 +188,7 @@ implements \fpcm\model\interfaces\isCsvImportable {
 
         $obj = clone $this;
 
-        $obj->setName($data['name']);        
+        $obj->setName($data['name']);
         $obj->setGroups( implode(';', array_map( 'intval', explode(';', $data['groups']) ) ) );
         $obj->setIconPath($data['iconpath'] ?? '');
 
@@ -258,6 +262,24 @@ implements \fpcm\model\interfaces\isCsvImportable {
         $this->cache->cleanup();
         $this->init();
         return true;
+    }
+
+    /**
+     * Creates copy of category
+     * @return int
+     * @since 5.2.2-dev
+     */
+    public function copy(): int
+    {
+        $cn = self::class;
+
+        /* @var $copy category */
+        $copy = new $cn();
+        $copy->setName($this->language->translate('GLOBAL_COPY_OF', [$this->name], true));
+        $copy->setIconPath($this->iconpath);
+        $copy->setGroups($this->getGroups());
+
+        return $copy->save() ?: 0;
     }
 
 }

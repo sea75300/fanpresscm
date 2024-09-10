@@ -51,6 +51,25 @@ class articleTest extends testBase {
         $this->assertTrue($result);
     }
 
+    public function testCopy()
+    {
+
+        sleep(2);
+        
+        /* @var $object \fpcm\model\articles\article */
+        $object = $this->object;
+        $res = $object->copy();
+
+        $this->assertGreaterThan(0, $res);
+        
+        $copy = new \fpcm\model\articles\article($res);
+        $this->assertTrue($copy->exists());
+        $this->assertStringContainsString('Kopie von', $copy->getTitle());
+        $this->assertTrue($copy->getContent() === $object->getContent());
+        $this->assertGreaterThan($object->getCreatetime(), $copy->getCreatetime());
+        $this->assertTrue($copy->delete());
+    }
+
     public function testGetArticle()
     {
 

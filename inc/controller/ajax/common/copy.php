@@ -68,19 +68,19 @@ class copy extends \fpcm\controller\abstracts\ajaxController
 
         $id = $this->request->fromPOST('id');
         if (!$id) {
-            $this->message = new \fpcm\view\message($this->language->translate('SAVE_FAILED_ARTICLE'), \fpcm\view\message::TYPE_ERROR);
+            $this->message = new \fpcm\view\message($this->language->translate('SAVE_FAILED_CATEGORY'), \fpcm\view\message::TYPE_ERROR);
             return false;
         }
 
-        $article = new \fpcm\model\articles\article($id);
-        if (!$article->exists()) {
-            $this->message = new \fpcm\view\message($this->language->translate('SAVE_FAILED_ARTICLE'), \fpcm\view\message::TYPE_ERROR);
+        $obj = new \fpcm\model\articles\article($id);
+        if (!$obj instanceof \fpcm\model\interfaces\isCopyable || !$obj->exists()) {
+            $this->message = new \fpcm\view\message($this->language->translate('SAVE_FAILED_CATEGORY'), \fpcm\view\message::TYPE_ERROR);
             return false;
         }
 
-        $newId = $article->copy();
+        $newId = $obj->copy();
         if (!$newId) {
-            $this->message = new \fpcm\view\message($this->language->translate('SAVE_FAILED_ARTICLE'), \fpcm\view\message::TYPE_ERROR);
+            $this->message = new \fpcm\view\message($this->language->translate('SAVE_FAILED_CATEGORY'), \fpcm\view\message::TYPE_ERROR);
             return false;
         }
 
@@ -89,6 +89,43 @@ class copy extends \fpcm\controller\abstracts\ajaxController
         $this->destination = \fpcm\classes\tools::getControllerLink('articles/edit', [
             'id' => $newId,
             'added' => $this->permissions->article->approve ? 2 : 1
+        ]);
+
+        return true;
+    }
+
+    /**
+     *
+     * @return bool
+     */
+    protected function processCategory() : bool
+    {
+        if (!$this->permissions->system->categories) {
+            return false;
+        }
+
+        $id = $this->request->fromPOST('id');
+        if (!$id) {
+            $this->message = new \fpcm\view\message($this->language->translate('SAVE_FAILED_CATEGORY'), \fpcm\view\message::TYPE_ERROR);
+            return false;
+        }
+
+        $obj = new \fpcm\model\categories\category($id);
+        if (!$obj instanceof \fpcm\model\interfaces\isCopyable || !$obj->exists()) {
+            $this->message = new \fpcm\view\message($this->language->translate('SAVE_FAILED_CATEGORY'), \fpcm\view\message::TYPE_ERROR);
+            return false;
+        }
+
+        $newId = $obj->copy();
+        if (!$newId) {
+            $this->message = new \fpcm\view\message($this->language->translate('SAVE_FAILED_CATEGORY'), \fpcm\view\message::TYPE_ERROR);
+            return false;
+        }
+
+        $this->result = $newId;
+
+        $this->destination = \fpcm\classes\tools::getControllerLink('categories/edit', [
+            'id' => $newId
         ]);
 
         return true;

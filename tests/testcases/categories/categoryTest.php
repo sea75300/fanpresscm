@@ -43,6 +43,25 @@ class categoryTest extends testBase {
         $this->assertTrue($result);
     }
 
+    public function testCopy()
+    {
+
+        sleep(2);
+        
+        /* @var $object \fpcm\model\categories\category */
+        $object = $this->object;
+        $res = $object->copy();
+
+        $this->assertGreaterThan(0, $res);
+        
+        $copy = new \fpcm\model\categories\category($res);
+        $this->assertTrue($copy->exists());
+        $this->assertStringContainsString('Kopie von', $copy->getName());
+        $this->assertTrue($copy->getIconPath() === $object->getIconPath());
+        $this->assertTrue($copy->getGroups() === $object->getGroups());
+        $this->assertTrue($copy->delete());
+    }
+
     public function testGetcategory()
     {
 

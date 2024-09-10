@@ -67,6 +67,10 @@ class all extends \fpcm\controller\abstracts\controller implements \fpcm\control
             $this->view->addNoticeMessage('SAVE_SUCCESS_EDITCATEGORY');
         }
 
+        if ($this->request->hasMessage('deleted')) {
+            $this->view->addNoticeMessage('DELETE_SUCCESS_CATEGORIES');
+        }
+
         $this->list = new \fpcm\model\categories\categoryList();
         $this->rollList = new \fpcm\model\users\userRollList();
 
@@ -203,5 +207,3 @@ class all extends \fpcm\controller\abstracts\controller implements \fpcm\control
     }
 
 }
-
-?>

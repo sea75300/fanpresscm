@@ -19,7 +19,7 @@ implements \fpcm\controller\interfaces\requestFunctions
 
     use \fpcm\controller\traits\common\simpleEditForm,
         \fpcm\controller\traits\theme\nav\categories;
-    
+
     /**
      *
      * @var \fpcm\model\categories\category
@@ -28,22 +28,40 @@ implements \fpcm\controller\interfaces\requestFunctions
 
     protected $saveMessage = 'added';
 
+    protected $deleteMessage = 'deleted';
+
     protected $tabHeadline = 'CATEGORIES_ADD';
 
     public function process()
     {
         define('FPCM_VIEW_FLOATING_LABEL_ALL', true);
-        
-        $this->view->addButton( (new \fpcm\view\helper\saveButton('categorySave'))->setPrimary( $this->category->getId() > 0 ) );
+
+        $buttons = [];
+        $buttons[] = (new \fpcm\view\helper\saveButton('categorySave'))->setPrimary( $this->category->getId() > 0 );
+
+        if ($this->category->getId()) {
+
+            $buttons[] = (new \fpcm\view\helper\button('categoryCopy'))
+                ->setClass( $this->getToolbarButtonToggleClass(1, '', true) )
+                ->setIcon('copy')->setIconOnly()
+                ->setText('GLOBAL_COPY')
+                ->setOnClick('system.createCopy', "category:{$this->category->getId()}");
+
+            $buttons[] = (new \fpcm\view\helper\deleteButton('categoryDelete'))->setClass('fpcm ui-button-confirm');
+        }
+
+
+        $this->view->addButtons($buttons);
+
         $this->view->addJsFiles(['system/categories.js']);
         $this->view->addTabs('fpcm-category-tabs', [
             (new \fpcm\view\helper\tabItem('tabs-category'))
                 ->setText($this->tabHeadline)
                 ->setFile($this->getViewPath() . '.php')
         ]);
-        
+
         $selectedGroups = explode(';', $this->category->getGroups() ?? '');
-        
+
         $checkFields = [];
         foreach ((new \fpcm\model\users\userRollList())->getUserRollsTranslated() as $rollname => $rollid) {
             $checkFields[] = (new \fpcm\view\helper\checkbox('category[groups][]', 'cat'.$rollid))
@@ -70,7 +88,7 @@ implements \fpcm\controller\interfaces\requestFunctions
 
         $this->view->render();
     }
-    
+
     public function oncategorySave()
     {
         if (!$this->checkPageToken()) {
@@ -102,7 +120,7 @@ implements \fpcm\controller\interfaces\requestFunctions
             return false;
         }
 
-        if ($res === false) {            
+        if ($res === false) {
             $this->view->addErrorMessage('SAVE_FAILED_CATEGORY');
             return false;
         }
@@ -110,5 +128,22 @@ implements \fpcm\controller\interfaces\requestFunctions
         $this->redirect('categories/list', [$this->saveMessage => 1]);
         return true;
     }
-    
+
+    public function oncategoryDelete()
+    {
+        if (!$this->checkPageToken()) {
+            $this->view->addErrorMessage('CSRF_INVALID');
+            return false;
+        }
+
+        if ($this->category->delete()) {
+            $this->redirect('categories/list', [$this->deleteMessage => 1]);
+            return true;
+        }
+
+        $this->view->addErrorMessage('DELETE_FAILED_CATEGORIES');
+        return false;
+
+    }
+
 }
