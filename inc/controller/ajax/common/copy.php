@@ -34,10 +34,16 @@ class copy extends \fpcm\controller\abstracts\ajaxController
     private string $destination = '';
 
     /**
+     * 
+     * @var \fpcm\view\message|null
+     */
+    private ?\fpcm\view\message $message = null;
+
+    /**
      *
      * @var string
      */
-    private string $message = '';
+    private string $callback = '';
 
     /**
      * Controller-Processing
@@ -45,13 +51,18 @@ class copy extends \fpcm\controller\abstracts\ajaxController
     public function process()
     {
         if ($this->processByParam() !== true) {
-            $this->response->setReturnData([])->fetch();
+            $this->response
+            ->setReturnData([
+                'message' => $this->message
+            ])
+            ->fetch();
         }
 
         $this->response->setReturnData([
             'result' => $this->result,
             'message' => $this->message,
-            'destination' => $this->destination
+            'destination' => $this->destination,
+            'callback' => $this->callback
         ])->fetch();
 
     }
@@ -128,6 +139,43 @@ class copy extends \fpcm\controller\abstracts\ajaxController
             'id' => $newId
         ]);
 
+        return true;
+    }
+
+    /**
+     *
+     * @return bool
+     */
+    protected function processFile() : bool
+    {
+        if (!$this->permissions->uploads->add) {
+            return false;
+        }
+
+        $fn = $this->request->fromPOST('id', [
+            \fpcm\model\http\request::FILTER_BASE64DECODE,
+            \fpcm\model\http\request::FILTER_DECRYPT
+        ]);
+
+        if (!$fn) {
+            $this->message = new \fpcm\view\message($this->language->translate('SAVE_FAILED_UPLOAD_COPY1'), \fpcm\view\message::TYPE_ERROR);
+            return false;
+        }
+
+        $obj = new \fpcm\model\files\image($fn);
+        if (!$obj instanceof \fpcm\model\interfaces\isCopyable || !$obj->existsFolder()) {
+            $this->message = new \fpcm\view\message($this->language->translate('SAVE_FAILED_UPLOAD_COPY2'), \fpcm\view\message::TYPE_ERROR);
+            return false;
+        }
+
+        $newId = $obj->copy();
+        if (!$newId) {
+            $this->message = new \fpcm\view\message($this->language->translate('SAVE_FAILED_UPLOAD_COPY3'), \fpcm\view\message::TYPE_ERROR);
+            return false;
+        }
+
+        $this->result = $newId;
+        $this->callback = 'filemanager.reloadFiles';
         return true;
     }
 

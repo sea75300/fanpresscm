@@ -18,7 +18,8 @@ namespace fpcm\view\helper;
 class button extends helper {
 
     use traits\iconHelper,
-        traits\typeHelper;
+        traits\typeHelper,
+        traits\setClickHelper;
 
     /*  @since 4.4.0 */
     const NAME_PREFIX = 'btn';
@@ -82,24 +83,6 @@ class button extends helper {
     public function setPrimary(bool $primary = true)
     {
         $this->primary = $primary;
-        return $this;
-    }
-
-    /**
-     * Bind function to button click
-     * @param string $func
-     * @param type $args
-     * @return $this
-     * @since 5.0-dev
-     */
-    final public function setOnClick(string $func, $args = null)
-    {
-        if (!$func) {
-            return $this;
-        }
-        
-        $this->data['fn'] = $func;
-        $this->data['fn-arg'] = $args;
         return $this;
     }
 

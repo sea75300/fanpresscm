@@ -17,7 +17,8 @@ namespace fpcm\model\files;
  */
 class image
 extends \fpcm\model\abstracts\file
-implements \fpcm\model\interfaces\validateFileType {
+implements \fpcm\model\interfaces\validateFileType,
+           \fpcm\model\interfaces\isCopyable {
 
     /**
      * Erlaubte Dateitypen
@@ -676,6 +677,50 @@ implements \fpcm\model\interfaces\validateFileType {
             'filemime' => $this->getMimetype(),
             'credits' => $this->getIptcStr()
         ];
+    }
+
+    /**
+     *
+     * @return int
+     */
+    public function copy(): int
+    {
+        $cn = self::class;
+
+        if (!$this->existsFolder()) {
+            return 0;
+        }
+
+        /* @var $copy image */
+        $copy = new $cn( $this->language->translate('GLOBAL_COPY_OF_FILE', [basename($this->filename)], true), false );
+        $copy->addUploadFolder();
+        
+        $subFolderbase = basename(dirname($copy->getFullpath()));        
+        if ($this->config->file_subfolders && !str_starts_with($copy->getFilename(), $subFolderbase)) {
+            $copy->setFilename(basename(dirname($copy->getFullpath())) . DIRECTORY_SEPARATOR . $copy->getFilename());
+        }
+        
+        $copy->setAltText($this->alttext);
+        $copy->setUserid(\fpcm\model\system\session::getInstance()->getUserId());
+        $copy->setFiletime(time());
+
+        if ($copy->existsFolder()) {
+            return 0;
+        }
+
+        if (!copy($this->fullpath, $copy->getFullpath())) {
+            return 0;
+        }
+
+        if (!$copy->createThumbnail()) {
+            return 0;
+        }
+
+        if (!(new imagelist())->createFilemanagerThumbs([$copy->getFullpath()])) {
+            return 0;
+        }
+        
+        return $copy->save() ?: 0;
     }
 
     /**

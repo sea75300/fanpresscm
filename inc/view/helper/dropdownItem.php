@@ -20,7 +20,8 @@ class dropdownItem extends helper {
 
     use traits\valueHelper,
         traits\iconHelper,
-        traits\urlHelper;
+        traits\urlHelper,
+        traits\setClickHelper;
 
     /**
      * Optional init function

@@ -41,11 +41,9 @@ implements \fpcm\controller\interfaces\requestFunctions
 
         if ($this->category->getId()) {
 
-            $buttons[] = (new \fpcm\view\helper\button('categoryCopy'))
-                ->setClass( $this->getToolbarButtonToggleClass(1, '', true) )
-                ->setIcon('copy')->setIconOnly()
-                ->setText('GLOBAL_COPY')
-                ->setOnClick('system.createCopy', "category:{$this->category->getId()}");
+            $buttons[] = (new \fpcm\view\helper\copyButton('categoryCopy'))
+                        ->setCopyParams($this->category, 'category');
+
 
             $buttons[] = (new \fpcm\view\helper\deleteButton('categoryDelete'))->setClass('fpcm ui-button-confirm');
         }

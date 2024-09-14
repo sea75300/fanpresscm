@@ -1,7 +1,7 @@
 /**
  * FanPress CM system javascript functions
  * @article Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2015-2018, Stefan Seehafer
+ * @copyright (c) 2015-2024, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -493,11 +493,25 @@ fpcm.system = {
                             return true;
                         }
 
-                        fpcm.ui.relocate(_result.destination);
-                        return true;
+                        if (_result.destination) {
+                            fpcm.ui.relocate(_result.destination);
+                            return true;
+                        }
 
+                        if (_result.callback) {
+
+                            let _fn = _result.callback.split('.');
+                            if (! typeof fpcm[_fn[0]][_fn[1]] == 'function') {
+                                return false;
+                            }
+                            
+                            return fpcm[_fn[0]][_fn[1]]();
+
+                        }
+
+                        return true;
                     }
-                });                
+                });
             }
         });
 
