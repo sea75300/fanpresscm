@@ -9,15 +9,19 @@ namespace fpcm\model\wordban;
 
 /**
  * Word Ban Item Object
- * 
+ *
  * @package fpcm\model\wordban
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2022, Stefan Seehafer
+ * @copyright (c) 2011-2024, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @since 3.2.0
  */
-class item extends \fpcm\model\abstracts\dataset
-implements \fpcm\model\interfaces\isCsvImportable {
+class item
+extends
+    \fpcm\model\abstracts\dataset
+implements
+    \fpcm\model\interfaces\isCsvImportable,
+    \fpcm\model\interfaces\isCopyable {
 
     /**
      * gesuchter Text
@@ -234,7 +238,7 @@ implements \fpcm\model\interfaces\isCsvImportable {
         ];
     }
 
-    
+
     /**
      * Returns event base string
      * @see \fpcm\model\abstracts\dataset::getEventModule
@@ -269,6 +273,26 @@ implements \fpcm\model\interfaces\isCsvImportable {
         $this->cache->cleanup();
         $this->init();
         return true;
+    }
+
+    /**
+     * Creates copy of text item
+     * @return int
+     * @since 5.2.2-dev
+     */
+    public function copy(): int
+    {
+        $cn = self::class;
+
+        /* @var $copy item */
+        $copy = new $cn();
+        $copy->setSearchtext($this->language->translate('GLOBAL_COPY_OF', [$this->searchtext], true));
+        $copy->setReplacementtext($this->language->translate('GLOBAL_COPY_OF', [$this->replacementtext], true));
+        $copy->setCommentApproval($this->commentapproval);
+        $copy->setLockArticle($this->lockarticle);
+        $copy->setReplaceTxt($this->replacetxt);
+
+        return $copy->save() ? $copy->getId() : 0;
     }
 
 }
