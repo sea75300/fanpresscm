@@ -45,7 +45,7 @@ implements \fpcm\controller\interfaces\requestFunctions
                         ->setCopyParams($this->category, 'category');
 
 
-            $buttons[] = (new \fpcm\view\helper\deleteButton('categoryDelete'))->setClass('fpcm ui-button-confirm');
+            $buttons[] = (new \fpcm\view\helper\deleteButton('categoryDelete'))->setClickConfirm();
         }
 
 

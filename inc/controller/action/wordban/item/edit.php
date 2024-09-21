@@ -75,7 +75,7 @@ class edit extends base {
         $buttons[] = (new \fpcm\view\helper\copyButton('categoryText'))
             ->setCopyParams($this->item, 'text');
 
-        $buttons[] = (new \fpcm\view\helper\deleteButton('delete'))->setClass('fpcm ui-button-confirm');
+        $buttons[] = (new \fpcm\view\helper\deleteButton('delete'))->setClickConfirm();
 
         return $buttons;
     }

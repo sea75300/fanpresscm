@@ -23,7 +23,7 @@
                         <?php endif; ?>">
 
                     <div class="card-footer bg-transparent d-flex justify-content-end">
-                    <?php $theView->deleteButton('fileDelete')->setClass('fpcm ui-button-confirm')->setReadonly(!$avatar)->overrideButtonType('outline-secondary'); ?>
+                    <?php $theView->deleteButton('fileDelete')->setClickConfirm()->setReadonly(!$avatar)->overrideButtonType('outline-secondary'); ?>
                     </div>
                 </div>
         </div>

@@ -27,7 +27,7 @@ class edit extends base {
     public function getButtons(): array
     {
         $buttons = parent::getButtons();
-        $buttons[] = (new \fpcm\view\helper\deleteButton('delete'))->setClass('fpcm ui-button-confirm');
+        $buttons[] = (new \fpcm\view\helper\deleteButton('delete'))->setClickConfirm();
         
         return $buttons;
     }

@@ -105,7 +105,7 @@ class all extends \fpcm\controller\abstracts\controller implements \fpcm\control
         $this->view->addButtons([
             (new \fpcm\view\helper\linkButton('addnew'))->setUrl(\fpcm\classes\tools::getFullControllerLink('categories/add'))->setText('GLOBAL_NEW')->setIcon('tag')->setPrimary(),
             (new \fpcm\view\helper\button('massEdit', 'massEdit'))->setText('GLOBAL_EDIT')->setIcon('edit')->setIconOnly(),
-            (new \fpcm\view\helper\deleteButton('delete'))->setClass('fpcm ui-button-confirm')
+            (new \fpcm\view\helper\deleteButton('delete'))->setClickConfirm()
         ]);
 
         $rolls = (new \fpcm\model\users\userRollList())->getUserRollsTranslated();

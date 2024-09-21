@@ -188,5 +188,3 @@ class actions extends \fpcm\controller\abstracts\ajaxController
     }
 
 }
-
-?>

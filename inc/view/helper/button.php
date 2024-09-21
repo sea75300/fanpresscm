@@ -97,5 +97,16 @@ class button extends helper {
         $this->class = preg_replace('/(btn-)(\w+\s{1})(.*)/i', '$1'.$type.' $3', $this->class);
         return $this;
     }
+    
+    /**
+     * Set data attribute for ui confirm dialog
+     * @return $this
+     * @since 5.2.2-dev
+     */
+    final public function setClickConfirm()
+    {
+        $this->data['ui-confirm'] = true;
+        return $this;
+    }
 
 }

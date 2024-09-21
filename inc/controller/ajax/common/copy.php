@@ -216,4 +216,41 @@ class copy extends \fpcm\controller\abstracts\ajaxController
         return true;
     }
 
+    /**
+     *
+     * @return bool
+     */
+    protected function processRoll() : bool
+    {
+        if (!$this->permissions->system->rolls) {
+            return false;
+        }
+
+        $id = $this->request->fromPOST('id');
+        if (!$id) {
+            $this->message = new \fpcm\view\message($this->language->translate('SAVE_FAILED_ROLL'), \fpcm\view\message::TYPE_ERROR);
+            return false;
+        }
+
+        $obj = new \fpcm\model\users\userRoll($id);
+        if (!$obj instanceof \fpcm\model\interfaces\isCopyable || !$obj->exists()) {
+            $this->message = new \fpcm\view\message($this->language->translate('SAVE_FAILED_ROLL'), \fpcm\view\message::TYPE_ERROR);
+            return false;
+        }
+
+        $newId = $obj->copy();
+        if (!$newId) {
+            $this->message = new \fpcm\view\message($this->language->translate('SAVE_FAILED_ROLL'), \fpcm\view\message::TYPE_ERROR);
+            return false;
+        }
+
+        $this->result = $newId;
+
+        $this->destination = \fpcm\classes\tools::getControllerLink('users/editroll', [
+            'id' => $newId
+        ]);
+
+        return true;
+    }
+
 }

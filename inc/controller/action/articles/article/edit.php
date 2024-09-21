@@ -330,8 +330,9 @@ class edit extends base {
 
         if ($this->permissions->article->delete && !$this->request->fromGET('rev')) {
             $this->view->addButton((new \fpcm\view\helper\deleteButton('articleDelete'))
-                    ->setClass( $this->getToolbarButtonToggleClass(1, 'fpcm ui-button-confirm', true))
-                    ->setReadonly($this->article->isInEdit()));
+                    ->setClass( $this->getToolbarButtonToggleClass(1, true))
+                    ->setReadonly($this->article->isInEdit())
+                    ->setClickConfirm());
         }
 
         if ($this->permissions->article->revisions) {
@@ -341,8 +342,9 @@ class edit extends base {
                     ->setReadonly($this->article->isInEdit())
                     ->setClass( $this->getToolbarButtonToggleClass(3) ));
             $this->view->addButton((new \fpcm\view\helper\deleteButton('revisionDelete'))
-                    ->setClass($this->getToolbarButtonToggleClass(3, 'fpcm ui-button-confirm') )
-                    ->setText('EDITOR_REVISION_DELETE'));
+                    ->setClass($this->getToolbarButtonToggleClass(3) )
+                    ->setText('EDITOR_REVISION_DELETE')
+                    ->setClickConfirm());
         }
 
         $this->addRelationButton();

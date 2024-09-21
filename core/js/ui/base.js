@@ -24,20 +24,37 @@ fpcm.ui = {
             if (! typeof fpcm[_fn[0]][_fn[1]] == 'function') {
                 return false;
             }
-            
+
             let _args = null;
             if (_callee.dataset.fnArg) {
                 _args = _callee.dataset.fnArg;
             }
-            
+
             fpcm[_fn[0]][_fn[1]](_event, _callee, _args);
             return false;
-        })
+        });
+
+        fpcm.dom.bindClick('.fpcm.ui-button[data-ui-confirm]', function(_event, _callee) {
+
+            if (!_callee.dataset.uiConfirm) {
+                return true;
+            }
+
+            fpcm.ui_dialogs.confirm({
+                clickYes: function () {
+                    _callee.dataset.uiConfirm = '';
+                    _callee.click();
+                }
+            });
+            
+            return false;
+
+        }, false, true);
 
         fpcm.ui.showMessages();
 
         fpcm.ui.initJqUiWidgets();
-        fpcm.ui.initDateTimeMasks();       
+        fpcm.ui.initDateTimeMasks();
 
         fpcm.dom.bindEvent('#fpcm-ui-form', 'submit', function () {
             fpcm.ui_loader.show();
@@ -46,7 +63,7 @@ fpcm.ui = {
 
         fpcm.ui.initShorthelpTooltips();
         fpcm.ui.initLightbox();
-        
+
         fpcm.ui.tabs('.fpcm-ui-tabs-general');
     },
 
@@ -56,12 +73,12 @@ fpcm.ui = {
         if (!_domEl.length) {
             return true;
         }
-        
+
         for (var i = 0; i < _domEl.length; i++) {
             new bootstrap.Tooltip(_domEl[i], {
                 placement: 'auto'
             });
-        }    
+        }
 
     },
 
@@ -74,18 +91,18 @@ fpcm.ui = {
                 fpcm.ui_loader.hide();
                 return false;
             }
-            
+
             if (!fpcm.dom.fromTag(this).data('hidespinner')) {
                 fpcm.ui_loader.show();
             }
-            
+
             return true;
 
         }, false, true);
 
         fpcm.ui.initPager();
     },
-    
+
     initLightbox: function() {
 
         if (jQuery.fancybox == undefined) {
@@ -102,9 +119,9 @@ fpcm.ui = {
         });
 
     },
-    
+
     showMessages: function() {
-        
+
         if (window.fpcm.vars.ui.messages === undefined || !fpcm.vars.ui.messages.length) {
             return false;
         }
@@ -121,7 +138,7 @@ fpcm.ui = {
 
         fpcm.ui.appendMessageToBody(_boxes);
     },
-    
+
     addMessage: function(value, _clear) {
 
         if (_clear === undefined) {
@@ -132,9 +149,9 @@ fpcm.ui = {
             fpcm.vars.ui.messages = [];
             fpcm.dom.fromClass('fpcm.ui-message').remove();
         }
-        
+
         if (!value.icon) {
-            switch (value.type) {                    
+            switch (value.type) {
                 case 'error' :
                     value.icon = 'exclamation-triangle';
                     break;
@@ -146,11 +163,11 @@ fpcm.ui = {
                     break;
             }
         }
-        
+
         if (!value.id) {
             value.id = fpcm.ui.getUniqueID();
         }
-        
+
         if (fpcm.ui.langvarExists(value.txt)) {
             value.txt = fpcm.ui.translate(value.txt);
         }
@@ -160,11 +177,11 @@ fpcm.ui = {
 
         fpcm.ui.appendMessageToBody(fpcm.ui.createMessageBox(value));
     },
-    
+
     createMessageBox: function(_msg)
     {
         var _css = ' toast';
-        
+
         _mbxId = 'msgbox-' + _msg.id;
         if (fpcm.dom.fromId(_mbxId).length > 0) {
             return true;
@@ -177,7 +194,7 @@ fpcm.ui = {
 
             return true;
         }
-        
+
         _msg.cbtn = '';
         _msg.bstm = 'light';
 
@@ -207,7 +224,7 @@ fpcm.ui = {
 
         return _msgCode;
     },
-    
+
     appendMessageToBody: function(_boxes)
     {
         fpcm.dom.appendHtml('#fpcm-body', '<div class="toast-container position-fixed top-0 start-50 translate-middle-x p-3">' + _boxes + '</div>');
@@ -215,18 +232,18 @@ fpcm.ui = {
         let _el = document.getElementsByClassName('fpcm ui-message');
         for (var i = 0; i < _el.length; i++) {
             var toast = new bootstrap.Toast(_el[i]);
-            toast.show();        
+            toast.show();
         }
     },
-    
+
     translate: function(langVar) {
         return fpcm.vars.ui.lang[langVar] === undefined ? langVar : fpcm.vars.ui.lang[langVar];
     },
-    
+
     langvarExists: function(langVar) {
         return fpcm.vars.ui.lang[langVar] === undefined ? false : true;
     },
-    
+
     assignCheckboxes: function() {
 
         if (!fpcm.dom.fromClass('fpcm-select-all').length) {
@@ -259,7 +276,7 @@ fpcm.ui = {
         if (_params.change) {
 
             _el.bind('change', function (_ev) {
-                
+
                 _ev.preventDefault();
                 try {
                     _params.change(_ev, this);
@@ -278,7 +295,7 @@ fpcm.ui = {
         }
 
     },
-    
+
     progressbar: function(_cid, _params){
 
         if (_params === undefined) {
@@ -311,7 +328,7 @@ fpcm.ui = {
         _el.setAttribute('ariaValuemin', _params.min);
         _el.innerText = _params.label;
         _el.style.width = (_params.value * 100 / _params.max) + '%';
-        
+
         if (_el.label && !_el.classList.contains('p-2')) {
             _el.classList.add('p-2');
         }
@@ -320,7 +337,7 @@ fpcm.ui = {
             _el.classList.add('progress-bar-animated');
         }
     },
-    
+
     autocomplete: function(_elemClassId, _params) {
 
         if (fpcm.ui._autocompletes[_elemClassId]) {
@@ -332,7 +349,7 @@ fpcm.ui = {
         if (_params.source === undefined) {
             _params.source = [];
         }
-        
+
         _opt.data = _params.source === undefined || !_params.source instanceof Array ? [] : _params.source;
         _opt.highlightTyped = false;
 
@@ -345,15 +362,15 @@ fpcm.ui = {
         _opt.onSelectItem = function (_el) {
             _acDdEl.value = _el.value;
         };
-        
+
         if (_params.minLength !== undefined) {
             _opt.treshold = _params.minLength;
         }
-        
+
         if (_params.onRenderItems !== undefined) {
             _opt.onRenderItems = _params.onRenderItems;
         }
-        
+
         if (_params.showValue !== undefined) {
             _opt.showValue = _params.showValue;
         }
@@ -369,28 +386,28 @@ fpcm.ui = {
                 fpcm.ui._autocompletes[_elemClassId].setData([]);
                 return false;
             }
-            
+
             fpcm.ui._autocompletes[_elemClassId].setData([]);
 
             fpcm.ajax.get(_params.source + '&term=' + _val, {
                 quiet: true,
                 execDone: function (_result) {
-                    
+
                     if (!_result instanceof Array) {
                         _result = [];
                     }
-                    
+
                     fpcm.ui._autocompletes[_elemClassId].setData(_result);
                 }
             });
-            
+
             return false;
         };
 
         fpcm.ui._autocompletes[_elemClassId] = new Autocomplete(_acDdEl, _opt);
         fpcm.ui._autocompletes[_elemClassId].setData([]);
     },
-    
+
     multiselect: function(_id, _params) {
 
         if (TomSelect === undefined) {
@@ -401,19 +418,19 @@ fpcm.ui = {
         if (!_params) {
             _params = {};
         }
-        
+
         if (!_params.searchField) {
             _params.searchField = ['text', 'value'];
         }
-        
+
         if (!_params.plugins) {
             _params.plugins = [];
         }
-        
+
         if (!_params.placeholder) {
             _params.placeholder = 'EDITOR_CATEGORIES_SEARCH';
         }
-        
+
         if (!_params.hidePlaceholder) {
             _params.hidePlaceholder = true;
         }
@@ -430,20 +447,20 @@ fpcm.ui = {
     },
 
     createIFrame: function(params) {
-      
+
         if (!params.src) {
             console.warn('fpcm.ui.createIFrame requires a non-empty value.');
             return '';
         }
-      
+
         if (!params.classes) {
             params.classes = 'w-100';
         }
-      
+
         if (!params.id) {
             params.id = fpcm.ui.getUniqueID();
         }
-      
+
         if (!params.options) {
             params.options = [];
         }
@@ -460,7 +477,7 @@ fpcm.ui = {
             console.warn('Invalid icon class given!');
             return '';
         }
-        
+
         if (!_params) {
             _params = {};
         }
@@ -506,8 +523,8 @@ fpcm.ui = {
                       .replace('{{size}}', _params.size)
                       .replace('{{text}}', _params.text)
                       .replace('{{prefix}}', ( _params.prefix ? _params.prefix : fpcm.vars.ui.components.icon.defaultPrefix ));
-       
-        
+
+
     },
 
     getTextInput: function(_params) {
@@ -559,27 +576,27 @@ fpcm.ui = {
                     .replace('{{placeholder}}', _params.placeholder)
                     .replace('maxlength=\"255\" ', _params.maxlenght ? 'maxlength=\"' + _params.maxlenght + '\" ' : '');
     },
-    
+
     initDateTimeMasks: function() {
-        
+
         if (!fpcm.vars.jsvars.dtMasks) {
             return false;
         }
-        
+
         if (fpcm.dom.fromId('system_dtmask').length) {
             fpcm.ui.autocomplete('#system_dtmask', {
                 source: fpcm.vars.jsvars.dtMasks,
                 minLength: 1
             });
         }
-        
+
         if (fpcm.dom.fromId('datasystem_dtmask').length) {
             fpcm.ui.autocomplete('#datasystem_dtmask', {
                 source: fpcm.vars.jsvars.dtMasks,
                 minLength: 1
             });
         }
-        
+
         if (fpcm.dom.fromId('usermetasystem_dtmask').length) {
             fpcm.ui.autocomplete('#usermetasystem_dtmask', {
                 source: fpcm.vars.jsvars.dtMasks,
@@ -587,7 +604,7 @@ fpcm.ui = {
             });
         }
     },
-    
+
     relocate: function (url) {
 
         if (url === 'self') {
@@ -600,7 +617,7 @@ fpcm.ui = {
     openWindow: function (url) {
         return window.open(url);
     },
-    
+
     showCurrentPasswordConfirmation: function () {
         var el = fpcm.dom.fromId('fpcm-ui-currentpass-box');
         if (!el.length) {
@@ -616,26 +633,26 @@ fpcm.ui = {
         if (!(element instanceof Object)) {
             element = fpcm.dom.fromTag(element);
         }
-        
+
         if (element.hasClass('fpcm ui-hidden')) {
             return true;
         }
 
         return element.hasClass('fpcm-ui-hidden') ? true : false;
     },
-    
+
     getUniqueID: function (_descr) {
         return (new Date()).getMilliseconds() + Math.random().toString(36).substr(2, 9) + (_descr ? _descr : '');
     },
-    
+
     replaceIcon: function (_id, _haystack, _needle) {
         fpcm.dom.fromId(_id).find('span.fpcm-ui-icon').removeClass('fa-' + _haystack).addClass('fa-' + _needle);
     },
-    
+
     darkModeEnabled: function () {
         return document.documentElement.dataset.bsTheme == 'dark';
     },
-    
+
     prepareId: function(_id, _skipHash) {
 
         if (_id.startsWith('#' + fpcm.vars.ui.idPrefix)) {
