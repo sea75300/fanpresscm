@@ -27,6 +27,24 @@ class userRollTest extends testBase {
         $GLOBALS['objectId'] = $object->getId();
     }
 
+    public function testCopy()
+    {
+
+        sleep(2);
+        
+        /* @var $object fpcm\model\users\userRoll */
+        $object = $this->object;
+        $res = $object->copy();
+
+        $this->assertGreaterThan(0, $res);
+        
+        $copy = new fpcm\model\users\userRoll($res);
+        $this->assertTrue($copy->exists());
+        $this->assertStringContainsString('Kopie von', $copy->getRollNameTranslated());
+        $this->assertTrue($copy->getCodex() === $object->getCodex());
+        $this->assertTrue($copy->delete());
+    }
+
     public function testUpdate()
     {
 
