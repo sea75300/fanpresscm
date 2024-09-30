@@ -67,11 +67,12 @@ final class dirs {
     private static function initUrls()
     {
         $isCli = baseconfig::isCli();
+        $hasConst = defined('FPCM_URLS_BASE') && trim(FPCM_URLS_BASE);
 
         if ($isCli) {
             $GLOBALS['fpcm']['urls']['base'] = 'localhost';
         }
-        elseif (defined('FPCM_URLS_BASE') && trim(FPCM_URLS_BASE)) {
+        elseif ($hasConst) {
             $GLOBALS['fpcm']['urls']['base'] = FPCM_URLS_BASE;
         }
         else {
@@ -88,10 +89,11 @@ final class dirs {
         if ($isCli) {
             $GLOBALS['fpcm']['urls']['base'] .= '/' . $fpcmBase . '/';
         }
-        else {
+        elseif (!$hasConst) {
             $parsed = parse_url($GLOBALS['fpcm']['urls']['base']);
 
-            if ($parsed['path'] !== $fpcmBase) {
+            if (!str_ends_with($GLOBALS['fpcm']['dir']['base'], $parsed['path']) && 
+                $parsed['path'] !== $fpcmBase) {
                 $GLOBALS['fpcm']['urls']['base'] = sprintf("%s://%s/%s/", $parsed['scheme'], $parsed['host'], $fpcmBase);
             }
         }
