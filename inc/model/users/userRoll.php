@@ -253,7 +253,20 @@ implements
         $copy->setRollName($this->language->translate('GLOBAL_COPY_OF', [$lt], true));
         $copy->setCodex($this->codex);
 
-        return $copy->save() ? $copy->getId() : 0;
+        if (!$copy->save()) {
+            return 0;
+        }
+        
+        $id = $copy->getId();
+
+        $permNew = new \fpcm\model\permissions\permissions($id);
+        $permNew->setPermissionData( (new \fpcm\model\permissions\permissions($this->id))->getPermissionData() );
+
+        if (!$permNew->update()) {
+            trigger_error(sprintf('Unable to copy permissions for %s, use default set instead.', $copy->getRollNameTranslated()));
+        }
+
+        return $id;
     }
 
 }

@@ -50,6 +50,13 @@ class dropdown extends helper {
     protected $value = '';
 
     /**
+     * Dropdown button type
+     * @var string
+     * @since 5.2.2-dev
+     */
+    protected $btnType = '';
+
+    /**
      * Return element string
      * @return string
      */
@@ -62,6 +69,10 @@ class dropdown extends helper {
         $btn = (new button($btnId))->setText($this->text)->setClass('dropdown-toggle ' . $this->getUiSize())->setData([ 'bs-toggle' => 'dropdown' ])->setAria(['expanded' => 'false'])->setIconOnly($this->iconOnly);
         if (trim($this->icon)) {
             $btn->setIcon($this->icon);
+        }
+        
+        if (trim($this->btnType)) {
+            $btn->overrideButtonType($this->btnType);
         }
         
         if (!$this->useWrapper) {
@@ -131,7 +142,18 @@ class dropdown extends helper {
         return $this;
     }
 
-
+    /**
+     * Override bs button type
+     * @param string $btnType
+     * @return $this
+     * @since 5.2.2-dev
+     */
+    public function overrideButtonType(string $type)
+    {
+        $this->btnType = $type;
+        return $this;
+    }
+        
     /**
      * Create options string
      * @param array $options

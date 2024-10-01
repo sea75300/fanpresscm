@@ -126,7 +126,7 @@ class userlist extends \fpcm\controller\abstracts\controller
             $ddOpt[] = (new \fpcm\view\helper\dropdownItem('addRoll'))->setUrl(\fpcm\classes\tools::getFullControllerLink('users/addroll'))->setText('USERS_ROLL_ADD')->setValue('roll')->setIcon('user-tag');
         }
 
-        $this->view->addButton( (new \fpcm\view\helper\dropdown('new'))->setText('GLOBAL_NEW')->setIcon('plus')->setOptions($ddOpt) );
+        $this->view->addButton( (new \fpcm\view\helper\dropdown('new'))->setText('GLOBAL_NEW')->setIcon('plus')->setOptions($ddOpt)->overrideButtonType('primary') );
 
         $this->view->addToolbarRight((string) (new \fpcm\view\helper\button('userStats'))
                 ->setText('USERS_STATS_ARTICLE')

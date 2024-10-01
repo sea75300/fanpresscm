@@ -88,7 +88,7 @@ class button extends helper {
 
     /**
      * Override bs button type
-     * @param string $rel
+     * @param string $type
      * @return $this
      * @since 5.0.0-b3
      */

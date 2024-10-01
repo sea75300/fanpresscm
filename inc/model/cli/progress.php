@@ -110,7 +110,7 @@ final class progress {
      */
     public function setOutputText(string $outputText)
     {
-        $this->outputText = sprintf("%-". self::LABEL_CHARS ."s: ", mb_substr($outputText, 0, self::LABEL_CHARS));
+        $this->outputText = sprintf("%-". self::LABEL_CHARS ."s ", mb_substr($outputText, 0, self::LABEL_CHARS));
 
         if ($this->recal) {
             return $this;
