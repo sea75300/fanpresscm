@@ -15,7 +15,7 @@ use fpcm\model\dbal\selectParams;
 
 /**
  * Model base object
- * 
+ *
  * @package fpcm\model\abstracts
  * @abstract
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
@@ -74,7 +74,7 @@ abstract class dataset implements \fpcm\model\interfaces\dataset, \Stringable {
 
     /**
      * Event-Liste
-     * @var \fpcm\events\events 
+     * @var \fpcm\events\events
      */
     protected $events;
 
@@ -125,7 +125,7 @@ abstract class dataset implements \fpcm\model\interfaces\dataset, \Stringable {
         if (method_exists($this, 'getTableName')) {
             $this->getTableName();
         }
-        
+
         $this->dbcon = loader::getObject('\fpcm\classes\database');
         $this->events = loader::getObject('\fpcm\events\events');
         $this->cache = loader::getObject('\fpcm\classes\cache');
@@ -286,9 +286,9 @@ abstract class dataset implements \fpcm\model\interfaces\dataset, \Stringable {
         }
 
         $this->id = $this->dbcon->getLastInsertId();
-        
+
         $this->afterUpdateInternal();
-        
+
         $afterEvent = $this->getEventName('saveAfter');
         if (class_exists(event::getEventNamespace($afterEvent))) {
             $this->events->trigger($afterEvent, $this->id)->getData();

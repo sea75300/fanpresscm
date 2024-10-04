@@ -454,6 +454,18 @@ abstract class file implements \Stringable {
     }
 
     /**
+     * Returns encrypted filename
+     * @return string
+     * @since 5.2.2-dev
+     */
+    public function getCryptFileName() : string
+    {
+        $crypt = \fpcm\classes\crypt::getInstance();
+
+        return base64_encode($crypt->encrypt($this->filename));
+    }
+
+    /**
      * "realpath" wrapper for non-existing files
      * @param string $path
      * @return string

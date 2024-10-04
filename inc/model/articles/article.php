@@ -9,14 +9,18 @@ namespace fpcm\model\articles;
 
 /**
  * Artikel object
- * 
+ *
  * @package fpcm\model\articles
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
  * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class article extends \fpcm\model\abstracts\dataset
-implements \fpcm\model\interfaces\isCsvImportable {
+class article
+extends
+    \fpcm\model\abstracts\dataset
+implements
+    \fpcm\model\interfaces\isCsvImportable,
+    \fpcm\model\interfaces\isCopyable {
 
     use \fpcm\model\traits\autoTable,
         \fpcm\model\traits\statusIcons,
@@ -25,7 +29,7 @@ implements \fpcm\model\interfaces\isCsvImportable {
         \fpcm\model\traits\articles\revisionUtils,
         \fpcm\model\traits\articles\twitterUtils,
         \fpcm\model\traits\articles\sourcesUtils;
-    
+
     /**
      * Cache-Name für einzelnen Artikel
      * @since 3.4
@@ -612,7 +616,7 @@ implements \fpcm\model\interfaces\isCsvImportable {
     public function setPinnedUntil(int $pinnedUntil) {
         $this->pinned_until = $pinnedUntil;
     }
-        
+
     /**
      * Setzt Status, ob Artikel bearbeitet werden kann
      * @param bool $editPermission
@@ -650,7 +654,7 @@ implements \fpcm\model\interfaces\isCsvImportable {
     {
         return $this->cleanupUrlString( trim($this->url) ? $this->url : $this->title );
     }
-    
+
     /**
      * Return frontend article link
      * @param string $params
@@ -687,9 +691,9 @@ implements \fpcm\model\interfaces\isCsvImportable {
     {
         $elLink = $this->getElementLink();
         $elLinkEncode = urlencode($elLink);
-        
+
         $external = !\fpcm\classes\baseconfig::canConnect() || (defined('FPCM_ARTICLE_DISABLE_SHORTLINKS') && FPCM_ARTICLE_DISABLE_SHORTLINKS) ? false : true;
-        
+
         $return = $this->events->trigger('article\getShortLink', [
             'url' => $elLink,
             'encoded' => $elLinkEncode,
@@ -755,14 +759,14 @@ implements \fpcm\model\interfaces\isCsvImportable {
     }
 
     /**
-     * 
+     *
      * @return bool
      * @since 5.1.0-a1
      */
     public function pushCategories() : bool
     {
         $categories = $this->getCategories();
-        
+
         if (!(new articleCategory($this->id, 0))->deleteByArticle()) {
             trigger_error(sprintf('Error while clean up article category assignement table for article %s', $this->id));
             return true;
@@ -839,6 +843,36 @@ implements \fpcm\model\interfaces\isCsvImportable {
         }
 
         return $this->createtime <= time() - FPCM_ARTICLES_OLDMESSAGE_INTERVALL;
+    }
+
+    /**
+     * Creates copy of current article
+     * @return int
+     * @since 5.2.2-dev
+     */
+    public function copy(): int
+    {
+        $cn = self::class;
+
+        /* @var $copy article */
+        $copy = new $cn();
+        $copy->setTitle($this->language->translate('GLOBAL_COPY_OF', [$this->title], true));
+        $copy->setContent($this->content);
+        $copy->setApproval($this->approval);
+        $copy->setArchived($this->archived);
+        $copy->setPinned($this->pinned);
+        $copy->setPinnedUntil($this->pinned_until);
+        $copy->setPostponed($this->postponed);
+        $copy->setComments($this->comments);
+        $copy->setCategories($this->getCategories());
+        $copy->setImagepath($this->imagepath);
+        $copy->setSources($this->sources);
+
+        $copy->setRelatesTo($this->id);
+        $copy->setCreateuser(\fpcm\model\system\session::getInstance()->getUserId());
+        $copy->setCreatetime(time());
+
+        return $copy->save() ?: 0;
     }
 
     /**

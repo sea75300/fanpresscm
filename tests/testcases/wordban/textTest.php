@@ -31,6 +31,27 @@ class textTest extends testBase {
         $GLOBALS['objectId'] = $object->getId();
     }
 
+    public function testCopy()
+    {
+
+        sleep(2);
+        
+        /* @var $object \fpcm\model\wordban\item */
+        $object = $this->object;
+        $res = $object->copy();
+
+        $this->assertGreaterThan(0, $res);
+        
+        $copy = new \fpcm\model\wordban\item($res);
+        $this->assertTrue($copy->exists());
+        $this->assertStringContainsString('Kopie von', $copy->getSearchtext());
+        $this->assertStringContainsString('Kopie von', $copy->getReplacementtext());
+        $this->assertTrue($copy->getReplaceTxt() === $object->getReplaceTxt());
+        $this->assertTrue($copy->getLockArticle() === $object->getLockArticle());
+        $this->assertTrue($copy->getCommentApproval() === $object->getCommentApproval());
+        $this->assertTrue($copy->delete());
+    }
+
     public function testUpdate()
     {
 

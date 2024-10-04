@@ -18,7 +18,8 @@ namespace fpcm\view\helper;
 class button extends helper {
 
     use traits\iconHelper,
-        traits\typeHelper;
+        traits\typeHelper,
+        traits\setClickHelper;
 
     /*  @since 4.4.0 */
     const NAME_PREFIX = 'btn';
@@ -86,32 +87,25 @@ class button extends helper {
     }
 
     /**
-     * Bind function to button click
-     * @param string $func
-     * @param type $args
-     * @return $this
-     * @since 5.0-dev
-     */
-    final public function setOnClick(string $func, $args = null)
-    {
-        if (!$func) {
-            return $this;
-        }
-        
-        $this->data['fn'] = $func;
-        $this->data['fn-arg'] = $args;
-        return $this;
-    }
-
-    /**
      * Override bs button type
-     * @param string $rel
+     * @param string $type
      * @return $this
      * @since 5.0.0-b3
      */
     public function overrideButtonType(string $type)
     {
         $this->class = preg_replace('/(btn-)(\w+\s{1})(.*)/i', '$1'.$type.' $3', $this->class);
+        return $this;
+    }
+    
+    /**
+     * Set data attribute for ui confirm dialog
+     * @return $this
+     * @since 5.2.2-dev
+     */
+    final public function setClickConfirm()
+    {
+        $this->data['ui-confirm'] = true;
         return $this;
     }
 

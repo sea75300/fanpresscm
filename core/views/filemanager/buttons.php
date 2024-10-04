@@ -12,7 +12,7 @@
         <div class="nav-item">
             <?php $theView->linkButton(uniqid('imgsurl'))->setUrl($file->getImageUrl())->setText('FILE_LIST_INSERT_FULL')->setClass('fpcm-filelist-tinymce-full')->setIcon('expand')->setIconOnly()->setData(['imgtext' => $file->getAltText() ? $file->getAltText() : $file->getFilename()]); ?>
         </div>
-    <?php elseif ($mode == 3) : ?>                    
+    <?php elseif ($mode == 3) : ?>
         <div class="nav-item">
             <?php $theView->linkButton(uniqid('articleimg'))->setUrl($file->getImageUrl())->setText('EDITOR_ARTICLEIMAGE')->setClass('fpcm-filelist-articleimage')->setIcon('image')->setIconOnly()->setData(['imgtext' => $file->getFilename()]); ?>
         </div>
@@ -39,9 +39,12 @@
                 <?php $theView->dropdownItem(uniqid('edit'))->setText('FILE_LIST_EDIT')->setIcon('magic')->setClass('fpcm-filelist-link-edit')->setData(['url' => $file->getImageUrl(), 'filename' => $file->getFilename(), 'mime' => $file->getMimetype()]); ?>
               </li>
               <li>
-                <?php $theView->dropdownItem(uniqid('alttext'))->setText('FILE_LIST_ALTTEXT')->setIcon('keyboard')->setClass('fpcm-filelist-link-alttext')->setData(['file' => base64_encode($file->getFilename()), 'alttext' => $file->getAltText()]); ?>
+                <?php $theView->dropdownItem(uniqid('copyfile'))->setText('GLOBAL_COPY')->setIcon('copy')->setOnClick('system.createCopy', sprintf( "file:%s", $file->getCryptFileName())); ?>
               </li>
               <?php endif; ?>
+              <li>
+                <?php $theView->dropdownItem(uniqid('alttext'))->setText('FILE_LIST_ALTTEXT')->setIcon('keyboard')->setClass('fpcm-filelist-link-alttext')->setData(['file' => base64_encode($file->getFilename()), 'alttext' => $file->getAltText()]); ?>
+              </li>
               <?php if ($theView->permissions->uploads->rename || $theView->permissions->uploads->add) : ?>
               <li><hr class="dropdown-divider"></li>
               <?php endif; ?>

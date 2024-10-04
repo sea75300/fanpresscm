@@ -25,5 +25,3 @@ interface validateFileType {
     public static function isValidType(string $ext, string $type, array $map = []) : bool;
 
 }
-
-?>

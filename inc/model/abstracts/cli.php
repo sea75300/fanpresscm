@@ -106,6 +106,12 @@ abstract class cli extends \fpcm\model\abstracts\staticModel {
     const PARAM_LISTROLLS = '--listrolls';
 
     /**
+     * CLI param: --check
+     * @ignore
+     */
+    const PARAM_EXECCHECK = '--check';
+
+    /**
      * CLI param: --exsystem
      * @ignore
      */

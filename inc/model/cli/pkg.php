@@ -262,7 +262,7 @@ final class pkg extends \fpcm\model\abstracts\cli {
      */
     private function processUpgradedbSystem()
     {
-        $this->output('Update local database...');
+        $this->output('Update is being finalized...');
 
         $finalizer = new \fpcm\model\updater\finalizer();
         $success = $finalizer->runUpdate();
@@ -272,7 +272,7 @@ final class pkg extends \fpcm\model\abstracts\cli {
         }
 
         if ($success !== true) {
-            $this->output('An error occurred during Database update. ERROR CODE: ' . $success, true);
+            $this->output('An error occurred during update completion. ERROR CODE: ' . $success, true);
         }
 
         $this->config->init();

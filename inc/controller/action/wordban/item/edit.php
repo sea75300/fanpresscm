@@ -36,7 +36,7 @@ class edit extends base {
     }
 
     /**
-     * 
+     *
      * @return string
      */
     protected function getActionText() : string
@@ -53,22 +53,30 @@ class edit extends base {
         if (!$this->checkPageToken()) {
             $this->view->addErrorMessage('CSRF_INVALID');
             return true;
-        }        
-        
+        }
+
         if (!$this->item->delete()) {
-            $this->view->addErrorMessage('DELETE_FAILED_WORDBAN');        
+            $this->view->addErrorMessage('DELETE_FAILED_WORDBAN');
             return true;
         }
-        
+
         $this->redirect('wordban/list', array('deleted' => 1));
-        return true;        
+        return true;
     }
-    
+
+    /**
+     * 
+     * @return array
+     */
     public function getButtons(): array
     {
         $buttons = parent::getButtons();
-        $buttons[] = (new \fpcm\view\helper\deleteButton('delete'))->setClass('fpcm ui-button-confirm');
-        
+
+        $buttons[] = (new \fpcm\view\helper\copyButton('categoryText'))
+            ->setCopyParams($this->item, 'text');
+
+        $buttons[] = (new \fpcm\view\helper\deleteButton('delete'))->setClickConfirm();
+
         return $buttons;
     }
 

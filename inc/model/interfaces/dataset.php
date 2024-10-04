@@ -9,7 +9,7 @@ namespace fpcm\model\interfaces;
 
 /**
  * Model-Interface
- * 
+ *
  * @package fpcm\model\interfaces
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
  * @copyright (c) 2011-2022, Stefan Seehafer
@@ -52,4 +52,5 @@ interface dataset {
      * @return bool
      */
     public function delete();
+
 }

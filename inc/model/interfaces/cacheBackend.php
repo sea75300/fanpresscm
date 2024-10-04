@@ -9,7 +9,7 @@ namespace fpcm\model\interfaces;
 
 /**
  * Cache backend interface
- * 
+ *
  * @package fpcm\model\interfaces
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
  * @copyright (c) 2022, Stefan Seehafer

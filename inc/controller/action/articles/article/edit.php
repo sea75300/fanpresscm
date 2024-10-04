@@ -10,7 +10,7 @@ namespace fpcm\controller\action\articles\article;
 /**
  * Article edit controller
  * @article Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2022, Stefan Seehafer
+ * @copyright (c) 2011-2024, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 class edit extends base {
@@ -308,6 +308,17 @@ class edit extends base {
                 ])
         ]);
 
+        if ($this->article->getId() && $this->permissions->article->add) {
+
+            $this->view->addButton(
+                (new \fpcm\view\helper\copyButton('articleCopy'))
+                    ->setClass( $this->getToolbarButtonToggleClass(1, '', true) )
+                    ->setReadonly($this->article->isInEdit())
+                    ->setCopyParams($this->article, 'article')
+            );
+
+        }
+
         if ($this->article->getImagepath()) {
             $this->view->addButton((new \fpcm\view\helper\linkButton('articleimg'))
                     ->setUrl($this->article->getImagepath())
@@ -319,8 +330,9 @@ class edit extends base {
 
         if ($this->permissions->article->delete && !$this->request->fromGET('rev')) {
             $this->view->addButton((new \fpcm\view\helper\deleteButton('articleDelete'))
-                    ->setClass( $this->getToolbarButtonToggleClass(1, 'fpcm ui-button-confirm', true))
-                    ->setReadonly($this->article->isInEdit()));
+                    ->setClass( $this->getToolbarButtonToggleClass(1, true))
+                    ->setReadonly($this->article->isInEdit())
+                    ->setClickConfirm());
         }
 
         if ($this->permissions->article->revisions) {
@@ -330,8 +342,9 @@ class edit extends base {
                     ->setReadonly($this->article->isInEdit())
                     ->setClass( $this->getToolbarButtonToggleClass(3) ));
             $this->view->addButton((new \fpcm\view\helper\deleteButton('revisionDelete'))
-                    ->setClass($this->getToolbarButtonToggleClass(3, 'fpcm ui-button-confirm') )
-                    ->setText('EDITOR_REVISION_DELETE'));
+                    ->setClass($this->getToolbarButtonToggleClass(3) )
+                    ->setText('EDITOR_REVISION_DELETE')
+                    ->setClickConfirm());
         }
 
         $this->addRelationButton();

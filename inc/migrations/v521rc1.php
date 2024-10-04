@@ -21,7 +21,7 @@ class v521rc1 extends migration {
 
     protected function updateFileSystem(): bool {
 
-        fpcmLogSystem('Cleanuop file system for outdated files...');
+        fpcmLogSystem('Cleanup file system for outdated files...');
 
         $dirs_list = file( \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_CONFIG . DIRECTORY_SEPARATOR . 'dirslist_v521.txt') );
         if (!is_array($dirs_list)) {

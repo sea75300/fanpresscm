@@ -17,7 +17,7 @@ class ipListTest extends testBase {
         $data = $this->object->getIpAll();
         $count = count($data);
         if ($count == 0) {
-            $this->markTestSkipped('No wordband items available in db');
+            $this->markTestSkipped('No ip items available in db');
         }
 
         $this->assertTrue(is_array($data));

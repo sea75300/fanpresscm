@@ -9,7 +9,7 @@ namespace fpcm\model\interfaces;
 
 /**
  * CSV importtable interface
- * 
+ *
  * @package fpcm\model\interfaces
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2020, Stefan Seehafer
@@ -18,8 +18,17 @@ namespace fpcm\model\interfaces;
  */
 interface isCsvImportable {
 
+    /**
+     * Return list fo fields to be used to CSV import
+     * @return array
+     */
     public function getFields() : array;
 
+    /**
+     * Assign field from csv row to internal fields
+     * @param array $csvRow
+     * @return bool
+     */
     public function assignCsvRow(array $csvRow) : bool;
-    
+
 }

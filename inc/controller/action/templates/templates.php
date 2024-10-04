@@ -98,7 +98,7 @@ class templates extends \fpcm\controller\abstracts\controller implements \fpcm\c
             
             
             $buttons[] =  (new \fpcm\view\helper\deleteButton('fileDelete'))
-                ->setClass('fpcm-ui-maintoolbarbuttons-tab3 fpcm ui-button-confirm ' . $hiddenClass2 );
+                ->setClass('fpcm-ui-maintoolbarbuttons-tab3 ' . $hiddenClass2 )->setClickConfirm();
             
             $buttons[] =  (new \fpcm\view\helper\button('fileUpload'))
                 ->setText('FILE_LIST_UPLOADFORM')

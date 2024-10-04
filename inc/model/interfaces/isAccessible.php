@@ -23,6 +23,5 @@ interface isAccessible {
      * @return bool
      */
     public function isAccessible() : bool;
-}
 
-?>
+}

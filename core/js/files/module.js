@@ -13,7 +13,7 @@ fpcm.filemanager = {
     tabsObj: {},
 
     init: function() {
-        
+
         fpcm.ui_tabs.render('#files', {
             reload: true,
             onRenderHtmlAfter: function (_event, _result) {
@@ -34,16 +34,16 @@ fpcm.filemanager = {
         fpcm.filemanager.initDeleteMultipleButton();
 
     },
-    
+
     initAfter: function() {
 
         if (fpcm.vars.jsvars.fmgrMode === 1) {
-            
+
             fpcm.ui.selectmenu('select[data-user_setting]', {
                 change: function (_ev, _ui) {
 
                     document.getElementById('pageSelect').selectedIndex = 0;
-                    
+
                     fpcm.ajax.post('setconfig', {
                         data: {
                             var: _ui.dataset.user_setting,
@@ -52,14 +52,14 @@ fpcm.filemanager = {
                         execDone: fpcm.filemanager.reloadFiles
                     });
                 }
-            });            
-         
+            });
+
         }
 
         fpcm.dom.fromId('btnFmgrUploadBack').click(function () {
             fpcm.ui_tabs.show('#files', 0);
         });
-        
+
     },
 
     initListActions: function () {
@@ -72,21 +72,22 @@ fpcm.filemanager = {
         fpcm.filemanager.initDeleteButtons();
         fpcm.filemanager.initAltTextButtons();
         fpcm.filemanager.initPropertiesButton();
+        fpcm.filemanager.initCopyButton();
     },
-    
+
     initInsertButtons: function () {
 
         if (fpcm.vars.jsvars.fmgrMode === 2) {
 
-            fpcm.dom.bindClick('.fpcm-filelist-tinymce-thumb', function (_e, _ui) {                
+            fpcm.dom.bindClick('.fpcm-filelist-tinymce-thumb', function (_e, _ui) {
                 parent.fpcm.editor.insertThumbByEditor(_ui.href, _ui.dataset.imgtext);
                 fpcm.ui_dialogs.close('editor-html-filemanager', true);
             });
-            
+
             fpcm.dom.bindClick('.fpcm-filelist-tinymce-full', function (_e, _ui) {
                 parent.fpcm.editor.insertFullByEditor(_ui.href, _ui.dataset.imgtext);
                 fpcm.ui_dialogs.close('editor-html-filemanager', true);
-            });            
+            });
 
             fpcm.dom.bindClick('#btnInsertGallery', function () {
 
@@ -102,12 +103,12 @@ fpcm.filemanager = {
                 parent.fpcm.editor.insertGalleryByEditor(values);
                 return false;
             });
-            
+
             return false;
         }
-        
+
         if (fpcm.vars.jsvars.fmgrMode === 3) {
-            
+
             fpcm.dom.bindClick('.fpcm-filelist-articleimage', function (_e, _ui) {
                 parent.document.getElementById('articleimagepath').value  = _ui.href;
                 fpcm.ui_dialogs.close('editor-html-filemanager', true);
@@ -115,14 +116,14 @@ fpcm.filemanager = {
 
             return false;
         }
-        
+
         if (fpcm.vars.jsvars.fmgrMode === 4) {
-            
+
             fpcm.dom.bindClick('.fpcm-filelist-tinymce-thumb', function (_e, _ui) {
                 parent.document.getElementById('mediaposter').value  = _ui.href;
                 fpcm.ui_dialogs.close('editor-html-filemanager', true);
             });
-            
+
             fpcm.dom.bindClick('.fpcm-filelist-tinymce-full', function (_e, _ui) {
                 parent.document.getElementById('mediaposter').value  = _ui.href;
                 fpcm.ui_dialogs.close('editor-html-filemanager', true);
@@ -139,7 +140,7 @@ fpcm.filemanager = {
                 console.log('FILE_LIST_RENAME_NEWNAME');
                 return false;
             }
-            
+
             var _docname = this.dataset.file;
 
             var _input = new fpcm.ui.forms.input();
@@ -174,7 +175,7 @@ fpcm.filemanager = {
 
                                 return;
                             }
-                            
+
                             fpcm.ajax.post('files/rename', {
                                 data: {
                                     newName: _inputEl.value,
@@ -192,11 +193,11 @@ fpcm.filemanager = {
                     document.getElementById('fpcm-id-new-filename-dialog').focus();
                 }
             });
-            
+
             return false;
         });
     },
-    
+
     initEditButtons: function() {
         fpcm.dom.bindClick('.fpcm-filelist-link-edit', function (_e, _ui) {
             fpcm.imageEditor.initEditorDialog({
@@ -210,7 +211,7 @@ fpcm.filemanager = {
     initAltTextButtons: function() {
 
         fpcm.dom.bindClick('.fpcm-filelist-link-alttext', function (_e, _ui) {
-            
+
             var _input = new fpcm.ui.forms.input();
             _input.name = 'alt-text-dialog';
             _input.label = fpcm.ui.translate('FILE_LIST_ALTTEXT');
@@ -245,7 +246,7 @@ fpcm.filemanager = {
                 dlOnOpenAfter: function () {
                     document.getElementById('fpcm-id-alt-text-dialog').focus();
                 }
-            });     
+            });
 
 
 
@@ -277,24 +278,24 @@ fpcm.filemanager = {
                         }
                     });
 
-                    return false;  
+                    return false;
                 }
             });
 
-            return false;  
+            return false;
         });
-        
+
     },
 
     initNewThumbButton: function() {
 
         fpcm.dom.bindClick('#btnCreateThumbs', function (event, ui) {
-            
+
             var items = fpcm.dom.getCheckboxCheckedValues('.fpcm-ui-list-checkbox');
             if (!items || !items.length) {
                 return false;
             }
-            
+
             ui.disabled = true;
 
             fpcm.ajax.post('files/createthumbs', {
@@ -322,7 +323,7 @@ fpcm.filemanager = {
     initDeleteMultipleButton: function() {
 
         fpcm.dom.bindClick('#btnDeleteFiles', function () {
-            
+
             var items = fpcm.dom.getCheckboxCheckedValues('.fpcm-ui-list-checkbox');
             if (!items || !items.length) {
                 return false;
@@ -348,17 +349,25 @@ fpcm.filemanager = {
                         }
                     });
 
-                    return false;  
+                    return false;
                 }
-            });            
+            });
 
             return false;
         });
 
     },
 
+    initCopyButton: function() {
+
+        fpcm.dom.bindClick('a.dropdown-item[data-fn="system.createCopy"]', function (_e) {
+            fpcm.system.createCopy(_e);
+        });
+
+    },
+
     initPropertiesButton: function() {
-        
+
         let _form = [
             {
                 prop: 'filetime',
@@ -406,7 +415,7 @@ fpcm.filemanager = {
         ];
 
         fpcm.dom.bindClick('.fpcm-filelist-properties', function (_e, _ui) {
-            
+
             let _titleTxt = '';
             let _titleHtml = '';
 
@@ -445,8 +454,8 @@ fpcm.filemanager = {
                 _row.appendChild(_colValue);
 
                 _dlgContent.appendChild(_row);
-            }            
-            
+            }
+
             fpcm.ui_dialogs.create({
                 id: 'files-properties',
                 title: fpcm.ui.translate('GLOBAL_PROPERTIES'),
@@ -458,14 +467,14 @@ fpcm.filemanager = {
         });
 
     },
-    
+
     initPagination: function() {
 
         fpcm.ui.initPager({
             backAction: function() {
                 fpcm.filemanager.reloadFiles(fpcm.vars.jsvars.pager.showBackButton);
             },
-            
+
             nextAction: function() {
                 fpcm.filemanager.reloadFiles(fpcm.vars.jsvars.pager.showNextButton);
             },
@@ -483,7 +492,7 @@ fpcm.filemanager = {
         }
 
         fpcm.dom.assignHtml('#fpcm-tab-files-list-pane', fpcm.vars.jsvars.loaderTpl.replace(/\{\$thumbsize\}/g, fpcm.vars.jsvars.thumbsize));
-        
+
          if (_filter) {
             fpcm.vars.jsvars.filesLastSearch = (new Date()).getTime();
         }
@@ -500,39 +509,39 @@ fpcm.filemanager = {
 
                 if (_result.data && _result.data.pager) {
                     fpcm.vars.jsvars.pager = _result.data.pager;
-                }                
+                }
 
                 fpcm.filemanager.initListActions();
                 fpcm.dom.fromClass('fpcm-select-all').prop('checked', false);
             }
         });
-        
+
         return false;
     },
-    
+
     initFilesSearch: function() {
 
         fpcm.dom.bindClick('#btnOpenSearch', function () {
 
             let _formData = fpcm.vars.jsvars.searchForm;
-            
+
             let _form = document.createElement('div');
-            
+
             for (var _fieldName in _formData.fields) {
-                
+
                 let _field = _formData.fields[_fieldName];
-                
+
                 let _tmp = new fpcm.ui.forms[_field.call];
                 _tmp.name = _fieldName;
                 _field.class += ' ' + _tmp.class;
                 _tmp.wrapper = 'form-floating';
-                
+
                 if (!_tmp.assignFormObject) {
                     continue;
                 }
 
-                _tmp.assignFormObject(_field);                
-                
+                _tmp.assignFormObject(_field);
+
                 let _row = document.createElement('div');
                 _row.className = 'row mb-3';
 
@@ -573,22 +582,22 @@ fpcm.filemanager = {
                         icon: "check",
                         primary: true,
                         clickClose: true,
-                        click: function(_ui, _bsObj) {               
-                            
-                            var sParams = fpcm.dom.getValuesByClass('fpcm-files-search-input');                            
+                        click: function(_ui, _bsObj) {
+
+                            var sParams = fpcm.dom.getValuesByClass('fpcm-files-search-input');
                             sParams.combinations = fpcm.dom.getValuesByClass('fpcm-ui-input-select-filessearch-combination');
 
                             fpcm.filemanager.startFilesSearch(sParams);
                         }
-                    },                    
+                    },
                     {
                         text: fpcm.ui.translate('GLOBAL_RESET'),
-                        icon: "filter-circle-xmark" ,                        
+                        icon: "filter-circle-xmark" ,
                         clickClose: true,
                         click: function() {
                             fpcm.ui.relocate('self');
                         }
-                    }  
+                    }
                 ],
                 dlOnOpenAfter: function () {
                     document.getElementById('fpcm-id-filename').focus();
@@ -612,7 +621,7 @@ fpcm.filemanager = {
 
         fpcm.filemanager.reloadFiles(1, sParams);
     },
-    
+
     runFileIndexUpdate: function () {
 
         fpcm.ajax.get('crons/exec', {
@@ -625,14 +634,14 @@ fpcm.filemanager = {
             }
         });
     },
-    
+
     getCurrentPage: function () {
-     
+
         let _el = document.getElementById('pageSelect');
         if (!_el || _el.options.length < 2 || _el.value === undefined) {
             return 1;
         }
-        
-        return _el.value;        
+
+        return _el.value;
     }
 };

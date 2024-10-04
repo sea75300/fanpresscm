@@ -12,10 +12,14 @@ namespace fpcm\model\users;
  * 
  * @package fpcm\model\user
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2022, Stefan Seehafer
+ * @copyright (c) 2011-2024, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class userRoll extends \fpcm\model\abstracts\dataset {
+class userRoll
+extends
+    \fpcm\model\abstracts\dataset
+implements
+    \fpcm\model\interfaces\isCopyable {
 
     use \fpcm\model\traits\eventModuleEmpty;
 
@@ -231,6 +235,38 @@ class userRoll extends \fpcm\model\abstracts\dataset {
         $this->leveltitle = $this->wordbanList->replaceItems($this->leveltitle);
         $this->codex = $this->wordbanList->replaceItems($this->codex);
         return true;
+    }
+
+    /**
+     * Creates copy of user roll
+     * @return int
+     * @since 5.2.2-dev
+     */
+    public function copy(): int
+    {
+        $cn = self::class;
+
+        $lt = $this->language->translate($this->leveltitle);
+        
+        /* @var $copy userRoll */
+        $copy = new $cn();
+        $copy->setRollName($this->language->translate('GLOBAL_COPY_OF', [$lt], true));
+        $copy->setCodex($this->codex);
+
+        if (!$copy->save()) {
+            return 0;
+        }
+        
+        $id = $copy->getId();
+
+        $permNew = new \fpcm\model\permissions\permissions($id);
+        $permNew->setPermissionData( (new \fpcm\model\permissions\permissions($this->id))->getPermissionData() );
+
+        if (!$permNew->update()) {
+            trigger_error(sprintf('Unable to copy permissions for %s, use default set instead.', $copy->getRollNameTranslated()));
+        }
+
+        return $id;
     }
 
 }

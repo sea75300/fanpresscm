@@ -54,7 +54,7 @@ implements \fpcm\controller\interfaces\requestFunctions
 
         $this->view->addButtons([
             (new \fpcm\view\helper\linkButton('addSmiley'))->setText('GLOBAL_NEW')->setUrl(\fpcm\classes\tools::getFullControllerLink('smileys/add'))->setIcon('plus')->setPrimary(),
-            (new \fpcm\view\helper\deleteButton('deleteSmiley'))->setClass('fpcm ui-button-confirm')
+            (new \fpcm\view\helper\deleteButton('deleteSmiley'))->setClickConfirm()
         ]);
         
         $this->view->setFormAction('smileys/list');

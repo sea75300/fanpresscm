@@ -33,4 +33,5 @@ interface dashcontainer {
      * @return int
      */
     public function getPosition();
+
 }
