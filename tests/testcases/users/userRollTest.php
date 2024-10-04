@@ -42,6 +42,14 @@ class userRollTest extends testBase {
         $this->assertTrue($copy->exists());
         $this->assertStringContainsString('Kopie von', $copy->getRollNameTranslated());
         $this->assertTrue($copy->getCodex() === $object->getCodex());
+        
+        $permOld = new \fpcm\model\permissions\permissions($this->object->getId());
+        $permCopy = new \fpcm\model\permissions\permissions($copy->getId());
+        
+        $expected = hash('sha256', json_encode($permOld->getPermissionData()));
+        $actual = hash('sha256', json_encode($permCopy->getPermissionData()));
+
+        $this->assertEquals($expected, $actual);        
         $this->assertTrue($copy->delete());
     }
 
