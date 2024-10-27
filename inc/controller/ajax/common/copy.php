@@ -50,12 +50,13 @@ class copy extends \fpcm\controller\abstracts\ajaxController
      */
     public function process()
     {
-        if ($this->processByParam() !== true) {
-            $this->response
-            ->setReturnData([
+        if ($this->request->fromPOST('dest') !== 'system') {
+            $this->processModuleEvent();
+        }
+        elseif ($this->processByParam() !== true) {
+            $this->response->setReturnData([
                 'message' => $this->message
-            ])
-            ->fetch();
+            ])->fetch();
         }
 
         $this->response->setReturnData([
@@ -251,6 +252,53 @@ class copy extends \fpcm\controller\abstracts\ajaxController
         ]);
 
         return true;
+    }
+
+    /**
+     *
+     * @return void
+     * @since 5.2.3-dev
+     */
+    protected function processModuleEvent(): void
+    {
+        $res = $this->events->trigger('copyItem', [
+            'key' => $this->request->fromPOST('dest'),
+            'itemType' => $this->request->fromPOST('fn'),
+            'itemId' => $this->request->fromPOST('id')
+        ]);
+
+        if (!$res->getSuccessed()) {
+            $this->response->setReturnData([
+                'message' => new \fpcm\view\message($this->language->translate('AJAX_RESPONSE_ERROR'), \fpcm\view\message::TYPE_ERROR)
+            ])->fetch();
+        }
+
+        $data = $res->getData();
+
+        if (!isset($data['result'])) {
+            trigger_error('Undefined result key "result" in "copyItem" return value!');
+            return;
+        }
+
+        if (!isset($data['message'])) {
+            trigger_error('Undefined result key "message" in "copyItem" return value!');
+            return;
+        }
+
+        if (!isset($data['destination'])) {
+            trigger_error('Undefined result key "destination" in "copyItem" return value!');
+            return;
+        }
+
+        if (!isset($data['callback'])) {
+            trigger_error('Undefined result key "callback" in "copyItem" return value!');
+            return;
+        }
+
+        foreach ($data as $key => $value) {
+            $this->{$key} = $value;
+        }
+
     }
 
 }

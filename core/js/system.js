@@ -484,7 +484,8 @@ fpcm.system = {
             clickYes: function () {
                 fpcm.ajax.execFunction('copy', _params[0], {
                     data: {
-                        id: _params[1]
+                        id: _params[1],
+                        dest: _params[2]
                     },
                     execDone: function(_result) {
 

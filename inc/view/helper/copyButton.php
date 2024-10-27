@@ -29,15 +29,16 @@ final class copyButton extends button {
         $this->iconOnly = true;
         $this->setText('GLOBAL_COPY');
         $this->setIcon('copy');
-    }
+    }    
     
     /**
      * Set copy params
      * @param \fpcm\model\abstracts\dataset $object
      * @param string $type
+     * @param string $modulekey
      * @return $this
      */
-    final public function setCopyParams($object, string $type)
+    final public function setCopyParams($object, string $type, string $modulekey = 'system')
     {
         if (!is_object($object)) {
             trigger_error('Invalid parameter, $object must be an object');
@@ -49,7 +50,7 @@ final class copyButton extends button {
             return $this;
         }
 
-        $this->setOnClick('system.createCopy', sprintf("%s:%s", $type, $object->getId()));
+        $this->setOnClick('system.createCopy', sprintf("%s:%s:%s", $type, $object->getId(), $modulekey));
         return $this;
     }
 

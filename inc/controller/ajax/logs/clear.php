@@ -114,5 +114,3 @@ class clear extends \fpcm\controller\abstracts\ajaxController
     }
 
 }
-
-?>
