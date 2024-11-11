@@ -6,12 +6,10 @@ namespace Intervention\Image\Drivers\Gd;
 
 use Intervention\Image\Drivers\AbstractDriver;
 use Intervention\Image\Exceptions\DriverException;
-use Intervention\Image\Exceptions\NotSupportedException;
 use Intervention\Image\Exceptions\RuntimeException;
 use Intervention\Image\Format;
 use Intervention\Image\FileExtension;
 use Intervention\Image\Image;
-use Intervention\Image\Interfaces\ColorInterface;
 use Intervention\Image\Interfaces\ColorProcessorInterface;
 use Intervention\Image\Interfaces\ColorspaceInterface;
 use Intervention\Image\Interfaces\DriverInterface;
@@ -72,6 +70,7 @@ class Driver extends AbstractDriver
     /**
      * {@inheritdoc}
      *
+     * @throws RuntimeException
      * @see DriverInterface::createAnimation()
      */
     public function createAnimation(callable $init): ImageInterface
@@ -116,16 +115,6 @@ class Driver extends AbstractDriver
     /**
      * {@inheritdoc}
      *
-     * @see DriverInterface::handleInput()
-     */
-    public function handleInput(mixed $input, array $decoders = []): ImageInterface|ColorInterface
-    {
-        return (new InputHandler($this->specializeMultiple($decoders)))->handle($input);
-    }
-
-    /**
-     * {@inheritdoc}
-     *
      * @see DriverInterface::colorProcessor()
      */
     public function colorProcessor(ColorspaceInterface $colorspace): ColorProcessorInterface
@@ -150,13 +139,7 @@ class Driver extends AbstractDriver
      */
     public function supports(string|Format|FileExtension|MediaType $identifier): bool
     {
-        try {
-            $format = Format::create($identifier);
-        } catch (NotSupportedException) {
-            return false;
-        }
-
-        return match ($format) {
+        return match (Format::tryCreate($identifier)) {
             Format::JPEG => boolval(imagetypes() & IMG_JPEG),
             Format::WEBP => boolval(imagetypes() & IMG_WEBP),
             Format::GIF => boolval(imagetypes() & IMG_GIF),

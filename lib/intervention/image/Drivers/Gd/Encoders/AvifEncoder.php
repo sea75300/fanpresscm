@@ -11,13 +11,15 @@ use Intervention\Image\Interfaces\SpecializedInterface;
 
 class AvifEncoder extends GenericAvifEncoder implements SpecializedInterface
 {
+    /**
+     * {@inheritdoc}
+     *
+     * @see EncoderInterface::encode()
+     */
     public function encode(ImageInterface $image): EncodedImage
     {
-        $gd = $image->core()->native();
-        $data = $this->buffered(function () use ($gd) {
-            imageavif($gd, null, $this->quality);
-        });
-
-        return new EncodedImage($data, 'image/avif');
+        return $this->createEncodedImage(function ($pointer) use ($image) {
+            imageavif($image->core()->native(), $pointer, $this->quality);
+        }, 'image/avif');
     }
 }

@@ -11,11 +11,21 @@ use Intervention\Image\Interfaces\PointInterface;
 
 class PlaceModifier extends SpecializableModifier
 {
+    /**
+     * Create new modifier object
+     *
+     * @param mixed $element
+     * @param string $position
+     * @param int $offset_x
+     * @param int $offset_y
+     * @param int $opacity
+     * @return void
+     */
     public function __construct(
         public mixed $element,
-        public string $position,
-        public int $offset_x,
-        public int $offset_y,
+        public string $position = 'top-left',
+        public int $offset_x = 0,
+        public int $offset_y = 0,
         public int $opacity = 100
     ) {
     }

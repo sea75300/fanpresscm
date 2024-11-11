@@ -4,6 +4,7 @@
 [![Latest Version](https://img.shields.io/packagist/v/intervention/image.svg)](https://packagist.org/packages/intervention/image)
 [![Build Status](https://github.com/Intervention/image/actions/workflows/run-tests.yml/badge.svg)](https://github.com/Intervention/image/actions)
 [![Monthly Downloads](https://img.shields.io/packagist/dm/intervention/image.svg)](https://packagist.org/packages/intervention/image/stats)
+[![Support me on Ko-fi](https://raw.githubusercontent.com/Intervention/image/develop/.github/images/support.svg)](https://ko-fi.com/interventionphp)
 
 Intervention Image is a **PHP image processing library** that provides a simple
 and expressive way to create, edit, and compose images. It features a unified
@@ -65,22 +66,6 @@ $encoded->save('images/example.jpg');
 
 - GD Library
 - Imagick PHP extension
-
-## Development & Testing
-
-This package contains a Docker image for building a test suite and an analysis
-container. You must have Docker installed on your system to run all tests using
-the following command.
-
-```bash
-docker-compose run --rm --build tests
-```
-
-Run the static analyzer on the code base.
-
-```bash
-docker-compose run --rm --build analysis
-```
 
 ## Security
 

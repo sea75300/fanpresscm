@@ -65,6 +65,21 @@ enum Format
     }
 
     /**
+     * Try to create format from given identifier and return null on failure
+     *
+     * @param string|Format|MediaType|FileExtension $identifier
+     * @return Format|null
+     */
+    public static function tryCreate(string|self|MediaType|FileExtension $identifier): ?self
+    {
+        try {
+            return self::create($identifier);
+        } catch (NotSupportedException) {
+            return null;
+        }
+    }
+
+    /**
      * Return the possible media (MIME) types for the current format
      *
      * @return array<MediaType>
@@ -77,6 +92,18 @@ enum Format
     }
 
     /**
+     * Return the first found media type for the current format
+     *
+     * @return MediaType
+     */
+    public function mediaType(): MediaType
+    {
+        $types = $this->mediaTypes();
+
+        return reset($types);
+    }
+
+    /**
      * Return the possible file extension for the current format
      *
      * @return array<FileExtension>
@@ -86,6 +113,18 @@ enum Format
         return array_filter(FileExtension::cases(), function ($fileExtension) {
             return $fileExtension->format() === $this;
         });
+    }
+
+    /**
+     * Return the first found file extension for the current format
+     *
+     * @return FileExtension
+     */
+    public function fileExtension(): FileExtension
+    {
+        $extensions = $this->fileExtensions();
+
+        return reset($extensions);
     }
 
     /**

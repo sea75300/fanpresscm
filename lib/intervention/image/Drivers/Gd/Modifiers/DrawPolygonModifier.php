@@ -12,6 +12,9 @@ use Intervention\Image\Modifiers\DrawPolygonModifier as ModifiersDrawPolygonModi
 class DrawPolygonModifier extends ModifiersDrawPolygonModifier implements SpecializedInterface
 {
     /**
+     * {@inheritdoc}
+     *
+     * @see ModifierInterface::apply()
      * @throws RuntimeException
      */
     public function apply(ImageInterface $image): ImageInterface
@@ -19,6 +22,7 @@ class DrawPolygonModifier extends ModifiersDrawPolygonModifier implements Specia
         foreach ($image as $frame) {
             if ($this->drawable->hasBackgroundColor()) {
                 imagealphablending($frame->native(), true);
+                imagesetthickness($frame->native(), 0);
                 imagefilledpolygon(
                     $frame->native(),
                     $this->drawable->toArray(),
