@@ -43,6 +43,8 @@ final class memcache extends \fpcm\model\abstracts\cli {
         $lines = [];
         $lines[] = '> Memcache:';
         $lines[] = '';
+        $lines[] = 'Usage: php (path to FanPress CM/)fpcmcli.php memcache';
+        $lines[] = '';
         $lines[] = 'Displays memcached stats.';
         return $lines;
     }

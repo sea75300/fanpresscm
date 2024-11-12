@@ -118,6 +118,12 @@ abstract class cli extends \fpcm\model\abstracts\staticModel {
     const PARAM_EXECSYSTEM = '--exsystem';
 
     /**
+     * CLI param: --database
+     * @ignore
+     */
+    const PARAM_BACKUP_DATABASE = '--database';
+
+    /**
      * CLI param: package manager type: system
      */
     const PARAM_TYPE_SYSTEM = 'system';

@@ -8,7 +8,7 @@ namespace fpcm\model\crons;
 
 /**
  * FanPress CM database dump cronjub
- * 
+ *
  * @package fpcm\model\crons
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2022, Stefan Seehafer
@@ -41,7 +41,8 @@ class dbBackup extends \fpcm\model\abstracts\cron {
 
         $dumpSettings = [];
 
-        $this->dumpfile = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_DBDUMP, $dbconfig['DBNAME'] . '_' . date('Y-m-d_H-i-s') . '.sql');
+        $this->dumpfile = self::getDumpFileName($dbconfig['DBNAME']);
+
         if (function_exists('gzopen')) {
             $dumpSettings['compress'] = \Ifsnop\Mysqldump\Mysqldump::GZIP;
             $this->dumpfile .= '.gz';
@@ -76,7 +77,7 @@ class dbBackup extends \fpcm\model\abstracts\cron {
         fpcmLogCron('Create new database dump in "' . \fpcm\model\files\ops::removeBaseDir($this->dumpfile, true) . '"...');
 
         try {
-            
+
             $mysqlDump = new \Ifsnop\Mysqldump\Mysqldump(
                 $this->dbcon->getPdoDns(),
                 $dbconfig['DBUSER'],
@@ -122,8 +123,8 @@ class dbBackup extends \fpcm\model\abstracts\cron {
         if (defined('FPCM_CRON_DBDUMP_NOMAIL') && FPCM_CRON_DBDUMP_NOMAIL) {
             $email->submit();
             return true;
-        }        
-        
+        }
+
         if (filesize($this->dumpfile) <= \fpcm\classes\baseconfig::memoryLimit(true) / 8) {
             $email->setAttachments([
                 $this->dumpfile
@@ -132,6 +133,11 @@ class dbBackup extends \fpcm\model\abstracts\cron {
 
         $email->submit();
         return true;
+    }
+
+    public static function getDumpFileName(string $dbName) : string
+    {
+        return \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_DBDUMP, $dbName . '_' . date('Y-m-d_H-i-s') . '.sql');
     }
 
 }
