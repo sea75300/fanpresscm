@@ -75,6 +75,7 @@ class copy extends \fpcm\controller\abstracts\ajaxController
     protected function processArticle() : bool
     {
         if (!$this->permissions->article->add) {
+            $this->message = new \fpcm\view\message($this->language->translate('SAVE_FAILED_WORDBAN'), \fpcm\view\message::TYPE_ERROR);
             return false;
         }
 
@@ -113,6 +114,7 @@ class copy extends \fpcm\controller\abstracts\ajaxController
     protected function processCategory() : bool
     {
         if (!$this->permissions->system->categories) {
+            $this->message = new \fpcm\view\message($this->language->translate('SAVE_FAILED_WORDBAN'), \fpcm\view\message::TYPE_ERROR);
             return false;
         }
 
@@ -150,6 +152,7 @@ class copy extends \fpcm\controller\abstracts\ajaxController
     protected function processFile() : bool
     {
         if (!$this->permissions->uploads->add) {
+            $this->message = new \fpcm\view\message($this->language->translate('SAVE_FAILED_UPLOAD_COPY'), \fpcm\view\message::TYPE_ERROR);
             return false;
         }
 
@@ -159,19 +162,19 @@ class copy extends \fpcm\controller\abstracts\ajaxController
         ]);
 
         if (!$fn) {
-            $this->message = new \fpcm\view\message($this->language->translate('SAVE_FAILED_UPLOAD_COPY1'), \fpcm\view\message::TYPE_ERROR);
+            $this->message = new \fpcm\view\message($this->language->translate('SAVE_FAILED_UPLOAD_COPY'), \fpcm\view\message::TYPE_ERROR);
             return false;
         }
 
         $obj = new \fpcm\model\files\image($fn);
         if (!$obj instanceof \fpcm\model\interfaces\isCopyable || !$obj->existsFolder()) {
-            $this->message = new \fpcm\view\message($this->language->translate('SAVE_FAILED_UPLOAD_COPY2'), \fpcm\view\message::TYPE_ERROR);
+            $this->message = new \fpcm\view\message($this->language->translate('SAVE_FAILED_UPLOAD_COPY'), \fpcm\view\message::TYPE_ERROR);
             return false;
         }
 
         $newId = $obj->copy();
         if (!$newId) {
-            $this->message = new \fpcm\view\message($this->language->translate('SAVE_FAILED_UPLOAD_COPY3'), \fpcm\view\message::TYPE_ERROR);
+            $this->message = new \fpcm\view\message($this->language->translate('SAVE_FAILED_UPLOAD_COPY'), \fpcm\view\message::TYPE_ERROR);
             return false;
         }
 
@@ -187,6 +190,7 @@ class copy extends \fpcm\controller\abstracts\ajaxController
     protected function processText() : bool
     {
         if (!$this->permissions->system->wordban) {
+            $this->message = new \fpcm\view\message($this->language->translate('SAVE_FAILED_WORDBAN'), \fpcm\view\message::TYPE_ERROR);
             return false;
         }
 
@@ -224,6 +228,7 @@ class copy extends \fpcm\controller\abstracts\ajaxController
     protected function processRoll() : bool
     {
         if (!$this->permissions->system->rolls) {
+            $this->message = new \fpcm\view\message($this->language->translate('SAVE_FAILED_ROLL'), \fpcm\view\message::TYPE_ERROR);
             return false;
         }
 

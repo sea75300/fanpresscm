@@ -67,18 +67,6 @@ class main {
          */
         $controller = new $class();
         $this->isExecutable($controller, $class, $module);
-        
-        if ($controller instanceof interfaces\isAccessible) {
-            trigger_error(sprintf('The interface "fpcm\controller\interfaces\isAccessible" '
-                                . 'in "%s" is deprecated since version 5.0.0-a3. '
-                                . 'The interface will be removed in future versions. '
-                                . 'Please remove the implements statement.'
-                    , $class),
-                    E_USER_DEPRECATED);
-            
-            define('FPCM_NOTIFICATION_DEPRECATED_ISACCESSIBLE_INTERFACE', true);
-            
-        }
 
         if (!$controller->hasAccess() || !$controller->request()) {
             return false;

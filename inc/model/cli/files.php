@@ -106,7 +106,7 @@ final class files extends \fpcm\model\abstracts\cli {
             $this->output('Invalid files data', true);
             return false;
         }
-
+        
         $dirs = array_filter($fileListContent, function ($fp) {
 
             $fp = trim($fp);
@@ -116,10 +116,16 @@ final class files extends \fpcm\model\abstracts\cli {
                 return false;
             }
 
-            $p = str_replace('fanpress/', $this->base, $fp);
+            if (!str_starts_with($fp, $this->base)) {
+                $p = str_replace('//', '/', str_replace('fanpress/', $this->base, $fp));
+            }
+            else {
+                $p = $fp;
+            }
+            
             return is_dir($p);
         });
-
+        
         if (!count($dirs)) {
             $this->output('Invalid directory list count data', true);
             return false;
