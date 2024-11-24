@@ -9,7 +9,7 @@
 
 namespace fpcm\controller\action\users\roll;
 
-class add extends rollbase {
+class add extends base {
 
     /**
      *
