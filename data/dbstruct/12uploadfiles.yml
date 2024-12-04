@@ -33,10 +33,17 @@ cols:
         length: 255
         params: NOT NULL
         charset: utf8mb4
+    pathhash:
+        type: varchar
+        length: 64
+        params: NOT NULL
 indices:
     filename:
         col: filename
         isUnqiue: true
+    pathhash:
+        col: pathhash
+        isUnqiue: false
     alttext:
         col: alttext
         isUnqiue: false
