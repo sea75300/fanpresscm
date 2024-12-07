@@ -325,7 +325,6 @@ implements \fpcm\model\interfaces\validateFileType,
 
         $saveValues = $this->getSaveValues();
         $saveValues['filesize'] = (int) $saveValues['filesize'];
-        $saveValues['pathhash'] = hash(\fpcm\classes\security::defaultHashAlgo, $this->filename);
 
         return $this->dbcon->insert($this->table, $this->events->trigger('image\save', $saveValues)->getData());
     }
@@ -344,7 +343,6 @@ implements \fpcm\model\interfaces\validateFileType,
         $saveValues['filesize'] = (int) $saveValues['filesize'];
         $saveValues['filetime'] = (int) $saveValues['filetime'];
         $saveValues['userid'] = (int) $saveValues['userid'];
-        $saveValues['pathhash'] = hash(\fpcm\classes\security::defaultHashAlgo, $this->filename);
 
         $saveValues[] = $this->filename;
         $saveValues = $this->events->trigger('image\update', $saveValues)->getData();

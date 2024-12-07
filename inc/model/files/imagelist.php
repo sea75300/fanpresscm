@@ -160,34 +160,6 @@ implements \fpcm\model\interfaces\gsearchIndex {
     }
 
     /**
-     * Fetch file index by path hash
-     * @param array $hashes
-     * @return array
-     * @since 5.2.3-b2
-     */
-    public function getFilesByPathHash(array $hashes) : array
-    {
-        if (!count($hashes)) {
-            return [];
-        }
-
-        $sObj = (new \fpcm\model\dbal\selectParams($this->table))
-                ->setItem('pathhash, filename')
-                ->setWhere($this->dbcon->inQuery('pathhash', $hashes))
-                ->setParams($hashes)
-                ->setFetchAll(true)
-                ->setFetchStyle(\PDO::FETCH_KEY_PAIR);
-
-        $result = $this->dbcon->selectFetch($sObj);
-
-        if (!is_array($result) || !count($result)) {
-            return [];
-        }
-        
-        return $result;
-    }
-
-    /**
      * Updates file index
      * @param int $userId
      * @return bool

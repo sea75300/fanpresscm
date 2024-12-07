@@ -485,7 +485,7 @@ fpcm.system = {
                 fpcm.ajax.execFunction('copy', _params[0], {
                     data: {
                         id: _params[1],
-                        dest: _params[2]
+                        dest: _params[2] ? _params[2] : 'system'
                     },
                     execDone: function(_result) {
 

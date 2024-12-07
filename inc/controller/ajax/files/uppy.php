@@ -267,5 +267,3 @@ class uppy extends \fpcm\controller\abstracts\ajaxController
     }
 
 }
-
-?>

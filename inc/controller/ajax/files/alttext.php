@@ -34,7 +34,8 @@ class alttext extends \fpcm\controller\abstracts\ajaxController
     public function request()
     {
         $fileName = $this->request->fromPOST('file', [
-            \fpcm\model\http\request::FILTER_BASE64DECODE
+            \fpcm\model\http\request::FILTER_BASE64DECODE,
+            \fpcm\model\http\request::FILTER_DECRYPT
         ]);
 
         $altText = $this->request->fromPOST('alttext', [
@@ -70,5 +71,3 @@ class alttext extends \fpcm\controller\abstracts\ajaxController
     }
 
 }
-
-?>

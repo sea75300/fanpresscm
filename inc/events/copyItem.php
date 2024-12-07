@@ -24,10 +24,10 @@ final class copyItem extends abstracts\event {
 
     /**
      * Executes the event
-     * @return null|\fpcm\model\files\logfileResult
+     * @return null|\fpcm\module\eventResult
      */
-    public function run() {
-
+    public function run()
+    {
         $obj = new \fpcm\module\module($this->data['key']);
         if (!$obj->isInstalled() || !$obj->isActive()) {
             return (new \fpcm\module\eventResult)->setData(null);
