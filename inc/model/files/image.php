@@ -526,7 +526,6 @@ implements \fpcm\model\interfaces\validateFileType,
         }
         else {
             $this->isIndexed = false;
-            $this->pathhash = hash(\fpcm\classes\security::defaultHashAlgo, $this->filename);
         }
 
         if (!parent::exists()) {

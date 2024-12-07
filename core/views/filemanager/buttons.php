@@ -1,7 +1,10 @@
 <?php /* @var $theView fpcm\view\viewVars */ /* @var $file fpcm\model\files\image */ ?>
     <div class="nav-item">
         <div class="btn btn-<?php if ($theView->darkMode) : ?>dark<?php else : ?>light<?php endif; ?>">
-            <?php $theView->checkbox('filenames[]', 'cb_'. $file->getFileNameHash())->setClass('fpcm-ui-list-checkbox')->setValue(base64_encode($file->getFilename()))->setData(['gallery' => $file->getFilename()]); ?>
+            <?php $theView->checkbox('filenames[]', 'cb_'. $file->getPathHash())
+                    ->setClass('fpcm-ui-list-checkbox')
+                    ->setValue(base64_encode($file->getFilename()))
+                    ->setData(['gallery' => $file->getFilename()]); ?>
         </div>
     </div>
 <?php if ($file->existsFolder()) : ?>
@@ -19,7 +22,7 @@
     <?php endif; ?>
         <div class="nav-item dropdown dropup-center dropup">
 
-            <?php $theView->button('nbexp'.$file->getFileNameHash())
+            <?php $theView->button('nbexp'.$file->getPathHash())
                 ->setText('GLOBAL_ACTIONS')
                 ->setIcon('bars')
                 ->setIconOnly()
@@ -28,7 +31,7 @@
                 ->setClass('dropdown-toggle');
             ?>
 
-            <ul class="dropdown-menu <?php if ($is_last($i)) : ?>dropdown-menu-end<?php endif; ?>" aria-labelledby="nbexp<?php $file->getFileNameHash(); ?>">
+            <ul class="dropdown-menu <?php if ($is_last($i)) : ?>dropdown-menu-end<?php endif; ?>" aria-labelledby="nbexp<?php $file->getPathHash(); ?>">
             <?php if ($theView->permissions->uploads->rename) : ?>
               <li>
                 <?php $theView->dropdownItem(uniqid('rename'))->setText('FILE_LIST_RENAME')->setIcon('edit')->setClass('fpcm-filelist-rename')->setData(['file' => base64_encode($file->getFilename()), 'oldname' => basename($file->getFilename(), '.'.$file->getExtension())]); ?>

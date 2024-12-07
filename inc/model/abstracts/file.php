@@ -97,12 +97,6 @@ abstract class file implements \Stringable {
     protected $filesize;
 
     /**
-     * SHA256 filename or path hash
-     * @var string
-     */
-    protected string $pathhash = '';
-
-    /**
      * Dateiinhalt
      * @var string
      */
@@ -138,7 +132,6 @@ abstract class file implements \Stringable {
             $this->fullpath = $this->basePath($filename);
             $this->filepath = dirname($this->fullpath);
             $this->filename = basename($this->fullpath);
-            $this->pathhash = hash(\fpcm\classes\security::defaultHashAlgo, $this->filename);
         }
 
         $this->dbcon = loader::getObject('\fpcm\classes\database');
@@ -250,7 +243,6 @@ abstract class file implements \Stringable {
         }
 
         $this->filename = $newname;
-        $this->pathhash = hash(\fpcm\classes\security::defaultHashAlgo, $this->filename);
         $this->fullpath = $newFullPath;
 
         return true;
@@ -364,28 +356,6 @@ abstract class file implements \Stringable {
     public function setContent($content)
     {
         $this->content = $content;
-    }
-
-    /**
-     * Returns SHA256 path hash
-     * @return string
-     * @since 5.2.3-b2
-     */
-    public function getPathHash(): string
-    {
-        return $this->pathhash;
-    }
-
-    /**
-     * Set SHA256 path hash
-     * @param string $pathhash
-     * @return $this
-     * @since 5.2.3-b2
-     */
-    public function setPathhash(string $pathhash)
-    {
-        $this->pathhash = $pathhash;
-        return $this;
     }
 
     /**

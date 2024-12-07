@@ -47,23 +47,6 @@ class imagesTest extends testBase {
         $this->assertTrue($object->delete());
     }
 
-    public function testGetFilesByPathHash()
-    {
-        
-        $this->createImage();
-
-        $hash = hash(\fpcm\classes\security::defaultHashAlgo, $GLOBALS['imageName']);
-        
-        $data = $this->object->getFilesByPathHash([ $hash ]);
-
-        $this->assertTrue(is_array($data));
-        $this->assertGreaterThanOrEqual(1, count($data));
-        $this->assertArrayHasKey($hash, $data);
-
-        $this->assertTrue((new \fpcm\model\files\image($GLOBALS['imageName']))->delete());
-        
-    }
-
     public function testGetCropperFilename()
     {
         $filename = $GLOBALS['imageName'];
