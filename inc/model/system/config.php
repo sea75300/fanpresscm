@@ -441,7 +441,7 @@ final class config extends dataset implements \fpcm\model\interfaces\isObjectIns
      * @return bool
      * @since 4.5-rc2
      */
-    final public function disableTwitter(): bool
+    final public function disableTwitter() : bool
     {
         $this->twitter_data->reset();
         $this->twitter_events->reset();
