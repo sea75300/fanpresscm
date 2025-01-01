@@ -11,12 +11,15 @@ use Intervention\Image\Interfaces\SpecializedInterface;
 
 class BmpEncoder extends GenericBmpEncoder implements SpecializedInterface
 {
+    /**
+     * {@inheritdoc}
+     *
+     * @see EncoderInterface::encode()
+     */
     public function encode(ImageInterface $image): EncodedImage
     {
-        $data = $this->buffered(function () use ($image) {
-            imagebmp($image->core()->native(), null, false);
-        });
-
-        return new EncodedImage($data, 'image/bmp');
+        return $this->createEncodedImage(function ($pointer) use ($image) {
+            imagebmp($image->core()->native(), $pointer, false);
+        }, 'image/bmp');
     }
 }

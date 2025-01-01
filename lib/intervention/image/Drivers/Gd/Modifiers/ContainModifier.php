@@ -18,12 +18,19 @@ use Intervention\Image\Modifiers\ContainModifier as GenericContainModifier;
 
 class ContainModifier extends GenericContainModifier implements SpecializedInterface
 {
+    /**
+     * {@inheritdoc}
+     *
+     * @see ModifierInterface::apply()
+     */
     public function apply(ImageInterface $image): ImageInterface
     {
         $crop = $this->getCropSize($image);
         $resize = $this->getResizeSize($image);
         $background = $this->driver()->handleInput($this->background);
-        $blendingColor = $image->blendingColor();
+        $blendingColor = $this->driver()->handleInput(
+            $this->driver()->config()->blendingColor
+        );
 
         foreach ($image as $frame) {
             $this->modify($frame, $crop, $resize, $background, $blendingColor);

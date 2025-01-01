@@ -33,6 +33,12 @@ final class files extends \fpcm\model\abstracts\cli {
     private array $filesIndex = [];
 
     /**
+     * Directory index array
+     * @var array
+     */
+    private array $dirsIndex = [];
+
+    /**
      * Folder excludes parameter
      * @var array
      */
@@ -106,7 +112,7 @@ final class files extends \fpcm\model\abstracts\cli {
             $this->output('Invalid files data', true);
             return false;
         }
-
+        
         $dirs = array_filter($fileListContent, function ($fp) {
 
             $fp = trim($fp);
@@ -116,10 +122,16 @@ final class files extends \fpcm\model\abstracts\cli {
                 return false;
             }
 
-            $p = str_replace('fanpress/', $this->base, $fp);
+            if (!str_starts_with($fp, $this->base)) {
+                $p = str_replace('//', '/', str_replace('fanpress/', $this->base, $fp));
+            }
+            else {
+                $p = $fp;
+            }
+            
             return is_dir($p);
         });
-
+        
         if (!count($dirs)) {
             $this->output('Invalid directory list count data', true);
             return false;
@@ -190,7 +202,6 @@ final class files extends \fpcm\model\abstracts\cli {
 
         foreach ($this->filesIndex as $path) {
 
-
             $progress
                     ->setOutputText(\fpcm\model\files\ops::removeBaseDir($path))
                     ->setCurrentValue($i)
@@ -201,6 +212,11 @@ final class files extends \fpcm\model\abstracts\cli {
                 continue;
             }
 
+            if (is_dir($path)) {
+                $this->dirsIndex[] = $path;
+                continue;
+            }
+
             if (!unlink($path)) {
                 $this->output(sprintf('Failed to remove files %s, cancel process...', $path), true);
             }
@@ -208,8 +224,29 @@ final class files extends \fpcm\model\abstracts\cli {
             $i++;
         }
         
+        unset($path);
+        
+        if (count($this->dirsIndex)) {
+            
+            foreach ($this->dirsIndex as $path) {
+                
+                $progress
+                        ->setOutputText(\fpcm\model\files\ops::removeBaseDir($path))
+                        ->setCurrentValue($i)
+                        ->output();                
+
+                if (!\fpcm\model\files\ops::deleteRecursive($path)) {
+                    $this->output(sprintf('Failed to remove folder %s, cancel process...', $path), true);
+                }
+
+                $i++;
+            }
+
+        }
+        
         usleep(5000);
         $this->filesIndex = [];
+        $this->dirsIndex = [];
 
         $this->check();
     }

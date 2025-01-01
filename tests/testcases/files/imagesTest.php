@@ -14,13 +14,13 @@ class imagesTest extends testBase {
         $this->className = 'files\\imagelist';
         parent::setUp();
     }
-    
+
     public function tearDown() : void
     {
         if (!file_exists($GLOBALS['imageObj']->getFullpath())) {
             return;
         }
-        
+
         unlink($GLOBALS['imageObj']->getFullpath());
     }
 
@@ -60,7 +60,7 @@ class imagesTest extends testBase {
     {
         $object =  new \fpcm\model\files\image($GLOBALS['imageName']);
         $data = $object->getPropertiesArray('Stefan');
-        
+
         $keys = [
             'filename', 'filetime', 'fileuser',
             'filesize', 'fileresx', 'fileresy',
@@ -72,7 +72,7 @@ class imagesTest extends testBase {
         }
 
     }
-    
+
     public function testValidateType()
     {
         $files = glob(__DIR__.DIRECTORY_SEPARATOR.'icon.*');
@@ -83,9 +83,9 @@ class imagesTest extends testBase {
             $ext = fpcm\model\abstracts\file::retrieveFileExtension($file);
             $this->assertTrue(in_array($ext, ['png', 'jpg', 'gif']));
             $mime = (new finfo(FILEINFO_MIME_TYPE))->file($file);
-            $this->assertTrue(\fpcm\model\files\image::isValidType($ext, $mime), 'Mismatched ' . $ext . ' and ' . $mime);    
+            $this->assertTrue(\fpcm\model\files\image::isValidType($ext, $mime), 'Mismatched ' . $ext . ' and ' . $mime);
         }
-        
+
         unset($ext, $file, $files);
 
         $file = __DIR__.DIRECTORY_SEPARATOR.'failed.bmp';
@@ -93,7 +93,7 @@ class imagesTest extends testBase {
         $this->assertEquals('bmp', $ext);
 
         $mime = (new finfo(FILEINFO_MIME_TYPE))->file($file);
-        $this->assertFalse(\fpcm\model\files\image::isValidType($ext, $mime));   
+        $this->assertFalse(\fpcm\model\files\image::isValidType($ext, $mime));
 
     }
 

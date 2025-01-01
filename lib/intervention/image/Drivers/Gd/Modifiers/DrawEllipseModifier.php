@@ -12,6 +12,9 @@ use Intervention\Image\Modifiers\DrawEllipseModifier as GenericDrawEllipseModifi
 class DrawEllipseModifier extends GenericDrawEllipseModifier implements SpecializedInterface
 {
     /**
+     * {@inheritdoc}
+     *
+     * @see ModifierInterface::apply()
      * @throws RuntimeException
      */
     public function apply(ImageInterface $image): ImageInterface
@@ -55,6 +58,7 @@ class DrawEllipseModifier extends GenericDrawEllipseModifier implements Speciali
                 );
             } else {
                 imagealphablending($frame->native(), true);
+                imagesetthickness($frame->native(), 0);
                 imagefilledellipse(
                     $frame->native(),
                     $this->drawable()->position()->x(),

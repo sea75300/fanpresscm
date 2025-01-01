@@ -167,5 +167,3 @@ class filelist extends \fpcm\controller\abstracts\ajaxController
     }
 
 }
-
-?>

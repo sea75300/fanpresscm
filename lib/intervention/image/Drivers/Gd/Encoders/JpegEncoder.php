@@ -12,15 +12,25 @@ use Intervention\Image\Interfaces\SpecializedInterface;
 
 class JpegEncoder extends GenericJpegEncoder implements SpecializedInterface
 {
+    /**
+     * {@inheritdoc}
+     *
+     * @see EncoderInterface::encode()
+     */
     public function encode(ImageInterface $image): EncodedImage
     {
-        $output = Cloner::cloneBlended($image->core()->native(), background: $image->blendingColor());
+        $blendingColor = $this->driver()->handleInput(
+            $this->driver()->config()->blendingColor
+        );
 
-        $data = $this->buffered(function () use ($output) {
+        $output = Cloner::cloneBlended(
+            $image->core()->native(),
+            background: $blendingColor
+        );
+
+        return $this->createEncodedImage(function ($pointer) use ($output) {
             imageinterlace($output, $this->progressive);
-            imagejpeg($output, null, $this->quality);
-        });
-
-        return new EncodedImage($data, 'image/jpeg');
+            imagejpeg($output, $pointer, $this->quality);
+        }, 'image/jpeg');
     }
 }

@@ -58,5 +58,15 @@ class ops extends \PHPUnit\Framework\TestCase {
 
     }
 
+    public function testHashFile()
+    {
+
+        $hash1 = fpcm\model\files\ops::hashFile(__FILE__);
+        $hash2 = hash_file('sha256', __FILE__);
+
+        $this->assertTrue($hash1 === $hash2);
+
+    }
+
 
 }

@@ -666,54 +666,6 @@ class author extends \fpcm\model\abstracts\dataset {
     }
 
     /**
-     * Write content to file option for current user
-     * @param string $opt
-     * @param mixed $data
-     * @return bool
-     * @deprecated 5.1.0-a1
-     */
-    final public function writeOption($opt, $data)
-    {
-        trigger_error(sprintf('%s is deprecated as of FPCM 5.1.0-a1. Use %s object instead.', __METHOD__, '\fpcm\model\files\userFileOption'), E_USER_DEPRECATED);
-        return $this->getFileOptionObject($opt)->write($data);
-    }
-
-    /**
-     * Read content from file option for current user
-     * @param string $opt
-     * @return mixed
-     * @deprecated 5.1.0-a1
-     */
-    final public function readOption($opt)
-    {
-        trigger_error(sprintf('%s is deprecated as of FPCM 5.1.0-a1. Use %s object instead.', __METHOD__, '\fpcm\model\files\userFileOption'), E_USER_DEPRECATED);
-        return $this->getFileOptionObject($opt)->read();
-    }
-
-    /**
-     * Removes file option for current user
-     * @param string $opt
-     * @return mixed
-     * @deprecated 5.1.0-a1
-     */
-    final public function removeOption($opt)
-    {
-        trigger_error(sprintf('%s is deprecated as of FPCM 5.1.0-a1. Use %s object instead.', __METHOD__, '\fpcm\model\files\userFileOption'), E_USER_DEPRECATED);
-        return $this->getFileOptionObject($opt)->remove();
-    }
-
-    /**
-     * Generates file option object for current user
-     * @param string $opt
-     * @return string
-     * @deprecated 5.1.0-a1
-     */
-    private function getFileOptionObject($opt)
-    {
-        return new \fpcm\model\files\fileOption('user'.$this->getId().'/fopt_'.$opt);
-    }
-
-    /**
      * Author-Bild laden
      * @param \fpcm\model\users\author $author
      * @param bool $asUrl

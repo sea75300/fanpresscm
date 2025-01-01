@@ -7,20 +7,24 @@ namespace Intervention\Image\Drivers\Imagick\Encoders;
 use Imagick;
 use Intervention\Image\EncodedImage;
 use Intervention\Image\Encoders\JpegEncoder as GenericJpegEncoder;
+use Intervention\Image\Interfaces\EncodedImageInterface;
 use Intervention\Image\Interfaces\ImageInterface;
 use Intervention\Image\Interfaces\SpecializedInterface;
 
 class JpegEncoder extends GenericJpegEncoder implements SpecializedInterface
 {
-    public function encode(ImageInterface $image): EncodedImage
+    public function encode(ImageInterface $image): EncodedImageInterface
     {
-        $format = 'jpeg';
+        $format = 'JPEG';
         $compression = Imagick::COMPRESSION_JPEG;
+        $blendingColor = $this->driver()->handleInput(
+            $this->driver()->config()->blendingColor
+        );
 
         // resolve blending color because jpeg has no transparency
         $background = $this->driver()
             ->colorProcessor($image->colorspace())
-            ->colorToNative($image->blendingColor());
+            ->colorToNative($blendingColor);
 
         // set alpha value to 1 because Imagick renders
         // possible full transparent colors as black

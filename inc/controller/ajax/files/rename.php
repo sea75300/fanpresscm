@@ -47,7 +47,8 @@ class rename extends \fpcm\controller\abstracts\ajaxController
     {
         $this->newFileName = $this->request->fromPOST('newName');
         $this->fileName = $this->request->fromPOST('oldName', [
-            \fpcm\model\http\request::FILTER_BASE64DECODE
+            \fpcm\model\http\request::FILTER_BASE64DECODE,
+            \fpcm\model\http\request::FILTER_DECRYPT
         ]);
 
         if (!$this->newFileName || !$this->fileName) {
@@ -60,7 +61,7 @@ class rename extends \fpcm\controller\abstracts\ajaxController
             ))->fetch();
         }
         
-        if (strpos($this->newFileName, '..') !== false) {
+        if (str_contains($this->newFileName, '..')) {
             $this->response->setReturnData(new \fpcm\view\message(
                 $this->language->translate('RENAME_FAILED_FILE', [
                     '{{filename1}}' => $this->fileName,
@@ -100,5 +101,3 @@ class rename extends \fpcm\controller\abstracts\ajaxController
     }
 
 }
-
-?>

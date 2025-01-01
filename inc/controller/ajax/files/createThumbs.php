@@ -52,7 +52,8 @@ class createThumbs extends \fpcm\controller\abstracts\ajaxController
     public function request()
     {
         $this->files = $this->request->fromPOST('items', [
-            \fpcm\model\http\request::FILTER_BASE64DECODE
+            \fpcm\model\http\request::FILTER_BASE64DECODE,
+            \fpcm\model\http\request::FILTER_DECRYPT
         ]);
 
         if (!$this->files) {
@@ -144,5 +145,3 @@ class createThumbs extends \fpcm\controller\abstracts\ajaxController
     }
 
 }
-
-?>

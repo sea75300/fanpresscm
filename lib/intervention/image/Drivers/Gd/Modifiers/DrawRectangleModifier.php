@@ -12,6 +12,9 @@ use Intervention\Image\Modifiers\DrawRectangleModifier as GenericDrawRectangleMo
 class DrawRectangleModifier extends GenericDrawRectangleModifier implements SpecializedInterface
 {
     /**
+     * {@inheritdoc}
+     *
+     * @see ModifierInterface::apply()
      * @throws RuntimeException
      */
     public function apply(ImageInterface $image): ImageInterface
@@ -22,6 +25,7 @@ class DrawRectangleModifier extends GenericDrawRectangleModifier implements Spec
             // draw background
             if ($this->drawable->hasBackgroundColor()) {
                 imagealphablending($frame->native(), true);
+                imagesetthickness($frame->native(), 0);
                 imagefilledrectangle(
                     $frame->native(),
                     $position->x(),

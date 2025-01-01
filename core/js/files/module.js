@@ -133,23 +133,21 @@ fpcm.filemanager = {
     },
 
     initRenameButtons: function() {
-        fpcm.dom.fromClass('fpcm-filelist-rename').unbind('click');
-        fpcm.dom.fromClass('fpcm-filelist-rename').click(function () {
+
+        fpcm.dom.bindClick('.fpcm-filelist-rename', function (_e, _ui) {
 
             if (!fpcm.ui.langvarExists('FILE_LIST_RENAME_NEWNAME')) {
                 console.log('FILE_LIST_RENAME_NEWNAME');
                 return false;
             }
 
-            var _docname = this.dataset.file;
+            var _docname = _e.delegateTarget.dataset.file;
 
             var _input = new fpcm.ui.forms.input();
             _input.name = 'new-filename-dialog';
             _input.label = fpcm.ui.translate('FILE_LIST_FILENAME');
-            _input.value = this.dataset.oldname;
-            _input.placeholder = this.dataset.oldname;
-            _input.pattern = /^[a-z0-9_.\-\(\)]+$/i;
-            _input.required = true;
+            _input.value = _e.delegateTarget.dataset.oldname;
+            _input.placeholder = _e.delegateTarget.dataset.oldname;
 
             fpcm.ui_dialogs.create({
                 id: 'files-rename',
@@ -165,8 +163,7 @@ fpcm.filemanager = {
                         click: function() {
 
                             let _inputEl = document.getElementById('fpcm-id-new-filename-dialog');
-
-                            if (_inputEl.validity && ( _inputEl.validity.valueMissing || _inputEl.validity.patternMismatch )) {
+                            if (!_inputEl.value || !_inputEl.value.match(/^[a-z0-9_\.\-\(\)]+$/i)) {
 
                                 fpcm.ui.addMessage({
                                     txt: _inputEl.validationMessage,

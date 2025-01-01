@@ -160,11 +160,6 @@ implements \fpcm\model\interfaces\gsearchIndex {
     }
 
     /**
-     * Aktualisiert Dateiindex in Datenbank
-     * @param int $userId
-     */
-
-    /**
      * Updates file index
      * @param int $userId
      * @return bool
@@ -496,5 +491,3 @@ implements \fpcm\model\interfaces\gsearchIndex {
     }
 
 }
-
-?>

@@ -449,6 +449,7 @@ class view {
      */
     public function overrideJsLangVars(array $jsVars)
     {
+        trigger_error(sprintf('%s is deprecated as of FPCM 5.2. Use "addJsLangVars" function with second parameter true instead.', __METHOD__), E_USER_DEPRECATED);
         $this->addJsLangVars($jsVars, true);
     }
 
@@ -804,18 +805,6 @@ class view {
         
         if ($this->showHeader === self::INCLUDE_HEADER_FULL) {
             $this->prepareProfileMenu();
-
-            if (defined('FPCM_NOTIFICATION_DEPRECATED_ISACCESSIBLE_INTERFACE') && FPCM_NOTIFICATION_DEPRECATED_ISACCESSIBLE_INTERFACE) {
-                
-                $this->defaultViewVars->deprecationNotice =
-                    sprintf('{{icon="bomb"}} The interface "fpcm\controller\interfaces\isAccessible" '
-                        . 'in "%s" is deprecated since version 5.0.0-a3. '
-                        . 'The interface will be removed in future versions. '
-                        . 'Please remove the implements statement or contact the '
-                        . 'developer of the module to get any further information '
-                        . 'how to suppress this message.', $req->getModule() );
-            }            
-            
         }
 
         unset($req);

@@ -50,12 +50,13 @@ class copy extends \fpcm\controller\abstracts\ajaxController
      */
     public function process()
     {
-        if ($this->processByParam() !== true) {
-            $this->response
-            ->setReturnData([
+        if ($this->request->fromPOST('dest') !== 'system') {
+            $this->processModuleEvent();
+        }
+        elseif ($this->processByParam() !== true) {
+            $this->response->setReturnData([
                 'message' => $this->message
-            ])
-            ->fetch();
+            ])->fetch();
         }
 
         $this->response->setReturnData([
@@ -74,6 +75,7 @@ class copy extends \fpcm\controller\abstracts\ajaxController
     protected function processArticle() : bool
     {
         if (!$this->permissions->article->add) {
+            $this->message = new \fpcm\view\message($this->language->translate('SAVE_FAILED_WORDBAN'), \fpcm\view\message::TYPE_ERROR);
             return false;
         }
 
@@ -112,6 +114,7 @@ class copy extends \fpcm\controller\abstracts\ajaxController
     protected function processCategory() : bool
     {
         if (!$this->permissions->system->categories) {
+            $this->message = new \fpcm\view\message($this->language->translate('SAVE_FAILED_WORDBAN'), \fpcm\view\message::TYPE_ERROR);
             return false;
         }
 
@@ -149,6 +152,7 @@ class copy extends \fpcm\controller\abstracts\ajaxController
     protected function processFile() : bool
     {
         if (!$this->permissions->uploads->add) {
+            $this->message = new \fpcm\view\message($this->language->translate('SAVE_FAILED_UPLOAD_COPY'), \fpcm\view\message::TYPE_ERROR);
             return false;
         }
 
@@ -158,19 +162,19 @@ class copy extends \fpcm\controller\abstracts\ajaxController
         ]);
 
         if (!$fn) {
-            $this->message = new \fpcm\view\message($this->language->translate('SAVE_FAILED_UPLOAD_COPY1'), \fpcm\view\message::TYPE_ERROR);
+            $this->message = new \fpcm\view\message($this->language->translate('SAVE_FAILED_UPLOAD_COPY'), \fpcm\view\message::TYPE_ERROR);
             return false;
         }
 
         $obj = new \fpcm\model\files\image($fn);
         if (!$obj instanceof \fpcm\model\interfaces\isCopyable || !$obj->existsFolder()) {
-            $this->message = new \fpcm\view\message($this->language->translate('SAVE_FAILED_UPLOAD_COPY2'), \fpcm\view\message::TYPE_ERROR);
+            $this->message = new \fpcm\view\message($this->language->translate('SAVE_FAILED_UPLOAD_COPY'), \fpcm\view\message::TYPE_ERROR);
             return false;
         }
 
         $newId = $obj->copy();
         if (!$newId) {
-            $this->message = new \fpcm\view\message($this->language->translate('SAVE_FAILED_UPLOAD_COPY3'), \fpcm\view\message::TYPE_ERROR);
+            $this->message = new \fpcm\view\message($this->language->translate('SAVE_FAILED_UPLOAD_COPY'), \fpcm\view\message::TYPE_ERROR);
             return false;
         }
 
@@ -186,6 +190,7 @@ class copy extends \fpcm\controller\abstracts\ajaxController
     protected function processText() : bool
     {
         if (!$this->permissions->system->wordban) {
+            $this->message = new \fpcm\view\message($this->language->translate('SAVE_FAILED_WORDBAN'), \fpcm\view\message::TYPE_ERROR);
             return false;
         }
 
@@ -223,6 +228,7 @@ class copy extends \fpcm\controller\abstracts\ajaxController
     protected function processRoll() : bool
     {
         if (!$this->permissions->system->rolls) {
+            $this->message = new \fpcm\view\message($this->language->translate('SAVE_FAILED_ROLL'), \fpcm\view\message::TYPE_ERROR);
             return false;
         }
 
@@ -251,6 +257,53 @@ class copy extends \fpcm\controller\abstracts\ajaxController
         ]);
 
         return true;
+    }
+
+    /**
+     *
+     * @return void
+     * @since 5.2.3-dev
+     */
+    protected function processModuleEvent(): void
+    {
+        $res = $this->events->trigger('copyItem', [
+            'key' => $this->request->fromPOST('dest'),
+            'itemType' => $this->request->fromPOST('fn'),
+            'itemId' => $this->request->fromPOST('id')
+        ]);
+
+        if (!$res->getSuccessed()) {
+            $this->response->setReturnData([
+                'message' => new \fpcm\view\message($this->language->translate('AJAX_RESPONSE_ERROR'), \fpcm\view\message::TYPE_ERROR)
+            ])->fetch();
+        }
+
+        $data = $res->getData();
+
+        if (!isset($data['result'])) {
+            trigger_error('Undefined result key "result" in "copyItem" return value!');
+            return;
+        }
+
+        if (!isset($data['message'])) {
+            trigger_error('Undefined result key "message" in "copyItem" return value!');
+            return;
+        }
+
+        if (!isset($data['destination'])) {
+            trigger_error('Undefined result key "destination" in "copyItem" return value!');
+            return;
+        }
+
+        if (!isset($data['callback'])) {
+            trigger_error('Undefined result key "callback" in "copyItem" return value!');
+            return;
+        }
+
+        foreach ($data as $key => $value) {
+            $this->{$key} = $value;
+        }
+
     }
 
 }
