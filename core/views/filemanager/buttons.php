@@ -15,7 +15,7 @@
             <?php $theView->linkButton(uniqid('thumbsurl'))->setUrl($file->getThumbnailUrl())->setText('FILE_LIST_INSERT_THUMB')->setClass('fpcm-filelist-tinymce-thumb')->setIcon('compress')->setIconOnly()->setData(['imgtext' => $imgTxt]); ?>
         </div>
         <div class="nav-item">
-            <?php $theView->linkButton(uniqid('imgsurl'))->setUrl($file->getImageUrl())->setText('FILE_LIST_INSERT_FULL')->setClass('fpcm-filelist-tinymce-full')->setIcon('expand')->setIconOnly()->setData(['imgtext' => $$imgTxt]); ?>
+            <?php $theView->linkButton(uniqid('imgsurl'))->setUrl($file->getImageUrl())->setText('FILE_LIST_INSERT_FULL')->setClass('fpcm-filelist-tinymce-full')->setIcon('expand')->setIconOnly()->setData(['imgtext' => $imgTxt]); ?>
         </div>
     <?php elseif ($mode == 3) : ?>
         <div class="nav-item">
