@@ -416,6 +416,11 @@ Search.appendIndex(
             "summary": "Return\u0020random\u0020string\u0020by\u0020openssl_random_pseudo_bytes",
             "url": "classes/fpcm-classes-crypt.html#method_getRandomString"
         },                {
+            "fqsen": "\\fpcm\\classes\\crypt\u003A\u003AgetInstance\u0028\u0029",
+            "name": "getInstance",
+            "summary": "Returns\u0020config\u0020class\u0020instance",
+            "url": "classes/fpcm-classes-crypt.html#method_getInstance"
+        },                {
             "fqsen": "\\fpcm\\classes\\crypt\u003A\u003A\u0024method",
             "name": "method",
             "summary": "Methode\u0020zur\u0020Verschl\u00FCsselung",
@@ -5431,6 +5436,11 @@ Search.appendIndex(
             "summary": "Check\u0020if\u0020fullpath\u0020is\u0020valid\u0020path\u0020in\u0020\/data\u0020folder\u0020structure",
             "url": "classes/fpcm-model-abstracts-file.html#method_isValidDataFolder"
         },                {
+            "fqsen": "\\fpcm\\model\\abstracts\\file\u003A\u003AgetCryptFileName\u0028\u0029",
+            "name": "getCryptFileName",
+            "summary": "Returns\u0020encrypted\u0020filename",
+            "url": "classes/fpcm-model-abstracts-file.html#method_getCryptFileName"
+        },                {
             "fqsen": "\\fpcm\\model\\abstracts\\file\u003A\u003ArealpathNoExists\u0028\u0029",
             "name": "realpathNoExists",
             "summary": "\u0022realpath\u0022\u0020wrapper\u0020for\u0020non\u002Dexisting\u0020files",
@@ -6285,6 +6295,11 @@ Search.appendIndex(
             "name": "isOldArticle",
             "summary": "Check\u0020if\u0020articles\u0020was\u0020created\u0020to\u0020display\u0020old\u0020article\u0020message",
             "url": "classes/fpcm-model-articles-article.html#method_isOldArticle"
+        },                {
+            "fqsen": "\\fpcm\\model\\articles\\article\u003A\u003Acopy\u0028\u0029",
+            "name": "copy",
+            "summary": "Creates\u0020copy\u0020of\u0020current\u0020article",
+            "url": "classes/fpcm-model-articles-article.html#method_copy"
         },                {
             "fqsen": "\\fpcm\\model\\articles\\article\u003A\u003AremoveBannedTexts\u0028\u0029",
             "name": "removeBannedTexts",
@@ -7265,6 +7280,11 @@ Search.appendIndex(
             "name": "afterUpdateInternal",
             "summary": "Is\u0020triggered\u0020after\u0020successful\u0020database\u0020update",
             "url": "classes/fpcm-model-categories-category.html#method_afterUpdateInternal"
+        },                {
+            "fqsen": "\\fpcm\\model\\categories\\category\u003A\u003Acopy\u0028\u0029",
+            "name": "copy",
+            "summary": "Creates\u0020copy\u0020of\u0020category",
+            "url": "classes/fpcm-model-categories-category.html#method_copy"
         },                {
             "fqsen": "\\fpcm\\model\\categories\\category\u003A\u003A\u0024name",
             "name": "name",
@@ -8380,6 +8400,11 @@ Search.appendIndex(
             "name": "doMail",
             "summary": "Submit\u0020e\u002Dmail\u0020width\u0020databse\u0020dump\u0020file",
             "url": "classes/fpcm-model-crons-dbBackup.html#method_doMail"
+        },                {
+            "fqsen": "\\fpcm\\model\\crons\\dbBackup\u003A\u003AgetDumpFileName\u0028\u0029",
+            "name": "getDumpFileName",
+            "summary": "",
+            "url": "classes/fpcm-model-crons-dbBackup.html#method_getDumpFileName"
         },                {
             "fqsen": "\\fpcm\\model\\crons\\dbBackup\u003A\u003A\u0024dumpfile",
             "name": "dumpfile",
@@ -9595,6 +9620,11 @@ Search.appendIndex(
             "name": "getPropertiesArray",
             "summary": "Return\u0020properties\u0020array",
             "url": "classes/fpcm-model-files-image.html#method_getPropertiesArray"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\image\u003A\u003Acopy\u0028\u0029",
+            "name": "copy",
+            "summary": "Creates\u0020copy\u0020of\u0020current\u0020object",
+            "url": "classes/fpcm-model-files-image.html#method_copy"
         },                {
             "fqsen": "\\fpcm\\model\\files\\image\u003A\u003AgetCropperFilename\u0028\u0029",
             "name": "getCropperFilename",
@@ -11063,12 +11093,12 @@ Search.appendIndex(
         },                {
             "fqsen": "\\fpcm\\model\\interfaces\\isCsvImportable\u003A\u003AgetFields\u0028\u0029",
             "name": "getFields",
-            "summary": "",
+            "summary": "Return\u0020list\u0020fo\u0020fields\u0020to\u0020be\u0020used\u0020to\u0020CSV\u0020import",
             "url": "classes/fpcm-model-interfaces-isCsvImportable.html#method_getFields"
         },                {
             "fqsen": "\\fpcm\\model\\interfaces\\isCsvImportable\u003A\u003AassignCsvRow\u0028\u0029",
             "name": "assignCsvRow",
-            "summary": "",
+            "summary": "Assign\u0020field\u0020from\u0020csv\u0020row\u0020to\u0020internal\u0020fields",
             "url": "classes/fpcm-model-interfaces-isCsvImportable.html#method_assignCsvRow"
         },                {
             "fqsen": "\\fpcm\\model\\interfaces\\isObjectInstancable",
@@ -11078,7 +11108,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\fpcm\\model\\interfaces\\isObjectInstancable\u003A\u003AgetInstance\u0028\u0029",
             "name": "getInstance",
-            "summary": "",
+            "summary": "Returns\u0020object\u0020of\u0020current\u0020class,\u0020caches\u0020instance\u0020for\u0020future\u0020use",
             "url": "classes/fpcm-model-interfaces-isObjectInstancable.html#method_getInstance"
         },                {
             "fqsen": "\\fpcm\\model\\interfaces\\JsModuleFiles",
@@ -14681,26 +14711,6 @@ Search.appendIndex(
             "summary": "Inittiert\u0020Objekt\u0020mit\u0020Daten\u0020aus\u0020der\u0020Datenbank,\u0020sofern\u0020ID\u0020vergeben\u0020wurde",
             "url": "classes/fpcm-model-users-author.html#method_init"
         },                {
-            "fqsen": "\\fpcm\\model\\users\\author\u003A\u003AwriteOption\u0028\u0029",
-            "name": "writeOption",
-            "summary": "Write\u0020content\u0020to\u0020file\u0020option\u0020for\u0020current\u0020user",
-            "url": "classes/fpcm-model-users-author.html#method_writeOption"
-        },                {
-            "fqsen": "\\fpcm\\model\\users\\author\u003A\u003AreadOption\u0028\u0029",
-            "name": "readOption",
-            "summary": "Read\u0020content\u0020from\u0020file\u0020option\u0020for\u0020current\u0020user",
-            "url": "classes/fpcm-model-users-author.html#method_readOption"
-        },                {
-            "fqsen": "\\fpcm\\model\\users\\author\u003A\u003AremoveOption\u0028\u0029",
-            "name": "removeOption",
-            "summary": "Removes\u0020file\u0020option\u0020for\u0020current\u0020user",
-            "url": "classes/fpcm-model-users-author.html#method_removeOption"
-        },                {
-            "fqsen": "\\fpcm\\model\\users\\author\u003A\u003AgetFileOptionObject\u0028\u0029",
-            "name": "getFileOptionObject",
-            "summary": "Generates\u0020file\u0020option\u0020object\u0020for\u0020current\u0020user",
-            "url": "classes/fpcm-model-users-author.html#method_getFileOptionObject"
-        },                {
             "fqsen": "\\fpcm\\model\\users\\author\u003A\u003AgetAuthorImageDataOrPath\u0028\u0029",
             "name": "getAuthorImageDataOrPath",
             "summary": "Author\u002DBild\u0020laden",
@@ -15036,6 +15046,11 @@ Search.appendIndex(
             "summary": "F\u00FChrt\u0020Ersetzung\u0020von\u0020gesperrten\u0020Texten\u0020in\u0020Kommentar\u002DDaten\u0020durch",
             "url": "classes/fpcm-model-users-userRoll.html#method_removeBannedTexts"
         },                {
+            "fqsen": "\\fpcm\\model\\users\\userRoll\u003A\u003Acopy\u0028\u0029",
+            "name": "copy",
+            "summary": "Creates\u0020copy\u0020of\u0020user\u0020roll",
+            "url": "classes/fpcm-model-users-userRoll.html#method_copy"
+        },                {
             "fqsen": "\\fpcm\\model\\users\\userRoll\u003A\u003A\u0024leveltitle",
             "name": "leveltitle",
             "summary": "Bezeichnung\u0020der\u0020Benutzer\u002DRolle",
@@ -15245,6 +15260,11 @@ Search.appendIndex(
             "name": "afterUpdateInternal",
             "summary": "Is\u0020triggered\u0020after\u0020successful\u0020database\u0020update",
             "url": "classes/fpcm-model-wordban-item.html#method_afterUpdateInternal"
+        },                {
+            "fqsen": "\\fpcm\\model\\wordban\\item\u003A\u003Acopy\u0028\u0029",
+            "name": "copy",
+            "summary": "Creates\u0020copy\u0020of\u0020text\u0020item",
+            "url": "classes/fpcm-model-wordban-item.html#method_copy"
         },                {
             "fqsen": "\\fpcm\\model\\wordban\\item\u003A\u003A\u0024searchtext",
             "name": "searchtext",
@@ -15585,6 +15605,11 @@ Search.appendIndex(
             "name": "getFullPrefix",
             "summary": "Fetch\u0020complete\u0020module\u0020prefix",
             "url": "classes/fpcm-module-module.html#method_getFullPrefix"
+        },                {
+            "fqsen": "\\fpcm\\module\\module\u003A\u003AgetTableObject\u0028\u0029",
+            "name": "getTableObject",
+            "summary": "",
+            "url": "classes/fpcm-module-module.html#method_getTableObject"
         },                {
             "fqsen": "\\fpcm\\module\\module\u003A\u003AgetConfigPathFromCurrent\u0028\u0029",
             "name": "getConfigPathFromCurrent",
@@ -16206,15 +16231,15 @@ Search.appendIndex(
             "summary": "Set\u0020button\u0020to\u0020primary",
             "url": "classes/fpcm-view-helper-button.html#method_setPrimary"
         },                {
-            "fqsen": "\\fpcm\\view\\helper\\button\u003A\u003AsetOnClick\u0028\u0029",
-            "name": "setOnClick",
-            "summary": "Bind\u0020function\u0020to\u0020button\u0020click",
-            "url": "classes/fpcm-view-helper-button.html#method_setOnClick"
-        },                {
             "fqsen": "\\fpcm\\view\\helper\\button\u003A\u003AoverrideButtonType\u0028\u0029",
             "name": "overrideButtonType",
             "summary": "Override\u0020bs\u0020button\u0020type",
             "url": "classes/fpcm-view-helper-button.html#method_overrideButtonType"
+        },                {
+            "fqsen": "\\fpcm\\view\\helper\\button\u003A\u003AsetClickConfirm\u0028\u0029",
+            "name": "setClickConfirm",
+            "summary": "Set\u0020data\u0020attribute\u0020for\u0020ui\u0020confirm\u0020dialog",
+            "url": "classes/fpcm-view-helper-button.html#method_setClickConfirm"
         },                {
             "fqsen": "\\fpcm\\view\\helper\\button\u003A\u003ANAME_PREFIX",
             "name": "NAME_PREFIX",
@@ -16371,6 +16396,11 @@ Search.appendIndex(
             "summary": "Set\u0020dropdown\u0020type",
             "url": "classes/fpcm-view-helper-dropdown.html#method_setDdType"
         },                {
+            "fqsen": "\\fpcm\\view\\helper\\dropdown\u003A\u003AoverrideButtonType\u0028\u0029",
+            "name": "overrideButtonType",
+            "summary": "Override\u0020bs\u0020button\u0020type",
+            "url": "classes/fpcm-view-helper-dropdown.html#method_overrideButtonType"
+        },                {
             "fqsen": "\\fpcm\\view\\helper\\dropdown\u003A\u003AgetOptionsString\u0028\u0029",
             "name": "getOptionsString",
             "summary": "Create\u0020options\u0020string",
@@ -16395,6 +16425,11 @@ Search.appendIndex(
             "name": "value",
             "summary": "Value\u0020property",
             "url": "classes/fpcm-view-helper-dropdown.html#property_value"
+        },                {
+            "fqsen": "\\fpcm\\view\\helper\\dropdown\u003A\u003A\u0024btnType",
+            "name": "btnType",
+            "summary": "Dropdown\u0020button\u0020type",
+            "url": "classes/fpcm-view-helper-dropdown.html#property_btnType"
         },                {
             "fqsen": "\\fpcm\\view\\helper\\dropdownItem",
             "name": "dropdownItem",
@@ -18440,6 +18475,161 @@ Search.appendIndex(
             "name": "getNewVersion",
             "summary": "Returns\u0020new\u0020version,\u0020e.\u0020g.\u0020from\u0020version.txt",
             "url": "classes/fpcm-migrations-v521rc1.html#method_getNewVersion"
+        },                {
+            "fqsen": "\\fpcm\\events\\copyItem",
+            "name": "copyItem",
+            "summary": "Module\u002DEvent\u003A\u0020copyItem",
+            "url": "classes/fpcm-events-copyItem.html"
+        },                {
+            "fqsen": "\\fpcm\\events\\copyItem\u003A\u003Arun\u0028\u0029",
+            "name": "run",
+            "summary": "Executes\u0020the\u0020event",
+            "url": "classes/fpcm-events-copyItem.html#method_run"
+        },                {
+            "fqsen": "\\fpcm\\migrations\\v523b1",
+            "name": "v523b1",
+            "summary": "Migration\u0020to\u0020v5.2.3\u002Db1",
+            "url": "classes/fpcm-migrations-v523b1.html"
+        },                {
+            "fqsen": "\\fpcm\\migrations\\v523b1\u003A\u003AupdateFileSystem\u0028\u0029",
+            "name": "updateFileSystem",
+            "summary": "Execute\u0020additional\u0020file\u0020system\u0020updates",
+            "url": "classes/fpcm-migrations-v523b1.html#method_updateFileSystem"
+        },                {
+            "fqsen": "\\fpcm\\migrations\\v523b1\u003A\u003AgetNewVersion\u0028\u0029",
+            "name": "getNewVersion",
+            "summary": "Returns\u0020new\u0020version,\u0020e.\u0020g.\u0020from\u0020version.txt",
+            "url": "classes/fpcm-migrations-v523b1.html#method_getNewVersion"
+        },                {
+            "fqsen": "\\fpcm\\model\\cli\\backup",
+            "name": "backup",
+            "summary": "FanPress\u0020CM\u0020cli\u0020backup\u0020module",
+            "url": "classes/fpcm-model-cli-backup.html"
+        },                {
+            "fqsen": "\\fpcm\\model\\cli\\backup\u003A\u003Aprocess\u0028\u0029",
+            "name": "process",
+            "summary": "Modul\u0020ausf\u00FChren",
+            "url": "classes/fpcm-model-cli-backup.html#method_process"
+        },                {
+            "fqsen": "\\fpcm\\model\\cli\\backup\u003A\u003AbackupDbMysql\u0028\u0029",
+            "name": "backupDbMysql",
+            "summary": "",
+            "url": "classes/fpcm-model-cli-backup.html#method_backupDbMysql"
+        },                {
+            "fqsen": "\\fpcm\\model\\cli\\backup\u003A\u003AbackupDbPgsql\u0028\u0029",
+            "name": "backupDbPgsql",
+            "summary": "",
+            "url": "classes/fpcm-model-cli-backup.html#method_backupDbPgsql"
+        },                {
+            "fqsen": "\\fpcm\\model\\cli\\backup\u003A\u003Ahelp\u0028\u0029",
+            "name": "help",
+            "summary": "Hilfe\u002DText\u0020zur\u00FCckgeben\u0020ausf\u00FChren",
+            "url": "classes/fpcm-model-cli-backup.html#method_help"
+        },                {
+            "fqsen": "\\fpcm\\model\\cli\\backup\u003A\u003A\u0024db",
+            "name": "db",
+            "summary": "Database\u0020object",
+            "url": "classes/fpcm-model-cli-backup.html#property_db"
+        },                {
+            "fqsen": "\\fpcm\\model\\cli\\backup\u003A\u003A\u0024dbConfig",
+            "name": "dbConfig",
+            "summary": "Database\u0020config",
+            "url": "classes/fpcm-model-cli-backup.html#property_dbConfig"
+        },                {
+            "fqsen": "\\fpcm\\model\\cli\\backup\u003A\u003A\u0024dumpfile",
+            "name": "dumpfile",
+            "summary": "Database\u0020dump\u0020file",
+            "url": "classes/fpcm-model-cli-backup.html#property_dumpfile"
+        },                {
+            "fqsen": "\\fpcm\\model\\cli\\files",
+            "name": "files",
+            "summary": "FanPress\u0020CM\u0020files\u0020module",
+            "url": "classes/fpcm-model-cli-files.html"
+        },                {
+            "fqsen": "\\fpcm\\model\\cli\\files\u003A\u003Aprocess\u0028\u0029",
+            "name": "process",
+            "summary": "Modul\u0020ausf\u00FChren",
+            "url": "classes/fpcm-model-cli-files.html#method_process"
+        },                {
+            "fqsen": "\\fpcm\\model\\cli\\files\u003A\u003Acheck\u0028\u0029",
+            "name": "check",
+            "summary": "Run\u0020check",
+            "url": "classes/fpcm-model-cli-files.html#method_check"
+        },                {
+            "fqsen": "\\fpcm\\model\\cli\\files\u003A\u003Aremove\u0028\u0029",
+            "name": "remove",
+            "summary": "Remove\u0020old\u0020files",
+            "url": "classes/fpcm-model-cli-files.html#method_remove"
+        },                {
+            "fqsen": "\\fpcm\\model\\cli\\files\u003A\u003Ahelp\u0028\u0029",
+            "name": "help",
+            "summary": "Hilfe\u002DText\u0020zur\u00FCckgeben\u0020ausf\u00FChren",
+            "url": "classes/fpcm-model-cli-files.html#method_help"
+        },                {
+            "fqsen": "\\fpcm\\model\\cli\\files\u003A\u003AescapeExcludes\u0028\u0029",
+            "name": "escapeExcludes",
+            "summary": "Escape\u0020exclude\u0020paths",
+            "url": "classes/fpcm-model-cli-files.html#method_escapeExcludes"
+        },                {
+            "fqsen": "\\fpcm\\model\\cli\\files\u003A\u003ADIRS_DATA_WHITELIST",
+            "name": "DIRS_DATA_WHITELIST",
+            "summary": "\/data\u0020folder\u0020whitelist\u0020for\u0020checks",
+            "url": "classes/fpcm-model-cli-files.html#constant_DIRS_DATA_WHITELIST"
+        },                {
+            "fqsen": "\\fpcm\\model\\cli\\files\u003A\u003A\u0024filesIndex",
+            "name": "filesIndex",
+            "summary": "File\u0020index\u0020array",
+            "url": "classes/fpcm-model-cli-files.html#property_filesIndex"
+        },                {
+            "fqsen": "\\fpcm\\model\\cli\\files\u003A\u003A\u0024dirsIndex",
+            "name": "dirsIndex",
+            "summary": "Directory\u0020index\u0020array",
+            "url": "classes/fpcm-model-cli-files.html#property_dirsIndex"
+        },                {
+            "fqsen": "\\fpcm\\model\\cli\\files\u003A\u003A\u0024excludes",
+            "name": "excludes",
+            "summary": "Folder\u0020excludes\u0020parameter",
+            "url": "classes/fpcm-model-cli-files.html#property_excludes"
+        },                {
+            "fqsen": "\\fpcm\\model\\cli\\files\u003A\u003A\u0024base",
+            "name": "base",
+            "summary": "Base\u0020path",
+            "url": "classes/fpcm-model-cli-files.html#property_base"
+        },                {
+            "fqsen": "\\fpcm\\model\\interfaces\\isCopyable",
+            "name": "isCopyable",
+            "summary": "Interface\u0020for\u0020objects\u0020with\u0020build\u0020in\u0020cache\u0020loader",
+            "url": "classes/fpcm-model-interfaces-isCopyable.html"
+        },                {
+            "fqsen": "\\fpcm\\model\\interfaces\\isCopyable\u003A\u003Acopy\u0028\u0029",
+            "name": "copy",
+            "summary": "Creates\u0020copy\u0020of\u0020current\u0020object",
+            "url": "classes/fpcm-model-interfaces-isCopyable.html#method_copy"
+        },                {
+            "fqsen": "\\fpcm\\view\\helper\\copyButton",
+            "name": "copyButton",
+            "summary": "Edit\u0020link\u0020button\u0020view\u0020helper\u0020object",
+            "url": "classes/fpcm-view-helper-copyButton.html"
+        },                {
+            "fqsen": "\\fpcm\\view\\helper\\copyButton\u003A\u003Ainit\u0028\u0029",
+            "name": "init",
+            "summary": "Optional\u0020init\u0020function",
+            "url": "classes/fpcm-view-helper-copyButton.html#method_init"
+        },                {
+            "fqsen": "\\fpcm\\view\\helper\\copyButton\u003A\u003AsetCopyParams\u0028\u0029",
+            "name": "setCopyParams",
+            "summary": "Set\u0020copy\u0020params",
+            "url": "classes/fpcm-view-helper-copyButton.html#method_setCopyParams"
+        },                {
+            "fqsen": "\\fpcm\\view\\helper\\traits\\setClickHelper",
+            "name": "setClickHelper",
+            "summary": "Set\u0020onClick\u0020helper",
+            "url": "classes/fpcm-view-helper-traits-setClickHelper.html"
+        },                {
+            "fqsen": "\\fpcm\\view\\helper\\traits\\setClickHelper\u003A\u003AsetOnClick\u0028\u0029",
+            "name": "setOnClick",
+            "summary": "Bind\u0020function\u0020to\u0020button\u0020click",
+            "url": "classes/fpcm-view-helper-traits-setClickHelper.html#method_setOnClick"
         },                {
             "fqsen": "\\",
             "name": "\\",
