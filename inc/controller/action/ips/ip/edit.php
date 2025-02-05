@@ -21,13 +21,32 @@ class edit extends base {
         if (!$this->ipaddress->exists()) {
             return false;
         }
-        
+
         return true;
     }
-    
+
     public function process()
     {
+        $this->view->addButton( (new \fpcm\view\helper\deleteButton('deleteIp'))->setClickConfirm() );
         $this->view->setFormAction('ips/edit&id='.$this->id);
+        return true;
+    }
+
+    protected function onDeleteIp()
+    {
+        if (!$this->checkPageToken()) {
+            $this->view->addErrorMessage('CSRF_INVALID');
+            return true;
+        }
+
+        if ($this->ipaddress->delete()) {
+            $this->redirect('ips/list', [
+                'deleted' => 1
+            ]);
+            return true;
+        }
+
+        $this->view->addErrorMessage('DELETE_FAILED_IPADDRESS');
         return true;
     }
 
