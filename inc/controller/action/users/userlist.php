@@ -13,7 +13,8 @@ class userlist extends \fpcm\controller\abstracts\controller
 {
 
     use \fpcm\controller\traits\theme\nav\users,
-        \fpcm\model\traits\statusIcons;
+        \fpcm\model\traits\statusIcons,
+        \fpcm\controller\traits\users\deleteDialog;
 
     /**
      *
@@ -104,7 +105,7 @@ class userlist extends \fpcm\controller\abstracts\controller
     {
         $this->initTabs();
 
-        $this->view->assign('usersListSelect', $this->userList->getUsersNameList());
+        $this->initDeleteConfirmDialog($this->userList);
 
         $chart = new \fpcm\components\charts\chart(\fpcm\components\charts\chart::TYPE_PIE, 'userArticles');
         $chart->setLegend([
@@ -113,8 +114,8 @@ class userlist extends \fpcm\controller\abstracts\controller
 
         $this->view->addCssFiles($chart->getCssFiles());
 
-        $this->view->addJsFiles(array_merge(['users/module.js'], $chart->getJsFiles()));
-        $this->view->addJsLangVars(['USERS_ARTICLES_SELECT', 'HL_OPTIONS_PERMISSIONS']);
+        $this->view->addJsFiles(array_merge(['users/module.js', 'users/functions.js'], $chart->getJsFiles()));
+        $this->view->addJsLangVars(['HL_OPTIONS_PERMISSIONS']);
 
         $this->view->setFormAction('users/list');
 

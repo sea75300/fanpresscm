@@ -177,6 +177,10 @@ fpcm.dashboard = {
     
     enableContainer: function (_ui)
     {
+        if (_ui.dataset.container == -1) {
+            return false;
+        }
+        
         fpcm.ui_dialogs.confirm({
             clickYes: function () {
                 fpcm.ajax.post('setconfig', {

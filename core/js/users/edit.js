@@ -22,8 +22,12 @@ fpcm.useredit = {
                 size: 'sm',
                 closeButton: true
             });
-            
+
             return false;
+        });
+
+        fpcm.dom.bindClick('#btnUserDelete', function (_ev, _ui) {
+            fpcm.users.moveDeleteArticles(_ui);
         });
 
     }
