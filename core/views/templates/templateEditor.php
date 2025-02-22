@@ -1,8 +1,7 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
 <?php if (!$isWritable) : ?>
-<div class="row pb-3">
-    <div class="col-auto align-self-center"><?php $theView->icon('lock')->setSize('2x')->setClass('text-danger'); ?></div>
-    <div class="col-auto align-self-center"><?php $theView->write('TEMPLATE_NOT_WRITABLE'); ?></div>
+<div class="row mx-2 pt-2">
+    <?php $theView->alert('danger')->setText('TEMPLATE_NOT_WRITABLE')->setIcon('lock')->setClass('d-flex align-items-center justify-content-center')->setSize('2x'); ?>
 </div>
 <?php endif; ?>
 

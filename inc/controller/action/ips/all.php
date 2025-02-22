@@ -62,6 +62,10 @@ class all extends \fpcm\controller\abstracts\controller implements \fpcm\control
             $this->view->addNoticeMessage('SAVE_SUCCESS_IPADDRESS_CHG');
         }
 
+        if ($this->request->hasMessage('deleted')) {
+            $this->view->addNoticeMessage('DELETE_SUCCESS_IPADDRESS');
+        }
+
         return true;
     }
 

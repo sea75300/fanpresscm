@@ -185,6 +185,9 @@
                             </ul>
         </div>
     
+            <span class="phpdocumentor-element__implements">
+            implements
+                            <a href="classes/fpcm-model-interfaces-isCopyable.html"><abbr title="\fpcm\model\interfaces\isCopyable">isCopyable</abbr></a>                    </span>
     
             <span class="phpdocumentor-element__extends">
             Uses
@@ -221,7 +224,7 @@
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>(c) 2011-2022, Stefan Seehafer</p>
+                                                 <section class="phpdocumentor-description"><p>(c) 2011-2024, Stefan Seehafer</p>
 </section>
 
                                     </dd>
@@ -239,6 +242,18 @@
 
 
 
+<h3 id="interfaces_class_traits">
+    Interfaces, Classes, Traits and Enums
+    <a href="#interfaces_class_traits" class="headerlink"><i class="fas fa-link"></i></a>
+</h3>
+
+<dl class="phpdocumentor-table-of-contents">
+            <dt class="phpdocumentor-table-of-contents__entry -interface"><a href="classes/fpcm-model-interfaces-isCopyable.html"><abbr title="\fpcm\model\interfaces\isCopyable">isCopyable</abbr></a></dt>
+        <dd>Interface for objects with build in cache loader</dd>
+    
+    
+    
+    </dl>
 
 
 <h3 id="toc">
@@ -414,6 +429,13 @@
                                 &nbsp;: string    </span>
 </dt>
 <dd>Magic string</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-model-users-userRoll.html#method_copy">copy()</a>
+    <span>
+                                &nbsp;: int    </span>
+</dt>
+<dd>Creates copy of user roll</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/fpcm-model-abstracts-dataset.html#method_createFromDbObject">createFromDbObject()</a>
@@ -691,7 +713,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/users/userRoll.php"><a href="files/inc-model-users-userroll.html"><abbr title="inc/model/users/userRoll.php">userRoll.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">33</span>
+    <span class="phpdocumentor-element-found-in__line">37</span>
 
     </aside>
 
@@ -870,7 +892,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/users/userRoll.php"><a href="files/inc-model-users-userroll.html"><abbr title="inc/model/users/userRoll.php">userRoll.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">53</span>
+    <span class="phpdocumentor-element-found-in__line">57</span>
 
     </aside>
 
@@ -969,7 +991,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/users/userRoll.php"><a href="files/inc-model-users-userroll.html"><abbr title="inc/model/users/userRoll.php">userRoll.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">40</span>
+    <span class="phpdocumentor-element-found-in__line">44</span>
 
     </aside>
 
@@ -1049,7 +1071,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/users/userRoll.php"><a href="files/inc-model-users-userroll.html"><abbr title="inc/model/users/userRoll.php">userRoll.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">26</span>
+    <span class="phpdocumentor-element-found-in__line">30</span>
 
     </aside>
 
@@ -1261,7 +1283,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/users/userRoll.php"><a href="files/inc-model-users-userroll.html"><abbr title="inc/model/users/userRoll.php">userRoll.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">47</span>
+    <span class="phpdocumentor-element-found-in__line">51</span>
 
     </aside>
 
@@ -1312,7 +1334,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/users/userRoll.php"><a href="files/inc-model-users-userroll.html"><abbr title="inc/model/users/userRoll.php">userRoll.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">59</span>
+    <span class="phpdocumentor-element-found-in__line">63</span>
 
     </aside>
 
@@ -1507,6 +1529,53 @@
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_copy">
+        copy()
+        <a href="classes/fpcm-model-users-userRoll.html#method_copy" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/users/userRoll.php"><a href="files/inc-model-users-userroll.html"><abbr title="inc/model/users/userRoll.php">userRoll.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">245</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Creates copy of user roll</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">copy</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
+
+    
+    
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">5.2.2-dev</span>
+                                                                                
+                                             
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">int</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_createFromDbObject">
         createFromDbObject()
         <a href="classes/fpcm-model-abstracts-dataset.html#method_createFromDbObject" class="headerlink"><i class="fas fa-link"></i></a>
@@ -1557,7 +1626,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/users/userRoll.php"><a href="files/inc-model-users-userroll.html"><abbr title="inc/model/users/userRoll.php">userRoll.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">165</span>
+    <span class="phpdocumentor-element-found-in__line">169</span>
 
     </aside>
 
@@ -1623,7 +1692,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/users/userRoll.php"><a href="files/inc-model-users-userroll.html"><abbr title="inc/model/users/userRoll.php">userRoll.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">81</span>
+    <span class="phpdocumentor-element-found-in__line">85</span>
 
     </aside>
 
@@ -1845,7 +1914,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/users/userRoll.php"><a href="files/inc-model-users-userroll.html"><abbr title="inc/model/users/userRoll.php">userRoll.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">71</span>
+    <span class="phpdocumentor-element-found-in__line">75</span>
 
     </aside>
 
@@ -1878,7 +1947,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/users/userRoll.php"><a href="files/inc-model-users-userroll.html"><abbr title="inc/model/users/userRoll.php">userRoll.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">120</span>
+    <span class="phpdocumentor-element-found-in__line">124</span>
 
     </aside>
 
@@ -1958,7 +2027,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/users/userRoll.php"><a href="files/inc-model-users-userroll.html"><abbr title="inc/model/users/userRoll.php">userRoll.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">90</span>
+    <span class="phpdocumentor-element-found-in__line">94</span>
 
     </aside>
 
@@ -2038,7 +2107,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/users/userRoll.php"><a href="files/inc-model-users-userroll.html"><abbr title="inc/model/users/userRoll.php">userRoll.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">129</span>
+    <span class="phpdocumentor-element-found-in__line">133</span>
 
     </aside>
 
@@ -2071,7 +2140,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/users/userRoll.php"><a href="files/inc-model-users-userroll.html"><abbr title="inc/model/users/userRoll.php">userRoll.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">110</span>
+    <span class="phpdocumentor-element-found-in__line">114</span>
 
     </aside>
 
@@ -2214,7 +2283,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/users/userRoll.php"><a href="files/inc-model-users-userroll.html"><abbr title="inc/model/users/userRoll.php">userRoll.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">99</span>
+    <span class="phpdocumentor-element-found-in__line">103</span>
 
     </aside>
 
@@ -2257,7 +2326,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/users/userRoll.php"><a href="files/inc-model-users-userroll.html"><abbr title="inc/model/users/userRoll.php">userRoll.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">193</span>
+    <span class="phpdocumentor-element-found-in__line">197</span>
 
     </aside>
 
@@ -2521,7 +2590,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/users/userRoll.php"><a href="files/inc-model-users-userroll.html"><abbr title="inc/model/users/userRoll.php">userRoll.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">229</span>
+    <span class="phpdocumentor-element-found-in__line">233</span>
 
     </aside>
 
