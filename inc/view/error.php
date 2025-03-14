@@ -12,7 +12,7 @@ namespace fpcm\view;
  * 
  * @package fpcm\view
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2022, Stefan Seehafer
+ * @copyright (c) 2011-2025, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 final class error extends \fpcm\view\view {
@@ -45,8 +45,8 @@ final class error extends \fpcm\view\view {
     {
         parent::__construct('common/error');
         $this->errorMessage = $this->language->translate($errorMessage);
-        $this->backController = trim($backController) ? trim($backController) : '';
-        $this->icon = trim($icon) ? $icon : 'exclamation-triangle';
+        $this->backController = trim($backController ?? '');
+        $this->icon = trim($icon ?? 'exclamation-triangle');
         $this->showHeaderFooter(view::INCLUDE_HEADER_NONE);
     }
 
