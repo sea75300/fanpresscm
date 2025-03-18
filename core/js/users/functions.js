@@ -54,19 +54,23 @@ fpcm.users.confirmExec = function (_ui, _closeDlg) {
 
 fpcm.users.moveDeleteArticles = function(_ui) {
 
-    let _formData = fpcm.vars.jsvars.deleteForm;
+    let _formData = fpcm.vars.jsvars.dialoags.deleteForm.fields;
 
     let _form = document.createElement('div');
 
-    for (var _fieldName in _formData) {
+    for (var _i in _formData) {
 
+        let _field = _formData[_i];
 
-        let _field = _formData[_fieldName];
+        let _tmp = new fpcm.ui.forms[_field.type];
 
-        let _tmp = new fpcm.ui.forms[_field.call];
-        _tmp.name = _fieldName;
-        _field.class += ' ' + _tmp.class;
-        _tmp.wrapper = 'form-floating';
+        _tmp.name = _field.name;
+        _tmp.id = _field.id;
+        _tmp.label = _field.text;
+        _tmp.class = _field.class;
+        _tmp.options = _field.options;
+        _tmp.disabled = _field.readonly;
+        _tmp.wrapper = `${_field.labelType} ${_field.bottomSpace}`;
 
         if (!_tmp.assignFormObject) {
             continue;

@@ -1,5 +1,5 @@
 <?php /* @var $theView fpcm\view\viewVars */ ?>
-<div class="row text-bg-primary py-1 fpcm ui-dataview-head">
+<div class="row bg-primary-subtle py-1 fpcm ui-dataview-head">
     <div class="text-center text-md-start align-self-center py-0 py-md-1 col">
         <?php $theView->write('LOGS_LIST_TEXT'); ?>
     </div>
