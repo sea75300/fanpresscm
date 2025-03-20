@@ -212,13 +212,13 @@ fpcm.ui = {
         }
 
         _msgCode = '   <div class="fpcm ui-message shadow ' + _css + '" role="alert" aria-live="assertive" aria-atomic="true">';
-        _msgCode += '   <div class="toast-header text-white bg-'  + _msg.type +'">';
+        _msgCode += '   <div class="toast-header text-white bg-'  + _msg.type +' p-3">';
         _msgCode += fpcm.ui.getIcon(_msg.icon, { size: '2x' });
         _msgCode += '   <span class="d-inline-block w-100"></span>';
         _msgCode += '   <button type="button" class="btn-close '+_msg.cbtn+'" data-bs-dismiss="toast" data-bs-theme="'+_msg.bstm + '"  aria-label="' + fpcm.ui.translate('GLOBAL_CLOSE') + '"></button>';
         _msgCode += '   </div>';
         _msgCode += '       <div class="toast-body">';
-        _msgCode += '           <div class="mx-3">' + _msg.txt + '</div>';
+        _msgCode += '           <div class="m-3">' + _msg.txt + '</div>';
         _msgCode += '       </div>';
         _msgCode += '   </div>';
 
