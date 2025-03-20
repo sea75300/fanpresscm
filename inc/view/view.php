@@ -1222,8 +1222,8 @@ class view {
      */
     public function addDialogs(helper\dialog|array $dialogs)
     {
-        if (!isset($this->jsVars['dialoags'])) {
-            $this->jsVars['dialoags'] = [];
+        if (!isset($this->jsVars['dialogs'])) {
+            $this->jsVars['dialogs'] = [];
         }
         
         if (!is_array($dialogs)) {
@@ -1237,7 +1237,7 @@ class view {
                 continue;
             }
             
-            $this->jsVars['dialoags'][$dlg->getName()] = $dlg;
+            $this->jsVars['dialogs'][$dlg->getName()] = $dlg;
         }
         
     }

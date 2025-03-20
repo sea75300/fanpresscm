@@ -54,41 +54,9 @@ fpcm.users.confirmExec = function (_ui, _closeDlg) {
 
 fpcm.users.moveDeleteArticles = function(_ui) {
 
-    let _formData = fpcm.vars.jsvars.dialoags.deleteForm.fields;
-
-    let _form = document.createElement('div');
-
-    for (var _i in _formData) {
-
-        let _field = _formData[_i];
-
-        let _tmp = new fpcm.ui.forms[_field.type];
-
-        _tmp.name = _field.name;
-        _tmp.id = _field.id;
-        _tmp.label = _field.text;
-        _tmp.class = _field.class;
-        _tmp.options = _field.options;
-        _tmp.disabled = _field.readonly;
-        _tmp.wrapper = `${_field.labelType} ${_field.bottomSpace}`;
-
-        if (!_tmp.assignFormObject) {
-            continue;
-        }
-
-        _tmp.assignFormObject(_field);
-
-        let _row = document.createElement('div');
-        _row.className = 'row mb-3';
-
-        let _colDescr = document.createElement('div');
-        _colDescr.className = 'col-12';
-
-        _tmp.assignToDom(_colDescr);
-
-        _row.appendChild(_colDescr);
-
-        _form.appendChild(_row);
+    let _dlgContent = fpcm.ui_dialogs.fromDOM('deleteForm');
+    if (!_dlgContent) {
+        return;
     }
 
     fpcm.ui_dialogs.create({
@@ -96,7 +64,7 @@ fpcm.users.moveDeleteArticles = function(_ui) {
         title: 'USERS_ARTICLES_SELECT',
         closeButton: true,
         directAssignToDom: true,
-        content: _form,
+        content: fpcm.ui_dialogs.fromDOM('deleteForm'),
         dlButtons: [
             {
                 text: 'GLOBAL_OK',
