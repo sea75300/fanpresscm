@@ -516,4 +516,20 @@ abstract class helper implements \Stringable {
      */
     abstract protected function getString();
 
+    /**
+     * JSON data
+     * @return array
+     * @since 5.2.4-b3
+     */
+    public function jsonSerialize(): mixed
+    {
+        $return = get_object_vars($this);
+        $this->returned = true;
+
+        unset($return['language'], $return['returned'], $return['returnString'], $return['firstOption']);
+        $return['type'] = str_replace('fpcm\\view\\helper\\', '', get_called_class());
+
+        return $return;
+    }
+
 }

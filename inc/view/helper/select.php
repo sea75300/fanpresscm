@@ -9,15 +9,15 @@ namespace fpcm\view\helper;
 
 /**
  * Select menu view helper object
- * 
+ *
  * @package fpcm\view\helper
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 class select extends helper
-implements interfaces\jsDialogHelper {
-    
+implements interfaces\jsDialogHelper, \JsonSerializable {
+
     /* @var Auto-add empty first option */
     const FIRST_OPTION_EMPTY = -1;
 
@@ -70,36 +70,36 @@ implements interfaces\jsDialogHelper {
     {
         if (defined('FPCM_VIEW_DISABLE_FIRST_OPTION') && FPCM_VIEW_DISABLE_FIRST_OPTION) {
             $this->setFirstOption(self::FIRST_OPTION_DISABLED);
-        }        
+        }
 
         if (trim($this->text) && substr($this->text, 0, strlen(self::TEXT_DEFAULT_LABEL)) !== self::TEXT_DEFAULT_LABEL) {
             $this->prependLabel();
         }
-        
+
         $isFloating = $this->isFloating();
-        
+
         if (!trim($this->labelSize) && !trim($this->fieldSize) && !$isFloating) {
             $this->setDisplaySizesDefault();
         }
-        
+
         if ($this->isMultiple) {
-            $this->class = str_replace('form-select', '', $this->class);        
+            $this->class = str_replace('form-select', '', $this->class);
         }
 
         $label = '';
         $wrapperStart = '';
         $wrapperEnd = '';
-        
+
         if ($this->prependLabel && !$isFloating) {
             $wrapperStart = "<div class=\"input-group mb-3\"><label title=\"{$this->text}\" class=\"col-form-label pe-3 {$this->labelClass}{$this->getLabelSize()}\" for=\"{$this->id}\">{$this->getIconString()}{$this->getDescriptionTextString()}</label>";
             $wrapperEnd = '</div>';
         }
-        
+
         if ($this->prependLabel && $isFloating) {
             $wrapperStart = "<div class=\"form-floating {$this->bottomSpace}\">";
             $wrapperEnd = "<label title=\"{$this->text}\" class=\"col-form-label {$this->labelClass}{$this->getLabelSize()}\" for=\"{$this->id}\">{$this->getIconString()}{$this->getDescriptionTextString('')}</label></div>";
         }
-        
+
         return $wrapperStart.implode(' ', [
             "<select".($this->isMultiple ? ' multiple' : ''),
             $this->getNameIdString(),
@@ -110,7 +110,7 @@ implements interfaces\jsDialogHelper {
             $this->hasOptGroup ? $this->getOptionsGroupsString() : $this->getOptionsString($this->options),
             "</select>",
         ]) . $wrapperEnd;
-        
+
     }
 
     /**
@@ -211,7 +211,7 @@ implements interfaces\jsDialogHelper {
         }
 
         $this->value = '';
-        
+
         if (!is_array($options)) {
             return '';
         }
@@ -262,5 +262,4 @@ implements interfaces\jsDialogHelper {
     {
         return $this->readonly ? "disabled" : '';
     }
-
 }

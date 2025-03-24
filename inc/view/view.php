@@ -9,7 +9,7 @@ namespace fpcm\view;
 
 /**
  * Default view object
- * 
+ *
  * @package fpcm\view
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2022, Stefan Seehafer
@@ -216,7 +216,7 @@ class view {
 
         $this->module = $module;
         $this->showHeader = self::INCLUDE_HEADER_FULL;
-        
+
         $this->language = \fpcm\classes\loader::getObject('\fpcm\classes\language');
         $this->cache = \fpcm\classes\loader::getObject('\fpcm\classes\cache');
         $this->events = \fpcm\classes\loader::getObject('\fpcm\events\events');
@@ -284,11 +284,11 @@ class view {
         }
 
         if (str_starts_with($item, 'http') || str_starts_with($item, '//') ||
-           ( !str_ends_with($item, '.js') && !str_ends_with($item, '.css') ) 
+           ( !str_ends_with($item, '.js') && !str_ends_with($item, '.css') )
            ) {
             return $item;
-        }  
-        
+        }
+
         if (str_starts_with($item, self::ROOTURL_CORE_THEME) ||
             str_starts_with($item, self::ROOTURL_CORE_JS) ||
             str_starts_with($item, self::ROOTURL_LIB) ) {
@@ -298,11 +298,11 @@ class view {
         if (str_ends_with($item, '.css') && !str_starts_with($item, self::ROOTURL_CORE_THEME)) {
             $prefix = self::ROOTURL_CORE_THEME;
         }
-        
+
         if (!str_starts_with($item, self::ROOTURL_LIB) && !str_starts_with($item, self::ROOTURL_CORE_JS)) {
             $prefix = self::ROOTURL_CORE_JS;
         }
-        
+
         return \fpcm\classes\tools::strReplaceArray($prefix . $item, $this->rootUrls);
     }
 
@@ -313,7 +313,7 @@ class view {
      */
     private function prepareProfileMenu()
     {
-        
+
         $default = [
             sprintf('<a class="text-truncate" href="%s">%s%s</a>',
                     \fpcm\classes\tools::getControllerLink('system/profile'),
@@ -329,7 +329,7 @@ class view {
                     \fpcm\classes\tools::getControllerLink('system/logout'),
                     new helper\icon('sign-out-alt'),
                     $this->language->translate('LOGOUT_BTN')),
- 
+
         ];
 
         $result = $this->events->trigger('view\extendProfileMenu', $default);
@@ -353,11 +353,11 @@ class view {
         $toolbarButtons->buttons = $this->buttons;
 
         /* @var $toolbarButtons \fpcm\events\view\extendToolbarResult */
-        $toolbarButtons = $this->events->trigger('view\extendToolbar', $toolbarButtons);        
+        $toolbarButtons = $this->events->trigger('view\extendToolbar', $toolbarButtons);
         if ($toolbarButtons instanceof \fpcm\module\eventResult) {
             $toolbarButtons = $toolbarButtons->getData();
         }
-        
+
         $this->defaultViewVars->toolbarArea = $toolbarButtons->area;
         $this->defaultViewVars->buttons = $toolbarButtons->buttons;
         return true;
@@ -372,7 +372,7 @@ class view {
         if (!\fpcm\classes\baseconfig::dbConfigExists()) {
             return false;
         }
-        
+
         $this->notifications->prependSystemNotifications();
         $this->defaultViewVars->notifications = $this->notifications;
         return true;
@@ -413,7 +413,7 @@ class view {
     {
         $this->jsVars = array_merge($this->jsVars, $jsVars);
     }
-    
+
     /**
      * Merge new JS vars
      * @param string $jsVar
@@ -441,7 +441,7 @@ class view {
     {
         $this->jsFiles = $jsFiles;
     }
-    
+
     /**
      * Overrides new JS language vars
      * @param array $jsVars
@@ -479,7 +479,7 @@ class view {
 
         $jsModuleFiles = array_map(
             function ($item) use ($base) {
-            
+
                 if (str_starts_with($item, 'http')) {
                     return $item;
                 }
@@ -488,12 +488,12 @@ class view {
             },
             $jsModuleFiles
         );
-        
-        
+
+
         $this->jsModuleFiles = array_merge($this->jsModuleFiles, $jsModuleFiles);
         return $this;
     }
-        
+
     /**
      * Add js and css files from 3rd party library
      * @param string $lib
@@ -515,7 +515,7 @@ class view {
         if (!count($cssFiles)) {
             return true;
         }
-        
+
         $this->addCssFiles(array_map(function ($item) use ($lib) {
             return self::ROOTURL_LIB . $lib . '/' . $item;
         }, $cssFiles));
@@ -548,7 +548,7 @@ class view {
         }
 
         $cssPath = \fpcm\module\module::getStyleDirByKey($moduleKey, '');
-        
+
         $this->addCssFiles(array_map(function ($item) use ($cssPath) {
             return $cssPath.$item;
         }, $cssFiles));
@@ -564,12 +564,12 @@ class view {
      */
     final public function addFromCpomponent($component) : bool
     {
-        
+
         if (!$component instanceof \fpcm\model\interfaces\viewComponent) {
             trigger_error(sprintf('Parameter 1 for %s msut be an instance of \fpcm\model\interfaces\viewComponent. Class given: %s', __METHOD__, $component::class));
             return false;
         }
-        
+
         $this->addCssFiles($component->getCssFiles());
         $this->addJsFiles($component->getJsFiles());
         $this->addJsFilesLate($component->getJsFilesLate());
@@ -605,9 +605,9 @@ class view {
             return;
         }
 
-        
+
         $button->setClass('shadow-sm');
-        
+
         if ($pos) {
             $this->buttons[$pos] = $button;
             ksort($this->buttons);
@@ -726,7 +726,7 @@ class view {
     {
         $this->fullJsVarsNoheader = $fullJsVarsNoheader;
     }
-    
+
     /**
      * Renders view
      * @param bool $return
@@ -738,7 +738,7 @@ class view {
         if ($return) {
             ob_start();
         }
-        
+
         if (!file_exists($this->viewPath) || strpos(realpath($this->viewPath), \fpcm\classes\dirs::getFullDirPath('') ) !== 0) {
             trigger_error("View file {$this->viewName} not found in {$this->viewPath}!", E_USER_ERROR);
             exit("View file {$this->viewName} not found in {$this->viewPath}!");
@@ -769,7 +769,7 @@ class view {
 
         $this->events->trigger('view\renderAfter');
         $this->rendered = true;
-        
+
         if ($return) {
             $content = ob_get_contents();
             ob_end_clean();
@@ -800,9 +800,9 @@ class view {
         $req = \fpcm\classes\loader::getObject('\fpcm\model\http\request');
         $this->defaultViewVars->currentModule = $req->getModule();
         $this->defaultViewVars->ipAddress = $req->getIp();
-        
+
         $this->prepareToolbar();
-        
+
         if ($this->showHeader === self::INCLUDE_HEADER_FULL) {
             $this->prepareProfileMenu();
         }
@@ -817,8 +817,8 @@ class view {
 
         if (defined('FPCM_VIEW_JS_USE_MINIFIED') || !FPCM_VIEW_JS_USE_MINIFIED) {
             $this->rootUrls['.js'] = $this->getJsExt();
-        }        
-        
+        }
+
         $this->defaultViewVars->filesJs = array_unique( array_map([$this, 'addRootPath'], $this->jsFiles) );
         $this->defaultViewVars->filesJsLate = array_unique( array_map([$this, 'addRootPath'], $this->jsFilesLate) );
 
@@ -839,7 +839,7 @@ class view {
                 'ajaxRefreshDisable' => defined('FPCM_DISABLE_AJAX_CRONJOBS_PUB') && FPCM_DISABLE_AJAX_CRONJOBS_PUB
             ]
         ];
-        
+
         if ($this->showHeader === self::INCLUDE_HEADER_NONE && !$this->fullJsVarsNoheader) {
             $this->defaultViewVars->varsJs = $varsJs;
             $this->assign('theView', $this->defaultViewVars);
@@ -859,9 +859,9 @@ class view {
         $varsJs['vars']['actionPath'] = \fpcm\classes\tools::getFullControllerLink('');
 
         $this->defaultViewVars->varsJs = $varsJs;
-        
+
         if ($this->showHeader === self::INCLUDE_HEADER_FULL) {
-            $this->prepareNotifications();            
+            $this->prepareNotifications();
         }
 
         /* @var $theView viewVars */
@@ -870,7 +870,7 @@ class view {
     }
 
     /**
-     * 
+     *
      * @return bool
      * @since 5.2.0-a1
      */
@@ -901,7 +901,7 @@ class view {
         if ( !$this->session?->exists() ) {
             return false;
         }
-        
+
         $this->addJsLangVars(['SESSION_TIMEOUT']);
         $this->addJsVars(['sessionCheck' => true]);
 
@@ -917,7 +917,7 @@ class view {
 
         $this->defaultViewVars->backdrop = (new \fpcm\model\files\backdropImage())->getUrl();
         $this->defaultViewVars->darkMode = $this->session->getCurrentUser()->getUserMeta()->system_darkmode;
-        return true;        
+        return true;
     }
 
     /**
@@ -928,7 +928,7 @@ class view {
     {
         return $this->viewPath;
     }
-    
+
     /**
      * Sets view path
      * @param string $viewName
@@ -941,7 +941,7 @@ class view {
         $this->viewPath = $module
                         ? \fpcm\module\module::getTemplateDirByKey($module, $viewName)
                         : \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, $viewName);
-        
+
         if (strpos($viewName, self::PATH_COMPONENTS) !== false) {
             $this->viewPath = str_replace(
                 self::PATH_COMPONENTS,
@@ -952,7 +952,7 @@ class view {
 
         $this->viewName = $viewName;
     }
-    
+
     /**
      * Return assigned view vars
      * @param string $var
@@ -991,7 +991,7 @@ class view {
         if (!trim($elementId)) {
             return false;
         }
-        
+
         $this->navigationActiveModule = $elementId;
         return true;
     }
@@ -1027,7 +1027,7 @@ class view {
             trigger_error('View hash value was already set');
             return false;
         }
-        
+
         $this->viewHash = $viewHash;
         return false;
     }
@@ -1082,7 +1082,7 @@ class view {
         $this->showPageToken = (bool) $showPageToken;
         return $this;
     }
-    
+
     /**
      * Adds dataview object to view variables
      * @param \fpcm\components\dataView\dataView $dataView
@@ -1092,7 +1092,7 @@ class view {
         $this->assign('dataViewId', $dataView->getName());
 
         $vars = $dataView->getJsVars();
-        
+
         if (count($vars)) {
             if (isset($this->jsVars['dataviews'])) {
                 $this->mergeJsVars('dataviews', $vars);
@@ -1113,7 +1113,7 @@ class view {
         }
 
     }
-    
+
     /**
      * Sets view to standard tab view,
      * do not use if you want to include tabs in another view!!!
@@ -1127,7 +1127,7 @@ class view {
         if (count($tabs) === 1) {
             $active = 0;
         }
-        
+
         $etRes = new \fpcm\events\view\extendTabsResult;
         $etRes->tabsId = $tabsId;
         $etRes->tabs = $tabs;
@@ -1138,19 +1138,19 @@ class view {
         if (!$ev->getSuccessed() || !$ev->getContinue()) {
             return false;
         }
-        
+
         $etRes = $ev->getData();
 
         $tabsId = $etRes->tabsId;
         $tabs = $etRes->tabs;
         $tabsClass = $etRes->tabsClass;
         $active = $etRes->activeTab;
-        
+
         if ($active > -1 && isset($tabs[$active])) {
             $tabs[$active]->setState(helper\tabItem::STATE_ACTIVE);
-            
+
         }
-        
+
         if (!str_starts_with($tabsId, helper\helper::ID_START_PREFIX)) {
             $tabsId = helper\helper::ID_START_PREFIX . $tabsId;
         }
@@ -1173,7 +1173,7 @@ class view {
         $this->addJsVars(['pager' => $pager->getJsVars()]);
         $this->addJsLangVars($pager->getJsLangVars());
     }
-    
+
     /**
      * Add off canvas widget to view
      * @param string $headline
@@ -1186,7 +1186,7 @@ class view {
         $this->assign('offcanvasHeadline', $headline);
         $this->defaultViewVars->showOffCanvas = true;
     }
-    
+
     /**
      * Add items to right hand position in toolbar
      * @param string|array $data
@@ -1197,7 +1197,7 @@ class view {
         if (is_array($data)) {
             $data = implode('', $data);
         }
-        
+
         $this->defaultViewVars->toolbarItemRight = $data;
     }
 
@@ -1213,7 +1213,32 @@ class view {
             'combinations' => $combinations,
             'fields' => $fields
         ];
+    }
+
+    /**
+     * Add dialogs to view
+     * @param array $dialogs
+     * @since 5.2.4-b3
+     */
+    public function addDialogs(helper\dialog|array $dialogs)
+    {
+        if (!isset($this->jsVars['dialogs'])) {
+            $this->jsVars['dialogs'] = [];
+        }
         
+        if (!is_array($dialogs)) {
+            $dialogs = [$dialogs];
+        }
+
+        /* @var helper\dialog $dlg */
+        foreach ($dialogs as $dlg) {
+            
+            if (!$dlg instanceof helper\dialog) {
+                continue;
+            }
+            
+            $this->jsVars['dialogs'][$dlg->getName()] = $dlg;
+        }
         
     }
 
@@ -1236,11 +1261,11 @@ class view {
         if (!$type) {
             return false;
         }
-        
+
         $this->jsFiles = $this->events->trigger($type.'\addJsFiles', $this->jsFiles)->getData();
         $this->jsFilesLate = $this->events->trigger($type.'\addJsFilesLate', $this->jsFilesLate)->getData();
         $this->jsModuleFiles = $this->events->trigger($type.'\addJsModules', $this->jsModuleFiles)->getData();
-        $this->cssFiles = $this->events->trigger($type.'\addCssFiles', $this->cssFiles)->getData();    
+        $this->cssFiles = $this->events->trigger($type.'\addCssFiles', $this->cssFiles)->getData();
 
         return true;
     }
@@ -1267,8 +1292,8 @@ class view {
     {
         if (defined('FPCM_MODE_PUBVIEW') && FPCM_MODE_PUBVIEW) {
             return;
-        }        
-        
+        }
+
         $this->addCssFiles([
             self::ROOTURL_LIB.'bootstrap/css/bootstrap.min.css',
             self::ROOTURL_LIB.'font-awesome/css/all.min.css',
@@ -1287,9 +1312,9 @@ class view {
         if (defined('FPCM_MODE_PUBVIEW') && FPCM_MODE_PUBVIEW) {
             return;
         }
-        
+
         $ext = self::getJsExt();
-        
+
         $this->addJsFiles([
             \fpcm\components\components::getjQuery(),
             self::ROOTURL_LIB.'bootstrap/js/bootstrap.bundle.min.js',

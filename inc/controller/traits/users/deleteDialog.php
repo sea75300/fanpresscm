@@ -22,22 +22,21 @@ trait deleteDialog {
     {
         $this->view->addJsLangVars(['USERS_ARTICLES_SELECT', 'USERS_ARTICLES_USER']);
 
-        $this->view->addJsVars([
-            'deleteForm' => [
-                'articles-action' =>                 [
-                    'call' => 'select',
-                    'class' => '',
-                    'options' => $this->language->translate('USERS_ARTICLES_LIST'),
-                    'label' => 'USERS_ARTICLES_SELECT',
-                ],
-                'articles-user' =>                 [
-                    'call' => 'select',
-                    'class' => '',
-                    'options' => $list->getUsersNameList(),
-                    'label' => 'USERS_ARTICLES_USER',
-                ]
-            ]
+        $dialog = new \fpcm\view\helper\dialog('deleteForm');
+        $dialog->setFields([
+            (new \fpcm\view\helper\select('articles-action'))
+                ->setOptions( $this->language->translate('USERS_ARTICLES_LIST') )
+                ->setText('USERS_ARTICLES_SELECT')
+                ->setLabelTypeFloat()
+                ->setBottomSpace(''),
+            (new \fpcm\view\helper\select('articles-user'))
+                ->setOptions( $list->getUsersNameList() )
+                ->setText('USERS_ARTICLES_USER')
+                ->setLabelTypeFloat()
+                ->setBottomSpace('')
         ]);
+
+        $this->view->addDialogs($dialog);
 
     }
 

@@ -42,7 +42,7 @@ class dialog implements \JsonSerializable {
     }
 
     /**
-     * 
+     * Set dialog fields
      * @param array[fpcm\view\helper\interfaces\jsDialogHelper] $fields
      * @return $this
      */
@@ -60,6 +60,14 @@ class dialog implements \JsonSerializable {
 
         $this->fields = $fields;
         return $this;
+    }
+
+    /**
+     * Get dialog name
+     * @return string
+     */
+    public function getName(): string {
+        return $this->name;
     }
 
 }

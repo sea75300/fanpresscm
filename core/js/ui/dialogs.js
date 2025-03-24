@@ -438,6 +438,56 @@ fpcm.ui_dialogs = {
         _spylist.forEach(function (_el) {
             bootstrap.ScrollSpy.getOrCreateInstance(_el).refresh();
         });   
+    },
+    
+    fromDOM: function (_dialogname) {
+        
+        if (!fpcm.vars.jsvars.dialogs[_dialogname]) {
+            console.error(`No dialog with id ${_dialogname} defined.`);
+            return false;
+        }
+        
+        if (!fpcm.vars.jsvars.dialogs[_dialogname].fields) {
+            console.error(`Invalid dialog ${_dialogname} definition found.`);
+            return false;
+        }
+
+        let _form = document.createElement('div');
+
+        for (var _i in fpcm.vars.jsvars.dialogs[_dialogname].fields) {
+
+            let _field = fpcm.vars.jsvars.dialogs[_dialogname].fields[_i];
+
+            let _tmp = new fpcm.ui.forms[_field.type];
+
+            _tmp.name = _field.name;
+            _tmp.id = _field.id;
+            _tmp.label = _field.text;
+            _tmp.class = _field.class;
+            _tmp.options = _field.options;
+            _tmp.disabled = _field.readonly;
+            _tmp.wrapper = `${_field.labelType} ${_field.bottomSpace}`;
+
+            if (!_tmp.assignFormObject) {
+                continue;
+            }
+
+            _tmp.assignFormObject(_field);
+
+            let _row = document.createElement('div');
+            _row.className = 'row mb-3';
+
+            let _colDescr = document.createElement('div');
+            _colDescr.className = 'col-12';
+
+            _tmp.assignToDom(_colDescr);
+
+            _row.appendChild(_colDescr);
+
+            _form.appendChild(_row);
+        }
+        
+        return _form;
     }
     
 }
