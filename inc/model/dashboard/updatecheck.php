@@ -115,7 +115,7 @@ class updatecheck extends \fpcm\model\abstracts\dashcontainer implements \fpcm\m
 
         if ($this->config->system_version !== \fpcm\classes\baseconfig::getVersionFromFile()) {
             $button = (string) (new \fpcm\view\helper\linkButton('updater'))->setText('PACKAGES_UPDATE')->setIcon('sync')->setUrl(\fpcm\classes\tools::getFullControllerLink('package/sysupdate', ['update-db' => 1]));
-            $this->renderTable('code-branch', 'fpcm-dashboard-updates-versiondbfile fpcm-ui-color-grey-dark', $this->language->translate('UPDATE_VERSIONCECK_FILEDB_ERR', [ '{{btn}}' => $button ]));            
+            $this->renderTable('code-branch', 'fpcm-dashboard-updates-versiondbfile text-body-tertiary', $this->language->translate('UPDATE_VERSIONCECK_FILEDB_ERR', [ '{{btn}}' => $button ]));            
         }
 
         $this->systemCheckresult = $this->systemUpdates->updateAvailable();
