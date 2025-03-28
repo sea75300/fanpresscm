@@ -82,18 +82,21 @@ class userlist extends \fpcm\controller\abstracts\controller
      */
     public function request()
     {
-        if ($this->request->fromGET('added') == 1) {
-            $this->view->addNoticeMessage('SAVE_SUCCESS_ADDUSER');
-        } elseif ($this->request->fromGET('added') == 2) {
-            $this->view->addNoticeMessage('SAVE_SUCCESS_ADDROLL');
+        $msgCode = $this->request->fromGET('msg');
+                
+        $msg = match ($msgCode) {
+            '1' => 'SAVE_SUCCESS_ADDUSER',
+            '2' => 'SAVE_SUCCESS_EDITUSER',
+            '3' => 'SAVE_SUCCESS_ADDROLL',
+            '4' => 'SAVE_SUCCESS_EDITROLL',
+            default => ''
+        };
+
+        if (!trim($msg)) {
+            return true;
         }
 
-        if ($this->request->fromGET('edited') == 1) {
-            $this->view->addNoticeMessage('SAVE_SUCCESS_EDITUSER');
-        } elseif ($this->request->fromGET('edited') == 2) {
-            $this->view->addNoticeMessage('SAVE_SUCCESS_EDITROLL');
-        }
-
+        $this->view->addNoticeMessage($msg);
         return true;
     }
 
@@ -107,7 +110,7 @@ class userlist extends \fpcm\controller\abstracts\controller
 
         $this->initDeleteConfirmDialog($this->userList);
 
-        $chart = new \fpcm\components\charts\chart(\fpcm\components\charts\chart::TYPE_PIE, 'userArticles');
+        $chart = new \fpcm\components\charts\chart(\fpcm\components\charts\chart::TYPE_BAR, 'userArticles');
         $chart->setLegend([
             'position' => 'right'
         ]);
@@ -129,17 +132,6 @@ class userlist extends \fpcm\controller\abstracts\controller
 
         $this->view->addButton( (new \fpcm\view\helper\dropdown('new'))->setText('GLOBAL_NEW')->setIcon('plus')->setOptions($ddOpt)->overrideButtonType('primary') );
 
-        $this->view->addToolbarRight((string) (new \fpcm\view\helper\button('userStats'))
-                ->setText('USERS_STATS_ARTICLE')
-                ->setIcon('chart-pie')
-                ->setData([
-                    'bs-toggle' => 'offcanvas',
-                    'bs-target' => '#offcanvasUserStats'
-                ])
-                ->setAria([
-                    'bs-controls' => 'offcanvasUserStats',
-                ]) );
-
         $this->createUsersView();
 
         if ($this->permissions->system->rolls) {
@@ -156,6 +148,10 @@ class userlist extends \fpcm\controller\abstracts\controller
         $chartItem->setBorderColor('none');
 
         $chart->setValues($chartItem);
+        $chart->setLegend([
+            'display' => false
+        ]);
+
         $this->view->assign('userArticles', $chart);
 
         $this->view->addJsVars([
@@ -356,6 +352,11 @@ class userlist extends \fpcm\controller\abstracts\controller
                     ->setFile('components/dataview__inline.php')
                     ->setTabToolbar(2);
         }
+        
+        $tabs[] = (new \fpcm\view\helper\tabItem('article-chart'))
+                ->setText('USERS_STATS_ARTICLE')
+                ->setFile('users/article-chart')
+                ->setTabToolbar(3);
 
         $this->view->addTabs('users', $tabs, '', $this->getActiveTab());
     }

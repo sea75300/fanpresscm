@@ -107,7 +107,7 @@ implements
         $this->userRoll->setRollName($rollName);
         $this->userRoll->setCodex($this->request->fromPOST('rollcodex'));
         $func = $this->update ? 'update' : 'save';
-        $msg  = $this->update ? 'edited' : 'added';
+        $msg  = $this->update ? 4 : 3;
 
         $result = call_user_func([$this->userRoll, $func]);
         $errMsg = 'SAVE_FAILED_ROLL';
@@ -122,7 +122,7 @@ implements
         }
 
         if ($result) {
-            $this->redirect('users/list', [$msg => 2, 'rg' => 1]);
+            $this->redirect('users/list', ['msg' => $msg, 'rg' => 1]);
             return true;
         }
 
