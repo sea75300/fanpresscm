@@ -409,7 +409,12 @@ class module {
             return true;
         }
 
-        return version_compare((new config($this->mkey, null))->version, $this->config->version, '=') ? false : true;
+        $removeVersion = (new config($this->mkey, null))->version;
+        if (!$removeVersion) {
+            return false;
+        }
+        
+        return version_compare($removeVersion, $this->config->version, '=') ? false : true;
     }
 
     /**
