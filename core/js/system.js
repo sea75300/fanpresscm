@@ -54,6 +54,30 @@ fpcm.system = {
             _el.currentTarget.title = fpcm.ui.translate(_current.text);
             _el.delegateTarget.childNodes[0].classList.replace(_el.delegateTarget.childNodes[0].classList[3], _current.icon);
         });
+
+        fpcm.dom.bindClick('button[data-toolbar-name]', function (_el) {
+
+            if (!_el.delegateTarget) {
+                return false;
+            }
+
+            if (!_el.delegateTarget.dataset) {
+                return false;
+            }
+
+            if (!_el.delegateTarget.dataset.toolbarName) {
+                return false;
+            }
+
+            let _input = document.createElement('input');
+            _input.value = _el.delegateTarget.dataset.toolbarName;
+            _input.id = 'tmp' + _el.delegateTarget.dataset.toolbarName;
+            document.body.appendChild(_input);
+            document.getElementById(_input.id).select();
+            document.execCommand('copy');
+            document.body.removeChild(_input);
+        });
+
     },
 
     togglePasswordField: function (_event, _callee)
@@ -505,7 +529,7 @@ fpcm.system = {
                             if (! typeof fpcm[_fn[0]][_fn[1]] == 'function') {
                                 return false;
                             }
-                            
+
                             return fpcm[_fn[0]][_fn[1]]();
 
                         }
