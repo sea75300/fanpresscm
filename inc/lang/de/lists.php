@@ -3,12 +3,12 @@
 /**
  * FanPress CM language list file: de
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2023, Stefan Seehafer
+ * @copyright (c) 2011-2025, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
 $lang = array (
-  'EDITOR_INSERTMEDIA_FORMATS' =>
+  'EDITOR_INSERTMEDIA_FORMATS' => 
   array (
     'Automatisch' => '',
     'MP4 Video' => 'video/mp4',
@@ -18,7 +18,17 @@ $lang = array (
     'OGG Audio' => 'audio/ogg',
     'WAV Audio' => 'audio/wav',
   ),
-  'SYSTEM_DAYS' =>
+  'LANGUAGE_CHARACTER_REPLACE' => 
+  array (
+    'ä' => 'ae',
+    'ö' => 'oe',
+    'ü' => 'ue',
+    'ß' => 'ss',
+    'Ä' => 'AE',
+    'Ö' => 'OE',
+    'Ü' => 'UE',
+  ),
+  'SYSTEM_DAYS' => 
   array (
     0 => 'Sonntag',
     1 => 'Montag',
@@ -28,14 +38,14 @@ $lang = array (
     5 => 'Freitag',
     6 => 'Samstag',
   ),
-  'SYSTEM_IMPORT_ITEMS' =>
+  'SYSTEM_IMPORT_ITEMS' => 
   array (
     'Artikel' => 'articles\\article',
     'Kommentare' => 'comments\\comment',
     'Kategorien' => 'categories\\category',
     'Textzensur/ Autokorrektur' => 'wordban\\item',
   ),
-  'SYSTEM_MONTHS' =>
+  'SYSTEM_MONTHS' => 
   array (
     1 => 'Januar',
     2 => 'Februar',
@@ -50,7 +60,7 @@ $lang = array (
     11 => 'November',
     12 => 'Dezember',
   ),
-  'SYSTEM_OPTIONS_CACHETIMEOUT_INTERVAL' =>
+  'SYSTEM_OPTIONS_CACHETIMEOUT_INTERVAL' => 
   array (
     '30 Minuten' => 1800,
     '1 Stunde' => 3600,
@@ -65,7 +75,7 @@ $lang = array (
     '6 Tage' => 518400,
     '1 Woche' => 604800,
   ),
-  'SYSTEM_OPTIONS_CRONINTERVALS' =>
+  'SYSTEM_OPTIONS_CRONINTERVALS' => 
   array (
     'nie/ manuell' => -1,
     'bei jedem Aufruf' => 0,
@@ -87,7 +97,7 @@ $lang = array (
     '14-tägig' => 1209600,
     'monatlich' => 2419200,
   ),
-  'SYSTEM_OPTIONS_FLOODPROTECTION_INTERVALS' =>
+  'SYSTEM_OPTIONS_FLOODPROTECTION_INTERVALS' => 
   array (
     'keine' => 0,
     '10 Sekunden' => 10,
@@ -102,7 +112,7 @@ $lang = array (
     '30 Minuten' => 1800,
     '60 Minuten' => 3600,
   ),
-  'SYSTEM_OPTIONS_NEWS_REVISIONS_LIMIT_LIST' =>
+  'SYSTEM_OPTIONS_NEWS_REVISIONS_LIMIT_LIST' => 
   array (
     'nie' => 0,
     '1 Woche' => 604800,
@@ -117,7 +127,7 @@ $lang = array (
     '18 Monate' => 43545600,
     '24 Monate' => 62899200,
   ),
-  'SYSTEM_OPTIONS_SESSIONLENGHT_INTERVALS' =>
+  'SYSTEM_OPTIONS_SESSIONLENGHT_INTERVALS' => 
   array (
     '30 minuten' => 1800,
     '1 Stunde' => 3600,
@@ -129,7 +139,7 @@ $lang = array (
     '5 Stunden' => 18000,
     '6 Stunden' => 21600,
   ),
-  'SYSTEM_OPTIONS_TRASH_CLEANUP_DAYS_LIST' =>
+  'SYSTEM_OPTIONS_TRASH_CLEANUP_DAYS_LIST' => 
   array (
     '3 Tage' => 3,
     '7 Tage' => 8,
@@ -140,7 +150,7 @@ $lang = array (
     '60 Tage' => 60,
     '90 Tage' => 90,
   ),
-  'SYSTEM_OPTIONS_TZ' =>
+  'SYSTEM_OPTIONS_TZ' => 
   array (
     1 => 'Afrikanische Zeitzonen',
     2 => 'Amerikanische Zeitzonen',
@@ -151,27 +161,17 @@ $lang = array (
     256 => 'Indische Zeitzonen',
     512 => 'Pazifische Zeitzonen',
   ),
-  'SYSTEM_OPTIONS_UPDATESMANUAL' =>
+  'SYSTEM_OPTIONS_UPDATESMANUAL' => 
   array (
     'täglich' => 86400,
     'wöchentlich' => 604800,
     '14-tägig' => 1209600,
     'monatlich' => 2419200,
   ),
-  'USERS_ARTICLES_LIST' =>
+  'USERS_ARTICLES_LIST' => 
   array (
     'Nichts unternehmen' => '',
     'Artikel löschen' => 'delete',
     'Artikel verschieben zu' => 'move',
   ),
-  'LANGUAGE_CHARACTER_REPLACE' =>
-  array (
-    'ä' => 'ae',
-    'ö' => 'oe',
-    'ü' => 'ue',
-    'ß' => 'ss',
-    'Ä' => 'AE',
-    'Ö' => 'OE',
-    'Ü' => 'UE',
-  )
 );

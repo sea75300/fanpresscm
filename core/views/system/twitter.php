@@ -1,14 +1,14 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
+<div class="row pt-2">
+    <div class="col align-self-center">
+        <?php $theView->alert('warning')->setText('DEPRECATED_TWITTER_BUILDIN'); ?>
+    </div>
+</div>
+
 <div class="row py-2 row-cols-1 row-cols-md-2">
     <div class="col align-self-center">
     <?php if ($twitterIsActive) : ?>
         <?php $theView->alert('success')->setText('SYSTEM_OPTIONS_TWITTER_ACTIVE', ['{{screenname}}' => $twitterScreenName])->setIcon('twitter', 'fab')->setClass('mb-1 mb-md-0'); ?>
-    <?php elseif (defined('FPCM_TWITTER_DSIABLE_API') && FPCM_TWITTER_DSIABLE_API) : ?>
-        <?php $theView->alert('dark')
-                ->setText('Twitter API connector has been disabled, see https://www.heise.de/news/Twitter-macht-API-Zugang-kostenpflichtig-mit-einer-Woche-Vorlaufzeit-7480995.html.')
-                ->setIcon('ban text-danger')
-                ->setSize('lg')
-                ->setClass('mb-1 mb-md-0'); ?>
     <?php else : ?>
         <?php $theView->alert('secondary')->setText('SYSTEM_OPTIONS_TWITTER_CONSTATE')->setIcon('twitter', 'fab')->setClass('mb-1 mb-md-0'); ?>
     <?php endif; ?>
@@ -26,9 +26,9 @@
 
 <div class="row my-2 row-cols-1 row-cols-md-2">
     <div class="col">
-        
+
         <fieldset>
-            
+
             <legend class="rounded">
                 <?php $theView->write('SYSTEM_OPTIONS_TWITTER_CREDENTIALS'); ?>
             </legend>
@@ -51,10 +51,10 @@
         </fieldset>
     </div>
     <div class="col">
-        
+
         <div class="list-group">
             <div class="list-group-item bg-secondary text-white"><?php $theView->icon('twitter fab'); ?> <?php $theView->write('SYSTEM_OPTIONS_TWITTER_EVENTS'); ?></div>
-            
+
             <div class="list-group-item">
                 <?php $theView->checkbox('twitter_events[create]', 'twitter_events_create')
                         ->setText('SYSTEM_OPTIONS_TWITTER_EVENTCREATE')
@@ -68,7 +68,7 @@
                         ->setSwitch(true); ?>
             </div>
         </div>
-        
+
         <div class="list-group mt-3">
             <div class="list-group-item bg-secondary text-white"><?php $theView->icon('timeline'); ?> <?php $theView->write('GLOBAL_EXTENDED'); ?></div>
             <div class="list-group-item">
