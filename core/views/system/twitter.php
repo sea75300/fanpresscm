@@ -1,4 +1,7 @@
-<?php /* @var $theView \fpcm\view\viewVars */ ?>
+<?php /* 
+ * @var $theView \fpcm\view\viewVars
+ * @deprecated 5.2.3-b4
+ *  */ ?>
 <div class="row pt-2">
     <div class="col align-self-center">
         <?php $theView->alert('warning')->setText('DEPRECATED_TWITTER_BUILDIN'); ?>

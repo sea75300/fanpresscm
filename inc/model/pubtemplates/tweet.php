@@ -15,6 +15,7 @@ namespace fpcm\model\pubtemplates;
  * 
  * @package fpcm\model\system
  * @author Stefan Seehafer <sea75300@yahoo.de>
+ * @deprecated 5.2.3-b4
  */
 final class tweet extends template {
     

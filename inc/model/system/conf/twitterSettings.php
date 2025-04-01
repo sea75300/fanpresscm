@@ -15,6 +15,7 @@ namespace fpcm\model\system\conf;
  * @copyright (c) 2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @since 4.5.0-rc2
+ * @deprecated 5.2.3-b4
  */
 class twitterSettings extends \fpcm\model\abstracts\configObj
 {
