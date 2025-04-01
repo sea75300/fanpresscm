@@ -24,13 +24,13 @@ implements \fpcm\model\interfaces\validateFileType,
      * Erlaubte Dateitypen
      * @var array
      */
-    public static $allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
+    public static $allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
 
     /**
      * Erlaubte Dateiendungen
      * @var array
      */
-    public static $allowedExts = ['jpeg', 'jpg', 'png', 'gif'];
+    public static $allowedExts = ['jpeg', 'jpg', 'png', 'gif', 'webp'];
 
     /**
      * ID von Datei-Eintrag in DB

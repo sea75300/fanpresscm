@@ -76,6 +76,11 @@ fpcm.system = {
             document.getElementById(_input.id).select();
             document.execCommand('copy');
             document.body.removeChild(_input);
+            
+            fpcm.ui.addMessage(new fpcm.ui.message(
+                'info',
+                `Area ID copied: ${_input.value}`
+            ));
         });
 
     },

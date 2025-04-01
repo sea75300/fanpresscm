@@ -18,7 +18,7 @@ namespace fpcm\components\fileupload;
  */
 final class uppy extends uploader {
 
-    const FILETYPES_IMG = '/\.(gif|jpe?g|png)$/i';
+    const FILETYPES_IMG = '/\.(gif|jpe?g|png|webp)$/i';
 
     const FILETYPES_DRAFTS = '/\.(htm|html|txt)$/i';
 
