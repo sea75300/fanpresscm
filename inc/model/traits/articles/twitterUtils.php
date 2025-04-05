@@ -15,6 +15,7 @@ namespace fpcm\model\traits\articles;
  * @copyright (c) 2023, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @since 5.2.0-a1
+ * @deprecated 5.2.3-b4
  */
 trait twitterUtils {
 

@@ -3,7 +3,7 @@
 /**
  * FanPress CM language variables file: de
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2023, Stefan Seehafer
+ * @copyright (c) 2011-2025, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -133,6 +133,7 @@ $lang = array (
   'DELETE_SUCCESS_TRASH' => 'Der Papierkorb wurde geleert!',
   'DELETE_SUCCESS_USERS' => 'Der Benutzer wurden gelöscht!',
   'DELETE_SUCCESS_WORDBAN' => 'Die Begriffe wurden gelöscht!',
+  'DEPRECATED_TWITTER_BUILDIN' => 'Die integrierte Twitter-Anbindung wird in einem der nächsten Updates entfernt! Details folgen in den Releasenotes.',
   'EDITOR_ARCHIVE' => 'Artikel archivieren',
   'EDITOR_ARTICLEIMAGE' => 'Artikelbild festlegen',
   'EDITOR_ARTICLEIMAGE_SHOW' => 'Artikelbild anzeigen',

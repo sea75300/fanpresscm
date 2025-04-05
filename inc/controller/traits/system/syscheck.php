@@ -36,7 +36,7 @@ trait syscheck {
             $result = version_compare($this->config->system_version, $remoteVersion, '>=');
             $option = new \fpcm\model\system\syscheckOption(
                 $this->config->system_version,
-                'https://nobody-knows.org/download/fanpress-cm/',
+                'https://nobody-knows.org/fanpress-cm/',
                 $result
             );
             

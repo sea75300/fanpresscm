@@ -55,7 +55,7 @@ class notificationItem implements \Stringable {
 
         $this->id = trim($id) ? trim($id) : uniqid('fpcm-notification-item');
         $this->callback = $callback;
-        $this->class = 'dropdown-item'.(trim($class) ? ' '.$class : '');
+        $this->class = sprintf('dropdown-item %s %s', trim($class), !trim($callback) ? 'disabled' : '');
     }
 
     /**

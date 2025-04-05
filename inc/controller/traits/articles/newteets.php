@@ -14,6 +14,7 @@ namespace fpcm\controller\traits\articles;
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+ * @deprecated 5.2.3-b4
  */
 trait newteets {
 

@@ -17,12 +17,12 @@ fpcm.fileuploader = {
             restrictions: {
                 allowedFileTypes: fpcm.filemanager.getAcceptTypesArr
                                 ? fpcm.filemanager.getAcceptTypesArr()
-                                : ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', '.jpeg', '.jpg', '.png', '.gif']
+                                : ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp', '.jpeg', '.jpg', '.png', '.gif', '.webp']
             }
         });
 
         _uppy
-            .use(window.Uppy.XHRUpload, { endpoint: 
+            .use(window.Uppy.XHRUpload, { endpoint:
                 fpcm.vars.ajaxActionPath + 'upload/uppy&dest=' + fpcm.vars.jsvars.uploadDest
             })
             .use(window.Uppy.FileInput, {
@@ -45,14 +45,13 @@ fpcm.fileuploader = {
             });
 
         fpcm.dom.bindClick('#btnCancel', function () {
-           _uppy.cancelAll(); 
+           _uppy.cancelAll();
         });
 
     },
-    
+
     initAfter: function () {
-        
-        
+
         let _uploadBtn = fpcm.dom.fromClass('uppy-FileInput-btn');
         _uploadBtn.addClass('w-100');
 
@@ -60,5 +59,5 @@ fpcm.fileuploader = {
         _uploadBtn.addClass('btn btn-outline-' + _btnclass);
 
     }
-    
+
 };
