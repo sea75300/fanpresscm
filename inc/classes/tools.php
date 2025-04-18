@@ -229,12 +229,12 @@ final class tools {
      * Array wrapper for str_replace
      * @param string $subject
      * @param array $replacement
-     * @param int $count
+     * @param null|int $count
      * @return array
      * @see str_replace
      * @since 4.4
      */
-    public static function strReplaceArray($subject, array $replacement, int &$count = NULL)
+    public static function strReplaceArray($subject, array $replacement, ?int &$count = NULL)
     {
         return str_replace(array_keys($replacement), array_values($replacement), $subject, $count);
     }

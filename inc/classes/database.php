@@ -274,7 +274,7 @@ final class database {
      * @param bool $distinct Distinct select
      * @return mixed
      */
-    public function select($table, $item = '*', $where = null, array $params = [], $distinct = false)
+    public function select(string $table, string $item = '*', ?string $where = null, array $params = [], $distinct = false)
     {
         $distinct = $distinct ? 'DISTINCT ' : '';
         $sql = "SELECT {$distinct}{$item} FROM {$this->getTablePrefixed($table)}";
@@ -351,10 +351,10 @@ final class database {
     /**
      * Execute insert query
      * @param string $table
-     * @param string $values
+     * @param array $values
      * @return int
      */
-    public function insert($table, $values)
+    public function insert(string $table, array $values)
     {
         $fields = implode(', ', array_keys($values));
         $vars = implode(', ', array_fill(0, (int) count($values), '?'));
@@ -377,7 +377,7 @@ final class database {
      * @param string $where
      * @return bool
      */
-    public function update($table, array $fields, array $params = [], $where = null)
+    public function update(string $table, array $fields, array $params = [], $where = null)
     {
         $sql = "UPDATE {$this->getTablePrefixed($table)} SET " . implode(' = ?, ', $fields) . ' = ?';
         if ($where !== null) {
@@ -396,7 +396,7 @@ final class database {
      * @return bool
      * @since 3.5
      */
-    public function updateMultiple($table, array $fields, array $params = [], array $where = [])
+    public function updateMultiple(string $table, array $fields, array $params = [], array $where = [])
     {
         if ($this->dbtype === self::DBTYPE_POSTGRES) {
             $this->connection->setAttribute(\PDO::ATTR_EMULATE_PREPARES, true);
@@ -435,7 +435,7 @@ final class database {
      * @param array $params
      * @return bool
      */
-    public function delete($table, $where = null, array $params = [])
+    public function delete(string $table, ?string $where = null, array $params = [])
     {
         $sql = "DELETE FROM {$this->getTablePrefixed($table)}";
         if ($where !== null) {
@@ -454,14 +454,14 @@ final class database {
      * @param bool $checkExists Prüfung durchführen, ob Feld existiert
      * @return bool
      */
-    public function alter($table, $methode, $field, $where = "", $checkExists = true)
+    public function alter(string $table, string $method, string $field, string $where = "", bool $checkExists = true)
     {
         $struct = $this->getTableStructure($table);
         if ($checkExists && !isset($struct[$field])) {
             return true;
         }
 
-        return $this->exec("ALTER TABLE {$this->getTablePrefixed($table)} {$methode} {$field} {$where}");
+        return $this->exec("ALTER TABLE {$this->getTablePrefixed($table)} {$method} {$field} {$where}");
     }
 
     /**
@@ -472,7 +472,7 @@ final class database {
      * @param array $params
      * @return bool
      */
-    public function count($table, $countitem = '*', $where = null, array $params = [])
+    public function count(string $table, ?string $countitem = '*', ?string $where = null, array $params = [])
     {
         $sql = "SELECT count(" . $countitem . ") AS counted FROM {$this->getTablePrefixed($table)}";
         if ($where !== null) {
@@ -494,7 +494,7 @@ final class database {
      * @param string $where
      * @return bool
      */
-    public function reverseBool($table, $field, $where)
+    public function reverseBool(string $table, string $field, string $where)
     {
         $sql = "UPDATE {$this->getTablePrefixed($table)} SET " . $this->driver->getNotQuery($field);
         if ($where !== null) {
@@ -509,7 +509,7 @@ final class database {
      * @param string $table Tabellen-Name
      * @return int
      */
-    public function getMaxTableId($table)
+    public function getMaxTableId(string $table)
     {
         $sql = "SELECT max(id) as maxid from {$this->getTablePrefixed($table)};";
         $data = $this->fetch($this->query($sql));
@@ -526,7 +526,7 @@ final class database {
      * @param string $table
      * @return bool
      */
-    public function drop($table)
+    public function drop(string $table)
     {
         return $this->exec("DROP TABLE {$this->getTablePrefixed($table)}");
     }
@@ -540,7 +540,7 @@ final class database {
      * @return bool
      * @since 3.3.1
      */
-    public function createIndex($table, $indexName, $field, $isUnique = false)
+    public function createIndex(string $table, string $indexName, string $field, $isUnique = false)
     {
         return $this->exec( $this->driver->createIndexString($this->getTablePrefixed($table), $indexName, $field, $isUnique) );
     }   
@@ -551,7 +551,7 @@ final class database {
      * @param array $bindParams
      * @return bool
      */
-    public function exec($command, array $bindParams = []) : bool
+    public function exec(string $command, array $bindParams = []) : bool
     {
         if (!trim($command)) {
             trigger_error('Invalid SQL command detected, query was empty!', E_USER_ERROR);
@@ -605,7 +605,7 @@ final class database {
      * @return bool
      * @since 3.2.0
      */
-    public function execSqlFile($path) : bool
+    public function execSqlFile(string $path) : bool
     {
         if (substr($path, -4) != '.sql') {
             trigger_error('Given file was not SQL file ' . $path);
@@ -645,7 +645,7 @@ final class database {
      * @return bool
      * @since 3.2.0
      */
-    public function execYaTdl($path) : bool
+    public function execYaTdl(string $path) : bool
     {
         if (substr($path, -4) !== '.yml') {
             $path .= '.yml';
@@ -683,7 +683,7 @@ final class database {
      * @param array $bindParams Paramater, welche gebunden werden sollen
      * @return \PDOStatement
      */
-    public function query($command, array $bindParams = [])
+    public function query(string $command, array $bindParams = [])
     {
         if (!trim($command)) {
             trigger_error('Invalid SQL command detected, query was empty!');
@@ -742,7 +742,7 @@ final class database {
      * @param int $style
      * @return mixed
      */
-    public function fetch(\PDOStatement $result, $getAll = false, $style = \PDO::FETCH_OBJ)
+    public function fetch(\PDOStatement $result, bool $getAll = false, $style = \PDO::FETCH_OBJ)
     {
         if ($result->rowCount() > 1 || $getAll == true) {
             return $result->fetchAll($style);
@@ -836,7 +836,7 @@ final class database {
      * @param int $limit
      * @return string
      */
-    public function limitQuery($offset, $limit)
+    public function limitQuery(int $offset, int $limit)
     {
         return $this->driver->limitQuery($offset, $limit);
     }
@@ -869,7 +869,7 @@ final class database {
      * @return string
      * @since 3.4
      */
-    public function implodeCols($delim, array $fields)
+    public function implodeCols(string $delim, array $fields)
     {
         return $this->driver->implodeCols($delim, $fields);
     }
@@ -919,11 +919,11 @@ final class database {
 
     /**
      * Kompletten Tabellen-Name mit Prefix zurückgeben
-     * @param string $table
+     * @param string|array $table
      * @return string
      * @since 3.4
      */
-    public function getTablePrefixed($table)
+    public function getTablePrefixed(string|array $table)
     {
         if (!is_array($table)) {
             $table = [$table];
@@ -1001,7 +1001,7 @@ final class database {
      * @return array
      * @since 3.3.2
      */
-    public function getTableStructure($table, $field = false, $cache = true)
+    public function getTableStructure(string $table, $field = false, $cache = true)
     {
         $cacheName = $table . '_struct';
         if ($cache && isset($this->structCache[$cacheName])) {
@@ -1238,7 +1238,7 @@ final class database {
      * @return array
      * @since 4.1
      */
-    public function getTableIndices(string $table, $field = false, $cache = true) : array
+    public function getTableIndices(string $table, $field = false, bool $cache = true) : array
     {
         $cacheName = $table . '_indices';
         if ($cache && isset($this->structCache[$cacheName])) {
