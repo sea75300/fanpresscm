@@ -158,7 +158,6 @@ class userlist extends \fpcm\controller\abstracts\controller
             'chartData' => $chart
         ]);
 
-        $this->view->includeForms('users');
         $this->view->addAjaxPageToken('users/actions');
         $this->view->render();
         return true;
