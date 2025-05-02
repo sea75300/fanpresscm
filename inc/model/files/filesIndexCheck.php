@@ -110,6 +110,18 @@ final class filesIndexCheck {
         $this->path = \fpcm\model\packages\update::getFilesListPath();
         $this->base = \fpcm\classes\dirs::getFullDirPath(DIRECTORY_SEPARATOR);
         $this->showProgress = $progress;
+
+        $ef = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_CONFIG, 'files_check_excludes.php');
+        if (!file_exists($ef)) {
+            return;
+        }
+
+        require_once $ef;
+        if (!isset($excludes) || !is_array($excludes)) {
+            return;
+        }
+
+        $this->excludes = $excludes;
     }
 
     /**
@@ -192,7 +204,7 @@ final class filesIndexCheck {
         if (!count($this->dirs)) {
             throw new \Exception('Invalid directory list count data', -5);
         }
-        
+
         $this->index = 1;
 
         foreach ($this->dirs as $dir) {
@@ -240,7 +252,7 @@ final class filesIndexCheck {
         if (!$this->indexed) {
             throw new \Exception(sprintf('Index was nout build before, cancel process...', $this->path), -8);
         }
-        
+
         $this->index = 1;
 
         foreach ($this->files as $path) {

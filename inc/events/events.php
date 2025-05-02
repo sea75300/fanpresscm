@@ -14,7 +14,7 @@ namespace fpcm\events;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\events
  */
-final class events {
+final class events implements \fpcm\model\interfaces\isObjectInstancable {
 
     /**
      * Run event $eventName with params $dataParams
@@ -93,6 +93,23 @@ final class events {
             'events',
             str_replace('\\', DIRECTORY_SEPARATOR, $path)
         ]));
+    }
+
+    /**
+     * Returns events class instance
+     * @return events
+     * @since 5.2.5-a1
+     */
+    public static function getInstance()
+    {
+        $iClass = static::class;
+        
+        if (!isset($GLOBALS['fpcm']['objects'][$iClass])) {
+            $GLOBALS['fpcm']['objects'][$iClass] = new $iClass();
+        }
+        
+        return $GLOBALS['fpcm']['objects'][$iClass];
+        
     }
 
 }

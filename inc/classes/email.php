@@ -9,7 +9,7 @@ namespace fpcm\classes;
 
 /**
  * E-Mail-Objekt
- * 
+ *
  * @package fpcm\classes\email
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
  * @copyright (c) 2011-2022, Stefan Seehafer
@@ -217,7 +217,7 @@ final class email {
             ],
             'attachments' => $this->attachments
         ]);
-        
+
         if (is_object($eventData) && $eventData instanceof \fpcm\module\eventResult) {
             $eventData = $eventData->getData();
         }
@@ -286,7 +286,7 @@ final class email {
     }
 
     /**
-     * 
+     *
      * @param string $path
      * @param array $variables
      * @param bool $fromData
@@ -307,9 +307,9 @@ final class email {
             $this->text = '';
             return false;
         }
-        
+
         $tplPath = $tplPathR;
-        
+
         $this->text = file_get_contents($tplPath);
         if (!trim($this->text)) {
             trigger_error(sprintf('Unable to read mail template content from "%s".', $tplPath), E_USER_ERROR);
@@ -377,7 +377,7 @@ final class email {
         $this->mailer->isHTML($this->html);
         $this->mailer->setFrom($this->config->smtp_settings['addr']);
         $this->mailer->setLanguage($this->config->system_lang);
-        $this->mailer->Timeout = FPCM_SMTP_TIMEOUT ?? 5;        
+        $this->mailer->Timeout = FPCM_SMTP_TIMEOUT ?? 5;
 
         $this->mailer->Debugoutput = function($str, $level) {
             trigger_error($str);
@@ -387,7 +387,7 @@ final class email {
     }
 
     /**
-     * 
+     *
      * @return bool
      * @since 5.0.1
      */
@@ -400,22 +400,40 @@ final class email {
         $this->mailer->isSMTP();
 
         $config = $this->config;
+        $autoEncryption = ($config->smtp_settings->encr === 'auto' ? true : false);
 
-        $autoEncryption = ($config->smtp_settings['encr'] === 'auto' ? true : false);
+        if ($this->config->smtp_settings->auth === 'XOAUTH2') {
 
-        $this->mailer->Host = $config->smtp_settings['srvurl'];
-        $this->mailer->Username = $config->smtp_settings['user'];
-        $this->mailer->Password = $config->smtp_settings['pass'];
-        $this->mailer->Port = $config->smtp_settings['port'];
-        $this->mailer->SMTPSecure = !$autoEncryption ? $config->smtp_settings['encr'] : '';
+            $res = \fpcm\events\events::getInstance()->trigger('getOAuthProvider');
+            if (!$res->getSuccessed() && !$res->getContinue()) {
+                trigger_error('Failed to provide OAuth Token Provider');
+                return false;
+            }
+
+            $provider = $res->getData();
+            if (!$provider instanceof \PHPMailer\PHPMailer\OAuthTokenProvider) {
+                trigger_error('Returned data of "getOAuthProvider" event must be an instace of \\PHPMailer\\PHPMailer\\OAuthTokenProvider');
+                return false;
+            }
+
+            $this->mailer->setOAuth($provider);
+            $this->mailer->SMTPAuth = true;
+        }
+        else {
+            $this->mailer->Username = $config->smtp_settings->user;
+            $this->mailer->Password = $config->smtp_settings->pass;
+            $this->mailer->SMTPAuth = ($config->smtp_settings->user && $config->smtp_settings->pass) ? true : false;
+        }
+
+        $this->mailer->Host = $config->smtp_settings->srvurl;
+        $this->mailer->Port = $config->smtp_settings->port;
+        $this->mailer->SMTPSecure = !$autoEncryption ? $config->smtp_settings->encr : '';
         $this->mailer->SMTPAutoTLS = $autoEncryption;
-        $this->mailer->SMTPAuth = ($config->smtp_settings['user'] && $config->smtp_settings['pass']) ? true : false;
         $this->mailer->SMTPDebug = 4; /* @see \PHPMailer\PHPMailer\SMTP::DEBUG_CONNECTION; */
         $this->mailer->getSMTPInstance()->Timelimit = FPCM_SMTP_TIMEOUT;
-
         return true;
     }
-    
+
     /**
      * Return SMTP encryption modes
      * @return array
@@ -429,7 +447,7 @@ final class email {
             'Auto' => 'auto'
         ];
     }
-    
+
     /**
      * Return SMTP authentication types
      * @return array
@@ -441,7 +459,7 @@ final class email {
             'CRAM-MD5' => 'CRAM-MD5',
             'LOGIN' => 'LOGIN',
             'PLAIN' => 'PLAIN',
-//            'XOAUTH2 (Gmail)' => 'XOAUTH2',
+            'XOAUTH2 (Gmail)' => 'XOAUTH2',
         ];
     }
 
