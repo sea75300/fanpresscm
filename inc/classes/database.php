@@ -266,15 +266,15 @@ final class database {
     }
 
     /**
-     * Führt SELECT-Befehl auf DB aus
-     * @param string $table select table
-     * @param string $item select items
-     * @param string|null $where select condition
-     * @param array $params select condition params
-     * @param bool $distinct Distinct select
-     * @return mixed
+     * Executed SELECT statement
+     * @param string|array $table
+     * @param string $item
+     * @param string|null $where
+     * @param array $params
+     * @param bool $distinct
+     * @return bool|\PDOStatement
      */
-    public function select(string $table, string $item = '*', ?string $where = null, array $params = [], $distinct = false)
+    public function select(string|array $table, string $item = '*', ?string $where = null, array $params = [], bool $distinct = false) : bool|\PDOStatement
     {
         $distinct = $distinct ? 'DISTINCT ' : '';
         $sql = "SELECT {$distinct}{$item} FROM {$this->getTablePrefixed($table)}";
