@@ -298,5 +298,3 @@ class import extends \fpcm\controller\abstracts\ajaxController
 
 
 }
-
-?>

@@ -116,5 +116,3 @@ class moduleInfo extends \fpcm\controller\abstracts\ajaxController
     }
 
 }
-
-?>

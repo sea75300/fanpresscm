@@ -170,5 +170,3 @@ class execAction extends \fpcm\controller\abstracts\ajaxController
     }
 
 }
-
-?>

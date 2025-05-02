@@ -244,5 +244,3 @@ class processUpdate extends \fpcm\controller\abstracts\ajaxController
         $this->message = new \fpcm\view\message($this->language->translate($var, $params), \fpcm\view\message::TYPE_ERROR);
     }
 }
-
-?>

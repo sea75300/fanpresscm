@@ -71,5 +71,3 @@ class moduleExtractCopy extends \fpcm\controller\abstracts\ajaxController
     }
 
 }
-
-?>

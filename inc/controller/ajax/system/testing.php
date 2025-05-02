@@ -114,5 +114,3 @@ class testing extends \fpcm\controller\abstracts\ajaxController
 
 
 }
-
-?>
