@@ -19,26 +19,6 @@ namespace fpcm\model\cli;
 final class files extends \fpcm\model\abstracts\cli {
 
     /**
-     * /data folder whitelist for checks
-     */
-    const DIRS_DATA_WHITELIST = [
-        'dbstruct',
-        'share'
-    ];
-
-    /**
-     * File index array
-     * @var array
-     */
-    private array $filesIndex = [];
-
-    /**
-     * Directory index array
-     * @var array
-     */
-    private array $dirsIndex = [];
-
-    /**
      * Folder excludes parameter
      * @var array
      */
@@ -49,6 +29,12 @@ final class files extends \fpcm\model\abstracts\cli {
      * @var string
      */
     private string $base = '';
+
+    /**
+     * files.txt index check object
+     * @var \fpcm\model\files\filesIndexCheck
+     */
+    private \fpcm\model\files\filesIndexCheck $obj;
 
     /**
      * Modul ausführen
@@ -66,13 +52,14 @@ final class files extends \fpcm\model\abstracts\cli {
             $this->output('Invalid params', true);
         }
 
-        $this->base = \fpcm\classes\dirs::getFullDirPath(DIRECTORY_SEPARATOR);
+        $this->obj = new \fpcm\model\files\filesIndexCheck(true);
+        $this->base = $this->obj->getBasePath();
 
         if (count($this->funcParams) > 1) {
             $this->excludes = array_map([$this, 'escapeExcludes'], array_slice($this->funcParams, 1));
             $this->output(sprintf("Exclude from check:\n\n%s\n", implode(PHP_EOL, $this->excludes)));
+            $this->obj->setExcludes($this->excludes);
         }
-
 
         $this->{$fn}();
         return true;
@@ -87,98 +74,29 @@ final class files extends \fpcm\model\abstracts\cli {
     {
         fpcmLogSystem('Scan for file system for outdated files...');
 
-        $filesPath = \fpcm\model\packages\update::getFilesListPath();
-        if (!file_exists($filesPath) || !is_readable($filesPath)) {
+        if (!$this->obj->exists()) {
             $this->output(sprintf('%s does not exists or is no readable', $filesPath), true);
         }
 
-        $fileListContent = file($filesPath);
-        if (!is_array($fileListContent)) {
-            $this->output(sprintf('Failed to read %s', $filesPath), true);
+        try {
+            $this->obj->prepareIndex();
+            $this->obj->checkFiles();
+
+        } catch (\Exception $exc) {
+            $this->output($exc->getMessage(), true);
             return false;
         }
-
-        $fileListContent = array_slice($fileListContent, 0, -2);
-        if (!is_array($fileListContent)) {
-            $this->output('Invalid files data', true);
-        }
-
-        $fileListContent = array_map(function ($fp) {
-            $fp = trim($fp);
-            return $fp === 'fanpress' ? $this->base : str_replace('fanpress/', $this->base, $fp);
-        }, $fileListContent);
-
-        if (!count($fileListContent)) {
-            $this->output('Invalid files data', true);
-            return false;
-        }
-        
-        $dirs = array_filter($fileListContent, function ($fp) {
-
-            $fp = trim($fp);
-            $bn = basename($fp);
-
-            if (str_contains($fp, '/data') && !in_array($bn, self::DIRS_DATA_WHITELIST) ) {
-                return false;
-            }
-
-            if (!str_starts_with($fp, $this->base)) {
-                $p = str_replace('//', '/', str_replace('fanpress/', $this->base, $fp));
-            }
-            else {
-                $p = $fp;
-            }
-            
-            return is_dir($p);
-        });
-        
-        if (!count($dirs)) {
-            $this->output('Invalid directory list count data', true);
-            return false;
-        }
-
-        $progress = new progress(count($dirs));
-
-        $i = 1;
-
-        foreach ($dirs as $dir) {
-
-            $progress
-                    ->setOutputText(\fpcm\model\files\ops::removeBaseDir($dir))
-                    ->setCurrentValue($i)
-                    ->output();
-
-            $lup = realpath($dir . DIRECTORY_SEPARATOR);
-            if (!$lup) {
-                $this->output(sprintf('Invalid files lookup path %s', $lup), true);
-            }
-
-            $lup .= DIRECTORY_SEPARATOR . '*';
-
-            $glob = glob($lup);
-            if (!is_array($glob) ) {
-                $this->output(sprintf('Failed to check files %s', $lup), true);
-            }
-
-            $this->filesIndex = array_merge_recursive($this->filesIndex, $glob);
-
-            $i++;
-            usleep(2500);
-        }
-
-
-        $this->filesIndex = array_diff($this->filesIndex, $fileListContent);
-        $this->filesIndex = array_diff($this->filesIndex, $this->excludes);
 
         if (!$out) {
             return true;
         }
 
-        if (!count($this->filesIndex)) {
+        $files = $this->obj->getFiles();
+        if (!count($files)) {
             $this->output("No outdated files found.", true);
         }
 
-        $this->output(sprintf("Outdated found:\n\n- %s\n", implode(PHP_EOL . '- ', $this->filesIndex)));
+        $this->output(sprintf("Outdated found:\n\n- %s\n", implode(PHP_EOL . '- ', $files)));
         return true;
     }
 
@@ -187,7 +105,6 @@ final class files extends \fpcm\model\abstracts\cli {
      */
     private function remove()
     {
-
         if (!$this->check(true)) {
             $this->output(sprintf('Failed to check files %s', $this->base), true);
         }
@@ -196,58 +113,14 @@ final class files extends \fpcm\model\abstracts\cli {
             exit;
         }
 
-        $progress = new progress(count($this->filesIndex));
-
-        $i = 1;
-
-        foreach ($this->filesIndex as $path) {
-
-            $progress
-                    ->setOutputText(\fpcm\model\files\ops::removeBaseDir($path))
-                    ->setCurrentValue($i)
-                    ->output();
-
-
-            if (!file_exists($path) || !is_writable($path)) {
-                continue;
-            }
-
-            if (is_dir($path)) {
-                $this->dirsIndex[] = $path;
-                continue;
-            }
-
-            if (!unlink($path)) {
-                $this->output(sprintf('Failed to remove files %s, cancel process...', $path), true);
-            }
-
-            $i++;
+        try {
+            $this->obj->cleanup();
+        } catch (\Exception $exc) {
+            $this->output($exc->getMessage(), true);
+            return false;
         }
-        
-        unset($path);
-        
-        if (count($this->dirsIndex)) {
-            
-            foreach ($this->dirsIndex as $path) {
-                
-                $progress
-                        ->setOutputText(\fpcm\model\files\ops::removeBaseDir($path))
-                        ->setCurrentValue($i)
-                        ->output();                
 
-                if (!\fpcm\model\files\ops::deleteRecursive($path)) {
-                    $this->output(sprintf('Failed to remove folder %s, cancel process...', $path), true);
-                }
-
-                $i++;
-            }
-
-        }
-        
         usleep(5000);
-        $this->filesIndex = [];
-        $this->dirsIndex = [];
-
         $this->check();
     }
 

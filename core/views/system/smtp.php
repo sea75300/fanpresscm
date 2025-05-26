@@ -19,7 +19,7 @@
                 ->setClass('fpcm-ui-options-smtp-input'); ?>
         </div>
     </div>
-    
+
     <?php if ($globalConfig->smtp_settings->auth != 'XOAUTH2') : ?>
     <div class="row my-2">
         <div class="col-12 col-md-8">
@@ -63,22 +63,20 @@
                 ->setPlaceholder(trim($globalConfig->smtp_settings->pass) ? '*****' : ''); ?>
         </div>
     </div>
-        <?php endif; ?>
+    <?php endif; ?>
 
     <div class="row g-0 my-2">
         <div class="col-12 col-md-8">
             <div class="row row-cols-1 row-cols-sm-2">
-            <?php if ($globalConfig->smtp_settings->auth != 'XOAUTH2') : ?>
                 <div class="col">
+                <?php if ($globalConfig->smtp_settings->auth != 'XOAUTH2') : ?>
                 <?php $theView->select('smtp_settings[encr]')
                     ->setOptions($smtpEncryption)
                     ->setText('SYSTEM_OPTIONS_EMAIL_ENCRYPTED')
                     ->setSelected($globalConfig->smtp_settings->encr)
                     ->setReadonly(($globalConfig->smtp_enabled ? false : true)); ?>
-                    
+                <?php endif; ?>
                 </div>
-            <?php endif; ?>
-
                 <div class="col">
                 <?php $theView->select('smtp_settings[auth]')
                     ->setOptions($smtpAuthTypes)
@@ -86,33 +84,7 @@
                     ->setSelected($globalConfig->smtp_settings->auth)
                     ->setReadonly(($globalConfig->smtp_enabled ? false : true)); ?>
                 </div>
-            </div>            
-        </div>
-    </div>    
-
-    <?php if ($globalConfig->smtp_settings->auth == 'XOAUTH2') : ?>
-
-    <div class="row my-2">
-        <div class="col-12 col-md-8">
-            <div class="input-group">
-                <div class="col-12 col-md-4">
-                    <?php $theView->write('SYSTEM_OPTIONS_TWITTER_USER_SECRET'); ?>
-                </div>            
-
-                <div class="col-12 col-md-8 p-0">
-                    <?php $theView->textarea('smtp_settings[token]')
-                        ->setValue($globalConfig->smtp_settings->token)
-                        ->setClass('fpcm ui-textarea-medium ui-textarea-noresize w-100'); ?>
-                </div>
             </div>
         </div>
-    </div>    
-    
-    
-    <div class="row my-2">
-        <div class="col-12 col-md-8">
-        <?php $theView->linkButton('oauth-auth')->setUrl('')->setText('SYSTEM_OPTIONS_EMAIL_OAUTH'); ?>
-        </div>
     </div>
-    <?php endif; ?>
 </fieldset>

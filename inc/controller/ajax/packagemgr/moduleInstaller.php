@@ -254,5 +254,3 @@ class moduleInstaller extends \fpcm\controller\abstracts\ajaxController
         $this->pkgdata['errorMsg'] = $this->language->translate($var, $params);
     }
 }
-
-?>

@@ -44,5 +44,3 @@ class passcheck extends \fpcm\controller\abstracts\ajaxController
     }
 
 }
-
-?>

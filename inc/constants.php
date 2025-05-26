@@ -199,14 +199,6 @@ if (!defined('FPCM_DB_PERSISTENT')) {
     define('FPCM_DB_PERSISTENT', true);
 }
 
-if (!defined('FPCM_CSV_IMPORT')) {
-    /**
-     * Enable CSV import
-     * @since 4.5
-     */
-    define('FPCM_CSV_IMPORT', false);
-}
-
 if (!defined('FPCM_CRON_DBDUMP_NOMAIL')) {
     /**
      * No attachments from sql dump cronjob
@@ -225,7 +217,7 @@ if (!defined('FPCM_USER_SESSION')) {
 
 if (!defined('FPCM_FILEMAGER_ITEMS_ROW')) {
     /**
-     * Default session lenght, replaces ACP setting
+     * Items per row in file manager
      * @since 5.0.0-b5
      */
     define('FPCM_FILEMAGER_ITEMS_ROW', 5);
@@ -283,29 +275,11 @@ if (!defined('FPCM_ARTICLES_OLDMESSAGE_INTERVALL')) {
     define('FPCM_ARTICLES_OLDMESSAGE_INTERVALL', 31104000);
 }
 
-if (!defined('FPCM_COMPONENT_PHOTOSWIPE')) {
-
-    /**
-     * Enable PhotoSwipe Lightbox
-     * @since 5.2.0-a1
-     */
-    define('FPCM_COMPONENT_PHOTOSWIPE', true);
-}
-
-if (!defined('FPCM_IMAGE_PROCESSOR_NEW')) {
-
-    /**
-     * Enable PhotoSwipe Lightbox
-     * @since 5.2.0-rc2
-     */
-    define('FPCM_IMAGE_PROCESSOR_NEW', true);
-}
-
 //if (!defined('FPCM_URLS_BASE')) {
 
     /**
      * Set base URL for FanPress CM in case automatic retrieval does not work propperly
      * @since 5.2.1-rc3
      */
-//    define('FPCM_IMAGE_PROCESSOR_NEW', '');
+//    define('FPCM_URLS_BASE', '');
 //}

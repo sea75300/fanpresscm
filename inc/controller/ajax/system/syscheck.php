@@ -164,5 +164,3 @@ class syscheck extends \fpcm\controller\abstracts\ajaxController
     }
 
 }
-
-?>

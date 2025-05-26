@@ -178,13 +178,14 @@ implements \fpcm\controller\interfaces\requestFunctions
         $buttons[]   = (new \fpcm\view\helper\saveButton('commentSave'))->setClass($hiddenClass)->setPrimary();
 
         $showArticleIdField = false;
+        $existsAlert = false;
+
         if ($this->mode === 1) {
             $article     = new \fpcm\model\articles\article($this->comment->getArticleid());
             $this->articleList->checkEditPermissions($article);
             if ($article->exists()) {
 
                 $showArticleIdField = false;
-                $existsAlert = false;
 
                 if ($article->getEditPermission()) {
                     $buttons[] = (new \fpcm\view\helper\editButton('editArticle'))->setUrlbyObject($article)->setText('COMMENTS_EDITARTICLE')->setIcon('book');

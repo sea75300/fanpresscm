@@ -7,7 +7,6 @@
 
 namespace fpcm\model\files;
 
-include_once \fpcm\classes\loader::libGetFilePath('PHPImageWorkshop');
 include_once \fpcm\classes\loader::libGetFilePath('intervention/image');
 
 /**
@@ -95,31 +94,6 @@ class thumbnailCreator {
     }
 
     /**
-     * Create thumbnail with PHPImageWorkshop
-     * @return bool
-     */
-    public function createLegacy() : bool
-    {
-        try {
-            $phpImgWsp = \PHPImageWorkshop\ImageWorkshop::initFromPath($this->source);
-            $phpImgWsp->cropToAspectRatio(
-                \PHPImageWorkshop\Core\ImageWorkshopLayer::UNIT_PIXEL,
-                $this->thumbSize,
-                $this->thumbSize,
-                0, 0, 'MM'
-            );
-
-            $phpImgWsp->resizeInPixel($this->thumbSize, $this->thumbSize);
-            $phpImgWsp->save($this->parent, basename($this->destination), true, null, 85);
-        } catch (\ErrorException $exc) {
-            trigger_error('Error while creating file thumbnail '.$this->getThumbnail().PHP_EOL.$exc->getMessage());
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
      * Creator function name
      * @return string
      */
@@ -129,9 +103,7 @@ class thumbnailCreator {
             return self::$fn;
         }
 
-        self::$fn = defined('FPCM_IMAGE_PROCESSOR_NEW') && FPCM_IMAGE_PROCESSOR_NEW
-            ? 'create'
-            : 'createLegacy';
+        self::$fn = 'create';
 
         return self::$fn;
     }

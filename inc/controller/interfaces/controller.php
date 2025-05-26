@@ -37,5 +37,3 @@ interface controller {
      */
     public function process();
 }
-
-?>

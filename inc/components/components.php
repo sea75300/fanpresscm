@@ -150,10 +150,6 @@ final class components {
      */
     public static function getLightbox()
     {
-        if (defined('FPCM_COMPONENT_PHOTOSWIPE') && FPCM_COMPONENT_PHOTOSWIPE) {
-            return new lightbox\photoswipe();
-        }
-        
-        return new lightbox\fanybox();
+        return new lightbox\photoswipe();
     }
 }

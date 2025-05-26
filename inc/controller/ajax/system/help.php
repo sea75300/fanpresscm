@@ -59,5 +59,3 @@ class help extends \fpcm\controller\abstracts\controller
     }
 
 }
-
-?>
