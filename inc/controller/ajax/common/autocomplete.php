@@ -9,7 +9,7 @@ namespace fpcm\controller\ajax\common;
 
 /**
  * AJAX autocomplete controller
- * 
+ *
  * @package fpcm\controller\ajax\commom
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2022, Stefan Seehafer
@@ -34,7 +34,7 @@ class autocomplete extends \fpcm\controller\abstracts\ajaxController
     protected $tinyMce = true;
 
     /**
-     * 
+     *
      * @var array
      */
     protected $returnData = [];
@@ -51,13 +51,13 @@ class autocomplete extends \fpcm\controller\abstracts\ajaxController
             \fpcm\model\http\request::FILTER_TRIM,
             \fpcm\model\http\request::FILTER_URLDECODE
         ]);
-        
+
         if ($this->term === null) {
             $this->term = '';
         }
 
         $this->tinyMce = (bool) $this->request->fetchAll('tinyMce');
-        
+
         return true;
     }
 
@@ -70,11 +70,22 @@ class autocomplete extends \fpcm\controller\abstracts\ajaxController
             $this->response->setReturnData([])->fetch();
         }
 
-        $this->response->setReturnData($this->events->trigger('autocompleteGetData', [
+        $ev = $this->events->trigger('autocompleteGetData', [
             'module'     => $this->request->fetchAll('src'),
             'returnData' => $this->returnData
-        ])->getData()['returnData'])->fetch();
+        ]);
 
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event autocompleteGetData failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            $this->response->setReturnData([])->fetch();
+        }
+
+        $d = $ev->getData();
+        if (!isset($d['returnData'])) {
+            $this->response->setReturnData($this->returnData)->fetch();
+        }
+
+        $this->response->setReturnData($d['returnData'])->fetch();
     }
 
     /**
@@ -130,11 +141,11 @@ class autocomplete extends \fpcm\controller\abstracts\ajaxController
                 'label' => $value
             ];
         }
-        
+
         $this->returnData = array_filter($this->returnData, function ($value) {
             return str_contains($value['value'], $this->term);
         });
-        
+
         return true;
     }
 
@@ -149,7 +160,7 @@ class autocomplete extends \fpcm\controller\abstracts\ajaxController
         }
 
         $labelString = $this->tinyMce ? 'title' : 'label';
-        
+
         $data = \fpcm\components\components::getArticleEditor()->getFileList($labelString);
 
         $this->returnData = array_filter($data, function ($value) use($labelString) {
@@ -168,7 +179,7 @@ class autocomplete extends \fpcm\controller\abstracts\ajaxController
         if ($this->hasNoArticlesAccess()) {
             return false;
         }
-        
+
         $labelString = $this->tinyMce ? 'title' : 'label';
 
         $data = \fpcm\components\components::getArticleEditor()->getEditorLinks($labelString);
@@ -180,7 +191,7 @@ class autocomplete extends \fpcm\controller\abstracts\ajaxController
 
         return true;
     }
-    
+
     private function hasNoArticlesAccess() : bool
     {
         return !$this->permissions->article->edit && !$this->permissions->article->editall;

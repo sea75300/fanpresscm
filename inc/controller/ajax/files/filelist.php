@@ -9,7 +9,7 @@ namespace fpcm\controller\ajax\files;
 
 /**
  * AJAX Controller to load files
- * 
+ *
  * @package fpcm\controller\ajax\files
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2022, Stefan Seehafer
@@ -40,7 +40,7 @@ class filelist extends \fpcm\controller\abstracts\ajaxController
     protected $showPager = false;
 
     /**
-     * 
+     *
      * @return bool
      */
     public function isAccessible(): bool
@@ -72,7 +72,7 @@ class filelist extends \fpcm\controller\abstracts\ajaxController
 
         $this->filter->setMultiple(true);
         $this->assignParamsVars( ($filter['combinations'] ?? []) , $this->filter);
-        
+
         if (trim($filter['filename'])) {
             $this->filter->filename = $this->request->filter($filter['filename'], [
                 \fpcm\model\http\request::FILTER_URLDECODE,
@@ -93,7 +93,7 @@ class filelist extends \fpcm\controller\abstracts\ajaxController
         if ($filter['userid']) {
             $this->filter->userid     = (int) $filter['userid'];
         }
-        
+
         return true;
     }
 
@@ -105,7 +105,7 @@ class filelist extends \fpcm\controller\abstracts\ajaxController
     {
         return 'filemanager/'.$this->getListView();
     }
-    
+
     /**
      * Controller-Processing
      */
@@ -132,8 +132,14 @@ class filelist extends \fpcm\controller\abstracts\ajaxController
             $this->config->file_list_limit,
             $this->showPager ? $fileList->getDatabaseCountByCondition($this->filter) : 1
         );
-        
-        $list = $this->events->trigger('reloadFileList', $list)->getData();
+
+        $ev = $this->events->trigger('reloadFileList', $list);
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event reloadFileList failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return false;
+        }
+
+        $list = $ev->getData();
 
         $userList = new \fpcm\model\users\userList();
         $this->initViewAssigns($list, $userList->getUsersAll());
@@ -145,12 +151,12 @@ class filelist extends \fpcm\controller\abstracts\ajaxController
         $this->view->assign('showPager', $this->showPager);
         $this->view->assign('thumbsize', $this->config->file_thumb_size . 'px');
         $this->view->assign('pager', $pager);
-        
+
         $responseData = new \fpcm\model\http\responseDataHtml(
             $this->view->render(true), [
                 'pager' => $pager->getJsVars()
         ]);
-        
+
         $pager = (string) $pager;
         $pager = null;
 
@@ -158,7 +164,7 @@ class filelist extends \fpcm\controller\abstracts\ajaxController
     }
 
     /**
-     * 
+     *
      * @return string
      */
     private function getListView() : string

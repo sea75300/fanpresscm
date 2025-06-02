@@ -164,11 +164,12 @@ class refresh extends \fpcm\controller\abstracts\ajaxController
         $result = $this->events->trigger('ajaxRefresh', $notifications);
         
         if (!$result->getSuccessed() || !$result->getContinue()) {
+            trigger_error(sprintf("Event ajaxRefresh failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
             $this->returnDataObj->notificationCount = $notifications->count();
             $this->returnDataObj->notifications = (string) $notifications;
             return false;
         }
-
+        
         /* @var $notifications \fpcm\model\theme\notifications */
         $notifications = $result->getData();
         

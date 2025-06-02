@@ -11,7 +11,7 @@ namespace fpcm\model\categories;
 
 /**
  * Kategorie-Listen-Objekt
- * 
+ *
  * @package fpcm\model\categories
  * @author Stefan Seehafer <sea75300@yahoo.de>
  */
@@ -57,7 +57,7 @@ class categoryList extends \fpcm\model\abstracts\tablelist {
         if (!is_array($categories)) {
             return [];
         }
-        
+
         return $categories;
     }
 
@@ -154,7 +154,7 @@ class categoryList extends \fpcm\model\abstracts\tablelist {
 
             $result['<span class="fpcm-pub-category-text">' . $category->getName() . '</span>'] = ($category->getIconPath() ? $category->getCategoryImage() : '');
         }
-        
+
         return $result;
     }
 
@@ -175,10 +175,14 @@ class categoryList extends \fpcm\model\abstracts\tablelist {
             'ids' => $ids
         ])->getData();
 
+        if (!count($result) || !isset($result['fields']) || !isset($result['ids'])) {
+            return false;
+        }
+
         foreach ($result as $key => $val) {
             ${$key} = $val;
         }
-        
+
         if (isset($fields['groups']) && $fields['groups'] === -1) {
             unset($fields['groups']);
         }

@@ -9,11 +9,11 @@ namespace fpcm\events\view;
 
 /**
  * Module-Event: extendToolbar
- * 
+ *
  * Event extends main toolbar, calls a function "extendToolbarControllerName"
  * Parameter: array List with toolbar elements
  * Rückgabe: array List with toolbar elements
- * 
+ *
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
  * @copyright (c) 2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
@@ -22,51 +22,48 @@ namespace fpcm\events\view;
  */
 final class extendToolbar extends \fpcm\events\abstracts\event {
 
-    /**
-     * Event data
-     * @var extendToolbarResult
-     */
-    protected $data;
+    use \fpcm\events\traits\extendUiEvent;
 
     /**
-     * Execute event
-     * @return \fpcm\events\view\extendToolbarResult
+     * Preprare event before running
+     * @return bool
      */
-    public function run() : extendToolbarResult
+    protected function beforeRun() : bool
     {
         $this->data->area = \fpcm\classes\tools::getAreaName('toolbar');
-        
-        $eventClasses = $this->getEventClasses();
-        if (!count($eventClasses)) {
-            return $this->data;
+        return true;
+    }
+
+    /**
+     * Process class data
+     * @param string $class
+     * @return bool
+     */
+    protected function processClass(string $class) : bool
+    {
+        /* @var \fpcm\module\event $module */
+        $module = new $class($this->data->buttons);
+        $r = $this->doEventbyArea($module);
+        if ($r === false) {
+            return false;
         }
 
-        $base = $this->getEventClassBase();
-        $eventResult = $this->data->buttons;
+        $this->data->buttons = $r;
+        return true;
+    }
 
-        foreach ($eventClasses as $class) {
-
-            if (!class_exists($class)) {
-                trigger_error('Undefined event class '.$class);
-                continue;
-            }
-            
-            /* @var \fpcm\module\event $module */
-            $module = new $class($eventResult);
-            if (!$this->is_a($module) || !method_exists($module, $this->data->area)) {
-                continue;
-            }
-
-            $eventResult = call_user_func([$module, $this->data->area]);
-            if (!is_array($eventResult)) {
-                trigger_error('Invalid data type. Returned data type must be an array for '.$base);
-                return $this->data;
-            }
-
-            $this->data->buttons = $eventResult;
+    /**
+     * Fetch event result data from object
+     * @return bool
+     */
+    protected function fromEventResult() : bool
+    {
+        if (!$this->data instanceof \fpcm\module\eventResult) {
+            return true;
         }
 
-        return $this->data;
+        $this->data->buttons = $this->data->getData();
+        return true;
     }
 
 }

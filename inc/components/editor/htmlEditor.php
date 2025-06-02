@@ -9,26 +9,26 @@ namespace fpcm\components\editor;
 
 /**
  * CodeMirror based editor plugin
- * 
+ *
  * @package fpcm\components\editor
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
  * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 class htmlEditor extends articleEditor {
-    
+
     /**
      * Files list label name
      * @since 4.5
      */
     const FILELIST_LABEL = 'label';
-    
+
     /**
      * Files list value name
      * @since 4.5
      */
     const FILELIST_VALUE = 'value';
-    
+
     /**
      * Liefert zu ladender CSS-Dateien für Editor zurück
      * @return array
@@ -58,7 +58,7 @@ class htmlEditor extends articleEditor {
      */
     public function getCommentEditorTemplate()
     {
-        return \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'comments/editors/html.php');        
+        return \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'comments/editors/html.php');
     }
 
     /**
@@ -96,7 +96,7 @@ class htmlEditor extends articleEditor {
      */
     public function getJsVars()
     {
-        return $this->events->trigger('editor\initCodemirrorJs', [
+        $cfg = [
             'editorConfig' => [
                 'colors' => [
                     '#000000', '#993300', '#333300', '#003300', '#003366', '#00007f', '#333398', '#333333',
@@ -109,7 +109,15 @@ class htmlEditor extends articleEditor {
                 'pageBreakVar' => \fpcm\model\pubtemplates\article::PAGEBREAK_TAG
             ],
             'editorInitFunction' => 'initCodeMirror'
-        ])->getData();
+        ];
+
+        $ev = $this->events->trigger('editor\initCodemirrorJs', $cfg);
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event editor\initCodemirrorJs failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return $cfg;
+        }
+
+        return $ev->getData();
     }
 
     /**
@@ -132,7 +140,7 @@ class htmlEditor extends articleEditor {
             'EDITOR_HTML_BUTTONS_IFRAME', 'EDITOR_LINKURL',
             'EDITOR_INSERTTABLE_ROWS', 'EDITOR_INSERTTABLE_COLS',
             'EDITOR_INSERTLIST_TYPESIGN'
-            
+
         ];
     }
 
@@ -234,17 +242,17 @@ class htmlEditor extends articleEditor {
                     ->setText('EDITOR_PARAGRAPH')
                     ->setClass('fpcm-editor-html-click')
                     ->setData(['htmltag' => 'p'])
-                    ->setValue('p'),                
+                    ->setValue('p'),
                 (new \fpcm\view\helper\dropdownItem('para-h1'))
                     ->setText('EDITOR_PARAGRAPH_HEADLINE', ['num' => 1])
                     ->setClass('fpcm-editor-html-click')
                     ->setData(['htmltag' => 'h1'])
-                    ->setValue('h1'),                
+                    ->setValue('h1'),
                 (new \fpcm\view\helper\dropdownItem('para-h2'))
                     ->setText('EDITOR_PARAGRAPH_HEADLINE', ['num' => 2])
                     ->setClass('fpcm-editor-html-click')
                     ->setData(['htmltag' => 'h2'])
-                    ->setValue('h2'),                
+                    ->setValue('h2'),
                 (new \fpcm\view\helper\dropdownItem('para-h3'))
                     ->setText('EDITOR_PARAGRAPH_HEADLINE', ['num' => 3])
                     ->setClass('fpcm-editor-html-click')
@@ -269,7 +277,7 @@ class htmlEditor extends articleEditor {
                     ->setText('EDITOR_PRE')
                     ->setClass('fpcm-editor-html-click')
                     ->setData(['htmltag' => 'pre'])
-                    ->setValue('pre'),                
+                    ->setValue('pre'),
                 (new \fpcm\view\helper\dropdownItem('para-code'))
                     ->setText('code')
                     ->setClass('fpcm-editor-html-click')
@@ -312,7 +320,14 @@ class htmlEditor extends articleEditor {
             ]
         );
 
-        return $this->events->trigger('editor\initCodemirrorView', $vars)->getData();
+        $ev = $this->events->trigger('editor\initCodemirrorView', $vars);
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event editor\initCodemirrorView failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return $vars;
+        }
+
+        return $ev->getData();
+
     }
 
     /**

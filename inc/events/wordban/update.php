@@ -20,6 +20,6 @@ namespace fpcm\events\wordban;
  * @package fpcm\events
  * @since 3.4
  */
-final class update extends \fpcm\events\abstracts\eventReturnArray {
+final class update extends \fpcm\events\abstracts\event {
     
 }

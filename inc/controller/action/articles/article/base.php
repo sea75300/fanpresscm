@@ -389,12 +389,18 @@ implements \fpcm\controller\interfaces\requestFunctions
      * * nicht unterstütze Typen werden zu textinput
      * @return array
      */
-    protected function getUserFields()
+    protected function getUserFields() : array
     {
-        $fields = $this->events->trigger('editor\addUserFields')->getData();
-
-        if (!is_array($fields) || !count($fields))
+        $ev = $this->events->trigger('editor\addUserFields');
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event editor\addUserFields failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
             return [];
+        }
+
+        $fields = $ev->getData();
+        if (!is_array($fields) || !count($fields)) {
+            return [];
+        }
 
         return $fields;
     }

@@ -25,7 +25,8 @@ final class getModuleLog extends \fpcm\events\abstracts\event {
      * Executes the event
      * @return null|\fpcm\model\files\logfileResult
      */
-    public function run() {
+    public function run() : \fpcm\module\eventResult
+    {
 
         $obj = new \fpcm\module\module($this->data['key']);
         if (!$obj->isInstalled() || !$obj->isActive()) {

@@ -19,6 +19,6 @@ namespace fpcm\events\session;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\events
  */
-final class loginBefore extends \fpcm\events\abstracts\eventReturnArray {
+final class loginBefore extends \fpcm\events\abstracts\event {
 
 }

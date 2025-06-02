@@ -9,7 +9,7 @@ namespace fpcm\components\editor;
 
 /**
  * Article editor plugin base model
- * 
+ *
  * @abstract
  * @package fpcm\components\editor
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
@@ -83,7 +83,7 @@ abstract class articleEditor extends \fpcm\model\abstracts\staticModel {
      * @since 3.3
      */
     abstract public function getTemplateDrafts();
-    
+
     /**
      * Editor-Styles initialisieren
      * @return array
@@ -102,7 +102,18 @@ abstract class articleEditor extends \fpcm\model\abstracts\staticModel {
             $editorStyles[$class] = $class;
         }
 
-        return $this->events->trigger('editor\addStyles', $editorStyles)->getData();
+        $ev = $this->events->trigger('editor\addStyles', $editorStyles);
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event editor\addStyles failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return [];
+        }
+
+        $styles = $ev->getData();
+        if (!is_array($styles) || !count($styles)) {
+            return [];
+        }
+
+        return $styles;
     }
 
     /**
@@ -111,7 +122,13 @@ abstract class articleEditor extends \fpcm\model\abstracts\staticModel {
      */
     public function getEditorLinks(string $labelString = 'label')
     {
-        $links = $this->events->trigger('editor\addLinks')->getData();
+        $ev = $this->events->trigger('editor\addLinks');
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event editor\addLinks failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return [];
+        }
+
+        $links = $ev->getData();
         if (!is_array($links) || !count($links)) {
             return [];
         }
@@ -128,24 +145,30 @@ abstract class articleEditor extends \fpcm\model\abstracts\staticModel {
         if (!$labelString) {
             $labelString = static::FILELIST_LABEL;
         }
-        
+
         $data = [];
         foreach ($this->fileList->getDatabaseList() as $image) {
 
             $base = basename($image->getFilename());
 
-            $data[] = [   
+            $data[] = [
                 $labelString => $image->getAltText() ? $image->getAltText() . " ({$base})" : $base,
                 static::FILELIST_VALUE => $image->getImageUrl()
             ];
 
         }
 
-        $res = $this->events->trigger('editor\getFileList', [
+        $ev = $this->events->trigger('editor\getFileList', [
             'label' => 'label',
             'files' => $data
-        ])->getData();
+        ]);
 
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event editor\getFileList failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return $data;
+        }
+
+        $res = $ev->getData();
         return $res['files'] ?? [];
     }
 

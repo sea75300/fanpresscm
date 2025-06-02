@@ -19,6 +19,6 @@ namespace fpcm\events\editor;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\events
  */
-final class initCodemirrorJs extends \fpcm\events\abstracts\eventReturnArray {
+final class initCodemirrorJs extends \fpcm\events\abstracts\event {
 
 }

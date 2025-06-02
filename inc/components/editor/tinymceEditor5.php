@@ -9,20 +9,20 @@ namespace fpcm\components\editor;
 
 /**
  * TinyMCE based editor plugin
- * 
+ *
  * @package fpcm\components\editor
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
  * @copyright (c) 2011-2021, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 class tinymceEditor5 extends articleEditor {
-    
+
     /**
      * Files list label name
      * @since 4.5
      */
     const FILELIST_LABEL = 'title';
-    
+
     /**
      * Files list value name
      * @since 4.5
@@ -53,7 +53,7 @@ class tinymceEditor5 extends articleEditor {
      */
     public function getCommentEditorTemplate()
     {
-        return \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'comments/editors/tinymce.php');        
+        return \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'comments/editors/tinymce.php');
     }
 
     /**
@@ -93,7 +93,7 @@ class tinymceEditor5 extends articleEditor {
 
         $cssClasses = array_merge($editorStyles, $this->getEditorStyles());
 
-        return $this->events->trigger('editor\initTinymce', [
+        $cfg = [
             'editorConfig' => new conf\tinymceEditor5(
                 $this->config,
                 $pluginFolders,
@@ -106,7 +106,18 @@ class tinymceEditor5 extends articleEditor {
             'uploadFileRoot' => \fpcm\classes\dirs::getDataUrl(\fpcm\classes\dirs::DATA_UPLOADS, ''),
             'galleryThumbStr' => \fpcm\model\pubtemplates\article::GALLERY_TAG_THUMB,
             'editorInitFunction' => 'initTinyMce'
-        ])->getData();
+        ];
+        
+        $ev = $this->events->trigger('editor\initTinymce', $cfg);
+
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event editor\initTinymce failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return $cfg;
+        }
+
+        return $ev->getData();
+
+
     }
 
     /**
@@ -136,7 +147,13 @@ class tinymceEditor5 extends articleEditor {
             $editorStyles[] = array('title' => $class, 'value' => $class);
         }
 
-        return $this->events->trigger('editor\addStyles', $editorStyles)->getData();
+        $ev = $this->events->trigger('editor\addStyles', $editorStyles);
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event editor\addStyles failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return [];
+        }
+
+        return $ev->getData();
     }
 
     /**
@@ -145,7 +162,13 @@ class tinymceEditor5 extends articleEditor {
      */
     public function getEditorLinks(string $labelString = 'title')
     {
-        $links = $this->events->trigger('editor\addLinks')->getData();
+        $ev = $this->events->trigger('editor\addLinks');
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event editor\addLinks failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return [];
+        }
+
+        $links = $ev->getData();
         if (!is_array($links) || !count($links)) {
             return [];
         }

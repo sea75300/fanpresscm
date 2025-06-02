@@ -25,7 +25,8 @@ final class clearModuleLog extends \fpcm\events\abstracts\event {
      * Executes the event
      * @return bool
      */
-    public function run() {
+    public function run() : \fpcm\module\eventResult
+    {
 
         $obj = new \fpcm\module\module($this->data['key']);
         if (!$obj->isInstalled() || !$obj->isActive()) {

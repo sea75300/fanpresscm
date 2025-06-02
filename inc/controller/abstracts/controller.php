@@ -235,7 +235,13 @@ class controller implements \fpcm\controller\interfaces\controller {
 
         $redirectString = 'Location: ' . ($controller ? \fpcm\classes\tools::getFullControllerLink($controller, $params) : 'index.php');
         if (is_object($this->events)) {
-            $redirectString = $this->events->trigger('controllerRedirect', $redirectString)->getData();
+            $ev = $this->events->trigger('controllerRedirect', $redirectString);
+            if (!$ev->getSuccessed() || !$ev->getContinue()) {
+                trigger_error(sprintf("Event controllerRedirect failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+                return false;
+            }
+
+            $redirectString = $ev->getData();
         }
 
         header($redirectString);

@@ -332,13 +332,13 @@ class view {
 
         ];
 
-        $result = $this->events->trigger('view\extendProfileMenu', $default);
-        if (!$result->getSuccessed() || !$result->getContinue()) {
+        $ev = $this->events->trigger('view\extendProfileMenu', $default);
+        if (!$this->handleEventResultData($ev, 'view\extendProfileMenu')) {
             $this->defaultViewVars->profileMenuButtons = $default;
             return false;
-        }
+        }        
 
-        $this->defaultViewVars->profileMenuButtons = $result->getData();
+        $this->defaultViewVars->profileMenuButtons = $ev->getData();
         return true;
     }
 
@@ -352,10 +352,15 @@ class view {
         $toolbarButtons = new \fpcm\events\view\extendToolbarResult();
         $toolbarButtons->buttons = $this->buttons;
 
-        /* @var $toolbarButtons \fpcm\events\view\extendToolbarResult */
-        $toolbarButtons = $this->events->trigger('view\extendToolbar', $toolbarButtons);
-        if ($toolbarButtons instanceof \fpcm\module\eventResult) {
-            $toolbarButtons = $toolbarButtons->getData();
+        $ev = $this->events->trigger('view\extendToolbar', $toolbarButtons);
+        if (!$this->handleEventResultData($ev, 'view\extendToolbar')) {
+            return false;
+        }
+
+        $toolbarButtons = $ev->getData();
+        if (!$toolbarButtons instanceof \fpcm\events\view\extendToolbarResult) {
+            trigger_error("Returned data of view\extendToolbar event must be an instance of \fpcm\events\view\extendToolbarResult");
+            return false;
         }
 
         $this->defaultViewVars->toolbarArea = $toolbarButtons->area;
@@ -1135,11 +1140,16 @@ class view {
         $etRes->activeTab = $active;
 
         $ev = $this->events->trigger('view\extendTabs', $etRes);
-        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+        if (!$this->handleEventResultData($ev, 'view\extendTabs')) {
             return false;
-        }
+        }        
 
         $etRes = $ev->getData();
+        if (!$etRes instanceof \fpcm\events\view\extendTabsResult) {
+            trigger_error("Returned data of view\extendTabs event must be an instance of \fpcm\events\view\extendTabsResult");
+            return false;
+        }        
+        
 
         $tabsId = $etRes->tabsId;
         $tabs = $etRes->tabs;
@@ -1225,21 +1235,21 @@ class view {
         if (!isset($this->jsVars['dialogs'])) {
             $this->jsVars['dialogs'] = [];
         }
-        
+
         if (!is_array($dialogs)) {
             $dialogs = [$dialogs];
         }
 
         /* @var helper\dialog $dlg */
         foreach ($dialogs as $dlg) {
-            
+
             if (!$dlg instanceof helper\dialog) {
                 continue;
             }
-            
+
             $this->jsVars['dialogs'][$dlg->getName()] = $dlg;
         }
-        
+
     }
 
     /**
@@ -1381,5 +1391,21 @@ class view {
         }
 
         return '.min'.$jsExt;
+    }
+
+    /**
+     * Handle event result
+     * @param \fpcm\module\eventResult $ev
+     * @param string $evName
+     * @return bool
+     */
+    private function handleEventResultData(\fpcm\module\eventResult $ev, string $evName) : bool
+    {
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event %s failed. Returned success = %s, continue = %s", $evName, $ev->getSuccessed(), $ev->getContinue()));
+            return false;
+        }
+
+        return true;
     }
 }

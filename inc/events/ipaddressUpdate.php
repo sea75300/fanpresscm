@@ -19,6 +19,6 @@ namespace fpcm\events;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\events
  */
-final class ipaddressUpdate extends \fpcm\events\abstracts\eventReturnArray {
+final class ipaddressUpdate extends \fpcm\events\abstracts\event {
 
 }

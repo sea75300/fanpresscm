@@ -8,8 +8,8 @@
 namespace fpcm\controller\ajax\common;
 
 /**
- * AJAX controller zum Cache leeren 
- * 
+ * AJAX controller zum Cache leeren
+ *
  * @package fpcm\controller\ajax\common\cache
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2022, Stefan Seehafer
@@ -19,7 +19,7 @@ class cache extends \fpcm\controller\abstracts\ajaxController
 {
 
     use \fpcm\controller\traits\common\isAccessibleTrue;
-    
+
     /**
      *
      * @var string
@@ -33,19 +33,19 @@ class cache extends \fpcm\controller\abstracts\ajaxController
     private $objid;
 
     /**
-     * 
+     *
      * @return bool
      */
     public function hasAccess()
     {
         if (!$this->checkReferer()) {
             return false;
-        }             
-        
+        }
+
         if (!is_object($this->session) || !$this->session->exists()) {
             return false;
         }
-        
+
         return true;
     }
 
@@ -76,11 +76,19 @@ class cache extends \fpcm\controller\abstracts\ajaxController
             $this->cache->cleanup();
         }
 
-        $this->events->trigger('clearCache', [
+        $ev = $this->events->trigger('clearCache', [
             'module' => $this->module,
             'objid' => $this->objid
         ]);
-        
+
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event clearCache failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            $this->response->setReturnData(new \fpcm\view\message(
+                'CACHE_CLEARED_FAILED',
+                \fpcm\view\message::TYPE_ERROR
+            ))->fetch();
+        }
+
         $this->response->setReturnData(new \fpcm\view\message(
             'CACHE_CLEARED_OK',
             \fpcm\view\message::TYPE_NOTICE
@@ -89,7 +97,7 @@ class cache extends \fpcm\controller\abstracts\ajaxController
     }
 
     /**
-     * 
+     *
      * @return bool
      */
     private function cleanupArticle()
@@ -99,7 +107,7 @@ class cache extends \fpcm\controller\abstracts\ajaxController
     }
 
     /**
-     * 
+     *
      * @return bool
      */
     private function cleanupArticles()

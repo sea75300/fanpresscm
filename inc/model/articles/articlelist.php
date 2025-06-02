@@ -556,6 +556,10 @@ implements \fpcm\model\interfaces\gsearchIndex {
             'articleIds' => $articleIds
         ])->getData();
 
+        if (!count($result) || !isset($result['fields']) || !isset($result['articleIds'])) {
+            return false;
+        }
+
         foreach ($result as $key => $val) {
             ${$key} = $val;
         }

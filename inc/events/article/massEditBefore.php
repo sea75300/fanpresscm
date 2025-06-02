@@ -20,21 +20,6 @@ namespace fpcm\events\article;
  * @package fpcm\events
  * @since 3.6
  */
-final class massEditBefore extends \fpcm\events\abstracts\eventReturnArray {
-    
-    /**
-     * Esxecutes a certain event
-     * @return array
-     */
-    public function run()
-    {
-        $result = parent::run();
-        $tmp = $result->getData();
-        if (!count($tmp) || !isset($tmp['fields']) || !isset($tmp['articleIds'])) {
-            return (new \fpcm\module\eventResult)->setContinue(true)->setData($this->data);
-        }
-
-        return $result;
-    }
+final class massEditBefore extends \fpcm\events\abstracts\event {
 
 }

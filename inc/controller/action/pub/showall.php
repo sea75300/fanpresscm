@@ -17,7 +17,7 @@ class showall extends showcommon {
 
 
     /**
-     * 
+     *
      * @return string
      */
     protected function getCacheNameString() : string
@@ -38,11 +38,16 @@ class showall extends showcommon {
             $res = str_replace('</ul>', '<li><a href="?module=fpcm/archive" class="fpcm-pub-pagination-archive">' . $this->language->translate('ARTICLES_PUBLIC_ARCHIVE') . '</a></li>' . PHP_EOL . '</ul>' . PHP_EOL, $res);
         }
 
-        $res = $this->events->trigger('pub\pageinationShowAll', $res)->getData();
+        $ev = $this->events->trigger('pub\pageinationShowAll', $res);
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event pub\pageinationShowAll failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return '';
+        }
 
-        return $res ? $res : '';
+        $res = $ev->getData();
+        return $res ?? '';
     }
-    
+
     protected function getContentData(): array
     {
         $conditions = new \fpcm\model\articles\search();
@@ -59,7 +64,14 @@ class showall extends showcommon {
         $this->assignConditions($countConditions);
 
         $parsed[] = $this->createPagination($this->articleList->countArticlesByCondition($countConditions));
-        return $this->events->trigger('pub\showAll', $parsed)->getData();
+
+        $ev = $this->events->trigger('pub\showAll', $parsed);
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event pub\showAll failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return $parsed;
+        }
+
+        return $ev->getData();
     }
 
     protected function isArchive(): bool

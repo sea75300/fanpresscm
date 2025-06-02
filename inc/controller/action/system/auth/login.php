@@ -158,7 +158,13 @@ implements \fpcm\controller\interfaces\requestFunctions {
             return true;
         }
 
-        $data = $this->events->trigger('session\loginBefore', $data)->getData();
+        $ev = $this->events->trigger('session\loginBefore', $data);
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event session\loginBefore failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return $data;
+        }        
+        
+        $data = $ev->getData();
 
         if (!empty($data['formData'])) {
             $tmp = json_decode((new \fpcm\classes\crypt)->decrypt(base64_decode($data['formData'])), true);

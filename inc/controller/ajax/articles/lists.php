@@ -216,7 +216,13 @@ class lists extends \fpcm\controller\abstracts\ajaxController
 
         $this->conditions->combinationDeleted = \fpcm\model\articles\search::COMBINATION_AND;
 
-        $this->conditions = $this->events->trigger('article\prepareSearch', $this->conditions)->getData();
+        $ev = $this->events->trigger('article\prepareSearch', $this->conditions);
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event article\prepareSearch failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return;
+        }        
+        
+        $this->conditions = $ev->getData();
     }
 
     /**

@@ -19,6 +19,6 @@ namespace fpcm\events\template;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\events
  */
-final class parseArticle extends \fpcm\events\abstracts\eventReturnArray {
+final class parseArticle extends \fpcm\events\abstracts\event {
 
 }

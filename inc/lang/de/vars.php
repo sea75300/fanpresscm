@@ -43,6 +43,7 @@ $lang = array (
   'ARTICLE_SEARCH_TYPE_TITLE' => 'nur Titel',
   'ARTICLE_SEARCH_USER' => 'Benutzer einschränken',
   'BACKUPS_NOTICE_POSTGRES' => 'Die automatische Sicherung der Datenbank wird Postgres aktuell nicht unterstützt.',
+  'CACHE_CLEARED_FAILED' => 'Der Cache konnte nicht geleert!',
   'CACHE_CLEARED_OK' => 'Der Cache wurde geleert!',
   'CATEGORIES_ADD' => 'Kategorie hinzufügen',
   'CATEGORIES_EDIT' => 'Kategorie bearbeiten',

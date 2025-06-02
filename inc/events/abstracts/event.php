@@ -9,7 +9,7 @@ namespace fpcm\events\abstracts;
 
 /**
  * Event model base
- * 
+ *
  * @package fpcm\events\abstracts
  * @abstract
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
@@ -88,7 +88,7 @@ abstract class event {
         if (isset($GLOBALS['fpcm']['events']['activeModules']) && count($GLOBALS['fpcm']['events']['activeModules'])) {
             return;
         }
-        
+
         if (!$this->cache->isExpired('modules/activeeventscache')) {
             $GLOBALS['fpcm']['events']['activeModules'] = $this->cache->read('modules/activeeventscache');
             return;
@@ -170,14 +170,14 @@ abstract class event {
      * @param mixed $object
      * @return bool
      */
-    protected function is_a($object)
+    protected function is_a($object) : bool
     {
         $base = self::EVENT_BASE_INSTANCE;
         if ($object instanceof $base) {
             return true;
         }
 
-        trigger_error('Event object of class ' . get_class($object) . ' must be an instance of ' . self::EVENT_BASE_INSTANCE . '!');
+        trigger_error(sprintf("Event object of class %s must be an instance of %s", $object::class, self::EVENT_BASE_INSTANCE));
         return false;
     }
 
@@ -186,7 +186,7 @@ abstract class event {
      * @return array
      * @since 3.3
      */
-    protected function getEventClasses()
+    protected function getEventClasses() : array
     {
         if (!count($GLOBALS['fpcm']['events']['activeModules'])) {
             return [];
@@ -213,7 +213,7 @@ abstract class event {
      * Returns event base class data
      * @return string
      */
-    protected function getEventClassBase()
+    protected function getEventClassBase() : string
     {
         return str_replace('fpcm\\events\\', '', static::class);
     }
@@ -223,54 +223,78 @@ abstract class event {
      * @param array $data
      * @return array
      */
-    public function run()
+
+    /**
+     * Eexcutes event
+     * @return \fpcm\module\eventResult
+     */
+    public function run() : \fpcm\module\eventResult
     {
-        $eventClasses = $this->getEventClasses();
+        $this->beforeRun();
         
+        $eventClasses = $this->getEventClasses();
         if (!count($eventClasses)) {
-            return (new \fpcm\module\eventResult())->setData($this->data);     
+            return (new \fpcm\module\eventResult())->setData($this->data);
+        }
+
+        if ($this instanceof \fpcm\events\interfaces\componentProvider) {
+            $eventClasses = array_slice($eventClasses, 0, 1);
         }
 
         $base = $this->getEventClassBase();
-        $eventResult = $this->data;
 
         foreach ($eventClasses as $class) {
 
             if (!class_exists($class)) {
-                trigger_error('Undefined event class '.$class);
-                continue;
-            }
-            
-            if ($eventResult instanceof \fpcm\module\eventResult) {
-                $eventResult = $eventResult->getData();
-            }
-            
-            /* @var \fpcm\module\event $module */
-            $module = new $class($eventResult);
-            if (!$this->is_a($module)) {
+                trigger_error(sprintf('Undefined event class %s, Event: %s', $class, self::class));
                 continue;
             }
 
-            $eventResult = $module->run();
-            
-            if (empty($eventResult)) {
-                trigger_error(sprintf('The return value of the module event "%s" cannot be empty. An instance of "\fpcm\module\eventResult" is required at least.', $module::class), E_USER_ERROR);
-                $eventResult = $this->toEventResult($this->data);
-            }
-            
+            $this->fromEventResult();
+            $this->processClass($class);
         }
-        
-        return $this->toEventResult($eventResult);
+
+        return $this->data;
     }
 
     /**
-     * Returns full event namespace
-     * @param string $event
-     * @return string
+     * Preprare event before running
+     * @return bool
      */
-    final public static function getEventNamespace(string $event) : string
+    protected function beforeRun() : bool
     {
-        return 'fpcm\\events\\'.$event;
+        return true;
+    }
+
+    /**
+     * Process class data
+     * @param string $class
+     * @return bool
+     */
+    protected function processClass(string $class) : bool
+    {
+        /* @var \fpcm\module\event $module */
+        $module = new $class($this->data);
+        if (!$this->is_a($module)) {
+            return false;
+        }
+
+        $this->data = $module->run();
+        return true;
+    }
+
+    /**
+     * Fetch event result data from object
+     * @return bool
+     */
+    protected function fromEventResult() : bool
+    {
+        if (!$this->data instanceof \fpcm\module\eventResult) {
+            return true;
+        }
+
+        $this->data = $this->data->getData();
+        return true;
     }
 
     /**
@@ -285,6 +309,16 @@ abstract class event {
         }
 
         return (new \fpcm\module\eventResult())->setData($data);
+    }
+
+    /**
+     * Returns full event namespace
+     * @param string $event
+     * @return string
+     */
+    final public static function getEventNamespace(string $event) : string
+    {
+        return 'fpcm\\events\\'.$event;
     }
 
 }

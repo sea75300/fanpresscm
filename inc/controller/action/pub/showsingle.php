@@ -16,7 +16,7 @@ namespace fpcm\controller\action\pub;
 class showsingle extends \fpcm\controller\abstracts\pubController {
 
     use \fpcm\controller\traits\pub\apiMode;
-    
+
     /**
      *
      * @var \fpcm\model\categories\categoryList
@@ -73,7 +73,7 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
 
     /**
      *
-     * @var int 
+     * @var int
      */
     protected $articleId = 0;
 
@@ -90,7 +90,7 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
     protected $viewVars = [];
 
     /**
-     * 
+     *
      * Konstruktor
      * @param array $params
      */
@@ -178,7 +178,13 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
             $parsed['comments'] = $this->assignCommentsData();
             $parsed['articles'] = $this->assignArticleData();
 
-            $parsed = $this->events->trigger('pub\showSingle', $parsed)->getData();
+            $ev = $this->events->trigger('pub\showSingle', $parsed);
+            if (!$ev->getSuccessed() || !$ev->getContinue()) {
+                trigger_error(sprintf("Event pub\showSingle failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+                return $parsed;
+            }
+
+            $parsed = $ev->getData();
 
             if (!$this->session->exists()) {
                 $this->cache->write($this->cacheName, $parsed, $this->config->system_cache_timeout);
@@ -263,7 +269,7 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
         $comments = $this->commentList->getCommentsBySearchCondition($conditions);
 
         $this->commentCount = count($comments);
-        
+
         $parsed = [];
         $i = 1;
         foreach ($comments as $comment) {

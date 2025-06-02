@@ -19,14 +19,15 @@ namespace fpcm\events\logs;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\events
  */
-final class addToList extends \fpcm\events\abstracts\eventReturnArray {
+final class addToList extends \fpcm\events\abstracts\event {
 
     /**
      * Return list of tabs for system log view, adds unique dataview list id
      * @return array
      * @since 4.5.1-b2
      */
-    public function run() {
+    public function run() : \fpcm\module\eventResult
+    {
         
         $result = parent::run();
         

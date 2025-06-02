@@ -21,20 +21,8 @@ namespace fpcm\events;
  * @since 5.2-5
  * @see \fpcm\classes\email::initSmtpSettings
  */
-final class getOAuthProvider extends \fpcm\events\abstracts\event {
-
-    public function run()
-    {
-        $class = $this->getEventClasses()[0] ?? false;
-        if ($class === false) {
-            return (new \fpcm\module\eventResult)->setSuccessed(true)->setContinue(true);
-        }
-
-        if (!class_exists($class) || !$this->is_a($class)) {
-            return (new \fpcm\module\eventResult)->setSuccessed(false)->setContinue(false);
-        }
-
-        return (new $class)->run();
-    }
+final class getOAuthProvider
+extends \fpcm\events\abstracts\event
+implements interfaces\componentProvider {
 
 }

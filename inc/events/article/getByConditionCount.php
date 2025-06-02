@@ -20,14 +20,14 @@ namespace fpcm\events\article;
  * @package fpcm\events
  * @since 3.4
  */
-final class getByConditionCount extends \fpcm\events\abstracts\eventReturnArray {
+final class getByConditionCount extends \fpcm\events\abstracts\event {
 
     /**
      * Executes a certain event
      * @param array $data
      * @return array
      */
-    public function run()
+    public function run() : \fpcm\module\eventResult
     {
         $eventData = parent::run();
         

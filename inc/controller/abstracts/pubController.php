@@ -18,7 +18,7 @@ if (!defined('FPCM_MODE_PUBVIEW')) {
 
 /**
  * Basis für "public"-Controller
- * 
+ *
  * @abstract
  * @package fpcm\controller\abstracts\pubController
  * @author Stefan Seehafer <sea75300@yahoo.de>
@@ -117,17 +117,28 @@ class pubController extends controller {
                         ? \fpcm\classes\dirs::getRootUrl('js/fpcm.js')
                         : \fpcm\classes\dirs::getRootUrl('js/fpcm.min.js');
         }
-        
+
 
         $cssfiles = [];
         if ($this->config->system_mode == 0 && trim($this->config->system_css_path)) {
             $cssfiles[] = trim($this->config->system_css_path);
         }
 
-        $this->view->overrideJsFiles($this->events->trigger('pub\addJsFiles', $jsfiles)->getData());
-        $this->view->overrideCssFiles($this->events->trigger('pub\addCssFiles', $cssfiles)->getData());
-        $this->view->addJsLangVars([], true);
+        $evJs = $this->events->trigger('pub\addJsFiles', $jsfiles);
+        if (!$evJs->getSuccessed() || !$evJs->getContinue()) {
+            trigger_error(sprintf("Event pub\addJsFiles failed. Returned success = %s, continue = %s", $evJs->getSuccessed(), $evJs->getContinue()));
+            return false;
+        }
 
+        $evCss = $this->events->trigger('pub\addCssFiles', $cssfiles);
+        if (!$evCss->getSuccessed() || !$evCss->getContinue()) {
+            trigger_error(sprintf("Event pub\addCssFiles failed. Returned success = %s, continue = %s", $evCss->getSuccessed(), $evCss->getContinue()));
+            return false;
+        }
+
+        $this->view->overrideJsFiles($evJs->getData());
+        $this->view->overrideCssFiles($evCss->getData());
+        $this->view->addJsLangVars([], true);
         return true;
     }
 

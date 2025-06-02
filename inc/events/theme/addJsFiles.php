@@ -19,6 +19,6 @@ namespace fpcm\events\theme;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\events
  */
-final class addJsFiles extends \fpcm\events\abstracts\eventReturnArray {
+final class addJsFiles extends \fpcm\events\abstracts\event {
 
 }

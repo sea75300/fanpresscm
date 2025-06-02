@@ -58,6 +58,7 @@ class dbBackup extends \fpcm\model\abstracts\cron {
         fpcmLogCron('Fetch database tables for backup...');
 
         $dumpSettings['include-tables'][] = $this->dbcon->getTablePrefixed(\fpcm\classes\database::tableArticles);
+        $dumpSettings['include-tables'][] = $this->dbcon->getTablePrefixed(\fpcm\classes\database::tableArticleCategories);
         $dumpSettings['include-tables'][] = $this->dbcon->getTablePrefixed(\fpcm\classes\database::tableAuthors);
         $dumpSettings['include-tables'][] = $this->dbcon->getTablePrefixed(\fpcm\classes\database::tableCategories);
         $dumpSettings['include-tables'][] = $this->dbcon->getTablePrefixed(\fpcm\classes\database::tableComments);
@@ -67,12 +68,20 @@ class dbBackup extends \fpcm\model\abstracts\cron {
         $dumpSettings['include-tables'][] = $this->dbcon->getTablePrefixed(\fpcm\classes\database::tableIpAdresses);
         $dumpSettings['include-tables'][] = $this->dbcon->getTablePrefixed(\fpcm\classes\database::tableModules);
         $dumpSettings['include-tables'][] = $this->dbcon->getTablePrefixed(\fpcm\classes\database::tablePermissions);
+        $dumpSettings['include-tables'][] = $this->dbcon->getTablePrefixed(\fpcm\classes\database::tableRevisions);
         $dumpSettings['include-tables'][] = $this->dbcon->getTablePrefixed(\fpcm\classes\database::tableRoll);
+        $dumpSettings['include-tables'][] = $this->dbcon->getTablePrefixed(\fpcm\classes\database::tableShares);
         $dumpSettings['include-tables'][] = $this->dbcon->getTablePrefixed(\fpcm\classes\database::tableSessions);
         $dumpSettings['include-tables'][] = $this->dbcon->getTablePrefixed(\fpcm\classes\database::tableSmileys);
         $dumpSettings['include-tables'][] = $this->dbcon->getTablePrefixed(\fpcm\classes\database::tableTexts);
-        $dumpSettings['include-tables'][] = $this->dbcon->getTablePrefixed(\fpcm\classes\database::tableRevisions);
-        $dumpSettings['include-tables'] = $this->events->trigger('cron\includeDumpTables', $dumpSettings['include-tables'])->getData();
+        
+        $ev = $this->events->trigger('cron\includeDumpTables', $dumpSettings['include-tables']);
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event cron\includeDumpTables failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return false;
+        }        
+        
+        $dumpSettings['include-tables'] = $ev->getData();
 
         fpcmLogCron('Create new database dump in "' . \fpcm\model\files\ops::removeBaseDir($this->dumpfile, true) . '"...');
 

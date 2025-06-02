@@ -26,7 +26,7 @@ class installAfter extends \fpcm\events\abstracts\event {
      * Executes a certain event
      * @return bool
      */
-    public function run()
+    public function run() : \fpcm\module\eventResult
     {
         $class = \fpcm\module\module::getEventNamespace($this->data, $this->getEventClassBase());
         if (!class_exists($class)) {

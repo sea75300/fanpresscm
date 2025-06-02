@@ -19,6 +19,6 @@ namespace fpcm\events\revision;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\events
  */
-final class create extends \fpcm\events\abstracts\eventReturnArray {
+final class create extends \fpcm\events\abstracts\event {
 
 }

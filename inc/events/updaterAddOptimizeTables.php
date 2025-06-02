@@ -20,6 +20,6 @@ namespace fpcm\events;
  * @package fpcm\events
  * @since 3.3
  */
-final class updaterAddOptimizeTables extends \fpcm\events\abstracts\eventReturnArray {
+final class updaterAddOptimizeTables extends \fpcm\events\abstracts\event {
 
 }

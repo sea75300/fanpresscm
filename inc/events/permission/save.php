@@ -19,6 +19,6 @@ namespace fpcm\events\permission;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\events
  */
-final class save extends \fpcm\events\abstracts\eventReturnArray {
+final class save extends \fpcm\events\abstracts\event {
 
 }

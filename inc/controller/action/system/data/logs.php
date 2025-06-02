@@ -55,8 +55,15 @@ class logs extends \fpcm\controller\abstracts\controller {
     {
         $this->initLogs();
 
+        $ev = $this->events->trigger('logs\addToList', $this->logs);
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event logs\addToList failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return;
+        }
 
-        $this->view->addTabs('tabs-logs', $this->events->trigger('logs\addToList', $this->logs)->getData(), false, $this->getActiveTab() );
+        $data = $ev->getData();
+
+        $this->view->addTabs('tabs-logs', $data, false, $this->getActiveTab() );
         $this->view->addJsFiles(['system/logs.js']);
         $this->view->addJsLangVars(['LOGS_CLEARED_LOG_OK', 'LOGS_CLEARED_LOG_FAILED', 'FILE_LIST_FILESIZE', 'ARTICLES_SEARCH', 'ARTICLE_SEARCH_TEXT', 'ARTICLE_SEARCH_START']);
         $this->view->addJsVars([

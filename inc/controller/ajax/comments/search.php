@@ -2,9 +2,9 @@
 
 /**
  * AJAX comment search controller
- * 
+ *
  * AJAX controller for article search
- * 
+ *
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
@@ -14,7 +14,7 @@ namespace fpcm\controller\ajax\comments;
 
 /**
  * Kommentar Suche
- * 
+ *
  * @package fpcm\controller\ajax\comments\search
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @since 3.3
@@ -32,7 +32,7 @@ class search extends \fpcm\controller\abstracts\ajaxController
     protected $dataView;
 
     /**
-     * 
+     *
      * @return bool
      */
     public function isAccessible(): bool
@@ -41,7 +41,7 @@ class search extends \fpcm\controller\abstracts\ajaxController
     }
 
     /**
-     * 
+     *
      * @return int
      */
     protected function getMode()
@@ -56,7 +56,7 @@ class search extends \fpcm\controller\abstracts\ajaxController
     public function request()
     {
         $this->response = new \fpcm\model\http\response();
-        
+
         $filter = $this->request->fromPOST('filter');
 
         $this->conditions->setMultiple(true);
@@ -98,8 +98,14 @@ class search extends \fpcm\controller\abstracts\ajaxController
         }
 
         $this->conditions->combinationDeleted = \fpcm\model\comments\search::COMBINATION_AND;
-        $this->conditions = $this->events->trigger('comments\prepareSearch', $this->conditions)->getData();
+        $ev = $this->events->trigger('comments\prepareSearch', $this->conditions);
 
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event comments\prepareSearch failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return false;
+        }
+
+        $this->conditions = $ev->getData();
         return true;
     }
 

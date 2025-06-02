@@ -20,22 +20,6 @@ namespace fpcm\events;
  * @package fpcm\events
  * @since 3.6
  */
-final class autocompleteGetData extends \fpcm\events\abstracts\eventReturnArray {
-
-    /**
-     * Executes a certain event
-     * @param array $data
-     * @return array
-     */
-    public function run()
-    {
-        $result = parent::run();
-        $tmp = $result->getData();
-        if (!count($tmp) || !isset($tmp['returnData'])) {
-            return (new \fpcm\module\eventResult)->setContinue(true)->setData($this->data['returnData']);
-        }
-
-        return $result;
-    }
+final class autocompleteGetData extends \fpcm\events\abstracts\event {
 
 }

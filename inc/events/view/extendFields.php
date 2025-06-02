@@ -21,54 +21,35 @@ namespace fpcm\events\view;
  * @since 5.1.0-a1
  */
 final class extendFields extends \fpcm\events\abstracts\event {
+    
+    use \fpcm\events\traits\extendUiEvent;
 
     /**
-     * Event data
-     * @var extendFieldsResult
+     * Process class data
+     * @param string $class
+     * @return bool
      */
-    protected $data;
-
-    /**
-     * Execute event
-     * @return \fpcm\events\view\extendFieldsResult
-     */
-    public function run() : \fpcm\module\eventResult
+    protected function processClass(string $class) : bool
     {
-        $this->data->area = \fpcm\classes\tools::getAreaName('form');
-        
-        $eventClasses = $this->getEventClasses();
-
-        $base = $this->getEventClassBase();
-        $evRes = $this->toEventResult($this->data);
-        
-        if (!count($eventClasses)) {
-            $evRes->setSuccessed(true);
-            $evRes->setContinue(true);
-            return $evRes;
-        }        
-
-        foreach ($eventClasses as $class) {
-            
-            if (!class_exists($class)) {
-                trigger_error(sprintf('Undefined event class "%s"', $class));
-                continue;
-            }
-
-            /* @var \fpcm\module\event $module */
-            $module = new $class($evRes);
-            if (!$this->is_a($module) || !method_exists($module, $this->data->area)) {
-                continue;
-            }
-
-            $evRes = call_user_func([$module, $this->data->area]);
-            if (empty($evRes)) {
-                trigger_error(sprintf('The return value of the module event "%s" cannot be empty. An instance of "\fpcm\module\eventResult" is required at least.', $module::class), E_USER_ERROR);
-                $evRes = $this->toEventResult($this->data);
-            }
-
+        /* @var \fpcm\module\event $module */
+        $module = new $class($this->data);
+        $r = $this->doEventbyArea($module);
+        if ($r === false) {
+            return false;
         }
 
-        return $evRes;
+        $this->data = $r;
+        return true;
+    }    
+
+    /**
+     * Preprare event before running
+     * @return bool
+     */
+    protected function beforeRun(): bool
+    {
+        $this->data->area = \fpcm\classes\tools::getAreaName('form');
+        return true;
     }
 
 }
