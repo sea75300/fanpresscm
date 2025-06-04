@@ -187,14 +187,6 @@ class templates extends \fpcm\controller\abstracts\controller implements \fpcm\c
                 ->setTabToolbar(1)
                 ->setDataViewId(''),
 
-            (new \fpcm\view\helper\tabItem('tpl-tweet'))
-                ->setText('TEMPLATE_HL_TWEET')
-                ->setUrl(\fpcm\classes\tools::getFullControllerLink('ajax/templates/fetch', [
-                    'tpl' => \fpcm\model\pubtemplates\tweet::TEMPLATE_ID
-                ]))
-                ->setData(['tplId' => \fpcm\model\pubtemplates\tweet::TEMPLATE_ID])
-                ->setTabToolbar(1)
-                ->setDataViewId(''),
         ]);
         
         if ($this->permissions->system->drafts) {

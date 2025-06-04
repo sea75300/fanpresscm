@@ -121,7 +121,14 @@ final class article extends template {
             return false;
         }
 
-        $this->replacementTags = $this->events->trigger('template\parseArticle', $this->replacementTags)->getData();
+        $ev = $this->events->trigger('template\parseArticle', $this->replacementTags);
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event template\parseArticle failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return false;
+        }        
+        
+        $this->replacementTags = $ev->getData();        
+
         $tags = array_merge($this->replacementInternal, $this->replacementTags);
         
         $replacementData = [];

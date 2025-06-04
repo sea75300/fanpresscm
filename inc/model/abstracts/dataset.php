@@ -274,14 +274,16 @@ abstract class dataset implements \fpcm\model\interfaces\dataset, \Stringable {
         if (method_exists($this, 'removeBannedTexts')) {
             $this->removeBannedTexts();
         }
+        
+        $beforeEvent = $this->getEventName('save');
 
-        if (!$this->dbcon->insert(
-                        $this->table, $this->events->trigger(
-                                $this->getEventName('save'),
-                                $this->getPreparedSaveParams()
-                        )->getData()
-                )
-        ) {
+        $ev = $this->events->trigger($beforeEvent, $this->getPreparedSaveParams());
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event %s failed. Returned success = %s, continue = %s", $beforeEvent, $ev->getSuccessed(), $ev->getContinue()));
+            return false;
+        }        
+
+        if (!$this->dbcon->insert($this->table, $ev->getData() )) {
             return false;
         }
 
@@ -290,8 +292,12 @@ abstract class dataset implements \fpcm\model\interfaces\dataset, \Stringable {
         $this->afterUpdateInternal();
 
         $afterEvent = $this->getEventName('saveAfter');
-        if (class_exists(event::getEventNamespace($afterEvent))) {
-            $this->events->trigger($afterEvent, $this->id)->getData();
+        if (class_exists(event::getEventNamespace($afterEvent))) {            
+            $ev = $this->events->trigger($afterEvent, $this->id);
+            if (!$ev->getSuccessed() || !$ev->getContinue()) {
+                trigger_error(sprintf("Event %s failed. Returned success = %s, continue = %s", $afterEvent, $ev->getSuccessed(), $ev->getContinue()));
+                return false;
+            }
         }
 
         return $this->id;
@@ -309,28 +315,34 @@ abstract class dataset implements \fpcm\model\interfaces\dataset, \Stringable {
         }
 
         $params = $this->getPreparedSaveParams();
-        $fields = array_keys($params);
-
         $params[] = $this->getId();
-        $params = $this->events->trigger($this->getEventName('update'), $params)->getData();
+
+        $beforeEvent = $this->getEventName('update');
+
+        $ev = $this->events->trigger($beforeEvent, $params);
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event %s failed. Returned success = %s, continue = %s", $beforeEvent, $ev->getSuccessed(), $ev->getContinue()));
+            return false;
+        }         
+
+        $params = $ev->getData();
+        $fields = $this->getFieldFromSaveParams($params);
 
         $return = false;
-        if ($this->dbcon->update(
-                $this->table,
-                $fields,
-                array_values($params),
-                'id = ?'
-            )
-        ) {
+        if ($this->dbcon->update($this->table, $fields, array_values($params), 'id = ?')) {
             $return = true;
         }
 
         $this->afterUpdateInternal();
-
+        
         $afterEvent = $this->getEventName('updateAfter');
-        if (class_exists(event::getEventNamespace($afterEvent))) {
-            $this->events->trigger($afterEvent, $this->id)->getData();
-        }
+        if (class_exists(event::getEventNamespace($afterEvent))) {            
+            $ev = $this->events->trigger($afterEvent, $this->id);
+            if (!$ev->getSuccessed() || !$ev->getContinue()) {
+                trigger_error(sprintf("Event %s failed. Returned success = %s, continue = %s", $afterEvent, $ev->getSuccessed(), $ev->getContinue()));
+                return false;
+            }
+        }        
 
         return $return;
     }
@@ -464,5 +476,17 @@ abstract class dataset implements \fpcm\model\interfaces\dataset, \Stringable {
     protected function afterUpdateInternal() : bool
     {
         return true;
+    }
+
+    /**
+     * Retrieve field names from save üarams
+     * @param array $param
+     * @param int $offset
+     * @return array
+     * @since 5.3
+     */
+    protected function getFieldFromSaveParams(array $params, int $offset = -1) : array
+    {
+        return array_slice(array_keys($params), 0, $offset);
     }
 }

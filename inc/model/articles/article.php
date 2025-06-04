@@ -27,7 +27,6 @@ implements
         \fpcm\model\traits\articles\csvUtils,
         \fpcm\model\traits\articles\iconUtils,
         \fpcm\model\traits\articles\revisionUtils,
-        \fpcm\model\traits\articles\twitterUtils,
         \fpcm\model\traits\articles\sourcesUtils;
 
     /**
@@ -206,8 +205,6 @@ implements
         'defaultPermissions',
         'forceDelete',
         'editPermission',
-        'tweetOverride',
-        'tweetCreate',
         'crypt'
     ];
 
@@ -938,7 +935,6 @@ implements
     {
         $this->pushCategories();
         $this->cleanupCaches();
-        $this->createTweet();
         return true;
     }
 
@@ -953,7 +949,6 @@ implements
         $this->pushCategories();
         $this->cleanupCaches();
         $this->init();
-        $this->createTweet();
         return true;
     }
 

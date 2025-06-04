@@ -297,9 +297,15 @@ final class session extends \fpcm\model\abstracts\dataset implements \fpcm\model
      */
     public function save()
     {
+        $ev = $this->events->trigger('session\create', $this->getPreparedSaveParams());
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event session\create failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return false;
+        }
+
         return $this->dbcon->insert(
             $this->table,
-            $this->events->trigger('session\create', $this->getPreparedSaveParams())->getData()
+            $ev->getData()
         ) ? true : false;
     }
 
@@ -310,10 +316,16 @@ final class session extends \fpcm\model\abstracts\dataset implements \fpcm\model
     public function update()
     {
         $params = $this->getPreparedSaveParams();
-        $fields = array_keys($params);
-
         $params[] = $this->getSessionId();
-        $params = $this->events->trigger('session\update', $params)->getData();
+
+        $ev = $this->events->trigger('session\update', $params);
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event session\update failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return false;
+        }
+
+        $params = $ev->getData();
+        $fields = $this->getFieldFromSaveParams($params);
 
         $return = false;
         if ($this->dbcon->update($this->table, $fields, array_values($params), 'sessionid = ?')) {
@@ -422,7 +434,7 @@ final class session extends \fpcm\model\abstracts\dataset implements \fpcm\model
 
         return $sessions;
     }
-    
+
     /**
      * Retrieve sessions list by condition
      * @param string $search
@@ -432,16 +444,16 @@ final class session extends \fpcm\model\abstracts\dataset implements \fpcm\model
     public function getSessionsByCondition(string $search = '', array $params = [])
     {
         $sessions = [];
-        
+
         $sparams = new \fpcm\model\dbal\selectParams($this->table);
-        
+
         $where = "sessionid NOT " . $this->dbcon->dbLike() . " ?";
-        
+
         if (trim($search)) {
             $where = sprintf("%s %s" , $where, $search);
         }
 
-        $sparams->setWhere($where);        
+        $sparams->setWhere($where);
         $sparams->setParams(array_merge([$this->sessionid], $params));
         $sparams->setFetchAll(true);
 

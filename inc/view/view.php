@@ -336,7 +336,7 @@ class view {
         if (!$this->handleEventResultData($ev, 'view\extendProfileMenu')) {
             $this->defaultViewVars->profileMenuButtons = $default;
             return false;
-        }        
+        }
 
         $this->defaultViewVars->profileMenuButtons = $ev->getData();
         return true;
@@ -745,12 +745,17 @@ class view {
         }
 
         if (!file_exists($this->viewPath) || strpos(realpath($this->viewPath), \fpcm\classes\dirs::getFullDirPath('') ) !== 0) {
-            trigger_error("View file {$this->viewName} not found in {$this->viewPath}!", E_USER_ERROR);
-            exit("View file {$this->viewName} not found in {$this->viewPath}!");
+            throw new \Exception(sprintf("View file %s not found in %s", $this->viewName, $this->viewPath));
         }
 
         $this->initAssigns();
-        extract($this->events->trigger('view\renderBefore', $this->viewVars)->getData());
+
+        $ev = $this->events->trigger('view\renderBefore', $this->viewVars);
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            throw new \Exception(sprintf("Event view\renderBefore failed for %s. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue(), $this->viewPath));
+        }
+
+        extract($ev->getData());
 
         switch ($this->showHeader) {
             case self::INCLUDE_HEADER_FULL :
@@ -772,7 +777,11 @@ class view {
                 break;
         }
 
-        $this->events->trigger('view\renderAfter');
+        $ev = $this->events->trigger('view\renderAfter');
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            throw new \Exception(sprintf("Event view\renderAfter failed failed for %s. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue(), $this->viewPath));
+        }
+
         $this->rendered = true;
 
         if ($return) {
@@ -1142,14 +1151,14 @@ class view {
         $ev = $this->events->trigger('view\extendTabs', $etRes);
         if (!$this->handleEventResultData($ev, 'view\extendTabs')) {
             return false;
-        }        
+        }
 
         $etRes = $ev->getData();
         if (!$etRes instanceof \fpcm\events\view\extendTabsResult) {
             trigger_error("Returned data of view\extendTabs event must be an instance of \fpcm\events\view\extendTabsResult");
             return false;
-        }        
-        
+        }
+
 
         $tabsId = $etRes->tabsId;
         $tabs = $etRes->tabs;
@@ -1272,11 +1281,30 @@ class view {
             return false;
         }
 
-        $this->jsFiles = $this->events->trigger($type.'\addJsFiles', $this->jsFiles)->getData();
-        $this->jsFilesLate = $this->events->trigger($type.'\addJsFilesLate', $this->jsFilesLate)->getData();
-        $this->jsModuleFiles = $this->events->trigger($type.'\addJsModules', $this->jsModuleFiles)->getData();
-        $this->cssFiles = $this->events->trigger($type.'\addCssFiles', $this->cssFiles)->getData();
+        $ev1 = $this->events->trigger($type.'\addJsFiles', $this->jsFiles);
+        if (!$this->handleEventResultData($ev1, $type.'\addJsFiles')) {
+            return false;
+        }
 
+        $ev2 = $this->events->trigger($type.'\addJsFilesLate', $this->jsFilesLate);
+        if (!$this->handleEventResultData($ev2, $type.'\addJsFilesLate')) {
+            return false;
+        }
+
+        $ev3 = $this->events->trigger($type.'\addJsModules', $this->jsModuleFiles);
+        if (!$this->handleEventResultData($ev3, $type.'\addJsModules')) {
+            return false;
+        }
+
+        $ev4 = $this->events->trigger($type.'\addCssFiles', $this->cssFiles);
+        if (!$this->handleEventResultData($ev4, $type.'\addCssFiles')) {
+            return false;
+        }
+
+        $this->jsFiles = $ev1->getData();
+        $this->jsFilesLate = $ev2->getData();
+        $this->jsModuleFiles = $ev3->getData();
+        $this->cssFiles = $ev4->getData();
         return true;
     }
 

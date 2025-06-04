@@ -9,7 +9,7 @@ namespace fpcm\model\traits\articles;
 
 /**
  * Article revision utils
- * 
+ *
  * @package fpcm\model\traits\articles
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2023, Stefan Seehafer
@@ -34,8 +34,13 @@ trait revisionUtils {
      */
     public function createRevision($timer = 0)
     {
-        $content = $this->getPreparedSaveParams();
-        $content = $this->events->trigger('revision\create', $content)->getData();
+        $ev = $this->events->trigger('revision\create', $this->getPreparedSaveParams());
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event revision\create failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return false;
+        }
+
+        $content = $ev->getData();
 
         if (!$timer) {
             $timer = $this->changetime;
@@ -71,14 +76,24 @@ trait revisionUtils {
     public function getRevisions($full = false)
     {
         $result = $this->dbcon->select(
-                \fpcm\classes\database::tableRevisions, 'article_id, revision_idx, content', 'article_id = ? ' . $this->dbcon->orderBy(array('revision_idx DESC')), array($this->id)
+            \fpcm\classes\database::tableRevisions,
+            'article_id, revision_idx, content',
+            'article_id = ? ' . $this->dbcon->orderBy(array('revision_idx DESC')),
+            array($this->id)
         );
 
         $revisionSets = $this->dbcon->fetch($result, true);
         if (!is_array($revisionSets) || !count($revisionSets)) {
             return [];
         }
-        $revisionFiles = $this->events->trigger('revision\getBefore', $revisionSets)->getData();
+
+        $ev = $this->events->trigger('revision\getBefore', $revisionSets);
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event revision\getBefore failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return [];
+        }
+
+        $revisionSets = $ev->getData();
 
         $revisions = [];
         foreach ($revisionSets as $revisionSet) {
@@ -96,7 +111,21 @@ trait revisionUtils {
             $revisions[$revTime] = $full ? $revData : $revData['title'];
         }
 
-        $revisions = $this->events->trigger('revision\getAfter', array('full' => $full, 'revisions' => $revisions))->getData()['revisions'];
+        $ev = $this->events->trigger('revision\getAfter', [
+            'full' => $full,
+            'revisions' => $revisions
+        ]);
+
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event revision\getAfter failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return [];
+        }
+
+        $revisions = $ev->getData();
+        if (!isset($revisions['revisions'])) {
+            trigger_error('Event revision\getAfter did not returned revisions data');
+            return [];
+        }
 
         return $revisions;
     }
@@ -123,7 +152,13 @@ trait revisionUtils {
             return false;
         }
 
-        $revision = $this->events->trigger('revision\get', $revision)->getData();
+        $ev = $this->events->trigger('revision\get', $revision);
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event revision\get failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return [];
+        }
+
+        $revision = $ev->getData();
         foreach ($revision->getContent() as $key => $value) {
             $this->$key = $value;
         }

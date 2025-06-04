@@ -27,7 +27,7 @@ final class components {
             trigger_error('Error loading article editor component '.$class);
             return false;
         }
-        
+
         return \fpcm\classes\loader::getObject($class);
     }
 
@@ -41,8 +41,14 @@ final class components {
             'SYSTEM_OPTIONS_NEWS_EDITOR_TINYMCE5' => '\fpcm\components\editor\tinymceEditor5',
             'SYSTEM_OPTIONS_NEWS_EDITOR_CLASSIC' => '\fpcm\components\editor\htmlEditor'
         ];
-         
-        return array_map('base64_encode', \fpcm\classes\loader::getObject('\fpcm\events\events')->trigger('editor\getEditors', $list)->getData());
+
+        $ev = \fpcm\events\events::getInstance()->trigger('editor\getEditors', $list);
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event editor\getEditors failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return [];
+        }
+
+        return array_map('base64_encode', $ev->getData());
     }
 
     /**
@@ -62,32 +68,34 @@ final class components {
      */
     public static function getAuthProvider() : object
     {
-        $class = \fpcm\classes\loader::getObject('\fpcm\events\events')->trigger('getAuthProvider')->getData();
-        
-        if (!$class) {
+        $ev = \fpcm\events\events::getInstance()->trigger('getAuthProvider');
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event getAuthProvider failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
             return \fpcm\classes\loader::getObject('\fpcm\model\auth\htmlLogin');
         }
 
-        if (class_exists($class) && is_subclass_of($class, 'fpcm\model\abstracts\authProvider')) {
+        $class = $ev->getData();
+        if ($class && class_exists($class) && is_a($class, 'fpcm\model\abstracts\authProvider')) {
             return \fpcm\classes\loader::getObject($class);
         }
 
         return \fpcm\classes\loader::getObject('\fpcm\model\auth\htmlLogin');
     }
-    
+
     /**
      * Returns captcha object in view and captcha-check
      * @return \fpcm\model\abstracts\spamCaptcha
      */
     public static function getChatptchaProvider() : object
     {
-        $class = \fpcm\classes\loader::getObject('\fpcm\events\events')->trigger('pub\replaceSpamCaptcha')->getData();
-        
-        if (!$class) {
+        $ev = \fpcm\events\events::getInstance()->trigger('pub\replaceSpamCaptcha');
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event pub\replaceSpamCaptcha failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
             return \fpcm\classes\loader::getObject('\fpcm\model\captchas\fpcmDefault');
         }
-        
-        if (class_exists($class) && is_subclass_of($class, '\fpcm\model\abstracts\spamCaptcha')) {
+
+        $class = $ev->getData();
+        if ($class && class_exists($class) && is_a($class, '\fpcm\model\abstracts\spamCaptcha')) {
             return \fpcm\classes\loader::getObject($class);
         }
 
@@ -117,7 +125,7 @@ final class components {
         if (!$return instanceof fileupload\uploader) {
             return new fileupload\uppy();
         }
-        
+
         return $return;
     }
 
@@ -152,4 +160,5 @@ final class components {
     {
         return new lightbox\photoswipe();
     }
+
 }

@@ -70,11 +70,6 @@ trait lists {
      * @var bool
      */
     protected $showDraftStatus = true;
-    /**
-     *
-     * @var bool
-     */
-    protected $showTwitter = false;
 
     /**
      *
@@ -133,13 +128,10 @@ trait lists {
 
             return true;
         }
-        
-        
-        
+
         $showCommentsStatus = $this->config->system_comments_enabled;
         $showSharesCount = $this->config->system_share_count;
         $showDeleteButton = $this->permissions->article->delete && !($this->isTrash ?? false);
-        $showTwitterButton = $this->showTwitter;
 
         /* @var $article \fpcm\model\articles\article */
         foreach ($this->items as $articleMonth => $articles) {
@@ -164,7 +156,7 @@ trait lists {
                             ->addItem( (new \fpcm\view\helper\openButton('articlefe'))->setUrlbyObject($article)->setTarget(\fpcm\view\helper\linkButton::TARGET_NEW) )
                             ->addItem( (new \fpcm\view\helper\editButton('articleedit'))->setUrlbyObject($article) );
                 
-                $this->getExtLineMenu($buttons, $article, $showDeleteButton, $showTwitterButton);
+                $this->getExtLineMenu($buttons, $article, $showDeleteButton);
 
                 $title = [
                     '<strong>' . strip_tags($article->getTitle()) . '</strong>',
@@ -262,7 +254,6 @@ trait lists {
         \fpcm\view\helper\controlgroup &$buttons,
         \fpcm\model\articles\article $article,
         bool $showDeleteButton,
-        bool $showTweetButton = false,
     ) : bool
     {
         $extMenuOptions = [];
@@ -275,23 +266,10 @@ trait lists {
                 ->setReadonly($article->getEditPermission())
                 ->setData($article->getArticleCacheParams());
             
-
-        
-            if ($showTweetButton) {
-
-                $extMenuOptions[] = (new \fpcm\view\helper\dropdownItem('newtweet'.$article->getId(), 'newtweet'.$article->getId()))
-                    ->setText('ARTICLE_LIST_NEWTWEET')
-                    ->setIcon('twitter', 'fab')
-                    ->setIconOnly()
-                    ->setClass('fpcm-ui-article-twitter-single')
-                    ->setData(['articleid' => $article->getId()]);
-                
-            }
-            
-            if ($showDeleteButton || $showTweetButton) {
+            if ($showDeleteButton) {
                 $extMenuOptions[] = new \fpcm\view\helper\dropdownSpacer();
             }
-            
+
         }
 
         if ($showDeleteButton) {

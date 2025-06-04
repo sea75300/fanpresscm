@@ -1,6 +1,6 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
 <fieldset class="mb-2">
-    <legend><?php $theView->write('SYSTEM_OPTIONS_TWITTER_CREDENTIALS'); ?></legend>
+    <legend><?php $theView->write('GLOBAL_CREDENTIALS'); ?></legend>
 
     <div class="row my-2">
         <div class="col-12 col-md-8">

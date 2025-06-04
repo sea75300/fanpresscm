@@ -9,14 +9,14 @@ namespace fpcm\model\pubtemplates;
 
 /**
  * Public comment template file object
- * 
+ *
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\model\system
  */
 final class comment extends template {
-    
+
     const TEMPLATE_ID = 'comment';
 
     /**
@@ -58,7 +58,13 @@ final class comment extends template {
             return false;
         }
 
-        $this->replacementTags = $this->events->trigger('template\parseComment', $this->replacementTags)->getData();
+        $ev = $this->events->trigger('template\parseComment', $this->replacementTags);
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event template\parseComment failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return false;
+        }
+
+        $this->replacementTags = $ev->getData();
 
         $content = $this->content;
 
@@ -87,7 +93,7 @@ final class comment extends template {
         foreach ($tags as $replacement => $value) {
 
             $splitTags = explode(':', $replacement);
-            
+
             $values = [];
             $this->parseTag($splitTags[0], $value, $values, $replacement);
             if (!count($values)) {
@@ -117,7 +123,7 @@ final class comment extends template {
     }
 
     /**
-     * Assigns template variables by object of type @see \fpcm\model\comments\comment 
+     * Assigns template variables by object of type @see \fpcm\model\comments\comment
      * @param \fpcm\model\comments\comment $comment
      * @param int $index
      * @return bool
@@ -135,7 +141,7 @@ final class comment extends template {
             '{{mentionid}}' => 'id="c' . $index . '"',
             '{{mention}}:{{/mention}}' => $index
         ]);
-        
+
         return true;
     }
 

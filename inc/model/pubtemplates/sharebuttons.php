@@ -290,5 +290,3 @@ final class sharebuttons extends template {
     }
     
 }
-
-?>

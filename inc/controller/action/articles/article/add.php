@@ -28,8 +28,6 @@ class add extends base {
 
     public function process()
     {
-        $this->article->enableTweetCreation($this->config->twitter_events['create']);
-
         parent::process();
 
         $this->view->setFormAction('articles/add');

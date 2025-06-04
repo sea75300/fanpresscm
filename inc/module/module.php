@@ -251,7 +251,13 @@ class module {
      */
     public function getConfigViewVars() : array
     {
-        $res = \fpcm\classes\loader::getObject('\fpcm\events\events')->trigger('modules\configure', $this->mkey)->getData();
+        $ev = \fpcm\events\events::getInstance()->trigger('modules\configure', $this->mkey);
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event modules\configure failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return [];
+        }
+
+        $res = $ev->getData();
         return is_array($res) && count($res) ? $res : [];
     }
 
@@ -278,7 +284,6 @@ class module {
 
         $this->systemConfig->init();
         $this->cache->cleanup();
-
         return true;
     }
 
@@ -413,7 +418,7 @@ class module {
         if (!$removeVersion) {
             return false;
         }
-        
+
         return version_compare($removeVersion, $this->config->version, '=') ? false : true;
     }
 
@@ -672,7 +677,13 @@ class module {
             return false;
         }
 
-        if (!\fpcm\classes\loader::getObject('\fpcm\events\events')->trigger('modules\installAfter', $this->mkey)->getData()) {
+        $ev = \fpcm\events\events::getInstance()->trigger('modules\installAfter', $this->mkey);
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event modules\installAfter failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return [];
+        }
+
+        if (!$ev->getData()) {
             return false;
         }
 
@@ -982,7 +993,13 @@ class module {
             return false;
         }
 
-        if (!\fpcm\classes\loader::getObject('\fpcm\events\events')->trigger('modules\updateAfter', $this->mkey)->getData()) {
+        $ev = \fpcm\events\events::getInstance()->trigger('modules\updateAfter', $this->mkey);
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event modules\updateAfter failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return [];
+        }
+
+        if (!$ev->getData()) {
             return false;
         }
 
@@ -1191,17 +1208,17 @@ class module {
         });
 
         $migrations = array_filter($migrations, function ($class) {
-            
+
             if (!class_exists($class)) {
                 trigger_error(sprintf('Class not found %s', $class), E_USER_ERROR);
                 return false;
             }
-            
+
             if (!is_subclass_of($class, '\\fpcm\\module\\migration')) {
                 trigger_error(sprintf('Class %s must be an instance of \\fpcm\\module\\migration', $class), E_USER_ERROR);
                 return false;
             }
-            
+
             return true;
         });
 
@@ -1360,7 +1377,7 @@ class module {
         if (str_ends_with($migration, '.php')) {
             $migration = basename($migration, '.php');
         }
-        
+
         return "\\fpcm\\modules\\" . str_replace('/', '\\', $key) . "\\migrations\\{$migration}";
     }
 

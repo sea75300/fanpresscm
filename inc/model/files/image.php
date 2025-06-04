@@ -326,7 +326,13 @@ implements \fpcm\model\interfaces\validateFileType,
         $saveValues = $this->getSaveValues();
         $saveValues['filesize'] = (int) $saveValues['filesize'];
 
-        return $this->dbcon->insert($this->table, $this->events->trigger('image\save', $saveValues)->getData());
+        $ev = $this->events->trigger('image\save', $saveValues);
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event image\save failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return [];
+        }
+
+        return $this->dbcon->insert($this->table, $ev->getData());
     }
 
     /**
@@ -345,9 +351,14 @@ implements \fpcm\model\interfaces\validateFileType,
         $saveValues['userid'] = (int) $saveValues['userid'];
 
         $saveValues[] = $this->filename;
-        $saveValues = $this->events->trigger('image\update', $saveValues)->getData();
 
+        $ev = $this->events->trigger('image\update', $saveValues);
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event image\save failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return false;
+        }
 
+        $saveValues = $ev->getData();
         return $this->dbcon->update($this->table, $this->dbParams, array_values($saveValues), "filename = ?");
     }
 
@@ -463,7 +474,12 @@ implements \fpcm\model\interfaces\validateFileType,
             return false;
         }
 
-        $this->events->trigger('image\thumbnailCreate', $this)->getData();
+        $ev = $this->events->trigger('image\thumbnailCreate', $this);
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event image\thumbnailCreate failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return false;
+        }
+
         if (!file_exists($fullPath)) {
             trigger_error('Unable to create thumbnail: ' . $this->getThumbnail());
             return false;
@@ -694,12 +710,12 @@ implements \fpcm\model\interfaces\validateFileType,
         /* @var $copy image */
         $copy = new $cn( $this->language->translate('GLOBAL_COPY_OF_FILE', [basename($this->filename)], true), false );
         $copy->addUploadFolder();
-        
-        $subFolderbase = basename(dirname($copy->getFullpath()));        
+
+        $subFolderbase = basename(dirname($copy->getFullpath()));
         if ($this->config->file_subfolders && !str_starts_with($copy->getFilename(), $subFolderbase)) {
             $copy->setFilename(basename(dirname($copy->getFullpath())) . DIRECTORY_SEPARATOR . $copy->getFilename());
         }
-        
+
         $copy->setAltText($this->alttext);
         $copy->setUserid(\fpcm\model\system\session::getInstance()->getUserId());
         $copy->setFiletime(time());
@@ -719,7 +735,7 @@ implements \fpcm\model\interfaces\validateFileType,
         if (!(new imagelist())->createFilemanagerThumbs([$copy->getFullpath()])) {
             return 0;
         }
-        
+
         return $copy->save() ?: 0;
     }
 

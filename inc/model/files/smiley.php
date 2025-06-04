@@ -187,11 +187,14 @@ final class smiley extends \fpcm\model\abstracts\file implements \JsonSerializab
             return false;
         }
 
-        $saveValues = $this->getSaveValues();
-        $saveValues = $this->events->trigger('smileySave', $saveValues)->getData();
+        $ev = $this->events->trigger('smileySave', $this->getSaveValues());
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event smileySave failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return false;
+        }
 
         $this->cache->cleanup();
-        return $this->dbcon->insert($this->table, $saveValues);
+        return $this->dbcon->insert($this->table, $ev->getData());
     }
 
     /**
@@ -204,8 +207,13 @@ final class smiley extends \fpcm\model\abstracts\file implements \JsonSerializab
             return false;
         }
 
-        $saveValues = $this->getSaveValues();
-        $saveValues = $this->events->trigger('smileyUpdate', $saveValues)->getData();
+        $ev = $this->events->trigger('smileyUpdate', $this->getPreparedSaveParams());
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event smileyUpdate failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return false;
+        }
+
+        $saveValues = $ev->getData();
         
         $fields = array_keys($saveValues);
         $saveValues[] = $this->getId();

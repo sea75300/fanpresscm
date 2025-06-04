@@ -9,7 +9,7 @@ namespace fpcm\model\theme;
 
 /**
  * ACP navigation Objekt
- * 
+ *
  * @author Stefan Seehafer aka imagine <sea75300@yahoo.de>
  * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
@@ -22,7 +22,7 @@ class navigation extends \fpcm\model\abstracts\staticModel {
      * @var navigationList
      * @since 4.5
      */
-    private $navList;
+    private navigationList $navList;
 
     /**
      * Constructor
@@ -30,18 +30,25 @@ class navigation extends \fpcm\model\abstracts\staticModel {
      */
     public function __construct(?string $activeNavItem = '')
     {
-        parent::__construct();        
+        parent::__construct();
         $this->navList = new navigationList($activeNavItem);
     }
-    
+
     /**
-     * Navigation rendern
-     * @return array
+     * Render navigation
+     * @return navigationList
      */
-    public function render()
+    public function render() : navigationList
     {
         $this->getNavigation();
-        return $this->events->trigger('navigation\render', $this->navList)->getData();
+
+        $ev = $this->events->trigger('navigation\render', $this->navList);
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event navigation\render failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return $this->navList;
+        }
+
+        return $ev->getData();
     }
 
     /**
@@ -90,12 +97,12 @@ class navigation extends \fpcm\model\abstracts\staticModel {
                 navigationItem::AREA_COMMENTS,
                 $commentItem
             );
-        }   
+        }
 
         $this->navList->add(
             navigationItem::AREA_FILEMANAGER,
             (new navigationItem())->setUrl('files/list&mode=1')->setDescription('HL_FILES_MNG')
-            ->setIcon('folder-open')->setAccessible($this->permissions->uploads->visible)    
+            ->setIcon('folder-open')->setAccessible($this->permissions->uploads->visible)
         );
 
         $this->navList->add(
@@ -115,7 +122,13 @@ class navigation extends \fpcm\model\abstracts\staticModel {
 
         $this->addUtilitiesItem();
 
-        return $this->events->trigger('navigation\add', $this->navList)->getData();
+        $ev = $this->events->trigger('navigation\add', $this->navList);
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event navigation\add failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return $this->navList;
+        }
+
+        return $ev->getData();
     }
 
     /**
@@ -127,7 +140,7 @@ class navigation extends \fpcm\model\abstracts\staticModel {
         if (!$this->permissions->system->options) {
             return true;
         }
-        
+
         $submenu = [];
 
         if ($this->permissions->system->csvimport) {
@@ -141,7 +154,7 @@ class navigation extends \fpcm\model\abstracts\staticModel {
         if (!count($submenu)) {
             return false;
         }
-                
+
         $this->navList->add(
             navigationItem::AREA_TRASH,
             (new navigationItem())->setUrl('#')->setDescription('Werkzeuge')
@@ -246,7 +259,14 @@ class navigation extends \fpcm\model\abstracts\staticModel {
      */
     private function modulesSubmenu()
     {
-        $items = $this->events->trigger('navigation\addSubmenuModules')->getData();
+
+        $ev = $this->events->trigger('navigation\addSubmenuModules');
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event navigation\addSubmenuModules failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return $this->navList;
+        }
+
+        $items = $ev->getData();
         if (!is_array($items) || !count($items)) {
             return [];
         }

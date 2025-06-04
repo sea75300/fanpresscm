@@ -288,11 +288,13 @@ implements \fpcm\model\interfaces\gsearchIndex {
 
         $combination = $conditions->combination ? $conditions->combination : 'AND';
 
-        return $this->dbcon->count(
-            $this->table,
-            '*',
-            $this->events->trigger('comments\getByConditionCount', implode(" {$combination} ", $where))->getData()
-        );
+        $ev = $this->events->trigger('comments\getByConditionCount', implode(" {$combination} ", $where));
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event comments\getByConditionCount failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return false;
+        }
+
+        return $this->dbcon->count($this->table, '*', $ev->getData());
     }
 
     /**
@@ -345,11 +347,17 @@ implements \fpcm\model\interfaces\gsearchIndex {
             return false;
         }
 
-        $result = $this->events->trigger('comments\massEditBefore', [
+        $ev = $this->events->trigger('comments\massEditBefore', [
             'fields' => $fields,
             'commentIds' => $commentIds
-        ])->getData();
+        ]);
 
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event comments\massEditBefore failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return false;
+        }
+
+        $result = $ev->getData();
         if (!count($result) || !isset($result['fields']) || !isset($result['commentIds'])) {
             return false;
         }

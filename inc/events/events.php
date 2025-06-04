@@ -22,7 +22,7 @@ final class events implements \fpcm\model\interfaces\isObjectInstancable {
      * @param mixed $dataParams
      * @return mixed|\fpcm\module\eventResult
      */
-    public function trigger($eventName, $dataParams = null)
+    public function trigger($eventName, $dataParams = null) : \fpcm\module\eventResult
     {
         if (!\fpcm\classes\baseconfig::dbConfigExists() || \fpcm\classes\baseconfig::installerEnabled()) {
             return (new \fpcm\module\eventResult())->setData($dataParams);

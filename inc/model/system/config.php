@@ -72,9 +72,6 @@ use fpcm\model\traits\eventModuleEmpty;
  * @property string $file_view File manager view
  * @property string $file_cropper_name Image editor file name
  * 
- * @property conf\twitterSettings  $twitter_data Twitter conenctions ettings
- * @property conf\twitterEvents    $twitter_events Events for new twitter posts
- * 
  * @property bool                  $smtp_enabled E-mail-submission via SMTP server
  * @property conf\smtpSettings     $smtp_settings SMTP settings
  * 
@@ -155,7 +152,13 @@ final class config extends dataset implements \fpcm\model\interfaces\isObjectIns
             return false;
         }
 
-        $params = $this->events->trigger('configUpdate', $this->newConfig)->getData();
+        $ev = $this->events->trigger('configUpdate', $this->newConfig);
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event configUpdate failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return false;
+        }
+
+        $params = $ev->getData();        
 
         $data = [];
         $where = [];
@@ -261,8 +264,6 @@ final class config extends dataset implements \fpcm\model\interfaces\isObjectIns
             $this->data[$data->config_name] = $data->config_value;
         }
 
-        $this->data['twitter_data'] = new conf\twitterSettings($this->data['twitter_data']);
-        $this->data['twitter_events'] = new conf\twitterEvents($this->data['twitter_events']);
         $this->data['smtp_settings'] = new conf\smtpSettings($this->data['smtp_settings']);
 
         return true;
@@ -304,24 +305,6 @@ final class config extends dataset implements \fpcm\model\interfaces\isObjectIns
 
         if (isset($this->newConfig['system_editor'])) {
             $this->newConfig['system_editor'] = base64_decode($this->newConfig['system_editor']);
-        }
-
-        if (isset($this->newConfig['twitter_events'])) {
-            
-            if (!$this->newConfig['twitter_events'] instanceof conf\twitterEvents) {
-                $this->newConfig['twitter_events'] = new conf\twitterEvents($this->newConfig['twitter_events'], $this->data['twitter_events']);
-            }
-
-            $this->newConfig['twitter_events'] = $this->newConfig['twitter_events']->toJSON();
-        }
-
-        if (isset($this->newConfig['twitter_data'])) {
-            
-            if (!$this->newConfig['twitter_data'] instanceof conf\twitterSettings) {
-                $this->newConfig['twitter_data'] = new conf\twitterSettings($this->newConfig['twitter_data'], $this->data['twitter_data']);
-            }
-
-            $this->newConfig['twitter_data'] = $this->newConfig['twitter_data']->toJSON();
         }
 
         if (isset($this->newConfig['smtp_settings']) && is_array($this->newConfig['smtp_settings'])) {
@@ -434,24 +417,6 @@ final class config extends dataset implements \fpcm\model\interfaces\isObjectIns
     {
         preg_match('/([0-9]).([0-9])/i', $this->data['system_version'], $matches);
         return $matches[1].$matches[2];
-    }
-
-    /**
-     * Disables Twitter connection
-     * @return bool
-     * @since 4.5-rc2
-     */
-    final public function disableTwitter() : bool
-    {
-        $this->twitter_data->reset();
-        $this->twitter_events->reset();
-
-        $this->setNewConfig([
-            'twitter_data' => $this->twitter_data->toJSON(),
-            'twitter_events' => $this->twitter_events->toJSON()
-        ]);
-
-        return $this->update();
     }
 
     /**

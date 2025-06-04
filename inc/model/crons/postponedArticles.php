@@ -49,29 +49,6 @@ class postponedArticles extends \fpcm\model\abstracts\cron {
             )
         ]);
 
-        $config = \fpcm\classes\loader::getObject('\fpcm\model\system\config');
-        if (!\fpcm\classes\baseconfig::canConnect() || (!$config->twitter_events->create && !$config->twitter_events->update)) {
-            return true;
-        }
-
-        $failed = [];
-        
-        foreach ($articles as $article) {
-            
-            /* @var $article \fpcm\model\articles\article */
-            if ($article->createTweet(true)) {
-                continue;
-            }
-
-            $failed[] = $article->getId();
-            sleep(1);
-        }
-
-        if (!count($failed)) {            
-            return true;
-        }
-
-        trigger_error('Failed to create tweets for postponed articles. Affected article ids: ' . PHP_EOL . implode(', ', $failed));
         return true;
     }
 

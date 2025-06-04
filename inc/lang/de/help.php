@@ -33,9 +33,6 @@ Help language file
                 <dt>Team-Kontakte:</dt>
                 <dd class="pb-2">Dieser Container beinhaltet eine Liste aller aktiven Benutzer mit der Möglichkeit, dies eine
                 E-Mail zu verfassen.</dd>
-                <dt>Letzte Tweets:</dt>
-                <dd class="pb-2">Bei eingerichteter Twitter-Verbindung werden in diesem Container (standardmäßig) bis zu 25 deiner
-                letzten Tweets und Retweets angezeigt. Werden deine Beiträge retweetet oder geliked, werden diese entsprechend markiert.</dd>
             </dl>
 
             <h3 class="pt-5 fs-1">Container-Funktionen</h3>
@@ -93,16 +90,6 @@ Help language file
                 Quellen von Bildern, Videos etc. oder zu weiterführenden Informationen angeben. Links werden so weit es geht automatisch in HTML-Links umgewandelt.</dd>
             <dd class="pb-2">Einträge im Quellenverzeichnis werden gespeichert und bei Übereinstimmung zur Auswahl angezeigt. Über den Button 
                 "Quellenverzeichnis-Einträge" <span class="btn btn-sm btn-outline-dark"><span class="fpcm-ui-icon fa fa-fw fa-pen"></span></span> können die Einträge aus der Autovervollständigung entfernt werden.</dd>
-
-            <dt>Tweet erzeugen:</dt>
-            <dd class="pb-2">Über diese Option kann die Erzeugung eines Tweets bei aktiver Twitter-Verbindung manuell
-                deaktiviert werden, wenn sie in den Systemoptionen aktiviert wurde.</dd>
-
-            <dd class="pb-2">Über das Textfeld kann das Standard-Template für einen Beitrag bei Twitter
-                überschrieben und durch einen eigenen Text ersetzt werden. Der Inhalt dieses Feldes wird nicht gespeichert.
-                Das Dropdown <span class="btn btn-sm btn-outline-dark"><span class="fpcm-ui-icon fa fa-fw fa-square-plus"></span></span> bietet einen Schnellzugriff auf die Template-Platzhalter. Über die Checkbox am Ende kann zudem festgelegt werden,
-                ob beim nächsten Speicher-Vorgang der Tweet erzeugt wird oder nicht.
-            </dd>
 
             <dt>Artikel freischalten:</dt>
             <dd class="pb-2">Mittels dieser Option kannst du einen neuen Artikel verfassen und zu einem bestimmten
@@ -168,7 +155,7 @@ Help language file
             <dd class="pb-2">Über diesen Button <span class="btn btn-sm btn-outline-dark"><span class="fpcm-ui-icon fa fa-fw fa-play"></span></span> wird der aktuell im Editor geöffnete Artikel im Frontend, d. h. auf deiner Webseite geöffnet.</dd>
             <dt>Kurzlink</dt>
             <dd class="pb-2">Über diesen Button <span class="btn btn-sm btn-outline-dark"><span class="fpcm-ui-icon fa fa-fw fa-external-link-square-alt"></span></span> ist es bei gespeicherten Artikeln möglich, die URL über den Dienst <a rel="noreferrer,noopener,external" href=http://is.gd>is.gd</a> kürzen
-            zu lassen und bei Twitter etc. zu nutzen. Der genutzte Dienst kann über ein Modul-Event geändert werden.</dd>
+            zu lassen und bei sozialen Netzwerken etc. zu nutzen. Der genutzte Dienst kann über ein Modul-Event geändert werden.</dd>
             <dt>Artikelbild anzeigen</dt>
             <dd class="pb-2">Wurde für den Artikel ein Artikelbild definiert, so kann dieses über diese Schaltfläche <span class="btn btn-sm btn-outline-dark"><span class="fpcm-ui-icon fa fa-fw fa-image"></span></span> angezeigt werden.</dd>
             <dt>Bearbeiten (Kommentare)</dt>
@@ -268,9 +255,6 @@ Help language file
             rechten Seite einer Zeile wird der jeweilige Wert angegeben. Der Button "Filter zurücksetzen" führt eine Aktualisierung der
             aktuellen Ansicht durch. Hierdurch werden die Filter-Einstellungen komplett zurückgesetzt.
             </dd>
-            <dt>Neuen Tweet erzeugen:</dt>
-            <dd class="pb-2">Für den bzw. die ausgewählten Artikel neue Posts bei Twitter erzeugen, wenn Verbindung
-            zu Twitter eingerichtet wurde.</dd>
             <dt>Löschen:</dt>
             <dd class="pb-2">Den bzw. die ausgewählten Artikel löschen.</dd>
             <dt>Artikel-Cache leeren:</dt>
@@ -724,27 +708,6 @@ Help language file
             </dd>
         </dl>
 
-        <h3 class="pt-5 fs-1">Twitter-Verbindung</h3>
-        
-        <p>Dieses Register dient der Einrichtung und Überwachung der Twitter-Anbindung von FanPress-CM. Die Anleitung zur Einrichtung erreichst
-        du über das Hilfe-Icon neben dem Button <strong>API-Schlüssel und/oder Token anfordern</strong>.</p>
-        
-        <dl>
-            <dt>Verbindungsstatus:</dt>
-            <dd class="pb-2">In diesem Bereich sieht du, ob bereits eine Verbindung zu Twitter hergestellt wurde oder ob diese
-            noch eingerichtet werden muss. Wurde die Verbindung noch die aktiviert, so findest du hier den Button
-            <strong>API-Schlüssel und/oder Token anfordern</strong>. Ansonsten steht hier, welcher Benutzername bei Twitter verwendet wird und die
-            Verbindung kann hier deaktiviert werden.</dd>
-            <dt>Tweet zu Artikel erzeugen beim:</dt>
-            <dd class="pb-2">Über die beiden Punkte kann festgelegt werden, wann neue Tweets nur beim Veröffentlichen bzw. Ändern
-            eines Artikels oder beiden Aktionen erzeugt werden sollen.</dd>
-            <dt>Tweet-Timeline abrufen:</dt>
-            <dd class="pb-2">Über diese Option kann der Timeline-Container im Startbildschirm dauerhaft deaktiviert werden..</dd>
-            <dt>Zugangsdaten:</dt>
-            <dd class="pb-2">Diese Eingabe-Felder beinhalten die Informationen, welche für den erfolgreichen Zugriff auf die
-            Twitter-API benötigt werden. Welche Daten hier eingetragen werden müssen, erfährst du in der Hilfe zur Einrichtung.</dd>
-        </dl>
-
         <h3 class="pt-5 fs-1">Systemprüfung</h3>
         
         <p>Über die Systemprüfung kannst du deine aktuelle Installation auf mögliche Fehlkonfigurationen prüfen lassen.</p>
@@ -1009,8 +972,6 @@ Help language file
             <dd class="pb-2">Template für die Darstellung der Share-Buttons in Artikeln.</dd>
             <dt>Latest News:</dt>
             <dd class="pb-2">Template für die einzelnen Zeilen in den "Latest News".</dd>
-            <dt>Tweet:</dt>
-            <dd class="pb-2">HTML-freies Template für automatisch erzeugte Einträge bei Twitter (Tweets).</dd>
             <dt>Vorlagen:</dt>
             <dd class="pb-2">HTML-Vorlagen zu Nutzung im Artikel-Editor. (TinyMCE bzw. HTML-Ansicht).</dd>
         </dl>
@@ -1262,81 +1223,6 @@ Help language file
         </dl>
         
         ]]>
-    </chapter>
-    <chapter ref="SYSTEM_HL_OPTIONS_TWITTER">
-        
-        <description>
-        <![CDATA[
-            <p>FanPress CM bietet dir die Möglichkeit, beim Schreiben/
-            Aktualisieren eines Artikels automatisch einen Tweet bei Twitter
-            erzeugen zu lassen.</p>
-            <p>Um die Verbindung zu Twitter herzustellen, führe die folgenden
-            Schritte durch.</p>
-            <p>FanPress CM nutzt derzeit Version 1.1 der Twitter-API!</p>
-        ]]>        
-        </description>
-
-        <step id="1" title="Schritt 1" btn-href="https://twitter.com/login" btn-descr="Twitter.com öffnen">
-        <![CDATA[
-            Logge dich zuerst über die Twitter-Webseite ganz normal ein.
-        ]]>
-        </step>
-        <step id="2" title="Schritt 2" btn-href="https://twitter.com/settings/connected_apps" btn-descr="App-Verwaltung öffnen">
-        <![CDATA[
-            Öffne nun die App-Verwaltung von Twitter.
-        ]]>
-        </step>
-        <step id="3" title="Schritt 3" btn-href="https://developer.twitter.com/en/portal/projects-and-apps" btn-descr="Developer Portal öffnen">
-        <![CDATA[
-            Rufe nun das Developer Portal auf, lege ein neues Projekt an
-            (z. B. FanPress CM) und erstelle eine neue App. Führe dazu
-            den Assistenten von Twitter durch.
-            
-            <p class="alert alert-warning mt-3">Zum Anlegen einer App muss eine gültige
-            Telefonnummer in deinem profil hinterlegt sein.</p>
-        ]]>
-        </step>
-        <step id="4" title="Schritt 4">
-        <![CDATA[
-            <p>
-                Rufe den Punkt <span class="btn btn-sm btn-outline-dark">User 
-                authentication settings</span> und führe den Assistenten zur 
-                Einrichtung eines App-Logins durch. Sichere die "Client ID" und
-                "Client Secret" - diese müssen du später in den Systemeinstellungen
-                von FanPress CM hinterlegt werden.
-            </p>
-            <p>Wähle als "App-Type" den Eintrag "Web App, Automated App or Bot".</p>
-            <p>FanPress CM benötigt Lese- und Schreibrechte.</p>
-        ]]>
-        </step>
-        <step id="5" title="Schritt 5">
-        <![CDATA[
-            Öffne das Register "Keys and tokens" udn erzeuge ein "Access Token 
-            and Secret" über den Button <span class="btn btn-sm btn-outline-dark">Generate</span>.
-        ]]>
-        </step>
-        <step id="6" title="Schritt 6">
-        <![CDATA[
-            Öffne nun die Systemeinstellungen in FanPress CM und das Register 
-            "Twitter". Trage dort die Schlüssel in die entsprechenden Felder
-            ein:
-            
-            <ul>
-                <li>Consumer Key (API Key)</li>
-                <li>Consumer Secret (API Secret)</li>
-                <li>Access Token</li>
-                <li>Access Token Secret</li>
-                
-            </ul>
-        ]]>
-        </step>
-        <step id="7" title="Schritt 7">
-        <![CDATA[
-            Speichere nun die Systemeinstellungen. Wurden alle Schritte korrekt
-            durchgeführt, erhälst du eine Erfolgsmeldung, dass die Verbindung
-            hergestellt werden konnte.
-        ]]>
-        </step>
     </chapter>
     <chapter ref="ARTICLES_TRASH">
         <![CDATA[

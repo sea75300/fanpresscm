@@ -2,7 +2,7 @@
 
 /**
  * Public template file object
- * 
+ *
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
@@ -12,14 +12,14 @@ namespace fpcm\model\pubtemplates;
 
 /**
  * generisches Template Objekt
- * 
+ *
  * @package fpcm\model\system
  * @author Stefan Seehafer <sea75300@yahoo.de>
  */
 class template extends \fpcm\model\abstracts\file {
-    
+
     const FETCH_REGEX = '/\{{2}((\w*\s?)((?>\w*\=\".*\"\s?)*))\}{2}/i';
-    
+
     /* const FETCH_REGEX_ALT = '/\{{2}(((ABC|DEB)\s?)((?>\w*\=\".*\"\s?)*))\}{2}/i'; */
 
     /**
@@ -73,7 +73,7 @@ class template extends \fpcm\model\abstracts\file {
     protected $tagMatches = [];
 
     /**
-     * 
+     *
      * Konstruktor
      * @param string $filename
      */
@@ -139,7 +139,7 @@ class template extends \fpcm\model\abstracts\file {
     {
         return $this->replacementAttributesMap;
     }
-        
+
     /**
      * Fügt erlaubte HTML-Tags hinzu
      * @param array $allowedTags
@@ -206,7 +206,17 @@ class template extends \fpcm\model\abstracts\file {
             return false;
         }
 
-        $this->content = $this->events->trigger('template\save', ['file' => $this->fullpath, 'content' => $this->content])->getData()['content'];
+        $ev = $this->events->trigger('template\save', templateData(
+            $this->fullpath,
+            $this->content
+        ));
+
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event template\save failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return false;
+        }
+
+        $this->content = $ev->getData()->content;
         if (!$this->writeContent()) {
             trigger_error('Unable to update template ' . $this->fullpath);
             return false;
@@ -227,7 +237,13 @@ class template extends \fpcm\model\abstracts\file {
             return false;
         }
 
-        $this->replacementTags = $this->events->trigger('template\parse', $this->replacementTags)->getData();
+        $ev = $this->events->trigger('template\parse', $this->replacementTags);
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event template\parse failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return false;
+        }
+
+        $this->replacementTags = $ev->getData();
 
         $tags = array_merge($this->replacementInternal, $this->replacementTags);
         return \fpcm\classes\tools::strReplaceArray($this->content, $tags);
@@ -296,9 +312,16 @@ class template extends \fpcm\model\abstracts\file {
         if (!$this->exists()) {
             return false;
         }
-        
+
         $this->loadContent();
-        $this->allowedTags = $this->events->trigger('pub\templateHtmlTags', $this->allowedTags)->getData();
+
+        $ev = $this->events->trigger('pub\templateHtmlTags', $this->allowedTags);
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event pub\templateHtmlTags failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return false;
+        }
+
+        $this->allowedTags = $ev->getData();
     }
 
     /**
@@ -340,7 +363,7 @@ class template extends \fpcm\model\abstracts\file {
             trigger_error('No replacement attributes defined for "'.$var.'"!');
             return [];
         }
-        
+
         if (count($this->replacementAttributes)) {
             return $this->replacementAttributes;
         }
@@ -349,7 +372,7 @@ class template extends \fpcm\model\abstracts\file {
         if (!preg_match_all("/(\{\{)({$var})(\s)(.+)(\}\})/m", $this->content, $matches)) {
             return [];
         }
-        
+
 
         if (!isset($matches[4])) {
             return [];
@@ -396,12 +419,12 @@ class template extends \fpcm\model\abstracts\file {
         if (!trim($tag)) {
             return false;
         }
-        
+
         $func = 'parse'.$tag;
         if (!method_exists($this, $func)) {
             return false;
         }
-        
+
         $this->{$func}($value, $return, $replacement);
         return true;
     }
@@ -430,14 +453,14 @@ class template extends \fpcm\model\abstracts\file {
     }
 
     /**
-     * 
+     *
      * @return bool
      * @ignore
      */
     protected function fetchReplaceTags() : bool
     {
         throw new Exception('Unfinished function');
-        
+
         $res = preg_match_all(self::FETCH_REGEX, $this->content, $this->tagMatches);
         if (!$res === false) {
             trigger_error('Error while fetching template tags', E_USER_ERROR);
@@ -447,19 +470,19 @@ class template extends \fpcm\model\abstracts\file {
         if ($res === 0) {
             return false;
         }
-        
+
         $replacementData = [];
 
         foreach ($this->tagMatches as $value) {
-            
+
             list($tag, $tagName, $attriutes) = $value;
             $func = 'parse'.$tagName;
             if (!method_exists($this, $func)) {
-                $this->{$func}($attriutes);            
+                $this->{$func}($attriutes);
             }
 
-            
-            
+
+
         }
     }
 

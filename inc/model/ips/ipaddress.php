@@ -9,7 +9,7 @@ namespace fpcm\model\ips;
 
 /**
  * IP adress object
- * 
+ *
  * @package fpcm\model\system
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2022, Stefan Seehafer
@@ -189,11 +189,15 @@ class ipaddress extends \fpcm\model\abstracts\dataset {
             return false;
         }
 
-        $params = $this->getPreparedSaveParams();
-        $params = $this->events->trigger('ipaddressSave', $params)->getData();
+        $sEv = $this->getEventName('save');
+        $ev = $this->events->trigger($sEv, $this->getPreparedSaveParams());
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event %s failed. Returned success = %s, continue = %s", $sEv, $ev->getSuccessed(), $ev->getContinue()));
+            return false;
+        }
 
         $return = false;
-        if ($this->dbcon->insert($this->table, $params)) {
+        if ($this->dbcon->insert($this->table, $ev->getData())) {
             $return = true;
         }
 
@@ -213,10 +217,17 @@ class ipaddress extends \fpcm\model\abstracts\dataset {
             return false;
         }
 
-        $params = $this->getPreparedSaveParams();
-        $params = $this->events->trigger('ipaddressUpdate', $params)->getData();        
-        $fields = array_keys($params);
+        $uEv = $this->getEventName('update');
+        $ev = $this->events->trigger($uEv, $this->getPreparedSaveParams());
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event %s failed. Returned success = %s, continue = %s", $uEv, $ev->getSuccessed(), $ev->getContinue()));
+            return false;
+        }
+
+        $params = $ev->getData();
         $params[] = $this->getId();
+
+        $fields = $this->getFieldFromSaveParams($params);
 
         $return = false;
         if ( $this->dbcon->update($this->table, $fields, array_values($params), 'id = ?') ) {
@@ -250,6 +261,15 @@ class ipaddress extends \fpcm\model\abstracts\dataset {
         $result = $this->dbcon->fetch($this->dbcon->select($this->table, 'count(id) AS counted', $where, $adresses));
 
         return $result->counted ? true : false;
+    }
+    
+    /**
+     * Returns event base
+     * @return string
+     */
+    protected function getEventModule(): string
+    {
+        return 'ips';
     }
 
 }

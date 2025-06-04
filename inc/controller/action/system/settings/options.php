@@ -127,11 +127,6 @@ class options extends \fpcm\controller\abstracts\controller implements \fpcm\con
         $this->view->assign('articleLimitListAcp', \fpcm\model\system\config::getAcpArticleLimits());
         $this->view->assign('defaultFontsizes', \fpcm\model\system\config::getDefaultFontsizes());
 
-        $twitter = new \fpcm\model\system\twitter();
-
-        $this->view->assign('twitterIsActive', $twitter->checkConnection());
-        $this->view->assign('twitterScreenName', $twitter->getUsername());
-
         $this->view->addJsFiles(['system/options.js', 'systemcheck.js']);
         $this->view->addJsVars([
             'runSysCheck' => $this->syscheck,
@@ -197,11 +192,6 @@ class options extends \fpcm\controller\abstracts\controller implements \fpcm\con
                 ->setFile('system/extended.php')
                 ->setTabToolbar(1)
             ,
-            (new \fpcm\view\helper\tabItem('twitter'))
-                ->setText('SYSTEM_HL_OPTIONS_TWITTER')
-                ->setFile('system/twitter.php')
-                ->setTabToolbar(1)
-            ,
             (new \fpcm\view\helper\tabItem('smtp'))
                 ->setText('SYSTEM_OPTIONS_EXTENDED_EMAILSUBMISSION')
                 ->setFile('system/smtp.php')
@@ -226,14 +216,6 @@ class options extends \fpcm\controller\abstracts\controller implements \fpcm\con
 
         $this->newconfig = $this->request->fromPOST(null);
 
-        foreach ($this->config->twitter_events as $key => $value) {
-            $this->newconfig['twitter_events'][$key] = $this->newconfig['twitter_events'][$key] ?? 0;
-        }
-
-        foreach ($this->config->twitter_data as $key => $value) {
-            $this->newconfig['twitter_data'][$key] = $this->newconfig['twitter_data'][$key] ?? '';
-        }
-
         foreach ($this->config->smtp_settings as $key => $value) {
             $this->newconfig['smtp_settings'][$key] = $this->newconfig['smtp_settings'][$key] ?? '';
         }
@@ -249,17 +231,6 @@ class options extends \fpcm\controller\abstracts\controller implements \fpcm\con
 
         if (!$this->config->update()) {
             $this->view->addErrorMessage('SAVE_FAILED_OPTIONS');
-            return false;
-        }
-
-        $this->view->addNoticeMessage('SAVE_SUCCESS_OPTIONS');
-        return true;
-    }
-
-    protected function onTwitterDisconnect() : bool
-    {
-        if (!$this->config->disableTwitter()) {
-            $this->view->addNoticeMessage('SAVE_FAILED_OPTIONS');
             return false;
         }
 

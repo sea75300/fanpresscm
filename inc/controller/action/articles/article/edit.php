@@ -111,8 +111,6 @@ class edit extends base {
      */
     public function process()
     {
-        $this->article->enableTweetCreation($this->config->twitter_events['update']);
-
         $this->commentCount = array_sum($this->commentList->countComments([$this->article->getId()]));
         $this->revisionCount = $this->article->getRevisionsCount();
 

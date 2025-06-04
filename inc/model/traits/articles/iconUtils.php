@@ -91,18 +91,6 @@ trait iconUtils {
     }
 
     /**
-     * Returns archive status icon
-     * @return \fpcm\view\helper\icon
-     */
-    public function getStatusIconTwitter()
-    {
-        return $this->getStatusColor((new \fpcm\view\helper\icon('twitter fab fa-inverse'))
-                        ->setClass('fpcm-ui-editor-metainfo fpcm-ui-editor-metainfo-twitter')
-                        ->setText('EDITOR_TWEET_ENABLED')
-                        ->setStack('square'), $this->tweetCreationEnabled());
-    }
-
-    /**
      * Returns array with all status icons
      * @param bool $showDraftStatus
      * @param bool $showCommentsStatus

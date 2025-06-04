@@ -472,10 +472,18 @@ class author extends \fpcm\model\abstracts\dataset {
             unset($params['passwd']);
         }
 
-        $fields = array_keys($params);
         $params[] = $this->getId();
 
-        $this->events->trigger($this->getEventName('update'), $params)->getData();
+        $uev = $this->getEventName('update');
+        
+        $ev = $this->events->trigger($uev, $params);
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event %s failed. Returned success = %s, continue = %s", $uev, $ev->getSuccessed(), $ev->getContinue()));
+            return false;
+        }
+
+        $params = $ev->getData();           
+        $fields = $this->getFieldFromSaveParams($params);
 
         $return = false;
         if ($this->dbcon->update($this->table, $fields, array_values($params), 'id = ?')) {

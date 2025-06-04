@@ -207,49 +207,6 @@
 </fieldset>
 <?php endif; ?>
 
-<?php if ($showTwitter && !empty($twitterReplacements) && !empty($twitterTplPlaceholder)) : ?>
-
-<hr>
-
-<fieldset class="py-3">
-
-    <div class="row">
-        <div class="col-12 col-md-10 col-lg-6">
-            <div class="input-group">
-                <label class="input-group-text col-12 col-md-6 col-lg-3">
-                    <?php $theView->icon('twitter fab'); ?>
-                    <span class="fpcm-ui-label ps-1"><?php $theView->write('EDITOR_TWEET_ENABLED'); ?></span>
-                </label>                        
-                <div class="input-group-text">
-                    <?php $theView->checkbox('article[tweet]')
-                        ->setSelected($article->tweetCreationEnabled())
-                        ->setValue($article)
-                        ->setClass('fpcm-ui-editor-metainfo-checkbox')->setData(['icon' => 'twitter'])
-                        ->setSwitch(true); ?>
-                </div>
-                <?php $theView->textInput('article[tweettxt]')
-                    ->setPlaceholder($twitterTplPlaceholder)
-                    ->setText('EDITOR_TWEET_TEXT')
-                    ->setValue('')
-                    ->setSize(280)
-                    ->setIcon('twitter', 'fab')
-                    ->setLabelTypeFloat()
-                    ->setBottomSpace(''); ?>
-
-                <?php $theView->dropdown('twitterReplacements')
-                    ->setOptions($twitterReplacements)
-                    ->setSelected('')
-                    ->setText('TEMPLATE_REPLACEMENTS')
-                    ->setIcon('square-plus')
-                    ->setIconOnly()
-                    ->setWrapper(false); ?>
-
-            </div>
-        </div>
-    </div>
-</fieldset>
-<?php endif; ?>
-
 <?php if ($showShares && count($shares)) : ?>
 
 <hr>

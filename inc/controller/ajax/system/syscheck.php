@@ -102,7 +102,20 @@ class syscheck extends \fpcm\controller\abstracts\ajaxController
      */
     private function getCheckOptions()
     {
-        return $this->events->trigger('runSystemCheck', $this->getCheckOptionsSystem())->getData();
+        $options = $this->getCheckOptionsSystem();
+        
+        $ev = $this->events->trigger('runSystemCheck', $this->getCheckOptionsSystem());
+        if (!$ev->getSuccessed()) {
+            trigger_error(sprintf("Event runSystemCheck failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return $options;
+        }
+
+        if (!$ev->getContinue()) {
+            trigger_error(sprintf("Event runSystemCheck failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return [];
+        }
+        
+        return $ev->getData();
     }
 
     /**
@@ -150,7 +163,21 @@ class syscheck extends \fpcm\controller\abstracts\ajaxController
 
     public function processCli()
     {
-        return $this->events->trigger('runSystemCheck', $this->getCheckOptionsSystem())->getData();
+        $options = $this->getCheckOptionsSystem();
+        
+        $ev = $this->events->trigger('runSystemCheck', $this->getCheckOptionsSystem());
+        if (!$ev->getSuccessed()) {
+            trigger_error(sprintf("Event runSystemCheck failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return $options;
+        }
+
+        if (!$ev->getContinue()) {
+            trigger_error(sprintf("Event runSystemCheck was stopped. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return [];
+        }
+        
+        return $ev->getData();        
+        
     }
 
     public function getOptions() : array

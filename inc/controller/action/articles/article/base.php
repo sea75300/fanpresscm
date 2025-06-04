@@ -197,8 +197,6 @@ implements \fpcm\controller\interfaces\requestFunctions
         $this->view->assign('userfields', $this->getUserFields());
         $this->view->assign('rollCodex', (new \fpcm\model\users\userRoll($this->session->getCurrentUser()->getRoll()))->getCodex());
 
-        $this->initTwitter();
-
         $this->view->assign('urlRewrite', $this->config->articles_link_urlrewrite);
         $this->view->setActiveTab($this->getActiveTab());
 
@@ -229,27 +227,6 @@ implements \fpcm\controller\interfaces\requestFunctions
                 ->setPrimary()
         );
 
-        return true;
-    }
-
-    private function initTwitter()
-    {
-        $twitter    = $this->getTwitterInstace();
-        $twitterOk  = $twitter->checkRequirements();
-
-        if ($twitterOk) {
-            $tpl = $this->getTemplateContent();
-
-            $this->view->assign('twitterTplPlaceholder', $tpl['tpl'] );
-            $this->view->assign('twitterReplacements', $tpl['vars'] );
-            $this->view->assign('showTwitter', true);
-
-            return true;
-        }
-
-        $this->view->assign('twitterTplPlaceholder', []);
-        $this->view->assign('twitterReplacements', []);
-        $this->view->assign('showTwitter', false);
         return true;
     }
 
@@ -457,14 +434,8 @@ implements \fpcm\controller\interfaces\requestFunctions
             return false;
         }
 
-        if (isset($data['tweettxt']) && $data['tweettxt']) {
-            $this->article->setTweetOverride($data['tweettxt']);
-        }
-
         $this->article->setChangetime($allTimer);
         $this->article->setChangeuser($this->session->getUserId());
-
-        $this->article->enableTweetCreation(isset($data['tweet']) ? true : false);
 
         $res = $this->article->{$fn}();
 

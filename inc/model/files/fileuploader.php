@@ -46,7 +46,13 @@ final class fileuploader extends \fpcm\model\abstracts\staticModel {
      */
     public function processUpload($userId)
     {
-        $this->uploader = $this->events->trigger('fileupload\phpBefore', $this->uploader)->getData();
+        $ev = $this->events->trigger('fileupload\phpBefore', $this->uploader);
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event fileupload\phpBefore failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return false;
+        }        
+        
+        $this->uploader = $ev->getData();
 
         $tempNames = $this->uploader['tmp_name'];
         $fileNames = $this->uploader['name'];

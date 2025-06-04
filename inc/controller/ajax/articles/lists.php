@@ -251,7 +251,6 @@ class lists extends \fpcm\controller\abstracts\ajaxController
             $this->conditions->limit = [$this->config->articles_acp_limit, \fpcm\classes\tools::getPageOffset($this->page, $this->config->articles_acp_limit)];
         }
 
-        $this->showTwitter = $this->getTwitterInstace()->checkConnection();
         return true;
     }
 
