@@ -383,13 +383,17 @@ class module {
      */
     public function hasUpdates() : bool
     {
-        $data = \fpcm\classes\loader::getObject('\fpcm\model\updater\modules')->getDataCachedByKey($this->mkey);
+        $data = \fpcm\classes\loader::getObject('\fpcm\model\updater\modules')->getDataCachedByKey($this->mkey);        
         if ($data === false) {
             return false;
         }
 
         $phpVersion = '';
         $sysVersion = '';
+
+        if ($this->config->version === null) {
+            return false;
+        }
 
         $this->getVersionStrings($phpVersion, $sysVersion, $data['requirements']);
         if (version_compare($this->config->version, $data['version'], '>=')) {
@@ -1266,7 +1270,7 @@ class module {
         }
 
         if (!isset($data['php']) || !isset($data['system'])) {
-            trigger_error('Invalid data given, missing index "ühü" and "system"');
+            trigger_error('Invalid data given, missing index "php" and "system"');
             return;
         }
 

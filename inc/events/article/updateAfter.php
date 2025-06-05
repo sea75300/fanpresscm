@@ -19,6 +19,6 @@ namespace fpcm\events\article;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\events
  */
-final class updateAfter extends \fpcm\events\abstracts\eventReturnVoid {
+final class updateAfter extends \fpcm\events\abstracts\event {
 
 }

@@ -55,7 +55,7 @@ abstract class event {
 
     /**
      * Event-Daten
-     * @var array
+     * @var mixed|\fpcm\module\eventResult
      */
     protected $data;
 
@@ -231,7 +231,7 @@ abstract class event {
     public function run() : \fpcm\module\eventResult
     {
         $this->beforeRun();
-        
+
         $eventClasses = $this->getEventClasses();
         if (!count($eventClasses)) {
             return (new \fpcm\module\eventResult())->setData($this->data);
@@ -241,7 +241,8 @@ abstract class event {
             $eventClasses = array_slice($eventClasses, 0, 1);
         }
 
-        $base = $this->getEventClassBase();
+        $c = count($eventClasses) - 1;
+        $i = 0;
 
         foreach ($eventClasses as $class) {
 
@@ -250,8 +251,13 @@ abstract class event {
                 continue;
             }
 
-            $this->fromEventResult();
             $this->processClass($class);
+
+            $i++;
+            if ($i < $c) {
+                $this->data = $this->data->getData();
+            }
+
         }
 
         return $this->data;
@@ -273,27 +279,13 @@ abstract class event {
      */
     protected function processClass(string $class) : bool
     {
-        /* @var \fpcm\module\event $module */
+        /* @var $module \fpcm\module\event */
         $module = new $class($this->data);
         if (!$this->is_a($module)) {
             return false;
         }
 
         $this->data = $module->run();
-        return true;
-    }
-
-    /**
-     * Fetch event result data from object
-     * @return bool
-     */
-    protected function fromEventResult() : bool
-    {
-        if (!$this->data instanceof \fpcm\module\eventResult) {
-            return true;
-        }
-
-        $this->data = $this->data->getData();
         return true;
     }
 

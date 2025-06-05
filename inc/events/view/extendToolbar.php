@@ -44,25 +44,12 @@ final class extendToolbar extends \fpcm\events\abstracts\event {
         /* @var \fpcm\module\event $module */
         $module = new $class($this->data->buttons);
         $r = $this->doEventbyArea($module);
+
         if ($r === false) {
             return false;
         }
 
-        $this->data->buttons = $r;
-        return true;
-    }
-
-    /**
-     * Fetch event result data from object
-     * @return bool
-     */
-    protected function fromEventResult() : bool
-    {
-        if (!$this->data instanceof \fpcm\module\eventResult) {
-            return true;
-        }
-
-        $this->data->buttons = $this->data->getData();
+        $this->data->buttons = $r->getData();
         return true;
     }
 

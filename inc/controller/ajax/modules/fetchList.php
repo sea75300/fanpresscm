@@ -210,10 +210,18 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController
         $class = ($hasUpdates ? 'text-danger' : '');
 
         $buttons = $this->getButtonsLocal($item, $hash, $hasUpdates, $hasLocalUpdates);
+        
+        if (!$config->name) {
+            $config->name = $config->key;
+        }
+        
+        if (!$config->version) {
+            $config->version = '0.0.0';
+        }
 
         return new \fpcm\components\dataView\row([
             new \fpcm\components\dataView\rowCol('buttons', implode('', $buttons)),
-            new \fpcm\components\dataView\rowCol('description', new \fpcm\view\helper\escape($config->name ), $class ),
+            new \fpcm\components\dataView\rowCol('description', new \fpcm\view\helper\escape($config->name), $class ),
             new \fpcm\components\dataView\rowCol('key', new \fpcm\view\helper\escape($key), $class ),
             new \fpcm\components\dataView\rowCol('version', new \fpcm\view\helper\escape($config->version), $class )
         ], !$item->isActive() ? 'text-body-secondary' : '');

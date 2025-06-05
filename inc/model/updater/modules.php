@@ -61,10 +61,8 @@ final class modules extends \fpcm\model\abstracts\staticModel {
             $this->list = \Spyc::YAMLLoadString($this->fileOption->read());
         }
 
-        return isset($this->list[$key]) ? $this->list[$key] : false;
+        return $this->list[$key] ?? false;
     }
 
 
 }
-
-?>
