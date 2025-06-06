@@ -22,13 +22,4 @@ namespace fpcm\events\pub;
  */
 final class prepareRssFeed extends \fpcm\events\abstracts\event {
 
-    /**
-     * Defines type of returned data
-     * @return string|bool
-     */
-    protected function getReturnType()
-    {
-        return '\DOMDocument';
-    }
-
 }

@@ -21,13 +21,4 @@ namespace fpcm\events\revision;
  */
 final class get extends \fpcm\events\abstracts\event {
 
-    /**
-     * Returns event return type definition
-     * @return string
-     */
-    protected function getReturnType()
-    {
-        return '\fpcm\model\articles\revision';
-    }
-
 }

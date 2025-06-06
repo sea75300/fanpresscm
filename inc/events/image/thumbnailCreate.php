@@ -21,13 +21,4 @@ namespace fpcm\events\image;
  */
 final class thumbnailCreate extends \fpcm\events\abstracts\event {
 
-    /**
-     * Defines type of returned data
-     * @return string
-     */
-    protected function getReturnType()
-    {
-        return '\fpcm\model\files\image';
-    }
-
 }

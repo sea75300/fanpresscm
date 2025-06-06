@@ -127,7 +127,7 @@ trait revisionUtils {
             return [];
         }
 
-        return $revisions;
+        return $revisions['revisions'];
     }
 
     /**

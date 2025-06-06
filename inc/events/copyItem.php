@@ -42,9 +42,7 @@ final class copyItem extends abstracts\event {
         unset($this->data['key']);
 
         $eventOb = new $class($this->data);
-        $return = $this->is_a($eventOb) ? $eventOb->run() : null;
-
-        return $this->toEventResult($return);
+        return $eventOb->run();
     }
 
 }

@@ -19,36 +19,6 @@ namespace fpcm\events\abstracts;
 abstract class event {
 
     /**
-     * Array returntype für Module-Event
-     * @since 3.4
-     */
-    const RETURNTYPE_ARRAY = 'array';
-
-    /**
-     * Object returntype für Module-Event
-     * @since 3.4
-     */
-    const RETURNTYPE_OBJ = 'object';
-
-    /**
-     * Object returntype für Module-Event
-     * @since 4
-     */
-    const RETURNTYPE_SCALAR = 'scalar';
-
-    /**
-     * Object returntype für Module-Event
-     * @since 4
-     */
-    const RETURNTYPE_EVENTRESULT = '\\fpcm\\module\\eventResult';
-
-    /**
-     * Object returntype für Module-Event
-     * @since 4
-     */
-    const RETURNTYPE_VOID = null;
-
-    /**
      * Base instaces a module event has to implement
      */
     const EVENT_BASE_INSTANCE = '\\fpcm\\module\\event';
@@ -157,15 +127,6 @@ abstract class event {
     }
 
     /**
-     * Defines type of returned data
-     * @return string|bool|null
-     */
-    protected function getReturnType()
-    {
-        return self::RETURNTYPE_SCALAR;
-    }
-
-    /**
      * Checks if module event class has implemented \fpcm\module\event
      * @param mixed $object
      * @return bool
@@ -241,9 +202,6 @@ abstract class event {
             $eventClasses = array_slice($eventClasses, 0, 1);
         }
 
-        $c = count($eventClasses) - 1;
-        $i = 0;
-
         foreach ($eventClasses as $class) {
 
             if (!class_exists($class)) {
@@ -252,24 +210,42 @@ abstract class event {
             }
 
             $this->processClass($class);
-
-            $i++;
-            if ($i < $c) {
-                $this->data = $this->data->getData();
+            if (!$this->data->getSuccessed() || !$this->data->getContinue()) {
+                 return $this->data;
             }
 
         }
+        
+        $this->afterRun();
 
         return $this->data;
     }
 
     /**
-     * Preprare event before running
+     * Prepare event before running
      * @return bool
      */
-    protected function beforeRun() : bool
+    protected function beforeRun() : void
     {
-        return true;
+        return;
+    }
+
+    /**
+     * After event running
+     * @return bool
+     */
+    protected function afterRun() : void
+    {
+        return;
+    }
+
+    /**
+     * Returns event params
+     * @return mixed
+     */
+    protected function getEventParams() : mixed
+    {
+        return $this->data;
     }
 
     /**
@@ -279,28 +255,18 @@ abstract class event {
      */
     protected function processClass(string $class) : bool
     {
-        /* @var $module \fpcm\module\event */
-        $module = new $class($this->data);
+        $module = new $class($this->getEventParams());
         if (!$this->is_a($module)) {
             return false;
         }
 
+        if (method_exists($this, 'doEventbyArea')) {
+            $this->data = $this->doEventbyArea($module);
+            return true;
+        }
+        
         $this->data = $module->run();
         return true;
-    }
-
-    /**
-     * Convert event result to eventResult object
-     * @param mixed $data
-     * @return \fpcm\module\eventResult
-     */
-    final protected function toEventResult(mixed $data): \fpcm\module\eventResult
-    {
-        if ($data instanceof \fpcm\module\eventResult) {
-            return $data;
-        }
-
-        return (new \fpcm\module\eventResult())->setData($data);
     }
 
     /**

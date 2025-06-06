@@ -22,34 +22,16 @@ namespace fpcm\events\view;
  */
 final class extendFields extends \fpcm\events\abstracts\event {
     
-    use \fpcm\events\traits\extendUiEvent;
-
-    /**
-     * Process class data
-     * @param string $class
-     * @return bool
-     */
-    protected function processClass(string $class) : bool
-    {
-        /* @var \fpcm\module\event $module */
-        $module = new $class($this->data);
-        $r = $this->doEventbyArea($module);
-        if ($r === false) {
-            return false;
-        }
-
-        $this->data = $r;
-        return true;
-    }    
+    use \fpcm\events\traits\extendUiEvent; 
 
     /**
      * Preprare event before running
      * @return bool
      */
-    protected function beforeRun(): bool
+    protected function beforeRun() : void
     {
+        $this->beforeRunData = $this->data;
         $this->data->area = \fpcm\classes\tools::getAreaName('form');
-        return true;
     }
 
 }

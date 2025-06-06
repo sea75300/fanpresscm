@@ -40,9 +40,7 @@ final class getModuleLog extends \fpcm\events\abstracts\event {
         }
 
         $eventOb = new $class($this->data['log'], $this->data['term']);
-        $return = $this->is_a($eventOb) ? $eventOb->run() : null;
-        
-        return $this->toEventResult($return);
+        return $eventOb->run();
     }
 
     

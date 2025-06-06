@@ -206,7 +206,7 @@ class template extends \fpcm\model\abstracts\file {
             return false;
         }
 
-        $ev = $this->events->trigger('template\save', templateData(
+        $ev = $this->events->trigger('template\save', new templateData(
             $this->fullpath,
             $this->content
         ));

@@ -21,14 +21,5 @@ namespace fpcm\events\article;
  * @since 3.1
  */
 final class prepareSearch extends \fpcm\events\abstracts\event {
-
-    /**
-     * Defines type of returned data
-     * @return string
-     */
-    protected function getReturnType()
-    {
-        return '\fpcm\model\articles\search';
-    }
-
+    
 }

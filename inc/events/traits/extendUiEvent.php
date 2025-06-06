@@ -17,13 +17,30 @@ namespace fpcm\events\traits;
  */
 trait extendUiEvent {
 
-    protected function doEventbyArea(\fpcm\module\event $module) : \fpcm\module\eventResult
+    /**
+     * ARea name
+     * @var string
+     */
+    protected string $area;
+
+    /**
+     * Data before event running
+     * @var mixed
+     */
+    protected mixed $beforeRunData;
+
+    /**
+     * Performances event call by area name
+     * @param \fpcm\module\event $module
+     * @return \fpcm\module\eventResult
+     */
+    protected function doEventbyArea(\fpcm\module\event $module) : ?\fpcm\module\eventResult
     {
-        if (!$this->is_a($module) || !method_exists($module, $this->data->area)) {            
-            return (new \fpcm\module\eventResult())->setData(false);
+        if (!method_exists($module, $this->area)) {            
+            return (new \fpcm\module\eventResult())->setData($this->getEventParams());
         }
 
-        return call_user_func([$module, $this->data->area]);
+        return call_user_func([$module, $this->area]);
     }
 
 }

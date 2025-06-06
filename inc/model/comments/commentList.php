@@ -110,11 +110,18 @@ implements \fpcm\model\interfaces\gsearchIndex {
             $where = ['1=1'];
         }
 
-        $eventData = $this->events->trigger('comments\getByCondition', [
+        $ev = $this->events->trigger('comments\getByCondition', [
             'conditions' => $conditions,
             'where' => $where,
             'values' => $valueParams
-        ])->getData();
+        ]);
+
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event %s failed. Returned success = %s, continue = %s", $beforeEvent, $ev->getSuccessed(), $ev->getContinue()));
+            return false;
+        }
+
+        $eventData = $ev->getData();
 
         $where = $eventData['where'];
         $valueParams = $eventData['values'];

@@ -28,29 +28,29 @@ final class extendToolbar extends \fpcm\events\abstracts\event {
      * Preprare event before running
      * @return bool
      */
-    protected function beforeRun() : bool
+    protected function beforeRun() : void
     {
-        $this->data->area = \fpcm\classes\tools::getAreaName('toolbar');
-        return true;
+        $this->area = \fpcm\classes\tools::getAreaName('toolbar');
+        $this->beforeRunData = $this->data;
     }
 
     /**
-     * Process class data
-     * @param string $class
+     * Returns event params
+     * @return mixed
+     */
+    protected function getEventParams() : mixed
+    {
+        return $this->data->buttons;
+    }
+
+    /**
+     * After event running
      * @return bool
      */
-    protected function processClass(string $class) : bool
+    protected function afterRun() : void
     {
-        /* @var \fpcm\module\event $module */
-        $module = new $class($this->data->buttons);
-        $r = $this->doEventbyArea($module);
-
-        if ($r === false) {
-            return false;
-        }
-
-        $this->data->buttons = $r->getData();
-        return true;
+        $this->beforeRunData->buttons = $this->data->getData();
+        $this->data->setData($this->beforeRunData);
     }
 
 }

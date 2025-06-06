@@ -359,7 +359,7 @@ class view {
 
         $toolbarButtons = $ev->getData();
         if (!$toolbarButtons instanceof \fpcm\events\view\extendToolbarResult) {
-            trigger_error("Returned data of view\extendToolbar event must be an instance of \fpcm\events\view\extendToolbarResult");
+            trigger_error("Returned data of view\\extendToolbar event must be an instance of \\fpcm\\events\\view\\extendToolbarResult");
             return false;
         }
 
@@ -1430,7 +1430,7 @@ class view {
     private function handleEventResultData(\fpcm\module\eventResult $ev, string $evName) : bool
     {
         if (!$ev->getSuccessed() || !$ev->getContinue()) {
-            trigger_error(sprintf("Event %s failed. Returned success = %s, continue = %s", $evName, $ev->getSuccessed(), $ev->getContinue()));
+            trigger_error(sprintf("Event %s failed. Returned success = %s, continue = %s", addslashes($evName), $ev->getSuccessed(), $ev->getContinue()));
             return false;
         }
 
