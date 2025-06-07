@@ -196,7 +196,7 @@ class permissions extends \fpcm\model\abstracts\dataset {
         $params[] = $this->getRollId();
 
         $upEvN = $this->getEventName('update');
-        $ev = $this->events->trigger($upEvN, $this->replacementTags);
+        $ev = $this->events->trigger($upEvN, $params);
         if (!$ev->getSuccessed() || !$ev->getContinue()) {
             trigger_error(sprintf("Event %s failed. Returned success = %s, continue = %s", $upEvN, $ev->getSuccessed(), $ev->getContinue()));
             return false;
@@ -204,7 +204,6 @@ class permissions extends \fpcm\model\abstracts\dataset {
 
         $params = $ev->getData();
         $fields = $this->getFieldFromSaveParams($params);
-
 
         $return = false;
         if ($this->dbcon->update($this->table, $fields, array_values($params), 'rollid = ?')) {
