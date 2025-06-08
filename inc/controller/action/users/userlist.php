@@ -300,6 +300,8 @@ class userlist extends \fpcm\controller\abstracts\controller
             (new \fpcm\components\dataView\column('title', 'USERS_ROLLS_NAME'))->setSize('auto'),
         ]);
 
+        $dest = $this->getControllerLink('users/list', ['rg' => 1]);
+        
         foreach($rolls AS $descr => $rollId) {
 
             $buttons = [
@@ -322,7 +324,7 @@ class userlist extends \fpcm\controller\abstracts\controller
                     ->setClass('fpcm ui-rollslist-action-delete')
                     ->setIconOnly()
                     ->setReadonly($rollId <= 3)
-                    ->setData(['oid' => $rollId, 'fn' => 'deleteRoll']);
+                    ->setData(['oid' => $rollId, 'fn' => 'deleteRoll', 'redirect' => $dest]);
 
             $dataView->addRow(
                 new \fpcm\components\dataView\row([
