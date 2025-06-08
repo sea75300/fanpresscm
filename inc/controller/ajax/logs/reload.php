@@ -136,12 +136,18 @@ class reload extends \fpcm\controller\abstracts\ajaxController
         }
 
         /* @var $log \fpcm\model\files\logfileResult */
-        $this->logObj = $this->events->trigger('logs\getModuleLog', [
+        $ev = $this->events->trigger('logs\getModuleLog', [
             'key' => $this->moduleKey,
             'log' => $this->log,
             'term' => $this->searchterm
-        ])->getData();
-
+        ]);
+        
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event ajaxRefresh failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return false;
+        }        
+        
+        $this->logObj = $ev->getData();
         if (!$this->logObj instanceof \fpcm\model\logs\logfileResult) {
             return false;
         }

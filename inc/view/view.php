@@ -337,8 +337,14 @@ class view {
             $this->defaultViewVars->profileMenuButtons = $default;
             return false;
         }
+        
+        $btns = $ev->getData();
+        if (!is_array($btns)) {
+            trigger_error("Returned data of view\extendProfileMenu event must be an array, retuning to default only!");
+            $btns = $default;
+        }
 
-        $this->defaultViewVars->profileMenuButtons = $ev->getData();
+        $this->defaultViewVars->profileMenuButtons = $btns;
         return true;
     }
 
@@ -755,7 +761,12 @@ class view {
             throw new \Exception(sprintf("Event view\renderBefore failed for %s. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue(), $this->viewPath));
         }
 
-        extract($ev->getData());
+        $vars = $ev->getData();
+        if (!is_array($vars)) {
+            throw new \Exception("Return data of view\renderBefore must be an array!");
+        }
+        
+        extract($vars);
 
         switch ($this->showHeader) {
             case self::INCLUDE_HEADER_FULL :

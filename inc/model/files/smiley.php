@@ -16,6 +16,8 @@ namespace fpcm\model\files;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 final class smiley extends \fpcm\model\abstracts\file implements \JsonSerializable {
+    
+    use \fpcm\model\traits\getFieldsParam;
 
     /**
      * ID von Datei-Eintrag in DB
@@ -207,16 +209,17 @@ final class smiley extends \fpcm\model\abstracts\file implements \JsonSerializab
             return false;
         }
 
-        $ev = $this->events->trigger('smileyUpdate', $this->getPreparedSaveParams());
+        $saveValues = $this->getSaveValues();
+        $saveValues[] = $this->getId();
+        
+        $ev = $this->events->trigger('smileyUpdate', $saveValues);
         if (!$ev->getSuccessed() || !$ev->getContinue()) {
             trigger_error(sprintf("Event smileyUpdate failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
             return false;
         }
 
         $saveValues = $ev->getData();
-        
-        $fields = array_keys($saveValues);
-        $saveValues[] = $this->getId();
+        $fields = $this->getFieldFromSaveParams($saveValues);
 
         $this->cache->cleanup();
         return $this->dbcon->update($this->table, $fields, array_values($saveValues), 'id = ?');
@@ -406,5 +409,3 @@ final class smiley extends \fpcm\model\abstracts\file implements \JsonSerializab
     }
 
 }
-
-?>

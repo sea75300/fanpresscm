@@ -117,7 +117,7 @@ implements \fpcm\model\interfaces\gsearchIndex {
         ]);
 
         if (!$ev->getSuccessed() || !$ev->getContinue()) {
-            trigger_error(sprintf("Event %s failed. Returned success = %s, continue = %s", $beforeEvent, $ev->getSuccessed(), $ev->getContinue()));
+            trigger_error(sprintf("Event comments\getByCondition failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
             return false;
         }
 
@@ -125,6 +125,7 @@ implements \fpcm\model\interfaces\gsearchIndex {
 
         $where = $eventData['where'];
         $valueParams = $eventData['values'];
+        $conditions = $eventData['conditions'];
 
         $where = implode(" {$combination} ", $where);
 

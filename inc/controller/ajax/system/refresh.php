@@ -9,7 +9,7 @@ namespace fpcm\controller\ajax\system;
 
 /**
  * AJAX controller for refresh actions (async crons, session check, article inedit mode)
- * 
+ *
  * @package fpcm\controller\ajax\system\refresh
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2022, Stefan Seehafer
@@ -19,11 +19,11 @@ class refresh extends \fpcm\controller\abstracts\ajaxController
 {
 
     use \fpcm\controller\traits\common\isAccessibleTrue;
-    
+
     private $ext = false;
 
     /**
-     * 
+     *
      * @var \fpcm\model\http\responseDataRefresh
      */
     private $returnDataObj;
@@ -37,7 +37,7 @@ class refresh extends \fpcm\controller\abstracts\ajaxController
         if (\fpcm\classes\baseconfig::installerEnabled() || !\fpcm\classes\baseconfig::dbConfigExists()) {
             return false;
         }
-        
+
         $this->ext = $this->request->fetchAll('t') !== null;
         if (!$this->checkReferer($this->ext)) {
             return false;
@@ -45,14 +45,14 @@ class refresh extends \fpcm\controller\abstracts\ajaxController
 
         return true;
     }
-    
+
     /**
      * Controller-Processing
      */
     public function process()
     {
         $this->returnDataObj = new \fpcm\model\http\responseDataRefresh();
-        
+
         $this->runCrons();
         if ($this->ext) {
             exit('{}');
@@ -65,7 +65,7 @@ class refresh extends \fpcm\controller\abstracts\ajaxController
     }
 
     /**
-     * 
+     *
      * @return bool
      */
     private function runCrons()
@@ -79,11 +79,11 @@ class refresh extends \fpcm\controller\abstracts\ajaxController
             fpcmLogCron('Asynchronous cronjob execution was disabled');
             return false;
         }
-        
+
         if ( (new \fpcm\model\ips\iplist)->ipIsLocked($this->getIpLockedModul()) ) {
             return false;
         }
-        
+
         $cronlist = new \fpcm\model\crons\cronlist();
         $crons = $cronlist->getExecutableCrons();
 
@@ -97,7 +97,7 @@ class refresh extends \fpcm\controller\abstracts\ajaxController
     }
 
     /**
-     * 
+     *
      * @return bool
      */
     private function runSessionCheck()
@@ -117,7 +117,7 @@ class refresh extends \fpcm\controller\abstracts\ajaxController
     }
 
     /**
-     * 
+     *
      * @return bool
      */
     private function runArticleInEdit()
@@ -131,7 +131,7 @@ class refresh extends \fpcm\controller\abstracts\ajaxController
         if ($this->returnDataObj->sessionCode < 1 || !$this->permissions->editArticles() || !$articleId) {
             return true;
         }
-        
+
         $article = new \fpcm\model\articles\article($articleId);
 
         if (!$article->exists()) {
@@ -159,23 +159,22 @@ class refresh extends \fpcm\controller\abstracts\ajaxController
     {
         $notifications = new \fpcm\model\theme\notifications();
         $notifications->prependSystemNotifications();
-        
+
         /* @var $result \fpcm\module\eventResult */
-        $result = $this->events->trigger('ajaxRefresh', $notifications);
-        
-        if (!$result->getSuccessed() || !$result->getContinue()) {
+        $ev = $this->events->trigger('ajaxRefresh', $notifications);
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
             trigger_error(sprintf("Event ajaxRefresh failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
             $this->returnDataObj->notificationCount = $notifications->count();
             $this->returnDataObj->notifications = (string) $notifications;
             return false;
         }
-        
+
         /* @var $notifications \fpcm\model\theme\notifications */
-        $notifications = $result->getData();
-        
+        $notifications = $ev->getData();
+
         $this->returnDataObj->notificationCount = $notifications->count();
         $this->returnDataObj->notifications = (string) $notifications;
-        
+
     }
 
 }

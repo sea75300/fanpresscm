@@ -23,6 +23,8 @@ use fpcm\model\dbal\selectParams;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 abstract class dataset implements \fpcm\model\interfaces\dataset, \Stringable {
+    
+    use \fpcm\model\traits\getFieldsParam;
 
     /**
      * DB-Verbindung
@@ -476,17 +478,5 @@ abstract class dataset implements \fpcm\model\interfaces\dataset, \Stringable {
     protected function afterUpdateInternal() : bool
     {
         return true;
-    }
-
-    /**
-     * Retrieve field names from save üarams
-     * @param array $param
-     * @param int $offset
-     * @return array
-     * @since 5.3
-     */
-    protected function getFieldFromSaveParams(array $params, int $offset = -1) : array
-    {
-        return array_slice(array_keys($params), 0, $offset);
     }
 }

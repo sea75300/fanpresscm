@@ -187,7 +187,7 @@ class feed extends \fpcm\controller\abstracts\pubController {
             $ev = $this->events->trigger('pub\prepareRssFeed', $dom);
             if (!$ev->getSuccessed() || !$ev->getContinue()) {
                 trigger_error(sprintf("Event pub\prepareRssFeed failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
-                return [];
+                return false;
             }
 
             $dom = $ev->getData();

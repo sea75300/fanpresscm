@@ -9,7 +9,7 @@ namespace fpcm\model\users;
 
 /**
  * Benutzerrolle Objekt
- * 
+ *
  * @package fpcm\model\user
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
  * @copyright (c) 2011-2024, Stefan Seehafer
@@ -95,7 +95,7 @@ implements
     {
         return (bool) $this->is_system;
     }
-        
+
     /**
      * Set roll name
      * @param string $leveltitle
@@ -115,7 +115,7 @@ implements
     {
         $this->codex = $codex;
     }
-    
+
     /**
      * Returns translates roll name
      * @return string
@@ -136,12 +136,23 @@ implements
 
         $this->removeBannedTexts();
 
-        $params = $this->events->trigger('userroll\save', [
+        $ev = $this->events->trigger('userroll\save', [
             'leveltitle' => $this->leveltitle,
             'codex' => $this->codex,
             'is_system' => $this->is_system
-        ])->getData();
+        ]);
 
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event userroll\save failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return false;
+        }
+
+        $params = $ev->getData();
+        if (!is_array($params)) {
+            trigger_error(__METHOD__ . ' save params must be an array!');
+            return false;
+        }        
+        
         $newId = $this->dbcon->insert($this->table, $params);
 
         if (!$newId) {
@@ -186,7 +197,7 @@ implements
         $this->dbcon->update(\fpcm\classes\database::tableAuthors, ['roll'], [-1, $this->id], 'id = ?');
         $this->dbcon->commit();
         $this->cache->cleanup();
-        
+
         return $return;
     }
 
@@ -207,14 +218,29 @@ implements
 
         $return = false;
 
-        $params = $this->events->trigger('userroll\update', [
+        $params = [
             'leveltitle' => $this->leveltitle,
             'codex' => $this->codex,
-        ])->getData();
-        
-        $params[] = $this->id;
+            'is_system' => $this->is_system,
+            $this->id
+        ];
 
-        if ($this->dbcon->update($this->table, array_keys(array_slice($params, 0, 2)), array_values($params), 'id = ?')) {
+        $ev = $this->events->trigger('userroll\update', $params);
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event userroll\update failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return false;
+        }
+
+        $params = $ev->getData();
+        if (!is_array($params)) {
+            trigger_error(__METHOD__ . ' save params must be an array!');
+            return false;
+        }
+        unset($params['is_system']);
+        
+        $fields = $this->getFieldFromSaveParams($params);
+
+        if ($this->dbcon->update($this->table, $fields, array_values($params), 'id = ?')) {
             $return = true;
         }
 
@@ -247,7 +273,7 @@ implements
         $cn = self::class;
 
         $lt = $this->language->translate($this->leveltitle);
-        
+
         /* @var $copy userRoll */
         $copy = new $cn();
         $copy->setRollName($this->language->translate('GLOBAL_COPY_OF', [$lt], true));
@@ -256,7 +282,7 @@ implements
         if (!$copy->save()) {
             return 0;
         }
-        
+
         $id = $copy->getId();
 
         $permNew = new \fpcm\model\permissions\permissions($id);

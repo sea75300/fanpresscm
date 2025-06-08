@@ -98,8 +98,8 @@ class search extends \fpcm\controller\abstracts\ajaxController
         }
 
         $this->conditions->combinationDeleted = \fpcm\model\comments\search::COMBINATION_AND;
-        $ev = $this->events->trigger('comments\prepareSearch', $this->conditions);
 
+        $ev = $this->events->trigger('comments\prepareSearch', $this->conditions);
         if (!$ev->getSuccessed() || !$ev->getContinue()) {
             trigger_error(sprintf("Event comments\prepareSearch failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
             return false;

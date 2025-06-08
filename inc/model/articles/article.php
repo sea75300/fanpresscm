@@ -691,13 +691,19 @@ implements
 
         $external = !\fpcm\classes\baseconfig::canConnect() || (defined('FPCM_ARTICLE_DISABLE_SHORTLINKS') && FPCM_ARTICLE_DISABLE_SHORTLINKS) ? false : true;
 
-        $return = $this->events->trigger('article\getShortLink', [
+        $ev = $this->events->trigger('article\getShortLink', [
             'url' => $elLink,
             'encoded' => $elLinkEncode,
             'active' => $external,
             'default' => true,
-        ])->getData();
+        ]);
 
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event runSystemCheck failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return $elLink;
+        }
+
+        $return = $ev->getData();
         if (!$external) {
             return $elLink;
         }

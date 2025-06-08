@@ -109,7 +109,6 @@ class tinymceEditor5 extends articleEditor {
         ];
         
         $ev = $this->events->trigger('editor\initTinymce', $cfg);
-
         if (!$ev->getSuccessed() || !$ev->getContinue()) {
             trigger_error(sprintf("Event editor\initTinymce failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
             return $cfg;

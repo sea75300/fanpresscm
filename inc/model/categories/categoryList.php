@@ -170,16 +170,22 @@ class categoryList extends \fpcm\model\abstracts\tablelist {
             return false;
         }
 
-        $result = $this->events->trigger('category\massEditBefore', [
+        $ev = $this->events->trigger('category\massEditBefore', [
             'fields' => $fields,
             'ids' => $ids
-        ])->getData();
+        ]);
 
-        if (!count($result) || !isset($result['fields']) || !isset($result['ids'])) {
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event category\massEditBefore failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
             return false;
         }
 
-        foreach ($result as $key => $val) {
+        $data = $ev->getData();
+        if (!count($data) || !isset($data['fields']) || !isset($data['ids'])) {
+            return false;
+        }
+
+        foreach ($data as $key => $val) {
             ${$key} = $val;
         }
 
@@ -203,13 +209,19 @@ class categoryList extends \fpcm\model\abstracts\tablelist {
             $this->dbcon->inQuery('id', $ids)
         );
 
-        $result = $this->events->trigger('category\massEditAfter', [
+        $ev = $this->events->trigger('category\massEditAfter', [
             'result' => $result,
             'fields' => $fields,
             'ids' => $ids
-        ])->getData();
+        ]);
 
-        return $result['result'];
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event category\massEditAfter failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return false;
+        }
+
+        $result = $ev->getData();
+        return $result['result'];        
     }
 
 }

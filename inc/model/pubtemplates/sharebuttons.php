@@ -9,7 +9,7 @@ namespace fpcm\model\pubtemplates;
 
 /**
  * Share button template object
- * 
+ *
  * @package fpcm\model\system
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2023, Stefan Seehafer
@@ -18,9 +18,9 @@ namespace fpcm\model\pubtemplates;
 final class sharebuttons extends template {
 
     use \fpcm\model\traits\shareLinks;
-    
+
     const TEMPLATE_ID = 'shareButtons';
-    
+
     const CACHE_MODULE = 'sharebtn';
 
     /**
@@ -42,7 +42,7 @@ final class sharebuttons extends template {
         '{{articleId}}' => '',
         '{{credits}}' => ''
     ];
-    
+
     /**
      * Link to share
      * @var string
@@ -66,7 +66,7 @@ final class sharebuttons extends template {
      * @var array
      */
     protected $stack = [];
-    
+
     /**
      * Konstruktor
      * @param string $fileName
@@ -79,7 +79,7 @@ final class sharebuttons extends template {
 
         parent::__construct('common' . DIRECTORY_SEPARATOR . $fileName . '.html');
     }
-    
+
     /**
      * Share-Buttons parsen
      * @return string
@@ -102,23 +102,23 @@ final class sharebuttons extends template {
         if ($this->config->system_share_count) {
             $this->stack['class'] .= ' fpcm-pub-sharebutton-count';
         }
-        
+
         foreach ($this->initTags() as $replacement => $value) {
-            
+
             $item = trim($replacement, '{}');
-            
+
             if (!is_array($value)) {
                 $content = str_replace($replacement, $value, $content);
                 continue;
             }
-            
+
             if (!\fpcm\model\shares\shares::getRegisteredShares($item)) {
                 trigger_error('Failed to parse share button "'.$replacement.'", item ist not defined. You might call event "pub\registerShares".');
                 continue;
             }
 
             $value['icon'] = \fpcm\classes\dirs::getDataUrl(\fpcm\classes\dirs::DATA_SHARE, $value['icon']);
-            
+
             if (!isset($value['target'])) {
                 $value['target'] = \fpcm\view\helper\linkButton::TARGET_NEW;
             }
@@ -133,7 +133,7 @@ final class sharebuttons extends template {
             if (!isset($this->stack[$replacement]['class'])) {
                 $this->stack[$replacement]['class'] = $this->stack['class'].' fpcm-pub-sharebutton-'.$item;
             }
-            
+
             $content = str_replace($replacement, "<a class=\"{$this->stack[$replacement]['class']}\" href=\"{$value['link']}\" target=\"{$value['target']}\" {$dataStr}><img {$this->getLazyLoadingImg()} src=\"{$value['icon']}\" alt=\"{$value['text']}\"></a>", $content);
         }
 
@@ -141,9 +141,9 @@ final class sharebuttons extends template {
 
         return $content;
     }
-    
+
     /**
-     * 
+     *
      * Assigns template data
      * @param string $link
      * @param string $description
@@ -164,7 +164,7 @@ final class sharebuttons extends template {
      */
     private function initTags() : array
     {
-        return $this->events->trigger('pub\parseShareButtons', array_merge($this->replacementInternal, [
+        $tags = array_merge($this->replacementInternal, [
             '{{likeButton}}' => [
                 'link' => "#",
                 'icon' => "default/likebutton.png",
@@ -252,7 +252,21 @@ final class sharebuttons extends template {
             '{{description}}' => $this->description,
             '{{articleId}}' => $this->articleId,
             '{{credits}}' => "<!-- Icon set powered by http://simplesharingbuttons.com and https://whatsappbrand.com/ -->"
-        ]))->getData();
+        ]);
+
+        $ev = $this->events->trigger('pub\parseShareButtons', $tags);
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event %s failed. Returned success = %s, continue = %s", $uev, $ev->getSuccessed(), $ev->getContinue()));
+            return [];
+        }
+
+        $params = $ev->getData();
+        if (!is_array($params)) {
+            trigger_error('Return data of pub\parseShareButtons params must be an array!');
+            return $tags;
+        }
+
+        return $params;
     }
 
     /**
@@ -288,5 +302,5 @@ final class sharebuttons extends template {
             'prefix' => $prefix
         ];
     }
-    
+
 }

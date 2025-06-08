@@ -2,7 +2,7 @@
 
 /**
  * AJAX logs clear controller
- * 
+ *
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
@@ -12,7 +12,7 @@ namespace fpcm\controller\ajax\logs;
 
 /**
  * AJAX-Controller zum leeren der Systemlogs
- * 
+ *
  * @package fpcm\controller\ajax\logs\clear
  * @author Stefan Seehafer <sea75300@yahoo.de>
  */
@@ -38,7 +38,7 @@ class clear extends \fpcm\controller\abstracts\ajaxController
     protected $isSystem = 0;
 
     /**
-     * 
+     *
      * @return bool
      */
     public function isAccessible(): bool
@@ -80,10 +80,19 @@ class clear extends \fpcm\controller\abstracts\ajaxController
         }
         elseif (trim($this->moduleKey) && \fpcm\module\module::validateKey($this->moduleKey)) {
 
-            $res = $this->events->trigger('logs\clearModuleLog', [
+            $ev = $this->events->trigger('logs\clearModuleLog', [
                 'key' => $this->moduleKey,
                 'log' => $this->log
-            ])->getData();
+            ]);
+
+            if (!$ev->getSuccessed() || !$ev->getContinue()) {
+                trigger_error(sprintf("Event reloadFileList failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+                $res = false;
+            }
+            else {
+                $res = $ev->getData();
+            }
+
         }
 
         $this->response->setReturnData(new \fpcm\view\message(
@@ -95,7 +104,7 @@ class clear extends \fpcm\controller\abstracts\ajaxController
     }
 
     /**
-     * 
+     *
      * @return bool
      */
     private function clearSessions() : bool
@@ -104,7 +113,7 @@ class clear extends \fpcm\controller\abstracts\ajaxController
     }
 
     /**
-     * 
+     *
      * @return bool
      */
     private function clearGeneric() : bool

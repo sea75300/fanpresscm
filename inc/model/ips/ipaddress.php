@@ -213,20 +213,22 @@ class ipaddress extends \fpcm\model\abstracts\dataset {
      */
     public function update()
     {
-        if (!$this->check()) {
+        $ap = sprintf("noaccess = %d AND nocomments = %d AND nologin = %d", $this->noaccess, $this->nocomments, $this->nologin);
+        if (!$this->check($ap)) {
             return false;
         }
 
+        $params = $this->getPreparedSaveParams();
+        $params[] = $this->getId();
+
         $uEv = $this->getEventName('update');
-        $ev = $this->events->trigger($uEv, $this->getPreparedSaveParams());
+        $ev = $this->events->trigger($uEv, $params);
         if (!$ev->getSuccessed() || !$ev->getContinue()) {
             trigger_error(sprintf("Event %s failed. Returned success = %s, continue = %s", $uEv, $ev->getSuccessed(), $ev->getContinue()));
             return false;
         }
 
         $params = $ev->getData();
-        $params[] = $this->getId();
-
         $fields = $this->getFieldFromSaveParams($params);
 
         $return = false;
@@ -237,12 +239,13 @@ class ipaddress extends \fpcm\model\abstracts\dataset {
         $this->cache->cleanup();
         return $return;
     }
-
+    
     /**
-     * Prüft ob IP-Adresse gesperrt ist
+     * Check if ip address is locked
+     * @param string $accessParams
      * @return bool
      */
-    public function check()
+    public function check(string $accessParams = 'noaccess = 1 OR nocomments = 1 OR nologin = 1') : bool
     {
         $delim = (strpos($this->ipaddress, ':') === true) ? ':' : '.';
 
@@ -262,7 +265,7 @@ class ipaddress extends \fpcm\model\abstracts\dataset {
 
         return $result->counted ? true : false;
     }
-    
+
     /**
      * Returns event base
      * @return string

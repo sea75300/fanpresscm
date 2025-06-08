@@ -9,7 +9,7 @@ namespace fpcm\model\users;
 
 /**
  * Benutzer Objekt
- * 
+ *
  * @package fpcm\model\user
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
  * @copyright (c) 2011-2022, Stefan Seehafer
@@ -18,7 +18,7 @@ namespace fpcm\model\users;
 class author extends \fpcm\model\abstracts\dataset {
 
     use \fpcm\model\traits\autoTable;
-    
+
     /**
      * Error-Code: Benutzer existiert
      */
@@ -158,7 +158,7 @@ class author extends \fpcm\model\abstracts\dataset {
             $this->cacheName = 'author' . $id;
         }
 
-        parent::__construct($id);        
+        parent::__construct($id);
     }
 
     /**
@@ -250,7 +250,7 @@ class author extends \fpcm\model\abstracts\dataset {
     {
         return $this->changeuser;
     }
-    
+
     /**
      * Übersetzter Gruppenname
      * @return string
@@ -310,7 +310,7 @@ class author extends \fpcm\model\abstracts\dataset {
     {
         return $this->authtoken;
     }
-    
+
     /**
      * ist Benutzer ein Administrator
      * @return bool
@@ -414,7 +414,7 @@ class author extends \fpcm\model\abstracts\dataset {
     {
         $this->authtoken = $authtoken;
     }
-        
+
     /**
      * Speichert einen neuen Benutzer in der Datenbank
      * @return bool
@@ -475,14 +475,19 @@ class author extends \fpcm\model\abstracts\dataset {
         $params[] = $this->getId();
 
         $uev = $this->getEventName('update');
-        
+
         $ev = $this->events->trigger($uev, $params);
         if (!$ev->getSuccessed() || !$ev->getContinue()) {
             trigger_error(sprintf("Event %s failed. Returned success = %s, continue = %s", $uev, $ev->getSuccessed(), $ev->getContinue()));
             return false;
         }
 
-        $params = $ev->getData();           
+        $params = $ev->getData();
+        if (!is_array($params)) {
+            trigger_error(__METHOD__ . ' save params must be an array!');
+            return false;
+        }
+
         $fields = $this->getFieldFromSaveParams($params);
 
         $return = false;
@@ -651,10 +656,10 @@ class author extends \fpcm\model\abstracts\dataset {
      * Inittiert Objekt mit Daten aus der Datenbank, sofern ID vergeben wurde
      */
     public function init()
-    {       
+    {
         $prefixUserTab = $this->dbcon->getTablePrefixed($this->table);
         $prefixRollTab = $this->dbcon->getTablePrefixed(\fpcm\classes\database::tableRoll);
-        
+
         $data = $this->dbcon->selectFetch(
             (new \fpcm\model\dbal\selectParams())
                 ->setTable($this->table)
@@ -725,7 +730,7 @@ class author extends \fpcm\model\abstracts\dataset {
 
         return $asUrl ? $data[$usernameHash]['url'] : $data[$usernameHash]['data'];
     }
-    
+
     /**
      * Override config object with global settings
      * @return void

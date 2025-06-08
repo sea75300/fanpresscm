@@ -231,11 +231,18 @@ implements \fpcm\model\interfaces\gsearchIndex {
             $combination = $conditions->combination !== null ? $conditions->combination : 'AND';
         }
 
-        $eventData = $this->events->trigger('article\getByCondition', [
+        $ev = $this->events->trigger('article\getByCondition', [
             'conditions' => $conditions,
             'where' => $where,
             'values' => $valueParams
-        ])->getData();
+        ]);
+
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event article\getByCondition failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return false;
+        }
+
+        $eventData = $ev->getData();
 
         $conditions = $eventData['conditions'];
         $where = $eventData['where'];
@@ -416,10 +423,17 @@ implements \fpcm\model\interfaces\gsearchIndex {
         $this->assignSearchParams($conditions, $where, $valueParams);
         $combination = $conditions->combination !== null ? $conditions->combination : 'AND';
 
-        $eventData = $this->events->trigger('article\getByConditionCount', [
+        $ev = $this->events->trigger('article\getByConditionCount', [
             'where' => $where,
             'values' => $valueParams
-        ])->getData();
+        ]);
+
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event article\getByConditionCount failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return 0;
+        }
+
+        $eventData = $ev->getData();
 
         return $this->dbcon->count(
             $this->table,
@@ -538,29 +552,35 @@ implements \fpcm\model\interfaces\gsearchIndex {
 
         return $res;
     }
-
+    
     /**
-     * Massenbearbeitung
+     * Mass editing function
      * @param array $articleIds
      * @param array $fields
-     * @since 3.6
+     * @return bool
      */
-    public function editArticlesByMass(array $articleIds, array $fields)
+    public function editArticlesByMass(array $articleIds, array $fields) : bool
     {
         if (!count($articleIds)) {
             return false;
         }
 
-        $result = $this->events->trigger('article\massEditBefore', [
+        $ev = $this->events->trigger('article\massEditBefore', [
             'fields' => $fields,
             'articleIds' => $articleIds
-        ])->getData();
+        ]);
 
-        if (!count($result) || !isset($result['fields']) || !isset($result['articleIds'])) {
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event article\massEditBefore failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
             return false;
         }
 
-        foreach ($result as $key => $val) {
+        $data = $ev->getData();
+        if (!count($data) || !isset($data['fields']) || !isset($data['articleIds'])) {
+            return false;
+        }
+
+        foreach ($data as $key => $val) {
             ${$key} = $val;
         }
 
@@ -601,12 +621,18 @@ implements \fpcm\model\interfaces\gsearchIndex {
 
         $this->cache->cleanup();
 
-        $result = $this->events->trigger('article\massEditAfter', [
+        $ev = $this->events->trigger('article\massEditAfter', [
             'result' => $result,
             'fields' => $fields,
             'articleIds' => $articleIds
-        ])->getData();
+        ]);
 
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event article\massEditAfter failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return false;
+        }
+
+        $result = $ev->getData();
         return $result['result'];
     }
 
