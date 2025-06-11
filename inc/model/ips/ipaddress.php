@@ -214,8 +214,8 @@ class ipaddress extends \fpcm\model\abstracts\dataset {
     public function update()
     {
         $ap = sprintf("noaccess = %d AND nocomments = %d AND nologin = %d", $this->noaccess, $this->nocomments, $this->nologin);
-        if (!$this->check($ap)) {
-            return false;
+        if ($this->check($ap)) {
+            return true;
         }
 
         $params = $this->getPreparedSaveParams();
@@ -247,7 +247,7 @@ class ipaddress extends \fpcm\model\abstracts\dataset {
      */
     public function check(string $accessParams = 'noaccess = 1 OR nocomments = 1 OR nologin = 1') : bool
     {
-        $delim = (strpos($this->ipaddress, ':') === true) ? ':' : '.';
+        $delim = str_contains($this->ipaddress, ':') ? ':' : '.';
 
         $adresses = array($this->ipaddress);
         $ipAddress = explode($delim, $this->ipaddress);
@@ -260,7 +260,7 @@ class ipaddress extends \fpcm\model\abstracts\dataset {
             $where[] = 'ipaddress ' . $this->dbcon->dbLike() . ' ?';
         }
 
-        $where = "(" . implode(' OR ', $where) . ") AND (noaccess = 1 OR nocomments = 1 OR nologin = 1)";
+        $where = sprintf("(%s) AND (%s)", implode(' OR ', $where), $accessParams);
         $result = $this->dbcon->fetch($this->dbcon->select($this->table, 'count(id) AS counted', $where, $adresses));
 
         return $result->counted ? true : false;
