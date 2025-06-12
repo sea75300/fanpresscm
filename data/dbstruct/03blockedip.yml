@@ -40,3 +40,10 @@ indices:
     ipaddress:
         col: ipaddress
         isUnqiue: false
+    ipnoflags_idx:
+        col:
+            ipaddress
+            nocomments
+            nologin
+            noaccess
+        isUnqiue: true

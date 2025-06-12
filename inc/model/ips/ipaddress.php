@@ -210,8 +210,8 @@ class ipaddress extends \fpcm\model\abstracts\dataset {
     public function update()
     {
         $ap = sprintf("noaccess = %d AND nocomments = %d AND nologin = %d", $this->noaccess, $this->nocomments, $this->nologin);
-        if (!$this->check($ap)) {
-            return false;
+        if ($this->check($ap)) {
+            return true;
         }
 
         $params = $this->getPreparedSaveParams();
