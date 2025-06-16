@@ -8,17 +8,16 @@
 namespace fpcm\events\comments;
 
 /**
- * Module-Event: massEditBefore
+ * Module-Event: comments/deleteBefore
  * 
- * Event wird ausgeführt, bevor Massenbearbeitung von Artikeln ausgeführt wird
- * Parameter: array Felder und Artikel-IDs
+ * Event before element was deleted from database
+ * Parameter: array with object id and force delete flag
  * 
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2022, Stefan Seehafer
+ * @copyright (c) 2025, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\events
- * @since 3.6
  */
-final class massEditBefore extends \fpcm\events\abstracts\event {
+final class deleteBefore extends \fpcm\events\abstracts\event {
 
 }

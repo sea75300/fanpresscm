@@ -12,7 +12,6 @@ namespace fpcm\events\article;
  * 
  * Event wird ausgeführt, nachdem ein Artikel Artikel gespeichert wurde
  * Parameter: int Artikel-ID
- * Rückgabe: void
  * 
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
  * @copyright (c) 2011-2022, Stefan Seehafer

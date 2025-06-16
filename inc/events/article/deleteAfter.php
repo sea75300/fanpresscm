@@ -8,16 +8,16 @@
 namespace fpcm\events\article;
 
 /**
- * Module-Event: article/update
+ * Module-Event: article/deleteAfter
  * 
- * Event wird ausgeführt, wenn Artikel aktualisiert wird
- * Parameter: array Array mit Artikel-Daten inkl. Artikel-ID
+ * Event after element was deleted from database
+ * Parameter: int object id
  * 
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2022, Stefan Seehafer
+ * @copyright (c) 2025, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\events
  */
-final class update extends \fpcm\events\abstracts\event {
+final class deleteAfter extends \fpcm\events\abstracts\event {
 
 }

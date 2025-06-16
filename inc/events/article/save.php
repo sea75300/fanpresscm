@@ -12,7 +12,6 @@ namespace fpcm\events\article;
  * 
  * Event wird ausgeführt, wenn Artikel gespeichert wird
  * Parameter: array Artikel-Daten-Array
- * Rückgabe: array Artikel-Daten-Array
  * 
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
  * @copyright (c) 2011-2022, Stefan Seehafer

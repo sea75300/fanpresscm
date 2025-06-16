@@ -12,7 +12,6 @@ namespace fpcm\events\article;
  * 
  * Event wird ausgeführt, nachdem Massenbearbeitung von Artikeln ausgeführt wurde
  * Parameter: array Felder und Artikel-IDs
- * Rückgabe: array Felder und Artikel-IDs
  * 
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
  * @copyright (c) 2011-2022, Stefan Seehafer

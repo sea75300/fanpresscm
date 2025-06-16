@@ -12,7 +12,6 @@ namespace fpcm\events\comments;
  * 
  * Event wird ausgeführt, wenn Kommentar-Suche durchgeführt wird
  * Parameter: array mit Liste der Suchparameter aus dem Suchformular
- * Rückgabe: array mit Liste der Suchparameter aus dem Suchformular
  * 
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
  * @copyright (c) 2011-2022, Stefan Seehafer

@@ -95,7 +95,7 @@ implements
      * @return bool
      * @since 3.5
      */
-    function getReplaceTxt()
+    public function getReplaceTxt()
     {
         return $this->replacetxt;
     }
@@ -105,7 +105,7 @@ implements
      * @return bool
      * @since 3.5
      */
-    function getLockArticle()
+    public function getLockArticle()
     {
         return $this->lockarticle;
     }
@@ -115,7 +115,7 @@ implements
      * @return bool
      * @since 3.5
      */
-    function getCommentApproval()
+    public function getCommentApproval()
     {
         return $this->commentapproval;
     }

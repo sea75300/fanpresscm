@@ -136,7 +136,7 @@ implements
 
         $this->removeBannedTexts();
 
-        $ev = $this->events->trigger('userroll\save', [
+        $ev = $this->events->trigger($this->getEventName('save'), [
             'leveltitle' => $this->leveltitle,
             'codex' => $this->codex,
             'is_system' => $this->is_system
@@ -151,8 +151,8 @@ implements
         if (!is_array($params)) {
             trigger_error(__METHOD__ . ' save params must be an array!');
             return false;
-        }        
-        
+        }
+
         $newId = $this->dbcon->insert($this->table, $params);
 
         if (!$newId) {
@@ -186,16 +186,34 @@ implements
 
         $this->dbcon->transaction();
 
-        $return = parent::delete();
+        $evbn = $this->getEventName('deleteBefore');
+        $evb = $this->events->trigger($evbn, $this->id);
+
+        if (!$evb->getSuccessed() || !$evb->getContinue()) {
+            trigger_error(sprintf("Event %s failed. Returned success = %s, continue = %s", $evbn, $evb->getSuccessed(), $evb->getContinue()));
+            return false;
+        }
+
+        $this->dbcon->delete($this->table, 'id = ?', [$this->id]);
 
         $permissions = new \fpcm\model\permissions\permissions($this->getId());
 
+        $return = false;
         if ($permissions->delete()) {
-            $return = $return && true;
+            $return = true;
         }
 
         $this->dbcon->update(\fpcm\classes\database::tableAuthors, ['roll'], [-1, $this->id], 'id = ?');
         $this->dbcon->commit();
+
+        $evan = $this->getEventName('deleteAfter');
+        $eva = $this->events->trigger($evan, $this->id);
+
+        if (!$eva->getSuccessed() || !$eva->getContinue()) {
+            trigger_error(sprintf("Event %s failed. Returned success = %s, continue = %s", $evan, $eva->getSuccessed(), $eva->getContinue()));
+            return false;
+        }
+
         $this->cache->cleanup();
 
         return $return;
@@ -225,7 +243,7 @@ implements
             $this->id
         ];
 
-        $ev = $this->events->trigger('userroll\update', $params);
+        $ev = $this->events->trigger($this->getEventName('update'), $params);
         if (!$ev->getSuccessed() || !$ev->getContinue()) {
             trigger_error(sprintf("Event userroll\update failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
             return false;
@@ -237,7 +255,7 @@ implements
             return false;
         }
         unset($params['is_system']);
-        
+
         $fields = $this->getFieldFromSaveParams($params);
 
         if ($this->dbcon->update($this->table, $fields, array_values($params), 'id = ?')) {
@@ -295,4 +313,14 @@ implements
         return $id;
     }
 
+    /**
+     * Returns event base string
+     * @see \fpcm\model\abstracts\dataset::getEventModule
+     * @return string
+     * @since 4.1
+     */
+    protected function getEventModule(): string
+    {
+        return 'userroll';
+    }
 }

@@ -23,7 +23,7 @@ use fpcm\model\dbal\selectParams;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 abstract class dataset implements \fpcm\model\interfaces\dataset, \Stringable {
-    
+
     use \fpcm\model\traits\getFieldsParam;
 
     /**
@@ -276,14 +276,14 @@ abstract class dataset implements \fpcm\model\interfaces\dataset, \Stringable {
         if (method_exists($this, 'removeBannedTexts')) {
             $this->removeBannedTexts();
         }
-        
+
         $beforeEvent = $this->getEventName('save');
 
         $ev = $this->events->trigger($beforeEvent, $this->getPreparedSaveParams());
         if (!$ev->getSuccessed() || !$ev->getContinue()) {
             trigger_error(sprintf("Event %s failed. Returned success = %s, continue = %s", $beforeEvent, $ev->getSuccessed(), $ev->getContinue()));
             return false;
-        }        
+        }
 
         if (!$this->dbcon->insert($this->table, $ev->getData() )) {
             return false;
@@ -294,7 +294,7 @@ abstract class dataset implements \fpcm\model\interfaces\dataset, \Stringable {
         $this->afterUpdateInternal();
 
         $afterEvent = $this->getEventName('saveAfter');
-        if (class_exists(event::getEventNamespace($afterEvent))) {            
+        if (class_exists(event::getEventNamespace($afterEvent))) {
             $ev = $this->events->trigger($afterEvent, $this->id);
             if (!$ev->getSuccessed() || !$ev->getContinue()) {
                 trigger_error(sprintf("Event %s failed. Returned success = %s, continue = %s", $afterEvent, $ev->getSuccessed(), $ev->getContinue()));
@@ -325,7 +325,7 @@ abstract class dataset implements \fpcm\model\interfaces\dataset, \Stringable {
         if (!$ev->getSuccessed() || !$ev->getContinue()) {
             trigger_error(sprintf("Event %s failed. Returned success = %s, continue = %s", $beforeEvent, $ev->getSuccessed(), $ev->getContinue()));
             return false;
-        }         
+        }
 
         $params = $ev->getData();
         $fields = $this->getFieldFromSaveParams($params);
@@ -336,15 +336,15 @@ abstract class dataset implements \fpcm\model\interfaces\dataset, \Stringable {
         }
 
         $this->afterUpdateInternal();
-        
+
         $afterEvent = $this->getEventName('updateAfter');
-        if (class_exists(event::getEventNamespace($afterEvent))) {            
+        if (class_exists(event::getEventNamespace($afterEvent))) {
             $ev = $this->events->trigger($afterEvent, $this->id);
             if (!$ev->getSuccessed() || !$ev->getContinue()) {
                 trigger_error(sprintf("Event %s failed. Returned success = %s, continue = %s", $afterEvent, $ev->getSuccessed(), $ev->getContinue()));
                 return false;
             }
-        }        
+        }
 
         return $return;
     }
@@ -355,7 +355,24 @@ abstract class dataset implements \fpcm\model\interfaces\dataset, \Stringable {
      */
     public function delete()
     {
+        $evbn = $this->getEventName('deleteBefore');
+        $evb = $this->events->trigger($evbn, $this->id);
+
+        if (!$evb->getSuccessed() || !$evb->getContinue()) {
+            trigger_error(sprintf("Event %s failed. Returned success = %s, continue = %s", $evbn, $evb->getSuccessed(), $evb->getContinue()));
+            return false;
+        }
+
         $this->dbcon->delete($this->table, 'id = ?', [$this->id]);
+
+        $evan = $this->getEventName('deleteAfter');
+        $eva = $this->events->trigger($evan, $this->id);
+
+        if (!$eva->getSuccessed() || !$eva->getContinue()) {
+            trigger_error(sprintf("Event %s failed. Returned success = %s, continue = %s", $evan, $eva->getSuccessed(), $eva->getContinue()));
+            return false;
+        }
+
         $this->cache->cleanup();
         return true;
     }

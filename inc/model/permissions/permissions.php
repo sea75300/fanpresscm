@@ -221,6 +221,14 @@ class permissions extends \fpcm\model\abstracts\dataset {
      */
     public function delete()
     {
+        $evn = $this->getEventName('delete');
+        $ev = $this->events->trigger($evn, $this->rollid);
+
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event %s failed. Returned success = %s, continue = %s", $evn, $ev->getSuccessed(), $ev->getContinue()));
+            return false;
+        }
+
         $this->dbcon->delete($this->table, 'rollid = ?', [$this->rollid]);
         $this->refresh();
         return true;

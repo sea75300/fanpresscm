@@ -12,7 +12,6 @@ namespace fpcm\events\article;
  * 
  * Event wird ausgeführt, wenn Kurzlink für einen Artikel erzeugt wird
  * Parameter: array Array mit Artikel-URL (artikellink) und Standardkurzlink (url)
- * Rückgabe: array Array mit Artikel-URL (artikellink) und Standardkurzlink (url), url wird vollständig zurückgegeben
  * 
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
  * @copyright (c) 2011-2022, Stefan Seehafer

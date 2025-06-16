@@ -39,7 +39,7 @@ final class events implements \fpcm\model\interfaces\isObjectInstancable {
         }
 
         try {
-            
+
             /* @var $event abstracts\event */
             $eventClassName = "\\fpcm\\events\\" . $eventName;
             $event = new $eventClassName($dataParams);
@@ -49,15 +49,22 @@ final class events implements \fpcm\model\interfaces\isObjectInstancable {
             }
 
             return $event->run();
-            
+
         } catch (\Throwable $e) {
-            trigger_error(sprintf("Unable to trigger event \"%s\" in \"%s\".\n- - - - -\nError-Code: %s\n- - - - -\n", $eventName, $eventClassName, $e), E_USER_ERROR);
+
+            $msg = sprintf("Unable to trigger event \"%s\" in \"%s\".\n- - - - -\nError-Code: %s\n- - - - -\n", $eventName, $eventClassName, $e);
+
+            trigger_error($msg, E_USER_ERROR);
+            if (\fpcm\classes\baseconfig::isCli()) {
+                exit($msg);
+            }
+
             \fpcm\classes\loader::getObject('\fpcm\model\theme\notifications')->addNotification(
                 new \fpcm\model\theme\notificationItem(
                     (new \fpcm\view\helper\icon('bomb'))->setText('NOTIFICATION_ERROR_EVENTS', ['eventName' => $eventName])
                 )
             );
-            
+
             return (new \fpcm\module\eventResult())->setData($dataParams);
         }
 
@@ -103,13 +110,13 @@ final class events implements \fpcm\model\interfaces\isObjectInstancable {
     public static function getInstance()
     {
         $iClass = static::class;
-        
+
         if (!isset($GLOBALS['fpcm']['objects'][$iClass])) {
             $GLOBALS['fpcm']['objects'][$iClass] = new $iClass();
         }
-        
+
         return $GLOBALS['fpcm']['objects'][$iClass];
-        
+
     }
 
 }

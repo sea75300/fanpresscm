@@ -12,7 +12,6 @@ namespace fpcm\events\article;
  * 
  * Event wird ausgeführt, wenn Artikel anhand von Bedingungen gezählt werden
  * Parameter: array Zählbedingungen
- * Rückgabe: array Zählbedingungen
  * 
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
  * @copyright (c) 2011-2022, Stefan Seehafer

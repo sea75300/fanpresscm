@@ -743,6 +743,17 @@ implements
     {
         $this->cleanupCaches();
 
+        $evbn = $this->getEventName('deleteBefore');
+        $ev = $this->events->trigger($evbn, [
+            'id' => $this->id,
+            'force' => $this->forceDelete
+        ]);
+
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event %s failed. Returned success = %s, continue = %s", $evbn, $ev->getSuccessed(), $ev->getContinue()));
+            return false;
+        }
+
         if (!$this->forceDelete) {
             $this->deleted = 1;
 
@@ -755,8 +766,18 @@ implements
         $commentList = new \fpcm\model\comments\commentList();
         $commentList->deleteCommentsByArticle($this->id);
 
-        $return = parent::delete();
+        $return = $this->dbcon->delete($this->table, 'id = ?', [$this->id]);
+        $this->cache->cleanup();
+
         $this->deleted = 1;
+
+        $evan = $this->getEventName('deleteAfter');
+        $eva = $this->events->trigger($evan, $this->id);
+
+        if (!$eva->getSuccessed() || !$eva->getContinue()) {
+            trigger_error(sprintf("Event %s failed. Returned success = %s, continue = %s", $evan, $eva->getSuccessed(), $eva->getContinue()));
+            return false;
+        }
 
         return $return;
     }

@@ -9,7 +9,7 @@ namespace fpcm\model\articles;
 
 /**
  * Article revision object for storage in database
- * 
+ *
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
  * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
@@ -17,8 +17,6 @@ namespace fpcm\model\articles;
  * @since 3.3
  */
 class revision extends \fpcm\model\abstracts\dataset {
-
-    use \fpcm\model\traits\eventModuleEmpty;
 
     /**
      * Article id
@@ -175,11 +173,35 @@ class revision extends \fpcm\model\abstracts\dataset {
      */
     public function delete()
     {
-        return $this->dbcon->delete(
+        $evbn = $this->getEventName('deleteBefore');
+        $ev = $this->events->trigger($evbn, [
+            'article_id' => $this->article_id,
+            'revision_idx' => $this->revision_idx
+        ]);
+
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event %s failed. Returned success = %s, continue = %s", $evbn, $ev->getSuccessed(), $ev->getContinue()));
+            return false;
+        }
+
+        $return = $this->dbcon->delete(
             $this->table,
             'article_id = ? AND revision_idx = ?',
             [$this->article_id, $this->revision_idx]
         );
+
+        $evan = $this->getEventName('deleteAfter');
+        $eva = $this->events->trigger($evan, [
+            'article_id' => $this->article_id,
+            'revision_idx' => $this->revision_idx
+        ]);
+
+        if (!$eva->getSuccessed() || !$eva->getContinue()) {
+            trigger_error(sprintf("Event %s failed. Returned success = %s, continue = %s", $evan, $eva->getSuccessed(), $eva->getContinue()));
+            return false;
+        }
+
+        return $return;
     }
 
     /**
@@ -196,7 +218,7 @@ class revision extends \fpcm\model\abstracts\dataset {
         unset($data['changetime'], $data['changeuser']);
         return \fpcm\classes\tools::getHash(json_encode($data));
     }
-    
+
     /**
      * Initializes object
      * @return bool
@@ -220,6 +242,17 @@ class revision extends \fpcm\model\abstracts\dataset {
         $this->createFromDbObject($object);
 
         return true;
+    }
+
+    /**
+     * Returns event base string
+     * @see \fpcm\model\abstracts\dataset::getEventModule
+     * @return string
+     * @since 4.1
+     */
+    protected function getEventModule() : string
+    {
+        return 'revision';
     }
 
 }

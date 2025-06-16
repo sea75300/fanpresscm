@@ -11,13 +11,13 @@ namespace fpcm\model\comments;
 
 /**
  * Kommentar-Objekt
- * 
+ *
  * @package fpcm\model\comments
  * @author Stefan Seehafer <sea75300@yahoo.de>
  */
 class comment extends \fpcm\model\abstracts\dataset
 implements \fpcm\model\interfaces\isCsvImportable {
-    
+
     use \fpcm\model\traits\statusIcons;
 
     /**
@@ -268,7 +268,7 @@ implements \fpcm\model\interfaces\isCsvImportable {
     {
         return $this->deleted;
     }
-    
+
     /**
      * Liefert Status, ob Kommentar bearbeitet werden kann zurück
      * @return bool
@@ -395,7 +395,7 @@ implements \fpcm\model\interfaces\isCsvImportable {
     {
         $this->deleted = (int) $deleted;
     }
-        
+
     /**
      * Setzt Status, ob Kommentar bearbeitet werden kann
      * @param bool $editPermission
@@ -412,6 +412,17 @@ implements \fpcm\model\interfaces\isCsvImportable {
      */
     public function delete()
     {
+        $evbn = $this->getEventName('deleteBefore');
+        $ev = $this->events->trigger($evbn, [
+            'id' => $this->id,
+            'force' => $this->forceDelete
+        ]);
+
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event %s failed. Returned success = %s, continue = %s", $evbn, $ev->getSuccessed(), $ev->getContinue()));
+            return false;
+        }
+
         $this->cache->cleanup();
         $this->deleted = 1;
 
@@ -419,7 +430,20 @@ implements \fpcm\model\interfaces\isCsvImportable {
             return $this->update();
         }
 
-        return parent::delete();
+        $return = $this->dbcon->delete($this->table, 'id = ?', [$this->id]);
+        $this->cache->cleanup();
+
+        $this->deleted = 1;
+
+        $evan = $this->getEventName('deleteAfter');
+        $eva = $this->events->trigger($evan, $this->id);
+
+        if (!$eva->getSuccessed() || !$eva->getContinue()) {
+            trigger_error(sprintf("Event %s failed. Returned success = %s, continue = %s", $evan, $eva->getSuccessed(), $eva->getContinue()));
+            return false;
+        }
+
+        return $return;
     }
 
     /**
@@ -502,7 +526,7 @@ implements \fpcm\model\interfaces\isCsvImportable {
     public function assignCsvRow(array $csvRow): bool
     {
         $data = array_intersect_key($csvRow, array_flip($this->getFields()));
-        
+
         if (!count($data)) {
             trigger_error('Failed to assign data, empty field set!');
             return false;
@@ -522,7 +546,7 @@ implements \fpcm\model\interfaces\isCsvImportable {
             trigger_error('Failed to assign data, articleid cannot be empty!');
             return false;
         }
-        
+
         $obj = clone $this;
 
         $obj->setArticleid($data['articleid']);
