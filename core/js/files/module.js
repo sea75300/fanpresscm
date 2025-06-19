@@ -37,27 +37,45 @@ fpcm.filemanager = {
 
     initAfter: function() {
 
-        if (fpcm.vars.jsvars.fmgrMode === 1) {
+        if (fpcm.vars.jsvars.fmgrMode !== 1) {
+            return;
+        }
 
-            fpcm.ui.selectmenu('select[data-user_setting]', {
-                change: function (_ev, _ui) {
+        fpcm.dom.bindClick('#btnSettings', function () {
 
-                    document.getElementById('pageSelect').selectedIndex = 0;
+            let _settings = fpcm.ui_dialogs.fromDOM('filesSettings');
+            if (!_settings) {
+                return;
+            }
 
-                    fpcm.ajax.post('setconfig', {
-                        data: {
-                            var: _ui.dataset.user_setting,
-                            value: _ui.value
-                        },
-                        execDone: fpcm.filemanager.reloadFiles
+            fpcm.ui_dialogs.create({
+                id: 'files-settings',
+                title: 'HL_OPTIONS',
+                size: '',
+                closeButton: false,
+                directAssignToDom: true,
+                content: _settings,
+                icon: {
+                    icon: 'cogs',
+                },
+                dlOnOpenAfter: function () {
+                    fpcm.ui.selectmenu('select[data-user_setting]', {
+                        change: function (_ev, _ui) {
+
+                            document.getElementById('pageSelect').selectedIndex = 0;
+
+                            fpcm.ajax.post('setconfig', {
+                                data: {
+                                    var: _ui.dataset.user_setting,
+                                    value: _ui.value
+                                },
+                                execDone: fpcm.filemanager.reloadFiles
+                            });
+                        }
                     });
                 }
             });
 
-        }
-
-        fpcm.dom.fromId('btnFmgrUploadBack').click(function () {
-            fpcm.ui_tabs.show('#files', 0);
         });
 
     },
@@ -244,9 +262,6 @@ fpcm.filemanager = {
                     document.getElementById('fpcm-id-alt-text-dialog').focus();
                 }
             });
-
-
-
 
             return false;
         });

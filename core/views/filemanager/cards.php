@@ -1,6 +1,6 @@
 <?php /* @var $theView fpcm\view\viewVars */ /* @var $file fpcm\model\files\image */ ?>
 <div class="justify-content-end">
-    
+
     <?php if ($showPager && in_array($mode, [2, 3, 4])) : ?>
     <div class="navbar">
         <div class="container-fluid">
@@ -23,24 +23,24 @@
         <?php $i++; ?>
             <div class="card my-2 mx-sm-2 rounded fpcm ui-files-item ui-background-transition shadow">
 
-                <a href="<?php print $file->getImageUrl(); ?>" 
+                <a href="<?php print $file->getImageUrl(); ?>"
                    class="fpcm ui-link-fancybox"
-                   data-pswp-width="<?php print $file->getWidth(); ?>" 
-                   data-pswp-height="<?php print $file->getHeight(); ?>" 
+                   data-pswp-width="<?php print $file->getWidth(); ?>"
+                   data-pswp-height="<?php print $file->getHeight(); ?>"
                    <?php if ($file->getAltText()) : ?>data-caption="<?php print $theView->escapeVal($file->getAltText()); ?>"<?php endif; ?>>
                 <?php if ($file->hasFileManageThumbnail()) : ?>
-                    <img class="card-img-top rounded-top overflow-hidden" loading="lazy" src="<?php print $file->getFileManagerThumbnailUrl(); ?>" title="<?php print $file->getFileName(); ?>" <?php if ($file->getAltText()) : ?>alt="<?php print $theView->escapeVal($file->getAltText()); ?>"<?php endif; ?> >                    
+                    <img class="card-img-top rounded-top overflow-hidden" loading="lazy" src="<?php print $file->getFileManagerThumbnailUrl(); ?>" title="<?php print $file->getFileName(); ?>" <?php if ($file->getAltText()) : ?>alt="<?php print $theView->escapeVal($file->getAltText()); ?>"<?php endif; ?> >
                 <?php else : ?>
                     <img class="card-img-top rounded-top overflow-hidden p-5" loading="lazy" src="<?php print fpcm\classes\loader::libGetFileUrl('font-awesome/svg/image.svg'); ?>" title="<?php print $file->getFileName(); ?>">
-                <?php endif; ?>            
+                <?php endif; ?>
                 </a>
 
                 <div class="card-body">
                     <p class="card-title text-center"><?php print $theView->escapeVal(basename($file->getFilename())); ?></p>
                     <?php if ($file->getAltText()) : ?>
-                    <p class="card-subtitle text-center fs-6 text-secondary-emphasis"><?php print $theView->escapeVal($file->getAltText()); ?></p>           
+                    <p class="card-subtitle text-center fs-6 text-secondary-emphasis"><?php print $theView->escapeVal($file->getAltText()); ?></p>
                     <?php endif; ?>
-                    
+
                     <?php if (!$file->existsFolder()) : ?>
                     <div class="card-text">
                         <?php $theView->alert('danger')->setIcon('image', 'far')->setText('FILE_LIST_UPLOAD_NOTFOUND'); ?>
@@ -48,15 +48,20 @@
                     <?php endif; ?>
 
                 </div>
-                
+
                 <div class="card-footer bg-transparent">
                     <div class="navbar gap-1 justify-content-center">
                         <?php include $theView->getIncludePath('filemanager/buttons.php'); ?>
                     </div>
                 </div>
-            </div>        
-        <?php if ($is_last($i)) : ?></div><div class="card-group g-0 fpcm ui-files-card"><?php endif; ?>
+            </div>
+        <?php if ($is_last($i)) : ?>
+        </div><div class="card-group g-0 fpcm ui-files-card">
+        <?php endif; ?>
         <?php endforeach; ?>
+            <?php for ($x = 0; $x < $addColsToEnd; $x++) : ?>
+            <div class="card my-2 mx-sm-2 border-0 bg-transparent">&nbsp;</div>
+            <?php endfor; ?>
         </div>
     <?php endif; ?>
 </div>

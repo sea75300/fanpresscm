@@ -65,5 +65,3 @@ trait selectedHelper {
     }
 
 }
-
-?>

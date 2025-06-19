@@ -39,7 +39,7 @@ class filelist extends \fpcm\controller\abstracts\controller
     }
 
     /**
-     * 
+     *
      * @return string
      */
     protected function getHelpLink()
@@ -48,7 +48,7 @@ class filelist extends \fpcm\controller\abstracts\controller
     }
 
     /**
-     * 
+     *
      * @return bool
      */
     public function request()
@@ -72,6 +72,28 @@ class filelist extends \fpcm\controller\abstracts\controller
         /* @var $uploader \fpcm\components\fileupload\uploader */
         $uploader = \fpcm\components\components::getFileUploader();
         
+        $settingsDlg = (new \fpcm\view\helper\dialog('filesSettings'));
+        $settingsDlg->setFields([
+            (new \fpcm\view\helper\select('listamount'))
+                ->setText('SYSTEM_OPTIONS_ACPARTICLES_LIMIT')
+                ->setOptions( \fpcm\model\system\config::getAcpArticleLimits() )
+                ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
+                ->setSelected($this->config->file_list_limit)
+                ->setData(['user_setting' => 'file_list_limit'])
+                ->setIcon('folder-open')
+                ->setLabelTypeFloat(),
+            (new \fpcm\view\helper\select('listView'))
+                ->setText('SYSTEM_OPTIONS_FILEMANAGER_VIEW')
+                ->setOptions(\fpcm\components\components::getFilemanagerViews())
+                ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
+                ->setSelected($this->config->file_view)
+                ->setData(['user_setting' => 'file_view'])
+                ->setIcon('grip-horizontal')
+                ->setLabelTypeFloat()
+        ]);
+        
+        $this->view->addDialogs($settingsDlg);
+
         $this->view->addCssFiles($uploader->getCssFiles());
         $this->view->addJsVars(array_merge([
             'fmgrMode' => $this->mode,
@@ -81,7 +103,7 @@ class filelist extends \fpcm\controller\abstracts\controller
             'checkboxRefresh' => true,
             'uploadDest' => 'default',
             'thumbsize' => $this->config->file_thumb_size . 'px',
-            'loaderTpl' => new \fpcm\model\files\jsViewTemplate('fmloader')
+            'loaderTpl' => new \fpcm\model\files\jsViewTemplate('fmloader'),
         ], $uploader->getJsVars() ));
 
         $this->view->addJsLangVars(array_merge([
@@ -97,7 +119,9 @@ class filelist extends \fpcm\controller\abstracts\controller
             'FILE_LIST_ALTTEXT', 'FILE_LIST_FILENAME', 'MSG_FILES_CREATETHUMBS',
             'GLOBAL_LASTCHANGE', 'FILE_LIST_UPLOAD_BY', 'FILE_LIST_FILESIZE',
             'FILE_LIST_RESOLUTION', 'FILE_LIST_FILETYPE', 'FILE_LIST_FILEHASH',
-            'FILE_LIST_FILECREDITS', 'RENAME_FAILED_FILE'
+            'FILE_LIST_FILECREDITS', 'RENAME_FAILED_FILE', 'HL_OPTIONS',
+            'SYSTEM_OPTIONS_FILEMANAGER_VIEWCARDS',
+            'SYSTEM_OPTIONS_FILEMANAGER_VIEWLIST'
         ], $uploader->getJsLangVars()));
 
         if (!trim($uploader->getTemplate()) || !realpath($uploader->getTemplate())) {
@@ -110,13 +134,12 @@ class filelist extends \fpcm\controller\abstracts\controller
         if ($this->mode == 2 && $this->config->system_editor === '\fpcm\components\editor\tinymceEditor5') {
             $jsFiles[] = 'files/tinymce5Messages.js';
         }
-        
+
         $this->view->addPager((new \fpcm\view\helper\pager('ajax/files/lists&mode='.$this->mode, 1, 1, $this->config->file_list_limit, 1)));
         $this->view->addJsFiles(array_merge( $jsFiles, $uploader->getJsFiles() ));
         $this->view->addJsFilesLate($uploader->getJsFilesLate());
         $this->view->setJsModuleFiles($uploader->getJsModuleFiles());
         $this->view->setViewVars(array_merge([
-            /*'searchUsers' =>  ['GLOBAL_SELECT' => -1] + (new \fpcm\model\users\userList)->getUsersNameList(),*/
             'mode' => $this->mode,
             'hasFiles' => $hasFiles,
         ], $uploader->getViewVars() ));
@@ -139,7 +162,7 @@ class filelist extends \fpcm\controller\abstracts\controller
         $this->view->addTabs('files', $tabs);
         $this->view->render();
     }
-    
+
     private function initButtons(string $tpl)
     {
         $buttons = [
@@ -163,7 +186,7 @@ class filelist extends \fpcm\controller\abstracts\controller
                 ->setPrimary();
 
         }
-        
+
         $buttons[] = (new \fpcm\view\helper\button('openSearch'))->setText('ARTICLES_SEARCH')->setIcon('search')->setIconOnly();
 
         if ($this->mode === 2) {
@@ -181,30 +204,21 @@ class filelist extends \fpcm\controller\abstracts\controller
             $buttons[] = (new \fpcm\view\helper\deleteButton('deleteFiles'));
         }
 
-        $this->view->addButtons($buttons);      
-        
+        $this->view->addButtons($buttons);
+
         if ($this->mode !== 1) {
             return;
-        }        
+        }
 
         $this->view->addToolbarRight([
-            (new \fpcm\view\helper\select('listView'))
-                ->setOptions(\fpcm\components\components::getFilemanagerViews())
-                ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
-                ->setSelected($this->config->file_view)
-                ->setData(['user_setting' => 'file_view']),
-            (new \fpcm\view\helper\select('listamount'))
-                ->setOptions( \fpcm\model\system\config::getAcpArticleLimits() )
-                ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
-                ->setSelected($this->config->file_list_limit)
-                ->setData(['user_setting' => 'file_list_limit'])
+            (new \fpcm\view\helper\button('settings'))->setText('HL_OPTIONS')->setIcon('cogs')->setIconOnly()
         ]);
 
     }
-    
+
     public function assignSearchFromVars()
     {
-        
+
         $fields = [
             'filename' => [
                 'call' => 'input',
@@ -234,7 +248,7 @@ class filelist extends \fpcm\controller\abstracts\controller
                 'label' => 'ARTICLE_SEARCH_USER',
             ]
         ];
-        
+
         $combinations = [
             'default' => [
                 'ARTICLE_SEARCH_LOGICNONE' => -1,
@@ -242,9 +256,9 @@ class filelist extends \fpcm\controller\abstracts\controller
                 'ARTICLE_SEARCH_LOGICOR' => 1,
             ]
         ];
-        
+
         $this->view->addSearchForm($fields, $combinations);
-        
+
         $this->view->addJsLangVars([
             'SEARCH_WAITMSG', 'ARTICLES_SEARCH', 'ARTICLE_SEARCH_START',
             'ARTICLE_SEARCH_USER', 'ARTICLE_SEARCH_DATE_TO', 'ARTICLE_SEARCH_DATE_FROM',
