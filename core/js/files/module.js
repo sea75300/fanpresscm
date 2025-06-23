@@ -52,7 +52,7 @@ fpcm.filemanager = {
                 id: 'files-settings',
                 title: 'HL_OPTIONS',
                 size: '',
-                closeButton: false,
+                closeButton: true,
                 directAssignToDom: true,
                 content: _settings,
                 icon: {

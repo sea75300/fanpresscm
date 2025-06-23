@@ -81,7 +81,8 @@ class filelist extends \fpcm\controller\abstracts\controller
                 ->setSelected($this->config->file_list_limit)
                 ->setData(['user_setting' => 'file_list_limit'])
                 ->setIcon('folder-open')
-                ->setLabelTypeFloat(),
+                ->setLabelTypeFloat()
+                ->setBottomSpace(''),
             (new \fpcm\view\helper\select('listView'))
                 ->setText('SYSTEM_OPTIONS_FILEMANAGER_VIEW')
                 ->setOptions(\fpcm\components\components::getFilemanagerViews())
@@ -90,6 +91,7 @@ class filelist extends \fpcm\controller\abstracts\controller
                 ->setData(['user_setting' => 'file_view'])
                 ->setIcon('grip-horizontal')
                 ->setLabelTypeFloat()
+                ->setBottomSpace('')
         ]);
         
         $this->view->addDialogs($settingsDlg);

@@ -28,6 +28,8 @@ class view {
 
     const PATH_COMPONENTS = '{$components}';
     const PATH_MODULE = '{$module}';
+    
+    const VIEW_FILE_EXTENSION = '.php';
 
     /**
      * Complete view path
@@ -770,10 +772,10 @@ class view {
 
         switch ($this->showHeader) {
             case self::INCLUDE_HEADER_FULL :
-                include_once \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'common/header.php');
+                include_once \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'common/header' . self::VIEW_FILE_EXTENSION);
                 break;
             case self::INCLUDE_HEADER_SIMPLE :
-                include_once \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'common/headersimple.php');
+                include_once \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'common/headersimple' . self::VIEW_FILE_EXTENSION);
                 break;
         }
 
@@ -781,10 +783,10 @@ class view {
 
         switch ($this->showHeader) {
             case self::INCLUDE_HEADER_FULL :
-                include_once \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'common/footer.php');
+                include_once \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'common/footer' . self::VIEW_FILE_EXTENSION);
                 break;
             case self::INCLUDE_HEADER_SIMPLE :
-                include_once \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'common/footersimple.php');
+                include_once \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'common/footersimple' . self::VIEW_FILE_EXTENSION);
                 break;
         }
 
@@ -961,7 +963,7 @@ class view {
      */
     public function setViewPath($viewName, $module = null)
     {
-        $viewName .= '.php';
+        $viewName .= self::VIEW_FILE_EXTENSION;
 
         $this->viewPath = $module
                         ? \fpcm\module\module::getTemplateDirByKey($module, $viewName)
@@ -1212,7 +1214,7 @@ class view {
      */
     public function addOffCanvas(string $headline, string $filePath)
     {
-        $this->assign('offcanvasFile', $filePath . '.php');
+        $this->assign('offcanvasFile', $filePath . self::VIEW_FILE_EXTENSION);
         $this->assign('offcanvasHeadline', $headline);
         $this->defaultViewVars->showOffCanvas = true;
     }
@@ -1277,9 +1279,19 @@ class view {
      * @param string str
      * @since 5.0-dev
      */
+    
+    /**
+     * Add path for form view, use forms.php file if no .php extention given
+     * @param string $str
+     * @return type
+     */
     public function includeForms(string $str)
     {
-        $this->defaultViewVars->includeForms = $str . '/forms.php';
+        if (!str_ends_with($str, self::VIEW_FILE_EXTENSION)) {
+            $str .= '/forms' . self::VIEW_FILE_EXTENSION;
+        }
+
+        $this->defaultViewVars->includeForms = $str;
     }
 
     /**

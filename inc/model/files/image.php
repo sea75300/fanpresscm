@@ -84,7 +84,7 @@ implements \fpcm\model\interfaces\validateFileType,
      * Exif/ IPCT data
      * @var string
      */
-    protected $iptcStr;
+    protected $iptcstr;
 
     /**
      * Flag if file is in file index
@@ -97,7 +97,10 @@ implements \fpcm\model\interfaces\validateFileType,
      * Felder die in Datenbank gespeichert werden können
      * @var array
      */
-    protected $dbParams = ['userid', 'filename', 'filetime', 'filesize', 'alttext'];
+    protected $dbParams = [
+        'userid', 'filename', 'filetime', 'filesize',
+        'alttext', 'mimetype', 'filehash', 'width',
+        'height', 'iptcstr'];
 
     /**
      * Konstruktor
@@ -273,7 +276,7 @@ implements \fpcm\model\interfaces\validateFileType,
      * @return string
      */
     public function getIptcStr() {
-        return $this->iptcStr;
+        return $this->iptcstr;
     }
 
     /**
@@ -324,7 +327,12 @@ implements \fpcm\model\interfaces\validateFileType,
         }
 
         $saveValues = $this->getSaveValues();
+        $saveValues['filehash'] = $this->getFileHash();
         $saveValues['filesize'] = (int) $saveValues['filesize'];
+        $saveValues['filetime'] = (int) $saveValues['filetime'];
+        $saveValues['width'] = (int) $saveValues['width'];
+        $saveValues['height'] = (int) $saveValues['height'];
+        $saveValues['userid'] = (int) $saveValues['userid'];
 
         $ev = $this->events->trigger('image\save', $saveValues);
         if (!$ev->getSuccessed() || !$ev->getContinue()) {
@@ -346,8 +354,14 @@ implements \fpcm\model\interfaces\validateFileType,
         }
 
         $saveValues = $this->getSaveValues();
+
+        fpcmLogSystem($saveValues);
+
+        $saveValues['filehash'] = $this->getFileHash();
         $saveValues['filesize'] = (int) $saveValues['filesize'];
         $saveValues['filetime'] = (int) $saveValues['filetime'];
+        $saveValues['width'] = (int) $saveValues['width'];
+        $saveValues['height'] = (int) $saveValues['height'];
         $saveValues['userid'] = (int) $saveValues['userid'];
 
         $saveValues[] = $this->filename;
@@ -552,17 +566,22 @@ implements \fpcm\model\interfaces\validateFileType,
             $this->filesize = filesize($this->fullpath);
         }
 
-        $fileData = getimagesize($this->fullpath, $metaInfo);
-        if (!is_array($fileData)) {
-            return true;
+        if (!$this->width || !$this->height || !$this->mimetype) {
+
+            $fileData = getimagesize($this->fullpath, $metaInfo);
+            if (!is_array($fileData)) {
+                return true;
+            }
+
+            $this->width = $fileData[0];
+            $this->height = $fileData[1];
+            $this->whstring = $fileData[3];
+            $this->mimetype = $fileData['mime'];
+
+            $this->parseIptc($metaInfo);
         }
 
-        $this->width = $fileData[0];
-        $this->height = $fileData[1];
-        $this->whstring = $fileData[3];
-        $this->mimetype = $fileData['mime'];
-
-        $this->parseIptc($metaInfo);
+        return true;
     }
 
     /**
@@ -604,7 +623,13 @@ implements \fpcm\model\interfaces\validateFileType,
     protected function getPreparedSaveParams()
     {
         $params = get_object_vars($this);
-        unset($params['cache'], $params['config'], $params['dbcon'], $params['events'], $params['id'], $params['nodata'], $params['system'], $params['table'], $params['dbExcludes'], $params['language'], $params['editAction'], $params['objExists'], $params['cacheName']);
+        unset(
+            $params['cache'], $params['config'], $params['dbcon'],
+            $params['events'], $params['id'], $params['nodata'],
+            $params['system'], $params['table'], $params['dbExcludes'],
+            $params['language'], $params['editAction'], $params['objExists'],
+            $params['cacheName']
+        );
 
         if ($this->nodata)
             unset($params['data']);
@@ -642,15 +667,12 @@ implements \fpcm\model\interfaces\validateFileType,
      */
     public function parseIptc($info)
     {
-        if ($this->iptcStr === null || trim($this->iptcStr)) {
-            return true;
-        }
-
         if (!function_exists('iptcparse') || !is_array($info) || !count($info)) {
+            $this->iptcstr = '-';
             return false;
         }
 
-        $this->iptcStr = [];
+        $this->iptcstr = [];
         array_map(function ($item) {
 
             $iptc = iptcparse($item);
@@ -661,16 +683,16 @@ implements \fpcm\model\interfaces\validateFileType,
             foreach (array_keys($iptc) as $s) {
                 $c = count ($iptc[$s]);
                 for ($i=0; $i <$c; $i++) {
-                    $this->iptcStr[$s] = $iptc[$s][$i];
+                    $this->iptcstr[$s] = $iptc[$s][$i];
                 }
             }
 
-            $this->iptcStr = array_intersect_key($this->iptcStr, ['2#080' => 1, '2#110' => 1, '2#116' => 1]);
+            $this->iptcstr = array_intersect_key($this->iptcstr, ['2#080' => 1, '2#110' => 1, '2#116' => 1]);
 
         }, $info);
 
-        $tmp = iconv("UTF-8", "ISO-8859-1", $this->iptcStr);
-        $this->iptcStr = htmlspecialchars(strip_tags($tmp));
+        $tmp = iconv("UTF-8", "ISO-8859-1", is_array($this->iptcstr) ? implode(' / ', $this->iptcstr) : $this->iptcstr);
+        $this->iptcstr = htmlspecialchars(strip_tags($tmp));
         return true;
     }
 

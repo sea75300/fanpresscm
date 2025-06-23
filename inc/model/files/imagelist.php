@@ -240,18 +240,18 @@ implements \fpcm\model\interfaces\gsearchIndex {
         }
 
         if (!in_array($image->getMimetype(), image::$allowedTypes) || !in_array(strtolower($image->getExtension()), image::$allowedExts)) {
-            trigger_error("Filetype not allowed in \"{$image->getFullpath()}\".");
+            trigger_error(sprintf('Filetype "%s" not allowed in "%s".', $image->getMimetype(), $image->getFilename()));
             return false;
         }
 
         $res = $image->save();
         if (!$res && $this->dbcon->getLastQueryErrorCode() === \fpcm\drivers\sqlDriver::CODE_ERROR_UNIQUEKEY) {
-            trigger_error("Unable to save image \"{$image->getFullpath()}\" to database, file is already indexed.");
+            trigger_error("Unable to save image \"{$image->getFilename()}\" to database, file is already indexed.");
             return false;
         }
 
         if (!$res) {
-            trigger_error("Unable to save image \"{$image->getFullpath()}\" to database, due to unknows reason.");
+            trigger_error("Unable to save image \"{$image->getFilename()}\" to database, due to unknows reason.");
             return false;
         }
 
@@ -397,7 +397,8 @@ implements \fpcm\model\interfaces\gsearchIndex {
     private function assignMultipleSearchParams(search $conditions, array &$where, array &$valueParams, string $combination) : bool
     {
         if ($conditions->filename) {
-            $where[] = "(filename ".$this->dbcon->dbLike()." ? OR alttext ".$this->dbcon->dbLike()." ?)";
+            $where[] = "(filename {$this->dbcon->dbLike()} ? OR alttext {$this->dbcon->dbLike()} ? OR iptcstr {$this->dbcon->dbLike()} ?)";
+            $valueParams[] = '%' . $conditions->filename . '%';
             $valueParams[] = '%' . $conditions->filename . '%';
             $valueParams[] = '%' . $conditions->filename . '%';
         }
