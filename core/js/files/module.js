@@ -69,7 +69,10 @@ fpcm.filemanager = {
                                     var: _ui.dataset.user_setting,
                                     value: _ui.value
                                 },
-                                execDone: fpcm.filemanager.reloadFiles
+                                execDone: function () {
+                                    fpcm.filemanager.reloadFiles();
+                                    fpcm.vars.jsvars.dialogs.filesSettings.fields[_ui.dataset.user_setting].preSelected = _ui.value;
+                                }
                             });
                         }
                     });

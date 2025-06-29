@@ -74,22 +74,20 @@ class filelist extends \fpcm\controller\abstracts\controller
         
         $settingsDlg = (new \fpcm\view\helper\dialog('filesSettings'));
         $settingsDlg->setFields([
-            (new \fpcm\view\helper\select('listamount'))
+            'file_list_limit' => (new \fpcm\view\helper\select('listamount'))
                 ->setText('SYSTEM_OPTIONS_ACPARTICLES_LIMIT')
                 ->setOptions( \fpcm\model\system\config::getAcpArticleLimits() )
                 ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
                 ->setSelected($this->config->file_list_limit)
                 ->setData(['user_setting' => 'file_list_limit'])
-                ->setIcon('folder-open')
                 ->setLabelTypeFloat()
                 ->setBottomSpace(''),
-            (new \fpcm\view\helper\select('listView'))
+            'file_view' => (new \fpcm\view\helper\select('listView'))
                 ->setText('SYSTEM_OPTIONS_FILEMANAGER_VIEW')
                 ->setOptions(\fpcm\components\components::getFilemanagerViews())
                 ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
                 ->setSelected($this->config->file_view)
                 ->setData(['user_setting' => 'file_view'])
-                ->setIcon('grip-horizontal')
                 ->setLabelTypeFloat()
                 ->setBottomSpace('')
         ]);
