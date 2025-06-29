@@ -370,6 +370,11 @@ class module {
             return false;
         }
 
+        if (version_compare($sysVersion, '5.3.0-dev', '<')) {
+            trigger_error(sprintf("Module %s does not support FanPress CM 5.3.x! This module connat be installed for now.", $this->mkey));
+            return false;
+        }        
+        
         if (version_compare($this->systemConfig->system_version, $sysVersion, '<')) {
             return false;
         }
