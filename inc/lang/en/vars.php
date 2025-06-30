@@ -362,6 +362,7 @@ $lang = array (
   'HL_HELP' => 'Help',
   'HL_HELP_BACKDROP' => 'Backdrop image by',
   'HL_HELP_CACHE' => 'Cache',
+  'HL_HELP_CHANGELOG' => 'Changelog',
   'HL_HELP_LICENCE' => 'License information',
   'HL_HELP_SUPPORT' => 'Contact & Support',
   'HL_LOGS' => 'Logs',

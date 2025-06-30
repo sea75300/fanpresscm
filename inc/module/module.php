@@ -373,8 +373,8 @@ class module {
         if (version_compare($sysVersion, '5.3.0-dev', '<')) {
             trigger_error(sprintf("Module %s does not support FanPress CM 5.3.x! This module connat be installed for now.", $this->mkey));
             return false;
-        }        
-        
+        }
+
         if (version_compare($this->systemConfig->system_version, $sysVersion, '<')) {
             return false;
         }
@@ -388,7 +388,7 @@ class module {
      */
     public function hasUpdates() : bool
     {
-        $data = \fpcm\classes\loader::getObject('\fpcm\model\updater\modules')->getDataCachedByKey($this->mkey);        
+        $data = \fpcm\classes\loader::getObject('\fpcm\model\updater\modules')->getDataCachedByKey($this->mkey);
         if ($data === false) {
             return false;
         }
@@ -1057,6 +1057,21 @@ class module {
     }
 
     /**
+     * Return full changelog URL
+     * @return string
+     * @since 5.3.0-a1
+     */
+    final public function getFullChangelogUrl() : string
+    {
+        $changelogUrl = $this->config->changelogUrl ?? '';
+        if (!str_starts_with($changelogUrl, 'http')) {
+            $changelogUrl = self::getModuleUrlFromKey($this->mkey) . '/' . $changelogUrl;
+        }
+
+        return $changelogUrl;
+    }
+
+    /**
      * Delete module data path
      * @return bool
      * @version 5.0.0-b1
@@ -1274,24 +1289,30 @@ class module {
             $data = $this->config->requirements;
         }
 
-        if (!isset($data['php']) || !isset($data['system'])) {
-            trigger_error('Invalid data given, missing index "php" and "system"');
+        if (is_array($data)) {
+            $data = new config\requirements($data);
+        }
+
+        if (!$data->php || !$data->system) {
+            trigger_error('Invalid data given for data "php" and "system".');
             return;
         }
 
-        $phpRelease = \fpcm\classes\tools::getMajorMinorReleaseFromString(PHP_VERSION);
-        $phpVersion = is_array($data['php']) &&
-                      $data['php'][$phpRelease]
+        fpcmLogSystem($data);
 
-                    ? $data['php'][$phpRelease]
-                    : $data['php'];
+        $phpRelease = \fpcm\classes\tools::getMajorMinorReleaseFromString(PHP_VERSION);
+        $phpVersion = is_array($data->php) &&
+                      $data->php[$phpRelease]
+
+                    ? $data->php[$phpRelease]
+                    : $data->php;
 
         $sysRelease = \fpcm\classes\tools::getMajorMinorReleaseFromString($this->systemConfig->system_version);
-        $sysVersion = is_array($data['system']) &&
-                      $data['system'][$sysRelease]
+        $sysVersion = is_array($data->system) &&
+                      $data->system[$sysRelease]
 
-                    ? $data['system'][$sysRelease]
-                    : $data['system'];
+                    ? $data->system[$sysRelease]
+                    : $data->system;
     }
 
     /**

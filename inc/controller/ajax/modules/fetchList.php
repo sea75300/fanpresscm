@@ -210,11 +210,11 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController
         $class = ($hasUpdates ? 'text-danger' : '');
 
         $buttons = $this->getButtonsLocal($item, $hash, $hasUpdates, $hasLocalUpdates);
-        
+
         if (!$config->name) {
             $config->name = $config->key;
         }
-        
+
         if (!$config->version) {
             $config->version = '0.0.0';
         }
@@ -239,7 +239,7 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController
         $key = $config->key;
         $hash = \fpcm\classes\tools::getHash($key);
 
-        $buttons = [];        
+        $buttons = [];
         if (!$item->isInstallable()) {
             $buttons[] = (new \fpcm\view\helper\button('installable'.$hash))
                     ->overrideButtonType('danger')
@@ -247,7 +247,7 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController
                     ->setText('MODULES_FAILED_DEPENCIES')
                     ->setSize('lg')
                     ->setIconOnly();
-        }        
+        }
 
         $buttons[] = (new \fpcm\view\helper\button('info'.$hash))
             ->setText('MODULES_LIST_INFORMATIONS')
@@ -262,6 +262,15 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController
             ->setAria([
                 'bs-controls' => 'offcanvasInfo',
             ]);
+
+        if ($item->getConfig()->changelogUrl) {
+            $buttons[] = (new \fpcm\view\helper\linkButton('changelog'.$hash))
+                    ->setUrl($item->getFullChangelogUrl())
+                    ->setText('HL_HELP_CHANGELOG')
+                    ->setIcon('code-branch')
+                    ->setIconOnly()
+                    ->setRel('external');
+        }
 
         $isInstalled = in_array($item->getKey(), $this->installed);
 
@@ -402,6 +411,17 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController
                     ->setIconOnly()
                     ->setPrimary(true)
                     ->setClass('fpcm-ui-modulelist-action-local-update');
+
+            if ($item->getConfig()->changelogUrl) {
+                $buttons[] = (new \fpcm\view\helper\linkButton('changelog'.$hash))
+                        ->setUrl($item->getFullChangelogUrl())
+                        ->setText('HL_HELP_CHANGELOG')
+                        ->setIcon('code-branch')
+                        ->setIconOnly()
+                        ->setRel('external')
+                        ->overrideButtonType('info');
+            }
+
         }
 
         if ($hasLocalUpdates && !$hasUpdates) {

@@ -11,6 +11,9 @@
         <?php if ($moduleLicenceUrl) : ?>
             <?php $theView->linkButton('licence')->overrideButtonType('outline-secondary')->setRel('external')->setUrl($moduleLicenceUrl)->setIconOnly()->setTarget('_blank')->setText('HL_HELP_LICENCE')->setIcon('certificate'); ?>
         <?php endif; ?>
+        <?php if ($moduleChangelogUrl) : ?>
+            <?php $theView->linkButton('changelog')->overrideButtonType('outline-secondary')->setRel('external')->setUrl($moduleChangelogUrl)->setIconOnly()->setTarget('_blank')->setText('HL_HELP_CHANGELOG')->setIcon('code-branch'); ?>
+        <?php endif; ?>
     <?php if (trim($moduleSupport)) : ?>
         <?php if (filter_var($moduleSupport, FILTER_VALIDATE_EMAIL)) : ?>
             <?php $theView->linkButton('support')->overrideButtonType('outline-secondary')->setUrl('mailto:' . $moduleSupport)->setIconOnly()->setText('MODULES_LIST_SUPPORT')->setIcon('headset'); ?>
