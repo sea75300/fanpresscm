@@ -267,8 +267,6 @@ fpcm.ui_dialogs = {
                 }
             }
 
-
-
         }
 
         if (_focused || _params.dlOnOpenAfter) {

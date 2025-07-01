@@ -113,14 +113,13 @@ fpcm.comments = {
                         }
                     }              
                 ],
-                dlOnOpen: function() {
-                    fpcm.dom.fromId('text').focus();
-                },
                 dlOnOpenAfter: function() {            
                     fpcm.ui.autocomplete('#articleId', {
                         source: fpcm.vars.ajaxActionPath + 'autocomplete&src=articles',
                         minLength: 3
                     });
+
+                    fpcm.dom.fromId('text').focus();
                 }
             });
 

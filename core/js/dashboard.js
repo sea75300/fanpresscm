@@ -29,6 +29,7 @@ fpcm.dashboard = {
                 fpcm.ui.initJqUiWidgets();
                 fpcm.dashboard.forceUpdate();
                 fpcm.dashboard.openUpdateCheckUrl();
+                fpcm.dashboard.openUpdateDialog();
                 fpcm.dashboard.initDraggable();
 
                 jQuery.each(fpcm.dashboard.onDone, function (idx, object) {
@@ -39,25 +40,25 @@ fpcm.dashboard = {
 
                     object.execAfter();
                 });
-                
-                
+
+
                 return false;
             }
-        });        
+        });
     },
-    
+
     forceUpdate: function () {
-        
+
         if (!fpcm.vars.jsvars.forceUpdate) {
             return false;
         }
-        
+
         fpcm.ui.relocate(fpcm.dom.fromId('startUpdate').attr('href'));
         return true;
     },
-    
+
     openUpdateCheckUrl: function () {
-        
+
         if (!fpcm.vars.jsvars.openUpdateCheckUrl) {
             return false;
         }
@@ -65,7 +66,52 @@ fpcm.dashboard = {
         window.open(fpcm.dom.fromId('chckmanual').attr('href'), '_blank', 'width=700,height=500,scrollbars=yes,resizable=yes,');
         return true;
     },
-    
+
+    openUpdateDialog: function() {
+
+        fpcm.dom.bindClick('#btnStartUpdate', function (_e, _ui) {
+
+            fpcm.ui_dialogs.create({
+                id: 'updateCallback',
+                title: 'GLOBAL_CONFIRM',
+                content: fpcm.ui.translate('PACKAGES_UPDATE_CONFIRM'),
+                icon: {
+                    icon: 'cloud-download'
+                },
+                dlButtons: [
+                    {
+                        text: 'HL_HELP_CHANGELOG',
+                        icon: "code-branch",
+                        click: function () {
+                            window.open(_ui.dataset.changelog, '_blank');
+                        },
+                        class: 'btn-info',
+                        clickClose: true
+                    },
+                    {
+                        text: 'GLOBAL_YES',
+                        icon: "check",
+                        click: function () {
+                            fpcm.ui.relocate(_ui.dataset.update);
+                        },
+                        class: 'btn-success',
+                        clickClose: true
+                    },
+                    {
+                        text: 'GLOBAL_NO',
+                        icon: "times",
+                        class: 'btn-danger',
+                        clickClose: true
+                    }
+                ]
+            });
+
+
+        });
+
+
+    },
+
     initDraggable: function () {7
 
         fpcm.ui_dnd.initDnd({
@@ -100,18 +146,18 @@ fpcm.dashboard = {
             fpcm.dashboard.disableContainer(_ui.dataset.cname);
         });
     },
-    
+
     resetPositions: function (_e)
     {
         fpcm.ui_dialogs.confirm({
             clickYes: function () {
-                
+
                 let _spin = document.createElement('span');
                 _spin.classList.add('spinner-border');
                 _spin.classList.add('spinner-border-sm');
                 _spin.classList.add('ms-1');
                 _e.delegateTarget.appendChild(_spin);
-                
+
                 fpcm.ajax.post('setconfig', {
                     data: {
                         op: 'reset',
@@ -128,7 +174,7 @@ fpcm.dashboard = {
 
         return false;
     },
-    
+
     fetchDisabledContainer: function() {
 
         fpcm.ajax.exec('dashboard/manager', {
@@ -153,9 +199,9 @@ fpcm.dashboard = {
                 });
 
             }
-        });    
+        });
     },
-    
+
     disableContainer: function (_value)
     {
         fpcm.ui_dialogs.confirm({
@@ -174,13 +220,13 @@ fpcm.dashboard = {
 
         return false;
     },
-    
+
     enableContainer: function (_ui)
     {
         if (_ui.dataset.container == -1) {
             return false;
         }
-        
+
         fpcm.ui_dialogs.confirm({
             clickYes: function () {
                 fpcm.ajax.post('setconfig', {

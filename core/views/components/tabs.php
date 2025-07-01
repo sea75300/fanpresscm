@@ -7,7 +7,7 @@
     <?php endforeach; ?>
     </ul>    
 
-    <div class="tab-content <?php if (!isset($hideTabBackground)) : ?>fpcm ui-background-white-50p<?php endif; ?>">
+    <div class="tab-content <?php if (!isset($hideTabBackground)) : ?>fpcm ui-background-white-50p ui-blurring<?php endif; ?>">
     <?php foreach ($tabs as $tab) : ?>
 
         <div id="fpcm-tab-<?php print $tab->getId(); ?>-pane" class="fpcm ui-mh-100vh tab-pane fade <?php if ($tab->isActive()) : ?>show active<?php endif; ?>" role="tabpanel" aria-labelledby="fpcm-tab-<?php print $tab->getId(); ?>">

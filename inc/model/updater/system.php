@@ -28,7 +28,7 @@ use fpcm\model\packages\update;
  * @property string $signature Package signature
  * @property string $phpversion Minimum required PHP version
  * @property string $release Package release
- * @property string $changekog Changelog URL
+ * @property string $changelog Changelog URL
  * @property int $size Package size
  */
 final class system extends staticModel {
@@ -136,8 +136,8 @@ final class system extends staticModel {
             $this->size = 0;
         }
 
-        if ($this->changekog === null) {
-            $this->changekog = '';
+        if ($this->changelog === null) {
+            $this->changelog = '';
         }
 
         return true;

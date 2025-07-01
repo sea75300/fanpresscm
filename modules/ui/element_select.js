@@ -24,6 +24,8 @@ export class element_select {
 
     labelIcon = false;
 
+    icon = false;
+
     options = [];
 
     preSelected = false;
@@ -90,6 +92,11 @@ export class element_select {
             _label.className = 'fpcm ui-label';
 
             this.label = fpcm.ui.translate(this.label);
+
+            if (this.icon) {
+                let _ti = this.icon.split(' ');
+                this.labelIcon = new fpcm.ui.forms.icon(_ti[2].replace('fa-', ''), _ti[1].replace('fa-', ''));
+            }
 
             if (this.labelIcon) {
                 this.label = this.labelIcon.getString() + ' ' + fpcm.ui.translate(this.label);

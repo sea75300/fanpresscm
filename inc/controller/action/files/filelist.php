@@ -80,6 +80,7 @@ class filelist extends \fpcm\controller\abstracts\controller
                 ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
                 ->setSelected($this->config->file_list_limit)
                 ->setData(['user_setting' => 'file_list_limit'])
+                ->setIcon('folder-open')
                 ->setLabelTypeFloat()
                 ->setBottomSpace(''),
             'file_view' => (new \fpcm\view\helper\select('listView'))
@@ -88,6 +89,7 @@ class filelist extends \fpcm\controller\abstracts\controller
                 ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
                 ->setSelected($this->config->file_view)
                 ->setData(['user_setting' => 'file_view'])
+                ->setIcon('grip-horizontal')
                 ->setLabelTypeFloat()
                 ->setBottomSpace('')
         ]);

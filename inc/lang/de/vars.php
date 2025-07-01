@@ -547,6 +547,7 @@ $lang = array (
   'PACKAGES_FAILED_ERROR_BACKUPS' => 'Beim Erzeugen des Dateisystem-Backups ist ein Fehler aufgetreten! Bitte prüfe das Ereignisprotokoll für detaillierte Informationen.',
   'PACKAGES_MANUALCHECK' => 'Auf Aktualisierung prüfen',
   'PACKAGES_UPDATE' => 'Aktualisierung starten',
+  'PACKAGES_UPDATE_CONFIRM' => 'Möchtest du die Aktualisierung jetzt starten?',
   'PACKAGES_UPDATES_LIST' => 'Aktualisierungen anzeigen',
   'PASSWORD_NEWPASSWORDSET_SUBJECT' => 'Neues Passwort festgelegt',
   'PASSWORD_NEWPASSWORDSET_TEXT' => 'Für deinen FanPress CM-Account <b>{{username}}</b> wurde das Passwort <b>{{newpass}}</b> festgelegt. Mit diesen Daten kannst du dich anmelden und auch ein eigenes Passwort vergeben.',
