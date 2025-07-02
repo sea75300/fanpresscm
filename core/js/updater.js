@@ -19,12 +19,7 @@ fpcm.updater = {
     currentIdx   : 0,
 
     init: function () {
-
-        fpcm.updater.elements = fpcm.dom.fromClass('fpcm-ui-update-icons');
-        fpcm.updater.elCount  = fpcm.updater.elements.length;
-
-        var start = fpcm.updater.elements.first();
-        fpcm.updater.execRequest(start);
+        fpcm.updater.execRequest(fpcm.vars.jsvars.pkgdata.update.steps[0]);
     },
 
     execRequest: function(el) {
@@ -32,17 +27,20 @@ fpcm.updater = {
         fpcm.updater.currentIdx++;
 
         var params = {
-            step: el.data('step'),
-            func: el.data('func'),
-            var: el.data('var'),
+            step: el.step,
+            func: el.func,
+            var: el.var
         };
 
-        var _listItem = el.parent().parent().parent();
-        _listItem.addClass('list-group-item-primary').removeClass('disabled');
-
-        if (params.var && fpcm.vars.jsvars.pkgdata.update[params.var]) {
-            _listItem.html(_listItem.html().replace('{{var}}', fpcm.vars.jsvars.pkgdata.update[params.var]));
-        }
+        let _progress = fpcm.ui.progressbar(
+            'package', {
+                value: fpcm.updater.currentIdx,
+                max: fpcm.vars.jsvars.stepcount,
+                min: 1,
+                label: el.icon + el.label,
+                hasHtmlLabel: 'progress-bar-label'
+            }
+        );
 
         if (params.func && typeof fpcm.updater[params.func] === 'function') {
             fpcm.updater[params.func].call();
@@ -51,8 +49,6 @@ fpcm.updater = {
         if (!params.step) {
             return false;
         }
-
-        fpcm.updater._spinner(_listItem, true);
 
         fpcm.updater.currentEl = el;
 
@@ -63,11 +59,8 @@ fpcm.updater = {
             },
             execDone: function (res) {
 
-                fpcm.updater._spinner(_listItem, false);
-
                 if (!res.code) {
 
-                    _listItem.removeClass('list-group-item-primary').removeClass('disabled').addClass('list-group-item-danger');
                     fpcm.updater.errorMsg();
                     
                     if (res.message) {
@@ -86,24 +79,20 @@ fpcm.updater = {
                     jQuery.extend(fpcm.vars.jsvars.pkgdata.update, res.pkgdata);
                 }
 
-                var afterFunc = fpcm.updater.currentEl.data('after');
+                var afterFunc = fpcm.updater.currentEl.after;
                 if (afterFunc && typeof fpcm.updater[afterFunc] === 'function') {
                     fpcm.updater[afterFunc].call();
                 }
 
-                _listItem.removeClass('list-group-item-primary').removeClass('disabled').addClass('list-group-item-success');
-                
-                if (!fpcm.updater.elements[fpcm.updater.currentIdx]) {
+                if (!fpcm.vars.jsvars.pkgdata.update.steps[fpcm.updater.currentIdx]) {
                     return false;
                 }
+                
+                console.log('fpcm.updater.currentIdx = ' + fpcm.updater.currentIdx);
 
-                fpcm.updater.execRequest(fpcm.dom.fromTag(fpcm.updater.elements[fpcm.updater.currentIdx]));
+                fpcm.updater.execRequest(fpcm.vars.jsvars.pkgdata.update.steps[fpcm.updater.currentIdx]);
             },
             execFail: function () {
-
-                fpcm.updater._spinner(_listItem, false);
-
-                _listItem.removeClass('list-group-item-primary').removeClass('disabled').addClass('list-group-item-danger');
 
                 fpcm.ui_notify.show({
                     body: fpcm.updater.errorMsg()
@@ -122,30 +111,51 @@ fpcm.updater = {
     },
     
     stopTimer: function() {
-        fpcm.updater.stopTime = (new Date().getTime());
-        
-        fpcm.dom.assignHtml('#fpcm-ui-update-timer', (fpcm.updater.stopTime - fpcm.updater.startTime) / 1000 + ' sec');
-        fpcm.dom.assignHtml('#fpcm-ui-update-newver-descr', fpcm.vars.jsvars.pkgdata.update.version);
 
-        let _res = fpcm.dom.fromId('fpcm-ui-update-result-1');
-        _res.removeClass('disabled d-none').addClass('list-group-item-success');
+        fpcm.updater.assignTimerStopTime();
+        
+        let _icon = new fpcm.ui.forms.icon('check', 'lg');
+
+        let _msg = document.createElement('div');
+        _msg.classList.add('alert');
+        _msg.classList.add('alert-success');
+        _msg.classList.add('shadow-sm');
+        _msg.setAttribute('role', 'alert');
+        _msg.innerHTML = _icon.getString() + 
+                fpcm.ui.translate('PACKAGEMANAGER_SUCCESS') + ' ' + 
+                fpcm.ui.translate('PACKAGEMANAGER_NEWVERSION') + ' ' + fpcm.vars.jsvars.pkgdata.update.version;
+
+        document.getElementById('fpcm-id-package-messages').appendChild(_msg);
         
         fpcm.ui_notify.show({
-            body: _res.find('div.fpcm-ui-updater-descr').text().trim()
+            body: fpcm.ui.translate('PACKAGEMANAGER_SUCCESS') + ' ' + fpcm.ui.translate('PACKAGEMANAGER_NEWVERSION') + ' ' + fpcm.vars.jsvars.pkgdata.update.version
         });        
 
     },
     
     errorMsg: function () {
-        let _res = fpcm.dom.fromId('fpcm-ui-update-result-0');
-        _res.removeClass('disabled d-none').addClass('list-group-item-danger');
-        fpcm.dom.fromId('fpcm-ui-update-timer').addClass('d-none');
-        fpcm.dom.fromId('fpcm-ui-update-version').addClass('d-none');
-        return _res.find('div.fpcm-ui-updater-descr').text().trim();
+        
+        let _icon = new fpcm.ui.forms.icon('times', 'lg');
+
+        let _msg = document.createElement('div');
+        _msg.classList.add('alert');
+        _msg.classList.add('alert-danger');
+        _msg.classList.add('shadow-sm');
+        _msg.setAttribute('role', 'alert');
+        _msg.innerHTML = _icon.getString() + fpcm.ui.translate('PACKAGEMANAGER_FAILED');
+
+        document.getElementById('fpcm-id-package-messages').appendChild(_msg);      
+        
+        fpcm.updater.assignTimerStopTime();
+        
+        fpcm.dom.assignHtml('#fpcm-id-update-timer', (fpcm.updater.stopTime - fpcm.updater.startTime) / 1000 + ' sec');
+
+        return fpcm.ui.translate('PACKAGEMANAGER_FAILED') + ' ' + fpcm.updater.currentEl.label.trim();
     },
     
-    _spinner: function (_listItem, _status) {
-        _listItem.find('div.fpcm.ui-updater-spinner').html(_status ? '<div class="spinner-border spinner-border-sm text-secondary" role="status"></div>' : '');
+    assignTimerStopTime: function () {
+        fpcm.updater.stopTime = (new Date().getTime());        
+        fpcm.dom.assignHtml('#fpcm-id-update-timer', (fpcm.updater.stopTime - fpcm.updater.startTime) / 1000 + ' sec');
     }
-
+    
 };

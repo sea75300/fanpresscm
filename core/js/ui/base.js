@@ -326,7 +326,14 @@ fpcm.ui = {
         _el.setAttribute('ariaValuenow', _params.value);
         _el.setAttribute('ariaValuemax', _params.max);
         _el.setAttribute('ariaValuemin', _params.min);
-        _el.innerText = _params.label;
+        
+        if (_params.hasHtmlLabel) {
+            document.getElementById(_params.hasHtmlLabel).innerHTML = _params.label;
+        }
+        else {
+            _el.innerText = _params.label;
+        }
+
         _el.style.width = (_params.value * 100 / _params.max) + '%';
 
         if (_el.label && !_el.classList.contains('p-2')) {

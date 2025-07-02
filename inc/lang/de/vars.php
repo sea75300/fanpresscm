@@ -302,6 +302,7 @@ $lang = array (
   'GLOBAL_ENABLE' => 'Aktivieren',
   'GLOBAL_EXTENDED' => 'Erweitert',
   'GLOBAL_EXTERNAL' => 'Extern',
+  'GLOBAL_FINISHED' => 'Abgeschlossen',
   'GLOBAL_FRONTEND_OPEN' => 'Artikel auf Webseite anzeigen',
   'GLOBAL_HIDE' => 'Ausblenden',
   'GLOBAL_HTMLTAGS_ALLOWED' => 'Erlaubte HTML-Tags',

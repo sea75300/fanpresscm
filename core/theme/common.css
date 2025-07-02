@@ -172,6 +172,10 @@ img.fpcm-ui-smileylist-preview {
     height: 10px;
 }
 
+.fpcm.ui-progressbar-lg {
+    height: 50px;
+}
+
 .pre-box {
     white-space: pre-line;
 }
