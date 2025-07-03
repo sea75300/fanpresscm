@@ -121,6 +121,7 @@ class update extends \fpcm\controller\abstracts\controller
                 ->setUrl(\fpcm\classes\tools::getFullControllerLink('system/options', ['rg' => 4]))
                 ->setIcon('cog')
                 ->setTarget(\fpcm\view\helper\linkButton::TARGET_NEW)
+                ->setIconOnly()
         ]);
 
         $this->view->addTabs('updater', [
