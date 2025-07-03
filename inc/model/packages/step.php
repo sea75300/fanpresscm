@@ -51,7 +51,7 @@ implements \JsonSerializable
      * Step icon
      * @var \fpcm\view\helper\icon
      */
-    private \fpcm\view\helper\icon $icon;
+    private string $icon;
 
     public function __construct(
         string $label,
@@ -67,7 +67,7 @@ implements \JsonSerializable
         $this->step = $step;
         $this->func = $func;
         $this->label = $label;
-        $this->icon = $icon;
+        $this->icon = (string) $icon;
         $this->var = $var;
         $this->after = $after;
     }
@@ -80,7 +80,7 @@ implements \JsonSerializable
             'label' => $this->label,
             'var' => $this->var,
             'after' => $this->after,
-            'icon' => (string) $this->icon,
+            'icon' => $this->icon,
         ];
     }
 

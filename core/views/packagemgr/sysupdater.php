@@ -21,9 +21,9 @@
         </div>
 
         <div class="my-3">
-            <div id="fpcm-progress-package" class="progress fpcm ui-progressbar-lg position-relative" role="progressbar" aria-label="<?php $theView->write('HL_PACKAGEMGR_SYSUPDATES'); ?>" aria-valuenow="1" aria-valuemin="1" aria-valuemax="<?php print $stepcount; ?>">
+            <div id="fpcm-progress-package" class="progress fpcm ui-progressbar-lg position-relative shadow" role="progressbar" aria-label="<?php $theView->write('HL_PACKAGEMGR_SYSUPDATES'); ?>" aria-valuenow="1" aria-valuemin="1" aria-valuemax="<?php print $stepcount; ?>">
                 <div class="progress-bar overflow-visible text-start"></div>
-                <div class="position-absolute top-50 start-50 translate-middle bg-light bg-opacity-75 p-1 rounded" id="progress-bar-label"></div>
+                <div class="position-absolute top-50 start-50 translate-middle <?php if (!$theView->darkMode) : ?>bg-light bg-opacity-75<?php endif; ?> p-1 rounded" id="progress-bar-label"></div>
             </div>
         </div>
 

@@ -107,15 +107,27 @@ class update extends \fpcm\controller\abstracts\controller
         $this->view->addJsLangVars(['PACKAGEMANAGER_SUCCESS', 'PACKAGEMANAGER_FAILED', 'PACKAGEMANAGER_NEWVERSION']);
 
         $this->view->addButtons([
-            (new \fpcm\view\helper\linkButton('backbtn'))->setText('PACKAGES_BACKTODASHBOARD')->setUrl(\fpcm\classes\tools::getFullControllerLink('system/dashboard'))->setIcon('chevron-circle-left'),
-            (new \fpcm\view\helper\linkButton('protobtn'))->setText('HL_LOGS')->setUrl(\fpcm\classes\tools::getFullControllerLink('system/logs'))->setIcon('exclamation-triangle')->setTarget(\fpcm\view\helper\linkButton::TARGET_NEW),
+            (new \fpcm\view\helper\linkButton('backbtn'))
+                ->setText('PACKAGES_BACKTODASHBOARD')
+                ->setUrl(\fpcm\classes\tools::getFullControllerLink('system/dashboard'))
+                ->setIcon('chevron-circle-left'),
+            (new \fpcm\view\helper\linkButton('protobtn'))
+                ->setText('HL_LOGS')
+                ->setUrl(\fpcm\classes\tools::getFullControllerLink('system/logs'))
+                ->setIcon('exclamation-triangle')
+                ->setTarget(\fpcm\view\helper\linkButton::TARGET_NEW),
+            (new \fpcm\view\helper\linkButton('optionsBtn'))
+                ->setText('HL_OPTIONS_SYSTEM')
+                ->setUrl(\fpcm\classes\tools::getFullControllerLink('system/options', ['rg' => 4]))
+                ->setIcon('cog')
+                ->setTarget(\fpcm\view\helper\linkButton::TARGET_NEW)
         ]);
 
         $this->view->addTabs('updater', [
             (new \fpcm\view\helper\tabItem('sysupdate'))->setText('HL_PACKAGEMGR_SYSUPDATES')->setFile($this->getViewPath())
         ]);
 
-        $this->view->addJsFiles(['updater.js']);
+        $this->view->addJsFiles(['packages/updater.js']);
         $this->view->render();
     }
 
@@ -140,13 +152,13 @@ class update extends \fpcm\controller\abstracts\controller
                 $this->language->translate('PACKAGEMANAGER_MAINTENANCE_EN'),
                 'maintenanceOn',
                 'startTimer',
-                new \fpcm\view\helper\icon('medkit')
+                new \fpcm\view\helper\icon('person-digging')
             ),
             'checkFs'   => new \fpcm\model\packages\step(
                 $this->language->translate('PACKAGEMANAGER_CHECKLOCAL'),
                 'checkFiles',
                 '',
-                new \fpcm\view\helper\icon('lightbulb')
+                new \fpcm\view\helper\icon('medkit')
             ),
             'backupFs'  => new \fpcm\model\packages\step(
                 $this->language->translate('PACKAGEMANAGER_BACKUPFS'),
@@ -161,7 +173,7 @@ class update extends \fpcm\controller\abstracts\controller
                 ]),
                 'download',
                 '',
-                new \fpcm\view\helper\icon('cloud-download-alt')
+                new \fpcm\view\helper\icon('cloud-arrow-down')
             ),
             'checkPkg'  => new \fpcm\model\packages\step(
                 $this->language->translate('PACKAGEMANAGER_CHECKPKG', [
@@ -213,7 +225,7 @@ class update extends \fpcm\controller\abstracts\controller
                 $this->language->translate('GLOBAL_FINISHED'),
                 'getVersion',
                 '',
-                new \fpcm\view\helper\icon('bolt'),
+                new \fpcm\view\helper\icon('circle-check'),
                 'version',
                 'stopTimer'
             )

@@ -42,15 +42,16 @@ class base extends \fpcm\controller\abstracts\controller
      *
      * @var array
      */
-    protected $steps = [
-        'checkFs' => false,
-        'download' => true,
-        'checkPkg' => true,
-        'extract' => true,
-        'updateFs' => true,
-        'updateDb' => true,
+    protected $steps = [        
+        'checkFs'   => true,
+        'checkPkg'  => true,
+        'backupFs'  => true,
+        'updateDb'  => true,
+        'download'  => true,
+        'extract'   => true,
+        'updateFs'  => true,
         'updateLog' => true,
-        'cleanup' => true
+        'cleanup'   => true
     ];
 
     /**

@@ -7,7 +7,7 @@
         <?php $theView->boolSelect('system_maintenance')
                 ->setText('SYSTEM_OPTIONS_MAINTENANCE')
                 ->setSelected($globalConfig->system_maintenance)
-                ->setClass($globalConfig->system_maintenance ? 'text-danger' : ''); ?>
+                ->setClass($globalConfig->system_maintenance ? 'bg-danger-subtle ' : ''); ?>
         </div>
     </div>
 

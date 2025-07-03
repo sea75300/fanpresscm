@@ -108,9 +108,6 @@ class processUpdate extends \fpcm\controller\abstracts\ajaxController
 
     protected function execCheckFiles()
     {
-        $this->res = true;
-        return true;
-        
         $success = $this->pkg->checkFiles();
         if ($success === \fpcm\model\packages\package::FILESCHECK_ERROR) {
             $this->addErrorMessage('UPDATE_WRITEERROR');
@@ -127,8 +124,6 @@ class processUpdate extends \fpcm\controller\abstracts\ajaxController
 
     protected function execDownload()
     {
-        $this->res = true;
-        return true;
         if (!$this->pkg->isTrustedPath()) {
             $this->addErrorMessage('PACKAGES_FAILED_DOWNLOAD_UNTRUSTED', [
                 '{{var}}' => $this->pkg->getRemotePath()
@@ -150,8 +145,6 @@ class processUpdate extends \fpcm\controller\abstracts\ajaxController
     
     protected function execCheckPkg()
     {
-        $this->res = true;
-        return true;
         $this->res = $this->pkg->checkPackage();
         if ($this->res === true) {
             fpcmLogSystem('Package integity check for '.basename($this->pkg->getLocalPath()).' was successful.');
@@ -164,8 +157,6 @@ class processUpdate extends \fpcm\controller\abstracts\ajaxController
 
     protected function execExtract()
     {
-        $this->res = true;
-        return true;
         $this->res = $this->pkg->extract();
         if ($this->res === true) {
             fpcmLogSystem('Package extraction for '.basename($this->pkg->getLocalPath()).' was successful.');
@@ -179,8 +170,6 @@ class processUpdate extends \fpcm\controller\abstracts\ajaxController
 
     protected function execBackupFs()
     {
-        $this->res = true;
-        return true;
         $this->res = $this->pkg->backup();
         if ($this->res === true) {
             fpcmLogSystem('File system back from '.basename($this->pkg->getLocalPath()).' was successful.');
@@ -194,8 +183,6 @@ class processUpdate extends \fpcm\controller\abstracts\ajaxController
 
     protected function execUpdateFs()
     {
-        $this->res = true;
-        return true;
         $this->res = $this->pkg->copy();
         if ($this->res === true) {
             fpcmLogSystem('File system update from '.basename($this->pkg->getLocalPath()).' was successful.');
@@ -209,8 +196,6 @@ class processUpdate extends \fpcm\controller\abstracts\ajaxController
 
     protected function execUpdateDb()
     {
-        $this->res = true;
-        return true;
         $finalizer = new \fpcm\model\updater\finalizer();
         $this->res = $finalizer->runUpdate();
 
@@ -224,8 +209,6 @@ class processUpdate extends \fpcm\controller\abstracts\ajaxController
     
     protected function execUpdateLog()
     {
-        $this->res = true;
-        return true;
         fpcmLogSystem('Update package manager logfile!');
         $this->res = $this->pkg->updateLog();
         (new \fpcm\model\crons\updateCheck())->run();
@@ -234,8 +217,6 @@ class processUpdate extends \fpcm\controller\abstracts\ajaxController
 
     protected function execCleanup()
     {
-        $this->res = true;
-        return true;
         fpcmLogSystem('Cleanup of outdated and temporary files!');
         $this->pkg->cleanupFiles();
         $this->pkg->cleanup();
@@ -257,6 +238,7 @@ class processUpdate extends \fpcm\controller\abstracts\ajaxController
     /**
      * 
      * @param string $var
+     * @param array $params
      */
     private function addErrorMessage($var, $params = [])
     {
