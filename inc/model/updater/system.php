@@ -31,7 +31,12 @@ use fpcm\model\packages\update;
  * @property string $changelog Changelog URL
  * @property int $size Package size
  */
-final class system extends staticModel {
+final class system
+extends staticModel
+implements \fpcm\model\interfaces\isObjectInstancable
+{
+    
+    use \fpcm\model\traits\getObjectInstance;
 
     /**
      * Status, dass Update erzwungen wird
@@ -77,28 +82,6 @@ final class system extends staticModel {
         }
 
         return $newVersion;
-    }
-
-    /**
-     * Manueller Update-Check durchführen
-     * @return bool
-     */
-    public function checkManual()
-    {
-        if ($this->updateAvailable() !== remoteModel::FURLOPEN_ERROR) {
-            return false;
-        }
-
-        return (!baseconfig::canConnect() && time() > filectime(baseconfig::getVersionFromFile()) + $this->config->system_updates_manual) ? true : false;
-    }
-
-    /**
-     * Gibt Link für Manuelle Update-Prüfung zurück, seit FPCM 3.x Link zur Download-Seite von FanPress CM
-     * @return string
-     */
-    public function getManualCheckAddress()
-    {
-        return baseconfig::$updateServerManualLink;
     }
 
     /**

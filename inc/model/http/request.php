@@ -17,6 +17,8 @@ namespace fpcm\model\http;
  */
 final class request implements \fpcm\model\interfaces\isObjectInstancable {
 
+    use \fpcm\model\traits\getObjectInstance;
+    
     /**
      * HTTP Filter strip_tags
      */
@@ -572,22 +574,6 @@ final class request implements \fpcm\model\interfaces\isObjectInstancable {
 
         $value = filter_var($value, $filters[self::PARAM_SANITIZE]);
         return true;
-    }
-
-    /**
-     * Returns HTTP request object
-     * @return request
-     * @since 5.1.3
-     */
-    public static function getInstance()
-    {
-        $iClass = static::class;
-        
-        if (!isset($GLOBALS['fpcm']['objects'][$iClass])) {
-            $GLOBALS['fpcm']['objects'][$iClass] = new $iClass();
-        }
-        
-        return $GLOBALS['fpcm']['objects'][$iClass];    
     }
 
 }

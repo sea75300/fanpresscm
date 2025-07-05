@@ -293,6 +293,16 @@ abstract class package {
     }
 
     /**
+     * Return siganture compare data
+     * @return string
+     * @since 5.3.0-dev
+     */
+    final public function getCompareSignaturesString() : string
+    {
+        return sprintf('L: %s<br>R: %s', $this->getLocalSignature(), $this->getRemoteSignature());
+    }
+
+    /**
      * Extract package file
      * @return bool
      */

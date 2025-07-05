@@ -53,17 +53,7 @@ fpcm.dashboard = {
             return false;
         }
 
-        fpcm.ui.relocate(fpcm.dom.fromId('startUpdate').attr('href'));
-        return true;
-    },
-
-    openUpdateCheckUrl: function () {
-
-        if (!fpcm.vars.jsvars.openUpdateCheckUrl) {
-            return false;
-        }
-
-        window.open(fpcm.dom.fromId('chckmanual').attr('href'), '_blank', 'width=700,height=500,scrollbars=yes,resizable=yes,');
+        fpcm.ui.relocate(document.getElementById('btnStartUpdate').dataset.update);
         return true;
     },
 

@@ -1,21 +1,19 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
 <div class="row justify-content-center">
     <div class="col-12 align-self-center m-3">
-        <div class="list-group list-group-horizontal-md shadow row-cols-md-3">
-            <div class="list-group-item py-3 list-group-item-light">
-                        <?php $theView->icon('code-branch fa-flip-vertical'); ?>
-                        <strong><?php $theView->write('PACKAGEMANAGER_CURRENTVERSION'); ?>:</strong>
-                        <?php print $theView->escapeVal($theView->version); ?>
-            </div>
-
-            <div class="list-group-item py-3 list-group-item-light">
-                        <?php $theView->icon('language'); ?>
-                        <strong><?php $theView->write('PACKAGEMANAGER_CURRENTLANGUAGE'); ?>:</strong>
-                        <?php print $theView->escapeVal($theView->langCode); ?>
+        <div class="list-group list-group-horizontal-md shadow row-cols-md-4">
+            <div class="list-group-item py-3 list-group-item-light text-md-end">
+                <?php $theView->icon('code-branch fa-flip-vertical'); ?>
+                <strong><?php $theView->write('PACKAGEMANAGER_CURRENTVERSION'); ?>:</strong>
             </div>
             <div class="list-group-item py-3 list-group-item-light">
+                <?php print $theView->escapeVal($theView->version); ?>
+            </div>
+            <div class="list-group-item py-3 list-group-item-light text-md-end">
                 <?php $theView->icon('clock', 'far'); ?>
                 <strong><?php $theView->write('PACKAGEMANAGER_TIMER'); ?></strong>
+            </div>
+            <div class="list-group-item py-3 list-group-item-light">
                 <span id="fpcm-id-update-timer"><span class="spinner-border spinner-border-sm text-secondary" role="status"></span></span>
             </div>
         </div>

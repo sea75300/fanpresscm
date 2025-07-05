@@ -50,7 +50,7 @@ class update extends \fpcm\controller\action\packagemgr\abstracts\base
         }
 
         $jsData = [];
-        
+
         $count = 0;
 
         $jsData['steps'] = $this->getActiveSteps($count);
@@ -63,12 +63,12 @@ class update extends \fpcm\controller\action\packagemgr\abstracts\base
             ],
             'stepcount' => $this->steps['stepcount']
         ]);
-        
+
         parent::process();
 
         $this->view->addJsLangVars(['PACKAGEMANAGER_SUCCESS', 'PACKAGEMANAGER_FAILED', 'PACKAGEMANAGER_NEWVERSION']);
 
-        $this->view->addButtons([
+        $buttons = [
             (new \fpcm\view\helper\linkButton('backbtn'))
                 ->setText('PACKAGES_BACKTODASHBOARD')
                 ->setUrl(\fpcm\classes\tools::getFullControllerLink('system/dashboard'))
@@ -83,14 +83,31 @@ class update extends \fpcm\controller\action\packagemgr\abstracts\base
                 ->setUrl(\fpcm\classes\tools::getFullControllerLink('system/options', ['rg' => 4]))
                 ->setIcon('cog')
                 ->setTarget(\fpcm\view\helper\linkButton::TARGET_NEW)
+                ->setIconOnly(),
+            (new \fpcm\view\helper\linkButton('cronjobsBtn'))
+                ->setText('HL_CRONJOBS')
+                ->setUrl(\fpcm\classes\tools::getFullControllerLink('system/crons'))
+                ->setIcon('history')
+                ->setTarget(\fpcm\view\helper\linkButton::TARGET_NEW)
                 ->setIconOnly()
-        ]);
+        ];
+
+        if ($this->updater->changelog && !$this->updateDb) {
+            $buttons[] = (new \fpcm\view\helper\linkButton('changeLog'))
+                ->setText('HL_HELP_CHANGELOG')
+                ->setUrl($this->updater->changelog)
+                ->setIcon('code-branch')
+                ->setIconOnly()
+                ->setRel('external');
+        }
+
+        $this->view->addButtons($buttons);
 
         $this->view->addTabs('updater', [
             (new \fpcm\view\helper\tabItem('sysupdate'))->setText('HL_PACKAGEMGR_SYSUPDATES')->setFile($this->getViewPath())
         ]);
 
-        $this->view->addJsFiles(['packages/updater.js']);
+        $this->view->addJsFiles(['packages/manager.js', 'packages/updater.js']);
         $this->view->render();
     }
 

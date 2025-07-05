@@ -36,7 +36,6 @@ use fpcm\model\traits\eventModuleEmpty;
  * @property int    $system_loginfailed_locked Amout of failed logings before account is locked
  * @property int    $system_updates_devcheck Check developer version on update check
  * @property bool   $system_updates_emailnotify E-mail notification if update is available
- * @property int    $system_updates_manual Update check interval for manual update check
  * @property bool   $system_2fa_auth Two factor authentication enabled
  * @property int    $system_trash_cleanup Age of datasets in trash to cleanup
  * @property bool   $system_passcheck_enabled Password check enabled
@@ -82,7 +81,8 @@ use fpcm\model\traits\eventModuleEmpty;
  */
 final class config extends dataset implements \fpcm\model\interfaces\isObjectInstancable {
 
-    use eventModuleEmpty;
+    use eventModuleEmpty,
+        \fpcm\model\traits\getObjectInstance;
 
     /**
      * Neue Konfiguration
@@ -485,23 +485,6 @@ final class config extends dataset implements \fpcm\model\interfaces\isObjectIns
             40 => 40,
             50 => 50
         ];
-    }
-
-    /**
-     * Returns config class instance
-     * @return config
-     * @since 5.1-dev
-     */
-    public static function getInstance()
-    {
-        $iClass = static::class;
-        
-        if (!isset($GLOBALS['fpcm']['objects'][$iClass])) {
-            $GLOBALS['fpcm']['objects'][$iClass] = new $iClass();
-        }
-        
-        return $GLOBALS['fpcm']['objects'][$iClass];
-        
     }
 
 }

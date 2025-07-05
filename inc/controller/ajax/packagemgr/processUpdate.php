@@ -151,6 +151,9 @@ class processUpdate extends \fpcm\controller\abstracts\ajaxController
             return true;
         }
 
+        $this->addErrorMessage('PACKAGES_FAILED_ERROR'.$this->res, [
+            $this->pkg->getCompareSignaturesString()
+        ], true);
         \fpcm\classes\baseconfig::enableAsyncCronjobs(true);
         $this->res = false;
     }
@@ -240,8 +243,8 @@ class processUpdate extends \fpcm\controller\abstracts\ajaxController
      * @param string $var
      * @param array $params
      */
-    private function addErrorMessage($var, $params = [])
+    private function addErrorMessage($var, $params = [], $spf = false)
     {
-        $this->message = new \fpcm\view\message($this->language->translate($var, $params), \fpcm\view\message::TYPE_ERROR);
+        $this->message = new \fpcm\view\message($this->language->translate($var, $params, $spf), \fpcm\view\message::TYPE_ERROR);
     }
 }

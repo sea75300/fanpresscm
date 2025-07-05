@@ -592,14 +592,4 @@ final class session extends \fpcm\model\abstracts\dataset implements \fpcm\model
         return \fpcm\classes\tools::getHash(bin2hex(random_bytes(64)));
     }
 
-    /**
-     * Returns config class instance
-     * @return session
-     * @since 5.1.a-a1
-     */
-    public static function getInstance()
-    {
-        return self::getObjectInstance();
-    }
-
 }

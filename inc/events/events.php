@@ -16,6 +16,8 @@ namespace fpcm\events;
  */
 final class events implements \fpcm\model\interfaces\isObjectInstancable {
 
+    use \fpcm\model\traits\getObjectInstance;
+    
     /**
      * Run event $eventName with params $dataParams
      * @param string $eventName
@@ -100,23 +102,6 @@ final class events implements \fpcm\model\interfaces\isObjectInstancable {
             'events',
             str_replace('\\', DIRECTORY_SEPARATOR, $path)
         ]));
-    }
-
-    /**
-     * Returns events class instance
-     * @return events
-     * @since 5.2.5-a1
-     */
-    public static function getInstance()
-    {
-        $iClass = static::class;
-
-        if (!isset($GLOBALS['fpcm']['objects'][$iClass])) {
-            $GLOBALS['fpcm']['objects'][$iClass] = new $iClass();
-        }
-
-        return $GLOBALS['fpcm']['objects'][$iClass];
-
     }
 
 }
