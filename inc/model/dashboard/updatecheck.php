@@ -142,13 +142,7 @@ class updatecheck extends \fpcm\model\abstracts\dashcontainer implements \fpcm\m
             $statusClass = 'fpcm-dashboard-updates-outdated fpcm-ui-important-text';
 
             $statusText = $this->language->translate('UPDATE_VERSIONCHECK_NEW', [
-                '{{btn}}' => (string) (new \fpcm\view\helper\button('startUpdate'))
-                    ->setText('PACKAGES_UPDATE')
-                    ->setIcon('sync')
-                    ->setData([
-                        'changelog' => $this->systemUpdates->changelog ?? '',
-                        'update' => \fpcm\classes\tools::getFullControllerLink('package/sysupdate')
-                ]),
+                '{{btn}}' => (string) (new \fpcm\view\helper\updateButton('startUpdate'))->setUpdater($this->systemUpdates),
                 '{{version}}' => $this->systemUpdates->version
             ]);
         }
@@ -201,7 +195,7 @@ class updatecheck extends \fpcm\model\abstracts\dashcontainer implements \fpcm\m
      */
     public function getJavascriptLangVars()
     {
-        return ['HL_PACKAGEMGR_SYSUPDATES', 'HL_HELP_CHANGELOG', 'PACKAGES_UPDATE_CONFIRM'];
+        return [];
     }
 
     /**

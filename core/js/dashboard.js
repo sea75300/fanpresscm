@@ -28,9 +28,8 @@ fpcm.dashboard = {
                 fpcm.dom.assignHtml('#fpcm-dashboard-containers', result);
                 fpcm.ui.initJqUiWidgets();
                 fpcm.dashboard.forceUpdate();
-                fpcm.dashboard.openUpdateCheckUrl();
-                fpcm.dashboard.openUpdateDialog();
                 fpcm.dashboard.initDraggable();
+                fpcm.system.openUpdateDialog('btnStartUpdate');
 
                 jQuery.each(fpcm.dashboard.onDone, function (idx, object) {
 
@@ -55,51 +54,6 @@ fpcm.dashboard = {
 
         fpcm.ui.relocate(document.getElementById('btnStartUpdate').dataset.update);
         return true;
-    },
-
-    openUpdateDialog: function() {
-
-        fpcm.dom.bindClick('#btnStartUpdate', function (_e, _ui) {
-
-            fpcm.ui_dialogs.create({
-                id: 'updateCallback',
-                title: 'GLOBAL_CONFIRM',
-                content: fpcm.ui.translate('PACKAGES_UPDATE_CONFIRM'),
-                icon: {
-                    icon: 'cloud-download'
-                },
-                dlButtons: [
-                    {
-                        text: 'HL_HELP_CHANGELOG',
-                        icon: "code-branch",
-                        click: function () {
-                            window.open(_ui.dataset.changelog, '_blank');
-                        },
-                        class: 'btn-info',
-                        clickClose: true
-                    },
-                    {
-                        text: 'GLOBAL_YES',
-                        icon: "check",
-                        click: function () {
-                            fpcm.ui.relocate(_ui.dataset.update);
-                        },
-                        class: 'btn-success',
-                        clickClose: true
-                    },
-                    {
-                        text: 'GLOBAL_NO',
-                        icon: "times",
-                        class: 'btn-danger',
-                        clickClose: true
-                    }
-                ]
-            });
-
-
-        });
-
-
     },
 
     initDraggable: function () {7

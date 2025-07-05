@@ -26,6 +26,7 @@ fpcm.systemcheck = {
             execDone: function (result) {
                 fpcm.dom.assignHtml("#tabs-options-check", result);
                 fpcm.ui.initJqUiWidgets();
+                fpcm.system.openUpdateDialog('btnStartUpdate');
             }
         });
 

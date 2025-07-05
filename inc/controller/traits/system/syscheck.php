@@ -9,7 +9,7 @@ namespace fpcm\controller\traits\system;
 
 /**
  * System check trait
- * 
+ *
  * @package fpcm\controller\traits\system\syscheck
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2022, Stefan Seehafer
@@ -28,37 +28,35 @@ trait syscheck {
         $loadedExtensions = array_map('strtolower', get_loaded_extensions());
 
         if (!\fpcm\classes\baseconfig::installerEnabled() && \fpcm\classes\baseconfig::dbConfigExists()) {
-            $updater = new \fpcm\model\updater\system();
-            $updater->updateAvailable();
 
-            $remoteVersion = $updater->version ?? '';
+            $updater = \fpcm\model\updater\system::getInstance();
+            $hasUpdates = $updater->updateAvailable();
 
-            $result = version_compare($this->config->system_version, $remoteVersion, '>=');
             $option = new \fpcm\model\system\syscheckOption(
                 $this->config->system_version,
                 'https://nobody-knows.org/fanpress-cm/',
-                $result
+                !$hasUpdates
             );
-            
-            if (!$result) {
-                
+
+            if ($hasUpdates) {
+
                 if (\fpcm\classes\baseconfig::isCli()) {
                     $option->setNotice('You may run       : php '.\fpcm\classes\dirs::getFullDirPath('fpcmcli.php').' pkg --upgrade system');
                 }
                 elseif ($this->permissions->system->update) {
-                    $button = new \fpcm\view\helper\linkButton('startUpdate');
-                    $button->setReturned(true)->setIcon('sync')->setUrl(\fpcm\classes\tools::getFullControllerLink('package/sysupdate'))->setText('PACKAGES_UPDATE');
-                    $option->setActionButton($button);
+                    $btn = new \fpcm\view\helper\updateButton('startUpdate');
+                    $btn->setUpdater($updater);
+                    $option->setActionButton($btn);
                 }
-                
+
             }
-            
+
             $checkOptions[$this->language->translate('SYSTEM_OPTIONS_SYSCHECK_FPCMVERSION', [
-                'value' => $remoteVersion ? $remoteVersion : $this->language->translate('GLOBAL_NOTFOUND')])
-            ] = $option;       
-            
+                'value' => $updater->version ?? $this->language->translate('GLOBAL_NOTFOUND')])
+            ] = $option;
+
         }
-        
+
         $checkOptions[$this->language->translate('SYSTEM_OPTIONS_SYSCHECK_PHPVERSION', [
             'value' => FPCM_PHP_REQUIRED])
         ] = new \fpcm\model\system\syscheckOption(
@@ -87,7 +85,7 @@ trait syscheck {
             'http://php.net/manual/info.configuration.php',
             ($curVal >= $recomVal ? true : false),
             true
-        );     
+        );
 
         $dbDrivers      = \PDO::getAvailableDrivers();
         $resultMySql    = in_array(\fpcm\classes\database::DBTYPE_MYSQLMARIADB, $dbDrivers);
@@ -139,7 +137,7 @@ trait syscheck {
                 $this->language->translate(\fpcm\classes\cache::getCacheBackendName()),
                 'https://sea75300.github.io/fanpresscm/',
                 true
-        ); 
+        );
 
         $current = in_array('pdo', $loadedExtensions) && in_array('pdo_mysql', $loadedExtensions);
         $checkOptions['PHP Data Objects (PDO)'] = new \fpcm\model\system\syscheckOption(
@@ -233,8 +231,8 @@ trait syscheck {
                 (true && $memcache),
                 true
             );
-                
-        
+
+
         $dirs = $this->getCheckFolders();
 
         array_walk($dirs, function($folderPath, $description) use (&$checkOptions) {

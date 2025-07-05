@@ -51,7 +51,7 @@ final class syscheckOption {
 
     /**
      * Option is checked folder
-     * @var \fpcm\view\helper\linkButton
+     * @var string
      */
     protected $actionButton;
 
@@ -91,9 +91,9 @@ final class syscheckOption {
      * Set Action Button
      * @param \fpcm\view\helper\linkButton $actionButton
      */
-    public function setActionButton(\fpcm\view\helper\linkButton $actionButton)
+    public function setActionButton(\fpcm\view\helper\linkButton|\fpcm\view\helper\updateButton $actionButton)
     {
-        $this->actionButton = $actionButton;
+        $this->actionButton = (string) $actionButton;
     }
 
     /**

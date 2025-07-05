@@ -67,6 +67,8 @@ implements \fpcm\model\interfaces\isObjectInstancable
      */
     public function updateAvailable()
     {
+        return true;
+        
         if (count($this->data) < 2) {
             return remoteModel::FURLOPEN_ERROR;
         }

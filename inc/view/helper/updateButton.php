@@ -16,7 +16,13 @@ namespace fpcm\view\helper;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @since 5.3.0-dev
  */
-final class copyButton extends button {
+final class updateButton extends button {
+
+    /**
+     * Updater object
+     * @var \fpcm\model\updater\system
+     */
+    protected $updater;
 
     /**
      * Optional init function
@@ -28,14 +34,35 @@ final class copyButton extends button {
         $this->setText('PACKAGES_UPDATE');
         $this->setIcon('sync');
 
-        $update = new \fpcm\model\updater\system();
-        
-        
         $this->setData([
-            'changelog' => $this->systemUpdates->changelog ?? '',
+            'changelog' => $this->getUpdater()->changelog ?? '',
             'update' => \fpcm\classes\tools::getFullControllerLink('package/sysupdate')
         ]);
 
+    }
+
+    /**
+     * Get Updater object
+     * @return \fpcm\model\updater\system
+     */
+    public function getUpdater(): \fpcm\model\updater\system
+    {
+        if (!$this->updater instanceof \fpcm\model\updater\system) {
+            $this->updater = \fpcm\model\updater\system::getInstance();
+        }
+
+        return $this->updater;
+    }
+
+    /**
+     * Set updater object
+     * @param \fpcm\model\updater\system $updater
+     * @return $this
+     */
+    public function setUpdater(\fpcm\model\updater\system $updater)
+    {
+        $this->updater = $updater;
+        return $this;
     }
 
 

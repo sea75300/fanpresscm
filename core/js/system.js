@@ -545,6 +545,48 @@ fpcm.system = {
             }
         });
 
+    },
+    
+    openUpdateDialog: function(_bindId) {
+
+        fpcm.dom.bindClick('#' + _bindId, function (_e, _ui) {
+
+            fpcm.ui_dialogs.create({
+                id: 'updateCallback',
+                title: 'HL_PACKAGEMGR_SYSUPDATES',
+                content: fpcm.ui.translate('PACKAGES_UPDATE_CONFIRM'),
+                icon: {
+                    icon: 'cloud-download'
+                },
+                dlButtons: [
+                    {
+                        text: 'HL_HELP_CHANGELOG',
+                        icon: "code-branch",
+                        click: function () {
+                            window.open(_ui.dataset.changelog, '_blank');
+                        },
+                        class: 'btn-info'
+                    },
+                    {
+                        text: 'GLOBAL_YES',
+                        icon: "check",
+                        click: function () {
+                            fpcm.ui.relocate(_ui.dataset.update);
+                        },
+                        class: 'btn-success'
+                    },
+                    {
+                        text: 'GLOBAL_NO',
+                        icon: "times",
+                        class: 'btn-danger',
+                        clickClose: true
+                    }
+                ]
+            });
+
+
+        });
+
     }
 
 };
