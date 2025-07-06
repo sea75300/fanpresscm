@@ -336,6 +336,7 @@ $lang = array (
   'GLOBAL_SELECTALL' => 'Select all',
   'GLOBAL_SHOW' => 'Show',
   'GLOBAL_SUBMIT' => 'Submit',
+  'GLOBAL_UNKNOWN' => 'Unknown',
   'GLOBAL_USERNAME' => 'Username',
   'GLOBAL_USER_ON_TIME' => '{{username}} on {{time}}',
   'GLOBAL_WRITABLE' => 'writable',

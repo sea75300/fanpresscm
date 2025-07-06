@@ -9,14 +9,19 @@ if (fpcm === undefined) {
     var fpcm = {};
 }
 
+fpcm.pkgManager.beforeExecRequest = function () {
+    document.getElementById('fpcm-id-modul-pkg-name').innerHTML = fpcm.vars.jsvars.pkgdata.pkgname;
+    document.getElementById('fpcm-id-modul-pkg-size').innerHTML = fpcm.vars.jsvars.pkgdata.pkgsize;
+};
+
 fpcm.pkgManager.execModulerequest = function () {
 
     fpcm.ajax.post('packagemgr/moduleInstaller', {
         quiet: true,
         data: {
             step: fpcm.pkgManager.currentEl.step,
-            key : fpcm.vars.jsvars.pkgdata.key,
-            mode: fpcm.vars.jsvars.pkgdata.action
+            key : fpcm.vars.jsvars.pkgdata.pkgKey,
+            mode: fpcm.vars.jsvars.action
         },
         execDone: function (res) {
 
@@ -82,58 +87,3 @@ fpcm.pkgManager.stopTimerMessage = function() {
         body: fpcm.ui.translate('PACKAGEMANAGER_SUCCESS') + ' ' + fpcm.ui.translate('PACKAGEMANAGER_NEWVERSION') + ' ' + fpcm.vars.jsvars.pkgdata.version
     });
 };
-
-/*fpcm.moduleinstaller = {
-
-    startTime    : 0,
-    stopTime     : 0,
-    elCount      : [],
-    elements     : [],
-    currentEl    : {},
-    currentIdx   : 0,
-
-    init: function () {
-
-        fpcm.moduleinstaller.elements = fpcm.dom.fromClass('fpcm-ui-update-icons');
-        fpcm.moduleinstaller.elCount  = fpcm.moduleinstaller.elements.length;
-
-        var start = fpcm.moduleinstaller.elements.first();
-        fpcm.moduleinstaller.execRequest(start);
-    },
-
-    execRequest: function(el) {
-
-
-    },
-
-    startTimer: function() {
-        fpcm.moduleinstaller.startTime = (new Date().getTime());
-    },
-
-    stopTimer: function() {
-        fpcm.moduleinstaller.stopTime = (new Date().getTime());
-        fpcm.dom.assignHtml('#fpcm-ui-update-timer', (fpcm.moduleinstaller.stopTime - fpcm.moduleinstaller.startTime) / 1000 + ' sec');
-
-        let _res = fpcm.dom.fromId('fpcm-ui-update-result-1');
-        _res.removeClass('disabled d-none').addClass('list-group-item-success');
-
-        fpcm.ui_notify.show({
-            body: _res.find('div.fpcm-ui-updater-descr').text().trim()
-        });
-
-        fpcm.dom.fromId('runUpdateNext').removeClass('fpcm ui-hidden');
-    },
-
-    errorMsg: function () {
-        let _res = fpcm.dom.fromId('fpcm-ui-update-result-0');
-        _res.removeClass('disabled d-none').addClass('list-group-item-danger');
-        fpcm.dom.fromId('fpcm-ui-update-timer').addClass('d-none');
-        fpcm.dom.fromId('fpcm-ui-update-version').addClass('d-none');
-        return _res.find('div.fpcm-ui-updater-descr').text().trim();
-    },
-
-    _spinner: function (_listItem, _status) {
-        _listItem.find('div.fpcm.ui-updater-spinner').html(_status ? '<div class="spinner-border spinner-border-sm text-secondary" role="status"></div>' : '');
-    }
-
-};*/

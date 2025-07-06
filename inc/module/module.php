@@ -1298,8 +1298,6 @@ class module {
             return;
         }
 
-        fpcmLogSystem($data);
-
         $phpRelease = \fpcm\classes\tools::getMajorMinorReleaseFromString(PHP_VERSION);
         $phpVersion = is_array($data->php) &&
                       $data->php[$phpRelease]

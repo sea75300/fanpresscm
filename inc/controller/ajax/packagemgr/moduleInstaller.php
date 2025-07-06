@@ -133,9 +133,6 @@ class moduleInstaller extends \fpcm\controller\abstracts\ajaxController
 
     private function execCheckFiles()
     {
-        $this->res = true;
-        return true;
-
         $success = $this->pkg->checkFiles();
         if ($success === \fpcm\model\packages\package::FILESCHECK_ERROR) {
             $this->addErrorMessage('UPDATE_WRITEERROR');
@@ -152,9 +149,6 @@ class moduleInstaller extends \fpcm\controller\abstracts\ajaxController
 
     private function execDownload()
     {
-        $this->res = true;
-        return true;
-
         if (!$this->pkg->isTrustedPath()) {
             $this->addErrorMessage('PACKAGES_FAILED_DOWNLOAD_UNTRUSTED', [
                 '{{var}}' => $this->pkg->getRemotePath()
@@ -176,9 +170,6 @@ class moduleInstaller extends \fpcm\controller\abstracts\ajaxController
     
     private function execCheckPkg()
     {
-        $this->res = true;
-        return true;
-
         $this->res = $this->pkg->checkPackage();
         if ($this->res === true) {
             fpcmLogSystem('Package integity check for '.basename($this->pkg->getLocalPath()).' was successful.');
@@ -191,9 +182,6 @@ class moduleInstaller extends \fpcm\controller\abstracts\ajaxController
 
     private function execExtract()
     {
-        $this->res = true;
-        return true;
-
         $this->res = $this->pkg->extract();
         if ($this->res === true) {
             fpcmLogSystem('Package extraction for '.basename($this->pkg->getLocalPath()).' was successful.');
@@ -207,9 +195,6 @@ class moduleInstaller extends \fpcm\controller\abstracts\ajaxController
 
     private function execUpdateFs()
     {
-        $this->res = true;
-        return true;
-
         $this->res = $this->pkg->copy();
         if ($this->res === true) {
             fpcmLogSystem('File system update from '.basename($this->pkg->getLocalPath()).' was successful.');
@@ -223,9 +208,6 @@ class moduleInstaller extends \fpcm\controller\abstracts\ajaxController
 
     private function execUpdateDb()
     {
-        $this->res = true;
-        return true;
-
         $module = new \fpcm\module\module($this->key);
         if (!method_exists($module, $this->mode)) {
             fpcmLogSystem('Undefined function '.$this->mode.' for module database update '.$this->key.'!');
@@ -248,18 +230,12 @@ class moduleInstaller extends \fpcm\controller\abstracts\ajaxController
     
     private function execUpdateLog()
     {
-        $this->res = true;
-        return true;
-
         $this->res = $this->pkg->updateLog();
         return;
     }
 
     private function execCleanup()
     {
-        $this->res = true;
-        return true;
-
         $this->res = $this->pkg->cleanup();
         \fpcm\classes\loader::getObject('\fpcm\classes\cache')->cleanup();
     }

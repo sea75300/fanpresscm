@@ -336,6 +336,7 @@ $lang = array (
   'GLOBAL_SELECTALL' => 'Alle auswählen',
   'GLOBAL_SHOW' => 'Einblenden',
   'GLOBAL_SUBMIT' => 'Absenden',
+  'GLOBAL_UNKNOWN' => 'Unbekannt',
   'GLOBAL_USERNAME' => 'Benutzername',
   'GLOBAL_USER_ON_TIME' => '{{username}} am {{time}}',
   'GLOBAL_WRITABLE' => 'beschreibbar',

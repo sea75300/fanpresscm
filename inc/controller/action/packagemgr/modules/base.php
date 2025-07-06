@@ -9,11 +9,11 @@
 
 namespace fpcm\controller\action\packagemgr\modules;
 
-class base extends \fpcm\controller\action\packagemgr\abstracts\base
+abstract class base extends \fpcm\controller\action\packagemgr\abstracts\base
 {
 
     protected \fpcm\model\updater\modules $updater;
-    
+
     /**
      * Module-Keys
      * @var array
@@ -68,10 +68,12 @@ class base extends \fpcm\controller\action\packagemgr\abstracts\base
             $this->view = new \fpcm\view\error('MODULES_KEY_INVALID');
             return false;
         }
-        
+
         parent::request();
 
         $this->updateMultiple = $this->request->fromGET('updateKeys') ? true : false;
+
+        $this->steps['backupFs'] = false;
 
         return trim($this->key) ? true : false;
     }
@@ -83,23 +85,23 @@ class base extends \fpcm\controller\action\packagemgr\abstracts\base
     public function process()
     {
         $this->updater = new \fpcm\model\updater\modules();
-        
+
         $modPkg = $this->updater->getDataCachedByKey($this->key);
-        
-        $this->steps['pkgKey'] = $this->key;
-        
+
+        $jsData = [
+            'pkgKey' => $this->key
+        ];
+
         if ($this->updateDb) {
             $this->steps = array_map([$this, 'invert'], $this->steps);
             $this->steps['updateDb'] = true;
         }
         else {
-            
-            $this->steps['pkgurl'] = $modPkg['packageUrl'] ?? '';
-            $this->steps['pkgname'] = basename($modPkg['packageUrl'] ?? '');
-            $this->steps['pkgsize'] = \fpcm\classes\tools::calcSize($modPkg['size'] ?? 0);
+            $jsData['pkgurl'] = $modPkg['packageUrl'] ?? '';
+            $jsData['pkgname'] = basename($modPkg['packageUrl'] ?? '');
+            $jsData['pkgsize'] = isset($modPkg['size']) ? \fpcm\classes\tools::calcSize($modPkg['size']) : $this->language->translate('GLOBAL_UNKNOWN');
         }
 
-        $jsData = [];
 
         $count = 0;
 
@@ -109,7 +111,8 @@ class base extends \fpcm\controller\action\packagemgr\abstracts\base
         $this->view->setViewVars($this->steps);
         $this->view->addJsVars([
             'pkgdata' => $jsData,
-            'stepcount' => $this->steps['stepcount']
+            'stepcount' => $this->steps['stepcount'],
+            'action' => $this->getMode()
         ]);
 
         parent::process();
@@ -131,10 +134,12 @@ class base extends \fpcm\controller\action\packagemgr\abstracts\base
         $this->view->addButtons($buttons);
 
         $this->view->addTabs('updater', [
-            (new \fpcm\view\helper\tabItem('sysupdate'))->setText($this->steps['tabHeadline'])->setFile($this->getViewPath())
-        ]);        
-        
-        
+            (new \fpcm\view\helper\tabItem('sysupdate'))
+                ->setText($this->getTabHeadline())
+                ->setFile($this->getViewPath())
+        ]);
+
+
         /*if ($this->updateDb) {
             $this->steps = array_map([$this, 'invert'], $this->steps);
             $this->steps['updateDb'] = true;
@@ -154,8 +159,8 @@ class base extends \fpcm\controller\action\packagemgr\abstracts\base
             ]
         ];
 
-        parent::process();        
-        
+        parent::process();
+
         $updater = (new \fpcm\model\updater\modules())->getDataCachedByKey($this->key);
         $this->steps['pkgKey'] = $this->key;
         $this->steps['pkgurl'] = $updater['packageUrl'] ?? '';
@@ -222,4 +227,23 @@ class base extends \fpcm\controller\action\packagemgr\abstracts\base
         return true;
     }
 
+    protected function initStepsDef(): array
+    {
+        $steps = parent::initStepsDef();
+
+        $steps['finish'] = new \fpcm\model\packages\step(
+            $this->language->translate('GLOBAL_FINISHED'),
+            '',
+            '',
+            new \fpcm\view\helper\icon('circle-check'),
+            '',
+            'stopTimer'
+        );
+
+        return $steps;
+    }
+
+    abstract protected function getMode() : string;
+
+    abstract protected function getTabHeadline() : string;
 }

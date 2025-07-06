@@ -30,6 +30,11 @@ fpcm.pkgManager = {
         }
 
         fpcm.pkgManager.currentIdx++;
+        fpcm.pkgManager.currentEl = el;
+        
+        if (fpcm.pkgManager.beforeExecRequest) {
+            fpcm.pkgManager.beforeExecRequest();
+        }
 
         var params = {
             step: el.step,
@@ -55,7 +60,6 @@ fpcm.pkgManager = {
             return false;
         }
 
-        fpcm.pkgManager.currentEl = el;
 
         fpcm.pkgManager.execModulerequest();
 

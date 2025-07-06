@@ -1,20 +1,20 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
 <div class="row justify-content-center">
     <div class="col-12 align-self-center m-3">
-        <div class="list-group list-group-horizontal-md shadow row-cols-md-4">
+        <div class="list-group list-group-horizontal-md shadow row-cols-md-3">
             <div class="list-group-item py-3 list-group-item-light">
                 <?php $theView->icon('plus-circle'); ?>
-                <?php print $theView->escapeVal($pkgname); ?>
+                <strong><?php $theView->write('FILE_LIST_FILENAME'); ?>: </strong>
+                <span id="fpcm-id-modul-pkg-name"></span>
             </div>
             <div class="list-group-item py-3 list-group-item-light">
-                <strong><?php $theView->write('FILE_LIST_FILESIZE'); ?></strong>
-                <?php print $theView->escapeVal($pkgsize); ?>
+                <?php $theView->icon('weight'); ?>
+                <strong><?php $theView->write('FILE_LIST_FILESIZE'); ?>: </strong>
+                <span id="fpcm-id-modul-pkg-size"></span>
             </div>
             <div class="list-group-item py-3 list-group-item-light">
                 <?php $theView->icon('clock', 'far'); ?>
                 <strong><?php $theView->write('PACKAGEMANAGER_TIMER'); ?></strong>
-            </div>
-            <div class="list-group-item py-3 list-group-item-light">
                 <span id="fpcm-id-update-timer"><span class="spinner-border spinner-border-sm text-secondary" role="status"></span></span>
             </div>
         </div>
