@@ -19,7 +19,7 @@ fpcm.pkgManager = {
     currentIdx   : 0,
 
     init: function () {
-        fpcm.pkgManager.execRequest(fpcm.vars.jsvars.pkgdata.update.steps[0]);
+        fpcm.pkgManager.execRequest(fpcm.vars.jsvars.pkgdata.steps[0]);
     },
 
     execRequest: function(el) {

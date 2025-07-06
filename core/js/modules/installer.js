@@ -9,26 +9,7 @@ if (fpcm === undefined) {
     var fpcm = {};
 }
 
-fpcm.moduleinstaller = {
-
-    startTime    : 0,
-    stopTime     : 0,
-    elCount      : [],
-    elements     : [],
-    currentEl    : {},
-    currentIdx   : 0,
-
-    init: function () {
-
-        fpcm.moduleinstaller.elements = fpcm.dom.fromClass('fpcm-ui-update-icons');
-        fpcm.moduleinstaller.elCount  = fpcm.moduleinstaller.elements.length;
-
-        var start = fpcm.moduleinstaller.elements.first();
-        fpcm.moduleinstaller.execRequest(start);
-    },
-
-    execRequest: function(el) {
-
+fpcm.pkgManager.execModulerequest = function () {
         fpcm.moduleinstaller.currentIdx++;
 
         var params = {
@@ -119,6 +100,43 @@ fpcm.moduleinstaller = {
         });
 
         return true;
+};
+
+fpcm.pkgManager.stopTimerMessage = function() {
+    let _icon = new fpcm.ui.forms.icon('circle-check', 'lg');
+
+    fpcm.pkgManager.showMessage(
+        'success',
+        '<span class="me-2">' + _icon.getString() + '</span>' + fpcm.ui.translate('PACKAGEMANAGER_NEWVERSION') + ' ' + fpcm.vars.jsvars.pkgdata.update.version,
+        fpcm.ui.translate('PACKAGEMANAGER_SUCCESS')
+    );
+
+    fpcm.ui_notify.show({
+        body: fpcm.ui.translate('PACKAGEMANAGER_SUCCESS') + ' ' + fpcm.ui.translate('PACKAGEMANAGER_NEWVERSION') + ' ' + fpcm.vars.jsvars.pkgdata.update.version
+    });
+};
+
+/*fpcm.moduleinstaller = {
+
+    startTime    : 0,
+    stopTime     : 0,
+    elCount      : [],
+    elements     : [],
+    currentEl    : {},
+    currentIdx   : 0,
+
+    init: function () {
+
+        fpcm.moduleinstaller.elements = fpcm.dom.fromClass('fpcm-ui-update-icons');
+        fpcm.moduleinstaller.elCount  = fpcm.moduleinstaller.elements.length;
+
+        var start = fpcm.moduleinstaller.elements.first();
+        fpcm.moduleinstaller.execRequest(start);
+    },
+
+    execRequest: function(el) {
+
+
     },
     
     startTimer: function() {
@@ -151,4 +169,4 @@ fpcm.moduleinstaller = {
         _listItem.find('div.fpcm.ui-updater-spinner').html(_status ? '<div class="spinner-border spinner-border-sm text-secondary" role="status"></div>' : '');
     }
 
-};
+};*/

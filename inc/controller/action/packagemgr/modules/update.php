@@ -18,7 +18,7 @@ class update extends base {
     public function process()
     {
         if ($this->updateDb) {
-            $this->steps = array_map([$this, 'setFalse'], $this->steps);
+            $this->steps = array_map([$this, 'invert'], $this->steps);
             $this->steps['updateDb'] = true;
         }
         else {
@@ -37,16 +37,6 @@ class update extends base {
         ];
 
         parent::process();
-    }
-
-    /**
-     *
-     * @param bool $data
-     * @return bool
-     */
-    private function setFalse($data)
-    {
-        return false;
     }
 
 }

@@ -9,11 +9,11 @@
 
 namespace fpcm\controller\action\packagemgr\modules;
 
-class base extends \fpcm\controller\abstracts\controller
+class base extends \fpcm\controller\action\packagemgr\abstracts\base
 {
 
-    use \fpcm\controller\traits\packagemgr\initialize;
-
+    protected \fpcm\model\updater\modules $updater;
+    
     /**
      * Module-Keys
      * @var array
@@ -31,28 +31,6 @@ class base extends \fpcm\controller\abstracts\controller
      * @var array
      */
     protected $jsVars = [];
-
-    /**
-     *
-     * @var bool
-     */
-    protected $updateDb;
-
-    /**
-     *
-     * @var array
-     */
-    protected $steps = [        
-        'checkFs'   => true,
-        'checkPkg'  => true,
-        'backupFs'  => true,
-        'updateDb'  => true,
-        'download'  => true,
-        'extract'   => true,
-        'updateFs'  => true,
-        'updateLog' => true,
-        'cleanup'   => true
-    ];
 
     /**
      *
@@ -90,8 +68,9 @@ class base extends \fpcm\controller\abstracts\controller
             $this->view = new \fpcm\view\error('MODULES_KEY_INVALID');
             return false;
         }
+        
+        parent::request();
 
-        $this->updateDb = ($this->request->fromGET('update-db') !== null);
         $this->updateMultiple = $this->request->fromGET('updateKeys') ? true : false;
 
         return trim($this->key) ? true : false;
@@ -103,11 +82,86 @@ class base extends \fpcm\controller\abstracts\controller
      */
     public function process()
     {
+        $this->updater = new \fpcm\model\updater\modules();
+        
+        $modPkg = $this->updater->getDataCachedByKey($this->key);
+        
+        $this->steps['pkgKey'] = $this->key;
+        
+        if ($this->updateDb) {
+            $this->steps = array_map([$this, 'invert'], $this->steps);
+            $this->steps['updateDb'] = true;
+        }
+        else {
+            
+            $this->steps['pkgurl'] = $modPkg['packageUrl'] ?? '';
+            $this->steps['pkgname'] = basename($modPkg['packageUrl'] ?? '');
+            $this->steps['pkgsize'] = \fpcm\classes\tools::calcSize($modPkg['size'] ?? 0);
+        }
+
+        $jsData = [];
+
+        $count = 0;
+
+        $jsData['steps'] = $this->getActiveSteps($count);
+        $this->steps['stepcount'] = $count;
+
+        $this->view->setViewVars($this->steps);
+        $this->view->addJsVars([
+            'pkgdata' => $jsData,
+            'stepcount' => $this->steps['stepcount']
+        ]);
+
+        parent::process();
+
+        $this->view->addJsLangVars(['PACKAGEMANAGER_SUCCESS', 'PACKAGEMANAGER_FAILED', 'PACKAGEMANAGER_NEWVERSION']);
+
+        $buttons = [
+            (new \fpcm\view\helper\linkButton('backbtn'))
+                ->setText('MODULES_LIST_BACKTOLIST')
+                ->setUrl(\fpcm\classes\tools::getFullControllerLink('modules/list'))
+                ->setIcon('chevron-circle-left'),
+            (new \fpcm\view\helper\linkButton('protobtn'))
+                ->setText('HL_LOGS')
+                ->setUrl(\fpcm\classes\tools::getFullControllerLink('system/logs'))
+                ->setIcon('exclamation-triangle')
+                ->setTarget(\fpcm\view\helper\linkButton::TARGET_NEW),
+        ];
+
+        $this->view->addButtons($buttons);
+
+        $this->view->addTabs('updater', [
+            (new \fpcm\view\helper\tabItem('sysupdate'))->setText($this->steps['tabHeadline'])->setFile($this->getViewPath())
+        ]);        
+        
+        
+        /*if ($this->updateDb) {
+            $this->steps = array_map([$this, 'invert'], $this->steps);
+            $this->steps['updateDb'] = true;
+        }
+        else {
+            $this->steps['checkFs'] = true;
+        }
+
+        $this->steps['tabHeadline'] = 'MODULES_LIST_UPDATE';
+        $this->steps['successMsg'] = 'PACKAGEMANAGER_SUCCESS_UPDATE';
+        $this->steps['errorMsg'] = 'PACKAGEMANAGER_FAILED_UPDATE';
+
+        $this->jsVars = [
+            'pkgdata' => [
+                'action' => 'update',
+                'key' => $this->key
+            ]
+        ];
+
+        parent::process();        
+        
         $updater = (new \fpcm\model\updater\modules())->getDataCachedByKey($this->key);
         $this->steps['pkgKey'] = $this->key;
         $this->steps['pkgurl'] = $updater['packageUrl'] ?? '';
         $this->steps['pkgname'] = isset($updater['packageUrl']) ? basename($updater['packageUrl']) : '';
         $this->steps['pkgsize'] = isset($updater->size) && $updater->size ? '(' . \fpcm\classes\tools::calcSize($updater->size) . ')' : '';
+        $this->steps['tabHeadline'] = $this->language->translate('MODULES_LIST_INSTALL');
 
         $this->view->setViewVars($this->steps);
         $this->view->addJsVars($this->jsVars);
@@ -116,14 +170,14 @@ class base extends \fpcm\controller\abstracts\controller
             (new \fpcm\view\helper\linkButton('protobtn'))->setText('HL_LOGS')->setUrl(\fpcm\classes\tools::getFullControllerLink('system/logs'))->setIcon('exclamation-triangle')->setTarget(\fpcm\view\helper\linkButton::TARGET_NEW),
         ]);
 
-        $tabText = $this->language->translate($this->steps['tabHeadline']).': '. $this->key;
+        $tabText = $this->language->translate($this->steps['tabHeadline']);
 
         $this->view->addTabs('updater', [
             (new \fpcm\view\helper\tabItem('sysupdate'))->setText($tabText)->setFile($this->getViewPath())
         ]);
 
-        $this->assignMultipleUpdates();
-        $this->view->addJsFiles(['modules/installer.js']);
+        $this->assignMultipleUpdates();*/
+        $this->view->addJsFiles(['packages/manager.js', 'packages/modules.js']);
         $this->view->render();
 
     }

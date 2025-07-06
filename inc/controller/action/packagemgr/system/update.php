@@ -58,9 +58,7 @@ class update extends \fpcm\controller\action\packagemgr\abstracts\base
 
         $this->view->setViewVars($this->steps);
         $this->view->addJsVars([
-            'pkgdata' => [
-                'update' => $jsData,
-            ],
+            'pkgdata' => $jsData,
             'stepcount' => $this->steps['stepcount']
         ]);
 
