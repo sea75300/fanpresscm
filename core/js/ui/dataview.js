@@ -144,9 +144,7 @@ fpcm.dataview = {
             _el.classList.add('text-bg-primary');
         }
         
-        _el.classList.add('py-1');
-        _el.classList.add('fpcm');
-        _el.classList.add('ui-dataview-head');
+        _el.classList.add('py-1', 'fpcm', 'ui-dataview-head');
         _el.id = _cfg.headId;
 
         for (var _i in _cfg.columns) {
@@ -199,12 +197,7 @@ fpcm.dataview = {
         let _rowEl = document.createElement('div');
         _rowEl.id = rowId;
 
-        _rowEl.classList.add('row');
-        _rowEl.classList.add('py-2');
-        _rowEl.classList.add('border-bottom');
-        _rowEl.classList.add('border-2');
-        _rowEl.classList.add('border-secondary');
-        _rowEl.classList.add('border-opacity-50');        
+        _rowEl.classList.add('row', 'py-2', 'border-bottom', 'border-2', 'border-secondary', 'border-opacity-50');        
         fpcm.dataview._assignStyles(row.class, _rowEl);
 
         for (var _i in row.columns) {

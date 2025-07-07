@@ -510,7 +510,6 @@ $lang = array (
   'MODULES_LIST_UPDATE' => 'Update module',
   'MODULES_LIST_UPDATE_ALL' => 'Apply updates for all modules',
   'MODULES_LIST_UPDATE_NEXT' => 'To next module update...',
-  'MODULES_LIST_UPDATING' => 'Update module {{modulekey}}',
   'MODULES_LIST_UPLOAD' => 'Upload module package file',
   'MODULES_LIST_VERSION_LOCAL' => 'Version (local)',
   'MODULES_LIST_VERSION_REMOTE' => 'Version (Server)',

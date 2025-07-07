@@ -99,13 +99,12 @@ class modulelist extends \fpcm\controller\abstracts\controller
         $buttons = [];
         if (\fpcm\classes\baseconfig::canConnect() && $this->permissions->modules->install) {
             $buttons[] = (new \fpcm\view\helper\button('checkUpdate', 'checkUpdate'))->setText('PACKAGES_MANUALCHECK')->setIcon('sync');
-            
-            $updatesAvailable = (new \fpcm\module\modules())->getInstalledUpdates();
-            if (count($updatesAvailable) > 1) {
+
+            if ((new \fpcm\module\modules())->getInstalledUpdates(true) > 0) {
                 $buttons[] = (new \fpcm\view\helper\linkButton('runUpdateAll'))
                         ->setUrl(\fpcm\classes\tools::getFullControllerLink('package/modupdate', [
-                                'key' => array_shift($updatesAvailable),
-                                'updateKeys' => urlencode(base64_encode($this->crypt->encrypt(implode(';', $updatesAvailable))))
+                                'key' => \fpcm\module\modules::MODULES_ALL,
+                                'multiple' => true
                             ])
                         )->setText('MODULES_LIST_UPDATE_ALL')
                         ->setIcon('sync')

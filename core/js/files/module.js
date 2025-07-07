@@ -321,9 +321,10 @@ fpcm.filemanager = {
                 },
                 execDone: function (result) {
 
-                    jQuery.each(result, function (i, value) {
-                        fpcm.ui.addMessage(value, i == 1 ? true : false);
-                    });
+                    for (var _i in result) {
+                        let _value = result[_i];
+                        fpcm.ui.addMessage(_value, _i == 1);
+                    }
 
                     fpcm.filemanager.reloadFiles();
                     ui.disabled = false;

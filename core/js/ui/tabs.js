@@ -90,9 +90,7 @@ fpcm.ui_tabs = {
                 if (!_ev.target.dataset.ajaxQuiet) {
 
                     var _ldr = document.createElement('span');
-                    _ldr.classList.add('spinner-border');
-                    _ldr.classList.add('spinner-border-sm');
-                    _ldr.classList.add('ms-2');
+                    _ldr.classList.add('spinner-border', 'spinner-border-sm', 'ms-2');
                     _ev.target.appendChild(_ldr);
 
                 }

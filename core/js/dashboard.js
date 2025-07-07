@@ -97,9 +97,7 @@ fpcm.dashboard = {
             clickYes: function () {
 
                 let _spin = document.createElement('span');
-                _spin.classList.add('spinner-border');
-                _spin.classList.add('spinner-border-sm');
-                _spin.classList.add('ms-1');
+                _spin.classList.add('spinner-border', 'spinner-border-sm', 'ms-1');
                 _e.delegateTarget.appendChild(_spin);
 
                 fpcm.ajax.post('setconfig', {

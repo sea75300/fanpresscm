@@ -62,10 +62,6 @@ class update extends \fpcm\controller\action\packagemgr\abstracts\base
             'stepcount' => $this->steps['stepcount']
         ]);
 
-        parent::process();
-
-        $this->view->addJsLangVars(['PACKAGEMANAGER_SUCCESS', 'PACKAGEMANAGER_FAILED', 'PACKAGEMANAGER_NEWVERSION']);
-
         $buttons = [
             (new \fpcm\view\helper\linkButton('backbtn'))
                 ->setText('PACKAGES_BACKTODASHBOARD')
@@ -100,13 +96,14 @@ class update extends \fpcm\controller\action\packagemgr\abstracts\base
         }
 
         $this->view->addButtons($buttons);
-
-        $this->view->addTabs('updater', [
-            (new \fpcm\view\helper\tabItem('sysupdate'))->setText('HL_PACKAGEMGR_SYSUPDATES')->setFile($this->getViewPath())
-        ]);
-
         $this->view->addJsFiles(['packages/manager.js', 'packages/updater.js']);
-        $this->view->render();
+
+        parent::process();
+    }
+
+    protected function getTabHeadline() : string
+    {
+        return 'HL_PACKAGEMGR_SYSUPDATES';
     }
 
 }

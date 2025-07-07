@@ -17,8 +17,17 @@ fpcm.pkgManager = {
     elements     : [],
     currentEl    : {},
     currentIdx   : 0,
+    progressBarId: 'package',
+    progressBarLabelId: 'progress-bar-label',
+    timerDivId: 'fpcm-id-update-timer',
+    messagesDivId: 'fpcm-id-package-messages',
 
     init: function () {
+        
+        if (fpcm.pkgManager.initBefore && fpcm.pkgManager.initBefore()) {
+            return false;
+        }
+        
         fpcm.pkgManager.execRequest(fpcm.vars.jsvars.pkgdata.steps[0]);
     },
 
@@ -43,12 +52,13 @@ fpcm.pkgManager = {
         };
 
         let _progress = fpcm.ui.progressbar(
-            'package', {
+            fpcm.pkgManager.progressBarId,
+            {
                 value: fpcm.pkgManager.currentIdx,
                 max: fpcm.vars.jsvars.stepcount,
                 min: 1,
                 label: el.icon + el.label,
-                hasHtmlLabel: 'progress-bar-label'
+                hasHtmlLabel: fpcm.pkgManager.progressBarLabelId
             }
         );
 
@@ -59,7 +69,6 @@ fpcm.pkgManager = {
         if (!params.step) {
             return false;
         }
-
 
         fpcm.pkgManager.execModulerequest();
 
@@ -96,35 +105,30 @@ fpcm.pkgManager = {
     assignTimerStopTime: function (_class) {
         fpcm.pkgManager.stopTime = (new Date().getTime());
         
-        let _el = document.getElementById('fpcm-id-update-timer');
+        let _el = document.getElementById(fpcm.pkgManager.timerDivId);
         _el.innerText = (fpcm.pkgManager.stopTime - fpcm.pkgManager.startTime) / 1000 + ' sec';
-        _el.parentElement.classList.add(`bg-${_class}-subtle`);
+        _el.parentElement.classList.replace('list-group-item-light', `list-group-item-${_class}`);
     },
 
     showMessage: function (_type, _headline, _text) {
 
         let _msg = document.createElement('div');
-        _msg.classList.add('alert');
-        _msg.classList.add('alert-' + _type);
-        _msg.classList.add('shadow-sm');
+        _msg.classList.add('alert', 'alert-' + _type, 'shadow-sm');
         _msg.setAttribute('role', 'alert');
 
         let _msgHead = document.createElement('h4');
         _msgHead.innerHTML = _headline;
-        _msgHead.classList.add('alert-heading');
-        _msgHead.classList.add('mb-3');
-        _msgHead.classList.add('text-break');
+        _msgHead.classList.add('alert-heading', 'mb-3', 'text-break');
         _msg.appendChild(_msgHead);
 
         _msg.appendChild(document.createElement('hr'));
 
         let _msgText = document.createElement('p');
         _msgText.innerHTML = _text;
-        _msgText.classList.add('my-0');
-        _msgText.classList.add('text-break');
+        _msgText.classList.add('my-0', 'text-break');
         _msg.appendChild(_msgText);
 
-        document.getElementById('fpcm-id-package-messages').appendChild(_msg);
+        document.getElementById(fpcm.pkgManager.messagesDivId).appendChild(_msg);
     }
 
 };

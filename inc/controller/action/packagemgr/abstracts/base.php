@@ -60,8 +60,19 @@ abstract class base extends \fpcm\controller\abstracts\controller
      */
     public function process() {
 
-        $this->view->addJsLangVars(['PACKAGEMANAGER_SUCCESS', 'PACKAGEMANAGER_FAILED', 'PACKAGEMANAGER_NEWVERSION']);
+        $this->view->addJsLangVars([
+            'PACKAGEMANAGER_SUCCESS', 'PACKAGEMANAGER_FAILED',
+            'PACKAGEMANAGER_NEWVERSION', 'PACKAGEMANAGER_SUCCESS_UPDATE',
+            'FILE_LIST_FILENAME', 'FILE_LIST_FILESIZE', 'PACKAGEMANAGER_TIMER',
+            'HL_PACKAGEMGR_SYSUPDATES', 'MODULES_LIST_INSTALL',
+            'MODULES_LIST_UPDATE'
+        ]);
 
+        $this->view->addTabs('pkgmgr', [
+            (new \fpcm\view\helper\tabItem('pkgmgr'))->setText($this->getTabHeadline())->setFile($this->getViewPath())
+        ]);
+
+        $this->view->render();        
     }
 
 
@@ -186,4 +197,6 @@ abstract class base extends \fpcm\controller\abstracts\controller
             )
         ];
     }
+
+    abstract protected function getTabHeadline() : string;
 }

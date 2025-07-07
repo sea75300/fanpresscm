@@ -46,7 +46,7 @@ fpcm.ui = {
                     _callee.click();
                 }
             });
-            
+
             return false;
 
         }, false, true);
@@ -139,7 +139,7 @@ fpcm.ui = {
         fpcm.ui.appendMessageToBody(_boxes);
     },
 
-    addMessage: function(value, _clear) {
+    addMessage: function(value, _clear, _maximize) {
 
         if (_clear === undefined) {
             _clear = true;
@@ -175,7 +175,7 @@ fpcm.ui = {
             value.txt = value.txtComplete;
         }
 
-        fpcm.ui.appendMessageToBody(fpcm.ui.createMessageBox(value));
+        fpcm.ui.appendMessageToBody(fpcm.ui.createMessageBox(value, _maximize));
     },
 
     createMessageBox: function(_msg)
@@ -217,7 +217,7 @@ fpcm.ui = {
         _msgCode += '   <span class="d-inline-block w-100"></span>';
         _msgCode += '   <button type="button" class="btn-close '+_msg.cbtn+'" data-bs-dismiss="toast" data-bs-theme="'+_msg.bstm + '"  aria-label="' + fpcm.ui.translate('GLOBAL_CLOSE') + '"></button>';
         _msgCode += '   </div>';
-        _msgCode += '       <div class="toast-body">';
+        _msgCode += '       <div class="toast-body fpcm ui-blurring">';
         _msgCode += '           <div class="m-3">' + _msg.txt + '</div>';
         _msgCode += '       </div>';
         _msgCode += '   </div>';
@@ -225,9 +225,12 @@ fpcm.ui = {
         return _msgCode;
     },
 
-    appendMessageToBody: function(_boxes)
+    appendMessageToBody: function(_boxes, _size)
     {
-        fpcm.dom.appendHtml('#fpcm-body', '<div class="toast-container position-fixed top-0 start-50 translate-middle-x p-3">' + _boxes + '</div>');
+        let _toasts = document.createElement('div');
+        _toasts.classList.add('toast-container', 'position-fixed', 'top-0', 'start-50', 'translate-middle-x', 'p-3');
+        _toasts.innerHTML = _boxes;
+        document.getElementById('fpcm-body').appendChild(_toasts);
 
         let _el = document.getElementsByClassName('fpcm ui-message');
         for (var i = 0; i < _el.length; i++) {
@@ -326,7 +329,7 @@ fpcm.ui = {
         _el.setAttribute('ariaValuenow', _params.value);
         _el.setAttribute('ariaValuemax', _params.max);
         _el.setAttribute('ariaValuemin', _params.min);
-        
+
         if (_params.hasHtmlLabel) {
             document.getElementById(_params.hasHtmlLabel).innerHTML = _params.label;
         }

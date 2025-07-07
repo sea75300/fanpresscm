@@ -64,14 +64,14 @@ abstract class base extends \fpcm\controller\action\packagemgr\abstracts\base
             \fpcm\model\http\request::FILTER_URLDECODE
         ]);
 
-        if (!\fpcm\module\module::validateKey($this->key)) {
+        $this->updateMultiple = $this->key === \fpcm\module\modules::MODULES_ALL;
+
+        if (!$this->updateMultiple && !\fpcm\module\module::validateKey($this->key)) {
             $this->view = new \fpcm\view\error('MODULES_KEY_INVALID');
             return false;
         }
 
         parent::request();
-
-        $this->updateMultiple = $this->request->fromGET('updateKeys') ? true : false;
 
         $this->steps['backupFs'] = false;
 
@@ -88,8 +88,15 @@ abstract class base extends \fpcm\controller\action\packagemgr\abstracts\base
 
         $modPkg = $this->updater->getDataCachedByKey($this->key);
 
+        $keys = (new \fpcm\module\modules())->getInstalledUpdates();
+        
         $jsData = [
-            'pkgKey' => $this->key
+            'pkgKey' => $this->key,
+            'multiple' => $this->updateMultiple,
+            'pkgKeys' => $keys,
+            'pkgHashes' => array_map(function($key) {
+                return \fpcm\classes\tools::getHash($key);
+            }, $keys)
         ];
 
         if ($this->updateDb) {
@@ -102,7 +109,6 @@ abstract class base extends \fpcm\controller\action\packagemgr\abstracts\base
             $jsData['pkgsize'] = isset($modPkg['size']) ? \fpcm\classes\tools::calcSize($modPkg['size']) : $this->language->translate('GLOBAL_UNKNOWN');
         }
 
-
         $count = 0;
 
         $jsData['steps'] = $this->getActiveSteps($count);
@@ -114,10 +120,6 @@ abstract class base extends \fpcm\controller\action\packagemgr\abstracts\base
             'stepcount' => $this->steps['stepcount'],
             'action' => $this->getMode()
         ]);
-
-        parent::process();
-
-        $this->view->addJsLangVars(['PACKAGEMANAGER_SUCCESS', 'PACKAGEMANAGER_FAILED', 'PACKAGEMANAGER_NEWVERSION']);
 
         $buttons = [
             (new \fpcm\view\helper\linkButton('backbtn'))
@@ -132,101 +134,16 @@ abstract class base extends \fpcm\controller\action\packagemgr\abstracts\base
         ];
 
         $this->view->addButtons($buttons);
-
-        $this->view->addTabs('updater', [
-            (new \fpcm\view\helper\tabItem('sysupdate'))
-                ->setText($this->getTabHeadline())
-                ->setFile($this->getViewPath())
-        ]);
-
-
-        /*if ($this->updateDb) {
-            $this->steps = array_map([$this, 'invert'], $this->steps);
-            $this->steps['updateDb'] = true;
-        }
-        else {
-            $this->steps['checkFs'] = true;
-        }
-
-        $this->steps['tabHeadline'] = 'MODULES_LIST_UPDATE';
-        $this->steps['successMsg'] = 'PACKAGEMANAGER_SUCCESS_UPDATE';
-        $this->steps['errorMsg'] = 'PACKAGEMANAGER_FAILED_UPDATE';
-
-        $this->jsVars = [
-            'pkgdata' => [
-                'action' => 'update',
-                'key' => $this->key
-            ]
-        ];
+        $this->view->addJsFiles(['packages/manager.js', 'packages/modules.js']);
 
         parent::process();
-
-        $updater = (new \fpcm\model\updater\modules())->getDataCachedByKey($this->key);
-        $this->steps['pkgKey'] = $this->key;
-        $this->steps['pkgurl'] = $updater['packageUrl'] ?? '';
-        $this->steps['pkgname'] = isset($updater['packageUrl']) ? basename($updater['packageUrl']) : '';
-        $this->steps['pkgsize'] = isset($updater->size) && $updater->size ? '(' . \fpcm\classes\tools::calcSize($updater->size) . ')' : '';
-        $this->steps['tabHeadline'] = $this->language->translate('MODULES_LIST_INSTALL');
-
-        $this->view->setViewVars($this->steps);
-        $this->view->addJsVars($this->jsVars);
-        $this->view->addButtons([
-            (new \fpcm\view\helper\linkButton('backbtn'))->setText('MODULES_LIST_BACKTOLIST')->setUrl(\fpcm\classes\tools::getFullControllerLink('modules/list'))->setIcon('chevron-circle-left'),
-            (new \fpcm\view\helper\linkButton('protobtn'))->setText('HL_LOGS')->setUrl(\fpcm\classes\tools::getFullControllerLink('system/logs'))->setIcon('exclamation-triangle')->setTarget(\fpcm\view\helper\linkButton::TARGET_NEW),
-        ]);
-
-        $tabText = $this->language->translate($this->steps['tabHeadline']);
-
-        $this->view->addTabs('updater', [
-            (new \fpcm\view\helper\tabItem('sysupdate'))->setText($tabText)->setFile($this->getViewPath())
-        ]);
-
-        $this->assignMultipleUpdates();*/
-        $this->view->addJsFiles(['packages/manager.js', 'packages/modules.js']);
-        $this->view->render();
 
     }
 
     /**
-     * Adds button to update next module
-     * @return bool
+     * Gte default step definition
+     * @return array
      */
-    private function assignMultipleUpdates() : bool
-    {
-        if (!$this->updateMultiple) {
-            return true;
-        }
-
-        $updateKeys = $this->request->fromGET('updateKeys', [
-            \fpcm\model\http\request::FILTER_URLDECODE,
-            \fpcm\model\http\request::FILTER_BASE64DECODE,
-            \fpcm\model\http\request::FILTER_DECRYPT
-        ]);
-
-        if ($updateKeys === null || !trim($updateKeys)) {
-            return false;
-        }
-
-        $updateKeys = explode(';', $updateKeys);
-        if (!count($updateKeys)) {
-            return false;
-        }
-
-        $this->view->addButton(
-            (new \fpcm\view\helper\linkButton('runUpdateNext'))
-                ->setUrl(\fpcm\classes\tools::getFullControllerLink('package/modupdate', [
-                    'key' => array_shift($updateKeys),
-                    'updateKeys' => base64_encode($this->crypt->encrypt(implode(';', $updateKeys)))
-                ])
-            )->setText('MODULES_LIST_UPDATE_NEXT')
-            ->setIcon('sync')
-            ->setClass('fpcm ui-hidden')
-            ->setPrimary()
-        );
-
-        return true;
-    }
-
     protected function initStepsDef(): array
     {
         $steps = parent::initStepsDef();
@@ -234,16 +151,14 @@ abstract class base extends \fpcm\controller\action\packagemgr\abstracts\base
         $steps['finish'] = new \fpcm\model\packages\step(
             $this->language->translate('GLOBAL_FINISHED'),
             '',
-            '',
+            'stopTimer',
             new \fpcm\view\helper\icon('circle-check'),
             '',
-            'stopTimer'
+            ''
         );
 
         return $steps;
     }
 
     abstract protected function getMode() : string;
-
-    abstract protected function getTabHeadline() : string;
 }

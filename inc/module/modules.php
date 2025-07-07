@@ -17,6 +17,8 @@ namespace fpcm\module;
  */
 class modules extends \fpcm\model\abstracts\tablelist {
 
+    const MODULES_ALL = 'all';
+    
     /**
      * Enabled modules cache
      * @var array
@@ -122,20 +124,21 @@ class modules extends \fpcm\model\abstracts\tablelist {
 
         return $modules;
     }
-
+    
     /**
      * Get installed modules with updates
-     * @return array
+     * @param bool $countOnly
+     * @return int|array
      */
-    public function getInstalledUpdates() : array
+    public function getInstalledUpdates(bool $countOnly = false) : int|array
     {
         if (\fpcm\classes\baseconfig::installerEnabled()) {
-            return [];
+            return $countOnly ? 0 : [];
         }
 
         $installed = $this->getInstalledDatabase();
         if (!count($installed)) {
-            return [];
+            return $countOnly ? 0 : [];
         }
 
         $list = [];
@@ -149,7 +152,7 @@ class modules extends \fpcm\model\abstracts\tablelist {
             
         }
 
-        return $list;
+        return $countOnly ? count($list) : $list;
     }
 
     /**
