@@ -59,9 +59,7 @@
         </div><div class="card-group g-0 fpcm ui-files-card">
         <?php endif; ?>
         <?php endforeach; ?>
-            <?php for ($x = 0; $x < $addColsToEnd; $x++) : ?>
-            <div class="card my-2 mx-sm-2 border-0 bg-transparent">&nbsp;</div>
-            <?php endfor; ?>
+        <?php print implode('', array_fill(1, $addColsToEnd, '<div class="card my-2 mx-sm-2 border-0 bg-transparent">&nbsp;</div>')); ?>
         </div>
     <?php endif; ?>
 </div>
