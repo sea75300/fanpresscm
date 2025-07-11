@@ -532,15 +532,14 @@ final class database {
     }
 
     /**
-     * Index auf eine Spalte in der übergebenen Tabelle erzeugen
+     * Creates an index for a given database table
      * @param string $table
      * @param string $indexName
-     * @param string $field
-     * @param bool $isUnique
-     * @return bool
-     * @since 3.3.1
+     * @param string|array $field
+     * @param type $isUnique
+     * @return type
      */
-    public function createIndex(string $table, string $indexName, string $field, $isUnique = false)
+    public function createIndex(string $table, string $indexName, string|array $field, $isUnique = false)
     {
         return $this->exec( $this->driver->createIndexString($this->getTablePrefixed($table), $indexName, $field, $isUnique) );
     }   

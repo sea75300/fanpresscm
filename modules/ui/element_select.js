@@ -68,7 +68,7 @@ export class element_select {
 
             for (var _opt in this.options) {
                 let _val = this.options[_opt];
-                _input.options.add( new Option(fpcm.ui.translate(_opt), _val, this.preSelected === _val) );
+                _input.options.add( new Option(fpcm.ui.translate(_opt), _val, false, this.preSelected == _val) );
             }
             
         }
