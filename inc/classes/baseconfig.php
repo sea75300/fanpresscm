@@ -23,6 +23,12 @@ final class baseconfig {
     public static $updateServer;
 
     /**
+     * Link für manuelle Update-Prüfung
+     * @var string
+     */
+    public static $updateServerManualLink;
+
+    /**
      * Module-Server-URL
      * @var string
      */
@@ -408,7 +414,7 @@ final class baseconfig {
 
         self::$updateServer = $servers['updates'];
         self::$moduleServer = $servers['modules'];
-
+        self::$updateServerManualLink = $servers['updatesManual'];
     }
 
     /**

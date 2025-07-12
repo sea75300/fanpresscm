@@ -222,10 +222,6 @@ class updatecheck extends \fpcm\model\abstracts\dashcontainer implements \fpcm\m
      */
     public function getButton(): ?\fpcm\view\helper\linkButton
     {
-        if (\fpcm\classes\baseconfig::canConnect()) {
-            return null;
-        }
-
         return (new \fpcm\view\helper\linkButton('manualCheckFooter'))
             ->setUrl(\fpcm\classes\baseconfig::$updateServerManualLink)
             ->setIcon('square-up-right')

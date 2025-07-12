@@ -39,7 +39,7 @@ class options extends \fpcm\controller\abstracts\controller implements \fpcm\con
     protected $mailSettingsChanged = false;
 
     /**
-     * 
+     *
      * @return bool
      */
     public function isAccessible() : bool
@@ -132,12 +132,12 @@ class options extends \fpcm\controller\abstracts\controller implements \fpcm\con
             'runSysCheck' => $this->syscheck,
             'dtMasks' => $this->getDateTimeMasks()
         ]);
-        
+
         $this->view->setFormAction('system/options');
 
         $this->initButtons();
         $this->initTabs();
-        
+
         $this->view->render();
     }
 
@@ -150,8 +150,18 @@ class options extends \fpcm\controller\abstracts\controller implements \fpcm\con
 
         if (\fpcm\classes\baseconfig::canConnect() && $this->permissions->system->update) {
             $actions[] = (new \fpcm\view\helper\dropdownItem('checkUpdate'))->setText('PACKAGES_MANUALCHECK')->setIcon('sync')->setValue('3');
+
+            if (\fpcm\model\updater\system::getInstance()->changelog) {
+                $actions[] = (new \fpcm\view\helper\dropdownItem('checkUpdate'))
+                        ->setText('HL_HELP_CHANGELOG')
+                        ->setUrl(\fpcm\model\updater\system::getInstance()->changelog)
+                        ->setTarget('_blank')
+                        ->setValue(4)
+                        ->setIcon('code-branch');
+            }
+
         }
-        
+
         if ($this->config->smtp_enabled) {
             $actions[] = (new \fpcm\view\helper\dropdownItem('testSmtp'))->setText('SYSTEM_OPTIONS_EMAIL_CHECK')->setIcon('envelope-circle-check')->setValue('2');
         }
@@ -160,6 +170,7 @@ class options extends \fpcm\controller\abstracts\controller implements \fpcm\con
             (new \fpcm\view\helper\saveButton('configSave'))->setPrimary(),
             (new \fpcm\view\helper\dropdown('actions'))->setText('GLOBAL_EXTENDED')->setIcon('bars')->setOptions($actions)
         ]);
+
         return true;
     }
 
@@ -183,7 +194,7 @@ class options extends \fpcm\controller\abstracts\controller implements \fpcm\con
                 ->setTabToolbar(1)
             ,
             (new \fpcm\view\helper\tabItem('comments'))
-                ->setText('COMMMENT_HEADLINE')                
+                ->setText('COMMMENT_HEADLINE')
                 ->setFile('system/comments.php')
                 ->setTabToolbar(1)
             ,

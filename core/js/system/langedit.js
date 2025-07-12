@@ -105,7 +105,7 @@ fpcm.langedit = {
                 _varVal = JSON.stringify(_varVal);
             }
 
-            _col3.innerText = _varVal;
+            _col3.innerText = _varVal.replace(/(?:\r\n|\r|\n)/g, '<br>');
             _row.appendChild(_col3);
 
             _list.appendChild(_row);
