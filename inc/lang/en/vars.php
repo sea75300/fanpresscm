@@ -3,7 +3,7 @@
 /**
  * FanPress CM language variables file: en
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2022, Stefan Seehafer
+ * @copyright (c) 2011-2025, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -291,6 +291,7 @@ $lang = array (
   'GLOBAL_COPY' => 'Copy',
   'GLOBAL_COPY_OF' => 'Copy of "%s"',
   'GLOBAL_COPY_OF_FILE' => 'Copy_of_%s',
+  'GLOBAL_CREDENTIALS' => 'Credentials',
   'GLOBAL_DELETE' => 'Delete',
   'GLOBAL_DEPRECATED' => 'Deprecated, will be removed shortly',
   'GLOBAL_DISABLE' => 'Disable',
@@ -342,7 +343,6 @@ $lang = array (
   'GLOBAL_WRITABLE' => 'writable',
   'GLOBAL_WRITEMAIL' => 'Compose email',
   'GLOBAL_YES' => 'Yes',
-  'GLOBAL_CREDENTIALS' => 'Credentials',
   'HEADLINE' => 'FanPress CM News System',
   'HELP_BTN_OPEN' => 'Open help entry',
   'HL_ARCHIVE' => 'Archive',
@@ -469,9 +469,9 @@ $lang = array (
   'LOGS_CLEARED_LOG_OK' => 'The selected log was cleared.',
   'LOGS_CLEARLOG' => 'Clear',
   'LOGS_LIST_IPADDRESS' => 'IP address',
-  'LOGS_LIST_PERIOD' => 'Login period',
   'LOGS_LIST_LOGIN' => 'Login on',
   'LOGS_LIST_LOGOUT' => 'Logout at',
+  'LOGS_LIST_PERIOD' => 'Login period',
   'LOGS_LIST_SESSIONID' => 'Identifier',
   'LOGS_LIST_TEXT' => 'Log data',
   'LOGS_LIST_TIME' => 'Time',
@@ -549,8 +549,8 @@ $lang = array (
   'PACKAGES_FAILED_ERROR_BACKUPS' => 'An error occurred while creating the file system backup! Please check the event log for detailed information.',
   'PACKAGES_MANUALCHECK' => 'Check for updates',
   'PACKAGES_UPDATE' => 'Start update',
-  'PACKAGES_UPDATE_CONFIRM' => 'Do you want to start the update now?',
   'PACKAGES_UPDATES_LIST' => 'Display updates',
+  'PACKAGES_UPDATE_CONFIRM' => 'Do you want to start the update now?',
   'PASSWORD_NEWPASSWORDSET_SUBJECT' => 'Set new password',
   'PASSWORD_NEWPASSWORDSET_TEXT' => 'For your FanPress CM account <b>{{username}}</b> the password <b>{{newpass}}</b> has been set. With this data you can log in and also set your own password.',
   'PASSWORD_RESET_SUBJECT' => 'New password requested',

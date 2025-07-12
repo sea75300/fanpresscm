@@ -3,7 +3,7 @@
 /**
  * FanPress CM language list file: en
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2021, Stefan Seehafer
+ * @copyright (c) 2011-2025, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -26,7 +26,7 @@ $lang = array (
     3 => 'Wednesday',
     4 => 'Thursday',
     5 => 'Friday',
-    6 => 'Saturday',      
+    6 => 'Saturday',
   ),
   'SYSTEM_IMPORT_ITEMS' => 
   array (
@@ -85,7 +85,7 @@ $lang = array (
     'every 2 days' => 172800,
     'weekly' => 604800,
     'every 14 days' => 1209600,
-    'monthly' => 2419200, 
+    'monthly' => 2419200,
   ),
   'SYSTEM_OPTIONS_FLOODPROTECTION_INTERVALS' => 
   array (
