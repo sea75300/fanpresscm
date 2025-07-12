@@ -79,33 +79,51 @@ class langedit extends \fpcm\controller\abstracts\controller implements \fpcm\co
 
         ksort($fullLang);
 
+        $this->view->addJsVars([
+            'langfile' => $fullLang
+        ]);
+        
         $this->view->setFormAction('system/langedit');
-        $this->view->assign('langVars', $fullLang);
         $this->view->addJsFiles(['system/langedit.js']);
         $this->view->render();
     }
 
     public function onSave()
     {
-        $langsave = $this->request->fromPOST('lang', [\fpcm\model\http\request::FILTER_TRIM ]);
+        $langsave = $this->request->fromPOST('lang', [
+            \fpcm\model\http\request::FILTER_JSON_DECODE,
+            \fpcm\model\http\request::PARAM_JSON_ASOBJECT => false
+        ]);
+        
+        if (!is_array($langsave)) {
+            $this->view->addErrorMessage('Failed to save language data, invalid data given! Check error log!');
+            return false;
+        }
+
         ksort($langsave);
 
         $lists = array_filter($langsave, function ($value) {
-            return (substr($value, 0, 2) === 'a:') ? true : false;
+            return is_array($value);
         });
+       
+        $vars = array_diff_key($langsave, $lists);
 
-        $vars = array_diff($langsave, $lists);
         array_walk($vars, function (&$value) {
             $value = str_replace(\fpcm\classes\language::VARTEXT_NEWLINE, PHP_EOL, $value);
         });
-
+        
+        if (!is_array($vars) || !is_array($lists)) {
+            $this->view->addErrorMessage('Failed to save language data, invalid data given! Check error log!');
+            return false;
+        }        
+        
         $res = $this->langObj->saveFiles(
             $vars,
-            array_map('unserialize', $lists)
+            $lists
         );
 
         if (!$res) {
-            $this->view->addErrorMessage('Fehler beim speichern, Error-Log-prüfen!');
+            $this->view->addErrorMessage('Failed to save data, check error log!');
             return false;
         }
 
