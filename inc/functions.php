@@ -56,9 +56,9 @@ set_error_handler(function($ecode, $etext, $efile, $eline)
         E_USER_WARNING => 'Warning',
         E_WARNING => 'Warning',
     ];
-    
+
     $typeStr = $codeMap[$ecode] ?? 'Error';
-    
+
     $text = [
         $ecode. ' :: '.$typeStr,
         $etext,
@@ -66,7 +66,7 @@ set_error_handler(function($ecode, $etext, $efile, $eline)
         $efile . ', line ' .
         $eline
     ];
-    
+
     if (defined('FPCM_DEBUG') && FPCM_DEBUG) {
 
         $text[] = 'Bebug Backtrace: '.PHP_EOL.implode(PHP_EOL, array_map(function(array $item) {
@@ -103,8 +103,8 @@ set_error_handler(function($ecode, $etext, $efile, $eline)
 
 set_exception_handler(function(Throwable $ex) {
 
-    printf("<pre>----- FATAL ERROR: Loading terminated :-S\n\nDetailed error message is available within system error log.\n%s\n%s<pre>", $ex->getMessage(), $ex->getTraceAsString());
-    
+    printf("<pre>----- FATAL ERROR!\n\nLoading terminated :-S\n\nDetailed error message is available within system error log.\n%s\n%s</pre>", $ex->getMessage(), $ex->getTraceAsString());
+
     $errorLog = dirname(__DIR__) . '/data/logs/phplog.txt';
 
     if (file_exists($errorLog) && !is_writable($errorLog)) {
@@ -117,8 +117,18 @@ set_exception_handler(function(Throwable $ex) {
         'text' => (string) $ex,
         'type' => 'error'
     ]) . PHP_EOL, FILE_APPEND);
+
     return true;
-    
+});
+
+register_shutdown_function(function() {
+
+    $err = error_get_last();
+    if ($err === null) {
+        return;
+    }
+
+    printf("<pre>##### FATAL ERROR!\n\nLoading terminated :-S\n\n%s\n\nFile: %s in line %s</pre>", $err['message'], $err['file'], $err['line']);
 });
 
 /**
@@ -203,7 +213,7 @@ function fpcmLogEvents($data)
     if (!defined('FPCM_DEBUG_EVENTS') || !FPCM_DEBUG_EVENTS) {
         return false;
     }
-    
+
     $data = is_array($data) || is_object($data) ? print_r($data, true) : $data;
 
     if (file_put_contents(\fpcm\classes\baseconfig::$logFiles['eventslogs'], json_encode(['time' => date('Y-m-d H:i:s'), 'text' => $data]) . PHP_EOL, FILE_APPEND) === false) {
