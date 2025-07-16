@@ -1,0 +1,78 @@
+{
+  "name": "cropperjs",
+  "version": "2.0.0",
+  "description": "JavaScript image cropper.",
+  "main": "dist/cropper.raw.js",
+  "module": "dist/cropper.esm.raw.js",
+  "types": "dist/cropper.d.ts",
+  "unpkg": "dist/cropper.js",
+  "jsdelivr": "dist/cropper.js",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/cropper.d.ts",
+        "node": {
+          "production": "./dist/cropper.esm.min.js",
+          "development": "./dist/cropper.esm.js",
+          "default": "./dist/cropper.esm.raw.js"
+        },
+        "default": "./dist/cropper.esm.raw.js"
+      },
+      "require": {
+        "types": "./dist/cropper.d.ts",
+        "node": {
+          "production": "./dist/cropper.min.js",
+          "development": "./dist/cropper.js",
+          "default": "./cropper.raw.js"
+        },
+        "default": "./dist/cropper.raw.js"
+      }
+    }
+  },
+  "scripts": {
+    "api-extractor": "api-extractor run --local --verbose",
+    "build": "npm run tsc && npm run api-extractor && npm run rollup",
+    "clean": "del-cli dist .temp",
+    "release": "npm run clean && npm run build",
+    "rollup": "rollup -c ../../rollup.config.js",
+    "tsc": "tsc --outDir ./.temp --declaration --emitDeclarationOnly"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fengyuanchen/cropperjs.git",
+    "directory": "packages/cropperjs"
+  },
+  "keywords": [
+    "image",
+    "crop",
+    "move",
+    "zoom",
+    "rotate",
+    "scale",
+    "cropper",
+    "cropper.js",
+    "image-cropping",
+    "image-viewing",
+    "image-processing",
+    "cropper-element",
+    "custom-element",
+    "web-component",
+    "html",
+    "css",
+    "javascript",
+    "front-end",
+    "web"
+  ],
+  "author": "Chen Fengyuan (https://chenfengyuan.com/)",
+  "license": "MIT",
+  "bugs": "https://github.com/fengyuanchen/cropperjs/issues",
+  "homepage": "https://github.com/fengyuanchen/cropperjs/tree/main/packages/cropperjs/#readme",
+  "dependencies": {
+    "@cropper/elements": "^2.0.0",
+    "@cropper/utils": "^2.0.0"
+  },
+  "gitHead": "08a3d16f2ec4a14a0c811aebc204016e13c3d2a5"
+}

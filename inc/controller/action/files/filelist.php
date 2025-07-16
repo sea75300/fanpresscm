@@ -140,7 +140,7 @@ class filelist extends \fpcm\controller\abstracts\controller
         $this->view->addPager((new \fpcm\view\helper\pager('ajax/files/lists&mode='.$this->mode, 1, 1, $this->config->file_list_limit, 1)));
         $this->view->addJsFiles(array_merge( $jsFiles, $uploader->getJsFiles() ));
         $this->view->addJsFilesLate($uploader->getJsFilesLate());
-        $this->view->setJsModuleFiles($uploader->getJsModuleFiles());
+        $this->view->setJsModuleFiles($uploader->getJsModuleFiles() + ['/files/cropper.js']);
         $this->view->setViewVars(array_merge([
             'mode' => $this->mode,
             'hasFiles' => $hasFiles,
