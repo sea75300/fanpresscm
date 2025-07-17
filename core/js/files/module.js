@@ -219,7 +219,10 @@ fpcm.filemanager = {
     initEditButtons: function() {
         fpcm.dom.bindClick('.fpcm-filelist-link-edit', function (_e, _ui) {
             fpcm.imageEditor.initEditorDialog({
-                afterUpload: fpcm.filemanager.reloadFiles,
+                afterUpload: function () {
+                    fpcm.filemanager.reloadFiles();
+                    fpcm.ui_dialogs.close('files-editor');
+                },
                 data: _ui.dataset
             });
             return false;

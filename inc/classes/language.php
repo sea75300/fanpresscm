@@ -467,6 +467,16 @@ final class language {
     }
 
     /**
+     * Check if language files are writable
+     * @return bool
+     * @since 5.3.0-dev
+     */
+    public function filesWritable() : bool
+    {
+        return is_writable($this->getFileName(self::FILENAME_LISTS)) && is_writable($this->getFileName(self::FILENAME_VARS));
+    }
+
+    /**
      * Write file content
      * @param string $file
      * @param string $content

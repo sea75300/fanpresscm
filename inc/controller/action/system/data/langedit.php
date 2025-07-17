@@ -64,9 +64,11 @@ class langedit extends \fpcm\controller\abstracts\controller implements \fpcm\co
         });
 
         $fullLang = array_diff_key($fullLang, array_flip(array_keys($fullLang, $skipVal)));
+        $writable = $this->langObj->filesWritable();
+
         $this->view->addButtons([
-            (new \fpcm\view\helper\saveButton('save'))->setPrimary(),
-            (new \fpcm\view\helper\button('new'))->setText('Neue Variable')->setIcon('plus')
+            (new \fpcm\view\helper\saveButton('save'))->setPrimary()->setReadonly(!$writable),
+            (new \fpcm\view\helper\button('new'))->setText('Neue Variable')->setIcon('plus')->setReadonly(!$writable)
         ]);
 
         $this->view->addToolbarRight([

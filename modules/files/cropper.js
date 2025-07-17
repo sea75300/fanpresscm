@@ -38,32 +38,49 @@ export class cropper2 {
     }
 
     rotate(_value) {
-        this._instance.getCropperImage().$rotate(_value)
+        this._instance.getCropperImage().$rotate(_value);
     }
 
     zoom(_value) {
-        this._instance.getCropperImage().$zoom(_value)
+        this._instance.getCropperImage().$zoom(_value);
     }
 
-    save(_param) {
+    move(_x, _y) {
+        this._instance.getCropperImage().$move(_x, _y);
+    }
+
+    flipX() {
+        this._instance.getCropperImage().$scale(-1, 1);
+    }
+
+    flipY() {
+        this._instance.getCropperImage().$scale(1, -1);
+    }
+
+    save(_filename, _afterUploadCallback) {
 
         this._instance.getCropperSelection().$toCanvas()
         .then(canvas => {
 
             canvas.toBlob((_blob) => {
-                
-                
-                console.log(_blob);
-                
+
+                _filename += '.png';
+
                 const formData = new FormData();
-                formData.append('file', _blob, _param.data.filename);
+                formData.append('file', _blob, _filename);
+
                 fpcm.ajax.post('editor/imgupload', {
                     data: formData,
                     processData: false,
                     contentType: false,
                     execDone: function (result) {
-                        _param.afterUpload(result);
-                        fpcm.vars.jsvars.cropperSizes = {};
+
+                        if (!_afterUploadCallback) {
+                            return true;
+                        }
+
+                        _afterUploadCallback(result);
+                        return true;
                     }
                 });
             });
@@ -71,19 +88,41 @@ export class cropper2 {
 
         })
         .catch(error => {
-            console.error("Fehler! ", error);
-        })
-        /*.finally(data => {
-            console.log(data);
-        });/*/
+            fpcm.ui.addMessage({
+                txt: error,
+                type: 'error'
+            });
+        });
+    }
+
+    getSelectionSize() {
+        let _sel = this._instance.getCropperSelection();
+
+        return {
+            width: _sel.width,
+            height: _sel.height,
+        };
+    }
+
+    resize(_width, _height) {
+        let _sel = this._instance.getCropperSelection();
+        _sel.$change(_sel.x, _sel.y, _width, _height);
+        _sel.$render();
     }
 
     reset() {
+        let _imgEl = this._instance.getCropperImage();
+        _imgEl.$resetTransform();
+        _imgEl.$center('contain');
 
-        this._instance.getCropperImage().$resetTransform();
         this._instance.getCropperSelection().$reset();
-        this._instance.getCropperImage().$center('contain');
+    }
 
+    toggleDynamicSelection() {
+        let _sec = this._instance.getCropperSelection();
+        _sec.dynamic = !_sec.dynamic;
+        
+        return _sec.dynamic;
     }
 
 }

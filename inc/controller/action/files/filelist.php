@@ -122,8 +122,8 @@ class filelist extends \fpcm\controller\abstracts\controller
             'GLOBAL_LASTCHANGE', 'FILE_LIST_UPLOAD_BY', 'FILE_LIST_FILESIZE',
             'FILE_LIST_RESOLUTION', 'FILE_LIST_FILETYPE', 'FILE_LIST_FILEHASH',
             'FILE_LIST_FILECREDITS', 'RENAME_FAILED_FILE', 'HL_OPTIONS',
-            'SYSTEM_OPTIONS_FILEMANAGER_VIEWCARDS',
-            'SYSTEM_OPTIONS_FILEMANAGER_VIEWLIST'
+            'SYSTEM_OPTIONS_FILEMANAGER_VIEWCARDS', 'FILE_LIST_EDIT_FLIP',
+            'SYSTEM_OPTIONS_FILEMANAGER_VIEWLIST', 'FILE_LIST_EDIT_DYNAMIC'
         ], $uploader->getJsLangVars()));
 
         if (!trim($uploader->getTemplate()) || !realpath($uploader->getTemplate())) {

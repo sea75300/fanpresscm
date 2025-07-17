@@ -32,9 +32,7 @@ final class uppy extends uploader {
      */
     public function getCssFiles(): array
     {
-        return [
-            \fpcm\classes\dirs::getLibUrl('cropper_js/cropper.min.css'),
-        ];
+        return [];
     }
 
     /**
@@ -45,8 +43,7 @@ final class uppy extends uploader {
     {
         $return = [
             'files/uppy.js',
-            'files/imageEditor.js',
-            \fpcm\classes\dirs::getLibUrl('cropper_js/cropper.min.js')
+            'files/imageEditor.js'
         ];
 
         return $return;
