@@ -387,6 +387,14 @@ fpcm.editor = {
         fpcm.editor.initCodeMirrorAutosave();
 
     },
+    
+    initAce: function() {
+
+        fpcm.editor_ace.create({
+           elementId : fpcm.ui.prepareId('content-ace', true)
+        });
+        
+    },
 
     showInEditDialog: function(result){
 
