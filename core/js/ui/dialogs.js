@@ -396,6 +396,10 @@ fpcm.ui_dialogs = {
             _var.icon = _params.icon;
         }
 
+        if (_params.directAssignToDom) {
+            _var.directAssignToDom = _params.directAssignToDom;
+        }
+
         fpcm.ui_dialogs.create(_var);
     },
 
@@ -456,6 +460,12 @@ fpcm.ui_dialogs = {
 
             let _field = fpcm.vars.jsvars.dialogs[_dialogname].fields[_i];
 
+            let _map = fpcm.ui_dialogs.mapItems(_field.type);
+            if (_map !== _field.type) {
+                _field.type = _map.callback;
+            }
+
+
             let _tmp = new fpcm.ui.forms[_field.type];
 
             _tmp.name = _field.name;
@@ -465,6 +475,9 @@ fpcm.ui_dialogs = {
             _tmp.options = _field.options;
             _tmp.disabled = _field.readonly;
             _tmp.wrapper = `${_field.labelType} ${_field.bottomSpace}`;
+            if (_map.type !== undefined) {
+                _tmp.type = _map.type;
+            }            
 
             if (_field.selected !== undefined) {
                 _tmp.preSelected = _field.selected;
@@ -490,6 +503,18 @@ fpcm.ui_dialogs = {
         }
 
         return _form;
+    },
+    
+    mapItems: function (_item) {
+        
+        if (_item === 'textInput') {
+            return {
+                callback: 'input',
+                type: 'text'
+            };
+        }
+
+        return _item;
     }
 
 }

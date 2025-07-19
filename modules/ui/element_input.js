@@ -37,6 +37,8 @@ export class element_input {
     labelIcon = false;
     
     required = false;
+    
+    icon = false;
 
     assignToDom(_destination) {
         
@@ -101,14 +103,23 @@ export class element_input {
             _input.required = this.required;
         }
         
+        if (this.wrapper) {
+            
+        }
         _wrapper.appendChild(_input);
 
         if (this.label) {
+
             let _label = document.createElement('label');
             _label.htmlFor = _input.id;
             _label.className = 'fpcm ui-label';
 
             this.label = fpcm.ui.translate(this.label);
+            
+            if (this.icon) {
+                let _ti = this.icon.split(' ');
+                this.labelIcon = new fpcm.ui.forms.icon(_ti[2].replace('fa-', ''), _ti[1].replace('fa-', ''));
+            }            
 
             if (this.labelIcon) {
                 this.label = this.labelIcon.getString() + ' ' + this.label;
@@ -123,7 +134,7 @@ export class element_input {
     }
     
     assignFormObject(_field) {
-        
+
         for (var _idx in this) {
             if (!_field[_idx]) {
                 continue;

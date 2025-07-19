@@ -15,7 +15,8 @@ namespace fpcm\view\helper;
  * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class button extends helper {
+class button extends helper
+implements interfaces\jsDialogHelper {
 
     use traits\iconHelper,
         traits\typeHelper,

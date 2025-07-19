@@ -85,6 +85,16 @@ abstract class articleEditor extends \fpcm\model\abstracts\staticModel {
     abstract public function getTemplateDrafts();
 
     /**
+     * Returns a list of dialogs
+     * @since 5.3.0
+     * @return array
+     */
+    public function getDialogs() : array
+    {
+        return [];
+    }
+
+    /**
      * Editor-Styles initialisieren
      * @return array
      */

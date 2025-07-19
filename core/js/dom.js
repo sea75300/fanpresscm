@@ -113,7 +113,9 @@ fpcm.dom = {
                     continue;
                 }
 
-                _return[_el.replace(':', '_')] = fpcm.dom.fromId(_el).val();
+                let _elName = _el.replace(':', '_').replace(/fpcm-id-(.*)/i, `$1`);
+
+                _return[_elName] = fpcm.dom.fromId(_el).val();
             }
 
             return _return;

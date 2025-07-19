@@ -568,10 +568,16 @@ if (fpcm.editor) {
     fpcm.editor.insertLink = function() {
 
         fpcm.ui_dialogs.insert({
-            id: 'editor-html-insertlink',
+            id: 'editor-html-insert-link',
             title: 'EDITOR_INSERTLINK',
+            content: fpcm.ui_dialogs.fromDOM('insert-link'),
+            directAssignToDom: true,
             icon: {
                 icon: 'link'
+            },
+            dlOnClose: function() {
+                fpcm.ui._autocompletes[fpcm.ui.prepareId('linksrel')] = '';
+                fpcm.ui._autocompletes[fpcm.ui.prepareId('linksurl')] = '';
             },
             dlOnOpen: function () {
 
@@ -581,18 +587,17 @@ if (fpcm.editor) {
                         src: 'editorlinks'
                     },
                     execDone: function (result) {
-                        fpcm.ui.autocomplete('#linksurl', {
+                        fpcm.ui.autocomplete(fpcm.ui.prepareId('linksurl'), {
                             source: result,
                             minLength: 2,
                             select: function( event, ui ) {
-                                fpcm.dom.fromId('linkstext').val(ui.item.label);
+                                fpcm.dom.fromId(fpcm.ui.prepareId('linkstext', true)).val(ui.item.label);
                             }
                         });
                     }
                 });
 
-
-                fpcm.ui.autocomplete('#linksrel', {
+                fpcm.ui.autocomplete(fpcm.ui.prepareId('linksrel'), {
                     source: [{
                         value: 'external',
                         label: 'external',
@@ -611,18 +616,20 @@ if (fpcm.editor) {
                     }],
                     minLength: 2,
                     select: function( event, ui ) {
-                        fpcm.dom.fromId('linkstext').val(ui.item.label);
+                        fpcm.dom.fromId(fpcm.ui.prepareId('linkstext', true)).val(ui.item.label);
                     }
                 });
 
             },
-            dlOnClose: function () {
-                fpcm.dom.resetValuesByIdsString(['linksurl', 'linkstext']);
-                fpcm.dom.resetValuesByIdsSelect(['linkstarget', 'linkscss']);
-            },
             insertAction: function() {
 
-                let _formData = fpcm.dom.getValuesFromIds(['linksurl', 'linkstext', 'linkstarget', 'linkscss', 'linksrel']);
+                let _formData = fpcm.dom.getValuesFromIds([
+                    fpcm.ui.prepareId('linksurl', true),
+                    fpcm.ui.prepareId('linkstext', true),
+                    fpcm.ui.prepareId('linkstarget', true),
+                    fpcm.ui.prepareId('linkscss', true),
+                    fpcm.ui.prepareId('linksrel', true)
+                ]);
 
                 var linkEl = fpcm.editor.getLinkData(
                     _formData.linksurl,

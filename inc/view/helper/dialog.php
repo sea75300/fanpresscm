@@ -9,7 +9,7 @@ namespace fpcm\view\helper;
 
 /**
  * Dialog item
- * 
+ *
  * @package fpcm\view\helper
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2025, Stefan Seehafer
@@ -17,7 +17,7 @@ namespace fpcm\view\helper;
  * @since 5.3.4-b3
  */
 class dialog implements \JsonSerializable {
-    
+
     use \fpcm\model\traits\jsonSerializeReturnObject;
 
     /**
@@ -47,14 +47,14 @@ class dialog implements \JsonSerializable {
      * @return $this
      */
     public function setFields(array $fields)
-    {        
+    {
         $this->fields = array_filter($fields, function($o) {
 
             if (!is_object($o) || !$o instanceof interfaces\jsDialogHelper) {
                 trigger_error(sprintf('Element of class %s must be an instance of "fpcm\view\helper\interfaces\jsDialogHelper"!', $o::class));
                 return false;
             }
-            
+
             return true;
         });
 

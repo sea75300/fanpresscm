@@ -221,4 +221,5 @@ class tinymceEditor5 extends articleEditor {
     {
         return ['EDITOR_INSERTSMILEY'];
     }
+
 }

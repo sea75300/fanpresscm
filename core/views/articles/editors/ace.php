@@ -1,5 +1,5 @@
 <?php /* @var $theView fpcm\view\viewVars */ ?>
-<?php include $theView->getIncludePath('articles/editors/html_dialogs.php'); ?>
+<?php //include $theView->getIncludePath('articles/editors/html_dialogs.php'); ?>
 <div class="row">
 
     <div class="btn-toolbar" role="toolbar" aria-label="<?php $theView->write('TEMPLATE_EDITOR'); ?>">

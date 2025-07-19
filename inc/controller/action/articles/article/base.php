@@ -45,7 +45,7 @@ implements \fpcm\controller\interfaces\requestFunctions
 
     /**
      *
-     * @var \fpcm\model\abstracts\articleEditor
+     * @var \fpcm\components\editor\articleEditor
      */
     protected $editorPlugin;
 
@@ -226,6 +226,11 @@ implements \fpcm\controller\interfaces\requestFunctions
                 ->setReadonly($this->article->isInEdit())
                 ->setPrimary()
         );
+
+        $edDlg = $this->editorPlugin->getDialogs();
+        if (count($edDlg)) {
+            $this->view->addDialogs($edDlg);
+        }
 
         return true;
     }
