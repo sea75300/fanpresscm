@@ -370,8 +370,8 @@ class aceEditor extends articleEditor {
             $this->getLinkDialog(),
             /*$this->getImageDialog(),
             $this->getMediaDialog(),
-            $this->getColorDialog(),
-            $this->getQuoteDialog()*/
+            $this->getColorDialog(),*/
+            $this->getQuoteDialog()
         ];
     }
 
@@ -413,7 +413,7 @@ class aceEditor extends articleEditor {
             ->setLabelTypeFloat()
             ->setBottomSpace('');
 
-        return (new \fpcm\view\helper\dialog('insert-link'))->setFields($fields);
+        return (new \fpcm\view\helper\dialog('insertLink'))->setFields($fields);
     }
 
     private function getImageDialog() : \fpcm\view\helper\dialog
@@ -535,26 +535,34 @@ class aceEditor extends articleEditor {
                 ->setPlaceholder(true)
                 ->setText('EDITOR_HTML_BUTTONS_QUOTE_TEXT')
                 ->setIcon('keyboard')
-                ->setClass('fpcm ui-textarea-medium ui-textarea-noresize'),
+                ->setClass('fpcm ui-textarea-medium ui-textarea-noresize')
+                ->setLabelTypeFloat()
+                ->setBottomSpace(''),
             (new \fpcm\view\helper\textInput('quote[src]'))
                 ->setValue('')
                 ->setText('TEMPLATE_ARTICLE_SOURCES')
                 ->setIcon('external-link-alt')
-                ->setSize('lg'),
-            (new \fpcm\view\helper\radiobutton('quote[type]', 'quotetype1'))
-                ->setText('EDITOR_HTML_BUTTONS_QUOTE_BLOCK')
-                ->setClass('fpcm-ui-editor-quotemode')
-                ->setValue('blockquote')
-                ->setSelected(true)
-                ->setSwitch(true),
-            (new \fpcm\view\helper\radiobutton('quote[type]', 'quotetype2'))
-                ->setText('EDITOR_HTML_BUTTONS_QUOTE_INLINE')
-                ->setClass('fpcm-ui-editor-quotemode')
-                ->setValue('q')
-                ->setSwitch(true)
+                ->setSize('lg')
+                ->setLabelTypeFloat()
+                ->setBottomSpace(''),
+            [
+                (new \fpcm\view\helper\radiobutton('quote[type]', 'quotetype1'))
+                    ->setText('EDITOR_HTML_BUTTONS_QUOTE_BLOCK')
+                    ->setClass('fpcm-ui-editor-quotemode')
+                    ->setValue('blockquote')
+                    ->setSelected(true)
+                    ->setSwitch(true)
+                    ->setBottomSpace(''),
+                (new \fpcm\view\helper\radiobutton('quote[type]', 'quotetype2'))
+                    ->setText('EDITOR_HTML_BUTTONS_QUOTE_INLINE')
+                    ->setClass('fpcm-ui-editor-quotemode')
+                    ->setValue('q')
+                    ->setSwitch(true)
+                    ->setBottomSpace('')
+            ]
         ];
 
-        return (new \fpcm\view\helper\dialog('insertquote'))->setFields($fields);
+        return (new \fpcm\view\helper\dialog('insertQuote'))->setFields($fields);
     }
 
 }

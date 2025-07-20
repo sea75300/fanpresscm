@@ -48,17 +48,7 @@ class dialog implements \JsonSerializable {
      */
     public function setFields(array $fields)
     {
-        $this->fields = array_filter($fields, function($o) {
-
-            if (!is_object($o) || !$o instanceof interfaces\jsDialogHelper) {
-                trigger_error(sprintf('Element of class %s must be an instance of "fpcm\view\helper\interfaces\jsDialogHelper"!', $o::class));
-                return false;
-            }
-
-            return true;
-        });
-
-        $this->fields = $fields;
+        $this->fields = $this->checkElements($fields);
         return $this;
     }
 
@@ -70,4 +60,35 @@ class dialog implements \JsonSerializable {
         return $this->name;
     }
 
+    /**
+     * Checks if element implements \fpcm\view\helper\interfaces\jsDialogHelper
+     * @param \fpcm\view\helper\interfaces\jsDialogHelper $o
+     * @return bool
+     */
+    private function checkElement($o) : bool
+    {
+        if (!is_object($o) || !$o instanceof interfaces\jsDialogHelper) {
+            trigger_error(sprintf('Element of class %s must be an instance of "fpcm\view\helper\interfaces\jsDialogHelper"!', $o::class));
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * 
+     * @param array $fields
+     * @return array
+     */
+    private function checkElements(array $fields) : array
+    {
+        return array_filter($fields, function($o) {
+
+            if (is_array($o)) {
+                return $this->checkElements($o);
+            }
+
+            return $this->checkElement($o);
+        });
+    }
 }

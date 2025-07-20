@@ -456,57 +456,36 @@ fpcm.ui_dialogs = {
 
         let _form = document.createElement('div');
 
-        for (var _i in fpcm.vars.jsvars.dialogs[_dialogname].fields) {
+        for (var _field of fpcm.vars.jsvars.dialogs[_dialogname].fields) {
 
-            let _field = fpcm.vars.jsvars.dialogs[_dialogname].fields[_i];
+            if (_field instanceof Array) {
 
-            let _map = fpcm.ui_dialogs.mapItems(_field.type);
-            if (_map !== _field.type) {
-                _field.type = _map.callback;
-            }
+                let _cols = _field.length;
 
+                if (_cols > 5) {
+                    console.warn(`A dialog row must not contain more then five elements, skipping`);
+                    continue;
+                }
 
-            let _tmp = new fpcm.ui.forms[_field.type];
+                let _rowForm = document.createElement('div');
+                _rowForm.classList.add('row', 'row-cols-1', 'row-cols-md-' + _cols);
 
-            _tmp.name = _field.name;
-            _tmp.id = _field.id;
-            _tmp.label = _field.text;
-            _tmp.class = _field.class;
-            _tmp.options = _field.options;
-            _tmp.disabled = _field.readonly;
-            _tmp.wrapper = `${_field.labelType} ${_field.bottomSpace}`;
-            if (_map.type !== undefined) {
-                _tmp.type = _map.type;
-            }            
+                for (var _in of _field) {
+                    fpcm.ui_dialogs.appendField(_in, _rowForm, true);
+                }
 
-            if (_field.selected !== undefined) {
-                _tmp.preSelected = _field.selected;
-            }
-
-            if (!_tmp.assignFormObject) {
+                _form.appendChild(_rowForm);
                 continue;
             }
 
-            _tmp.assignFormObject(_field);
-
-            let _row = document.createElement('div');
-            _row.className = 'row mb-3';
-
-            let _colDescr = document.createElement('div');
-            _colDescr.className = 'col-12';
-
-            _tmp.assignToDom(_colDescr);
-
-            _row.appendChild(_colDescr);
-
-            _form.appendChild(_row);
+            fpcm.ui_dialogs.appendField(_field, _form);
         }
 
         return _form;
     },
-    
+
     mapItems: function (_item) {
-        
+
         if (_item === 'textInput') {
             return {
                 callback: 'input',
@@ -514,7 +493,72 @@ fpcm.ui_dialogs = {
             };
         }
 
+        if (_item === 'radiobutton') {
+            return {
+                callback: 'radiocheck',
+                type: 'radio'
+            };
+        }
+
+        if (_item === 'checkbox') {
+            return {
+                callback: 'radiocheck',
+                type: 'checkbox'
+            };
+        }
+
         return _item;
+    },
+
+    appendField: function (_field, _form, _multiple) {
+
+        let _map = fpcm.ui_dialogs.mapItems(_field.callback);
+        if (_map !== _field.callback) {
+            _field.callback = _map.callback;
+        }
+
+        if (!fpcm.ui.forms[_field.callback]) {
+            console.error(`No fpcm.ui.form element defined for ${_field.callback}!`);
+            return false;
+        }
+
+        let _tmp = new fpcm.ui.forms[_field.callback];
+
+        _tmp.name = _field.name;
+        _tmp.id = _field.id;
+        _tmp.label = _field.text;
+        _tmp.class = _field.class;
+        _tmp.options = _field.options;
+        _tmp.disabled = _field.readonly;
+        _tmp.wrapper = `${_field.labelType} ${_field.bottomSpace}`;
+        if (_map.type !== undefined) {
+            _tmp.type = _map.type;
+        }
+
+        if (_field.selected !== undefined) {
+            _tmp.preSelected = _field.selected;
+        }
+
+        if (!_tmp.assignFormObject) {
+            return false;
+        }
+
+        _tmp.assignFormObject(_field);
+
+        let _colDescr = document.createElement('div');
+        _colDescr.className = 'col';
+
+        _tmp.assignToDom(_colDescr);
+
+        if (_multiple) {
+            _form.appendChild(_colDescr);
+            return true;
+        }
+
+        let _row = document.createElement('div');
+        _row.className = 'row mb-3';
+        _row.appendChild(_colDescr);
+        _form.appendChild(_row);
     }
 
 }

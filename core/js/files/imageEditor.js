@@ -138,16 +138,29 @@ fpcm.imageEditor = {
                         _inputHeight.label = fpcm.ui.translate('SYSTEM_OPTIONS_NEWSSHOWMAXIMGSIZEHEIGHT');
                         _inputHeight.value = _sizes.height;
                         _inputHeight.type = 'number';
+                        
+                        
+                        var _sizeWrapper = document.createElement('div');
+                        _sizeWrapper.classList.add('row', 'row-cols-1', 'row-cols-md-2');
+
+                        var _sizeWrapperCol1 = document.createElement('div');
+                        _sizeWrapperCol1.classList.add('col');
+                        _inputWidth.assignToDom(_sizeWrapperCol1);
+
+                        var _sizeWrapperCol2 = document.createElement('div');
+                        _sizeWrapperCol2.classList.add('col');
+                        _inputHeight.assignToDom(_sizeWrapperCol2);
+                        
+                        _sizeWrapper.appendChild(_sizeWrapperCol1);
+                        _sizeWrapper.appendChild(_sizeWrapperCol2);
 
                         fpcm.ui_dialogs.create({
                             id: 'files-editor-save',
                             title: 'GLOBAL_SAVE',
-                            content: [
-                                _inputWidth,
-                                _inputHeight,
-                            ],
+                            content: _sizeWrapper,
                             closeButton: true,
                             scrollable: false,
+                            directAssignToDom: true,
                             dlButtons: [{
                                 text: 'GLOBAL_SAVE',
                                 icon: "save",

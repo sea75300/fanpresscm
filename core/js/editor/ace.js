@@ -570,7 +570,7 @@ if (fpcm.editor) {
         fpcm.ui_dialogs.insert({
             id: 'editor-html-insert-link',
             title: 'EDITOR_INSERTLINK',
-            content: fpcm.ui_dialogs.fromDOM('insert-link'),
+            content: fpcm.ui_dialogs.fromDOM('insertLink'),
             directAssignToDom: true,
             icon: {
                 icon: 'link'
@@ -657,18 +657,15 @@ if (fpcm.editor) {
         fpcm.ui_dialogs.insert({
             id: 'editor-html-insertquote',
             title: 'EDITOR_HTML_BUTTONS_QUOTE',
+            content: fpcm.ui_dialogs.fromDOM('insertQuote'),
+            directAssignToDom: true,
             icon: {
                 icon: 'quote-left'
             },
-            dlOnClose: function () {
-                fpcm.dom.resetValuesByIdsString(['quotetext', 'quotesrc']);
-                fpcm.dom.resetValuesByIdsChecked(['quotetype1', 'quotetype2']);
-                fpcm.dom.fromId('quotetype1').prop( "checked", true );
-            },
             insertAction: function() {
                 var values = {
-                    text: fpcm.dom.fromId('quotetext').val(),
-                    sources: fpcm.dom.fromId('quotesrc').val(),
+                    text: fpcm.dom.fromId(fpcm.ui.prepareId('quotetext', true)).val(),
+                    sources: fpcm.dom.fromId(fpcm.ui.prepareId('quotesrc', true)).val(),
                     type: fpcm.dom.fromTag('input.fpcm-ui-editor-quotemode:checked').val()
                 };
 

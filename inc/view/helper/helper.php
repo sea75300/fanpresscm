@@ -527,7 +527,7 @@ abstract class helper implements \Stringable {
         $this->returned = true;
 
         unset($return['language'], $return['returned'], $return['returnString'], $return['firstOption']);
-        $return['type'] = str_replace('fpcm\\view\\helper\\', '', get_called_class());
+        $return['callback'] = str_replace('fpcm\\view\\helper\\', '', get_called_class());
 
         return $return;
     }
