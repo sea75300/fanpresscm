@@ -267,7 +267,7 @@ class view {
             'GLOBAL_RESET', 'GLOBAL_PLEASEWAIT', 'LABEL_SEARCH_GLOBAL_RESULTSIZE',
             'GLOBAL_HIDE', 'GLOBAL_SHOW', 'HL_PACKAGEMGR_SYSUPDATES',
             'HL_HELP_CHANGELOG', 'PACKAGES_UPDATE_CONFIRM',
-            'HL_PACKAGEMGR_SYSUPDATES'
+            'HL_PACKAGEMGR_SYSUPDATES', 'GLOBAL_SELECT'
         ]);
 
         $this->jsLangVars['calendar']['days'] = $this->language->getDays();

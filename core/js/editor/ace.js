@@ -123,12 +123,12 @@ if (fpcm.editor) {
         }
 
         if (urlField && titleField) {
-            self.document.getElementById(urlField).value = _url;
-            self.document.getElementById(titleField).value  = _title;
+            self.document.getElementById(fpcm.ui.prepareId(urlField, true)).value = _url;
+            self.document.getElementById(fpcm.ui.prepareId(titleField, true)).value  = _title;
         }
 
         if (relField && _rel) {
-            self.document.getElementById(relField).value  = _rel;
+            self.document.getElementById(fpcm.ui.prepareId(relField, true)).value  = _rel;
         }
 
         fpcm.ui_dialogs.close('editor-html-filemanager');
@@ -328,44 +328,47 @@ if (fpcm.editor) {
 
     fpcm.editor.insertColor = function () {
 
+        let _content = fpcm.ui_dialogs.fromDOM('insertColor');
+
+        let _icon = (new fpcm.ui.forms.icon('square', '2x')).getString();
+
+        let _colorbar = document.createElement('div');
+        _colorbar.classList.add('row', 'mb-3');
+
+        let _colorbarCol = document.createElement('div');
+        _colorbarCol.classList.add('col');
+
+        let _square = null;
+
+        for (var _c of fpcm.vars.jsvars.editorConfig.colors) {
+
+            _square = document.createElement('span');
+            _square.style.color = _c;
+            _square.classList.add('pb-2', 'd-inline-block');
+            _square.setAttribute('data-color', _c);
+            _square.innerHTML = _icon;
+            _square.addEventListener('click', function (_e) {
+                document.getElementById(fpcm.ui.prepareId('colorhexcode', true)).value = _e.currentTarget.dataset.color;
+            });
+
+            _colorbarCol.append(_square);
+        }
+
+        _colorbar.appendChild(_colorbarCol);
+        _content.insertBefore(_colorbar, _content.childNodes.item(1));
+
         fpcm.ui_dialogs.insert({
             id: 'editor-html-insertcolor',
             title: 'EDITOR_INSERTCOLOR',
+            content: _content,
+            directAssignToDom: true,
             icon: {
                 icon: 'palette'
             },
             insertAction: function() {
-                var mode    = fpcm.dom.fromClass('fpcm-ui-editor-colormode:checked').val();
-                var color   = fpcm.dom.fromId('colorhexcode').val();
+                var mode = fpcm.dom.fromClass('fpcm-ui-editor-colormode:checked').val();
+                var color = document.getElementById(fpcm.ui.prepareId('colorhexcode', true)).value;
                 fpcm.editor.insert('<span style="' + (mode === undefined ? 'color' : mode) + ':' + (color == '' ? '#000000' : color) + ';">', '</span>');
-
-                fpcm.dom.fromId('colorhexcode').val('');
-                fpcm.dom.fromId('color_mode1').prop( "checked", true );
-                fpcm.dom.fromId('color_mode2').prop( "checked", false );
-            },
-            dlOnOpen: function () {
-
-                var colorsEl = fpcm.dom.fromId('fpcm-dialog-editor-html-insertcolor').find('div.fpcm-dialog-editor-colors');
-                colorsEl.empty();
-
-                if (colorsEl.length) {
-
-                    let icon = fpcm.ui.getIcon('square', {
-                        prefix: 'fas',
-                        size: '2x',
-                        class: 'pb-2'
-                    });
-
-                    for (var i = 0;i < fpcm.vars.jsvars.editorConfig.colors.length; i++) {
-                        colorsEl.append(fpcm.dom.fromTag(icon).css('color', fpcm.vars.jsvars.editorConfig.colors[i]).data('color', fpcm.vars.jsvars.editorConfig.colors[i]));
-                    }
-
-                    fpcm.dom.fromTag('div.fpcm-dialog-editor-colors span').unbind('click');
-                    fpcm.dom.fromTag('div.fpcm-dialog-editor-colors span').click(function() {
-                        fpcm.dom.fromId('colorhexcode').val(fpcm.dom.fromTag(this).data('color'));
-                    });
-
-                }
             }
         });
     };
@@ -427,9 +430,13 @@ if (fpcm.editor) {
 
     fpcm.editor.insertMedia = function () {
 
+        let _content = fpcm.ui_dialogs.fromDOM('insertMedia');
+
         fpcm.ui_dialogs.insert({
             id: 'editor-html-insertmedia',
             title: 'EDITOR_INSERTMEDIA',
+            content: _content,
+            directAssignToDom: true,
             icon: {
                 icon: 'play'
             },
@@ -520,6 +527,8 @@ if (fpcm.editor) {
         fpcm.ui_dialogs.insert({
             id: 'editor-html-insertimage',
             title: 'EDITOR_INSERTPIC',
+            content: fpcm.ui_dialogs.fromDOM('insertImage'),
+            directAssignToDom: true,
             icon: {
                 icon: 'images'
             },
@@ -532,6 +541,9 @@ if (fpcm.editor) {
                     fpcm.editor.insert(data.aTag, data.eTag);
                 }
             }],
+            dlOnClose: function() {
+                delete(fpcm.ui._autocompletes[fpcm.ui.prepareId('imagespath', true)]);
+            },
             dlOnOpen: function () {
 
                 fpcm.ajax.get('autocomplete', {
@@ -540,7 +552,7 @@ if (fpcm.editor) {
                         src: 'editorfiles'
                     },
                     execDone: function (result) {
-                        fpcm.ui.autocomplete('#imagespath', {
+                        fpcm.ui.autocomplete(fpcm.ui.prepareId('imagespath'), {
                             source: result,
                             minLength: 2,
                             select: function( event, ui ) {
@@ -549,10 +561,6 @@ if (fpcm.editor) {
                         });
                     }
                 });
-            },
-            dlOnClose: function() {
-                fpcm.dom.resetValuesByIdsString(['imagespath', 'imagesalt']);
-                fpcm.dom.resetValuesByIdsSelect(['imagesalign', 'imagescss']);
             },
             insertAction: function() {
                 let data = fpcm.editor.getImageData();
@@ -576,8 +584,8 @@ if (fpcm.editor) {
                 icon: 'link'
             },
             dlOnClose: function() {
-                fpcm.ui._autocompletes[fpcm.ui.prepareId('linksrel')] = '';
-                fpcm.ui._autocompletes[fpcm.ui.prepareId('linksurl')] = '';
+                delete(fpcm.ui._autocompletes[fpcm.ui.prepareId('linksrel')]);
+                delete(fpcm.ui._autocompletes[fpcm.ui.prepareId('linksurl')]);
             },
             dlOnOpen: function () {
 
@@ -748,7 +756,13 @@ if (fpcm.editor) {
 
     fpcm.editor.getImageData = function (_asLink) {
 
-        let _formData = fpcm.dom.getValuesFromIds(['imagespath', 'imagesalign', 'imagesalt', 'imagescss']);
+        let _formData = fpcm.dom.getValuesFromIds([
+            fpcm.ui.prepareId('imagespath', true),
+            fpcm.ui.prepareId('imagesalign', true),
+            fpcm.ui.prepareId('imagesalt', true),
+            fpcm.ui.prepareId('imagescss', true)
+        ]);
+
         let _res = {
             aTag: '',
             eTag: ''
@@ -765,7 +779,7 @@ if (fpcm.editor) {
 
             if (_asLink) {
                 var linkData = fpcm.editor.getLinkData(_formData.imagespath, _res.aTag, '', _formData.imagescss);
-                _res.aTag = linkData._res.aTag + linkData.eTag;
+                _res.aTag = linkData.aTag + linkData.eTag;
             }
 
         } else if (_formData.imagesalign == "center") {

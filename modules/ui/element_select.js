@@ -29,6 +29,8 @@ export class element_select {
     options = [];
 
     preSelected = false;
+    
+    firstOption = -1;
 
     data = [];
 
@@ -76,6 +78,14 @@ export class element_select {
                 return false;
             }
 
+            switch (this.firstOption) {
+                case -1 :
+                    _input.options.add( new Option('', '', false, this.preSelected == -1) );
+                    break;
+                case -2 :
+                    _input.options.add( new Option(fpcm.ui.translate('GLOBAL_SELECT'), '', false, this.preSelected == -2) );
+                    break;
+            }
 
             for (var _opt in this.options) {
                 let _val = this.options[_opt];

@@ -25,6 +25,8 @@ export class element_radiocheck {
     required = false;
     
     switch = false;
+    
+    selected = false;
 
     assignToDom(_destination) {
         
@@ -68,6 +70,10 @@ export class element_radiocheck {
         
         if (this.required) {
             _input.required = this.required;
+        }
+        
+        if (this.selected) {
+            _input.checked = true;
         }
 
         _wrapper.appendChild(_input);

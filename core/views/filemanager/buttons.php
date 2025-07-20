@@ -9,7 +9,7 @@
         </div>
     </div>
 <?php if ($file->existsFolder()) : ?>
-    <?php $imgTxt = $file->getAltText() ?? $file->getFilename(); ?>
+    <?php $imgTxt = $file->getAltText() ? $file->getAltText() : $file->getFilename(); ?>
     <?php if (in_array($mode, [2, 4])) : ?>
         <div class="nav-item">
             <?php $theView->linkButton(uniqid('thumbsurl'))->setUrl($file->getThumbnailUrl())->setText('FILE_LIST_INSERT_THUMB')->setClass('fpcm-filelist-tinymce-thumb')->setIcon('compress')->setIconOnly()->setData(['imgtext' => $imgTxt]); ?>

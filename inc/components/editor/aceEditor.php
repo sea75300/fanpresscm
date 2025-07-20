@@ -43,7 +43,7 @@ class aceEditor extends articleEditor {
     /**
      * Align literals
      * @since 5.3.0
-     */    
+     */
     const LINK_ALIGNS = [
         'left' => 'left',
         'center' => 'center',
@@ -169,7 +169,7 @@ class aceEditor extends articleEditor {
      */
     public function getViewVars()
     {
-        $this->styles = $this->getEditorStyles();       
+        $this->styles = $this->getEditorStyles();
 
         $vars = array(
             'editorStyles' => array_map(function ($val) {
@@ -368,9 +368,9 @@ class aceEditor extends articleEditor {
 
         return [
             $this->getLinkDialog(),
-            /*$this->getImageDialog(),
+            $this->getImageDialog(),
             $this->getMediaDialog(),
-            $this->getColorDialog(),*/
+            $this->getColorDialog(),
             $this->getQuoteDialog()
         ];
     }
@@ -390,12 +390,19 @@ class aceEditor extends articleEditor {
                 ->setIcon('keyboard')
                 ->setLabelTypeFloat()
                 ->setBottomSpace(''),
-            (new \fpcm\view\helper\select('links[target]'))
-                ->setOptions(self::LINK_TARGETS)
-                ->setText('EDITOR_LINKTARGET')
-                ->setIcon('window-restore')
-                ->setLabelTypeFloat()
-                ->setBottomSpace('')
+            [
+                (new \fpcm\view\helper\select('links[target]'))
+                    ->setOptions(self::LINK_TARGETS)
+                    ->setText('EDITOR_LINKTARGET')
+                    ->setIcon('window-restore')
+                    ->setLabelTypeFloat()
+                    ->setBottomSpace(''),
+                (new \fpcm\view\helper\textInput('links[rel]'))
+                    ->setText('EDITOR_LINKREL')
+                    ->setIcon('cog')
+                    ->setLabelTypeFloat()
+                    ->setBottomSpace('')
+            ]
         ];
 
         if (count($this->styles)) {
@@ -403,15 +410,10 @@ class aceEditor extends articleEditor {
                 ->setOptions($this->styles)
                 ->setText('EDITOR_CSS_CLASS')
                 ->setIcon('paint-roller')
+                ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_PLEASESELECT)
                 ->setLabelTypeFloat()
                 ->setBottomSpace('');
         }
-
-        $fields[] = (new \fpcm\view\helper\textInput('links[rel]'))
-            ->setText('EDITOR_LINKREL')
-            ->setIcon('cog')
-            ->setLabelTypeFloat()
-            ->setBottomSpace('');
 
         return (new \fpcm\view\helper\dialog('insertLink'))->setFields($fields);
     }
@@ -423,24 +425,32 @@ class aceEditor extends articleEditor {
                 ->setType('url')
                 ->setValue('')
                 ->setText('EDITOR_IMGPATH')
-                ->setIcon('image'),
+                ->setIcon('image')
+                ->setLabelTypeFloat()
+                ->setBottomSpace(''),
             (new \fpcm\view\helper\textInput('images[alt]', 'imagesalt'))
                 ->setText('EDITOR_IMGALTTXT')
-                ->setIcon('keyboard'),
+                ->setIcon('keyboard')
+                ->setLabelTypeFloat()
+                ->setBottomSpace(''),
             (new \fpcm\view\helper\select('images[align]', 'imagesalign'))
                 ->setOptions(self::LINK_ALIGNS)
                 ->setText('EDITOR_IMGALIGN')
                 ->setIcon('align-center')
+                ->setLabelTypeFloat()
+                ->setBottomSpace(''),
         ];
 
         if (count($this->styles)) {
             $fields[] = (new \fpcm\view\helper\select('images[css]', 'imagescss'))
                 ->setOptions($this->styles)
                 ->setText('EDITOR_CSS_CLASS')
-                ->setIcon('paint-roller');
+                ->setIcon('paint-roller')
+                ->setLabelTypeFloat()
+                ->setBottomSpace('');
         }
 
-        return (new \fpcm\view\helper\dialog('insertimage'))->setFields($fields);
+        return (new \fpcm\view\helper\dialog('insertImage'))->setFields($fields);
     }
 
     private function getMediaDialog() : \fpcm\view\helper\dialog
@@ -449,56 +459,84 @@ class aceEditor extends articleEditor {
         $playerFormats = $this->language->translate('EDITOR_INSERTMEDIA_FORMATS');
 
         $fields = [
-            (new \fpcm\view\helper\textInput('media[path]', 'mediapath'))
-                ->setType('url')
-                ->setValue('')
-                ->setText('EDITOR_IMGPATH')
-                ->setIcon('film '),
-            (new \fpcm\view\helper\select('media[format]', 'mediaformat'))
-                ->setOptions($playerFormats)
-                ->setClass('fpcm-editor-mediaformat')
-                ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED),
-            (new \fpcm\view\helper\textInput('media[path]', 'mediapath2'))
-                ->setType('url')
-                ->setValue('')
-                ->setText('EDITOR_IMGPATH_ALT')
-                ->setIcon('file-video'),
-            (new \fpcm\view\helper\select('media[format2]', 'mediaformat2'))
-                ->setOptions($playerFormats)
-                ->setClass('fpcm-editor-mediaformat')
-                ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED),
-            (new \fpcm\view\helper\textInput('media[poster]', 'mediaposter'))
-                ->setType('url')
-                ->setValue('')
-                ->setText('EDITOR_INSERTMEDIA_POSTER')
-                ->setIcon('file-image'),
-            (new \fpcm\view\helper\button('insertposterimg', 'insertposterimg'))
-                ->setText('HL_FILES_MNG')
-                ->setIcon('image')
-                ->setIconOnly(),
-            (new \fpcm\view\helper\radiobutton('mediatype', 'mediatypea'))
-                ->setText('EDITOR_INSERTMEDIA_AUDIO')
-                ->setClass('fpcm-editor-mediatype')
-                ->setValue('audio')
-                ->setSelected(true)
-                ->setSwitch(true),
-            (new \fpcm\view\helper\radiobutton('mediatype', 'mediatypev'))
-                ->setText('EDITOR_INSERTMEDIA_VIDEO')
-                ->setClass('fpcm-editor-mediatype')
-                ->setValue('video')
-                ->setSwitch(true),
-            (new \fpcm\view\helper\checkbox('controls', 'controls'))
-                ->setText('EDITOR_INSERTMEDIA_CONTROLS')
-                ->setValue(1)
-                ->setSelected(true)
-                ->setSwitch(true),
-            (new \fpcm\view\helper\checkbox('autoplay', 'autoplay'))
-                ->setText('EDITOR_INSERTMEDIA_AUTOPLAY')
-                ->setValue(1)
-                ->setSwitch(true),
+            [
+                (new \fpcm\view\helper\textInput('media[path]', 'mediapath'))
+                    ->setType('url')
+                    ->setValue('')
+                    ->setText('EDITOR_IMGPATH')
+                    ->setIcon('film ')
+                    ->setLabelTypeFloat()
+                    ->setBottomSpace(''),
+                (new \fpcm\view\helper\select('media[format]', 'mediaformat'))
+                    ->setText('EDITOR_INSERTMEDIA_FORMAT_SELECT')
+                    ->setOptions($playerFormats)
+                    ->setClass('fpcm-editor-mediaformat')
+                    ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
+                    ->setLabelTypeFloat()
+                    ->setBottomSpace(''),                
+            ],
+            [
+                (new \fpcm\view\helper\textInput('media[path]', 'mediapath2'))
+                    ->setType('url')
+                    ->setValue('')
+                    ->setText('EDITOR_IMGPATH_ALT')
+                    ->setIcon('file-video')
+                    ->setLabelTypeFloat()
+                    ->setBottomSpace(''),
+                (new \fpcm\view\helper\select('media[format2]', 'mediaformat2'))
+                    ->setText('EDITOR_INSERTMEDIA_FORMAT_SELECT')
+                    ->setOptions($playerFormats)
+                    ->setClass('fpcm-editor-mediaformat')
+                    ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
+                    ->setLabelTypeFloat()
+                    ->setBottomSpace(''),
+            ],
+            [
+                (new \fpcm\view\helper\textInput('media[poster]', 'mediaposter'))
+                    ->setType('url')
+                    ->setValue('')
+                    ->setText('EDITOR_INSERTMEDIA_POSTER')
+                    ->setIcon('file-image')
+                    ->setLabelTypeFloat()
+                    ->setBottomSpace(''),
+                (new \fpcm\view\helper\button('insertposterimg', 'insertposterimg'))
+                    ->setText('HL_FILES_MNG')
+                    ->setIcon('image')
+                    ->setIconOnly()
+            ],
+            [
+                (new \fpcm\view\helper\radiobutton('mediatype', 'mediatypea'))
+                    ->setText('EDITOR_INSERTMEDIA_AUDIO')
+                    ->setClass('fpcm-editor-mediatype')
+                    ->setValue('audio')
+                    ->setSelected(true)
+                    ->setSwitch(true)
+                    ->setLabelTypeFloat()
+                    ->setBottomSpace(''),
+                (new \fpcm\view\helper\radiobutton('mediatype', 'mediatypev'))
+                    ->setText('EDITOR_INSERTMEDIA_VIDEO')
+                    ->setClass('fpcm-editor-mediatype')
+                    ->setValue('video')
+                    ->setSwitch(true)
+                    ->setLabelTypeFloat()
+                    ->setBottomSpace(''),
+                (new \fpcm\view\helper\checkbox('controls', 'controls'))
+                    ->setText('EDITOR_INSERTMEDIA_CONTROLS')
+                    ->setValue(1)
+                    ->setSelected(true)
+                    ->setSwitch(true)
+                    ->setLabelTypeFloat()
+                    ->setBottomSpace(''),
+                (new \fpcm\view\helper\checkbox('autoplay', 'autoplay'))
+                    ->setText('EDITOR_INSERTMEDIA_AUTOPLAY')
+                    ->setValue(1)
+                    ->setSwitch(true)
+                    ->setLabelTypeFloat()
+                    ->setBottomSpace('')
+            ]
         ];
 
-        return (new \fpcm\view\helper\dialog('insertmedia'))->setFields($fields);
+        return (new \fpcm\view\helper\dialog('insertMedia'))->setFields($fields);
     }
 
     private function getColorDialog() : \fpcm\view\helper\dialog
@@ -510,24 +548,25 @@ class aceEditor extends articleEditor {
                 ->setText('EDITOR_INSERTCOLOR_HEXCODE')
                 ->setIcon('eye-dropper')
                 ->setSize('lg')
-                ->setLabelSize([6])
-                ->setClass('h-100'),
-            (new \fpcm\view\helper\radiobutton('color_mode', 'color_mode1'))
-                ->setText('EDITOR_INSERTCOLOR_TEXT')
-                ->setClass('fpcm-ui-editor-colormode')
-                ->setValue('color')
-                ->setSelected(true)
-                ->setSwitch(true),
-            (new \fpcm\view\helper\radiobutton('color_mode', 'color_mode2'))
-                ->setText('EDITOR_INSERTCOLOR_BACKGROUND')
-                ->setClass('fpcm-ui-editor-colormode')
-                ->setValue('background')
-                ->setSwitch(true)
+                ->setLabelTypeFloat(),
+            [
+                (new \fpcm\view\helper\radiobutton('color_mode', 'color_mode1'))
+                    ->setText('EDITOR_INSERTCOLOR_TEXT')
+                    ->setClass('fpcm-ui-editor-colormode')
+                    ->setValue('color')
+                    ->setSelected(true)
+                    ->setSwitch(true),
+                (new \fpcm\view\helper\radiobutton('color_mode', 'color_mode2'))
+                    ->setText('EDITOR_INSERTCOLOR_BACKGROUND')
+                    ->setClass('fpcm-ui-editor-colormode')
+                    ->setValue('background')
+                    ->setSwitch(true)
+            ]
         ];
-   
-        return (new \fpcm\view\helper\dialog('insertcolor'))->setFields($fields);
+
+        return (new \fpcm\view\helper\dialog('insertColor'))->setFields($fields);
     }
-    
+
     private function getQuoteDialog() : \fpcm\view\helper\dialog
     {
         $fields = [

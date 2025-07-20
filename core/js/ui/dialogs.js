@@ -468,7 +468,7 @@ fpcm.ui_dialogs = {
                 }
 
                 let _rowForm = document.createElement('div');
-                _rowForm.classList.add('row', 'row-cols-1', 'row-cols-md-' + _cols);
+                _rowForm.classList.add('row', 'row-cols-1', 'row-cols-lg-' + _cols, 'my-3', 'gap-3', 'gap-lg-0', 'align-items-center');
 
                 for (var _in of _field) {
                     fpcm.ui_dialogs.appendField(_in, _rowForm, true);
@@ -528,8 +528,6 @@ fpcm.ui_dialogs = {
         _tmp.id = _field.id;
         _tmp.label = _field.text;
         _tmp.class = _field.class;
-        _tmp.options = _field.options;
-        _tmp.disabled = _field.readonly;
         _tmp.wrapper = `${_field.labelType} ${_field.bottomSpace}`;
         if (_map.type !== undefined) {
             _tmp.type = _map.type;

@@ -63,7 +63,7 @@ export class element_input {
             this.id = this.name;
         }
         
-        _input.id = 'fpcm-id-' + this.id;
+        _input.id = fpcm.ui.prepareId(this.id, true);
         _input.value = this.value;
         _input.className = this.class;
         
@@ -102,10 +102,7 @@ export class element_input {
         if (this.required) {
             _input.required = this.required;
         }
-        
-        if (this.wrapper) {
-            
-        }
+
         _wrapper.appendChild(_input);
 
         if (this.label) {
