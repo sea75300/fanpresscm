@@ -33,6 +33,8 @@ export class element_select {
     firstOption = -1;
 
     data = [];
+    
+    onChange = null;
 
     assignToDom(_destination) {
 
@@ -92,6 +94,10 @@ export class element_select {
                 _input.options.add( new Option(fpcm.ui.translate(_opt), _val, false, this.preSelected == _val) );
             }
 
+        }
+        
+        if (this.onChange !== null) {
+            _input.addEventListener('change', this.onChange);
         }
 
         _wrapper.appendChild(_input);

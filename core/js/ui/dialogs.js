@@ -134,7 +134,7 @@ fpcm.ui_dialogs = {
                         continue;
                     }
 
-                    if (!_element.assignToDom instanceof Function) {
+                    if (!_element.assignToDom || !_element.assignToDom instanceof Function) {
                         console.error('Dialog content element in array must provide a method "assignToDom".');
                         console.error(_element);
                         continue;

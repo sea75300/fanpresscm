@@ -10,18 +10,17 @@ if (fpcm === undefined) {
 
 fpcm.editor_ace = {
 
-    _instance: {},
+    _instance: null,
+
+    _instancePreview: null,
 
     defaultShortKeys: { },
 
     create: function(_config) {
         fpcm.editor_ace._instance = ace.edit(_config.elementId, fpcm.vars.jsvars.editorConfig.ace);
-
         fpcm.editor_ace._instance.getSession().on('change', function (_delta) {
             document.getElementById('articlecontent').value = fpcm.editor_ace._instance.getSession().getValue();
         });
-
-
     },
 
     highlight: function(config) {
@@ -366,7 +365,7 @@ if (fpcm.editor) {
                 icon: 'palette'
             },
             insertAction: function() {
-                var mode = fpcm.dom.fromClass('fpcm-ui-editor-colormode:checked').val();
+                var mode = document.querySelector('input[name=color_mode]:checked').value;
                 var color = document.getElementById(fpcm.ui.prepareId('colorhexcode', true)).value;
                 fpcm.editor.insert('<span style="' + (mode === undefined ? 'color' : mode) + ':' + (color == '' ? '#000000' : color) + ';">', '</span>');
             }
@@ -375,53 +374,86 @@ if (fpcm.editor) {
 
     fpcm.editor.insertDrafts = function () {
 
+        let _selectAlert = document.createElement('div');
+        _selectAlert.classList.add('alert', 'alert-info');
+        _selectAlert.setAttribute('role', 'alert');
+        _selectAlert.innerHTML = (new fpcm.ui.forms.icon('arrow-pointer')).getString() + fpcm.ui.translate('GLOBAL_SELECT');;
+
+        let _select = new fpcm.ui.forms.select();
+        _select.name = 'draft-select',
+        _select.id = 'draft-select',
+        _select.options = fpcm.vars.jsvars.editorConfig.drafts,
+        _select.label = 'EDITOR_HTML_BUTTONS_ARTICLETPL';
+        _select.onChange = function (_ev) {
+
+            let _preview = fpcm.ui.prepareId('draft-preview', true);
+
+            if (fpcm.editor_ace._instancePreview) {
+                fpcm.editor_ace._instancePreview.destroy();
+            }
+
+
+            let _value =_ev.originalTarget.value;
+
+            if (!_value) {
+                
+                let _prevEl = document.getElementById(fpcm.ui.prepareId('draft-preview', true));
+                _prevEl.innerHTML = '';
+                _prevEl.classList.remove('ace_editor', 'ace_hidpi', 'ace-tomorrow');
+                _prevEl.appendChild(_selectAlert);
+                return false;
+            }
+
+            fpcm.ajax.exec('editor/draft', {
+                dataType: 'json',
+                data    : {
+                    path: _value
+                },
+                execDone: function (result) {
+                    document.getElementById(_preview).innerText = result.data;
+                    fpcm.editor_ace._instancePreview = ace.edit(_preview, fpcm.vars.jsvars.editorConfig.ace);
+                }
+            });
+
+            return false;
+
+        };
+
+        let _previewDiv = document.createElement('div');
+        _previewDiv.id = fpcm.ui.prepareId('draft-preview', true);
+        _previewDiv.appendChild(_selectAlert);
+
+        let _rowDiv = document.createElement('div');
+        _select.assignToDom(_rowDiv);
+        _rowDiv.appendChild(_previewDiv);
+
         fpcm.ui_dialogs.insert({
-            id: 'editor-html-insertdraft',
+            id: 'editor-insert-draft',
             title: 'EDITOR_HTML_BUTTONS_ARTICLETPL',
+            content: _rowDiv,
+            directAssignToDom: true,
             icon: {
                 icon: 'file-alt'
             },
-            dlOnOpen: function() {
-
-                fpcm.ui.selectmenu('#tpldraft',{
-                    change: function( event, ui ) {
-
-                        if (!ui.value) {
-                            fpcm.dom.fromId('fpcm-dialog-editor-html-insertdraft-preview').empty();
-                            return false;
-                        }
-
-                        fpcm.ajax.exec('editor/draft', {
-                            dataType: 'json',
-                            data    : {
-                                path: ui.value
-                            },
-                            execDone: function (result) {
-                                fpcm.editor_codemirror.highlight({
-                                    input   : result.data,
-                                    outputId : 'fpcm-dialog-editor-html-insertdraft-preview'
-                                });
-                            }
-                        });
-
-                        return false;
-                    }
-                });
-
-            },
             dlOnClose: function() {
-                fpcm.dom.fromId('fpcm-dialog-editor-html-insertdraft-preview').empty();
-                fpcm.dom.resetValuesByIdsSelect(['tpldraft']);
+
+                if (!fpcm.editor_ace._instancePreview) {
+                    return true;
+                }
+
+                fpcm.editor_ace._instancePreview.destroy();
+                
             },
             insertAction: function() {
                 fpcm.ajax.exec('editor/draft', {
                     dataType: 'json',
                     quiet: false,
                     data: {
-                        path: fpcm.dom.fromId('tpldraft').val()
+                        path: document.getElementById(fpcm.ui.prepareId('draft-select', true)).value
                     },
                     execDone: function (result) {
-                        fpcm.editor.cmInstance.doc.setValue(result.data);
+                        fpcm.editor_ace._instance.insert(result.data);
+
                     }
                 });
             }
@@ -455,13 +487,6 @@ if (fpcm.editor) {
                     return false;
                 });
 
-            },
-            dlOnClose: function() {
-                fpcm.dom.resetValuesByIdsString(['mediapath', 'mediapath2', 'mediaposter']);
-                fpcm.dom.resetValuesByIdsChecked(['autoplay', 'mediatypev']);
-                fpcm.dom.resetValuesByIdsChecked(['controls', 'mediatypea'], true);
-                fpcm.dom.resetValuesByIdsSelect(['mediaformat', 'mediaformat2']);
-                fpcm.dom.fromId('fpcm-dialog-editor-html-insertmedia-preview').empty();
             },
             insertAction: function() {
                 var data = fpcm.editor.getMediaData();
@@ -715,8 +740,17 @@ if (fpcm.editor) {
 
     fpcm.editor.getMediaData = function (_addWidth) {
 
-        var tagName = fpcm.dom.fromClass('fpcm-editor-mediatype:checked').val().replace(/[^a-z]/, '');
-        let _formData = fpcm.dom.getValuesFromIds(['mediapath', 'mediaposter', 'mediapath2', 'mediaformat', 'mediaformat2', 'autoplay:checked', 'controls:checked']);
+        var tagName = document.querySelector('input[name=mediatype]:checked').value.replace(/[^a-z]/, '');
+
+        let _formData = fpcm.dom.getValuesFromIds([
+            fpcm.ui.prepareId('mediapath', true),
+            fpcm.ui.prepareId('mediaposter', true),
+            fpcm.ui.prepareId('mediapath2', true),
+            fpcm.ui.prepareId('mediaformat', true),
+            fpcm.ui.prepareId('mediaformat2', true),
+            fpcm.ui.prepareId('autoplay:checked', true),
+            fpcm.ui.prepareId('controls:checked', true)
+        ]);
 
         var aTag  = '<' + tagName + (_addWidth ? ' class="fpcm-full-width"' : '') + (_formData.controls_checked ? ' controls' : '');
             aTag +=  (_formData.mediaposter ? ' poster="' + _formData.mediaposter + '"' : '') + '>';

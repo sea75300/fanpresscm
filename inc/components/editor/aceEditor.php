@@ -124,6 +124,7 @@ class aceEditor extends articleEditor {
                 ],
                 'autosavePref' => 'fpcm-editor-as-' . $this->session->getUserId() . 'draft',
                 'pageBreakVar' => \fpcm\model\pubtemplates\article::PAGEBREAK_TAG,
+                'drafts' => $this->getTemplateDrafts()
             ],
             'editorInitFunction' => 'initAce'
         ];
@@ -290,8 +291,6 @@ class aceEditor extends articleEditor {
                     ->setData(['htmltag' => 'code'])
                     ->setValue('code'),
             ),
-            'editorDefaultFontsize' => $this->config->system_editor_fontsize,
-            'editorTemplatesList' => $this->getTemplateDrafts(),
             'editorButtons' => [
                 'bold' => (new \fpcm\view\helper\button('editor-html-buttonbold'))->setText('EDITOR_HTML_BUTTONS_BOLD')->setIcon('bold')->setData(['htmltag' => 'b']),
                 'italic' => (new \fpcm\view\helper\button('editor-html-buttonitalic'))->setText('EDITOR_HTML_BUTTONS_ITALIC')->setIcon('italic')->setData(['htmltag' => 'i']),
@@ -344,8 +343,6 @@ class aceEditor extends articleEditor {
      */
     public function getTemplateDrafts()
     {
-        return [];
-
         $templatefilelist = new \fpcm\model\files\templatefilelist();
 
         $ret = [];
@@ -365,7 +362,6 @@ class aceEditor extends articleEditor {
 
     public function getDialogs() : array
     {
-
         return [
             $this->getLinkDialog(),
             $this->getImageDialog(),
