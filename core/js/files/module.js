@@ -140,13 +140,15 @@ fpcm.filemanager = {
 
         if (fpcm.vars.jsvars.fmgrMode === 4) {
 
+            let _fid = fpcm.ui.prepareId('mediaposter', true);
+
             fpcm.dom.bindClick('.fpcm-filelist-tinymce-thumb', function (_e, _ui) {
-                parent.document.getElementById('mediaposter').value  = _ui.href;
+                parent.document.getElementById(_fid).value  = _ui.href;
                 fpcm.ui_dialogs.close('editor-html-filemanager', true);
             });
 
             fpcm.dom.bindClick('.fpcm-filelist-tinymce-full', function (_e, _ui) {
-                parent.document.getElementById('mediaposter').value  = _ui.href;
+                parent.document.getElementById(_fid).value  = _ui.href;
                 fpcm.ui_dialogs.close('editor-html-filemanager', true);
             });
         }

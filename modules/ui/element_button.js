@@ -28,8 +28,6 @@ export class element_button {
 
     assignToDom(_destination) {
 
-        debugger;
-
         if (!_destination) {
             console.warn('No element given to assign fpcm_ui_button to.');
             return false;

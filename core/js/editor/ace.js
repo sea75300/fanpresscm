@@ -23,10 +23,6 @@ fpcm.editor_ace = {
         });
     },
 
-    highlight: function(config) {
-        /*return CodeMirror.runMode(config.input, 'text/html', document.getElementById(config.outputId));*/
-    },
-
     initToInstance: function (aTag, eTag) {
         fpcm.editor_ace._instance.insertSnippet(aTag + "${1:$SELECTION}" + eTag);
         fpcm.editor_ace._instance.renderer.scrollCursorIntoView();
@@ -77,15 +73,7 @@ if (fpcm.editor) {
             return true;
         }
 
-        if (top.fpcm.editor.cmInstance === undefined) {
-            return true;
-        }
-
-        if (top.fpcm.editor.cmInstance.doc.getValue() && fpcm.editor.cmInstance.doc.getValue().search('/gallery') != -1 ) {
-            return true;
-        }
-
-        return false;
+        return fpcm.editor_ace._instance.find('/gallery') !== undefined;
     };
 
     fpcm.editor.insertGalleryByEditor = function (_values) {
@@ -396,7 +384,7 @@ if (fpcm.editor) {
             let _value =_ev.originalTarget.value;
 
             if (!_value) {
-                
+
                 let _prevEl = document.getElementById(fpcm.ui.prepareId('draft-preview', true));
                 _prevEl.innerHTML = '';
                 _prevEl.classList.remove('ace_editor', 'ace_hidpi', 'ace-tomorrow');
@@ -411,7 +399,11 @@ if (fpcm.editor) {
                 },
                 execDone: function (result) {
                     document.getElementById(_preview).innerText = result.data;
-                    fpcm.editor_ace._instancePreview = ace.edit(_preview, fpcm.vars.jsvars.editorConfig.ace);
+
+                    let _cfg = fpcm.vars.jsvars.editorConfig.ace;
+                    _cfg.readOnly = true;
+
+                    fpcm.editor_ace._instancePreview = ace.edit(_preview, _cfg);
                 }
             });
 
@@ -442,7 +434,7 @@ if (fpcm.editor) {
                 }
 
                 fpcm.editor_ace._instancePreview.destroy();
-                
+
             },
             insertAction: function() {
                 fpcm.ajax.exec('editor/draft', {
@@ -463,6 +455,12 @@ if (fpcm.editor) {
     fpcm.editor.insertMedia = function () {
 
         let _content = fpcm.ui_dialogs.fromDOM('insertMedia');
+        
+        let _mprevDiv = document.createElement('div');
+        _mprevDiv.id = fpcm.ui.prepareId('editor-html-insertmedia-preview', true);
+        _mprevDiv.classList.add('col-12', 'col-md-10', 'my-3')
+        
+        _content.appendChild(_mprevDiv);
 
         fpcm.ui_dialogs.insert({
             id: 'editor-html-insertmedia',
@@ -476,13 +474,13 @@ if (fpcm.editor) {
                 text: fpcm.ui.translate('GLOBAL_PREVIEW'),
                 icon: "film",
                 click: function () {
-                    var data = fpcm.editor.getMediaData(true);
-                    fpcm.dom.assignHtml('#fpcm-dialog-editor-html-insertmedia-preview', '<div class="col-12 col-md-10 my-3">' + data.aTag + data.eTag +'</div>');
+                    let data = fpcm.editor.getMediaData(true);
+                    document.getElementById(fpcm.ui.prepareId('editor-html-insertmedia-preview', true)).innerHTML = data.aTag + data.eTag;
                 }
             }],
             dlOnOpen: function() {
 
-                fpcm.dom.fromId('insertposterimg').click(function () {
+                fpcm.dom.bindClick('#' + fpcm.vars.jsvars.dialogs.insertMedia.fields[2][1].id, function () {
                     fpcm.editor.showFileManager(4);
                     return false;
                 });
@@ -729,11 +727,9 @@ if (fpcm.editor) {
         }
 
         let _disabled = (fpcm.vars.jsvars.autoSaveStorage === null ? true : false);
-        fpcm.dom.fromId('editor-html-buttonrestore').prop(_disabled)-click(function () {
-
+        fpcm.dom.fromId('editor-html-buttonrestore').prop(_disabled)-click(function () {ś
             fpcm.vars.jsvars.autoSaveStorage = localStorage.getItem(fpcm.vars.jsvars.editorConfig.autosavePref);
-            fpcm.editor.cmInstance.setValue(fpcm.vars.jsvars.autoSaveStorage);
-
+            fpcm.editor_ace._instance.setValue(fpcm.vars.jsvars.autoSaveStorage);
             return false;
         });
     };
