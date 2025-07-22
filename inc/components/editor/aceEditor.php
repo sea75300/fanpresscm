@@ -497,7 +497,7 @@ class aceEditor extends articleEditor {
                     ->setBottomSpace(''),
                 (new \fpcm\view\helper\button('insertposterimg', 'insertposterimg'))
                     ->setText('HL_FILES_MNG')
-                    ->setIcon('image')
+                    ->setIcon('folder-open')
                     ->setIconOnly()
             ],
             [

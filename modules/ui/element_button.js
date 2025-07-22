@@ -55,20 +55,12 @@ export class element_button {
             let _ti = this.icon.split(' ');
             let _icon = new fpcm.ui.forms.icon(_ti[2].replace('fa-', ''), _ti[1].replace('fa-', ''));
 
+            _button.innerHTML = _icon.getString();
+
             if (this.iconOnly) {
-                this.text = _icon.getString();
+                _destination.appendChild(_button);
+                return;
             }
-            else {
-
-                this.text = _icon.getString() + this.text;
-            }
-        }
-
-        _button.innerHTML = this.text;
-
-        if (this.iconOnly) {
-            _destination.appendChild(_button);
-            return;
         }
 
         if (this.text) {
