@@ -6,7 +6,7 @@ if (fpcm === undefined) {
 }
 
 fpcm.templates = {
-    
+
     init: function() {
 
         if (fpcm.dataview.exists('draftfiles')) {
@@ -22,12 +22,10 @@ fpcm.templates = {
                     return true;
                 }
 
-                if (_ui.target.dataset.tplid) {
-                    document.getElementById('btnShowpreview').disabled = _ui.target.dataset.tplid === 'tweet';
+                if (fpcm.editor_ace._instancePreview) {
+                    fpcm.editor_ace._instance.destroy();
                 }
 
-                fpcm.templates.editorInstance.toTextArea();
-                fpcm.templates.editorInstance = null;                
                 fpcm.dom.fromTag(_ui.relatedTarget.dataset.bsTarget).empty();
                 return true;
             }
@@ -57,93 +55,68 @@ fpcm.templates = {
                     }
                 ]
             });
-            
+
             return false;
-            
+
         });
-        
+
         fpcm.dom.bindClick('#btnSaveTemplates', function () {
             fpcm.ui_dialogs.confirm({
                 clickYes: function () {
                     fpcm.ajax.post('templates/save', {
                         data: {
-                            content: fpcm.templates.editorInstance.getValue(),
-                            tplid  : fpcm.dom.fromId('templateid').val()
+                            content: fpcm.editor_ace.getValue(),
+                            tplid  : document.getElementById('templateid').value
                         },
                         execDone: function (_result) {
-                            
+
                             if (_result instanceof Object && _result.txt) {
                                 fpcm.ui.addMessage(_result);
                                 return true;
                             }
-                            
+
                         }
-                    });                     
+                    });
                 }
             });
         });
-        
+
     },
 
     saveTemplatePreview: function() {
-
-        let _tplId = fpcm.dom.fromId('templateid').val();
-        if (_tplId === 'tweet') {
-            return false;
-        }
-
         fpcm.ajax.post('templates/savetemp', {
             quiet: true,
             data: {
-                content: fpcm.templates.editorInstance.getValue(),
-                tplid  : _tplId
+                content: fpcm.editor_ace.getValue(),
+                tplid  : document.getElementById('templateid').value
             },
             execDone: function() {
                 fpcm.ui_dialogs.create({
                     id: 'templatepreview-layer',
                     closeButton: true,
-                    url: fpcm.vars.actionPath + 'templates/preview&tid=' + fpcm.dom.fromId('templateid').val()
+                    url: fpcm.vars.actionPath + 'templates/preview&tid=' + document.getElementById('templateid').value
                 });
             }
         });
-        
+
     },
-    
+
     createEditorInstance: function (_tplid) {
 
         try {
 
-            fpcm.templates.editorInstance = fpcm.editor_codemirror.create({
-               editorId  : 'tpleditor' + _tplid,
-               elementId : 'content_' + _tplid
+            fpcm.editor_ace.create({
+                elementId: fpcm.ui.prepareId('content-ace-' + _tplid, true),
+                textareaId: 'content-' + _tplid
             });
 
-            fpcm.templates.editorInstance.setSize('100%', '100vh');
-
-            fpcm.dom.fromTag('a.fpcm-ui-template-tags').click(function() {
-
-                var tag = fpcm.dom.fromTag(this).attr('data-tag');
-                var doc = fpcm.templates.editorInstance.doc;
-                var cursorPos = doc.getCursor();
-
-                doc.replaceRange(tag, cursorPos, cursorPos);
-                fpcm.templates.editorInstance.focus();
-
-                return false;
+            fpcm.dom.bindClick('a[data-tag]', function(_ev, _ui) {
+                fpcm.editor_ace.initToInstance(_ui.dataset.tag, '');
             });
 
-            fpcm.dom.fromClass('fpcm-editor-html-click').click(function() {
-
-                var tag     = fpcm.dom.fromTag(this).data('htmltag');
-                fpcm.editor_codemirror.initToInstance(
-                    fpcm.templates.editorInstance,
-                    '<' + tag + '>',
-                    '</' + tag + '>'
-                );
-
-                return false;
+            fpcm.dom.bindClick('button[data-htmltag]', function(_ev, _ui) {
+                fpcm.editor_ace.initToInstance('<' + _ui.dataset.htmltag + '>', '</' + _ui.dataset.htmltag + '>');
             });
-
 
         } catch (_e) {
             return false;
@@ -165,26 +138,26 @@ fpcm.filemanager = {
 
         let _err = 0;
         for (var i = 0; i < _params.result.files.length; i++) {
-            
+
             if (!_params.result.files[i].error) {
                 continue;
             }
 
             _err++;
         }
-        
+
         if (_err) {
             return false;
         }
 
         fpcm.ui.relocate('?module=templates/templates&rg=7');
     },
-    
+
     getAcceptTypes: function ()
     {
         return /(\.|\/)(htm|html|txt)$/i;
     },
-    
+
     getAcceptTypesArr: function ()
     {
         return ['html', 'htm', 'txt', 'application/xhtml+xml', 'text/html', 'text/plain'];

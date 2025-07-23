@@ -78,7 +78,7 @@ class aceEditor extends articleEditor {
      */
     public function getCommentEditorTemplate()
     {
-        return \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'comments/editors/html.php');
+        return \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'comments/editors/ace.php');
     }
 
     /**
@@ -131,7 +131,7 @@ class aceEditor extends articleEditor {
 
         return $cfg;
 
-        $ev = $this->events->trigger('editor\initCodemirrorJs', $cfg);
+        $ev = $this->events->trigger('editor\initAceEditor', $cfg);
         if (!$ev->getSuccessed() || !$ev->getContinue()) {
             trigger_error(sprintf("Event editor\initCodemirrorJs failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
             return $cfg;

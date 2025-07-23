@@ -16,11 +16,12 @@ namespace fpcm\controller\action\templates;
 
 class templates extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\requestFunctions
 {
-
     use \fpcm\controller\traits\templates\edit;
+    
+    private \fpcm\components\editor\aceEditor $editor;
 
     /**
-     * 
+     *
      * @return string
      */
     protected function getViewPath() : string
@@ -29,7 +30,7 @@ class templates extends \fpcm\controller\abstracts\controller implements \fpcm\c
     }
 
     /**
-     * 
+     *
      * @return string
      */
     protected function getHelpLink()
@@ -43,13 +44,7 @@ class templates extends \fpcm\controller\abstracts\controller implements \fpcm\c
      */
     public function request()
     {
-        $editor = new \fpcm\components\editor\htmlEditor();
-        $this->view->addCssFiles($editor->getCssFiles());
-
-        $jsFiles = $editor->getJsFiles();
-        unset($jsFiles[16]);  
-
-        $this->view->addJsFiles($jsFiles);
+        $this->editor = new \fpcm\components\editor\aceEditor();
         return true;
     }
 
@@ -59,18 +54,17 @@ class templates extends \fpcm\controller\abstracts\controller implements \fpcm\c
      */
     public function process()
     {
-
         /* @var $uploader \fpcm\components\fileupload\uploader */
         $uploader = \fpcm\components\components::getFileUploader();
 
         $this->view->addJsVars(array_merge([
             'templateId' => 1,
             'uploadDest' => 'drafts'
-        ], $uploader->getJsVars() ));
+        ], $uploader->getJsVars(), $this->editor->getJsVars() ));
 
         $this->view->addCssFiles($uploader->getCssFiles());
         $this->view->addJsLangVars(array_merge(['HL_TEMPLATE_PREVIEW', 'TEMPLATE_HL_DRAFTS_EDIT'], $uploader->getJsLangVars()));
-        $this->view->addJsFiles(array_merge(['templates/module.js'], $uploader->getJsFiles() ));
+        $this->view->addJsFiles(array_merge(['templates/module.js'], $uploader->getJsFiles(), $this->editor->getJsFiles() ));
         $this->view->addJsFilesLate($uploader->getJsFilesLate());
         $this->view->setJsModuleFiles($uploader->getJsModuleFiles());
 
@@ -80,26 +74,40 @@ class templates extends \fpcm\controller\abstracts\controller implements \fpcm\c
             return false;
         }
 
-        $this->view->setViewVars( $uploader->getViewVars() );
+        $this->view->setViewVars(array_merge(
+            [
+                'ace' => [
+                    'fontSize' => $this->config->system_editor_fontsize,
+                    'theme' => sprintf('ace/theme/tomorrow%s', $this->config->system_darkmode ? '_night' : ''),
+                    'mode' => 'ace/mode/html',
+                    'enableBasicAutocompletion' => true,
+                    'enableLiveAutocompletion' => true,
+                    'enableSnippets' => true,
+                    'wrap' => true,
+                    'minLines' => 15,
+                    'maxLines' => 50
+                ]
+            ],
+            $uploader->getViewVars()
+        ));
 
         $this->initDataView();
 
         $this->view->setFormAction('templates/templates');
-        
-        $hiddenClass1 = in_array($this->getActiveTab(), [6,7]) ? 'fpcm-ui-hidden' : '';
+
         $hiddenClass2 = $this->getActiveTab() != 7 ? 'fpcm-ui-hidden' : '';
 
         $buttons = [
             (new \fpcm\view\helper\saveButton('saveTemplates'))->setClass( $this->getToolbarButtonToggleClass(1, '', true) )->setPrimary(),
             (new \fpcm\view\helper\button('showpreview'))->setText('GLOBAL_PREVIEW')->setIcon('eye')->setClass( $this->getToolbarButtonToggleClass(1, '', true) )
         ];
-        
+
         if ($this->permissions->system->drafts) {
-            
-            
+
+
             $buttons[] =  (new \fpcm\view\helper\deleteButton('fileDelete'))
                 ->setClass('fpcm-ui-maintoolbarbuttons-tab3 ' . $hiddenClass2 )->setClickConfirm();
-            
+
             $buttons[] =  (new \fpcm\view\helper\button('fileUpload'))
                 ->setText('FILE_LIST_UPLOADFORM')
                 ->setClass('fpcm-ui-maintoolbarbuttons-tab3 ' . $hiddenClass2 )
@@ -111,18 +119,18 @@ class templates extends \fpcm\controller\abstracts\controller implements \fpcm\c
                 ->setAria([
                     'bs-controls' => 'offcanvasUpload',
                 ])
-                ->setPrimary();        
+                ->setPrimary();
         }
-        
-        $this->view->addButtons($buttons);        
-        
+
+        $this->view->addButtons($buttons);
+
         $this->initTabs();
 
         $this->view->render();
     }
 
     /**
-     * 
+     *
      * @return boolean
      */
     private function initTabs()
@@ -138,7 +146,7 @@ class templates extends \fpcm\controller\abstracts\controller implements \fpcm\c
                 ->setDataViewId(''),
 
         ];
-        
+
         if ($this->config->articles_template_active != $this->config->article_template_active) {
             $tabs[] = (new \fpcm\view\helper\tabItem('tpl-articleSingle'))
                 ->setText('TEMPLATE_HL_ARTICLE_SINGLE')
@@ -149,7 +157,7 @@ class templates extends \fpcm\controller\abstracts\controller implements \fpcm\c
                 ->setTabToolbar(1)
                 ->setDataViewId('');
         }
-        
+
         $tabs = array_merge($tabs, [
             (new \fpcm\view\helper\tabItem('tpl-comment'))
                 ->setText('TEMPLATE_HL_COMMENTS')
@@ -188,7 +196,7 @@ class templates extends \fpcm\controller\abstracts\controller implements \fpcm\c
                 ->setDataViewId(''),
 
         ]);
-        
+
         if ($this->permissions->system->drafts) {
             $tabs[] = (new \fpcm\view\helper\tabItem('tpl-editor-templates'))
                     ->setText('TEMPLATE_HL_DRAFTS')
@@ -204,7 +212,7 @@ class templates extends \fpcm\controller\abstracts\controller implements \fpcm\c
 
 
     /**
-     * 
+     *
      * @return bool
      */
     private function initDataView()
@@ -218,7 +226,7 @@ class templates extends \fpcm\controller\abstracts\controller implements \fpcm\c
             (new \fpcm\components\dataView\column('filename', 'FILE_LIST_FILENAME'))->setSize(8),
             (new \fpcm\components\dataView\column('filesize', 'FILE_LIST_FILESIZE'))->setSize(2)
         ]);
-        
+
         $items = $tplfilelist->getFolderObjectList();
         if (!count($items)) {
 
@@ -236,7 +244,7 @@ class templates extends \fpcm\controller\abstracts\controller implements \fpcm\c
                 false,
                 true
             ));
-            
+
             $this->view->addDataView($dataView);
             return true;
         }
@@ -258,12 +266,12 @@ class templates extends \fpcm\controller\abstracts\controller implements \fpcm\c
                 new \fpcm\components\dataView\rowCol('filesize', \fpcm\classes\tools::calcSize($templateFile->getFilesize()) )
             ]));
         }
-        
+
         $this->view->addDataView($dataView);
     }
 
     /**
-     * 
+     *
      * @return bool
      */
     protected function onFileDelete()
@@ -271,7 +279,7 @@ class templates extends \fpcm\controller\abstracts\controller implements \fpcm\c
         if (!$this->permissions->system->drafts) {
             return false;
         }
-        
+
         $delFiles = $this->request->fromPOST('deltplfiles', [
             \fpcm\model\http\request::FILTER_BASE64DECODE
         ]);

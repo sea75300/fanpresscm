@@ -233,6 +233,10 @@ implements \fpcm\controller\interfaces\requestFunctions
             (new \fpcm\view\helper\tabItem('comment'))->setText('COMMENTS_EDIT')->setFile($this->getViewPath() . '.php')
         ]);
 
+        $edDlg = $editorPlugin->getDialogs();
+        if (count($edDlg)) {
+            $this->view->addDialogs($edDlg);
+        }
 
         $this->view->render();
 

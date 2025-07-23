@@ -19,13 +19,28 @@ fpcm.editor_ace = {
     create: function(_config) {
         fpcm.editor_ace._instance = ace.edit(_config.elementId, fpcm.vars.jsvars.editorConfig.ace);
         fpcm.editor_ace._instance.getSession().on('change', function (_delta) {
-            document.getElementById('articlecontent').value = fpcm.editor_ace._instance.getSession().getValue();
+
+            let _val = fpcm.editor_ace._instance.getSession().getValue();
+
+            document.getElementById(_config.textareaId).value = _val;
+
+            if (_val === localStorage.getItem(fpcm.vars.jsvars.editorConfig.autosavePref)) {
+                return true;
+            }
+
+            localStorage.setItem(fpcm.vars.jsvars.editorConfig.autosavePref, _val);
+            fpcm.dom.fromId('editor-html-buttonrestore').prop('disabled', false);
         });
+
     },
 
     initToInstance: function (aTag, eTag) {
         fpcm.editor_ace._instance.insertSnippet(aTag + "${1:$SELECTION}" + eTag);
         fpcm.editor_ace._instance.renderer.scrollCursorIntoView();
+    },
+
+    getValue: function() {
+        return fpcm.editor_ace._instance.getValue();
     }
 
 };
@@ -128,7 +143,9 @@ if (fpcm.editor) {
 
     fpcm.editor.insertBr = function() {
 
-        if(fpcm.editor.cmInstance.doc.somethingSelected()) {
+        // @ToDo Migration to ACE Editor
+
+        /*if(fpcm.editor.cmInstance.doc.somethingSelected()) {
             fpcm.editor.cmInstance.doc.replaceSelection('<p>' + fpcm.editor.cmInstance.doc.getSelection() + '</p>\n');
         }
         else {
@@ -137,7 +154,7 @@ if (fpcm.editor) {
 
             fpcm.editor.cmInstance.doc.replaceRange(eTag, cursorPos, cursorPos);
             fpcm.editor.cmInstance.focus();
-        }
+        }*/
 
         return false;
     };
@@ -284,9 +301,8 @@ if (fpcm.editor) {
                     quiet: true,
                     execDone: function (_result) {
                         _ui.querySelector('.modal-body').innerHTML = _result;
-                        fpcm.dom.fromClass('fpcm-editor-htmlsmiley').unbind('click');
-                        fpcm.dom.fromClass('fpcm-editor-htmlsmiley').click(function() {
-                            fpcm.editor.insert(' ' + fpcm.dom.fromTag(this).data('smileycode') + ' ', '');
+                        fpcm.dom.bindClick('.fpcm-editor-htmlsmiley', function(_e, _ui) {
+                            fpcm.editor.insert(' ' + _ui.dataset.smileycode + ' ', '');
                         });
                     }
                 });
@@ -316,6 +332,9 @@ if (fpcm.editor) {
     fpcm.editor.insertColor = function () {
 
         let _content = fpcm.ui_dialogs.fromDOM('insertColor');
+        if (!fpcm.vars.jsvars.editorConfig.colors || !_content) {
+            return false;
+        }
 
         let _icon = (new fpcm.ui.forms.icon('square', '2x')).getString();
 
@@ -455,11 +474,14 @@ if (fpcm.editor) {
     fpcm.editor.insertMedia = function () {
 
         let _content = fpcm.ui_dialogs.fromDOM('insertMedia');
-        
+        if (!_content) {
+            return false;
+        }
+
         let _mprevDiv = document.createElement('div');
         _mprevDiv.id = fpcm.ui.prepareId('editor-html-insertmedia-preview', true);
         _mprevDiv.classList.add('col-12', 'col-md-10', 'my-3')
-        
+
         _content.appendChild(_mprevDiv);
 
         fpcm.ui_dialogs.insert({
@@ -547,10 +569,15 @@ if (fpcm.editor) {
 
     fpcm.editor.insertPicture = function () {
 
+        let _content = fpcm.ui_dialogs.fromDOM('insertImage');
+        if (!_content) {
+            return false;
+        }
+
         fpcm.ui_dialogs.insert({
             id: 'editor-html-insertimage',
             title: 'EDITOR_INSERTPIC',
-            content: fpcm.ui_dialogs.fromDOM('insertImage'),
+            content: _content,
             directAssignToDom: true,
             icon: {
                 icon: 'images'
@@ -598,10 +625,15 @@ if (fpcm.editor) {
 
     fpcm.editor.insertLink = function() {
 
+        let _content = fpcm.ui_dialogs.fromDOM('insertLink');
+        if (!_content) {
+            return false;
+        }
+
         fpcm.ui_dialogs.insert({
             id: 'editor-html-insert-link',
             title: 'EDITOR_INSERTLINK',
-            content: fpcm.ui_dialogs.fromDOM('insertLink'),
+            content: _content,
             directAssignToDom: true,
             icon: {
                 icon: 'link'
@@ -685,10 +717,15 @@ if (fpcm.editor) {
 
     fpcm.editor.insertQuote = function () {
 
+        let _content = fpcm.ui_dialogs.fromDOM('insertQuote');
+        if (!_content) {
+            return false;
+        }
+
         fpcm.ui_dialogs.insert({
             id: 'editor-html-insertquote',
             title: 'EDITOR_HTML_BUTTONS_QUOTE',
-            content: fpcm.ui_dialogs.fromDOM('insertQuote'),
+            content: _content,
             directAssignToDom: true,
             icon: {
                 icon: 'quote-left'

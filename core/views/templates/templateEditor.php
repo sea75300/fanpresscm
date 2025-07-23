@@ -54,7 +54,8 @@
 
         <div class="row my-2">
             <div class="col-12">
-                <?php $theView->textarea('template[content]', 'content_'.$tplId)->setValue($content, ENT_QUOTES)->setClass('fpcm-editor-html-click'); ?>
+                <div id="fpcm-id-content-ace-<?php print $tplId; ?>"><?php print $theView->escapeVal($content, ENT_QUOTES); ?></div>
+                <?php $theView->textarea('template[content]', 'content-'.$tplId)->setValue($content, ENT_QUOTES)->setClass('d-none'); ?>
             </div>
         </div>
 
