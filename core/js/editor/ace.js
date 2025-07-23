@@ -14,9 +14,87 @@ fpcm.editor_ace = {
 
     _instancePreview: null,
 
-    defaultShortKeys: { },
+    defaultShortKeys: {
+        Enter: function (_e) {
+            fpcm.editor.insertBr();
+        },
+        "Ctrl-B"    : function() {
+            fpcm.dom.fromId('btnEditor-html-buttonbold').click();
+        },
+        "Ctrl-I"    : function() {
+            fpcm.dom.fromId('btnEditor-html-buttonitalic').click();
+        },
+        "Ctrl-U"    : function() {
+            fpcm.dom.fromId('btnEditor-html-buttonunderline').click();
+        },
+        "Ctrl-O"    : function() {
+            fpcm.dom.fromId('btnEditor-html-buttonstrike').click();
+        },
+        "Shift-Ctrl-F"    : function() {
+            fpcm.editor.insertColor();
+        },
+        "Ctrl-Y"    : function() {
+            fpcm.dom.fromId('btnEditor-html-buttonsup').click();
+        },
+        "Shift-Ctrl-Y"    : function() {
+            fpcm.dom.fromId('btnEditor-html-buttonsub').click();
+        },
+        "Shift-Ctrl-L"    : function() {
+            fpcm.dom.fromId('btnEditor-html-buttonaleft').click();
+        },
+        "Shift-Ctrl-C"    : function() {
+            fpcm.dom.fromId('btnEditor-html-buttonacenter').click();
+        },
+        "Shift-Ctrl-R"    : function() {
+            fpcm.dom.fromId('btnEditor-html-buttonaright').click();
+        },
+        "Shift-Ctrl-J"    : function() {
+            fpcm.dom.fromId('btnEditor-html-buttonajustify').click();
+        },
+        "Ctrl-Alt-N"    : function() {
+            fpcm.dom.fromId('btnEditor-html-buttoninsertlist').click();
+        },
+        "Shift-Ctrl-N"    : function() {
+            fpcm.dom.fromId('btnEditor-html-buttoninsertlistnum').click();
+        },
+        "Shift-Ctrl-Q"    : function() {
+            fpcm.editor.insertQuote();
+        },
+        "Ctrl-L"    : function() {
+            fpcm.editor.insertLink();
+        },
+        "Ctrl-P"    : function() {
+            fpcm.editor.insertPicture();
+        },
+        "Shift-Ctrl-V"    : function() {
+            fpcm.editor.insertMedia();
+        },
+        "Shift-Ctrl-T"    : function() {
+            fpcm.editor.insertTable();
+        },
+        "Ctrl-Alt-E"    : function() {
+            fpcm.editor.insertSmilies();
+        },
+        "Shift-Ctrl-D"    : function() {
+            fpcm.editor.insertDrafts();
+        },
+        "Shift-Ctrl-I"    : function() {
+            fpcm.editor.insertSymbol();
+        },
+        "Shift-Ctrl-M"    : function() {
+            fpcm.editor.insertPageBreak()();
+        },
+        "Shift-Ctrl-B"    : function() {
+            fpcm.editor.insertIFrame();
+        },
+        "Shift-Alt-S"    : function() {
+            fpcm.editor.removeTags();
+            return false;
+        }
+    },
 
     create: function(_config) {
+
         fpcm.editor_ace._instance = ace.edit(_config.elementId, fpcm.vars.jsvars.editorConfig.ace);
         fpcm.editor_ace._instance.getSession().on('change', function (_delta) {
 
@@ -32,6 +110,7 @@ fpcm.editor_ace = {
             fpcm.dom.fromId('editor-html-buttonrestore').prop('disabled', false);
         });
 
+        fpcm.editor_ace._instance.commands.bindKeys(fpcm.editor_ace.defaultShortKeys);
     },
 
     initToInstance: function (aTag, eTag) {
@@ -142,21 +221,13 @@ if (fpcm.editor) {
     };
 
     fpcm.editor.insertBr = function() {
-
-        // @ToDo Migration to ACE Editor
-
-        /*if(fpcm.editor.cmInstance.doc.somethingSelected()) {
-            fpcm.editor.cmInstance.doc.replaceSelection('<p>' + fpcm.editor.cmInstance.doc.getSelection() + '</p>\n');
+        if (fpcm.editor_ace._instance.getSelectedText()) {
+            fpcm.editor_ace.initToInstance('<p>', '</p>');
+            return true;
         }
-        else {
-            var cursorPos = fpcm.editor.cmInstance.doc.getCursor();
-            var eTag      = '<br>\n';
 
-            fpcm.editor.cmInstance.doc.replaceRange(eTag, cursorPos, cursorPos);
-            fpcm.editor.cmInstance.focus();
-        }*/
-
-        return false;
+        fpcm.editor_ace.initToInstance('<br>\n', '');
+        return true;
     };
 
     fpcm.editor.insertFontsize = function(fs) {
@@ -397,6 +468,7 @@ if (fpcm.editor) {
 
             if (fpcm.editor_ace._instancePreview) {
                 fpcm.editor_ace._instancePreview.destroy();
+                fpcm.editor_ace._instancePreview.container.remove();
             }
 
 
@@ -754,7 +826,7 @@ if (fpcm.editor) {
             execDone: function (result) {
                 fpcm.editor_ace._instance.getSession().setValue(result ? result : '');
             }
-        });ś
+        });
     };
 
     fpcm.editor.restoreSave = function () {

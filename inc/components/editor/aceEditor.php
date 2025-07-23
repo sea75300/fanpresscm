@@ -88,6 +88,7 @@ class aceEditor extends articleEditor {
     public function getJsFiles()
     {
         return [
+            \fpcm\classes\dirs::getLibUrl('nkorg/jscharmap/charmap.js'),
             \fpcm\classes\dirs::getLibUrl('ace/ace.js'),
             \fpcm\classes\dirs::getLibUrl('ace/ext-language_tools.js'),
             \fpcm\classes\dirs::getLibUrl('ace/ext-inline_autocomplete.js'),
