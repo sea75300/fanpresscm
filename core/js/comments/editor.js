@@ -62,7 +62,8 @@ fpcm.editor = {
 
         fpcm.editor_ace.create({
            elementId: fpcm.ui.prepareId('content-ace', true),
-           textareaId: 'commenttext'
+           textareaId: 'commenttext',
+           type: 'commenttext'
         });
         
     },

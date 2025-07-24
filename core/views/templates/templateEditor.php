@@ -13,7 +13,7 @@
                 <div class="list-group-item bg-secondary text-white"><?php $theView->icon('plus'); ?> <?php $theView->write('TEMPLATE_REPLACEMENTS'); ?></div>
 
             <?php foreach ($replacements as $tag => $descr) : ?>
-                <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center fpcm-ui-template-tags" data-tag="<?php print $tag; ?>">
+                <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" data-tag="<?php print $tag; ?>">
 
                     <div class="d-block">
                         <h5 class="mb-1"><?php print $tag; ?></h5>
@@ -25,7 +25,7 @@
                     <?php endif; ?>
 
                     </div>
-                    <?php $theView->icon('plus')->setSize('lg')->setClass('ms-3'); ?>                        
+                    <?php $theView->icon('plus')->setSize('lg')->setClass('ms-3'); ?>
                 </a>
             <?php endforeach; ?>
             </div>
@@ -35,22 +35,41 @@
 
     <div class="col-12 col-lg-7 col-xl-9">
 
-        <?php if (count($allowedTagsList)) : ?>
-        <div class="row mt-2">
+        <div class="row my-2">
 
             <div class="btn-toolbar" role="toolbar" aria-label="<?php $theView->write('TEMPLATE_EDITOR'); ?>">
-            <?php foreach ($allowedTagsList as $allowedTags) : ?>
-            <div class="btn-group m-1" role="group" aria-label="<?php $theView->write('TEMPLATE_EDITOR'); ?>">
-                <?php foreach ($allowedTags as $i => $tag) : ?>
-                    <?php $theView->button('tps-editor-'.substr($tag, 1, -1))->setText(htmlentities($tag))->setClass('fpcm-editor-html-click')->setData(['htmltag' => substr($tag, 1, -1)]); ?>
-                <?php endforeach; ?>
-            </div>
-            <?php endforeach; ?>
+
+                <div class="d-flex gap-1 me-1 mb-1" role="group" aria-label="<?php $theView->write('TEMPLATE_EDITOR'); ?>">
+
+                <?php if (count($allowedTagsList)) : ?>
+                    <?php $theView->dropdown('editor-tags')->setOptions($allowedTagsList)->setText('GLOBAL_HTMLTAGS_ALLOWED')->setSelected('')->setIcon('code'); ?>
+                <?php endif; ?>
+
+                <?php if (count($editorStyles)) : ?>
+                    <?php $theView->dropdown('editor-styles')->setOptions($editorStyles)->setText('EDITOR_SELECTSTYLES')->setSelected('')->setIcon('css3 fa-brands'); ?>
+                <?php endif; ?>
+
+                <?php if (count($editorParagraphs)) : ?>
+                    <?php $theView->dropdown('editor-paragraphs')->setOptions($editorParagraphs)->setText('EDITOR_PARAGRAPH')->setIcon('paragraph'); ?>
+                <?php endif; ?>
+
+                <?php if (count($editorFontsizes)) : ?>
+                    <?php $theView->dropdown('editor-fontsizes')->setOptions($editorFontsizes)->setText('EDITOR_SELECTFS')->setIcon('text-height'); ?>
+                <?php endif; ?>
+                </div>
+
+                <div class="btn-group me-1 mb-1" role="group" aria-label="<?php $theView->write('TEMPLATE_EDITOR'); ?>">
+                    <?php foreach ($editorButtons as $editorButton) : ?>
+                        <?php if ($editorButton instanceof \fpcm\view\helper\toolbarSeperator) : ?>
+                            <?php print $editorButton; ?>
+                        <?php else : ?>
+                            <?php print $editorButton->setClass('fpcm-editor-html-click')->setIconOnly(); ?>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                </div>
             </div>
 
         </div>
-        <?php endif; ?>
-
 
         <div class="row my-2">
             <div class="col-12">
@@ -59,8 +78,7 @@
             </div>
         </div>
 
-
-
+    </div>
 </div>
 
 <?php $theView->hiddenInput('template[id]')->setValue($tplId); ?>

@@ -63,10 +63,11 @@ class templates extends \fpcm\controller\abstracts\controller implements \fpcm\c
         ], $uploader->getJsVars(), $this->editor->getJsVars() ));
 
         $this->view->addCssFiles($uploader->getCssFiles());
-        $this->view->addJsLangVars(array_merge(['HL_TEMPLATE_PREVIEW', 'TEMPLATE_HL_DRAFTS_EDIT'], $uploader->getJsLangVars()));
+        $this->view->addJsLangVars(array_merge(['HL_TEMPLATE_PREVIEW', 'TEMPLATE_HL_DRAFTS_EDIT'], $uploader->getJsLangVars(), $this->editor->getJsLangVars() ));
         $this->view->addJsFiles(array_merge(['templates/module.js'], $uploader->getJsFiles(), $this->editor->getJsFiles() ));
         $this->view->addJsFilesLate($uploader->getJsFilesLate());
         $this->view->setJsModuleFiles($uploader->getJsModuleFiles());
+        $this->view->addDialogs($this->editor->getDialogs());
 
         if (!trim($uploader->getTemplate()) || !realpath($uploader->getTemplate())) {
             trigger_error('Undefined file upload template given in '.$uploader->getTemplate());

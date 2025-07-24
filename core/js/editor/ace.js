@@ -14,48 +14,50 @@ fpcm.editor_ace = {
 
     _instancePreview: null,
 
+    _editorType: '',
+
     defaultShortKeys: {
         Enter: function (_e) {
             fpcm.editor.insertBr();
         },
         "Ctrl-B"    : function() {
-            fpcm.dom.fromId('btnEditor-html-buttonbold').click();
+            fpcm.dom.fromId('btn-ace-bold').click();
         },
         "Ctrl-I"    : function() {
-            fpcm.dom.fromId('btnEditor-html-buttonitalic').click();
+            fpcm.dom.fromId('btn-ace-italic').click();
         },
         "Ctrl-U"    : function() {
-            fpcm.dom.fromId('btnEditor-html-buttonunderline').click();
+            fpcm.dom.fromId('btn-ace-underline').click();
         },
         "Ctrl-O"    : function() {
-            fpcm.dom.fromId('btnEditor-html-buttonstrike').click();
+            fpcm.dom.fromId('btn-ace-strike').click();
         },
         "Shift-Ctrl-F"    : function() {
             fpcm.editor.insertColor();
         },
         "Ctrl-Y"    : function() {
-            fpcm.dom.fromId('btnEditor-html-buttonsup').click();
+            fpcm.dom.fromId('btn-ace-sup').click();
         },
         "Shift-Ctrl-Y"    : function() {
-            fpcm.dom.fromId('btnEditor-html-buttonsub').click();
+            fpcm.dom.fromId('btn-ace-sub').click();
         },
         "Shift-Ctrl-L"    : function() {
-            fpcm.dom.fromId('btnEditor-html-buttonaleft').click();
+            fpcm.dom.fromId('btn-ace-aleft').click();
         },
         "Shift-Ctrl-C"    : function() {
-            fpcm.dom.fromId('btnEditor-html-buttonacenter').click();
+            fpcm.dom.fromId('btn-ace-acenter').click();
         },
         "Shift-Ctrl-R"    : function() {
-            fpcm.dom.fromId('btnEditor-html-buttonaright').click();
+            fpcm.dom.fromId('btn-ace-aright').click();
         },
         "Shift-Ctrl-J"    : function() {
-            fpcm.dom.fromId('btnEditor-html-buttonajustify').click();
+            fpcm.dom.fromId('btn-ace-ajustify').click();
         },
         "Ctrl-Alt-N"    : function() {
-            fpcm.dom.fromId('btnEditor-html-buttoninsertlist').click();
+            fpcm.dom.fromId('btn-ace-insertlist').click();
         },
         "Shift-Ctrl-N"    : function() {
-            fpcm.dom.fromId('btnEditor-html-buttoninsertlistnum').click();
+            fpcm.dom.fromId('btn-ace-insertlistnum').click();
         },
         "Shift-Ctrl-Q"    : function() {
             fpcm.editor.insertQuote();
@@ -89,7 +91,6 @@ fpcm.editor_ace = {
         },
         "Shift-Alt-S"    : function() {
             fpcm.editor.removeTags();
-            return false;
         }
     },
 
@@ -99,18 +100,27 @@ fpcm.editor_ace = {
         fpcm.editor_ace._instance.getSession().on('change', function (_delta) {
 
             let _val = fpcm.editor_ace._instance.getSession().getValue();
+            let _restoreBtn = document.getElementById('btn-ace-restore');
+
+            if (!document.getElementById('btn-ace-undo').disabled) {
+                document.getElementById('btn-ace-redo').disabled = false;
+            }
+
+            if (_val) {
+                document.getElementById('btn-ace-undo').disabled = false;
+            }
+
+            localStorage.setItem(fpcm.vars.jsvars.editorConfig.autosavePref, document.getElementById(_config.textareaId).value);
+            if (_restoreBtn) {
+                document.getElementById('btn-ace-restore').disabled = false;
+            }
 
             document.getElementById(_config.textareaId).value = _val;
 
-            if (_val === localStorage.getItem(fpcm.vars.jsvars.editorConfig.autosavePref)) {
-                return true;
-            }
-
-            localStorage.setItem(fpcm.vars.jsvars.editorConfig.autosavePref, _val);
-            fpcm.dom.fromId('editor-html-buttonrestore').prop('disabled', false);
         });
 
         fpcm.editor_ace._instance.commands.bindKeys(fpcm.editor_ace.defaultShortKeys);
+        fpcm.editor_ace._editorType = _config.type;
     },
 
     initToInstance: function (aTag, eTag) {
@@ -813,7 +823,7 @@ if (fpcm.editor) {
                     values.text = '\n<p>' + values.text + '</p>\n';
                 }
 
-                fpcm.editor.insert('<' + values.type + ' class="fpcm-articletext-quote"' + (values.sources ? ' cite="' + values.sources + '"' : '') + '>' + values.text, '</' + values.type + '>');
+                fpcm.editor.insert('<' + values.type + ' class="fpcm-' + fpcm.editor_ace._editorType + '-quote"' + (values.sources ? ' cite="' + values.sources + '"' : '') + '>' + values.text, '</' + values.type + '>');
             }
         });
     };
@@ -829,18 +839,29 @@ if (fpcm.editor) {
         });
     };
 
+    fpcm.editor.undo = function () {
+        fpcm.editor_ace._instance.undo();
+    };
+
+    fpcm.editor.redo = function () {
+        fpcm.editor_ace._instance.redo();
+    };
+
     fpcm.editor.restoreSave = function () {
 
-        if (!confirm(fpcm.ui.translate('CONFIRM_MESSAGE'))) {
-            return false;
-        }
+        fpcm.ui_dialogs.confirm({
+            clickYes: function () {
+                let _asValue = localStorage.getItem(fpcm.vars.jsvars.editorConfig.autosavePref);
+                if (!_asValue) {
+                    document.getElementById('btn-ace-restore').disabled = true;
+                    return false;
+                }
 
-        let _disabled = (fpcm.vars.jsvars.autoSaveStorage === null ? true : false);
-        fpcm.dom.fromId('editor-html-buttonrestore').prop(_disabled)-click(function () {ś
-            fpcm.vars.jsvars.autoSaveStorage = localStorage.getItem(fpcm.vars.jsvars.editorConfig.autosavePref);
-            fpcm.editor_ace._instance.setValue(fpcm.vars.jsvars.autoSaveStorage);
-            return false;
+                fpcm.editor_ace._instance.setValue(_asValue);
+                document.getElementById('btn-ace-restore').disabled = true;
+            }
         });
+
     };
 
     fpcm.editor.getMediaData = function (_addWidth) {
@@ -973,7 +994,7 @@ if (fpcm.editor) {
             closeButton: true,
             content: _input,
             icon: {
-                icon: 'puzzle-piece'
+                icon: 'file-half-dashed'
             },
             insertAction: function () {
 
@@ -984,8 +1005,8 @@ if (fpcm.editor) {
 
                 let _code = fpcm.ui.createIFrame({
                     src: _url,
-                    classes: 'fpcm-articletext-iframe',
-                    id: 'fpcm-articletext-iframe-' + fpcm.ui.getUniqueID()
+                    classes: 'fpcm-' + fpcm.editor_ace._editorType + '-iframe',
+                    id: 'fpcm-' + fpcm.editor_ace._editorType + '-iframe-' + fpcm.ui.getUniqueID()
                 });
 
                 fpcm.editor.insert(_code, '');

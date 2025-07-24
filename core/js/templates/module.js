@@ -107,16 +107,19 @@ fpcm.templates = {
 
             fpcm.editor_ace.create({
                 elementId: fpcm.ui.prepareId('content-ace-' + _tplid, true),
-                textareaId: 'content-' + _tplid
+                textareaId: 'content-' + _tplid,
+                type: 'template-' + _tplid
             });
 
             fpcm.dom.bindClick('a[data-tag]', function(_ev, _ui) {
                 fpcm.editor_ace.initToInstance(_ui.dataset.tag, '');
             });
 
-            fpcm.dom.bindClick('button[data-htmltag]', function(_ev, _ui) {
+            fpcm.dom.bindClick('a[data-htmltag]', function(_ev, _ui) {
                 fpcm.editor_ace.initToInstance('<' + _ui.dataset.htmltag + '>', '</' + _ui.dataset.htmltag + '>');
             });
+            
+            fpcm.editor.initToolbar();
 
         } catch (_e) {
             return false;
@@ -164,3 +167,5 @@ fpcm.filemanager = {
     }
 
 };
+
+fpcm.editor = { }

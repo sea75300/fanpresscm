@@ -24,7 +24,7 @@ class articleTemplateEditor extends \fpcm\controller\abstracts\controller
     protected $file;
 
     /**
-     * 
+     *
      * @return bool
      */
     public function isAccessible(): bool
@@ -33,7 +33,7 @@ class articleTemplateEditor extends \fpcm\controller\abstracts\controller
     }
 
     /**
-     * 
+     *
      * @return string
      */
     protected function getViewPath() : string
@@ -52,11 +52,13 @@ class articleTemplateEditor extends \fpcm\controller\abstracts\controller
         }
 
         $this->file = new \fpcm\model\files\templatefile(
-                $this->request->fromGET('file', [
-                    \fpcm\model\http\request::FILTER_URLDECODE,
-                    \fpcm\model\http\request::FILTER_DECRYPT
-                ])
+            $this->request->fromGET('file', [
+                \fpcm\model\http\request::FILTER_URLDECODE,
+                \fpcm\model\http\request::FILTER_DECRYPT
+            ])
         );
+        
+        fpcmDump(get_class($this->file), $this->file->isWritable());exit;
 
         $this->file->loadContent();
 
@@ -99,20 +101,21 @@ class articleTemplateEditor extends \fpcm\controller\abstracts\controller
         $this->view->assign('file', $this->file);
         $this->view->showHeaderFooter(\fpcm\view\view::INCLUDE_HEADER_SIMPLE);
 
-        $editor = new \fpcm\components\editor\htmlEditor();
+        $editor = new \fpcm\components\editor\aceEditor();
         $this->view->addCssFiles($editor->getCssFiles());
 
         $jsFiles = $editor->getJsFiles();
-        unset($jsFiles[16]);  
-  
         $jsFiles[] = 'templates/articles.js';
+
         $this->view->addJsFiles($jsFiles);
         $this->view->addJsVars($editor->getJsVars());
+        $this->view->addJsLangVars($editor->getJsLangVars());
+        $this->view->setViewVars($editor->getViewVars());
         $this->view->setFormAction($this->file->getEditLink(),[], true);
         $this->view->setBodyClass('fpcm ui-classic-backdrop');
+        $this->view->addDialogs($editor->getDialogs());
+
         $this->view->render();
     }
 
 }
-
-?>

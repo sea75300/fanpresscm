@@ -15,7 +15,8 @@ namespace fpcm\model\files;
  * @package fpcm\model\files
  * @since 3.3
  */
-final class templatefile extends \fpcm\model\abstracts\file implements \fpcm\model\interfaces\validateFileType {
+final class templatefile extends \fpcm\model\abstracts\file
+implements \fpcm\model\interfaces\validateFileType {
 
     /**
      * Erlaubte Dateitypen
@@ -109,5 +110,3 @@ final class templatefile extends \fpcm\model\abstracts\file implements \fpcm\mod
     }
 
 }
-
-?>

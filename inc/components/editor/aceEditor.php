@@ -8,30 +8,28 @@
 namespace fpcm\components\editor;
 
 /**
- * CodeMirror based editor plugin
+ * ACE editor based editor plugin
  *
  * @package fpcm\components\editor
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2022, Stefan Seehafer
+ * @copyright (c) 2025, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+ * @since  5.3.0-dev
  */
 class aceEditor extends articleEditor {
 
     /**
      * Files list label name
-     * @since 4.5
      */
     const FILELIST_LABEL = 'label';
 
     /**
      * Files list value name
-     * @since 4.5
      */
     const FILELIST_VALUE = 'value';
 
     /**
      * Link target literals
-     * @since 5.3.0
      */
     const LINK_TARGETS = [
         '_blank' => '_blank',
@@ -42,7 +40,6 @@ class aceEditor extends articleEditor {
 
     /**
      * Align literals
-     * @since 5.3.0
      */
     const LINK_ALIGNS = [
         'left' => 'left',
@@ -145,7 +142,6 @@ class aceEditor extends articleEditor {
      * Array von Sprachvariablen für Nutzung in Javascript
      * @see \fpcm\model\abstracts\articleEditor
      * @return array
-     * @since 3.3
      */
     public function getJsLangVars()
     {
@@ -161,7 +157,6 @@ class aceEditor extends articleEditor {
             'EDITOR_HTML_BUTTONS_IFRAME', 'EDITOR_LINKURL',
             'EDITOR_INSERTTABLE_ROWS', 'EDITOR_INSERTTABLE_COLS',
             'EDITOR_INSERTLIST_TYPESIGN'
-
         ];
     }
 
@@ -293,42 +288,44 @@ class aceEditor extends articleEditor {
                     ->setValue('code'),
             ),
             'editorButtons' => [
-                'bold' => (new \fpcm\view\helper\button('editor-html-buttonbold'))->setText('EDITOR_HTML_BUTTONS_BOLD')->setIcon('bold')->setData(['htmltag' => 'b']),
-                'italic' => (new \fpcm\view\helper\button('editor-html-buttonitalic'))->setText('EDITOR_HTML_BUTTONS_ITALIC')->setIcon('italic')->setData(['htmltag' => 'i']),
-                'underline' => (new \fpcm\view\helper\button('editor-html-buttonunderline'))->setText('EDITOR_HTML_BUTTONS_UNDERLINE')->setIcon('underline')->setData(['htmltag' => 'u']),
-                'strike' => (new \fpcm\view\helper\button('editor-html-buttonstrike'))->setText('EDITOR_HTML_BUTTONS_STRIKE')->setIcon('strikethrough')->setData(['htmltag' => 's']),
+                'bold' => (new \fpcm\view\helper\button('-ace-bold'))->setText('EDITOR_HTML_BUTTONS_BOLD')->setIcon('bold')->setData(['htmltag' => 'b']),
+                'italic' => (new \fpcm\view\helper\button('-ace-italic'))->setText('EDITOR_HTML_BUTTONS_ITALIC')->setIcon('italic')->setData(['htmltag' => 'i']),
+                'underline' => (new \fpcm\view\helper\button('-ace-underline'))->setText('EDITOR_HTML_BUTTONS_UNDERLINE')->setIcon('underline')->setData(['htmltag' => 'u']),
+                'strike' => (new \fpcm\view\helper\button('-ace-strike'))->setText('EDITOR_HTML_BUTTONS_STRIKE')->setIcon('strikethrough')->setData(['htmltag' => 's']),
                 'delim1' => (new \fpcm\view\helper\toolbarSeperator('sep1'))->setClass(' me-1 mb-1'),
-                'color' => (new \fpcm\view\helper\button('editor-html-buttoninsertcolor'))->setText('EDITOR_INSERTCOLOR')->setIcon('palette')->setData(['action' => 'insertColor']),
-                'sup' => (new \fpcm\view\helper\button('editor-html-buttonsup'))->setText('EDITOR_HTML_BUTTONS_SUP')->setIcon('superscript')->setData(['htmltag' => 'sup']),
-                'sub' => (new \fpcm\view\helper\button('editor-html-buttonsub'))->setText('EDITOR_HTML_BUTTONS_SUB')->setIcon('subscript')->setData(['htmltag' => 'sub']),
-                'aleft' => (new \fpcm\view\helper\button('editor-html-buttonaleft'))->setText('EDITOR_HTML_BUTTONS_ALEFT')->setIcon('align-left')->setData(['htmltag' => 'left', 'action' => 'insertAlignTags']),
-                'acenter' => (new \fpcm\view\helper\button('editor-html-buttonacenter'))->setText('EDITOR_HTML_BUTTONS_ACENTER')->setIcon('align-center')->setData(['htmltag' => 'center', 'action' => 'insertAlignTags']),
-                'aright' => (new \fpcm\view\helper\button('editor-html-buttonaright'))->setText('EDITOR_HTML_BUTTONS_ARIGHT')->setIcon('align-right')->setData(['htmltag' => 'right', 'action' => 'insertAlignTags']),
-                'ajustify' => (new \fpcm\view\helper\button('editor-html-buttonajustify'))->setText('EDITOR_HTML_BUTTONS_AJUSTIFY')->setIcon('align-justify')->setData(['htmltag' => 'justify', 'action' => 'insertAlignTags']),
+                'color' => (new \fpcm\view\helper\button('-ace-insertcolor'))->setText('EDITOR_INSERTCOLOR')->setIcon('palette')->setData(['action' => 'insertColor']),
+                'sup' => (new \fpcm\view\helper\button('-ace-sup'))->setText('EDITOR_HTML_BUTTONS_SUP')->setIcon('superscript')->setData(['htmltag' => 'sup']),
+                'sub' => (new \fpcm\view\helper\button('-ace-sub'))->setText('EDITOR_HTML_BUTTONS_SUB')->setIcon('subscript')->setData(['htmltag' => 'sub']),
+                'aleft' => (new \fpcm\view\helper\button('-ace-aleft'))->setText('EDITOR_HTML_BUTTONS_ALEFT')->setIcon('align-left')->setData(['htmltag' => 'left', 'action' => 'insertAlignTags']),
+                'acenter' => (new \fpcm\view\helper\button('-ace-acenter'))->setText('EDITOR_HTML_BUTTONS_ACENTER')->setIcon('align-center')->setData(['htmltag' => 'center', 'action' => 'insertAlignTags']),
+                'aright' => (new \fpcm\view\helper\button('-ace-aright'))->setText('EDITOR_HTML_BUTTONS_ARIGHT')->setIcon('align-right')->setData(['htmltag' => 'right', 'action' => 'insertAlignTags']),
+                'ajustify' => (new \fpcm\view\helper\button('-ace-ajustify'))->setText('EDITOR_HTML_BUTTONS_AJUSTIFY')->setIcon('align-justify')->setData(['htmltag' => 'justify', 'action' => 'insertAlignTags']),
                 'delim2' => (new \fpcm\view\helper\toolbarSeperator('sep2'))->setClass(' me-1 mb-1'),
-                'listul' => (new \fpcm\view\helper\button('editor-html-buttoninsertlist'))->setText('EDITOR_HTML_BUTTONS_LISTUL')->setIcon('list-ul')->setData(['htmltag' => 'ul', 'action' => 'insertList']),
-                'listol' => (new \fpcm\view\helper\button('editor-html-buttoninsertlistnum'))->setText('EDITOR_HTML_BUTTONS_LISTOL')->setIcon('list-ol')->setData(['htmltag' => 'ol', 'action' => 'insertList']),
+                'listul' => (new \fpcm\view\helper\button('-ace-insertlist'))->setText('EDITOR_HTML_BUTTONS_LISTUL')->setIcon('list-ul')->setData(['htmltag' => 'ul', 'action' => 'insertList']),
+                'listol' => (new \fpcm\view\helper\button('-ace-insertlistnum'))->setText('EDITOR_HTML_BUTTONS_LISTOL')->setIcon('list-ol')->setData(['htmltag' => 'ol', 'action' => 'insertList']),
                 'delim3' => (new \fpcm\view\helper\toolbarSeperator('sep3'))->setClass(' me-1 mb-1'),
-                'quote' => (new \fpcm\view\helper\button('editor-html-buttonquote'))->setText('EDITOR_HTML_BUTTONS_QUOTE')->setIcon('quote-left')->setData(['action' => 'insertQuote']),
-                'link' => (new \fpcm\view\helper\button('editor-html-buttoninsertlink'))->setText('EDITOR_INSERTLINK')->setIcon('link')->setData(['action' => 'insertLink']),
-                'image' => (new \fpcm\view\helper\button('editor-html-buttoninsertimage'))->setText('EDITOR_INSERTPIC')->setIcon('images')->setData(['action' => 'insertPicture']),
-                'media' => (new \fpcm\view\helper\button('editor-html-buttoninsertmedia'))->setText('EDITOR_INSERTMEDIA')->setIcon('play')->setData(['action' => 'insertMedia']),
-                'frame' => (new \fpcm\view\helper\button('editor-html-buttoninsertframe'))->setText('EDITOR_HTML_BUTTONS_IFRAME')->setIcon('puzzle-piece')->setData(['action' => 'insertIFrame']),
-                'pagebreak' => (new \fpcm\view\helper\button('editor-html-buttonreadmore'))->setText('EDITOR_HTML_BUTTONS_PAGEBREAK')->setIcon('percentage')->setData(['action' => 'insertPageBreak']),
-                'table' => (new \fpcm\view\helper\button('editor-html-buttontable'))->setText('EDITOR_INSERTTABLE')->setIcon('table')->setData(['action' => 'insertTable']),
+                'quote' => (new \fpcm\view\helper\button('-ace-quote'))->setText('EDITOR_HTML_BUTTONS_QUOTE')->setIcon('quote-left')->setData(['action' => 'insertQuote']),
+                'link' => (new \fpcm\view\helper\button('-ace-insertlink'))->setText('EDITOR_INSERTLINK')->setIcon('link')->setData(['action' => 'insertLink']),
+                'image' => (new \fpcm\view\helper\button('-ace-insertimage'))->setText('EDITOR_INSERTPIC')->setIcon('images')->setData(['action' => 'insertPicture']),
+                'media' => (new \fpcm\view\helper\button('-ace-insertmedia'))->setText('EDITOR_INSERTMEDIA')->setIcon('play')->setData(['action' => 'insertMedia']),
+                'frame' => (new \fpcm\view\helper\button('-ace-insertframe'))->setText('EDITOR_HTML_BUTTONS_IFRAME')->setIcon('file-half-dashed')->setData(['action' => 'insertIFrame']),
+                'pagebreak' => (new \fpcm\view\helper\button('-ace-readmore'))->setText('EDITOR_HTML_BUTTONS_PAGEBREAK')->setIcon('percentage')->setData(['action' => 'insertPageBreak']),
+                'table' => (new \fpcm\view\helper\button('-ace-table'))->setText('EDITOR_INSERTTABLE')->setIcon('table')->setData(['action' => 'insertTable']),
                 'delim4' => (new \fpcm\view\helper\toolbarSeperator('sep4'))->setClass(' me-1 mb-1'),
-                'smileys' => (new \fpcm\view\helper\button('editor-html-buttonsmileys'))->setText('HL_OPTIONS_SMILEYS')->setIcon('smile-beam')->setData(['action' => 'insertSmilies']),
-                'drafts' => (new \fpcm\view\helper\button('editor-html-buttondrafts'))->setText('EDITOR_HTML_BUTTONS_ARTICLETPL')->setIcon('file-alt', 'far')->setData(['action' => 'insertDrafts']),
-                'symbol' => (new \fpcm\view\helper\button('editor-html-buttonsymbol'))->setText('EDITOR_HTML_BUTTONS_SYMBOL')->setIcon('font')->setData(['action' => 'insertSymbol']),
+                'smileys' => (new \fpcm\view\helper\button('-ace-smileys'))->setText('HL_OPTIONS_SMILEYS')->setIcon('smile-beam')->setData(['action' => 'insertSmilies']),
+                'drafts' => (new \fpcm\view\helper\button('-ace-drafts'))->setText('EDITOR_HTML_BUTTONS_ARTICLETPL')->setIcon('file-alt', 'far')->setData(['action' => 'insertDrafts']),
+                'symbol' => (new \fpcm\view\helper\button('-ace-symbol'))->setText('EDITOR_HTML_BUTTONS_SYMBOL')->setIcon('font')->setData(['action' => 'insertSymbol']),
                 'delim5' => (new \fpcm\view\helper\toolbarSeperator('sep5'))->setClass(' me-1 mb-1'),
-                'removestyles' => (new \fpcm\view\helper\button('editor-html-buttonremstyles'))->setText('EDITOR_HTML_BUTTONS_REMOVESTYLE')->setIcon('remove-format')->setData(['action' => 'removeTags']),
-                'restore' => (new \fpcm\view\helper\button('editor-html-buttonrestore', 'editor-html-buttonrestore'))->setText('EDITOR_AUTOSAVE_RESTORE')->setIcon('undo')->setData(['action' => 'restoreSave'])->setReadonly(true)
+                'removestyles' => (new \fpcm\view\helper\button('-ace-remstyles'))->setText('EDITOR_HTML_BUTTONS_REMOVESTYLE')->setIcon('remove-format')->setData(['action' => 'removeTags']),
+                'restore' => (new \fpcm\view\helper\button('-ace-restore'))->setText('EDITOR_AUTOSAVE_RESTORE')->setIcon('robot')->setData(['action' => 'restoreSave'])->setReadonly(true),
+                'undo' => (new \fpcm\view\helper\button('-ace-undo'))->setText('EDITOR_HTML_BUTTONS_UNDO')->setIcon('undo')->setData(['action' => 'undo'])->setReadonly(true),
+                'redo' => (new \fpcm\view\helper\button('-ace-redo'))->setText('EDITOR_HTML_BUTTONS_REDO')->setIcon('redo')->setData(['action' => 'redo'])->setReadonly(true)
             ]
         );
 
-        $ev = $this->events->trigger('editor\initCodemirrorView', $vars);
+        $ev = $this->events->trigger('editor\initAceEditorView', $vars);
         if (!$ev->getSuccessed() || !$ev->getContinue()) {
-            trigger_error(sprintf("Event editor\initCodemirrorView failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            trigger_error(sprintf("Event editor\initAceEditorView failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
             return $vars;
         }
 
@@ -340,7 +337,6 @@ class aceEditor extends articleEditor {
      * Arary mit Informationen u. a. für template-Plugin von TinyMCE
      * @see \fpcm\model\abstracts\articleEditor::getTemplateDrafts()
      * @return array
-     * @since 3.3
      */
     public function getTemplateDrafts()
     {
