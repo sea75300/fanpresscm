@@ -137,7 +137,7 @@ fpcm.editor_ace = {
 if (fpcm.editor) {
 
     fpcm.editor.initToolbar = function () {
-        fpcm.dom.bindClick('.fpcm-editor-html-click', function(_ui) {
+        fpcm.dom.bindClick('.fpcm-editor-ace-item', function(_ui) {
 
             let _btn =_ui.currentTarget;
 

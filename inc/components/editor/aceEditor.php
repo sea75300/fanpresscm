@@ -169,10 +169,11 @@ class aceEditor extends articleEditor {
         $this->styles = $this->getEditorStyles();
 
         $vars = array(
+            'toolbarTpl' => 'components/editor/ace_toolbar.php',
             'editorStyles' => array_map(function ($val) {
                     return (new \fpcm\view\helper\dropdownItem('style-'.md5($val)))
                         ->setText($val)
-                        ->setClass('fpcm-editor-html-click')
+                        ->setClass('fpcm-editor-ace-item')
                         ->setData(['htmltag' => $val, 'action' => 'insertStyle'])
                         ->setValue(md5($val));
                 },
@@ -181,109 +182,109 @@ class aceEditor extends articleEditor {
             'editorFontsizes' => array(
                 (new \fpcm\view\helper\dropdownItem('fs-8pt'))
                     ->setText('8pt')
-                    ->setClass('fpcm-editor-html-click')
+                    ->setClass('fpcm-editor-ace-item')
                     ->setData(['htmltag' => '8', 'action' => 'insertFontsize'])
                     ->setValue('8'),
                 (new \fpcm\view\helper\dropdownItem('fs-9pt'))
                     ->setText('9pt')
-                    ->setClass('fpcm-editor-html-click')
+                    ->setClass('fpcm-editor-ace-item')
                     ->setData(['htmltag' => '9', 'action' => 'insertFontsize'])
                     ->setValue('9'),
                 (new \fpcm\view\helper\dropdownItem('fs-10pt'))
                     ->setText('10pt')
-                    ->setClass('fpcm-editor-html-click')
+                    ->setClass('fpcm-editor-ace-item')
                     ->setData(['htmltag' => '10', 'action' => 'insertFontsize'])
                     ->setValue('10'),
                 (new \fpcm\view\helper\dropdownItem('fs-11pt'))
                     ->setText('11pt')
-                    ->setClass('fpcm-editor-html-click')
+                    ->setClass('fpcm-editor-ace-item')
                     ->setData(['htmltag' => '11pt', 'action' => 'insertFontsize'])
                     ->setValue('11'),
                 (new \fpcm\view\helper\dropdownItem('fs-12pt'))
                     ->setText('12pt')
-                    ->setClass('fpcm-editor-html-click')
+                    ->setClass('fpcm-editor-ace-item')
                     ->setData(['htmltag' => '12', 'action' => 'insertFontsize'])
                     ->setValue('12'),
                 (new \fpcm\view\helper\dropdownItem('fs-13pt'))
                     ->setText('13pt')
-                    ->setClass('fpcm-editor-html-click')
+                    ->setClass('fpcm-editor-ace-item')
                     ->setData(['htmltag' => '13', 'action' => 'insertFontsize'])
                     ->setValue('13'),
                 (new \fpcm\view\helper\dropdownItem('fs-14pt'))
                     ->setText('14pt')
-                    ->setClass('fpcm-editor-html-click')
+                    ->setClass('fpcm-editor-ace-item')
                     ->setData(['htmltag' => '14', 'action' => 'insertFontsize'])
                     ->setValue('14'),
                 (new \fpcm\view\helper\dropdownItem('fs-16pt'))
                     ->setText('16pt')
-                    ->setClass('fpcm-editor-html-click')
+                    ->setClass('fpcm-editor-ace-item')
                     ->setData(['htmltag' => '16', 'action' => 'insertFontsize'])
                     ->setValue('16'),
                 (new \fpcm\view\helper\dropdownItem('fs-18pt'))
                     ->setText('18pt')
-                    ->setClass('fpcm-editor-html-click')
+                    ->setClass('fpcm-editor-ace-item')
                     ->setData(['htmltag' => '18', 'action' => 'insertFontsize'])
                     ->setValue('18'),
                 (new \fpcm\view\helper\dropdownItem('fs-20pt'))
                     ->setText('20pt')
-                    ->setClass('fpcm-editor-html-click')
+                    ->setClass('fpcm-editor-ace-item')
                     ->setData(['htmltag' => '20', 'action' => 'insertFontsize'])
                     ->setValue('20'),
                 (new \fpcm\view\helper\dropdownItem('fs-24pt'))
                     ->setText('24pt')
-                    ->setClass('fpcm-editor-html-click')
+                    ->setClass('fpcm-editor-ace-item')
                     ->setData(['htmltag' => '24', 'action' => 'insertFontsize'])
                     ->setValue('24'),
                 (new \fpcm\view\helper\dropdownItem('fs-32pt'))
                     ->setText('32pt')
-                    ->setClass('fpcm-editor-html-click')
+                    ->setClass('fpcm-editor-ace-item')
                     ->setData(['htmltag' => '32', 'action' => 'insertFontsize'])
                     ->setValue('32'),
             ),
             'editorParagraphs' => array(
                 (new \fpcm\view\helper\dropdownItem('para-p'))
                     ->setText('EDITOR_PARAGRAPH')
-                    ->setClass('fpcm-editor-html-click')
+                    ->setClass('fpcm-editor-ace-item')
                     ->setData(['htmltag' => 'p'])
                     ->setValue('p'),
                 (new \fpcm\view\helper\dropdownItem('para-h1'))
                     ->setText('EDITOR_PARAGRAPH_HEADLINE', ['num' => 1])
-                    ->setClass('fpcm-editor-html-click')
+                    ->setClass('fpcm-editor-ace-item')
                     ->setData(['htmltag' => 'h1'])
                     ->setValue('h1'),
                 (new \fpcm\view\helper\dropdownItem('para-h2'))
                     ->setText('EDITOR_PARAGRAPH_HEADLINE', ['num' => 2])
-                    ->setClass('fpcm-editor-html-click')
+                    ->setClass('fpcm-editor-ace-item')
                     ->setData(['htmltag' => 'h2'])
                     ->setValue('h2'),
                 (new \fpcm\view\helper\dropdownItem('para-h3'))
                     ->setText('EDITOR_PARAGRAPH_HEADLINE', ['num' => 3])
-                    ->setClass('fpcm-editor-html-click')
+                    ->setClass('fpcm-editor-ace-item')
                     ->setData(['htmltag' => 'h3'])
                     ->setValue('h3'),
                 (new \fpcm\view\helper\dropdownItem('para-h4'))
                     ->setText('EDITOR_PARAGRAPH_HEADLINE', ['num' => 4])
-                    ->setClass('fpcm-editor-html-click')
+                    ->setClass('fpcm-editor-ace-item')
                     ->setData(['htmltag' => 'h4'])
                     ->setValue('h4'),
                 (new \fpcm\view\helper\dropdownItem('para-h5'))
                     ->setText('EDITOR_PARAGRAPH_HEADLINE', ['num' => 5])
-                    ->setClass('fpcm-editor-html-click')
+                    ->setClass('fpcm-editor-ace-item')
                     ->setData(['htmltag' => 'h5'])
                     ->setValue('h5'),
                 (new \fpcm\view\helper\dropdownItem('para-h6'))
                     ->setText('EDITOR_PARAGRAPH_HEADLINE', ['num' => 6])
-                    ->setClass('fpcm-editor-html-click')
+                    ->setClass('fpcm-editor-ace-item')
                     ->setData(['htmltag' => 'h6'])
                     ->setValue('h6'),
                 (new \fpcm\view\helper\dropdownItem('para-pre'))
                     ->setText('EDITOR_PRE')
-                    ->setClass('fpcm-editor-html-click')
+                    ->setClass('fpcm-editor-ace-item')
                     ->setData(['htmltag' => 'pre'])
                     ->setValue('pre'),
                 (new \fpcm\view\helper\dropdownItem('para-code'))
                     ->setText('code')
-                    ->setClass('fpcm-editor-html-click')
+                    ->setClass('fpcm-editor-ace-item')
                     ->setData(['htmltag' => 'code'])
                     ->setValue('code'),
             ),

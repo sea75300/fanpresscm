@@ -11,7 +11,7 @@
         <link rel="icon" type="image/png" sizes="192x192" href="<?php print $theView->themePath; ?>android-icon-192x192.png">
         <link rel="icon" type="image/png" sizes="32x32" href="<?php print $theView->themePath; ?>favicon-32x32.png">
         <link rel="icon" type="image/png" sizes="16x16" href="<?php print $theView->themePath; ?>favicon-16x16.png">        
-        <link rel="shortcut icon" href="<?php print $theView->themePath; ?>favicon.ico" />
+        <link rel="shortcut icon" href="<?php print $theView->themePath; ?>favicon.ico">
         <link rel="manifest" href="<?php print $theView->themePath; ?>manifest.json">
         <?php include_once 'includefiles.php'; ?>
         <?php include_once 'vars.php'; ?>

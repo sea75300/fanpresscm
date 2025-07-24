@@ -49,7 +49,7 @@
                 </li>
                 <?php if ($theView->helpLink !== null && $theView->helpLink['ref'] !== null && $theView->helpLink['chapter'] !== null) : ?>
                 <li class="nav-item">
-                    <button id="fpcm-clear-cache"
+                    <button id="fpcm-id-help"
                             class="nav-link bg-transparent border-0 fpcm ui-help-dialog"
                             title="<?php $theView->write('HELP_BTN_OPEN'); ?>"
                             data-ref="<?php print $theView->helpLink['ref']; ?>" 

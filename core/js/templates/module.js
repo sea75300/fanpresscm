@@ -35,8 +35,10 @@ fpcm.templates = {
 
         fpcm.dom.bindClick('.fpcm-articletemplates-edit', function(_ev, _ui) {
 
+
             fpcm.ui_loader.hide();
             fpcm.ui_dialogs.create({
+                id: 'draft-editor',
                 title: 'TEMPLATE_HL_DRAFTS_EDIT',
                 url: _ui.attributes.href.value,
                 icon: {
@@ -49,7 +51,13 @@ fpcm.templates = {
                         icon: "save",
                         primary: true,
                         click: function(_ui) {
-                            fpcm.dom.findElementInDialogFrame(_ui, '#btnSaveTemplate').click();
+
+                            let _body = _ui._element.getElementsByTagName('iframe').item(0).contentDocument.body;
+                            let _form = _body.getElementsByTagName('form').item(0);
+                            let _btn = document.createElement('button');
+                            _btn.name = 'btnSaveTemplate';
+                            _form.appendChild(_btn);
+                            _btn.click();
                             fpcm.ui_loader.hide();
                         }
                     }
@@ -118,7 +126,7 @@ fpcm.templates = {
             fpcm.dom.bindClick('a[data-htmltag]', function(_ev, _ui) {
                 fpcm.editor_ace.initToInstance('<' + _ui.dataset.htmltag + '>', '</' + _ui.dataset.htmltag + '>');
             });
-            
+
             fpcm.editor.initToolbar();
 
         } catch (_e) {

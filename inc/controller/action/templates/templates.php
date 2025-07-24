@@ -17,7 +17,7 @@ namespace fpcm\controller\action\templates;
 class templates extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\requestFunctions
 {
     use \fpcm\controller\traits\templates\edit;
-    
+
     private \fpcm\components\editor\aceEditor $editor;
 
     /**
@@ -69,6 +69,10 @@ class templates extends \fpcm\controller\abstracts\controller implements \fpcm\c
         $this->view->setJsModuleFiles($uploader->getJsModuleFiles());
         $this->view->addDialogs($this->editor->getDialogs());
 
+        if ($this->permissions->system->drafts) {
+            $this->view->includeForms('templates');
+        }
+
         if (!trim($uploader->getTemplate()) || !realpath($uploader->getTemplate())) {
             trigger_error('Undefined file upload template given in '.$uploader->getTemplate());
             $this->execDestruct = false;
@@ -96,7 +100,7 @@ class templates extends \fpcm\controller\abstracts\controller implements \fpcm\c
 
         $this->view->setFormAction('templates/templates');
 
-        $hiddenClass2 = $this->getActiveTab() != 7 ? 'fpcm-ui-hidden' : '';
+        $hiddenClass2 = $this->getActiveTab() != 6 ? 'fpcm-ui-hidden' : '';
 
         $buttons = [
             (new \fpcm\view\helper\saveButton('saveTemplates'))->setClass( $this->getToolbarButtonToggleClass(1, '', true) )->setPrimary(),

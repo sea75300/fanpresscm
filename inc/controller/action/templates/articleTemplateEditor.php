@@ -14,7 +14,9 @@ namespace fpcm\controller\action\templates;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
-class articleTemplateEditor extends \fpcm\controller\abstracts\controller
+class articleTemplateEditor
+extends \fpcm\controller\abstracts\controller
+implements \fpcm\controller\interfaces\requestFunctions
 {
 
     /**
@@ -57,36 +59,11 @@ class articleTemplateEditor extends \fpcm\controller\abstracts\controller
                 \fpcm\model\http\request::FILTER_DECRYPT
             ])
         );
-        
-        fpcmDump(get_class($this->file), $this->file->isWritable());exit;
 
         $this->file->loadContent();
 
         if (!$this->file->isWritable()) {
             $this->view->addErrorMessage('FILE_NOT_WRITABLE');
-            return true;
-        }
-
-        $newCode = $this->request->fromPOST('templatecode', [
-            \fpcm\model\http\request::FILTER_TRIM,
-            \fpcm\model\http\request::FILTER_STRIPSLASHES
-        ]);
-
-        if ($this->buttonClicked('saveTemplate') && $newCode) {
-
-            $this->file->setContent($newCode);
-            if ($this->buttonClicked('saveTemplate') && !$this->checkPageToken()) {
-                $this->view->addErrorMessage('CSRF_INVALID');
-                return true;
-            }
-
-            $res = $this->file->save();
-
-            if ($res === true) {
-                $this->view->addNoticeMessage('SAVE_SUCCESS_ARTICLETEMPLATE');
-            } elseif ($res === false) {
-                $this->view->addErrorMessage('SAVE_FAILED_ARTICLETEMPLATE');
-            }
         }
 
         return true;
@@ -98,24 +75,50 @@ class articleTemplateEditor extends \fpcm\controller\abstracts\controller
      */
     public function process()
     {
-        $this->view->assign('file', $this->file);
         $this->view->showHeaderFooter(\fpcm\view\view::INCLUDE_HEADER_SIMPLE);
 
         $editor = new \fpcm\components\editor\aceEditor();
+
+        $this->view->setViewVars($editor->getViewVars());
         $this->view->addCssFiles($editor->getCssFiles());
-
-        $jsFiles = $editor->getJsFiles();
-        $jsFiles[] = 'templates/articles.js';
-
-        $this->view->addJsFiles($jsFiles);
         $this->view->addJsVars($editor->getJsVars());
         $this->view->addJsLangVars($editor->getJsLangVars());
-        $this->view->setViewVars($editor->getViewVars());
-        $this->view->setFormAction($this->file->getEditLink(),[], true);
-        $this->view->setBodyClass('fpcm ui-classic-backdrop');
         $this->view->addDialogs($editor->getDialogs());
 
+        $jsFiles = ['templates/articles.js'] + $editor->getJsFiles();
+
+        $this->view->addJsFiles($jsFiles);
+        $this->view->setFormAction($this->file->getEditLink(),[], true);
+        $this->view->assign('file', $this->file);
+
         $this->view->render();
+    }
+
+    public function onSaveTemplate()
+    {
+        if (!$this->checkPageToken()) {
+            $this->view->addErrorMessage('CSRF_INVALID');
+            return true;
+        }
+
+        $newCode = $this->request->fromPOST('templatecode', [
+            \fpcm\model\http\request::FILTER_TRIM,
+            \fpcm\model\http\request::FILTER_STRIPSLASHES
+        ]);
+
+        if (!$newCode) {
+            $this->view->addErrorMessage('SAVE_FAILED_ARTICLETEMPLATE');
+            return false;
+        }
+
+        $this->file->setContent($newCode);
+        if ($this->file->save() === true) {
+            $this->view->addNoticeMessage('SAVE_SUCCESS_ARTICLETEMPLATE');
+            return true;
+        }
+
+        $this->view->addErrorMessage('SAVE_FAILED_ARTICLETEMPLATE');
+        return false;
     }
 
 }

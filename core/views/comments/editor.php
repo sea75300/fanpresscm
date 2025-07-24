@@ -1,7 +1,7 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
 <?php /* @var $comment fpcm\model\comments\comment */ ?>
 <?php if($commentsMode === 2) : ?><div class="d-none"><?php include_once $theView->getIncludePath('common/buttons.php'); ?></div><?php endif; ?>
-<fieldset class="mb-3">
+<fieldset class="my-2">
     <div class="row row-cols-1 row-cols-lg-2 my-2">
         <div class="col">
 
@@ -45,7 +45,8 @@
                     ->setLabelTypeFloat()
                     ->setValue($comment->getIpaddress())
                     ->setIcon('network-wired')
-                    ->setSize('lg'); ?>
+                    ->setSize('lg')
+                    ->setBottomSpace(''); ?>
             </div>
 
             <div class="row g-0 <?php if($commentsMode === 2 || !$showArticleIdField) : ?>d-none<?php endif; ?>">
@@ -57,7 +58,8 @@
                     ->setMaxlenght(20)
                     ->setIcon('clipboard')
                     ->setSize('lg')
-                    ->setClass('fpcm-ui-input-articleid'); ?>
+                    ->setClass('fpcm-ui-input-articleid')
+                    ->setBottomSpace(''); ?>
                 
                 <?php if ($existsAlert) : ?>
                 <div class="d-block">
