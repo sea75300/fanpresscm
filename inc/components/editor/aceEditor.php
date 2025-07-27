@@ -89,7 +89,7 @@ class aceEditor extends articleEditor {
             \fpcm\classes\dirs::getLibUrl('ace/ace.js'),
             \fpcm\classes\dirs::getLibUrl('ace/ext-language_tools.js'),
             \fpcm\classes\dirs::getLibUrl('ace/ext-inline_autocomplete.js'),
-            'editor/editor_filemanager.js',
+            'editor/filemanager.js',
             'editor/ace.js'
         ];
     }
@@ -123,8 +123,7 @@ class aceEditor extends articleEditor {
                 'autosavePref' => 'fpcm-editor-as-' . $this->session->getUserId() . 'draft',
                 'pageBreakVar' => \fpcm\model\pubtemplates\article::PAGEBREAK_TAG,
                 'drafts' => $this->getTemplateDrafts()
-            ],
-            'editorInitFunction' => 'initAce'
+            ]
         ];
 
         return $cfg;

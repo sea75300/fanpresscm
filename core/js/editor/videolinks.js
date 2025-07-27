@@ -10,6 +10,31 @@ if (fpcm === undefined) {
 
 fpcm.editor_videolinks = {
 
+    hasLink: function(text) {
+
+        if (text.search('<iframe') >= 0) {
+            return false;
+        }
+
+        if (text.search('youtube.com') >= 0 && text.search('watch') >= 0) {
+            return true;
+        }
+
+        if (text.search('vimeo.com') >= 0) {
+            return true;
+        }
+
+        if (text.search('dailymotion.com/video/') >= 0) {
+            return true;
+        }
+
+        if (text.search('twitter.com/i/videos/tweet') >= 0) {
+            return true;
+        }
+        
+        return false;
+    },
+
     replace: function (text) {
         if (text.search('youtube.com') >= 0 && text.search('watch') >= 0) {
             return text.replace('watch?v=', 'embed/').replace('youtube.com', 'youtube-nocookie.com').replace(/(&amp;).*/i, '').replace(/\&.*/i, '');

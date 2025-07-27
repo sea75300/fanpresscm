@@ -62,7 +62,7 @@ class tinymceEditor5 extends articleEditor {
      */
     public function getJsFiles()
     {
-        return [\fpcm\classes\loader::libGetFileUrl('tinymce5/tinymce.min.js'), 'editor/editor_tinymce.js', 'editor/editor_filemanager.js'];
+        return [\fpcm\classes\loader::libGetFileUrl('tinymce5/tinymce.min.js'), 'editor/tinymce.js', 'editor/filemanager.js'];
     }
 
     /**
@@ -104,8 +104,7 @@ class tinymceEditor5 extends articleEditor {
             ),
             'editorDefaultFontsize' => $this->config->system_editor_fontsize,
             'uploadFileRoot' => \fpcm\classes\dirs::getDataUrl(\fpcm\classes\dirs::DATA_UPLOADS, ''),
-            'galleryThumbStr' => \fpcm\model\pubtemplates\article::GALLERY_TAG_THUMB,
-            'editorInitFunction' => 'initTinyMce'
+            'galleryThumbStr' => \fpcm\model\pubtemplates\article::GALLERY_TAG_THUMB
         ];
         
         $ev = $this->events->trigger('editor\initTinymce', $cfg);

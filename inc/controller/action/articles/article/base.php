@@ -160,7 +160,7 @@ implements \fpcm\controller\interfaces\requestFunctions
         $this->view->addJsFiles(array_merge([
                 'articles/articlebase.js',
                 'editor/editor.js',
-                'editor/editor_videolinks.js',
+                'editor/videolinks.js',
             ],
             $this->editorPlugin->getJsFiles()
         ));

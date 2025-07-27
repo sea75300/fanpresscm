@@ -100,6 +100,15 @@ fpcm.editor_ace = {
         fpcm.editor_ace._instance.getSession().on('change', function (_delta) {
 
             let _val = fpcm.editor_ace._instance.getSession().getValue();
+
+            if (fpcm.editor_videolinks && _delta.lines[0] && _delta.action === 'insert' && fpcm.editor_videolinks.hasLink(_delta.lines[0])) {
+                let _valNew = fpcm.editor_videolinks.replace(_delta.lines[0]);
+                _valNew = fpcm.editor_videolinks.createFrame(_valNew, true);
+                if (_valNew !== _delta.lines[0]) {
+                     fpcm.editor_ace._instance.session.replace(new ace.Range(_delta.start.row, _delta.start.column, _delta.end.row, _delta.end.column), _valNew);
+                }
+            }
+
             let _restoreBtn = document.getElementById('btn-ace-restore');
 
             if (!document.getElementById('btn-ace-undo').disabled) {
@@ -135,6 +144,10 @@ fpcm.editor_ace = {
 };
 
 if (fpcm.editor) {
+
+    fpcm.editor.initEditor = function(_params) {
+        fpcm.editor_ace.create(_params);
+    },
 
     fpcm.editor.initToolbar = function () {
         fpcm.dom.bindClick('.fpcm-editor-ace-item', function(_ui) {
