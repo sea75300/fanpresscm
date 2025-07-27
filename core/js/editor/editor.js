@@ -353,41 +353,6 @@ fpcm.editor = {
 
     },
     
-    initCodeMirror: function() {
-
-        fpcm.editor.cmInstance = fpcm.editor_codemirror.create({
-           editorId  : 'htmleditor',
-           elementId : 'articlecontent',
-           extraKeys : fpcm.editor_codemirror.defaultShortKeys
-        });
-        
-        fpcm.editor.cmInstance.setSize('100%', '50vh');
-        
-        fpcm.editor.cmInstance.on('paste', function(instance, event) {
-                
-            if (event.clipboardData === undefined) {
-                return true;
-            }
-
-            var orgText = event.clipboardData.getData('Text');            
-            var chgText = fpcm.editor_videolinks.replace(orgText);
-
-            if (orgText === chgText) {
-                return false;
-            }
-
-            fpcm.ui_loader.show();
-            event.preventDefault();
-            fpcm.editor_videolinks.createFrame(chgText, false);
-            fpcm.ui_loader.hide();
-            return true;
-
-        });
-
-        fpcm.editor.initCodeMirrorAutosave();
-
-    },
-    
     initAce: function() {
 
         fpcm.editor_ace.create({

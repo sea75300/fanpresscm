@@ -60,7 +60,27 @@ class v530dev extends migration {
         return true;
     }
 
-        /**
+    /**
+     * Execute additional system config updates
+     * @return bool
+     */
+    protected function updateSystemConfig() : bool
+    {
+        $cfg = $this->getConfig();
+        
+        $codeMirror = $cfg->system_editor === '\fpcm\components\editor\htmlEditor';
+        if (!$codeMirror) {
+            return true;
+        }
+
+        $cfg->setNewConfig([
+            'system_editor' => '\fpcm\components\editor\aceEditor'
+        ]);
+
+        return $cfg->update();
+    }
+
+    /**
      * Returns new version, e. g. from version.txt
      * @return string
      */

@@ -43,16 +43,6 @@ fpcm.editor = {
         });
 
     },
-
-    initCodeMirror: function() {
-
-        fpcm.editor.cmInstance = fpcm.editor_codemirror.create({
-           editorId  : 'htmleditor',
-           elementId : 'commenttext',
-           extraKeys : fpcm.editor_codemirror.defaultShortKeys
-        });
-
-    },
     
     initTinyMce: function() {
         fpcm.editor_tinymce.create(fpcm.vars.jsvars.editorConfig);
