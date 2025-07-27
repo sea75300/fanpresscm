@@ -15,8 +15,7 @@ abstract class base extends \fpcm\controller\abstracts\controller
     use \fpcm\controller\traits\articles\listsCommon,
         \fpcm\controller\traits\articles\listsView,
         \fpcm\controller\traits\common\massedit,
-        \fpcm\controller\traits\common\searchParams,
-        \fpcm\controller\traits\articles\newteets;
+        \fpcm\controller\traits\common\searchParams;
 
 
     /**

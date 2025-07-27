@@ -17,8 +17,6 @@ abstract class base extends \fpcm\controller\abstracts\controller
 implements \fpcm\controller\interfaces\requestFunctions
 {
 
-    use \fpcm\controller\traits\articles\newteets;
-
     /**
      *
      * @var \fpcm\model\articles\article

@@ -677,20 +677,11 @@ if (fpcm.editor) {
                 delete(fpcm.ui._autocompletes[fpcm.ui.prepareId('imagespath', true)]);
             },
             dlOnOpen: function () {
-
-                fpcm.ajax.get('autocomplete', {
-                    dataType: 'json',
-                    data: {
-                        src: 'editorfiles'
-                    },
-                    execDone: function (result) {
-                        fpcm.ui.autocomplete(fpcm.ui.prepareId('imagespath'), {
-                            source: result,
-                            minLength: 2,
-                            select: function( event, ui ) {
-                                fpcm.dom.fromId('imagesalt').val(ui.item.label);
-                            }
-                        });
+                fpcm.ui.autocomplete(fpcm.ui.prepareId('imagespath'), {
+                    source: fpcm.vars.ajaxActionPath + 'autocomplete&src=editorfiles',
+                    minLength: 2,
+                    onSelectItem: function( _item ) {
+                        fpcm.dom.fromId(fpcm.ui.prepareId('imagesalt', true)).val(_item.label);
                     }
                 });
             },
@@ -725,20 +716,11 @@ if (fpcm.editor) {
                 delete(fpcm.ui._autocompletes[fpcm.ui.prepareId('linksurl')]);
             },
             dlOnOpen: function () {
-
-                fpcm.ajax.get('autocomplete', {
-                    dataType: 'json',
-                    data: {
-                        src: 'editorlinks'
-                    },
-                    execDone: function (result) {
-                        fpcm.ui.autocomplete(fpcm.ui.prepareId('linksurl'), {
-                            source: result,
-                            minLength: 2,
-                            select: function( event, ui ) {
-                                fpcm.dom.fromId(fpcm.ui.prepareId('linkstext', true)).val(ui.item.label);
-                            }
-                        });
+                fpcm.ui.autocomplete(fpcm.ui.prepareId('linksurl'), {
+                    source: fpcm.vars.ajaxActionPath + 'autocomplete&src=editorlinks',
+                    minLength: 2,
+                    onSelectItem: function( _item ) {
+                        fpcm.dom.fromId(fpcm.ui.prepareId('linkstext', true)).val(_item.label);
                     }
                 });
 
@@ -760,8 +742,8 @@ if (fpcm.editor) {
                         label: 'noreferrer',
                     }],
                     minLength: 2,
-                    select: function( event, ui ) {
-                        fpcm.dom.fromId(fpcm.ui.prepareId('linkstext', true)).val(ui.item.label);
+                    onSelectItem: function(_item) {
+                        fpcm.dom.fromId(fpcm.ui.prepareId('linkstext', true)).val(_item.label);
                     }
                 });
 

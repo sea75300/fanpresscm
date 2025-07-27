@@ -21,8 +21,7 @@ class lists extends \fpcm\controller\abstracts\ajaxController
 
     use \fpcm\controller\traits\common\searchParams,
         \fpcm\controller\traits\articles\listsCommon,
-        \fpcm\controller\traits\articles\lists,
-        \fpcm\controller\traits\articles\newteets;
+        \fpcm\controller\traits\articles\lists;
     
     const MODE_ALL = 'all';
 

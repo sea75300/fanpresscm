@@ -371,6 +371,9 @@ fpcm.ui = {
 
         _opt.onSelectItem = function (_el) {
             _acDdEl.value = _el.value;
+            if (_params.onSelectItem) {
+                _params.onSelectItem(_el);
+            }
         };
 
         if (_params.minLength !== undefined) {
