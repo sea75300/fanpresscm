@@ -6,7 +6,6 @@ body {
 
 body,
 i, em,
-.cm-s-fpcm.CodeMirror,
 .fpcm-ui-color-grey-dark {
     color: var(--bs-body-color);
 }

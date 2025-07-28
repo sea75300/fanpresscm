@@ -9,6 +9,7 @@ use Intervention\Image\Colors\Rgb\Color as RgbColor;
 use Intervention\Image\Colors\Hsl\Color as HslColor;
 use Intervention\Image\Colors\Rgb\Colorspace as RgbColorspace;
 use Intervention\Image\Exceptions\ColorException;
+use Intervention\Image\Interfaces\ColorChannelInterface;
 use Intervention\Image\Interfaces\ColorInterface;
 use Intervention\Image\Interfaces\ColorspaceInterface;
 
@@ -32,17 +33,17 @@ class Colorspace implements ColorspaceInterface
      */
     public function colorFromNormalized(array $normalized): ColorInterface
     {
-        $values = array_map(function ($classname, $value_normalized) {
-            return (new $classname(normalized: $value_normalized))->value();
-        }, self::$channels, $normalized);
-
-        return new Color(...$values);
+        return new Color(...array_map(
+            fn(string $classname, float $value_normalized) => (new $classname(normalized: $value_normalized))->value(),
+            self::$channels,
+            $normalized
+        ));
     }
 
     /**
      * @param ColorInterface $color
-     * @return ColorInterface
      * @throws ColorException
+     * @return ColorInterface
      */
     public function importColor(ColorInterface $color): ColorInterface
     {
@@ -56,8 +57,8 @@ class Colorspace implements ColorspaceInterface
 
     /**
      * @param ColorInterface $color
-     * @return ColorInterface
      * @throws ColorException
+     * @return ColorInterface
      */
     protected function importRgbColor(ColorInterface $color): ColorInterface
     {
@@ -66,9 +67,7 @@ class Colorspace implements ColorspaceInterface
         }
 
         // normalized values of rgb channels
-        $values = array_map(function ($channel) {
-            return $channel->normalize();
-        }, $color->channels());
+        $values = array_map(fn(ColorChannelInterface $channel): float => $channel->normalize(), $color->channels());
 
         // take only RGB
         $values = array_slice($values, 0, 3);
@@ -90,7 +89,7 @@ class Colorspace implements ColorspaceInterface
         $s = 100 * ($chroma / $max);
 
         // calculate hue
-        list($r, $g, $b) = $values;
+        [$r, $g, $b] = $values;
         $h = match (true) {
             ($r == $min) => 3 - (($g - $b) / $chroma),
             ($b == $min) => 1 - (($r - $g) / $chroma),
@@ -106,8 +105,8 @@ class Colorspace implements ColorspaceInterface
 
     /**
      * @param ColorInterface $color
-     * @return ColorInterface
      * @throws ColorException
+     * @return ColorInterface
      */
     protected function importHslColor(ColorInterface $color): ColorInterface
     {
@@ -116,9 +115,10 @@ class Colorspace implements ColorspaceInterface
         }
 
         // normalized values of hsl channels
-        list($h, $s, $l) = array_map(function ($channel) {
-            return $channel->normalize();
-        }, $color->channels());
+        [$h, $s, $l] = array_map(
+            fn(ColorChannelInterface $channel): float => $channel->normalize(),
+            $color->channels()
+        );
 
         $v = $l + $s * min($l, 1 - $l);
         $s = ($v == 0) ? 0 : 2 * (1 - $l / $v);

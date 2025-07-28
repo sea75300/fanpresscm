@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Intervention\Image\Drivers\Imagick\Modifiers;
 
-use ImagickDraw;
+use Imagick;
 use ImagickPixel;
 use Intervention\Image\Interfaces\ImageInterface;
 use Intervention\Image\Interfaces\SpecializedInterface;
@@ -14,79 +14,61 @@ class CropModifier extends GenericCropModifier implements SpecializedInterface
 {
     public function apply(ImageInterface $image): ImageInterface
     {
-        $originalSize = $image->size();
-        $crop = $this->crop($image);
+        // decode background color
         $background = $this->driver()->colorProcessor($image->colorspace())->colorToNative(
             $this->driver()->handleInput($this->background)
         );
 
-        $transparent = new ImagickPixel('transparent');
+        // create empty container imagick to rebuild core
+        $imagick = new Imagick();
 
-        $draw = new ImagickDraw();
-        $draw->setFillColor($background);
+        // save resolution to add it later
+        $resolution = $image->resolution()->perInch();
+
+        // define position of the image on the new canvas
+        $crop = $this->crop($image);
+        $position = [
+            ($crop->pivot()->x() + $this->offset_x) * -1,
+            ($crop->pivot()->y() + $this->offset_y) * -1,
+        ];
 
         foreach ($image as $frame) {
-            $frame->native()->setBackgroundColor($transparent);
-            $frame->native()->setImageBackgroundColor($transparent);
+            // create new frame canvas with modifiers background
+            $canvas = new Imagick();
+            $canvas->newImage($crop->width(), $crop->height(), $background, 'png');
+            $canvas->setImageResolution($resolution->x(), $resolution->y());
+            $canvas->setImageAlphaChannel(Imagick::ALPHACHANNEL_SET); // or ALPHACHANNEL_ACTIVATE?
 
-            // crop image
-            $frame->native()->extentImage(
-                $crop->width(),
-                $crop->height(),
-                $crop->pivot()->x() + $this->offset_x,
-                $crop->pivot()->y() + $this->offset_y
+            // set animation details
+            if ($image->isAnimated()) {
+                $canvas->setImageDelay($frame->native()->getImageDelay());
+                $canvas->setImageIterations($frame->native()->getImageIterations());
+                $canvas->setImageDispose($frame->native()->getImageDispose());
+            }
+
+            // make the rectangular position of the original image transparent
+            // so that we can later place the original on top. this preserves
+            // the transparency of the original and shows the background color
+            // of the modifier in the other areas. if the original image has no
+            // transparent area the rectangular transparency will be covered by
+            // the original.
+            $clearer = new Imagick();
+            $clearer->newImage(
+                $frame->native()->getImageWidth(),
+                $frame->native()->getImageHeight(),
+                new ImagickPixel('black'),
             );
+            $canvas->compositeImage($clearer, Imagick::COMPOSITE_DSTOUT, ...$position);
 
-            // repage
-            $frame->native()->setImagePage(
-                $crop->width(),
-                $crop->height(),
-                0,
-                0,
-            );
+            // place original frame content onto prepared frame canvas
+            $canvas->compositeImage($frame->native(), Imagick::COMPOSITE_DEFAULT, ...$position);
 
-            // cover the possible newly created areas with background color
-            if ($crop->width() > $originalSize->width() || $this->offset_x > 0) {
-                $draw->rectangle(
-                    $originalSize->width() + ($this->offset_x * -1) - $crop->pivot()->x(),
-                    0,
-                    $crop->width(),
-                    $crop->height()
-                );
-            }
-
-            // cover the possible newly created areas with background color
-            if ($crop->height() > $originalSize->height() || $this->offset_y > 0) {
-                $draw->rectangle(
-                    ($this->offset_x * -1) - $crop->pivot()->x(),
-                    $originalSize->height() + ($this->offset_y * -1) - $crop->pivot()->y(),
-                    ($this->offset_x * -1) + $originalSize->width() - 1 - $crop->pivot()->x(),
-                    $crop->height()
-                );
-            }
-
-            // cover the possible newly created areas with background color
-            if ((($this->offset_x * -1) - $crop->pivot()->x() - 1) > 0) {
-                $draw->rectangle(
-                    0,
-                    0,
-                    ($this->offset_x * -1) - $crop->pivot()->x() - 1,
-                    $crop->height()
-                );
-            }
-
-            // cover the possible newly created areas with background color
-            if ((($this->offset_y * -1) - $crop->pivot()->y() - 1) > 0) {
-                $draw->rectangle(
-                    ($this->offset_x * -1) - $crop->pivot()->x(),
-                    0,
-                    ($this->offset_x * -1) + $originalSize->width() - $crop->pivot()->x() - 1,
-                    ($this->offset_y * -1) - $crop->pivot()->y() - 1,
-                );
-            }
-
-            $frame->native()->drawImage($draw);
+            // add newly built frame to container imagick
+            $imagick->addImage($canvas);
         }
+
+        // replace imagick in the original image
+        $image->core()->setNative($imagick);
 
         return $image;
     }

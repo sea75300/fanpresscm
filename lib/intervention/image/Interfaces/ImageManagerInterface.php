@@ -11,7 +11,8 @@ interface ImageManagerInterface
     /**
      * Create new image instance with given width & height
      *
-     * @link https://image.intervention.io/v3/basics/instantiation#creating-new-images
+     * @link https://image.intervention.io/v3/basics/instantiation#create-new-images
+     *
      * @param int $width
      * @param int $height
      * @throws RuntimeException
@@ -42,7 +43,8 @@ interface ImageManagerInterface
      * If the second parameter is not set, an attempt to decode the input is made
      * with all available decoders of the driver.
      *
-     * @link https://image.intervention.io/v3/basics/instantiation#reading-images
+     * @link https://image.intervention.io/v3/basics/instantiation#read-image-sources
+     *
      * @param mixed $input
      * @param string|array<string|DecoderInterface>|DecoderInterface $decoders
      * @throws RuntimeException
@@ -53,7 +55,8 @@ interface ImageManagerInterface
     /**
      * Create new animated image by given callback
      *
-     * @link https://image.intervention.io/v3/basics/instantiation#creating-animations
+     * @link https://image.intervention.io/v3/basics/instantiation#create-animations
+     *
      * @param callable $init
      * @throws RuntimeException
      * @return ImageInterface

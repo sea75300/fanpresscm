@@ -65,7 +65,7 @@ Help language file
             <dd class="pb-2">Dieser WYSIWYG-Editor zeigt alle Formatierungen und Änderungen direkt an. Außerdem
             bietet er diverse zusätzliche Informationen und Funktionen u. a. zur Bearbeitung von Bildern, die Anzeige von
             eingefügten Galerien, Tabellen, Listen usw.</dd>
-            <dt>CodeMirror:</dt>
+            <dt>ACE Editor:</dt>
             <dd class="pb-2">Dieser Editor ist ein reiner HTML-Editor, welcher verschiedene Formatierungsmöglichkeiten
             bietet sowie zusätzliche Funktionen wie Syntax-Highlighting. Dieser Editor-Type wird zudem immer für die
             Bearbeitung der Temlplates und Artikel-Vorlagen geladen.</dd>
@@ -316,7 +316,7 @@ Help language file
         
         <h3 class="pt-5 fs-1">Kommentar-Editor</h3>
         
-        <p>Der Editor bietet genau wie der Artikel-Editor die Auswahl zwischen TinyMCE und CodeMirror, besitzt jedoch nicht alle Funktionen des Artikel-Editors. Oberhalb des Editors
+        <p>Der Editor bietet genau wie der Artikel-Editor die Auswahl zwischen TinyMCE und ACE Editor, besitzt jedoch nicht alle Funktionen des Artikel-Editors. Oberhalb des Editors
         werden noch zusätzliche Informationen angezeigt, u. a. von welcher IP-Adresse der Kommentar geschrieben wurde. Diese Information kann zur Vermeidung von Spam, bei Straftaten etc.
         wichtig sein.</p>
         
@@ -533,7 +533,7 @@ Help language file
         
         <dl>
             <dt>Editor - Editor auswählen:</dt>
-            <dd class="pb-2">Standardmäßig kann hier zwischen TinyMCE und CodeMirror gewählt werden.
+            <dd class="pb-2">Standardmäßig kann hier zwischen TinyMCE und ACE Editor gewählt werden.
             Zusätzliche Editoren können über Module bereitgestellt werden. Diese Einstellung gilt für Artikel- und Kommentar-Editor im Admin-Bereich.</dd>
             <dt>Editor - Standard-Schriftgröße im Editor:</dt>
             <dd class="pb-2">Schriftgröße, die standardmäßig im aktiven Editor genutzt wird.</dd>
@@ -986,7 +986,7 @@ Help language file
             <dd class="pb-2">Die erlaubten HTML-Tags umfasst die HTML-Elemente, welche in Templates genutzt werden können.
             Alle anderen Templates werden beim Speichern gefiltert.</dd>
             <dt>Editor:</dt>
-            <dd class="pb-2">Der Editor basiert ebenfalls auf CodeMirror und arbeitet ähnlich wie der Artikel-Editor.</dd>
+            <dd class="pb-2">Der Editor basiert ebenfalls auf ACE Editor und arbeitet ähnlich wie der Artikel-Editor.</dd>
             <dt>Vorschau anzeigen:</dt>
             <dd class="pb-2">Der Button <strong>Vorschau anzeigen</strong> ermöglicht es, den im Editor vorhandenen Template-Inhalt
             als Vorschau anzeigen zu lassen und somit die Wirkung, Formatierungsfehler etc. sofort zu erkennen.</dd>
@@ -998,7 +998,7 @@ Help language file
         <ul>
             <li>Vorlagen sind HTML-Dateien, deren Inhalt im Artikel-Editor verwendet werden kann.</li>
             <li>Hiermit können wiederkehrende Artikel-Inhalte gesichert und immer in der gleichen Art wiederverwendet werden.</li>
-            <li>Die Vorlagen können durch den Klick auf den Button <strong>Bearbeiten</strong> über einen CodeMirror-basierten Editor
+            <li>Die Vorlagen können durch den Klick auf den Button <strong>Bearbeiten</strong> über einen ACE Editor-basierten Editor
             angepasst werden. Weitere können bei Bedarf ins System hochgeladen werden.</li>
         </ul>
 

@@ -12,14 +12,32 @@
     <?php $imgTxt = $file->getAltText() ? $file->getAltText() : $file->getFilename(); ?>
     <?php if (in_array($mode, [2, 4])) : ?>
         <div class="nav-item">
-            <?php $theView->linkButton(uniqid('thumbsurl'))->setUrl($file->getThumbnailUrl())->setText('FILE_LIST_INSERT_THUMB')->setClass('fpcm-filelist-tinymce-thumb')->setIcon('compress')->setIconOnly()->setData(['imgtext' => $imgTxt]); ?>
+            <?php $theView->linkButton(uniqid('thumbsurl'))
+                    ->setUrl($file->getThumbnailUrl())
+                    ->setText('FILE_LIST_INSERT_THUMB')
+                    ->setClass('fpcm-filelist-tinymce-thumb')
+                    ->setIcon('compress')
+                    ->setIconOnly()
+                    ->setData(['imgtext' => $imgTxt]); ?>
         </div>
         <div class="nav-item">
-            <?php $theView->linkButton(uniqid('imgsurl'))->setUrl($file->getImageUrl())->setText('FILE_LIST_INSERT_FULL')->setClass('fpcm-filelist-tinymce-full')->setIcon('expand')->setIconOnly()->setData(['imgtext' => $imgTxt]); ?>
+            <?php $theView->linkButton(uniqid('imgsurl'))
+                    ->setUrl($file->getImageUrl())
+                    ->setText('FILE_LIST_INSERT_FULL')
+                    ->setClass('fpcm-filelist-tinymce-full')
+                    ->setIcon('expand')
+                    ->setIconOnly()
+                    ->setData(['imgtext' => $imgTxt]); ?>
         </div>
     <?php elseif ($mode == 3) : ?>
         <div class="nav-item">
-            <?php $theView->linkButton(uniqid('articleimg'))->setUrl($file->getImageUrl())->setText('EDITOR_ARTICLEIMAGE')->setClass('fpcm-filelist-articleimage')->setIcon('image')->setIconOnly()->setData(['imgtext' => $imgTxt]); ?>
+            <?php $theView->linkButton(uniqid('articleimg'))
+                    ->setUrl($file->getImageUrl())
+                    ->setText('EDITOR_ARTICLEIMAGE')
+                    ->setClass('fpcm-filelist-articleimage')
+                    ->setIcon('image')
+                    ->setIconOnly()
+                    ->setData(['imgtext' => $imgTxt]); ?>
         </div>
     <?php endif; ?>
         <div class="nav-item dropdown dropup-center dropup">

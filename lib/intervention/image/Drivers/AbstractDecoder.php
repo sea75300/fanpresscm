@@ -22,9 +22,11 @@ abstract class AbstractDecoder implements DecoderInterface
      */
     protected function isGifFormat(string $input): bool
     {
+        $head = substr($input, 0, 6);
+
         return 1 === preg_match(
             "/^47494638(37|39)61/",
-            strtoupper(substr(bin2hex($input), 0, 32))
+            strtoupper(bin2hex($head))
         );
     }
 
@@ -112,25 +114,18 @@ abstract class AbstractDecoder implements DecoderInterface
         $pattern = "/^data:(?P<mediatype>\w+\/[-+.\w]+)?" .
             "(?P<parameters>(;[-\w]+=[-\w]+)*)(?P<base64>;base64)?,(?P<data>.*)/";
 
-        $result = preg_match($pattern, $input, $matches);
+        $result = preg_match($pattern, (string) $input, $matches);
 
         return new class ($matches, $result)
         {
-            /**
-             * @var array<mixed>
-             */
-            private array $matches;
-            private int|false $result;
-
             /**
              * @param array<mixed> $matches
              * @param int|false $result
              * @return void
              */
-            public function __construct(array $matches, int|false $result)
+            public function __construct(private array $matches, private int|false $result)
             {
-                $this->matches = $matches;
-                $this->result = $result;
+                //
             }
 
             public function isValid(): bool
@@ -154,11 +149,7 @@ abstract class AbstractDecoder implements DecoderInterface
 
             public function isBase64Encoded(): bool
             {
-                if (isset($this->matches['base64']) && $this->matches['base64'] === ';base64') {
-                    return true;
-                }
-
-                return false;
+                return isset($this->matches['base64']) && $this->matches['base64'] === ';base64';
             }
 
             public function data(): ?string

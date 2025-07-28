@@ -396,6 +396,10 @@ fpcm.ui_dialogs = {
             _var.icon = _params.icon;
         }
 
+        if (_params.size) {
+            _var.size = _params.size;
+        }
+
         if (_params.directAssignToDom) {
             _var.directAssignToDom = _params.directAssignToDom;
         }
@@ -490,6 +494,13 @@ fpcm.ui_dialogs = {
             return {
                 callback: 'input',
                 type: 'text'
+            };
+        }
+
+        if (_item === 'numberInput') {
+            return {
+                callback: 'input',
+                type: 'number'
             };
         }
 

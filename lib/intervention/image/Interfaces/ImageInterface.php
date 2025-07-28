@@ -57,7 +57,8 @@ interface ImageInterface extends IteratorAggregate, Countable
     /**
      * Return width of current image
      *
-     * @link https://image.intervention.io/v3/basics/meta-information#reading-the-pixel-width
+     * @link https://image.intervention.io/v3/basics/meta-information#read-the-pixel-width
+     *
      * @throws RuntimeException
      * @return int
      */
@@ -66,7 +67,8 @@ interface ImageInterface extends IteratorAggregate, Countable
     /**
      * Return height of current image
      *
-     * @link https://image.intervention.io/v3/basics/meta-information#reading-the-pixel-height
+     * @link https://image.intervention.io/v3/basics/meta-information#read-the-pixel-height
+     *
      * @throws RuntimeException
      * @return int
      */
@@ -75,7 +77,8 @@ interface ImageInterface extends IteratorAggregate, Countable
     /**
      * Return size of current image
      *
-     * @link https://image.intervention.io/v3/basics/meta-information#reading-the-image-size-as-an-object
+     * @link https://image.intervention.io/v3/basics/meta-information#read-the-image-size-as-an-object
+     *
      * @throws RuntimeException
      * @return SizeInterface
      */
@@ -84,7 +87,8 @@ interface ImageInterface extends IteratorAggregate, Countable
     /**
      * Encode image with given encoder
      *
-     * @link https://image.intervention.io/v3/basics/image-output#encoding-images
+     * @link https://image.intervention.io/v3/basics/image-output#encode-images
+     *
      * @param EncoderInterface $encoder
      * @throws RuntimeException
      * @return EncodedImageInterface
@@ -95,7 +99,8 @@ interface ImageInterface extends IteratorAggregate, Countable
      * Save the image to the specified path in the file system. If no path is
      * given, the image will be saved at its original location.
      *
-     * @link https://image.intervention.io/v3/basics/image-output#writing-images-directly
+     * @link https://image.intervention.io/v3/basics/image-output#encode--save-combined
+     *
      * @param null|string $path
      * @throws RuntimeException
      * @return ImageInterface
@@ -105,7 +110,8 @@ interface ImageInterface extends IteratorAggregate, Countable
     /**
      * Apply given modifier to current image
      *
-     * @link https://image.intervention.io/v3/modifying/custom-modifiers
+     * @link https://image.intervention.io/v3/modifying-images/custom-modifiers
+     *
      * @param ModifierInterface $modifier
      * @throws RuntimeException
      * @return ImageInterface
@@ -124,7 +130,8 @@ interface ImageInterface extends IteratorAggregate, Countable
     /**
      * Determine if current image is animated
      *
-     * @link https://image.intervention.io/v3/modifying/animations#check-the-current-image-instance-for-animation
+     * @link https://image.intervention.io/v3/modifying-images/animations#check-the-current-image-instance-for-animation
+     *
      * @return bool
      */
     public function isAnimated(): bool;
@@ -137,7 +144,8 @@ interface ImageInterface extends IteratorAggregate, Countable
      * string values must represent a percentage value between '0%' and '100%'
      * and the respective frame position is only determined approximately.
      *
-     * @link https://image.intervention.io/v3/modifying/animations#removing-animation
+     * @link https://image.intervention.io/v3/modifying-images/animations#remove-animation
+     *
      * @param int|string $position
      * @throws RuntimeException
      * @return ImageInterface
@@ -147,7 +155,8 @@ interface ImageInterface extends IteratorAggregate, Countable
     /**
      * Extract animation frames based on given values and discard the rest
      *
-     * @link https://image.intervention.io/v3/modifying/animations#changing-the-animation-frames
+     * @link https://image.intervention.io/v3/modifying-images/animations#change-the-animation-iteration-count
+     *
      * @param int $offset
      * @param null|int $length
      * @throws RuntimeException
@@ -158,7 +167,8 @@ interface ImageInterface extends IteratorAggregate, Countable
     /**
      * Return loop count of animated image
      *
-     * @link https://image.intervention.io/v3/modifying/animations#reading-the-animation-iteration-count
+     * @link https://image.intervention.io/v3/modifying-images/animations#read-the-animation-iteration-count
+     *
      * @return int
      */
     public function loops(): int;
@@ -166,7 +176,8 @@ interface ImageInterface extends IteratorAggregate, Countable
     /**
      * Set loop count of animated image
      *
-     * @link https://image.intervention.io/v3/modifying/animations#changing-the-animation-iteration-count
+     * @link https://image.intervention.io/v3/modifying-images/animations#change-the-animation-iteration-count
+     *
      * @param int $loops
      * @return ImageInterface
      */
@@ -176,6 +187,7 @@ interface ImageInterface extends IteratorAggregate, Countable
      * Return exif data of current image
      *
      * @link https://image.intervention.io/v3/basics/meta-information#exif-information
+     *
      * @return mixed
      */
     public function exif(?string $query = null): mixed;
@@ -192,6 +204,7 @@ interface ImageInterface extends IteratorAggregate, Countable
      * Return image resolution/density
      *
      * @link https://image.intervention.io/v3/basics/meta-information#image-resolution
+     *
      * @throws RuntimeException
      * @return ResolutionInterface
      */
@@ -201,6 +214,7 @@ interface ImageInterface extends IteratorAggregate, Countable
      * Set image resolution
      *
      * @link https://image.intervention.io/v3/basics/meta-information#image-resolution
+     *
      * @param float $x
      * @param float $y
      * @throws RuntimeException
@@ -211,7 +225,8 @@ interface ImageInterface extends IteratorAggregate, Countable
     /**
      * Get the colorspace of the image
      *
-     * @link https://image.intervention.io/v3/basics/colors#reading-the-colorspace
+     * @link https://image.intervention.io/v3/basics/colors#read-the-image-colorspace
+     *
      * @throws RuntimeException
      * @return ColorspaceInterface
      */
@@ -220,7 +235,8 @@ interface ImageInterface extends IteratorAggregate, Countable
     /**
      * Transform image to given colorspace
      *
-     * @link https://image.intervention.io/v3/basics/colors#changing-the-colorspace
+     * @link https://image.intervention.io/v3/basics/colors#change-the-image-colorspace
+     *
      * @param string|ColorspaceInterface $colorspace
      * @throws RuntimeException
      * @return ImageInterface
@@ -231,6 +247,7 @@ interface ImageInterface extends IteratorAggregate, Countable
      * Return color of pixel at given position on given frame position
      *
      * @link https://image.intervention.io/v3/basics/colors#color-information
+     *
      * @param int $x
      * @param int $y
      * @param int $frame_key
@@ -243,6 +260,7 @@ interface ImageInterface extends IteratorAggregate, Countable
      * Return all colors of pixel at given position for all frames of image
      *
      * @link https://image.intervention.io/v3/basics/colors#color-information
+     *
      * @param int $x
      * @param int $y
      * @throws RuntimeException
@@ -282,6 +300,7 @@ interface ImageInterface extends IteratorAggregate, Countable
      * Retrieve ICC color profile of image
      *
      * @link https://image.intervention.io/v3/basics/colors#color-profiles
+     *
      * @throws RuntimeException
      * @return ProfileInterface
      */
@@ -291,6 +310,7 @@ interface ImageInterface extends IteratorAggregate, Countable
      * Set given icc color profile to image
      *
      * @link https://image.intervention.io/v3/basics/colors#color-profiles
+     *
      * @param ProfileInterface $profile
      * @throws RuntimeException
      * @return ImageInterface
@@ -301,6 +321,7 @@ interface ImageInterface extends IteratorAggregate, Countable
      * Remove ICC color profile from the current image
      *
      * @link https://image.intervention.io/v3/basics/colors#color-profiles
+     *
      * @throws RuntimeException
      * @return ImageInterface
      */
@@ -309,7 +330,8 @@ interface ImageInterface extends IteratorAggregate, Countable
     /**
      * Apply color quantization to the current image
      *
-     * @link https://image.intervention.io/v3/modifying/effects#reduce-colors
+     * @link https://image.intervention.io/v3/modifying-images/effects#reduce-colors
+     *
      * @param int $limit
      * @param mixed $background
      * @throws RuntimeException
@@ -320,7 +342,8 @@ interface ImageInterface extends IteratorAggregate, Countable
     /**
      * Sharpen the current image with given strength
      *
-     * @link https://image.intervention.io/v3/modifying/effects#sharpening-effect
+     * @link https://image.intervention.io/v3/modifying-images/effects#sharpening-effect
+     *
      * @param int $amount
      * @throws RuntimeException
      * @return ImageInterface
@@ -330,7 +353,8 @@ interface ImageInterface extends IteratorAggregate, Countable
     /**
      * Turn image into a greyscale version
      *
-     * @link https://image.intervention.io/v3/modifying/effects#convert-image-to-a-greyscale-version
+     * @link https://image.intervention.io/v3/modifying-images/effects#convert-image-to-a-greyscale-version
+     *
      * @throws RuntimeException
      * @return ImageInterface
      */
@@ -339,7 +363,8 @@ interface ImageInterface extends IteratorAggregate, Countable
     /**
      * Adjust brightness of the current image
      *
-     * @link https://image.intervention.io/v3/modifying/effects#changing-the-brightness
+     * @link https://image.intervention.io/v3/modifying-images/effects#change-the-image-brightness
+     *
      * @param int $level
      * @throws RuntimeException
      * @return ImageInterface
@@ -349,7 +374,8 @@ interface ImageInterface extends IteratorAggregate, Countable
     /**
      * Adjust color contrast of the current image
      *
-     * @link https://image.intervention.io/v3/modifying/effects#changing-the-contrast
+     * @link https://image.intervention.io/v3/modifying-images/effects#change-the-image-contrast
+     *
      * @param int $level
      * @throws RuntimeException
      * @return ImageInterface
@@ -359,7 +385,8 @@ interface ImageInterface extends IteratorAggregate, Countable
     /**
      * Apply gamma correction on the current image
      *
-     * @link https://image.intervention.io/v3/modifying/effects#gamma-correction
+     * @link https://image.intervention.io/v3/modifying-images/effects#gamma-correction
+     *
      * @param float $gamma
      * @throws RuntimeException
      * @return ImageInterface
@@ -369,7 +396,8 @@ interface ImageInterface extends IteratorAggregate, Countable
     /**
      * Adjust the intensity of the RGB color channels
      *
-     * @link https://image.intervention.io/v3/modifying/effects#color-correction
+     * @link https://image.intervention.io/v3/modifying-images/effects#color-correction
+     *
      * @param int $red
      * @param int $green
      * @param int $blue
@@ -381,7 +409,8 @@ interface ImageInterface extends IteratorAggregate, Countable
     /**
      * Mirror the current image horizontally
      *
-     * @link https://image.intervention.io/v3/modifying/effects#mirror-image-vertically
+     * @link https://image.intervention.io/v3/modifying-images/effects#mirror-image-vertically
+     *
      * @throws RuntimeException
      * @return ImageInterface
      */
@@ -390,7 +419,8 @@ interface ImageInterface extends IteratorAggregate, Countable
     /**
      * Mirror the current image vertically
      *
-     * @link https://image.intervention.io/v3/modifying/effects#mirror-image-horizontally
+     * @link https://image.intervention.io/v3/modifying-images/effects#mirror-image-horizontally
+     *
      * @throws RuntimeException
      * @return ImageInterface
      */
@@ -399,7 +429,8 @@ interface ImageInterface extends IteratorAggregate, Countable
     /**
      * Blur current image by given strength
      *
-     * @link https://image.intervention.io/v3/modifying/effects#blur-effect
+     * @link https://image.intervention.io/v3/modifying-images/effects#blur-effect
+     *
      * @param int $amount
      * @throws RuntimeException
      * @return ImageInterface
@@ -409,7 +440,8 @@ interface ImageInterface extends IteratorAggregate, Countable
     /**
      * Invert the colors of the current image
      *
-     * @link https://image.intervention.io/v3/modifying/effects#invert-colors
+     * @link https://image.intervention.io/v3/modifying-images/effects#invert-colors
+     *
      * @throws RuntimeException
      * @return ImageInterface
      */
@@ -418,7 +450,8 @@ interface ImageInterface extends IteratorAggregate, Countable
     /**
      * Apply pixelation filter effect on current image
      *
-     * @link https://image.intervention.io/v3/modifying/effects#pixelation-effect
+     * @link https://image.intervention.io/v3/modifying-images/effects#pixelation-effect
+     *
      * @param int $size
      * @throws RuntimeException
      * @return ImageInterface
@@ -428,7 +461,8 @@ interface ImageInterface extends IteratorAggregate, Countable
     /**
      * Rotate current image by given angle
      *
-     * @link https://image.intervention.io/v3/modifying/effects#image-rotation
+     * @link https://image.intervention.io/v3/modifying-images/effects#image-rotation
+     *
      * @param float $angle
      * @param string $background
      * @throws RuntimeException
@@ -439,7 +473,8 @@ interface ImageInterface extends IteratorAggregate, Countable
     /**
      * Rotate the image to be upright according to exif information
      *
-     * @link https://image.intervention.io/v3/modifying/effects#image-orientation-according-to-exif-data
+     * @link https://image.intervention.io/v3/modifying-images/effects#image-orientation-according-to-exif-data
+     *
      * @throws RuntimeException
      * @return ImageInterface
      */
@@ -448,7 +483,8 @@ interface ImageInterface extends IteratorAggregate, Countable
     /**
      * Draw text on image
      *
-     * @link https://image.intervention.io/v3/modifying/text-fonts
+     * @link https://image.intervention.io/v3/modifying-images/text-fonts
+     *
      * @param string $text
      * @param int $x
      * @param int $y
@@ -461,7 +497,8 @@ interface ImageInterface extends IteratorAggregate, Countable
     /**
      * Resize image to the given width and/or height
      *
-     * @link https://image.intervention.io/v3/modifying/resizing#simple-image-resizing
+     * @link https://image.intervention.io/v3/modifying-images/resizing#simple-image-resizing
+     *
      * @param null|int $width
      * @param null|int $height
      * @throws RuntimeException
@@ -472,7 +509,8 @@ interface ImageInterface extends IteratorAggregate, Countable
     /**
      * Resize image to the given width and/or height without exceeding the original dimensions
      *
-     * @link https://image.intervention.io/v3/modifying/resizing#resizing-without-exceeding-the-original-size
+     * @link https://image.intervention.io/v3/modifying-images/resizing#resize-without-exceeding-the-original-size
+     *
      * @param null|int $width
      * @param null|int $height
      * @throws RuntimeException
@@ -483,7 +521,8 @@ interface ImageInterface extends IteratorAggregate, Countable
     /**
      * Resize image to the given width and/or height and keep the original aspect ratio
      *
-     * @link https://image.intervention.io/v3/modifying/resizing#scaling-images
+     * @link https://image.intervention.io/v3/modifying-images/resizing#resize-images-proportionally
+     *
      * @param null|int $width
      * @param null|int $height
      * @throws RuntimeException
@@ -495,7 +534,8 @@ interface ImageInterface extends IteratorAggregate, Countable
      * Resize image to the given width and/or height, keep the original aspect ratio
      * and do not exceed the original image width or height
      *
-     * @link https://image.intervention.io/v3/modifying/resizing#scaling-images-but-do-not-exceed-the-original-size
+     * @link https://image.intervention.io/v3/modifying-images/resizing#scale-images-but-do-not-exceed-the-original-size
+     *
      * @param null|int $width
      * @param null|int $height
      * @throws RuntimeException
@@ -504,11 +544,13 @@ interface ImageInterface extends IteratorAggregate, Countable
     public function scaleDown(?int $width = null, ?int $height = null): self;
 
     /**
-     * Takes the given dimensions and scales it to the largest possible size matching
-     * the original size. Then this size is positioned on the original and cut out
-     * before being resized to the desired size from the arguments
+     * Takes the specified width and height and scales them to the largest
+     * possible size that fits within the original size. This scaled size is
+     * then positioned on the original and cropped, before this result is resized
+     * to the desired size using the arguments
      *
-     * @link https://image.intervention.io/v3/modifying/resizing#fitted-image-resizing
+     * @link https://image.intervention.io/v3/modifying-images/resizing#cropping--resizing-combined
+     *
      * @param int $width
      * @param int $height
      * @param string $position
@@ -520,7 +562,8 @@ interface ImageInterface extends IteratorAggregate, Countable
     /**
      * Same as cover() but do not exceed the original image size
      *
-     * @link https://image.intervention.io/v3/modifying/resizing#fitted-resizing-without-exceeding-the-original-size
+     * @link https://image.intervention.io/v3/modifying-images/resizing#fitted-resizing-without-exceeding-the-original-size
+     *
      * @param int $width
      * @param int $height
      * @param string $position
@@ -535,7 +578,8 @@ interface ImageInterface extends IteratorAggregate, Countable
      * is fixed. A background color can be passed to define the color of the
      * new emerging areas.
      *
-     * @link https://image.intervention.io/v3/modifying/resizing#resize-image-canvas
+     * @link https://image.intervention.io/v3/modifying-images/resizing#resize-image-boundaries-without-resampling-the-original-image
+     *
      * @param null|int $width
      * @param null|int $height
      * @param string $position
@@ -555,7 +599,8 @@ interface ImageInterface extends IteratorAggregate, Countable
      * for the width and height, which will be added or subtracted to the
      * original image size.
      *
-     * @link https://image.intervention.io/v3/modifying/resizing#resize-image-boundaries-relative-to-the-original
+     * @link https://image.intervention.io/v3/modifying-images/resizing#resize-image-boundaries-relative-to-the-original
+     *
      * @param null|int $width
      * @param null|int $height
      * @param string $position
@@ -579,7 +624,8 @@ interface ImageInterface extends IteratorAggregate, Countable
      * but possibly new empty areas on the sides of the result image. These are
      * filled with the specified background color.
      *
-     * @link https://image.intervention.io/v3/modifying/resizing#padded-image-resizing
+     * @link https://image.intervention.io/v3/modifying-images/resizing#resizing--padding-combined
+     *
      * @param int $width
      * @param int $height
      * @param string $background
@@ -598,7 +644,8 @@ interface ImageInterface extends IteratorAggregate, Countable
      * This method does the same as pad(), but the original image is also scaled
      * up if the target size exceeds the original size.
      *
-     * @link https://image.intervention.io/v3/modifying/resizing#padded-resizing-with-upscaling
+     * @link https://image.intervention.io/v3/modifying-images/resizing#padded-resizing-with-upscaling
+     *
      * @param int $width
      * @param int $height
      * @param string $background
@@ -618,7 +665,8 @@ interface ImageInterface extends IteratorAggregate, Countable
      * height at a given position. Define optional x,y offset coordinates
      * to move the cutout by the given amount of pixels.
      *
-     * @link https://image.intervention.io/v3/modifying/resizing#crop-image
+     * @link https://image.intervention.io/v3/modifying-images/resizing#cut-out-a-rectangular-part
+     *
      * @param int $width
      * @param int $height
      * @param int $offset_x
@@ -640,6 +688,8 @@ interface ImageInterface extends IteratorAggregate, Countable
     /**
      * Trim the image by removing border areas of similar color within a the given tolerance
      *
+     * @link https://image.intervention.io/v3/modifying-images/resizing#remove-border-areas-in-similar-color
+     *
      * @param int $tolerance
      * @throws RuntimeException
      * @throws AnimationException
@@ -650,7 +700,8 @@ interface ImageInterface extends IteratorAggregate, Countable
     /**
      * Place another image into the current image instance
      *
-     * @link https://image.intervention.io/v3/modifying/inserting
+     * @link https://image.intervention.io/v3/modifying-images/inserting#insert-images
+     *
      * @param mixed $element
      * @param string $position
      * @param int $offset_x
@@ -677,7 +728,8 @@ interface ImageInterface extends IteratorAggregate, Countable
      *
      * If no coordinates are specified, the entire image area is filled.
      *
-     * @link https://image.intervention.io/v3/modifying/drawing#fill-images-with-color
+     * @link https://image.intervention.io/v3/modifying-images/drawing#fill-images-with-color
+     *
      * @param mixed $color
      * @param null|int $x
      * @param null|int $y
@@ -689,7 +741,8 @@ interface ImageInterface extends IteratorAggregate, Countable
     /**
      * Draw a single pixel at given position defined by the coordinates x and y in a given color.
      *
-     * @link https://image.intervention.io/v3/modifying/drawing#drawing-a-pixel
+     * @link https://image.intervention.io/v3/modifying-images/drawing#draw-pixels
+     *
      * @param int $x
      * @param int $y
      * @param mixed $color
@@ -701,7 +754,8 @@ interface ImageInterface extends IteratorAggregate, Countable
     /**
      * Draw a rectangle on the current image
      *
-     * @link https://image.intervention.io/v3/modifying/drawing#drawing-a-rectangle
+     * @link https://image.intervention.io/v3/modifying-images/drawing#draw-a-rectangle
+     *
      * @param int $x
      * @param int $y
      * @param callable|Closure|Rectangle $init
@@ -713,7 +767,8 @@ interface ImageInterface extends IteratorAggregate, Countable
     /**
      * Draw ellipse on the current image
      *
-     * @link https://image.intervention.io/v3/modifying/drawing#drawing-ellipses
+     * @link https://image.intervention.io/v3/modifying-images/drawing#draw-ellipses
+     *
      * @param int $x
      * @param int $y
      * @param callable|Closure|Ellipse $init
@@ -725,7 +780,8 @@ interface ImageInterface extends IteratorAggregate, Countable
     /**
      * Draw circle on the current image
      *
-     * @link https://image.intervention.io/v3/modifying/drawing#drawing-a-circle
+     * @link https://image.intervention.io/v3/modifying-images/drawing#draw-a-circle
+     *
      * @param int $x
      * @param int $y
      * @param callable|Closure|Circle $init
@@ -737,7 +793,8 @@ interface ImageInterface extends IteratorAggregate, Countable
     /**
      * Draw a polygon on the current image
      *
-     * @link https://image.intervention.io/v3/modifying/drawing#drawing-a-polygon
+     * @link https://image.intervention.io/v3/modifying-images/drawing#draw-a-polygon
+     *
      * @param callable|Closure|Polygon $init
      * @throws RuntimeException
      * @return ImageInterface
@@ -747,7 +804,8 @@ interface ImageInterface extends IteratorAggregate, Countable
     /**
      * Draw a line on the current image
      *
-     * @link https://image.intervention.io/v3/modifying/drawing#drawing-a-line
+     * @link https://image.intervention.io/v3/modifying-images/drawing#draw-a-line
+     *
      * @param callable|Closure|Line $init
      * @throws RuntimeException
      * @return ImageInterface
@@ -757,7 +815,8 @@ interface ImageInterface extends IteratorAggregate, Countable
     /**
      * Draw a bezier curve on the current image
      *
-     * @link https://image.intervention.io/v3/modifying/drawing#draw-bezier-curves
+     * @link https://image.intervention.io/v3/modifying-images/drawing#draw-bezier-curves
+     *
      * @param callable|Closure|Bezier $init
      * @throws RuntimeException
      * @return ImageInterface
@@ -769,6 +828,7 @@ interface ImageInterface extends IteratorAggregate, Countable
      * will be encoded to the format of the originally read image.
      *
      * @link https://image.intervention.io/v3/basics/image-output#encode-images-by-media-mime-type
+     *
      * @param null|string|MediaType $type
      * @throws RuntimeException
      * @return EncodedImageInterface
@@ -781,6 +841,7 @@ interface ImageInterface extends IteratorAggregate, Countable
      * originally read image.
      *
      * @link https://image.intervention.io/v3/basics/image-output#encode-images-by-file-extension
+     *
      * @param null|string|FileExtension $extension
      * @throws RuntimeException
      * @return EncodedImageInterface
@@ -796,6 +857,7 @@ interface ImageInterface extends IteratorAggregate, Countable
      * the format of the originally read image.
      *
      * @link https://image.intervention.io/v3/basics/image-output#encode-images-by-file-path
+     *
      * @param null|string $path
      * @throws RuntimeException
      * @return EncodedImageInterface
@@ -805,7 +867,8 @@ interface ImageInterface extends IteratorAggregate, Countable
     /**
      * Encode image to JPEG format
      *
-     * @link https://image.intervention.io/v3/basics/image-output#encoding-jpeg-format
+     * @link https://image.intervention.io/v3/basics/image-output#encode-jpeg-format
+     *
      * @param mixed $options
      * @throws RuntimeException
      * @return EncodedImageInterface
@@ -816,7 +879,8 @@ interface ImageInterface extends IteratorAggregate, Countable
     /**
      * Encode image to Jpeg2000 format
      *
-     * @link https://image.intervention.io/v3/basics/image-output#encoding-jpeg-2000-format
+     * @link https://image.intervention.io/v3/basics/image-output#encode-jpeg-2000-format
+     *
      * @param mixed $options
      * @throws RuntimeException
      * @return EncodedImageInterface
@@ -826,7 +890,8 @@ interface ImageInterface extends IteratorAggregate, Countable
     /**
      * Encode image to Webp format
      *
-     * @link https://image.intervention.io/v3/basics/image-output#encoding-webp-format
+     * @link https://image.intervention.io/v3/basics/image-output#encode-webp-format
+     *
      * @param mixed $options
      * @throws RuntimeException
      * @return EncodedImageInterface
@@ -836,7 +901,8 @@ interface ImageInterface extends IteratorAggregate, Countable
     /**
      * Encode image to PNG format
      *
-     * @link https://image.intervention.io/v3/basics/image-output#encoding-png-format
+     * @link https://image.intervention.io/v3/basics/image-output#encode-png-format
+     *
      * @param mixed $options
      * @throws RuntimeException
      * @return EncodedImageInterface
@@ -846,7 +912,8 @@ interface ImageInterface extends IteratorAggregate, Countable
     /**
      * Encode image to GIF format
      *
-     * @link https://image.intervention.io/v3/basics/image-output#encoding-gif-format
+     * @link https://image.intervention.io/v3/basics/image-output#encode-gif-format
+     *
      * @param mixed $options
      * @throws RuntimeException
      * @return EncodedImageInterface
@@ -856,7 +923,8 @@ interface ImageInterface extends IteratorAggregate, Countable
     /**
      * Encode image to Bitmap format
      *
-     * @link https://image.intervention.io/v3/basics/image-output#encoding-windows-bitmap-format
+     * @link https://image.intervention.io/v3/basics/image-output#encode-windows-bitmap-format
+     *
      * @param mixed $options
      * @throws RuntimeException
      * @return EncodedImageInterface
@@ -866,7 +934,8 @@ interface ImageInterface extends IteratorAggregate, Countable
     /**
      * Encode image to AVIF format
      *
-     * @link https://image.intervention.io/v3/basics/image-output#encoding-av1-image-file-format-avif
+     * @link https://image.intervention.io/v3/basics/image-output#encode-av1-image-file-format-avif
+     *
      * @param mixed $options
      * @throws RuntimeException
      * @return EncodedImageInterface
@@ -876,7 +945,8 @@ interface ImageInterface extends IteratorAggregate, Countable
     /**
      * Encode image to TIFF format
      *
-     * @link https://image.intervention.io/v3/basics/image-output#encoding-tiff-format
+     * @link https://image.intervention.io/v3/basics/image-output#encode-tiff-format
+     *
      * @param mixed $options
      * @throws RuntimeException
      * @return EncodedImageInterface
@@ -886,7 +956,8 @@ interface ImageInterface extends IteratorAggregate, Countable
     /**
      * Encode image to HEIC format
      *
-     * @link https://image.intervention.io/v3/basics/image-output#encoding-heic-format
+     * @link https://image.intervention.io/v3/basics/image-output#encode-heic-format
+     *
      * @param mixed $options
      * @throws RuntimeException
      * @return EncodedImageInterface

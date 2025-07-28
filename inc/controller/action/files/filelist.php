@@ -74,21 +74,27 @@ class filelist extends \fpcm\controller\abstracts\controller
         
         $settingsDlg = (new \fpcm\view\helper\dialog('filesSettings'));
         $settingsDlg->setFields([
-            'file_list_limit' => (new \fpcm\view\helper\select('listamount'))
+            (new \fpcm\view\helper\select('file_list_limit'))
                 ->setText('SYSTEM_OPTIONS_ACPARTICLES_LIMIT')
                 ->setOptions( \fpcm\model\system\config::getAcpArticleLimits() )
                 ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
                 ->setSelected($this->config->file_list_limit)
-                ->setData(['user_setting' => 'file_list_limit'])
+                ->setData([
+                    'user_setting' => 'file_list_limit',
+                    'index' => 0
+                ])
                 ->setIcon('folder-open')
                 ->setLabelTypeFloat()
                 ->setBottomSpace(''),
-            'file_view' => (new \fpcm\view\helper\select('listView'))
+            (new \fpcm\view\helper\select('file_view'))
                 ->setText('SYSTEM_OPTIONS_FILEMANAGER_VIEW')
                 ->setOptions(\fpcm\components\components::getFilemanagerViews())
                 ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
                 ->setSelected($this->config->file_view)
-                ->setData(['user_setting' => 'file_view'])
+                ->setData([
+                    'user_setting' => 'file_view',
+                    'index' => 1
+                ])
                 ->setIcon('grip-horizontal')
                 ->setLabelTypeFloat()
                 ->setBottomSpace('')

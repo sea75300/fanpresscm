@@ -23,6 +23,7 @@ class Collection implements CollectionInterface, IteratorAggregate, Countable
      */
     public function __construct(protected array $items = [])
     {
+        //
     }
 
     /**
@@ -152,7 +153,7 @@ class Collection implements CollectionInterface, IteratorAggregate, Countable
             return $this->items[$query];
         }
 
-        if (is_string($query) && strpos($query, '.') === false) {
+        if (is_string($query) && !str_contains($query, '.')) {
             return array_key_exists($query, $this->items) ? $this->items[$query] : $default;
         }
 
@@ -181,11 +182,13 @@ class Collection implements CollectionInterface, IteratorAggregate, Countable
      */
     public function map(callable $callback): self
     {
-        $items = array_map(function ($item) use ($callback) {
-            return $callback($item);
-        }, $this->items);
 
-        return new self($items);
+        return new self(
+            array_map(
+                fn(mixed $item) => $callback($item),
+                $this->items,
+            )
+        );
     }
 
     /**
@@ -196,11 +199,12 @@ class Collection implements CollectionInterface, IteratorAggregate, Countable
      */
     public function filter(callable $callback): self
     {
-        $items = array_filter($this->items, function ($item) use ($callback) {
-            return $callback($item);
-        });
-
-        return new self($items);
+        return new self(
+            array_filter(
+                $this->items,
+                fn(mixed $item) => $callback($item),
+            )
+        );
     }
 
     /**

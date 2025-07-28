@@ -4,9 +4,16 @@ declare(strict_types=1);
 
 namespace Intervention\Image;
 
+use ArrayIterator;
 use Intervention\Image\Interfaces\ResolutionInterface;
+use IteratorAggregate;
+use Stringable;
+use Traversable;
 
-class Resolution implements ResolutionInterface
+/**
+ * @implements IteratorAggregate<float>
+ */
+class Resolution implements ResolutionInterface, Stringable, IteratorAggregate
 {
     public const PER_INCH = 1;
     public const PER_CM = 2;
@@ -23,6 +30,17 @@ class Resolution implements ResolutionInterface
         protected float $y,
         protected int $per_unit = self::PER_INCH
     ) {
+        //
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @see IteratorAggregate::getIterator()
+     */
+    public function getIterator(): Traversable
+    {
+        return new ArrayIterator([$this->x, $this->y]);
     }
 
     /**
@@ -104,8 +122,8 @@ class Resolution implements ResolutionInterface
         return match ($this->per_unit) {
             self::PER_CM => $this
                 ->setPerUnit(self::PER_INCH)
-                ->setX($this->x * (1 / 2.54))
-                ->setY($this->y * (1 / 2.54)),
+                ->setX($this->x * 2.54)
+                ->setY($this->y * 2.54),
             default => $this
         };
     }
@@ -120,8 +138,8 @@ class Resolution implements ResolutionInterface
         return match ($this->per_unit) {
             self::PER_INCH => $this
                 ->setPerUnit(self::PER_CM)
-                ->setX($this->x / (1 / 2.54))
-                ->setY($this->y / (1 / 2.54)),
+                ->setX($this->x / 2.54)
+                ->setY($this->y / 2.54),
             default => $this,
         };
     }

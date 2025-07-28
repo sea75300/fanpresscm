@@ -1,7 +1,7 @@
 /**
- * FanPress CM CodeMirror Editor Wrapper Namespace
+ * FanPress CM ACE Editor Wrapper Namespace
  * @article Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2015-2018, Stefan Seehafer
+ * @copyright (c) 2025, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 if (fpcm === undefined) {
@@ -17,79 +17,79 @@ fpcm.editor_ace = {
     _editorType: '',
 
     defaultShortKeys: {
-        Enter: function (_e) {
+        "Enter": function (_e) {
             fpcm.editor.insertBr();
         },
-        "Ctrl-B"    : function() {
-            fpcm.dom.fromId('btn-ace-bold').click();
+        "Ctrl-B": function() {
+            fpcm.editor_ace._execClick('bold');
         },
-        "Ctrl-I"    : function() {
-            fpcm.dom.fromId('btn-ace-italic').click();
+        "Ctrl-I": function() {
+            fpcm.editor_ace._execClick('italic');
         },
-        "Ctrl-U"    : function() {
-            fpcm.dom.fromId('btn-ace-underline').click();
+        "Ctrl-U": function() {
+            fpcm.editor_ace._execClick('underline');
         },
-        "Ctrl-O"    : function() {
-            fpcm.dom.fromId('btn-ace-strike').click();
+        "Ctrl-O": function() {
+            fpcm.editor_ace._execClick('strike');
         },
-        "Shift-Ctrl-F"    : function() {
+        "Ctrl-Y": function() {
+            fpcm.editor_ace._execClick('sup');
+        },
+        "Shift-Ctrl-Y": function() {
+            fpcm.editor_ace._execClick('sub');
+        },
+        "Shift-Ctrl-L": function() {
+            fpcm.editor.insertAlignTags('left');
+        },
+        "Shift-Ctrl-C": function() {
+            fpcm.editor.insertAlignTags('center');
+        },
+        "Shift-Ctrl-R": function() {
+            fpcm.editor.insertAlignTags('right');
+        },
+        "Shift-Ctrl-J": function() {
+            fpcm.editor.insertAlignTags('justify');
+        },
+        "Ctrl-Alt-N": function() {
+            fpcm.editor.insertList('ul');
+        },
+        "Shift-Ctrl-N": function() {
+            fpcm.editor.insertList('ol');
+        },
+        "Shift-Ctrl-F": function() {
             fpcm.editor.insertColor();
         },
-        "Ctrl-Y"    : function() {
-            fpcm.dom.fromId('btn-ace-sup').click();
-        },
-        "Shift-Ctrl-Y"    : function() {
-            fpcm.dom.fromId('btn-ace-sub').click();
-        },
-        "Shift-Ctrl-L"    : function() {
-            fpcm.dom.fromId('btn-ace-aleft').click();
-        },
-        "Shift-Ctrl-C"    : function() {
-            fpcm.dom.fromId('btn-ace-acenter').click();
-        },
-        "Shift-Ctrl-R"    : function() {
-            fpcm.dom.fromId('btn-ace-aright').click();
-        },
-        "Shift-Ctrl-J"    : function() {
-            fpcm.dom.fromId('btn-ace-ajustify').click();
-        },
-        "Ctrl-Alt-N"    : function() {
-            fpcm.dom.fromId('btn-ace-insertlist').click();
-        },
-        "Shift-Ctrl-N"    : function() {
-            fpcm.dom.fromId('btn-ace-insertlistnum').click();
-        },
-        "Shift-Ctrl-Q"    : function() {
+        "Shift-Ctrl-Q": function() {
             fpcm.editor.insertQuote();
         },
-        "Ctrl-L"    : function() {
+        "Ctrl-L": function() {
             fpcm.editor.insertLink();
         },
-        "Ctrl-P"    : function() {
+        "Ctrl-P": function() {
             fpcm.editor.insertPicture();
         },
-        "Shift-Ctrl-V"    : function() {
+        "Shift-Ctrl-V": function() {
             fpcm.editor.insertMedia();
         },
-        "Shift-Ctrl-T"    : function() {
+        "Shift-Ctrl-T": function() {
             fpcm.editor.insertTable();
         },
-        "Ctrl-Alt-E"    : function() {
+        "Ctrl-Alt-E": function() {
             fpcm.editor.insertSmilies();
         },
-        "Shift-Ctrl-D"    : function() {
+        "Shift-Ctrl-D": function() {
             fpcm.editor.insertDrafts();
         },
-        "Shift-Ctrl-I"    : function() {
+        "Shift-Ctrl-I": function() {
             fpcm.editor.insertSymbol();
         },
-        "Shift-Ctrl-M"    : function() {
+        "Shift-Ctrl-M": function() {
             fpcm.editor.insertPageBreak()();
         },
-        "Shift-Ctrl-B"    : function() {
+        "Shift-Ctrl-B": function() {
             fpcm.editor.insertIFrame();
         },
-        "Shift-Alt-S"    : function() {
+        "Shift-Alt-S": function() {
             fpcm.editor.removeTags();
         }
     },
@@ -139,6 +139,10 @@ fpcm.editor_ace = {
 
     getValue: function() {
         return fpcm.editor_ace._instance.getValue();
+    },
+
+    _execClick: function (_btn) {
+        fpcm.dom.fromId('btn-ace-' + _btn).click();
     }
 
 };
@@ -218,11 +222,13 @@ if (fpcm.editor) {
                 var urlField = 'linksurl';
                 var titleField = 'linkstext';
                 var relField = 'linksrel';
+                var insertSize = false;
                 break;
             case 2 :
                 var urlField = 'imagespath';
                 var titleField = 'imagesalt';
                 var relField = false;
+                var insertSize = true;
                 break;
         }
 
@@ -233,6 +239,15 @@ if (fpcm.editor) {
 
         if (relField && _rel) {
             self.document.getElementById(fpcm.ui.prepareId(relField, true)).value  = _rel;
+        }
+
+        if (insertSize && _url) {
+            let _imgObj = new Image();
+            _imgObj.src = _url;
+            _imgObj.onload = function () {                
+                self.document.getElementById(fpcm.ui.prepareId('imageswidth', true)).value  = _imgObj.naturalWidth;
+                self.document.getElementById(fpcm.ui.prepareId('imagesheight', true)).value  = _imgObj.naturalHeight;
+            };
         }
 
         fpcm.ui_dialogs.close('editor-html-filemanager');
@@ -296,6 +311,7 @@ if (fpcm.editor) {
         fpcm.ui_dialogs.insert({
             id: 'editor-html-insertlist',
             title: 'EDITOR_HTML_BUTTONS_LIST' + listtype.toUpperCase(),
+            size: 'sm',
             icon: {
                 icon: 'list'
             },
@@ -915,7 +931,9 @@ if (fpcm.editor) {
             fpcm.ui.prepareId('imagespath', true),
             fpcm.ui.prepareId('imagesalign', true),
             fpcm.ui.prepareId('imagesalt', true),
-            fpcm.ui.prepareId('imagescss', true)
+            fpcm.ui.prepareId('imagescss', true),
+            fpcm.ui.prepareId('imageswidth', true),
+            fpcm.ui.prepareId('imagesheight', true)
         ]);
 
         let _res = {
@@ -923,50 +941,36 @@ if (fpcm.editor) {
             eTag: ''
         };
 
+        if (_asLink) {
+            var linkData = fpcm.editor.getLinkData(_formData.imagespath, _res.aTag, '', _formData.imagescss);
+            _res.aTag = linkData.aTag + linkData.eTag;
+
+            return _res;
+        }
+
+        _res.aTag = `<img src="${_formData.imagespath}" alt="${_formData.imagesalt}"`;
+
+
+        if(_formData.imagescss) {
+            _res.aTag += ` class="${_formData.imagescss}"`;
+        }
+
+        if(_formData.imageswidth) {
+            _res.aTag += ` width="${_formData.imageswidth}"`;
+        }
+
+        if(_formData.imagesheight) {
+            _res.aTag += ` height="${_formData.imagesheight}"`;
+        }
+
         if (_formData.imagesalign == "right" || _formData.imagesalign == "left") {
+            _res.aTag += ` style="float:${_formData.imagesalign}"`;
+        }
 
-            _res.aTag = '<img src=\"' + _formData.imagespath + '\" alt=\"' + _formData.imagesalt + '\" style=\"float:' + _formData.imagesalign + ';margin:3px;\"';
-            if(_formData.imagescss && !_asLink) {
-                _res.aTag += ' class=\"'+ _formData.imagescss +'\"';
-            }
+        _res.aTag += ' />';
 
-            _res.aTag += ' />';
-
-            if (_asLink) {
-                var linkData = fpcm.editor.getLinkData(_formData.imagespath, _res.aTag, '', _formData.imagescss);
-                _res.aTag = linkData.aTag + linkData.eTag;
-            }
-
-        } else if (_formData.imagesalign == "center") {
-            var wrapper = '<div style=\"text-align:' + _formData.imagesalign + ';\">';
-
-            _res.aTag = '<img src=\"' + _formData.imagespath + '\" alt=\"' + _formData.imagesalt + '\"';
-
-            if(_formData.imagescss && !_asLink) {
-                _res.aTag += ' class=\"'+ _formData.imagescss +'\"';
-            }
-
-            _res.aTag += '/>';
-
-            if (_asLink) {
-                var linkData = fpcm.editor.getLinkData(_formData.imagespath, _res.aTag, '', _formData.imagescss);
-                _res.aTag = linkData._res.aTag + linkData.eTag;
-            }
-
-            _res.aTag = wrapper + _res.aTag + '</div>';
-
-        } else {
-            _res.aTag = '<img src=\"' + _formData.imagespath + '\" alt=\"' + _formData.imagesalt + '\"';
-            if(_formData.imagescss && !_asLink) {
-                _res.aTag += ' class=\"'+ _formData.imagescss +'\"';
-            }
-
-            _res.aTag += ' />';
-
-            if (_asLink) {
-                var linkData = fpcm.editor.getLinkData(_formData.imagespath, _res.aTag, '', _formData.imagescss);
-                _res.aTag = linkData.aTag + linkData.eTag;
-            }
+        if (_formData.imagesalign == "center") {
+            _res.aTag = `<div style="text-align:center">${_res.aTag}</div>`;
         }
 
         return _res;

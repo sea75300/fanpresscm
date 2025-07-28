@@ -71,7 +71,7 @@ fpcm.filemanager = {
                                 },
                                 execDone: function () {
                                     fpcm.filemanager.reloadFiles();
-                                    fpcm.vars.jsvars.dialogs.filesSettings.fields[_ui.dataset.user_setting].preSelected = _ui.value;
+                                    fpcm.vars.jsvars.dialogs.filesSettings.fields[_ui.dataset.index].preSelected = _ui.value;
                                 }
                             });
                         }

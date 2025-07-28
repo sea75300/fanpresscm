@@ -262,4 +262,18 @@ implements interfaces\jsDialogHelper, \JsonSerializable {
     {
         return $this->readonly ? "disabled" : '';
     }
+
+    /**
+     * JSON data
+     * @return array
+     * @since 5.2.4-b3
+     */
+    public function jsonSerialize(): mixed
+    {
+        $return = parent::jsonSerialize();
+        $return['firstOption'] = $this->firstOption;
+        $return['hasOptGroup'] = $this->hasOptGroup;
+
+        return $return;
+    }
 }

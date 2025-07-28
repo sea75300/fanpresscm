@@ -42,9 +42,9 @@ class aceEditor extends articleEditor {
      * Align literals
      */
     const LINK_ALIGNS = [
-        'left' => 'left',
-        'center' => 'center',
-        'right' => 'right'
+        'EDITOR_HTML_BUTTONS_ALEFT' => 'left',
+        'EDITOR_HTML_BUTTONS_ACENTER' => 'center',
+        'EDITOR_HTML_BUTTONS_ARIGHT' => 'right'
     ];
 
     protected array $styles = [];
@@ -130,7 +130,7 @@ class aceEditor extends articleEditor {
 
         $ev = $this->events->trigger('editor\initAceEditor', $cfg);
         if (!$ev->getSuccessed() || !$ev->getContinue()) {
-            trigger_error(sprintf("Event editor\initCodemirrorJs failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            trigger_error(sprintf("Event editor\initAceEditor failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
             return $cfg;
         }
 
@@ -155,7 +155,8 @@ class aceEditor extends articleEditor {
             'GLOBAL_PREVIEW', 'EDITOR_INSERTPIC_ASLINK',
             'EDITOR_HTML_BUTTONS_IFRAME', 'EDITOR_LINKURL',
             'EDITOR_INSERTTABLE_ROWS', 'EDITOR_INSERTTABLE_COLS',
-            'EDITOR_INSERTLIST_TYPESIGN'
+            'EDITOR_INSERTLIST_TYPESIGN', 'EDITOR_HTML_BUTTONS_ALEFT',
+            'EDITOR_HTML_BUTTONS_ACENTER', 'EDITOR_HTML_BUTTONS_ARIGHT'
         ];
     }
 
@@ -414,19 +415,19 @@ class aceEditor extends articleEditor {
     private function getImageDialog() : \fpcm\view\helper\dialog
     {
         $fields = [
-            (new \fpcm\view\helper\textInput('images[path]', 'imagespath'))
+            (new \fpcm\view\helper\textInput('images[path]'))
                 ->setType('url')
                 ->setValue('')
                 ->setText('EDITOR_IMGPATH')
                 ->setIcon('image')
                 ->setLabelTypeFloat()
                 ->setBottomSpace(''),
-            (new \fpcm\view\helper\textInput('images[alt]', 'imagesalt'))
+            (new \fpcm\view\helper\textInput('images[alt]'))
                 ->setText('EDITOR_IMGALTTXT')
                 ->setIcon('keyboard')
                 ->setLabelTypeFloat()
                 ->setBottomSpace(''),
-            (new \fpcm\view\helper\select('images[align]', 'imagesalign'))
+            (new \fpcm\view\helper\select('images[align]'))
                 ->setOptions(self::LINK_ALIGNS)
                 ->setText('EDITOR_IMGALIGN')
                 ->setIcon('align-center')
@@ -435,13 +436,26 @@ class aceEditor extends articleEditor {
         ];
 
         if (count($this->styles)) {
-            $fields[] = (new \fpcm\view\helper\select('images[css]', 'imagescss'))
+            $fields[] = (new \fpcm\view\helper\select('images[css]'))
                 ->setOptions($this->styles)
                 ->setText('EDITOR_CSS_CLASS')
                 ->setIcon('paint-roller')
                 ->setLabelTypeFloat()
                 ->setBottomSpace('');
         }
+
+        $fields[] = [
+            (new \fpcm\view\helper\numberInput('images[width]'))
+                ->setText('SYSTEM_OPTIONS_NEWSSHOWMAXIMGSIZEWIDTH')
+                ->setIcon('arrows-left-right')
+                ->setLabelTypeFloat()
+                ->setBottomSpace(''),
+            (new \fpcm\view\helper\numberInput('images[height]'))
+                ->setText('SYSTEM_OPTIONS_NEWSSHOWMAXIMGSIZEHEIGHT')
+                ->setIcon('arrows-up-down')
+                ->setLabelTypeFloat()
+                ->setBottomSpace('')
+        ];
 
         return (new \fpcm\view\helper\dialog('insertImage'))->setFields($fields);
     }
@@ -466,7 +480,7 @@ class aceEditor extends articleEditor {
                     ->setClass('fpcm-editor-mediaformat')
                     ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
                     ->setLabelTypeFloat()
-                    ->setBottomSpace(''),                
+                    ->setBottomSpace(''),
             ],
             [
                 (new \fpcm\view\helper\textInput('media[path]', 'mediapath2'))
