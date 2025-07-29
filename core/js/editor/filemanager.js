@@ -36,7 +36,7 @@ if (fpcm.editor !== undefined) {
             });
         }
         
-        if (!fpcm.editor.insertGalleryDisabled(_mode)) {
+        if (!fpcm.editor.insertGalleryDisabled(_mode) && fpcm.ui.langvarExists('FILE_LIST_INSERTGALLERY')) {
             _btns.push({
                 text: 'FILE_LIST_INSERTGALLERY',
                 icon: "images",

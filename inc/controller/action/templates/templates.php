@@ -59,11 +59,23 @@ class templates extends \fpcm\controller\abstracts\controller implements \fpcm\c
 
         $this->view->addJsVars(array_merge([
             'templateId' => 1,
-            'uploadDest' => 'drafts'
+            'uploadDest' => 'drafts',
+            'filemanagerUrl' => \fpcm\classes\tools::getFullControllerLink('files/list', ['mode' => '']),
+            'filemanagerMode' => 2,
+            'filemanagerPermissions' => $this->permissions->uploads,
         ], $uploader->getJsVars(), $this->editor->getJsVars() ));
 
         $this->view->addCssFiles($uploader->getCssFiles());
-        $this->view->addJsLangVars(array_merge(['HL_TEMPLATE_PREVIEW', 'TEMPLATE_HL_DRAFTS_EDIT'], $uploader->getJsLangVars(), $this->editor->getJsLangVars() ));
+        $this->view->addJsLangVars(array_merge(
+            [
+                'HL_FILES_MNG', 'ARTICLES_SEARCH', 'FILE_LIST_NEWTHUMBS', 'GLOBAL_DELETE',
+                'EDITOR_CATEGORIES_SEARCH', 'FILE_LIST_UPLOADFORM',
+                'TEMPLATE_HL_DRAFTS_EDIT'
+            ],
+            $uploader->getJsLangVars(),
+            $this->editor->getJsLangVars()
+        ));
+
         $this->view->addJsFiles(array_merge(['templates/module.js'], $uploader->getJsFiles(), $this->editor->getJsFiles() ));
         $this->view->addJsFilesLate($uploader->getJsFilesLate());
         $this->view->setJsModuleFiles($uploader->getJsModuleFiles());
@@ -78,23 +90,8 @@ class templates extends \fpcm\controller\abstracts\controller implements \fpcm\c
             $this->execDestruct = false;
             return false;
         }
-
-        $this->view->setViewVars(array_merge(
-            [
-                'ace' => [
-                    'fontSize' => $this->config->system_editor_fontsize,
-                    'theme' => sprintf('ace/theme/tomorrow%s', $this->config->system_darkmode ? '_night' : ''),
-                    'mode' => 'ace/mode/html',
-                    'enableBasicAutocompletion' => true,
-                    'enableLiveAutocompletion' => true,
-                    'enableSnippets' => true,
-                    'wrap' => true,
-                    'minLines' => 15,
-                    'maxLines' => 50
-                ]
-            ],
-            $uploader->getViewVars()
-        ));
+        
+        $this->view->setViewVars($uploader->getViewVars());
 
         $this->initDataView();
 

@@ -93,6 +93,11 @@ abstract class articleEditor extends \fpcm\model\abstracts\staticModel {
     {
         return [];
     }
+    
+    public function getFilemanagerConfig() : array
+    {
+        return [];
+    }
 
     /**
      * Editor-Styles initialisieren

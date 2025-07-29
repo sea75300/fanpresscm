@@ -125,21 +125,14 @@ implements \fpcm\controller\interfaces\requestFunctions
 
         $viewVars = $editorPlugin->getViewVars();
 
-        if (isset($viewVars['editorButtons']) && count($viewVars['editorButtons'])) {
-            $viewVars['editorButtons']['frame']->setReturned(true);
-            unset($viewVars['editorButtons']['frame']);
-            $viewVars['editorButtons']['pagebreak']->setReturned(true);
-            unset($viewVars['editorButtons']['pagebreak']);
-            $viewVars['editorButtons']['drafts']->setReturned(true);
-            unset($viewVars['editorButtons']['drafts']);
-            $viewVars['editorButtons']['restore']->setReturned(true);
-            unset($viewVars['editorButtons']['restore']);
+        if ($viewVars instanceof \fpcm\components\editor\conf\aceVars) {
+            $viewVars->prepareComments();
+            $viewVars = $viewVars->toArray();
         }
 
         foreach ($viewVars as $key => $value) {
             $this->view->assign($key, $value);
         }
-
 
         $jsVars = $editorPlugin->getJsVars();
         if (is_object($jsVars['editorConfig']) && $jsVars['editorConfig'] instanceof \fpcm\components\editor\conf\tinymceEditor5) {

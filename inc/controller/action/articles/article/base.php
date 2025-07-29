@@ -174,6 +174,10 @@ implements \fpcm\controller\interfaces\requestFunctions
         );
 
         $viewVars = $this->editorPlugin->getViewVars();
+        if ($viewVars instanceof \fpcm\components\editor\conf\aceVars) {
+            $viewVars = $viewVars->toArray();
+        }
+
         foreach ($viewVars as $key => $value) {
             $this->view->assign($key, $value);
         }

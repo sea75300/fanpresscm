@@ -83,7 +83,7 @@ class fetchEditor extends \fpcm\controller\abstracts\ajaxController
         }, $tags);
         
         $editor = new \fpcm\components\editor\aceEditor();
-        $vars = $editor->getViewVars();
+        $vars = $editor->getViewVars()->toArray();
 
         $this->postPrepareVars($vars);
 

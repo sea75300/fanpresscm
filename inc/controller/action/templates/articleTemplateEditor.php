@@ -79,10 +79,26 @@ implements \fpcm\controller\interfaces\requestFunctions
 
         $editor = new \fpcm\components\editor\aceEditor();
 
-        $this->view->setViewVars($editor->getViewVars());
+        $viewVars = $editor->getViewVars();
+        $viewVars->prepareDrafts();
+        
+        $this->view->setViewVars($viewVars->toArray());
         $this->view->addCssFiles($editor->getCssFiles());
-        $this->view->addJsVars($editor->getJsVars());
-        $this->view->addJsLangVars($editor->getJsLangVars());
+        $this->view->addJsVars(array_merge(
+            [
+                'filemanagerUrl' => \fpcm\classes\tools::getFullControllerLink('files/list', ['mode' => '']),
+                'filemanagerMode' => 2,
+                'filemanagerPermissions' => $this->permissions->uploads
+            ],
+            $editor->getJsVars()
+        ));
+        $this->view->addJsLangVars(array_merge(
+            [
+                'HL_FILES_MNG', 'ARTICLES_SEARCH', 'FILE_LIST_NEWTHUMBS', 'GLOBAL_DELETE',
+                'EDITOR_CATEGORIES_SEARCH', 'FILE_LIST_UPLOADFORM'
+            ],
+            $editor->getJsLangVars()
+        ));
         $this->view->addDialogs($editor->getDialogs());
 
         $jsFiles = ['templates/articles.js'] + $editor->getJsFiles();
