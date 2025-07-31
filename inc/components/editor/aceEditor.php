@@ -53,7 +53,7 @@ class aceEditor extends articleEditor {
      * Liefert zu ladender CSS-Dateien für Editor zurück
      * @return array
      */
-    public function getCssFiles()
+    public function getCssFiles() : array
     {
         return [
             \fpcm\classes\dirs::getCoreUrl(\fpcm\classes\dirs::CORE_THEME, 'ace.css')
@@ -82,7 +82,7 @@ class aceEditor extends articleEditor {
      * Liefert zu ladender Javascript-Dateien für Editor zurück
      * @return array
      */
-    public function getJsFiles()
+    public function getJsFiles() : array
     {
         return [
             \fpcm\classes\dirs::getLibUrl('nkorg/jscharmap/charmap.js'),
@@ -98,7 +98,7 @@ class aceEditor extends articleEditor {
      * Array von Javascript-Variablen, welche in Editor-Template genutzt werden
      * @return array
      */
-    public function getJsVars()
+    public function getJsVars() : array
     {
         $cfg = [
             'editorConfig' => [
@@ -130,7 +130,7 @@ class aceEditor extends articleEditor {
      * @see \fpcm\model\abstracts\articleEditor
      * @return array
      */
-    public function getJsLangVars()
+    public function getJsLangVars() : array
     {
         return [
             'GLOBAL_INSERT', 'EDITOR_INSERTPIC', 'EDITOR_INSERTLINK',
@@ -169,29 +169,10 @@ class aceEditor extends articleEditor {
     }
 
     /**
-     * Arary mit Informationen u. a. für template-Plugin von TinyMCE
-     * @see \fpcm\model\abstracts\articleEditor::getTemplateDrafts()
+     * Returns a list of dialogs
+     * @since 5.3.0
      * @return array
      */
-    public function getTemplateDrafts()
-    {
-        $templatefilelist = new \fpcm\model\files\templatefilelist();
-
-        $ret = [];
-        foreach ($templatefilelist->getFolderList() as $file) {
-
-            $basename = basename($file);
-
-            if ($basename === 'index.html') {
-                continue;
-            }
-
-            $ret[$basename] = $basename;
-        }
-
-        return $ret;
-    }
-
     public function getDialogs() : array
     {
         return [
@@ -203,6 +184,10 @@ class aceEditor extends articleEditor {
         ];
     }
 
+    /**
+     * Set up link insert dialog
+     * @return \fpcm\view\helper\dialog
+     */
     private function getLinkDialog() : \fpcm\view\helper\dialog
     {
         $fields = [
@@ -246,6 +231,10 @@ class aceEditor extends articleEditor {
         return (new \fpcm\view\helper\dialog('insertLink'))->setFields($fields);
     }
 
+    /**
+     * Set up insert image dialog
+     * @return \fpcm\view\helper\dialog
+     */
     private function getImageDialog() : \fpcm\view\helper\dialog
     {
         $fields = [
@@ -294,6 +283,10 @@ class aceEditor extends articleEditor {
         return (new \fpcm\view\helper\dialog('insertImage'))->setFields($fields);
     }
 
+    /**
+     * Set up media insert dialog
+     * @return \fpcm\view\helper\dialog
+     */
     private function getMediaDialog() : \fpcm\view\helper\dialog
     {
 
@@ -380,6 +373,10 @@ class aceEditor extends articleEditor {
         return (new \fpcm\view\helper\dialog('insertMedia'))->setFields($fields);
     }
 
+    /**
+     * Set up color insert dialog
+     * @return \fpcm\view\helper\dialog
+     */
     private function getColorDialog() : \fpcm\view\helper\dialog
     {
         $fields = [
@@ -408,6 +405,10 @@ class aceEditor extends articleEditor {
         return (new \fpcm\view\helper\dialog('insertColor'))->setFields($fields);
     }
 
+    /**
+     * Set up color insert dialog
+     * @return \fpcm\view\helper\dialog
+     */
     private function getQuoteDialog() : \fpcm\view\helper\dialog
     {
         $fields = [

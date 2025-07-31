@@ -133,27 +133,7 @@ fpcm.templates = {
 fpcm.filemanager = {
 
     runFileIndexUpdate: function (_params) {
-
-        if (!_params.files || !_params.files) {
-            fpcm.ui.relocate('?module=templates/templates&rg=7');
-            return false;
-        }
-
-        let _err = 0;
-        for (var i = 0; i < _params.result.files.length; i++) {
-
-            if (!_params.result.files[i].error) {
-                continue;
-            }
-
-            _err++;
-        }
-
-        if (_err) {
-            return false;
-        }
-
-        fpcm.ui.relocate('?module=templates/templates&rg=7');
+        fpcm.ui.relocate('?module=templates/templates&rg=6');
     },
 
     getAcceptTypes: function ()

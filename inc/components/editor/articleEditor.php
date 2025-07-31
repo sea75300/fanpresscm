@@ -50,13 +50,13 @@ abstract class articleEditor extends \fpcm\model\abstracts\staticModel {
      * Liefert zu ladender Javascript-Dateien für Editor zurück
      * @return array
      */
-    abstract public function getJsFiles();
+    abstract public function getJsFiles() : array;
 
     /**
      * Liefert zu ladender CSS-Dateien für Editor zurück
      * @return array
      */
-    abstract public function getCssFiles();
+    abstract public function getCssFiles() : array;
 
     /**
      * Array von Javascript-Variablen, welche in Editor-Template genutzt werden
@@ -65,24 +65,41 @@ abstract class articleEditor extends \fpcm\model\abstracts\staticModel {
     abstract public function getJsVars();
 
     /**
-     * Array von Sprachvariablen für Nutzung in Javascript
-     * @return array
-     * @since 3.3
-     */
-    abstract public function getJsLangVars();
-
-    /**
      * Array von Variablen, welche in Editor-Template genutzt werden
      * @return array
      */
     abstract public function getViewVars();
 
     /**
-     * Array mit Informationen u. a. für template-Plugin von TinyMCE
+     * Array von Sprachvariablen für Nutzung in Javascript
      * @return array
      * @since 3.3
      */
-    abstract public function getTemplateDrafts();
+    abstract public function getJsLangVars() : array;
+
+    /**
+     * Arary mit Informationen u. a. für template-Plugin von TinyMCE
+     * @see \fpcm\model\abstracts\articleEditor::getTemplateDrafts()
+     * @return array
+     */
+    public function getTemplateDrafts() : array
+    {
+        $templatefilelist = new \fpcm\model\files\templatefilelist();
+
+        $ret = [];
+        foreach ($templatefilelist->getFolderList() as $file) {
+
+            $basename = basename($file);
+
+            if ($basename === 'index.html') {
+                continue;
+            }
+
+            $ret[$basename] = $basename;
+        }
+
+        return $ret;
+    }
 
     /**
      * Returns a list of dialogs
@@ -93,27 +110,22 @@ abstract class articleEditor extends \fpcm\model\abstracts\staticModel {
     {
         return [];
     }
-    
-    public function getFilemanagerConfig() : array
-    {
-        return [];
-    }
 
     /**
      * Editor-Styles initialisieren
      * @return array
      */
-    protected function getEditorStyles()
+    protected function getEditorStyles() : array
     {
         if (!trim($this->config->system_editor_css)) {
             return [];
         }
 
-        $classes = explode(PHP_EOL, $this->config->system_editor_css);
+        $classes = explode(PHP_EOL, preg_replace('/[\.\{\}]+/i', '', $this->config->system_editor_css));
 
         $editorStyles = [];
         foreach ($classes as $class) {
-            $class = trim(str_replace(array('.', '{', '}'), '', $class));
+            $class = trim(trim($class, '.[}'));
             $editorStyles[$class] = $class;
         }
 
@@ -135,7 +147,7 @@ abstract class articleEditor extends \fpcm\model\abstracts\staticModel {
      * Editor-Links initialisieren
      * @return string
      */
-    public function getEditorLinks(string $labelString = 'label')
+    public function getEditorLinks(string $labelString = 'label') : array
     {
         $ev = $this->events->trigger('editor\addLinks');
         if (!$ev->getSuccessed() || !$ev->getContinue()) {
@@ -155,7 +167,7 @@ abstract class articleEditor extends \fpcm\model\abstracts\staticModel {
      * Dateiliste initialisieren
      * @return array
      */
-    public function getFileList(string $labelString = '')
+    public function getFileList(string $labelString = '') : array
     {
         if (!$labelString) {
             $labelString = static::FILELIST_LABEL;
@@ -192,7 +204,7 @@ abstract class articleEditor extends \fpcm\model\abstracts\staticModel {
      * nur in TinyMCE genutzt
      * @return array
      */
-    protected function getTextPatterns()
+    protected function getTextPatterns() : array
     {
         return [
             ['start' => '- ', 'cmd' => 'InsertUnorderedList'],
