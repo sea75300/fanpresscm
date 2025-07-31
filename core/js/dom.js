@@ -10,12 +10,12 @@ if (fpcm === undefined) {
 }
 
 fpcm.dom = {
-   
+
     fromId: function (_str)
     {
         return fpcm.dom.fromTag('#' + _str.replace(/([^A-Za-z0-9\_\:\.\-])/gim, ''));
     },
-    
+
     fromClass: function (_str)
     {
         return fpcm.dom.fromTag('.' + _str.replace(/([^\#\ \.\-\w\>\:\w\d])/gim, ''));
@@ -23,7 +23,7 @@ fpcm.dom = {
 
     fromTag: function (_str)
     {
-        
+
         if (!_str) {
             return false;
         }
@@ -38,7 +38,7 @@ fpcm.dom = {
 
     setFocus: function(_id)
     {
-        
+
         if (!fpcm.dom.fromId(_id).length) {
             console.warn('Set focus to undefined element: ' + _id);
             return false;
@@ -46,7 +46,7 @@ fpcm.dom = {
 
         fpcm.dom.fromId(_id).focus();
     },
-    
+
     assignHtml: function(_id, data)
     {
         if (!fpcm.dom.fromTag(_id).length) {
@@ -76,9 +76,9 @@ fpcm.dom = {
 
         fpcm.dom.fromTag(_id).append(data);
     },
-    
+
     prependHtml: function(_id, data)
-    {        
+    {
         if (!fpcm.dom.fromTag(_id).length) {
             console.warn('Prepend html to undefined element: ' + _id);
             return false;
@@ -96,7 +96,7 @@ fpcm.dom = {
 
         fpcm.dom.fromTag(_id).prop('readonly', state);
     },
-    
+
     getValuesFromIds: function (_elements)
     {
         if (typeof _elements === 'string' && _elements.substr(0,1) === '#') {
@@ -123,7 +123,7 @@ fpcm.dom = {
 
         return null;
     },
-    
+
     getCheckboxCheckedValues: function(id) {
 
         var data = [];
@@ -136,7 +136,7 @@ fpcm.dom = {
     },
 
     getValuesByClass: function(_class, _indexed) {
-        
+
         var _fields = fpcm.dom.fromClass(_class);
         if (!_fields.length) {
             return {};
@@ -158,7 +158,7 @@ fpcm.dom = {
 
             _data[_name] = el.val();
             return true;
-        });     
+        });
 
         return _data;
     },
@@ -168,7 +168,7 @@ fpcm.dom = {
         if (typeof _elements !== 'object' || !_elements.length) {
             return false;
         }
-        
+
         if (_val === undefined) {
             _val = '';
         }
@@ -180,7 +180,7 @@ fpcm.dom = {
                 continue;
             }
 
-            fpcm.dom.fromId(_el).val(_val);            
+            fpcm.dom.fromId(_el).val(_val);
         }
 
         return true;
@@ -202,7 +202,7 @@ fpcm.dom = {
             if (_el === undefined) {
                 continue;
             }
-            
+
             fpcm.dom.fromId(_el).prop('checked', _value);
         }
 
@@ -235,27 +235,27 @@ fpcm.dom = {
 
         return true;
     },
-    
+
     resetCheckboxesByClass: function(_class, _value) {
-        
+
         if (_value === undefined) {
             _value = false;
         }
-        
+
         fpcm.dom.fromClass(_class).prop('checked', _value);
         return true;
     },
-    
+
     findElementInDialogFrame: function (_root, _element, _frame)
     {
-        
+
         if (!_frame) {
             _frame = 0;
         }
-        
+
         return fpcm.dom.fromTag(_root._dialog.getElementsByTagName('iframe')[_frame]).contents().find(_element);
     },
-    
+
     bindEvent: function (_element, _ob, _callback, _unbind, _return)
     {
         if (_unbind === undefined) {
@@ -271,28 +271,76 @@ fpcm.dom = {
             if (_handler === undefined) {
                 _handler = false;
             }
-            
+
             let _res = _callback(_event, this, _selecto, _data, _handler);
             if (_return) {
                 return _res;
             }
-            
+
             return false;
         });
     },
-    
+
     bindClick: function (_element, _callback, _unbind, _return)
     {
         if (_unbind === undefined) {
             _unbind = true;
         }
-        
+
         let _res = fpcm.dom.bindEvent(_element, 'click', _callback, _unbind, _return);
         if (_return) {
             return _res;
         }
 
         return false;
+    },
+
+    appendAndClickButtonInDialogFrame: function (_ui, _btnName) {
+
+        if (!_ui || !_ui._element) {
+            console.error('Parameter _ui is empty or does not container property _element!');
+            return false;
+        }
+
+        if (!_btnName) {
+            console.error('Parameter _btnName is empty!');
+            return false;
+        }
+
+        let _frame = _ui._element.getElementsByTagName('iframe');
+        if (!_frame) {
+            console.error('No iframe element found!');
+            return false;
+        }
+
+        let _item0 = _frame.item(0);
+        if (!_item0) {
+            console.error('No frame item 0 in frame found!');
+            return false;
+        }
+
+        let _body = _item0.contentDocument.body;
+        if (!_body) {
+            console.error('No body item in frame found!');
+            return false;
+        }
+
+        let _inlineFrame = _body.getElementsByTagName('form');
+        if (!_inlineFrame) {
+            console.error('No form elemtn in inline frame data found!');
+            return false;
+        }
+
+        let _inlineForm = _inlineFrame.item(0);
+        if (!_inlineForm) {
+            console.error('No frame item 0 in frame found!');
+            return false;
+        }
+
+        let _btn = document.createElement('button');
+        _btn.name = _btnName;
+        _inlineForm.appendChild(_btn);
+        _btn.click();
     }
 
 };

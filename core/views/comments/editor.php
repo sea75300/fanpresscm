@@ -1,7 +1,7 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
 <?php /* @var $comment fpcm\model\comments\comment */ ?>
 <?php if($commentsMode === 2) : ?><div class="d-none"><?php include_once $theView->getIncludePath('common/buttons.php'); ?></div><?php endif; ?>
-<fieldset class="my-2">
+<fieldset>
     <div class="row row-cols-1 row-cols-lg-2 my-2">
         <div class="col">
 

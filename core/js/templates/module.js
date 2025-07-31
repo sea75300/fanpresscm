@@ -34,8 +34,6 @@ fpcm.templates = {
         fpcm.dom.bindClick('#btnShowpreview', fpcm.templates.saveTemplatePreview);
 
         fpcm.dom.bindClick('.fpcm-articletemplates-edit', function(_ev, _ui) {
-
-
             fpcm.ui_loader.hide();
             fpcm.ui_dialogs.create({
                 id: 'draft-editor',
@@ -51,13 +49,7 @@ fpcm.templates = {
                         icon: "save",
                         primary: true,
                         click: function(_ui) {
-
-                            let _body = _ui._element.getElementsByTagName('iframe').item(0).contentDocument.body;
-                            let _form = _body.getElementsByTagName('form').item(0);
-                            let _btn = document.createElement('button');
-                            _btn.name = 'btnSaveTemplate';
-                            _form.appendChild(_btn);
-                            _btn.click();
+                            fpcm.dom.appendAndClickButtonInDialogFrame(_ui, 'btnSaveTemplate');
                             fpcm.ui_loader.hide();
                         }
                     }

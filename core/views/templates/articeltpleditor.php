@@ -6,8 +6,10 @@
 </div>
 <?php endif; ?>
 
-<div class="row my-2">
-    <?php require_once $theView->getIncludePath($toolbarTpl); ?>
+<div class="row">
+    <div class="my-2">
+        <?php require_once $theView->getIncludePath($toolbarTpl); ?>
+    </div>
 </div>
 
 <div class="row my-2">

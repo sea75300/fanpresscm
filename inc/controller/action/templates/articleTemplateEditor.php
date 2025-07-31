@@ -107,6 +107,14 @@ implements \fpcm\controller\interfaces\requestFunctions
         $this->view->setFormAction($this->file->getEditLink(),[], true);
         $this->view->assign('file', $this->file);
 
+        $this->view->addTabs('atedit', [
+            (new \fpcm\view\helper\tabItem('art-editor'))
+                ->setText($this->file->getFilename())
+                ->setFile($this->getViewPath())
+        ]);
+        
+        $this->view->setBodyClass('m-2');
+        
         $this->view->render();
     }
 
