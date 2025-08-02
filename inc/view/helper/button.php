@@ -95,6 +95,10 @@ implements interfaces\jsDialogHelper, \JsonSerializable {
      */
     public function overrideButtonType(string $type)
     {
+        if ($type === '') {
+            return $this;
+        }
+        
         $this->class = preg_replace('/(btn-)(\w+\s{1})(.*)/i', '$1'.$type.' $3', $this->class);
         return $this;
     }

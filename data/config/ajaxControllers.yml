@@ -2,6 +2,9 @@
 ---
 ajax/cache: ajax/common/cache
 ajax/copy: ajax/common/copy
+ajax/reminder/set: ajax/reminder/setReminder
+ajax/reminder/get: ajax/reminder/getReminder
+ajax/reminder/delete: ajax/reminder/deleteReminder
 ajax/autocomplete: ajax/common/autocomplete
 ajax/autocompleteCleanup: ajax/common/autocompleteCleanup
 ajax/searchall: ajax/common/searchall

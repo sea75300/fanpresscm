@@ -124,7 +124,7 @@ class filelist extends \fpcm\controller\abstracts\ajaxController
             $list = [];
             $this->filterError = true;
         }
-        
+
         $max = count($list);
 
         $pager = new \fpcm\view\helper\pager(
@@ -149,14 +149,31 @@ class filelist extends \fpcm\controller\abstracts\ajaxController
         $this->view->assign('is_last', function ($i) {
             return $i % FPCM_FILEMAGER_ITEMS_ROW === 0;
         });
-        
-        
+
+        $this->view->assign('has_reminder', function ($reminders, $id, &$hasRem) {
+
+            $hasRem = 0;
+
+            $rem = $reminders[$id] ?? false;
+            if (!$rem) {
+                return '';
+            }
+
+            $hasRem = $rem->getId();
+            if ($rem->getTime() <= time()) {
+                return 'warning';
+            }
+
+            return 'secondary';
+        });
+
         $addColsToEnd = FPCM_FILEMAGER_ITEMS_ROW - $max % FPCM_FILEMAGER_ITEMS_ROW;
-        
+
         $this->view->assign('addColsToEnd', $addColsToEnd < FPCM_FILEMAGER_ITEMS_ROW ? $addColsToEnd : 0);
         $this->view->assign('showPager', $this->showPager);
         $this->view->assign('thumbsize', $this->config->file_thumb_size . 'px');
         $this->view->assign('pager', $pager);
+        $this->view->assign('reminders', \fpcm\model\reminders\reminders::getInstance()->getRemindersForDatasets(\fpcm\model\files\image::class));
 
         $responseData = new \fpcm\model\http\responseDataHtml(
             $this->view->render(true), [

@@ -33,6 +33,10 @@ class filelist extends \fpcm\controller\abstracts\controller
      */
     protected $mode = 1;
 
+    /**
+     *
+     * @return bool
+     */
     public function isAccessible(): bool
     {
         return $this->permissions->uploads->visible;
@@ -54,6 +58,8 @@ class filelist extends \fpcm\controller\abstracts\controller
     public function request()
     {
         $this->fileList = new \fpcm\model\files\imagelist();
+        $this->userList = new \fpcm\model\users\userList();
+
         $this->mode = $this->request->getIntMode();
         if ($this->mode == 1) {
             return true;
@@ -71,36 +77,8 @@ class filelist extends \fpcm\controller\abstracts\controller
 
         /* @var $uploader \fpcm\components\fileupload\uploader */
         $uploader = \fpcm\components\components::getFileUploader();
-        
-        $settingsDlg = (new \fpcm\view\helper\dialog('filesSettings'));
-        $settingsDlg->setFields([
-            (new \fpcm\view\helper\select('file_list_limit'))
-                ->setText('SYSTEM_OPTIONS_ACPARTICLES_LIMIT')
-                ->setOptions( \fpcm\model\system\config::getAcpArticleLimits() )
-                ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
-                ->setSelected($this->config->file_list_limit)
-                ->setData([
-                    'user_setting' => 'file_list_limit',
-                    'index' => 0
-                ])
-                ->setIcon('folder-open')
-                ->setLabelTypeFloat()
-                ->setBottomSpace(''),
-            (new \fpcm\view\helper\select('file_view'))
-                ->setText('SYSTEM_OPTIONS_FILEMANAGER_VIEW')
-                ->setOptions(\fpcm\components\components::getFilemanagerViews())
-                ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
-                ->setSelected($this->config->file_view)
-                ->setData([
-                    'user_setting' => 'file_view',
-                    'index' => 1
-                ])
-                ->setIcon('grip-horizontal')
-                ->setLabelTypeFloat()
-                ->setBottomSpace('')
-        ]);
-        
-        $this->view->addDialogs($settingsDlg);
+
+        $this->initDialogs();
 
         $this->view->addCssFiles($uploader->getCssFiles());
         $this->view->addJsVars(array_merge([
@@ -129,7 +107,8 @@ class filelist extends \fpcm\controller\abstracts\controller
             'FILE_LIST_RESOLUTION', 'FILE_LIST_FILETYPE', 'FILE_LIST_FILEHASH',
             'FILE_LIST_FILECREDITS', 'RENAME_FAILED_FILE', 'HL_OPTIONS',
             'SYSTEM_OPTIONS_FILEMANAGER_VIEWCARDS', 'FILE_LIST_EDIT_FLIP',
-            'SYSTEM_OPTIONS_FILEMANAGER_VIEWLIST', 'FILE_LIST_EDIT_DYNAMIC'
+            'SYSTEM_OPTIONS_FILEMANAGER_VIEWLIST', 'FILE_LIST_EDIT_DYNAMIC',
+            'HL_REMINDER', 'REMINDER_SAVE_FAILED', 'GLOBAL_DELETE'
         ], $uploader->getJsLangVars()));
 
         if (!trim($uploader->getTemplate()) || !realpath($uploader->getTemplate())) {
@@ -252,8 +231,9 @@ class filelist extends \fpcm\controller\abstracts\controller
             'userid' => [
                 'call' => 'select',
                 'class' => 'fpcm-files-search-input',
-                'options' => ['GLOBAL_SELECT' => -1] + (new \fpcm\model\users\userList)->getUsersNameList(),
+                'options' => ['GLOBAL_SELECT' => -1] + $this->userList->getUsersNameList(),
                 'label' => 'ARTICLE_SEARCH_USER',
+                'firstOption' => \fpcm\view\helper\select::FIRST_OPTION_DISABLED
             ]
         ];
 
@@ -273,6 +253,71 @@ class filelist extends \fpcm\controller\abstracts\controller
             'FILE_LIST_SEARCHTEXT', 'ARTICLE_SEARCH_LOGICNONE', 'ARTICLE_SEARCH_LOGICAND',
             'ARTICLE_SEARCH_LOGICOR', 'ARTICLE_SEARCH_LOGIC', 'GLOBAL_SELECT'
         ]);
+    }
+
+    private function initDialogs()
+    {
+
+        $settingsDlg = (new \fpcm\view\helper\dialog('filesSettings'));
+        $settingsDlg->setFields([
+            (new \fpcm\view\helper\select('file_list_limit'))
+                ->setText('SYSTEM_OPTIONS_ACPARTICLES_LIMIT')
+                ->setOptions( \fpcm\model\system\config::getAcpArticleLimits() )
+                ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
+                ->setSelected($this->config->file_list_limit)
+                ->setData([
+                    'user_setting' => 'file_list_limit',
+                    'index' => 0
+                ])
+                ->setIcon('folder-open')
+                ->setLabelTypeFloat()
+                ->setBottomSpace(''),
+            (new \fpcm\view\helper\select('file_view'))
+                ->setText('SYSTEM_OPTIONS_FILEMANAGER_VIEW')
+                ->setOptions(\fpcm\components\components::getFilemanagerViews())
+                ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
+                ->setSelected($this->config->file_view)
+                ->setData([
+                    'user_setting' => 'file_view',
+                    'index' => 1
+                ])
+                ->setIcon('grip-horizontal')
+                ->setLabelTypeFloat()
+                ->setBottomSpace('')
+        ]);
+
+        $reminderDlg = new \fpcm\view\helper\dialog('reminders');
+        $reminderDlg->setFields([
+            (new \fpcm\view\helper\select('user-id'))
+                ->setText('LOGS_LIST_USER')
+                ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
+                ->setOptions($this->userList->getUsersNameList() )
+                ->setIcon('user')
+                ->setLabelTypeFloat()
+                ->setBottomSpace(''),
+            [
+                (new \fpcm\view\helper\dateTimeInput('resub-date'))
+                    ->setText('EDITOR_POSTPONED_DATE')
+                    ->setIcon('calendar')
+                    ->setLabelTypeFloat()
+                    ->setBottomSpace(''),
+                (new \fpcm\view\helper\dateTimeInput('resub-time'))
+                    ->setText('EDITOR_POSTPONED_DATETIME')
+                    ->setNativeTime()
+                    ->setLabelTypeFloat()
+                    ->setBottomSpace('')
+            ],
+            (new \fpcm\view\helper\textInput('resub-comment'))
+                ->setText('COMMMENT_TEXT')
+                ->setLabelTypeFloat()
+                ->setBottomSpace('')
+        ]);
+
+        $this->view->addDialogs([
+            $settingsDlg,
+            $reminderDlg
+        ]);
+
     }
 
 }

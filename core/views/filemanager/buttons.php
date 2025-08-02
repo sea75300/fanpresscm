@@ -85,5 +85,16 @@
               </li>
               <?php endif; ?>
             </ul>
+            <?php $theView->button('reminder'.$hash)
+                ->setText('HL_REMINDER')
+                ->setIcon('bell')
+                ->overrideButtonType($has_reminder($reminders, $file->getId(), $hasRem))
+                ->setIconOnly()
+                ->setData([
+                    'id' => $file->getId(),
+                    'reminderType' => 'files',
+                    'reminderId' => $hasRem
+                ]);
+            ?>
         </div>
 <?php endif; ?>

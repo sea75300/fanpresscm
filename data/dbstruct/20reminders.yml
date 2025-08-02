@@ -1,0 +1,48 @@
+## reminders table definition
+---
+name: reminders
+primarykey: id
+engine: InnoDB
+charset: utf8
+autoincrement:
+    colname: id
+    start: 1
+cols:
+    id:
+        type: bigint
+        length: 20
+        params: NOT NULL
+    user_id:
+        type: bigint
+        length: 20
+        params: NOT NULL
+    obj_name:
+        type: varchar
+        length: 512
+        params: NOT NULL
+    oid:
+        type: bigint
+        length: 20
+        params: NOT NULL
+    resubtime:
+        type: bigint
+        length: 20
+        params: NOT NULL
+    comment:
+        type: varchar
+        length: 512
+        params: NOT NULL
+indices:
+    oou:
+        col:
+          obj_name
+          oid
+          user_id
+        isUnqiue: true
+    uoro:
+        col:
+          user_id
+          obj_name
+          resubtime
+          oid
+        isUnqiue: false

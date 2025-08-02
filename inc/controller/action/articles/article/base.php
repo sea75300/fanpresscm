@@ -303,7 +303,7 @@ implements \fpcm\controller\interfaces\requestFunctions
         $this->article->setCategories($categories);
 
         if (!isset($data['archived']) && isset($data['postponed']) && \fpcm\classes\tools::validateDateString($data['postponedate'])) {
-            $timer = strtotime($data['postponedate'] . ' ' . $data['postponetime'] . ':00');
+            $timer = \fpcm\classes\tools::getTimestampFromString($data['postponedate'], $data['postponetime']);
 
             $postpone = 1;
             if ($timer === false) {

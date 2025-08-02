@@ -94,6 +94,7 @@ fpcm.filemanager = {
         fpcm.filemanager.initAltTextButtons();
         fpcm.filemanager.initPropertiesButton();
         fpcm.filemanager.initCopyButton();
+        fpcm.filemanager.initReminderButton();
     },
 
     initInsertButtons: function () {
@@ -383,6 +384,129 @@ fpcm.filemanager = {
 
         fpcm.dom.bindClick('a.dropdown-item[data-fn="system.createCopy"]', function (_e) {
             fpcm.system.createCopy(_e);
+        });
+
+    },
+
+    initReminderButton: function() {
+
+        fpcm.dom.bindClick('button[data-remindertype="files"]', function (_e) {
+
+            let _remDlg = fpcm.ui_dialogs.fromDOM('reminders');
+            let _rid = parseInt(_e.currentTarget.dataset.reminderid);
+            let _oid = parseInt(_e.currentTarget.dataset.id);
+
+            fpcm.ui_dialogs.create({
+                id: 'files-remidners',
+                title: 'HL_REMINDER',
+                content: _remDlg,
+                closeButton: true,
+                scrollable: false,
+                directAssignToDom: true,
+                dlButtons: [
+                    {
+                        text: 'GLOBAL_DELETE',
+                        icon: "trash",
+                        clickClose: true,
+                        showLabel: false,
+                        disabled: !_rid,
+                        click: function() {
+
+                            fpcm.reminders.delete(
+                                _e.currentTarget.dataset.remindertype,
+                                _rid,
+                                function (_res) {
+                                    if (!_res.reload) {
+                                        return false;
+                                    }
+
+                                    fpcm.filemanager.reloadFiles();
+                                }
+                            );
+                        }
+                    },
+                    {
+                        text: 'GLOBAL_SAVE',
+                        icon: "save",
+                        clickClose: true,
+                        primary: true,
+                        click: function() {
+
+                            let _uid = parseInt(document.getElementById(fpcm.ui.prepareId('user-id', true)).value);
+                            if (!_uid) {
+                                fpcm.ui.addMessage({
+                                    txt: 'REMINDER_SAVE_FAILED',
+                                    type: 'error'
+                                });
+
+                                return false;
+                            }
+
+                            let _dt = {
+                                date: document.getElementById(fpcm.ui.prepareId('resub-date', true)).value,
+                                time: document.getElementById(fpcm.ui.prepareId('resub-time', true)).value
+                            }
+
+                            if (!_dt.date || !_dt.time) {
+                                fpcm.ui.addMessage({
+                                    txt: 'REMINDER_SAVE_FAILED',
+                                    type: 'error'
+                                });
+
+                                return false;
+                            }
+
+                            fpcm.reminders.set(
+                                _e.currentTarget.dataset.remindertype,
+                                _rid,
+                                _oid,
+                                _uid,
+                                _dt,
+                                document.getElementById(fpcm.ui.prepareId('resub-comment', true)).value,
+                                function (_res) {
+                                    if (!_res.reload) {
+                                        return false;
+                                    }
+
+                                    fpcm.filemanager.reloadFiles();
+                                }
+                            );
+                        }
+                    },
+                ],
+                dlOnOpen: function () {
+
+                    if (!_rid) {
+                        return false;
+                    }
+
+                    fpcm.reminders.get(
+                        _e.currentTarget.dataset.remindertype,
+                        _rid,
+                        function (_res) {
+
+                            let _uselect = document.getElementById(fpcm.ui.prepareId('user-id', true));
+                            let _secIndx = 0;
+
+                            for (var _o in _uselect.options) {
+                                _secIndx = _o;
+                                if (_uselect.options[_o].value == _res.uid) {
+                                    break;
+                                }
+                            }
+
+                            _uselect.value = _res.uid;
+                            _uselect.selectedIndex = _secIndx;
+
+                            document.getElementById(fpcm.ui.prepareId('resub-date', true)).value = _res.dateTime.date;
+                            document.getElementById(fpcm.ui.prepareId('resub-time', true)).value = _res.dateTime.time;
+                            document.getElementById(fpcm.ui.prepareId('resub-comment', true)).value = _res.comment;
+                        }
+                    );
+                }
+            });
+
+
         });
 
     },

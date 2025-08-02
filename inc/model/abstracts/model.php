@@ -9,7 +9,7 @@ namespace fpcm\model\abstracts;
 
 /**
  * Model base object
- * 
+ *
  * @package fpcm\model\abstracts
  * @abstract
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
@@ -62,7 +62,7 @@ abstract class model implements \fpcm\model\interfaces\model, \Stringable {
 
     /**
      * Event-Liste
-     * @var \fpcm\events\events 
+     * @var \fpcm\events\events
      */
     protected $events;
 
@@ -265,16 +265,18 @@ abstract class model implements \fpcm\model\interfaces\model, \Stringable {
      */
     public function createFromDbObject($object)
     {
-
-        if (!is_object($object))
+        if (!is_object($object)) {
             return false;
+        }
 
         $keys = array_keys($this->getPreparedSaveParams());
         $keys[] = 'id';
 
         foreach ($keys as $key) {
-            if (!isset($object->$key))
+            if (!isset($object->$key)) {
                 continue;
+            }
+
             $this->$key = $object->$key;
         }
 
@@ -291,7 +293,12 @@ abstract class model implements \fpcm\model\interfaces\model, \Stringable {
     {
         $params = get_object_vars($this);
         unset(
-                $params['cache'], $params['config'], $params['dbcon'], $params['events'], $params['session'], $params['id'], $params['nodata'], $params['system'], $params['table'], $params['dbExcludes'], $params['language'], $params['editAction'], $params['objExists'], $params['cacheName'], $params['cacheModule'], $params['wordbanList'], $params['notifications']
+            $params['cache'], $params['config'], $params['dbcon'],
+            $params['events'], $params['session'], $params['id'],
+            $params['nodata'], $params['system'], $params['table'],
+            $params['dbExcludes'], $params['language'], $params['editAction'],
+            $params['objExists'], $params['cacheName'], $params['cacheModule'],
+            $params['wordbanList'], $params['notifications']
         );
 
         if ($this->nodata) {

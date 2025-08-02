@@ -50,6 +50,10 @@ final class extendToolbar extends \fpcm\events\abstracts\event {
     protected function afterRun() : void
     {
         $this->beforeRunData->buttons = $this->data->getData();
+        if (!$this->beforeRunData->area) {
+            $this->beforeRunData->area = $this->area;
+        }
+
         $this->data->setData($this->beforeRunData);
     }
 

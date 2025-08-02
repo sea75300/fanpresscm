@@ -245,7 +245,7 @@ class selectParams implements \Stringable {
      * @param bool $fetchAll
      * @return $this
      */
-    public function setFetchAll(bool $fetchAll)
+    public function setFetchAll(bool $fetchAll = true)
     {
         $this->fetchAll = $fetchAll;
         return $this;

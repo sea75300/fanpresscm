@@ -159,6 +159,8 @@ class refresh extends \fpcm\controller\abstracts\ajaxController
     {
         $notifications = new \fpcm\model\theme\notifications();
         $notifications->prependSystemNotifications();
+        
+        (new \fpcm\model\reminders\reminders())->appendNotifications($notifications);
 
         /* @var $result \fpcm\module\eventResult */
         $ev = $this->events->trigger('ajaxRefresh', $notifications);

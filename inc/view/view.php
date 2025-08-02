@@ -1393,6 +1393,7 @@ class view {
             '{$coreJs}/ui/pager' . $ext,
             '{$coreJs}/ui/deprecated' . $ext,
             '{$coreJs}/system' . $ext,
+            '{$coreJs}/reminders' . $ext,
             '{$coreJs}/gsearch' . $ext
         ]);
 

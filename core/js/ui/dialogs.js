@@ -504,6 +504,13 @@ fpcm.ui_dialogs = {
             };
         }
 
+        if (_item === 'dateTimeInput') {
+            return {
+                callback: 'input',
+                type: 'date'
+            };
+        }
+
         if (_item === 'radiobutton') {
             return {
                 callback: 'radiocheck',

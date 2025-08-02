@@ -276,4 +276,21 @@ final class tools {
         return 'extend' . ucfirst($prefix) . ucfirst(str_replace('/', '', \fpcm\classes\loader::getObject('\fpcm\model\http\request')->getModule()));
     }
 
+    /**
+     * Returns timestamp from string data
+     * @param string $date
+     * @param string $time
+     * @return int
+     */
+    public static function getTimestampFromString(string $date, string $time) : int
+    {
+        $zsec = ':00';
+        
+        if (!str_ends_with($time, $zsec)) {
+            $time .= $zsec;
+        }
+
+        return strtotime($date . ' ' . $time);
+    }
+
 }
