@@ -43,19 +43,45 @@ class notificationItem implements \Stringable {
     protected $callback = '';
 
     /**
+     * Link callback
+     * @var bool
+     */
+    private bool $isLinkCallback = false;
+
+    /**
+     * Button for notification item
+     * @var \fpcm\view\helper\button|\fpcm\view\helper\linkButton
+     */
+    protected null|\fpcm\view\helper\button|\fpcm\view\helper\linkButton $button = null;
+
+    /**
      * Konstruktor
      * @param \fpcm\view\helper\icon $icon
      * @param string $id
      * @param string $callback
      */
-    function __construct(\fpcm\view\helper\icon $icon, string $id = '', string $callback = '', string $class = '')
+    function __construct(
+        \fpcm\view\helper\icon $icon,
+        string $id = '',
+        string $callback = '',
+        string $class = '',
+        null|\fpcm\view\helper\button|\fpcm\view\helper\linkButton $button = null
+    )
     {
+        if (!trim($id)) {
+            $id = uniqid('fpcm-notification-item');
+        }
+
+        $disabled = !trim($callback) && $button === null;
+
+        $this->class = sprintf('dropdown-item %s %s', trim($class), $disabled ? 'disabled' : '');
+        $this->id = $id;
+
         $this->icon = $icon;
         $this->icon->setSize('lg');
 
-        $this->id = trim($id) ? trim($id) : uniqid('fpcm-notification-item');
         $this->callback = $callback;
-        $this->class = sprintf('dropdown-item %s %s', trim($class), !trim($callback) ? 'disabled' : '');
+        $this->button = $button;
     }
 
     /**
@@ -92,15 +118,19 @@ class notificationItem implements \Stringable {
      */
     public function __toString() : string
     {
-        $callback = $this->getCallback();
+        $btn = '';
+        if ($this->button !== null) {
+            $btn = (string) $this->button;
+        }
 
         return sprintf(
-            '<li id="%s" class="%s text-truncate" %s %s %s</li>',
+            '<li id="%s" class="%s text-truncate" %s %s %s%s</li>',
             $this->id,
             $this->class,
             $this->getCallback(),
-            !str_contains($callback, '<a href') ? $this->icon : '',
-            $this->icon->getText()
+            !$this->isLinkCallback ? $this->icon : '',
+            $this->icon->getText(),
+            $btn
         );
 
     }
@@ -117,6 +147,9 @@ class notificationItem implements \Stringable {
         }
 
         if ( str_starts_with($this->callback, 'http') ) {
+
+            $this->isLinkCallback = true;
+
             return sprintf(
                 '><a href="%s" class="%s">%s</a>',
                 $this->callback,

@@ -31,10 +31,12 @@ implements \fpcm\model\interfaces\isObjectInstancable {
     /**
      * Fetch reminders for given type and object ids
      * @param string $type
+     * @param int $start
      * @param array $oids
+     * @param int|null $uid
      * @return array|\fpcm\model\reminders\reminder
      */
-    public function getRemindersForDatasets(string $type = '', int $start = 0, array $oids = [])
+    public function getRemindersForDatasets(string $type = '', int $start = 0, array $oids = [], ?int $uid = null)
     {
         $ch = \fpcm\classes\tools::getHash(__METHOD__.$type.implode('', $oids));
 
@@ -43,7 +45,7 @@ implements \fpcm\model\interfaces\isObjectInstancable {
             return $c;
         }
 
-        $uid = \fpcm\model\system\session::getInstance()?->getUserId();
+        $uid = (int) ( $uid ?? \fpcm\model\system\session::getInstance()?->getUserId() );
         if (!$uid) {
             return [];
         }
@@ -92,6 +94,11 @@ implements \fpcm\model\interfaces\isObjectInstancable {
         return $res;
     }
 
+    /**
+     * Append reminders to notifications
+     * @param \fpcm\model\theme\notifications $notifications
+     * @return bool
+     */
     public function appendNotifications(\fpcm\model\theme\notifications &$notifications)
     {
         $list = $this->getRemindersForDatasets('', time() - 60);
@@ -108,9 +115,35 @@ implements \fpcm\model\interfaces\isObjectInstancable {
                 'rid' => $rem->getId()
             ]);
 
-            $notifications->addNotification( new \fpcm\model\theme\notificationItem($icon, '', '', 'text-success') );
+            $delBtn = new \fpcm\view\helper\button('set-read-notify-'.$rem->getId());
+            $delBtn->setIcon('envelope-circle-check')
+                    ->setText('GLOBAL_DELETE')
+                    ->setClass('btn-sm ms-2')
+                    ->setIconOnly()
+                    ->setData([
+                        'set-read-notify' => $rem->getId(),
+                        'set-read-type' => self::mapPublic($rem)
+                    ]);
+
+            $item = new \fpcm\model\theme\notificationItem($icon, '', '', 'text-success', $delBtn);
+
+            $notifications->addNotification($item);
         }
 
+        return true;
+    }
+
+    /**
+     * Map internal type to public type
+     * @param reminder $rem
+     * @return string
+     */
+    public static function mapPublic(reminder $rem) : string
+    {
+        return match ($rem->getObjName()) {
+            'fpcm\model\files\image' => 'files',
+            default => ''
+        };
     }
 
 }

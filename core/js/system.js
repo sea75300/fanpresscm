@@ -76,7 +76,7 @@ fpcm.system = {
             document.getElementById(_input.id).select();
             document.execCommand('copy');
             document.body.removeChild(_input);
-            
+
             fpcm.ui.addMessage(new fpcm.ui.message(
                 'info',
                 `Area ID copied: ${_input.value}`
@@ -454,6 +454,21 @@ fpcm.system = {
         let _el = fpcm.dom.fromId('notificationsCount').html(_count);
 
         if (_count) {
+
+            fpcm.dom.bindClick('button[data-set-read-notify]', function (_ui) {
+
+                fpcm.ui.replaceIcon(_ui.currentTarget.id, 'fa-envelope-circle-check', 'circle-notch fa-spin-pulse');
+
+                fpcm.reminders.delete(
+                    _ui.currentTarget.dataset.setReadType,
+                    _ui.currentTarget.dataset.setReadNotify,
+                    function () {
+                        _ui.currentTarget.parentElement.remove();
+                    }
+                );
+
+            });
+
             _el.removeClass('d-none');
             return true;
         }
@@ -546,7 +561,7 @@ fpcm.system = {
         });
 
     },
-    
+
     openUpdateDialog: function(_bindId) {
 
         fpcm.dom.bindClick('#' + _bindId, function (_e, _ui) {
