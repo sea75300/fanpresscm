@@ -68,6 +68,8 @@ implements \fpcm\model\interfaces\isObjectInstancable {
             $params = array_merge($params, $oids);
         }
 
+        $query .= $this->dbcon->orderBy(['resubtime DESC']);
+        
         $select = new \fpcm\model\dbal\selectParams($this->table);
         $select->setWhere($query);
         $select->setParams($params);
@@ -111,21 +113,17 @@ implements \fpcm\model\interfaces\isObjectInstancable {
 
             $icon = new \fpcm\view\helper\icon('bell');
             $icon->setText($rem->getDescription());
-            $icon->setData([
-                'rid' => $rem->getId()
-            ]);
 
             $delBtn = new \fpcm\view\helper\button('set-read-notify-'.$rem->getId());
             $delBtn->setIcon('envelope-circle-check')
                     ->setText('GLOBAL_DELETE')
-                    ->setClass('btn-sm ms-2')
-                    ->setIconOnly()
+                    ->overrideButtonType('outline-secondary')
                     ->setData([
                         'set-read-notify' => $rem->getId(),
                         'set-read-type' => self::mapPublic($rem)
                     ]);
 
-            $item = new \fpcm\model\theme\notificationItem($icon, '', '', 'text-success', $delBtn);
+            $item = new \fpcm\model\theme\notificationItem($icon, '', $delBtn);
 
             $notifications->addNotification($item);
         }

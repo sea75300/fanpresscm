@@ -696,6 +696,8 @@ implements \fpcm\model\interfaces\gsearchIndex {
      */
     public function getNewCommentCount() : int
     {
+        return 2;
+        
         $session = \fpcm\model\system\session::getInstance();
         if (!$session->exists()) {
             return 0;

@@ -39,23 +39,6 @@ class notifications implements \Countable {
     {
         $cgf = \fpcm\model\system\config::getInstance();
 
-        if ($cgf->system_maintenance) {
-            $this->addNotification(new \fpcm\model\theme\notificationItem(
-                (new \fpcm\view\helper\icon('lightbulb'))->setText('SYSTEM_OPTIONS_MAINTENANCE'),
-                '', '', 'text-danger'
-            ));
-        }
-
-        if ($cgf->system_comments_enabled && $ctr = (new \fpcm\model\comments\commentList)->getNewCommentCount()) {
-
-            $this->addNotification(new \fpcm\model\theme\notificationItem(
-                (new \fpcm\view\helper\icon('comments'))->setText('COMMENTS_NOTIFICATION_NEW_COUNT', [$ctr], true),
-                '',
-                \fpcm\classes\tools::getControllerLink('comments/list')
-            ));
-
-        }
-
         if (!\fpcm\classes\baseconfig::asyncCronjobsEnabled()) {
             $this->addNotification(new \fpcm\model\theme\notificationItem(
                 (new \fpcm\view\helper\icon('history'))->setText('SYSTEM_OPTIONS_CRONJOBS')
@@ -81,21 +64,46 @@ class notifications implements \Countable {
             ));
         }
 
+        if ($cgf->system_maintenance) {
+            $this->addNotification(new \fpcm\model\theme\notificationItem(
+                (new \fpcm\view\helper\icon('lightbulb'))->setText('SYSTEM_OPTIONS_MAINTENANCE'),
+                '', '', 'text-danger'
+            ));
+        }
+
+        if ($cgf->system_comments_enabled && $ctr = (new \fpcm\model\comments\commentList)->getNewCommentCount()) {
+
+            $this->addNotification(new \fpcm\model\theme\notificationItem(
+                (new \fpcm\view\helper\icon('comments'))->setText('COMMENTS_NOTIFICATION_NEW_COUNT', [$ctr], true),
+                '',
+                (new \fpcm\view\helper\linkButton('new-comments'))
+                    ->setUrl(\fpcm\classes\tools::getControllerLink('comments/list'))
+                    ->setText('HL_COMMENTS_MNG')
+                    ->setIcon('square-arrow-up-right')
+                    ->overrideButtonType('warning')
+            ));
+
+        }
+
         /* @var $perm \fpcm\model\permissions\permissions */
         $perm = \fpcm\classes\loader::getObject('\fpcm\model\permissions\permissions');
         if ($perm?->system?->options && $perm?->system?->update) {
 
             $updates = new \fpcm\model\updater\system();
-            
-            if ($updates->updateAvailable()) {
+
+            if (!$updates->updateAvailable()) {
 
                 $this->addNotification(new \fpcm\model\theme\notificationItem(
                     (new \fpcm\view\helper\icon('cloud-download-alt'))->setText('UPDATE_VERSIONCHECK_NEW', [
                         '{{btn}}' => '',
-                        '{{version}}' => $updates->version                
+                        '{{version}}' => $updates->version
                     ]),
                     '',
-                    \fpcm\classes\tools::getFullControllerLink('package/sysupdate')
+                    (new \fpcm\view\helper\linkButton('new-comments'))
+                        ->setUrl(\fpcm\classes\tools::getControllerLink('package/sysupdate'))
+                        ->setText('HL_PACKAGEMGR_SYSUPDATES')
+                        ->setIcon('arrows-spin')
+                        ->overrideButtonType('warning')
                 ));
 
             }
