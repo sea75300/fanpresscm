@@ -463,7 +463,7 @@ fpcm.system = {
                     _ui.currentTarget.dataset.setReadType,
                     _ui.currentTarget.dataset.setReadNotify,
                     function () {
-                        _ui.currentTarget.parentElement.remove();
+                        _ui.currentTarget.parentElement.parentElement.remove();
                     }
                 );
 

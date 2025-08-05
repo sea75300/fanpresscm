@@ -50,6 +50,36 @@ class icon extends helper {
     }
 
     /**
+     * Returns icon class
+     * @return string
+     * @since 5.3.0-dev
+     */
+    public function getIcon() : string
+    {
+        return $this->icon;
+    }
+
+    /**
+     * Set invert class to icon
+     * @return $this
+     */
+    public function setInvertIcon()
+    {
+        $this->icon .= ' fa-inverse';
+        return $this;
+    }
+
+    /**
+     * Set invert class to stack
+     * @return $this
+     */
+    public function setInvertStack()
+    {
+        $this->class .= ' fa-inverse';
+        return $this;
+    }
+
+    /**
      * Return element string
      * @return string
      */

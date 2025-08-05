@@ -14,6 +14,13 @@ a, a:visited, a.fpcm-link, a.nav-link {
     color: var(--fpcm-link-color);
 }
 
+a.btn.btn-warning,
+a.btn.btn-info,
+a.btn.btn-secondary
+{
+    color: var(--bs-btn-color) !important;
+}
+
 #fpcm-top-menu a.nav-link {
     color: var(--bs-nav-link-color);
 }
@@ -70,6 +77,10 @@ span.fpcm-ui-badge,
 
 .fpcm.ui-background-grey-75 {
     background: rgba(var(--bs-secondary-rgb), 0.75);
+}
+
+.fpcm.ui-background-dropdown-85 {
+    background: rgba(255, 255, 255, 0.85);
 }
 
 div.fpcm.ui-files-item {
@@ -209,6 +220,10 @@ div.fileupload-progress.in {
     
     legend {
         background-color: var(--bs-dark-bg-subtle);
+    }
+
+    .fpcm.ui-background-dropdown-85 {
+        background: rgba(33, 37, 41, 0.85);
     }
     
 }

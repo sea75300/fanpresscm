@@ -38,17 +38,20 @@ class notifications implements \Countable {
     final public function prependSystemNotifications(): void
     {
         $cgf = \fpcm\model\system\config::getInstance();
-
-        if (!\fpcm\classes\baseconfig::asyncCronjobsEnabled()) {
-            $this->addNotification(new \fpcm\model\theme\notificationItem(
-                (new \fpcm\view\helper\icon('history'))->setText('SYSTEM_OPTIONS_CRONJOBS')
-            ));
-        }
+        $perm = \fpcm\model\permissions\permissions::getInstance();
 
         if (defined('FPCM_DEBUG') && FPCM_DEBUG) {
             $this->addNotification(new \fpcm\model\theme\notificationItem(
                 (new \fpcm\view\helper\icon('terminal'))->setText('DEBUG_MODE'),
                 '', '', 'text-danger'
+            ));
+        }
+
+        if (!\fpcm\classes\baseconfig::asyncCronjobsEnabled()) {
+            $this->addNotification(new \fpcm\model\theme\notificationItem(
+                (new \fpcm\view\helper\icon('history'))->setText('SYSTEM_OPTIONS_CRONJOBS'),
+                '',
+                $perm?->system?->crons ? \fpcm\classes\tools::getControllerLink('system/crons') : '',
             ));
         }
 
@@ -67,11 +70,16 @@ class notifications implements \Countable {
         if ($cgf->system_maintenance) {
             $this->addNotification(new \fpcm\model\theme\notificationItem(
                 (new \fpcm\view\helper\icon('lightbulb'))->setText('SYSTEM_OPTIONS_MAINTENANCE'),
-                '', '', 'text-danger'
+                '',
+                $perm?->system?->options ? \fpcm\classes\tools::getControllerLink('system/options', ['rg' => 4]) : '',
+                'text-danger'
             ));
         }
 
-        if ($cgf->system_comments_enabled && $ctr = (new \fpcm\model\comments\commentList)->getNewCommentCount()) {
+        if ($cgf->system_comments_enabled &&
+            $perm?->editComments() &&
+            $ctr = (new \fpcm\model\comments\commentList)->getNewCommentCount()
+        ) {
 
             $this->addNotification(new \fpcm\model\theme\notificationItem(
                 (new \fpcm\view\helper\icon('comments'))->setText('COMMENTS_NOTIFICATION_NEW_COUNT', [$ctr], true),
@@ -85,13 +93,11 @@ class notifications implements \Countable {
 
         }
 
-        /* @var $perm \fpcm\model\permissions\permissions */
-        $perm = \fpcm\classes\loader::getObject('\fpcm\model\permissions\permissions');
         if ($perm?->system?->options && $perm?->system?->update) {
 
             $updates = new \fpcm\model\updater\system();
 
-            if (!$updates->updateAvailable()) {
+            if ($updates->updateAvailable()) {
 
                 $this->addNotification(new \fpcm\model\theme\notificationItem(
                     (new \fpcm\view\helper\icon('cloud-download-alt'))->setText('UPDATE_VERSIONCHECK_NEW', [
@@ -103,7 +109,7 @@ class notifications implements \Countable {
                         ->setUrl(\fpcm\classes\tools::getControllerLink('package/sysupdate'))
                         ->setText('HL_PACKAGEMGR_SYSUPDATES')
                         ->setIcon('arrows-spin')
-                        ->overrideButtonType('warning')
+                        ->overrideButtonType('info')
                 ));
 
             }

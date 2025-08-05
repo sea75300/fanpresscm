@@ -135,7 +135,7 @@ trait iconHelper {
             return '';
         }
 
-        return "<span class=\"fpcm-ui-icon {$this->icon} {$this->size} {$this->spinner}\"></span> ";
+        return sprintf('<span class="fpcm-ui-icon %s %s %s"></span>', $this->icon, $this->size, $this->spinner);
     }
 
 }

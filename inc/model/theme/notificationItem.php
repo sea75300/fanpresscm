@@ -69,11 +69,11 @@ class notificationItem implements \Stringable {
 
         $disabled = !is_object($this->callback) || (is_string($callback) && !trim($callback));
 
-        $this->class = sprintf('dropdown-item %s %s', trim($class), $disabled ? 'disabled' : '');
+        $this->class = sprintf('%s %s dropdown-item-text', trim($class), $disabled ? 'disabled' : '');
         $this->id = $id;
 
         $this->icon = $icon;
-        $this->icon->setSize('lg');
+        $this->icon->setStack('square')->setInvertIcon();
     }
 
     /**
@@ -110,13 +110,16 @@ class notificationItem implements \Stringable {
      */
     public function __toString() : string
     {
+        $txt = $this->icon->getText();
+
         return sprintf(
-            '<li id="%s" class="%s text-truncate" %s %s %s</li>',
+            '<li title="%s" id="%s" class="%s"><span class="d-flex align-items-center"><span class="me-2">%s</span><span class="flex-grow-1 text-truncate">%s</span><span class="ms-3">%s</span></span></li>',
+            strip_tags($txt),
             $this->id,
             $this->class,
-            $this->getCallback(),
-            !$this->isLinkCallback ? $this->icon : '',
-            $this->icon->getText()
+            $this->icon,
+            $txt,
+            $this->getCallback()
         );
 
     }
@@ -128,31 +131,37 @@ class notificationItem implements \Stringable {
      */
     private function getCallback() : string
     {
+        if (!is_object($this->callback) && !trim($this->callback)) {
+            return '';
+        }
+
+        if (is_string($this->callback)) {
+
+            $name = 'callback'.$this->id;
+
+            if (str_starts_with($this->callback, 'http')) {
+                $this->callback = (new \fpcm\view\helper\linkButton($name))->setUrl($this->callback)->setText('');
+            }
+            else {
+                $this->callback = (new \fpcm\view\helper\button($name))
+                    ->setData(['fn' => $this->callback])
+                    ->setText(strip_tags($this->icon->getText()));
+            }
+
+            $this->callback->overrideButtonType('secondary')->setIcon('circle-play');
+        }
+
         if ($this->callback instanceof \fpcm\view\helper\linkButton ||
             $this->callback instanceof \fpcm\view\helper\button) {
-            
+
             $this->callback->setIconOnly()->setClass('btn-sm me-1');
-            
-            return '>'. (string) $this->callback;
-        }        
 
-        if (!trim($this->callback)) {
-            return '>';
+            return (string) $this->callback;
         }
 
-        if ( str_starts_with($this->callback, 'http') ) {
 
-            $this->isLinkCallback = true;
 
-            return sprintf(
-                '><a href="%s" class="%s">%s</a>',
-                $this->callback,
-                'btn btn-sm btn-warning',
-                $this->icon
-            );
-        }
-
-        return sprintf(' data-callback="%s">', $this->callback);
+        return sprintf(' data-callback="%s"', $this->callback);
     }
 
 }

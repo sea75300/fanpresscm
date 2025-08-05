@@ -18,7 +18,7 @@
                         <?php $theView->icon('magnifying-glass')->setSize('lg')->setClass('fpcm-navicon')->setSize('lg')->setText('ARTICLES_SEARCH'); ?>
                     </button>               
                     
-                    <div class="dropdown-menu fpcm ui-z-index-top ui-max-width-md" aria-labelledby="fpcm-id-search-global-btn" id="fpcm-id-search-global">
+                    <div class="dropdown-menu fpcm ui-z-index-top ui-max-width-md ui-blurring ui-background-dropdown-85" aria-labelledby="fpcm-id-search-global-btn" id="fpcm-id-search-global">
 
                         <h6 class="dropdown-header me-5"><?php $theView->write('LABEL_SEARCH_GLOBAL'); ?></h6>
 
@@ -64,7 +64,7 @@
                         <span class="d-none d-md-inline"><?php $theView->write('PROFILE_MENU_NOTIFICATIONS'); ?></span>
                         <?php $theView->badge('notificationsCount')->setText('PROFILE_MENU_NOTIFICATIONS')->setValue(count($theView->notifications))->addPadding(-1)->setClass('rounded-pill text-bg-warning ' . ( count($theView->notifications) ? '' : 'd-none' ) ); ?>
                     </a>
-                    <ul class="dropdown-menu dropdown-menu-end fpcm ui-z-index-top ui-max-width-md" aria-labelledby="fpcm-notify-menu" id="fpcm-id-notifications">
+                    <ul class="dropdown-menu dropdown-menu-end fpcm ui-z-index-top ui-max-width-md ui-blurring ui-background-dropdown-85" aria-labelledby="fpcm-notify-menu" id="fpcm-id-notifications">
                         <?php print $theView->notifications; ?>
                     </ul>
                 </li>
@@ -73,7 +73,7 @@
                         <?php $theView->icon('user-circle')->setClass('fpcm-navicon')->setSize('lg'); ?>                
                         <span class="d-none d-md-inline"><?php $theView->write('PROFILE_MENU_LOGGEDINAS',  ['{{username}}' => $theView->currentUser->getDisplayName()]); ?></span>
                     </a>
-                    <ul class="dropdown-menu dropdown-menu-end fpcm ui-z-index-top" aria-labelledby="fpcm-profile-menu">
+                    <ul class="dropdown-menu dropdown-menu-end fpcm ui-z-index-top ui-blurring ui-background-dropdown-85" aria-labelledby="fpcm-profile-menu">
                         <li class="dropdown-item disabled fpcm ui-font-small ui-color-font-disabled-dark">
                             <b><?php $theView->write('PROFILE_MENU_LOGGEDINSINCE'); ?>:</b><br>
                             <?php $theView->dateText($theView->loginTime); ?> (<?php print $theView->dateTimeZone; ?>)

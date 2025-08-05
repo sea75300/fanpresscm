@@ -16,7 +16,11 @@ namespace fpcm\model\permissions;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @since 4.4
  */
-class permissions extends \fpcm\model\abstracts\dataset {
+class permissions
+extends \fpcm\model\abstracts\dataset
+implements \fpcm\model\interfaces\isObjectInstancable {
+    
+    use \fpcm\model\traits\getObjectInstance;
 
     /**
      * Rollen-ID
