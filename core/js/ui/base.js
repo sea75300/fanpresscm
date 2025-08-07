@@ -62,9 +62,6 @@ fpcm.ui = {
         }, false, true);
 
         fpcm.ui.initShorthelpTooltips();
-        fpcm.ui.initLightbox();
-
-        fpcm.ui.tabs('.fpcm-ui-tabs-general');
     },
 
     initShorthelpTooltips: function(_) {
@@ -101,23 +98,6 @@ fpcm.ui = {
         }, false, true);
 
         fpcm.ui.initPager();
-    },
-
-    initLightbox: function() {
-
-        if (jQuery.fancybox == undefined) {
-            return false;
-        }
-
-        fpcm.dom.fromClass('fpcm.ui-link-fancybox').fancybox({
-            buttons: [
-                "zoom",
-                "fullScreen",
-                "download",
-                "close"
-              ]
-        });
-
     },
 
     showMessages: function() {

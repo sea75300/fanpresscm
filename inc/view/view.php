@@ -458,17 +458,6 @@ class view {
     }
 
     /**
-     * Overrides new JS language vars
-     * @param array $jsVars
-     * @deprecated 5.2
-     */
-    public function overrideJsLangVars(array $jsVars)
-    {
-        trigger_error(sprintf('%s is deprecated as of FPCM 5.2. Use "addJsLangVars" function with second parameter true instead.', __METHOD__), E_USER_DEPRECATED);
-        $this->addJsLangVars($jsVars, true);
-    }
-
-    /**
      * Add new JS language vars
      * @param mixed $jsVars
      */
@@ -823,7 +812,7 @@ class view {
         $this->defaultViewVars->self = trim(filter_var($_SERVER['PHP_SELF'], FILTER_SANITIZE_URL));
         $this->defaultViewVars->basePath = \fpcm\classes\tools::getFullControllerLink();
         $this->defaultViewVars->themePath = \fpcm\classes\dirs::getCoreUrl(\fpcm\classes\dirs::CORE_THEME);
-        $this->defaultViewVars->debugMode = defined('FPCM_DEBUG') && FPCM_DEBUG;
+        $this->defaultViewVars->debugMode = \fpcm\classes\baseconfig::debugModeActive();
 
         /* @var $req \fpcm\model\http\request */
         $req = \fpcm\classes\loader::getObject('\fpcm\model\http\request');
@@ -1391,10 +1380,9 @@ class view {
             '{$coreJs}/ui/loader' . $ext,
             '{$coreJs}/ui/tabs' . $ext,
             '{$coreJs}/ui/pager' . $ext,
-            '{$coreJs}/ui/deprecated' . $ext,
             '{$coreJs}/system' . $ext,
-            '{$coreJs}/reminders' . $ext,
-            '{$coreJs}/gsearch' . $ext
+            '{$coreJs}/common/reminders' . $ext,
+            '{$coreJs}/common/gsearch' . $ext
         ]);
 
         $this->addJsFilesLate([self::ROOTURL_CORE_JS.'init'.self::getJsExt()]);

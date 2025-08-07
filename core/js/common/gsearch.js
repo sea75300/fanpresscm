@@ -87,13 +87,13 @@ fpcm.gsearch = {
                         let linkCss = _result.items[i].lightbox ? 'fpcm ui-link-fancybox' : '';
 
                         let linkData = '';
-                        if (_result.items[i].lightbox) {
+                        /*if (_result.items[i].lightbox) {
                             
                             _img = new Image();
                             _img.src = link;
 
                             linkData = `data-pswp-width="${_img.naturalWidth}" data-pswp-height="${_img.naturalHeight}"`;
-                        }
+                        }*/
                         
 
                         _list += `<div class="${_resCss}"><a href="${link}" target="_blank" class="text-truncate ${linkCss}" ${linkData}>${icon}${text}</a></div>`;

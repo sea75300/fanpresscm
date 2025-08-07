@@ -113,7 +113,7 @@ class pubController extends controller {
 
         if (!defined('FPCM_PUBJS_LOADED')) {
 
-            $jsfiles[]  =  defined('FPCM_DEBUG') && FPCM_DEBUG || !file_exists(\fpcm\classes\dirs::getFullDirPath('js/fpcm.min.js'))
+            $jsfiles[]  =  \fpcm\classes\baseconfig::debugModeActive() || !file_exists(\fpcm\classes\dirs::getFullDirPath('js/fpcm.min.js'))
                         ? \fpcm\classes\dirs::getRootUrl('js/fpcm.js')
                         : \fpcm\classes\dirs::getRootUrl('js/fpcm.min.js');
         }

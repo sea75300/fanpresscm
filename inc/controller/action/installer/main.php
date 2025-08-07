@@ -241,7 +241,7 @@ class main extends \fpcm\controller\abstracts\controller {
         
         $this->view->showHeaderFooter(\fpcm\view\view::INCLUDE_HEADER_SIMPLE);
         $this->view->assign('languages', array_flip($this->language->getLanguages()));
-        $this->view->addJsFiles(['{$coreJs}installer.js', '{$coreJs}systemcheck.js']);
+        $this->view->addJsFiles(['{$coreJs}packages/installer.js', '{$coreJs}common/systemcheck.js']);
         $this->view->addFromLibrary('nkorg/passgen', ['passgen.js']);
         $this->view->showPageToken(true);
         $this->view->setViewPath($this->getViewPath());

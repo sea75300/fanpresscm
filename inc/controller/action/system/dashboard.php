@@ -44,7 +44,7 @@ class dashboard extends \fpcm\controller\abstracts\controller
     public function process()
     {
         $this->view->addJsLangVars(['DASHBOARD_LOADING']);
-        $this->view->addJsFiles(['dashboard.js', 'ui/dnd.js']);
+        $this->view->addJsFiles(['common/dashboard.js', 'ui/dnd.js']);
         $this->view->addFromLibrary('sortable_js', [
             'Sortable.min.js'
         ]);

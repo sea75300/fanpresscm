@@ -389,6 +389,16 @@ final class baseconfig {
     }
 
     /**
+     * Debug mode active
+     * @return bool
+     * @since 5.3.0-dev
+     */
+    public static function debugModeActive() : bool
+    {
+        return defined('FPCM_DEBUG') && FPCM_DEBUG;
+    }
+
+    /**
      * Aktiviert bzw. deaktiviert asynchrone Cronjob-Ausführung
      * @param bool $status neuer Status
      * @return bool

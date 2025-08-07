@@ -85,7 +85,6 @@ fpcm.filemanager = {
 
     initListActions: function () {
         fpcm.ui.assignCheckboxes();
-        fpcm.ui.initLightbox();
         fpcm.filemanager.initPagination();
         fpcm.filemanager.initInsertButtons();
         fpcm.filemanager.initRenameButtons();

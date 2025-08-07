@@ -514,7 +514,7 @@ final class database {
         $sql = "SELECT max(id) as maxid from {$this->getTablePrefixed($table)};";
         $data = $this->fetch($this->query($sql));
 
-        if (defined('FPCM_DEBUG') && FPCM_DEBUG && defined('FPCM_DEBUG_SQL') && FPCM_DEBUG_SQL) {
+        if (\fpcm\classes\baseconfig::debugModeActive() && defined('FPCM_DEBUG_SQL') && FPCM_DEBUG_SQL) {
             fpcmLogSql("MAXID from {$this->getTablePrefixed($table)} is {$data->maxid}.");
         }
 
@@ -571,7 +571,7 @@ final class database {
             return false;
         }
 
-        if (defined('FPCM_DEBUG') && FPCM_DEBUG && defined('FPCM_DEBUG_SQL') && FPCM_DEBUG_SQL) {
+        if (\fpcm\classes\baseconfig::debugModeActive() && defined('FPCM_DEBUG_SQL') && FPCM_DEBUG_SQL) {
             fpcmLogSql($statement->queryString);
         }
 
@@ -623,7 +623,7 @@ final class database {
         
         $this->lastQueryString = $sql;
 
-        if (defined('FPCM_DEBUG') && FPCM_DEBUG && defined('FPCM_DEBUG_SQL') && FPCM_DEBUG_SQL) {
+        if (\fpcm\classes\baseconfig::debugModeActive() && defined('FPCM_DEBUG_SQL') && FPCM_DEBUG_SQL) {
             fpcmLogSql($sql);
         }
         
@@ -661,7 +661,7 @@ final class database {
 
         $this->lastQueryString = $sql;
 
-        if (defined('FPCM_DEBUG') && FPCM_DEBUG && defined('FPCM_DEBUG_SQL') && FPCM_DEBUG_SQL) {
+        if (\fpcm\classes\baseconfig::debugModeActive() && defined('FPCM_DEBUG_SQL') && FPCM_DEBUG_SQL) {
             fpcmLogSql($sql);
         }
         
@@ -701,7 +701,7 @@ final class database {
             return false;
         }
 
-        if (defined('FPCM_DEBUG') && FPCM_DEBUG && defined('FPCM_DEBUG_SQL') && FPCM_DEBUG_SQL) {
+        if (\fpcm\classes\baseconfig::debugModeActive() && defined('FPCM_DEBUG_SQL') && FPCM_DEBUG_SQL) {
             fpcmLogSql($statement->queryString);
         }
 
@@ -761,7 +761,7 @@ final class database {
         $params = $this->driver->getLastInsertIdParams($this->lastTable);
         $return = $params ? $this->connection->lastInsertId($params) : $this->connection->lastInsertId();
 
-        if (defined('FPCM_DEBUG') && FPCM_DEBUG && defined('FPCM_DEBUG_SQL') && FPCM_DEBUG_SQL) {
+        if (\fpcm\classes\baseconfig::debugModeActive() && defined('FPCM_DEBUG_SQL') && FPCM_DEBUG_SQL) {
             fpcmLogSql("Last insert id was: $return");
         }
 

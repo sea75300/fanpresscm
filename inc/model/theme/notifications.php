@@ -40,7 +40,7 @@ class notifications implements \Countable {
         $cgf = \fpcm\model\system\config::getInstance();
         $perm = \fpcm\model\permissions\permissions::getInstance();
 
-        if (defined('FPCM_DEBUG') && FPCM_DEBUG) {
+        if (\fpcm\classes\baseconfig::debugModeActive()) {
             $this->addNotification(new \fpcm\model\theme\notificationItem(
                 (new \fpcm\view\helper\icon('terminal'))->setText('DEBUG_MODE'),
                 '', '', 'text-danger'

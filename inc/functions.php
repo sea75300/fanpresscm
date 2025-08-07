@@ -67,7 +67,7 @@ set_error_handler(function($ecode, $etext, $efile, $eline)
         $eline
     ];
 
-    if (defined('FPCM_DEBUG') && FPCM_DEBUG) {
+    if (\fpcm\classes\baseconfig::debugModeActive()) {
 
         $text[] = 'Bebug Backtrace: '.PHP_EOL.implode(PHP_EOL, array_map(function(array $item) {
 
@@ -229,7 +229,7 @@ function fpcmLogEvents($data)
  */
 function fpcmDebugOutput()
 {
-    if (defined('FPCM_DEBUG') && !FPCM_DEBUG) {
+    if (!\fpcm\classes\baseconfig::debugModeActive()) {
         return false;
     }
 
