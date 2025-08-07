@@ -186,7 +186,7 @@ abstract class event {
      */
 
     /**
-     * Eexcutes event
+     * Executes event
      * @return \fpcm\module\eventResult
      */
     public function run() : \fpcm\module\eventResult
@@ -195,7 +195,7 @@ abstract class event {
 
         $eventClasses = $this->getEventClasses();
         if (!count($eventClasses)) {
-            return (new \fpcm\module\eventResult())->setData($this->data);
+            return $this->onNoClasses();
         }
 
         if ($this instanceof \fpcm\events\interfaces\componentProvider) {
@@ -222,8 +222,19 @@ abstract class event {
     }
 
     /**
+     * Return event result object if no events will be triggered
+     * @return \fpcm\module\eventResult
+     * @since 5.3.0-dev
+     */
+    protected function onNoClasses() : \fpcm\module\eventResult
+    {
+        return (new \fpcm\module\eventResult())->setData($this->data);
+    }
+
+    /**
      * Prepare event before running
      * @return bool
+     * @since 5.3.0-dev
      */
     protected function beforeRun() : void
     {
@@ -233,6 +244,7 @@ abstract class event {
     /**
      * After event running
      * @return bool
+     * @since 5.3.0-dev
      */
     protected function afterRun() : void
     {
@@ -252,6 +264,7 @@ abstract class event {
      * Process class data
      * @param string $class
      * @return bool
+     * @since 5.3.0-dev
      */
     protected function processClass(string $class) : bool
     {

@@ -57,4 +57,17 @@ final class extendToolbar extends \fpcm\events\abstracts\event {
         $this->data->setData($this->beforeRunData);
     }
 
+    /**
+     * 
+     * @return \fpcm\module\eventResult
+     */
+    protected function onNoClasses(): \fpcm\module\eventResult
+    {
+        if (!$this->beforeRunData->area) {
+            $this->beforeRunData->area = $this->area;
+        }
+
+        return parent::onNoClasses();
+    }
+
 }

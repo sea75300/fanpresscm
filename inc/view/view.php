@@ -1367,23 +1367,29 @@ class view {
 
         $ext = self::getJsExt();
 
-        $this->addJsFiles([
+        $files = [
             \fpcm\components\components::getjQuery(),
-            self::ROOTURL_LIB.'bootstrap/js/bootstrap.bundle.min.js',
-            self::ROOTURL_LIB.'bs-autocomplete/autocomplete.js',
-            '{$coreJs}/ajax' . $ext,
-            '{$coreJs}/dom' . $ext,
-            '{$coreJs}/ui/base' . $ext,
-            '{$coreJs}/ui/dialogs' . $ext,
-            '{$coreJs}/ui/webnotify' . $ext,
-            '{$coreJs}/ui/notifications' . $ext,
-            '{$coreJs}/ui/loader' . $ext,
-            '{$coreJs}/ui/tabs' . $ext,
-            '{$coreJs}/ui/pager' . $ext,
-            '{$coreJs}/system' . $ext,
-            '{$coreJs}/common/reminders' . $ext,
-            '{$coreJs}/common/gsearch' . $ext
-        ]);
+            self::ROOTURL_LIB . 'bootstrap/js/bootstrap.bundle.min.js',
+            self::ROOTURL_LIB . 'bs-autocomplete/autocomplete.js',
+            self::ROOTURL_CORE_JS . 'ajax' . $ext,
+            self::ROOTURL_CORE_JS . 'dom' . $ext,
+            self::ROOTURL_CORE_JS . 'ui/base' . $ext,
+            self::ROOTURL_CORE_JS . 'ui/dialogs' . $ext,
+            self::ROOTURL_CORE_JS . 'ui/webnotify' . $ext,
+            self::ROOTURL_CORE_JS . 'ui/notifications' . $ext,
+            self::ROOTURL_CORE_JS . 'ui/loader' . $ext,
+            self::ROOTURL_CORE_JS . 'ui/tabs' . $ext,
+            self::ROOTURL_CORE_JS . 'ui/pager' . $ext,
+            self::ROOTURL_CORE_JS . 'system' . $ext,
+            self::ROOTURL_CORE_JS . 'common/reminders' . $ext,
+            self::ROOTURL_CORE_JS . 'common/gsearch' . $ext
+        ];
+        
+        if (\fpcm\classes\baseconfig::debugModeActive()) {
+            $files[] = self::ROOTURL_CORE_JS . 'common/dev' . $ext;
+        }
+        
+        $this->addJsFiles($files);
 
         $this->addJsFilesLate([self::ROOTURL_CORE_JS.'init'.self::getJsExt()]);
         $this->setJsModuleFiles(['/ui/forms.js']);
