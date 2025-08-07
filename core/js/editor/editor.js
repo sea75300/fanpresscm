@@ -166,6 +166,15 @@ fpcm.editor = {
                 });
             }
         });
+    },
+    
+    onRefresh: function (_result) {
+        
+        if (!fpcm.vars.jsvars.articleId > 0 || !fpcm.editor.showInEditDialog) {
+            return false;
+        }
+        
+        fpcm.editor.showInEditDialog(_result);
     }
 
 };

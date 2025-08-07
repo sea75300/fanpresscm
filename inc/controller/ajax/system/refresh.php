@@ -12,7 +12,7 @@ namespace fpcm\controller\ajax\system;
  *
  * @package fpcm\controller\ajax\system\refresh
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2022, Stefan Seehafer
+ * @copyright (c) 2011-2025, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 class refresh extends \fpcm\controller\abstracts\ajaxController
@@ -122,6 +122,10 @@ class refresh extends \fpcm\controller\abstracts\ajaxController
      */
     private function runArticleInEdit()
     {
+        if (!$this->session->exists()) {
+            return;
+        }
+
         $this->returnDataObj->articleCode = 0;
 
         $articleId = $this->request->fetchAll('articleId', [
@@ -155,20 +159,28 @@ class refresh extends \fpcm\controller\abstracts\ajaxController
         return true;
     }
 
-    private function getNotifications()
+    /**
+     * 
+     * @return void
+     */
+    private function getNotifications() : void
     {
-        $notifications = new \fpcm\model\theme\notifications();
-        $notifications->prependSystemNotifications();
+        if (!$this->session->exists()) {
+            return;
+        }
         
-        (new \fpcm\model\reminders\reminders())->appendNotifications($notifications);
+        $no = new \fpcm\model\theme\notifications();
+        $no->prependSystemNotifications();
+        
+        (new \fpcm\model\reminders\reminders())->appendNotifications($no);
 
         /* @var $result \fpcm\module\eventResult */
-        $ev = $this->events->trigger('ajaxRefresh', $notifications);
+        $ev = $this->events->trigger('ajaxRefresh', $no);
         if (!$ev->getSuccessed() || !$ev->getContinue()) {
             trigger_error(sprintf("Event ajaxRefresh failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
-            $this->returnDataObj->notificationCount = $notifications->count();
-            $this->returnDataObj->notifications = (string) $notifications;
-            return false;
+            $this->returnDataObj->notificationCount = $no->count();
+            $this->returnDataObj->notifications = (string) $no;
+            return;
         }
 
         /* @var $notifications \fpcm\model\theme\notifications */
@@ -176,7 +188,6 @@ class refresh extends \fpcm\controller\abstracts\ajaxController
 
         $this->returnDataObj->notificationCount = $notifications->count();
         $this->returnDataObj->notifications = (string) $notifications;
-
     }
 
 }

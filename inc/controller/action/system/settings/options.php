@@ -127,7 +127,7 @@ class options extends \fpcm\controller\abstracts\controller implements \fpcm\con
         $this->view->assign('articleLimitListAcp', \fpcm\model\system\config::getAcpArticleLimits());
         $this->view->assign('defaultFontsizes', \fpcm\model\system\config::getDefaultFontsizes());
 
-        $this->view->addJsFiles(['system/options.js', 'common/systemcheck.js']);
+        $this->view->addJsFiles(['system/options.js']);
         $this->view->addJsVars([
             'runSysCheck' => $this->syscheck,
             'dtMasks' => $this->getDateTimeMasks()

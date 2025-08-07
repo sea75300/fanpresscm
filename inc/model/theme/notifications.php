@@ -77,7 +77,7 @@ class notifications implements \Countable {
         }
 
         if ($cgf->system_comments_enabled &&
-            $perm?->editComments() &&
+            $perm->editComments() &&
             $ctr = (new \fpcm\model\comments\commentList)->getNewCommentCount()
         ) {
 
@@ -105,11 +105,7 @@ class notifications implements \Countable {
                         '{{version}}' => $updates->version
                     ]),
                     '',
-                    (new \fpcm\view\helper\linkButton('new-comments'))
-                        ->setUrl(\fpcm\classes\tools::getControllerLink('package/sysupdate'))
-                        ->setText('HL_PACKAGEMGR_SYSUPDATES')
-                        ->setIcon('arrows-spin')
-                        ->overrideButtonType('info')
+                    (new \fpcm\view\helper\updateButton('startUpdateNotify'))->setUpdater($updates)
                 ));
 
             }

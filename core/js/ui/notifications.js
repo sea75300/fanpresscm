@@ -27,6 +27,45 @@ fpcm.notifications = {
             fpcm.notifications[callback].call();
         });
 
-    }
+    },
+    
+    onRefresh: function (_result) {
+        fpcm.notifications.addFromAjax(_result.notifications, _result.notificationCount);
+    },
+    
+    addFromAjax: function (_nstring, _count) {
 
+        let _idStr = '#fpcm-id-notifications';
+        if (!fpcm.dom.fromId(_idStr).length) {
+            return false;
+        }
+
+        fpcm.dom.assignHtml(_idStr, _nstring);
+        let _el = fpcm.dom.fromId('notificationsCount').html(_count);
+
+        if (_count) {
+
+            fpcm.dom.bindClick('button[data-set-read-notify]', function (_ui) {
+
+                fpcm.ui.replaceIcon(_ui.currentTarget.id, 'fa-envelope-circle-check', 'circle-notch fa-spin-pulse');
+
+                fpcm.reminders.delete(
+                    _ui.currentTarget.dataset.setReadType,
+                    _ui.currentTarget.dataset.setReadNotify,
+                    function () {
+                        _ui.currentTarget.parentElement.parentElement.remove();
+                    }
+                );
+
+            });
+            
+            fpcm.system.openUpdateDialog('btnStartUpdateNotify');
+
+            _el.removeClass('d-none');
+            return true;
+        }
+
+        _el.addClass('d-none');        
+    }
+    
 };

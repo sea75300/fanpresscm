@@ -166,24 +166,20 @@ fpcm.system = {
             data: {
                 articleId: fpcm.vars.jsvars.articleId
             },
-            execDone: function (result) {
+            execDone: function (_result) {
 
                 fpcm.worker.postMessage({
                     cmd: 'remove',
                     id: 'system.refresh'
                 });
 
+                for (let _m in fpcm) {
 
-                if (fpcm.vars.jsvars.articleId > 0 && fpcm.editor && fpcm.editor.showInEditDialog) {
-                    fpcm.editor.showInEditDialog(result);
-                }
+                    if (!fpcm[_m].onRefresh) {
+                        continue;
+                    }
 
-                if (result.sessionCode == 0 && fpcm.vars.jsvars.sessionCheck) {
-                    fpcm.system.showSessionCheckDialog();
-                }
-
-                if (result.notifications) {
-                    fpcm.system.addAjaxNotifications(result.notifications, result.notificationCount);
+                    fpcm[_m].onRefresh(_result);
                 }
 
             },
@@ -572,6 +568,20 @@ fpcm.system = {
 
 
         });
+
+    },
+
+    onRefresh: function (_result) {
+
+        if (!fpcm.vars.jsvars.sessionCheck) {
+            return false;
+        }
+
+        if (_result.sessionCode) {
+            return true;
+        }
+
+        fpcm.system.showSessionCheckDialog();
 
     }
 

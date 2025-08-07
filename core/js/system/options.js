@@ -47,5 +47,16 @@ fpcm.options = {
 
         fpcm.system.checkForUpdates();
 
+        fpcm.ui_tabs.render('options', {
+            onRenderHtmlAfter: function (_event, _result) {
+
+                if (_event.originalTarget.dataset.tabIndex != 6) {
+                    return;
+                }
+
+                fpcm.system.openUpdateDialog('btnStartUpdate');
+            }
+        });
+
     }
 };
