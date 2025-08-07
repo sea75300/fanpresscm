@@ -917,7 +917,7 @@ implements \fpcm\model\interfaces\gsearchIndex {
      */
     public function getSearchQuery(): \fpcm\model\dbal\selectParams
     {
-        return $this->getSearchQueryObj()->setItem('\'articles\' as model, id as oid, '.$this->dbcon->concatString(['title', '";"', 'createtime']).' as text')->setFetchAll(true);
+        return $this->getSearchQueryObj()->setItem('\'articles\' as model, id as oid, '.$this->dbcon->concatString(['title', '";"', 'createtime']).' as text, \'\' as meta')->setFetchAll(true);
     }
 
     /**

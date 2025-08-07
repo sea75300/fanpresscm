@@ -67,7 +67,7 @@ implements \fpcm\controller\interfaces\requestFunctions
         return [
             (new \fpcm\view\helper\tabItem($this->getDataViewName().'-list'))
                 ->setText('HL_OPTIONS_SMILEYS')
-                ->setFile('components/dataview__inline.php')
+                ->setFile('components/dataview_inline.php')
         ];
     }
 

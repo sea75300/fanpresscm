@@ -438,7 +438,12 @@ implements \fpcm\model\interfaces\gsearchIndex {
      */
     public function getSearchQuery(): \fpcm\model\dbal\selectParams
     {
-        return $this->getSearchQueryObj()->setItem('\'images\' as model, filename as oid, '.$this->dbcon->concatString(['filename', '";"', 'alttext', '";"', 'filetime']).' as text')->setFetchAll(true);
+        return $this->getSearchQueryObj()->setItem(
+            '\'images\' as model, ' .
+            'filename as oid,' . 
+            $this->dbcon->concatString(['filename', '";"', 'alttext', '";"', 'filetime']).' as text, ' .
+            $this->dbcon->concatString(['width', '":"', 'height']).' as meta'
+        )->setFetchAll(true);
     }
 
     /**

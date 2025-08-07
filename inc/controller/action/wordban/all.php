@@ -126,7 +126,7 @@ implements \fpcm\controller\interfaces\requestFunctions
         return [
             (new \fpcm\view\helper\tabItem('tabs-'.$this->getDataViewName().'-list'))
                 ->setText('HL_OPTIONS_WORDBAN')
-                ->setFile('components/dataview__inline.php')
+                ->setFile('components/dataview_inline.php')
         ];
     }
     

@@ -89,13 +89,14 @@ class indexer extends \fpcm\model\abstracts\tablelist
             $link = $instance?->getElementLink($result->oid);
             $icon = $instance?->getElementIcon();
             $text = $instance?->prepareText($result->text);
+            $meta = $result->meta ?? '';
             
             $lightbox = $result->model === 'images';
             if ($lightbox) {
                 $lightboxes++;
             }
 
-            $setItems[] = new resultItem($text, $link, $icon, $lightbox);
+            $setItems[] = new resultItem($text, $link, $icon, $lightbox, $meta);
             
         }
 

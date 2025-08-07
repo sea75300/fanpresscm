@@ -102,7 +102,7 @@ class crons extends \fpcm\controller\abstracts\controller
         return [
             (new \fpcm\view\helper\tabItem('tabs-'.$this->getDataViewName().'-list'))
                 ->setText('HL_CRONJOBS')
-                ->setFile('components/dataview__inline.php')
+                ->setFile('components/dataview_inline.php')
         ];
     }
 

@@ -642,7 +642,7 @@ implements \fpcm\model\interfaces\gsearchIndex {
      */
     public function getSearchQuery(): \fpcm\model\dbal\selectParams
     {
-        return $this->getSearchQueryObj()->setItem('\'comments\' as model, id as oid, '.$this->dbcon->concatString(['name', '";"', 'createtime']).' as text')->setFetchAll(true);
+        return $this->getSearchQueryObj()->setItem('\'comments\' as model, id as oid, '.$this->dbcon->concatString(['name', '";"', 'createtime']).' as text, \'\' as meta')->setFetchAll(true);
     }
 
     /**

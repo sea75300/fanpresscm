@@ -143,7 +143,7 @@ class all extends \fpcm\controller\abstracts\controller implements \fpcm\control
         return [
             (new \fpcm\view\helper\tabItem('tabs-'.$this->getDataViewName().'-list'))
                 ->setText('HL_CATEGORIES_MNG')
-                ->setFile('components/dataview__inline.php')
+                ->setFile('components/dataview_inline.php')
         ];
     }
 
