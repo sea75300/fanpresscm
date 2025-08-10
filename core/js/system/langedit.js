@@ -155,6 +155,7 @@ fpcm.langedit = {
 
                                 return false;
                             }
+                            
 
                             fpcm.vars.jsvars.langfile[_varName] = _varValue;
                             fpcm.langedit.executeSave();

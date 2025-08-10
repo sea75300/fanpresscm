@@ -106,9 +106,25 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController
      */
     protected function fetchLocal()
     {
+        $text = $this->request->fromGET('text');
+        $status = $this->request->fromGET('status');
+
+        if ($text !== null || $status !== null) {
+            $search = new \fpcm\module\search();
+            $search->text = $text;
+            $search->status = $status;
+        }
+        else {
+            $search = null;
+        }
+
         $this->tab = 0;
-        $this->modules->updateFromFilesystem();
-        $this->items = $this->modules->getFromDatabase(true);
+
+        if ($search !== null) {
+            $this->modules->updateFromFilesystem();
+        }
+
+        $this->items = $this->modules->getFromDatabase(true, $search);
         $this->itemsCount = count($this->items);
         return true;
     }
