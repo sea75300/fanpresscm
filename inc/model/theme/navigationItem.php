@@ -451,7 +451,7 @@ class navigationItem extends \fpcm\model\abstracts\staticModel implements \Strin
             return $str;
         }
         
-        $str .= "<ul class=\"dropdown-menu shadow fpcm ui-blurring w-100\" aria-labelledby=\"{$this->getId()}\"> ";
+        $str .= "<ul class=\"dropdown-menu shadow fpcm ui-blurring ui-background-dropdown-85 w-100\" aria-labelledby=\"{$this->getId()}\"> ";
         
         /* @var $si navigationItem */
         foreach ($this->getSubmenu() as $si) {
