@@ -9,7 +9,7 @@ namespace fpcm\view\helper;
 
 /**
  * Icon view helper object
- * 
+ *
  * @package fpcm\view\helper
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2022, Stefan Seehafer
@@ -34,7 +34,7 @@ class icon extends helper {
         if ($useFa === null) {
             $useFa = true;
         }
-        
+
         $this->setIcon($icon, $prefix, $useFa);
         parent::__construct(uniqid());
     }
@@ -87,7 +87,7 @@ class icon extends helper {
     {
         if ($this->iconStack) {
             $stack = "<span class=\"fa {$this->iconStack} fa-stack-2x\"></span>";
-            
+
             return implode(PHP_EOL, [
                 "<span class=\"{$this->class} fa-stack {$this->size}\"" . ($this->text ? " title=\"{$this->text}\"" : '') . " {$this->getDataString()}>",
                 !$this->stackTop ? $stack : '',
@@ -120,7 +120,7 @@ class icon extends helper {
         if (!is_string($langvar)) {
             return false;
         }
-        
+
         $regEx = '/\{{2}(icon\=\"[\w\-]+\"){1}\ ?(spinner\=\"[a-z0-9]*\")?\ ?(prefix\=\"[\w\-]*\")?\ ?(fa\=\"(true|false)\")?\}{2}/i';
         if (preg_match($regEx, $langvar, $matches) !== 1) {
             return false;
@@ -140,7 +140,7 @@ class icon extends helper {
         }
 
         $langvar = str_replace($iconStr, (string) $icon, $langvar);
-        
+
         return true;
     }
 
