@@ -153,11 +153,15 @@ class indexer extends \fpcm\model\abstracts\tablelist
 
         return count($cResults) && count($sResults);
     }
-    
-    private function initDefaultModels()
+
+    /**
+     * Init models whitelist
+     * @return void
+     */
+    private function initDefaultModels() : void
     {
         /* @var $perm \fpcm\model\permissions\permissions */
-        $perm = \fpcm\classes\loader::getObject('\fpcm\model\permissions\permissions');
+        $perm = \fpcm\model\permissions\permissions::getInstance();
 
         if ($perm->editArticles()) {
             $this->models['articles'] = '\fpcm\model\articles\articlelist';
@@ -169,6 +173,10 @@ class indexer extends \fpcm\model\abstracts\tablelist
 
         if ($perm->uploads->visible) {
             $this->models['images'] = '\fpcm\model\files\imagelist';
+        }
+
+        if ($perm->system->ipaddr) {
+            $this->models['ipaddress'] = '\fpcm\model\ips\iplist';
         }
 
     }

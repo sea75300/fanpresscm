@@ -16,7 +16,11 @@ namespace fpcm\model\users;
  * @package fpcm\model\user
  * @author Stefan Seehafer <sea75300@yahoo.de>
  */
-class userList extends \fpcm\model\abstracts\tablelist {
+class userList
+extends \fpcm\model\abstracts\tablelist
+implements \fpcm\model\interfaces\isObjectInstancable {
+    
+    use \fpcm\model\traits\getObjectInstance;
 
     /**
      * User name cache

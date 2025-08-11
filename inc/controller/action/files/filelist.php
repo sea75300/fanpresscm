@@ -58,7 +58,7 @@ class filelist extends \fpcm\controller\abstracts\controller
     public function request()
     {
         $this->fileList = new \fpcm\model\files\imagelist();
-        $this->userList = new \fpcm\model\users\userList();
+        $this->userList = \fpcm\model\users\userList::getInstance();
 
         $this->mode = $this->request->getIntMode();
         if ($this->mode == 1) {
@@ -286,32 +286,7 @@ class filelist extends \fpcm\controller\abstracts\controller
                 ->setBottomSpace('')
         ]);
 
-        $reminderDlg = new \fpcm\view\helper\dialog('reminders');
-        $reminderDlg->setFields([
-            (new \fpcm\view\helper\select('user-id'))
-                ->setText('LOGS_LIST_USER')
-                ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
-                ->setOptions($this->userList->getUsersNameList() )
-                ->setIcon('user')
-                ->setLabelTypeFloat()
-                ->setBottomSpace(''),
-            [
-                (new \fpcm\view\helper\dateTimeInput('resub-date'))
-                    ->setText('EDITOR_POSTPONED_DATE')
-                    ->setIcon('calendar')
-                    ->setLabelTypeFloat()
-                    ->setBottomSpace(''),
-                (new \fpcm\view\helper\dateTimeInput('resub-time'))
-                    ->setText('EDITOR_POSTPONED_DATETIME')
-                    ->setNativeTime()
-                    ->setLabelTypeFloat()
-                    ->setBottomSpace('')
-            ],
-            (new \fpcm\view\helper\textInput('resub-comment'))
-                ->setText('COMMMENT_TEXT')
-                ->setLabelTypeFloat()
-                ->setBottomSpace('')
-        ]);
+        $reminderDlg = new \fpcm\view\helper\reminderDialog();
 
         $this->view->addDialogs([
             $settingsDlg,

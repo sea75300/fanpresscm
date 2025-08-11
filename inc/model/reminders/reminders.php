@@ -112,7 +112,7 @@ implements \fpcm\model\interfaces\isObjectInstancable {
         foreach ($list as $rem) {
 
             $icon = new \fpcm\view\helper\icon('bell');
-            $icon->setText($rem->getDescription())->setClass('text-success-emphasis');
+            $icon->setText($rem->getDescription())->setClass('text-success');
 
             $delBtn = new \fpcm\view\helper\button('set-read-notify-'.$rem->getId());
             $delBtn->setIcon('envelope-circle-check')
