@@ -32,6 +32,15 @@ class modules extends \fpcm\model\abstracts\tablelist {
     private $keyCache;
 
     /**
+     * Suppress deprecation note in module manager
+     * @var bool
+     * @since 5.3.0-dev
+     * @ignore
+     * @internal
+     */
+    public bool $suppress_deprecation_note = false;
+
+    /**
      * Konstruktor
      * @return bool
      */
@@ -112,7 +121,7 @@ class modules extends \fpcm\model\abstracts\tablelist {
         if ($sort) {
             $where .= ' ' . $this->dbcon->orderBy(['installed DESC, active DESC, mkey ASC']);
         }
-        
+
         fpcmLogSystem(__METHOD__ . ' :: ' . $where);
 
         $obj = (new \fpcm\model\dbal\selectParams($this->table))->setFetchAll(true)->setWhere($where);
@@ -278,7 +287,11 @@ class modules extends \fpcm\model\abstracts\tablelist {
             if ($dataset->data) {
                 $cfg = new config($dataset->mkey, $dataset->data);
                 if (version_compare($cfg->requirements->system, '5.3.0-dev', '<')) {
-                    trigger_error(sprintf("Module %s does not support FanPress CM 5.3.x! This module connat be installed for now.", $dataset->mkey));
+
+                    if (!$this->suppress_deprecation_note) {
+                        trigger_error(sprintf("Module %s does not support FanPress CM 5.3.x! This module connat be installed for now.", $dataset->mkey));
+                    }
+
                     continue;
                 }
             }

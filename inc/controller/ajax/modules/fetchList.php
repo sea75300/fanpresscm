@@ -106,6 +106,8 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController
      */
     protected function fetchLocal()
     {
+        $this->modules->suppress_deprecation_note = true;
+        
         $text = $this->request->fromGET('text');
         $status = $this->request->fromGET('status');
 
