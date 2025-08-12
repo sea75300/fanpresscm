@@ -99,7 +99,11 @@ implements \fpcm\model\interfaces\gsearchIndex {
         $combination = '';
 
         if ($conditions->isMultiple()) {
-            $this->assignMultipleSearchParams($conditions, $where, $valueParams, $combination);
+            $conditions->setFieldOrder('filename', 'datefrom', 'dateto', 'userid');
+            $qas = $conditions->assignFieldByOrder();
+
+            $where = $qas->getQueries();
+            $valueParams = $qas->getValues();            
         }
         else {
             $this->assignSearchParams($conditions, $where, $valueParams, $combination);
@@ -383,42 +387,6 @@ implements \fpcm\model\interfaces\gsearchIndex {
         }
 
         $combination = $conditions->combination ? $conditions->combination : 'AND';
-        return true;
-    }
-
-    /**
-     * Assigns search params object to value arrays
-     * @param \fpcm\model\files\search $conditions
-     * @param array $where
-     * @param array $valueParams
-     * @param string $combination
-     * @return bool
-     */
-    private function assignMultipleSearchParams(search $conditions, array &$where, array &$valueParams, string $combination) : bool
-    {
-        if ($conditions->filename) {
-            $where[] = "(filename {$this->dbcon->dbLike()} ? OR alttext {$this->dbcon->dbLike()} ? OR iptcstr {$this->dbcon->dbLike()} ?)";
-            $valueParams[] = '%' . $conditions->filename . '%';
-            $valueParams[] = '%' . $conditions->filename . '%';
-            $valueParams[] = '%' . $conditions->filename . '%';
-        }
-
-        if ($conditions->datefrom !== null) {
-            $where[] = $conditions->getCondition('datefrom', 'filetime >= ?');
-            $valueParams[] = $conditions->datefrom;
-        }
-
-        if ($conditions->dateto !== null) {
-            $where[] = $conditions->getCondition('dateto', 'filetime <= ?');
-            $valueParams[] = $conditions->dateto;
-        }
-
-        if ($conditions->userid > -1) {
-            $where[] = $conditions->getCondition('userid', $this->dbcon->inQuery('userid', [0, $conditions->userid]));
-            $valueParams[] = 0;
-            $valueParams[] = $conditions->userid;
-        }
-
         return true;
     }
 

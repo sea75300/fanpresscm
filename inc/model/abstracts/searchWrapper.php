@@ -9,7 +9,7 @@ namespace fpcm\model\abstracts;
 
 /**
  * Object search wrapper object
- * 
+ *
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
  * @copyright (c) 2017, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
@@ -22,13 +22,26 @@ abstract class searchWrapper extends staticModel {
 
     const COMBINATION_AND = 0;
     const COMBINATION_OR = 1;
-    
+
     /**
      * Multiple search flag
      * @var bool
      * @since 4.3
      */
     protected $isMultiple = false;
+
+    /**
+     * Field order array
+     * @var array
+     */
+    protected array $fieldOrder = [];
+
+    /**
+     * Query assign result object
+     * @var \fpcm\model\dbal\queryAssignResult
+     * @since 5.3.0-dev
+     */
+    protected \fpcm\model\dbal\queryAssignResult $queryAssignResult;
 
     /**
      * Liefert Daten zurück, die über Eigenschaften erzeugt wurden
@@ -69,7 +82,7 @@ abstract class searchWrapper extends staticModel {
         $this->isMultiple = $isMultiple;
         return $this;
     }
-    
+
     /**
      * Returns condition for given value
      * @param string $condition
@@ -86,8 +99,58 @@ abstract class searchWrapper extends staticModel {
         if ($value === self::COMBINATION_OR) {
             return ' OR '.$query;
         }
-        
+
         return $query;
     }
+
+    /**
+     * Assign fields by field order
+     * @return \fpcm\model\dbal\queryAssignResult
+     * @since 5.3.0-dev
+     */
+    final public function assignFieldByOrder() : \fpcm\model\dbal\queryAssignResult
+    {
+        $this->queryAssignResult = new \fpcm\model\dbal\queryAssignResult();
+
+        if (!count($this->fieldOrder)) {
+            return $this->queryAssignResult;
+        }
+
+        foreach ($this->fieldOrder as $field) {
+
+            $afn = 'assign'.ucfirst($field);
+            if (!method_exists($this, $afn)) {
+                trigger_error(sprintf('No assign method %s found for %s', $afn, $field));
+                continue;
+            }
+
+            $this->{$afn}();
+        }
+
+        return $this->queryAssignResult;
+    }
+
+    /**
+     * Set field order
+     * @param array $fieldOrder
+     * @return $this
+     * @since 5.3.0-dev
+     */
+    public function setFieldOrder(...$fieldOrder)
+    {
+        $this->fieldOrder = $fieldOrder;
+        return $this;
+    }
+
+    /**
+     * Get database layer instance
+     * @return \fpcm\classes\database
+     * @since 5.3.0-dev
+     */
+    protected function getDB() : \fpcm\classes\database
+    {
+        return \fpcm\classes\loader::getObject('\fpcm\classes\database');
+    }
+
 
 }

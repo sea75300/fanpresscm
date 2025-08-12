@@ -122,8 +122,6 @@ class modules extends \fpcm\model\abstracts\tablelist {
             $where .= ' ' . $this->dbcon->orderBy(['installed DESC, active DESC, mkey ASC']);
         }
 
-        fpcmLogSystem(__METHOD__ . ' :: ' . $where);
-
         $obj = (new \fpcm\model\dbal\selectParams($this->table))->setFetchAll(true)->setWhere($where);
 
         if (count($params)) {

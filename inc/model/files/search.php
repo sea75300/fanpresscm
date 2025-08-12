@@ -9,13 +9,13 @@ namespace fpcm\model\files;
 
 /**
  * Files search wrapper object
- * 
+ *
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
  * @copyright (c) 2017, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\model\articles
  * @since 3.6.3
- * 
+ *
  * @property int $datefrom seit Datum X.Y.Z
  * @property int $dateto bis Datum X.Y.Z
  * @property int $userid User-ID or 0
@@ -28,5 +28,69 @@ namespace fpcm\model\files;
  * @property array $orderby Array von Sortierungen in SQL-Syntax
  */
 class search extends \fpcm\model\abstracts\searchWrapper {
-    
+
+    /**
+     * Assign Filename field
+     * @param \fpcm\model\dbal\queryAssignResult $qas
+     * @return void
+     */
+    public function assignFilename() : void
+    {
+        if (!$this->filename) {
+            return;
+        }
+
+        $this->queryAssignResult->setQueries("(filename {$this->getDB()->dbLike()} ? OR alttext {$this->getDB()->dbLike()} ? OR iptcstr {$this->getDB()->dbLike()} ?)");
+        $this->queryAssignResult->setValues([
+            '%' . $this->filename . '%',
+            '%' . $this->filename . '%',
+            '%' . $this->filename . '%'
+        ]);
+
+    }
+
+    /**
+     * Assign date from field
+     * @return void
+     */
+    public function assignDatefrom() : void
+    {
+        if ($this->datefrom === null) {
+            return;
+        }
+
+        $this->queryAssignResult->setQueries($this->getCondition('datefrom', 'filetime >= ?'));
+        $this->queryAssignResult->setValues([$this->datefrom]);
+    }
+
+    /**
+     * Assign date to field
+     * @return void
+     */
+    public function assignDateto() : void
+    {
+        if ($this->dateto === null) {
+            return;
+        }
+
+        $this->queryAssignResult->setQueries($this->getCondition('dateto', 'filetime >= ?'));
+        $this->queryAssignResult->setValues([$this->dateto]);
+    }
+
+    /**
+     * Assign user id field
+     * @return void
+     */
+    public function assignUserid() : void
+    {
+        if ($this->userid < 0) {
+            return;
+        }
+
+        $uids = [0, $this->userid];
+
+        $this->queryAssignResult->setQueries( $this->getCondition( 'userid', $this->getDB()->inQuery('userid', $uids) ) );
+        $this->queryAssignResult->setValues($uids);
+    }
+
 }
