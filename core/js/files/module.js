@@ -705,6 +705,8 @@ fpcm.filemanager = {
                     _comb.class = 'fpcm-ui-input-select-filessearch-combination ' + _comb.class;
                     _comb.wrapper = 'form-floating';
                     _comb.label = 'ARTICLE_SEARCH_LOGIC';
+                    _comb.firstOption = -3;
+                    _comb.preSelected = -1;
 
                     _comb.assignToDom(_colCombination);
                 }
