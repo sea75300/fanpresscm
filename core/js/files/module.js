@@ -26,10 +26,6 @@ fpcm.filemanager = {
             }
         });
 
-        if (fpcm.ui.langvarExists('ARTICLES_SEARCH')) {
-            fpcm.filemanager.initFilesSearch();
-        }
-
         fpcm.filemanager.initNewThumbButton();
         fpcm.filemanager.initDeleteMultipleButton();
 
@@ -661,111 +657,6 @@ fpcm.filemanager = {
         });
 
         return false;
-    },
-
-    initFilesSearch: function() {
-
-        fpcm.dom.bindClick('#btnOpenSearch', function () {
-
-            let _formData = fpcm.vars.jsvars.searchForm;
-
-            let _form = document.createElement('div');
-
-            for (var _fieldName in _formData.fields) {
-
-                let _field = _formData.fields[_fieldName];
-
-                let _tmp = new fpcm.ui.forms[_field.call];
-                _tmp.name = _fieldName;
-                _field.class += ' ' + _tmp.class;
-                _tmp.wrapper = 'form-floating';
-
-                if (!_tmp.assignFormObject) {
-                    continue;
-                }
-
-                _tmp.assignFormObject(_field);
-
-                let _row = document.createElement('div');
-                _row.className = 'row mb-3';
-
-                let _colDescr = document.createElement('div');
-                _colDescr.className = 'col-12' + (!_field.noCombination ? ' col-md-9' : '');
-                _tmp.assignToDom(_colDescr);
-
-                _row.appendChild(_colDescr);
-
-                let _colCombination = document.createElement('div');
-                _colCombination.className = 'col-12 col-md-3 align-self-center';
-
-                if (!_field.noCombination) {
-                    let _comb = new fpcm.ui.forms.select();
-                    _comb.name = 'combination' + _fieldName.charAt(0).toUpperCase() + _fieldName.slice(1);
-                    _comb.options = _formData.combinations.default;
-                    _comb.class = 'fpcm-ui-input-select-filessearch-combination ' + _comb.class;
-                    _comb.wrapper = 'form-floating';
-                    _comb.label = 'ARTICLE_SEARCH_LOGIC';
-                    _comb.firstOption = -3;
-                    _comb.preSelected = -1;
-
-                    _comb.assignToDom(_colCombination);
-                }
-
-                _row.appendChild(_colCombination);
-
-                _form.appendChild(_row);
-            }
-
-            fpcm.ui_dialogs.create({
-                id: 'files-search',
-                title: 'ARTICLES_SEARCH',
-                closeButton: true,
-                directAssignToDom: true,
-                content: _form,
-                dlButtons: [
-                    {
-                        text: fpcm.ui.translate('ARTICLE_SEARCH_START'),
-                        icon: "check",
-                        primary: true,
-                        clickClose: true,
-                        click: function(_ui, _bsObj) {
-
-                            var sParams = fpcm.dom.getValuesByClass('fpcm-files-search-input');
-                            sParams.combinations = fpcm.dom.getValuesByClass('fpcm-ui-input-select-filessearch-combination');
-
-                            fpcm.filemanager.startFilesSearch(sParams);
-                        }
-                    },
-                    {
-                        text: fpcm.ui.translate('GLOBAL_RESET'),
-                        icon: "filter-circle-xmark" ,
-                        clickClose: true,
-                        click: function() {
-                            fpcm.ui.relocate('self');
-                        }
-                    }
-                ],
-                dlOnOpenAfter: function () {
-                    document.getElementById('fpcm-id-filename').focus();
-                }
-            });
-
-            return false;
-        });
-
-    },
-
-    startFilesSearch: function (sParams) {
-
-        if (((new Date()).getTime() - fpcm.vars.jsvars.filesLastSearch) < 10000) {
-            fpcm.ui.addMessage({
-                type: 'error',
-                txt : fpcm.ui.translate('SEARCH_WAITMSG')
-            });
-            return false;
-        }
-
-        fpcm.filemanager.reloadFiles(1, sParams);
     },
 
     runFileIndexUpdate: function () {

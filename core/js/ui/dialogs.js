@@ -446,7 +446,7 @@ fpcm.ui_dialogs = {
         });
     },
 
-    fromDOM: function (_dialogname) {
+    getConfig: function(_dialogname) {
 
         if (!fpcm.vars.jsvars.dialogs[_dialogname]) {
             console.error(`No dialog with id ${_dialogname} defined.`);
@@ -458,9 +458,19 @@ fpcm.ui_dialogs = {
             return false;
         }
 
+        return fpcm.vars.jsvars.dialogs[_dialogname];
+    },
+
+    fromDOM: function (_dialogname) {
+
+        let _dlgCgf = fpcm.ui_dialogs.getConfig(_dialogname);
+        if (_dlgCgf === false) {
+            return false;
+        }
+
         let _form = document.createElement('div');
 
-        for (var _field of fpcm.vars.jsvars.dialogs[_dialogname].fields) {
+        for (var _field of _dlgCgf.fields) {
 
             if (_field instanceof Array) {
 
@@ -528,7 +538,11 @@ fpcm.ui_dialogs = {
         return _item;
     },
 
-    appendField: function (_field, _form, _multiple) {
+    appendField: function (_field, _form, _multiple, _options) {
+
+        if (_options === undefined) {
+            _options = {};
+        }
 
         let _map = fpcm.ui_dialogs.mapItems(_field.callback);
         if (_map !== _field.callback) {
@@ -542,8 +556,8 @@ fpcm.ui_dialogs = {
 
         let _tmp = new fpcm.ui.forms[_field.callback];
 
-        _tmp.name = _field.name;
-        _tmp.id = _field.id;
+        _tmp.name = _field.name + _options.index;
+        _tmp.id = _field.id + _options.index;
         _tmp.label = _field.text;
         _tmp.class = _field.class;
         _tmp.wrapper = `${_field.labelType} ${_field.bottomSpace}`;
@@ -560,9 +574,19 @@ fpcm.ui_dialogs = {
         }
 
         _tmp.assignFormObject(_field);
+        if (_options.index !== undefined) {
+            _tmp.name = _field.name + _options.index;
+            _tmp.id = _field.id + _options.index;            
+        }
 
         let _colDescr = document.createElement('div');
-        _colDescr.className = 'col';
+        
+        if (_options.colClass !== undefined) {
+            _colDescr.classList.add(..._options.colClass);
+        }
+        else {
+            _colDescr.classList.add('col');            
+        }
 
         _tmp.assignToDom(_colDescr);
 

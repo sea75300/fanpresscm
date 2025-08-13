@@ -39,6 +39,8 @@ export class element_input {
     required = false;
     
     icon = false;
+    
+    data = [];
 
     assignToDom(_destination) {
         
@@ -66,6 +68,12 @@ export class element_input {
         _input.id = fpcm.ui.prepareId(this.id, true);
         _input.value = this.value;
         _input.className = this.class;
+
+        if (this.data) {
+            for (var _attr in this.data) {
+                _input.setAttribute('data-' + _attr, this.data[_attr]);
+            }
+        }
         
         if (this.maxlenght) {
             _input.maxLength = this.maxlenght;

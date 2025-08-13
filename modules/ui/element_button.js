@@ -26,6 +26,8 @@ export class element_button {
 
     primary = false;
 
+    onClick = null;
+
     assignToDom(_destination) {
 
         if (!_destination) {
@@ -44,7 +46,10 @@ export class element_button {
         _button.className = this.class;
 
         if (this.readonly) {
-            _button.readonly = true;
+            _button.disabled = true;
+        }
+        else if (this.onClick) {
+            _button.addEventListener('click', this.onClick);
         }
 
         if (this.text) {
@@ -71,7 +76,6 @@ export class element_button {
         }
 
         _destination.appendChild(_button);
-
     }
 
     assignFormObject(_field) {

@@ -117,7 +117,7 @@ class filelist extends \fpcm\controller\abstracts\controller
             return false;
         }
 
-        $jsFiles = ['files/module.js'];
+        $jsFiles = ['files/module.js', 'files/search.js', 'ui/dnd.js'];
         if ($this->mode == 2 && $this->config->system_editor === '\fpcm\components\editor\tinymceEditor5') {
             $jsFiles[] = 'files/tinymce5Messages.js';
         }
@@ -144,7 +144,11 @@ class filelist extends \fpcm\controller\abstracts\controller
                 ->setTabToolbar(1)
                 ->setUrl(\fpcm\classes\tools::getControllerLink('ajax/files/lists', [ 'mode' => $this->mode ]) )
         ];
-
+        
+        $this->view->addFromLibrary('sortable_js/', [
+            'Sortable.min.js'
+        ]);
+        
         $this->view->includeForms('filemanager');
         $this->view->addTabs('files', $tabs);
         $this->view->render();
@@ -205,53 +209,66 @@ class filelist extends \fpcm\controller\abstracts\controller
 
     public function assignSearchFromVars()
     {
-
-        $fields = [
-            'filename' => [
-                'call' => 'input',
-                'class' => 'fpcm-files-search-input',
-                'maxlenght' => 255,
-                'placeholder' => 'FILE_LIST_SEARCHTEXT',
-                'label' => 'FILE_LIST_SEARCHTEXT',
-                'autofocus' => true,
-                'noCombination' => true
-            ],
-            'datefrom' => [
-                'call' => 'input',
-                'type' => 'date',
-                'class' => 'fpcm-files-search-input',
-                'label' => 'ARTICLE_SEARCH_DATE_FROM',
-            ],
-            'dateto' => [
-                'call' => 'input',
-                'type' => 'date',
-                'class' => 'fpcm-files-search-input',
-                'label' => 'ARTICLE_SEARCH_DATE_TO',
-            ],
-            'userid' => [
-                'call' => 'select',
-                'class' => 'fpcm-files-search-input',
-                'options' => ['GLOBAL_SELECT' => -1] + $this->userList->getUsersNameList(),
-                'label' => 'ARTICLE_SEARCH_USER',
-                'firstOption' => \fpcm\view\helper\select::FIRST_OPTION_DISABLED
-            ]
-        ];
-
         $combinations = [
-            'default' => [
-                'ARTICLE_SEARCH_LOGICNONE' => -1,
-                'ARTICLE_SEARCH_LOGICAND' => 0,
-                'ARTICLE_SEARCH_LOGICOR' => 1,
-            ]
+            'ARTICLE_SEARCH_LOGICNONE' => -1,
+            'ARTICLE_SEARCH_LOGICAND' => 0,
+            'ARTICLE_SEARCH_LOGICOR' => 1,
+            '(' => 2,
+            ')' => 3,
         ];
 
-        $this->view->addSearchForm($fields, $combinations);
+        $searchDlg = new \fpcm\view\helper\dialog('search');
+        $searchDlg->setFields([
+            'valueFields' => [
+                'fieldname' => (new \fpcm\view\helper\textInput('fieldname'))
+                    ->setText('FILE_LIST_SEARCHTEXT')
+                    ->setMaxlenght(255)
+                    ->setLabelTypeFloat(),
+                'datefrom' => (new \fpcm\view\helper\dateTimeInput('datefrom'))
+                    ->setText('ARTICLE_SEARCH_DATE_FROM')
+                    ->setNativeDate()
+                    ->setLabelTypeFloat(),
+                'dateto' => (new \fpcm\view\helper\dateTimeInput('dateto'))
+                    ->setText('ARTICLE_SEARCH_DATE_FROM')
+                    ->setNativeDate()
+                    ->setLabelTypeFloat(),
+                'userid' => (new \fpcm\view\helper\select('userid'))
+                    ->setText('ARTICLE_SEARCH_USER')
+                    ->setOptions(['GLOBAL_SELECT' => -1] + $this->userList->getUsersNameList())
+                    ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
+                    ->setLabelTypeFloat(),
+            ],
+            'buildFields' => [
+                (new \fpcm\view\helper\button('cremove'))
+                    ->setText('GLOBAL_REMOVE')
+                    ->setIcon('minus')
+                    ->setIconOnly()
+                    ->setLabelTypeFloat(),
+                (new \fpcm\view\helper\select('combinations'))
+                    ->setText('ARTICLE_SEARCH_LOGIC')
+                    ->setOptions($combinations)
+                    ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
+                    ->setSelected(-1)
+                    ->setLabelTypeFloat(),
+                (new \fpcm\view\helper\select('fields'))
+                    ->setOptions([
+                        'FILE_LIST_SEARCHTEXT' => 'fieldname',
+                        'ARTICLE_SEARCH_DATE_FROM' => 'datefrom',
+                        'ARTICLE_SEARCH_DATE_TO' => 'dateto',
+                        'ARTICLE_SEARCH_USER' => 'userid',
+                    ])
+                    ->setLabelTypeFloat()
+            ]
+        ]);
+        
+        $this->view->addDialogs($searchDlg);
 
         $this->view->addJsLangVars([
             'SEARCH_WAITMSG', 'ARTICLES_SEARCH', 'ARTICLE_SEARCH_START',
             'ARTICLE_SEARCH_USER', 'ARTICLE_SEARCH_DATE_TO', 'ARTICLE_SEARCH_DATE_FROM',
             'FILE_LIST_SEARCHTEXT', 'ARTICLE_SEARCH_LOGICNONE', 'ARTICLE_SEARCH_LOGICAND',
-            'ARTICLE_SEARCH_LOGICOR', 'ARTICLE_SEARCH_LOGIC', 'GLOBAL_SELECT'
+            'ARTICLE_SEARCH_LOGICOR', 'ARTICLE_SEARCH_LOGIC', 'GLOBAL_SELECT',
+            'GLOBAL_ADD', 'GLOBAL_REMOVE'
         ]);
     }
 
@@ -270,8 +287,7 @@ class filelist extends \fpcm\controller\abstracts\controller
                     'index' => 0
                 ])
                 ->setIcon('folder-open')
-                ->setLabelTypeFloat()
-                ->setBottomSpace(''),
+                ->setLabelTypeFloat(),
             (new \fpcm\view\helper\select('file_view'))
                 ->setText('SYSTEM_OPTIONS_FILEMANAGER_VIEW')
                 ->setOptions(\fpcm\components\components::getFilemanagerViews())
@@ -283,7 +299,6 @@ class filelist extends \fpcm\controller\abstracts\controller
                 ])
                 ->setIcon('grip-horizontal')
                 ->setLabelTypeFloat()
-                ->setBottomSpace('')
         ]);
 
         $reminderDlg = new \fpcm\view\helper\reminderDialog();
