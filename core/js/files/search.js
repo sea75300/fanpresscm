@@ -11,8 +11,9 @@ if (fpcm === undefined) {
 fpcm.search = {
 
     _cfg: false,
-    _form: null,
     _lines: 0,
+    _form: null,
+    _filter: {},
 
     init: function() {
 
@@ -43,7 +44,7 @@ fpcm.search = {
                         text: fpcm.ui.translate('ARTICLE_SEARCH_START'),
                         icon: "check",
                         primary: true,
-                        clickClose: false,
+                        clickClose: true,
                         click: function(_ui, _bsObj) {
 
                             if (((new Date()).getTime() - fpcm.vars.jsvars.filesLastSearch) < 10000) {
@@ -59,22 +60,20 @@ fpcm.search = {
                                 return false;
                             }
 
-                            let _filter = {};
-
                             for (let _svi of _sfields) {
 
-                                if (_filter[_svi.dataset.ridx] === undefined) {
-                                    _filter[_svi.dataset.ridx] = {
+                                if (fpcm.search._filter[_svi.dataset.ridx] === undefined) {
+                                    fpcm.search._filter[_svi.dataset.ridx] = {
                                         combination: '',
                                         field: null,
                                         value: null
                                     };
                                 }
 
-                                _filter[_svi.dataset.ridx][_svi.dataset.type] = _svi.value;
+                                fpcm.search._filter[_svi.dataset.ridx][_svi.dataset.type] = _svi.value;
                             }
 
-                            fpcm.filemanager.reloadFiles(1, _filter);
+                            fpcm.filemanager.reloadFiles(1, fpcm.search._filter);
                         }
                     },
                     {
@@ -128,6 +127,10 @@ fpcm.search = {
             return false;
         }
 
+        for (var _i in fpcm.search._filter) {
+            return true;
+        }
+
         fpcm.search._form = document.createElement('div');
         fpcm.search._form.id = fpcm.ui.prepareId('search-fields', true);
 
@@ -155,6 +158,20 @@ fpcm.search = {
             _opts = {};
             _opts.idIndex = fpcm.search._lines;
 
+            if (fpcm.search._filter[_opts.idIndex]) {
+                switch (_cIdx) {
+                    case 1:
+                        _field.preSelected = fpcm.search._filter[_opts.idIndex].combination;
+                        break;
+                    case 2:
+                        _field.preSelected = fpcm.search._filter[_opts.idIndex].field;
+                        break;
+                    case 3:
+                        _field.value = fpcm.search._filter[_opts.idIndex].value;
+                        break;
+                }
+            }
+            
             switch (_cIdx) {
                 case 0:
                     _opts.colClass = ['col-auto'];
@@ -163,6 +180,7 @@ fpcm.search = {
                     _opts.colClass = ['col-3'];
                     _opts.namePattern = `searchData`;
                     _field.data.type = 'combination';
+                    
                     break;
                 default:
                     _opts.namePattern = `searchData`;
