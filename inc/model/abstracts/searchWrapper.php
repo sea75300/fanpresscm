@@ -37,6 +37,13 @@ abstract class searchWrapper extends staticModel {
     protected array $fieldOrder = [];
 
     /**
+     * Search conditions array
+     * @var array
+     * @since 5.3.0-dev
+     */
+    protected array $filterParams;
+
+    /**
      * Query assign result object
      * @var \fpcm\model\dbal\queryAssignResult
      * @since 5.3.0-dev
@@ -72,12 +79,24 @@ abstract class searchWrapper extends staticModel {
     }
 
     /**
+     * Set filter params
+     * @param array $filterParams
+     * @return $this
+     * @since 5.3.0-dev
+     */
+    public function setFilterParams(array $filterParams)
+    {
+        $this->filterParams = $filterParams;
+        return $this;
+    }
+        
+    /**
      * Sets multiple lag
      * @param bool $isMultiple
      * @return $this
      * @since 4.3
      */
-    public function setMultiple(bool $isMultiple)
+    public function setMultiple(bool $isMultiple = true)
     {
         $this->isMultiple = $isMultiple;
         return $this;
@@ -104,42 +123,57 @@ abstract class searchWrapper extends staticModel {
     }
 
     /**
-     * Assign fields by field order
-     * @return \fpcm\model\dbal\queryAssignResult
-     * @since 5.3.0-dev
+     * Assigns filter params conditions
+     * @param \fpcm\model\http\filterParam $obj
+     * @return void
      */
-    final public function assignFieldByOrder() : \fpcm\model\dbal\queryAssignResult
+    private function assignCondition(\fpcm\model\http\filterParam $obj) : void
     {
-        $this->queryAssignResult = new \fpcm\model\dbal\queryAssignResult();
+        $cond = $obj->getCombination();
 
-        if (!count($this->fieldOrder)) {
-            return $this->queryAssignResult;
+        $c = match ($cond) {
+            'and' => ' AND ',
+            'or' => ' OR ',
+            '(' => ' ( ',
+            ')' => ' ) ',
+            default => ''
+        };
+
+        if (!trim($c)) {
+            return;
         }
 
-        foreach ($this->fieldOrder as $field) {
-
-            $afn = 'assign'.ucfirst($field);
-            if (!method_exists($this, $afn)) {
-                trigger_error(sprintf('No assign method %s found for %s', $afn, $field));
-                continue;
-            }
-
-            $this->{$afn}();
-        }
-
-        return $this->queryAssignResult;
+        $this->queryAssignResult->setQueries($c);
     }
 
     /**
-     * Set field order
-     * @param array $fieldOrder
-     * @return $this
-     * @since 5.3.0-dev
+     * Assigns fields annd values from filter params
+     * @param \fpcm\model\http\filterParam $obj
+     * @return void
      */
-    public function setFieldOrder(...$fieldOrder)
+    private function assignFieldAndValue(\fpcm\model\http\filterParam $obj) : void
     {
-        $this->fieldOrder = $fieldOrder;
-        return $this;
+        $field = $obj->getField();
+        $value = $obj->getValue();
+
+        if (!$field) {
+            return;
+        }
+
+        $this->data[$field] = $value;
+
+        $prep = 'prepare'.ucfirst($field);
+        if (method_exists($this, $prep)) {
+            $this->{$prep}();
+        }
+        
+        $afn = 'assign'.ucfirst($field);
+        if (!method_exists($this, $afn)) {
+            trigger_error(sprintf('No assign method %s found for %s in %s', $afn, $field, get_class($this)));
+            return;
+        }
+
+        $this->{$afn}();
     }
 
     /**
@@ -151,6 +185,35 @@ abstract class searchWrapper extends staticModel {
     {
         return \fpcm\classes\loader::getObject('\fpcm\classes\database');
     }
+    
+    /**
+     * Parse and assigns UI filter params array to queries
+     * @return \fpcm\model\dbal\queryAssignResult
+     */
+    final public function prepareFilterParams() : \fpcm\model\dbal\queryAssignResult
+    {
+        $this->queryAssignResult = new \fpcm\model\dbal\queryAssignResult();
+        if (!count($this->filterParams)) {
+            return $this->queryAssignResult;
+        }
 
+        foreach ($this->filterParams as $value) {
+            $obj = new \fpcm\model\http\filterParam($value);
+            $this->assignCondition($obj);
+            $this->assignFieldAndValue($obj);
+        }
+        
+        return $this->queryAssignResult;
+    }
+    
+    /**
+     * Prepare values
+     * @param array $filter
+     * @return void
+     */
+    public function prepareValues(array &$filter) : void
+    {
+        return;
+    }
 
 }

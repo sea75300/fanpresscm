@@ -93,4 +93,49 @@ class search extends \fpcm\model\abstracts\searchWrapper {
         $this->queryAssignResult->setValues($uids);
     }
 
+
+    /**
+     * Prepare Filename value
+     * @param \fpcm\model\dbal\queryAssignResult $qas
+     * @return void
+     */
+    public function prepareFilename() : void
+    {
+        $this->filename = trim($this->filename);
+    }
+
+    /**
+     * Prepare date from value
+     * @return void
+     */
+    public function prepareDatefrom() : void
+    {
+        if (!\fpcm\classes\tools::validateDateString($this->datefrom)) {
+            return;
+        }
+
+        $this->datefrom = strtotime($this->datefrom);
+    }
+
+    /**
+     * Prepare date to value
+     * @return void
+     */
+    public function prepareDateto() : void
+    {
+        if (!\fpcm\classes\tools::validateDateString($this->dateto)) {
+            return;
+        }
+
+        $this->datefrom = strtotime($this->dateto);
+    }
+
+    /**
+     * Prepare user id value
+     * @return void
+     */
+    public function prepareUserid() : void
+    {
+        $this->userid = (int) $this->userid;
+    }
 }

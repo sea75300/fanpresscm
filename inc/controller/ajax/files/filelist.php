@@ -69,31 +69,9 @@ class filelist extends \fpcm\controller\abstracts\ajaxController
             $this->showPager = true;
             return true;
         }
-
-        $this->filter->setMultiple(true);
-        $this->assignParamsVars( ($filter['combinations'] ?? []) , $this->filter);
-
-        if (trim($filter['filename'])) {
-            $this->filter->filename = $this->request->filter($filter['filename'], [
-                \fpcm\model\http\request::FILTER_URLDECODE,
-                \fpcm\model\http\request::FILTER_TRIM,
-                \fpcm\model\http\request::FILTER_HTMLENTITY_DECODE,
-                \fpcm\model\http\request::FILTER_HTMLSPECIALCHARS
-            ]);
-        }
-
-        if ($filter['datefrom'] && \fpcm\classes\tools::validateDateString($filter['datefrom'])) {
-            $this->filter->datefrom   = strtotime($filter['datefrom']);
-        }
-
-        if ($filter['dateto'] && \fpcm\classes\tools::validateDateString($filter['dateto'])) {
-            $this->filter->dateto     = strtotime($filter['dateto']);
-        }
-
-        if ($filter['userid']) {
-            $this->filter->userid     = (int) $filter['userid'];
-        }
-
+        
+        $this->filter->setMultiple();
+        $fp = $this->filter->setFilterParams($filter);
         return true;
     }
 

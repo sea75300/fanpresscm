@@ -99,8 +99,7 @@ implements \fpcm\model\interfaces\gsearchIndex {
         $combination = '';
 
         if ($conditions->isMultiple()) {
-            $conditions->setFieldOrder('filename', 'datefrom', 'dateto', 'userid');
-            $qas = $conditions->assignFieldByOrder();
+            $qas = $conditions->prepareFilterParams();
 
             $where = $qas->getQueries();
             $valueParams = $qas->getValues();            
@@ -123,6 +122,8 @@ implements \fpcm\model\interfaces\gsearchIndex {
         }
 
         $where .= ' ' . implode(' ', $where2);
+        
+        fpcmLogSystem($where);
 
         $images = $this->dbcon->selectFetch(
             (new \fpcm\model\dbal\selectParams($this->table))

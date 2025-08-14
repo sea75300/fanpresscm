@@ -210,17 +210,17 @@ class filelist extends \fpcm\controller\abstracts\controller
     public function assignSearchFromVars()
     {
         $combinations = [
-            'ARTICLE_SEARCH_LOGICNONE' => -1,
-            'ARTICLE_SEARCH_LOGICAND' => 0,
-            'ARTICLE_SEARCH_LOGICOR' => 1,
-            '(' => 2,
-            ')' => 3,
+            'ARTICLE_SEARCH_LOGICNONE' => '',
+            'ARTICLE_SEARCH_LOGICAND' => 'and',
+            'ARTICLE_SEARCH_LOGICOR' => 'or',
+            '(' => '(',
+            ')' => ')'
         ];
 
         $searchDlg = new \fpcm\view\helper\dialog('search');
         $searchDlg->setFields([
             'valueFields' => [
-                'fieldname' => (new \fpcm\view\helper\textInput('fieldname'))
+                'filename' => (new \fpcm\view\helper\textInput('filename'))
                     ->setText('FILE_LIST_SEARCHTEXT')
                     ->setMaxlenght(255)
                     ->setLabelTypeFloat(),
@@ -252,7 +252,7 @@ class filelist extends \fpcm\controller\abstracts\controller
                     ->setLabelTypeFloat(),
                 (new \fpcm\view\helper\select('fields'))
                     ->setOptions([
-                        'FILE_LIST_SEARCHTEXT' => 'fieldname',
+                        'FILE_LIST_SEARCHTEXT' => 'filename',
                         'ARTICLE_SEARCH_DATE_FROM' => 'datefrom',
                         'ARTICLE_SEARCH_DATE_TO' => 'dateto',
                         'ARTICLE_SEARCH_USER' => 'userid',

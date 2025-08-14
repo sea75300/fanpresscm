@@ -12,6 +12,7 @@ fpcm.search = {
 
     _cfg: false,
     _form: null,
+    _lines: 0,
 
     init: function() {
 
@@ -42,15 +43,38 @@ fpcm.search = {
                         text: fpcm.ui.translate('ARTICLE_SEARCH_START'),
                         icon: "check",
                         primary: true,
-                        clickClose: true,
+                        clickClose: false,
                         click: function(_ui, _bsObj) {
 
-                            debugger;
+                            if (((new Date()).getTime() - fpcm.vars.jsvars.filesLastSearch) < 10000) {
+                                fpcm.ui.addMessage({
+                                    type: 'error',
+                                    txt : fpcm.ui.translate('SEARCH_WAITMSG')
+                                });
+                                return false;
+                            }
 
-                            var sParams = fpcm.dom.getValuesByClass('fpcm-files-search-input');
-                            sParams.combinations = fpcm.dom.getValuesByClass('fpcm-ui-input-select-filessearch-combination');
+                            let _sfields = document.getElementsByName('searchData');
+                            if (!_sfields.length) {
+                                return false;
+                            }
 
-                            fpcm.filemanager.startFilesSearch(sParams);
+                            let _filter = {};
+
+                            for (let _svi of _sfields) {
+
+                                if (_filter[_svi.dataset.ridx] === undefined) {
+                                    _filter[_svi.dataset.ridx] = {
+                                        combination: '',
+                                        field: null,
+                                        value: null
+                                    };
+                                }
+
+                                _filter[_svi.dataset.ridx][_svi.dataset.type] = _svi.value;
+                            }
+
+                            fpcm.filemanager.reloadFiles(1, _filter);
                         }
                     },
                     {
@@ -65,7 +89,29 @@ fpcm.search = {
                 dlOnOpenAfter: function () {
                     fpcm.ui_dnd.initDnd({
                         destination: fpcm.search._form.id,
-                        group: 'shared'
+                        group: 'shared',
+                        dropCallback: function (_e) {
+
+                            let _rows =  _e.to.children;
+                            if (!_rows.length) {
+                                return;
+                            }
+
+                            let _ridx = 0;
+                            for (var _row of _rows) {
+
+                                let _list = _row.querySelectorAll('[data-ridx]');
+                                if (!_list.length) {
+                                    return;
+                                }
+
+                                for (var _el of _list) {
+                                    _el.dataset.ridx = _ridx;
+                                }
+
+                                _ridx++;
+                            }
+                        }
                     });
                 }
             });
@@ -73,19 +119,6 @@ fpcm.search = {
             return false;
         });
 
-    },
-
-    startFilesSearch: function (sParams) {
-
-        if (((new Date()).getTime() - fpcm.vars.jsvars.filesLastSearch) < 10000) {
-            fpcm.ui.addMessage({
-                type: 'error',
-                txt : fpcm.ui.translate('SEARCH_WAITMSG')
-            });
-            return false;
-        }
-
-        fpcm.filemanager.reloadFiles(1, sParams);
     },
 
     _initSearchConditions: function () {
@@ -112,11 +145,15 @@ fpcm.search = {
         let _row1 = document.createElement('div');
         _row1.classList.add('row', 'align-items-center', 'mb-2', 'g-0', 'gap-2');
 
+        fpcm.search._lines++;
+
         let _cIdx = 0;
         for (var _fieldCfg of _cfg.fields.buildFields) {
 
+            let _field = _fieldCfg;
+
             _opts = {};
-            _opts.index = fpcm.search._form.children.length;
+            _opts.idIndex = fpcm.search._lines;
 
             switch (_cIdx) {
                 case 0:
@@ -124,12 +161,17 @@ fpcm.search = {
                     break;
                 case 1:
                     _opts.colClass = ['col-3'];
+                    _opts.namePattern = `searchData`;
+                    _field.data.type = 'combination';
+                    break;
+                default:
+                    _opts.namePattern = `searchData`;
+                    _field.data.type = 'field';
                     break;
             }
 
-            let _field = _fieldCfg;
             _field.bottomSpace = '';
-            _field.data.ridx = _opts.index;
+            _field.data.ridx = _opts.idIndex;
 
             fpcm.search.assignEvents(_field);
 
@@ -161,6 +203,15 @@ fpcm.search = {
             return;
         }
 
+        if (_field.name === 'combinations') {
+            _field.onChange = function (_e) {
+                let _d = /*_e.currentTarget.value === '(' || */_e.currentTarget.value === ')';
+                _e.currentTarget.parentElement.parentElement.nextElementSibling.getElementsByTagName('select').item(0).disabled = _d;
+            }
+
+            return;
+        }
+
         if (_field.name === 'fields') {
             _field.onChange = function (_e) {
 
@@ -179,9 +230,12 @@ fpcm.search = {
                 }
 
                 _opts = {};
-                _opts.index = _e.currentTarget.dataset.ridx;
+                _opts.idIndex = fpcm.search._lines;
+                _opts.namePattern = `searchData`;
 
                 _valField.bottomSpace = '';
+                _valField.data.type = 'value';
+                _valField.data.ridx = _e.currentTarget.dataset.ridx;
 
                 fpcm.ui_dialogs.appendField(
                     _valField,

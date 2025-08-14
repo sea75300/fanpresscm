@@ -556,8 +556,11 @@ fpcm.ui_dialogs = {
 
         let _tmp = new fpcm.ui.forms[_field.callback];
 
-        _tmp.name = _field.name + _options.index;
-        _tmp.id = _field.id + _options.index;
+        if (_options.idIndex === undefined && _options.namePattern === undefined) {
+            _tmp.name = _field.name;
+            _tmp.id = _field.id;
+        }
+
         _tmp.label = _field.text;
         _tmp.class = _field.class;
         _tmp.wrapper = `${_field.labelType} ${_field.bottomSpace}`;
@@ -574,18 +577,21 @@ fpcm.ui_dialogs = {
         }
 
         _tmp.assignFormObject(_field);
-        if (_options.index !== undefined) {
-            _tmp.name = _field.name + _options.index;
-            _tmp.id = _field.id + _options.index;            
+        if (_options.idIndex !== undefined) {
+            _tmp.id = _field.id + _options.idIndex;
+        }
+
+        if (_options.namePattern !== undefined) {
+            _tmp.name = _options.namePattern;
         }
 
         let _colDescr = document.createElement('div');
-        
+
         if (_options.colClass !== undefined) {
             _colDescr.classList.add(..._options.colClass);
         }
         else {
-            _colDescr.classList.add('col');            
+            _colDescr.classList.add('col');
         }
 
         _tmp.assignToDom(_colDescr);
