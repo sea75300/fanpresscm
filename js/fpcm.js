@@ -14,6 +14,7 @@ if (fpcm === undefined) {
             }
         },
         modules: {},
+        shares: {},
         system: {
             mergeToVars: function (_newvalue) {
 
@@ -21,109 +22,106 @@ if (fpcm === undefined) {
                     _newvalue = [];
                 }
 
+                if (typeof jQuery === 'undefined') {
+                    return false;
+                }
+
                 return jQuery.extend(true, fpcm, _newvalue);
+            },
+            bindClick: function (_el, _callback) {
+
+                if (_el instanceof HTMLCollection) {
+
+                    for (var _subEl of _el) {
+                        _subEl.addEventListener('click', _callback);
+                    }
+
+                    return;
+                }
+
+                _el.addEventListener('click', _callback);
             }
-        }
-    };
-}
-
-window.onload = function() {
-    
-    if (typeof jQuery !== 'undefined') {
-
-        jQuery.noConflict();
-        
-        fpcm.pub = {
-
+        },
+        pub: {
             init: function () {
 
                 fpcm.pub.doRefresh();
-
-                jQuery('.fpcm-pub-commentsmiley').click(function () {
-                    fpcm.pub.insert(' ' + this.dataset.code + ' ');
-                    return false;
-                });
-
-                jQuery('.fpcm-pub-readmore-text').hide();
-                jQuery('.fpcm-pub-readmore-link').click(function () {
-                    jQuery('#fpcm-pub-readmore-text-' + this.id).fadeToggle();
-                    return false;
-                });
-
-                jQuery('.fpcm-pub-mentionlink').click(function () {
-                    fpcm.pub.insert('@#' + this.id + ': ');
-                    return false;
-                });
-
-                if (!fpcm.pub.shares) {
-                    fpcm.pub.shares = {};
-                }
-
-                jQuery('a.fpcm-pub-sharebutton-count').click(function () {
-
-                    var item = jQuery(this).attr('data-onclick');
-                    if (fpcm.pub.shares[item] && (new Date()).getTime() - fpcm.pub.shares[item] < 30000) {
-                        return false;
-                    }
-
-                    if (!fpcm.pub.shares[item]) {
-                        fpcm.pub.shares[item] = 0;
-                    }
-
-                    fpcm.pub.shares[item] = (new Date()).getTime();
-                    fpcm.pub.doAjax({
-                        action: 'shareClick',
-                        type: 'POST',
-                        data: {
-                            oid: jQuery(this).attr('data-oid'),
-                            item: item
-                        },
-                        execDone: function(result) {
-
-                            if (item !== 'likebutton') {
-                                return true;
-                            }
-
-                            fpcm.pub.addMessage({
-                                type: 'notice',
-                                id: (new Date()).getTime(),
-                                txt: fpcm.vars.ui.lang['PUBLIC_SHARE_LIKE']
-                            });
-
-                            return false;
-                        }
-                    });                    
-
-                    return item === 'likebutton' ? false : true;
-                });
-
                 fpcm.pub.showMessages();
 
+                fpcm.system.bindClick(
+                    document.getElementsByClassName('fpcm-pub-commentsmiley'),
+                    function (_ev) {
+                        _ev.preventDefault();
+                        fpcm.pub.insert(' ' + _ev.currentTarget.dataset.code + ' ');
+                    }
+                );
+
+                fpcm.system.bindClick(
+                    document.getElementsByClassName('fpcm-pub-mentionlink'),
+                    (_ev) => {
+                        _ev.preventDefault();
+                        fpcm.pub.insert('@#' + _ev.currentTarget.id + ': ');
+                    }
+                );
+
+                fpcm.system.bindClick(
+                    document.getElementsByClassName('a.fpcm-pub-sharebutton-count'),
+                    (_ev) => {
+                        _ev.preventDefault();
+                        let _item = _ev.currentTarget.dataset.onclick;
+                        if (fpcm.pub.shares[_item] && (new Date()).getTime() - fpcm.pub.shares[_item] < 30000) {
+                            return false;
+                        }
+
+                        if (!fpcm.pub.shares[_item]) {
+                            fpcm.pub.shares[_item] = 0;
+                        }
+
+                        fpcm.pub.shares[_item] = (new Date()).getTime();
+                        fpcm.pub.doAjax({
+                            action: 'shareClick',
+                            type: 'POST',
+                            data: {
+                                oid: _ev.currentTarget.dataset.oid,
+                                item: _item
+                            },
+                            execDone: function(_result) {
+
+                                if (_item !== 'likebutton') {
+                                    return true;
+                                }
+
+                                fpcm.pub.addMessage({
+                                    type: 'notice',
+                                    id: (new Date()).getTime(),
+                                    txt: fpcm.vars.ui.lang['PUBLIC_SHARE_LIKE']
+                                });
+
+                                return false;
+                            }
+                        });
+
+                        return _item === 'likebutton' ? false : true;
+                    }
+                );
+
+                for (var _m in fpcm.modules) {
+
+                    if (!_m.init || typeof _m.init !== 'function') {
+                        return true;
+                    }
+
+                    _m.init();
+                }
             },
 
             insert: function (smiliecode) {
                 aTag = smiliecode;
                 eTag = "";
-                var input = jQuery('#newcommenttext')[0];
+                var input = document.getElementById('newcommenttext');
 
                 input.focus();
-                /* für Internet Explorer */
-                if (typeof document.selection != 'undefined') {
-                    /* Einfügen des Formatierungscodes */
-                    var range = document.selection.createRange();
-                    var insText = range.text;
-                    range.text = aTag + insText + eTag;
-                    /* Anpassen der Cursorposition */
-                    range = document.selection.createRange();
-                    if (insText.length == 0) {
-                        range.move('character', -eTag.length);
-                    } else {
-                        range.moveStart('character', aTag.length + insText.length + eTag.length);
-                    }
-                    range.select();
-                }
-                /* für neuere auf Gecko basierende Browser */
-                else if (typeof input.selectionStart != 'undefined')
+                if (typeof input.selectionStart != 'undefined')
                 {
                     /* Einfügen des Formatierungscodes */
                     var start = input.selectionStart;
@@ -158,24 +156,32 @@ window.onload = function() {
             },
 
             addMessage: function (msg) {
-                
-                if (!jQuery('#fpcm-messages').length) {
+
+                let _msgWrapper = document.getElementById('#fpcm-messages');
+                if (!_msgWrapper) {
                     alert(msg.txt);
                     return true;
                 }
 
-                jQuery('#fpcm-messages').append(
-                    '<div class="fpcm-pub-message-box fpcm-pub-message-' + msg.type +
-                    '" id="msgbox-' + msg.id + '"><div class="fpcm-pub-message-box-text">' + msg.txt +
-                    '</div></div>'
-                );
+                let _msg = document.createElement('div');
+                let _text = document.createElement('div');
+
+                _msg.classList.add('fpcm-pub-message-box', 'fpcm-pub-message-' + msg.type);
+                _msg.id = msg.id;
+
+                _text.classList.add('fpcm-pub-message-box-text');
+                _text.innerHTML = msg.txt;
+
+                _msg.appendChild(_text);
+
+                _msgWrapper.appendChild(_msg);
             },
-            
+
             showMessages: function() {
 
                 if (!fpcm.vars.ui || !fpcm.vars.ui.messages || !fpcm.vars.ui.messages.length) {
                     return false;
-                }   
+                }
 
                 var msg = null;
                 for (var i = 0; i < fpcm.vars.ui.messages.length; i++) {
@@ -184,17 +190,17 @@ window.onload = function() {
 
                 return true;
             },
-            
+
             doRefresh: function() {
-                
+
                 if (!fpcm.vars.ajaxActionPath) {
                     return false;
                 }
-                
+
                 if (fpcm.vars.ajaxRefreshDisable) {
                     return false;
                 }
-                
+
                 fpcm.pub.doAjax({
                     action: 'refresh',
                     data: {
@@ -204,8 +210,13 @@ window.onload = function() {
 
                 return true;
             },
-            
+
             doAjax: function (config) {
+                
+                if (typeof jQuery === 'undefined') {
+                    console.error('jQuery is no loaded! Check if you included the libary in your page header or enable inclusion in FanPress CM ACP.');
+                    return false;
+                }
 
                 if (!fpcm.vars.ajaxActionPath && !config.ajaxActionPath) {
                     console.error('Unable to execute AJAX request due to missing request destination!');
@@ -224,11 +235,11 @@ window.onload = function() {
                 }
 
                 if (config.dataType) {
-                    _params.dataType = config.dataType;                    
+                    _params.dataType = config.dataType;
                 }
 
                 if (config.onCode) {
-                    _params.statusCode = config.onCode;                    
+                    _params.statusCode = config.onCode;
                 }
 
                 jQuery.ajax(_params).done(function (result) {
@@ -256,24 +267,9 @@ window.onload = function() {
                 });
             }
         }
+    };
+}
 
-        fpcm.pub.init();
-
-        if (fpcm.modules) {
-
-            jQuery.each(fpcm.modules, function (idx, object) {
-
-                if (!object.init || typeof object.init !== 'function') {
-                    return true;
-                }
-
-                object.init();
-            });
-
-        }
-
-    } else {
-        console.error('jQuery is no loaded! Check if you included the libary in your page header or enable inclusion in FanPress CM ACP.');
-    }
-
-};
+window.addEventListener('load', (_e) => {
+    fpcm.pub.init();
+});
