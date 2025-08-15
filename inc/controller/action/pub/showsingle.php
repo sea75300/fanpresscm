@@ -297,7 +297,7 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
         if (!$this->buttonClicked('sendComment') && !$data && $this->session->exists()) {
             $this->newComment->setName($this->session->getCurrentUser()->getDisplayname());
             $this->newComment->setEmail($this->session->getCurrentUser()->getEmail());
-            $this->newComment->setWebsite($this->request->getHost());
+            $this->newComment->setWebsite($this->request->getHostWidthScheme());
         }
 
         $this->commentFormTemplate->assignByObject($this->article, $this->newComment, $this->captcha);

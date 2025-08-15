@@ -157,7 +157,7 @@ if (fpcm === undefined) {
 
             addMessage: function (msg) {
 
-                let _msgWrapper = document.getElementById('#fpcm-messages');
+                let _msgWrapper = document.getElementById('fpcm-messages');
                 if (!_msgWrapper) {
                     alert(msg.txt);
                     return true;
