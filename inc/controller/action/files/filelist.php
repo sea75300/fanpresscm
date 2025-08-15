@@ -287,7 +287,8 @@ class filelist extends \fpcm\controller\abstracts\controller
                     'index' => 0
                 ])
                 ->setIcon('folder-open')
-                ->setLabelTypeFloat(),
+                ->setLabelTypeFloat()
+                ->setBottomSpace(''),
             (new \fpcm\view\helper\select('file_view'))
                 ->setText('SYSTEM_OPTIONS_FILEMANAGER_VIEW')
                 ->setOptions(\fpcm\components\components::getFilemanagerViews())
@@ -299,6 +300,7 @@ class filelist extends \fpcm\controller\abstracts\controller
                 ])
                 ->setIcon('grip-horizontal')
                 ->setLabelTypeFloat()
+                ->setBottomSpace('')
         ]);
 
         $reminderDlg = new \fpcm\view\helper\reminderDialog();

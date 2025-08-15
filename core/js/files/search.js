@@ -13,7 +13,6 @@ fpcm.search = {
     _cfg: false,
     _lines: 0,
     _form: null,
-    _filter: {},
 
     init: function() {
 
@@ -60,20 +59,22 @@ fpcm.search = {
                                 return false;
                             }
 
+                            let _filter = {};
+
                             for (let _svi of _sfields) {
 
-                                if (fpcm.search._filter[_svi.dataset.ridx] === undefined) {
-                                    fpcm.search._filter[_svi.dataset.ridx] = {
+                                if (_filter[_svi.dataset.ridx] === undefined) {
+                                    _filter[_svi.dataset.ridx] = {
                                         combination: '',
                                         field: null,
                                         value: null
                                     };
                                 }
 
-                                fpcm.search._filter[_svi.dataset.ridx][_svi.dataset.type] = _svi.value;
+                                _filter[_svi.dataset.ridx][_svi.dataset.type] = _svi.value;
                             }
 
-                            fpcm.filemanager.reloadFiles(1, fpcm.search._filter);
+                            fpcm.filemanager.reloadFiles(1, _filter);
                         }
                     },
                     {
@@ -81,7 +82,9 @@ fpcm.search = {
                         icon: "filter-circle-xmark" ,
                         clickClose: true,
                         click: function() {
-                            fpcm.ui.relocate('self');
+                            fpcm.search._lines = 0;
+                            fpcm.search._form = null;
+                            fpcm.filemanager.reloadFiles(1);
                         }
                     }
                 ],
@@ -127,8 +130,8 @@ fpcm.search = {
             return false;
         }
 
-        for (var _i in fpcm.search._filter) {
-            return true;
+        if (fpcm.search._form) {
+            return;
         }
 
         fpcm.search._form = document.createElement('div');
@@ -157,20 +160,6 @@ fpcm.search = {
 
             _opts = {};
             _opts.idIndex = fpcm.search._lines;
-
-            if (fpcm.search._filter[_opts.idIndex]) {
-                switch (_cIdx) {
-                    case 1:
-                        _field.preSelected = fpcm.search._filter[_opts.idIndex].combination;
-                        break;
-                    case 2:
-                        _field.preSelected = fpcm.search._filter[_opts.idIndex].field;
-                        break;
-                    case 3:
-                        _field.value = fpcm.search._filter[_opts.idIndex].value;
-                        break;
-                }
-            }
             
             switch (_cIdx) {
                 case 0:

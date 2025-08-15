@@ -122,8 +122,6 @@ implements \fpcm\model\interfaces\gsearchIndex {
         }
 
         $where .= ' ' . implode(' ', $where2);
-        
-        fpcmLogSystem($where);
 
         $images = $this->dbcon->selectFetch(
             (new \fpcm\model\dbal\selectParams($this->table))

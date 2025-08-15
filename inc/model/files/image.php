@@ -354,9 +354,6 @@ implements \fpcm\model\interfaces\validateFileType,
         }
 
         $saveValues = $this->getSaveValues();
-
-        fpcmLogSystem($saveValues);
-
         $saveValues['filehash'] = $this->getFileHash();
         $saveValues['filesize'] = (int) $saveValues['filesize'];
         $saveValues['filetime'] = (int) $saveValues['filetime'];
