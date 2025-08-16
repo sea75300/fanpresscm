@@ -1,7 +1,7 @@
 /**
  * FanPress CM public javascript functions
  * @article Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2015-2018, Stefan Seehafer
+ * @copyright (c) 2015-2025, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -256,11 +256,12 @@ if (fpcm === undefined) {
                     _config.method = 'GET';
                 }
 
+                const _init = {};
+
                 if (_config.dataType) {
                     _init.headers['Content-Type'] = _config.dataType;
                 }
 
-                const _init = {};
                 _init.method = _config.method.toUpperCase();
 
                 if (_config.data && _config.method === 'GET') {
@@ -281,14 +282,12 @@ if (fpcm === undefined) {
                 }
 
                 const _request = new Request(_url, _init);
-
                 const _response = await fetch(_request);
 
                 if (!_response.ok) {
 
                     if (!_config.execFail) {
                         throw new Error(`Response status: ${_response.status}`);
-                        return true;
                     }
 
                     _config.execFail(_response.body);
@@ -296,7 +295,6 @@ if (fpcm === undefined) {
                 }
 
                 if (_response.ok) {
-
 
                     if (!_config.execDone) {
                         return true;
