@@ -6,6 +6,8 @@ if (fpcm === undefined) {
 }
 
 fpcm.templates = {
+    
+    _tplId: '',
 
     init: function() {
 
@@ -66,7 +68,7 @@ fpcm.templates = {
                     fpcm.ajax.post('templates/save', {
                         data: {
                             content: fpcm.editor_ace.getValue(),
-                            tplid  : document.getElementById('templateid').value
+                            tplid  : fpcm.templates._tplId
                         },
                         execDone: function (_result) {
 
@@ -88,13 +90,13 @@ fpcm.templates = {
             quiet: true,
             data: {
                 content: fpcm.editor_ace.getValue(),
-                tplid  : document.getElementById('templateid').value
+                tplid  : fpcm.templates._tplId
             },
             execDone: function() {
                 fpcm.ui_dialogs.create({
                     id: 'templatepreview-layer',
                     closeButton: true,
-                    url: fpcm.vars.actionPath + 'templates/preview&tid=' + document.getElementById('templateid').value
+                    url: fpcm.vars.actionPath + 'templates/preview&tid=' + fpcm.templates._tplId
                 });
             }
         });
@@ -102,6 +104,8 @@ fpcm.templates = {
     },
 
     createEditorInstance: function (_tplid) {
+
+        fpcm.templates._tplId = _tplid;
 
         try {
 

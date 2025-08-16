@@ -49,8 +49,6 @@
     </div>
 </div>
 
-<?php $theView->hiddenInput('template[id]')->setValue($tplId); ?>
-
 <script>
 fpcm.templates.createEditorInstance('<?php print $tplId; ?>');
 </script>

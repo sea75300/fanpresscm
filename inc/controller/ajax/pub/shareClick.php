@@ -92,5 +92,3 @@ class shareClick extends \fpcm\controller\abstracts\ajaxController {
     }
 
 }
-
-?>

@@ -22,15 +22,40 @@ if (fpcm === undefined) {
                     _newvalue = [];
                 }
 
-                if (typeof jQuery === 'undefined') {
+                fpcm.system._mergeRecursive(fpcm, _newvalue);
+            },
+            _mergeRecursive: function(_out, ...arguments_) {
+
+                if (!_out) {
                     return false;
                 }
 
-                return jQuery.extend(true, fpcm, _newvalue);
+                for (const obj of arguments_) {
+
+                  if (!obj) {
+                    continue;
+                  }
+
+                  for (const [key, value] of Object.entries(obj)) {
+                    switch (Object.prototype.toString.call(value)) {
+                      case '[object Object]':
+                        _out[key] = _out[key] || {};
+                        _out[key] = fpcm.system._mergeRecursive(_out[key], value);
+                        break;
+                      case '[object Array]':
+                        _out[key] = fpcm.system._mergeRecursive(new Array(value.length), value);
+                        break;
+                      default:
+                        _out[key] = value;
+                    }
+                  }
+                }
+
+                return _out;
             },
             bindClick: function (_el, _callback) {
 
-                if (_el instanceof HTMLCollection) {
+                if (_el instanceof HTMLCollection || _el instanceof NodeList) {
 
                     for (var _subEl of _el) {
                         _subEl.addEventListener('click', _callback);
@@ -65,19 +90,24 @@ if (fpcm === undefined) {
                 );
 
                 fpcm.system.bindClick(
-                    document.getElementsByClassName('a.fpcm-pub-sharebutton-count'),
+                    document.querySelectorAll('a.fpcm-pub-sharebutton-count'),
                     (_ev) => {
-                        _ev.preventDefault();
                         let _item = _ev.currentTarget.dataset.onclick;
-                        if (fpcm.pub.shares[_item] && (new Date()).getTime() - fpcm.pub.shares[_item] < 30000) {
+
+                        if (_item === 'likebutton') {
+                            _ev.preventDefault();
+                        }
+
+                        if (!fpcm.shares[_item]) {
+                            fpcm.shares[_item] = 0;
+                        }
+
+                        if (fpcm.shares[_item] && (new Date()).getTime() - fpcm.shares[_item] < 30000) {
                             return false;
                         }
 
-                        if (!fpcm.pub.shares[_item]) {
-                            fpcm.pub.shares[_item] = 0;
-                        }
+                        fpcm.shares[_item] = (new Date()).getTime();
 
-                        fpcm.pub.shares[_item] = (new Date()).getTime();
                         fpcm.pub.doAjax({
                             action: 'shareClick',
                             type: 'POST',
@@ -193,10 +223,6 @@ if (fpcm === undefined) {
 
             doRefresh: function() {
 
-                if (!fpcm.vars.ajaxActionPath) {
-                    return false;
-                }
-
                 if (fpcm.vars.ajaxRefreshDisable) {
                     return false;
                 }
@@ -211,60 +237,73 @@ if (fpcm === undefined) {
                 return true;
             },
 
-            doAjax: function (config) {
-                
-                if (typeof jQuery === 'undefined') {
-                    console.error('jQuery is no loaded! Check if you included the libary in your page header or enable inclusion in FanPress CM ACP.');
-                    return false;
-                }
+            doAjax: async function (_config) {
 
-                if (!fpcm.vars.ajaxActionPath && !config.ajaxActionPath) {
+                if (!fpcm.vars.ajaxActionPath && !_config.ajaxActionPath) {
                     console.error('Unable to execute AJAX request due to missing request destination!');
-                    console.error(config);
+                    console.error(_config);
                     return false;
                 }
 
-                var _params = {
-                    url: (config.ajaxActionPath ? config.ajaxActionPath : fpcm.vars.ajaxActionPath) + config.action,
-                    async: config.async !== undefined ? config.async : true,
-                    type: config.method ? config.method.toUpperCase() : 'GET'
+
+                if (!_config.ajaxActionPath) {
+                    _config.ajaxActionPath = fpcm.vars.ajaxActionPath;
                 }
 
-                if (config.data) {
-                    _params.data = config.data;
+                let _url = _config.ajaxActionPath + _config.action;
+
+                if (!_config.method) {
+                    _config.method = 'GET';
                 }
 
-                if (config.dataType) {
-                    _params.dataType = config.dataType;
+                if (_config.dataType) {
+                    _init.headers['Content-Type'] = _config.dataType;
                 }
 
-                if (config.onCode) {
-                    _params.statusCode = config.onCode;
-                }
+                const _init = {};
+                _init.method = _config.method.toUpperCase();
 
-                jQuery.ajax(_params).done(function (result) {
+                if (_config.data && _config.method === 'GET') {
 
-                    if (result.search && result.search('FATAL ERROR:') === 3) {
-                        console.error('ERROR MESSAGE: ' + errorThrown);
+                    let _tmp = new URL(_url);
+
+                    for (var _i in _config.data) {
+                        _tmp.searchParams.set(_i, _config.data[_i]);
                     }
 
-                    if (typeof config.execDone != 'function') {
+                    _url = _tmp.toString();
+                }
+                else if (_config.data && _config.dataType == 'JSON') {
+                    _init.body = JSON.stringify(_config.data);
+                }
+                else if(_config.data) {
+                    _init.body = _config.data;
+                }
+
+                const _request = new Request(_url, _init);
+
+                const _response = await fetch(_request);
+
+                if (!_response.ok) {
+
+                    if (!_config.execFail) {
+                        throw new Error(`Response status: ${_response.status}`);
                         return true;
                     }
 
-                    config.execDone(result);
-                })
-                .fail(function (jqXHR, textStatus, errorThrown) {
+                    _config.execFail(_response.body);
+                    throw new Error(`Response status: ${_response.status}`);
+                }
 
-                    console.error('STATUS MESSAGE: ' + textStatus);
-                    console.error('ERROR MESSAGE: ' + errorThrown);
+                if (_response.ok) {
 
-                    if (typeof config.execFail != 'function') {
+
+                    if (!_config.execDone) {
                         return true;
                     }
 
-                    config.execFail();
-                });
+                    _config.execDone(_response.body);
+                }
             }
         }
     };
