@@ -213,13 +213,29 @@
 
 <fieldset class="py-3">
     <legend><?php $theView->write('EDITOR_SHARES'); ?></legend>
-    <?php foreach ($shares as $share) : ?>
-    <div class="row g-0">
-        <div class="col-2 col-lg-1"><?php print $share->getIcon(); ?></div>
-        <div class="col-6 col-lg-2 align-self-center"><?php print $share->getDescription(); ?>:</div>
-        <div class="col-4 col-lg-1 align-self-center text-center"><?php print $share->getSharecount(); ?></div>
-        <div class="col-12 col-lg-auto align-self-center"><?php $theView->icon('clock', 'far')->setText('EDITOR_SHARES_LAST'); ?> <?php $theView->dateText($share->getLastshare()); ?></div>
+    <div class="row">
+        <div class="col col-lg-6">            
+            <div class="list-group">
+                <?php foreach ($shares as $share) : ?>
+                <div class="list-group-item">
+                    <div class="row g-0">
+                        <div class="col-auto align-self-center me-2">
+                            <?php print $share->getIcon(); ?>
+                        </div>
+                        <div class="col align-self-center flex-grow-1">
+                            <?php print $share->getDescription(); ?>
+                        </div>
+                        <div class="col-2 align-self-center text-center">
+                            <?php print $share->getSharecount(); ?>
+                        </div>
+                        <div class="col align-self-center text-center">
+                            <?php $theView->icon('clock', 'far')->setText('EDITOR_SHARES_LAST'); ?> <?php $theView->dateText($share->getLastshare()); ?>
+                        </div>
+                    </div>
+                </div>
+                <?php endforeach; ?>
+            </div>
+        </div>
     </div>
-    <?php endforeach; ?>
 </fieldset>
 <?php endif; ?>

@@ -16,7 +16,7 @@
                     ->setUrl($file->getThumbnailUrl())
                     ->setText('FILE_LIST_INSERT_THUMB')
                     ->setClass('fpcm-filelist-tinymce-thumb')
-                    ->setIcon('compress')
+                    ->setIcon('image-portrait')
                     ->setIconOnly()
                     ->setData(['imgtext' => $imgTxt]); ?>
         </div>
@@ -25,7 +25,7 @@
                     ->setUrl($file->getImageUrl())
                     ->setText('FILE_LIST_INSERT_FULL')
                     ->setClass('fpcm-filelist-tinymce-full')
-                    ->setIcon('expand')
+                    ->setIcon('image')
                     ->setIconOnly()
                     ->setData(['imgtext' => $imgTxt]); ?>
         </div>
@@ -35,7 +35,7 @@
                     ->setUrl($file->getImageUrl())
                     ->setText('EDITOR_ARTICLEIMAGE')
                     ->setClass('fpcm-filelist-articleimage')
-                    ->setIcon('image')
+                    ->setIcon('panorama')
                     ->setIconOnly()
                     ->setData(['imgtext' => $imgTxt]); ?>
         </div>
