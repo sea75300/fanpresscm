@@ -42,12 +42,34 @@ fpcm.fileuploader = {
             .on('complete', function (_file, _response) {
                 fpcm.filemanager.runFileIndexUpdate(_file);
                 _uppy.cancelAll();
+            })
+            .on('upload-start', function (_file) {
+                fpcm.fileuploader._toggleUi(false, true);
+            })
+            .on('pause-all', function (_file) {
+                fpcm.fileuploader._toggleUi(true, false);
+            })
+            .on('cancel-all', function (_file) {
+                fpcm.fileuploader._toggleUi(true, true);
             });
 
         fpcm.dom.bindClick('#btnCancel', function () {
            _uppy.cancelAll();
         });
 
+        fpcm.dom.bindClick('#btnPause', function () {
+           _uppy.pauseAll()
+        });
+
+        fpcm.dom.bindClick('#btnResume', function () {
+           _uppy.resumeAll()
+        });
+
+    },
+
+    _toggleUi: function(_pause, _resume) {
+        document.getElementById('btnPause').disabled = _pause;
+        document.getElementById('btnResume').disabled = _resume;
     },
 
     initAfter: function () {

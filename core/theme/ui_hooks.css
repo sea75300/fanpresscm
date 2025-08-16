@@ -141,6 +141,28 @@ table.diff-wrapper {
     color: var(--bs-danger);
 }
 
+.uppy-StatusBar.is-waiting .uppy-StatusBar-actions,
+.uppy-StatusBar:not([aria-hidden="true"]).is-waiting,
+.uppy-StatusBar::before
+{
+    background: none !important;
+}
+
+.uppy-StatusBar.is-waiting .uppy-StatusBar-actions {
+    padding: 0 !important;
+}
+
+.uppy-StatusBar-content {
+    margin-top: 6px;
+}
+
+.uppy-StatusBar:not([aria-hidden="true"]).is-waiting {
+    border-top: none !important;
+}
+
+.uppy-StatusBar-progress {
+    height: 10px !important;
+}
 
 [data-bs-theme=dark] {
     

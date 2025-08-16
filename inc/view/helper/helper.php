@@ -233,7 +233,7 @@ abstract class helper implements \Stringable {
      */
     final protected function getDescriptionTextString(string $prefix = 'ps-1')
     {
-        return "<span class=\"fpcm-ui-label {$prefix}\">{$this->text}</span>";
+        return "<span class=\"fpcm-ui-label {$prefix} {$this->labelClass}\">{$this->text}</span>";
     }
 
     /**
@@ -328,7 +328,7 @@ abstract class helper implements \Stringable {
      * @param boolean $readonly
      * @return $this
      */
-    public function setReadonly($readonly)
+    public function setReadonly($readonly = true)
     {
         $this->readonly = (bool) $readonly;
         return $this;
