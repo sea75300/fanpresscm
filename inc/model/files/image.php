@@ -392,6 +392,8 @@ implements \fpcm\model\interfaces\validateFileType,
         if (file_exists($fileName)) {
             unlink($fileName);
         }
+        
+        \fpcm\model\reminders\reminders::getInstance()->removeByObject(image::class, $this->id);
 
         return $this->dbcon->delete($this->table, 'filename = ?', array($this->filename));
     }

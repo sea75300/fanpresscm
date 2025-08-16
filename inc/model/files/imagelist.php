@@ -102,7 +102,7 @@ implements \fpcm\model\interfaces\gsearchIndex {
             $qas = $conditions->prepareFilterParams();
 
             $where = $qas->getQueries();
-            $valueParams = $qas->getValues();            
+            $valueParams = $qas->getValues();
         }
         else {
             $this->assignSearchParams($conditions, $where, $valueParams, $combination);
@@ -197,6 +197,8 @@ implements \fpcm\model\interfaces\gsearchIndex {
             if (!$this->dbcon->delete($this->table, $this->dbcon->inQuery('id', $ids), array_values($ids)) ) {
                 trigger_error('Unable to remove file index data for files with names: ' . implode(', ', array_keys($notInFs)));
             }
+
+            \fpcm\model\reminders\reminders::getInstance()->removeByObject(image::class, $ids);
         }
 
         if (count($notInDb)) {
@@ -407,7 +409,7 @@ implements \fpcm\model\interfaces\gsearchIndex {
     {
         return $this->getSearchQueryObj()->setItem(
             '\'images\' as model, ' .
-            'filename as oid,' . 
+            'filename as oid,' .
             $this->dbcon->concatString(['filename', '";"', 'alttext', '";"', 'filetime']).' as text, ' .
             $this->dbcon->concatString(['width', '":"', 'height']).' as meta'
         )->setFetchAll(true);

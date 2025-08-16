@@ -69,7 +69,7 @@ implements \fpcm\model\interfaces\isObjectInstancable {
         }
 
         $query .= $this->dbcon->orderBy(['resubtime DESC']);
-        
+
         $select = new \fpcm\model\dbal\selectParams($this->table);
         $select->setWhere($query);
         $select->setParams($params);
@@ -129,6 +129,36 @@ implements \fpcm\model\interfaces\isObjectInstancable {
         }
 
         return true;
+    }
+
+    /**
+     * Delete reminders by object id(s)
+     * @param string $objName
+     * @param array|int $oids
+     * @return bool
+     */
+    public function removeByObject(string $objName, array|int $oids = 0): bool
+    {
+        if (!is_array($oids)) {
+            $oids = [$oids];
+        }
+        
+        if (!count($oids)) {
+            return true;
+        }
+
+        $return = $this->dbcon->delete(
+            $this->table,
+            'obj_name = ? AND ' . $this->dbcon->inQuery('oid', $oids),
+            [
+                $objName,
+                implode(',', $oids)
+            ]
+        );
+        
+        fpcmLogSystem($this->dbcon->getLastQueryString());
+        
+        return $return;
     }
 
     /**
