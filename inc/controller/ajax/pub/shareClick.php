@@ -10,7 +10,7 @@ namespace fpcm\controller\ajax\pub;
 define('FPCM_NOTOKEN', true);
 
 /**
- * AJAX controller zum Cache leeren
+ * AJAX controller for share link save
  *
  * @package fpcm\controller\ajax\pub
  * @author Stefan Seehafer <sea75300@yahoo.de>

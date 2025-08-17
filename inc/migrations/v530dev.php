@@ -30,10 +30,7 @@ class v530dev extends migration {
         $obj->setFetchAll(true);
 
         $files = $this->getDB()->selectFetch($obj);
-        
-        fpcmLogSystem($this->getDB()->getLastQueryString());
-        fpcmLogSystem($files);
-        
+
         if (!is_array($files)) {
             trigger_error('Unable to fetch data from files index!');
             return false;

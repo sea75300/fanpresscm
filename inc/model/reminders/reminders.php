@@ -147,7 +147,7 @@ implements \fpcm\model\interfaces\isObjectInstancable {
             return true;
         }
 
-        $return = $this->dbcon->delete(
+        return $this->dbcon->delete(
             $this->table,
             'obj_name = ? AND ' . $this->dbcon->inQuery('oid', $oids),
             [
@@ -155,10 +155,6 @@ implements \fpcm\model\interfaces\isObjectInstancable {
                 implode(',', $oids)
             ]
         );
-        
-        fpcmLogSystem($this->dbcon->getLastQueryString());
-        
-        return $return;
     }
 
     /**

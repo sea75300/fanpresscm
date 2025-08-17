@@ -16,6 +16,19 @@ if (fpcm === undefined) {
         modules: {},
         shares: {},
         system: {
+            getFieldValue: function(_id) {
+
+                let _field = document.getElementById(_id);
+                if (!_field) {
+                    return '';
+                }
+
+                if (_field.type === 'checkbox') {
+                    return _field.checked;
+                }
+
+                return _field.value;
+            },
             mergeToVars: function (_newvalue) {
 
                 if (!_newvalue) {
@@ -55,6 +68,17 @@ if (fpcm === undefined) {
             },
             bindClick: function (_el, _callback) {
 
+                let _first = _el.substring(0,1);
+                if (_first === '#') {
+                    _el = document.getElementById(_el.substr(1));
+                }
+                else if (_first === '.') {
+                    _el = document.getElementsByClassName(_el.substr(1));
+                }
+                else {
+                    _el = document.querySelectorAll(_el);
+                }
+
                 if (_el instanceof HTMLCollection || _el instanceof NodeList) {
 
                     for (var _subEl of _el) {
@@ -74,15 +98,15 @@ if (fpcm === undefined) {
                 fpcm.pub.showMessages();
 
                 fpcm.system.bindClick(
-                    document.getElementsByClassName('fpcm-pub-commentsmiley'),
-                    function (_ev) {
+                    '.fpcm-pub-commentsmiley',
+                    (_ev) => {
                         _ev.preventDefault();
                         fpcm.pub.insert(' ' + _ev.currentTarget.dataset.code + ' ');
                     }
                 );
 
                 fpcm.system.bindClick(
-                    document.getElementsByClassName('fpcm-pub-mentionlink'),
+                    '.fpcm-pub-mentionlink',
                     (_ev) => {
                         _ev.preventDefault();
                         fpcm.pub.insert('@#' + _ev.currentTarget.id + ': ');
@@ -90,7 +114,31 @@ if (fpcm === undefined) {
                 );
 
                 fpcm.system.bindClick(
-                    document.querySelectorAll('a.fpcm-pub-sharebutton-count'),
+                    '#btnSendComment',
+                    (_ev) => {
+                        _ev.preventDefault();
+
+                        fpcm.pub.doAjax({
+                            action: 'pub/comments',
+                            method: 'POST',
+                            data: {
+                                action: 'save',
+                                comment: {
+                                    name: fpcm.system.getFieldValue('newcommentname'),
+                                    email: fpcm.system.getFieldValue('newcommentemail'),
+                                    website: fpcm.system.getFieldValue('newcommentwebsite'),
+                                    text: fpcm.system.getFieldValue('newcommenttext'),
+                                    private: fpcm.system.getFieldValue('newcommentprivate'),
+                                    privacy: fpcm.system.getFieldValue('newcommentprivacy'),
+                                    captcha: fpcm.system.getFieldValue('commentCaptchaw'),
+                                }
+                            }
+                        });
+                    }
+                );
+
+                fpcm.system.bindClick(
+                    'a.fpcm-pub-sharebutton-count',
                     (_ev) => {
                         let _item = _ev.currentTarget.dataset.onclick;
 
@@ -109,8 +157,7 @@ if (fpcm === undefined) {
                         fpcm.shares[_item] = (new Date()).getTime();
 
                         fpcm.pub.doAjax({
-                            action: 'shareClick',
-                            type: 'POST',
+                            action: 'pub/shareClick',
                             data: {
                                 oid: _ev.currentTarget.dataset.oid,
                                 item: _item
@@ -256,13 +303,14 @@ if (fpcm === undefined) {
                     _config.method = 'GET';
                 }
 
-                const _init = {};
+                const _init = {
+                    method: _config.method.toUpperCase(),
+                    headers: []
+                };
 
                 if (_config.dataType) {
                     _init.headers['Content-Type'] = _config.dataType;
                 }
-
-                _init.method = _config.method.toUpperCase();
 
                 if (_config.data && _config.method === 'GET') {
 
@@ -274,8 +322,32 @@ if (fpcm === undefined) {
 
                     _url = _tmp.toString();
                 }
-                else if (_config.data && _config.dataType == 'JSON') {
-                    _init.body = JSON.stringify(_config.data);
+                else if (_config.data && _config.data instanceof Object) {
+
+                    let _body = new FormData();
+
+                    for (var _i in _config.data) {
+
+                        let _val =_config.data[_i];
+
+
+                        if (_config.dataType === 'application/json') {
+                            _val = JSON.stringify(_config.data)
+                        }
+
+                        if (_val instanceof Object) {
+
+                            for (var _x in _val) {
+                                _body.append(`${_i}[${_x}]`, _val[_x]);
+                            }
+
+                            continue;
+                        }
+
+                        _body.append(_i, _val);
+                    }
+
+                    _init.body = _body;
                 }
                 else if(_config.data) {
                     _init.body = _config.data;

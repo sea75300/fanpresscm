@@ -52,7 +52,8 @@ ajax/templates/savetemp: ajax/templates/savetemptpl
 ajax/templates/fetch: ajax/templates/fetchEditor
 ajax/templates/save: ajax/templates/saveTemplate
 ajax/categories/massedit: ajax/categories/massedit
-ajax/shareClick: ajax/pub/shareClick
+ajax/pub/shareClick: ajax/pub/shareClick
+ajax/pub/comments: ajax/pub/comments
 ajax/help: ajax/system/help
 ajax/passcheck: ajax/system/passcheck
 ajax/smtptest: ajax/system/smtpTest
