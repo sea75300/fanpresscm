@@ -175,7 +175,10 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
 
         $parsed = array('articles' => '', 'comments' => '');
         if ($this->cache->isExpired($this->cacheName) || $this->session->exists()) {
-            $parsed['comments'] = $this->assignCommentsData();
+            
+            $this->assignCommentsData();
+            
+            $parsed['comments'] = '';
             $parsed['articles'] = $this->assignArticleData();
 
             $ev = $this->events->trigger('pub\showSingle', $parsed);
@@ -246,18 +249,15 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
     protected function assignCommentsData()
     {
         if (!$this->config->system_comments_enabled || !$this->article->getComments()) {
-            return '';
+            return;
         }
 
-        $conditions = new \fpcm\model\comments\search();
-        $conditions->articleid = $this->articleId;
-        $conditions->approved = $this->session->exists() ? null : 1;
-        $conditions->private = $this->session->exists() ? null : 0;
-        $conditions->spam = $this->session->exists() ? null : 0;
-        $conditions->deleted = 0;
-        $comments = $this->commentList->getCommentsBySearchCondition($conditions);
+        $approved = $this->session->exists() ? null : 1;
+        $private = $this->session->exists() ? null : 0;
+        $spam = $this->session->exists() ? null : 0;
 
-        $this->commentCount = count($comments);
+        $res = $this->commentList->countComments([ $this->articleId ], $private, $approved, $spam, false);
+        $this->commentCount = $res[$this->articleId] ?? 0;
         
         $this->view->addJsVars(['commentsCount' => $this->commentCount]);
     }

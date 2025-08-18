@@ -125,14 +125,6 @@ if (fpcm === undefined) {
                 );
 
                 fpcm.system.bindClick(
-                    '.fpcm-pub-mentionlink',
-                    (_ev) => {
-                        _ev.preventDefault();
-                        fpcm.pub.insert('@#' + _ev.currentTarget.id + ': ');
-                    }
-                );
-
-                fpcm.system.bindClick(
                     '#btnSendComment',
                     (_ev) => {
                         _ev.preventDefault();
@@ -341,6 +333,14 @@ if (fpcm === undefined) {
                         for (let _box of _result) {
                             _cbox.insertAdjacentHTML('beforeend', _box);
                         }
+
+                        fpcm.system.bindClick(
+                            '.fpcm-pub-mentionlink',
+                            (_ev) => {
+                                _ev.preventDefault();
+                                fpcm.pub.insert('@#' + _ev.currentTarget.id + ': ');
+                            }
+                        );
 
                     }
                 });

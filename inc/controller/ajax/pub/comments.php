@@ -119,7 +119,7 @@ class comments extends \fpcm\controller\abstracts\ajaxController {
 
             $i++;
         }
-
+        
         return true;
     }
 
@@ -142,10 +142,7 @@ class comments extends \fpcm\controller\abstracts\ajaxController {
 
         $data = $this->request->fromPOST('comment');
 
-        fpcmLogSystem($data);
-
         $privacy = (bool) ($data['privacy'] ?? false);
-        fpcmLogSystem($privacy);
 
         if ($this->config->comments_privacy_optin && !$privacy) {
 
