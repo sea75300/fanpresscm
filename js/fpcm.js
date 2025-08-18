@@ -24,7 +24,7 @@ if (fpcm === undefined) {
                 }
 
                 if (_field.type === 'checkbox') {
-                    return _field.checked;
+                    return _field.checked ? 1 : 0;
                 }
 
                 return _field.value;
@@ -79,6 +79,10 @@ if (fpcm === undefined) {
                     _el = document.querySelectorAll(_el);
                 }
 
+                if (!_el) {
+                    return;
+                }
+
                 if (_el instanceof HTMLCollection || _el instanceof NodeList) {
 
                     for (var _subEl of _el) {
@@ -89,6 +93,17 @@ if (fpcm === undefined) {
                 }
 
                 _el.addEventListener('click', _callback);
+            },
+            getArticleId: function () {
+                let _sp = new URLSearchParams(location.href);
+                let _id = _sp.get('id');
+                if (!_id) {
+                    return false;
+                }
+
+                _id = _id.split('-');
+
+                return parseInt(_id[0]);
             }
         },
         pub: {
@@ -96,6 +111,10 @@ if (fpcm === undefined) {
 
                 fpcm.pub.doRefresh();
                 fpcm.pub.showMessages();
+                
+                if (fpcm.vars.jsvars.commentsCount) {
+                    fpcm.pub.loadComments();
+                }
 
                 fpcm.system.bindClick(
                     '.fpcm-pub-commentsmiley',
@@ -123,6 +142,7 @@ if (fpcm === undefined) {
                             method: 'POST',
                             data: {
                                 action: 'save',
+                                oid: fpcm.system.getArticleId(),
                                 comment: {
                                     name: fpcm.system.getFieldValue('newcommentname'),
                                     email: fpcm.system.getFieldValue('newcommentemail'),
@@ -130,8 +150,20 @@ if (fpcm === undefined) {
                                     text: fpcm.system.getFieldValue('newcommenttext'),
                                     private: fpcm.system.getFieldValue('newcommentprivate'),
                                     privacy: fpcm.system.getFieldValue('newcommentprivacy'),
-                                    captcha: fpcm.system.getFieldValue('commentCaptchaw'),
+                                    commentCaptcha: fpcm.system.getFieldValue('commentCaptchaw')
                                 }
+                            },
+                            execDone: (_result) => {
+
+                                if (_result.txt && _result.type) {
+                                    fpcm.pub.addMessage(_result);
+
+                                    if (_result.type === 'error') {
+                                        return false;
+                                    }
+                                }
+
+                                fpcm.pub.loadComments();
                             }
                         });
                     }
@@ -234,7 +266,7 @@ if (fpcm === undefined) {
 
             addMessage: function (msg) {
 
-                let _msgWrapper = document.getElementById('fpcm-messages');
+                let _msgWrapper = false; //document.getElementById('fpcm-messages');
                 if (!_msgWrapper) {
                     alert(msg.txt);
                     return true;
@@ -284,6 +316,37 @@ if (fpcm === undefined) {
                 return true;
             },
 
+            loadComments: function() {
+
+                let _cbox = document.getElementById('fpcm-pub-comments');                        
+                if (!_cbox) {
+                    return false;
+                }
+
+                _cbox.innerHTML = 'Wird geladen...';
+
+                fpcm.pub.doAjax({
+                    action: 'pub/comments',
+                    method: 'POST',
+                    data: {
+                        action: 'getList',
+                        oid: fpcm.system.getArticleId()
+                    },
+                    execDone: (_result) => {
+
+                        if (_cbox.innerHTML) {
+                            _cbox.innerHTML = '';
+                        }
+
+                        for (let _box of _result) {
+                            _cbox.insertAdjacentHTML('beforeend', _box);
+                        }
+
+                    }
+                });
+
+            },
+
             doAjax: async function (_config) {
 
                 if (!fpcm.vars.ajaxActionPath && !_config.ajaxActionPath) {
@@ -291,7 +354,6 @@ if (fpcm === undefined) {
                     console.error(_config);
                     return false;
                 }
-
 
                 if (!_config.ajaxActionPath) {
                     _config.ajaxActionPath = fpcm.vars.ajaxActionPath;
@@ -353,27 +415,54 @@ if (fpcm === undefined) {
                     _init.body = _config.data;
                 }
 
-                const _request = new Request(_url, _init);
-                const _response = await fetch(_request);
+                try {
+                    const _request = new Request(_url, _init);
+                    const _response = await fetch(_request);
 
-                if (!_response.ok) {
+                    if (!_response.ok) {
 
-                    if (!_config.execFail) {
-                        throw new Error(`Response status: ${_response.status}`);
+                        if (!_config.execFail) {
+                            throw new Error(`Response status: ${_response.status}`);
+                        }
+
+                        if (_response.headers.get('content-type') === 'application/json') {
+                            let _result = await _response.json();
+                            _config.execDone(_result);
+                        }
+
+                        if (_response.headers.get('content-type').substr(0,9) === 'text/html') {
+                            let _result = await _response.text();
+                            _config.execDone(_result);
+                        }
+
+                        _config.execFail();
                     }
 
-                    _config.execFail(_response.body);
-                    throw new Error(`Response status: ${_response.status}`);
-                }
+                    if (_response.ok) {
 
-                if (_response.ok) {
+                        if (!_config.execDone) {
+                            return true;
+                        }
 
-                    if (!_config.execDone) {
-                        return true;
+                        if (_response.headers.get('content-type') === 'application/json') {
+                            let _result = await _response.json();
+                            _config.execDone(_result);
+                            return true;
+                        }
+
+                        if (_response.headers.get('content-type').substr(0,9) === 'text/html') {
+                            let _result = await _response.text();
+                            return true;
+                        }
+
+                        _config.execDone();
                     }
 
-                    _config.execDone(_response.body);
                 }
+                catch (_e) {
+                    console.warn(_e);
+                }
+
             }
         }
     };

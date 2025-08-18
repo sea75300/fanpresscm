@@ -155,7 +155,7 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
         $this->cacheName = \fpcm\model\articles\article::CACHE_ARTICLE_MODULE . '/' . \fpcm\model\articles\article::CACHE_ARTICLE_SINGLE . $this->articleId;
         $this->articleTemplate = new \fpcm\model\pubtemplates\article($this->templateString ? $this->templateString : $this->config->article_template_active);
 
-        $this->saveComment();
+        $this->initComments();
 
         return true;
     }
@@ -215,18 +215,6 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
             $this->article->getChangeuser()
         ]);
 
-        if ($this->session->exists()) {
-            $approvedOnly = null;
-            $privateNo = null;
-            $spamNo = null;
-            $useCache = false;
-        } else {
-            $approvedOnly = 1;
-            $privateNo = 0;
-            $spamNo = 0;
-            $useCache = true;
-        }
-
         $this->articleTemplate->assignByObject(
             $this->article, [
                 'author' => isset($users[$this->article->getCreateuser()]) ? $users[$this->article->getCreateuser()] : false,
@@ -266,21 +254,12 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
         $conditions->approved = $this->session->exists() ? null : 1;
         $conditions->private = $this->session->exists() ? null : 0;
         $conditions->spam = $this->session->exists() ? null : 0;
+        $conditions->deleted = 0;
         $comments = $this->commentList->getCommentsBySearchCondition($conditions);
 
         $this->commentCount = count($comments);
-
-        $parsed = [];
-        $i = 1;
-        foreach ($comments as $comment) {
-
-            $this->commentTemplate->assignByObject($comment, $i);
-            $parsed[] = $this->commentTemplate->parse();
-
-            $i++;
-        }
-
-        return implode(PHP_EOL, $parsed);
+        
+        $this->view->addJsVars(['commentsCount' => $this->commentCount]);
     }
 
     /**
@@ -293,14 +272,15 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
             return '';
         }
 
-        $data = $this->request->fromPOST('newcomment');
-        if (!$this->buttonClicked('sendComment') && !$data && $this->session->exists()) {
+        $privacy = false;
+        if ($this->session->exists()) {
             $this->newComment->setName($this->session->getCurrentUser()->getDisplayname());
             $this->newComment->setEmail($this->session->getCurrentUser()->getEmail());
             $this->newComment->setWebsite($this->request->getHostWidthScheme());
+            $privacy = true;
         }
 
-        $this->commentFormTemplate->assignByObject($this->article, $this->newComment, $this->captcha);
+        $this->commentFormTemplate->assignByObject($this->article, $this->newComment, $this->captcha, $privacy);
         $parsed = $this->commentFormTemplate->parse();
 
         return $parsed;
@@ -320,7 +300,7 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
      * Neuen Kommentar speichern
      * @return bool
      */
-    protected function saveComment()
+    protected function initComments()
     {
         if (!$this->config->system_comments_enabled || !$this->article->getComments()) {
             return true;
@@ -328,12 +308,11 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
 
         $this->initSpamCaptcha();
 
-        $this->newComment = new \fpcm\model\comments\comment();
-
         $this->commentTemplate = new \fpcm\model\pubtemplates\comment($this->config->comments_template_active);
         $this->commentFormTemplate = new \fpcm\model\pubtemplates\commentform();
+        $this->newComment = new \fpcm\model\comments\comment();
 
-        $newCommentData = $this->request->fromPOST('newcomment');
+        /*$newCommentData = $this->request->fromPOST('newcomment');
         if ($this->buttonClicked('sendComment') && $newCommentData !== null && !$this->ipList->ipIsLocked() && !$this->ipList->ipIsLocked('nocomments')) {
 
             $hasPrivacy = (isset($newCommentData['privacy']) && $this->config->comments_privacy_optin) || !$this->config->comments_privacy_optin ? true : false;
@@ -410,7 +389,7 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
 
             $email = new \fpcm\classes\email(implode(',', array_unique($to)), $this->language->translate('PUBLIC_COMMENT_EMAIL_SUBJECT'), $text);
             $email->submit();
-        }
+        }*/
     }
 
 }

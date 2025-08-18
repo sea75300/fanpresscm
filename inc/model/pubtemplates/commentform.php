@@ -108,7 +108,7 @@ final class commentform extends template {
      * @param \fpcm\model\abstracts\spamCaptcha $captcha
      * @return bool
      */
-    public function assignByObject(\fpcm\model\articles\article $article, \fpcm\model\comments\comment $comment, $captcha) : bool
+    public function assignByObject(\fpcm\model\articles\article $article, \fpcm\model\comments\comment $comment, $captcha, bool $privacy = false) : bool
     {
         if (!$captcha instanceof \fpcm\model\abstracts\spamCaptcha) {
             trigger_error('$captcha must be an instance of \fpcm\model\abstracts\spamCaptcha');
@@ -131,7 +131,7 @@ final class commentform extends template {
             '{{spampluginQuestion}}' => $captcha->createPluginText(),
             '{{spampluginField}}' => $captcha->createPluginInput(),
             '{{privateCheckbox}}' => (string) (new \fpcm\view\helper\checkbox('newcomment[private]'))->setClass('fpcm-pub-checkboxinput'),
-            '{{privacyComfirmation}}' => (string) (new \fpcm\view\helper\checkbox('newcomment[privacy]'))->setClass('fpcm-pub-checkboxinput'),
+            '{{privacyComfirmation}}' => (string) (new \fpcm\view\helper\checkbox('newcomment[privacy]'))->setClass('fpcm-pub-checkboxinput')->setSelected($privacy),
             '{{submitButton}}' => (string) (new \fpcm\view\helper\submitButton('sendComment'))->setText('GLOBAL_SUBMIT'),
             '{{resetButton}}' => (string) (new \fpcm\view\helper\resetButton('resetComment'))->setIcon('', '', false)
         ]);

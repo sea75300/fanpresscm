@@ -144,6 +144,7 @@ implements \fpcm\model\interfaces\gsearchIndex {
                 ->setParams($valueParams);
 
         $result = $this->dbcon->selectFetch($obj);
+
         if ($this->dbcon->getLastQueryErrorCode() === \fpcm\drivers\sqlDriver::CODE_ERROR_SYNTAX) {
             return \fpcm\drivers\sqlDriver::CODE_ERROR_SYNTAX;
         }
