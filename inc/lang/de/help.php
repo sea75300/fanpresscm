@@ -523,16 +523,6 @@ Help language file
                 Statt der normalerweise hellen Farben erfolgt die Anzeige
                 in dunkel Farben. Dies kann für dies angenehmer bei der Nutzung von FPCM
                 bspw. abends sein.</dd>
-            <dt><em>Frontend</em> - Pfad zu deiner CSS-Datei:</dt>
-            <dd class="pb-2">Pfad zu deiner CSS-Datei mit deinen eigenen Style-Angaben. Wichtig
-                wenn du FanPress CM via iframe oder die Template-Vorschau nutzt.</dd>
-            <dt><em>Frontend</em> - Verwendung per:</dt>
-            <dd class="pb-2">Nutzung von FanPress CM via phpinclude oder in einem iframe. Diese Einstellung beeinflusst,
-                wie sich das System im Frontend verhält und welche zusätzlichen Daten beim Aufruf von Artikel-Listen etc. geladen werden.</dd>
-            <dt><em>Frontend</em> - jQuery Bibliothek im Frontend laden:</dt>
-            <dd class="pb-2">Soll jQuery bei Nutzung von phpinclude geladen werden oder nicht. Wichtig wenn du phpinclude
-                verwendest und jQuery nicht bereits anderweitig in deiner Seite eingebunden ist. Ohne jQuery stehen möglicherweise Frontend-Funktionen nicht
-                zur Verfügung.</dd>
         </dl>
 
         <h3 class="pt-5 fs-1">Editor & Dateimanager</h3>
@@ -997,6 +987,10 @@ Help language file
                 Alle anderen Templates werden beim Speichern gefiltert.</dd>
             <dt>Editor:</dt>
             <dd class="pb-2">Der Editor basiert ebenfalls auf ACE Editor und arbeitet ähnlich wie der Artikel-Editor.</dd>
+            <dt>Pfad zu deiner CSS-Datei für Vorschau:</dt>
+            <dd class="pb-2">Über dieses Feld kann eine CSS-Datei angeben werden, welchem beim Öffnen der Vorschau geladen wird. So kannst du deine
+                Templates mit dem richtigen Design prüfen. <b>Achtung!</b> Im Gegensatz zur Systemeinstellung bis FPCM 5.2.x wird dieser
+                Wert nicht dauerhaft gespeichert!</dd>
             <dt>Vorschau anzeigen:</dt>
             <dd class="pb-2">Der Button <strong>Vorschau anzeigen</strong> ermöglicht es, den im Editor vorhandenen Template-Inhalt
                 als Vorschau anzeigen zu lassen und somit die Wirkung, Formatierungsfehler etc. sofort zu erkennen.</dd>

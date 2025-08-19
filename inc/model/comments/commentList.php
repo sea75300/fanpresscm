@@ -227,8 +227,6 @@ implements \fpcm\model\interfaces\gsearchIndex {
 
         $res = array_combine($articleIds, array_fill(0, count($articleIds), 0));
 
-        fpcmLogSystem("{$where} GROUP BY articleid");
-
         $obj = (new \fpcm\model\dbal\selectParams($this->table))->setItem('articleid, count(id) AS count')->setWhere("{$where} GROUP BY articleid")->setFetchAll(true);
         $articleCounts = $this->dbcon->selectFetch($obj);
         if (!count($articleCounts)) {

@@ -120,6 +120,8 @@ class comments extends \fpcm\controller\abstracts\ajaxController {
             $i++;
         }
         
+        sleep(2);
+        
         return true;
     }
 

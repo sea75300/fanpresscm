@@ -47,12 +47,12 @@ class v530dev extends migration {
             $img = new \fpcm\model\files\image($filename);
             $results[$filename] = (int) $img->update();
         }
-        
+
         $err = array_keys($results, 0);
         if (count($err)) {
             fpcmLogSystem(sprintf("The following files could not be updates!\n\r%s", implode('\n\r', $err)));
         }
-        
+
         fpcmLogSystem('Update files index finished...');
         return true;
     }
@@ -64,7 +64,19 @@ class v530dev extends migration {
     protected function updateSystemConfig() : bool
     {
         $cfg = $this->getConfig();
-        
+
+        if ($cfg->system_loader_jquery !== null && !$cfg->remove('system_loader_jquery')) {
+            return false;
+        }
+
+        if ($cfg->system_mode !== null && !$cfg->remove('system_mode')) {
+            return false;
+        }
+
+        if ($cfg->system_css_path !== null && !$cfg->remove('system_css_path')) {
+            return false;
+        }
+
         $codeMirror = $cfg->system_editor === '\fpcm\components\editor\htmlEditor';
         if (!$codeMirror) {
             return true;
@@ -74,7 +86,11 @@ class v530dev extends migration {
             'system_editor' => '\fpcm\components\editor\aceEditor'
         ]);
 
-        return $cfg->update();
+        if (!$cfg->update()) {
+            return false;
+        }
+
+        return true;
     }
 
     /**

@@ -23,13 +23,10 @@ use fpcm\model\traits\eventModuleEmpty;
  * @property string $system_lang System language
  * @property string $system_dtmask Date time mask
  * @property bool   $system_comments_enabled Comment system enabled
- * @property bool   $system_mode Frontend mode (0 = iframe, 1= phpinclude)
- * @property string $system_css_path External CSS file path
  * @property bool   $system_show_share Enable share buttons
  * @property bool   $system_share_count Count share button clicks
  * @property string $system_timezone System timezone
  * @property int    $system_cache_timeout System cache timeout
- * @property bool   $system_loader_jquery Load jquery in frontend
  * @property bool   $system_editor article and comment editor
  * @property int    $system_editor_fontsize Default editor fontsize
  * @property bool   $system_maintenance Maintenance mode active
@@ -282,10 +279,6 @@ final class config extends dataset implements \fpcm\model\interfaces\isObjectIns
 
         if (isset($this->newConfig['system_url'])) {
             $this->newConfig['system_url'] = filter_var($this->newConfig['system_url'], FILTER_SANITIZE_URL);
-        }
-
-        if (isset($this->newConfig['system_css_path'])) {
-            $this->newConfig['system_css_path'] = filter_var($this->newConfig['system_css_path'], FILTER_SANITIZE_URL);
         }
 
         $classes = $this->newConfig['system_editor_css'] ?? '';

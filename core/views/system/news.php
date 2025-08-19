@@ -98,10 +98,6 @@
             </div>
         </div>
     </div>
-</fieldset>
-
-<fieldset class="mb-2">
-    <legend><?php $theView->write('HL_ARCHIVE'); ?></legend>
 
     <div class="row g-0 my-2">
         <div class="col-12 col-md-8">
@@ -127,5 +123,4 @@
             </div>
         </div>
     </div>
-
 </fieldset>

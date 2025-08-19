@@ -202,7 +202,7 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
             $this->viewVars['commentform'] = $this->assignCommentFormData();
         }
 
-        $this->view->addJsLangVars(['PUBLIC_SHARE_LIKE', 'AJAX_RESPONSE_ERROR']);
+        $this->view->addJsLangVars(['PUBLIC_SHARE_LIKE', 'AJAX_RESPONSE_ERROR', 'GLOBAL_PLEASEWAIT']);
         $this->view->setViewVars(array_merge($this->viewVars, $this->view->getViewVars()));
         $this->view->render();
     }
@@ -276,7 +276,7 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
         if ($this->session->exists()) {
             $this->newComment->setName($this->session->getCurrentUser()->getDisplayname());
             $this->newComment->setEmail($this->session->getCurrentUser()->getEmail());
-            $this->newComment->setWebsite($this->request->getHostWidthScheme());
+            $this->newComment->setWebsite(\fpcm\classes\dirs::getRootUrl());
             $privacy = true;
         }
 

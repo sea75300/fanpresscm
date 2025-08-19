@@ -135,6 +135,7 @@ if (fpcm === undefined) {
                             data: {
                                 action: 'save',
                                 oid: fpcm.system.getArticleId(),
+                                commentCaptcha: fpcm.system.getFieldValue('commentCaptcha'),
                                 comment: {
                                     name: fpcm.system.getFieldValue('newcommentname'),
                                     email: fpcm.system.getFieldValue('newcommentemail'),
@@ -142,7 +143,6 @@ if (fpcm === undefined) {
                                     text: fpcm.system.getFieldValue('newcommenttext'),
                                     private: fpcm.system.getFieldValue('newcommentprivate'),
                                     privacy: fpcm.system.getFieldValue('newcommentprivacy'),
-                                    commentCaptcha: fpcm.system.getFieldValue('commentCaptchaw')
                                 }
                             },
                             execDone: (_result) => {
@@ -258,10 +258,16 @@ if (fpcm === undefined) {
 
             addMessage: function (msg) {
 
-                let _msgWrapper = false; //document.getElementById('fpcm-messages');
+                let _msgWrapper = document.getElementById('fpcm-messages');
                 if (!_msgWrapper) {
                     alert(msg.txt);
                     return true;
+                }
+                
+                _msgWrapper.innerHTML = '';
+                
+                if (fpcm.vars.ui.messages.length) {
+                    fpcm.vars.ui.messages = [];
                 }
 
                 let _msg = document.createElement('div');
@@ -315,7 +321,7 @@ if (fpcm === undefined) {
                     return false;
                 }
 
-                _cbox.innerHTML = 'Wird geladen...';
+                _cbox.innerHTML = fpcm.vars.ui.lang.GLOBAL_PLEASEWAIT;
 
                 fpcm.pub.doAjax({
                     action: 'pub/comments',

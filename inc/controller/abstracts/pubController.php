@@ -87,9 +87,7 @@ class pubController extends controller {
      */
     public function process()
     {
-        if ($this->config->system_mode) {
-            $this->view->showHeaderFooter(\fpcm\view\view::INCLUDE_HEADER_NONE);
-        }
+        $this->view->showHeaderFooter(\fpcm\view\view::INCLUDE_HEADER_NONE);
 
         $currentUserId = false;
         $isAdmin = false;
@@ -103,7 +101,6 @@ class pubController extends controller {
             'currentUserId' => $currentUserId,
             'isAdmin' => $isAdmin,
             'hideDebug' => false,
-            'systemMode' => $this->config->system_mode
         ]);
 
         $jsfiles = [];
@@ -112,16 +109,9 @@ class pubController extends controller {
         }
 
         if (!defined('FPCM_PUBJS_LOADED')) {
-
             $jsfiles[]  =  \fpcm\classes\baseconfig::debugModeActive() || !file_exists(\fpcm\classes\dirs::getFullDirPath('js/fpcm.min.js'))
                         ? \fpcm\classes\dirs::getRootUrl('js/fpcm.js')
                         : \fpcm\classes\dirs::getRootUrl('js/fpcm.min.js');
-        }
-
-
-        $cssfiles = [];
-        if ($this->config->system_mode == 0 && trim($this->config->system_css_path)) {
-            $cssfiles[] = trim($this->config->system_css_path);
         }
 
         $evJs = $this->events->trigger('pub\addJsFiles', $jsfiles);
@@ -130,7 +120,7 @@ class pubController extends controller {
             return false;
         }
 
-        $evCss = $this->events->trigger('pub\addCssFiles', $cssfiles);
+        $evCss = $this->events->trigger('pub\addCssFiles', []);
         if (!$evCss->getSuccessed() || !$evCss->getContinue()) {
             trigger_error(sprintf("Event pub\addCssFiles failed. Returned success = %s, continue = %s", $evCss->getSuccessed(), $evCss->getContinue()));
             return false;

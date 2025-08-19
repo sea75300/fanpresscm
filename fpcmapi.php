@@ -36,7 +36,7 @@ class fpcmAPI {
      * Ausführung unter PHP 7+
      * @var bool
      */
-    protected $versionFailed = false;
+    protected static $versionFailed = false;
 
     /**
      * Konstruktor, prüft PHP-Version, Installer-Status und Datenbank-Config-Status
@@ -44,7 +44,7 @@ class fpcmAPI {
      */
     public function __construct()
     {
-        $this->versionFailed = version_compare(PHP_VERSION, FPCM_PHP_REQUIRED, '<') || !\fpcm\classes\baseconfig::dbConfigExists() || \fpcm\classes\baseconfig::installerEnabled();
+        self::$versionFailed = version_compare(PHP_VERSION, FPCM_PHP_REQUIRED, '<') || !\fpcm\classes\baseconfig::dbConfigExists() || \fpcm\classes\baseconfig::installerEnabled();
     }
 
     /**
@@ -83,7 +83,7 @@ class fpcmAPI {
      */
     public function showArticles(array $params = [])
     {
-        if ($this->versionFailed) {
+        if (self::$versionFailed) {
             return false;
         }
 
@@ -132,7 +132,7 @@ class fpcmAPI {
      */
     public function showLatestNews(array $params = [])
     {
-        if ($this->versionFailed) {
+        if (self::$versionFailed) {
             return false;
         }
 
@@ -161,7 +161,7 @@ class fpcmAPI {
      */
     public function showPageNumber($divider = "&bull; Page")
     {
-        if ($this->versionFailed) {
+        if (self::$versionFailed) {
             return false;
         }
 
@@ -176,7 +176,7 @@ class fpcmAPI {
      */
     public function showTitle($divider = "&bull;")
     {
-        if ($this->versionFailed) {
+        if (self::$versionFailed) {
             return false;
         }
 
@@ -196,7 +196,7 @@ class fpcmAPI {
      */
     public function __call($name, $arguments)
     {
-        if ($this->versionFailed) {
+        if (self::$versionFailed) {
             return false;
         }
 
@@ -220,13 +220,21 @@ class fpcmAPI {
      */
     public static function __callStatic($name, $arguments)
     {
-        if ($this->versionFailed) {
+        if (self::$versionFailed) {
             return false;
         }
 
-        $this->initObjects();
+        \fpcm\classes\loader::getObject('\fpcm\model\http\request');
+        \fpcm\classes\loader::getObject('\fpcm\classes\database');
+        \fpcm\classes\loader::getObject('\fpcm\classes\crypt');
+        \fpcm\classes\loader::getObject('\fpcm\module\modules')->getEnabledDatabase();
 
-        return fpcm\classes\loader::getObject('fpcm\events\events')->trigger('apiCallFunction', [
+        \fpcm\classes\loader::getObject('\fpcm\model\system\session');
+        \fpcm\classes\loader::getObject('\fpcm\model\system\config')->setUserSettings();
+        \fpcm\classes\loader::getObject('\fpcm\classes\language', \fpcm\classes\loader::getObject('\fpcm\model\system\config')->system_lang);
+        \fpcm\classes\loader::getObject('\fpcm\model\theme\notifications');
+
+        return \fpcm\events\events::getInstance()->trigger('apiCallFunction', [
                     'name' => $name,
                     'args' => $arguments
         ])->getData();
@@ -240,7 +248,7 @@ class fpcmAPI {
      */
     public function loginExternal(array $credentials)
     {
-        if ($this->versionFailed) {
+        if (self::$versionFailed) {
             return false;
         }
 
@@ -269,7 +277,7 @@ class fpcmAPI {
      */
     public function logoutExternal($sessionId)
     {
-        if ($this->versionFailed) {
+        if (self::$versionFailed) {
             return false;
         }
 
@@ -293,11 +301,11 @@ class fpcmAPI {
      */
     public function fpcmEnCrypt($value)
     {
-        if ($this->versionFailed) {
+        if (self::$versionFailed) {
             return false;
         }
 
-        return fpcm\classes\loader::getObject('fpcm\classes\crypt')->encrypt($value);
+        return \fpcm\classes\crypt::getInstance()->encrypt($value);
     }
 
     /**
@@ -308,11 +316,11 @@ class fpcmAPI {
      */
     public function fpcmDeCrypt($value)
     {
-        if ($this->versionFailed) {
+        if (self::$versionFailed) {
             return false;
         }
 
-        return fpcm\classes\loader::getObject('fpcm\classes\crypt')->decrypt($value);
+        return \fpcm\classes\crypt::getInstance()->decrypt($value);
     }
 
     /**
@@ -393,7 +401,7 @@ class fpcmAPI {
      */
     public function isMaintenance() : bool
     {
-        return \fpcm\classes\loader::getObject('\fpcm\model\system\config')->system_maintenance;
+        return \fpcm\model\system\config::getInstance()->system_maintenance;
     }
 
     /**

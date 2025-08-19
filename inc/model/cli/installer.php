@@ -223,7 +223,6 @@ final class installer extends \fpcm\model\abstracts\cli {
             'system_url' => $this->conf['config']['sysurl'],
             'system_lang' => $this->conf['config']['language'],
             'system_email' => $this->conf['config']['email'],
-            'system_mode' => $this->conf['config']['mode'],
             'system_dtmask' => $this->conf['config']['datetimemask'],
             'system_timezone' => $this->conf['config']['timezone'],
             'system_cache_timeout' => $this->conf['config']['cachetimeout'],

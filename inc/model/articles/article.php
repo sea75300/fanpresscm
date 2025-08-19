@@ -661,12 +661,6 @@ implements
     {
         $idParam = ($this->config->articles_link_urlrewrite ? $this->getArticleNicePath() : $this->getId());
 
-        if (!$this->config->system_mode) {
-            return \fpcm\classes\tools::getFullControllerLink('fpcm/article', [
-                'id' => $idParam
-            ]);
-        }
-
         return $this->config->system_url . '?module=fpcm/article&id=' . $idParam.$params;
     }
 

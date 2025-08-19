@@ -33,8 +33,7 @@ class fpcmDefault extends \fpcm\model\abstracts\spamCaptcha {
             return true;
         }
 
-        /* @var $req \fpcm\model\http\request */
-        $req = \fpcm\classes\loader::getObject('\fpcm\model\http\request');
+        $req = \fpcm\model\http\request::getInstance();
         if (!$req->fromPOST('commentCaptcha') || $req->fromPOST('commentCaptcha') != $this->config->comments_antispam_answer) {
             return false;
         }
@@ -48,10 +47,9 @@ class fpcmDefault extends \fpcm\model\abstracts\spamCaptcha {
      */
     public function checkExtras()
     {
-        /* @var $req \fpcm\model\http\request */
-        $req = \fpcm\classes\loader::getObject('\fpcm\model\http\request');
+        $req = \fpcm\model\http\request::getInstance();
         
-        $cdata = $req->fromPOST('newcomment');
+        $cdata = $req->fromPOST('comment');
         if ($this->maxCommentTextLinks <= preg_match_all("#(https?)://\S+[^\s.,>)\];'\"!?]#", $cdata['text'])) {
             return true;
         }

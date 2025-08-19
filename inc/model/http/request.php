@@ -354,26 +354,6 @@ final class request implements \fpcm\model\interfaces\isObjectInstancable {
     }
 
     /**
-     * Returns scheme.host from PHP_SELF
-     * @return string
-     * @since 5.3.0-dev
-     */
-    public function getHostWidthScheme() : string
-    {
-        $scheme = $_SERVER['REQUEST_SCHEME'] ?? 'http';
-        $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
-        $folder = $_SERVER['SCRIPT_NAME'] ?? '';
-
-        if (str_ends_with($folder, '.php')) {
-            $folder = dirname($folder);
-        }
-
-        $folder = trim($folder, '/');
-
-        return sprintf('%s://%s/%s/', $scheme, $host, $folder);
-    }
-
-    /**
      * Return remote address (ip address)
      * @return string
      */

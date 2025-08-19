@@ -6,8 +6,9 @@ if (fpcm === undefined) {
 }
 
 fpcm.templates = {
-    
+
     _tplId: '',
+    _cssFilePath: '',
 
     init: function() {
 
@@ -17,10 +18,16 @@ fpcm.templates = {
 
         fpcm.ui_tabs.render('#fpcm-tabs-templates', {
 
-            onRenderHtmlBefore: function(_ui) {
+            onRenderHtmlBefore: (_ui) => {
 
                 if (!fpcm.templates.editorInstance ||
                     !_ui.relatedTarget.dataset.tplid ) {
+
+                    if (_ui.relatedTarget && _ui.relatedTarget.dataset.tplid) {
+                        fpcm.templates._saveCss(_ui.relatedTarget.dataset.tplid);
+                    }
+
+
                     return true;
                 }
 
@@ -30,6 +37,10 @@ fpcm.templates = {
 
                 fpcm.dom.fromTag(_ui.relatedTarget.dataset.bsTarget).empty();
                 return true;
+            },
+
+            onRenderHtmlAfter: (_ui) => {
+                fpcm.templates._restoreCss();
             }
         });
 
@@ -96,7 +107,20 @@ fpcm.templates = {
                 fpcm.ui_dialogs.create({
                     id: 'templatepreview-layer',
                     closeButton: true,
-                    url: fpcm.vars.actionPath + 'templates/preview&tid=' + fpcm.templates._tplId
+                    url: fpcm.vars.actionPath + 'templates/preview&tid=' + fpcm.templates._tplId,
+                    dlOnOpenAfter: (_ui) => {
+
+                        let _head = _ui.children.item(0).querySelector('iframe').contentDocument.head;
+
+                        let _link = document.createElement('link');
+                        _link.type = 'text/css';
+                        _link.rel = 'stylesheet';
+                        _link.href = document.getElementById('css-file-' + fpcm.templates._tplId).value;
+
+                        fpcm.templates._saveCss();
+
+                        _head.appendChild(_link);
+                    }
                 });
             }
         });
@@ -124,12 +148,45 @@ fpcm.templates = {
             });
 
             fpcm.editor.initToolbar();
+            fpcm.templates._restoreCss();
 
         } catch (_e) {
             return false;
         }
 
         return true;
+    },
+
+    _saveCss: function(_id) {
+
+        if (_id === undefined) {
+            _id = fpcm.templates._tplId;
+        }
+
+        let _fid = 'css-file-' + _id;
+
+        let _cff = document.getElementById(_fid);
+        if (!_cff) {
+            return false;
+        }
+
+        fpcm.templates._cssFilePath = _cff.value;
+
+    },
+
+    _restoreCss: function (_id) {
+        
+        if (!fpcm.templates._cssFilePath) {
+            return;
+        }
+
+        if (_id === undefined) {
+            _id = fpcm.templates._tplId;
+        }
+
+        let _fid = 'css-file-' + _id;
+
+        document.getElementById(_fid).value = fpcm.templates._cssFilePath;
     }
 
 };

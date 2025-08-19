@@ -65,16 +65,6 @@ defaultvalues:
             config_name: "system_timezone"
             config_value: "Europe/Berlin"
             modulekey: ""
-        system_mode:
-            id: 7
-            config_name: "system_mode"
-            config_value: "0"
-            modulekey: ""
-        system_css_path:
-            id: 8
-            config_name: "system_css_path"
-            config_value: ""
-            modulekey: ""
         system_show_share:
             id: 9
             config_name: "system_show_share"
@@ -89,11 +79,6 @@ defaultvalues:
             id: 11
             config_name: "system_cache_timeout"
             config_value: "86400"
-            modulekey: ""
-        system_loader_jquery:
-            id: 12
-            config_name: "system_loader_jquery"
-            config_value: "1"
             modulekey: ""
         system_editor:
             id: 13

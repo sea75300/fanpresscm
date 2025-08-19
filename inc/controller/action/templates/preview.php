@@ -85,10 +85,7 @@ class preview extends \fpcm\controller\abstracts\controller
         $this->view->showHeaderFooter(\fpcm\view\view::INCLUDE_HEADER_SIMPLE);
 
         $cssfiles = [];
-        if (trim($this->config->system_css_path)) {
-            $cssfiles[] = trim($this->config->system_css_path);
-        }
-        
+
         $jsfiles = [
             \fpcm\components\components::getjQuery(),
             \fpcm\classes\dirs::getRootUrl('js/fpcm.js')

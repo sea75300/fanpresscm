@@ -46,6 +46,16 @@
             </div>
         </div>
 
+        <div class="row my-2">
+            <div class="col">
+                <?php $theView->textInput('css-file-'.$tplId)
+                        ->setValue('https://')
+                        ->setText('SYSTEM_OPTIONS_STYLESHEET')
+                        ->setLabelTypeFloat();
+                ?>
+            </div>
+        </div>
+
     </div>
 </div>
 

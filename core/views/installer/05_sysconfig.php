@@ -71,28 +71,6 @@
     </div>
 </div>
 
-<div class="row row-cols-3 gap-3 g-0 my-2">
-    <div class="col">
-    <?php $theView->select('conf[system_mode]')
-            ->setOptions($systemModes)
-            ->setSelected(1)
-            ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
-            ->setText('SYSTEM_OPTIONS_USEMODE')
-            ->setLabelTypeFloat(); ?>
-    </div>
-    <div class="col">
-        <div class="row g-0">
-            <?php $theView->boolSelect('conf[system_loader_jquery]')
-            ->setText('SYSTEM_OPTIONS_INCLUDEJQUERY')
-            ->setSelected(1)
-            ->setLabelTypeFloat(); ?>
-        </div>
-    </div>
-    <div class="col-auto align-self-center mb-3">
-        <?php $theView->shorthelpButton('jqueryInclude')->setText('SYSTEM_OPTIONS_INCLUDEJQUERY_YES'); ?>
-    </div>
-</div>
-
 <h4 class="mb-3"><?php $theView->write('SYSTEM_OPTIONS_CAPTCHASETTING'); ?></h4>
 
 <div class="row row-cols-3 gap-3 g-0 my-2">
