@@ -72,7 +72,7 @@ abstract class base extends \fpcm\controller\abstracts\controller
             (new \fpcm\view\helper\tabItem('pkgmgr'))->setText($this->getTabHeadline())->setFile($this->getViewPath())
         ]);
 
-        $this->view->render();        
+        $this->view->render();
     }
 
 

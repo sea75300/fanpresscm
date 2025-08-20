@@ -97,7 +97,7 @@ abstract class package {
      * @var mixed
      */
     protected $preValidate = true;
-    
+
     /**
      * Konstruktor
      * @param string $packageName
@@ -206,7 +206,7 @@ abstract class package {
 
         return false;
     }
-    
+
     /**
      * Fetch package content from package server
      * @param \fpcm\model\cli\progress $progress
@@ -233,15 +233,15 @@ abstract class package {
 
         $cliProgress = ($progress instanceof \fpcm\model\cli\progress);
         $size = 0;
-        
+
         while (!feof($remoteHandle)) {
-            
+
             $res = fwrite($remoteHandleLocal, fgets($remoteHandle));
             if ($res === false) {
                 trigger_error("Error while writing content of {$remotePath} to {$localPath}.");
                 return self::LOCALWRITE_ERROR;
             }
-            
+
             $size += $res;
             if ($cliProgress) {
                 $progress->setCurrentValue($size)->setOutputText(\fpcm\classes\tools::calcSize($size))->output();
@@ -318,12 +318,12 @@ abstract class package {
             trigger_error('Unable to open ZIP archive: ' . $localPath);
             return self::ZIPOPEN_ERROR;
         }
-        
+
         if (!$this->archive->count()) {
             trigger_error('Empty ZIP archive detected, package contains no files: ' . $localPath);
             return self::ZIPOPEN_ERROR;
         }
-        
+
         if (!$this->extractionValidateArchiveData()) {
             trigger_error('Package archive extraction pre-validation failed: ' . $localPath);
             return self::ZIPEXTRACT_ERROR;
@@ -336,7 +336,7 @@ abstract class package {
 
         return true;
     }
-    
+
     /**
      * Performs cleanup of update files and cache
      * @return bool
@@ -353,7 +353,7 @@ abstract class package {
             trigger_error("Package cleanup error, local package path {$localPath} was not found!");
             return false;
         }
-        
+
         if (!unlink($localPath)) {
             trigger_error("Package cleanup error, cannot remove local package {$localPath} from file system!");
             return false;
@@ -382,7 +382,7 @@ abstract class package {
     {
         return $this->preValidate;
     }
-    
+
     /**
      * Replaces "fanpress" base folder name in given path
      * @param string $path

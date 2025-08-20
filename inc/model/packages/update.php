@@ -9,10 +9,10 @@ namespace fpcm\model\packages;
 
 /**
  * Update package objekt
- * 
+ *
  * @package fpcm\model\packages
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2022, Stefan Seehafer
+ * @copyright (c) 2011-2025, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @since 3.1
  */
@@ -117,7 +117,7 @@ class update extends package {
             if (in_array($file, $excludes) || is_writable($this->replaceFanPressBaseFolder($file))) {
                 continue;
             }
-            
+
             $notWritable[] = $file.' > NOT WRIATBLE';
         }
 
@@ -155,7 +155,7 @@ class update extends package {
         $progress = new \fpcm\model\cli\progress(count($files));
 
         $zip = $this->archive;
-        
+
         $dirs = array_filter($files, function($file) {
             return is_dir($this->replaceFanPressBaseFolder($file));
         });
@@ -164,18 +164,18 @@ class update extends package {
         $attr = 0;
         $error = 0;
         $counter = 0;
-        
+
         array_walk($dirs, function ($path, $i) use ($backupFile, $progress, &$counter, &$error, &$zip, &$opsys, &$attr) {
 
             $counter++;
-            
+
             $progress->setCurrentValue($counter);
             $progress->output();
 
             if ($this->archive->getExternalAttributesName($path, $opsys, $attr)) {
                 return true;
             }
-            
+
             if ($zip->addEmptyDir($path)) {
                 return true;
             }
@@ -184,9 +184,9 @@ class update extends package {
             trigger_error('Failed to add '.$path . ' to backup file '.$backupFile, E_USER_WARNING);
             return false;
         });
-        
+
         unset($dirs);
-        
+
         $realFiles = array_filter($files, function($file) {
             return !is_dir($this->replaceFanPressBaseFolder($file));
         });
@@ -194,11 +194,11 @@ class update extends package {
         array_walk($realFiles, function ($path, $i) use ($backupFile, $progress, &$counter, &$error, &$zip, &$opsys, &$attr) {
 
             $counter++;
-            
+
             $progress->setCurrentValue($counter);
             $progress->output();
 
-            $fullPath = $this->replaceFanPressBaseFolder($path);            
+            $fullPath = $this->replaceFanPressBaseFolder($path);
             if ($this->archive->getExternalAttributesName($path, $opsys, $attr)) {
                 return true;
             }
@@ -223,7 +223,7 @@ class update extends package {
     public function copy()
     {
         clearstatcache();
-        
+
         $srcBasePath = $this->getExtractionPath();
         $files = $this->retrieveFilesFromFileTxt($srcBasePath . DIRECTORY_SEPARATOR . 'fanpress');
         if (!count($files)) {
@@ -236,24 +236,24 @@ class update extends package {
             \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_CONFIG, 'files.txt'),
             \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_CONFIG, 'files.txt.prev')
         );
-        
+
         if (!$filesback) {
             trigger_error('Unable to create ' . \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_CONFIG, 'files.txt.prev'));
         }
-        
+
         $proto = [];
         $failed = [];
         foreach ($files as $i => $file) {
-            
+
             $progress->setCurrentValue(($i+1))->setOutputText(\fpcm\model\files\ops::removeBaseDir($file))->output();
-            
+
             $src = $srcBasePath.DIRECTORY_SEPARATOR.$file;
             $dest = $this->replaceFanPressBaseFolder($file);
 
             if (!trim($src) || !trim($dest)) {
                 continue;
             }
-            
+
             $isDir = is_dir($src);
             $srcExists = file_exists($src);
             $destExists = file_exists($dest);
@@ -266,7 +266,7 @@ class update extends package {
                 $proto[] = $dest.' new folder failed';
                 $failed++;
             }
-            
+
             if ($isDir) {
                 continue;
             }
@@ -295,12 +295,12 @@ class update extends package {
 
         $fopt = new \fpcm\model\files\fileOption('updatecopy');
         $fopt->write($proto);
-        
+
         if (count($failed)) {
             fpcmLogPackages($this->packageName.' - failed files', $failed);
             return self::FILESCOPY_ERROR;
         }
-        
+
         return true;
     }
 
@@ -338,7 +338,7 @@ class update extends package {
         }
 
         foreach ($diff as $file) {
-            
+
             if (!file_exists($file) || is_dir($file)) {
                 continue;
             }
@@ -379,12 +379,12 @@ class update extends package {
      * @since 4.5
      */
     private function retrieveFilesFromFileTxt(string $srcBasePath) : array
-    {  
+    {
         $files = $this->getFileList($srcBasePath .DIRECTORY_SEPARATOR.'data'.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'files.txt', 1);
         if (!count($files)) {
             return [];
         }
-        
+
         $excludes = $this->getExcludes();
         return array_filter(array_diff($files, $excludes), function ($file) {
             return trim($file) ? true : false;
