@@ -5,10 +5,10 @@
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
-namespace fpcm\view\helper;
+namespace fpcm\view\helper\dialogs;
 
 /**
- * Dialog item
+ * Reminder dialog item
  *
  * @package fpcm\view\helper
  * @author Stefan Seehafer <sea75300@yahoo.de>
@@ -16,7 +16,7 @@ namespace fpcm\view\helper;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @since 5.3.0-dev
  */
-class reminderDialog extends dialog {
+class reminder extends \fpcm\view\helper\dialog {
 
     /**
      * Constructor
@@ -26,7 +26,7 @@ class reminderDialog extends dialog {
     {        
         parent::__construct('reminders');
 
-        $this->setFields([
+        parent::setFields([
             [
                 (new \fpcm\view\helper\dateTimeInput('resub-date'))
                     ->setText('EDITOR_POSTPONED_DATE')
@@ -52,6 +52,18 @@ class reminderDialog extends dialog {
                 ->setBottomSpace('')
         ]);
         
+    }
+
+    /**
+     * Set dialog fields
+     * @param array $fields
+     * @return $this
+     * @ignore
+     */
+    public function setFields(array $fields)
+    {
+        trigger_error(sprintf("Method %s will not modify dialog fields!", __METHOD__));
+        return $this;
     }
 
 }

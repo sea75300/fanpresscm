@@ -30,7 +30,7 @@ class dialog implements \JsonSerializable {
      * Dialog name
      * @var array
      */
-    private array $fields;
+    protected array $fields;
 
     /**
      * Constructor

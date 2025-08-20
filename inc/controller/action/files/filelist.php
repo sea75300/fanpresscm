@@ -209,15 +209,7 @@ class filelist extends \fpcm\controller\abstracts\controller
 
     public function assignSearchFromVars()
     {
-        $combinations = [
-            'ARTICLE_SEARCH_LOGICNONE' => '',
-            'ARTICLE_SEARCH_LOGICAND' => 'and',
-            'ARTICLE_SEARCH_LOGICOR' => 'or',
-            '(' => '(',
-            ')' => ')'
-        ];
-
-        $searchDlg = new \fpcm\view\helper\dialog('search');
+        $searchDlg = new \fpcm\view\helper\dialogs\search();
         $searchDlg->setFields([
             'valueFields' => [
                 'filename' => (new \fpcm\view\helper\textInput('filename'))
@@ -246,7 +238,7 @@ class filelist extends \fpcm\controller\abstracts\controller
                     ->setLabelTypeFloat(),
                 (new \fpcm\view\helper\select('combinations'))
                     ->setText('ARTICLE_SEARCH_LOGIC')
-                    ->setOptions($combinations)
+                    ->setOptions($searchDlg->getDefaultCombinations())
                     ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
                     ->setSelected(-1)
                     ->setLabelTypeFloat(),
@@ -303,7 +295,7 @@ class filelist extends \fpcm\controller\abstracts\controller
                 ->setBottomSpace('')
         ]);
 
-        $reminderDlg = new \fpcm\view\helper\reminderDialog();
+        $reminderDlg = new \fpcm\view\helper\dialogs\reminder();
 
         $this->view->addDialogs([
             $settingsDlg,
