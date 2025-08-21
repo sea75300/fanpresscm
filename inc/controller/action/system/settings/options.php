@@ -120,6 +120,10 @@ class options extends \fpcm\controller\abstracts\controller implements \fpcm\con
             'SYSTEM_OPTIONS_COMMENT_NOTIFY_ALL' => 2
         ]);
 
+        $steps = range(50, 400, 50);
+        
+        $this->view->assign('thumbsizes', array_combine($steps, $steps));
+
         $this->view->assign('smtpAuthTypes', \fpcm\classes\email::getAuthenticationTypes());
         $this->view->assign('smtpEncryption', \fpcm\classes\email::getEncryptions());
         $this->view->assign('filemanagerViews', \fpcm\components\components::getFilemanagerViews());
@@ -186,6 +190,11 @@ class options extends \fpcm\controller\abstracts\controller implements \fpcm\con
             (new \fpcm\view\helper\tabItem('editor'))
                 ->setText('SYSTEM_HL_OPTIONS_EDITOR')
                 ->setFile('system/editor.php')
+                ->setTabToolbar(1)
+            ,
+            (new \fpcm\view\helper\tabItem('files'))
+                ->setText('HL_FILES_MNG')
+                ->setFile('system/files.php')
                 ->setTabToolbar(1)
             ,
             (new \fpcm\view\helper\tabItem('articles'))

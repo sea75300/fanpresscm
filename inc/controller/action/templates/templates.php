@@ -84,12 +84,6 @@ class templates extends \fpcm\controller\abstracts\controller implements \fpcm\c
         if ($this->permissions->system->drafts) {
             $this->view->includeForms('templates');
         }
-
-        if (!trim($uploader->getTemplate()) || !realpath($uploader->getTemplate())) {
-            trigger_error('Undefined file upload template given in '.$uploader->getTemplate());
-            $this->execDestruct = false;
-            return false;
-        }
         
         $this->view->setViewVars($uploader->getViewVars());
 
