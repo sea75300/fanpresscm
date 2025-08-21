@@ -74,7 +74,7 @@ class update extends \fpcm\controller\action\packagemgr\abstracts\base
                 ->setTarget(\fpcm\view\helper\linkButton::TARGET_NEW),
             (new \fpcm\view\helper\linkButton('optionsBtn'))
                 ->setText('HL_OPTIONS_SYSTEM')
-                ->setUrl(\fpcm\classes\tools::getFullControllerLink('system/options', ['rg' => 4]))
+                ->setUrl(\fpcm\classes\tools::getFullControllerLink('system/options', ['rg' => 5]))
                 ->setIcon('cog')
                 ->setTarget(\fpcm\view\helper\linkButton::TARGET_NEW)
                 ->setIconOnly(),

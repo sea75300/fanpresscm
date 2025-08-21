@@ -71,7 +71,7 @@ class notifications implements \Countable {
             $this->addNotification(new \fpcm\model\theme\notificationItem(
                 (new \fpcm\view\helper\icon('lightbulb'))->setText('SYSTEM_OPTIONS_MAINTENANCE'),
                 '',
-                $perm?->system?->options ? \fpcm\classes\tools::getControllerLink('system/options', ['rg' => 4]) : '',
+                $perm?->system?->options ? \fpcm\classes\tools::getControllerLink('system/options', ['rg' => 5]) : '',
                 'text-danger'
             ));
         }
