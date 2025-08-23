@@ -144,11 +144,11 @@ class filelist extends \fpcm\controller\abstracts\controller
                 ->setTabToolbar(1)
                 ->setUrl(\fpcm\classes\tools::getControllerLink('ajax/files/lists', [ 'mode' => $this->mode ]) )
         ];
-        
+
         $this->view->addFromLibrary('sortable_js/', [
             'Sortable.min.js'
         ]);
-        
+
         $this->view->includeForms('filemanager');
         $this->view->addTabs('files', $tabs);
         $this->view->render();
@@ -252,7 +252,7 @@ class filelist extends \fpcm\controller\abstracts\controller
                     ->setLabelTypeFloat()
             ]
         ]);
-        
+
         $this->view->addDialogs($searchDlg);
 
         $this->view->addJsLangVars([

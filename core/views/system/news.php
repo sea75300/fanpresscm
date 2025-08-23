@@ -45,6 +45,16 @@
 
         <div class="row my-2 row-cols-1 row-cols-xl-2">
             <div class="col">
+                <?php $theView->boolSelect('articles_link_urlrewrite')->setText('SYSTEM_OPTIONS_NEWS_URLREWRITING')->setSelected($globalConfig->articles_link_urlrewrite); ?>
+            </div>
+
+            <div class="col">
+                <?php $theView->boolSelect('articles_rss')->setText('SYSTEM_OPTIONS_NEWS_ENABLEFEED')->setSelected($globalConfig->articles_rss); ?>
+            </div>
+        </div>
+
+        <div class="row my-2 row-cols-1 row-cols-xl-2">
+            <div class="col">
                 <?php $theView->boolSelect('articles_archive_show')->setText('SYSTEM_OPTIONS_ARCHIVE_LINK')->setSelected($globalConfig->articles_archive_show); ?>
             </div>
 
@@ -61,16 +71,6 @@
                                 ->setText('SYSTEM_OPTIONS_NEWS_ARCHIVELIMIT_EMPTY'); ?>
                     </div>
                 </div>
-            </div>
-        </div>
-
-        <div class="row my-2 row-cols-1 row-cols-xl-2">
-            <div class="col">
-                <?php $theView->boolSelect('articles_link_urlrewrite')->setText('SYSTEM_OPTIONS_NEWS_URLREWRITING')->setSelected($globalConfig->articles_link_urlrewrite); ?>
-            </div>
-
-            <div class="col">
-                <?php $theView->boolSelect('articles_rss')->setText('SYSTEM_OPTIONS_NEWS_ENABLEFEED')->setSelected($globalConfig->articles_rss); ?>
             </div>
         </div>
     </div>

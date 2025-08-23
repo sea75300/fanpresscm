@@ -486,4 +486,28 @@ class template extends \fpcm\model\abstracts\file {
         }
     }
 
+    /**
+     * Get Public Javascript file
+     * @return string
+     * @since 5.3.0-dev
+     */
+    public static function getPublicJavascript(bool $prev = false) : string
+    {
+        $files = ['fpcm.min.js', 'fpcm.js'];
+        if (\fpcm\classes\baseconfig::debugModeActive() || $prev) {
+            return \fpcm\classes\dirs::getPublicAssetUrl($files[1]);
+        }
+
+        foreach ($files as $file) {
+
+            $tf = \fpcm\classes\dirs::getFullDirPath('public/fpcm.min.js');
+
+            if (file_exists($tf)) {
+                return \fpcm\classes\dirs::getPublicAssetUrl($file);
+            }
+
+        }
+
+    }
+
 }

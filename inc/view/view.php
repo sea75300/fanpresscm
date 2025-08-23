@@ -622,19 +622,6 @@ class view {
     }
 
     /**
-     * Force to load jQuery in Pub-Controllers before other JS-Files if not already done
-     * @since 3.2.0
-     */
-    public function prependjQuery()
-    {
-        if ($this->config->system_loader_jquery) {
-            return false;
-        }
-
-        array_unshift($this->jsFiles, \fpcm\components\components::getjQuery());
-    }
-
-    /**
      * Assign new variable to view
      * @param string $varName
      * @param mixes $varValue

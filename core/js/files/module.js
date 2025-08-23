@@ -38,41 +38,9 @@ fpcm.filemanager = {
         }
 
         fpcm.dom.bindClick('#btnSettings', function () {
-
-            let _settings = fpcm.ui_dialogs.fromDOM('filesSettings');
-            if (!_settings) {
-                return;
-            }
-
-            fpcm.ui_dialogs.create({
-                id: 'files-settings',
-                title: 'HL_OPTIONS',
-                size: '',
-                closeButton: true,
-                directAssignToDom: true,
-                content: _settings,
-                icon: {
-                    icon: 'cogs',
-                },
-                dlOnOpenAfter: function () {
-                    fpcm.ui.selectmenu('select[data-user_setting]', {
-                        change: function (_ev, _ui) {
-
-                            document.getElementById('pageSelect').selectedIndex = 0;
-
-                            fpcm.ajax.post('setconfig', {
-                                data: {
-                                    var: _ui.dataset.user_setting,
-                                    value: _ui.value
-                                },
-                                execDone: function () {
-                                    fpcm.filemanager.reloadFiles();
-                                    fpcm.vars.jsvars.dialogs.filesSettings.fields[_ui.dataset.index].preSelected = _ui.value;
-                                }
-                            });
-                        }
-                    });
-                }
+            
+            fpcm.ui_dialogs.settings('files', 'filesSettings', function (ev, _ui, _result) {
+                fpcm.filemanager.reloadFiles();
             });
 
         });

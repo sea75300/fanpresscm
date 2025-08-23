@@ -208,4 +208,15 @@ final class dirs {
         return $GLOBALS['fpcm']['url']['ecma'];
     }
 
+    /**
+     * Komplette URL ausgehend vom root-Ebene ermitteln
+     * @param string $path
+     * @return string
+     * @since 5.3.0-dev
+     */
+    public static function getPublicAssetUrl($path = '') : string
+    {
+        return \fpcm\classes\dirs::getRootUrl('public/' . $path);
+    }
+
 }

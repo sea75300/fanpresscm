@@ -17,7 +17,8 @@ class all extends \fpcm\controller\abstracts\controller
 {
 
     use \fpcm\controller\traits\comments\lists,
-        \fpcm\controller\traits\common\searchParams;
+        \fpcm\controller\traits\common\searchParams,
+        \fpcm\controller\traits\common\listSettings;
 
     /**
      * Data view object
@@ -26,7 +27,7 @@ class all extends \fpcm\controller\abstracts\controller
     protected $dataView;
 
     /**
-     * 
+     *
      * @return bool
      */
     public function isAccessible(): bool
@@ -35,7 +36,7 @@ class all extends \fpcm\controller\abstracts\controller
     }
 
     /**
-     * 
+     *
      * @return string
      */
     protected function getHelpLink()
@@ -44,7 +45,7 @@ class all extends \fpcm\controller\abstracts\controller
     }
 
     /**
-     * 
+     *
      * @return string
      */
     protected function getViewPath() : string
@@ -82,21 +83,23 @@ class all extends \fpcm\controller\abstracts\controller
                 ->setIcon('trash')
                 ->setIconOnly()
                 ->setOnClick('comments.deleteMultipleArticle')
-            );            
+            );
         }
+
+        $this->addListSettingsDialog();
 
         $this->initDataView();
         $this->view->addDataView($this->dataView);
         $this->view->addPager(new \fpcm\view\helper\pager('comments/list', $this->page, $this->commentCount, $this->config->articles_acp_limit, $this->maxItemCount));
-        
+
         $this->view->addTabs('comments', [
             (new \fpcm\view\helper\tabItem('tabs-comments-list'))
                 ->setText('COMMMENT_HEADLINE')
                 ->setFile($this->getViewPath() . '.php')
         ]);
-        
+
     }
-    
+
     /**
      * Initialisiert Suchformular-Daten
      * @param array $users

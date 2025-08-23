@@ -16,6 +16,12 @@ fpcm.comments = {
         if (fpcm.ui.langvarExists('ARTICLES_SEARCH')) {
             fpcm.comments.initCommentSearch();
         }
+
+        fpcm.dom.bindClick('#btnSettings', function (ev, _ui, _result) {
+            fpcm.ui_dialogs.settings('comments', 'settings', function () {
+                fpcm.ui.relocate('self');
+            });
+        });
     
         fpcm.comments.assignActionsList();
     },

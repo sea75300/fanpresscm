@@ -9,7 +9,7 @@ namespace fpcm\controller\ajax\common;
 
 /**
  * AJAX-Controller zum Erzeugen und Ausgeben einer neuen Nachricht
- * 
+ *
  * @package fpcm\controller\ajax\commom
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2022, Stefan Seehafer
@@ -19,7 +19,13 @@ class setConfig extends \fpcm\controller\abstracts\ajaxController {
 
     use \fpcm\controller\traits\common\isAccessibleTrue;
 
-    private $whiteList = ['file_view', 'file_list_limit', 'dashboardpos', 'dashboard_containers_disabled'];
+    private $whiteList = [
+        'file_view',
+        'file_list_limit',
+        'articles_acp_limit',
+        'dashboardpos',
+        'dashboard_containers_disabled'
+    ];
 
     /**
      * Controller-Processing
@@ -36,7 +42,7 @@ class setConfig extends \fpcm\controller\abstracts\ajaxController {
             'reset' => 'resetOptionValue',
             default => null
         };
-        
+
         if (!$fn) {
             return false;
         }
@@ -52,19 +58,25 @@ class setConfig extends \fpcm\controller\abstracts\ajaxController {
         }
 
         $usrmeta = $this->session->currentUser->getUserMeta();
-        
+
         switch ($var) {
             case 'dashboard_containers_disabled' :
                 $tmp = $usrmeta->{$var};
-                $tmp[] = $this->request->fromPOST('value', [ \fpcm\model\http\request::FILTER_BASE64DECODE ]);
+                $tmp[] = $this->request->fromPOST('value', [
+                    \fpcm\model\http\request::FILTER_BASE64DECODE
+                ]);
+
                 $usrmeta->{$var} = $tmp;
                 break;
             case 'file_list_limit' :
-                $usrmeta->{$var} = $this->request->fromPOST('value', [\fpcm\model\http\request::FILTER_CASTINT ]);
+            case 'articles_acp_limit' :
+                $usrmeta->{$var} = $this->request->fromPOST('value', [
+                    \fpcm\model\http\request::FILTER_CASTINT
+                ]);
                 break;
             default:
                 $usrmeta->{$var} = $this->request->fromPOST('value');
-        }        
+        }
 
         $this->session->currentUser->disablePasswordSecCheck();
         $this->session->currentUser->setUserMeta($usrmeta);
@@ -72,7 +84,7 @@ class setConfig extends \fpcm\controller\abstracts\ajaxController {
     }
 
     /**
-     * 
+     *
      * @return bool
      */
     protected function resetOptionValue(): bool
@@ -87,17 +99,17 @@ class setConfig extends \fpcm\controller\abstracts\ajaxController {
                 $return = $this->session->getCurrentUser()->resetDashboard();
                 break;
             case 'dashboard_containers_disabled' :
-                
+
                 $usrmeta = $this->session->currentUser->getUserMeta();
-                
+
                 $usrmeta->{$var} = array_filter($usrmeta->{$var}, function ($str) {
                     return $str !== $this->request->fromPOST('value', [ \fpcm\model\http\request::FILTER_BASE64DECODE ]);
                 });
-                
+
                 $this->session->currentUser->disablePasswordSecCheck();
                 $this->session->currentUser->setUserMeta($usrmeta);
                 $return = $this->session->currentUser->update() === true;
-                
+
                 break;
             default:
                 $return = true;
@@ -107,7 +119,7 @@ class setConfig extends \fpcm\controller\abstracts\ajaxController {
     }
 
     /**
-     * 
+     *
      * @param string $var
      * @return bool
      */

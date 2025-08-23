@@ -407,6 +407,46 @@ fpcm.ui_dialogs = {
         fpcm.ui_dialogs.create(_var);
     },
 
+    settings: function(_id, _cfg, _callback) {
+
+        let _settings = fpcm.ui_dialogs.fromDOM(_cfg);
+        if (!_settings) {
+            return;
+        }
+
+        fpcm.ui_dialogs.create({
+            id: _id +'-settings',
+            title: 'HL_OPTIONS',
+            size: '',
+            closeButton: true,
+            directAssignToDom: true,
+            content: _settings,
+            icon: {
+                icon: 'cogs',
+            },
+            dlOnOpenAfter: function () {
+                fpcm.ui.selectmenu('select[data-user_setting]', {
+                    change: function (_ev, _ui) {
+
+                        document.getElementById('pageSelect').selectedIndex = 0;
+
+                        fpcm.ajax.post('setconfig', {
+                            data: {
+                                var: _ui.dataset.user_setting,
+                                value: _ui.value
+                            },
+                            execDone: function (_result) {
+                                fpcm.vars.jsvars.dialogs[_cfg].fields[_ui.dataset.index].preSelected = _ui.value;
+                                _callback(_ev, _ui, _result);
+                            }
+                        });
+                    }
+                });
+            }
+        });
+
+    },
+
     close: function(_id, _parent) {
 
         if (!_id) {

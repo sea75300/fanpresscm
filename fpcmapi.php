@@ -413,12 +413,7 @@ class fpcmAPI {
     {
         define('FPCM_PUBJS_LOADED', 1);
 
-        if ( \fpcm\classes\baseconfig::debugModeActive() ||
-             !file_exists(\fpcm\classes\dirs::getFullDirPath('js/fpcm.min.js') ) )  {
-            return \fpcm\classes\dirs::getRootUrl('js/fpcm.js');
-        }
-
-        return \fpcm\classes\dirs::getRootUrl('js/fpcm.min.js');
+        return fpcm\model\pubtemplates\template::getPublicJavascript();
     }
 
 }

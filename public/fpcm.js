@@ -111,7 +111,7 @@ if (fpcm === undefined) {
 
                 fpcm.pub.doRefresh();
                 fpcm.pub.showMessages();
-                
+
                 if (fpcm.vars.jsvars.commentsCount) {
                     fpcm.pub.loadComments();
                 }
@@ -263,9 +263,9 @@ if (fpcm === undefined) {
                     alert(msg.txt);
                     return true;
                 }
-                
+
                 _msgWrapper.innerHTML = '';
-                
+
                 if (fpcm.vars.ui.messages.length) {
                     fpcm.vars.ui.messages = [];
                 }
@@ -316,12 +316,17 @@ if (fpcm === undefined) {
 
             loadComments: function() {
 
-                let _cbox = document.getElementById('fpcm-pub-comments');                        
+                let _cbox = document.getElementById('fpcm-pub-comments');
                 if (!_cbox) {
                     return false;
                 }
 
-                _cbox.innerHTML = fpcm.vars.ui.lang.GLOBAL_PLEASEWAIT;
+                let _spinner = document.createElement('img');
+                _spinner.src = fpcm.vars.jsvars.spinnerUrl;
+                _spinner.classList.add('fpcm-pub-spinner');
+
+                _cbox.innerHTML = '';
+                _cbox.appendChild(_spinner);
 
                 fpcm.pub.doAjax({
                     action: 'pub/comments',

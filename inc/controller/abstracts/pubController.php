@@ -104,14 +104,8 @@ class pubController extends controller {
         ]);
 
         $jsfiles = [];
-        if ($this->config->system_loader_jquery) {
-            $jsfiles[] = \fpcm\components\components::getjQuery();
-        }
-
         if (!defined('FPCM_PUBJS_LOADED')) {
-            $jsfiles[]  =  \fpcm\classes\baseconfig::debugModeActive() || !file_exists(\fpcm\classes\dirs::getFullDirPath('js/fpcm.min.js'))
-                        ? \fpcm\classes\dirs::getRootUrl('js/fpcm.js')
-                        : \fpcm\classes\dirs::getRootUrl('js/fpcm.min.js');
+            $jsfiles[]  = \fpcm\model\pubtemplates\template::getPublicJavascript();
         }
 
         $evJs = $this->events->trigger('pub\addJsFiles', $jsfiles);
@@ -125,6 +119,10 @@ class pubController extends controller {
             trigger_error(sprintf("Event pub\addCssFiles failed. Returned success = %s, continue = %s", $evCss->getSuccessed(), $evCss->getContinue()));
             return false;
         }
+
+        $this->view->addJsVars([
+            'spinnerUrl' => \fpcm\classes\dirs::getPublicAssetUrl('spinner.gif')
+        ]);
 
         $this->view->overrideJsFiles($evJs->getData());
         $this->view->overrideCssFiles($evCss->getData());

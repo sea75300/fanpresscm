@@ -52,7 +52,7 @@
             </div>
         </div>
     </div>
-    
+
     <div class="col">
         <div class="row my-2 row-cols-1 row-cols-xl-2">
             <div class="col">
@@ -65,15 +65,19 @@
         </div>
 
         <div class="row my-2 row-cols-1 row-cols-xl-2">
-            <div class="col flex-grow-1">
-                <?php $theView->textInput('system_dtmask')
-                    ->setValue($globalConfig->system_dtmask)
-                    ->setText('SYSTEM_OPTIONS_DATETIMEMASK'); ?>
-            </div>
-            <div class="col-auto align-self-center mb-3">
-                <?php $theView->shorthelpButton('dtmask')
-                    ->setText('SYSTEM_OPTIONS_DATETIMEMASK_HELP')
-                    ->setUrl('http://php.net/manual/function.date.php'); ?>
+            <div class="col">
+                <div class="row g-0">
+                    <div class="col flex-grow-1">
+                        <?php $theView->textInput('system_dtmask')
+                            ->setValue($globalConfig->system_dtmask)
+                            ->setText('SYSTEM_OPTIONS_DATETIMEMASK'); ?>
+                    </div>
+                    <div class="col-auto align-self-center mx-3 mb-3">
+                    <?php $theView->shorthelpButton('dtmask')
+                        ->setText('SYSTEM_OPTIONS_DATETIMEMASK_HELP')
+                        ->setUrl('http://php.net/manual/function.date.php'); ?>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -84,16 +88,13 @@
                     ->setOptions($theView->translate('SYSTEM_OPTIONS_CACHETIMEOUT_INTERVAL'))
                     ->setSelected($globalConfig->system_cache_timeout); ?>
             </div>
-        </div>  
-
-        <div class="row my-2 row-cols-1 row-cols-xl-2">
             <div class="col">
                 <?php $theView->select('system_trash_cleanup')
                         ->setText('SYSTEM_OPTIONS_TRASH_CLEANUP_DAYS')
                         ->setOptions($theView->translate('SYSTEM_OPTIONS_TRASH_CLEANUP_DAYS_LIST'))
                         ->setSelected($globalConfig->system_trash_cleanup); ?>
             </div>
-        </div>  
+        </div>
     </div>
-    
+
 </div>

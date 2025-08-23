@@ -15,7 +15,8 @@ abstract class base extends \fpcm\controller\abstracts\controller
     use \fpcm\controller\traits\articles\listsCommon,
         \fpcm\controller\traits\articles\listsView,
         \fpcm\controller\traits\common\massedit,
-        \fpcm\controller\traits\common\searchParams;
+        \fpcm\controller\traits\common\searchParams,
+        \fpcm\controller\traits\common\listSettings;
 
 
     /**
@@ -160,6 +161,8 @@ abstract class base extends \fpcm\controller\abstracts\controller
 
         $this->view->setFormAction($this->listAction, $formActionParams);
         $this->view->addDataView( new \fpcm\components\dataView\dataView('articlelist') );
+
+        $this->addListSettingsDialog();
 
         $this->view->addTabs('articles', [
             (new \fpcm\view\helper\tabItem('articles'))->setText($this->getTabHeadline())->setFile('articles/listouter.php')

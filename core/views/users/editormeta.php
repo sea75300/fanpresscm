@@ -22,13 +22,13 @@
                     ->setIcon('calendar'); ?>
         </div>
         <div class="col align-self-center mb-3">
-            <div class="d-flex justify-content-center justify-content-md-start">                
+            <div class="d-flex justify-content-center justify-content-md-start">
                 <?php $theView->shorthelpButton('dtmask')
                         ->setText('SYSTEM_OPTIONS_DATETIMEMASK_HELP')
                         ->setUrl('http://php.net/manual/function.date.php'); ?>
             </div>
         </div>
-    </div>            
+    </div>
 
     <div class="row my-2">
         <div class="col-12 col-md-6">
@@ -52,8 +52,8 @@
                     ->setLabelTypeFloat()
                     ->setIcon('list'); ?>
         </div>
-    </div>          
-    
+    </div>
+
     <div class="row row-cols-1 row-cols-md-4 gap-1 my-2">
         <div class="col">
             <?php $theView->select('usermeta[backdrop]')
@@ -72,12 +72,12 @@
                 ->setLabelTypeFloat()
                 ->setIcon('moon'); ?>
         </div>
-    </div>        
+    </div>
 </fieldset>
 
 <fieldset class="mb-2">
     <legend><?php $theView->write('SYSTEM_OPTIONS_NEWS_EDITOR_SETTINGS'); ?> / <?php $theView->write('HL_FILES_MNG'); ?></legend>
-  
+
     <div class="row my-2">
         <div class="col-12 col-md-6">
             <?php $theView->select('usermeta[system_editor_fontsize]')
@@ -89,7 +89,7 @@
                 ->setIcon('text-height'); ?>
         </div>
     </div>
-    
+
     <div class="row row-cols-1 row-cols-md-4 gap-1 my-2">
         <div class="col">
             <?php $theView->select('usermeta[file_list_limit]')
@@ -109,5 +109,5 @@
                 ->setLabelTypeFloat()
                 ->setIcon('grip-horizontal'); ?>
         </div>
-    </div>     
+    </div>
 </fieldset>

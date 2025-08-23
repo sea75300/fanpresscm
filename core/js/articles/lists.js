@@ -39,6 +39,12 @@ fpcm.articles = {
 
         });
 
+        fpcm.dom.bindClick('#btnSettings', function (ev, _ui, _result) {
+            fpcm.ui_dialogs.settings('comments', 'settings', function () {
+                fpcm.ui.relocate('self');
+            });
+        });
+
     },
     
     initWidgets: function() {

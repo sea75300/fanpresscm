@@ -38,7 +38,7 @@ class profile extends \fpcm\controller\abstracts\controller
     }
 
     /**
-     * 
+     *
      * @return bool
      */
     public function isAccessible(): bool
@@ -75,10 +75,10 @@ class profile extends \fpcm\controller\abstracts\controller
 
         $this->view->assign('author', $this->user);
         $this->view->assign('avatar', \fpcm\model\users\author::getAuthorImageDataOrPath($this->user, false));
-        
+
         return true;
     }
-    
+
     /**
      * Reset profile settings
      * @return bool
@@ -98,7 +98,7 @@ class profile extends \fpcm\controller\abstracts\controller
         $this->reloadSite = 1;
         return true;
     }
-    
+
     /**
      * Execute save process
      * @return bool
@@ -113,13 +113,13 @@ class profile extends \fpcm\controller\abstracts\controller
         if ($saveData['email'] !== $this->user->getEmail() && !$this->checkCurrentPass($saveData['current_pass'])) {
             return false;
         }
-        
+
         $this->user->setEmail($saveData['email']);
         $this->user->setDisplayName($saveData['displayname']);
 
         $metaData = $this->user->getUserMeta();
         $metaData->mergeData($this->request->fromPOST('usermeta'));
-        
+
         $this->user->setUserMeta($metaData);
         $this->user->setUsrinfo($saveData['usrinfo']);
         $this->user->setChangeTime(time());
@@ -171,7 +171,7 @@ class profile extends \fpcm\controller\abstracts\controller
         }
 
         $this->reloadSite = ($metaData['system_lang'] != $this->config->system_lang ? 1 : 0);
-        $this->view->addNoticeMessage('SAVE_SUCCESS_EDITUSER_PROFILE');        
+        $this->view->addNoticeMessage('SAVE_SUCCESS_EDITUSER_PROFILE');
         return true;
     }
 
@@ -196,7 +196,7 @@ class profile extends \fpcm\controller\abstracts\controller
      * @return bool
      */
     public function process()
-    {        
+    {
         $this->settingsToView();
         $this->twoFactorAuthForm();
 
@@ -217,7 +217,7 @@ class profile extends \fpcm\controller\abstracts\controller
         $this->view->addButtons([
             (new \fpcm\view\helper\saveButton('profileSave'))->setPrimary(),
             (new \fpcm\view\helper\submitButton('resetProfileSettings'))->setText('GLOBAL_RESET')->setIcon('undo')
-        ]);  
+        ]);
 
         $this->view->addTabs('profile', [
            (new \fpcm\view\helper\tabItem('user'))->setText('HL_PROFILE')->setFile($this->getViewPath()),

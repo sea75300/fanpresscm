@@ -88,7 +88,7 @@ class preview extends \fpcm\controller\abstracts\controller
 
         $jsfiles = [
             \fpcm\components\components::getjQuery(),
-            \fpcm\classes\dirs::getRootUrl('js/fpcm.js')
+            \fpcm\model\pubtemplates\template::getPublicJavascript(true)
         ];
 
         $evJs = $this->events->trigger('pub\addJsFiles', $jsfiles);
