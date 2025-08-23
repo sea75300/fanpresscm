@@ -100,8 +100,7 @@ implements \fpcm\controller\interfaces\requestFunctions {
 
         $this->view->addJsVars([
             'userImgRedir' => \fpcm\classes\tools::getFullControllerLink('users/edit', [
-                'id' => $this->user->getId(),
-                'rg' => 1
+                'id' => $this->user->getId()
             ])
         ]);
 
