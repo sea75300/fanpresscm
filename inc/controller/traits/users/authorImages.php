@@ -147,9 +147,7 @@ trait authorImages {
         $this->view->addJsFiles(['users/userimage.js']);        
         $this->view->addJsVars(array_merge([
             'uploadDest' => 'userimage&uid=' . $author->getId(),
-            'userImgRedir' => \fpcm\classes\tools::getFullControllerLink('system/profile', [
-                'rg' => 1
-            ])
+            'userImgRedir' => \fpcm\classes\tools::getFullControllerLink('system/profile')
         ], $this->uploader->getJsVars() ));        
         
         

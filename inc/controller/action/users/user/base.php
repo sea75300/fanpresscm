@@ -30,12 +30,6 @@ class base extends \fpcm\controller\abstracts\controller
     protected $user;
 
     /**
-     *
-     * @var bool
-     */
-    protected $showExtended = false;
-
-    /**
      * 
      * @return string
      */

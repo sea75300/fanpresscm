@@ -164,6 +164,10 @@ table.diff-wrapper {
     height: 10px !important;
 }
 
+.uppy-FileInput-btn {
+    width: 100%;
+}
+
 [data-bs-theme=dark] {
     
     .ts-control, .ts-wrapper.single.input-active .ts-control, .ts-dropdown {
@@ -201,6 +205,16 @@ table.diff-wrapper {
     .uppy-StatusBar.is-waiting .uppy-StatusBar-actions {
         background: none !important;
         border: none;
+    }
+
+    .uppy-FileInput-btn {
+        color: var(--bs-info-text-emphasis) !important;
+        border-color: var(--bs-info-text-emphasis) !important;
+    }
+
+    .uppy-FileInput-btn:hover {
+        color: var(--bs-info-bg-subtle) !important;
+        background-color: var(--bs-info-text-emphasis) !important;
     }
 
 }

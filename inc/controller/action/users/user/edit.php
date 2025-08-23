@@ -14,12 +14,6 @@ extends base
 implements \fpcm\controller\interfaces\requestFunctions {
 
     use \fpcm\controller\traits\users\deleteDialog;
-    
-    /**
-     *
-     * @var bool
-     */
-    protected $showExtended = true;
 
     /**
      *
@@ -120,13 +114,7 @@ implements \fpcm\controller\interfaces\requestFunctions {
     {
         $tabs = [];
         $tabs[] = (new \fpcm\view\helper\tabItem('edit'))->setText('USERS_EDIT')->setFile( $this->getViewPath() . '.php');
-
-        if ($this->showExtended) {
-            $tabs[] = (new \fpcm\view\helper\tabItem('extended'))->setText('GLOBAL_EXTENDED')->setFile('users/usereditor_extended.php');
-        }
-
         $tabs[] = (new \fpcm\view\helper\tabItem('meta'))->setText('USERS_META_OPTIONS')->setFile('users/editormeta.php');
-
         $this->view->addTabs('users', $tabs, 'fpcm ui-tabs-autoinit', $this->getActiveTab());
 
     }

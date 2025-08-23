@@ -124,7 +124,7 @@ if (!defined('FPCM_AUTHOR_IMAGE_MAX_SIZE')) {
      * Maximale Größe von Author-Bildern
      * @since 3.6
      */
-    define('FPCM_AUTHOR_IMAGE_MAX_SIZE', 32768);
+    define('FPCM_AUTHOR_IMAGE_MAX_SIZE', 65536);
 }
 
 if (!defined('FPCM_INSECURE_USERNAMES')) {

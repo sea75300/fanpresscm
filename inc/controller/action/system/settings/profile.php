@@ -221,7 +221,6 @@ class profile extends \fpcm\controller\abstracts\controller
 
         $this->view->addTabs('profile', [
            (new \fpcm\view\helper\tabItem('user'))->setText('HL_PROFILE')->setFile($this->getViewPath()),
-           (new \fpcm\view\helper\tabItem('extended'))->setText('GLOBAL_EXTENDED')->setFile('users/usereditor_extended.php'),
            (new \fpcm\view\helper\tabItem('meta'))->setText('USERS_META_OPTIONS')->setFile('users/editormeta.php'),
         ], 'fpcm ui-tabs-function-autoinit', $this->getActiveTab());
 

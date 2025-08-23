@@ -70,16 +70,6 @@ fpcm.fileuploader = {
     _toggleUi: function(_pause, _resume) {
         document.getElementById('btnPause').disabled = _pause;
         document.getElementById('btnResume').disabled = _resume;
-    },
-
-    initAfter: function () {
-
-        let _uploadBtn = fpcm.dom.fromClass('uppy-FileInput-btn');
-        _uploadBtn.addClass('w-100');
-
-        let _btnclass = fpcm.ui.darkModeEnabled() ? 'info' : 'primary';
-        _uploadBtn.addClass('btn btn-outline-' + _btnclass);
-
     }
 
 };
