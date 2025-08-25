@@ -74,6 +74,14 @@ fpcm.search = {
                                 _filter[_svi.dataset.ridx][_svi.dataset.type] = _svi.value;
                             }
 
+                            let _sorts = document.getElementsByName('sorts');
+                            if (_sorts.length) {
+                                _filter.sort = {};
+                                for (let _sort of _sorts) {
+                                    _filter.sort[_sort.dataset.option] = _sort.value;
+                                }
+                            }
+
                             fpcm.filemanager.reloadFiles(1, _filter);
                         }
                     },
@@ -89,7 +97,7 @@ fpcm.search = {
                 ],
                 dlOnOpenAfter: function () {
                     fpcm.ui_dnd.initDnd({
-                        destination: fpcm.search._dlg.getFullId(),
+                        destination: fpcm.search._dlg.getFullListId(),
                         group: 'shared',
                         dropCallback: function (_e) {
 

@@ -250,6 +250,28 @@ class filelist extends \fpcm\controller\abstracts\controller
                         'ARTICLE_SEARCH_USER' => 'userid',
                     ])
                     ->setLabelTypeFloat()
+            ],
+            'sortFields' => [
+                (new \fpcm\view\helper\select('field'))
+                    ->setText('SYSTEM_OPTIONS_NEWS_SORTING')
+                    ->setOptions([
+                        'FILE_LIST_SEARCHTEXT' => 'filename',
+                        'EDITOR_IMGALTTXT' => 'alttext',
+                        'GLOBAL_LASTCHANGE' => 'filetime',
+                        'FILE_LIST_UPLOAD_BY' => 'userid',
+                    ])
+                    ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
+                    ->setSelected('filetime')
+                    ->setLabelTypeFloat(),
+                (new \fpcm\view\helper\select('order'))
+                    ->setText('SYSTEM_OPTIONS_NEWS_SORTING_ORDER')
+                    ->setOptions([
+                        'SYSTEM_OPTIONS_NEWS_ORDERASC' => 'asc',
+                        'SYSTEM_OPTIONS_NEWS_ORDERDESC' => 'desc',
+                    ])
+                    ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
+                    ->setSelected('desc')
+                    ->setLabelTypeFloat(),
             ]
         ]);
 
@@ -260,7 +282,8 @@ class filelist extends \fpcm\controller\abstracts\controller
             'ARTICLE_SEARCH_USER', 'ARTICLE_SEARCH_DATE_TO', 'ARTICLE_SEARCH_DATE_FROM',
             'FILE_LIST_SEARCHTEXT', 'ARTICLE_SEARCH_LOGICNONE', 'ARTICLE_SEARCH_LOGICAND',
             'ARTICLE_SEARCH_LOGICOR', 'ARTICLE_SEARCH_LOGIC', 'GLOBAL_SELECT',
-            'GLOBAL_ADD', 'GLOBAL_REMOVE'
+            'GLOBAL_ADD', 'GLOBAL_REMOVE', 'SYSTEM_OPTIONS_NEWS_ORDERASC',
+            'SYSTEM_OPTIONS_NEWS_ORDERDESC', 'EDITOR_IMGALTTXT'
         ]);
     }
 

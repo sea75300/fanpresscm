@@ -69,9 +69,15 @@ class filelist extends \fpcm\controller\abstracts\ajaxController
             $this->showPager = true;
             return true;
         }
-        
+
         $this->filter->setMultiple();
-        $fp = $this->filter->setFilterParams($filter);
+        $this->filter->setFilterParams($filter);
+
+        $sort = $filter['sort'] ?? null;
+        if ($sort) {
+            $this->filter->prepareOrder($sort['field'], $sort['order']);
+        }
+
         return true;
     }
 

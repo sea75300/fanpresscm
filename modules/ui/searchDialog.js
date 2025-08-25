@@ -24,11 +24,15 @@ export class searchDialog {
     getFullId() {
         return this._form.id;
     }
-    
+
+    getFullListId() {
+        return this._form.firstChild.id;
+    }
+
     addNewCondition() {
         this._appendConditionRow();
     }
-    
+
     reset() {
         this._lines = 0;
         this._form = null;
@@ -47,7 +51,37 @@ export class searchDialog {
         this._form = document.createElement('div');
         this._form.id = fpcm.ui.prepareId('search-fields', true);
 
+        let _fields = document.createElement('div');
+        _fields.id = fpcm.ui.prepareId('search-fields-list', true);
+
+        this._form.appendChild(_fields);
+
         this._appendConditionRow();
+
+        if (!this._cfg.fields.sortFields || !this._cfg.fields.sortFields.length) {
+            return;
+        }
+        
+        let _delim = document.createElement('hr');
+        this._form.appendChild(_delim);
+
+        let _sorts = document.createElement('div');
+        _sorts.id = fpcm.ui.prepareId('search-sorts', true);
+        _sorts.classList.add('row', 'g-0', 'gap-2');
+
+        for (var _sConfig of this._cfg.fields.sortFields) {
+
+            let _field = _sConfig;
+            _field.bottomSpace = '';
+            _field.data.option = _field.name;
+            
+            fpcm.ui_dialogs.appendField(_field, _sorts, true, {
+                colClass: ['col'],
+                namePattern: 'sorts'
+            });
+        }
+
+        this._form.appendChild(_sorts);
 
     }
 
@@ -98,7 +132,7 @@ export class searchDialog {
             _cIdx++;
         }
 
-        this._form.appendChild(_row1);
+        this._form.firstChild.appendChild(_row1);
     }
 
     assignEvents(_field) {
@@ -106,13 +140,13 @@ export class searchDialog {
         if (!this._cfg || !this._cfg.fields) {
             return false;
         }
-        
+
         let _self = this;
 
         if (_field.name === 'btnCremove') {
             _field.onClick = function (_e) {
 
-                if (_self._form.children.length < 2) {
+                if (_self._form.firstChild.children.length < 2) {
                     return false;
                 }
 

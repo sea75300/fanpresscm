@@ -138,4 +138,24 @@ class search extends \fpcm\model\abstracts\searchWrapper {
     {
         $this->userid = (int) $this->userid;
     }
+
+    /**
+     * Prepare order string
+     * @param string $field
+     * @param string $order
+     * @return void
+     * @since 5.3.0-dev
+     */
+    public function prepareOrder(string $field, string $order) : void
+    {
+        if (!in_array($field, ['filename', 'alttext', 'filetime', 'userid'])) {
+            $field = 'filetime';
+        }
+
+        if (!in_array($order, ['desc', 'asc'])) {
+            $order = ' desc';
+        }
+
+        $this->orderby = [sprintf("%s %s", $field, $order)];
+    }
 }

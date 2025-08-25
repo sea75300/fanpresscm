@@ -86,10 +86,14 @@ abstract class searchWrapper extends staticModel {
      */
     public function setFilterParams(array $filterParams)
     {
+        if (isset($filterParams['sort'])) {
+            unset($filterParams['sort']);
+        }
+        
         $this->filterParams = $filterParams;
         return $this;
     }
-        
+
     /**
      * Sets multiple lag
      * @param bool $isMultiple
@@ -166,7 +170,7 @@ abstract class searchWrapper extends staticModel {
         if (method_exists($this, $prep)) {
             $this->{$prep}();
         }
-        
+
         $afn = 'assign'.ucfirst($field);
         if (!method_exists($this, $afn)) {
             trigger_error(sprintf('No assign method %s found for %s in %s', $afn, $field, get_class($this)));
@@ -185,7 +189,7 @@ abstract class searchWrapper extends staticModel {
     {
         return \fpcm\classes\loader::getObject('\fpcm\classes\database');
     }
-    
+
     /**
      * Parse and assigns UI filter params array to queries
      * @return \fpcm\model\dbal\queryAssignResult
@@ -202,16 +206,29 @@ abstract class searchWrapper extends staticModel {
             $this->assignCondition($obj);
             $this->assignFieldAndValue($obj);
         }
-        
+
         return $this->queryAssignResult;
     }
-    
+
     /**
      * Prepare values
      * @param array $filter
      * @return void
+     * @since 5.3.0-dev
      */
     public function prepareValues(array &$filter) : void
+    {
+        return;
+    }
+
+    /**
+     * Prepare order string
+     * @param string $field
+     * @param string $order
+     * @return void
+     * @since 5.3.0-dev
+     */
+    public function prepareOrder(string $field, string $order) : void
     {
         return;
     }

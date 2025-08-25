@@ -47,6 +47,19 @@
             </div>
 
             <div class="row my-2">
+                <div class="col">
+                <?php $theView->textInput('data[email]')
+                    ->setType('email')
+                    ->setValue($author->getEmail())
+                    ->setText('GLOBAL_EMAIL')
+                    ->setPlaceholder('GLOBAL_EMAIL')
+                    ->setLabelTypeFloat()
+                    ->setRequired(true)
+                    ->setIcon('at'); ?>
+                </div>
+            </div>
+
+            <div class="row my-2">
                 <div class="col align-self-center">
                 <?php $theView->textInput('data[password]', 'password')
                     ->setAutocomplete(false)
@@ -72,19 +85,6 @@
                         <?php $theView->button('genPasswd', 'genPasswd')->setText('USERS_PASSGEN')->setIcon('key')->setIconOnly(); ?>&nbsp;
                         <?php $theView->shorthelpButton('pass')->setText('USERS_REQUIREMENTS'); ?>
                     </div>
-                </div>
-            </div>
-
-            <div class="row my-2">
-                <div class="col">
-                        <?php $theView->textInput('data[email]')
-                            ->setType('email')
-                            ->setValue($author->getEmail())
-                            ->setText('GLOBAL_EMAIL')
-                            ->setPlaceholder('GLOBAL_EMAIL')
-                            ->setLabelTypeFloat()
-                            ->setRequired(true)
-                            ->setIcon('at'); ?>
                 </div>
             </div>
 

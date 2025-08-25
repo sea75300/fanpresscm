@@ -34,13 +34,13 @@ class search extends \fpcm\view\helper\dialog {
      */
     public function setFields(array $fields)
     {
-        if (!isset($fields['valueFields']) || !isset($fields['buildFields'])) {
-            trigger_error(sprintf('Parameter $fields of %s requries keys "valueFields" and "buildFields"!', __METHOD__));
+        if (!isset($fields['valueFields']) || !isset($fields['buildFields']) || !isset($fields['sortFields'])) {
+            trigger_error(sprintf('Parameter $fields of %s requries keys "valueFields", "buildFields" and "sortFields"!', __METHOD__));
             return $this;
         }
 
-        if (!is_array($fields['valueFields']) || !is_array($fields['buildFields'])) {
-            trigger_error('Parameter keys "valueFields" and "buildFields" must be arrays!');
+        if (!is_array($fields['valueFields']) || !is_array($fields['buildFields']) || !is_array($fields['sortFields'])) {
+            trigger_error('Parameter keys "valueFields", "buildFields" and "sortFields" must be arrays!');
             return $this;
         }
 
