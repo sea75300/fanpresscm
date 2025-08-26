@@ -63,6 +63,7 @@ export class element_button {
             _button.innerHTML = _icon.getString();
 
             if (this.iconOnly) {
+                _button.title = this.text;
                 _destination.appendChild(_button);
                 return;
             }

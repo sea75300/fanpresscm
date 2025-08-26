@@ -1247,7 +1247,8 @@ class view {
                 continue;
             }
 
-            $this->jsVars['dialogs'][$dlg->getName()] = $dlg;
+            $this->jsVars['dialogs'][$dlg->getName()] = $dlg;            
+            $this->addJsLangVars($dlg->getJsLangVars());
         }
 
     }

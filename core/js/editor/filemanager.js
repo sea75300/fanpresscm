@@ -19,6 +19,7 @@ if (fpcm.editor !== undefined) {
         let _btns = [{
             text: 'ARTICLES_SEARCH',
             icon: "search",
+            isLeft: true,
             click: function(_ui) {
                 fpcm.dom.findElementInDialogFrame(_ui, '#btnOpenSearch').click();
             }

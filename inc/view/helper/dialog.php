@@ -76,7 +76,7 @@ class dialog implements \JsonSerializable {
     }
 
     /**
-     * 
+     *
      * @param array $fields
      * @return array
      */
@@ -90,5 +90,21 @@ class dialog implements \JsonSerializable {
 
             return $this->checkElement($o);
         });
+    }
+
+    /**
+     * Returns Javascript language vars
+     * @return array
+     * @since 5.3.0-dev
+     */
+    public function getJsLangVars() : array
+    {
+        return [
+            'GLOBAL_SELECT', 'GLOBAL_ADD', 'GLOBAL_REMOVE', 'SEARCH_WAITMSG',
+            'ARTICLES_SEARCH', 'ARTICLE_SEARCH_START', 'ARTICLE_SEARCH_USER',
+            'ARTICLE_SEARCH_LOGICNONE', 'ARTICLE_SEARCH_LOGICAND',
+            'ARTICLE_SEARCH_LOGICOR', 'ARTICLE_SEARCH_LOGIC',
+            'SYSTEM_OPTIONS_NEWS_ORDERASC', 'SYSTEM_OPTIONS_NEWS_ORDERDESC'
+        ];
     }
 }

@@ -507,7 +507,9 @@ if (fpcm.editor) {
 
             if (fpcm.editor_ace._instancePreview) {
                 fpcm.editor_ace._instancePreview.destroy();
-                fpcm.editor_ace._instancePreview.container.remove();
+                fpcm.editor_ace._instancePreview.container.innerText = '';
+                fpcm.editor_ace._instancePreview.container.className = '';
+                fpcm.editor_ace._instancePreview.container.style = '';
             }
 
 
@@ -528,7 +530,13 @@ if (fpcm.editor) {
                     path: _value
                 },
                 execDone: function (result) {
-                    document.getElementById(_preview).innerText = result.data;
+                    
+                    let _prevArea = document.getElementById(_preview);
+                    if (!_prevArea) {
+                        
+                    }
+                    
+                    _prevArea.innerText = result.data;
 
                     let _cfg = fpcm.vars.jsvars.editorConfig.ace;
                     _cfg.readOnly = true;

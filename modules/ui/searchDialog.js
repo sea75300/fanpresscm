@@ -55,15 +55,15 @@ export class searchDialog {
         _fields.id = fpcm.ui.prepareId('search-fields-list', true);
 
         this._form.appendChild(_fields);
+        
+        let _delim = document.createElement('hr');
+        this._form.appendChild(_delim);
 
         this._appendConditionRow();
 
         if (!this._cfg.fields.sortFields || !this._cfg.fields.sortFields.length) {
             return;
         }
-        
-        let _delim = document.createElement('hr');
-        this._form.appendChild(_delim);
 
         let _sorts = document.createElement('div');
         _sorts.id = fpcm.ui.prepareId('search-sorts', true);

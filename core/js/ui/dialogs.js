@@ -49,6 +49,7 @@ fpcm.ui_dialogs = {
                 text: 'GLOBAL_CLOSE',
                 icon: 'times',
                 clickClose: true,
+                showLabel: false,
                 class: 'btn-outline-secondary'
             });
 
@@ -212,10 +213,23 @@ fpcm.ui_dialogs = {
 
                 let _btn = document.createElement('button');
 
+                let _classes = ['btn'];
+                if (_obj.primary) {
+                    _classes.push('btn-primary');
+                }
+
+                if (_obj.class) {
+                    _classes.push(_obj.class);
+                }
+
+                if (_obj.isLeft) {
+                    _classes.push('me-auto');
+                }
+
                 _btn.id = _obj.id ? _obj.id : fpcm.ui.getUniqueID('fpcm-id-dialogbtn');
                 _btn.type = 'button';
-                _btn.className = 'btn' + (_obj.primary ? ' btn-primary' : '') + (_obj.class ? ' ' + _obj.class : '');
                 _btn.tabIndex = (_idx + 1);
+                _btn.classList.add(..._classes);
 
                 if (!_obj.showLabel) {
                     _btn.innerHTML = fpcm.ui.getIcon(_obj.icon);
@@ -224,7 +238,6 @@ fpcm.ui_dialogs = {
                 else {
                     _btn.innerHTML = (_obj.icon ? fpcm.ui.getIcon(_obj.icon) + ' <span class="fpcm-ui-label ps-1">' : '') + fpcm.ui.translate(_obj.text) + (_obj.icon ? '</span>' : '');
                 }
-
 
                 if (_obj.disabled !== undefined) {
                     _btn.disabled = _obj.disabled;
@@ -263,7 +276,6 @@ fpcm.ui_dialogs = {
                 _footer.appendChild(_btn);
                 if (!_obj.disabled && (_obj.primary || _obj.autofocus)) {
                     _focused = _btn.id;
-
                 }
             }
 
@@ -357,9 +369,10 @@ fpcm.ui_dialogs = {
         _var.dlButtons = _params.dlButtons ? _params.dlButtons : [];
 
         if (_params.fileManagerAction) {
-            _var.dlButtons.push({
+            _var.dlButtons.unshift({
                 text: 'HL_FILES_MNG',
                 icon: "folder-open",
+                isLeft: true,
                 click: _params.fileManagerAction
             });
         }

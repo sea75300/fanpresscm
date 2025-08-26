@@ -62,4 +62,22 @@ class search extends \fpcm\view\helper\dialog {
         ];
     }
 
+    /**
+     * Returns Javascript language vars
+     * @return array
+     * @since 5.3.0-dev
+     */
+    public function getJsLangVars() : array
+    {
+        $vars = parent::getJsLangVars();
+        
+        $vars[] = 'ARTICLE_SEARCH_USER';
+        $vars[] = 'ARTICLE_SEARCH_DATE_TO';
+        $vars[] = 'ARTICLE_SEARCH_DATE_FROM';
+        $vars[] = 'FILE_LIST_SEARCHTEXT';
+        $vars[] = 'EDITOR_IMGALTTXT';
+        
+        return $vars;
+    }
+
 }

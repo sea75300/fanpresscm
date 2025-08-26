@@ -34,7 +34,9 @@ fpcm.search = {
                     {
                         text: fpcm.ui.translate('GLOBAL_ADD'),
                         icon: "plus",
+                        class: 'btn-success',
                         showLabel: false,
+                        isLeft: true,
                         click: function(_ui, _bsObj) {
                             fpcm.search._dlg.addNewCondition();
                         }
@@ -42,8 +44,8 @@ fpcm.search = {
                     {
                         text: fpcm.ui.translate('ARTICLE_SEARCH_START'),
                         icon: "check",
-                        primary: true,
                         clickClose: true,
+                        class: 'btn-primary',
                         click: function(_ui, _bsObj) {
 
                             if (((new Date()).getTime() - fpcm.vars.jsvars.filesLastSearch) < 10000) {
@@ -91,6 +93,7 @@ fpcm.search = {
                         clickClose: true,
                         click: function() {
                             fpcm.search._dlg.reset();
+                            fpcm.search._dlg = false;
                             fpcm.filemanager.reloadFiles(1);
                         }
                     }

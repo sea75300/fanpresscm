@@ -235,6 +235,7 @@ class filelist extends \fpcm\controller\abstracts\controller
                     ->setText('GLOBAL_REMOVE')
                     ->setIcon('minus')
                     ->setIconOnly()
+                    ->setClass('btn-sm')
                     ->setLabelTypeFloat(),
                 (new \fpcm\view\helper\select('combinations'))
                     ->setText('ARTICLE_SEARCH_LOGIC')
@@ -276,15 +277,6 @@ class filelist extends \fpcm\controller\abstracts\controller
         ]);
 
         $this->view->addDialogs($searchDlg);
-
-        $this->view->addJsLangVars([
-            'SEARCH_WAITMSG', 'ARTICLES_SEARCH', 'ARTICLE_SEARCH_START',
-            'ARTICLE_SEARCH_USER', 'ARTICLE_SEARCH_DATE_TO', 'ARTICLE_SEARCH_DATE_FROM',
-            'FILE_LIST_SEARCHTEXT', 'ARTICLE_SEARCH_LOGICNONE', 'ARTICLE_SEARCH_LOGICAND',
-            'ARTICLE_SEARCH_LOGICOR', 'ARTICLE_SEARCH_LOGIC', 'GLOBAL_SELECT',
-            'GLOBAL_ADD', 'GLOBAL_REMOVE', 'SYSTEM_OPTIONS_NEWS_ORDERASC',
-            'SYSTEM_OPTIONS_NEWS_ORDERDESC', 'EDITOR_IMGALTTXT'
-        ]);
     }
 
     private function initDialogs()
