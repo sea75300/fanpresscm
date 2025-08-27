@@ -336,8 +336,8 @@ implements \fpcm\controller\interfaces\requestFunctions
         else {
             $this->article->setPinnedUntil(0);
         }
-
-        $this->article->setComments($data['comments'] ?? $this->config->comments_default_active);
+        
+        $this->article->setComments($data['comments'] ?? !$this->article->getId() && $this->config->comments_default_active);
 
         $relates_to = intval($data['relatesto'] ?? 0);
         if ($relates_to && $relates_to !== $this->article->getId()) {
