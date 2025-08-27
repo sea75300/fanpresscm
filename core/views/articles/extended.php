@@ -8,7 +8,7 @@
             <div class="row my-2">
                 <div class="col">
                     <div class="input-group">
-                        <label class="input-group-text col-12 col-md-6 col-lg-3 align-items-md-start pt-md-2">
+                        <label class="input-group-text col-12 col-lg-6 align-items-md-start pt-md-2">
                             <span class="d-flex">
                                 <?php $theView->icon('cogs')->setClass(' align-self-center'); ?>
                                 <span class="fpcm-ui-label align-self-center ps-1"><?php $theView->write('GLOBAL_EXTENDED'); ?></span>                                
@@ -51,7 +51,7 @@
             <div class="row my-2">
                 <div class="col">
                     <div class="input-group">
-                        <label class="input-group-text col-12 col-md-6 col-lg-3">
+                        <label class="input-group-text col-12 col-lg-6">
                             <?php $theView->icon('thumbtack'); ?>
                             <span class="fpcm-ui-label ps-1"><?php $theView->write('EDITOR_PINNED'); ?></span>
                         </label>
