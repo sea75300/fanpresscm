@@ -43,7 +43,7 @@ fpcm.search = {
                     },
                     {
                         text: fpcm.ui.translate('ARTICLE_SEARCH_START'),
-                        icon: "check",
+                        icon: "search",
                         clickClose: true,
                         class: 'btn-primary',
                         click: function(_ui, _bsObj) {
