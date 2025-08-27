@@ -177,8 +177,7 @@
                             ->setText('TEMPLATE_ARTICLE_SOURCES')
                             ->setValue($article->getSources())
                             ->setIcon('external-link-alt')
-                            ->setLabelTypeFloat()
-                            ->setBottomSpace(''); ?>
+                            ->setLabelTypeFloat(); ?>
 
                         <?php $theView->button('editsources')->setText('SYSTEM_OPTIONS_NEWS_SOURCESLIST')->setIcon('pen')->setIconOnly(); ?>
                     </div>
