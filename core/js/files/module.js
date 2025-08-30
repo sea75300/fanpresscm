@@ -576,7 +576,7 @@ fpcm.filemanager = {
                 dlButtons: [
                     {
                         text: fpcm.ui.translate('ARTICLE_SEARCH_START'),
-                        icon: "check",
+                        icon: "search",
                         primary: true,
                         clickClose: true,
                         click: function(_ui, _bsObj) {
