@@ -63,8 +63,6 @@ class search extends \fpcm\controller\abstracts\ajaxController
         }
 
         array_push($filter, [ 'field' => 'deleted', 'combination' => 'and', 'value' => 0 ]);
-        
-        fpcmLogSystem($filter);
 
         $this->conditions->setMultiple(true);
         $this->conditions->setFilterParams($filter);
