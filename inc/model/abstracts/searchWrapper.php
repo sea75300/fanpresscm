@@ -11,7 +11,7 @@ namespace fpcm\model\abstracts;
  * Object search wrapper object
  *
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2017, Stefan Seehafer
+ * @copyright (c) 2017-2025, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\model\abstracts
  * @since 3.5
@@ -233,4 +233,13 @@ abstract class searchWrapper extends staticModel {
         return;
     }
 
+    /**
+     * Appends query to querry result
+     * @param string $sql
+     * @return void
+     */
+    public function appendSql(string $sql)
+    {
+        return $this->queryAssignResult->setQueries($sql);
+    }
 }

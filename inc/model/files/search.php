@@ -31,7 +31,6 @@ class search extends \fpcm\model\abstracts\searchWrapper {
 
     /**
      * Assign Filename field
-     * @param \fpcm\model\dbal\queryAssignResult $qas
      * @return void
      */
     public function assignFilename() : void
@@ -59,7 +58,7 @@ class search extends \fpcm\model\abstracts\searchWrapper {
             return;
         }
 
-        $this->queryAssignResult->setQueries($this->getCondition('datefrom', 'filetime >= ?'));
+        $this->queryAssignResult->setQueries('filetime >= ?');
         $this->queryAssignResult->setValues([$this->datefrom]);
     }
 
@@ -73,7 +72,7 @@ class search extends \fpcm\model\abstracts\searchWrapper {
             return;
         }
 
-        $this->queryAssignResult->setQueries($this->getCondition('dateto', 'filetime >= ?'));
+        $this->queryAssignResult->setQueries('filetime < ?');
         $this->queryAssignResult->setValues([$this->dateto]);
     }
 
@@ -89,14 +88,12 @@ class search extends \fpcm\model\abstracts\searchWrapper {
 
         $uids = [0, $this->userid];
 
-        $this->queryAssignResult->setQueries( $this->getCondition( 'userid', $this->getDB()->inQuery('userid', $uids) ) );
+        $this->queryAssignResult->setQueries($this->getDB()->inQuery('userid', $uids)) ;
         $this->queryAssignResult->setValues($uids);
     }
 
-
     /**
      * Prepare Filename value
-     * @param \fpcm\model\dbal\queryAssignResult $qas
      * @return void
      */
     public function prepareFilename() : void
@@ -127,7 +124,7 @@ class search extends \fpcm\model\abstracts\searchWrapper {
             return;
         }
 
-        $this->datefrom = strtotime($this->dateto);
+        $this->dateto = strtotime($this->dateto);
     }
 
     /**

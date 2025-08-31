@@ -588,6 +588,13 @@ fpcm.ui_dialogs = {
             };
         }
 
+        if (_item === 'boolSelect') {
+            return {
+                callback: 'select',
+                type: 'select'
+            };
+        }
+
         return _item;
     },
 

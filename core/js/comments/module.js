@@ -13,10 +13,6 @@ fpcm.comments = {
 
     init: function () {
 
-        if (fpcm.ui.langvarExists('ARTICLES_SEARCH')) {
-            fpcm.comments.initCommentSearch();
-        }
-
         fpcm.dom.bindClick('#btnSettings', function (ev, _ui, _result) {
             fpcm.ui_dialogs.settings('comments', 'settings', function () {
                 fpcm.ui.relocate('self');
@@ -53,7 +49,7 @@ fpcm.comments = {
             }
         }
 
-        fpcm.dom.bindClick('#massEdit', function () {
+        fpcm.dom.bindClick('#btnMassEdit', function () {
             fpcm.system.initMassEditDialog('comments/massedit', 'comments-massedit', fpcm.comments);
             return false;
         });
@@ -82,59 +78,8 @@ fpcm.comments = {
 
         return true;
     },
-    
-    initCommentSearch: function() {
 
-        fpcm.dom.fromId('opensearch').unbind('click');
-        fpcm.dom.fromId('opensearch').click(function () {
-
-            fpcm.ui_dialogs.create({
-                id: 'comments-search',
-                title: 'ARTICLES_SEARCH',
-                closeButton: true,
-                dlButtons  : [
-                    {
-                        text: 'ARTICLE_SEARCH_START',
-                        icon: 'search',
-                        primary: true,
-                        clickClose: true,
-                        click: function() {
-                            
-                            var sParams = {
-                                mode: fpcm.vars.jsvars.articleSearchMode,
-                                filter: fpcm.dom.getValuesByClass('fpcm-comments-search-input')
-                            };
-                            
-                            sParams.filter.combinations = fpcm.dom.getValuesByClass('fpcm-ui-input-select-commentsearch-combination');
-
-                            fpcm.comments.startCommentSearch(sParams);
-                        }
-                    },                    
-                    {
-                        text: 'GLOBAL_RESET',
-                        icon: "filter-circle-xmark" ,
-                        clickClose: true,
-                        click: function() {
-                            fpcm.ui.relocate('self');
-                        }
-                    }              
-                ],
-                dlOnOpenAfter: function() {            
-                    fpcm.ui.autocomplete('#articleId', {
-                        source: fpcm.vars.ajaxActionPath + 'autocomplete&src=articles',
-                        minLength: 3
-                    });
-
-                    fpcm.dom.fromId('text').focus();
-                }
-            });
-
-            return false;
-        });
-
-    },
-
-    startCommentSearch: function (sParams) {
+    startCommentSearch: function (_params) {
 
         if (((new Date()).getTime() - fpcm.vars.jsvars.commentsLastSearch) < 10000) {
             fpcm.ui.addMessage({
@@ -145,7 +90,7 @@ fpcm.comments = {
         }
 
         fpcm.ajax.post('comments/search', {
-            data: sParams,
+            data: _params,
             execDone: function (result) {
 
                 if (result.message) {

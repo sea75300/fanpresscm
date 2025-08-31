@@ -61,21 +61,27 @@ class all extends \fpcm\controller\abstracts\controller
     {
         $this->view->addAjaxPageToken('comments/delete');
         $this->view->assign('commentsMode', 1);
-        $this->view->addJsLangVars(['DELETE_SUCCESS_COMMENTS', 'DELETE_FAILED_COMMENTS']);
+        $this->view->addJsLangVars([
+            'DELETE_SUCCESS_COMMENTS', 'DELETE_FAILED_COMMENTS', 'COMMMENT_AUTHOR',
+            'GLOBAL_EMAIL', 'COMMMENT_WEBSITE', 'ARTICLE_SEARCH_TEXT',
+            'ARTICLE_SEARCH_DATE_FROM', 'ARTICLE_SEARCH_DATE_TO', 'COMMMENT_SPAM',
+            'COMMMENT_PRIVATE', 'COMMMENT_APPROVE', 'COMMMENT_IPADDRESS',
+            'COMMMENT_SEARCH_ARTICLE', 'COMMMENT_CREATEDATE'
+        ]);
 
         $this->initSearchForm();
         $this->initCommentMassEditForm(1);
 
-        $this->view->addJsFiles(['comments/module.js', 'comments/deleteCallback.js']);
+        $this->view->addJsFiles(['comments/module.js', 'comments/search.js', 'comments/deleteCallback.js', 'ui/dnd.js']);
         $this->view->setFormAction('comments/list');
 
         $searchPrimary = true;
         if ($this->permissions->editCommentsMass()) {
             $searchPrimary = false;
-            $this->view->addButton((new \fpcm\view\helper\button('massEdit', 'massEdit'))->setText('GLOBAL_EDIT')->setIcon('edit')->setPrimary());
+            $this->view->addButton((new \fpcm\view\helper\button('massEdit'))->setText('GLOBAL_EDIT')->setIcon('edit')->setPrimary());
         }
 
-        $this->view->addButton((new \fpcm\view\helper\button('opensearch', 'opensearch'))->setText('ARTICLES_SEARCH')->setIcon('search')->setIconOnly()->setPrimary($searchPrimary));
+        $this->view->addButton((new \fpcm\view\helper\button('opensearch'))->setText('ARTICLES_SEARCH')->setIcon('search')->setIconOnly()->setPrimary($searchPrimary));
 
         if ($this->permissions->comment->delete) {
             $this->view->addButton( (new \fpcm\view\helper\button('deleteComment'))
@@ -85,6 +91,10 @@ class all extends \fpcm\controller\abstracts\controller
                 ->setOnClick('comments.deleteMultipleArticle')
             );
         }
+
+        $this->view->addFromLibrary('sortable_js/', [
+            'Sortable.min.js'
+        ]);
 
         $this->addListSettingsDialog();
 
@@ -106,33 +116,115 @@ class all extends \fpcm\controller\abstracts\controller
      */
     private function initSearchForm()
     {
-        $this->assignSearchFromVars();
-
-        $this->view->assign('searchTypes', [
-            'COMMENTS_SEARCH_TYPE_ALL' => \fpcm\model\comments\search::TYPE_ALL,
-            'COMMENTS_SEARCH_TYPE_ALLOR' => \fpcm\model\comments\search::TYPE_ALLOR,
-            'COMMENTS_SEARCH_TYPE_TEXT' => \fpcm\model\comments\search::TYPE_TEXT,
-            'COMMENTS_SEARCH_TYPE_NAMEMAILWEB' => \fpcm\model\comments\search::TYPE_NAMEMAILWEB,
-            'COMMENTS_SEARCH_TYPE_NAMEMAILWEB_OR' => \fpcm\model\comments\search::TYPE_NAMEMAILWEB_OR
+        $searchDlg = new \fpcm\view\helper\dialogs\search();
+        $searchDlg->setFields([
+            'valueFields' => [
+                'name' => (new \fpcm\view\helper\textInput('name'))
+                    ->setText('COMMMENT_AUTHOR')
+                    ->setMaxlenght(255)
+                    ->setLabelTypeFloat(),
+                'email' => (new \fpcm\view\helper\textInput('email'))
+                    ->setText('GLOBAL_EMAIL')
+                    ->setType('email')
+                    ->setLabelTypeFloat(),
+                'website' => (new \fpcm\view\helper\textInput('website'))
+                    ->setText('COMMMENT_WEBSITE')
+                    ->setType('url')
+                    ->setLabelTypeFloat(),
+                'text' => (new \fpcm\view\helper\textInput('text'))
+                    ->setText('ARTICLE_SEARCH_TEXT')
+                    ->setMaxlenght(255)
+                    ->setLabelTypeFloat(),
+                'datefrom' => (new \fpcm\view\helper\dateTimeInput('datefrom'))
+                    ->setText('ARTICLE_SEARCH_DATE_FROM')
+                    ->setNativeDate()
+                    ->setLabelTypeFloat(),
+                'dateto' => (new \fpcm\view\helper\dateTimeInput('dateto'))
+                    ->setText('ARTICLE_SEARCH_DATE_FROM')
+                    ->setNativeDate()
+                    ->setLabelTypeFloat(),
+                'spam' => (new \fpcm\view\helper\boolSelect('spam'))
+                    ->setText('COMMMENT_SPAM')
+                    ->setSelected(-1)
+                    ->setExtendedList()
+                    ->setLabelTypeFloat(),
+                'private' => (new \fpcm\view\helper\boolSelect('private'))
+                    ->setText('COMMMENT_PRIVATE')
+                    ->setSelected(-1)
+                    ->setExtendedList()
+                    ->setLabelTypeFloat(),
+                'approved' => (new \fpcm\view\helper\boolSelect('approved'))
+                    ->setText('COMMMENT_APPROVE')
+                    ->setSelected(-1)
+                    ->setExtendedList()
+                    ->setLabelTypeFloat(),
+                'ipaddress' => (new \fpcm\view\helper\textInput('ipaddress'))
+                    ->setText('COMMMENT_IPADDRESS')
+                    ->setLabelTypeFloat(),
+                'articleid' => (new \fpcm\view\helper\textInput('articleid'))
+                    ->setText('COMMMENT_SEARCH_ARTICLE')
+                    ->setType('number')
+                    ->setLabelTypeFloat(),
+            ],
+            'buildFields' => [
+                (new \fpcm\view\helper\button('cremove'))
+                    ->setText('GLOBAL_REMOVE')
+                    ->setIcon('minus')
+                    ->setIconOnly()
+                    ->setClass('btn-sm')
+                    ->setLabelTypeFloat(),
+                (new \fpcm\view\helper\select('combinations'))
+                    ->setText('ARTICLE_SEARCH_LOGIC')
+                    ->setOptions($searchDlg->getDefaultCombinations())
+                    ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
+                    ->setSelected(-1)
+                    ->setLabelTypeFloat(),
+                (new \fpcm\view\helper\select('fields'))
+                    ->setOptions([
+                        'COMMMENT_AUTHOR' => 'name',
+                        'GLOBAL_EMAIL' => 'email',
+                        'COMMMENT_WEBSITE' => 'website',
+                        'ARTICLE_SEARCH_TEXT' => 'text',
+                        'ARTICLE_SEARCH_DATE_FROM' => 'datefrom',
+                        'ARTICLE_SEARCH_DATE_TO' => 'dateto',
+                        'COMMMENT_SPAM' => 'spam',
+                        'COMMMENT_PRIVATE' => 'private',
+                        'COMMMENT_APPROVE' => 'approved',
+                        'COMMMENT_IPADDRESS' => 'ipaddress',
+                        'COMMMENT_SEARCH_ARTICLE' => 'articleid',
+                    ])
+                    ->setLabelTypeFloat()
+            ],
+            'sortFields' => [
+                (new \fpcm\view\helper\select('field'))
+                    ->setText('SYSTEM_OPTIONS_NEWS_SORTING')
+                    ->setOptions([
+                        'COMMMENT_AUTHOR' => 'name',
+                        'GLOBAL_EMAIL' => 'email',
+                        'COMMMENT_WEBSITE' => 'website',
+                        'ARTICLE_SEARCH_TEXT' => 'text',
+                        'COMMMENT_CREATEDATE' => 'createtime',
+                        'COMMMENT_SPAM' => 'spam',
+                        'COMMMENT_PRIVATE' => 'private',
+                        'COMMMENT_APPROVE' => 'approved',
+                        'COMMMENT_IPADDRESS' => 'ipaddress',
+                    ])
+                    ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
+                    ->setSelected('createtime')
+                    ->setLabelTypeFloat(),
+                (new \fpcm\view\helper\select('order'))
+                    ->setText('SYSTEM_OPTIONS_NEWS_SORTING_ORDER')
+                    ->setOptions([
+                        'SYSTEM_OPTIONS_NEWS_ORDERASC' => 'asc',
+                        'SYSTEM_OPTIONS_NEWS_ORDERDESC' => 'desc',
+                    ])
+                    ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
+                    ->setSelected('desc')
+                    ->setLabelTypeFloat(),
+            ]
         ]);
 
-        $this->view->assign('searchApproval', array(
-            'GLOBAL_SELECT' => -1,
-            'GLOBAL_YES' => 1,
-            'GLOBAL_NO' => 0
-        ));
-
-        $this->view->assign('searchSpam', array(
-            'GLOBAL_SELECT' => -1,
-            'GLOBAL_YES' => 1,
-            'GLOBAL_NO' => 0
-        ));
-
-        $this->view->assign('searchPrivate', array(
-            'GLOBAL_SELECT' => -1,
-            'GLOBAL_YES' => 1,
-            'GLOBAL_NO' => 0
-        ));
+        $this->view->addDialogs($searchDlg);
 
         $this->view->addJsVars([
             'commentsLastSearch' => 0,

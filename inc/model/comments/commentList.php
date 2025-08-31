@@ -12,7 +12,7 @@ namespace fpcm\model\comments;
  *
  * @package fpcm\model\comments
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2022, Stefan Seehafer
+ * @copyright (c) 2011-2025, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 class commentList
@@ -96,10 +96,13 @@ implements \fpcm\model\interfaces\gsearchIndex {
     {
         $where = [];
         $valueParams = [];
+        $combination = '';
 
         if ( $conditions->isMultiple() ) {
-            $this->assignMultipleSearchParams($conditions, $where, $valueParams);
-            $combination = '';
+            $qas = $conditions->prepareFilterParams();
+
+            $where = $qas->getQueries();
+            $valueParams = $qas->getValues();
         }
         else {
             $this->assignSearchParams($conditions, $where, $valueParams);
