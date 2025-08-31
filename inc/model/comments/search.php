@@ -312,7 +312,7 @@ class search extends \fpcm\model\abstracts\searchWrapper {
      */
     public function prepareEmail() : void
     {
-        $this->email = filter_var($this->email, FILTER_VALIDATE_EMAIL);
+        $this->email = trim($this->email);
     }
 
     /**
@@ -321,7 +321,7 @@ class search extends \fpcm\model\abstracts\searchWrapper {
      */
     public function prepareWebsite() : void
     {
-        $this->website = filter_var($this->website, FILTER_SANITIZE_URL);
+        $this->website = trim($this->website);
     }
 
     /**

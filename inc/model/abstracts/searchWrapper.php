@@ -89,7 +89,7 @@ abstract class searchWrapper extends staticModel {
         if (isset($filterParams['sort'])) {
             unset($filterParams['sort']);
         }
-        
+
         $this->filterParams = $filterParams;
         return $this;
     }
@@ -200,7 +200,7 @@ abstract class searchWrapper extends staticModel {
         if (!count($this->filterParams)) {
             return $this->queryAssignResult;
         }
-
+        
         foreach ($this->filterParams as $value) {
             $obj = new \fpcm\model\http\filterParam($value);
             $this->assignCondition($obj);

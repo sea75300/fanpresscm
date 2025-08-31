@@ -209,8 +209,10 @@ trait lists {
             $this->conditions->limit = [$this->config->articles_acp_limit, $this->listShowStart];
         }
         
-        $this->conditions->deleted = 0;
-        $this->conditions->orderby = ['createtime DESC'];
+        if (!$this->conditions->isMultiple()) {            
+            $this->conditions->deleted = 0;
+            $this->conditions->orderby = ['createtime DESC'];
+        }
 
         $comments = $this->list->getCommentsBySearchCondition($this->conditions);
         if ($comments === \fpcm\drivers\sqlDriver::CODE_ERROR_SYNTAX) {

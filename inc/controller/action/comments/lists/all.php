@@ -121,19 +121,15 @@ class all extends \fpcm\controller\abstracts\controller
             'valueFields' => [
                 'name' => (new \fpcm\view\helper\textInput('name'))
                     ->setText('COMMMENT_AUTHOR')
-                    ->setMaxlenght(255)
                     ->setLabelTypeFloat(),
                 'email' => (new \fpcm\view\helper\textInput('email'))
                     ->setText('GLOBAL_EMAIL')
-                    ->setType('email')
                     ->setLabelTypeFloat(),
                 'website' => (new \fpcm\view\helper\textInput('website'))
                     ->setText('COMMMENT_WEBSITE')
-                    ->setType('url')
                     ->setLabelTypeFloat(),
                 'text' => (new \fpcm\view\helper\textInput('text'))
                     ->setText('ARTICLE_SEARCH_TEXT')
-                    ->setMaxlenght(255)
                     ->setLabelTypeFloat(),
                 'datefrom' => (new \fpcm\view\helper\dateTimeInput('datefrom'))
                     ->setText('ARTICLE_SEARCH_DATE_FROM')
@@ -204,7 +200,7 @@ class all extends \fpcm\controller\abstracts\controller
                         'COMMMENT_WEBSITE' => 'website',
                         'ARTICLE_SEARCH_TEXT' => 'text',
                         'COMMMENT_CREATEDATE' => 'createtime',
-                        'COMMMENT_SPAM' => 'spam',
+                        'COMMMENT_SPAM' => 'spammer',
                         'COMMMENT_PRIVATE' => 'private',
                         'COMMMENT_APPROVE' => 'approved',
                         'COMMMENT_IPADDRESS' => 'ipaddress',

@@ -62,16 +62,18 @@ class search extends \fpcm\controller\abstracts\ajaxController
             return false;
         }
 
-        array_push($filter, [ 'field' => 'deleted', 'combination' => 'and', 'value' => 0 ]);
+        $sort = $filter['sort'] ?? null;
+        
+        $fields = count($filter) - 1;
+        
+        array_push($filter, [ 'field' => 'deleted', 'combination' => $fields > 1 ? 'and' : '', 'value' => 0 ]);
 
         $this->conditions->setMultiple(true);
         $this->conditions->setFilterParams($filter);
 
-        $sort = $filter['sort'] ?? null;
         if ($sort) {
             $this->conditions->prepareOrder($sort['field'], $sort['order']);
         }
-
 
         $ev = $this->events->trigger('comments\prepareSearch', $this->conditions);
         if (!$ev->getSuccessed() || !$ev->getContinue()) {

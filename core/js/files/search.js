@@ -56,34 +56,7 @@ fpcm.search = {
                                 return false;
                             }
 
-                            let _sfields = document.getElementsByName('searchData');
-                            if (!_sfields.length) {
-                                return false;
-                            }
-
-                            let _filter = {};
-
-                            for (let _svi of _sfields) {
-
-                                if (_filter[_svi.dataset.ridx] === undefined) {
-                                    _filter[_svi.dataset.ridx] = {
-                                        combination: '',
-                                        field: null,
-                                        value: null
-                                    };
-                                }
-
-                                _filter[_svi.dataset.ridx][_svi.dataset.type] = _svi.value;
-                            }
-
-                            let _sorts = document.getElementsByName('sorts');
-                            if (_sorts.length) {
-                                _filter.sort = {};
-                                for (let _sort of _sorts) {
-                                    _filter.sort[_sort.dataset.option] = _sort.value;
-                                }
-                            }
-
+                            let _filter = fpcm.search._dlg.getValues();
                             fpcm.filemanager.reloadFiles(1, _filter);
                         }
                     },
