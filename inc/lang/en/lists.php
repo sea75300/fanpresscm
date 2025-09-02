@@ -164,4 +164,9 @@ $lang = array (
     'Delete articles' => 'delete',
     'Move articles to' => 'move',
   ),
+  'GLOBAL_SORTBY_LIST' => 
+  array (
+    'Ascending' => 'asc',
+    'Descending' => 'desc',
+  ),
 );

@@ -22,7 +22,9 @@ namespace fpcm\model\files;
  * @property int $combinationDatefrom AND/OR for datefrom
  * @property int $combinationDateto AND/OR for dateto
  * @property int $combinationUserid AND/OR for userid
- * @property string $filename Dateiname
+ * @property string $filename Filename
+ * @property string $alttext Alternate text
+ * @property string $credits credits text
  * @property string $combination logische Verknüpfung AND/OR
  * @property array $limit Abfrage einschränken
  * @property array $orderby Array von Sortierungen in SQL-Syntax
@@ -39,12 +41,38 @@ class search extends \fpcm\model\abstracts\searchWrapper {
             return;
         }
 
-        $this->queryAssignResult->setQueries("(filename {$this->getDB()->dbLike()} ? OR alttext {$this->getDB()->dbLike()} ? OR iptcstr {$this->getDB()->dbLike()} ?)");
-        $this->queryAssignResult->setValues([
-            '%' . $this->filename . '%',
-            '%' . $this->filename . '%',
-            '%' . $this->filename . '%'
-        ]);
+        $this->queryAssignResult->setQueries("filename {$this->getDB()->dbLike()} ?");
+        $this->queryAssignResult->setValues(['%' . $this->filename . '%']);
+
+    }
+
+    /**
+     * Assign Filename field
+     * @return void
+     */
+    public function assignAlttext() : void
+    {
+        if (!$this->alttext) {
+            return;
+        }
+
+        $this->queryAssignResult->setQueries("alttext {$this->getDB()->dbLike()} ?");
+        $this->queryAssignResult->setValues(['%' . $this->alttext . '%']);
+
+    }
+
+    /**
+     * Assign Filename field
+     * @return void
+     */
+    public function assignCredits() : void
+    {
+        if (!$this->credits) {
+            return;
+        }
+
+        $this->queryAssignResult->setQueries("iptcstr {$this->getDB()->dbLike()} ?");
+        $this->queryAssignResult->setValues(['%' . $this->credits . '%']);
 
     }
 

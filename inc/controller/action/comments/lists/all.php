@@ -193,7 +193,7 @@ class all extends \fpcm\controller\abstracts\controller
             ],
             'sortFields' => [
                 (new \fpcm\view\helper\select('field'))
-                    ->setText('SYSTEM_OPTIONS_NEWS_SORTING')
+                    ->setText('GLOBAL_SORT_BY')
                     ->setOptions([
                         'COMMMENT_AUTHOR' => 'name',
                         'GLOBAL_EMAIL' => 'email',
@@ -209,11 +209,8 @@ class all extends \fpcm\controller\abstracts\controller
                     ->setSelected('createtime')
                     ->setLabelTypeFloat(),
                 (new \fpcm\view\helper\select('order'))
-                    ->setText('SYSTEM_OPTIONS_NEWS_SORTING_ORDER')
-                    ->setOptions([
-                        'SYSTEM_OPTIONS_NEWS_ORDERASC' => 'asc',
-                        'SYSTEM_OPTIONS_NEWS_ORDERDESC' => 'desc',
-                    ])
+                    ->setText('GLOBAL_SORT_ODER')
+                    ->setOptions($this->language->translate('GLOBAL_SORTBY_LIST'))
                     ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
                     ->setSelected('desc')
                     ->setLabelTypeFloat(),

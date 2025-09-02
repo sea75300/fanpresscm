@@ -381,7 +381,7 @@ final class language {
         }
         return $days;
     }
-    
+
     /**
      * Replaces special characters of current language
      * @param string $str
@@ -394,7 +394,7 @@ final class language {
         if (!$map) {
             return $str;
         }
-        
+
         return strtr($str, $map);
     }
 
@@ -474,6 +474,44 @@ final class language {
     public function filesWritable() : bool
     {
         return is_writable($this->getFileName(self::FILENAME_LISTS)) && is_writable($this->getFileName(self::FILENAME_VARS));
+    }
+
+    public function compare()
+    {
+
+        $path = dirs::getIncDirPath('lang' . DIRECTORY_SEPARATOR . '*' . DIRECTORY_SEPARATOR . '*.php');
+
+        $files = glob($path);
+        if (!is_array($files) || !count($files)) {
+            return [];
+        }
+
+        $files = array_filter($files, fn($f) => !str_ends_with($f, 'help.php'));
+        if (!is_array($files) || !count($files)) {
+            return [];
+        }
+
+        $compare = [];
+        foreach ($files as $file) {
+
+            include $file;
+            if (empty($lang)) {
+                continue;
+            }
+
+            $langCode = basename(dirname($file));
+
+            if (!isset($compare[$langCode])) {
+                $compare[$langCode] = [];
+            }
+            
+            $compare[$langCode] = array_merge_recursive($compare[$langCode], array_keys($lang));
+
+        }
+
+        list($l1, $l2) = array_values($compare);
+
+        return array_diff($l1, $l2);
     }
 
     /**

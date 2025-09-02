@@ -76,7 +76,8 @@ class langedit extends \fpcm\controller\abstracts\controller implements \fpcm\co
                 ->setOptions(array_flip($this->language->getLanguages()))
                 ->setSelected($this->langObj->getLangCode())
                 ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED),
-            (new \fpcm\view\helper\submitButton('selectLang'))->setText('GLOBAL_OK')->setIcon('check')->setIconOnly()
+            (new \fpcm\view\helper\submitButton('selectLang'))->setText('GLOBAL_OK')->setIcon('check')->setIconOnly(),
+            (new \fpcm\view\helper\submitButton('compare'))->setText('Compare')->setIcon('code-compare')->setIconOnly(),
         ]);
 
         ksort($fullLang);
@@ -84,7 +85,7 @@ class langedit extends \fpcm\controller\abstracts\controller implements \fpcm\co
         $this->view->addJsVars([
             'langfile' => $fullLang
         ]);
-        
+
         $this->view->setFormAction('system/langedit');
         $this->view->addJsFiles(['system/langedit.js']);
         $this->view->render();
@@ -96,7 +97,7 @@ class langedit extends \fpcm\controller\abstracts\controller implements \fpcm\co
             \fpcm\model\http\request::FILTER_JSON_DECODE,
             \fpcm\model\http\request::PARAM_JSON_ASOBJECT => false
         ]);
-        
+
         if (!is_array($langsave)) {
             $this->view->addErrorMessage('Failed to save language data, invalid data given! Check error log!');
             return false;
@@ -107,18 +108,18 @@ class langedit extends \fpcm\controller\abstracts\controller implements \fpcm\co
         $lists = array_filter($langsave, function ($value) {
             return is_array($value);
         });
-       
+
         $vars = array_diff_key($langsave, $lists);
 
         array_walk($vars, function (&$value) {
             $value = str_replace(\fpcm\classes\language::VARTEXT_NEWLINE, PHP_EOL, $value);
         });
-        
+
         if (!is_array($vars) || !is_array($lists)) {
             $this->view->addErrorMessage('Failed to save language data, invalid data given! Check error log!');
             return false;
-        }        
-        
+        }
+
         $res = $this->langObj->saveFiles(
             $vars,
             $lists
@@ -132,6 +133,12 @@ class langedit extends \fpcm\controller\abstracts\controller implements \fpcm\co
         $this->view->addNoticeMessage('Änderungen gespeichert.');
         return true;
 
+    }
+
+    public function onCompare()
+    {
+        $this->view->assign('diff', $this->langObj->compare());
+        return true;
     }
 
 }

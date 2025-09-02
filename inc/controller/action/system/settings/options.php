@@ -100,12 +100,6 @@ class options extends \fpcm\controller\abstracts\controller implements \fpcm\con
         );
         $this->view->assign('sorts', $sorts);
 
-        $sortOrders = array(
-            'SYSTEM_OPTIONS_NEWS_ORDERASC' => 'ASC',
-            'SYSTEM_OPTIONS_NEWS_ORDERDESC' => 'DESC'
-        );
-        $this->view->assign('sortsOrders', $sortOrders);
-
         $templates = new \fpcm\model\pubtemplates\templatelist();
 
         $this->view->assign('articleTemplates', $templates->getArticleTemplates());

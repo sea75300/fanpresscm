@@ -213,7 +213,15 @@ class filelist extends \fpcm\controller\abstracts\controller
         $searchDlg->setFields([
             'valueFields' => [
                 'filename' => (new \fpcm\view\helper\textInput('filename'))
-                    ->setText('FILE_LIST_SEARCHTEXT')
+                    ->setText('FILE_LIST_FILENAME')
+                    ->setMaxlenght(255)
+                    ->setLabelTypeFloat(),
+                'alttext' => (new \fpcm\view\helper\textInput('alttext'))
+                    ->setText('EDITOR_IMGALTTXT')
+                    ->setMaxlenght(255)
+                    ->setLabelTypeFloat(),
+                'credits' => (new \fpcm\view\helper\textInput('credits'))
+                    ->setText('FILE_LIST_FILECREDITS')
                     ->setMaxlenght(255)
                     ->setLabelTypeFloat(),
                 'datefrom' => (new \fpcm\view\helper\dateTimeInput('datefrom'))
@@ -245,18 +253,20 @@ class filelist extends \fpcm\controller\abstracts\controller
                     ->setLabelTypeFloat(),
                 (new \fpcm\view\helper\select('fields'))
                     ->setOptions([
-                        'FILE_LIST_SEARCHTEXT' => 'filename',
+                        'FILE_LIST_FILENAME' => 'filename',
+                        'EDITOR_IMGALTTXT' => 'alttext',
+                        'FILE_LIST_FILECREDITS' => 'credits',
                         'ARTICLE_SEARCH_DATE_FROM' => 'datefrom',
                         'ARTICLE_SEARCH_DATE_TO' => 'dateto',
-                        'ARTICLE_SEARCH_USER' => 'userid',
+                        'FILE_LIST_UPLOAD_BY' => 'userid',
                     ])
                     ->setLabelTypeFloat()
             ],
             'sortFields' => [
                 (new \fpcm\view\helper\select('field'))
-                    ->setText('SYSTEM_OPTIONS_NEWS_SORTING')
+                    ->setText('GLOBAL_SORT_BY')
                     ->setOptions([
-                        'FILE_LIST_SEARCHTEXT' => 'filename',
+                        'FILE_LIST_FILENAME' => 'filename',
                         'EDITOR_IMGALTTXT' => 'alttext',
                         'GLOBAL_LASTCHANGE' => 'filetime',
                         'FILE_LIST_UPLOAD_BY' => 'userid',
@@ -265,11 +275,8 @@ class filelist extends \fpcm\controller\abstracts\controller
                     ->setSelected('filetime')
                     ->setLabelTypeFloat(),
                 (new \fpcm\view\helper\select('order'))
-                    ->setText('SYSTEM_OPTIONS_NEWS_SORTING_ORDER')
-                    ->setOptions([
-                        'SYSTEM_OPTIONS_NEWS_ORDERASC' => 'asc',
-                        'SYSTEM_OPTIONS_NEWS_ORDERDESC' => 'desc',
-                    ])
+                    ->setText('GLOBAL_SORT_ODER')
+                    ->setOptions($this->language->translate('GLOBAL_SORTBY_LIST'))
                     ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
                     ->setSelected('desc')
                     ->setLabelTypeFloat(),

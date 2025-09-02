@@ -33,20 +33,16 @@ class all extends \fpcm\controller\abstracts\controller implements \fpcm\control
     private $notfoundStr = '';
 
     /**
-     * 
+     *
      * @var \fpcm\components\dataView\dataView
      */
     protected $dataView;
 
     /**
-     * 
+     *
      * @var array
      */
-    private $sorts = [
-        'SYSTEM_OPTIONS_NEWS_SORTING_ORDER' => '-1',
-        'SYSTEM_OPTIONS_NEWS_ORDERASC' => 'ASC',
-        'SYSTEM_OPTIONS_NEWS_ORDERDESC' => 'DESC',
-    ];
+    private $sorts;
 
     /**
      * Request-Handler
@@ -54,6 +50,8 @@ class all extends \fpcm\controller\abstracts\controller implements \fpcm\control
      */
     public function request()
     {
+        $this->sorts = ['SYSTEM_OPTIONS_NEWS_SORTING_ORDER' => '-1'] + $this->language->translate('GLOBAL_SORTBY_LIST');
+
         if ($this->request->hasMessage('added')) {
             $this->view->addNoticeMessage('SAVE_SUCCESS_IPADDRESS');
         }
@@ -75,18 +73,18 @@ class all extends \fpcm\controller\abstracts\controller implements \fpcm\control
     public function process()
     {
         $sort = $this->request->fromPOST('sortlist');
-        if ($sort === null || !in_array(strtoupper($sort), $this->sorts)) {
+        if ($sort === null || !in_array($sort, $this->sorts)) {
             $sort = '';
         }
 
         $userList = new \fpcm\model\users\userList();
         $this->items = $this->ipList->getIpAll($sort);
         $this->users = $userList->getUsersAll();
-        
+
         $this->notfoundStr = $this->language->translate('GLOBAL_NOTFOUND');
-        
+
         $this->initDataView();
-        
+
         $this->view->assign('headline', 'HL_OPTIONS_IPBLOCKING');
         $this->view->setFormAction('ips/list');
         $this->view->addJsFiles(['system/ipadresses.js']);
@@ -95,13 +93,13 @@ class all extends \fpcm\controller\abstracts\controller implements \fpcm\control
             (new \fpcm\view\helper\deleteButton('delete'))->setClickConfirm(),
         ]);
 
-        $this->view->addToolbarRight((string) (new \fpcm\view\helper\select('sortlist'))->setOptions($this->sorts)->setSelected($sort)->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED));        
+        $this->view->addToolbarRight((string) (new \fpcm\view\helper\select('sortlist'))->setOptions($this->sorts)->setSelected($sort)->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED));
 
         $this->view->render();
     }
 
     /**
-     * 
+     *
      * @return array
      */
     protected function getDataViewCols()
@@ -117,7 +115,7 @@ class all extends \fpcm\controller\abstracts\controller implements \fpcm\control
     }
 
     /**
-     * 
+     *
      * @return string
      */
     protected function getDataViewName()
@@ -126,7 +124,7 @@ class all extends \fpcm\controller\abstracts\controller implements \fpcm\control
     }
 
     /**
-     * 
+     *
      * @param \fpcm\model\ips\ipaddress $item
      * @return \fpcm\components\dataView\row
      */
@@ -135,7 +133,7 @@ class all extends \fpcm\controller\abstracts\controller implements \fpcm\control
         $userName   = isset($this->users[$item->getUserid()])
                     ? $this->users[$item->getUserid()]->getDisplayName()
                     : $this->notfoundStr;
-        
+
         $metaData   = [
             $this->getStatusColor( (new \fpcm\view\helper\icon('comment-slash fa-inverse'))->setClass('fpcm-ui-editor-metainfo')->setText('IPLIST_NOCOMMENTS')->setStack('square'), $item->getNocomments() ),
             $this->getStatusColor( (new \fpcm\view\helper\icon('sign-in-alt fa-inverse'))->setClass('fpcm-ui-editor-metainfo')->setText('IPLIST_NOLOGIN')->setStack('square'), $item->getNologin() ),
@@ -164,7 +162,7 @@ class all extends \fpcm\controller\abstracts\controller implements \fpcm\control
                 ->setFile('components/dataview_inline.php')
         ];
     }
-    
+
     protected function onDelete()
     {
 
@@ -182,10 +180,10 @@ class all extends \fpcm\controller\abstracts\controller implements \fpcm\control
             $this->view->addNoticeMessage('DELETE_SUCCESS_IPADDRESS');
             return true;
         }
-      
+
         $this->view->addErrorMessage('DELETE_FAILED_IPADDRESS');
         return true;
     }
 
-    
+
 }

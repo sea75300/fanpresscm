@@ -89,7 +89,7 @@
             <div class="col">
                 <?php $theView->select('articles_sort_order')
                     ->setText('SYSTEM_OPTIONS_NEWS_SORTING_ORDER')
-                    ->setOptions($sortsOrders)
+                    ->setOptions($this->language->translate('GLOBAL_SORTBY_LIST'))
                     ->setSelected($globalConfig->articles_sort_order); ?>
             </div>
         </div>
