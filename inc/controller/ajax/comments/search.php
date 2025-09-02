@@ -64,9 +64,8 @@ class search extends \fpcm\controller\abstracts\ajaxController
 
         $sort = $filter['sort'] ?? null;
         
-        $fields = count($filter) - 1;
-        
-        array_push($filter, [ 'field' => 'deleted', 'combination' => $fields > 1 ? 'and' : '', 'value' => 0 ]);
+        $fields = count($filter);
+        array_push($filter, [ 'field' => 'deleted', 'combination' => ($fields >= 2 ? 'and' : ''), 'value' => 0 ]);
 
         $this->conditions->setMultiple(true);
         $this->conditions->setFilterParams($filter);

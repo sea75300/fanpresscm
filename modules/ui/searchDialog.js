@@ -37,7 +37,7 @@ export class searchDialog {
         this._lines = 0;
         this._form = null;
     }
-    
+
     getValues() {
 
         let _sfields = document.getElementsByName('searchData');
@@ -46,18 +46,32 @@ export class searchDialog {
         }
 
         let _filter = {};
+        let _tmp = {};
 
         for (let _svi of _sfields) {
 
-            if (_filter[_svi.dataset.ridx] === undefined) {
-                _filter[_svi.dataset.ridx] = {
+            if (_tmp[_svi.dataset.ridx] === undefined) {
+                _tmp[_svi.dataset.ridx] = {
                     combination: '',
                     field: null,
                     value: null
                 };
             }
 
-            _filter[_svi.dataset.ridx][_svi.dataset.type] = _svi.value;
+            _tmp[_svi.dataset.ridx][_svi.dataset.type] = _svi.value;
+        }
+
+        let _x = 0;
+        for (let _i in _tmp) {
+
+            let _item = _tmp[_i];
+
+            if (!_item.field) {
+                continue;
+            }
+
+            _filter[_x] = _item;
+            _x++;
         }
 
         let _sorts = document.getElementsByName('sorts');
@@ -67,7 +81,7 @@ export class searchDialog {
                 _filter.sort[_sort.dataset.option] = _sort.value;
             }
         }
-        
+
         return _filter;
     }
 
@@ -88,7 +102,7 @@ export class searchDialog {
         _fields.id = fpcm.ui.prepareId('search-fields-list', true);
 
         this._form.appendChild(_fields);
-        
+
         let _delim = document.createElement('hr');
         this._form.appendChild(_delim);
 
@@ -107,7 +121,7 @@ export class searchDialog {
             let _field = _sConfig;
             _field.bottomSpace = '';
             _field.data.option = _field.name;
-            
+
             fpcm.ui_dialogs.appendField(_field, _sorts, true, {
                 colClass: ['col'],
                 namePattern: 'sorts'

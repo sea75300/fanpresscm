@@ -460,6 +460,80 @@ fpcm.ui_dialogs = {
 
     },
 
+    search: function(_name, _searchCallBack, _resetCallBack) {
+
+        if (!fpcm.search) {
+            return false;
+        }
+
+        if (!fpcm.search._dlg) {
+            fpcm.search._dlg = new fpcm.ui.forms.searchDialog(fpcm.ui_dialogs.getConfig('search'));
+        }
+
+        fpcm.ui_dialogs.create({
+            id: _name + '-search',
+            title: 'ARTICLES_SEARCH',
+            closeButton: true,
+            directAssignToDom: true,
+            content: fpcm.search._dlg.getRendered(),
+            dlButtons: [
+                {
+                    text: fpcm.ui.translate('GLOBAL_ADD'),
+                    icon: "plus",
+                    class: 'btn-success',
+                    showLabel: false,
+                    isLeft: true,
+                    click: function(_ui, _bsObj) {
+                        fpcm.search._dlg.addNewCondition();
+                    }
+                },
+                {
+                    text: fpcm.ui.translate('ARTICLE_SEARCH_START'),
+                    icon: "search",
+                    clickClose: true,
+                    class: 'btn-primary',
+                    click: _searchCallBack
+                },
+                {
+                    text: fpcm.ui.translate('GLOBAL_RESET'),
+                    icon: "filter-circle-xmark" ,
+                    clickClose: true,
+                    click: _resetCallBack
+                }
+            ],
+            dlOnOpenAfter: function () {
+                fpcm.ui_dnd.initDnd({
+                    destination: fpcm.search._dlg.getFullListId(),
+                    group: 'shared',
+                    dropCallback: function (_e) {
+
+                        let _rows =  _e.to.children;
+                        if (!_rows.length) {
+                            return;
+                        }
+
+                        let _ridx = 0;
+                        for (var _row of _rows) {
+
+                            let _list = _row.querySelectorAll('[data-ridx]');
+                            if (!_list.length) {
+                                return;
+                            }
+
+                            for (var _el of _list) {
+                                _el.dataset.ridx = _ridx;
+                            }
+
+                            _ridx++;
+                        }
+                    }
+                });
+            }
+        });
+
+
+    },
+
     close: function(_id, _parent) {
 
         if (!_id) {
