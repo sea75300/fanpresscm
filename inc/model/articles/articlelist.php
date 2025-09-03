@@ -221,10 +221,13 @@ implements \fpcm\model\interfaces\gsearchIndex {
     {
         $where = [];
         $valueParams = [];
+        $combination = '';
 
         if ( $conditions->isMultiple() ) {
-            $this->assignMultipleSearchParams($conditions, $where, $valueParams);
-            $combination = '';
+            $qas = $conditions->prepareFilterParams();
+
+            $where = $qas->getQueries();
+            $valueParams = $qas->getValues();
         }
         else {
             $this->assignSearchParams($conditions, $where, $valueParams);

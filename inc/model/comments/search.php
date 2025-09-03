@@ -109,7 +109,7 @@ class search extends \fpcm\model\abstracts\searchWrapper {
     }
 
     /**
-     * Assign website field
+     * Assign text field
      * @return void
      */
     public function assignText() : void
@@ -343,23 +343,23 @@ class search extends \fpcm\model\abstracts\searchWrapper {
     }
 
     /**
-     * Prepare order string
-     * @param string $field
-     * @param string $order
-     * @return void
+     * Returns field whitelist for ordering
+     * @return array
      * @since 5.3.0-dev
      */
-    public function prepareOrder(string $field, string $order) : void
+    public function getOrderFields() : array
     {
-        if (!in_array($field, ['name', 'email', 'website', 'text', 'createtime', 'spam', 'private', 'approved', 'ipaddress'])) {
-            $field = 'createtime';
-        }
+        return  ['email', 'website', 'text', 'createtime', 'spam', 'private', 'approved', 'ipaddress'];
+    }
 
-        if (!in_array($order, ['desc', 'asc'])) {
-            $order = ' desc';
-        }
-
-        $this->orderby = [sprintf("%s %s", $field, $order)];
+    /**
+     * Retrun deafult order field
+     * @return string
+     * @since 5.3.0-dev
+     */
+    public function getDefaultOrder() : string
+    {
+        return 'createtime';
     }
 
 }

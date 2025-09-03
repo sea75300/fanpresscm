@@ -108,13 +108,12 @@ abstract class base extends \fpcm\controller\abstracts\controller
         $this->view->assign('users', array_flip($this->users));
         $this->view->assign('commentEnabledGlobal', $this->config->system_comments_enabled);
         $this->view->assign('showDraftStatus', $this->showDraftStatus());
-        $this->view->assign('includeSearchForm', true);
         $this->view->assign('includeMassEditForm', true);
 
         $this->initSearchForm();
         $this->initMassEditForm();
 
-        $this->view->addJsFiles(['articles/lists.js']);
+        $this->view->addJsFiles(['articles/lists.js', 'articles/search.js', 'ui/dnd.js']);
 
         $buttons = [];
 
@@ -130,7 +129,7 @@ abstract class base extends \fpcm\controller\abstracts\controller
             $buttons[] = (new \fpcm\view\helper\button('massEdit', 'massEdit'))->setText('GLOBAL_EDIT')->setIcon('edit')->setIconOnly();
         }
 
-        $buttons[] = (new \fpcm\view\helper\button('opensearch', 'opensearch'))->setText('ARTICLES_SEARCH')->setIcon('search')->setIconOnly();
+        $buttons[] = (new \fpcm\view\helper\button('opensearch'))->setText('ARTICLES_SEARCH')->setIcon('search')->setIconOnly();
         $buttons[] = (new \fpcm\view\helper\button('articlecache'))
                 ->setText('ARTICLES_CACHE_CLEAR')
                 ->setIcon('recycle')
@@ -190,50 +189,143 @@ abstract class base extends \fpcm\controller\abstracts\controller
      */
     private function initSearchForm()
     {
-        $this->view->assign('searchUsers', ['' => -1] + $this->users);
-        $this->view->assign('searchCategories', ['' => -1] + $this->categories);
-
-        $this->assignSearchFromVars();
-
-        $this->view->assign('searchTypes', [
-            'ARTICLE_SEARCH_TYPE_ALL' => \fpcm\model\articles\search::TYPE_COMBINED,
-            'ARTICLE_SEARCH_TYPE_ALLOR' => \fpcm\model\articles\search::TYPE_COMBINED_OR,
-            'ARTICLE_SEARCH_TYPE_TITLE' => \fpcm\model\articles\search::TYPE_TITLE,
-            'ARTICLE_SEARCH_TYPE_TEXT' => \fpcm\model\articles\search::TYPE_CONTENT
+        $searchDlg = new \fpcm\view\helper\dialogs\search();
+        $searchDlg->setFields([
+            'valueFields' => [
+                'title' => (new \fpcm\view\helper\textInput('title'))
+                    ->setText('ARTICLE_SEARCH_TYPE_TITLE')
+                    ->setLabelTypeFloat(),
+                'content' => (new \fpcm\view\helper\textInput('content'))
+                    ->setText('ARTICLE_SEARCH_TYPE_TEXT')
+                    ->setLabelTypeFloat(),
+                'category' => (new \fpcm\view\helper\select('category'))
+                    ->setText('ARTICLE_SEARCH_CATEGORY')
+                    ->setOptions(['GLOBAL_SELECT' => -1] + $this->categories)
+                    ->setSelected(-1)
+                    ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
+                    ->setLabelTypeFloat(),
+                'datefrom' => (new \fpcm\view\helper\dateTimeInput('datefrom'))
+                    ->setText('ARTICLE_SEARCH_DATE_FROM')
+                    ->setNativeDate()
+                    ->setLabelTypeFloat(),
+                'dateto' => (new \fpcm\view\helper\dateTimeInput('dateto'))
+                    ->setText('ARTICLE_SEARCH_DATE_FROM')
+                    ->setNativeDate()
+                    ->setLabelTypeFloat(),
+                'changefrom' => (new \fpcm\view\helper\dateTimeInput('changefrom'))
+                    ->setText('ARTICLE_SEARCH_DATE_FROM_CHG')
+                    ->setNativeDate()
+                    ->setLabelTypeFloat(),
+                'changeto' => (new \fpcm\view\helper\dateTimeInput('changeto'))
+                    ->setText('ARTICLE_SEARCH_DATE_TO_CHG')
+                    ->setNativeDate()
+                    ->setLabelTypeFloat(),
+                'draft' => (new \fpcm\view\helper\boolSelect('draft'))
+                    ->setText('ARTICLE_SEARCH_DRAFT')
+                    ->setSelected(-1)
+                    ->setExtendedList()
+                    ->setLabelTypeFloat(),
+                'pinned' => (new \fpcm\view\helper\boolSelect('pinned'))
+                    ->setText('ARTICLE_SEARCH_PINNED')
+                    ->setSelected(-1)
+                    ->setExtendedList()
+                    ->setLabelTypeFloat(),
+                'postponed' => (new \fpcm\view\helper\boolSelect('postponed'))
+                    ->setText('ARTICLE_SEARCH_POSTPONED')
+                    ->setSelected(-1)
+                    ->setExtendedList()
+                    ->setLabelTypeFloat(),
+                'approval' => (new \fpcm\view\helper\boolSelect('approval'))
+                    ->setText('ARTICLE_SEARCH_APPROVAL')
+                    ->setSelected(-1)
+                    ->setExtendedList()
+                    ->setLabelTypeFloat(),
+                'comments' => (new \fpcm\view\helper\boolSelect('comments'))
+                    ->setText('ARTICLE_SEARCH_COMMENTS')
+                    ->setSelected(-1)
+                    ->setExtendedList()
+                    ->setLabelTypeFloat(),
+                'user' => (new \fpcm\view\helper\select('user'))
+                    ->setText('ARTICLE_SEARCH_USER')
+                    ->setOptions(['GLOBAL_SELECT' => -1] + $this->users)
+                    ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
+                    ->setLabelTypeFloat(),
+            ],
+            'buildFields' => [
+                (new \fpcm\view\helper\button('cremove'))
+                    ->setText('GLOBAL_REMOVE')
+                    ->setIcon('minus')
+                    ->setIconOnly()
+                    ->setClass('btn-sm')
+                    ->setLabelTypeFloat(),
+                (new \fpcm\view\helper\select('combinations'))
+                    ->setText('ARTICLE_SEARCH_LOGIC')
+                    ->setOptions($searchDlg->getDefaultCombinations())
+                    ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
+                    ->setSelected(-1)
+                    ->setLabelTypeFloat(),
+                (new \fpcm\view\helper\select('fields'))
+                    ->setOptions([
+                        'ARTICLE_SEARCH_TYPE_TITLE' => 'title',
+                        'ARTICLE_SEARCH_TYPE_TEXT' => 'content',
+                        'ARTICLE_SEARCH_USER' => 'user',
+                        'ARTICLE_SEARCH_CATEGORY' => 'category',
+                        'ARTICLE_SEARCH_DATE_FROM' => 'datefrom',
+                        'ARTICLE_SEARCH_DATE_TO' => 'dateto',
+                        'ARTICLE_SEARCH_DATE_FROM_CHG' => 'changefrom',
+                        'ARTICLE_SEARCH_DATE_TO_CHG' => 'changeto',
+                        'ARTICLE_SEARCH_DRAFT' => 'draft',
+                        'ARTICLE_SEARCH_PINNED' => 'pinned',
+                        'ARTICLE_SEARCH_POSTPONED' => 'postponed',
+                        'ARTICLE_SEARCH_APPROVAL' => 'approval',
+                        'ARTICLE_SEARCH_COMMENTS' => 'comments'
+                    ])
+                    ->setLabelTypeFloat()
+            ],
+            'sortFields' => [
+                (new \fpcm\view\helper\select('field'))
+                    ->setText('GLOBAL_SORT_BY')
+                    ->setOptions([
+                        'ARTICLE_SEARCH_TYPE_TITLE' => 'title',
+                        'ARTICLE_SEARCH_TYPE_TEXT' => 'content',
+                        'ARTICLE_SEARCH_USER' => 'createuser',
+                        'COMMMENT_CREATEDATE' => 'createtime',
+                        'GLOBAL_LASTCHANGE' => 'changetime',
+                        'ARTICLE_SEARCH_DRAFT' => 'draft',
+                        'ARTICLE_SEARCH_PINNED' => 'pinned',
+                        'ARTICLE_SEARCH_POSTPONED' => 'postponed',
+                        'ARTICLE_SEARCH_APPROVAL' => 'approval',
+                        'ARTICLE_SEARCH_COMMENTS' => 'comments'
+                    ])
+                    ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
+                    ->setSelected('createtime')
+                    ->setLabelTypeFloat(),
+                (new \fpcm\view\helper\select('order'))
+                    ->setText('GLOBAL_SORT_ODER')
+                    ->setOptions($this->language->translate('GLOBAL_SORTBY_LIST'))
+                    ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
+                    ->setSelected('desc')
+                    ->setLabelTypeFloat(),
+            ]
         ]);
 
-        $this->view->assign('searchPinned', [
-            'GLOBAL_SELECT' => -1,
-            'GLOBAL_YES' => 1,
-            'GLOBAL_NO' => 0
+        $this->view->addDialogs($searchDlg);
+
+        $this->view->addJsLangVars([
+            'DELETE_FAILED_ARTICLE', 'ARTICLE_SEARCH_CATEGORY',
+            'ARTICLE_SEARCH_TYPE_TITLE', 'ARTICLE_SEARCH_TYPE_TEXT',
+            'ARTICLE_SEARCH_DATE_FROM', 'ARTICLE_SEARCH_DRAFT',
+            'ARTICLE_SEARCH_PINNED', 'ARTICLE_SEARCH_POSTPONED',
+            'ARTICLE_SEARCH_APPROVAL', 'ARTICLE_SEARCH_COMMENTS',
+            'ARTICLE_SEARCH_DATE_FROM_CHG', 'ARTICLE_SEARCH_DATE_TO_CHG',
+            'COMMMENT_CREATEDATE', 'GLOBAL_LASTCHANGE'
         ]);
 
-        $this->view->assign('searchPostponed', [
-            'GLOBAL_SELECT' => -1,
-            'GLOBAL_YES' => 1,
-            'GLOBAL_NO' => 0
-        ]);
-
-        $this->view->assign('searchComments', [
-            'GLOBAL_SELECT' => -1,
-            'GLOBAL_YES' => 1,
-            'GLOBAL_NO' => 0
-        ]);
-
-        $this->view->assign('searchApproval', [
-            'GLOBAL_SELECT' => -1,
-            'GLOBAL_YES' => 1,
-            'GLOBAL_NO' => 0
-        ]);
-
-        $this->view->assign('searchDraft', [
-            'GLOBAL_SELECT' => -1,
-            'GLOBAL_YES' => 1,
-            'GLOBAL_NO' => 0
-        ]);
-
-        $this->view->addJsLangVars(['DELETE_FAILED_ARTICLE']);
         $this->view->addJsVars(['articlesLastSearch' => 0]);
+
+        $this->view->addFromLibrary('sortable_js/', [
+            'Sortable.min.js'
+        ]);
     }
 
     /**
@@ -262,7 +354,7 @@ abstract class base extends \fpcm\controller\abstracts\controller
 
         if ($this->permissions->article->authors) {
             $fields[] = new \fpcm\components\masseditField(
-                (new \fpcm\view\helper\select('userid', 'meUserid'))
+                (new \fpcm\view\helper\select('createuser', 'meUserid'))
                     ->setOptions(['GLOBAL_NOCHANGE_APPLY' => -1] + $this->users)
                     ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
                     ->setText('EDITOR_CHANGEAUTHOR')

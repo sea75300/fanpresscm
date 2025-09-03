@@ -22,8 +22,6 @@ fpcm.articles = {
                 page: fpcm.vars.jsvars.listPage
             }
         });
-
-        fpcm.articles.initArticleSearch();
         
         fpcm.dom.bindClick('#massEdit', function (_e, _ui) {
 
@@ -64,57 +62,6 @@ fpcm.articles = {
         fpcm.articles.categoryMs.clear();
         fpcm.articles.categoryMs = null;
         return true;
-    },
-    
-    initArticleSearch: function() {
-        
-        fpcm.dom.bindClick('#opensearch', function (_e, _ui) {
-
-            fpcm.ui_dialogs.create({
-                id: 'articles-search',
-                title: 'ARTICLES_SEARCH',
-                closeButton: true,
-                dlButtons: [
-                    {
-                        text: 'ARTICLE_SEARCH_START',
-                        icon: 'search',
-                        primary: true,
-                        clickClose: true,
-                        click: function() {                            
-                            let _filter = {};
-                            _filter = fpcm.dom.getValuesByClass('fpcm-articles-search-input');
-                            _filter.combinations = fpcm.dom.getValuesByClass('fpcm-ui-input-select-articlesearch-combination');
-
-                            if (((new Date()).getTime() - fpcm.vars.jsvars.articlesLastSearch) < 10000) {
-                                fpcm.ui.addMessage({
-                                    type: 'error',
-                                    txt : fpcm.ui.translate('SEARCH_WAITMSG')
-                                });
-                                return false;
-                            }
-
-                            fpcm.articles.loadArticles({
-                                filter: _filter
-                            });
-
-                            fpcm.vars.jsvars.articlesLastSearch = (new Date()).getTime();                            
-                        }
-                    },                    
-                    {
-                        text: fpcm.ui.translate('GLOBAL_RESET'),
-                        icon: "filter-circle-xmark" ,
-                        clickClose: true,
-                        click: function() {
-                            fpcm.ui.relocate('self');
-                        }
-                    }                          
-                ],
-                dlOnOpen: function( event, ui ) {
-                    fpcm.dom.setFocus('text');
-                }
-            });
-
-        });
     },
     
     loadArticles: function(_params) {

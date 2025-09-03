@@ -21,7 +21,12 @@ namespace fpcm\model\abstracts;
 abstract class searchWrapper extends staticModel {
 
     const COMBINATION_AND = 0;
+
     const COMBINATION_OR = 1;
+
+    const COMBINATION_STR_AND = 'and';
+
+    const COMBINATION_STR_OR = 'or';
 
     /**
      * Multiple search flag
@@ -136,8 +141,8 @@ abstract class searchWrapper extends staticModel {
         $cond = $obj->getCombination();
 
         $c = match ($cond) {
-            'and' => ' AND ',
-            'or' => ' OR ',
+            self::COMBINATION_STR_AND => ' AND ',
+            self::COMBINATION_STR_OR => ' OR ',
             '(' => ' ( ',
             ')' => ' ) ',
             default => ''
@@ -200,7 +205,7 @@ abstract class searchWrapper extends staticModel {
         if (!count($this->filterParams)) {
             return $this->queryAssignResult;
         }
-        
+
         foreach ($this->filterParams as $value) {
             $obj = new \fpcm\model\http\filterParam($value);
             $this->assignCondition($obj);
@@ -230,16 +235,50 @@ abstract class searchWrapper extends staticModel {
      */
     public function prepareOrder(string $field, string $order) : void
     {
-        return;
+        $fields = $this->getOrderFields();
+        if (!count($fields)) {
+            return;
+        }
+
+        if (!in_array($field, $fields)) {
+            $field = $this->getDefaultOrder();
+        }
+
+        if (!in_array($order, ['desc', 'asc'])) {
+            $order = ' desc';
+        }
+
+        $this->orderby = [sprintf("%s %s", $field, strtoupper($order))];
     }
 
     /**
      * Appends query to querry result
      * @param string $sql
      * @return void
+     * @since 5.3.0-dev
      */
     public function appendSql(string $sql)
     {
         return $this->queryAssignResult->setQueries($sql);
+    }
+
+    /**
+     * Returns field whitelist for ordering
+     * @return array
+     * @since 5.3.0-dev
+     */
+    protected function getOrderFields() : array
+    {
+        return [];
+    }
+
+    /**
+     * Retrun deafult order field
+     * @return string
+     * @since 5.3.0-dev
+     */
+    public function getDefaultOrder() : string
+    {
+        return '';
     }
 }

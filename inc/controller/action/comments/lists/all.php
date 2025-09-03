@@ -92,10 +92,6 @@ class all extends \fpcm\controller\abstracts\controller
             );
         }
 
-        $this->view->addFromLibrary('sortable_js/', [
-            'Sortable.min.js'
-        ]);
-
         $this->addListSettingsDialog();
 
         $this->initDataView();
@@ -222,6 +218,10 @@ class all extends \fpcm\controller\abstracts\controller
         $this->view->addJsVars([
             'commentsLastSearch' => 0,
             'massEditSaveFailed' => 'SAVE_FAILED_COMMENTS'
+        ]);
+        
+        $this->view->addFromLibrary('sortable_js/', [
+            'Sortable.min.js'
         ]);
     }
 

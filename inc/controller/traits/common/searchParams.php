@@ -56,5 +56,20 @@ trait searchParams {
         return true;
     }
 
+    /**
+     * Add additional flag for delete
+     * @param array $filter
+     * @param string $comb
+     * @since 5.3.0-dev
+     */
+    public function addDeleteField(array &$filter, string $comb)
+    {
+        array_push($filter, [
+            'field' => 'deleted',
+            'combination' => $comb,
+            'value' => 0
+        ]);
+    }
+
 
 }
