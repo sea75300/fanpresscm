@@ -18,6 +18,7 @@ namespace fpcm\model\articles;
  *
  * @property int $ids Artikel-IDs
  * @property int $user via Benutzer
+ * @property int $changeuser via change user
  * @property int $category via Kategorie
  * @property int $datefrom seit Datum X.Y.Z
  * @property int $dateto bis Datum X.Y.Z
@@ -143,7 +144,7 @@ class search extends \fpcm\model\abstracts\searchWrapper {
         $this->queryAssignResult->setQueries(
             sprintf(
                 'id IN (select distinct article_id from %s where %s)',
-                $this->dbcon->getTablePrefixed(\fpcm\classes\database::tableArticleCategories),
+                $this->getDB()->getTablePrefixed(\fpcm\classes\database::tableArticleCategories),
                 'category_id IN (:category)'
             )
         );
@@ -217,7 +218,7 @@ class search extends \fpcm\model\abstracts\searchWrapper {
      * Assign date from field
      * @return void
      */
-    public function assignChangedatefrom() : void
+    public function assignChangefrom() : void
     {
         if ($this->changefrom === null) {
             return;
@@ -231,7 +232,7 @@ class search extends \fpcm\model\abstracts\searchWrapper {
      * Prepare date from value
      * @return void
      */
-    public function prepareChangedatefrom() : void
+    public function prepareChangefrom() : void
     {
         if (!\fpcm\classes\tools::validateDateString($this->changefrom)) {
             return;
@@ -244,7 +245,7 @@ class search extends \fpcm\model\abstracts\searchWrapper {
      * Prepare date to value
      * @return void
      */
-    public function prepareChangedateto() : void
+    public function prepareChangeto() : void
     {
         if (!\fpcm\classes\tools::validateDateString($this->changeto)) {
             return;
@@ -257,7 +258,7 @@ class search extends \fpcm\model\abstracts\searchWrapper {
      * Assign date to field
      * @return void
      */
-    public function assignChangedateto() : void
+    public function assignChangeto() : void
     {
         if ($this->changeto === null) {
             return;
@@ -302,6 +303,29 @@ class search extends \fpcm\model\abstracts\searchWrapper {
     public function prepareUser() : void
     {
         $this->user = (int) $this->user;
+    }
+
+    /**
+     * Assign changeuser id field
+     * @return void
+     */
+    public function assignChangeuser() : void
+    {
+        if ($this->changeuser === null) {
+            return;
+        }
+
+        $this->queryAssignResult->setQueries('changeuser = :changeuser') ;
+        $this->queryAssignResult->setValues([':changeuser' => $this->changeuser]);
+    }
+
+    /**
+     * Prepare changeuser id value
+     * @return void
+     */
+    public function prepareChangeuser() : void
+    {
+        $this->changeuser = (int) $this->changeuser;
     }
 
     /**
@@ -479,7 +503,7 @@ class search extends \fpcm\model\abstracts\searchWrapper {
             return;
         }
 
-        $this->queryAssignResult->setQueries('pinned_until = :relates_to') ;
+        $this->queryAssignResult->setQueries('relates_to = :relates_to') ;
         $this->queryAssignResult->setValues([':relates_to' => $this->relates_to]);
     }
 
@@ -505,6 +529,7 @@ class search extends \fpcm\model\abstracts\searchWrapper {
             'createuser',
             'createtime',
             'changetime',
+            'changeuser',
             'draft',
             'archived',
             'pinned',

@@ -250,6 +250,15 @@ abstract class base extends \fpcm\controller\abstracts\controller
                     ->setOptions(['GLOBAL_SELECT' => -1] + $this->users)
                     ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
                     ->setLabelTypeFloat(),
+                'changeuser' => (new \fpcm\view\helper\select('changeuser'))
+                    ->setText('ARTICLE_SEARCH_CHGUSER')
+                    ->setOptions(['GLOBAL_SELECT' => -1] + $this->users)
+                    ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
+                    ->setLabelTypeFloat(),
+                'relates_to' => (new \fpcm\view\helper\dateTimeInput('relates_to'))
+                    ->setText('LABEL_FIELD_ARTICLE_RELATESTO')
+                    ->setType('number')
+                    ->setLabelTypeFloat(),
             ],
             'buildFields' => [
                 (new \fpcm\view\helper\button('cremove'))
@@ -269,6 +278,7 @@ abstract class base extends \fpcm\controller\abstracts\controller
                         'ARTICLE_SEARCH_TYPE_TITLE' => 'title',
                         'ARTICLE_SEARCH_TYPE_TEXT' => 'content',
                         'ARTICLE_SEARCH_USER' => 'user',
+                        'ARTICLE_SEARCH_CHGUSER' => 'changeuser',
                         'ARTICLE_SEARCH_CATEGORY' => 'category',
                         'ARTICLE_SEARCH_DATE_FROM' => 'datefrom',
                         'ARTICLE_SEARCH_DATE_TO' => 'dateto',
@@ -278,7 +288,8 @@ abstract class base extends \fpcm\controller\abstracts\controller
                         'ARTICLE_SEARCH_PINNED' => 'pinned',
                         'ARTICLE_SEARCH_POSTPONED' => 'postponed',
                         'ARTICLE_SEARCH_APPROVAL' => 'approval',
-                        'ARTICLE_SEARCH_COMMENTS' => 'comments'
+                        'ARTICLE_SEARCH_COMMENTS' => 'comments',
+                        'LABEL_FIELD_ARTICLE_RELATESTO' => 'relates_to'
                     ])
                     ->setLabelTypeFloat()
             ],
@@ -291,11 +302,13 @@ abstract class base extends \fpcm\controller\abstracts\controller
                         'ARTICLE_SEARCH_USER' => 'createuser',
                         'COMMMENT_CREATEDATE' => 'createtime',
                         'GLOBAL_LASTCHANGE' => 'changetime',
+                        'ARTICLE_SEARCH_CHGUSER' => 'changeuser',
                         'ARTICLE_SEARCH_DRAFT' => 'draft',
                         'ARTICLE_SEARCH_PINNED' => 'pinned',
                         'ARTICLE_SEARCH_POSTPONED' => 'postponed',
                         'ARTICLE_SEARCH_APPROVAL' => 'approval',
-                        'ARTICLE_SEARCH_COMMENTS' => 'comments'
+                        'ARTICLE_SEARCH_COMMENTS' => 'comments',
+                        'LABEL_FIELD_ARTICLE_RELATESTO' => 'relates_to'
                     ])
                     ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
                     ->setSelected('createtime')
@@ -318,7 +331,8 @@ abstract class base extends \fpcm\controller\abstracts\controller
             'ARTICLE_SEARCH_PINNED', 'ARTICLE_SEARCH_POSTPONED',
             'ARTICLE_SEARCH_APPROVAL', 'ARTICLE_SEARCH_COMMENTS',
             'ARTICLE_SEARCH_DATE_FROM_CHG', 'ARTICLE_SEARCH_DATE_TO_CHG',
-            'COMMMENT_CREATEDATE', 'GLOBAL_LASTCHANGE'
+            'COMMMENT_CREATEDATE', 'GLOBAL_LASTCHANGE',
+            'ARTICLE_SEARCH_CHGUSER', 'LABEL_FIELD_ARTICLE_RELATESTO'
         ]);
 
         $this->view->addJsVars(['articlesLastSearch' => 0]);
