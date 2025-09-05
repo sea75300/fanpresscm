@@ -144,33 +144,16 @@ class lists extends \fpcm\controller\abstracts\ajaxController
 
         switch ($this->request->fromPOST('mode')) {
             case self::MODE_ARCHIVE :
-                $filter[] = [
-                    'field' => 'archived',
-                    'combination' => $cond,
-                    'value' => 1
-                ];
-
-                $filter[] = [
-                    'field' => 'draft',
-                    'combination' => \fpcm\model\abstracts\searchWrapper::COMBINATION_STR_AND,
-                    'value' => 0
-                ];
-
-                $this->addDeleteField($filter, $cond);
-
+                $this->conditions->modeArchive = true;
                 break;
             case self::MODE_ACTIVE :
-                $filter[] = [
-                    'field' => 'archived',
-                    'combination' => $cond,
-                    'value' => 0
-                ];
+                $this->conditions->modeArchive = true;
                 break;
-            default:
-                $this->addDeleteField($filter, $cond);
         }
+        
+        $this->conditions->modeDeleted = false;
 
-        $this->conditions->setMultiple(true);
+        $this->conditions->setMultiple();
         $this->conditions->setFilterParams($filter);
 
         if ($sort) {

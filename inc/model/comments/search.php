@@ -41,6 +41,7 @@ namespace fpcm\model\comments;
  * @property bool $metaOnly Kommentar-Text nicht abrufen
  * @property array $limit Abfrage einschränken
  * @property array $orderby Array von Sortierungen in SQL-Syntax
+ * @property bool $modeDeleted flag for deleted articles
  */
 class search extends \fpcm\model\abstracts\searchWrapper {
 

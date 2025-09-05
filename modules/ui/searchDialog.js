@@ -246,6 +246,10 @@ export class searchDialog {
                     _opts
                 );
 
+                if (!fpcm.search.callbacks) {
+                    return false;
+                }
+
                 if (!fpcm.search.callbacks[_e.currentTarget.value]) {
                     return false;
                 }

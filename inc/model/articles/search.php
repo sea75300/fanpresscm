@@ -54,6 +54,9 @@ namespace fpcm\model\articles;
  * @property bool $multipleQuery Multiple select queries
  * @property array $limit Abfrage einschränken
  * @property array $orderby Array von Sortierungen in SQL-Syntax
+ * @property bool $modeArchive flag for archive articles
+ * @property bool $modeActive flag for archive articles
+ * @property bool $modeDeleted flag for deleted articles
  */
 class search extends \fpcm\model\abstracts\searchWrapper {
 

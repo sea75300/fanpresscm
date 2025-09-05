@@ -252,17 +252,6 @@ abstract class searchWrapper extends staticModel {
     }
 
     /**
-     * Appends query to querry result
-     * @param string $sql
-     * @return void
-     * @since 5.3.0-dev
-     */
-    public function appendSql(string $sql)
-    {
-        return $this->queryAssignResult->setQueries($sql);
-    }
-
-    /**
      * Returns field whitelist for ordering
      * @return array
      * @since 5.3.0-dev

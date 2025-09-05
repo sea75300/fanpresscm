@@ -253,6 +253,21 @@ implements \fpcm\model\interfaces\gsearchIndex {
 
         $where = implode(" {$combination} ", $where);
 
+        if ($conditions->isMultiple()) {
+
+            if ($conditions->modeArchive) {
+                $where = sprintf("(%s) AND draft = 0 AND archived = 1", $where);
+            }
+            else if ($conditions->modeActive) {
+                $where = sprintf("(%s) AND archived = 0", $where);
+            }
+
+            if ($conditions->modeDeleted) {
+                $where = sprintf("(%s) AND deleted = 0", $where);
+            }
+
+        }
+
         $where2 = [];
         $where2[] = $this->dbcon->orderBy(
             $conditions->orderby !== null ? $conditions->orderby : [$this->config->articles_sort . ' ' . $this->config->articles_sort_order]
@@ -263,6 +278,8 @@ implements \fpcm\model\interfaces\gsearchIndex {
         }
 
         $where .= ' ' . implode(' ', $where2);
+
+        fpcmLogSystem(sprintf("%s: %s", __METHOD__, $where));
 
         $item   = $conditions->metaOnly
                 ? 'id, title, categories, createtime, createuser, changetime, changeuser, draft, archived, pinned, postponed, deleted, comments, approval, imagepath, sources, inedit ,pinned_until'
@@ -555,7 +572,7 @@ implements \fpcm\model\interfaces\gsearchIndex {
 
         return $res;
     }
-    
+
     /**
      * Mass editing function
      * @param array $articleIds

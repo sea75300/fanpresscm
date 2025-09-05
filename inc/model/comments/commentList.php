@@ -132,6 +132,12 @@ implements \fpcm\model\interfaces\gsearchIndex {
 
         $where = implode(" {$combination} ", $where);
 
+        if ($conditions->isMultiple()) {
+            if ($conditions->modeDeleted) {
+                $where = sprintf("(%s) AND deleted = 0", $where);
+            }
+        }
+
         $where2 = [];
         $where2[] = $this->dbcon->orderBy( ($conditions->orderby ? $conditions->orderby : ['createtime ASC']) );
 

@@ -63,9 +63,8 @@ class search extends \fpcm\controller\abstracts\ajaxController
         }
 
         $sort = $filter['sort'] ?? null;
-        $this->addDeleteField($filter, (count($filter) >= 2 ? \fpcm\model\abstracts\searchWrapper::COMBINATION_STR_AND : ''));
 
-        $this->conditions->setMultiple(true);
+        $this->conditions->setMultiple();
         $this->conditions->setFilterParams($filter);
 
         if ($sort) {
