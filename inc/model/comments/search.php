@@ -227,7 +227,7 @@ class search extends \fpcm\model\abstracts\searchWrapper {
      */
     public function assignIpaddress() : void
     {
-        if ($this->ipaddress) {
+        if (!$this->ipaddress) {
             return;
         }
 

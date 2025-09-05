@@ -155,7 +155,6 @@ class all extends \fpcm\controller\abstracts\controller
                     ->setLabelTypeFloat(),
                 'articleid' => (new \fpcm\view\helper\textInput('articleid'))
                     ->setText('COMMMENT_SEARCH_ARTICLE')
-                    ->setType('number')
                     ->setLabelTypeFloat(),
             ],
             'buildFields' => [

@@ -245,6 +245,12 @@ export class searchDialog {
                     true,
                     _opts
                 );
+
+                if (!fpcm.search.callbacks[_e.currentTarget.value]) {
+                    return false;
+                }
+
+                fpcm.search.callbacks[_e.currentTarget.value](_e.currentTarget);
             };
 
             return;

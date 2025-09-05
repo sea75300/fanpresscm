@@ -49,9 +49,29 @@ fpcm.search = {
                 },
                 function() {
                     fpcm.ui.relocate('self');
+                },
+                function () {
+                    fpcm.ui.autocomplete('#articleId', {
+                        source: fpcm.vars.ajaxActionPath + 'autocomplete&src=articles',
+                        minLength: 3
+                    });
                 }
             );
         });
     }
+};
 
+fpcm.search.callbacks = {
+    
+    articleid: function (_el) {
+
+        let _id = '#' + fpcm.ui.prepareId(_el.value, true) + _el.dataset.ridx;
+
+        fpcm.ui.autocomplete(_id, {
+            source: fpcm.vars.ajaxActionPath + 'autocomplete&src=articles',
+            minLength: 3
+        });
+
+    }
+    
 };

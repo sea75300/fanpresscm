@@ -259,6 +259,9 @@ abstract class base extends \fpcm\controller\abstracts\controller
                     ->setText('LABEL_FIELD_ARTICLE_RELATESTO')
                     ->setType('number')
                     ->setLabelTypeFloat(),
+                'sources' => (new \fpcm\view\helper\textInput('sources'))
+                    ->setText('TEMPLATE_ARTICLE_SOURCES')
+                    ->setLabelTypeFloat(),
             ],
             'buildFields' => [
                 (new \fpcm\view\helper\button('cremove'))
@@ -289,7 +292,8 @@ abstract class base extends \fpcm\controller\abstracts\controller
                         'ARTICLE_SEARCH_POSTPONED' => 'postponed',
                         'ARTICLE_SEARCH_APPROVAL' => 'approval',
                         'ARTICLE_SEARCH_COMMENTS' => 'comments',
-                        'LABEL_FIELD_ARTICLE_RELATESTO' => 'relates_to'
+                        'LABEL_FIELD_ARTICLE_RELATESTO' => 'relates_to',
+                        'TEMPLATE_ARTICLE_SOURCES' => 'sources',
                     ])
                     ->setLabelTypeFloat()
             ],
@@ -332,7 +336,8 @@ abstract class base extends \fpcm\controller\abstracts\controller
             'ARTICLE_SEARCH_APPROVAL', 'ARTICLE_SEARCH_COMMENTS',
             'ARTICLE_SEARCH_DATE_FROM_CHG', 'ARTICLE_SEARCH_DATE_TO_CHG',
             'COMMMENT_CREATEDATE', 'GLOBAL_LASTCHANGE',
-            'ARTICLE_SEARCH_CHGUSER', 'LABEL_FIELD_ARTICLE_RELATESTO'
+            'ARTICLE_SEARCH_CHGUSER', 'LABEL_FIELD_ARTICLE_RELATESTO',
+            'TEMPLATE_ARTICLE_SOURCES'
         ]);
 
         $this->view->addJsVars(['articlesLastSearch' => 0]);
