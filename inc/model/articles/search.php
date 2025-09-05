@@ -75,8 +75,8 @@ class search extends \fpcm\model\abstracts\searchWrapper {
             return;
         }
 
-        $this->queryAssignResult->setQueries("title {$this->getDB()->dbLike()} :title");
-        $this->queryAssignResult->setValues([':title' => '%' . $this->title . '%']);
+        $this->queryAssignResult->setQueries("title {$this->getDB()->dbLike()} ?");
+        $this->queryAssignResult->setValues(['%' . $this->title . '%']);
     }
 
     /**
@@ -98,8 +98,8 @@ class search extends \fpcm\model\abstracts\searchWrapper {
             return;
         }
 
-        $this->queryAssignResult->setQueries("content {$this->getDB()->dbLike()} :content");
-        $this->queryAssignResult->setValues([':content' => '%' . $this->content . '%']);
+        $this->queryAssignResult->setQueries("content {$this->getDB()->dbLike()} ?");
+        $this->queryAssignResult->setValues(['%' . $this->content . '%']);
     }
 
     /**
@@ -121,8 +121,8 @@ class search extends \fpcm\model\abstracts\searchWrapper {
             return;
         }
 
-        $this->queryAssignResult->setQueries("sources {$this->getDB()->dbLike()} :sources");
-        $this->queryAssignResult->setValues([':sources' => '%' . $this->sources . '%']);
+        $this->queryAssignResult->setQueries("sources {$this->getDB()->dbLike()} ?");
+        $this->queryAssignResult->setValues(['%' . $this->sources . '%']);
     }
 
     /**
@@ -148,10 +148,10 @@ class search extends \fpcm\model\abstracts\searchWrapper {
             sprintf(
                 'id IN (select distinct article_id from %s where %s)',
                 $this->getDB()->getTablePrefixed(\fpcm\classes\database::tableArticleCategories),
-                'category_id IN (:category)'
+                'category_id IN (?)'
             )
         );
-        $this->queryAssignResult->setValues([':category' => $this->category]);
+        $this->queryAssignResult->setValues([$this->category]);
     }
 
     /**
@@ -173,8 +173,8 @@ class search extends \fpcm\model\abstracts\searchWrapper {
             return;
         }
 
-        $this->queryAssignResult->setQueries('createtime >= :createtime');
-        $this->queryAssignResult->setValues([':createtime' => $this->datefrom]);
+        $this->queryAssignResult->setQueries('createtime >= ?');
+        $this->queryAssignResult->setValues([$this->datefrom]);
     }
 
     /**
@@ -213,8 +213,8 @@ class search extends \fpcm\model\abstracts\searchWrapper {
             return;
         }
 
-        $this->queryAssignResult->setQueries('createtime < :createtime');
-        $this->queryAssignResult->setValues([':createtime' => $this->dateto]);
+        $this->queryAssignResult->setQueries('createtime < ?');
+        $this->queryAssignResult->setValues([$this->dateto]);
     }
 
     /**
@@ -227,8 +227,8 @@ class search extends \fpcm\model\abstracts\searchWrapper {
             return;
         }
 
-        $this->queryAssignResult->setQueries('createtime >= :changefrom');
-        $this->queryAssignResult->setValues([':changefrom' => $this->changefrom]);
+        $this->queryAssignResult->setQueries('createtime >= ?');
+        $this->queryAssignResult->setValues([$this->changefrom]);
     }
 
     /**
@@ -267,8 +267,8 @@ class search extends \fpcm\model\abstracts\searchWrapper {
             return;
         }
 
-        $this->queryAssignResult->setQueries('createtime < :changeto');
-        $this->queryAssignResult->setValues([':changeto' => $this->changeto]);
+        $this->queryAssignResult->setQueries('createtime < ?');
+        $this->queryAssignResult->setValues([$this->changeto]);
     }
 
     /**
@@ -281,8 +281,8 @@ class search extends \fpcm\model\abstracts\searchWrapper {
             return;
         }
 
-        $this->queryAssignResult->setQueries('deleted = :deleted');
-        $this->queryAssignResult->setValues([':deleted' => $this->deleted]);
+        $this->queryAssignResult->setQueries('deleted = ?');
+        $this->queryAssignResult->setValues([$this->deleted]);
     }
 
     /**
@@ -295,8 +295,8 @@ class search extends \fpcm\model\abstracts\searchWrapper {
             return;
         }
 
-        $this->queryAssignResult->setQueries('createuser = :user') ;
-        $this->queryAssignResult->setValues([':user' => $this->user]);
+        $this->queryAssignResult->setQueries('createuser = ?') ;
+        $this->queryAssignResult->setValues([$this->user]);
     }
 
     /**
@@ -318,8 +318,8 @@ class search extends \fpcm\model\abstracts\searchWrapper {
             return;
         }
 
-        $this->queryAssignResult->setQueries('changeuser = :changeuser') ;
-        $this->queryAssignResult->setValues([':changeuser' => $this->changeuser]);
+        $this->queryAssignResult->setQueries('changeuser = ?') ;
+        $this->queryAssignResult->setValues([$this->changeuser]);
     }
 
     /**
@@ -341,8 +341,8 @@ class search extends \fpcm\model\abstracts\searchWrapper {
             return;
         }
 
-        $this->queryAssignResult->setQueries('pinned = :pinned') ;
-        $this->queryAssignResult->setValues([':pinned' => $this->pinned]);
+        $this->queryAssignResult->setQueries('pinned = ?') ;
+        $this->queryAssignResult->setValues([$this->pinned]);
     }
 
     /**
@@ -364,8 +364,8 @@ class search extends \fpcm\model\abstracts\searchWrapper {
             return;
         }
 
-        $this->queryAssignResult->setQueries('postponed = :postponed') ;
-        $this->queryAssignResult->setValues([':postponed' => $this->postponed]);
+        $this->queryAssignResult->setQueries('postponed = ?') ;
+        $this->queryAssignResult->setValues([$this->postponed]);
     }
 
     /**
@@ -387,8 +387,8 @@ class search extends \fpcm\model\abstracts\searchWrapper {
             return;
         }
 
-        $this->queryAssignResult->setQueries('comments = :comments') ;
-        $this->queryAssignResult->setValues([':comments' => $this->comments]);
+        $this->queryAssignResult->setQueries('comments = ?') ;
+        $this->queryAssignResult->setValues([$this->comments]);
     }
 
     /**
@@ -412,8 +412,8 @@ class search extends \fpcm\model\abstracts\searchWrapper {
         
         $val = $this->approval > -1 ? $this->approval : 0;
 
-        $this->queryAssignResult->setQueries('approval = :approval') ;
-        $this->queryAssignResult->setValues([':approval' => $val]);
+        $this->queryAssignResult->setQueries('approval = ?') ;
+        $this->queryAssignResult->setValues([$val]);
     }
 
     /**
@@ -437,8 +437,8 @@ class search extends \fpcm\model\abstracts\searchWrapper {
         
         $val = $this->draft > -1 ? $this->draft : 0;
 
-        $this->queryAssignResult->setQueries('draft = :draft') ;
-        $this->queryAssignResult->setValues([':draft' => $val]);
+        $this->queryAssignResult->setQueries('draft = ?') ;
+        $this->queryAssignResult->setValues([$val]);
     }
 
     /**
@@ -460,8 +460,8 @@ class search extends \fpcm\model\abstracts\searchWrapper {
             return;
         }
         
-        $this->queryAssignResult->setQueries('archived = :archived') ;
-        $this->queryAssignResult->setValues([':archived' => $this->archived]);
+        $this->queryAssignResult->setQueries('archived = ?') ;
+        $this->queryAssignResult->setValues([$this->archived]);
     }
 
     /**
@@ -483,8 +483,8 @@ class search extends \fpcm\model\abstracts\searchWrapper {
             return;
         }
 
-        $this->queryAssignResult->setQueries('pinned_until = :pinned_until') ;
-        $this->queryAssignResult->setValues([':pinned_until' => $this->pinned_until]);
+        $this->queryAssignResult->setQueries('pinned_until = ?') ;
+        $this->queryAssignResult->setValues([$this->pinned_until]);
     }
 
     /**
@@ -506,8 +506,8 @@ class search extends \fpcm\model\abstracts\searchWrapper {
             return;
         }
 
-        $this->queryAssignResult->setQueries('relates_to = :relates_to') ;
-        $this->queryAssignResult->setValues([':relates_to' => $this->relates_to]);
+        $this->queryAssignResult->setQueries('relates_to = ?') ;
+        $this->queryAssignResult->setValues([$this->relates_to]);
     }
 
     /**

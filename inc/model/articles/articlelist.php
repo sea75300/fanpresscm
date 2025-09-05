@@ -279,8 +279,6 @@ implements \fpcm\model\interfaces\gsearchIndex {
 
         $where .= ' ' . implode(' ', $where2);
 
-        fpcmLogSystem(sprintf("%s: %s", __METHOD__, $where));
-
         $item   = $conditions->metaOnly
                 ? 'id, title, categories, createtime, createuser, changetime, changeuser, draft, archived, pinned, postponed, deleted, comments, approval, imagepath, sources, inedit ,pinned_until'
                 : '*';

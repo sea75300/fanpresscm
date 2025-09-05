@@ -66,7 +66,7 @@ export class searchDialog {
 
             let _item = _tmp[_i];
 
-            if (!_item.field) {
+            if (!_item.field && _item.combination !== '(' && _item.combination !== ')') {
                 continue;
             }
 
