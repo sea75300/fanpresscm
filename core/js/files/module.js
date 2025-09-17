@@ -368,27 +368,6 @@ fpcm.filemanager = {
                 directAssignToDom: true,
                 dlButtons: [
                     {
-                        text: 'GLOBAL_DELETE',
-                        icon: "trash",
-                        clickClose: true,
-                        showLabel: false,
-                        disabled: !_rid,
-                        click: function() {
-
-                            fpcm.reminders.delete(
-                                _e.currentTarget.dataset.remindertype,
-                                _rid,
-                                function (_res) {
-                                    if (!_res.reload) {
-                                        return false;
-                                    }
-
-                                    fpcm.filemanager.reloadFiles();
-                                }
-                            );
-                        }
-                    },
-                    {
                         text: 'GLOBAL_SAVE',
                         icon: "save",
                         clickClose: true,
@@ -426,6 +405,27 @@ fpcm.filemanager = {
                                 _uid,
                                 _dt,
                                 document.getElementById(fpcm.ui.prepareId('resub-comment', true)).value,
+                                function (_res) {
+                                    if (!_res.reload) {
+                                        return false;
+                                    }
+
+                                    fpcm.filemanager.reloadFiles();
+                                }
+                            );
+                        }
+                    },
+                    {
+                        text: 'GLOBAL_DELETE',
+                        icon: "trash",
+                        clickClose: true,
+                        showLabel: false,
+                        disabled: !_rid,
+                        click: function() {
+
+                            fpcm.reminders.delete(
+                                _e.currentTarget.dataset.remindertype,
+                                _rid,
                                 function (_res) {
                                     if (!_res.reload) {
                                         return false;
@@ -481,43 +481,45 @@ fpcm.filemanager = {
                 prop: 'filetime',
                 label: 'GLOBAL_LASTCHANGE',
                 icon: new fpcm.ui.forms.icon('calendar', 'lg'),
-                class: 'mb-2'
+                class: 'mb-2',
+                cols: 2
             },
             {
                 prop: 'fileuser',
                 label: 'FILE_LIST_UPLOAD_BY',
                 icon: new fpcm.ui.forms.icon('user', 'lg'),
-                class: 'mb-2'
+                cols: 2
             },
             {
                 prop: 'filesize',
                 label: 'FILE_LIST_FILESIZE',
                 icon: new fpcm.ui.forms.icon('weight', 'lg'),
-                class: 'mb-2'
+                cols: 2
             },
             {
                 prop: 'resulution',
                 label: 'FILE_LIST_RESOLUTION',
                 icon: new fpcm.ui.forms.icon('maximize', 'lg'),
-                class: 'mb-2'
+                cols: 2
             },
             {
                 prop: 'filemime',
                 label: 'FILE_LIST_FILETYPE',
                 icon: new fpcm.ui.forms.icon('file-circle-question', 'lg'),
-                class: 'mb-2'
-            },
-            {
-                prop: 'filehash',
-                label: 'FILE_LIST_FILEHASH',
-                icon: new fpcm.ui.forms.icon('hashtag', 'lg'),
-                class: 'mb-2'
+                cols: 2
             },
             {
                 prop: 'credits',
                 label: 'FILE_LIST_FILECREDITS',
                 icon: new fpcm.ui.forms.icon('copyright', 'lg'),
-                class: 'mb-2'
+                cols: 1
+            },
+            {
+                prop: 'filehash',
+                label: 'FILE_LIST_FILEHASH',
+                icon: new fpcm.ui.forms.icon('hashtag', 'lg'),
+                class: 'mb-2',
+                cols: 1
             }
 
         ];
@@ -528,6 +530,7 @@ fpcm.filemanager = {
             let _titleHtml = '';
 
             let _dlgContent = document.createElement('div');
+            _dlgContent.classList.add('list-group');
 
             for (var _idx in _form) {
 
@@ -545,23 +548,31 @@ fpcm.filemanager = {
                 }
 
                 let _row = document.createElement('div');
-                _row.className = 'row g-0 ' + _propCfg.class;
+                _row.classList.add('row', 'row-cols-1', 'row-cols-lg-' + _propCfg.cols, 'g-0');
 
                 let _icon = _propCfg.icon;
                 _icon.iconClass = 'me-2';
 
                 let _colDescr = document.createElement('div');
-                _colDescr.className = 'col-form-label align-self-center col-12 col-md-3 me-3';
+                _colDescr.classList.add('col', 'align-self-center');
                 _colDescr.innerHTML = _icon.getString() + fpcm.ui.translate(_propCfg.label);
                 _row.appendChild(_colDescr);
 
+                if (!_titleHtml) {
+                    _titleHtml = '&nbsp;'
+                }
+
                 let _colValue = document.createElement('div');
-                _colValue.className = 'col align-self-center';
+                _colValue.classList.add('col', 'text-truncate');
                 _colValue.innerHTML = _titleHtml;
                 _colValue.title = _titleTxt;
                 _row.appendChild(_colValue);
+                
+                let _listitem = document.createElement('div');
+                _listitem.classList.add('list-group-item');                
+                _listitem.appendChild(_row);
 
-                _dlgContent.appendChild(_row);
+                _dlgContent.appendChild(_listitem);
             }
 
             fpcm.ui_dialogs.create({

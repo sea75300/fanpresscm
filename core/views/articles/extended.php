@@ -7,38 +7,30 @@
         <fieldset>
             <div class="row my-2">
                 <div class="col">
-                    <div class="input-group">
-                        <label class="input-group-text col-12 col-lg-6 align-items-md-start pt-md-2">
-                            <span class="d-flex">
-                                <?php $theView->icon('cogs')->setClass(' align-self-center'); ?>
-                                <span class="fpcm-ui-label align-self-center ps-1"><?php $theView->write('GLOBAL_EXTENDED'); ?></span>                                
-                            </span>
-                        </label>
-
-                        <div class="form-control p-0">
-                            <div class="list-group list-group-flush">
-                            <?php if (!$article->getArchived()) : ?>
-                                <div class="list-group-item">
-                                    <?php $theView->checkbox('article[draft]')->setText('EDITOR_DRAFT')->setSelected($article->getDraft())->setClass('fpcm-ui-editor-metainfo-checkbox')->setData(['icon' => 'draft'])->setSwitch(true); ?>
-                                </div>
-                            <?php endif; ?>
-                            <?php if ($commentEnabledGlobal) : ?>
-                                <div class="list-group-item">
-                                    <?php $theView->checkbox('article[comments]')->setText('EDITOR_COMMENTS')->setSelected($article->getComments())->setClass('fpcm-ui-editor-metainfo-checkbox')->setData(['icon' => 'comments'])->setSwitch(true); ?>
-                                </div>
-                            <?php endif; ?>
-                            <?php if (!$approvalRequired) : ?>
-                                <div class="list-group-item">
-                                    <?php $theView->checkbox('article[approval]')->setText('EDITOR_STATUS_APPROVAL')->setSelected($article->getApproval())->setClass('fpcm-ui-editor-metainfo-checkbox')->setData(['icon' => 'approval'])->setSwitch(true); ?>
-                                </div>
-                            <?php endif; ?>
-                            <?php if ($editorMode && $theView->permissions->article->archive) : ?>
-                                <div class="list-group-item">
-                                    <?php $theView->checkbox('article[archived]')->setText('EDITOR_ARCHIVE')->setSelected($article->getArchived())->setClass('fpcm-ui-editor-metainfo-checkbox')->setData(['icon' => 'archived'])->setSwitch(true); ?>
-                                </div>
-                            <?php endif; ?>
-                            </div>
+                    <div class="list-group">
+                        <div class="list-group-item bg-secondary text-white" aria-label="<?php $theView->write('GLOBAL_EXTENDED'); ?>">
+                            <?php $theView->icon('cogs')->setSize('lg'); ?> <span class="fpcm-ui-label ps-1"> <?php $theView->write('GLOBAL_EXTENDED'); ?>
                         </div>
+                        <?php if (!$article->getArchived()) : ?>
+                            <div class="list-group-item">
+                                <?php $theView->checkbox('article[draft]')->setText('EDITOR_DRAFT')->setSelected($article->getDraft())->setClass('fpcm-ui-editor-metainfo-checkbox')->setData(['icon' => 'draft'])->setSwitch(true); ?>
+                            </div>
+                        <?php endif; ?>
+                        <?php if ($commentEnabledGlobal) : ?>
+                            <div class="list-group-item">
+                                <?php $theView->checkbox('article[comments]')->setText('EDITOR_COMMENTS')->setSelected($article->getComments())->setClass('fpcm-ui-editor-metainfo-checkbox')->setData(['icon' => 'comments'])->setSwitch(true); ?>
+                            </div>
+                        <?php endif; ?>
+                        <?php if (!$approvalRequired) : ?>
+                            <div class="list-group-item">
+                                <?php $theView->checkbox('article[approval]')->setText('EDITOR_STATUS_APPROVAL')->setSelected($article->getApproval())->setClass('fpcm-ui-editor-metainfo-checkbox')->setData(['icon' => 'approval'])->setSwitch(true); ?>
+                            </div>
+                        <?php endif; ?>
+                        <?php if ($editorMode && $theView->permissions->article->archive) : ?>
+                            <div class="list-group-item">
+                                <?php $theView->checkbox('article[archived]')->setText('EDITOR_ARCHIVE')->setSelected($article->getArchived())->setClass('fpcm-ui-editor-metainfo-checkbox')->setData(['icon' => 'archived'])->setSwitch(true); ?>
+                            </div>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
@@ -177,7 +169,8 @@
                             ->setText('TEMPLATE_ARTICLE_SOURCES')
                             ->setValue($article->getSources())
                             ->setIcon('external-link-alt')
-                            ->setLabelTypeFloat(); ?>
+                            ->setLabelTypeFloat()
+                            ->setBottomSpace(''); ?>
 
                         <?php $theView->button('editsources')->setText('SYSTEM_OPTIONS_NEWS_SOURCESLIST')->setIcon('pen')->setIconOnly(); ?>
                     </div>
@@ -216,7 +209,7 @@
                 <div class="col">
                     <div class="list-group">
                         <div class="list-group-item bg-secondary text-white" aria-label="<?php $theView->write('EDITOR_SHARES'); ?>">
-                            <?php $theView->icon('share')->setSize('lg'); ?> 
+                            <?php $theView->icon('share')->setSize('lg'); ?>
                             <?php $theView->write('EDITOR_SHARES'); ?>
                         </div>
                         <?php foreach ($shares as $share) : ?>
