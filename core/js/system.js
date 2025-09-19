@@ -583,6 +583,18 @@ fpcm.system = {
 
         fpcm.system.showSessionCheckDialog();
 
+    },
+    
+    toggleDarkMode: function () {
+        fpcm.ajax.post('setconfig', {
+            data: {
+                var: 'system_darkmode',
+                value: fpcm.ui.darkModeEnabled() ? 0 : 1
+            },
+            execDone: function (_result) {
+                fpcm.ui.relocate(window.location.href);
+            }
+        });
     }
 
 };

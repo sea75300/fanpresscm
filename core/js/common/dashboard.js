@@ -150,7 +150,6 @@ fpcm.dashboard = {
             clickYes: function () {
                 fpcm.ajax.post('setconfig', {
                     data: {
-                        op: 'change',
                         var: 'dashboard_containers_disabled',
                         value: _value
                     },

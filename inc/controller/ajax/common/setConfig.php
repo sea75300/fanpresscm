@@ -24,7 +24,8 @@ class setConfig extends \fpcm\controller\abstracts\ajaxController {
         'file_list_limit',
         'articles_acp_limit',
         'dashboardpos',
-        'dashboard_containers_disabled'
+        'dashboard_containers_disabled',
+        'system_darkmode'
     ];
 
     /**

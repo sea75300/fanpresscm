@@ -83,7 +83,7 @@ implements interfaces\jsDialogHelper, \JsonSerializable {
      * @return $this
      * @since 5.0-dev
      */
-    public function setSwitch(bool $switch) {
+    public function setSwitch(bool $switch = true) {
         $this->switch = $switch;
         return $this;
     }

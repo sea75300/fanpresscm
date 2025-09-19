@@ -1,9 +1,11 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
-<div class="row justify-content-end mb-3">
-    <div class="col-12 col-md-auto fw-bold fs-3 text-start flex-grow-1 align-self-center text-truncate">
-        <h3 class="d-inline <?php if ($theView->darkMode) : ?>text-primary-emphasis<?php endif; ?>"><?php print $theView->escape($moduleName); ?></h3>
+<div class="row">
+    <div class="col align-self-center text-truncate">
+        <h3><?php print $theView->escape($moduleName); ?></h3>
     </div>
-    <div class="col-12 col-md-auto">
+</div>
+<div class="row">
+    <div class="col mb-3">
         <div class="btn-group" role="group">
             <?php $theView->button('install')->overrideButtonType('outline-secondary')->setReadonly(!$moduleInstall)->setIcon('plus-circle')->setText('MODULES_LIST_INSTALL')->setIconOnly()->setData(['hash' => $moduleKeyHash]); ?>
             <?php $theView->linkButton('download')->overrideButtonType('outline-secondary')->setRel('external')->setReadonly(!$moduleDownload)->setUrl($moduleDownload)->setIcon('cloud-download-alt')->setIconOnly()->setText('MODULES_LIST_DOWNLOAD'); ?>
@@ -135,26 +137,21 @@
 
 <hr>
 
-<div class="row">
-    <div class="col-12">        
-        <?php $theView->button('topDescr')
-            ->setText('MODULES_LIST_DESCRIPTION')
-            ->setAria(['controls' => 'infoDescrCollapse'])
-            ->setData(['bs-toggle' => 'collapse', 'bs-target' => '#infoDescrCollapse'])
-            ->setIcon('chevron-down'); ?>
-
-        <div class="collapse show mt-2" id="infoDescrCollapse">
-            <div class="card card-body border-0">
-                <div class="pre-box"><?php print $theView->escape($moduleDescription); ?></div>
-            </div>
-        </div>
+<div class="row mb-3">
+    <div class="col fw-bold">
+        <?php $theView->icon('book')->setSize('lg'); ?>
+        <?php $theView->write('MODULES_LIST_DESCRIPTION'); ?>:
     </div>
+</div>
+
+<div class="row mb-3">
+    <div class="pre-box"><?php print $theView->escape($moduleDescription); ?></div>
 </div>
 
 <hr>
 
-<div class="row row-cols-1 row-cols-lg-2 mb-3">
-    <div class="col-12 fw-bold">
+<div class="row mb-3">
+    <div class="col fw-bold">
         <?php $theView->icon('folder-tree')->setSize('lg'); ?>
         <?php $theView->write('MODULES_LIST_DATAPATH'); ?>:
     </div>
@@ -164,13 +161,13 @@
     <div class="col pre-box text-secondary"><?php print $theView->escape($moduleDataPath); ?></div>
 </div>
 
-<div class="row row-cols-1 row-cols-lg-2 mb-3">
-    <div class="col-12 fw-bold">
+<div class="row mb-3">
+    <div class="col fw-bold">
         <?php $theView->icon('hashtag')->setSize('lg'); ?>
         <?php $theView->write('FILE_LIST_FILEHASH'); ?>:
     </div>
 </div>
 
 <div class="row mb-3">
-    <div class="col pre-box text-secondary"><?php print $theView->escapeVal($moduleHash); ?></div>
+    <div class="col pre-box text-secondary text-truncate"><?php print $theView->escapeVal($moduleHash); ?></div>
 </div>
