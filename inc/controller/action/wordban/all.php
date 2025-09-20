@@ -92,10 +92,10 @@ implements \fpcm\controller\interfaces\requestFunctions
     {
         return [
             (new \fpcm\components\dataView\column('select', (new \fpcm\view\helper\checkbox('fpcm-select-all'))->setClass('fpcm-select-all')))->setSize(1)->setAlign('center'),
-            (new \fpcm\components\dataView\column('button', ''))->setSize(1)->setAlign('center'),
-            (new \fpcm\components\dataView\column('subject', 'WORDBAN_NAME'))->setSize(4),
-            (new \fpcm\components\dataView\column('replacement', 'WORDBAN_REPLACEMENT_TEXT'))->setSize(4),
-            (new \fpcm\components\dataView\column('metadata', ''))->setAlign('center'),
+            (new \fpcm\components\dataView\column('button'))->setSize(1)->setAlign('center'),
+            (new \fpcm\components\dataView\column('subject', 'WORDBAN_NAME')),
+            (new \fpcm\components\dataView\column('replacement', 'WORDBAN_REPLACEMENT_TEXT')),
+            (new \fpcm\components\dataView\column('metadata'))->setAlign('center')->setSize(1),
         ];
     }
 

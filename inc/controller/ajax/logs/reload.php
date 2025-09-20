@@ -305,10 +305,10 @@ class reload extends \fpcm\controller\abstracts\ajaxController
     private function getColsSessions() : array
     {
         return [
-            (new \fpcm\components\dataView\column('user', 'LOGS_LIST_USER', 'text-truncate'))->setSize(2),
-            (new \fpcm\components\dataView\column('period', 'LOGS_LIST_PERIOD'))->setSize(2)->setAlign('center'),
-            (new \fpcm\components\dataView\column('sessionid', 'LOGS_LIST_SESSIONID', 'text-truncate'))->setSize(4),
-            (new \fpcm\components\dataView\column('useragent', 'LOGS_LIST_USERAGENT'))->setSize(4),
+            (new \fpcm\components\dataView\column('user', 'LOGS_LIST_USER', 'text-truncate')),
+            (new \fpcm\components\dataView\column('period', 'LOGS_LIST_PERIOD'))->setAlign('center'),
+            (new \fpcm\components\dataView\column('sessionid', 'LOGS_LIST_SESSIONID', 'text-truncate')),
+            (new \fpcm\components\dataView\column('useragent', 'LOGS_LIST_USERAGENT'))
         ];
     }
 
@@ -346,7 +346,7 @@ class reload extends \fpcm\controller\abstracts\ajaxController
         return new \fpcm\components\dataView\row([
             new \fpcm\components\dataView\rowCol('time', $item->time),
             new \fpcm\components\dataView\rowCol('text', str_replace(['&NewLine;', PHP_EOL], '<br>', new \fpcm\view\helper\escape($item->text)), 'pre-box'),
-        ], ( isset($item->type) && trim($item->type) ? 'fpcm ui-logs-'.$item->type : '' ) );
+        ], ( isset($item->type) && trim($item->type) ? 'ui-logs-'.$item->type : '' ) );
     }
 
     /**

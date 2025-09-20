@@ -110,7 +110,8 @@ final class components {
     {
         return [
             'SYSTEM_OPTIONS_FILEMANAGER_VIEWCARDS' => 'cards',
-            'SYSTEM_OPTIONS_FILEMANAGER_VIEWLIST' => 'list'
+            'SYSTEM_OPTIONS_FILEMANAGER_VIEWLIST' => 'list',
+            'SYSTEM_OPTIONS_FILEMANAGER_VIEWSMALL' => 'small'
         ];
     }
 

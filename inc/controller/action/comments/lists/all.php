@@ -17,7 +17,6 @@ class all extends \fpcm\controller\abstracts\controller
 {
 
     use \fpcm\controller\traits\comments\lists,
-        \fpcm\controller\traits\common\searchParams,
         \fpcm\controller\traits\common\listSettings;
 
     /**

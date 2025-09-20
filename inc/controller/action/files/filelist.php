@@ -108,7 +108,8 @@ class filelist extends \fpcm\controller\abstracts\controller
             'FILE_LIST_FILECREDITS', 'RENAME_FAILED_FILE', 'HL_OPTIONS',
             'SYSTEM_OPTIONS_FILEMANAGER_VIEWCARDS', 'FILE_LIST_EDIT_FLIP',
             'SYSTEM_OPTIONS_FILEMANAGER_VIEWLIST', 'FILE_LIST_EDIT_DYNAMIC',
-            'HL_REMINDER', 'REMINDER_SAVE_FAILED', 'GLOBAL_DELETE'
+            'HL_REMINDER', 'REMINDER_SAVE_FAILED', 'GLOBAL_DELETE',
+            'SYSTEM_OPTIONS_FILEMANAGER_VIEWSMALL'
         ], $uploader->getJsLangVars()));
 
         if (!trim($uploader->getTemplate()) || !realpath($uploader->getTemplate())) {

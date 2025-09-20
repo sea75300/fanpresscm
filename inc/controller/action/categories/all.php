@@ -156,9 +156,9 @@ class all extends \fpcm\controller\abstracts\controller implements \fpcm\control
         return [
             (new \fpcm\components\dataView\column('select', (new \fpcm\view\helper\checkbox('fpcm-select-all'))->setClass('fpcm-select-all')))->setSize(1)->setAlign('center'),
             (new \fpcm\components\dataView\column('button', ''))->setSize(1)->setAlign('center'),
-            (new \fpcm\components\dataView\column('name', 'CATEGORIES_NAME'))->setSize(3),
-            (new \fpcm\components\dataView\column('groups', 'CATEGORIES_ROLLS'))->setSize(3),
-            (new \fpcm\components\dataView\column('icon', 'CATEGORIES_ICON_PATH'))->setSize(4)->setAlign('center')
+            (new \fpcm\components\dataView\column('name', 'CATEGORIES_NAME')),
+            (new \fpcm\components\dataView\column('groups', 'CATEGORIES_ROLLS')),
+            (new \fpcm\components\dataView\column('icon', 'CATEGORIES_ICON_PATH'))->setAlign('center')
         ];
     }
 

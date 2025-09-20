@@ -19,8 +19,7 @@ namespace fpcm\controller\ajax\articles;
 class lists extends \fpcm\controller\abstracts\ajaxController
 {
 
-    use \fpcm\controller\traits\common\searchParams,
-        \fpcm\controller\traits\articles\listsCommon,
+    use \fpcm\controller\traits\articles\listsCommon,
         \fpcm\controller\traits\articles\lists;
 
     const MODE_ALL = 'all';

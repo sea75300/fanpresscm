@@ -269,14 +269,6 @@ final class language {
     }
 
     /**
-     * Gibt Text für übergebene Sprachavriable zurück
-     * @param string $langvar Sprachvariable
-     * @param array $replaceParams Liste von Platzhaltern in der Sprachvariable mit zu ersetzendem Text
-     * * Aufbau: Key = Platzhalter => Value = Text
-     * @return string
-     */
-
-    /**
      * Return value of language variable
      * @param string|null $langvar language variable
      * @param array $replaceParams replacement values for placeholder in variable text

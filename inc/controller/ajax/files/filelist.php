@@ -18,8 +18,7 @@ namespace fpcm\controller\ajax\files;
 class filelist extends \fpcm\controller\abstracts\ajaxController
 {
 
-    use \fpcm\controller\traits\files\lists,
-        \fpcm\controller\traits\common\searchParams;
+    use \fpcm\controller\traits\files\lists;
 
     /**
      * Dateimanager-Modus
@@ -87,7 +86,7 @@ class filelist extends \fpcm\controller\abstracts\ajaxController
      */
     protected function getViewPath() : string
     {
-        return 'filemanager/'.$this->getListView();
+        return 'filemanager/views/'.$this->getListView();
     }
 
     /**

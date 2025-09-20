@@ -106,11 +106,11 @@ class all extends \fpcm\controller\abstracts\controller implements \fpcm\control
     {
         return [
             (new \fpcm\components\dataView\column('select', (new \fpcm\view\helper\checkbox('fpcm-select-all'))->setClass('fpcm-select-all')))->setSize(1)->setAlign('center'),
-            (new \fpcm\components\dataView\column('button', ''))->setSize(1)->setAlign('center'),
-            (new \fpcm\components\dataView\column('ipaddress', 'IPLIST_IPADDRESS'))->setSize(4),
-            (new \fpcm\components\dataView\column('user', 'LOGS_LIST_USER'))->setSize(2),
-            (new \fpcm\components\dataView\column('time', 'IPLIST_IPTIME'))->setSize(2),
-            (new \fpcm\components\dataView\column('metadata', ''))->setAlign('center'),
+            (new \fpcm\components\dataView\column('button'))->setSize(1)->setAlign('center'),
+            (new \fpcm\components\dataView\column('ipaddress', 'IPLIST_IPADDRESS')),
+            (new \fpcm\components\dataView\column('user', 'LOGS_LIST_USER')),
+            (new \fpcm\components\dataView\column('time', 'IPLIST_IPTIME')),
+            (new \fpcm\components\dataView\column('metadata'))->setAlign('center')->setSize(1)
         ];
     }
 

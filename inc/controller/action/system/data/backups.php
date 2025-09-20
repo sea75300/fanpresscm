@@ -155,8 +155,8 @@ implements \fpcm\controller\interfaces\requestFunctions
 
         return [
             (new \fpcm\components\dataView\column('select', $cbxa))->setSize(1)->setAlign('center'),
-            (new \fpcm\components\dataView\column('name', 'FILE_LIST_FILENAME'))->setSize(10),
-            (new \fpcm\components\dataView\column('size', 'FILE_LIST_FILESIZE'))->setSize(1),
+            (new \fpcm\components\dataView\column('name', 'FILE_LIST_FILENAME')),
+            (new \fpcm\components\dataView\column('size', 'FILE_LIST_FILESIZE'))->setSize(2)
         ];
     }
 

@@ -16,6 +16,8 @@ namespace fpcm\components\dataView;
 final class column implements \JsonSerializable {
     
     use \fpcm\model\traits\jsonSerializeReturnObject;
+    
+    const SIZE_AUTO = 'auto';
 
     /**
      * Column name
@@ -53,7 +55,7 @@ final class column implements \JsonSerializable {
      * @param string $descr
      * @param string $class
      */
-    public function __construct($name, $descr, $class = '')
+    public function __construct($name, $descr = '', $class = '')
     {
         $this->name  = $name;
         $this->descr = \fpcm\classes\loader::getObject('\fpcm\classes\language')->translate($descr);

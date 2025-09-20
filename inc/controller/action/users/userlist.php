@@ -191,11 +191,11 @@ class userlist extends \fpcm\controller\abstracts\controller
         $dataView = new \fpcm\components\dataView\dataView('userlist');
 
         $dataView->addColumns([
-            (new \fpcm\components\dataView\column('button', '', 'flex-grow-1'))->setSize('auto')->setAlign('center'),
-            (new \fpcm\components\dataView\column('username', 'GLOBAL_USERNAME'))->setSize(3),
-            (new \fpcm\components\dataView\column('email', 'GLOBAL_EMAIL'))->setSize(3),
-            (new \fpcm\components\dataView\column('registered', 'USERS_REGISTEREDTIME'))->setSize(2)->setAlign('center'),
-            (new \fpcm\components\dataView\column('metadata', '', 'flex-grow-1'))->setSize('auto')->setAlign('center'),
+            (new \fpcm\components\dataView\column('button'))->setSize(3),
+            (new \fpcm\components\dataView\column('username', 'GLOBAL_USERNAME')),
+            (new \fpcm\components\dataView\column('email', 'GLOBAL_EMAIL')),
+            (new \fpcm\components\dataView\column('registered', 'USERS_REGISTEREDTIME')),
+            (new \fpcm\components\dataView\column('metadata'))->setAlign('center')
         ]);
 
         $articleCount = $this->articleList->countArticlesByUsers();
@@ -296,8 +296,8 @@ class userlist extends \fpcm\controller\abstracts\controller
         $dataView = new \fpcm\components\dataView\dataView('rollslist');
 
         $dataView->addColumns([
-            (new \fpcm\components\dataView\column('button', ''))->setSize(2)->setAlign('center'),
-            (new \fpcm\components\dataView\column('title', 'USERS_ROLLS_NAME'))->setSize('auto'),
+            (new \fpcm\components\dataView\column('button'))->setSize(2)->setAlign('center'),
+            (new \fpcm\components\dataView\column('title', 'USERS_ROLLS_NAME')),
         ]);
 
         $dest = $this->getControllerLink('users/list', ['rg' => 1]);
