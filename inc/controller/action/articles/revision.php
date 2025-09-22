@@ -187,30 +187,23 @@ implements \fpcm\controller\interfaces\requestFunctions
 
         include_once \fpcm\classes\loader::libGetFilePath('Jfcherng');
 
-        $users = $this->userList->getUsersByIds([
-            $this->article->getCreateuser(),
-            $this->article->getChangeuser(),
-            $this->revision->getCreateuser(),
-            $this->revision->getChangeuser(),
-        ]);
-
         $this->view->assign('articleCreate', $this->language->translate('GLOBAL_USER_ON_TIME', [
-            '{{username}}' => isset($users[$this->article->getCreateuser()]) ? $users[$this->article->getCreateuser()]->getDisplayname() : $this->language->translate('GLOBAL_NOTFOUND'),
+            '{{username}}' => \fpcm\classes\tools::userId2Text($this->article->getCreateuser()),
             '{{time}}'     => new \fpcm\view\helper\dateText($this->article->getCreatetime())
         ]));
 
         $this->view->assign('articleChange', $this->language->translate('GLOBAL_USER_ON_TIME', [
-            '{{username}}' => isset($users[$this->article->getChangeuser()]) ? $users[$this->article->getChangeuser()]->getDisplayname() : $this->language->translate('GLOBAL_NOTFOUND'),
+            '{{username}}' => \fpcm\classes\tools::userId2Text($this->article->getChangeuser()),
             '{{time}}'     => new \fpcm\view\helper\dateText($this->article->getChangetime())
         ]));
 
         $this->view->assign('revisionCreate', $this->language->translate('GLOBAL_USER_ON_TIME', [
-            '{{username}}' => isset($users[$this->revision->getCreateuser()]) ? $users[$this->revision->getCreateuser()]->getDisplayname() : $this->language->translate('GLOBAL_NOTFOUND'),
+            '{{username}}' => \fpcm\classes\tools::userId2Text($this->revision->getCreateuser()),
             '{{time}}'     => new \fpcm\view\helper\dateText($this->revision->getCreatetime())
         ]));
 
         $this->view->assign('revisionChange', $this->language->translate('GLOBAL_USER_ON_TIME', [
-            '{{username}}' => isset($users[$this->revision->getChangeuser()]) ? $users[$this->revision->getChangeuser()]->getDisplayname() : $this->language->translate('GLOBAL_NOTFOUND'),
+            '{{username}}' => \fpcm\classes\tools::userId2Text($this->revision->getChangeuser()),
             '{{time}}'     => new \fpcm\view\helper\dateText($this->revision->getChangetime())
         ]));
 

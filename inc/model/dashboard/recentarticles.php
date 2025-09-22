@@ -71,7 +71,6 @@ class recentarticles extends \fpcm\model\abstracts\dashcontainer implements \fpc
         }
 
         $articleList = new \fpcm\model\articles\articlelist();
-        $userlist = new \fpcm\model\users\userList();
 
         $conditions = new \fpcm\model\articles\search();
         $conditions->limit = [10, 0];
@@ -85,8 +84,6 @@ class recentarticles extends \fpcm\model\abstracts\dashcontainer implements \fpc
             return $str;
         }
 
-        $users = array_flip($userlist->getUsersNameList());
-
         $content = [];
         $content[] = '<div>';
         
@@ -96,7 +93,7 @@ class recentarticles extends \fpcm\model\abstracts\dashcontainer implements \fpc
         foreach ($articles as $article) {
 
             $createInfo = $this->language->translate('GLOBAL_USER_ON_TIME', array(
-                '{{username}}' => isset($users[$article->getCreateuser()]) ? $users[$article->getCreateuser()] : $this->language->translate('GLOBAL_NOTFOUND'),
+                '{{username}}' => \fpcm\classes\tools::userId2Text($article->getCreateuser()),
                 '{{time}}' => date($this->config->system_dtmask, $article->getCreatetime())
             ));
 

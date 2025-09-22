@@ -225,6 +225,17 @@ class viewVars {
     {
         return \fpcm\classes\tools::calcSize($value, $decimals, $delimDec, $delimTousands);
     }
+    
+    /**
+     * Translate user id to display name
+     * @param int $uid
+     * @return string
+     * @since 5.3.0-dev
+     */
+    public function userId2Text(int $uid, string $emtpyString = 'GLOBAL_NOTFOUND') : string
+    {
+        return \fpcm\classes\tools::userId2Text($uid, $emtpyString);
+    }
 
     /**
      * Returns page token field view helper object

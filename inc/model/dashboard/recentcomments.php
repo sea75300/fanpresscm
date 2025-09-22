@@ -86,9 +86,6 @@ class recentcomments extends \fpcm\model\abstracts\dashcontainer implements \fpc
             return $str;
         }
 
-        $userlist = new \fpcm\model\users\userList();
-        $users = array_flip($userlist->getUsersNameList());
-
         $createStr = $this->language->translate('GLOBAL_LASTCHANGE');
         
         $content = [];
@@ -96,7 +93,7 @@ class recentcomments extends \fpcm\model\abstracts\dashcontainer implements \fpc
         foreach ($comments as $comment) {
 
             $createInfo = $this->language->translate('GLOBAL_USER_ON_TIME', array(
-                '{{username}}' => isset($users[$comment->getChangeuser()]) ? $users[$comment->getChangeuser()] : $this->language->translate('GLOBAL_NOTFOUND'),
+                '{{username}}' => \fpcm\classes\tools::userId2Text($comment->getChangeuser()),
                 '{{time}}' => date($this->config->system_dtmask, $comment->getChangetime())
             ));
 

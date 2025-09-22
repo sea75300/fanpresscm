@@ -22,18 +22,6 @@ class all extends \fpcm\controller\abstracts\controller implements \fpcm\control
 
     /**
      *
-     * @var array
-     */
-    private $users = [];
-
-    /**
-     *
-     * @var array
-     */
-    private $notfoundStr = '';
-
-    /**
-     *
      * @var \fpcm\components\dataView\dataView
      */
     protected $dataView;
@@ -79,9 +67,6 @@ class all extends \fpcm\controller\abstracts\controller implements \fpcm\control
 
         $userList = new \fpcm\model\users\userList();
         $this->items = $this->ipList->getIpAll($sort);
-        $this->users = $userList->getUsersAll();
-
-        $this->notfoundStr = $this->language->translate('GLOBAL_NOTFOUND');
 
         $this->initDataView();
 
@@ -130,9 +115,7 @@ class all extends \fpcm\controller\abstracts\controller implements \fpcm\control
      */
     protected function initDataViewRow($item)
     {
-        $userName   = isset($this->users[$item->getUserid()])
-                    ? $this->users[$item->getUserid()]->getDisplayName()
-                    : $this->notfoundStr;
+        $userName   = \fpcm\classes\tools::userId2Text($item->getUserid());
 
         $metaData   = [
             $this->getStatusColor( (new \fpcm\view\helper\icon('comment-slash fa-inverse'))->setClass('fpcm-ui-editor-metainfo')->setText('IPLIST_NOCOMMENTS')->setStack('square'), $item->getNocomments() ),

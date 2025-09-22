@@ -177,7 +177,7 @@ class reload extends \fpcm\controller\abstracts\ajaxController
         $where = '';
         $params = [];
         if ($this->searchterm !== null && strlen($this->searchterm) > 3) {
-            $where = 'AND (userid = ?OR ip = ? OR useragent LIKE ? )';
+            $where = 'AND (userid = ? OR ip = ? OR useragent LIKE ? )';
             $params = array_fill(0, 3, $this->searchterm);
             $params[2] = '%'.$params[2].'%';
         }        
@@ -360,7 +360,7 @@ class reload extends \fpcm\controller\abstracts\ajaxController
 
         $username = sprintf(
             '<b>%s</b><br>%s <span class="d-inline-block" title="%s">%s</span><br><span class="text-secondary">%s %s</span>',
-            new \fpcm\view\helper\escape($this->getusername($item)),
+            new \fpcm\view\helper\escape($this->getUserName($item)),
             (new \fpcm\view\helper\icon('network-wired'))->setText('LOGS_LIST_IPADDRESS'),
             $ip,
             $ip,
@@ -399,14 +399,14 @@ class reload extends \fpcm\controller\abstracts\ajaxController
         ]);
     }
 
-    private function getusername(\fpcm\model\system\session $session) : string
+    /**
+     * Get Username
+     * @param \fpcm\model\system\session $session
+     * @return string
+     */
+    private function getUserName(\fpcm\model\system\session $session) : string
     {
-        if (!isset($this->userList[$session->getUserId()])) {
-            return $this->notfoundStr;
-        }
-
-        $name = $this->userList[$session->getUserId()]?->getDisplayName();
-        return $name ?? $this->notfoundStr;
+        return \fpcm\classes\tools::userId2Text($session->getUserId());
     }
 
 }

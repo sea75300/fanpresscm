@@ -154,11 +154,9 @@ implements \fpcm\controller\interfaces\requestFunctions
         $this->view->addJsLangVars(array_merge(['HL_FILES_MNG', 'ARTICLES_SEARCH', 'FILE_LIST_NEWTHUMBS', 'GLOBAL_DELETE', 'FILE_LIST_INSERTGALLERY', 'FILE_LIST_UPLOADFORM'], $editorPlugin->getJsLangVars()));
 
         if ($this->comment->getChangeuser() && $this->comment->getChangetime()) {
-            $changeUser = new \fpcm\model\users\author($this->comment->getChangeuser());
-
             $this->view->assign(
                 'changeInfo', $this->language->translate('GLOBAL_USER_ON_TIME', array(
-                    '{{username}}' => $changeUser->exists() ? $changeUser->getDisplayname() : $this->language->translate('GLOBAL_NOTFOUND'),
+                    '{{username}}' => \fpcm\classes\tools::userId2Text($this->comment->getChangeuser()),
                     '{{time}}' => date($this->config->system_dtmask, $this->comment->getChangetime())
             )));
         } else {

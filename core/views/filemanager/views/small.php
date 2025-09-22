@@ -21,7 +21,7 @@
         <div class="row">
             <div class="col">
                 <div class="list-group my-2 shadow">
-                    <div class="list-group-item bg-secondary text-white">
+                    <div class="list-group-item bg-primary text-white">
                         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-5">
                             <div class="col align-self-center">&nbsp;</div>
                             <div class="col align-self-center">
@@ -83,10 +83,10 @@
                                 <?php print $theView->dateText($file->getFiletime()); ?>
                             </div>
                             <div class="col align-self-center">
-                                <?php print \fpcm\classes\tools::calcSize($file->getFilesize()); ?>
+                                <?php print $theView->calcSize($file->getFilesize()); ?>
                             </div>
                             <div class="col align-self-center ">
-                                <?php print isset($users[$file->getUserid()]) ? $users[$file->getUserid()]->getDisplayname() : '-'; ?>
+                                <?php print $theView->userId2Text($file->getUserid()); ?>
                             </div>
                         </div>
                     </div>

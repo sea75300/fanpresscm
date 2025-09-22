@@ -169,7 +169,9 @@ table.diff-wrapper {
 }
 
 [data-bs-theme=dark] {
-    
+
+    .diff-wrapper.diff.diff-html .change.change-eq .old,
+    .diff-wrapper.diff.diff-html .change.change-eq .new,        
     .ts-control, .ts-wrapper.single.input-active .ts-control, .ts-dropdown {
         background: var(--bs-body-bg);
     }

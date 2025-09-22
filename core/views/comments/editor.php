@@ -92,31 +92,28 @@
 
 <?php include \fpcm\components\components::getArticleEditor()->getCommentEditorTemplate(); ?>
 
-<fieldset class="my-2">
-    <legend class="fpcm-ui-font-small"><?php $theView->write('GLOBAL_METADATA'); ?></legend>
-
-    <div class="row g-0 my-2 fpcm-ui-font-small">
-        <div class="col-12 col-md-6">
-
-            <div class="row mb-1 row-cols-2">
-                <div class="col">
-                    <?php $theView->icon('calendar')->setSize('lg'); ?>
-                    <strong><?php $theView->write('COMMMENT_CREATEDATE'); ?>:</strong>
-                </div>
-                <div class="col">
-                    <?php $theView->dateText($comment->getCreatetime()); ?>
-                </div>
-            </div>
-
-            <div class="row mb-1 row-cols-2">
-                <div class="col">
-                    <?php $theView->icon('clock', 'far')->setSize('lg'); ?>
-                    <strong><?php $theView->write('GLOBAL_LASTCHANGE'); ?>:</strong>
-                </div>
-                <div class="col">
-                    <?php print $changeInfo; ?>
+<div class="row">
+    <div class="col my-3">
+        <div class="card bg-secondary-subtle">
+            <div class="card-body">
+                <h5 class="card-title"><?php $theView->write('GLOBAL_METADATA'); ?></h5>
+                <div class="row g-0 gap-2 row-cols-1 row-cols-lg-5">
+                    <div class="col">
+                        <?php $theView->icon('calendar')->setSize('lg'); ?>
+                        <strong><?php $theView->write('COMMMENT_CREATEDATE'); ?>:</strong>
+                    </div>
+                    <div class="col">
+                        <?php $theView->dateText($comment->getCreatetime()); ?>
+                    </div>
+                    <div class="col">
+                        <?php $theView->icon('clock', 'far')->setSize('lg'); ?>
+                        <strong><?php $theView->write('GLOBAL_LASTCHANGE'); ?>:</strong>
+                    </div>
+                    <div class="col">
+                        <?php print $changeInfo; ?>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</fieldset>
+</div>

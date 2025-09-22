@@ -68,12 +68,13 @@ implements \fpcm\model\interfaces\isObjectInstancable {
 
         return $this->getUserListResult($users, $byGroup);
     }
-
+    
     /**
-     * Liefert ein array aller Benutzer-Namen
+     * Returns list of all user naned
+     * @param bool $flip
      * @return array
      */
-    public function getUsersNameList()
+    public function getUsersNameList(bool $flip = false) : array
     {
         if (count($this->userNameList)) {
             return $this->userNameList;
@@ -82,6 +83,10 @@ implements \fpcm\model\interfaces\isObjectInstancable {
         $this->userNameList = $this->dbcon->selectFetch( (new \fpcm\model\dbal\selectParams($this->table))->setItem('displayname, id')->setFetchAll(true)->setFetchStyle(\PDO::FETCH_KEY_PAIR) );
         if (!is_array($this->userNameList)) {
             $this->userNameList = [];
+        }
+        
+        if ($flip) {
+            $this->userNameList = array_flip($this->userNameList);
         }
 
         return $this->userNameList;

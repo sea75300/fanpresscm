@@ -89,12 +89,10 @@ implements \fpcm\controller\interfaces\requestFunctions {
 
         $this->view->addButtons($buttons);
 
-        $chgUser = new \fpcm\model\users\author($this->user->getChangeUser());
-
         $this->view->assign('createInfo', new \fpcm\view\helper\dateText($this->user->getRegistertime()));
 
         $this->view->assign('changeInfo', $this->language->translate('GLOBAL_USER_ON_TIME', [
-            '{{username}}' => $chgUser->exists() ? $chgUser->getDisplayname() : $this->language->translate('GLOBAL_NOTFOUND'),
+            '{{username}}' => \fpcm\classes\tools::userId2Text($this->user->getChangeUser()),
             '{{time}}'     => new \fpcm\view\helper\dateText($this->user->getChangetime())
         ]));
 

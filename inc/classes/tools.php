@@ -293,4 +293,17 @@ final class tools {
         return strtotime($date . ' ' . $time);
     }
 
+    /**
+     * Translate user id to display name
+     * @param int $uid
+     * @return string
+     * @since 5.3.0-dev
+     */
+    public static function userId2Text(int $uid, string $emtpyString = 'GLOBAL_NOTFOUND') : string
+    {
+        $ul = \fpcm\model\users\userList::getInstance();
+        $users = $ul->getUsersNameList(true);
+        
+        return $users[$uid] ?? \fpcm\classes\loader::getObject('\fpcm\classes\language')->translate($emtpyString);
+    }
 }

@@ -76,7 +76,7 @@
                         ->setText('GLOBAL_PROPERTIES')
                         ->setIcon('info-circle')
                         ->setClass('fpcm-filelist-properties')
-                        ->setData( $file->getPropertiesArray( isset($users[$file->getUserid()]) ? $users[$file->getUserid()]->getDisplayName() : $theView->translate('USERS_SYSTEMUSER') ) ); ?>
+                        ->setData($file->getPropertiesArray($theView->userId2Text($file->getUserid(), 'USERS_SYSTEMUSER'))); ?>
               </li>
               <?php if ($theView->permissions->uploads->delete) : ?>
               <li><hr class="dropdown-divider"></li>

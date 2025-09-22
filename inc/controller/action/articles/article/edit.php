@@ -151,21 +151,13 @@ class edit extends base {
             $this->view->addMessage('EDITOR_STATUS_INEDIT', ['{{username}}' => $username]);
         }
 
-        $users = $this->userList->getUsersByIds([
-            $this->article->getCreateuser(),
-            $this->article->getChangeuser()
-        ]);
-
-        $createUser = isset($users[$this->article->getCreateuser()]) ? $users[$this->article->getCreateuser()] : null;
-        $changeUser = isset($users[$this->article->getChangeuser()]) ? $users[$this->article->getChangeuser()] : null;
-
         $this->view->assign('createInfo', $this->language->translate('GLOBAL_USER_ON_TIME', [
-            '{{username}}' => $createUser ? $createUser->getDisplayname() : $this->language->translate('GLOBAL_NOTFOUND'),
+            '{{username}}' => \fpcm\classes\tools::userId2Text($this->article->getCreateuser()),
             '{{time}}'     => new \fpcm\view\helper\dateText($this->article->getCreatetime())
         ]));
 
         $this->view->assign('changeInfo', $this->language->translate('GLOBAL_USER_ON_TIME', [
-            '{{username}}' => $changeUser ? $changeUser->getDisplayname() : $this->language->translate('GLOBAL_NOTFOUND'),
+            '{{username}}' => \fpcm\classes\tools::userId2Text($this->article->getChangeuser()),
             '{{time}}'     => new \fpcm\view\helper\dateText($this->article->getChangetime())
         ]));
 
