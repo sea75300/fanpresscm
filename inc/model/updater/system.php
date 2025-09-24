@@ -21,7 +21,7 @@ use fpcm\model\packages\update;
  * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\model\updater
- * 
+ *
  * @property string $version New system version
  * @property bool $force Force update to new version
  * @property string $url URL for package
@@ -35,7 +35,7 @@ final class system
 extends staticModel
 implements \fpcm\model\interfaces\isObjectInstancable
 {
-    
+
     use \fpcm\model\traits\getObjectInstance;
 
     /**
@@ -93,25 +93,9 @@ implements \fpcm\model\interfaces\isObjectInstancable
         $this->fileOption = new fileOption(repository::FOPT_UPDATES);
 
         $foptData = \Spyc::YAMLLoadString($this->fileOption->read());
-        
-        $currentVersionComplete = $this->config->system_version;
-        $currentVersionMinor    = \fpcm\classes\tools::getMajorMinorReleaseFromString($currentVersionComplete);
 
-        if ($this->config->system_updates_devcheck) {
-            $currentVersionComplete .= '-'.self::PREFIX_DEV;
-            $currentVersionMinor .= '-'.self::PREFIX_DEV;
-        }
-
-        if (isset($foptData[$currentVersionComplete])) {
-            $this->data = $foptData[$currentVersionComplete];
-        }
-        elseif (isset($foptData[$currentVersionMinor]) ) {
-            $this->data = $foptData[$currentVersionMinor];
-        }
-        elseif ($this->config->system_updates_devcheck && isset ($foptData[self::PREFIX_DEV])) {
-            $this->data = $foptData[self::PREFIX_DEV];
-        }
-        else {
+        $this->data = $foptData[$this->config->system_version] ?? [];
+        if (!count($this->data)) {
             $this->data = $foptData[self::PREFIX_DEFAULT] ?? [];
         }
 
