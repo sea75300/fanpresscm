@@ -91,12 +91,12 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <button class="nav-link bg-transparent<?php if($theView->currentUser->getUserMeta()->system_darkmode) : ?> text-warning<?php endif; ?>"
+                    <button class="nav-link bg-transparent"
                             id="fpcm-id-switch-mode"
                             data-fn="system.toggleDarkMode"
                             title="<?php $theView->write('SYSTEM_OPTIONS_DARKMODE'); ?>"
                             >
-                        <?php $theView->icon('moon')->setSize('lg'); ?>
+                        <?php $theView->icon($theView->currentUser->getUserMeta()->system_darkmode ? 'sun' : 'moon', 'far')->setSize('lg'); ?>
                     </button>
                 </li>
             </ul>
