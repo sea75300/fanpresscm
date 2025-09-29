@@ -13,7 +13,6 @@ namespace fpcm\controller\action\system;
  * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-
 class info extends \fpcm\controller\abstracts\controller {
 
     /**

@@ -18,6 +18,11 @@ $lang = array (
     'OGG audio' => 'audio/ogg',
     'WAV audio' => 'audio/wav',
   ),
+  'GLOBAL_SORTBY_LIST' => 
+  array (
+    'Ascending' => 'asc',
+    'Descending' => 'desc',
+  ),
   'SYSTEM_DAYS' => 
   array (
     0 => 'Sunday',
@@ -163,10 +168,5 @@ $lang = array (
     'Do nothing' => '',
     'Delete articles' => 'delete',
     'Move articles to' => 'move',
-  ),
-  'GLOBAL_SORTBY_LIST' => 
-  array (
-    'Ascending' => 'asc',
-    'Descending' => 'desc',
   ),
 );

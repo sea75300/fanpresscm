@@ -566,7 +566,7 @@ class view {
      * @return bool
      * @since 5.2.0-a1
      */
-    final public function addFromCpomponent($component) : bool
+    final public function addFromComponent($component) : bool
     {
 
         if (!$component instanceof \fpcm\model\interfaces\viewComponent) {
@@ -1395,7 +1395,7 @@ class view {
             return;
         }
 
-        $this->addFromCpomponent( \fpcm\components\components::getLightbox() );
+        $this->addFromComponent( \fpcm\components\components::getLightbox() );
         return;
     }
 

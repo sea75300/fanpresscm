@@ -143,6 +143,8 @@ class navigation extends \fpcm\model\abstracts\staticModel {
 
         $submenu = [];
 
+        $submenu[] = (new navigationItem())->setUrl('system/integration')->setDescription('LABEL_FIELD_INTEGRATION')->setIcon('tent-arrows-down');
+        
         if ($this->permissions->system->csvimport) {
             $submenu[] = (new navigationItem())->setUrl('system/import')->setDescription('IMPORT_MAIN')->setIcon('file-import');
         }
@@ -157,7 +159,7 @@ class navigation extends \fpcm\model\abstracts\staticModel {
 
         $this->navList->add(
             navigationItem::AREA_TRASH,
-            (new navigationItem())->setUrl('#')->setDescription('Werkzeuge')
+            (new navigationItem())->setUrl('#')->setDescription('HL_UTILITIES')
             ->setIcon('tools')
             ->setId('utilities')
             ->setSubmenu($submenu)

@@ -18,6 +18,11 @@ $lang = array (
     'OGG Audio' => 'audio/ogg',
     'WAV Audio' => 'audio/wav',
   ),
+  'GLOBAL_SORTBY_LIST' => 
+  array (
+    'Aufsteigend' => 'asc',
+    'Absteigend' => 'desc',
+  ),
   'LANGUAGE_CHARACTER_REPLACE' => 
   array (
     'ä' => 'ae',
@@ -173,10 +178,5 @@ $lang = array (
     'Nichts unternehmen' => '',
     'Artikel löschen' => 'delete',
     'Artikel verschieben zu' => 'move',
-  ),
-  'GLOBAL_SORTBY_LIST' => 
-  array (
-    'Aufsteigend' => 'asc',
-    'Absteigend' => 'desc',
   ),
 );
