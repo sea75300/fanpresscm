@@ -15,7 +15,7 @@ fpcm.integration = {
 
         fpcm.dom.bindClick('#btnProcess', function () {
             fpcm.integration.processArticles();
-            fpcm.integration.processTitle();     
+            fpcm.integration.processTitle();
         });
 
     },
@@ -32,9 +32,9 @@ fpcm.integration = {
                 pref: 'latest'
             }
         ];
-        
+
         for (let i = 0; i < _lists.length; i++) {
-            
+
             document.getElementById(_lists[i].dest).innerText = '';
 
             let data = '[';
@@ -47,13 +47,13 @@ fpcm.integration = {
             }
 
             let category = document.getElementById(_prefix + 'category');
-            if (category) {
+            if (category && category.value) {
                 data += "\n";
                 data += "   'category' => " + parseInt(category.value) + ",";
             }
 
             let template = document.getElementById(_prefix + 'template');
-            if (template) {
+            if (template && template.value) {
                 data += "\n";
                 data += "   'template' => '" + template.value + "',";
             }
@@ -64,7 +64,7 @@ fpcm.integration = {
             }
         }
 
-        
+
         return true;
     },
 
@@ -74,18 +74,18 @@ fpcm.integration = {
             'titlePages',
             'titleHl'
         ];
-        
+
         for (let i = 0; i < _lists.length; i++) {
-            
+
             let prefix = _lists[i];
 
             document.getElementById('functionParams' + prefix + '1').innerText = '';
             document.getElementById('functionParams' + prefix + '2').innerText = '';
-            
+
             document.getElementById('functionParams' + prefix + '1').innerText = document.getElementById(prefix + 'delimited').value;
         }
 
-        
+
         return true;
     }
 };
