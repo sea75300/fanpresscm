@@ -171,9 +171,9 @@ class viewVars {
      * @param string $var
      * @param array $params
      */
-    public function write($var, array $params = [])
+    public function write($var, array $params = [], bool $spf = false)
     {
-        print $this->translate($var, $params);
+        print $this->translate($var, $params, $spf);
     }
     
     /**
@@ -183,9 +183,9 @@ class viewVars {
      * @param array $params
      * @return string
      */
-    public function translate($var, array $params = [])
+    public function translate($var, array $params = [], bool $spf = false)
     {
-        return $this->lang->translate($var, $params);
+        return $this->lang->translate($var, $params, $spf);
     }
 
     /**

@@ -13,6 +13,7 @@
         ->setLabelTypeFloat(); ?>
     </div>
     <div class="col">&nbsp;</div>
+    <div class="col">&nbsp;</div>
 </div>
 
 <div class="card">

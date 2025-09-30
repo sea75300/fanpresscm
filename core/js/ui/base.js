@@ -219,12 +219,26 @@ fpcm.ui = {
         }
     },
 
-    translate: function(langVar) {
-        return fpcm.vars.ui.lang[langVar] === undefined ? langVar : fpcm.vars.ui.lang[langVar];
+    translate: function(_var, _repl) {
+
+        if (!fpcm.ui.langvarExists(_var)) {
+            return _var;
+        }
+
+        let _text = fpcm.vars.ui.lang[_var];
+        if (!_repl) {
+            return _text;
+        }
+
+        for (var _item of _repl) {
+            _text = _text.replace('%s', _item);
+        }
+
+        return _text;
     },
 
-    langvarExists: function(langVar) {
-        return fpcm.vars.ui.lang[langVar] === undefined ? false : true;
+    langvarExists: function(_var) {
+        return fpcm.vars.ui.lang[_var] === undefined ? false : true;
     },
 
     assignCheckboxes: function() {

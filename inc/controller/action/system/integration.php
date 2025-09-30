@@ -40,9 +40,9 @@ implements \fpcm\controller\interfaces\viewByNamespace
                 'INTEGRATION_RSS_FEED' => 'feed',
             ],
             'articleCount' => $this->config->articles_limit,
-            'system_url' => rtrim($this->config->system_url, '/') . (!str_ends_with($this->config->system_url, '.php') ? '/index.php' : ''),
             'categories' => (new \fpcm\model\categories\categoryList())->getCategoriesNameListAll(),
-            'templates' => (new \fpcm\model\pubtemplates\templatelist())->getArticleTemplates()
+            'templates' => (new \fpcm\model\pubtemplates\templatelist())->getArticleTemplates(),
+            'basedir' => dirname(\fpcm\classes\dirs::getFullDirPath('/')). DIRECTORY_SEPARATOR.'index.php'
             
         ]);
         
@@ -61,6 +61,8 @@ implements \fpcm\controller\interfaces\viewByNamespace
         $this->view->addJsVars([
             'articlesDefault' => $this->config->articles_limit
         ]);
+        
+        $this->view->addJsLangVars(['INTEGRATION_TEXT_API']);
         
         return true;
     }

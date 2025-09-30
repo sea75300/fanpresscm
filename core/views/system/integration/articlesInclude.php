@@ -18,6 +18,12 @@
         ->setText('SYSTEM_OPTIONS_ACTIVENEWSTEMPLATE')
         ->setLabelTypeFloat(); ?>
     </div>
+    <div class="col">
+    <?php $theView->boolSelect('article[search]')
+        ->setText('INTEGRATION_TEXT_SHOW_ARTICLE_SEARCH')
+        ->setSelected(0)
+        ->setLabelTypeFloat(); ?>
+    </div>
 </div>
 
 <div class="card">
