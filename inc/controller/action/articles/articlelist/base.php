@@ -13,22 +13,14 @@ abstract class base extends \fpcm\controller\abstracts\controller
 {
 
     use \fpcm\controller\traits\articles\listsCommon,
-        \fpcm\controller\traits\articles\listsView,
         \fpcm\controller\traits\common\massedit,
         \fpcm\controller\traits\common\listSettings;
-
 
     /**
      * Liste mit erlaubten Artikel-Aktionen
      * @var array
      */
     protected $articleActions = [];
-
-    /**
-     *
-     * @var bool
-     */
-    protected $deleteActions = false;
 
     /**
      *
@@ -41,18 +33,6 @@ abstract class base extends \fpcm\controller\abstracts\controller
      * @var string
      */
     protected $listAction = '';
-
-    /**
-     *
-     * @var string
-     */
-    protected $page = '';
-
-    /**
-     *
-     * @var \fpcm\model\articles\search
-     */
-    protected $conditionItems;
 
     /**
      *
@@ -73,18 +53,6 @@ abstract class base extends \fpcm\controller\abstracts\controller
     }
 
     /**
-     * Konstruktor
-     */
-    public function __construct()
-    {
-        parent::__construct();
-
-        $this->initActionObjects();
-        $this->initArticleActions();
-        $this->initEditPermisions();
-    }
-
-    /**
      * Request-Handler
      * @return bool
      */
@@ -92,8 +60,6 @@ abstract class base extends \fpcm\controller\abstracts\controller
     {
         $this->page = $this->request->getPage();
         $this->getListAction();
-
-
         return true;
     }
 
@@ -167,19 +133,6 @@ abstract class base extends \fpcm\controller\abstracts\controller
         ]);
 
         return true;
-    }
-
-    protected function initArticleActions()
-    {
-        if (!$this->permissions) {
-            return false;
-        }
-
-        $this->articleActions['ARTICLES_CACHE_CLEAR'] = 'articlecache';
-
-        $this->view->addJsVars([
-            'artCacheMod' => urlencode(\fpcm\classes\loader::getObject('\fpcm\classes\crypt')->encrypt(\fpcm\model\articles\article::CACHE_ARTICLE_MODULE))
-        ]);
     }
 
     /**
@@ -339,7 +292,10 @@ abstract class base extends \fpcm\controller\abstracts\controller
             'TEMPLATE_ARTICLE_SOURCES'
         ]);
 
-        $this->view->addJsVars(['articlesLastSearch' => 0]);
+        $this->view->addJsVars([
+            'articlesLastSearch' => 0,
+            'artCacheMod' => urlencode(\fpcm\classes\loader::getObject('\fpcm\classes\crypt')->encrypt(\fpcm\model\articles\article::CACHE_ARTICLE_MODULE))
+        ]);
 
         $this->view->addFromLibrary('sortable_js/', [
             'Sortable.min.js'

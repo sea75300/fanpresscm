@@ -8,7 +8,7 @@
             <div class="row my-2">
                 <div class="col">
                     <div class="list-group">
-                        <div class="list-group-item bg-secondary text-white" aria-label="<?php $theView->write('GLOBAL_EXTENDED'); ?>">
+                        <div class="list-group-item bg-secondary bg-gradient text-white" aria-label="<?php $theView->write('GLOBAL_EXTENDED'); ?>">
                             <?php $theView->icon('cogs')->setSize('lg'); ?> <span class="fpcm-ui-label ps-1"> <?php $theView->write('GLOBAL_EXTENDED'); ?>
                         </div>
                         <?php if (!$article->getArchived()) : ?>
@@ -208,7 +208,7 @@
             <div class="row my-2 row-cols-1 row-cols-xl-2">
                 <div class="col">
                     <div class="list-group">
-                        <div class="list-group-item bg-secondary text-white" aria-label="<?php $theView->write('EDITOR_SHARES'); ?>">
+                        <div class="list-group-item bg-secondary bg-gradient text-white" aria-label="<?php $theView->write('EDITOR_SHARES'); ?>">
                             <?php $theView->icon('share')->setSize('lg'); ?>
                             <?php $theView->write('EDITOR_SHARES'); ?>
                         </div>

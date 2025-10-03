@@ -21,9 +21,9 @@
         <div class="row">
             <div class="col">
                 <div class="list-group my-2 shadow">
-                    <div class="list-group-item bg-primary text-white">
+                    <div class="list-group-item bg-primary<?php if ($theView->darkMode) : ?>-subtle<?php endif; ?> bg-gradient text-white">
                         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-5">
-                            <div class="col align-self-center">&nbsp;</div>
+                            <div class="col align-self-center d-none d-md-block">&nbsp;</div>
                             <div class="col align-self-center">
                                 <?php $theView->write('FILE_LIST_FILENAME'); ?>
                             </div>
@@ -40,7 +40,7 @@
                     </div>
 
                 <?php foreach($files AS $file) : ?>
-                    <div class="list-group-item  fpcm ui-files-item ui-background-transition">
+                    <div class="list-group-item fpcm ui-files-item ui-background-white-50p ui-background-transition">
                         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-5">
                             <div class="col align-self-center">
                                 <div class="navbar gap-1 justify-content-start justify-content-lg-center">

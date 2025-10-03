@@ -141,7 +141,7 @@ fpcm.dataview = {
     _createHead: function (_cfg) {
 
         let _el = document.createElement('div');
-        _el.classList.add('row');
+        _el.classList.add('row', 'bg-gradient');
 
         if (fpcm.ui.darkModeEnabled()) {
             _el.classList.add('bg-primary-subtle');
@@ -230,7 +230,7 @@ fpcm.dataview = {
         ];
 
         if (row.isheadline) {
-            _rowStyle.push('fpcm-ui-dataview-subhead', 'bg-dark-subtle');
+            _rowStyle.push('fpcm-ui-dataview-subhead', 'bg-dark-subtle', 'bg-gradient');
         }
         else {
             _rowStyle.push('ui-background-transition');

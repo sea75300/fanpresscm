@@ -151,5 +151,3 @@ class trash extends \fpcm\controller\abstracts\controller
     }
 
 }
-
-?>

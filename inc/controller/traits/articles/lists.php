@@ -19,30 +19,6 @@ trait lists {
 
     /**
      *
-     * @var \fpcm\model\categories\categoryList
-     */
-    protected $categoryList;
-
-    /**
-     *
-     * @var \fpcm\model\users\userList
-     */
-    protected $userList;
-
-    /**
-     *
-     * @var \fpcm\model\articles\articlelist
-     */
-    protected $articleList;
-
-    /**
-     *
-     * @var \fpcm\model\comments\commentList
-     */
-    protected $commentList;
-
-    /**
-     *
      * @var int
      */
     protected $count = 0;

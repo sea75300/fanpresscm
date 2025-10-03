@@ -9,7 +9,7 @@ namespace fpcm\controller\traits\comments;
 
 /**
  * Kommentar-Liste trait
- * 
+ *
  * @package fpcm\controller\traits\comments\lists
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2022, Stefan Seehafer
@@ -18,17 +18,6 @@ namespace fpcm\controller\traits\comments;
 trait lists {
 
     use \fpcm\controller\traits\common\massedit;
-
-    protected $permissionsArray = [];
-
-    /**
-     *
-     * @var array
-     */
-    protected $actions = array(
-        'COMMENTLIST_ACTION_MASSEDIT' => 1,
-        'COMMENTLIST_ACTION_DELETE' => 2
-    );
 
     /**
      *
@@ -91,7 +80,7 @@ trait lists {
     protected function initCommentMassEditForm($mode)
     {
         $fields = [];
-        
+
         if ($this->permissions->comment->approve) {
             $fields[] = new \fpcm\components\masseditField(
                 (new \fpcm\view\helper\select('isApproved'))
@@ -112,7 +101,7 @@ trait lists {
             );
 
         }
-        
+
         if ($this->permissions->comment->private) {
             $fields[] = new \fpcm\components\masseditField(
                 (new \fpcm\view\helper\select('isPrivate'))
@@ -123,7 +112,7 @@ trait lists {
                     ->setLabelTypeFloat()
             );
         }
-        
+
         if ($mode === 1 && $this->permissions->comment->move) {
             $fields[] = new \fpcm\components\masseditField(
                 (new \fpcm\view\helper\textInput('moveToArticle'))
@@ -135,13 +124,13 @@ trait lists {
             );
         }
 
-        $this->assignFields($fields);        
+        $this->assignFields($fields);
         $this->assignPageToken('comments');
         $this->view->addJsLangVars(['SAVE_FAILED_COMMENTS']);
     }
 
     /**
-     * 
+     *
      * @return bool
      */
     protected function initActionObjects()
@@ -150,7 +139,7 @@ trait lists {
     }
 
     /**
-     * 
+     *
      * @return array
      */
     protected function getDataViewCols()
@@ -165,7 +154,7 @@ trait lists {
     }
 
     /**
-     * 
+     *
      * @return string
      */
     protected function getDataViewName()
@@ -174,7 +163,7 @@ trait lists {
     }
 
     /**
-     * 
+     *
      * @return bool
      */
     protected function initDataView()
@@ -183,7 +172,7 @@ trait lists {
     }
 
     /**
-     * 
+     *
      * @return bool
      */
     protected function commentObjects()
@@ -191,12 +180,11 @@ trait lists {
         $this->list = new \fpcm\model\comments\commentList();
         $this->articleList = new \fpcm\model\articles\articlelist();
         $this->conditions = new \fpcm\model\comments\search();
-        
         return true;
     }
 
     /**
-     * 
+     *
      * @return bool
      */
     protected function commentDataView()
@@ -208,8 +196,8 @@ trait lists {
         if ($isList) {
             $this->conditions->limit = [$this->config->articles_acp_limit, $this->listShowStart];
         }
-        
-        if (!$this->conditions->isMultiple()) {            
+
+        if (!$this->conditions->isMultiple()) {
             $this->conditions->deleted = 0;
             $this->conditions->orderby = ['createtime DESC'];
         }
@@ -218,8 +206,8 @@ trait lists {
         if ($comments === \fpcm\drivers\sqlDriver::CODE_ERROR_SYNTAX) {
             $comments = [];
             $this->filterError = new \fpcm\view\message($this->language->translate('SEARCH_ERROR'), \fpcm\view\message::TYPE_ERROR);
-        }        
-        
+        }
+
         $this->commentCount = count($comments);
         $this->maxItemCount = $this->list->countCommentsByCondition(new \fpcm\model\comments\search());
 
@@ -244,7 +232,7 @@ trait lists {
         }
 
         $showDeleteButton = $this->permissions?->comment?->delete;
-        
+
         /* @var $comment \fpcm\model\comments\comment */
         foreach ($comments as $commentId => $comment) {
 
@@ -265,14 +253,14 @@ trait lists {
     }
 
     /**
-     * 
+     *
      * @return int
      */
     protected function getMode()
     {
         return 1;
     }
-    
+
     private function getExtLineMenu(
         \fpcm\view\helper\controlgroup &$buttons,
         \fpcm\model\comments\comment $comment,
@@ -282,10 +270,10 @@ trait lists {
     {
 
         $extMenuOptions = [];
-        
+
         $buttons->addItem( (new \fpcm\view\helper\openButton('commentfe'))->setUrlbyObject($comment)->setTarget(\fpcm\view\helper\linkButton::TARGET_NEW) );
         $buttons->addItem( (new \fpcm\view\helper\editButton('commentedit'))->setUrlbyObject($comment, '&mode=' . $this->getMode())->setClass('fpcm-ui-commentlist-link') );
-        
+
 
         if ($isList) {
             $extMenuOptions[] = (new \fpcm\view\helper\dropdownItem('article'.$comment->getId()))->setUrl( \fpcm\classes\tools::getControllerLink('articles/edit', ['id' => $comment->getArticleid()]) )->setText('COMMENTS_EDITARTICLE')->setIcon('book')->setIconOnly();
@@ -294,7 +282,7 @@ trait lists {
         if ($comment->getEmail()) {
             $extMenuOptions[] = (new \fpcm\view\helper\dropdownItem('commentmail'.$comment->getId()))->setUrl('mailto:'.$comment->getEmail())->setIcon('envelope')->setIconOnly()->setText('GLOBAL_WRITEMAIL');
         }
-        
+
         if ($showDeleteButton) {
             $extMenuOptions[] = new \fpcm\view\helper\dropdownSpacer();
             $extMenuOptions[] = (new \fpcm\view\helper\dropdownItem('ddDelete'.$comment->getId()))
@@ -302,8 +290,8 @@ trait lists {
                                 ->setText('GLOBAL_DELETE')
                                 ->setClass('fpcm-ui-button-delete fpcm-ui-button-delete-comment-single')
                                 ->setData(['comid' => $comment->getId()]);
-        }        
-        
+        }
+
         if (!count($extMenuOptions)) {
             return true;
         }
@@ -315,9 +303,8 @@ trait lists {
             ->setSelected('-1')
             ->setClass('d-inline-block')
             ->setOptions($extMenuOptions)
-        );        
-        
-        
+        );
+
         return true;
     }
 }

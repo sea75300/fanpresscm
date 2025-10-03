@@ -83,10 +83,6 @@ span.fpcm-ui-badge,
     background: rgba(255, 255, 255, 0.85);
 }
 
-div.fpcm.ui-files-item {
-    background: rgba(var(--bs-body-bg-rgb), 0.75);
-}
-
 .fpcm.ui-color-blue-light {
     color: var(--fpcm-blue-light);
 }

@@ -11,9 +11,9 @@
                 <?php if ($field instanceof \fpcm\components\fieldGroup) : ?>
                     <div class="col">
                         <div class="list-group">
-                            <div class="list-group-item bg-secondary text-white" aria-label="<?php $theView->write($field->getDescr()); ?>">
+                            <div class="list-group-item bg-secondary text-white bg-gradient" aria-label="<?php $theView->write($field->getDescr()); ?>">
                                 <?php if ($field->getIcon() !== null) : print $field->getIcon(); endif; ?>
-                                <span class="fpcm-ui-label ps-1"> <?php $theView->write($field->getDescr()); ?></span>
+                                <span class="fpcm-ui-label ps-1"><?php $theView->write($field->getDescr()); ?></span>
                             </div>
 
                         <?php foreach ($field->getFields() as $subField) : ?>

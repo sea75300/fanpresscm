@@ -500,7 +500,7 @@ class template extends \fpcm\model\abstracts\file {
 
         foreach ($files as $file) {
 
-            $tf = \fpcm\classes\dirs::getFullDirPath('public/fpcm.min.js');
+            $tf = \fpcm\classes\dirs::getFullDirPath('public/' . $file);
 
             if (file_exists($tf)) {
                 return \fpcm\classes\dirs::getPublicAssetUrl($file);

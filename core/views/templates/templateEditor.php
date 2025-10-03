@@ -10,7 +10,7 @@
     <div class="col-12 col-lg-5 col-xl-3">
         <div class="m-2">
             <div class="list-group h-100">
-                <div class="list-group-item bg-secondary text-white"><?php $theView->icon('plus'); ?> <?php $theView->write('TEMPLATE_REPLACEMENTS'); ?></div>
+                <div class="list-group-item bg-secondary bg-gradient text-white"><?php $theView->icon('plus'); ?> <?php $theView->write('TEMPLATE_REPLACEMENTS'); ?></div>
 
             <?php foreach ($replacements as $tag => $descr) : ?>
                 <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" data-tag="<?php print $tag; ?>">

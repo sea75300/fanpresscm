@@ -35,18 +35,6 @@ class lists extends \fpcm\controller\abstracts\ajaxController
     private $conditions;
 
     /**
-     * Current Page
-     * @var int
-     */
-    protected $page = 1;
-
-    /**
-     * Current offset
-     * @var int
-     */
-    protected $offset = 0;
-
-    /**
      * View message
      * @var \fpcm\view\message
      */
