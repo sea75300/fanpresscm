@@ -202,7 +202,9 @@ abstract class event {
             $eventClasses = array_slice($eventClasses, 0, 1);
         }
 
-        foreach ($eventClasses as $class) {
+        $max = count($eventClasses) - 1;
+
+        foreach ($eventClasses as $i => $class) {
 
             if (!class_exists($class)) {
                 trigger_error(sprintf('Undefined event class %s, Event: %s', $class, self::class));
@@ -214,8 +216,12 @@ abstract class event {
                  return $this->data;
             }
 
+            if ($i < $max) {
+                $this->afterProcess();
+            }
+
         }
-        
+
         $this->afterRun();
 
         return $this->data;
@@ -252,6 +258,16 @@ abstract class event {
     }
 
     /**
+     * After event running
+     * @return bool
+     * @since 5.3.0-dev
+     */
+    protected function afterProcess() : void
+    {
+        $this->data = $this->data->getData();
+    }
+
+    /**
      * Returns event params
      * @return mixed
      */
@@ -273,12 +289,17 @@ abstract class event {
             return false;
         }
 
-        if (method_exists($this, 'doEventbyArea')) {
-            $this->data = $this->doEventbyArea($module);
-            return true;
+        try {
+
+            $this->data = method_exists($this, 'doEventbyArea')
+                        ? $this->doEventbyArea($module)
+                        : $module->run();
+
+        } catch (\Throwable $e) {
+            trigger_error($e);
+            return false;
         }
-        
-        $this->data = $module->run();
+
         return true;
     }
 

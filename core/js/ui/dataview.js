@@ -165,7 +165,8 @@ fpcm.dataview = {
             ];
 
             if(_col.class) {
-                _style.push(_col.class);
+                let _ccTmp = _col.class.split(' ');
+                _style = _style.concat(_ccTmp);
             }
 
             if (!_col.descr) {
@@ -237,7 +238,8 @@ fpcm.dataview = {
         }
 
         if (row.class) {
-            _rowStyle.push(row.class);
+            let _rcTmp = row.class.split(' ');
+            _rowStyle = _rowStyle.concat(_rcTmp);
         }
 
         if (row.isNotFound) {
@@ -271,7 +273,13 @@ fpcm.dataview = {
             ];
 
             if(_colMeta.class) {
-                _style.push(_colMeta.class);
+                let _cmcTmp = _colMeta.class.split(' ');
+                _style = _style.concat(_cmcTmp);
+            }
+
+            if(_colData.class) {
+                let _cdcTmp = _colData.class.split(' ');
+                _style = _style.concat(_cdcTmp);
             }
 
             if (row.isNotFound === true) {
