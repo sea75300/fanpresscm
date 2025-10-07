@@ -1064,6 +1064,10 @@ class module {
     final public function getFullChangelogUrl() : string
     {
         $changelogUrl = $this->config->changelogUrl ?? '';
+        if (!trim($changelogUrl)) {
+            return '';
+        }
+        
         if (!str_starts_with($changelogUrl, 'http')) {
             $changelogUrl = self::getModuleUrlFromKey($this->mkey) . '/' . $changelogUrl;
         }

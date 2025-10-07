@@ -212,11 +212,13 @@ class modules extends \fpcm\model\abstracts\tablelist {
             $module = new repoModule($key, false);
             $module->createFromRepoArray([
                 'name' => $value['name'],
-                'description' => isset($value['description']) ? $value['description'] : '',
-                'version' => isset($value['version']) ? $value['version'] : '',
-                'author' => isset($value['author']) ?$value['author'] : '',
-                'link' => isset($value['link']) ?$value['link'] : '',
-                'requirements' => isset($value['requirements']) ? $value['requirements'] : []
+                'description' => $value['description'] ?? '',
+                'version' => $value['version'] ?? '',
+                'author' => $value['author'] ?? '',
+                'link' => $value['link'] ?? '',
+                'requirements' => $value['requirements'] ?? [],
+                'changelogUrl' => $value['changelog'] ?? '',
+                'size' => $value['size'] ?? '',
             ]);
 
             $modules[$key] = $module;
