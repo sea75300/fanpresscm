@@ -258,6 +258,7 @@ class module {
         }
 
         $res = $ev->getData();
+        
         return is_array($res) && count($res) ? $res : [];
     }
 

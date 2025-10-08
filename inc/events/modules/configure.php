@@ -30,15 +30,15 @@ class configure extends \fpcm\events\abstracts\event {
     {
         $class = \fpcm\module\module::getEventNamespace($this->data, $this->getEventClassBase());
         if (!class_exists($class)) {
-            return (new \fpcm\module\eventResult)->setData(true);
+            return (new \fpcm\module\eventResult)->setData([]);
         }
 
         $obj = new $class($this->data);
         if (!$this->is_a($obj)) {
-            return (new \fpcm\module\eventResult)->setData(false);
+            return (new \fpcm\module\eventResult)->setData([]);
         }
 
-        return (new \fpcm\module\eventResult)->setData($obj->run());
+        return $obj->run();
     }
 
 }

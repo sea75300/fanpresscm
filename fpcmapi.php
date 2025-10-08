@@ -193,20 +193,12 @@ class fpcmAPI {
      * @param array $arguments
      * @return mixed
      * @since 3.1.5
+     * @deprecated 5.3.0-a1
+     * @see getModuleApi
      */
     public function __call($name, $arguments)
     {
-        if (self::$versionFailed) {
-            return false;
-        }
-
-        $this->initObjects();
-
-        return fpcm\classes\loader::getObject('fpcm\events\events')->trigger('apiCallFunction', [
-            'name' => $name,
-            'args' => $arguments
-        ])->getData();
-
+        trigger_error(sprintf('Dynamic function call via event "apiCallFunction::%s"  is no longer as of FPCM 3.5.0-a1! Use %s::getModuleApi(string $moduleKey) instead!', $name, self::class), E_USER_DEPRECATED);
     }
 
     /**
@@ -217,27 +209,11 @@ class fpcmAPI {
      * @param array $arguments
      * @return mixed
      * @since 3.1.5
+     * @deprecated 5.3.0-a1
      */
     public static function __callStatic($name, $arguments)
     {
-        if (self::$versionFailed) {
-            return false;
-        }
-
-        \fpcm\classes\loader::getObject('\fpcm\model\http\request');
-        \fpcm\classes\loader::getObject('\fpcm\classes\database');
-        \fpcm\classes\loader::getObject('\fpcm\classes\crypt');
-        \fpcm\classes\loader::getObject('\fpcm\module\modules')->getEnabledDatabase();
-
-        \fpcm\classes\loader::getObject('\fpcm\model\system\session');
-        \fpcm\classes\loader::getObject('\fpcm\model\system\config')->setUserSettings();
-        \fpcm\classes\loader::getObject('\fpcm\classes\language', \fpcm\classes\loader::getObject('\fpcm\model\system\config')->system_lang);
-        \fpcm\classes\loader::getObject('\fpcm\model\theme\notifications');
-
-        return \fpcm\events\events::getInstance()->trigger('apiCallFunction', [
-                    'name' => $name,
-                    'args' => $arguments
-        ])->getData();
+        trigger_error(sprintf('Dynamic static function call via event "apiCallFunction::%s"  is no longer as of FPCM 3.5.0-a1', $name), E_USER_DEPRECATED);
     }
 
     /**
@@ -414,6 +390,29 @@ class fpcmAPI {
         define('FPCM_PUBJS_LOADED', 1);
 
         return fpcm\model\pubtemplates\template::getPublicJavascript();
+    }
+
+    /**
+     * Call module api
+     * @param string $key
+     * @return \fpcm\module\api|bool
+     * @since 5.3.0-a1
+     */
+    public function getModuleApi(string $key)
+    {
+        $en = 'modules\api';
+
+        $ev = fpcm\events\events::getInstance()->trigger($en, $key);
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            throw new \Exception(sprintf("Event %s failed. Returned success = %s, continue = %s", $en, $ev->getSuccessed(), $ev->getContinue()));
+        }
+
+        $res = $ev->getData();
+        if (!$res instanceof \fpcm\module\api) {
+            throw new \Exception(sprintf("Invalid api instance for %s", $key));
+        }
+
+        return $res;
     }
 
 }

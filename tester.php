@@ -14,6 +14,7 @@
         <?php //$api->getPublicHeader(); ?>
     </head>
     <body>
+        <h2>News</h2>
     <?php
 
 
@@ -26,10 +27,15 @@
 
     //fpcmDump('Articles -----');
     $api->showArticles();
-
-
-    //fpcmDump('This is a poll -----');
-    //$api->nkorg_polls_displayPoll(false);
+?>
+        <h2>Module</h2>
+<?php
+    
+    $api->getModuleApi('nkorg/calendar')->display();
+    
+    $api->getModuleApi('nkorg/extstats')->countAll();
+    
+    $api->getModuleApi('nkorg/polls')->displayPoll();
     ?>
     </body>
 </html>
