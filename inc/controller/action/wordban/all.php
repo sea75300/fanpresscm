@@ -95,7 +95,7 @@ implements \fpcm\controller\interfaces\requestFunctions
             (new \fpcm\components\dataView\column('button'))->setSize(1)->setAlign('center'),
             (new \fpcm\components\dataView\column('subject', 'WORDBAN_NAME')),
             (new \fpcm\components\dataView\column('replacement', 'WORDBAN_REPLACEMENT_TEXT')),
-            (new \fpcm\components\dataView\column('metadata'))->setAlign('center')->setSize(1),
+            (new \fpcm\components\dataView\column('metadata'))->setAlign('center')->setSize(2),
         ];
     }
 
@@ -126,7 +126,7 @@ implements \fpcm\controller\interfaces\requestFunctions
         return [
             (new \fpcm\view\helper\tabItem('tabs-'.$this->getDataViewName().'-list'))
                 ->setText('HL_OPTIONS_WORDBAN')
-                ->setFile('components/dataview_inline.php')
+                ->useDataView()
         ];
     }
     

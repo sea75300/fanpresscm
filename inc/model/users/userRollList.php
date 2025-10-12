@@ -2,9 +2,9 @@
 
 /**
  * FanPress CM User List Model
- * 
+ *
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2022, Stefan Seehafer
+ * @copyright (c) 2011-2025, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -12,18 +12,30 @@ namespace fpcm\model\users;
 
 /**
  * Benutzerrollen-Liste Objekt
- * 
+ *
  * @package fpcm\model\user
  * @author Stefan Seehafer <sea75300@yahoo.de>
  */
 class userRollList extends \fpcm\model\abstracts\tablelist {
 
-    /**
+    private $callback;
+
+        /**
      * Konstruktor
      */
     public function __construct()
     {
         $this->table = \fpcm\classes\database::tableRoll;
+
+        $this->callback = function ($roll, &$res)
+        {
+            $userRoll = new userRoll();
+            if (!$userRoll->createFromDbObject($roll)) {
+                return;
+            }
+
+            $res[$userRoll->getId()] = $userRoll;
+        };
 
         parent::__construct();
     }
@@ -34,17 +46,12 @@ class userRollList extends \fpcm\model\abstracts\tablelist {
      */
     public function getUserRolls()
     {
-        $rolls = $this->dbcon->selectFetch( (new \fpcm\model\dbal\selectParams($this->table))->setFetchAll(true)->setWhere('id>0 '.$this->dbcon->orderBy(['id ASC, leveltitle ASC'])) );
+        $params = (new \fpcm\model\dbal\selectParams($this->table))
+            ->setFetchAll(true)
+            ->setWhere('id>0 '.$this->dbcon->orderBy(['id ASC, leveltitle ASC']))
+            ->setCallback($this->callback);
 
-        $res = [];
-        foreach ($rolls as $roll) {
-            $userRoll = new userRoll();
-            if ($userRoll->createFromDbObject($roll)) {
-                $res[$userRoll->getId()] = $userRoll;
-            }
-        }
-
-        return $res;
+        return $this->dbcon->selectFetch($params);
     }
 
     /**
@@ -54,19 +61,15 @@ class userRollList extends \fpcm\model\abstracts\tablelist {
      */
     public function getUserRollsByIds(array $ids)
     {
-
         $ids = array_map('intval', $ids);
-        $rolls = $this->dbcon->fetch($this->dbcon->select($this->table, '*', 'id IN (' . implode(',', $ids) . ')'), true);
 
-        $res = [];
-        foreach ($rolls as $roll) {
-            $userRoll = new userRoll();
-            if ($userRoll->createFromDbObject($roll)) {
-                $res[$userRoll->getId()] = $userRoll;
-            }
-        }
+        $params = (new \fpcm\model\dbal\selectParams($this->table))
+            ->setFetchAll(true)
+            ->setWhere($this->dbcon->inQuery('id', $ids))
+            ->setParams($ids)
+            ->setCallback($this->callback);
 
-        return $res;
+        return $this->dbcon->selectFetch($params);
     }
 
     /**
@@ -80,7 +83,7 @@ class userRollList extends \fpcm\model\abstracts\tablelist {
             count($this->data['translatedRolls'])) {
             return $this->data['translatedRolls'];
         }
-        
+
         $arr = $this->getUserRolls();
         array_walk($arr, function(userRoll $obj) {
             $this->data['translatedRolls'][$this->language->translate($obj->getRollName())] = $obj->getId();
@@ -96,13 +99,13 @@ class userRollList extends \fpcm\model\abstracts\tablelist {
      */
     public function getRollsbyIdsTranslated(array $ids)
     {
-        
+
         if (isset($this->data['translatedRollsByID']) &&
             is_array($this->data['translatedRollsByID']) &&
             count($this->data['translatedRollsByID'])) {
             return $this->data['translatedRollsByID'];
         }
-        
+
         $arr = $this->getUserRollsByIds($ids);
         array_walk($arr, function(userRoll $obj) {
             $this->data['translatedRollsByID'][$this->language->translate($obj->getRollName())] = $obj->getId();
@@ -110,7 +113,7 @@ class userRollList extends \fpcm\model\abstracts\tablelist {
 
         return $this->data['translatedRollsByID'];
     }
-    
+
     /**
      * Returns translated IDs by id string
      * @param string $data
@@ -131,10 +134,10 @@ class userRollList extends \fpcm\model\abstracts\tablelist {
         $this->data[$idx] = [];
 
         $rolls = $this->getUserRollsByIds(explode(';', $data) );
-        array_walk($rolls, function(userRoll $obj) use ($idx) {            
+        array_walk($rolls, function(userRoll $obj) use ($idx) {
             $this->data[$idx][$this->language->translate($obj->getRollName())] = $obj->getId();
         });
-        
+
         return $this->data[$idx];
     }
 

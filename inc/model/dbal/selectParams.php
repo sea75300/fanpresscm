@@ -73,6 +73,13 @@ class selectParams implements \Stringable {
     private $fetchStyle = 5;
 
     /**
+     * Fetch assign callback function
+     * @var callable
+     * @since 5.3.0-a1
+     */
+    private $callback;
+
+    /**
      * Constructor method, as of FPCM 4.1 the destination table(s) can be set directly
      * @param string|array $table (@since 4.1)
      */
@@ -263,6 +270,28 @@ class selectParams implements \Stringable {
     }
 
     /**
+     * Get callback function
+     * @return callable
+     * @since 5.3.0-a1
+     */
+    public function getCallback(): ?callable
+    {
+        return $this->callback;
+    }
+
+    /**
+     * Set callback function
+     * @param callable $callback
+     * @return $this
+     * @since 5.3.0-a1
+     */
+    public function setCallback(callable $callback)
+    {
+        $this->callback = $callback;
+        return $this;
+    }    
+    
+    /**
      * Return query string
      * @return string
      * @since 4.5
@@ -286,6 +315,5 @@ class selectParams implements \Stringable {
     {
         return $this->getQuery();
     }
-
 
 }

@@ -793,7 +793,7 @@ class view {
         $this->defaultViewVars->loggedIn = false;
 
         $this->initAssignsWithDb();
-        $this->initAssignsWidthSession();
+        $this->initAssignsWithSession();
 
         $this->defaultViewVars->langCode = $this->language->getLangCode();
         $this->defaultViewVars->self = trim(filter_var($_SERVER['PHP_SELF'], FILTER_SANITIZE_URL));
@@ -901,9 +901,10 @@ class view {
      * @return bool
      * @since 5.2.0-a1
      */
-    private function initAssignsWidthSession() : bool
+    private function initAssignsWithSession() : bool
     {
         if ( !$this->session?->exists() ) {
+            $this->defaultViewVars->darkMode = $this->config->system_darkmode;
             return false;
         }
 

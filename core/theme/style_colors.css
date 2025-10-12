@@ -202,6 +202,11 @@ div.fileupload-progress.in {
 }
 
 [data-bs-theme=dark] {
+    
+    body {
+        background-blend-mode: soft-light;
+    }
+    
     div.fpcm.ui-help-content > h3 {
         color: var(--bs-primary-text-emphasis);
     }

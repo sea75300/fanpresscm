@@ -22,6 +22,5 @@
 
 [data-bs-theme=dark] {
     --bs-primary: rgba(13,110,253,0.6);
-    --fpcm-var-backdrop-image: '';
     --fpcm-white-50: rgba(var(--bs-tertiary-bg-rgb), 0.6);
 }
