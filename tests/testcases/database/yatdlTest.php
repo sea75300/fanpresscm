@@ -145,4 +145,31 @@ class yatdlTest extends testBase {
         
     }
 
+    public function testFromTimestamp()
+    {
+        $time = new DateTime();
+        $time->setTimezone( new DateTimeZone('Europe/Berlin') );
+
+        $dateTime = $time->format('Y-m-d-H-i-s');
+        
+        try {
+            $db = new fpcm\classes\database();
+            
+            $par = new \fpcm\model\dbal\selectParams(fpcm\classes\database::tableConfig);
+            $par->setItem($db->fromTimeStamp($time->getTimestamp(), '%Y-%m-%d-%H-%i-%s'));
+            $par->setWhere('id > 0 ' . $db->limitQuery(1, 0));
+            
+            $res = $db->selectFetch($par);
+
+            $he = hash_equals(
+                \fpcm\classes\tools::getHash($dateTime),
+                \fpcm\classes\tools::getHash($res->dtSTr)
+            );
+            
+            $this->assertTrue($he)
+;            
+        } catch (\Error $exc) {
+            echo $exc->getTraceAsString();
+        }    
+    }
 }

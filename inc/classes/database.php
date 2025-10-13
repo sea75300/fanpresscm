@@ -899,6 +899,18 @@ final class database {
     }
 
     /**
+     * 
+     * @param string $col
+     * @param string $format
+     * @return string
+     * @since 5.3.0-a1
+     */
+    public function fromTimeStamp(string $col, string $format = '', string $alias = 'dtSTr'): string
+    {
+        return $this->driver->fromTimeStamp($col, $format, $alias);
+    }
+
+    /**
      * Erzeugt LIKE-SQL-String
      * @return string
      * @since 3.2.0

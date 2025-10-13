@@ -9,7 +9,7 @@ namespace fpcm\drivers;
 
 /**
  * Postgres database driver class
- * 
+ *
  * @package fpcm\drivers
  * @article Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2022, Stefan Seehafer
@@ -254,8 +254,58 @@ final class pgsql implements sqlDriver {
             23505 => self::CODE_ERROR_UNIQUEKEY,
             42601 => self::CODE_ERROR_SYNTAX
         ];
-        
+
         return $map[$code] ?? null;
     }
 
+    /**
+     * Get TO_TIMESTAMP string
+     * @param string $col
+     * @param string $format
+     * @param string $alias
+     * @return string
+     * @since 5.3.0-a1
+     */
+    public function fromTimeStamp(string $col, string $format = '', string $alias = 'dtSTr'): string
+    {
+        if (!trim($format)) {
+            return sprintf("TO_TIMESTAMP(%s) as %s", $col, $alias);
+        }
+
+        $this->prepareFormat($format);
+
+        return sprintf("TO_TIMESTAMP(%s, '%s') as %s", $col, $format, $alias);
+    }
+
+    /**
+     *
+     * @param string $format
+     * @since 5.3.0-a1
+     */
+    private function prepareFormat(string &$format)
+    {
+        $replace = [
+            // Dates
+            '%Y' => 'YYYY',
+            '%y' => 'YY',
+            '%M' => 'Month',
+            '%m' => 'MM',
+            '%b' => 'Mon',
+            '%d' => 'DD',
+            '%e' => 'DD',
+            '%j' => 'DDD',
+            '%a' => 'Dy',
+            '%V' => 'IW',
+            '%w' => 'D',
+            // Time
+            '%H' => 'HH24',
+            '%h' => 'HH12',
+            '%i' => 'MI',
+            '%s' => 'SS',
+            '%f' => 'US',
+
+        ];
+
+        $format = \fpcm\classes\tools::strReplaceArray($format, $replace);
+    }
 }
