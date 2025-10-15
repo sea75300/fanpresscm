@@ -19,4 +19,13 @@
     div.fpcm.ui-tabs-wrapper > ul.nav.nav-tabs li.nav-item {
         margin-bottom: 0.1rem;
     }
+    
+    div.fpcm.ui-tabs-wrapper > ul.nav.nav-tabs li.nav-item:nth-child(even) {
+        margin-left: 0.1rem;
+        margin-right: 0.1rem;
+    }
+    
+    div.fpcm.ui-tabs-wrapper > ul.nav.nav-tabs li.nav-item:last-child {
+        margin-right: 0;
+    }
 }
