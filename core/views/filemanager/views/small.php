@@ -40,6 +40,7 @@
                     </div>
 
                 <?php foreach($files AS $file) : ?>
+                <?php $i++; ?>
                     <div class="list-group-item fpcm ui-files-item ui-background-white-50p ui-background-transition">
                         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-5">
                             <div class="col align-self-center">
@@ -68,7 +69,7 @@
                                         ->setIcon('exclamation-triangle')
                                         ->setText('FILE_LIST_UPLOAD_NOTFOUND')
                                         ->setSize('lg')
-                                        ->setIconOnly();                                         ?>
+                                        ->setIconOnly(); ?>
                                     </div>
                                     <?php endif; ?>
                                 </div>

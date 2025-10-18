@@ -40,6 +40,12 @@ class filelist extends \fpcm\controller\abstracts\ajaxController
 
     /**
      *
+     * @var string
+     */
+    protected $listModeView = '';
+
+    /**
+     *
      * @return bool
      */
     public function isAccessible(): bool
@@ -81,12 +87,22 @@ class filelist extends \fpcm\controller\abstracts\ajaxController
     }
 
     /**
+     * 
+     * @return bool
+     */
+    protected function initActionObjects(): bool
+    {
+        $this->listModeView = in_array($this->config->file_view, \fpcm\components\components::getFilemanagerViews()) ? $this->config->file_view : 'cards';
+        return true;
+    }
+
+    /**
      * Get view path for controller
      * @return string
      */
     protected function getViewPath() : string
     {
-        return 'filemanager/views/'.$this->getListView();
+        return 'filemanager/views/' . $this->listModeView;
     }
 
     /**
@@ -157,6 +173,9 @@ class filelist extends \fpcm\controller\abstracts\ajaxController
         $this->view->assign('thumbsize', $this->config->file_thumb_size . 'px');
         $this->view->assign('pager', $pager);
         $this->view->assign('reminders', \fpcm\model\reminders\reminders::getInstance()->getRemindersForDatasets(\fpcm\model\files\image::class));
+        $this->view->assign('ddModeUp', $this->listModeView !== 'small');
+        $this->view->assign('ddLastEnd', $this->listModeView === 'cards');
+        $this->view->assign('limit', $this->config->file_list_limit);
 
         $responseData = new \fpcm\model\http\responseDataHtml(
             $this->view->render(true), [
@@ -167,15 +186,6 @@ class filelist extends \fpcm\controller\abstracts\ajaxController
         $pager = null;
 
         $this->response->setReturnData($responseData)->fetch();
-    }
-
-    /**
-     *
-     * @return string
-     */
-    private function getListView() : string
-    {
-        return in_array($this->config->file_view, \fpcm\components\components::getFilemanagerViews()) ? $this->config->file_view : 'cards';
     }
 
 }

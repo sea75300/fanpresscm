@@ -19,6 +19,7 @@
     <?php else : ?>
         <?php $i = 0; ?>
         <?php foreach($files AS $file) : ?>
+        <?php $i++; ?>
         <div class="row g-0 px-3 fpcm ui-files-list">    
             <div class="card w-100 my-2 fpcm ui-files-item ui-background-transition shadow">
                 <div class="row g-0">

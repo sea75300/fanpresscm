@@ -40,7 +40,7 @@
                     ->setData(['imgtext' => $imgTxt]); ?>
         </div>
     <?php endif; ?>
-        <div class="nav-item dropdown dropup-center dropup">
+        <div class="nav-item dropdown dropup-center <?php if ($ddModeUp || $i === $limit) : ?>dropup<?php endif; ?>">
 
             <?php $theView->button('nbexp'.$hash)
                 ->setText('GLOBAL_ACTIONS')
@@ -51,7 +51,7 @@
                 ->setClass('dropdown-toggle');
             ?>
 
-            <ul class="dropdown-menu <?php if ($is_last($i)) : ?>dropdown-menu-end<?php endif; ?>" aria-labelledby="nbexp<?php $hash; ?>">
+            <ul class="dropdown-menu <?php if ($ddLastEnd && $is_last($i)) : ?>dropdown-menu-end<?php endif; ?>" aria-labelledby="nbexp<?php $hash; ?>">
             <?php if ($theView->permissions->uploads->rename) : ?>
               <li>
                 <?php $theView->dropdownItem(uniqid('rename'))->setText('FILE_LIST_RENAME')->setIcon('edit')->setClass('fpcm-filelist-rename')->setData(['file' => $file->getCryptFileName(), 'oldname' => basename($file->getFilename(), '.'.$file->getExtension())]); ?>
