@@ -5,7 +5,8 @@
             <?php $theView->checkbox('filenames[]', 'cb_'. $hash)
                     ->setClass('fpcm-ui-list-checkbox')
                     ->setValue($file->getCryptFileName())
-                    ->setData(['gallery' => $file->getFilename()]); ?>
+                    ->setData(['gallery' => $file->getFilename()])
+                    ->setSwitch(); ?>
         </div>
     </div>
 <?php if ($file->existsFolder()) : ?>

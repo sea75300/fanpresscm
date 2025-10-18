@@ -45,7 +45,6 @@
                         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-5">
                             <div class="col align-self-center">
                                 <div class="navbar gap-1 justify-content-start justify-content-lg-center">
-                                    <?php include $theView->getIncludePath('filemanager/buttons.php'); ?>
                                     <div class="nav-item">
                                     <?php print $theView->linkButton('open'.$file->getFileHash())
                                         ->setUrl($file->getImageUrl())
@@ -61,6 +60,7 @@
                                         ]);
                                     ?>
                                     </div>
+                                    <?php include $theView->getIncludePath('filemanager/buttons.php'); ?>
                                     <?php if (!$file->existsFolder()) : ?>
                                     <div class="nav-item">
 

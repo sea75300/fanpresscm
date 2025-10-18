@@ -9,7 +9,7 @@ namespace fpcm\view\helper;
 
 /**
  * Text input view helper object
- * 
+ *
  * @package fpcm\view\helper
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2022, Stefan Seehafer
@@ -87,7 +87,7 @@ implements interfaces\jsDialogHelper, \JsonSerializable {
         $this->switch = $switch;
         return $this;
     }
-    
+
     /**
      * Return element string
      * @return string
@@ -95,20 +95,44 @@ implements interfaces\jsDialogHelper, \JsonSerializable {
     protected function getString()
     {
         $labelClass = ' form-check-label '.$this->labelClass;
+
+        $wrapStart = '';
+        $wrapEnd = '';
+
+        if ($this->text && !$this->iconOnly) {
+            $wrapStart = sprintf(
+                '<div class="form-check %s %s %s">',
+                $this->inline ? 'form-check-inline' : '',
+                $this->switch ? 'form-switch' : '',
+                $this->wrapperClass
+            );
+
+        }
+        elseif ($this->switch) {
+            $wrapStart = '<div class="form-check form-switch">';
+        }
+
+        if ($this->text && !$this->iconOnly || $this->switch) {
+            $wrapEnd = '</div>';
+        }
+
+        $inEL = sprintf(
+            '<input type="%s" %s %s %s %s %s %s>',
+            $this->type,
+            $this->getNameIdString(),
+            $this->getValueString(),
+            $this->getClassString(),
+            $this->getReadonlyString(),
+            $this->getDataString(),
+            $this->getSelectedString()
+        );
         
-        $wrapStart = $this->text && !$this->iconOnly ? '<div class="form-check '. ( $this->inline ? 'form-check-inline' : '') . ($this->switch ? 'form-switch' : '').' ' . $this->wrapperClass . '  ">' : '';
-        $wrapEnd   = $this->text && !$this->iconOnly ? '</div>' : '';
-
-        $inEL = "<input type=\"{$this->type}\" {$this->getNameIdString()} {$this->getClassString()} {$this->getReadonlyString()} {$this->getValueString()} {$this->getDataString()} {$this->getSelectedString()}>";
-
         $inLa = '';
         if ($this->text && !$this->iconOnly) {
-            $inLa = "<label for=\"{$this->id}\" class=\"{$labelClass}\">" .
-                    $this->getIconString() .
-                    ( $this->iconOnly ? '' : $this->getDescriptionTextString() ) .
-                   "</label>";
+            $descr = $this->iconOnly ? '' : $this->getDescriptionTextString();
+            $inLa = sprintf('<label for="%s" class="%s">%s%s</label>', $this->id, $labelClass, $this->getIconString(), $descr);
         }
-        
+
         return $wrapStart .$inEL . $inLa . $wrapEnd;
 
     }

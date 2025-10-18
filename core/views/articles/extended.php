@@ -43,23 +43,23 @@
             <div class="row my-2">
                 <div class="col">
                     <div class="input-group">
-                        <label class="input-group-text col-12 col-lg-6">
+                        <label class="input-group-text col">
                             <?php $theView->icon('thumbtack'); ?>
                             <span class="fpcm-ui-label ps-1"><?php $theView->write('EDITOR_PINNED'); ?></span>
                         </label>
-                        <div class="input-group-text">
+                        <div class="input-group-text col-auto">
                             <?php $theView->checkbox('article[pinned]')
                                 ->setSelected($article->getPinned())
                                 ->setClass('fpcm-ui-editor-metainfo-checkbox')
-                                ->setData(['icon' => 'pinned'])
                                 ->setSwitch(true); ?>
                         </div>
                         <div class="form-floating">
-                            <input class="form-control" name="article[pinned_until]" id="article_pinned_until" type="date" mindate="+1d" maxdate="+4w" value="<?php print $theView->dateText($pinnedTimer, 'Y-m-d'); ?>">
+                            <input class="form-control rounded-end-2" name="article[pinned_until]" id="article_pinned_until" type="date" mindate="+1d" maxdate="+4w" value="<?php print $theView->dateText($pinnedTimer, 'Y-m-d'); ?>">
                             <label for="article_postponedate">
                                 <?php $theView->icon('calendar-plus'); ?> <?php $theView->write('EDITOR_PINNED_DATE'); ?>
                             </label>
                         </div>
+                        <div class="form-floating"></div>
                     </div>
                 </div>
             </div>
@@ -71,7 +71,7 @@
             <div class="row my-2">
                 <div class="col">
                     <div class="input-group">
-                        <label class="input-group-text col-12 col-md-6 col-lg-3">
+                        <label class="input-group-text col">
                             <?php $theView->icon('calendar-plus'); ?>
                             <span class="fpcm-ui-label ps-1"><?php $theView->write('EDITOR_POSTPONETO'); ?></span>
                         </label>
@@ -79,7 +79,6 @@
                             <?php $theView->checkbox('article[postponed]')
                                 ->setSelected($article->getPostponed())
                                 ->setClass('fpcm-ui-editor-metainfo-checkbox')
-                                ->setData(['icon' => 'postponed'])
                                 ->setSwitch(true); ?>
                         </div>
                         <div class="form-floating">
