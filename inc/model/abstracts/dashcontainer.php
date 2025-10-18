@@ -86,7 +86,7 @@ abstract class dashcontainer extends model implements \fpcm\model\interfaces\das
     final public function __construct()
     {
         parent::__construct();
-        $this->permissions = \fpcm\classes\loader::getObject('\fpcm\model\permissions\permissions');
+        $this->permissions = \fpcm\model\permissions\permissions::getInstance();
         $this->initObjects();
     }
 
@@ -313,5 +313,3 @@ abstract class dashcontainer extends model implements \fpcm\model\interfaces\das
     }
     
 }
-
-?>

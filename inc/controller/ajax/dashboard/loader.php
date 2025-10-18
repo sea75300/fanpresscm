@@ -51,11 +51,15 @@ class loader extends \fpcm\controller\abstracts\ajaxController
      */
     protected function getClasses()
     {
-        $p = \fpcm\classes\dirs::getIncDirPath('model' . DIRECTORY_SEPARATOR . 'dashboard' . DIRECTORY_SEPARATOR . '*.php');
+        $p = \fpcm\classes\dirs::getIncDirPath('model' . DIRECTORY_SEPARATOR . 'dashboard' . DIRECTORY_SEPARATOR . 'containers' . DIRECTORY_SEPARATOR . '*.php');
+        $glob = glob($p);
+        if (!is_array($glob)) {
+            return false;
+        }
 
-        $containers = array_map( function($filename) {
-            return '\\fpcm\\model\\dashboard\\' . basename($filename, '.php');
-        }, glob($p) );
+        $containers = (new \fpcm\model\dashboard\containers());
+        $containers->setPrefix('model\\dashboard\\containers');
+        $containers->addContainers( array_map(fn($filename) => basename($filename, '.php'), $glob) );
 
         $ev = $this->events->trigger('dashboardContainersLoad', $containers);
         if (!$ev->getSuccessed() || !$ev->getContinue()) {
@@ -64,13 +68,14 @@ class loader extends \fpcm\controller\abstracts\ajaxController
         }
 
         $containers = $ev->getData();
-        if (!is_array($containers) || !count($containers)) {
+        if (!$containers->hasContainers()) {
             return;
         }
 
         $viewVars = $this->view->getViewVars();
+
         $jsFiles = [];
-        foreach ($containers as $container) {
+        foreach ($containers->getContainers() as $container) {
 
             /* @var $containerObj \fpcm\model\abstracts\dashcontainer */
             $containerObj = new $container();
@@ -104,16 +109,6 @@ class loader extends \fpcm\controller\abstracts\ajaxController
         $this->view->setViewVars($viewVars);
         $this->view->assign('jsFiles', $jsFiles);
         ksort($this->containers);
-    }
-
-    /**
-     * Container-Klassen-Name parsen
-     * @param string $filename
-     * @return string
-     */
-    protected function parseClassname($filename)
-    {
-        return '\\fpcm\\model\\dashboard\\' . basename($filename, '.php');
     }
 
 }

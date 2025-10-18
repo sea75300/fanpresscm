@@ -13,7 +13,7 @@ namespace fpcm\events\abstracts;
  * @package fpcm\events\abstracts
  * @abstract
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2021, Stefan Seehafer
+ * @copyright (c) 2011-2025, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 abstract class event {
@@ -237,12 +237,25 @@ abstract class event {
         return (new \fpcm\module\eventResult())->setData($this->data);
     }
 
+
     /**
      * Prepare event before running
      * @return bool
      * @since 5.3.0-dev
      */
     protected function beforeRun() : void
+    {
+        return;
+    }
+
+    /**
+     * 
+     * Prepare event before processing
+     * @param \fpcm\module\event $event
+     * @return void
+     * @since 5.3.0-dev
+     */
+    protected function beforeProcess(\fpcm\module\event $event) : void
     {
         return;
     }
@@ -288,6 +301,8 @@ abstract class event {
         if (!$this->is_a($module)) {
             return false;
         }
+        
+        $this->beforeProcess($module);
 
         try {
 

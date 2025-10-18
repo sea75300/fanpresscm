@@ -5,7 +5,7 @@
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
-namespace fpcm\model\dashboard;
+namespace fpcm\model\dashboard\containers;
 
 /**
  * User list dashboard container object
