@@ -9,13 +9,13 @@ namespace fpcm\model\dashboard\containers;
 
 /**
  * Recent comments dashboard container object
- * 
+ *
  * @package fpcm\model\dashboard
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
  * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class recentcomments extends \fpcm\model\abstracts\dashcontainer implements \fpcm\model\interfaces\isAccessible {
+class recentcomments extends \fpcm\model\dashboard\types\dataview implements \fpcm\model\interfaces\isAccessible {
 
     /**
      * Permissions-Objekt
@@ -55,78 +55,90 @@ class recentcomments extends \fpcm\model\abstracts\dashcontainer implements \fpc
     }
 
     /**
-     * Returns container content
-     * @return string
+     * Returns cols
+     * @return array
      */
-    public function getContent()
+    public function getCols(): array
     {
-        $session = \fpcm\classes\loader::getObject('\fpcm\model\system\session');
-        $this->currentUser = $session->getUserId();
-        $this->isAdmin = $session->getCurrentUser()->isAdmin();
+        return [
+            'open',
+            'edit',
+            'headline',
+            'status'
+        ];
+    }
 
-        $this->getCacheName('_' . $this->currentUser);
-
-        if (!$this->cache->isExpired($this->cacheName)) {
-            return $this->cache->read($this->cacheName);
-        }
-
-        $commenList = new \fpcm\model\comments\commentList();
-
+    /**
+     * Returns rows
+     * @return array
+     */
+    public function getRows(): array
+    {
         $search = new \fpcm\model\comments\search();
         $search->searchtype = 0;
         $search->deleted = 0;
         $search->limit = array(10, 0);
         $search->orderby = array('createtime DESC');
 
-        $comments = $commenList->getCommentsBySearchCondition($search);
-        
+        $comments = (new \fpcm\model\comments\commentList())->getCommentsBySearchCondition($search);
         if (!count($comments)) {
-            $str = $this->language->translate('GLOBAL_NOTFOUND2');
-            $this->cache->write($this->cacheName, $str);
-            return $str;
+            return [];
         }
 
-        $createStr = $this->language->translate('GLOBAL_LASTCHANGE');
+        $rows = [];
+
+        $nochangeStr = $this->language->translate('GLOBAL_NOCHANGE');
         
-        $content = [];
-        $content[] = '<div>';
+        /* @var $comment \fpcm\model\articles\article */
         foreach ($comments as $comment) {
 
-            $createInfo = $this->language->translate('GLOBAL_USER_ON_TIME', array(
+            $chgstr = $this->language->translate('GLOBAL_USER_ON_TIME', array(
                 '{{username}}' => \fpcm\classes\tools::userId2Text($comment->getChangeuser()),
                 '{{time}}' => date($this->config->system_dtmask, $comment->getChangetime())
             ));
 
             if (!$comment->getChangeuser() && !$comment->getChangetime()) {
-                $createInfo = '';
+                $chgstr = $nochangeStr;
             }
 
-            $content[] = '<div class="row fpcm-ui-font-small py-1">';
-            $content[] = '  <div class="col-12 col-md-auto px-3 text-center">';
-            $content[] = (string) (new \fpcm\view\helper\openButton('openBtn'))->setUrlbyObject($comment)->setTarget(\fpcm\view\helper\linkButton::TARGET_NEW);
-            $content[] = (string) (new \fpcm\view\helper\editButton('editBtn'))->setUrlbyObject($comment, '&mode=1')->setReadonly($comment->getEditPermission() ? false : true);
-            $content[] = '  </div>';
+            $headline = sprintf(
+                '<strong>%s @ %s</strong><br><span class="text-secondary">%s</span>',
+                new \fpcm\view\helper\escape(strip_tags($comment->getName())),
+                new \fpcm\view\helper\dateText($comment->getCreatetime()),
+                $chgstr
+            );
 
-            $content[] = '  <div class="col align-self-center">';
-            $content[] = '  <div class="fpcm-ui-ellipsis">';
-            $content[] = '  <strong>' . (new \fpcm\view\helper\escape(strip_tags($comment->getName()))) . '</strong> @ ' . (new \fpcm\view\helper\dateText($comment->getCreatetime())) . '<br>';
-            $content[] = '  <span>' . $createStr . ': ' . $createInfo . '</span>';
-            $content[] = '  </div></div>';
-            $content[] = '  <div class="col-auto fpcm-ui-metabox px-4 align-self-center">';
+            $rows[] = [
+                'open' => new \fpcm\model\dashboard\components\dataviewItem(
+                    value: (new \fpcm\view\helper\openButton('openBtn'))->setUrlbyObject($comment)->setTarget(\fpcm\view\helper\linkButton::TARGET_NEW),
+                    type: \fpcm\model\dashboard\components\dataviewItem::TYPE_LINK,
+                    class: 'list-group-item-primary'
+                ),
+                'edit' => new \fpcm\model\dashboard\components\dataviewItem(
+                    value: (new \fpcm\view\helper\editButton('editBtn'))->setUrlbyObject($comment)->setReadonly(!$comment->getEditPermission()),
+                    type: \fpcm\model\dashboard\components\dataviewItem::TYPE_LINK,
+                    class: 'list-group-item-secondary'
+                ),
+                'headline' => new \fpcm\model\dashboard\components\dataviewItem(
+                    value: $headline,
+                    type: \fpcm\model\dashboard\components\dataviewItem::TYPE_TEXT,
+                    class: 'fpcm-ui-font-small text-truncate'
+                ),
+                'status' => new \fpcm\model\dashboard\components\dataviewItem(
+                    value: [
+                        $comment->getStatusIconSpam(),
+                        $comment->getStatusIconApproved(),
+                        $comment->getStatusIconPrivate()
+                    ],
+                    type: \fpcm\model\dashboard\components\dataviewItem::TYPE_ICONS,
+                    size: 'auto',
+                    class: 'fpcm-ui-metabox'
+                )
+            ];
 
-            $content[] = $comment->getStatusIconSpam();
-            $content[] = $comment->getStatusIconApproved();
-            $content[] = $comment->getStatusIconPrivate();
-
-            $content[] = '  </div>';
-            $content[] = '</div>';
         }
 
-        $content[] = '</div>';
-
-        $str = implode(PHP_EOL, $content);
-        $this->cache->write($this->cacheName, $str, $this->config->system_cache_timeout);
-        return $str;
+        return $rows;
     }
 
     /**

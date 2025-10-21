@@ -264,7 +264,7 @@ abstract class dashcontainer extends model implements \fpcm\model\interfaces\das
         $html[] = '         </h3>';
         $html[] = '     </div>';
         
-        $html[] = '     <div class="card-body p-2 pe-0 ui-align-ellipsis">';
+        $html[] = '     <div class="card-body p-2 ui-align-ellipsis">';
         $html[] = '         <div class="card-text fpcm dashboard-container content">' . $this->getContent() . '</div>';
         $html[] = '     </div>';
         $html[] = '     <div class="card-footer bg-transparent">';

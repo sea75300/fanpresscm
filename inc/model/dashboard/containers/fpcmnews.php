@@ -9,16 +9,14 @@ namespace fpcm\model\dashboard\containers;
 
 /**
  * Recent articles dashboard container object
- * 
+ *
  * @package fpcm\model\dashboard
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2022, Stefan Seehafer
+ * @copyright (c) 2011-2025, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class fpcmnews extends \fpcm\model\abstracts\dashcontainer {
+class fpcmnews extends \fpcm\model\dashboard\types\dataview {
 
-    use \fpcm\model\traits\dashContainerCols;
-    
     /**
      * Returns name
      * @return string
@@ -28,57 +26,57 @@ class fpcmnews extends \fpcm\model\abstracts\dashcontainer {
         return 'fpcmnews';
     }
 
-    /**
-     * Returns content
-     * @return string
-     */
-    public function getContent()
+    public function getCols(): array
     {
-        $this->getCacheName();
-        if (!$this->cache->isExpired($this->cacheName)) {
-            return $this->cache->read($this->cacheName);
+        return [
+            'url',
+            'text'
+        ];
+    }
+
+    public function getRows(): array
+    {
+        if (!\fpcm\classes\baseconfig::canConnect()) {
+            return [];
         }
 
-        if (!\fpcm\classes\baseconfig::canConnect()) {
-            $str = $this->language->translate('GLOBAL_NOTFOUND2');
-            $this->cache->write($this->cacheName, $str);
-            return $str;
-        }     
-        
         $xmlString = simplexml_load_file('https://nobody-knows.org/category/fanpress-cm/feed/');
         if (!$xmlString) {
-            $str = $this->language->translate('GLOBAL_NOTFOUND2');
-            $this->cache->write($this->cacheName, $str);
-            return $str;
+            return [];
         }
 
         $items = $xmlString->channel->item;
 
+        $rows = [];
+        
         $idx = 0;
 
-        $content = [];
-        $content[] = '<div>';
         foreach ($items as $item) {
-            if ($idx >= 10) {
+
+            if ($idx > 10) {
                 break;
             }
 
-            $content[] = '<div class="row fpcm-ui-font-small py-1">';
-            $content[] = $this->get2ColRowSmallLeftAuto(
-                (new \fpcm\view\helper\openButton(uniqid('fpcmNews')))->setUrl(strip_tags($item->link))->setTarget('_blank')->setRel('external'),
-                '<strong>' . (new \fpcm\view\helper\escape(strip_tags($item->title))) . '</strong><br><span>' . (new \fpcm\view\helper\dateText(strtotime($item->pubDate))) . '</span>',
-                'fpcm-ui-ellipsis'
-            );
-            $content[] = '</div>';            
+            $rows[] = [
+                'url' => new \fpcm\model\dashboard\components\dataviewItem(
+                    type: \fpcm\model\dashboard\components\dataviewItem::TYPE_LINK,
+                    value: (new \fpcm\view\helper\openButton(uniqid('fpcmNews')))->setUrl(strip_tags($item->link))->setTarget('_blank')->setRel('external')
+                ),
+                'text' => new \fpcm\model\dashboard\components\dataviewItem(
+                    type: \fpcm\model\dashboard\components\dataviewItem::TYPE_TEXT,
+                    value: sprintf(
+                        '<strong>%s</strong><br><span class="text-secondary">%s -> %s</span>',
+                        new \fpcm\view\helper\escape(strip_tags($item->title)),
+                        new \fpcm\view\helper\dateText(strtotime($item->pubDate)), $idx
+                    ),
+                    class: 'fpcm-ui-font-small text-truncate'
+                )
+            ];
 
             $idx++;
         }
 
-        $content[] = '</div>';
-        $str = implode(PHP_EOL, $content);
-
-        $this->cache->write($this->cacheName, $str);
-        return $str;
+        return $rows;
     }
 
     /**
@@ -116,10 +114,10 @@ class fpcmnews extends \fpcm\model\abstracts\dashcontainer {
     public function getButton(): ?\fpcm\view\helper\linkButton
     {
         return (new \fpcm\view\helper\linkButton('toActiveArticles'))
-                ->setUrl('https://github.com/sea75300/fanpresscm/releases')
-                ->setTarget(\fpcm\view\helper\linkButton::TARGET_NEW)
-                ->setIcon('github', 'fa-brands')
-                ->setText('GitHub');
+            ->setUrl('https://github.com/sea75300/fanpresscm/releases')
+            ->setTarget(\fpcm\view\helper\linkButton::TARGET_NEW)
+            ->setIcon('github', 'fa-brands')
+            ->setText('GitHub');
     }
 
 }

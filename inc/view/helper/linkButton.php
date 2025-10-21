@@ -9,16 +9,18 @@ namespace fpcm\view\helper;
 
 /**
  * Link button view helper object
- * 
+ *
  * @package fpcm\view\helper
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class linkButton extends button {
-    
+class linkButton
+extends button
+implements interfaces\inlineButton {
+
     use traits\urlHelper;
-    
+
     const TARGET_NEW = '_blank';
 
     /**
@@ -65,15 +67,15 @@ class linkButton extends button {
     protected function getString()
     {
         $this->text = $this->language->translate($this->text);
-        
+
         if ($this->primary) {
             $this->overrideButtonType('primary');
         }
 
         $icon = trim($this->getIconString());
-        
+
         if ($this->readonly) {
-            
+
             $this->class .= ' disabled';
             return implode(' ', [
                 "<a href=\"#\"",
@@ -118,9 +120,36 @@ class linkButton extends button {
         if ($type === 'link') {
             $this->class = str_replace('shadow-sm', 'shadow-none', $this->class);
         }
-        
+
         return parent::overrideButtonType($type);
     }
+    
+    /**
+     * Render link button as inline list group item
+     * @param string $size
+     * @param string $class
+     * @return string
+     * @since 5.3.0-a1
+     */
+    final public function asInline(string $size = '', string $class = '') : string
+    {
+        $this->returned = true;
 
+        $icon = trim($this->getIconString());
 
+        $class = sprintf('list-group-item list-group-item-action align-content-center %s %s', $class, $size);
+
+        if ($this->readonly) {
+            $class .= ' pe-none';
+            $this->url .= ' pe-none';
+        }
+
+        if ($this->iconOnly) {
+            return sprintf('<a class="%s" href="%s" %s %s>%s</a>', $class, $this->url, $this->getRelString(), $this->getTargetString(), $icon);
+        }
+
+        $this->text = $this->language->translate($this->text);
+
+        return sprintf('<a class="%s" href="%s" %s %s>%s%s</a>', $class, $this->url, $this->getRelString(), $this->getTargetString(), $icon, $this->text);
+    }
 }
