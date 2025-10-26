@@ -33,7 +33,13 @@
                     </div>
                 </header>
 
-                <?php $theView->alert('danger')->setText($errorMessage)->setIcon($icon)->setClass('d-flex align-items-center justify-content-center')->setSize('2x'); ?>
+                <?php
+                    $theView->alert('danger')
+                        ->setText($errorMessage)
+                        ->setIcon($icon . ' pe-5')
+                        ->setClass('d-flex align-items-center justify-content-center')
+                        ->setSize('2x');
+                ?>
                 <p class="text-center"><?php $theView->linkButton('backBtn')->setUrl($backController ? $backController : 'javascript:window.history.back();')->setText('GLOBAL_BACK')->setIcon('chevron-circle-left'); ?></p>
             </div>
         </div>

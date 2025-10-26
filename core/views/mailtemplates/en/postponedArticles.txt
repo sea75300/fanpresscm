@@ -1,0 +1,3 @@
+The following articles were published by cron at %s:
+
+%s

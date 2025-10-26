@@ -59,7 +59,7 @@ implements \fpcm\controller\interfaces\requestFunctions {
     protected $reset = false;
 
     /**
-     * 
+     *
      * @return string
      */
     protected function getViewPath() : string
@@ -68,7 +68,7 @@ implements \fpcm\controller\interfaces\requestFunctions {
     }
 
     /**
-     * 
+     *
      * @return bool
      */
     public function hasAccess()
@@ -89,7 +89,7 @@ implements \fpcm\controller\interfaces\requestFunctions {
     }
 
     /**
-     * 
+     *
      * @return bool
      */
     protected function initActionObjects()
@@ -112,11 +112,11 @@ implements \fpcm\controller\interfaces\requestFunctions {
         if ($this->request->fromGET('nologin')) {
             $this->view->addErrorMessage('LOGIN_REQUIRED');
         }
-        
+
         $this->reset = $this->request->fromGET('reset') !== null || $this->request->fromPOST('username') !== null ? true : false;
 
         session_start();
-        
+
         $this->loginLocked();
         $this->showLockedForm();
 
@@ -138,7 +138,7 @@ implements \fpcm\controller\interfaces\requestFunctions {
     }
 
     /**
-     * 
+     *
      * @return bool
      */
     protected function onLogin()
@@ -146,14 +146,14 @@ implements \fpcm\controller\interfaces\requestFunctions {
         if (!$this->checkPageToken()) {
             $this->view->addErrorMessage('CSRF_INVALID');
             return false;
-        }        
+        }
 
         $data = $this->request->fromPOST('login');
         if (!is_array($data) || !count($data)) {
             $this->view->addErrorMessage('LOGIN_FAILED');
             return false;
         }
-        
+
         if ($this->showTwoFactorForm($data)) {
             return true;
         }
@@ -162,8 +162,8 @@ implements \fpcm\controller\interfaces\requestFunctions {
         if (!$ev->getSuccessed() || !$ev->getContinue()) {
             trigger_error(sprintf("Event session\loginBefore failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
             return $data;
-        }        
-        
+        }
+
         $data = $ev->getData();
 
         if (!empty($data['formData'])) {
@@ -172,7 +172,7 @@ implements \fpcm\controller\interfaces\requestFunctions {
             $data['password'] = $tmp['password'];
             unset($data['formData']);
         }
-        
+
         $session = new \fpcm\model\system\session();
         $loginRes = $session->authenticate($data);
 
@@ -188,7 +188,7 @@ implements \fpcm\controller\interfaces\requestFunctions {
         }
 
         $this->currentAttempts++;
-        
+
         $this->setAttemptsCount();
         if ($this->currentAttempts >= $this->config->system_loginfailed_locked) {
             $this->loginLocked();
@@ -206,7 +206,7 @@ implements \fpcm\controller\interfaces\requestFunctions {
     }
 
     /**
-     * 
+     *
      * @param array $data
      * @return bool
      */
@@ -215,7 +215,7 @@ implements \fpcm\controller\interfaces\requestFunctions {
         if ($this->reset || !$this->config->system_2fa_auth || isset($data['authcode'])) {
             return false;
         }
-            
+
         $user = (new \fpcm\model\users\userList())->getUserByUsername($data['username']);
         if (!$user->getAuthtoken()) {
             return false;
@@ -227,7 +227,7 @@ implements \fpcm\controller\interfaces\requestFunctions {
     }
 
     /**
-     * 
+     *
      * @return bool
      */
     protected function onReset()
@@ -236,7 +236,7 @@ implements \fpcm\controller\interfaces\requestFunctions {
             $this->view->addErrorMessage('CSRF_INVALID');
             return false;
         }
-        
+
         $username = $this->request->fromPOST('username');
         $email = $this->request->fromPOST('email');
         if (!trim($username) || !trim($email) || !$this->captcha->checkAnswer()) {
@@ -296,7 +296,7 @@ implements \fpcm\controller\interfaces\requestFunctions {
     }
 
     /**
-     * 
+     *
      * @return bool
      */
     private function showLockedForm()
@@ -304,6 +304,32 @@ implements \fpcm\controller\interfaces\requestFunctions {
         if (!$this->loginLocked) {
             return true;
         }
+        
+        try {
+
+            $mail = new \fpcm\classes\email(
+                $this->config->system_email,
+                $this->language->translate('LOGIN_ATTEMPTS_MAX_MAIL'),
+                ''
+            );
+
+            $mail->setHtml(false);
+            $mail->fromTemplate(
+                'accountLocked',
+                [
+                    $this->request->fromPOST('username'),
+                    $this->config->system_loginfailed_locked,
+                    (string) new \fpcm\view\helper\dateText(time()),
+                    $this->request->getIp(),
+                    \fpcm\classes\dirs::getRootUrl()
+                ]
+            );
+
+            $mail->submit();
+
+        } catch (\Exception $exc) {
+            fpcmLogSystem($exc);
+        }        
 
         $this->view = new \fpcm\view\error(
                 $this->language->translate('LOGIN_ATTEMPTS_MAX', array(
@@ -319,7 +345,7 @@ implements \fpcm\controller\interfaces\requestFunctions {
     }
 
     /**
-     * 
+     *
      * @return bool
      */
     protected function initPermissionObject(): bool
@@ -328,7 +354,7 @@ implements \fpcm\controller\interfaces\requestFunctions {
     }
 
     /**
-     * 
+     *
      * @return bool|int
      */
     private function getAttemptsCount()
@@ -343,7 +369,7 @@ implements \fpcm\controller\interfaces\requestFunctions {
     }
 
     /**
-     * 
+     *
      * @return bool
      */
     private function getLockTime()
@@ -358,7 +384,7 @@ implements \fpcm\controller\interfaces\requestFunctions {
     }
 
     /**
-     * 
+     *
      * @return bool
      */
     private function setAttemptsCount()
@@ -368,7 +394,7 @@ implements \fpcm\controller\interfaces\requestFunctions {
     }
 
     /**
-     * 
+     *
      * @return bool
      */
     private function setLockTime()

@@ -80,7 +80,7 @@ final class email {
      * @param sring $from Absender-Adresse, Default: fanpresscm@@hostdomain.xyz
      * @param bool $html enthält $text HTML-Code ja/nein
      */
-    function __construct($to, $subject, $text, $from = false, $html = false)
+    function __construct(string $to, string $subject, string $text = '', bool|string $from = false, bool $html = false)
     {
         $this->to = $to;
         $this->from = $from ? $from : 'FanPress CM <fanpresscm@' . ($_SERVER['HTTP_HOST'] ?? 'localhost') . '>';
@@ -207,7 +207,7 @@ final class email {
      */
     public function submit()
     {
-        $eventData = loader::getObject('\fpcm\events\events')->trigger('emailSubmit', [
+        $ev = \fpcm\events\events::getInstance()->trigger('emailSubmit', [
             'headers' => $this->headers,
             'maildata' => [
                 'to' => $this->to,
@@ -218,9 +218,12 @@ final class email {
             'attachments' => $this->attachments
         ]);
 
-        if (is_object($eventData) && $eventData instanceof \fpcm\module\eventResult) {
-            $eventData = $eventData->getData();
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event emailSubmit failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return false;
         }
+
+        $eventData = $ev->getData();        
 
         $this->headers = $eventData['headers'];
         $this->attachments = $eventData['attachments'];
@@ -299,7 +302,7 @@ final class email {
 
         $tplPath = $fromData
                  ? dirs::getDataDirPath(dirs::DATA_BACKUP, $filename)
-                 : dirs::getCoreDirPath(dirs::CORE_VIEWS, 'mailtemplates/' . $filename);
+                 : dirs::getCoreDirPath(dirs::CORE_VIEWS, 'mailtemplates/' . $this->config->system_lang . '/' . $filename);
 
         $tplPathR = realpath($tplPath);
         if (!$tplPathR || !str_starts_with($tplPath, \fpcm\classes\dirs::getFullDirPath('/')) ) {

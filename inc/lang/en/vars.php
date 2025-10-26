@@ -483,6 +483,7 @@ $lang = array (
   'LOAD_FAILED_USER' => 'The user you are looking for was not found.',
   'LOAD_FAILED_WORDBAN' => 'The term was not found.',
   'LOGIN_ATTEMPTS_MAX' => 'You entered your username or password incorrectly for {{logincount}} times in a row. Access was locked at {{lockeddate}} for {{lockedtime}} minutes.',
+  'LOGIN_ATTEMPTS_MAX_MAIL' => 'Login locked temporarily',
   'LOGIN_AUTHCODE' => 'Enter six-digit Authenticator code',
   'LOGIN_BTN' => 'Log in',
   'LOGIN_FAILED' => 'The username or password is incorrect. Please try again.',

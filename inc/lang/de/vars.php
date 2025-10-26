@@ -483,6 +483,7 @@ $lang = array (
   'LOAD_FAILED_USER' => 'Der gesuchte Benutzer wurde nicht gefunden.',
   'LOAD_FAILED_WORDBAN' => 'Der Begriff wurde nicht gefunden.',
   'LOGIN_ATTEMPTS_MAX' => 'Du hast deinen Benutzernamen oder Passwort {{logincount}}-mal falsch eingeben. Der Zugang wurde um {{lockeddate}} für {{lockedtime}} Minuten gesperrt.',
+  'LOGIN_ATTEMPTS_MAX_MAIL' => 'Benutzerlogin wurde temporär gesperrt',
   'LOGIN_AUTHCODE' => 'Sechsstelligen Authenticator-Code eingeben',
   'LOGIN_BTN' => 'Anmelden',
   'LOGIN_FAILED' => 'Der Benutzername oder das Passwort sind falsch. Bitte versuche es erneut.',
