@@ -30,6 +30,12 @@ class massedit extends \fpcm\controller\abstracts\ajaxController
 
     /**
      * 
+     * @var \fpcm\model\articles\articlelist
+     */
+    protected \fpcm\model\articles\articlelist $articleList;
+
+    /**
+     * 
      * @return bool
      */
     public function isAccessible(): bool

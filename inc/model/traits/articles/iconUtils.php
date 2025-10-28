@@ -36,7 +36,7 @@ trait iconUtils {
      */
     public function getStatusIconDraft()
     {
-        return $this->getStatusColor((new \fpcm\view\helper\icon('file-alt fa-inverse', 'far'))
+        return $this->getStatusColor((new \fpcm\view\helper\icon('pen-ruler fa-inverse'))
                         ->setClass('fpcm-ui-editor-metainfo fpcm-ui-editor-metainfo-draft')
                         ->setText('EDITOR_STATUS_DRAFT')
                         ->setStack('square'), $this->getDraft());

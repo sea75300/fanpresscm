@@ -9,15 +9,13 @@ namespace fpcm\model\dashboard\containers;
 
 /**
  * System stats dashboard container object
- * 
+ *
  * @package fpcm\model\dashboard
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2022, Stefan Seehafer
+ * @copyright (c) 2011-2025, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class sysstats extends \fpcm\model\abstracts\dashcontainer {
-
-    use \fpcm\model\traits\dashContainerCols;
+class sysstats extends \fpcm\model\dashboard\types\dataview {
 
     /**
      * Coutn of deleted items
@@ -42,106 +40,313 @@ class sysstats extends \fpcm\model\abstracts\dashcontainer {
     }
 
     /**
-     * Returns content
-     * @return string
+     * Returns cols
+     * @return array
      */
-    public function getContent()
+    public function getCols(): array
     {
-        $this->getCacheName();
-        if (!$this->cache->isExpired($this->cacheName)) {
-            return $this->cache->read($this->cacheName);
-        }
+        return [
+            'icon',
+            'label',
+            'value'
+        ];
+    }
 
-        $content = [];
+    /**
+     * Returns rows
+     * @return array
+     */
+    public function getRows(): array
+    {
+        $rows = [];
 
-        $content[] = $this->get2ColRow(
-            (new \fpcm\view\helper\icon('book')).' '.$this->language->translate('SYSTEM_STATS_ARTICLES_ALL'),
-            $this->dbStats['articles_all']
-        );
+        $rows[] = [
+            'icon' => new \fpcm\model\dashboard\components\dataviewItem(
+                value: new \fpcm\view\helper\icon('book'),
+                type: \fpcm\model\dashboard\components\dataviewItem::TYPE_ICONS,
+                size: 'auto',
+            ),
+            'label' => new \fpcm\model\dashboard\components\dataviewItem(
+                value: 'SYSTEM_STATS_ARTICLES_ALL',
+                type: \fpcm\model\dashboard\components\dataviewItem::TYPE_TEXT,
+                class: 'text-truncate'
+            ),
+            'value' => new \fpcm\model\dashboard\components\dataviewItem(
+                value: sprintf(
+                    "%s %s",
+                    $this->dbStats['articles_all'],
+                    (new \fpcm\view\helper\badge('acc'))
+                        ->setValue($this->dbStats['articles_active'])
+                        ->setText('')
+                        ->setClass('text-bg-success')
+                ),
+                type: \fpcm\model\dashboard\components\dataviewItem::TYPE_TEXT,
+                align: 'end'
+            )
+        ];
 
-        $content[] = $this->get2ColRow(
-            (new \fpcm\view\helper\icon('newspaper', 'far')).' '.$this->language->translate('SYSTEM_STATS_ARTICLES_ACTIVE'),
-            $this->dbStats['articles_active']
-        );
+        $rows[] = [
+            'icon' => new \fpcm\model\dashboard\components\dataviewItem(
+                value: new \fpcm\view\helper\icon('archive'),
+                type: \fpcm\model\dashboard\components\dataviewItem::TYPE_ICONS,
+                size: 'auto'
+            ),
+            'label' => new \fpcm\model\dashboard\components\dataviewItem(
+                'SYSTEM_STATS_ARTICLES_ARCHIVE',
+                \fpcm\model\dashboard\components\dataviewItem::TYPE_TEXT
+            ),
+            'value' => new \fpcm\model\dashboard\components\dataviewItem(
+                value: $this->dbStats['articles_archived'],
+                type: \fpcm\model\dashboard\components\dataviewItem::TYPE_TEXT,
+                align: 'end'
+            )
+        ];
 
-        $content[] = $this->get2ColRow(
-            (new \fpcm\view\helper\icon('archive')).' '.$this->language->translate('SYSTEM_STATS_ARTICLES_ARCHIVE'),
-            $this->dbStats['articles_archived']
-        );
+        $rows[] = [
+            'icon' => new \fpcm\model\dashboard\components\dataviewItem(
+                value: new \fpcm\view\helper\icon('pen-ruler'),
+                type: \fpcm\model\dashboard\components\dataviewItem::TYPE_ICONS,
+                size: 'auto'
+            ),
+            'label' => new \fpcm\model\dashboard\components\dataviewItem(
+                'SYSTEM_STATS_ARTICLES_DRAFT',
+                \fpcm\model\dashboard\components\dataviewItem::TYPE_TEXT
+            ),
+            'value' => new \fpcm\model\dashboard\components\dataviewItem(
+                value: $this->dbStats['articles_draft'],
+                type: \fpcm\model\dashboard\components\dataviewItem::TYPE_TEXT,
+                align: 'end'
+            )
+        ];
 
-        $content[] = $this->get2ColRow(
-            (new \fpcm\view\helper\icon('file-alt', 'far')).' '.$this->language->translate('SYSTEM_STATS_ARTICLES_DRAFT'),
-            $this->dbStats['articles_draft']
-        );
+        $uac = $this->dbStats['articles_unapproved'] ? 'list-group-item-info' : '';
 
-        $content[] = $this->get2ColRow(
-            (new \fpcm\view\helper\icon('thumbs-up', 'far')).' '.$this->language->translate('SYSTEM_STATS_ARTICLES_APPROVAL'),
-            $this->dbStats['articles_unapproved'],
-            ($this->dbStats['articles_unapproved'] > 0 ? 'color-red' : '')
-        );
+        $rows[] = [
+            'icon' => new \fpcm\model\dashboard\components\dataviewItem(
+                value: new \fpcm\view\helper\icon('thumbs-up'),
+                type: \fpcm\model\dashboard\components\dataviewItem::TYPE_ICONS,
+                size: 'auto',
+                class: $uac
+            ),
+            'label' => new \fpcm\model\dashboard\components\dataviewItem(
+                value: 'SYSTEM_STATS_ARTICLES_APPROVAL',
+                type: \fpcm\model\dashboard\components\dataviewItem::TYPE_TEXT,
+                class: $uac
+            ),
+            'value' => new \fpcm\model\dashboard\components\dataviewItem(
+                value: $this->dbStats['articles_unapproved'],
+                type: \fpcm\model\dashboard\components\dataviewItem::TYPE_TEXT,
+                align: 'end',
+                class: $uac
+            )
+        ];
 
-        $content[] = $this->get2ColRow(
-            (new \fpcm\view\helper\icon('calendar-plus')).' '.$this->language->translate('SYSTEM_STATS_ARTICLES_POSTPONED'),
-            $this->dbStats['articles_postponed'],
-            ($this->dbStats['articles_postponed'] > 0 ? 'color-red' : '')
-        );
-        $content[] = $this->get2ColRow(
-            (new \fpcm\view\helper\icon('comments')).' '.$this->language->translate('SYSTEM_STATS_COMMENTS_ALL'),
-            $this->dbStats['comments_all']
-        );
+        $ppc = $this->dbStats['articles_postponed'] ? 'list-group-item-secondary' : '';
 
-        $content[] = $this->get2ColRow(
-            (new \fpcm\view\helper\icon('check-circle', 'far')).' '.$this->language->translate('SYSTEM_STATS_COMMENTS_UNAPPR'),
-            $this->dbStats['comments_unapproved'],
-            ($this->dbStats['comments_unapproved'] > 0 ? 'color-red' : '')
-        );          
+        $rows[] = [
+            'icon' => new \fpcm\model\dashboard\components\dataviewItem(
+                value: new \fpcm\view\helper\icon('calendar'),
+                type: \fpcm\model\dashboard\components\dataviewItem::TYPE_ICONS,
+                size: 'auto',
+                class: $ppc
+            ),
+            'label' => new \fpcm\model\dashboard\components\dataviewItem(
+                value: 'SYSTEM_STATS_ARTICLES_POSTPONED',
+                type: \fpcm\model\dashboard\components\dataviewItem::TYPE_TEXT,
+                class: $ppc
+            ),
+            'value' => new \fpcm\model\dashboard\components\dataviewItem(
+                value: $this->dbStats['articles_postponed'],
+                type: \fpcm\model\dashboard\components\dataviewItem::TYPE_TEXT,
+                align: 'end',
+                class: $ppc
+            )
+        ];
 
-        $content[] = $this->get2ColRow(
-            (new \fpcm\view\helper\icon('eye-slash')).' '.$this->language->translate('SYSTEM_STATS_COMMENTS_PRIVATE'),
-            $this->dbStats['comments_private'],
-            ($this->dbStats['comments_private'] > 0 ? 'color-red' : '')
-        );          
+        $rows[] = [
+            'icon' => new \fpcm\model\dashboard\components\dataviewItem(
+                value: new \fpcm\view\helper\icon('comments'),
+                type: \fpcm\model\dashboard\components\dataviewItem::TYPE_ICONS,
+                size: 'auto'
+            ),
+            'label' => new \fpcm\model\dashboard\components\dataviewItem(
+                'SYSTEM_STATS_COMMENTS_ALL',
+                \fpcm\model\dashboard\components\dataviewItem::TYPE_TEXT
+            ),
+            'value' => new \fpcm\model\dashboard\components\dataviewItem(
+                value: $this->dbStats['comments_all'],
+                type: \fpcm\model\dashboard\components\dataviewItem::TYPE_TEXT,
+                align: 'end'
+            )
+        ];
 
-        $content[] = $this->get2ColRow(
-            (new \fpcm\view\helper\icon('flag')).' '.$this->language->translate('SYSTEM_STATS_COMMENTS_SPAM'),
-            $this->dbStats['comments_spam'],
-            ($this->dbStats['comments_spam'] > 0 ? 'color-red' : '')
-        );        
+        $uacc = $this->dbStats['comments_unapproved'] ? 'list-group-item-info' : '';
 
-        $content[] = $this->get2ColRow(
-            (new \fpcm\view\helper\icon('users')).' '.$this->language->translate('SYSTEM_STATS_USERS'),
-            "{$this->dbStats['users_all']} ({$this->dbStats['users_active']})"
-        );
+        $rows[] = [
+            'icon' => new \fpcm\model\dashboard\components\dataviewItem(
+                value: new \fpcm\view\helper\icon('check-circle', 'far'),
+                type: \fpcm\model\dashboard\components\dataviewItem::TYPE_ICONS,
+                size: 'auto',
+                class: $uacc
+            ),
+            'label' => new \fpcm\model\dashboard\components\dataviewItem(
+                value: 'SYSTEM_STATS_COMMENTS_UNAPPR',
+                type: \fpcm\model\dashboard\components\dataviewItem::TYPE_TEXT,
+                class: $uacc . ' text-truncate'
+            ),
+            'value' => new \fpcm\model\dashboard\components\dataviewItem(
+                value: $this->dbStats['comments_unapproved'],
+                type: \fpcm\model\dashboard\components\dataviewItem::TYPE_TEXT,
+                align: 'end',
+                class: $uacc
+            )
+        ];
 
-        $content[] = $this->get2ColRow(
-            (new \fpcm\view\helper\icon('file-alt', 'far')).' '.$this->language->translate('SYSTEM_STATS_CATEGORIES'),
-            $this->dbStats['categories']
-        );
+        $prcc = $this->dbStats['comments_private'] ? 'list-group-item-secondary' : '';
 
-        $content[] = $this->get2ColRow(
-            (new \fpcm\view\helper\icon('copy', 'far')).' '.$this->language->translate('SYSTEM_STATS_UPLOAD_COUNT'),
-            $this->dbStats['upload_count']
-        );
+        $rows[] = [
+            'icon' => new \fpcm\model\dashboard\components\dataviewItem(
+                value: new \fpcm\view\helper\icon('eye-slash'),
+                type: \fpcm\model\dashboard\components\dataviewItem::TYPE_ICONS,
+                size: 'auto',
+                class: $prcc
+            ),
+            'label' => new \fpcm\model\dashboard\components\dataviewItem(
+                value: 'SYSTEM_STATS_COMMENTS_PRIVATE',
+                type: \fpcm\model\dashboard\components\dataviewItem::TYPE_TEXT,
+                class: $prcc
+            ),
+            'value' => new \fpcm\model\dashboard\components\dataviewItem(
+                value: $this->dbStats['comments_private'],
+                type: \fpcm\model\dashboard\components\dataviewItem::TYPE_TEXT,
+                align: 'end',
+                class: $prcc
+            )
+        ];
 
-        $content[] = $this->get2ColRow(
-            (new \fpcm\view\helper\icon('calculator')).' '.$this->language->translate('SYSTEM_STATS_UPLOAD_SIZE'),
-            \fpcm\classes\tools::calcSize($this->dbStats['upload_size'] ?? 0)
-        );
+        $scc = $this->dbStats['comments_spam'] ? 'list-group-item-info' : '';
 
-        $content[] = $this->get2ColRow(
-            (new \fpcm\view\helper\icon('hdd')).' '.$this->language->translate('SYSTEM_STATS_CACHE_SIZE'),
-            \fpcm\classes\tools::calcSize($this->cache->getSize())
-        );
+        $rows[] = [
+            'icon' => new \fpcm\model\dashboard\components\dataviewItem(
+                value: new \fpcm\view\helper\icon('flag'),
+                type: \fpcm\model\dashboard\components\dataviewItem::TYPE_ICONS,
+                size: 'auto',
+                class: $scc
+            ),
+            'label' => new \fpcm\model\dashboard\components\dataviewItem(
+                value: 'SYSTEM_STATS_COMMENTS_SPAM',
+                type: \fpcm\model\dashboard\components\dataviewItem::TYPE_TEXT,
+                class: $scc
+            ),
+            'value' => new \fpcm\model\dashboard\components\dataviewItem(
+                value: $this->dbStats['comments_spam'],
+                type: \fpcm\model\dashboard\components\dataviewItem::TYPE_TEXT,
+                align: 'end',
+                class: $scc
+            )
+        ];
 
-        $content[] = $this->get2ColRow(
-            (new \fpcm\view\helper\icon('flag')).' '.$this->language->translate('SYSTEM_STATS_TRASHCOUNT'),
-            $this->dbStats['articles_deleted'] + $this->dbStats['comments_deleted']
-        );
+        $rows[] = [
+            'icon' => new \fpcm\model\dashboard\components\dataviewItem(
+                value: new \fpcm\view\helper\icon('users'),
+                type: \fpcm\model\dashboard\components\dataviewItem::TYPE_ICONS,
+                size: 'auto'
+            ),
+            'label' => new \fpcm\model\dashboard\components\dataviewItem(
+                'SYSTEM_STATS_USERS',
+                \fpcm\model\dashboard\components\dataviewItem::TYPE_TEXT
+            ),
+            'value' => new \fpcm\model\dashboard\components\dataviewItem(
+                value: sprintf(
+                    "%s %s",
+                    $this->dbStats['users_all'],
+                    (new \fpcm\view\helper\badge('acc'))
+                        ->setValue($this->dbStats['users_active'])
+                        ->setText('')
+                        ->setClass('text-bg-success')
+                ),
+                type: \fpcm\model\dashboard\components\dataviewItem::TYPE_TEXT,
+                align: 'end'
+            )
+        ];
 
-        $return = PHP_EOL.'<div class="row">'.implode('</div>'.PHP_EOL.'<div class="row">'.PHP_EOL, $content).'</div>'.PHP_EOL;
-        $this->cache->write($this->cacheName, $return);
+        $dic = $this->dbStats['articles_deleted'] + $this->dbStats['comments_deleted'];
+        $dicc = $dic ? 'list-group-item-warning' : '';
 
-        return $return;
+        $rows[] = [
+            'icon' => new \fpcm\model\dashboard\components\dataviewItem(
+                value: new \fpcm\view\helper\icon('trash'),
+                type: \fpcm\model\dashboard\components\dataviewItem::TYPE_ICONS,
+                size: 'auto',
+                class: $dicc
+            ),
+            'label' => new \fpcm\model\dashboard\components\dataviewItem(
+                value: 'SYSTEM_STATS_TRASHCOUNT',
+                type: \fpcm\model\dashboard\components\dataviewItem::TYPE_TEXT,
+                class: $dicc
+            ),
+            'value' => new \fpcm\model\dashboard\components\dataviewItem(
+                value: $dic,
+                type: \fpcm\model\dashboard\components\dataviewItem::TYPE_TEXT,
+                align: 'end',
+                class: $dicc
+            )
+        ];
+
+
+
+        $rows[] = [
+            'icon' => new \fpcm\model\dashboard\components\dataviewItem(
+                value: new \fpcm\view\helper\icon('folder-open'),
+                type: \fpcm\model\dashboard\components\dataviewItem::TYPE_ICONS,
+                size: 'auto'
+            ),
+            'label' => new \fpcm\model\dashboard\components\dataviewItem(
+                'SYSTEM_STATS_UPLOAD_COUNT',
+                \fpcm\model\dashboard\components\dataviewItem::TYPE_TEXT
+            ),
+            'value' => new \fpcm\model\dashboard\components\dataviewItem(
+                value: $this->dbStats['upload_count'],
+                type: \fpcm\model\dashboard\components\dataviewItem::TYPE_TEXT,
+                align: 'end'
+            )
+        ];
+
+        $rows[] = [
+            'icon' => new \fpcm\model\dashboard\components\dataviewItem(
+                value: new \fpcm\view\helper\icon('weight'),
+                type: \fpcm\model\dashboard\components\dataviewItem::TYPE_ICONS,
+                size: 'auto'
+            ),
+            'label' => new \fpcm\model\dashboard\components\dataviewItem(
+                'SYSTEM_STATS_UPLOAD_SIZE',
+                \fpcm\model\dashboard\components\dataviewItem::TYPE_TEXT
+            ),
+            'value' => new \fpcm\model\dashboard\components\dataviewItem(
+                value: \fpcm\classes\tools::calcSize($this->dbStats['upload_size'] ?? 0),
+                type: \fpcm\model\dashboard\components\dataviewItem::TYPE_TEXT,
+                align: 'end'
+            )
+        ];
+
+        $rows[] = [
+            'icon' => new \fpcm\model\dashboard\components\dataviewItem(
+                value: new \fpcm\view\helper\icon('hdd'),
+                type: \fpcm\model\dashboard\components\dataviewItem::TYPE_ICONS,
+                size: 'auto'
+            ),
+            'label' => new \fpcm\model\dashboard\components\dataviewItem(
+                'SYSTEM_STATS_CACHE_SIZE',
+                \fpcm\model\dashboard\components\dataviewItem::TYPE_TEXT
+            ),
+            'value' => new \fpcm\model\dashboard\components\dataviewItem(
+                value: \fpcm\classes\tools::calcSize($this->cache->getSize()),
+                type: \fpcm\model\dashboard\components\dataviewItem::TYPE_TEXT,
+                align: 'end'
+            )
+        ];
+
+        return $rows;
     }
 
     /**
@@ -201,7 +406,6 @@ class sysstats extends \fpcm\model\abstracts\dashcontainer {
             // Other stats
             (new \fpcm\model\dbal\selectParams(\fpcm\classes\database::tableAuthors))->setItem("'users_all' AS descr, {$countStr}"),
             (new \fpcm\model\dbal\selectParams(\fpcm\classes\database::tableAuthors))->setItem("'users_active' AS descr, {$countStr}")->setWhere('disabled = 0'),
-            (new \fpcm\model\dbal\selectParams(\fpcm\classes\database::tableCategories))->setItem("'categories' AS descr, {$countStr}"),
             (new \fpcm\model\dbal\selectParams(\fpcm\classes\database::tableFiles))->setItem("'upload_count' AS descr, {$countStr}"),
             (new \fpcm\model\dbal\selectParams(\fpcm\classes\database::tableFiles))->setItem("'upload_size' AS descr, SUM(filesize)"),
         ], \PDO::FETCH_KEY_PAIR);

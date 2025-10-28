@@ -20,6 +20,8 @@ abstract class dataview extends \fpcm\model\abstracts\dashcontainer {
 
     private array $cols = [];
 
+    private string $fotnsize = '';
+
     /**
      * Returns cols
      * @return array
@@ -33,6 +35,15 @@ abstract class dataview extends \fpcm\model\abstracts\dashcontainer {
     abstract public function getRows() : array;
 
     /**
+     * Get font size for all items
+     * @return string
+     */
+    public function getFontSize() : string
+    {
+        return '';
+    }
+
+    /**
      * Return rendered content
      * @return string
      */
@@ -43,10 +54,11 @@ abstract class dataview extends \fpcm\model\abstracts\dashcontainer {
 
         $this->getCacheName('_' . $this->currentUser);
 
-        if (!$this->cache->isExpired($this->cacheName)) {
+        /*if (!$this->cache->isExpired($this->cacheName)) {
             return $this->cache->read($this->cacheName);
-        }
+        }*/
 
+        $this->fotnsize = $this->getFontSIze();
         $this->cols = $this->getCols();
         $rows = $this->getRows();
 
@@ -88,6 +100,8 @@ abstract class dataview extends \fpcm\model\abstracts\dashcontainer {
             $align = $item->getAlign();
             $size = $item->getSize();
             $class = $item->getClass();
+            
+            $class .= ' '. $this->fotnsize;
 
             $tmp[] = $this->{'render'.$type}($val, $align, $size, $class);
         }
@@ -119,7 +133,7 @@ abstract class dataview extends \fpcm\model\abstracts\dashcontainer {
             $value = (string) $value;
         }
 
-        return sprintf('<div class="list-group-item align-self-center %s %s %s">%s</div>', $align, $size, $class, $value);
+        return sprintf('<div class="list-group-item align-self-center fpcm %s %s %s">%s</div>', $align, $size, $class, $value);
     }
 
     /**
@@ -129,7 +143,11 @@ abstract class dataview extends \fpcm\model\abstracts\dashcontainer {
      */
     private function renderText(string $value, string $align, string $size, string $class) : string
     {
-        return sprintf('<div class="list-group-item align-self-center %s %s %s">%s</div>', $align, $size, $class, $value);
+        if ($value != 0) {
+            $value = $this->language->translate($value);
+        }
+        
+        return sprintf('<div class="list-group-item align-self-center fpcm %s %s %s">%s</div>', $align, $size, $class, $value);
     }
 
 }
