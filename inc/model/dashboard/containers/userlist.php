@@ -10,15 +10,13 @@ namespace fpcm\model\dashboard\containers;
 /**
  * User list dashboard container object
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2022, Stefan Seehafer
+ * @copyright (c) 2011-2025, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @since 3.2.0
  * @package fpcm\model\dashboard
  */
-class userlist extends \fpcm\model\abstracts\dashcontainer {
+class userlist extends \fpcm\model\dashboard\types\dataview {
 
-    use \fpcm\model\traits\dashContainerCols;
-    
     /**
      * Returns name
      * @return string
@@ -29,30 +27,50 @@ class userlist extends \fpcm\model\abstracts\dashcontainer {
     }
 
     /**
-     * Returns content
-     * @return string
+     * Returns cols
+     * @return array
      */
-    public function getContent()
+    public function getCols(): array
     {
-        $content = [];
-        $content[] = '<div>';
+        return [
+            'mail',
+            'username'
+        ];
+    }
 
+    /**
+     * Returns rows
+     * @return array
+     */
+    public function getRows(): array
+    {
+        $items = (new \fpcm\model\users\userList())->getUsersActive();
+
+        $rows = [];
+        
         /* @var $item \fpcm\model\users\author */
-        foreach ((new \fpcm\model\users\userList())->getUsersActive() as $item) {
+        foreach ($items as $item) {
 
             $emailAddress = (new \fpcm\view\helper\escape($item->getEmail()));
-            
-            $content[] = '<div class="row fpcm-ui-font-small py-2">';
-            $content[] = $this->get2ColRowSmallLeftAuto(
-                (new \fpcm\view\helper\linkButton(uniqid('createMail')))->setUrl('mailto:' . $emailAddress)->setText('GLOBAL_WRITEMAIL')->setTarget(\fpcm\view\helper\linkButton::TARGET_NEW)->setIcon('envelope')->setIconOnly(),
-                '<strong>' . (new \fpcm\view\helper\escape($item->getDisplayname())) . '</strong><br><span>' . $emailAddress . '</span>'
-            );
-            $content[] = '</div>';
 
+            $rows[] = [
+                'mail' => new \fpcm\model\dashboard\components\dataviewItem(
+                    type: \fpcm\model\dashboard\components\dataviewItem::TYPE_LINK,
+                    value: (new \fpcm\view\helper\linkButton(uniqid('createMail')))->setUrl('mailto:' . $emailAddress)->setText('GLOBAL_WRITEMAIL')->setTarget(\fpcm\view\helper\linkButton::TARGET_NEW)->setIcon('envelope')->setIconOnly()
+                ),
+                'username' => new \fpcm\model\dashboard\components\dataviewItem(
+                    type: \fpcm\model\dashboard\components\dataviewItem::TYPE_TEXT,
+                    value: sprintf(
+                        '<strong>%s</strong><br><span class="text-secondary">%s</span>',
+                        new \fpcm\view\helper\escape($item->getDisplayname()),
+                        $emailAddress,
+                    ),
+                    class: 'fpcm-ui-font-small text-truncate'
+                )
+            ];
         }
 
-        $content[] = '</div>';
-        return implode(PHP_EOL, $content);
+        return $rows;
     }
 
     /**
@@ -71,15 +89,6 @@ class userlist extends \fpcm\model\abstracts\dashcontainer {
     public function getPosition()
     {
         return 8;
-    }
-
-    /**
-     * Content rendern
-     */
-    private function renderContent()
-    {
-
-
     }
 
 }

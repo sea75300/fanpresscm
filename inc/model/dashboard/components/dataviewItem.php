@@ -24,6 +24,8 @@ class dataviewItem {
 
     const TYPE_ICONS = 'icons';
 
+    const TYPE_BOOLICON = 'BoolIcon';
+
     /**
      * Item value
      * @var mixed
@@ -94,7 +96,7 @@ class dataviewItem {
      */
     public function getAlign(): string
     {
-        return $this->align ? sprintf('text-%s', $this->align) : '';
+        return $this->align ? sprintf('text-lg-%s', $this->align) : '';
     }
 
     /**

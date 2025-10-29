@@ -18,12 +18,6 @@ namespace fpcm\model\dashboard\containers;
 class sysstats extends \fpcm\model\dashboard\types\dataview {
 
     /**
-     * Coutn of deleted items
-     * @var int
-     */
-    protected $deletedCount = 0;
-
-    /**
      * Databased stats values
      * @var array
      * @since 4.5
@@ -73,15 +67,13 @@ class sysstats extends \fpcm\model\dashboard\types\dataview {
             ),
             'value' => new \fpcm\model\dashboard\components\dataviewItem(
                 value: sprintf(
-                    "%s %s",
+                    '%s <span class="text-success-emphasis">(%s)</span>',
                     $this->dbStats['articles_all'],
-                    (new \fpcm\view\helper\badge('acc'))
-                        ->setValue($this->dbStats['articles_active'])
-                        ->setText('')
-                        ->setClass('text-bg-success')
+                    $this->dbStats['articles_active']
                 ),
                 type: \fpcm\model\dashboard\components\dataviewItem::TYPE_TEXT,
-                align: 'end'
+                align: 'end',
+                size: 3
             )
         ];
 
@@ -92,13 +84,15 @@ class sysstats extends \fpcm\model\dashboard\types\dataview {
                 size: 'auto'
             ),
             'label' => new \fpcm\model\dashboard\components\dataviewItem(
-                'SYSTEM_STATS_ARTICLES_ARCHIVE',
-                \fpcm\model\dashboard\components\dataviewItem::TYPE_TEXT
+                value: 'SYSTEM_STATS_ARTICLES_ARCHIVE',
+                type: \fpcm\model\dashboard\components\dataviewItem::TYPE_TEXT,
+                class: 'text-truncate'
             ),
             'value' => new \fpcm\model\dashboard\components\dataviewItem(
                 value: $this->dbStats['articles_archived'],
                 type: \fpcm\model\dashboard\components\dataviewItem::TYPE_TEXT,
-                align: 'end'
+                align: 'end',
+                size: 3
             )
         ];
 
@@ -109,13 +103,15 @@ class sysstats extends \fpcm\model\dashboard\types\dataview {
                 size: 'auto'
             ),
             'label' => new \fpcm\model\dashboard\components\dataviewItem(
-                'SYSTEM_STATS_ARTICLES_DRAFT',
-                \fpcm\model\dashboard\components\dataviewItem::TYPE_TEXT
+                value: 'SYSTEM_STATS_ARTICLES_DRAFT',
+                type: \fpcm\model\dashboard\components\dataviewItem::TYPE_TEXT,
+                class: 'text-truncate'
             ),
             'value' => new \fpcm\model\dashboard\components\dataviewItem(
                 value: $this->dbStats['articles_draft'],
                 type: \fpcm\model\dashboard\components\dataviewItem::TYPE_TEXT,
-                align: 'end'
+                align: 'end',
+                size: 3
             )
         ];
 
@@ -131,13 +127,14 @@ class sysstats extends \fpcm\model\dashboard\types\dataview {
             'label' => new \fpcm\model\dashboard\components\dataviewItem(
                 value: 'SYSTEM_STATS_ARTICLES_APPROVAL',
                 type: \fpcm\model\dashboard\components\dataviewItem::TYPE_TEXT,
-                class: $uac
+                class: $uac . ' text-truncate'
             ),
             'value' => new \fpcm\model\dashboard\components\dataviewItem(
                 value: $this->dbStats['articles_unapproved'],
                 type: \fpcm\model\dashboard\components\dataviewItem::TYPE_TEXT,
                 align: 'end',
-                class: $uac
+                class: $uac,
+                size: 3
             )
         ];
 
@@ -153,13 +150,14 @@ class sysstats extends \fpcm\model\dashboard\types\dataview {
             'label' => new \fpcm\model\dashboard\components\dataviewItem(
                 value: 'SYSTEM_STATS_ARTICLES_POSTPONED',
                 type: \fpcm\model\dashboard\components\dataviewItem::TYPE_TEXT,
-                class: $ppc
+                class: $ppc . ' text-truncate'
             ),
             'value' => new \fpcm\model\dashboard\components\dataviewItem(
                 value: $this->dbStats['articles_postponed'],
                 type: \fpcm\model\dashboard\components\dataviewItem::TYPE_TEXT,
                 align: 'end',
-                class: $ppc
+                class: $ppc,
+                size: 3
             )
         ];
 
@@ -170,13 +168,15 @@ class sysstats extends \fpcm\model\dashboard\types\dataview {
                 size: 'auto'
             ),
             'label' => new \fpcm\model\dashboard\components\dataviewItem(
-                'SYSTEM_STATS_COMMENTS_ALL',
-                \fpcm\model\dashboard\components\dataviewItem::TYPE_TEXT
+                value: 'SYSTEM_STATS_COMMENTS_ALL',
+                type: \fpcm\model\dashboard\components\dataviewItem::TYPE_TEXT,
+                class: 'text-truncate'
             ),
             'value' => new \fpcm\model\dashboard\components\dataviewItem(
                 value: $this->dbStats['comments_all'],
                 type: \fpcm\model\dashboard\components\dataviewItem::TYPE_TEXT,
-                align: 'end'
+                align: 'end',
+                size: 3
             )
         ];
 
@@ -198,7 +198,8 @@ class sysstats extends \fpcm\model\dashboard\types\dataview {
                 value: $this->dbStats['comments_unapproved'],
                 type: \fpcm\model\dashboard\components\dataviewItem::TYPE_TEXT,
                 align: 'end',
-                class: $uacc
+                class: $uacc,
+                size: 3
             )
         ];
 
@@ -214,13 +215,14 @@ class sysstats extends \fpcm\model\dashboard\types\dataview {
             'label' => new \fpcm\model\dashboard\components\dataviewItem(
                 value: 'SYSTEM_STATS_COMMENTS_PRIVATE',
                 type: \fpcm\model\dashboard\components\dataviewItem::TYPE_TEXT,
-                class: $prcc
+                class: $prcc . ' text-truncate'
             ),
             'value' => new \fpcm\model\dashboard\components\dataviewItem(
                 value: $this->dbStats['comments_private'],
                 type: \fpcm\model\dashboard\components\dataviewItem::TYPE_TEXT,
                 align: 'end',
-                class: $prcc
+                class: $prcc,
+                size: 3
             )
         ];
 
@@ -236,13 +238,14 @@ class sysstats extends \fpcm\model\dashboard\types\dataview {
             'label' => new \fpcm\model\dashboard\components\dataviewItem(
                 value: 'SYSTEM_STATS_COMMENTS_SPAM',
                 type: \fpcm\model\dashboard\components\dataviewItem::TYPE_TEXT,
-                class: $scc
+                class: $scc . ' text-truncate'
             ),
             'value' => new \fpcm\model\dashboard\components\dataviewItem(
                 value: $this->dbStats['comments_spam'],
                 type: \fpcm\model\dashboard\components\dataviewItem::TYPE_TEXT,
                 align: 'end',
-                class: $scc
+                class: $scc,
+                size: 3
             )
         ];
 
@@ -253,20 +256,38 @@ class sysstats extends \fpcm\model\dashboard\types\dataview {
                 size: 'auto'
             ),
             'label' => new \fpcm\model\dashboard\components\dataviewItem(
-                'SYSTEM_STATS_USERS',
-                \fpcm\model\dashboard\components\dataviewItem::TYPE_TEXT
+                value: 'SYSTEM_STATS_USERS',
+                type: \fpcm\model\dashboard\components\dataviewItem::TYPE_TEXT,
+                class: 'text-truncate'
             ),
             'value' => new \fpcm\model\dashboard\components\dataviewItem(
                 value: sprintf(
-                    "%s %s",
+                    '%s <span class="text-success-emphasis">(%s)</span>',
                     $this->dbStats['users_all'],
-                    (new \fpcm\view\helper\badge('acc'))
-                        ->setValue($this->dbStats['users_active'])
-                        ->setText('')
-                        ->setClass('text-bg-success')
+                    $this->dbStats['users_active']
                 ),
                 type: \fpcm\model\dashboard\components\dataviewItem::TYPE_TEXT,
-                align: 'end'
+                align: 'end',
+                size: 3
+            )
+        ];
+        
+        $rows[] = [
+            'icon' => new \fpcm\model\dashboard\components\dataviewItem(
+                value: new \fpcm\view\helper\icon('globe'),
+                type: \fpcm\model\dashboard\components\dataviewItem::TYPE_ICONS,
+                size: 'auto',
+            ),
+            'label' => new \fpcm\model\dashboard\components\dataviewItem(
+                value: 'SYSTEM_STATS_IP_LOCKS',
+                type: \fpcm\model\dashboard\components\dataviewItem::TYPE_TEXT,
+                class: 'text-truncate'
+            ),
+            'value' => new \fpcm\model\dashboard\components\dataviewItem(
+                value: $this->dbStats['ip_locks'],
+                type: \fpcm\model\dashboard\components\dataviewItem::TYPE_TEXT,
+                align: 'end',
+                size: 3
             )
         ];
 
@@ -283,17 +304,16 @@ class sysstats extends \fpcm\model\dashboard\types\dataview {
             'label' => new \fpcm\model\dashboard\components\dataviewItem(
                 value: 'SYSTEM_STATS_TRASHCOUNT',
                 type: \fpcm\model\dashboard\components\dataviewItem::TYPE_TEXT,
-                class: $dicc
+                class: $dicc . ' text-truncate'
             ),
             'value' => new \fpcm\model\dashboard\components\dataviewItem(
                 value: $dic,
                 type: \fpcm\model\dashboard\components\dataviewItem::TYPE_TEXT,
                 align: 'end',
-                class: $dicc
+                class: $dicc,
+                size: 3
             )
         ];
-
-
 
         $rows[] = [
             'icon' => new \fpcm\model\dashboard\components\dataviewItem(
@@ -302,13 +322,15 @@ class sysstats extends \fpcm\model\dashboard\types\dataview {
                 size: 'auto'
             ),
             'label' => new \fpcm\model\dashboard\components\dataviewItem(
-                'SYSTEM_STATS_UPLOAD_COUNT',
-                \fpcm\model\dashboard\components\dataviewItem::TYPE_TEXT
+                value: 'SYSTEM_STATS_UPLOAD_COUNT',
+                type: \fpcm\model\dashboard\components\dataviewItem::TYPE_TEXT,
+                class: 'text-truncate'
             ),
             'value' => new \fpcm\model\dashboard\components\dataviewItem(
                 value: $this->dbStats['upload_count'],
                 type: \fpcm\model\dashboard\components\dataviewItem::TYPE_TEXT,
-                align: 'end'
+                align: 'end',
+                size: 3
             )
         ];
 
@@ -319,13 +341,16 @@ class sysstats extends \fpcm\model\dashboard\types\dataview {
                 size: 'auto'
             ),
             'label' => new \fpcm\model\dashboard\components\dataviewItem(
-                'SYSTEM_STATS_UPLOAD_SIZE',
-                \fpcm\model\dashboard\components\dataviewItem::TYPE_TEXT
+                value: 'SYSTEM_STATS_UPLOAD_SIZE',
+                type: \fpcm\model\dashboard\components\dataviewItem::TYPE_TEXT,
+                class: 'text-truncate'
             ),
             'value' => new \fpcm\model\dashboard\components\dataviewItem(
                 value: \fpcm\classes\tools::calcSize($this->dbStats['upload_size'] ?? 0),
                 type: \fpcm\model\dashboard\components\dataviewItem::TYPE_TEXT,
-                align: 'end'
+                align: 'end',
+                class: 'text-truncate',
+                size: 3
             )
         ];
 
@@ -336,13 +361,16 @@ class sysstats extends \fpcm\model\dashboard\types\dataview {
                 size: 'auto'
             ),
             'label' => new \fpcm\model\dashboard\components\dataviewItem(
-                'SYSTEM_STATS_CACHE_SIZE',
-                \fpcm\model\dashboard\components\dataviewItem::TYPE_TEXT
+                value: 'SYSTEM_STATS_CACHE_SIZE',
+                type: \fpcm\model\dashboard\components\dataviewItem::TYPE_TEXT,
+                class: 'text-truncate'
             ),
             'value' => new \fpcm\model\dashboard\components\dataviewItem(
                 value: \fpcm\classes\tools::calcSize($this->cache->getSize()),
                 type: \fpcm\model\dashboard\components\dataviewItem::TYPE_TEXT,
-                align: 'end'
+                align: 'end',
+                class: 'text-truncate',
+                size: 3
             )
         ];
 
@@ -377,6 +405,14 @@ class sysstats extends \fpcm\model\dashboard\types\dataview {
     }
 
     /**
+     * Get width
+     * @return int
+     */
+    public function getWidth() {
+        return 6;
+    }
+
+    /**
      * Fetch stats from database
      * @return bool
      * @since 4.5
@@ -408,6 +444,9 @@ class sysstats extends \fpcm\model\dashboard\types\dataview {
             (new \fpcm\model\dbal\selectParams(\fpcm\classes\database::tableAuthors))->setItem("'users_active' AS descr, {$countStr}")->setWhere('disabled = 0'),
             (new \fpcm\model\dbal\selectParams(\fpcm\classes\database::tableFiles))->setItem("'upload_count' AS descr, {$countStr}"),
             (new \fpcm\model\dbal\selectParams(\fpcm\classes\database::tableFiles))->setItem("'upload_size' AS descr, SUM(filesize)"),
+            
+            (new \fpcm\model\dbal\selectParams(\fpcm\classes\database::tableIpAdresses))->setItem("'ip_locks' AS descr, {$countStr}"),
+
         ], \PDO::FETCH_KEY_PAIR);
 
         return is_array($this->dbStats) && count($this->dbStats);

@@ -65,9 +65,9 @@ class fpcmnews extends \fpcm\model\dashboard\types\dataview {
                 'text' => new \fpcm\model\dashboard\components\dataviewItem(
                     type: \fpcm\model\dashboard\components\dataviewItem::TYPE_TEXT,
                     value: sprintf(
-                        '<strong>%s</strong><br><span class="text-secondary">%s -> %s</span>',
+                        '<strong>%s</strong><br><span class="text-secondary">%s</span>',
                         new \fpcm\view\helper\escape(strip_tags($item->title)),
-                        new \fpcm\view\helper\dateText(strtotime($item->pubDate)), $idx
+                        new \fpcm\view\helper\dateText(strtotime($item->pubDate))
                     ),
                     class: 'fpcm-ui-font-small text-truncate'
                 )

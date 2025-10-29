@@ -117,14 +117,14 @@ abstract class model implements \fpcm\model\interfaces\model, \Stringable {
     public function __construct($id = null)
     {
         $this->dbcon = \fpcm\classes\loader::getObject('\fpcm\classes\database');
-        $this->events = \fpcm\classes\loader::getObject('\fpcm\events\events');
+        $this->events = \fpcm\events\events::getInstance();
         $this->cache = \fpcm\classes\loader::getObject('\fpcm\classes\cache');
 
         if (\fpcm\classes\baseconfig::installerEnabled()) {
             return false;
         }
 
-        $this->config = \fpcm\classes\loader::getObject('\fpcm\model\system\config');
+        $this->config = \fpcm\model\system\config::getInstance();
         $this->language = \fpcm\classes\loader::getObject('\fpcm\classes\language');
         $this->notifications = \fpcm\classes\loader::getObject('\fpcm\model\theme\notifications');
 

@@ -12,7 +12,7 @@ namespace fpcm\model\dashboard\containers;
  * 
  * @package fpcm\model\dashboard
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2022, Stefan Seehafer
+ * @copyright (c) 2011-2025, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 class welcome extends \fpcm\model\abstracts\dashcontainer {
@@ -42,7 +42,7 @@ class welcome extends \fpcm\model\abstracts\dashcontainer {
     public function getHeadline()
     {
         return $this->language->translate('WELCOME_HEADLINE', [
-            '{{username}}' => \fpcm\classes\loader::getObject('\fpcm\model\system\session')->getCurrentUser()->getDisplayname()
+            '{{username}}' => \fpcm\model\system\session::getInstance()->getCurrentUser()->getDisplayname()
         ]);
     }
 

@@ -46,7 +46,7 @@
                     ->setValue($comment->getIpaddress())
                     ->setIcon('network-wired')
                     ->setSize('lg')
-                    ->setBottomSpace(''); ?>
+                    ->setBottomSpace($commentsMode !== 2 || $showArticleIdField ? 'mb-3' : ''); ?>
             </div>
 
             <div class="row g-0 <?php if($commentsMode === 2 || !$showArticleIdField) : ?>d-none<?php endif; ?>">
@@ -59,7 +59,7 @@
                     ->setIcon('clipboard')
                     ->setSize('lg')
                     ->setClass('fpcm-ui-input-articleid')
-                    ->setBottomSpace(''); ?>
+                    ->setBottomSpace($existsAlert ? 'mb-3' : ''); ?>
                 
                 <?php if ($existsAlert) : ?>
                 <div class="d-block">

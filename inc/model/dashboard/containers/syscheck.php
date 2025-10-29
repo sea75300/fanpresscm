@@ -9,13 +9,13 @@ namespace fpcm\model\dashboard\containers;
 
 /**
  * System check dashboard container object
- * 
+ *
  * @package fpcm\model\dashboard
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2022, Stefan Seehafer
+ * @copyright (c) 2011-2025, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class syscheck extends \fpcm\model\abstracts\dashcontainer {
+class syscheck extends \fpcm\model\dashboard\types\dataview {
 
     /**
      * Returns name
@@ -37,43 +37,65 @@ class syscheck extends \fpcm\model\abstracts\dashcontainer {
     }
 
     /**
+     * Returns cols
+     * @return array
+     */
+    public function getCols(): array
+    {
+        return [
+            'description',
+            'result'
+        ];
+    }
+
+    /**
      * Returns content
      * @return string
      */
-    public function getContent()
+    public function getRows(): array
     {
         $sysCheckAction = new \fpcm\controller\ajax\system\syscheck(true);
 
-        $content = [];
-        
+        $rows = [];
+
         /* @var $data \fpcm\model\system\syscheckOption */
         foreach ($sysCheckAction->getOptions() as $description => $data) {
-            
+
             $txt = strip_tags($description);
-            $checkres = (new \fpcm\view\helper\boolToText($txt))->setValue($data->getResult());
 
-            $dat  = "<div class=\"row g-0\">";
-            $dat .= "<div class=\"col-auto px-2 text-center\">{$checkres}</div>";
-            $dat .= "<div class=\"col px-2 \">{$description}</div>";
-            $dat .= "</div>";
-
-            $content[] = $dat;
+            $rows[] = [
+                'description' => new \fpcm\model\dashboard\components\dataviewItem(
+                    value: $txt,
+                    type: \fpcm\model\dashboard\components\dataviewItem::TYPE_TEXT,
+                    class: 'text-truncate'
+                ),
+                'result' => new \fpcm\model\dashboard\components\dataviewItem(
+                    value: $data->getResult(),
+                    type: \fpcm\model\dashboard\components\dataviewItem::TYPE_BOOLICON,
+                    size: 'auto'
+                )
+            ];
         }
 
         foreach ($sysCheckAction->getFolders() as $description => $data) {
 
             $txt = strip_tags($description);
-            $checkres = (new \fpcm\view\helper\boolToText($txt))->setValue($data->getResult())->setText($data->getResult() ? 'GLOBAL_WRITABLE' : 'GLOBAL_NOT_WRITABLE');
-            
-            $dat  = "<div class=\"row g-0\">";
-            $dat .= "<div class=\"col-auto px-2 text-center\">{$checkres}</div>";
-            $dat .= "<div class=\"col px-2 \">{$description}</div>";
-            $dat .= "</div>";
 
-            $content[] = $dat;
-        }        
-        
-        return implode(PHP_EOL, $content);
+            $rows[] = [
+                'description' => new \fpcm\model\dashboard\components\dataviewItem(
+                    value: $txt,
+                    type: \fpcm\model\dashboard\components\dataviewItem::TYPE_TEXT,
+                    class: 'text-truncate'
+                ),
+                'result' => new \fpcm\model\dashboard\components\dataviewItem(
+                    value: $data->getResult(),
+                    type: \fpcm\model\dashboard\components\dataviewItem::TYPE_BOOLICON,
+                    size: 'auto'
+                )
+            ];
+        }
+
+        return $rows;
     }
 
     /**
@@ -101,6 +123,14 @@ class syscheck extends \fpcm\model\abstracts\dashcontainer {
     public function getHeight()
     {
         return self::DASHBOARD_HEIGHT_SMALL_MEDIUM;
+    }
+
+    /**
+     * Get width
+     * @return int
+     */
+    public function getWidth() {
+        return 6;
     }
 
     /**

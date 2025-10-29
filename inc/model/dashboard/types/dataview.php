@@ -54,9 +54,9 @@ abstract class dataview extends \fpcm\model\abstracts\dashcontainer {
 
         $this->getCacheName('_' . $this->currentUser);
 
-        /*if (!$this->cache->isExpired($this->cacheName)) {
+        if (!$this->cache->isExpired($this->cacheName)) {
             return $this->cache->read($this->cacheName);
-        }*/
+        }
 
         $this->fotnsize = $this->getFontSIze();
         $this->cols = $this->getCols();
@@ -110,18 +110,24 @@ abstract class dataview extends \fpcm\model\abstracts\dashcontainer {
     }
 
     /**
-     * Render link item value
-     * @param type $value
+     * Render link button item
+     * @param \fpcm\view\helper\editButton|\fpcm\view\helper\linkButton|\fpcm\view\helper\openButton $value
+     * @param string $align
+     * @param string $size
+     * @param string $class
      * @return string
      */
     private function renderLink(\fpcm\view\helper\editButton|\fpcm\view\helper\linkButton|\fpcm\view\helper\openButton $value, string $align, string $size, string $class) : string
     {
         return $value->asInline($size, $class);
     }
-
+    
     /**
      * Render date item value
-     * @param int|string $value
+     * @param \fpcm\view\helper\icon|array $value
+     * @param string $align
+     * @param string $size
+     * @param string $class
      * @return string
      */
     private function renderIcons(\fpcm\view\helper\icon|array $value, string $align, string $size, string $class) : string
@@ -135,10 +141,31 @@ abstract class dataview extends \fpcm\model\abstracts\dashcontainer {
 
         return sprintf('<div class="list-group-item align-self-center fpcm %s %s %s">%s</div>', $align, $size, $class, $value);
     }
-
+    
     /**
-     * Render date item value
-     * @param int|string $value
+     * Render bool icon item
+     * @param bool $value
+     * @param string $align
+     * @param string $size
+     * @param string $class
+     * @return string
+     */
+    private function renderBoolIcon(bool $value, string $align, string $size, string $class) : string
+    {
+        $icon = new \fpcm\view\helper\icon( $value ? 'circle-check' : 'circle-xmark' );
+        $icon->setSize('lg');
+        
+        $class .= ' list-group-item-' . ($value ? 'success' : 'danger');
+
+        return sprintf('<div class="list-group-item align-self-center fpcm %s %s %s">%s</div>', $align, $size, $class, $icon);
+    }
+    
+    /**
+     * Render text item
+     * @param string $value
+     * @param string $align
+     * @param string $size
+     * @param string $class
      * @return string
      */
     private function renderText(string $value, string $align, string $size, string $class) : string
