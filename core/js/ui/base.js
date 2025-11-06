@@ -451,15 +451,13 @@ fpcm.ui = {
                 return;
             }
 
-            _result = _params.source.filter((_item) => {
+            let _result = _params.source.filter((_item) => {
 
                 if (!_item instanceof Object) {
                     return false;
                 }
 
-
-                return _value === _item.value || _value === _item.label;
-
+                return _value === _item.value || _value === _item.label || _item.value.search(_value) > -1 || _item.label.search(_value) > -1;
             });
 
             _displayCallback(_result);
