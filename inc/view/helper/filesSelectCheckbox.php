@@ -12,11 +12,11 @@ namespace fpcm\view\helper;
  * 
  * @package fpcm\view\helper
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2023, Stefan Seehafer
+ * @copyright (c) 2011-2025, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @since 5.2.0
  */
-final class filesSelectAllCheckbox extends checkbox {
+final class filesSelectCheckbox extends checkbox {
 
     /**
      * Optional init function
@@ -25,22 +25,25 @@ final class filesSelectAllCheckbox extends checkbox {
     protected function init()
     {
         parent::init();
-        $this->class = 'btn-check fpcm-select-all';
-        $this->icon = (new \fpcm\view\helper\icon('check-double'))->setText('GLOBAL_SELECTALL');
-        
-        
+        $this->class = 'btn-check';
     }
 
+    /**
+     * Return element string
+     * @return string
+     */
     protected function getString()
     {
         return sprintf(
-            '<input type="%s" class="%s" %s autocomplete="off"><label class="btn btn-%s" for="%s">%s</label>',
+            '<input type="%s" class="%s" %s %s autocomplete="off"><label class="btn btn-%s" for="%s" title="%s">%s</label>',
             $this->type,
             $this->class,
             $this->getNameIdString(),
+            $this->getValueString(),
             $this->getColorMode(),
             $this->id,
-            $this->icon
+            $this->text,
+            $this->getIconString()
         );
     }
     

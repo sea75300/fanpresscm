@@ -122,11 +122,10 @@ class createThumbs extends \fpcm\controller\abstracts\ajaxController
 
         $this->response->setReturnData([
             new \fpcm\view\message(
-                $this->language->translate('GLOBAL_NOTFOUND2', ''),
+                $this->language->translate('GLOBAL_NOTFOUND2', []),
                 \fpcm\view\message::TYPE_ERROR
             )
         ])->fetch();
-
     }
 
     private function createThumb($fileName) : bool

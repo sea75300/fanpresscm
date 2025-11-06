@@ -49,6 +49,7 @@
                                     <?php print $theView->linkButton('open'.$file->getFileHash())
                                         ->setUrl($file->getImageUrl())
                                         ->setClass('fpcm ui-link-fancybox')
+                                        ->overrideButtonType('secondary')
                                         ->setText('FILE_LIST_OPEN_FULL')
                                         ->setIcon('file-image')
                                         ->setSize('lg')

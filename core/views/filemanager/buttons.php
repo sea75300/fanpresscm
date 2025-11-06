@@ -1,13 +1,12 @@
 <?php /* @var $theView fpcm\view\viewVars */ /* @var $file fpcm\model\files\image */ ?>
 <?php $hash = $file->getFileNameHash(); ?>
     <div class="nav-item">
-        <div class="btn btn-<?php if ($theView->darkMode) : ?>dark<?php else : ?>light<?php endif; ?>">
-            <?php $theView->checkbox('filenames[]', 'cb_'. $hash)
-                    ->setClass('fpcm-ui-list-checkbox')
-                    ->setValue($file->getCryptFileName())
-                    ->setData(['gallery' => $file->getFilename()])
-                    ->setSwitch(); ?>
-        </div>
+        <?php $theView->filesSelectCheckbox('filenames[]', 'cb_'. $hash)
+                ->setClass('fpcm-ui-list-checkbox')
+                ->setValue($file->getCryptFileName())
+                ->setData(['gallery' => $file->getFilename()])
+                ->setIcon('square-check', 'far')
+                ->setSize('lg'); ?>
     </div>
 <?php if ($file->existsFolder()) : ?>
     <?php $imgTxt = $file->getAltText() ? $file->getAltText() : $file->getFilename(); ?>

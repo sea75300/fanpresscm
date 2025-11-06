@@ -275,6 +275,15 @@ if (!defined('FPCM_ARTICLES_OLDMESSAGE_INTERVALL')) {
     define('FPCM_ARTICLES_OLDMESSAGE_INTERVALL', 31104000);
 }
 
+if (!defined('FPCM_SMTP_LEVEL')) {
+
+    /**
+     * Enable SMTP error log output
+     * @since 5.3.0-a1
+     */
+    define('FPCM_SMTP_LEVEL', 0);
+}
+
 //if (!defined('FPCM_URLS_BASE')) {
 
     /**

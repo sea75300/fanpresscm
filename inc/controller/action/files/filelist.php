@@ -154,7 +154,7 @@ class filelist extends \fpcm\controller\abstracts\controller
     private function initButtons(string $tpl)
     {
         $buttons = [
-            new \fpcm\view\helper\filesSelectAllCheckbox('fpcm-select-all')
+            (new \fpcm\view\helper\filesSelectCheckbox('fpcm-select-all'))->setIcon('check-double')->setText('GLOBAL_SELECTALL')->setClass('fpcm-select-all')
         ];
 
         if ($this->permissions->uploads->add) {

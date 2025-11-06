@@ -160,10 +160,10 @@ class filelist extends \fpcm\controller\abstracts\ajaxController
 
             $hasRem = $rem->getId();
             if ($rem->getTime() <= time()) {
-                return 'warning';
+                return 'info';
             }
 
-            return 'secondary';
+            return 'outline-info';
         });
 
         $addColsToEnd = FPCM_FILEMAGER_ITEMS_ROW - $max % FPCM_FILEMAGER_ITEMS_ROW;

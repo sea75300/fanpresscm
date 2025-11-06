@@ -92,8 +92,8 @@ class crons extends \fpcm\controller\abstracts\controller
             (new \fpcm\components\dataView\column('button', ''))->setSize(1)->setAlign('center'),
             (new \fpcm\components\dataView\column('interval', 'CRONJOB_LIST_INTERVAL'))->setSize(2)->setAlign('center'),
             (new \fpcm\components\dataView\column('name', 'CRONJOB_LIST_NAME')),
-            (new \fpcm\components\dataView\column('lastexec', 'CRONJOB_LIST_LASTEXEC'))->setAlign('center'),
-            (new \fpcm\components\dataView\column('nextecec', 'CRONJOB_LIST_NEXTEXEC'))->setAlign('center'),
+            (new \fpcm\components\dataView\column('lastexec', 'CRONJOB_LIST_LASTEXEC'))->setAlign('center')->setSize('2'),
+            (new \fpcm\components\dataView\column('nextecec', 'CRONJOB_LIST_NEXTEXEC'))->setAlign('center')->setSize('2'),
         ];
     }
 

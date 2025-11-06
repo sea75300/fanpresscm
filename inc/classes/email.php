@@ -88,7 +88,7 @@ final class email {
         $this->text = is_array($text) ? implode(PHP_EOL, $text) : $text;
         $this->html = $html;
 
-        $this->config = loader::getObject('\fpcm\model\system\config');
+        $this->config = \fpcm\model\system\config::getInstance();
     }
 
     /**
@@ -383,6 +383,11 @@ final class email {
         $this->mailer->Timeout = FPCM_SMTP_TIMEOUT ?? 5;
 
         $this->mailer->Debugoutput = function($str, $level) {
+            
+            if (defined('FPCM_SMTP_LEVEL') && !FPCM_SMTP_LEVEL) {
+                return;
+            }
+            
             trigger_error($str);
         };
 
