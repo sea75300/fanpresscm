@@ -160,6 +160,10 @@ img.fpcm-ui-smileylist-preview {
     cursor: pointer;
 }
 
+.fpcm.ui-autocomplete {
+    max-height: 33vh;
+}
+
 .fpcm-ui-progressbar {
     height: 35px;
 }

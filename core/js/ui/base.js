@@ -342,77 +342,144 @@ fpcm.ui = {
         }
     },
 
-    autocomplete: function(_elemClassId, _params) {
+    autocomplete: function(_id, _params) {
 
-        if (fpcm.ui._autocompletes[_elemClassId]) {
+        if (fpcm.ui._autocompletes[_id]) {
             return true;
         }
 
-        let _opt = {};
+        if (_id.substr(0,1) === '.') {
+            console.error(`Parameter #1 _id must not start with a dot as in ${_id}!`);
+            return false;
+        }
+
+        if (_id.substr(0,1) === '#') {
+            _id = _id.substring(1);
+        }
+
+        const _el = document.getElementById(_id);
+        if (!_el || !_el instanceof HTMLInputElement) {
+            console.error(`No DOM HTMLInputElement found for id ${_id}!`);
+            return false;
+        }
+
+        if (_el.parentElement.dataset.fpcmHasAutocomplete) {
+            return;
+        }
+
+        let _useAjax = _params.source instanceof Array ? false : true;
 
         if (_params.source === undefined) {
             _params.source = [];
         }
 
-        _opt.data = _params.source === undefined || !_params.source instanceof Array ? [] : _params.source;
-        _opt.highlightTyped = false;
+        let _displayCallback = function (_list) {
 
-        let _acDdEl = document.querySelector(_elemClassId);
-        if (_acDdEl === null) {
-            console.warn('No DOm element found for ' + _elemClassId)
-            return false;
-        }
+            console.log('_displayCallback A');
 
-        _opt.onSelectItem = function (_el) {
-            _acDdEl.value = _el.value;
-            if (_params.onSelectItem) {
-                _params.onSelectItem(_el);
+            let _acEl = _el.parentElement.querySelector('div[data-fpcm-has-autocomplete="1"]');
+            if (_acEl) {
+                console.log('_displayCallback A1');
+
+                _acEl.remove();
             }
-        };
+            else {
+                console.log('_displayCallback A2');
+                _el.parentElement.classList.add('position-relative');
+                _el.parentElement.setAttribute('data-fpcm-has-autocomplete', '1');
+            }
 
-        if (_params.minLength !== undefined) {
-            _opt.treshold = _params.minLength;
+            let _listEl = document.createElement('div');
+            _listEl.classList.add('position-absolute', 'top-100', 'start-0', 'overflow-y-scroll', 'fpcm', 'ui-z-index-top', 'ui-autocomplete');
+            _listEl.setAttribute('data-fpcm-has-autocomplete', '1');
+
+            let _listGroupEl = document.createElement('div');
+            _listGroupEl.classList.add('list-group', 'shadow');
+
+            for (var _i in _list) {
+
+                if (!_list[_i]) {
+                    continue;
+                }
+
+                let _item = _list[_i];
+                let _isObject = _item instanceof Object;
+
+                let _listItemEl = document.createElement('a');
+                _listItemEl.classList.add('list-group-item', 'list-group-item-action', 'fpcm', 'ui-background-white-75p', 'ui-background-transition');
+
+                if (!_isObject) {
+                    console.error(`Item with index ${_i} is not an Object does not container a label and value property!`);
+                    continue;
+                }
+
+                _listItemEl.setAttribute('data-value', _item.value);
+                _listItemEl.setAttribute('data-index', _i);
+                _listItemEl.innerHTML = _item.altLabel !== undefined ? _item.altLabel : _item.label;
+
+                _listItemEl.addEventListener('click', function (_e) {
+                    _e.preventDefault();
+                    _el.value = _e.originalTarget.dataset.value;
+                    _e.originalTarget.parentElement.parentElement.remove();
+                });
+
+                _listGroupEl.appendChild(_listItemEl);
+
+            }
+
+            _listEl.appendChild(_listGroupEl);
+            _el.parentElement.appendChild(_listEl);
         }
 
-        if (_params.onRenderItems !== undefined) {
-            _opt.onRenderItems = _params.onRenderItems;
-        }
+        _el.addEventListener('input', function (_e) {
 
-        if (_params.showValue !== undefined) {
-            _opt.showValue = _params.showValue;
-        }
+            _e.preventDefault();
+            let _target = _e.target;
+            let _value = _target.value;
 
-        if ( _params.source instanceof Array ) {
-            fpcm.ui._autocompletes[_elemClassId] = new Autocomplete(_acDdEl, _opt);
-            return true;
-        }
-
-        _opt.onInput = function (_val) {
-
-            if ( _val.length < this.treshold || !fpcm.ui._autocompletes[_elemClassId] ) {
-                fpcm.ui._autocompletes[_elemClassId].setData([]);
+            if (_value.length < _params.minLength) {
                 return false;
             }
 
-            fpcm.ui._autocompletes[_elemClassId].setData([]);
+            if (_useAjax) {
 
-            fpcm.ajax.get(_params.source + '&term=' + _val, {
-                quiet: true,
-                execDone: function (_result) {
+                fpcm.ajax.get(_params.source + '&term=' + _value, {
+                    quiet: true,
+                    execDone: (_result) => _displayCallback(_result, _value)
+                });
 
-                    if (!_result instanceof Array) {
-                        _result = [];
-                    }
+                return;
+            }
 
-                    fpcm.ui._autocompletes[_elemClassId].setData(_result);
+            _result = _params.source.filter((_item) => {
+
+                if (!_item instanceof Object) {
+                    return false;
                 }
+
+
+                return _value === _item.value || _value === _item.label;
+
             });
 
-            return false;
-        };
+            _displayCallback(_result);
 
-        fpcm.ui._autocompletes[_elemClassId] = new Autocomplete(_acDdEl, _opt);
-        fpcm.ui._autocompletes[_elemClassId].setData([]);
+        });
+
+        _el.addEventListener('keydown', function (_e) {
+
+            if (_e.keyCode === 27 || _e.keyCode === 40) {
+
+                let _acEl = _el.parentElement.querySelector('div[data-fpcm-has-autocomplete="1"]');
+                if (_acEl) {
+                    _acEl.remove();
+                }
+
+                _el.parentElement.classList.remove('position-relative');
+                _el.parentElement.removeAttribute('data-fpcm-has-autocomplete');
+            }
+
+        });
     },
 
     multiselect: function(_id, _params) {

@@ -27,8 +27,6 @@ class Line implements IteratorAggregate, Countable, Stringable
     /**
      * Create new text line object with given text & position
      *
-     * @param string $text
-     * @param PointInterface $position
      * @return void
      */
     public function __construct(
@@ -42,9 +40,6 @@ class Line implements IteratorAggregate, Countable, Stringable
 
     /**
      * Add word to current line
-     *
-     * @param string $word
-     * @return Line
      */
     public function add(string $word): self
     {
@@ -65,8 +60,6 @@ class Line implements IteratorAggregate, Countable, Stringable
 
     /**
      * Get Position of line
-     *
-     * @return PointInterface
      */
     public function position(): PointInterface
     {
@@ -75,9 +68,6 @@ class Line implements IteratorAggregate, Countable, Stringable
 
     /**
      * Set position of current line
-     *
-     * @param PointInterface $point
-     * @return Line
      */
     public function setPosition(PointInterface $point): self
     {
@@ -88,8 +78,6 @@ class Line implements IteratorAggregate, Countable, Stringable
 
     /**
      * Count segments (individual words including punctuation marks) of line
-     *
-     * @return int
      */
     public function count(): int
     {
@@ -98,8 +86,6 @@ class Line implements IteratorAggregate, Countable, Stringable
 
     /**
      * Count characters of line
-     *
-     * @return int
      */
     public function length(): int
     {
@@ -125,8 +111,6 @@ class Line implements IteratorAggregate, Countable, Stringable
 
     /**
      * Cast line to string
-     *
-     * @return string
      */
     public function __toString(): string
     {
