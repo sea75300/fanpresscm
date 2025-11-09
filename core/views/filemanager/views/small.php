@@ -55,9 +55,9 @@
                                         ->setSize('lg')
                                         ->setIconOnly()
                                         ->setData([
-                                            'fancybox' => 'group',
                                             'pswp-width' => $file->getWidth(),
                                             'pswp-height' => $file->getHeight(),
+                                            'pswp-caption' => $theView->escapeVal($file->getAltText() ? $file->getAltText() : basename($file->getFilename()))
                                         ]);
                                     ?>
                                     </div>

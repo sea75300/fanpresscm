@@ -9,7 +9,7 @@ namespace fpcm\classes;
 
 /**
  * Base config class
- * 
+ *
  * @package fpcm\classes\baseconfig
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2022, Stefan Seehafer
@@ -85,7 +85,7 @@ final class baseconfig {
         if (defined('FPCM_FE') && FPCM_FE) {
             return true;
         }
-        
+
         self::$installerEnabledFile = dirs::getDataDirPath(dirs::DATA_CONFIG, 'installer.enabled');
 
         if (self::dbConfigExists()) {

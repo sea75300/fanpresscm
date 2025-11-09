@@ -1,6 +1,6 @@
 <?php /* @var $theView fpcm\view\viewVars */ /* @var $file fpcm\model\files\image */ ?>
 <div class="justify-content-end">
-    
+
     <?php if ($showPager && in_array($mode, [2, 3, 4])) : ?>
     <div class="navbar">
         <div class="container-fluid">
@@ -20,18 +20,21 @@
         <?php $i = 0; ?>
         <?php foreach($files AS $file) : ?>
         <?php $i++; ?>
-        <div class="row g-0 px-3 fpcm ui-files-list">    
+        <div class="row g-0 px-3 fpcm ui-files-list">
             <div class="card w-100 my-2 fpcm ui-files-item ui-background-transition shadow">
                 <div class="row g-0">
                     <div class="col-auto align-self-center me-3">
-                        <a href="<?php print $file->getImageUrl(); ?>" 
-                           class="fpcm ui-link-fancybox" 
-                           data-fancybox="group" 
-                           data-pswp-width="<?php print $file->getWidth(); ?>" 
-                           data-pswp-height="<?php print $file->getHeight(); ?>"                                
-                           <?php if ($file->getAltText()) : ?>data-caption="<?php print $theView->escapeVal($file->getAltText()); ?>"<?php endif; ?>>
+                        <a href="<?php print $file->getImageUrl(); ?>"
+                           class="fpcm ui-link-fancybox"
+                           data-pswp-width="<?php print $file->getWidth(); ?>"
+                           data-pswp-height="<?php print $file->getHeight(); ?>">
                         <?php if ($file->hasFileManageThumbnail()) : ?>
-                            <img class="img-fluid rounded-start" loading="lazy" src="<?php print $file->getFileManagerThumbnailUrl(); ?>" title="<?php print $file->getFileName(); ?>" <?php if ($file->getAltText()) : ?>alt="<?php print $theView->escapeVal($file->getAltText()); ?>"<?php endif; ?> width="<?php print $thumbsize; ?>" height="<?php print $thumbsize; ?>">
+                            <img class="img-fluid rounded-start" loading="lazy" 
+                                 src="<?php print $file->getFileManagerThumbnailUrl(); ?>" 
+                                 title="<?php print $file->getFileName(); ?>" 
+                                 alt="<?php if ($file->getAltText()) : ?><?php print $theView->escapeVal($file->getAltText()); ?><?php else : ?><?php print $theView->escapeVal(basename($file->getFilename())); ?><?php endif; ?>"                                 
+                                 width="<?php print $thumbsize; ?>"
+                                 height="<?php print $thumbsize; ?>">
                         <?php else : ?>
                             <img class="img-fluid rounded-start p-5" loading="lazy" src="<?php print fpcm\classes\loader::libGetFileUrl('font-awesome/svg/image.svg'); ?>" title="<?php print $file->getFileName(); ?>" width="<?php print $thumbsize; ?>" height="<?php print $thumbsize; ?>">
                         <?php endif; ?>
@@ -41,7 +44,7 @@
                         <div class="card-body">
                             <p class="card-title"><?php print $theView->escapeVal(basename($file->getFilename())); ?></p>
                             <?php if ($file->getAltText()) : ?>
-                            <p class="card-subtitle fs-6 text-secondary-emphasis"><?php print $theView->escapeVal($file->getAltText()); ?></p>           
+                            <p class="card-subtitle fs-6 text-secondary-emphasis"><?php print $theView->escapeVal($file->getAltText()); ?></p>
                             <?php endif; ?>
                             <div class="card-text mb-3">
                                 <?php if (!$file->existsFolder()) : ?>
@@ -54,9 +57,9 @@
                             </div>
                         </div>
                     </div>
-                </div>            
-            </div>        
+                </div>
+            </div>
         </div>
         <?php endforeach; ?>
-    <?php endif; ?>    
+    <?php endif; ?>
 </div>

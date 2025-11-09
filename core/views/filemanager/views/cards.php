@@ -26,10 +26,12 @@
                 <a href="<?php print $file->getImageUrl(); ?>"
                    class="fpcm ui-link-fancybox"
                    data-pswp-width="<?php print $file->getWidth(); ?>"
-                   data-pswp-height="<?php print $file->getHeight(); ?>"
-                   <?php if ($file->getAltText()) : ?>data-caption="<?php print $theView->escapeVal($file->getAltText()); ?>"<?php endif; ?>>
+                   data-pswp-height="<?php print $file->getHeight(); ?>">
                 <?php if ($file->hasFileManageThumbnail()) : ?>
-                    <img class="card-img-top rounded-top overflow-hidden" loading="lazy" src="<?php print $file->getFileManagerThumbnailUrl(); ?>" title="<?php print $file->getFileName(); ?>" <?php if ($file->getAltText()) : ?>alt="<?php print $theView->escapeVal($file->getAltText()); ?>"<?php endif; ?> >
+                    <img class="card-img-top rounded-top overflow-hidden" loading="lazy" 
+                         src="<?php print $file->getFileManagerThumbnailUrl(); ?>" 
+                         title="<?php print $file->getFileName(); ?>" 
+                         alt="<?php if ($file->getAltText()) : ?><?php print $theView->escapeVal($file->getAltText()); ?><?php else : ?><?php print $theView->escapeVal(basename($file->getFilename())); ?><?php endif; ?>">
                 <?php else : ?>
                     <img class="card-img-top rounded-top overflow-hidden p-5" loading="lazy" src="<?php print fpcm\classes\loader::libGetFileUrl('font-awesome/svg/image.svg'); ?>" title="<?php print $file->getFileName(); ?>">
                 <?php endif; ?>

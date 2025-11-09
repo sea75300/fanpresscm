@@ -134,7 +134,12 @@ class edit extends base {
             'lkIp' => $this->permissions->comment->lockip ? 1 : 0
         ]);
 
-        $this->view->addJsLangVars(['EDITOR_STATUS_INEDIT', 'EDITOR_STATUS_NOTINEDIT', 'EDITOR_ARTICLE_SHORTLINK', 'COMMENTS_EDIT', 'COMMMENT_LOCKIP', 'EDITOR_ARTICLE_SHORTLINK_COPY']);
+        $this->view->addJsLangVars([
+            'EDITOR_STATUS_INEDIT', 'EDITOR_STATUS_NOTINEDIT',
+            'EDITOR_ARTICLE_SHORTLINK', 'COMMENTS_EDIT',
+            'COMMMENT_LOCKIP', 'EDITOR_ARTICLE_SHORTLINK_COPY',
+            'TEMPLATE_ARTICLE_ARTICLEIMAGE'
+        ]);
 
         if ($this->article->isInEdit()) {
 
@@ -315,8 +320,7 @@ class edit extends base {
                     ->setText('EDITOR_ARTICLEIMAGE_SHOW')
                     ->setIcon('image')
                     ->setIconOnly()
-                    ->setTarget(\fpcm\view\helper\linkButton::TARGET_NEW)
-                    ->setClass($this->getToolbarButtonToggleClass(1, '', true) ));
+                    ->setClass($this->getToolbarButtonToggleClass(1, 'fpcm ui-link-fancybox', true)));
         }
 
         if ($this->permissions->article->delete && !$this->request->fromGET('rev')) {

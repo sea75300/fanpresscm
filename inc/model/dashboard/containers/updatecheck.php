@@ -63,16 +63,20 @@ class updatecheck extends \fpcm\model\abstracts\dashcontainer implements \fpcm\m
      */
     public function getContent()
     {
+        if (!\fpcm\classes\baseconfig::canConnect()) {
+            $this->addItem('exclamation-triangle', 'secondary', 'UPDATE_MODULECHECK_FAILED');
+            return sprintf('<div class="row">%s</div>', implode(PHP_EOL, $this->tableContent));
+        }
+
         $this->getSystemUpdateStatus();
         $this->getModuleUpdateStatus();
 
-        $this->tableContent[] = implode(PHP_EOL, [
-            '<div class="row g-0 py-3 fpcm text-center">',
-            '<div class="col align-self-center">'.$this->language->translate('UPDATE_VERSIONCHECK_NOTES').'</div>',
-            '</div>'
-        ]);
+        $this->addItem(
+            text: 'UPDATE_VERSIONCHECK_NOTES',
+            itemClass: 'fpcm ui-background-white-50p'
+        );
 
-        return '<div class="fpcm-dashboard-updates">'.implode(PHP_EOL, $this->tableContent).'</div>';
+        return sprintf('<div class="row">%s</div>', implode(PHP_EOL, $this->tableContent));
     }
 
     /**
@@ -110,49 +114,49 @@ class updatecheck extends \fpcm\model\abstracts\dashcontainer implements \fpcm\m
     private function getSystemUpdateStatus()
     {
         if (!$this->systemUpdates->filesListExists()) {
-            $this->renderTable(
+            $this->addItem(
                 'exclamation-triangle',
-                'fpcm-dashboard-updates-outdated fpcm-ui-important-text',
+                'danger',
                 'UPDATE_VERSIONCECK_FILETXT_ERR'
             );
         }
 
         if ($this->config->system_version !== \fpcm\classes\baseconfig::getVersionFromFile()) {
-            $button = (string) (new \fpcm\view\helper\linkButton('updater'))
+            $button = (new \fpcm\view\helper\linkButton('updater'))
                     ->setText('PACKAGES_UPDATE')
                     ->setIcon('sync')
-                    ->setUrl(\fpcm\classes\tools::getFullControllerLink('package/sysupdate', ['update-db' => 1]));
+                    ->setUrl(\fpcm\classes\tools::getFullControllerLink('package/sysupdate', ['update-db' => 1]))
+                    ->setIconOnly();
 
-            $this->renderTable(
+            $this->addItem(
                 'code-branch',
-                'fpcm-dashboard-updates-versiondbfile text-body-tertiary',
-                $this->language->translate(
-                    'UPDATE_VERSIONCECK_FILEDB_ERR', [
-                        '{{btn}}' => $button
-                    ]
-                )
+                'secondary',
+                'UPDATE_VERSIONCECK_FILEDB_ERR',
+                $button
             );
         }
 
         $this->systemCheckresult = $this->systemUpdates->updateAvailable();
-        if ($this->systemCheckresult === true || 
+        if ($this->systemCheckresult === true ||
             $this->systemCheckresult === \fpcm\model\updater\system::FORCE_UPDATE) {
 
-            $iconClass = 'cloud-download-alt';
-            $statusClass = 'fpcm-dashboard-updates-outdated fpcm-ui-important-text';
+            $icon = 'cloud-download-alt';
+            $status = 'danger';
 
-            $statusText = $this->language->translate('UPDATE_VERSIONCHECK_NEW', [
-                '{{btn}}' => (string) (new \fpcm\view\helper\updateButton('startUpdate'))->setUpdater($this->systemUpdates),
+            $text = $this->language->translate('UPDATE_VERSIONCHECK_NEW', [
                 '{{version}}' => $this->systemUpdates->version
             ]);
+            
+            $button = (new \fpcm\view\helper\updateButton('startUpdate'))->setUpdater($this->systemUpdates)->setIconOnly();
         }
         else {
-            $iconClass = 'check';
-            $statusClass = 'fpcm-dashboard-updates-current text-success';
-            $statusText = 'UPDATE_VERSIONCHECK_CURRENT';
+            $icon = 'check';
+            $status = 'success';
+            $text = 'UPDATE_VERSIONCHECK_CURRENT';
+            $button = null;
         }
 
-        $this->renderTable($iconClass, $statusClass, $statusText);
+        $this->addItem($icon, $status, $text, $button);
     }
 
     /**
@@ -161,21 +165,22 @@ class updatecheck extends \fpcm\model\abstracts\dashcontainer implements \fpcm\m
      */
     private function getModuleUpdateStatus()
     {
-        $modulesUpdater = new \fpcm\model\updater\modules();
-        if (!\fpcm\classes\baseconfig::canConnect() || !count($modulesUpdater->getData())) {
-            $this->renderTable('exclamation-triangle', 'text-secondary', 'UPDATE_MODULECHECK_FAILED');
-            return false;
-        }
+        if ((new \fpcm\module\modules())->getInstalledUpdates(true) > 0) {
+            $this->addItem(
+                'cloud-download-alt',
+                'warning',
+                'UPDATE_MODULECHECK_NEW',
+                (new \fpcm\view\helper\linkButton('showModuleUpdates'))
+                    ->setText('PACKAGES_UPDATES_LIST')
+                    ->setIcon('sync')
+                    ->setUrl(\fpcm\classes\tools::getFullControllerLink('modules/list'))
+                    ->setIconOnly()
+            );
 
-        $checkRes = count((new \fpcm\module\modules())->getInstalledUpdates()) ? true : false;
-        if ($checkRes === true) {
-            $this->renderTable('cloud-download-alt', 'fpcm-dashboard-updates-outdated fpcm-ui-important-text', $this->language->translate('UPDATE_MODULECHECK_NEW', [
-                '{{btn}}' => (string) (new \fpcm\view\helper\linkButton('showModuleUpdates'))->setText('PACKAGES_UPDATES_LIST')->setIcon('sync')->setUrl(\fpcm\classes\tools::getFullControllerLink('modules/list'))
-            ]));
             return true;
         }
 
-        $this->renderTable('check', 'fpcm-dashboard-updates-current text-success', 'UPDATE_MODULECHECK_CURRENT');
+        $this->addItem('check', 'success', 'UPDATE_MODULECHECK_CURRENT');
     }
 
     /**
@@ -199,20 +204,48 @@ class updatecheck extends \fpcm\model\abstracts\dashcontainer implements \fpcm\m
     }
 
     /**
-     * Renders table row and cells
-     * @param string $iconClass
-     * @param string $statusClass
-     * @param string $statusText
+     * 
+     * @param string $icon
+     * @param string $status
+     * @param string $text
+     * @param null|\fpcm\view\helper\linkButton|\fpcm\view\helper\updateButton $button
+     * @param string $itemClass
+     * @return void
      * @since 3.1.0
      */
-    private function renderTable($iconClass, $statusClass, $statusText)
+    private function addItem(
+        string $icon = '',
+        string $status = '',
+        string $text = '',
+        null|\fpcm\view\helper\linkButton|\fpcm\view\helper\updateButton $button = null,
+        string $itemClass = ''
+    ) : void
     {
-        $this->tableContent[] = implode(PHP_EOL, [
-            '<div class="row g-0">',
-            '<div class="col-auto px-2">'.(new \fpcm\view\helper\icon($iconClass.' fa-inverse'))->setSize('2x')->setClass($statusClass)->setStack('square').'</div>',
-            '<div class="col px-2 align-self-center">'.$this->language->translate($statusText).'</div>',
-            '</div>'
-        ]);
+        if ($status) {
+            $status = 'list-group-item-' . $status;
+        }
+
+        $text = $this->language->translate($text);
+        
+        if (!$icon) {
+            $this->tableContent[] = sprintf(
+                '<div class="list-group my-1"><div class="list-group-item %s align-self-center my-1 %s">%s</div></div>',
+                $status,
+                $itemClass,
+                $text
+            );
+            return;
+        }
+
+        $iconCol = sprintf('<div class="list-group-item %s col-auto align-content-center py-3">%s</div>', $status, (new \fpcm\view\helper\icon($icon))->setSize('lg') );
+        $textCol = sprintf('<div class="list-group-item %s col align-self-center py-3">%s</div>', $status, $text);
+
+        if ($button === null) {
+            $this->tableContent[] = sprintf('<div class="list-group list-group-horizontal my-1">%s%s</div>', $iconCol, $textCol);
+            return;
+        }
+
+        $this->tableContent[] = sprintf('<div class="list-group list-group-horizontal my-1">%s%s%s</div>', $iconCol, $textCol, $button->asInline('w-auto', 'list-group-item-info'));
     }
 
     /**

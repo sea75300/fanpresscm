@@ -81,6 +81,7 @@ implements interfaces\inlineButton {
                 "<a href=\"#\"",
                 "id=\"{$this->id}\"",
                 $this->getClassString(),
+                $this->getAriaString(),
                 ($this->iconOnly ? "title=\"{$this->text}\">{$this->getIconString()}" : ">{$icon}{$this->getDescriptionTextString()}"),
                 '</a>'
             ]);
@@ -93,6 +94,7 @@ implements interfaces\inlineButton {
             $this->getClassString(),
             $this->getRelString(),
             $this->getDataString(),
+            $this->getAriaString(),
             ($this->iconOnly ? "title=\"{$this->text}\">{$this->getIconString()}" : ">{$icon}{$this->getDescriptionTextString()}"),
             '</a>'
         ]);
@@ -145,7 +147,7 @@ implements interfaces\inlineButton {
         }
 
         if ($this->iconOnly) {
-            return sprintf('<a class="%s" href="%s" %s %s>%s</a>', $class, $this->url, $this->getRelString(), $this->getTargetString(), $icon);
+            return sprintf('<a title="%s" class="%s" href="%s" %s %s>%s</a>', $this->text, $class, $this->url, $this->getRelString(), $this->getTargetString(), $icon);
         }
 
         $this->text = $this->language->translate($this->text);

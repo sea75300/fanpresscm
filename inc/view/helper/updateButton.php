@@ -64,6 +64,34 @@ final class updateButton extends button {
         $this->updater = $updater;
         return $this;
     }
+    
+    /**
+     * Render link button as inline list group item
+     * @param string $size
+     * @param string $class
+     * @return string
+     * @since 5.3.0-a1
+     */
+    final public function asInline(string $size = '', string $class = '') : string
+    {
+        $this->returned = true;
 
+        $icon = trim($this->getIconString());
+
+        $class = sprintf('list-group-item list-group-item-action align-content-center %s %s', $class, $size);
+
+        if ($this->readonly) {
+            $class .= ' pe-none';
+            $this->url .= ' pe-none';
+        }
+
+        if ($this->iconOnly) {
+            return sprintf('<button type="button" title="%s" class="%s" %s %s>%s</button>', $this->text, $class, $this->getIdString(), $this->getDataString(), $icon);
+        }
+
+        $this->text = $this->language->translate($this->text);
+
+        return sprintf('<button type="button" class="%s" %s %s>%s%s</button>', $class, $this->getIdString(), $this->getDataString(), $icon, $this->text);
+    }
 
 }
