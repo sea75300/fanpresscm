@@ -8,7 +8,7 @@
 namespace fpcm\module;
 
 /**
- * Comment search wrapper object
+ * Module search wrapper object
  *
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
  * @copyright (c) 2025, Stefan Seehafer
@@ -22,18 +22,18 @@ namespace fpcm\module;
 class search extends \fpcm\model\abstracts\searchWrapper {
 
     /**
-     * Liefert Daten zurück, die über Eigenschaften erzeugt wurden
+     * Returns search data
      * @return array
      */
     public function getData()
     {
-        if (isset($this->data['status'])) {
-            $this->data['status'] = match ($this->data['status']) {
-                'active' => 1,
-                'inactive' => 0,
-                default => -1
-            };
-        }
+        $status = $this->data['status'] ?? null;
+
+        $this->data['status'] = match ($status) {
+            'active' => 1,
+            'inactive' => 0,
+            default => -1
+        };
 
         return $this->data;
     }

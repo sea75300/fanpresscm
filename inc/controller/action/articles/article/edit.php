@@ -315,7 +315,8 @@ class edit extends base {
                     ->setText('EDITOR_ARTICLEIMAGE_SHOW')
                     ->setIcon('image')
                     ->setIconOnly()
-                    ->setClass($this->getToolbarButtonToggleClass(1, 'fpcm ui-link-fancybox', true) ));
+                    ->setTarget(\fpcm\view\helper\linkButton::TARGET_NEW)
+                    ->setClass($this->getToolbarButtonToggleClass(1, '', true) ));
         }
 
         if ($this->permissions->article->delete && !$this->request->fromGET('rev')) {

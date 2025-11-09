@@ -27,12 +27,12 @@ final class filesIndexCheck {
     ];
 
     /**
-     * @var fanpress/ folder string
+     * @var fanpress folder string
      */
     private const FPCM_FOLDER_STR = 'fanpress/';
 
     /**
-     * @var /data folder string
+     * @var data folder string
      */
     private const DATA_FOLDER_STR = '/data';
 

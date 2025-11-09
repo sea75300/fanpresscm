@@ -32,7 +32,7 @@ class containers extends \fpcm\model\abstracts\staticModel implements \ArrayAcce
 
     /**
      * Add multiple containers
-     * @param array[string] $containers
+     * @param array $containers items must be string
      * @return bool
      */
     public function addContainers(array $containers) : bool

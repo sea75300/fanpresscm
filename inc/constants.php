@@ -256,16 +256,6 @@ if (!defined('FPCM_DISABLE_AJAX_CRONJOBS_REFRESH')) {
     define('FPCM_DISABLE_AJAX_CRONJOBS_REFRESH', false);
 }
 
-if (!defined('FPCM_TWITTER_DSIABLE_API')) {
-
-    /**
-     * Disable twitter api connector
-     * @link https://www.heise.de/news/Twitter-macht-API-Zugang-kostenpflichtig-mit-einer-Woche-Vorlaufzeit-7480995.html
-     * @since 5.1.0-b4
-     */
-    define('FPCM_TWITTER_DSIABLE_API', true);
-}
-
 if (!defined('FPCM_ARTICLES_OLDMESSAGE_INTERVALL')) {
 
     /**

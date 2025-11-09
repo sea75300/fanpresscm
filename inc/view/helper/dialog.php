@@ -43,7 +43,7 @@ class dialog implements \JsonSerializable {
 
     /**
      * Set dialog fields
-     * @param array[fpcm\view\helper\interfaces\jsDialogHelper] $fields
+     * @param array $fields items implementing fpcm\view\helper\interfaces\jsDialogHelper
      * @return $this
      */
     public function setFields(array $fields)
