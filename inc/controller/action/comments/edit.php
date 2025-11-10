@@ -168,30 +168,23 @@ implements \fpcm\controller\interfaces\requestFunctions
         $buttons     = [];
         $buttons[]   = (new \fpcm\view\helper\saveButton('commentSave'))->setClass($hiddenClass)->setPrimary();
 
-        $showArticleIdField = false;
-        $existsAlert = false;
+        $articleExists = false;
 
         if ($this->mode === 1) {
             $article     = new \fpcm\model\articles\article($this->comment->getArticleid());
-            $this->articleList->checkEditPermissions($article);
+            $articleExists = $article->exists();
             if ($article->exists()) {
-
-                $showArticleIdField = false;
-
+                $this->articleList->checkEditPermissions($article);
                 if ($article->getEditPermission()) {
                     $buttons[] = (new \fpcm\view\helper\editButton('editArticle'))->setUrlbyObject($article)->setText('COMMENTS_EDITARTICLE')->setIcon('book');
                 }
 
                 $buttons[] = (new \fpcm\view\helper\openButton('commentfe'))->setUrlbyObject($this->comment)->setTarget(\fpcm\view\helper\linkButton::TARGET_NEW);
             }
-            else {
-                $showArticleIdField = true;
-                $existsAlert = true;
-            }
         }
 
-        $this->view->assign('showArticleIdField', $showArticleIdField && $this->permissions->comment->move);
-        $this->view->assign('existsAlert', $existsAlert);
+        $this->view->assign('showArticleIdField', $this->permissions->comment->move);
+        $this->view->assign('articleExists', $articleExists);
 
         $buttons[] = (new \fpcm\view\helper\linkButton('whoisIp'))
                 ->setUrl("http://www.whois.com/whois/{$this->comment->getIpaddress()}")
