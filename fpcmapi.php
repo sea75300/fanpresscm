@@ -415,4 +415,24 @@ class fpcmAPI {
         return $res;
     }
 
+    /**
+     * Returns url of Bootstrap lib
+     * @return string
+     * @since 5.3.0-a1
+     */
+    public function getBootstrap() : string
+    {
+        return \fpcm\classes\dirs::getLibUrl('bootstrap/css/bootstrap.min.css');
+    }
+
+    /**
+     * Returns url of Font Awesome lib
+     * @return string
+     * @since 5.3.0-a1
+     */
+    public function getFontAwesome() : string
+    {
+        return \fpcm\classes\dirs::getLibUrl('font-awesome/css/all.min.css');
+    }
+
 }
