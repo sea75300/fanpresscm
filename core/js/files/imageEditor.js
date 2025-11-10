@@ -179,8 +179,8 @@ fpcm.imageEditor = {
                 {
                     text: 'FILE_LIST_EDIT_DYNAMIC',
                     icon: "lock",
-                    showLabel: false,
                     class: "btn-outline-secondary",
+                    showLabel: false,
                     click: function(_e) {
                         let _res = fpcm.filemanager.cropper.toggleDynamicSelection();
 
@@ -198,8 +198,9 @@ fpcm.imageEditor = {
                 {
                     text: 'GLOBAL_RESET',
                     icon: "rotate" ,
-                    showLabel: false,
                     class: "btn-outline-secondary",
+                    showLabel: false,
+                    isLeft: true,
                     click: function() {
                         fpcm.filemanager.cropper.reset();
                     }
