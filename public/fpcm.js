@@ -208,11 +208,22 @@ if (fpcm === undefined) {
 
                 for (var _m in fpcm.modules) {
 
-                    if (!_m.init || typeof _m.init !== 'function') {
-                        return true;
+                    if (!fpcm.modules[_m] instanceof Object) {
+                        console.error(`Item ${_m} must be an object`);
+                        continue;
                     }
 
-                    _m.init();
+                    let _mod = fpcm.modules[_m];
+                    if (!_mod.init || typeof _mod.init !== 'function') {
+                        continue;
+                    }
+
+                    try {
+                        _mod.init();
+                    } catch (_e) {
+                        console.error(`Error while initializing module ${_m}!\n\n${_e}`);
+                    }
+
                 }
             },
 
