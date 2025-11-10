@@ -114,7 +114,7 @@ export class searchDialog {
 
         let _sorts = document.createElement('div');
         _sorts.id = fpcm.ui.prepareId('search-sorts', true);
-        _sorts.classList.add('row', 'g-0', 'gap-2');
+        _sorts.classList.add('row', 'g-0', 'gap-2', 'row-cols-4', 'justify-content-end');
 
         for (var _sConfig of this._cfg.fields.sortFields) {
 
