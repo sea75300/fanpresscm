@@ -476,6 +476,7 @@ fpcm.ui_dialogs = {
             closeButton: true,
             directAssignToDom: true,
             content: fpcm.search._dlg.getRendered(),
+            size: 'xl',
             dlButtons: [
                 {
                     text: fpcm.ui.translate('GLOBAL_ADD'),

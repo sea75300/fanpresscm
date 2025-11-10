@@ -1,8 +1,25 @@
 <article>
-    <h3 class="fpcm-pub-news-headline">{{headline}}</h3>    
-    <p class="fpcm-pub-news-meta">posted by {{author}} on {{date}} <em>(last change: {{changeUser}} on {{changeDate}})</em> • {{commentCount}} Kommentar(e) • {{statusPinned}}</p>
-    <div class="fpcm-pub-news-content">{{text}}<br>{{sources descr="Credits: " descrAlt="-"}}</div>
-    <div class="fpcm-pub-news-icons">{{categoryIcons}}</div>   
-    <div class="fpcm-pub-news-texts">{{categoryTexts}}</div>   
-    <div class="fpcm-pub-news-sharebuttons">{{shareButtons}}</div>
+    <div class="post">
+        <h3>{{headline}}</h3>
+        <div class="status-pinned">
+            {{statusPinned}}
+        </div>
+        <div class="content">
+            {{text}}
+        </div>
+        <div class="categories">
+            Kategorien: {{categoryTexts}}
+        </div>
+        <div class="meta-info">
+            <span class="date">{{date}}</span>
+            <span class="author">Author: {{author}}</span>
+            <span class="comment">{{commentCount}} {{commentLink}}Kommentare{{/commentLink}}</span>
+        </div>
+        <div class="source-links">
+            {{sources descr="Quelle(n): " hideEmpty="true"}}
+        </div>
+        <div class="share-buttons">
+            {{shareButtons}}
+        </div>
+    </div>
 </article>

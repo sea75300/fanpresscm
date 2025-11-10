@@ -89,14 +89,16 @@ fpcm.ui_tabs = {
 
                 if (!_ev.target.dataset.ajaxQuiet) {
 
-                    var _ldr = document.createElement('span');
-                    _ldr.classList.add('spinner-border', 'spinner-border-sm', 'ms-2');
-                    _ev.target.appendChild(_ldr);
-
+                    let _spin = _ev.target.querySelector('span.spinner-border');
+                    if (!_spin) {                        
+                        var _ldr = document.createElement('span');
+                        _ldr.classList.add('spinner-border', 'spinner-border-sm', 'ms-2');
+                        _ev.target.appendChild(_ldr);
+                    }
                 }
 
                 fpcm.ajax.get(_ev.target.href, {
-                    quiet: true, //_ev.target.dataset.ajaxQuiet ? true : false,
+                    quiet: true,
                     execDone: function (_result) {
 
                         if (!_ev.target.dataset.ajaxQuiet && _ldr) {

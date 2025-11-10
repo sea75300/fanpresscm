@@ -1359,7 +1359,6 @@ class view {
         $files = [
             \fpcm\components\components::getjQuery(),
             self::ROOTURL_LIB . 'bootstrap/js/bootstrap.bundle.min.js',
-            self::ROOTURL_LIB . 'bs-autocomplete/autocomplete.js',
             self::ROOTURL_CORE_JS . 'ajax' . $ext,
             self::ROOTURL_CORE_JS . 'dom' . $ext,
             self::ROOTURL_CORE_JS . 'ui/base' . $ext,

@@ -46,10 +46,10 @@
                     ->setValue($comment->getIpaddress())
                     ->setIcon('network-wired')
                     ->setSize('lg')
-                    ->setBottomSpace($commentsMode !== 2 || $showArticleIdField ? 'mb-3' : ''); ?>
+                    ->setBottomSpace($theView->permissions->comment->move ? 'mb-3' : ''); ?>
             </div>
 
-            <div class="row g-0 <?php if($commentsMode === 2 || !$showArticleIdField) : ?>d-none<?php endif; ?>">
+            <div class="row g-0 <?php if(!$theView->permissions->comment->move) : ?>d-none<?php endif; ?>">
             <?php $theView->textInput('comment[article]')
                     ->setText('COMMMENT_MOVE')
                     ->setPlaceholder('COMMMENT_MOVE')
@@ -59,9 +59,9 @@
                     ->setIcon('clipboard')
                     ->setSize('lg')
                     ->setClass('fpcm-ui-input-articleid')
-                    ->setBottomSpace($existsAlert ? 'mb-3' : ''); ?>
+                    ->setBottomSpace($articleExists ? 'mb-3' : ''); ?>
                 
-                <?php if ($existsAlert) : ?>
+                <?php if ($articleExists) : ?>
                 <div class="d-block">
                     <?php $theView->alert('danger')->setText('LOAD_FAILED_COMMENT_ARTICLE'); ?>                    
                 </div>
