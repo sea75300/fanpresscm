@@ -58,12 +58,11 @@
                     ->setMaxlenght(20)
                     ->setIcon('clipboard')
                     ->setSize('lg')
-                    ->setClass('fpcm-ui-input-articleid')
-                    ->setBottomSpace($articleExists ? 'mb-3' : ''); ?>
-                
-                <?php if ($articleExists) : ?>
+                    ->setClass('fpcm-ui-input-articleid'); ?>
+
+                <?php if (!$articleExists) : ?>
                 <div class="d-block">
-                    <?php $theView->alert('danger')->setText('LOAD_FAILED_COMMENT_ARTICLE'); ?>                    
+                    <?php $theView->alert('danger')->setText('LOAD_FAILED_COMMENT_ARTICLE'); ?>
                 </div>
                 <?php endif; ?>
             </div>
