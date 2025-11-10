@@ -43,8 +43,8 @@ class syscheck extends \fpcm\model\dashboard\types\dataview {
     public function getCols(): array
     {
         return [
+            'result',
             'description',
-            'result'
         ];
     }
 
