@@ -141,7 +141,7 @@ class pager extends helper {
      */
     public function getJsLangVars()
     {
-        return ['GLOBAL_PAGER'];
+        return ['GLOBAL_PAGER', 'GLOBAL_NEXT', 'GLOBAL_BACK'];
     }
 
     /**
@@ -158,6 +158,15 @@ class pager extends helper {
         ]);
 
         return $return;
+    }
+
+    /**
+     * JSON serialize
+     * @return mixed
+     */
+    public function jsonSerialize(): mixed
+    {
+        return $this->getJsVars();
     }
 
 }

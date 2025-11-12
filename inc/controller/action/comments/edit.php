@@ -168,7 +168,7 @@ implements \fpcm\controller\interfaces\requestFunctions
         $buttons     = [];
         $buttons[]   = (new \fpcm\view\helper\saveButton('commentSave'))->setClass($hiddenClass)->setPrimary();
 
-        $articleExists = false;
+        $articleExists = $this->mode === 2;
 
         if ($this->mode === 1) {
             $article     = new \fpcm\model\articles\article($this->comment->getArticleid());

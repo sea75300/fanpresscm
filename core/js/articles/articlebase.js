@@ -76,19 +76,6 @@ fpcm.article = {
         fpcm.dom.bindClick('#insertarticleimg', function () {
             fpcm.editor.showFileManager(3);
         });
-
-        fpcm.editor.tweetTextInput = fpcm.dom.fromId('articletweettxt');
-        fpcm.dom.bindClick('#twitterReplacements li > a.dropdown-item', function (_e, _ui) {
-
-            if (!_ui.dataset.var) {
-                return false;
-            }
-            
-            let currentText = fpcm.editor.tweetTextInput.val();
-            let currentpos = fpcm.dom.fromTag(fpcm.editor.tweetTextInput).prop('selectionStart');
-
-            fpcm.editor.tweetTextInput.val(currentText.substring(0, currentpos) + _ui.dataset.var +  currentText.substring(currentpos));
-        });
         
     },
     

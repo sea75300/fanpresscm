@@ -16,48 +16,57 @@ namespace fpcm\model\http;
  * @since 4.4
  */
 final class responseDataview implements \JsonSerializable {
-    
+
     use \fpcm\model\traits\jsonSerializeReturnObject;
 
     /**
      * Dataview vars
      * @var mixed
      */
-    private $dataViewVars;
+    private array $dataViewVars;
 
     /**
      * Dataview name
      * @var string
      */
-    private $dataViewName;
+    private string $dataViewName = '';
 
     /**
      * Dataview message
      * @var \fpcm\view\message
      */
-    private $message;
+    private ?\fpcm\view\message $message = null;
 
     /**
-     * Dataview pager
-     * @var \fpcm\view\helper\pager
+     * Dataview pager data
+     * @var array
      */
-    private $pager;
+    private null|array|\fpcm\view\helper\pager $pager = null;
 
     /**
      * Constructor
      * @param string $dataViewName
      * @param array $dataViewVars
-     * @param \fpcm\view\message $message
+     * @param \fpcm\view\message|null $message
+     * @param \fpcm\view\helper\pager|null $pager
+     * @return type
      */
-    public function __construct(string $dataViewName, $dataViewVars, $message = null, $pager = null)
+    public function __construct(
+        string $dataViewName,
+        array $dataViewVars,
+        ?\fpcm\view\message $message = null,
+        null|array|\fpcm\view\helper\pager $pager = null)
     {
         $this->dataViewVars = $dataViewVars;
         $this->dataViewName = $dataViewName;
         $this->message = $message;
-        $this->pager = $pager instanceof \fpcm\view\helper\pager ? $pager->getJsVars() : null;
+        $this->pager = $pager;
 
-        $pager = (string) $pager;
-        $pager = null;
+        if (!$pager instanceof \fpcm\view\helper\pager) {
+            return;
+        }
+
+        $pager->setReturned(true);
     }
 
 }

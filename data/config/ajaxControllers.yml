@@ -21,7 +21,6 @@ ajax/files/alttext: ajax/files/alttext
 ajax/upload/uppy: ajax/files/uppy
 ajax/jqupload: ajax/files/jqupload
 ajax/articles/lists: ajax/articles/lists
-ajax/articles/tweet: ajax/articles/listnewtweets
 ajax/articles/massedit: ajax/articles/massedit
 ajax/articles/delete: ajax/articles/delete
 ajax/editor/cleartags: ajax/articles/removeeditortags

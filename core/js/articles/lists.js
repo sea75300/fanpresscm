@@ -76,7 +76,6 @@ fpcm.articles = {
             module: 'articles',
             onRenderDataViewAfter: function () {
                 fpcm.articles.clearArticleCache();
-                fpcm.articles.tweetSingleActions();
                 fpcm.articles.deleteSingleArticle();
             },
             onPagerNext: function () {
@@ -112,97 +111,6 @@ fpcm.articles = {
 
         fpcm.ajax.getItemList(_fnParams);        
     },
-    
-    articleActionsTweet: function() {
-
-        let ids = fpcm.dom.getCheckboxCheckedValues('.fpcm-ui-list-checkbox');
-        if (ids.length == 0) {
-            return false;
-        }
-
-        fpcm.articles._showTweetDialog(ids);
-    },
-    
-    _showTweetDialog: function(_ids) {
-
-        if (!_ids || _ids.length == 0) {
-            return false;
-        }
-
-        fpcm.ui_dialogs.create({
-            title: 'EDITOR_TWEET_TEXT',
-            closeButton: true,
-            content: `<div class="row mb-5"><div class="col flex-grow-1">${fpcm.vars.jsvars.newTweetFields[0]}</div><div class="col-auto mb-3 align-self-center">${fpcm.vars.jsvars.newTweetFields[1]}</div></div>`,
-            dlOnClose: function() {
-                fpcm.dom.resetCheckboxesByClass('fpcm-ui-list-checkbox');
-                fpcm.dom.resetValuesByIdsString(['twitterText'], '');
-            },
-            dlOnOpenAfter: function() {
-                
-                let _textEL = fpcm.dom.fromId('twitterText');
-                
-                fpcm.dom.bindClick('#twitterReplacements li > a.dropdown-item', function (_e, _ui) {
-
-                    if (!_ui.dataset.var) {
-                        return false;
-                    }
-
-                    let currentText = _textEL.val();
-                    let currentpos = fpcm.dom.fromTag(_textEL).prop('selectionStart');
-
-                    _textEL.val(currentText.substring(0, currentpos) + _ui.dataset.var +  currentText.substring(currentpos));
-                });
-            },
-            dlButtons: [
-                {
-                    text: 'ARTICLE_LIST_NEWTWEET',
-                    icon: 'brands fa-twitter',
-                    primary: true,
-                    clickClose: true,
-                    click: function(_dlg, _btn) {
-
-                        _btn.childNodes[0].className = '';
-                        _btn.childNodes[0].innerHTML = '<div class="spinner-border spinner-border-sm text-light" role="status"></div';
-                        
-                        let _text = fpcm.dom.fromId('twitterText').val();
-                        fpcm.articles.execNewTweet(_ids, _text);
-                    }
-                }
-            ]
-            
-        });        
-        
-    },
-    
-    execNewTweet: function(_ids, _text) {
-
-        fpcm.ajax.post('articles/tweet', {
-            data    : {
-                ids: fpcm.ajax.toJSON(_ids),
-                text: _text
-            },
-            async   : false,
-            dataType: 'json',
-            execDone: function(result) {
-                fpcm.articles.resetActionsMenu();
-                if (result.notice != 0) {
-                    fpcm.ui.addMessage({
-                        type: 'notice',
-                        txt : fpcm.ui.translate(result.notice)
-                    });
-                }
-
-                if (result.error != 0) {
-                    fpcm.ui.addMessage({
-                        type: 'error',
-                        txt : fpcm.ui.translate(result.error)
-                    });
-                }
-
-            }
-        });
-
-    },
 
     clearArticleCache: function() {
         
@@ -215,14 +123,6 @@ fpcm.articles = {
 
         });
 
-    },
-    
-    tweetSingleActions: function() {
-        
-        fpcm.dom.bindClick('.fpcm-ui-article-twitter-single', function (_e, _ui) {
-            fpcm.articles._showTweetDialog([_ui.dataset.articleid]);
-        });
-        
     },
 
     deleteSingleArticle: function() {

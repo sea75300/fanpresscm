@@ -51,6 +51,7 @@ fpcm.dataview = {
 
         fpcm.dataview._createHead(obj, obj.columns);
         fpcm.dataview._createRows(obj);
+        fpcm.dataview._createNavBottom();
 
         if (typeof params.onRenderAfter === 'function') {
             params.onRenderAfter.call();
@@ -325,6 +326,73 @@ fpcm.dataview = {
         }
 
         _domEl.appendChild(_rowEl);
+    },
+
+    _createNavBottom: function () {
+
+        if (!fpcm.vars.jsvars.pager) {
+            return;
+        }
+        
+        if (window.visualViewport.height > fpcm.dataview._baseItem.clientHeight) {
+            return;
+        }
+        
+        if (!fpcm.vars.jsvars.pager.showBackButton && !fpcm.vars.jsvars.pager.showNextButton) {
+            return;
+        }
+
+        let _el = document.createElement('ul');
+        _el.classList.add('pagination', 'pagination-sm', 'justify-content-center', 'py-4');
+
+
+        let _el1 = document.createElement('li');
+        _el1.classList.add('page-item');
+
+        let _el1lnk = document.createElement('a');
+        _el1lnk.classList.add('page-link');
+        _el1lnk.innerHTML = (new fpcm.ui.forms.icon('chevron-circle-left')).getString();
+        _el1lnk.title = fpcm.ui.translate('GLOBAL_BACK');
+
+        if (fpcm.vars.jsvars.pager.showBackButton) {
+            _el1lnk.setAttribute('href', fpcm.vars.jsvars.pager.linkString.replace('__page__', fpcm.vars.jsvars.pager.showBackButton));
+        }
+        else {
+            _el1lnk.classList.add('disabled');
+        }
+
+        _el1.appendChild(_el1lnk);
+        _el.appendChild(_el1);
+
+        let _el2 = document.createElement('li');
+        _el2.classList.add('page-item');
+
+        let _el2txt = document.createElement('span');
+        _el2txt.classList.add('page-link', 'disabled');
+        _el2txt.innerText = fpcm.ui.translate('GLOBAL_PAGER').replace('{{current}}', fpcm.vars.jsvars.pager.currentPage).replace('{{total}}', fpcm.vars.jsvars.pager.maxPages);
+        _el2.appendChild(_el2txt);
+        
+        _el.appendChild(_el2);
+
+        let _el3 = document.createElement('li');
+        _el3.classList.add('page-item');
+
+        let _el3lnk = document.createElement('a');
+        _el3lnk.classList.add('page-link');
+        _el3lnk.innerHTML =  (new fpcm.ui.forms.icon('chevron-circle-right')).getString();
+        _el3lnk.title = fpcm.ui.translate('GLOBAL_NEXT');
+
+        if (fpcm.vars.jsvars.pager.showNextButton) {
+            _el3lnk.setAttribute('href', fpcm.vars.jsvars.pager.linkString.replace('__page__', fpcm.vars.jsvars.pager.showNextButton));
+        }
+        else {
+            _el3lnk.classList.add('disabled');
+        }
+
+        _el3.appendChild(_el3lnk);
+        _el.appendChild(_el3);
+
+        fpcm.dataview._baseItem.appendChild(_el);
     }
 
 };

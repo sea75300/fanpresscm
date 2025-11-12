@@ -16,7 +16,7 @@ use fpcm\model\traits\eventModuleEmpty;
 
 /**
  * System config Objekt
- * 
+ *
  * @property string $system_version System version
  * @property string $system_email General e-mail address
  * @property string $system_url Frontend url
@@ -37,7 +37,7 @@ use fpcm\model\traits\eventModuleEmpty;
  * @property int    $system_trash_cleanup Age of datasets in trash to cleanup
  * @property bool   $system_passcheck_enabled Password check enabled
  * @property bool   $system_darkmode Dark mode enabled on default for all users
- * 
+ *
  * @property bool   $articles_revisions Enable revision system for articles
  * @property int    $articles_limit Number of articles per page in frontend
  * @property string $articles_template_active Active article list template
@@ -50,7 +50,7 @@ use fpcm\model\traits\eventModuleEmpty;
  * @property int    $articles_archive_datelimit Hide articles before this date in frontend archive
  * @property int    $articles_revisions_limit Maximum number of kept articles revision
  * @property bool   $articles_link_urlrewrite Enable URL-Rewriting (ID and article will be included within article link)
- * 
+ *
  * @property string $comments_template_active Active comment template
  * @property int    $comments_flood Flood protection between two comments
  * @property bool   $comments_email_optional E-mail-address is not mandatory for comments
@@ -61,16 +61,16 @@ use fpcm\model\traits\eventModuleEmpty;
  * @property int    $comments_markspam_commentcount Mark comments as spam, in case the author has been flagged as spammed before
  * @property bool   $comments_privacy_optin GDPR privacy opt-in
  * @property bool   $comments_default_active Set comments enabled by default for articles
- * 
+ *
  * @property int    $file_thumb_size Thumbnail size
  * @property int    $file_list_limit Nubmer of files per page
  * @property bool   $file_subfolders Create subfolder of form YYYY-MM
  * @property string $file_view File manager view
  * @property string $file_cropper_name Image editor file name
- * 
+ *
  * @property bool                  $smtp_enabled E-mail-submission via SMTP server
  * @property conf\smtpSettings     $smtp_settings SMTP settings
- * 
+ *
  * @package fpcm\model\system
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2021, Stefan Seehafer
@@ -155,7 +155,7 @@ final class config extends dataset implements \fpcm\model\interfaces\isObjectIns
             return false;
         }
 
-        $params = $ev->getData();        
+        $params = $ev->getData();
 
         $data = [];
         $where = [];
@@ -355,15 +355,15 @@ final class config extends dataset implements \fpcm\model\interfaces\isObjectIns
         if (isset($this->newConfig['articles_link_urlrewrite'])) {
             $this->newConfig['articles_link_urlrewrite'] = (int) $this->newConfig['articles_link_urlrewrite'];
         }
-            
+
         if (isset($this->newConfig['comments_privacy_optin'])) {
             $this->newConfig['comments_privacy_optin'] = (int) $this->newConfig['comments_privacy_optin'];
         }
-            
+
         if (isset($this->newConfig['system_trash_cleanup'])) {
             $this->newConfig['system_trash_cleanup'] = (int) $this->newConfig['system_trash_cleanup'];
         }
-            
+
         if (isset($this->newConfig['system_darkmode'])) {
             $this->newConfig['system_darkmode'] = (int) $this->newConfig['system_darkmode'];
         }
