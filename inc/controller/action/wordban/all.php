@@ -107,9 +107,9 @@ implements \fpcm\controller\interfaces\requestFunctions
     protected function initDataViewRow($item)
     {
         $metaData   = [
-            $this->getStatusColor( (new \fpcm\view\helper\icon('search fa-inverse'))->setClass('fpcm-ui-editor-metainfo')->setText('WORDBAN_REPLACETEXT')->setStack('square'), $item->getReplaceTxt() ),
-            $this->getStatusColor( (new \fpcm\view\helper\icon('thumbs-up fa-inverse', 'far'))->setClass('fpcm-ui-editor-metainfo')->setText('WORDBAN_APPROVE_ARTICLE')->setStack('square'), $item->getLockArticle() ),
-            $this->getStatusColor( (new \fpcm\view\helper\icon('check-circle fa-inverse', 'far'))->setClass('fpcm-ui-editor-metainfo')->setText('WORDBAN_APPROVA_COMMENT')->setStack('square'), $item->getCommentApproval() ),
+            $this->getStatusColor( (new \fpcm\view\helper\icon('search fa-inverse'))->setText('WORDBAN_REPLACETEXT')->setStack('square'), $item->getReplaceTxt() ),
+            $this->getStatusColor( (new \fpcm\view\helper\icon('thumbs-up fa-inverse', 'far'))->setText('WORDBAN_APPROVE_ARTICLE')->setStack('square'), $item->getLockArticle() ),
+            $this->getStatusColor( (new \fpcm\view\helper\icon('check-circle fa-inverse', 'far'))->setText('WORDBAN_APPROVA_COMMENT')->setStack('square'), $item->getCommentApproval() ),
         ];        
 
         return new \fpcm\components\dataView\row([
