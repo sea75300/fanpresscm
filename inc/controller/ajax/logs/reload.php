@@ -305,9 +305,9 @@ class reload extends \fpcm\controller\abstracts\ajaxController
     private function getColsSessions() : array
     {
         return [
-            (new \fpcm\components\dataView\column('user', 'LOGS_LIST_USER', 'text-truncate')),
-            (new \fpcm\components\dataView\column('period', 'LOGS_LIST_PERIOD'))->setAlign('center'),
-            (new \fpcm\components\dataView\column('sessionid', 'LOGS_LIST_SESSIONID', 'text-truncate')),
+            (new \fpcm\components\dataView\column('user', 'LOGS_LIST_USER')),
+            (new \fpcm\components\dataView\column('period', 'LOGS_LIST_PERIOD')),
+            (new \fpcm\components\dataView\column('sessionid', 'LOGS_LIST_SESSIONID')),
             (new \fpcm\components\dataView\column('useragent', 'LOGS_LIST_USERAGENT'))
         ];
     }
@@ -379,10 +379,26 @@ class reload extends \fpcm\controller\abstracts\ajaxController
         $sid = new \fpcm\view\helper\escape($item->getSessionId());
 
         return new \fpcm\components\dataView\row([
-            new \fpcm\components\dataView\rowCol('user', $username),
-            new \fpcm\components\dataView\rowCol('period', $period),
-            new \fpcm\components\dataView\rowCol('sessionid', sprintf('<span class="d-inline-block" title="%s">%s</span>', $sid, $sid)),
-            new \fpcm\components\dataView\rowCol('useragent', new \fpcm\view\helper\escape($item->getUseragent())),
+            new \fpcm\components\dataView\rowCol(
+                name: 'user',
+                value: $username,
+                typeClass: 'text-truncate'
+            ),
+            new \fpcm\components\dataView\rowCol(
+                name: 'period',
+                value: $period,
+                typeClass: 'text-truncate'
+            ),
+            new \fpcm\components\dataView\rowCol(
+                name: 'sessionid',
+                value: sprintf('<span class="d-inline-block" title="%s">%s</span>', $sid, $sid),
+                typeClass: 'text-break'
+            ),
+            new \fpcm\components\dataView\rowCol(
+                name: 'useragent',
+                value: new \fpcm\view\helper\escape($item->getUseragent()),
+                typeClass: 'text-break'
+            )
         ]);
     }
 

@@ -309,6 +309,11 @@ fpcm.dataview = {
                 let _vwe = document.createElement('div');
                 _vwe.classList.add('fpcm', 'ui-dataview-col-value');
                 _vwe.innerHTML = _colData.value;
+                if (_colData.typeClass) {
+                    let _cvcTmp = _colData.typeClass.split(' ');
+                    _vwe.classList.add(..._cvcTmp);
+                }
+
                 _colEl.appendChild(_vwe);
             }
             else if (_colData.value) {
@@ -333,11 +338,11 @@ fpcm.dataview = {
         if (!fpcm.vars.jsvars.pager) {
             return;
         }
-        
+
         if (window.visualViewport.height > fpcm.dataview._baseItem.clientHeight) {
             return;
         }
-        
+
         if (!fpcm.vars.jsvars.pager.showBackButton && !fpcm.vars.jsvars.pager.showNextButton) {
             return;
         }
@@ -371,7 +376,7 @@ fpcm.dataview = {
         _el2txt.classList.add('page-link', 'disabled');
         _el2txt.innerText = fpcm.ui.translate('GLOBAL_PAGER').replace('{{current}}', fpcm.vars.jsvars.pager.currentPage).replace('{{total}}', fpcm.vars.jsvars.pager.maxPages);
         _el2.appendChild(_el2txt);
-        
+
         _el.appendChild(_el2);
 
         let _el3 = document.createElement('li');

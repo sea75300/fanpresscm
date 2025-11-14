@@ -118,9 +118,9 @@ class all extends \fpcm\controller\abstracts\controller implements \fpcm\control
         $userName   = \fpcm\classes\tools::userId2Text($item->getUserid());
 
         $metaData   = [
-            $this->getStatusColor( (new \fpcm\view\helper\icon('comment-slash fa-inverse'))->setClass('fpcm-ui-editor-metainfo')->setText('IPLIST_NOCOMMENTS')->setStack('square'), $item->getNocomments() ),
-            $this->getStatusColor( (new \fpcm\view\helper\icon('sign-in-alt fa-inverse'))->setClass('fpcm-ui-editor-metainfo')->setText('IPLIST_NOLOGIN')->setStack('square'), $item->getNologin() ),
-            $this->getStatusColor( (new \fpcm\view\helper\icon('ban fa-inverse'))->setClass('fpcm-ui-editor-metainfo')->setText('IPLIST_NOACCESS')->setStack('square') , $item->getNoaccess() ),
+            $this->getStatusColor( (new \fpcm\view\helper\icon('comment-slash fa-inverse'))->setText('IPLIST_NOCOMMENTS')->setStack('square'), $item->getNocomments() ),
+            $this->getStatusColor( (new \fpcm\view\helper\icon('sign-in-alt fa-inverse'))->setText('IPLIST_NOLOGIN')->setStack('square'), $item->getNologin() ),
+            $this->getStatusColor( (new \fpcm\view\helper\icon('ban fa-inverse'))->setText('IPLIST_NOACCESS')->setStack('square') , $item->getNoaccess() ),
         ];
 
         return new \fpcm\components\dataView\row([

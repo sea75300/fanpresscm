@@ -152,7 +152,12 @@ trait lists {
                         new \fpcm\components\dataView\row([
                             new \fpcm\components\dataView\rowCol('select', (new \fpcm\view\helper\checkbox('actions[' . ($article->getEditPermission() || $article->isInEdit() ? 'ids' : 'ro') . '][]', 'chbx' . $articleId))->setClass('fpcm-ui-list-checkbox fpcm-ui-list-checkbox-subitem' . $articleMonth)->setValue($articleId)->setReadonly(!$article->getEditPermission()), '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
                             new \fpcm\components\dataView\rowCol('button', $buttons, 'fpcm-ui-dataview-align-center fpcm-ui-font-small', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
-                            new \fpcm\components\dataView\rowCol('title', implode(PHP_EOL, $title), 'fpcm-ui-ellipsis'),
+                            new \fpcm\components\dataView\rowCol(
+                                name: 'title',
+                                value: implode(PHP_EOL, $title),
+                                class: 'text-truncate',
+                                typeClass: 'text-truncate'
+                            ),
                             new \fpcm\components\dataView\rowCol('categories', wordwrap(implode(', ', $article->getCategories()), 50, '<br>')),
                             new \fpcm\components\dataView\rowCol('metadata', implode('', $metaDataIcons), 'fs-5', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
                         ])

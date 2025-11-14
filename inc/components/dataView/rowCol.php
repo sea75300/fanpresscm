@@ -24,7 +24,7 @@ final class rowCol implements \JsonSerializable {
      * Column name
      * @var string
      */
-    protected $name     = '';
+    protected string $name     = '';
 
     /**
      * Column value
@@ -34,9 +34,15 @@ final class rowCol implements \JsonSerializable {
 
     /**
      * Column class
-     * @var int
+     * @var string
      */
-    protected $class    = '';
+    protected string $class    = '';
+
+    /**
+     * Type class
+     * @var string
+     */
+    protected string $typeClass = '';
 
     /**
      * Column type, rowCol::COLTYPE_VALUE or rowCol::COLTYPE_ELEMENT
@@ -45,17 +51,19 @@ final class rowCol implements \JsonSerializable {
     protected $type     = 0;
     
     /**
-     * Konstruktor
+     * Constructor
      * @param string $name
-     * @param mixed $value
+     * @param type $value
      * @param string $class
-     * @param string $type
+     * @param type $type
+     * @param string $typeClass
      */
-    public function __construct($name, $value = '', $class = '', $type = self::COLTYPE_VALUE)
+    public function __construct(string $name, $value = '', string $class = '', $type = self::COLTYPE_VALUE, string $typeClass = '')
     {
         $this->name  = $name;
         $this->value = (is_object($value) ? (string) $value : $value);
         $this->class = $class;
+        $this->typeClass = $typeClass;
         $this->type  = (int) $type;
     }
 

@@ -208,6 +208,9 @@ class userlist extends \fpcm\controller\abstracts\controller
         }, ARRAY_FILTER_USE_BOTH);
 
 
+        $max = max($articleCount);
+        $cLen = strlen((string) $max);
+        
         foreach($usersInGroups AS $rollId => $users) {
 
             $title  = '<b>' . $descr.': '.$this->language->translate($userGroups[$rollId]->getRollName()) . '</b>';
@@ -227,14 +230,16 @@ class userlist extends \fpcm\controller\abstracts\controller
 
                 $noRb   = $user->getId() == $currentUser ? true : false;
 
-                $count = isset($articleCount[$userId]) ? $articleCount[$userId] : 0;
+                $count = (string) $articleCount[$userId] ?? 0;
+                
+                $count = str_pad($count, $cLen, 0, STR_PAD_LEFT);
 
                 $this->chartItems[$user->getDisplayname()] = $count;
                 $this->chartItemColors[$user->getDisplayname()] = \fpcm\components\charts\chartItem::getRandomColor();
 
                 $metadata = [
                     (new \fpcm\view\helper\badge('art'.$userId))->setValue($count)->setText('USERS_ARTICLE_COUNT')->setIcon('book'),
-                    $this->getStatusColor( (new \fpcm\view\helper\icon('user-slash fa-inverse'))->setText('USERS_DISABLED')->setClass('fpcm-ui-editor-metainfo')->setStack('square') , $user->getDisabled() )
+                    $this->getStatusColor( (new \fpcm\view\helper\icon('user-slash fa-inverse'))->setText('USERS_DISABLED')->setStack('square') , $user->getDisabled() )
                 ];
 
                 $buttons = [
