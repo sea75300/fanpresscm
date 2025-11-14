@@ -487,7 +487,7 @@ implements \fpcm\model\interfaces\isCsvImportable {
      */
     public function getStatusIconSpam()
     {
-        return $this->getStatusColor((new \fpcm\view\helper\icon('fire fa-inverse'))->setClass('fpcm-ui-editor-metainfo')->setText('COMMMENT_SPAM')->setStack('square'), $this->getSpammer());
+        return $this->getStatusColor((new \fpcm\view\helper\icon('fire fa-inverse'))->setText('COMMMENT_SPAM')->setStack('square'), $this->getSpammer());
     }
 
     /**
@@ -496,7 +496,7 @@ implements \fpcm\model\interfaces\isCsvImportable {
      */
     public function getStatusIconApproved()
     {
-        return $this->getStatusColor((new \fpcm\view\helper\icon('check-circle fa-inverse', 'far'))->setClass('fpcm-ui-editor-metainfo')->setText('COMMMENT_APPROVE')->setStack('square'), $this->getApproved());
+        return $this->getStatusColor((new \fpcm\view\helper\icon('check-circle fa-inverse', 'far'))->setText('COMMMENT_APPROVE')->setStack('square'), $this->getApproved());
     }
 
     /**
@@ -505,7 +505,7 @@ implements \fpcm\model\interfaces\isCsvImportable {
      */
     public function getStatusIconPrivate()
     {
-        return $this->getStatusColor((new \fpcm\view\helper\icon('eye-slash fa-inverse'))->setClass('fpcm-ui-editor-metainfo')->setText('COMMMENT_PRIVATE')->setStack('square'), $this->getPrivate());
+        return $this->getStatusColor((new \fpcm\view\helper\icon('eye-slash fa-inverse'))->setText('COMMMENT_PRIVATE')->setStack('square'), $this->getPrivate());
     }
 
     /**
