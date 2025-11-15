@@ -132,7 +132,6 @@ class recentcomments extends \fpcm\model\dashboard\types\dataview implements \fp
                     ],
                     type: \fpcm\model\dashboard\components\dataviewItem::TYPE_ICONS,
                     size: 'auto',
-                    class: 'fpcm-ui-metabox'
                 )
             ];
 

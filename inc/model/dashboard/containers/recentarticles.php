@@ -128,7 +128,6 @@ implements \fpcm\model\interfaces\isAccessible {
                     ],
                     type: \fpcm\model\dashboard\components\dataviewItem::TYPE_ICONS,
                     size: 'auto',
-                    class: 'fpcm-ui-metabox'
                 )
             ];
 
