@@ -17,7 +17,7 @@ namespace fpcm\migrations;
  * @since 5.2.5-a1
  * @see migration
  */
-class v530dev extends migration {
+class v530a1 extends migration {
 
     protected function alterTablesAfter(): bool {
 
@@ -99,7 +99,7 @@ class v530dev extends migration {
      */
     protected function getNewVersion() : string
     {
-        return '5.3.0-dev';
+        return '5.3.0-a1';
     }
 
 }
