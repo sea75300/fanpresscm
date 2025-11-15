@@ -6,7 +6,7 @@ engine: InnoDB
 charset: utf8
 autoincrement:
     colname: id
-    start: 55
+    start: 1
 cols:
     id:
         type: bigint
@@ -18,7 +18,7 @@ cols:
         params: NOT NULL
     config_value:
         type: text
-        length: 
+        length:
         params: NOT NULL
     modulekey:
         type: varchar
@@ -36,252 +36,252 @@ indices:
 defaultvalues:
     rows:
         system_version:
-            id: 1
+            id: NULL
             config_name: "system_version"
             config_value: ""
             modulekey: ""
         system_email:
-            id: 2
+            id: NULL
             config_name: "system_email"
             config_value: ""
             modulekey: ""
         system_url:
-            id: 3
+            id: NULL
             config_name: "system_url"
             config_value: ""
             modulekey: ""
         system_lang:
-            id: 4
+            id: NULL
             config_name: "system_lang"
             config_value: "de"
             modulekey: ""
         system_dtmask:
-            id: 5
+            id: NULL
             config_name: "system_dtmask"
             config_value: "d.m.Y H:i:s"
             modulekey: ""
         system_timezone:
-            id: 6
+            id: NULL
             config_name: "system_timezone"
             config_value: "Europe/Berlin"
             modulekey: ""
         system_show_share:
-            id: 9
+            id: NULL
             config_name: "system_show_share"
             config_value: "1"
             modulekey: ""
         system_comments_enabled:
-            id: 10
+            id: NULL
             config_name: "system_comments_enabled"
             config_value: "1"
             modulekey: ""
         system_cache_timeout:
-            id: 11
+            id: NULL
             config_name: "system_cache_timeout"
             config_value: "86400"
             modulekey: ""
         system_editor:
-            id: 13
+            id: NULL
             config_name: "system_editor"
             config_value: "\\fpcm\\components\\editor\\tinymceEditor5"
             modulekey: ""
         system_editor_css:
-            id: 14
+            id: NULL
             config_name: "system_editor_css"
             config_value: ""
             modulekey: ""
         system_editor_fontsize:
-            id: 15
+            id: NULL
             config_name: "system_editor_fontsize"
             config_value: "12pt"
             modulekey: ""
         system_maintenance:
-            id: 16
+            id: NULL
             config_name: "system_maintenance"
             config_value: "0"
             modulekey: ""
         system_loginfailed_locked:
-            id: 17
+            id: NULL
             config_name: "system_loginfailed_locked"
             config_value: "3"
             modulekey: ""
         system_updates_emailnotify:
-            id: 18
+            id: NULL
             config_name: "system_updates_emailnotify"
             config_value: "1"
             modulekey: ""
         system_updates_devcheck:
-            id: 19
+            id: NULL
             config_name: "system_updates_devcheck"
             config_value: "0"
             modulekey: ""
         system_2fa_auth:
-            id: 20
+            id: NULL
             config_name: "system_2fa_auth"
             config_value: "0"
             modulekey: ""
         system_share_count:
-            id: 21
+            id: NULL
             config_name: "system_share_count"
             config_value: "0"
             modulekey: ""
         system_trash_cleanup:
-            id: 22
+            id: NULL
             config_name: "system_trash_cleanup"
             config_value: "30"
             modulekey: ""
         system_passcheck_enabled:
-            id: 23
+            id: NULL
             config_name: "system_passcheck_enabled"
-            config_value: "1"   
-            modulekey: ""     
+            config_value: "1"
+            modulekey: ""
         articles_revisions:
-            id: 24
+            id: NULL
             config_name: "articles_revisions"
             config_value: "1"
             modulekey: ""
         articles_limit:
-            id: 25
+            id: NULL
             config_name: "articles_limit"
             config_value: "5"
             modulekey: ""
         articles_template_active:
-            id: 26
+            id: NULL
             config_name: "articles_template_active"
             config_value: "articlelist"
             modulekey: ""
         articles_archive_show:
-            id: 27
+            id: NULL
             config_name: "articles_archive_show"
             config_value: "1"
             modulekey: ""
         articles_sort:
-            id: 28
+            id: NULL
             config_name: "articles_sort"
             config_value: "createtime"
             modulekey: ""
         articles_sort_order:
-            id: 29
+            id: NULL
             config_name: "articles_sort_order"
             config_value: "DESC"
             modulekey: ""
         article_template_active:
-            id: 30
+            id: NULL
             config_name: "article_template_active"
             config_value: "articlesingle"
             modulekey: ""
         articles_rss:
-            id: 31
+            id: NULL
             config_name: "articles_rss"
             config_value: "1"
             modulekey: ""
         articles_acp_limit:
-            id: 32
+            id: NULL
             config_name: "articles_acp_limit"
             config_value: "100"
             modulekey: ""
         articles_archive_datelimit:
-            id: 33
+            id: NULL
             config_name: "articles_archive_datelimit"
             config_value: "0"
             modulekey: ""
         articles_revisions_limit:
-            id: 34
+            id: NULL
             config_name: "articles_revisions_limit"
             config_value: "0"
             modulekey: ""
         articles_link_urlrewrite:
-            id: 35
+            id: NULL
             config_name: "articles_link_urlrewrite"
             config_value: "0"
             modulekey: ""
         comments_template_active:
-            id: 36
+            id: NULL
             config_name: "comments_template_active"
             config_value: "comments"
             modulekey: ""
         comments_flood:
-            id: 37
+            id: NULL
             config_name: "comments_flood"
             config_value: "300"
             modulekey: ""
         comments_email_optional:
-            id: 38
+            id: NULL
             config_name: "comments_email_optional"
             config_value: "1"
             modulekey: ""
         comments_confirm:
-            id: 39
+            id: NULL
             config_name: "comments_confirm"
             config_value: "1"
             modulekey: ""
         comments_antispam_question:
-            id: 40
+            id: NULL
             config_name: "comments_antispam_question"
             config_value: ""
             modulekey: ""
         comments_antispam_answer:
-            id: 41
+            id: NULL
             config_name: "comments_antispam_answer"
             config_value: ""
             modulekey: ""
         comments_notify:
-            id: 42
+            id: NULL
             config_name: "comments_notify"
             config_value: "0"
             modulekey: ""
         comments_markspam_commentcount:
-            id: 43
+            id: NULL
             config_name: "comments_markspam_commentcount"
             config_value: "2"
             modulekey: ""
         comments_privacy_optin:
-            id: 44
+            id: NULL
             config_name: "comments_privacy_optin"
             config_value: "1"
             modulekey: ""
         file_thumb_size:
-            id: 45
+            id: NULL
             config_name: "file_thumb_size"
             config_value: "128"
             modulekey: ""
         file_cropper_name:
-            id: 46
+            id: NULL
             config_name: "file_cropper_name"
             config_value: '{{filename}}_cropped_{{date}}'
             modulekey: ""
         file_list_limit:
-            id: 47
+            id: NULL
             config_name: "file_list_limit"
             config_value: "25"
             modulekey: ""
         file_subfolders:
-            id: 48
+            id: NULL
             config_name: "file_subfolders"
             config_value: "1"
             modulekey: ""
         file_view:
-            id: 49
+            id: NULL
             config_name: "file_view"
             config_value: "cards"
             modulekey: ""
         smtp_enabled:
-            id: 50
+            id: NULL
             config_name: "smtp_enabled"
             config_value: 0
             modulekey: ""
         smtp_settings:
-            id: 51
+            id: NULL
             config_name: "smtp_settings"
             config_value: '{"srvurl":"","user":"","pass":"","encr":"","port":"25","addr":""}'
             modulekey: ""
         comments_default_active:
-            id: 52
+            id: NULL
             config_name: "comments_default_active"
             config_value: "1"
-            modulekey: ""            
+            modulekey: ""
         system_darkmode:
-            id: 53
+            id: NULL
             config_name: "system_darkmode"
             config_value: "0"
-            modulekey: ""            
+            modulekey: ""
