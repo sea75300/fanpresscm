@@ -20,7 +20,7 @@ abstract class dataview extends \fpcm\model\abstracts\dashcontainer {
 
     private array $cols = [];
 
-    private string $fotnsize = '';
+    private string $fontsize = '';
 
     /**
      * Returns cols
@@ -86,7 +86,7 @@ abstract class dataview extends \fpcm\model\abstracts\dashcontainer {
         $tmp = [];
 
         /* @var $col \fpcm\components\dataView\column */
-        foreach ($this->cols as $index => $col) {
+        foreach ($this->cols as $col) {
 
             /* @var $item \fpcm\model\dashboard\components\dataviewItem */
             $item = $row[$col] ?? null;
@@ -101,7 +101,7 @@ abstract class dataview extends \fpcm\model\abstracts\dashcontainer {
             $size = $item->getSize();
             $class = $item->getClass();
             
-            $class .= ' '. $this->fotnsize;
+            $class .= ' '. $this->fontsize;
 
             $tmp[] = $this->{'render'.$type}($val, $align, $size, $class);
         }
