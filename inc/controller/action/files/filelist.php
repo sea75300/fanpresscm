@@ -13,7 +13,8 @@ class filelist extends \fpcm\controller\abstracts\controller
 {
 
     use \fpcm\controller\traits\files\lists,
-        \fpcm\controller\traits\theme\viewAjaxDummy;
+        \fpcm\controller\traits\theme\viewAjaxDummy,
+        \fpcm\model\traits\fileManagerTypes;
 
     /**
      * Dateiliste
@@ -140,10 +141,21 @@ class filelist extends \fpcm\controller\abstracts\controller
 
         $tabs = [
             (new \fpcm\view\helper\tabItem('files-list'))
-                ->setText('HL_FILES_MNG')
+                ->setText('FILE_LIST_TAB_IMAGES')
                 ->setData(['ajax-quiet' => true])
                 ->setTabToolbar(1)
-                ->setUrl(\fpcm\classes\tools::getControllerLink('ajax/files/lists', [ 'mode' => $this->mode ]) )
+                ->setUrl(\fpcm\classes\tools::getControllerLink('ajax/files/lists', [
+                    'mode' => $this->mode,
+                    'type' => self::TYPE_IMAGES,
+                ])),
+            /*(new \fpcm\view\helper\tabItem('files-list'))
+                ->setText('FILE_LIST_TAB_VIDEOS')
+                ->setData(['ajax-quiet' => true])
+                ->setTabToolbar(2)
+                ->setUrl(\fpcm\classes\tools::getControllerLink('ajax/files/lists', [
+                    'mode' => $this->mode,
+                    'type' => self::TYPE_VIDEOS
+                ])),*/
         ];
 
         $this->view->includeForms('filemanager');

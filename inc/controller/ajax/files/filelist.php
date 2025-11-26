@@ -18,13 +18,20 @@ namespace fpcm\controller\ajax\files;
 class filelist extends \fpcm\controller\abstracts\ajaxController
 {
 
-    use \fpcm\controller\traits\files\lists;
+    use \fpcm\controller\traits\files\lists,
+        \fpcm\model\traits\fileManagerTypes;
 
     /**
      * Dateimanager-Modus
      * @var int
      */
-    protected $mode = 1;
+    protected int $mode = 1;
+
+    /**
+     * Dateimanager-Modus
+     * @var int
+     */
+    protected string $type;
 
     /**
      *
@@ -66,6 +73,8 @@ class filelist extends \fpcm\controller\abstracts\ajaxController
         if (!$this->mode) {
             $this->mode = 1;
         }
+        
+        $this->type = self::TYPE_IMAGES;
 
         $this->filter = new \fpcm\model\files\search();
 
