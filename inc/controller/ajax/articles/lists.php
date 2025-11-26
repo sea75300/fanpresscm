@@ -121,7 +121,7 @@ class lists extends \fpcm\controller\abstracts\ajaxController
     {
         $filter = $this->request->fromPOST('filter');
 
-        if (!is_array($filter) || !count($filter)) {
+        if (!$this->isFilter) {
             return;
         }
 
@@ -134,10 +134,10 @@ class lists extends \fpcm\controller\abstracts\ajaxController
                 $this->conditions->modeArchive = true;
                 break;
             case self::MODE_ACTIVE :
-                $this->conditions->modeArchive = true;
+                $this->conditions->modeActive = true;
                 break;
         }
-        
+
         $this->conditions->modeDeleted = false;
 
         $this->conditions->setMultiple();
@@ -175,7 +175,7 @@ class lists extends \fpcm\controller\abstracts\ajaxController
             $this->response->setReturnData( new \fpcm\view\message($this->language->translate($this->isFilter ? 'SEARCH_ERROR' : 'ARTICLELIST_ERROR'), \fpcm\view\message::TYPE_ERROR) )->fetch();
         }
 
-        $this->isFilter = $this->request->fromPOST('filter') === null ? false : true;
+        $this->isFilter = $this->request->fromPOST('filter') !== null;
         if ($this->isFilter) {
             $this->getFilterConditions();
         }
@@ -202,11 +202,26 @@ class lists extends \fpcm\controller\abstracts\ajaxController
 
         $this->initDataView();
 
+        if (!$this->isFilter) {
+            
+            $pager = new \fpcm\view\helper\pager(
+                actionLink: 'ajax/articles/lists',
+                currentPage: $this->page,
+                currentPageItemsCount: count($this->items),
+                itemsPerPage: $this->config->articles_acp_limit,
+                maxItemCount: $this->count
+            );
+        }
+        else {
+            $pager = null;
+        }
+        
+
         $this->response->setReturnData(new \fpcm\model\http\responseDataview(
             $this->getDataViewName(),
             $this->dataView->getJsVars()['dataviews'][$this->getDataViewName()],
             $this->message,
-            $this->isFilter ? '' : (new \fpcm\view\helper\pager('ajax/articles/lists', $this->page, count($this->items), $this->config->articles_acp_limit, $this->count))
+            $pager
         ))->fetch();
     }
 

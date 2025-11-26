@@ -450,7 +450,7 @@ implements \fpcm\model\interfaces\gsearchIndex {
             trigger_error(sprintf("Event article\getByConditionCount failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
             return 0;
         }
-
+        
         $eventData = $ev->getData();
 
         return $this->dbcon->count(

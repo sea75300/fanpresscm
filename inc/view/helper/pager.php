@@ -12,10 +12,12 @@ namespace fpcm\view\helper;
  * 
  * @package fpcm\view\helper
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2022, Stefan Seehafer
+ * @copyright (c) 2011-2025, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class pager extends helper {
+class pager 
+extends helper
+implements \JsonSerializable {
 
     /**
      * Current page
@@ -75,6 +77,9 @@ class pager extends helper {
      */
     public function __construct($actionLink, $currentPage, $currentPageItemsCount, $itemsPerPage, $maxItemCount)
     {
+        
+        fpcmLogSystem(func_get_args());
+        
         $this->actionLink = $actionLink;
         $this->currentPage = (int) $currentPage;
         $this->currentPageItemsCount = (int) $currentPageItemsCount;
