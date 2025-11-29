@@ -41,7 +41,7 @@ class filelist extends \fpcm\controller\abstracts\ajaxController
 
     /**
      *
-     * @var \fpcm\model\files\search
+     * @var bool
      */
     protected $showPager = false;
 

@@ -77,9 +77,6 @@ implements \JsonSerializable {
      */
     public function __construct($actionLink, $currentPage, $currentPageItemsCount, $itemsPerPage, $maxItemCount)
     {
-        
-        fpcmLogSystem(func_get_args());
-        
         $this->actionLink = $actionLink;
         $this->currentPage = (int) $currentPage;
         $this->currentPageItemsCount = (int) $currentPageItemsCount;
