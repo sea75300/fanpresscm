@@ -279,9 +279,9 @@ implements \fpcm\model\interfaces\gsearchIndex {
 
         $where .= ' ' . implode(' ', $where2);
 
-        $item   = $conditions->metaOnly
-                ? 'id, title, categories, createtime, createuser, changetime, changeuser, draft, archived, pinned, postponed, deleted, comments, approval, imagepath, sources, inedit ,pinned_until'
-                : '*';
+        $cols = 'id, title, categories, createtime, createuser, changetime, changeuser, draft, archived, pinned, postponed, deleted, comments, approval, imagepath, sources, inedit, pinned_until';
+        
+        $item = $conditions->metaOnly ? $cols : '*';
 
         $obj = (new \fpcm\model\dbal\selectParams($this->table))
                 ->setItem($item)

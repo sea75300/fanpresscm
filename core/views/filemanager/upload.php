@@ -1,4 +1,4 @@
-<?php /* @var $theView fpcm\view\viewVars */ /* @var $file fpcm\model\files\image */ ?>
+<?php /* @var $theView fpcm\view\viewVars */ ?>
 <?php if (!empty($uploadFormPath)) : ?>
 <div class="card mb-3" id="fileupload">
     <div class="card-body">

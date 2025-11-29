@@ -146,16 +146,16 @@ class filelist extends \fpcm\controller\abstracts\controller
                 ->setTabToolbar(1)
                 ->setUrl(\fpcm\classes\tools::getControllerLink('ajax/files/lists', [
                     'mode' => $this->mode,
-                    'type' => self::TYPE_IMAGES,
+                    'type' => self::TYPE_IMAGES
                 ])),
-            /*(new \fpcm\view\helper\tabItem('files-list'))
+            (new \fpcm\view\helper\tabItem('files-list'))
                 ->setText('FILE_LIST_TAB_VIDEOS')
                 ->setData(['ajax-quiet' => true])
                 ->setTabToolbar(2)
                 ->setUrl(\fpcm\classes\tools::getControllerLink('ajax/files/lists', [
                     'mode' => $this->mode,
                     'type' => self::TYPE_VIDEOS
-                ])),*/
+                ]))
         ];
 
         $this->view->includeForms('filemanager');

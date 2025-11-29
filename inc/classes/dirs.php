@@ -25,6 +25,7 @@ final class dirs {
     const DATA_SMILEYS = 'smileys';
     const DATA_TEMP = 'temp';
     const DATA_UPLOADS = 'uploads';
+    const DATA_MEDIA = 'media';
     const DATA_DBDUMP = 'dbdump';
     const DATA_DBSTRUCT = 'dbstruct';
     const DATA_DRAFTS = 'drafts';

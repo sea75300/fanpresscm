@@ -137,8 +137,12 @@ implements \fpcm\model\interfaces\isObjectInstancable {
      * @param array|int $oids
      * @return bool
      */
-    public function removeByObject(string $objName, array|int $oids = 0): bool
+    public function removeByObject(string $objName, null|array|int $oids = 0): bool
     {
+        if ($oids === null) {
+            return false;
+        }
+        
         if (!is_array($oids)) {
             $oids = [$oids];
         }
