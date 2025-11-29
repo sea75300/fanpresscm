@@ -67,6 +67,8 @@ class uppy extends \fpcm\controller\abstracts\ajaxController
             trigger_error(sprintf( \fpcm\model\files\fileuploader::matchUploadError($file['error']) , $realFile) );
             $this->response->setCode(400)->fetch();
         }
+        
+        fpcmLogSystem($file);
 
         $tmpFile = $file['tmp_name'];
         if (!is_uploaded_file($tmpFile)) {
@@ -85,10 +87,10 @@ class uppy extends \fpcm\controller\abstracts\ajaxController
         }
 
         if ($isVideo) {
-            $obj = new \fpcm\model\files\media($realFile);
+            $obj = new \fpcm\model\files\media($realFile, false);
         }
         else {
-            $obj = new \fpcm\model\files\image($realFile);
+            $obj = new \fpcm\model\files\image($realFile, false);
         }
 
         $obj->addUploadFolder();
@@ -117,7 +119,7 @@ class uppy extends \fpcm\controller\abstracts\ajaxController
         }
 
         $this->response->setReturnData([
-            'url' => $obj->getImageUrl()
+            'url' => $obj->getFileUrl()
         ])->fetch();
     }
 

@@ -80,12 +80,10 @@ implements \fpcm\model\interfaces\validateFileType,
      */
     public function __construct(string $filename = '', bool $initDB = true)
     {
-        $this->table = \fpcm\classes\database::tableFiles;
+        $this->table = \fpcm\classes\database::tableMedia;
         $filename = $this->splitFilename($filename);
         parent::__construct($filename);
-
         $this->filename = $filename;
-
         $this->init($initDB);
     }
 
@@ -114,7 +112,7 @@ implements \fpcm\model\interfaces\validateFileType,
      */
     public function getFileUrl()
     {
-        return \fpcm\classes\dirs::getDataUrl(\fpcm\classes\dirs::DATA_MEDIA, $this->filename);
+        return \fpcm\classes\dirs::getDataUrl(\fpcm\classes\dirs::DATA_MEDIA, $this->filepath);
     }
 
     /**
@@ -187,11 +185,13 @@ implements \fpcm\model\interfaces\validateFileType,
         $saveValues['filetime'] = (int) $saveValues['filetime'];
         $saveValues['userid'] = (int) $saveValues['userid'];
 
-        /*$ev = $this->events->trigger('image\save', $saveValues);
+        return $this->dbcon->insert($this->table, $saveValues);
+
+        $ev = $this->events->trigger('image\save', $saveValues);
         if (!$ev->getSuccessed() || !$ev->getContinue()) {
             trigger_error(sprintf("Event image\save failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
             return [];
-        }*/
+        }
 
         return $this->dbcon->insert($this->table, $ev->getData());
     }
@@ -220,7 +220,7 @@ implements \fpcm\model\interfaces\validateFileType,
             return false;
         }*/
 
-        $saveValues = $ev->getData();
+        //$saveValues = $ev->getData();
         return $this->dbcon->update($this->table, $this->dbParams, array_values($saveValues), "filename = ?");
     }
 
@@ -315,7 +315,7 @@ implements \fpcm\model\interfaces\validateFileType,
      */
     public function addUploadFolder() : bool
     {
-        $this->fullpath = ops::getUploadPath($this->filename, true);
+        $this->fullpath = ops::getUploadPath($this->filename, true, \fpcm\classes\dirs::DATA_MEDIA);
 
         if (!file_exists(dirname($this->fullpath))) {
             mkdir(dirname($this->fullpath));
@@ -368,7 +368,7 @@ implements \fpcm\model\interfaces\validateFileType,
 
         $this->extension = self::retrieveFileExtension($this->fullpath);
 
-        if (!$this->mimetype) {
+        if(!$this->mimetype) {
             $this->mimetype = self::retrieveRealType($this->fullpath);
         }
 
@@ -394,13 +394,7 @@ implements \fpcm\model\interfaces\validateFileType,
         $keys = array_keys($this->getPreparedSaveParams());
         $keys[] = 'id';
 
-        foreach ($keys as $key) {
-            if (!isset($object->$key)) {
-                continue;
-            }
-
-            $this->$key = $object->$key;
-        }
+        $this->assignThis($keys);
 
         $this->fullpath = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_MEDIA, $this->filename);
         $this->filepath = dirname($this->fullpath);

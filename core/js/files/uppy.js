@@ -40,7 +40,7 @@ fpcm.fileuploader = {
                 target: '#fpcm-id-uppy-informer',
             })
             .on('complete', function (_file, _response) {
-                fpcm.filemanager.runFileIndexUpdate(_file);
+                /*fpcm.filemanager.runFileIndexUpdate(_file);*/
                 _uppy.cancelAll();
             })
             .on('upload-start', function (_file) {

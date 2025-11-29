@@ -176,39 +176,23 @@ final class ops {
      * @param bool $includeTime
      * @return string
      */
-    public static function getUploadPath($path = DIRECTORY_SEPARATOR, $includeTime = true)
+    public static function getUploadPath(
+        $path = DIRECTORY_SEPARATOR,
+        $includeTime = true,
+        ?string $type = null)
     {
+        
+        if (!$type) {
+            $type = \fpcm\classes\dirs::DATA_UPLOADS;
+        }
+        
         if (!$includeTime) {
-            return \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_UPLOADS, $path);
+            return \fpcm\classes\dirs::getDataDirPath($type, $path);
         }
 
         return \fpcm\classes\dirs::getDataDirPath(
-            \fpcm\classes\dirs::DATA_UPLOADS,
+            $type,
             str_replace(DIRECTORY_SEPARATOR.DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, date('Y-m').DIRECTORY_SEPARATOR. $path)
-        );
-    }
-
-    /**
-     * Creates SHA256 file hash
-     * @param string $path
-     * @return string
-     */
-    
-    /**
-     * Creates upload url
-     * @param string $path
-     * @param bool $includeTime
-     * @return string
-     */
-    public static function getUploadUrl($path = '/', $includeTime = true)
-    {
-        if (!$includeTime) {
-            return \fpcm\classes\dirs::getDataUrl(\fpcm\classes\dirs::DATA_UPLOADS, $path);
-        }
-
-        return \fpcm\classes\dirs::getDataUrl(
-            \fpcm\classes\dirs::DATA_UPLOADS,
-            str_replace('//', '/', date('Y-m').'/'.$path)
         );
     }
 

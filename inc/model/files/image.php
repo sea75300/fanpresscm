@@ -21,7 +21,7 @@ implements \fpcm\model\interfaces\validateFileType,
            \fpcm\model\interfaces\isCopyable {
 
     use \fpcm\model\traits\assignThisProperties;
-    
+
     /**
      * Erlaubte Dateitypen
      * @var array
@@ -115,9 +115,7 @@ implements \fpcm\model\interfaces\validateFileType,
         $this->table = \fpcm\classes\database::tableFiles;
         $filename = $this->splitFilename($filename);
         parent::__construct($filename);
-
         $this->filename = $filename;
-
         $this->init($initDB);
     }
 
@@ -141,12 +139,22 @@ implements \fpcm\model\interfaces\validateFileType,
     }
 
     /**
+     * Returns image url
+     * @return string
+     * @since 5.3.0-a2
+     */
+    public function getFileUrl()
+    {
+        return \fpcm\classes\dirs::getDataUrl(\fpcm\classes\dirs::DATA_UPLOADS, $this->filename);
+    }
+
+    /**
      * Bild-Url ausgeben
      * @return string
      */
     public function getImageUrl()
     {
-        return \fpcm\classes\dirs::getDataUrl(\fpcm\classes\dirs::DATA_UPLOADS, $this->filename);
+        return $this->getFileUrl();
     }
 
     /**
