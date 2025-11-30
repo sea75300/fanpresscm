@@ -112,7 +112,7 @@ implements \fpcm\model\interfaces\validateFileType,
      */
     public function getFileUrl()
     {
-        return \fpcm\classes\dirs::getDataUrl(\fpcm\classes\dirs::DATA_MEDIA, $this->filepath);
+        return \fpcm\classes\dirs::getDataUrl(\fpcm\classes\dirs::DATA_MEDIA, $this->filename);
     }
 
     /**
@@ -357,7 +357,9 @@ implements \fpcm\model\interfaces\validateFileType,
 
             $dbData = $this->dbcon->selectFetch($obj);
             if ($dbData) {
-                $this->assignThis($dbData);
+                foreach ($dbData as $key => $value) {
+                    $this->$key = $value;
+                }
                 $this->isIndexed = true;
             }
         }
@@ -394,7 +396,14 @@ implements \fpcm\model\interfaces\validateFileType,
         $keys = array_keys($this->getPreparedSaveParams());
         $keys[] = 'id';
 
-        $this->assignThis($keys);
+        foreach ($keys as $key) {
+
+            if (!isset($object->$key)) {
+                continue;
+            }
+
+            $this->$key = $object->$key;
+        }
 
         $this->fullpath = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_MEDIA, $this->filename);
         $this->filepath = dirname($this->fullpath);

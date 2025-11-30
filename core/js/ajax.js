@@ -204,6 +204,10 @@ fpcm.ajax = {
             page: _params.page !== undefined ? parseInt(_params.page) : 1,
         };
 
+        if (_params.type) {
+            _data.type = _params.type;
+        }
+
         if (_params.filter instanceof Object) {
             _data.filter = _params.filter;
         }

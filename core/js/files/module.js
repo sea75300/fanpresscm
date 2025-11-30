@@ -10,7 +10,7 @@ if (fpcm === undefined) {
 
 fpcm.filemanager = {
 
-    tabsObj: {},
+    viewType: 'images',
 
     init: function() {
 
@@ -22,7 +22,10 @@ fpcm.filemanager = {
                     fpcm.vars.jsvars.pager = _result.data.pager;
                 }
 
+                fpcm.filemanager.viewType = _event.target.dataset.viewtype;
                 fpcm.filemanager.initListActions();
+
+                document.getElementById('fpcm-select-all').checked = false;
             }
         });
 
@@ -38,7 +41,7 @@ fpcm.filemanager = {
         }
 
         fpcm.dom.bindClick('#btnSettings', function () {
-            
+
             fpcm.ui_dialogs.settings('files', 'filesSettings', function (ev, _ui, _result) {
                 fpcm.filemanager.reloadFiles();
             });
@@ -329,7 +332,7 @@ fpcm.filemanager = {
                                 fpcm.ui.addMessage(value, i == 1 ? true : false);
                             });
 
-                            fpcm.dom.fromId('fpcm-select-all').prop('checked', false);
+                            document.getElementById('fpcm-select-all').checked = false;
                             fpcm.filemanager.reloadFiles();
                         }
                     });
@@ -567,9 +570,9 @@ fpcm.filemanager = {
                 _colValue.innerHTML = _titleHtml;
                 _colValue.title = _titleTxt;
                 _row.appendChild(_colValue);
-                
+
                 let _listitem = document.createElement('div');
-                _listitem.classList.add('list-group-item');                
+                _listitem.classList.add('list-group-item');
                 _listitem.appendChild(_row);
 
                 _dlgContent.appendChild(_listitem);
@@ -620,6 +623,7 @@ fpcm.filemanager = {
             module: 'files',
             destination: "#fpcm-tab-files-list-pane",
             mode: fpcm.vars.jsvars.fmgrMode,
+            type: fpcm.filemanager.viewType,
             page: _page,
             filter: _filter ? _filter : null,
             loader: false,
@@ -632,6 +636,7 @@ fpcm.filemanager = {
 
                 fpcm.filemanager.initListActions();
                 fpcm.dom.fromClass('fpcm-select-all').prop('checked', false);
+                document.getElementById('fpcm-select-all').checked = false;
             }
         });
 
@@ -660,15 +665,15 @@ fpcm.filemanager = {
 
         return _el.value;
     },
-    
+
     getAcceptTypesArr: function () {
-        
+
         return [
             'image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp',
             '.jpeg', '.jpg', '.png', '.gif', '.webp',
             'video/mp4', 'video/ogg', 'video/webm', 'audio/mpeg', 'audio/wav',
             '.ogg', '.webm', '.mp4', '.mp3', '.wav',
         ];
-        
+
     }
 };

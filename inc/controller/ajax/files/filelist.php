@@ -74,7 +74,7 @@ class filelist extends \fpcm\controller\abstracts\ajaxController
             $this->mode = 1;
         }
         
-        $this->type = $this->request->fromGET('type') ?? self::TYPE_IMAGES;
+        $this->type = $this->request->fetchAll('type') ?? self::TYPE_IMAGES;
 
         $this->filter = new \fpcm\model\files\search();
 
@@ -124,6 +124,9 @@ class filelist extends \fpcm\controller\abstracts\ajaxController
             default => new \fpcm\model\files\imagelist,
         };
 
+        $this->view->assign('btnList', in_array($this->type, [self::TYPE_IMAGES, self::TYPE_VIDEOS]) ? $this->type : self::TYPE_IMAGES);
+        $this->view->assign('showImages', $this->type === self::TYPE_IMAGES);
+        
         $page = $this->request->fromPOST('page', [
             \fpcm\model\http\request::FILTER_CASTINT
         ]);

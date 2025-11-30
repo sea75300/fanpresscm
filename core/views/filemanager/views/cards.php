@@ -23,23 +23,29 @@
         <?php $i++; ?>
             <div class="card my-2 mx-sm-2 rounded fpcm ui-files-item ui-background-transition shadow">
 
-                <a href="<?php print $file->getImageUrl(); ?>"
+                <?php if ($showImages) : ?>
+                <a href="<?php print $file->getFileUrl(); ?>"
                    class="fpcm ui-link-fancybox"
                    data-pswp-width="<?php print $file->getWidth(); ?>"
                    data-pswp-height="<?php print $file->getHeight(); ?>">
                 <?php if ($file->hasFileManageThumbnail()) : ?>
-                    <img class="card-img-top rounded-top overflow-hidden" loading="lazy" 
-                         src="<?php print $file->getFileManagerThumbnailUrl(); ?>" 
-                         title="<?php print $file->getFileName(); ?>" 
+                    <img class="card-img-top rounded-top overflow-hidden" loading="lazy"
+                         src="<?php print $file->getFileManagerThumbnailUrl(); ?>"
+                         title="<?php print $file->getFileName(); ?>"
                          alt="<?php if ($file->getAltText()) : ?><?php print $theView->escapeVal($file->getAltText()); ?><?php else : ?><?php print $theView->escapeVal(basename($file->getFilename())); ?><?php endif; ?>">
                 <?php else : ?>
                     <img class="card-img-top rounded-top overflow-hidden p-5" loading="lazy" src="<?php print fpcm\classes\loader::libGetFileUrl('font-awesome/svg/image.svg'); ?>" title="<?php print $file->getFileName(); ?>">
                 <?php endif; ?>
                 </a>
+                <?php else : ?>
+                <video controls height="300" class="card-img-top rounded-top" loading="lazy">
+                    <source src="<?php print $file->getFileUrl(); ?>" type="<?php print $file->getMimetype(); ?>">
+                </video>
+                <?php endif; ?>
 
                 <div class="card-body">
                     <p class="card-title text-center"><?php print $theView->escapeVal(basename($file->getFilename())); ?></p>
-                    <?php if ($file->getAltText()) : ?>
+                    <?php if ($showImages && $file->getAltText()) : ?>
                     <p class="card-subtitle text-center fs-6 text-secondary-emphasis"><?php print $theView->escapeVal($file->getAltText()); ?></p>
                     <?php endif; ?>
 
@@ -53,7 +59,7 @@
 
                 <div class="card-footer bg-transparent">
                     <div class="navbar gap-1 justify-content-center">
-                        <?php include $theView->getIncludePath('filemanager/buttons.php'); ?>
+                        <?php include $theView->getIncludePath('filemanager/buttons/'.$btnList.'.php'); ?>
                     </div>
                 </div>
             </div>

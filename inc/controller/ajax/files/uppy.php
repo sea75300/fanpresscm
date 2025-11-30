@@ -67,8 +67,6 @@ class uppy extends \fpcm\controller\abstracts\ajaxController
             trigger_error(sprintf( \fpcm\model\files\fileuploader::matchUploadError($file['error']) , $realFile) );
             $this->response->setCode(400)->fetch();
         }
-        
-        fpcmLogSystem($file);
 
         $tmpFile = $file['tmp_name'];
         if (!is_uploaded_file($tmpFile)) {
@@ -87,10 +85,10 @@ class uppy extends \fpcm\controller\abstracts\ajaxController
         }
 
         if ($isVideo) {
-            $obj = new \fpcm\model\files\media($realFile, false);
+            $obj = new \fpcm\model\files\media($realFile);
         }
         else {
-            $obj = new \fpcm\model\files\image($realFile, false);
+            $obj = new \fpcm\model\files\image($realFile);
         }
 
         $obj->addUploadFolder();
@@ -106,7 +104,7 @@ class uppy extends \fpcm\controller\abstracts\ajaxController
         $obj->setFiletime(time());
         $obj->setUserid($this->session->getUserId());
 
-        if ($obj->exists()) {
+        /*if ($obj->exists()) {
             if (!$obj->update()) {
                 trigger_error('Unable to update uploaded file to database list! ' . $realFile);
                 $this->response->setCode(500)->fetch();
@@ -116,11 +114,9 @@ class uppy extends \fpcm\controller\abstracts\ajaxController
         elseif (!$obj->save()) {
             trigger_error('Unable to add uploaded file to database list! ' . $realFile);
             $this->response->setCode(500)->fetch();
-        }
+        }*/
 
-        $this->response->setReturnData([
-            'url' => $obj->getFileUrl()
-        ])->fetch();
+        $this->response->setCode(200)->fetch();
     }
 
     /**

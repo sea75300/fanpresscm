@@ -47,7 +47,7 @@
                                 <div class="navbar gap-1 justify-content-start justify-content-lg-center">
                                     <div class="nav-item">
                                     <?php print $theView->linkButton('open'.$file->getFileHash())
-                                        ->setUrl($file->getImageUrl())
+                                        ->setUrl($file->getFileUrl())
                                         ->setClass('fpcm ui-link-fancybox')
                                         ->overrideButtonType('secondary')
                                         ->setText('FILE_LIST_OPEN_FULL')
@@ -61,7 +61,7 @@
                                         ]);
                                     ?>
                                     </div>
-                                    <?php include $theView->getIncludePath('filemanager/buttons.php'); ?>
+                                    <?php include $theView->getIncludePath('filemanager/buttons/'.$btnList.'.php'); ?>
                                     <?php if (!$file->existsFolder()) : ?>
                                     <div class="nav-item">
 

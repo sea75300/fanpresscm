@@ -147,7 +147,10 @@ class filelist extends \fpcm\controller\abstracts\controller
                 ->setUrl(\fpcm\classes\tools::getControllerLink('ajax/files/lists', [
                     'mode' => $this->mode,
                     'type' => self::TYPE_IMAGES
-                ])),
+                ]))
+                ->setData([
+                    'viewtype' => self::TYPE_IMAGES
+                ]),
             (new \fpcm\view\helper\tabItem('files-list'))
                 ->setText('FILE_LIST_TAB_VIDEOS')
                 ->setData(['ajax-quiet' => true])
@@ -156,10 +159,19 @@ class filelist extends \fpcm\controller\abstracts\controller
                     'mode' => $this->mode,
                     'type' => self::TYPE_VIDEOS
                 ]))
+                ->setData([
+                    'viewtype' => self::TYPE_VIDEOS
+                ])
         ];
 
         $this->view->includeForms('filemanager');
-        $this->view->addTabs('files', $tabs);
+
+        $this->view->addTabs(
+            tabsId: 'files', 
+            tabs: $tabs,
+            active: $this->getActiveTab()
+        );
+
         $this->view->render();
     }
 

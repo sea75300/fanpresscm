@@ -141,12 +141,12 @@ class reload extends \fpcm\controller\abstracts\ajaxController
             'log' => $this->log,
             'term' => $this->searchterm
         ]);
-        
+
         if (!$ev->getSuccessed() || !$ev->getContinue()) {
             trigger_error(sprintf("Event ajaxRefresh failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
             return false;
-        }        
-        
+        }
+
         $this->logObj = $ev->getData();
         if (!$this->logObj instanceof \fpcm\model\logs\logfileResult) {
             return false;
@@ -180,7 +180,7 @@ class reload extends \fpcm\controller\abstracts\ajaxController
             $where = 'AND (userid = ? OR ip = ? OR useragent LIKE ? )';
             $params = array_fill(0, 3, $this->searchterm);
             $params[2] = '%'.$params[2].'%';
-        }        
+        }
 
         $this->items = $this->session->getSessionsByCondition($where, $params);
         $this->userList = (new \fpcm\model\users\userList())->getUsersAll();
@@ -343,6 +343,10 @@ class reload extends \fpcm\controller\abstracts\ajaxController
      */
     private function getRowGeneric($item) : \fpcm\components\dataView\row
     {
+        if ($item->text === null) {
+            $item->text = '';
+        }
+
         return new \fpcm\components\dataView\row([
             new \fpcm\components\dataView\rowCol('time', $item->time),
             new \fpcm\components\dataView\rowCol('text', str_replace(['&NewLine;', PHP_EOL], '<br>', new \fpcm\view\helper\escape($item->text)), 'pre-box'),

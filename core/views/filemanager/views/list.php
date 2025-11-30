@@ -24,7 +24,7 @@
             <div class="card w-100 my-2 fpcm ui-files-item ui-background-transition shadow">
                 <div class="row g-0">
                     <div class="col-auto align-self-center me-3">
-                        <a href="<?php print $file->getImageUrl(); ?>"
+                        <a href="<?php print $file->getFileUrl(); ?>"
                            class="fpcm ui-link-fancybox"
                            data-pswp-width="<?php print $file->getWidth(); ?>"
                            data-pswp-height="<?php print $file->getHeight(); ?>">
@@ -53,7 +53,7 @@
                             </div>
 
                             <div class="navbar gap-1 justify-content-start">
-                            <?php include $theView->getIncludePath('filemanager/buttons.php'); ?>
+                            <?php include $theView->getIncludePath('filemanager/buttons/'.$btnList.'.php'); ?>
                             </div>
                         </div>
                     </div>

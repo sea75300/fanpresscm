@@ -20,8 +20,6 @@ extends \fpcm\model\abstracts\file
 implements \fpcm\model\interfaces\validateFileType,
            \fpcm\model\interfaces\isCopyable {
 
-    use \fpcm\model\traits\assignThisProperties;
-
     /**
      * Erlaubte Dateitypen
      * @var array
@@ -552,7 +550,9 @@ implements \fpcm\model\interfaces\validateFileType,
         if ($initDB) {
             $dbData = $this->dbcon->selectFetch((new \fpcm\model\dbal\selectParams($this->table))->setWhere('filename = ?')->setParams([$this->filename]));
             if ($dbData) {
-                $this->assignThis($dbData);
+                foreach ($dbData as $key => $value) {
+                    $this->$key = $value;
+                }
                 $this->isIndexed = true;
             }
         }
