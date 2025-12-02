@@ -76,28 +76,24 @@ class uppy extends \fpcm\controller\abstracts\ajaxController
         $mime = \fpcm\model\abstracts\file::retrieveRealType($tmpFile);
         $ext = \fpcm\model\abstracts\file::retrieveFileExtension($realFile);
 
-        $isImage = \fpcm\model\files\image::isValidType($ext, $mime);
-        $isVideo = \fpcm\model\files\media::isValidType($ext, $mime);
+        $type = \fpcm\model\files\mediaFile::getMediaFileType($ext, $mime);
 
-        if (!$isImage && !$isVideo) {
+        $mtypes = [\fpcm\model\files\mediaFile::TYPE_IMAGE, \fpcm\model\files\mediaFile::TYPE_AUDIOVIDEO];
+        if (!in_array($type, $mtypes)) {
             trigger_error('Unsupported filetype '.$mime.' in ' . $realFile);
             $this->response->setCode(415)->fetch();
         }
-
-        if ($isVideo) {
-            $obj = new \fpcm\model\files\media($realFile);
-        }
-        else {
-            $obj = new \fpcm\model\files\image($realFile);
-        }
-
+        
+        $obj = new \fpcm\model\files\mediaFile($realFile);
         $obj->addUploadFolder();
+        $obj->setMediaType($type);
+
         if (!$obj->moveUploadedFile($tmpFile)) {
             trigger_error('Unable to move uploaded to to uploader folder! ' . $realFile);
             $this->response->setCode(500)->fetch();
         }
 
-        if ($isImage) {
+        if ($obj->isImage()) {
             $obj->createThumbnail();
         }
 

@@ -190,26 +190,27 @@ if (fpcm.editor) {
                 });
             }
 
-            if (!fpcm.editor.insertGalleryDisabled()) {
-                _btns.push({
-                    type:  'custom',
-                    name: 'fmGallery',
-                    text: fpcm.ui.translate('FILE_LIST_INSERTGALLERY'),
-                    disabled: false,
-                    primary: false,
-                });
-            }
+            if (meta.filetype !== 'media') {
+                if (!fpcm.editor.insertGalleryDisabled()) {
+                    _btns.push({
+                        type:  'custom',
+                        name: 'fmGallery',
+                        text: fpcm.ui.translate('FILE_LIST_INSERTGALLERY'),
+                        disabled: false,
+                        primary: false,
+                    });
+                }
 
-            if (fpcm.vars.jsvars.filemanagerPermissions.thumbs) {
-                _btns.push({
-                    type:  'custom',
-                    name: 'fmNewThumbs',
-                    text: fpcm.ui.translate('FILE_LIST_NEWTHUMBS'),
-                    disabled: false,
-                    primary: false,
-                });
+                if (fpcm.vars.jsvars.filemanagerPermissions.thumbs) {
+                    _btns.push({
+                        type:  'custom',
+                        name: 'fmNewThumbs',
+                        text: fpcm.ui.translate('FILE_LIST_NEWTHUMBS'),
+                        disabled: false,
+                        primary: false,
+                    });
+                }
             }
-
 
             if (fpcm.vars.jsvars.filemanagerPermissions.delete) {
                 _btns.push({
@@ -229,13 +230,20 @@ if (fpcm.editor) {
                 primary: true
             });
 
+            let _rg = '';
+            if (meta.filetype === 'media') {
+                _rg = '&rg=1';
+            }
+
             tinymce.activeEditor.windowManager.openUrl({
                 title: fpcm.ui.translate('HL_FILES_MNG'),
                 size: 'large',
-                url: fpcm.vars.jsvars.filemanagerUrl + fpcm.vars.jsvars.filemanagerMode,
+                url: fpcm.vars.jsvars.filemanagerUrl + fpcm.vars.jsvars.filemanagerMode + _rg,
                 id: 'fpcm-dialog-editor-tinymce-filemanager',
                 buttons: _btns,
                 onAction: function(api, action) {
+                    
+                    debugger;
 
                     if (!fpcm.editor.filePickerActions[action.name]) {
                         return false;

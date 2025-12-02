@@ -8,13 +8,13 @@
 namespace fpcm\model\files;
 
 /**
- * Image list object
+ * Media files list object
  * @package fpcm\model\files
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2022, Stefan Seehafer
+ * @copyright (c) 2025, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-final class medialist
+final class mediaFilesList
 extends \fpcm\model\abstracts\filelist
 implements \fpcm\model\interfaces\gsearchIndex {
 
@@ -33,42 +33,35 @@ implements \fpcm\model\interfaces\gsearchIndex {
     private $finfo = null;
 
     /**
-     * Select callback
-     * @var callable
-     */
-    private $callback;
-
-    /**
      * Konstruktor
      */
     public function __construct()
     {
         parent::__construct();
 
-        $this->table = \fpcm\classes\database::tableMedia;
-        $this->basepath = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_MEDIA, '/');
-        $this->exts = media::$allowedExts;
-
-        $this->callback = function($ds, &$res) {
-
-            $obj = new media(
-                initDB: false
-            );
-
-            $obj->createFromDbObject($ds);
-            $res[$ds->filename] = $obj;
-        };
+        $this->table = \fpcm\classes\database::tableFiles;
+        $this->basepath = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_UPLOADS, '/');
+        $this->exts = mediaFile::$allowedExts;
     }
 
     /**
      * Return list of files in file system
      * @return array
      */
-    public function getFolderList()
+    public function getFolderList(array $exsts = [])
     {
+        if (count($exsts)) {
+            $old = $this->exts;
+            $this->exts = $exsts;
+        }
+
         $res1 = parent::getFolderList();
         $this->pathprefix = '????-??'.DIRECTORY_SEPARATOR;
         $res2 = parent::getFolderList();
+
+        if (!empty($old)) {
+            $this->exts = $old;
+        }
 
         return array_values(array_unique(
             array_merge( array_combine($res1, $res1), array_combine($res2, $res2) )
@@ -88,12 +81,19 @@ implements \fpcm\model\interfaces\gsearchIndex {
             $where .= ' ' . $this->dbcon->limitQuery($limit, $offset);
         }
 
-        $obj = (new \fpcm\model\dbal\selectParams($this->table))
-            ->setWhere($where)
-            ->setFetchAll(true)
-            ->setCallback($this->callback);
+        $files = $this->dbcon->selectFetch(
+            (new \fpcm\model\dbal\selectParams($this->table))
+            ->setWhere($where)->setFetchAll(true)
+        );
 
-        return $this->dbcon->selectFetch($obj);
+        $res = [];
+        foreach ($files as $file) {
+            $mfObj = new mediaFile('', false);
+            $mfObj->createFromDbObject($file);
+            $res[$file->filename] = $mfObj;
+        }
+
+        return $res;
     }
 
     /**
@@ -132,17 +132,23 @@ implements \fpcm\model\interfaces\gsearchIndex {
 
         $where .= ' ' . implode(' ', $where2);
 
-        $obj = (new \fpcm\model\dbal\selectParams($this->table))
-            ->setWhere($where)
-            ->setParams($valueParams)
-            ->setFetchAll(true)
-            ->setCallback($this->callback);
+        $files = $this->dbcon->selectFetch(
+            (new \fpcm\model\dbal\selectParams($this->table))
+            ->setWhere($where)->setParams($valueParams)->setFetchAll(true)
+        );
 
         if ($this->dbcon->getLastQueryErrorCode() === \fpcm\drivers\sqlDriver::CODE_ERROR_SYNTAX) {
             return \fpcm\drivers\sqlDriver::CODE_ERROR_SYNTAX;
         }
 
-        return $this->dbcon->selectFetch($obj);
+        $res = [];
+        foreach ($files as $file) {
+            $mfObj = new mediaFile('', false);
+            $mfObj->createFromDbObject($file);
+            $res[$file->filename] = $mfObj;
+        }
+
+        return $res;
     }
 
     /**
@@ -192,7 +198,7 @@ implements \fpcm\model\interfaces\gsearchIndex {
 
         if (count($notInFs)) {
 
-            /* @var $file image */
+            /* @var $file mediaFile */
             $ids = array_map(function ($file) {
                 return $file->getId();
             }, $notInFs);
@@ -201,7 +207,7 @@ implements \fpcm\model\interfaces\gsearchIndex {
                 trigger_error('Unable to remove file index data for files with names: ' . implode(', ', array_keys($notInFs)));
             }
 
-            \fpcm\model\reminders\reminders::getInstance()->removeByObject(media::class, $ids);
+            \fpcm\model\reminders\reminders::getInstance()->removeByObject(mediaFile::class, $ids);
         }
 
         if (count($notInDb)) {
@@ -209,7 +215,19 @@ implements \fpcm\model\interfaces\gsearchIndex {
             $this->indexUserId = (int) $userId;
             $this->finfo = new \finfo();
 
-            array_map([$this, 'addToIndex'], array_keys($notInDb));
+            /* @var $file mediaFile */
+            $res = array_map([$this, 'addToIndex'], array_keys($notInDb));
+
+            $doThumbs = array_keys(array_intersect($notInDb, array_keys($res, true)));
+            if (!is_array($doThumbs) || !count($doThumbs)) {
+                return true;
+            }
+
+            array_walk($doThumbs, function (&$file) {
+                $file = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_UPLOADS, $file);
+            });
+
+            $this->createFilemanagerThumbs($doThumbs);
         }
 
         return true;
@@ -224,30 +242,25 @@ implements \fpcm\model\interfaces\gsearchIndex {
      */
     private function addToIndex(string $file) : bool
     {
-        $mediaObj = new \fpcm\model\files\media($file, false);
-        $mediaObj->setFiletime($mediaObj->getModificationTime());
-        $mediaObj->setUserid($this->indexUserId);
+        $mfObj = new \fpcm\model\files\mediaFile($file, false);
+        $mfObj->setFiletime($mfObj->getModificationTime());
+        $mfObj->setUserid($this->indexUserId);
 
-        $mime = $this->finfo->file($mediaObj->getFullpath(), FILEINFO_MIME_TYPE);
+        $mime = $this->finfo->file($mfObj->getFullpath(), FILEINFO_MIME_TYPE);
 
-        if (!media::isValidType(\fpcm\model\abstracts\file::retrieveFileExtension($mediaObj->getFullpath()), $mime )) {
-            trigger_error("Unsupported filetype \"{$mime}\" in \"{$mediaObj->getFullpath()}\"");
+        if (!mediaFile::isValidType(\fpcm\model\abstracts\file::retrieveFileExtension($mfObj->getFullpath()), $mime )) {
+            trigger_error(sprintf('Unsupported und not allowed filetype "%s" in "%s".', $mfObj->getMimetype(), $mfObj->getFilename()));
             return false;
         }
 
-        if (!in_array($mediaObj->getMimetype(), media::$allowedTypes) || !in_array(strtolower($mediaObj->getExtension()), media::$allowedExts)) {
-            trigger_error(sprintf('Filetype "%s" not allowed in "%s".', $mediaObj->getMimetype(), $mediaObj->getFilename()));
-            return false;
-        }
-
-        $res = $mediaObj->save();
+        $res = $mfObj->save();
         if (!$res && $this->dbcon->getLastQueryErrorCode() === \fpcm\drivers\sqlDriver::CODE_ERROR_UNIQUEKEY) {
-            trigger_error("Unable to save image \"{$mediaObj->getFilename()}\" to database, file is already indexed.");
+            trigger_error("Unable to save image \"{$mfObj->getFilename()}\" to database, file is already indexed.");
             return false;
         }
 
         if (!$res) {
-            trigger_error("Unable to save image \"{$mediaObj->getFilename()}\" to database, due to unknows reason.");
+            trigger_error("Unable to save image \"{$mfObj->getFilename()}\" to database, due to unknows reason.");
             return false;
         }
 
@@ -262,6 +275,85 @@ implements \fpcm\model\interfaces\gsearchIndex {
     public function getDatabaseFileCount()
     {
         return $this->dbcon->count($this->table);
+    }
+
+    /**
+     * Creates file manager thumbnails
+     * @param array|null $folderFiles
+     * @param bool|null $forceAll
+     * @return bool
+     */
+    public function createFilemanagerThumbs(?array $folderFiles = null, ?bool $forceAll = null) : bool
+    {
+        $fn = thumbnailCreator::getFunctionName();
+
+        if ($folderFiles === null) {
+            $folderFiles = $this->getFolderList();
+        }
+
+        if (!count($folderFiles)) {
+            return false;
+        }
+
+        $filesizeLimit = \fpcm\classes\baseconfig::memoryLimit(true) * 0.025;
+        $folderFiles = array_filter($folderFiles, function ($folderFile) use ($filesizeLimit) {
+
+            $ext = \fpcm\model\abstracts\file::retrieveFileExtension($folderFile);
+            $mime = \fpcm\model\abstracts\file::retrieveRealType($folderFile);
+
+            if (mediaFile::getMediaFileType($ext, $mime) === mediaFile::TYPE_AUDIOVIDEO) {
+                return false;
+            }
+
+            if (filesize($folderFile) >= $filesizeLimit) {
+                $msgPath = ops::removeBaseDir($folderFile);
+                fpcmLogSystem("Skip filemanager thumbnail generation for {$msgPath} because of image dimension. You may reduce file size?");
+                return false;
+            }
+
+            if ($ext == 'bmp' || substr($folderFile, -4) === '.bmp') {
+                $msgPath = ops::removeBaseDir($folderFile);
+                fpcmLogSystem("Skip filemanager thumbnail generation for {$msgPath}, \"".$ext."\" is no supported. You may use another image type?");
+                return false;
+            }
+
+            return true;
+        });
+
+        if (!count($folderFiles)) {
+            return false;
+        }
+
+        foreach ($folderFiles as $folderFile) {
+
+            $imgPath = $folderFile;
+            $this->removeBasePath($imgPath);
+
+            $file = new mediaFile($imgPath);
+            if ($file->isAudioVideo()) {
+                continue;
+            }
+
+            if ($file->hasFileManageThumbnail() && !$forceAll) {
+                $file = null;
+                continue;
+            }
+
+            $proc = new thumbnailCreator($folderFile, $file->getFileManagerThumbnail());
+            if (!$proc->{$fn}(\fpcm\classes\dirs::DATA_FMTMP)) {
+                trigger_error('Error while creating filemanager thumbnail '.$file->getFileManagerThumbnail().PHP_EOL.$exc->getMessage());
+                continue;
+            }
+
+            if (!$file->hasFileManageThumbnail()) {
+                trigger_error('Unable to create filemanager thumbnail: ' . $file->getFileManagerThumbnail());
+            }
+
+            $file = null;
+            $proc = null;
+        }
+
+        return true;
     }
 
     /**
@@ -290,8 +382,9 @@ implements \fpcm\model\interfaces\gsearchIndex {
     private function assignSearchParams(search $conditions, array &$where, array &$valueParams, string $combination)
     {
         if ($conditions->filename) {
-            $where[] = "filename ".$this->dbcon->dbLike()." :filename";
+            $where[] = "filename ".$this->dbcon->dbLike()." :filename OR alttext ".$this->dbcon->dbLike()." :alttext";
             $valueParams[':filename'] = '%' . $conditions->filename . '%';
+            $valueParams[':alttext'] = $valueParams[':filename'];
         }
 
         if ($conditions->datefrom) {
@@ -315,7 +408,7 @@ implements \fpcm\model\interfaces\gsearchIndex {
      */
     public function getCountQuery(): \fpcm\model\dbal\selectParams
     {
-        return $this->getSearchQueryObj()->setItem('\'media\' as model, count(id) as count');
+        return $this->getSearchQueryObj()->setItem('\'images\' as model, count(id) as count');
     }
 
     /**
@@ -325,9 +418,10 @@ implements \fpcm\model\interfaces\gsearchIndex {
     public function getSearchQuery(): \fpcm\model\dbal\selectParams
     {
         return $this->getSearchQueryObj()->setItem(
-            '\'media\' as model, ' .
+            '\'images\' as model, ' .
             'filename as oid,' .
-            $this->dbcon->concatString(['filename', '";"', 'filetime']).' as text,  \'\' as meta'
+            $this->dbcon->concatString(['filename', '";"', 'alttext', '";"', 'filetime']).' as text, ' .
+            $this->dbcon->concatString(['width', '":"', 'height']).' as meta'
         )->setFetchAll(true);
     }
 
@@ -338,8 +432,8 @@ implements \fpcm\model\interfaces\gsearchIndex {
      */
     public function getElementLink(mixed $filename): string
     {
-        $tmp = new media($filename, false);
-        return $tmp->getFileUrl();
+        $tmp = new mediaFile($filename, false);
+        return $tmp->getImageUrl();
     }
 
     /**
@@ -349,7 +443,7 @@ implements \fpcm\model\interfaces\gsearchIndex {
      */
     public function getElementIcon(): \fpcm\view\helper\icon
     {
-        return new \fpcm\view\helper\icon('film');
+        return new \fpcm\view\helper\icon('photo-film');
     }
 
     /**
@@ -359,7 +453,7 @@ implements \fpcm\model\interfaces\gsearchIndex {
      */
     private function getSearchQueryObj(): \fpcm\model\dbal\selectParams
     {
-        return (new \fpcm\model\dbal\selectParams($this->table))->setWhere('(filename LIKE :term)');
+        return (new \fpcm\model\dbal\selectParams($this->table))->setWhere('(filename LIKE :term OR alttext LIKE :term)');
     }
 
     /**
@@ -369,11 +463,14 @@ implements \fpcm\model\interfaces\gsearchIndex {
      */
     public function prepareText(string $text): string
     {
-        list($name, $date) = explode(';', $text);
+        list($name, $alttext, $date) = explode(';', $text);
+
+        $name = basename($name);
 
         return sprintf(
-            '%s<br><span class="fpcm ui-font-small text-secondary">%s</span>',
-            new \fpcm\view\helper\escape(basename($name)),
+            '%s%s<br><span class="fpcm ui-font-small text-secondary">%s</span>',
+            new \fpcm\view\helper\escape($alttext ? $alttext : $name),
+            new \fpcm\view\helper\escape($alttext ? ' ('.$name.')' : ''),
             new \fpcm\view\helper\dateText($date)
         );
     }

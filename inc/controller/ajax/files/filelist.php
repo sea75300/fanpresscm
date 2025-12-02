@@ -25,12 +25,6 @@ class filelist extends \fpcm\controller\abstracts\ajaxController
      * Dateimanager-Modus
      * @var int
      */
-    protected int $mode = 1;
-
-    /**
-     * Dateimanager-Modus
-     * @var int
-     */
     protected string $type;
 
     /**
@@ -71,7 +65,7 @@ class filelist extends \fpcm\controller\abstracts\ajaxController
         ]);
 
         if (!$this->mode) {
-            $this->mode = 1;
+            $this->mode = self::FILEMANAGER_TYPE_MAIN;
         }
         
         $this->type = $this->request->fetchAll('type') ?? self::TYPE_IMAGES;
@@ -119,10 +113,7 @@ class filelist extends \fpcm\controller\abstracts\ajaxController
      */
     public function process()
     {
-        $fileList = match ($this->type) {
-            self::TYPE_VIDEOS => new \fpcm\model\files\medialist,
-            default => new \fpcm\model\files\imagelist,
-        };
+        $mfObj = new \fpcm\model\files\mediaFilesList();
 
         $this->view->assign('btnList', in_array($this->type, [self::TYPE_IMAGES, self::TYPE_VIDEOS]) ? $this->type : self::TYPE_IMAGES);
         $this->view->assign('showImages', $this->type === self::TYPE_IMAGES);
@@ -132,33 +123,33 @@ class filelist extends \fpcm\controller\abstracts\ajaxController
         ]);
 
         $this->filter->limit = $this->showPager ? [$this->config->file_list_limit, \fpcm\classes\tools::getPageOffset($page, $this->config->file_list_limit)] : null;
-        $list = $fileList->getDatabaseListByCondition($this->filter);
+        $files = $mfObj->getDatabaseListByCondition($this->filter);
 
-        if ($list === \fpcm\drivers\sqlDriver::CODE_ERROR_SYNTAX) {
-            $list = [];
+        if ($files === \fpcm\drivers\sqlDriver::CODE_ERROR_SYNTAX) {
+            $files = [];
             $this->filterError = true;
         }
 
-        $max = count($list);
+        $max = count($files);
 
         $pager = new \fpcm\view\helper\pager(
             'ajax/files/lists&mode='.$this->mode,
             $page,
             $max,
             $this->config->file_list_limit,
-            $this->showPager ? $fileList->getDatabaseCountByCondition($this->filter) : 1
+            $this->showPager ? $mfObj->getDatabaseCountByCondition($this->filter) : 1
         );
 
-        $ev = $this->events->trigger('reloadFileList', $list);
+        $ev = $this->events->trigger('reloadFileList', $files);
         if (!$ev->getSuccessed() || !$ev->getContinue()) {
             trigger_error(sprintf("Event reloadFileList failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
             return false;
         }
 
-        $list = $ev->getData();
+        $files = $ev->getData();
 
         $userList = new \fpcm\model\users\userList();
-        $this->initViewAssigns($list, $userList->getUsersAll());
+        $this->initViewAssigns($files, $userList->getUsersAll());
 
         $this->view->assign('is_last', function ($i) {
             return $i % FPCM_FILEMAGER_ITEMS_ROW === 0;

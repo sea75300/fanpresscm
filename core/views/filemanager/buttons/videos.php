@@ -15,7 +15,7 @@
                 ->setUrl($file->getFileUrl())
                 ->setText('FILE_LIST_INSERT_THUMB')
                 ->setClass('fpcm-filelist-tinymce-thumb')
-                ->setIcon('image-portrait')
+                ->setIcon('file-arrow-down')
                 ->setIconOnly()
                 ->setData(['imgtext' => $file->getFilename() ]); ?>
     </div>

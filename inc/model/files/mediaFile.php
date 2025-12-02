@@ -8,30 +8,61 @@
 namespace fpcm\model\files;
 
 /**
- * Image file objekt
+ * Media file objekt
  *
  * @package fpcm\model\files
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2022, Stefan Seehafer
+ * @copyright (c) 2025, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
- * @deprecated 5.3.0-a1
+ * @since 5.3.0-a1
  */
-class image
+class mediaFile
 extends \fpcm\model\abstracts\file
 implements \fpcm\model\interfaces\validateFileType,
            \fpcm\model\interfaces\isCopyable {
+
+    /* Media file type image */
+    const TYPE_IMAGE = 0;
+
+    /* Media file type audio or video */
+    const TYPE_AUDIOVIDEO = 1;
+
+    /* Media file types delimiter */
+    private const TYPE_AUDIOVIDEO_DELIM = 4;
 
     /**
      * Erlaubte Dateitypen
      * @var array
      */
-    public static $allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
+    public static $allowedTypes = [
+        'image/jpeg',
+        'image/jpg',
+        'image/png',
+        'image/gif',
+        'image/webp',
+        'video/mp4',
+        'video/ogg',
+        'video/webm',
+        'audio/mpeg',
+        'audio/wav'
+    ];
 
     /**
      * Erlaubte Dateiendungen
      * @var array
      */
-    public static $allowedExts = ['jpeg', 'jpg', 'png', 'gif', 'webp'];
+    public static $allowedExts = [
+        'jpeg',
+        'jpg',
+        'png',
+        'gif',
+        'webp',
+        'mp4',
+        'ogg',
+        'webm',
+        'mp3',
+        'wav'
+    ];
 
     /**
      * ID von Datei-Eintrag in DB
@@ -70,6 +101,12 @@ implements \fpcm\model\interfaces\validateFileType,
     protected $filetime;
 
     /**
+     * Media file type (0 = image, 1 = audio/video)
+     * @var int
+     */
+    protected int $media_type = 0;
+
+    /**
      * Alternate text
      * @var string
      */
@@ -101,7 +138,8 @@ implements \fpcm\model\interfaces\validateFileType,
     protected $dbParams = [
         'userid', 'filename', 'filetime', 'filesize',
         'alttext', 'mimetype', 'filehash', 'width',
-        'height', 'iptcstr'];
+        'height', 'iptcstr', 'media_type'
+    ];
 
     /**
      * Konstruktor
@@ -111,8 +149,6 @@ implements \fpcm\model\interfaces\validateFileType,
      */
     public function __construct($filename = '', $initDB = true)
     {
-        trigger_error('The image object is deprecated as of FPCM 5.3.0-a1, use the mediaFile object instead', E_USER_DEPRECATED);
-        
         $this->table = \fpcm\classes\database::tableFiles;
         $filename = $this->splitFilename($filename);
         parent::__construct($filename);
@@ -328,6 +364,22 @@ implements \fpcm\model\interfaces\validateFileType,
     }
 
     /**
+     * Get media type flag
+     * @return int
+     */
+    public function getMediaType(): int {
+        return $this->media_type;
+    }
+
+    /**
+     * set media type lag
+     * @param int $media_type
+     */
+    public function setMediaType(int $media_type) {
+        $this->media_type = $media_type;
+    }
+
+        /**
      * Speichert einen neuen Datei-Eintrag in der Datenbank
      * @return bool
      */
@@ -404,7 +456,7 @@ implements \fpcm\model\interfaces\validateFileType,
             unlink($fileName);
         }
 
-        \fpcm\model\reminders\reminders::getInstance()->removeByObject(image::class, $this->id);
+        \fpcm\model\reminders\reminders::getInstance()->removeByObject(mediaFile::class, $this->id);
 
         return $this->dbcon->delete($this->table, 'filename = ?', array($this->filename));
     }
@@ -529,6 +581,24 @@ implements \fpcm\model\interfaces\validateFileType,
     }
 
     /**
+     * Returns true if media file is an image
+     * @return bool
+     */
+    final public function isImage() : bool
+    {
+        return $this->media_type === self::TYPE_IMAGE;
+    }
+
+    /**
+     * Returns true if media file is an audio- or video file
+     * @return bool
+     */
+    final public function isAudioVideo() : bool
+    {
+        return $this->media_type === self::TYPE_AUDIOVIDEO;
+    }
+
+    /**
      * Gibt Speicher-Values zurück
      * @return array
      */
@@ -570,7 +640,19 @@ implements \fpcm\model\interfaces\validateFileType,
             $this->filesize = filesize($this->fullpath);
         }
 
-        if (!$this->width || !$this->height || !$this->mimetype) {
+        if (!$this->mimetype) {
+            $this->mimetype = self::retrieveRealType($this->fullpath);
+        }
+
+        if (!$this->media_type) {
+            $this->media_type = self::getMediaFileType($this->extension, $this->mimetype);
+        }
+
+        if ($this->isAudioVideo()) {
+            return true;
+        }
+
+        if ( !$this->width || !$this->height) {
 
             $fileData = getimagesize($this->fullpath, $metaInfo);
             if (!is_array($fileData)) {
@@ -580,7 +662,6 @@ implements \fpcm\model\interfaces\validateFileType,
             $this->width = $fileData[0];
             $this->height = $fileData[1];
             $this->whstring = $fileData[3];
-            $this->mimetype = $fileData['mime'];
 
             $this->parseIptc($metaInfo);
         }
@@ -813,6 +894,24 @@ implements \fpcm\model\interfaces\validateFileType,
         }
 
         return in_array($type, self::$allowedTypes) && in_array($ext, self::$allowedExts) && $assigned === $type;
+    }
+
+    /**
+     * Retrieve media file type flag
+     * @param string $ext
+     * @param string $type
+     * @return int
+     */
+    public static function getMediaFileType(string $ext, string $type = null) : int
+    {
+        $extKey = array_search($ext, self::$allowedExts);
+        $mineKey = array_search($type, self::$allowedTypes);
+
+        if ($extKey > self::TYPE_AUDIOVIDEO_DELIM && $mineKey > self::TYPE_AUDIOVIDEO_DELIM) {
+            return self::TYPE_AUDIOVIDEO;
+        }
+
+        return self::TYPE_IMAGE;
     }
 
 }

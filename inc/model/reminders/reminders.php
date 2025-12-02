@@ -169,7 +169,7 @@ implements \fpcm\model\interfaces\isObjectInstancable {
     public static function mapPublic(reminder $rem) : string
     {
         return match ($rem->getObjName()) {
-            'fpcm\model\files\image' => 'files',
+            'fpcm\model\files\mediaFile' => 'files',
             default => ''
         };
     }

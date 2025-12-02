@@ -27,16 +27,9 @@ class fileindex extends \fpcm\model\abstracts\cron {
         $user_id = $session->exists() ? $session->getUserId() : 0;
 
         try {
-            $imageList = new \fpcm\model\files\imagelist();
-            $imageList->updateFileIndex($user_id);
-            $imageList->createFilemanagerThumbs();
-        } catch (\Throwable $e) {
-            trigger_error($e->getMessage());
-        }
-
-        try {
-            $mediaList = new \fpcm\model\files\medialist();
-            $mediaList->updateFileIndex($user_id);
+            $mfList = new \fpcm\model\files\mediaFilesList();
+            $mfList->updateFileIndex($user_id);
+            $mfList->createFilemanagerThumbs();
         } catch (\Throwable $e) {
             trigger_error($e->getMessage());
         }

@@ -37,6 +37,8 @@ implements \fpcm\model\interfaces\gsearchIndex {
      */
     public function __construct()
     {
+        trigger_error('The imagelist object is deprecated as of FPCM 5.3.0-a1, use the mediaFilesList object instead', E_USER_DEPRECATED);
+        
         parent::__construct();
 
         $this->table = \fpcm\classes\database::tableFiles;

@@ -53,7 +53,7 @@ if (fpcm.article !== undefined) {
 
     let _btnEl = document.getElementById('articleimg');
 
-    if (_btnEl.dataset.pswpWidth === undefined && _btnEl.dataset.pswpHeight === undefined) {
+    if (_btnEl && _btnEl.dataset.pswpWidth === undefined && _btnEl.dataset.pswpHeight === undefined) {
         let _imgObj = new Image();
         _imgObj.src = _btnEl.href;
         _imgObj.onload = function () {
@@ -69,6 +69,4 @@ if (fpcm.article !== undefined) {
     });
 
     fpcm.article._lightbox .init();
-
-
 }

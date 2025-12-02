@@ -119,7 +119,7 @@ class tinymceEditor5 implements \JsonSerializable {
      * file_picker_types setting
      * @var string
      */
-    public $file_picker_types = ['image', 'file'];
+    public $file_picker_types = ['image', 'file', 'media'];
 
     /**
      * pagebreak_separator setting

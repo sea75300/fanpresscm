@@ -55,6 +55,11 @@ cols:
         type: text
         length: 
         params: NOT NULL        
+    media_type:
+        type: bool
+        length: 
+        params: NOT NULL    
+        defaultValue: 0
 indices:
     filename:
         col: filename

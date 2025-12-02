@@ -18,7 +18,7 @@ class filelist extends \fpcm\controller\abstracts\controller
 
     /**
      * Dateiliste
-     * @var \fpcm\model\files\imagelist
+     * @var \fpcm\model\files\mediaFilesList
      */
     protected $fileList;
 
@@ -27,12 +27,6 @@ class filelist extends \fpcm\controller\abstracts\controller
      * @var \fpcm\model\users\userList
      */
     protected $userList;
-
-    /**
-     * Modus
-     * @var int
-     */
-    protected $mode = 1;
 
     /**
      *
@@ -58,11 +52,11 @@ class filelist extends \fpcm\controller\abstracts\controller
      */
     public function request()
     {
-        $this->fileList = new \fpcm\model\files\imagelist();
+        $this->fileList = new \fpcm\model\files\mediaFilesList();
         $this->userList = \fpcm\model\users\userList::getInstance();
 
         $this->mode = $this->request->getIntMode();
-        if ($this->mode == 1) {
+        if ($this->mode == self::FILEMANAGER_TYPE_MAIN) {
             return true;
         }
 
@@ -80,6 +74,8 @@ class filelist extends \fpcm\controller\abstracts\controller
         $uploader = \fpcm\components\components::getFileUploader();
 
         $this->initDialogs();
+
+        $this->view->assign('btnList', $this->getActiveTab() === 2 ? self::TYPE_VIDEOS : self::TYPE_IMAGES);
 
         $this->view->addCssFiles($uploader->getCssFiles());
         $this->view->addJsVars(array_merge([
@@ -137,7 +133,9 @@ class filelist extends \fpcm\controller\abstracts\controller
         $this->initViewAssigns([], []);
         $this->initButtons( $uploader->getTemplate() );
 
-        $this->view->setFormAction('files/list', ['mode' => $this->mode]);
+        $this->view->setFormAction('files/list', [
+            'mode' => $this->mode
+        ]);
 
         $tabs = [
             (new \fpcm\view\helper\tabItem('files-list'))
@@ -150,8 +148,11 @@ class filelist extends \fpcm\controller\abstracts\controller
                 ]))
                 ->setData([
                     'viewtype' => self::TYPE_IMAGES
-                ]),
-            (new \fpcm\view\helper\tabItem('files-list'))
+                ])
+        ];
+
+        if ($this->mode < self::FILEMANAGER_TYPE_ARTICLE_IMG) {
+            $tabs[] = (new \fpcm\view\helper\tabItem('files-list'))
                 ->setText('FILE_LIST_TAB_VIDEOS')
                 ->setData(['ajax-quiet' => true])
                 ->setTabToolbar(2)
@@ -161,13 +162,13 @@ class filelist extends \fpcm\controller\abstracts\controller
                 ]))
                 ->setData([
                     'viewtype' => self::TYPE_VIDEOS
-                ])
-        ];
+                ]);
+        }
 
         $this->view->includeForms('filemanager');
 
         $this->view->addTabs(
-            tabsId: 'files', 
+            tabsId: 'files',
             tabs: $tabs,
             active: $this->getActiveTab()
         );
@@ -218,7 +219,7 @@ class filelist extends \fpcm\controller\abstracts\controller
 
         $this->view->addButtons($buttons);
 
-        if ($this->mode !== 1) {
+        if ($this->mode !== self::FILEMANAGER_TYPE_MAIN) {
             return;
         }
 
@@ -305,7 +306,7 @@ class filelist extends \fpcm\controller\abstracts\controller
         ]);
 
         $this->view->addDialogs($searchDlg);
-        
+
         $this->view->addFromLibrary('sortable_js/', [
             'Sortable.min.js'
         ]);

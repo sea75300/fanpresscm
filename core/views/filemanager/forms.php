@@ -1,5 +1,5 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
-<?php if($mode > 1) : ?><div class="d-none"><?php include $theView->getIncludePath('filemanager/buttons/'.$btnList.'.php'); ?></div><?php endif; ?>
+<?php if($mode > 1) : ?><div class="d-none"><?php include_once $theView->getIncludePath('common/buttons.php'); ?></div><?php endif; ?>
 
 <?php if (!empty($uploadFormPath)) : ?>
 <div class="offcanvas offcanvas-end fpcm offcanvas-large" tabindex="-1" id="offcanvasUpload" aria-labelledby="offcanvasUploadLabel" data-bs-scroll="true">
