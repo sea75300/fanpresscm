@@ -1,4 +1,4 @@
-<?php /* @var $theView fpcm\view\viewVars */ /* @var $file fpcm\model\files\image */ ?>
+<?php /* @var $theView fpcm\view\viewVars */ /* @var $file fpcm\model\files\mediaFile */ ?>
 <div class="justify-content-end">
 
     <?php if ($showPager && in_array($mode, [2, 3, 4])) : ?>
@@ -24,6 +24,7 @@
             <div class="card w-100 my-2 fpcm ui-files-item ui-background-transition shadow">
                 <div class="row g-0">
                     <div class="col-auto align-self-center me-3">
+                    <?php if ($file->isImage()) : ?>                        
                         <a href="<?php print $file->getFileUrl(); ?>"
                            class="fpcm ui-link-fancybox"
                            data-pswp-width="<?php print $file->getWidth(); ?>"
@@ -39,6 +40,15 @@
                             <img class="img-fluid rounded-start p-5" loading="lazy" src="<?php print fpcm\classes\loader::libGetFileUrl('font-awesome/svg/image.svg'); ?>" title="<?php print $file->getFileName(); ?>" width="<?php print $thumbsize; ?>" height="<?php print $thumbsize; ?>">
                         <?php endif; ?>
                         </a>
+                    <?php elseif ($file->isAudioVideo()) : ?>
+                        <video controls
+                               width="<?php print $thumbsize; ?>"
+                               height="<?php print $thumbsize; ?>"
+                               class="rounded-start<?php if ($file->isAudio()) : ?> bg-body-tertiary p-3<?php endif; ?>" 
+                               <?php if ($file->isAudio()) : ?>poster="<?php print fpcm\classes\loader::libGetFileUrl('font-awesome/svg/file-audio.svg'); ?>"<?php endif; ?>>
+                            <source src="<?php print $file->getFileUrl(); ?>" type="<?php print $file->getMimetype(); ?>">
+                        </video>
+                    <?php endif; ?>
                     </div>
                     <div class="col-auto align-self-center flex-grow-1">
                         <div class="card-body">
@@ -53,6 +63,7 @@
                             </div>
 
                             <div class="navbar gap-1 justify-content-start">
+                            <?php $btnList = $file->isAudioVideo() ? 'videos' : 'images'; ?>
                             <?php include $theView->getIncludePath('filemanager/buttons/'.$btnList.'.php'); ?>
                             </div>
                         </div>

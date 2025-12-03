@@ -18,14 +18,7 @@ namespace fpcm\controller\ajax\files;
 class filelist extends \fpcm\controller\abstracts\ajaxController
 {
 
-    use \fpcm\controller\traits\files\lists,
-        \fpcm\model\traits\fileManagerTypes;
-
-    /**
-     * Dateimanager-Modus
-     * @var int
-     */
-    protected string $type;
+    use \fpcm\controller\traits\files\lists;
 
     /**
      *
@@ -67,8 +60,6 @@ class filelist extends \fpcm\controller\abstracts\ajaxController
         if (!$this->mode) {
             $this->mode = self::FILEMANAGER_TYPE_MAIN;
         }
-        
-        $this->type = $this->request->fetchAll('type') ?? self::TYPE_IMAGES;
 
         $this->filter = new \fpcm\model\files\search();
 
@@ -115,9 +106,6 @@ class filelist extends \fpcm\controller\abstracts\ajaxController
     {
         $mfObj = new \fpcm\model\files\mediaFilesList();
 
-        $this->view->assign('btnList', in_array($this->type, [self::TYPE_IMAGES, self::TYPE_VIDEOS]) ? $this->type : self::TYPE_IMAGES);
-        $this->view->assign('showImages', $this->type === self::TYPE_IMAGES);
-        
         $page = $this->request->fromPOST('page', [
             \fpcm\model\http\request::FILTER_CASTINT
         ]);

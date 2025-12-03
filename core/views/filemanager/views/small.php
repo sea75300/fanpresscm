@@ -44,23 +44,33 @@
                     <div class="list-group-item fpcm ui-files-item ui-background-white-50p ui-background-transition">
                         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-5">
                             <div class="col align-self-center">
-                                <div class="navbar gap-1 justify-content-start justify-content-lg-center">
+                                <div class="navbar gap-1 justify-content-start">
                                     <div class="nav-item">
-                                    <?php print $theView->linkButton('open'.$file->getFileHash())
+                                    <?php $btn = $theView->linkButton('open'.$file->getFileHash())
                                         ->setUrl($file->getFileUrl())
-                                        ->setClass('fpcm ui-link-fancybox')
                                         ->overrideButtonType('secondary')
                                         ->setText('FILE_LIST_OPEN_FULL')
-                                        ->setIcon('file-image')
+                                        ->setIcon(sprintf('file-%s', $file->isAudioVideo() ? 'video' : 'image'))
                                         ->setSize('lg')
-                                        ->setIconOnly()
-                                        ->setData([
-                                            'pswp-width' => $file->getWidth(),
-                                            'pswp-height' => $file->getHeight(),
-                                            'pswp-caption' => $theView->escapeVal($file->getAltText() ? $file->getAltText() : basename($file->getFilename()))
-                                        ]);
+                                        ->setIconOnly();
+
+                                        if ($file->isAudioVideo()) {
+                                            $btn->setTarget('_blank');
+                                        }
+                                        else {
+                                            $btn->setClass('fpcm ui-link-fancybox')
+                                                ->setData([
+                                                    'pswp-width' => $file->getWidth(),
+                                                    'pswp-height' => $file->getHeight(),
+                                                    'pswp-caption' => $theView->escapeVal($file->getAltText() ? $file->getAltText() : basename($file->getFilename()))
+                                                ]);
+                                        }
+                                        
+                                        print $btn;
                                     ?>
+
                                     </div>
+                                    <?php $btnList = $file->isAudioVideo() ? 'videos' : 'images'; ?>
                                     <?php include $theView->getIncludePath('filemanager/buttons/'.$btnList.'.php'); ?>
                                     <?php if (!$file->existsFolder()) : ?>
                                     <div class="nav-item">

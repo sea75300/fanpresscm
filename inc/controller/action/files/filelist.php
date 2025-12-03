@@ -13,8 +13,7 @@ class filelist extends \fpcm\controller\abstracts\controller
 {
 
     use \fpcm\controller\traits\files\lists,
-        \fpcm\controller\traits\theme\viewAjaxDummy,
-        \fpcm\model\traits\fileManagerTypes;
+        \fpcm\controller\traits\theme\viewAjaxDummy;
 
     /**
      * Dateiliste
@@ -74,8 +73,6 @@ class filelist extends \fpcm\controller\abstracts\controller
         $uploader = \fpcm\components\components::getFileUploader();
 
         $this->initDialogs();
-
-        $this->view->assign('btnList', $this->getActiveTab() === 2 ? self::TYPE_VIDEOS : self::TYPE_IMAGES);
 
         $this->view->addCssFiles($uploader->getCssFiles());
         $this->view->addJsVars(array_merge([
@@ -139,31 +136,13 @@ class filelist extends \fpcm\controller\abstracts\controller
 
         $tabs = [
             (new \fpcm\view\helper\tabItem('files-list'))
-                ->setText('FILE_LIST_TAB_IMAGES')
+                ->setText('HL_FILES_MNG')
                 ->setData(['ajax-quiet' => true])
                 ->setTabToolbar(1)
                 ->setUrl(\fpcm\classes\tools::getControllerLink('ajax/files/lists', [
-                    'mode' => $this->mode,
-                    'type' => self::TYPE_IMAGES
+                    'mode' => $this->mode
                 ]))
-                ->setData([
-                    'viewtype' => self::TYPE_IMAGES
-                ])
         ];
-
-        if ($this->mode < self::FILEMANAGER_TYPE_ARTICLE_IMG) {
-            $tabs[] = (new \fpcm\view\helper\tabItem('files-list'))
-                ->setText('FILE_LIST_TAB_VIDEOS')
-                ->setData(['ajax-quiet' => true])
-                ->setTabToolbar(2)
-                ->setUrl(\fpcm\classes\tools::getControllerLink('ajax/files/lists', [
-                    'mode' => $this->mode,
-                    'type' => self::TYPE_VIDEOS
-                ]))
-                ->setData([
-                    'viewtype' => self::TYPE_VIDEOS
-                ]);
-        }
 
         $this->view->includeForms('filemanager');
 

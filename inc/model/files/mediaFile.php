@@ -43,6 +43,7 @@ implements \fpcm\model\interfaces\validateFileType,
         'video/mp4',
         'video/ogg',
         'video/webm',
+        'audio/ogg',
         'audio/mpeg',
         'audio/wav'
     ];
@@ -60,6 +61,7 @@ implements \fpcm\model\interfaces\validateFileType,
         'mp4',
         'ogg',
         'webm',
+        'ogg',
         'mp3',
         'wav'
     ];
@@ -599,6 +601,15 @@ implements \fpcm\model\interfaces\validateFileType,
     }
 
     /**
+     * Returns true if mine type is audio file
+     * @return bool
+     */
+    final public function isAudio() : bool
+    {
+        return $this->isAudioVideo() && str_starts_with($this->mimetype, 'audio/');
+    }
+
+    /**
      * Gibt Speicher-Values zurück
      * @return array
      */
@@ -884,13 +895,19 @@ implements \fpcm\model\interfaces\validateFileType,
      */
     public static function isValidType(string $ext, string $type, array $map = []) : bool
     {
-        $assigned = array_combine(self::$allowedExts, self::$allowedTypes)[$ext] ?? null;
-        if ($assigned === null) {
+        $comb = array_combine(self::$allowedTypes, self::$allowedExts);
+
+        $assigned = array_search($ext, $comb);
+        if (!$assigned) {
             return false;
         }
 
         if ($ext === 'jpg' || $type === 'image/jpg') {
             $assigned = 'image/jpeg';
+        }
+        elseif ($type === 'audio/ogg') {
+            $ext = 'ogg';
+            $assigned = 'audio/ogg';
         }
 
         return in_array($type, self::$allowedTypes) && in_array($ext, self::$allowedExts) && $assigned === $type;

@@ -1,4 +1,4 @@
-<?php /* @var $theView fpcm\view\viewVars */ /* @var $file fpcm\model\files\image */ ?>
+<?php /* @var $theView fpcm\view\viewVars */ /* @var $file fpcm\model\files\mediaFile */ ?>
 <div class="justify-content-end">
 
     <?php if ($showPager && in_array($mode, [2, 3, 4])) : ?>
@@ -23,7 +23,7 @@
         <?php $i++; ?>
             <div class="card my-2 mx-sm-2 rounded fpcm ui-files-item ui-background-transition shadow">
 
-                <?php if ($showImages) : ?>
+            <?php if ($file->isImage()) : ?>
                 <a href="<?php print $file->getFileUrl(); ?>"
                    class="fpcm ui-link-fancybox"
                    data-pswp-width="<?php print $file->getWidth(); ?>"
@@ -37,15 +37,18 @@
                     <img class="card-img-top rounded-top overflow-hidden p-5" loading="lazy" src="<?php print fpcm\classes\loader::libGetFileUrl('font-awesome/svg/image.svg'); ?>" title="<?php print $file->getFileName(); ?>">
                 <?php endif; ?>
                 </a>
-                <?php else : ?>
-                <video controls height="300" class="card-img-top rounded-top" loading="lazy">
+            <?php elseif ($file->isAudioVideo()) : ?>
+                <video controls
+                       height="300" 
+                       class="card-img-top rounded-top<?php if ($file->isAudio()) : ?> bg-body-tertiary p-3<?php endif; ?>" 
+                       <?php if ($file->isAudio()) : ?>poster="<?php print fpcm\classes\loader::libGetFileUrl('font-awesome/svg/file-audio.svg'); ?>"<?php endif; ?>>
                     <source src="<?php print $file->getFileUrl(); ?>" type="<?php print $file->getMimetype(); ?>">
                 </video>
-                <?php endif; ?>
+            <?php endif; ?>
 
                 <div class="card-body">
                     <p class="card-title text-center"><?php print $theView->escapeVal(basename($file->getFilename())); ?></p>
-                    <?php if ($showImages && $file->getAltText()) : ?>
+                    <?php if ($file->isImage() && $file->getAltText()) : ?>
                     <p class="card-subtitle text-center fs-6 text-secondary-emphasis"><?php print $theView->escapeVal($file->getAltText()); ?></p>
                     <?php endif; ?>
 
@@ -59,6 +62,7 @@
 
                 <div class="card-footer bg-transparent">
                     <div class="navbar gap-1 justify-content-center">
+                        <?php $btnList = $file->isAudioVideo() ? 'videos' : 'images'; ?>
                         <?php include $theView->getIncludePath('filemanager/buttons/'.$btnList.'.php'); ?>
                     </div>
                 </div>
