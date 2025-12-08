@@ -4,7 +4,6 @@
         <?php $theView->filesSelectCheckbox('filenames[]', 'cb_'. $hash)
                 ->setClass('fpcm-ui-list-checkbox')
                 ->setValue($file->getCryptFileName())
-                ->setData(['gallery' => $file->getFilename()])
                 ->setIcon('square-check', 'far')
                 ->setSize('lg'); ?>
     </div>
@@ -59,7 +58,7 @@
           </li>
           <?php endif; ?>
         </ul>
-        <?php /*$theView->button('reminder'.$hash)
+        <?php $theView->button('reminder'.$hash)
             ->setText('HL_REMINDER')
             ->setIcon('bell')
             ->overrideButtonType($has_reminder($reminders, $file->getId(), $hasRem))
@@ -68,7 +67,7 @@
                 'id' => $file->getId(),
                 'reminderType' => 'files',
                 'reminderId' => $hasRem
-            ]);*/
+            ]);
         ?>
     </div>
 <?php endif; ?>

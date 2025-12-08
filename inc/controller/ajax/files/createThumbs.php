@@ -74,9 +74,9 @@ class createThumbs extends \fpcm\controller\abstracts\ajaxController
     public function process()
     {
         try {
-            array_walk($this->files, [$this, 'createThumb']);
-            
-        } catch (\Exception $exc) {
+            array_walk($this->files, [$this, 'createThumb']);            
+        }
+        catch (\Exception $exc) {
             
             trigger_error($exc->getMessage());
 
@@ -128,13 +128,20 @@ class createThumbs extends \fpcm\controller\abstracts\ajaxController
         ])->fetch();
     }
 
-    private function createThumb($fileName) : bool
+    /**
+     * 
+     * @param string $fileName
+     * @return bool
+     */
+    private function createThumb(string $fileName) : bool
     {
         if (!$fileName) {
             return false;
         }
         
-        if ((new \fpcm\model\files\image($fileName, false))->createThumbnail()) {
+        $mfObj = (new \fpcm\model\files\mediaFile($fileName, false));
+  
+        if ($mfObj->isImage() && $mfObj->createThumbnail()) {
             $this->success[] = $fileName;
             return true;
         }

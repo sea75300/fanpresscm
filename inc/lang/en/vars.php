@@ -262,6 +262,7 @@ $lang = array (
   'FILE_LIST_INSERTGALLERY' => 'Insert gallery',
   'FILE_LIST_INSERT_FULL' => 'Insert image URL',
   'FILE_LIST_INSERT_THUMB' => 'Insert thumbnail URL',
+  'FILE_LIST_MEDIA_TYPE' => 'Medientyp',
   'FILE_LIST_NEWTHUMBS' => 'Generate thumbnails',
   'FILE_LIST_OPEN_FULL' => 'Open image',
   'FILE_LIST_OPEN_THUMB' => 'Open thumbnail',

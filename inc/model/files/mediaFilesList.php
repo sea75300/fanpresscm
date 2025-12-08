@@ -397,6 +397,11 @@ implements \fpcm\model\interfaces\gsearchIndex {
             $valueParams[':filetimet'] = $conditions->dateto;
         }
 
+        if ($conditions->media_type) {
+            $where[] = "media_type = :media_type";
+            $valueParams[':media_type'] = (int) $conditions->media_type;
+        }
+
         $combination = $conditions->combination ? $conditions->combination : 'AND';
         return true;
     }

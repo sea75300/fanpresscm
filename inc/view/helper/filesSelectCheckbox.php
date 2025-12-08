@@ -35,7 +35,8 @@ final class filesSelectCheckbox extends checkbox {
     protected function getString()
     {
         return sprintf(
-            '<input type="%s" class="%s" %s %s autocomplete="off"><label class="btn btn-%s" for="%s" title="%s">%s</label>',
+            '<input %s type="%s" class="%s" %s %s autocomplete="off"><label class="btn btn-%s" for="%s" title="%s">%s</label>',
+            $this->getDataString(),
             $this->type,
             $this->class,
             $this->getNameIdString(),

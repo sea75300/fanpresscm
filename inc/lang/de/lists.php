@@ -33,6 +33,12 @@ $lang = array (
     'Ö' => 'OE',
     'Ü' => 'UE',
   ),
+  'FILE_LIST_MEDIA_TYPE_LIST' => 
+  array (
+    'Alle' => -1,
+    'Bilder' => 0,
+    'Audio/Video' => 1,
+  ),
   'SYSTEM_DAYS' => 
   array (
     0 => 'Sonntag',

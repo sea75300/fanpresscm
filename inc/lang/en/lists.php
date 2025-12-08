@@ -23,6 +23,12 @@ $lang = array (
     'Ascending' => 'asc',
     'Descending' => 'desc',
   ),
+  'FILE_LIST_MEDIA_TYPE_LIST' => 
+  array (
+    'Alle' => -1,
+    'Images' => 0,
+    'Audio/Video' => 1,
+  ),
   'SYSTEM_DAYS' => 
   array (
     0 => 'Sunday',

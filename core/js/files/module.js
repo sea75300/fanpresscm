@@ -150,13 +150,21 @@ fpcm.filemanager = {
                         icon: "save",
                         clickClose: true,
                         primary: true,
-                        click: function() {
+                        click: function(_ev, _ui) {
 
                             let _inputEl = document.getElementById('fpcm-id-new-filename-dialog');
                             if (!_inputEl.value || !_inputEl.value.match(/^[a-z0-9_\.\-\(\)]+$/i)) {
 
+                                let _msg = fpcm.ui.translate('RENAME_FAILED_FILE')
+                                        .replace('{{filename1}}', _e.delegateTarget.dataset.oldname)
+                                        .replace('{{filename2}}', _inputEl.value);
+
+                                if (_inputEl.validationMessage) {
+                                    _msg = _inputEl.validationMessage;
+                                }
+
                                 fpcm.ui.addMessage({
-                                    txt: _inputEl.validationMessage,
+                                    txt: _msg,
                                     type: 'error'
                                 });
 
@@ -278,7 +286,7 @@ fpcm.filemanager = {
 
         fpcm.dom.bindClick('#btnCreateThumbs', function (event, ui) {
 
-            var items = fpcm.dom.getCheckboxCheckedValues('.fpcm-ui-list-checkbox');
+            var items = fpcm.dom.getCheckboxCheckedValues('.fpcm-ui-list-checkbox[data-type=image]');
             if (!items || !items.length) {
                 return false;
             }

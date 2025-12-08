@@ -19,6 +19,7 @@ namespace fpcm\model\files;
  * @property int $datefrom seit Datum X.Y.Z
  * @property int $dateto bis Datum X.Y.Z
  * @property int $userid User-ID or 0
+ * @property int $mediatype Media type (-1 all, 0 image, 1 audio/video)
  * @property int $combinationDatefrom AND/OR for datefrom
  * @property int $combinationDateto AND/OR for dateto
  * @property int $combinationUserid AND/OR for userid
@@ -121,6 +122,20 @@ class search extends \fpcm\model\abstracts\searchWrapper {
     }
 
     /**
+     * Assign user id field
+     * @return void
+     */
+    public function assignMediatype() : void
+    {
+        if ($this->mediatype < 0) {
+            return;
+        }
+
+        $this->queryAssignResult->setQueries('media_type = ?');
+        $this->queryAssignResult->setValues([$this->mediatype]);
+    }
+
+    /**
      * Prepare Filename value
      * @return void
      */
@@ -165,13 +180,22 @@ class search extends \fpcm\model\abstracts\searchWrapper {
     }
 
     /**
+     * Prepare user id value
+     * @return void
+     */
+    public function prepareMediatype() : void
+    {
+        $this->mediatype = (int) $this->mediatype;
+    }
+
+    /**
      * Returns field whitelist for ordering
      * @return array
      * @since 5.3.0-dev
      */
     public function getOrderFields() : array
     {
-        return ['filename', 'alttext', 'filetime', 'userid'];
+        return ['filename', 'alttext', 'filetime', 'userid', 'media_type'];
     }
 
     /**

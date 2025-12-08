@@ -103,7 +103,8 @@ class filelist extends \fpcm\controller\abstracts\controller
             'SYSTEM_OPTIONS_FILEMANAGER_VIEWCARDS', 'FILE_LIST_EDIT_FLIP',
             'SYSTEM_OPTIONS_FILEMANAGER_VIEWLIST', 'FILE_LIST_EDIT_DYNAMIC',
             'HL_REMINDER', 'REMINDER_SAVE_FAILED', 'GLOBAL_DELETE',
-            'SYSTEM_OPTIONS_FILEMANAGER_VIEWSMALL'
+            'SYSTEM_OPTIONS_FILEMANAGER_VIEWSMALL', 'RENAME_FAILED_FILE',
+            'FILE_LIST_MEDIA_TYPE'
         ], $uploader->getJsLangVars()));
 
         if (!trim($uploader->getTemplate()) || !realpath($uploader->getTemplate())) {
@@ -238,6 +239,11 @@ class filelist extends \fpcm\controller\abstracts\controller
                     ->setOptions(['GLOBAL_SELECT' => -1] + $this->userList->getUsersNameList())
                     ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
                     ->setLabelTypeFloat(),
+                'mediatype' => (new \fpcm\view\helper\select('mediatype'))
+                    ->setText('FILE_LIST_MEDIA_TYPE')
+                    ->setOptions($this->language->translate('FILE_LIST_MEDIA_TYPE_LIST'))
+                    ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
+                    ->setLabelTypeFloat(),
             ],
             'buildFields' => [
                 (new \fpcm\view\helper\button('cremove'))
@@ -260,6 +266,7 @@ class filelist extends \fpcm\controller\abstracts\controller
                         'ARTICLE_SEARCH_DATE_FROM' => 'datefrom',
                         'ARTICLE_SEARCH_DATE_TO' => 'dateto',
                         'FILE_LIST_UPLOAD_BY' => 'userid',
+                        'FILE_LIST_MEDIA_TYPE' => 'mediatype',
                     ])
                     ->setLabelTypeFloat()
             ],
@@ -271,6 +278,7 @@ class filelist extends \fpcm\controller\abstracts\controller
                         'EDITOR_IMGALTTXT' => 'alttext',
                         'GLOBAL_LASTCHANGE' => 'filetime',
                         'FILE_LIST_UPLOAD_BY' => 'userid',
+                        'FILE_LIST_MEDIA_TYPE' => 'mediatype',
                     ])
                     ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
                     ->setSelected('filetime')

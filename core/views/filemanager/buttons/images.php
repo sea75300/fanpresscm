@@ -2,9 +2,12 @@
 <?php $hash = $file->getFileNameHash(); ?>
     <div class="nav-item">
         <?php $theView->filesSelectCheckbox('filenames[]', 'cb_'. $hash)
-                ->setClass('fpcm-ui-list-checkbox')
+                ->setClass('fpcm-ui-list-checkbox ')
                 ->setValue($file->getCryptFileName())
-                ->setData(['gallery' => $file->getFilename()])
+                ->setData([
+                    'gallery' => $file->getFilename(),
+                    'type' => 'image'
+                ])
                 ->setIcon('square-check', 'far')
                 ->setSize('lg'); ?>
     </div>

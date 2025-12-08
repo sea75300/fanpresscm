@@ -76,13 +76,13 @@ implements \fpcm\model\interfaces\validateFileType,
      * Bild-Breite
      * @var int
      */
-    protected $width;
+    protected $width = 0;
 
     /**
      * Bild-Höhe
      * @var int
      */
-    protected $height;
+    protected $height = 0;
 
     /**
      * String in der Form width="" height=""
@@ -94,13 +94,13 @@ implements \fpcm\model\interfaces\validateFileType,
      * Benutzer-ID des Uploaders
      * @var int
      */
-    protected $userid;
+    protected $userid = 0;
 
     /**
      * Zeitpunkt des Uploads
      * @var int
      */
-    protected $filetime;
+    protected $filetime = 0;
 
     /**
      * Media file type (0 = image, 1 = audio/video)
@@ -112,19 +112,19 @@ implements \fpcm\model\interfaces\validateFileType,
      * Alternate text
      * @var string
      */
-    protected $alttext;
+    protected $alttext = '';
 
     /**
      * MIME-Dateityp-Info
      * @var string
      */
-    protected $mimetype;
+    protected $mimetype = '';
 
     /**
      * Exif/ IPCT data
      * @var string
      */
-    protected $iptcstr;
+    protected $iptcstr = '';
 
     /**
      * Flag if file is in file index
@@ -485,12 +485,21 @@ implements \fpcm\model\interfaces\validateFileType,
 
         $this->filetime = time();
         $this->userid = $userId;
-        $params = array_merge(array_values($this->getSaveValues()), [$oldname]);
+
+        $saveValues = $this->getSaveValues();
+        $saveValues['filehash'] = $this->getFileHash();
+
+        $params = array_merge(array_values($saveValues), [$oldname]);
+
         $res = $this->dbcon->update($this->table, $this->dbParams, $params, "filename = ?");
 
         if (!$res) {
             trigger_error('Unable to update database file info for ' . $oldname);
             return false;
+        }
+
+        if (!$this->isImage()) {
+            return true;
         }
 
         if (!$this->createThumbnail()) {
