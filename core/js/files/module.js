@@ -65,60 +65,60 @@ fpcm.filemanager = {
 
     initInsertButtons: function () {
 
-        if (fpcm.vars.jsvars.fmgrMode === 2) {
+        fpcm.dom.bindClick('a.btn[data-insert-type]', function (_e, _ui) {
 
-            fpcm.dom.bindClick('.fpcm-filelist-tinymce-thumb', function (_e, _ui) {
-                parent.fpcm.editor.insertThumbByEditor(_ui.href, _ui.dataset.imgtext);
+            debugger;
+
+            let _search = new URLSearchParams(window.location.search);
+            let _isMedia = _search.get('m') === 'media';
+
+            if (!_isMedia && _ui.dataset.insertType === 'video' ||
+                _isMedia && _ui.dataset.insertType === 'image') {
                 fpcm.ui_dialogs.close('editor-html-filemanager', true);
+                return;
+            }
+
+            if (_isMedia && _ui.dataset.insertType === 'video') {
+                parent.fpcm.editor.insertFullByEditor(_ui.href, _ui.href);
+                fpcm.ui_dialogs.close('editor-html-filemanager', true);
+                return;
+            }
+
+            switch (_ui.dataset.insertFn) {
+                case 'thumb' :
+                    parent.fpcm.editor.insertThumbByEditor(_ui.href, _ui.dataset.imgtext);
+                    break;
+                case 'full' :
+                    parent.fpcm.editor.insertFullByEditor(_ui.href, _ui.dataset.imgtext);
+                    break;
+                case 'articleimg' :
+                    parent.document.getElementById('articleimagepath').value  = _ui.href;
+                    break;
+                case 'poster-thumb' :
+                    parent.document.getElementById(fpcm.ui.prepareId('mediaposter', true)).value  = _ui.href;
+                    break;
+                case 'poster-full' :
+                    parent.document.getElementById(fpcm.ui.prepareId('mediaposter', true)).value  = _ui.href;
+                    break;
+            }
+
+            fpcm.ui_dialogs.close('editor-html-filemanager', true);
+        });
+
+        fpcm.dom.bindClick('#btnInsertGallery', function () {
+
+            var values = [];
+            fpcm.dom.fromClass('fpcm-ui-list-checkbox:checked').map(function (idx, item) {
+                values.push(jQuery(item).data('gallery'));
             });
 
-            fpcm.dom.bindClick('.fpcm-filelist-tinymce-full', function (_e, _ui) {
-                parent.fpcm.editor.insertFullByEditor(_ui.href, _ui.dataset.imgtext);
-                fpcm.ui_dialogs.close('editor-html-filemanager', true);
-            });
-
-            fpcm.dom.bindClick('#btnInsertGallery', function () {
-
-                var values = [];
-                fpcm.dom.fromClass('fpcm-ui-list-checkbox:checked').map(function (idx, item) {
-                    values.push(jQuery(item).data('gallery'));
-                });
-
-                if (!values.length) {
-                    return false;
-                }
-
-                parent.fpcm.editor.insertGalleryByEditor(values);
+            if (!values.length) {
                 return false;
-            });
+            }
 
+            parent.fpcm.editor.insertGalleryByEditor(values);
             return false;
-        }
-
-        if (fpcm.vars.jsvars.fmgrMode === 3) {
-
-            fpcm.dom.bindClick('.fpcm-filelist-articleimage', function (_e, _ui) {
-                parent.document.getElementById('articleimagepath').value  = _ui.href;
-                fpcm.ui_dialogs.close('editor-html-filemanager', true);
-            });
-
-            return false;
-        }
-
-        if (fpcm.vars.jsvars.fmgrMode === 4) {
-
-            let _fid = fpcm.ui.prepareId('mediaposter', true);
-
-            fpcm.dom.bindClick('.fpcm-filelist-tinymce-thumb', function (_e, _ui) {
-                parent.document.getElementById(_fid).value  = _ui.href;
-                fpcm.ui_dialogs.close('editor-html-filemanager', true);
-            });
-
-            fpcm.dom.bindClick('.fpcm-filelist-tinymce-full', function (_e, _ui) {
-                parent.document.getElementById(_fid).value  = _ui.href;
-                fpcm.ui_dialogs.close('editor-html-filemanager', true);
-            });
-        }
+        });
 
     },
 

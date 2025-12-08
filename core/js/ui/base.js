@@ -375,8 +375,6 @@ fpcm.ui = {
 
         let _displayCallback = function (_list) {
 
-            console.log('_displayCallback A');
-
             let _acEl = _el.parentElement.querySelector('div[data-fpcm-has-autocomplete="1"]');
             if (_acEl) {
                 console.log('_displayCallback A1');

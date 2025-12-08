@@ -10,7 +10,7 @@ if (fpcm === undefined) {
 
 if (fpcm.editor !== undefined) {
 
-    fpcm.editor.showFileManager = function(_mode) {
+    fpcm.editor.showFileManager = function(_mode, _type) {
 
         if (_mode === undefined) {
             _mode = fpcm.vars.jsvars.filemanagerMode;
@@ -24,8 +24,8 @@ if (fpcm.editor !== undefined) {
                 fpcm.dom.findElementInDialogFrame(_ui, '#btnOpenSearch').click();
             }
         }];
-        
-        
+
+
         if (fpcm.vars.jsvars.filemanagerPermissions.add) {
             _btns.push({
                 text: 'FILE_LIST_UPLOADFORM',
@@ -36,7 +36,7 @@ if (fpcm.editor !== undefined) {
                 }
             });
         }
-        
+
         if (!fpcm.editor.insertGalleryDisabled(_mode) && fpcm.ui.langvarExists('FILE_LIST_INSERTGALLERY')) {
             _btns.push({
                 text: 'FILE_LIST_INSERTGALLERY',
@@ -46,8 +46,8 @@ if (fpcm.editor !== undefined) {
                     let _var = fpcm.dom.findElementInDialogFrame(_ui, '.fpcm-ui-list-checkbox:checked');
                     if (!_var.length) {
                         return false;
-                    } 
-                    
+                    }
+
                     var values = [];
                     _var.map(function (idx, item) {
                         values.push(item.dataset.gallery);
@@ -58,7 +58,7 @@ if (fpcm.editor !== undefined) {
                     }
 
                     fpcm.editor.insertGalleryByEditor(values);
-                    return false;                    
+                    return false;
                 }
             });
         }
@@ -83,11 +83,18 @@ if (fpcm.editor !== undefined) {
             });
         }
 
+        if (_type !== undefined) {
+            _type = '&m=' + _type;
+        }
+        else {
+            _type = '';
+        }
+
         fpcm.ui_dialogs.create({
             id: 'editor-html-filemanager',
             title: 'HL_FILES_MNG',
             closeButton: true,
-            url: fpcm.vars.jsvars.filemanagerUrl + _mode,
+            url: fpcm.vars.jsvars.filemanagerUrl + _mode + _type,
             useSize: true,
             size: 'xl modal-fullscreen-lg-down',
             modalBodyClass: 'vh-75',
@@ -95,7 +102,7 @@ if (fpcm.editor !== undefined) {
                 icon: 'folder-open'
             },
             dlButtons: _btns
-        });   
+        });
     };
 
 }

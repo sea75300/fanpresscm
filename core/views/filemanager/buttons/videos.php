@@ -12,11 +12,14 @@
     <div class="nav-item">
         <?php $theView->linkButton(uniqid('insertVideo'))
                 ->setUrl($file->getFileUrl())
-                ->setText('FILE_LIST_INSERT_THUMB')
-                ->setClass('fpcm-filelist-tinymce-thumb')
+                ->setText('GLOBAL_INSERT')
+                ->setClass('fpcm-filelist-tinymce-video')
                 ->setIcon('file-arrow-down')
                 ->setIconOnly()
-                ->setData(['imgtext' => $file->getFilename() ]); ?>
+                ->setData([
+                    'insert-type' => 'video',
+                ]);
+        ?>
     </div>
     <?php endif; ?>
     <div class="nav-item dropdown dropup-center <?php if ($ddModeUp || $i === $limit) : ?>dropup<?php endif; ?>">

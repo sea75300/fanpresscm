@@ -834,7 +834,7 @@ implements \fpcm\model\interfaces\validateFileType,
             return 0;
         }
 
-        /* @var $copy image */
+        /* @var $copy mediaFile */
         $copy = new $cn( $this->language->translate('GLOBAL_COPY_OF_FILE', [basename($this->filename)], true), false );
         $copy->addUploadFolder();
 
@@ -854,12 +854,18 @@ implements \fpcm\model\interfaces\validateFileType,
         if (!copy($this->fullpath, $copy->getFullpath())) {
             return 0;
         }
+        
+        $copy->init(false);
+
+        if ($copy->isAudioVideo()) {
+            return $copy->save() ?: 0;
+        }
 
         if (!$copy->createThumbnail()) {
             return 0;
         }
 
-        if (!(new imagelist())->createFilemanagerThumbs([$copy->getFullpath()])) {
+        if (!(new mediaFilesList())->createFilemanagerThumbs([$copy->getFullpath()])) {
             return 0;
         }
 

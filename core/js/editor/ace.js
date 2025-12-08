@@ -230,10 +230,19 @@ if (fpcm.editor) {
                 var relField = false;
                 var insertSize = true;
                 break;
+            case 3 :
+                var urlField = 'mediapath';
+                var titleField = false;
+                var relField = false;
+                var insertSize = false;
+                break;
         }
 
-        if (urlField && titleField) {
+        if (urlField) {
             self.document.getElementById(fpcm.ui.prepareId(urlField, true)).value = _url;
+        }
+
+        if (titleField) {
             self.document.getElementById(fpcm.ui.prepareId(titleField, true)).value  = _title;
         }
 
@@ -622,7 +631,7 @@ if (fpcm.editor) {
             dlOnOpen: function() {
 
                 fpcm.dom.bindClick('#' + fpcm.vars.jsvars.dialogs.insertMedia.fields[2][1].id, function () {
-                    fpcm.editor.showFileManager(4);
+                    fpcm.editor.showFileManager(4, 'image');
                     return false;
                 });
 
@@ -630,6 +639,10 @@ if (fpcm.editor) {
             insertAction: function() {
                 var data = fpcm.editor.getMediaData();
                 fpcm.editor.insert(data.aTag, data.eTag);
+            },
+            fileManagerAction: function () {
+                fileOpenMode = 3;
+                fpcm.editor.showFileManager(2, 'media');
             }
         });
     };
@@ -728,7 +741,7 @@ if (fpcm.editor) {
             },
             fileManagerAction: function () {
                 fileOpenMode = 2;
-                fpcm.editor.showFileManager(2);
+                fpcm.editor.showFileManager(2, 'image');
             }
         });
     };

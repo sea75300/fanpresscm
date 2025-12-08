@@ -10,11 +10,11 @@ if (fpcm === undefined) {
 
 fpcm.editor_tinymce = {
 
-    create: function(config) {
+    create: function (config) {
 
         params = {
-            selector            : 'textarea',
-            default_link_target : '_blank',
+            selector: 'textarea',
+            default_link_target: '_blank',
             insertdatetime_formats: [
                 "%H:%M:%S",
                 "%H:%M",
@@ -25,16 +25,16 @@ fpcm.editor_tinymce = {
                 "%Y-%m-%d",
                 "%D",
             ],
-            theme               : config.theme,
-            menubar             : false,
-            relative_urls       : false,
-            image_advtab        : true,
-            resize              : true,
-            convert_urls        : true,
-            browser_spellcheck  : true,
-            branding            : false,
-            element_format      : 'html',
-            content_style       : 'body { font-size: ' + fpcm.vars.jsvars.editorDefaultFontsize + '; } figure > img { margin: 0.25rem; }'
+            theme: config.theme,
+            menubar: false,
+            relative_urls: false,
+            image_advtab: true,
+            resize: true,
+            convert_urls: true,
+            browser_spellcheck: true,
+            branding: false,
+            element_format: 'html',
+            content_style: 'body { font-size: ' + fpcm.vars.jsvars.editorDefaultFontsize + '; } figure > img { margin: 0.25rem; }'
         };
 
         if (config.skin !== undefined) {
@@ -58,14 +58,14 @@ fpcm.editor_tinymce = {
         }
 
         if (config.autosave_prefix !== undefined) {
-            params.autosave_prefix              = config.autosave_prefix;
-            params.autosave_retention           = config.autosave_retention ? config.autosave_retention : '15m';
-            params.autosave_restore_when_empty  = false;
+            params.autosave_prefix = config.autosave_prefix;
+            params.autosave_retention = config.autosave_retention ? config.autosave_retention : '15m';
+            params.autosave_restore_when_empty = false;
         }
 
         if (config.images_upload_url !== undefined && config.automatic_uploads !== undefined) {
-            params.images_upload_url     = config.images_upload_url;
-            params.automatic_uploads     = config.automatic_uploads;
+            params.images_upload_url = config.images_upload_url;
+            params.automatic_uploads = config.automatic_uploads;
             params.images_reuse_filename = true;
         }
 
@@ -98,8 +98,8 @@ fpcm.editor_tinymce = {
         }
 
         params.link_assume_external_targets = (config.link_assume_external_targets !== undefined
-                                            ? config.link_assume_external_targets
-                                            : true);
+                ? config.link_assume_external_targets
+                : true);
 
         if (config.image_caption !== undefined) {
             params.image_caption = config.image_caption;
@@ -111,9 +111,8 @@ fpcm.editor_tinymce = {
 
         if (config.onInit !== undefined && typeof config.onInit == 'function') {
             params.setup = config.onInit;
-        }
-        else {
-            params.setup = function(editor) {
+        } else {
+            params.setup = function (editor) {
                 if (config.onInitAfterStd) {
                     config.onInitAfterStd(editor);
                 }
@@ -157,9 +156,9 @@ fpcm.editor_tinymce = {
 
 if (fpcm.editor) {
 
-    fpcm.editor.initEditor = function() {
+    fpcm.editor.initEditor = function () {
 
-        fpcm.vars.jsvars.editorConfig.file_picker = function(callback, value, meta) {
+        fpcm.vars.jsvars.editorConfig.file_picker = function (callback, value, meta) {
 
             fpcm.editor.filePickerCallback = callback;
             fpcm.editor.filePickerActions = {
@@ -171,17 +170,17 @@ if (fpcm.editor) {
             };
 
             _btns = [{
-                type:  'custom',
-                name: 'fmSearch',
-                text: fpcm.ui.translate('ARTICLES_SEARCH'),
-                disabled: false,
-                primary: false,
-                align: 'start'
-            }];
+                    type: 'custom',
+                    name: 'fmSearch',
+                    text: fpcm.ui.translate('ARTICLES_SEARCH'),
+                    disabled: false,
+                    primary: false,
+                    align: 'start'
+                }];
 
             if (fpcm.vars.jsvars.filemanagerPermissions.add) {
                 _btns.push({
-                    type:  'custom',
+                    type: 'custom',
                     name: 'fmUpload',
                     text: fpcm.ui.translate('FILE_LIST_UPLOADFORM'),
                     disabled: false,
@@ -193,7 +192,7 @@ if (fpcm.editor) {
             if (meta.filetype !== 'media') {
                 if (!fpcm.editor.insertGalleryDisabled()) {
                     _btns.push({
-                        type:  'custom',
+                        type: 'custom',
                         name: 'fmGallery',
                         text: fpcm.ui.translate('FILE_LIST_INSERTGALLERY'),
                         disabled: false,
@@ -203,7 +202,7 @@ if (fpcm.editor) {
 
                 if (fpcm.vars.jsvars.filemanagerPermissions.thumbs) {
                     _btns.push({
-                        type:  'custom',
+                        type: 'custom',
                         name: 'fmNewThumbs',
                         text: fpcm.ui.translate('FILE_LIST_NEWTHUMBS'),
                         disabled: false,
@@ -214,7 +213,7 @@ if (fpcm.editor) {
 
             if (fpcm.vars.jsvars.filemanagerPermissions.delete) {
                 _btns.push({
-                    type:  'custom',
+                    type: 'custom',
                     name: 'fmDelete',
                     text: fpcm.ui.translate('GLOBAL_DELETE'),
                     disabled: false,
@@ -223,27 +222,20 @@ if (fpcm.editor) {
             }
 
             _btns.push({
-                type:  'cancel',
+                type: 'cancel',
                 name: 'fmClose',
                 text: fpcm.ui.translate('GLOBAL_CLOSE'),
                 disabled: false,
                 primary: true
             });
 
-            let _rg = '';
-            if (meta.filetype === 'media') {
-                _rg = '&rg=1';
-            }
-
             tinymce.activeEditor.windowManager.openUrl({
                 title: fpcm.ui.translate('HL_FILES_MNG'),
                 size: 'large',
-                url: fpcm.vars.jsvars.filemanagerUrl + fpcm.vars.jsvars.filemanagerMode + _rg,
+                url: fpcm.vars.jsvars.filemanagerUrl + fpcm.vars.jsvars.filemanagerMode + '&m=' + meta.filetype,
                 id: 'fpcm-dialog-editor-tinymce-filemanager',
                 buttons: _btns,
-                onAction: function(api, action) {
-                    
-                    debugger;
+                onAction: function (api, action) {
 
                     if (!fpcm.editor.filePickerActions[action.name]) {
                         return false;
@@ -260,7 +252,7 @@ if (fpcm.editor) {
             return true;
         }
 
-        fpcm.vars.jsvars.editorConfig.onPaste = function(plugin, args) {
+        fpcm.vars.jsvars.editorConfig.onPaste = function (plugin, args) {
             var content = fpcm.editor_videolinks.replace(args.content);
             if (content === args.content) {
                 return true;
@@ -271,7 +263,7 @@ if (fpcm.editor) {
             fpcm.ui_loader.hide();
         };
 
-        fpcm.vars.jsvars.editorConfig.onInitAfterStd = function(editor) {
+        fpcm.vars.jsvars.editorConfig.onInitAfterStd = function (editor) {
 
             editor.ui.registry.addButton('fpcm_emoticons', {
                 icon: 'emoji',
@@ -285,13 +277,13 @@ if (fpcm.editor) {
                         body: {
                             type: 'panel',
                             items: [{
-                                type: 'collection',
-                                name: 'smileyList'
-                            }]
+                                    type: 'collection',
+                                    name: 'smileyList'
+                                }]
                         },
                         buttons: [
                             {
-                                type:  'cancel',
+                                type: 'cancel',
                                 text: fpcm.ui.translate('GLOBAL_CLOSE'),
                                 disabled: false,
                                 primary: true
@@ -322,7 +314,7 @@ if (fpcm.editor) {
 
                             fpcm.vars.jsvars.editorConfig.fpcmEmoticons = [];
 
-                            for(var x = 0;x < items.length; x++) {
+                            for (var x = 0; x < items.length; x++) {
                                 fpcm.vars.jsvars.editorConfig.fpcmEmoticons.push({
                                     text: items[x].code,
                                     value: ' ' + items[x].code + ' ',
@@ -496,7 +488,7 @@ if (fpcm.editor) {
         }
 
         let _cont = top.tinymce.activeEditor.getContent();
-        if (_cont && _cont.search('/gallery') != -1 ) {
+        if (_cont && _cont.search('/gallery') != -1) {
             return true;
         }
 

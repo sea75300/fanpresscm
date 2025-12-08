@@ -18,29 +18,38 @@
             <?php $theView->linkButton(uniqid('thumbsurl'))
                     ->setUrl($file->getThumbnailUrl())
                     ->setText('FILE_LIST_INSERT_THUMB')
-                    ->setClass('fpcm-filelist-tinymce-thumb')
                     ->setIcon('image-portrait')
                     ->setIconOnly()
-                    ->setData(['imgtext' => $imgTxt]); ?>
+                    ->setData([
+                        'insert-type' => 'image',
+                        'insert-fn' => ($mode == 4 ? 'poster-thumb' : 'thumb'),
+                        'imgtext' => $imgTxt
+                    ]); ?>
         </div>
         <div class="nav-item">
             <?php $theView->linkButton(uniqid('imgsurl'))
                     ->setUrl($file->getImageUrl())
                     ->setText('FILE_LIST_INSERT_FULL')
-                    ->setClass('fpcm-filelist-tinymce-full')
                     ->setIcon('image')
                     ->setIconOnly()
-                    ->setData(['imgtext' => $imgTxt]); ?>
+                    ->setData([
+                        'insert-type' => 'image',
+                        'insert-fn' => $mode == 4 ? 'poster-full' : 'full',
+                        'imgtext' => $imgTxt
+                    ]); ?>
         </div>
     <?php elseif ($mode == 3) : ?>
         <div class="nav-item">
             <?php $theView->linkButton(uniqid('articleimg'))
                     ->setUrl($file->getImageUrl())
                     ->setText('EDITOR_ARTICLEIMAGE')
-                    ->setClass('fpcm-filelist-articleimage')
                     ->setIcon('panorama')
                     ->setIconOnly()
-                    ->setData(['imgtext' => $imgTxt]); ?>
+                    ->setData([
+                        'insert-type' => 'image',
+                        'insert-fn' => 'articleimg',
+                        'imgtext' => $imgTxt
+                    ]) ?>
         </div>
     <?php endif; ?>
         <div class="nav-item dropdown dropup-center <?php if ($ddModeUp || $i === $limit) : ?>dropup<?php endif; ?>">

@@ -21,7 +21,7 @@ abstract class articleEditor extends \fpcm\model\abstracts\staticModel {
 
     /**
      * Dateilisten-Objekt
-     * @var \fpcm\model\files\imagelist
+     * @var \fpcm\model\files\mediaFilesList
      */
     protected $fileList;
 
@@ -31,7 +31,7 @@ abstract class articleEditor extends \fpcm\model\abstracts\staticModel {
     public function __construct()
     {
         parent::__construct();
-        $this->fileList = new \fpcm\model\files\imagelist();
+        $this->fileList = new \fpcm\model\files\mediaFilesList();
     }
 
     /**

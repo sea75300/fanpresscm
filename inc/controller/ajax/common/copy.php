@@ -166,7 +166,7 @@ class copy extends \fpcm\controller\abstracts\ajaxController
             return false;
         }
 
-        $obj = new \fpcm\model\files\image($fn);
+        $obj = new \fpcm\model\files\mediaFile($fn);
         if (!$obj instanceof \fpcm\model\interfaces\isCopyable || !$obj->existsFolder()) {
             $this->message = new \fpcm\view\message($this->language->translate('SAVE_FAILED_UPLOAD_COPY'), \fpcm\view\message::TYPE_ERROR);
             return false;
