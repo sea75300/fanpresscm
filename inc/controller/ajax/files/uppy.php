@@ -178,8 +178,10 @@ class uppy extends \fpcm\controller\abstracts\ajaxController
             $this->response->setCode(400)->fetch();
         }
 
-        $mime = \fpcm\model\files\image::retrieveRealType($tmpFile);
-        if (!\fpcm\model\files\authorImage::isValidType(\fpcm\model\files\image::retrieveFileExtension($realFile), $mime)) {
+        $mime = \fpcm\model\abstracts\file::retrieveRealType($tmpFile);
+        $ext = \fpcm\model\abstracts\file::retrieveFileExtension($realFile);
+
+        if (!\fpcm\model\files\authorImage::isValidType($ext, $mime)) {
             trigger_error('Unsupported filetype '.$mime.' in ' . $realFile);
             $this->response->setCode(415)->fetch();
         }
@@ -189,7 +191,6 @@ class uppy extends \fpcm\controller\abstracts\ajaxController
             $this->response->setCode(431)->fetch();
         }
 
-        $ext = \fpcm\model\abstracts\file::retrieveFileExtension($realFile);
         $obj = new \fpcm\model\files\authorImage($author->getImage() . '.' . $ext);
         if (!$obj->moveUploadedFile($tmpFile)) {
             trigger_error('Unable to move uploaded to to uploader folder! ' . $realFile);

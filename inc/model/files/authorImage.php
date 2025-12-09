@@ -16,8 +16,20 @@ namespace fpcm\model\files;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @since 3.6
  */
-final class authorImage extends image {
+final class authorImage extends mediaFile {
 
+    /**
+     * Erlaubte Dateitypen
+     * @var array
+     */
+    public static $allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
+
+    /**
+     * Erlaubte Dateiendungen
+     * @var array
+     */
+    public static $allowedExts = ['jpeg', 'jpg', 'png', 'gif', 'webp'];
+    
     /**
      * Konstruktor
      * @param string $filename Dateiname

@@ -172,7 +172,7 @@ class indexer extends \fpcm\model\abstracts\tablelist
         }
 
         if ($perm->uploads->visible) {
-            $this->models['images'] = '\fpcm\model\files\imagelist';
+            $this->models['files'] = '\fpcm\model\files\mediaFilesList';
         }
 
         if ($perm->system->ipaddr) {

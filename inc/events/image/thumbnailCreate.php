@@ -11,8 +11,8 @@ namespace fpcm\events\image;
  * Module-Event: thumbnailCreate
  * 
  * Event wird ausgeführt, wenn neuer Thumbnial für ein Bild erzeugt wird
- * Parameter: Objekt vom Type fpcm\model\files\image
- * Rückgabe: \fpcm\model\files\image
+ * Parameter: Objekt vom Type fpcm\model\files\mediaFile
+ * Rückgabe: \fpcm\model\files\mediaFile
  * 
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
  * @copyright (c) 2011-2022, Stefan Seehafer

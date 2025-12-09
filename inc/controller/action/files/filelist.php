@@ -104,7 +104,9 @@ class filelist extends \fpcm\controller\abstracts\controller
             'SYSTEM_OPTIONS_FILEMANAGER_VIEWLIST', 'FILE_LIST_EDIT_DYNAMIC',
             'HL_REMINDER', 'REMINDER_SAVE_FAILED', 'GLOBAL_DELETE',
             'SYSTEM_OPTIONS_FILEMANAGER_VIEWSMALL', 'RENAME_FAILED_FILE',
-            'FILE_LIST_MEDIA_TYPE'
+            'FILE_LIST_MEDIA_TYPE',
+            'FILE_LIST_INSERT_FAILED_IMAGE',
+            'FILE_LIST_INSERT_FAILED_VIDEO'
         ], $uploader->getJsLangVars()));
 
         if (!trim($uploader->getTemplate()) || !realpath($uploader->getTemplate())) {
@@ -116,6 +118,10 @@ class filelist extends \fpcm\controller\abstracts\controller
         $jsFiles = ['files/module.js', 'files/search.js', 'ui/dnd.js'];
         if ($this->mode == 2 && $this->config->system_editor === '\fpcm\components\editor\tinymceEditor5') {
             $jsFiles[] = 'files/tinymce5Messages.js';
+        }
+
+        if ($this->mode > 1) {
+            $jsFiles[] = 'files/editorInsertActions.js';
         }
 
         $this->view->addPager((new \fpcm\view\helper\pager('ajax/files/lists&mode='.$this->mode, 1, 1, $this->config->file_list_limit, 1)));

@@ -18,6 +18,7 @@
                 ->setIconOnly()
                 ->setData([
                     'insert-type' => 'video',
+                    'insert-fn' => 'video',
                 ]);
         ?>
     </div>

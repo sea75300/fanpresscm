@@ -92,10 +92,22 @@ fpcm.editor = {
         fpcm.vars.jsvars.checkLastState = result.articleCode;
     },
 
-    getGalleryReplacement: function (_values) {
+    getGalleryReplacement: function (_items) {
+        
+        if (!_items || !_items.length) {
+            return '';
+        }
+        
+        debugger;
+        
+        let _urls = [];
+        for (var _item of _items) {
+            _urls.push(_item.dataset.gallery);
+        }
+
         return fpcm.vars.jsvars.editorGalleryTagStart.replace(
             '{{IMAGES}}',
-            fpcm.vars.jsvars.editorGalleryTagThumb + _values.join(fpcm.vars.jsvars.editorGalleryTagLink + '|' + fpcm.vars.jsvars.editorGalleryTagThumb) + fpcm.vars.jsvars.editorGalleryTagLink
+            fpcm.vars.jsvars.editorGalleryTagThumb + _urls.join(fpcm.vars.jsvars.editorGalleryTagLink + '|' + fpcm.vars.jsvars.editorGalleryTagThumb) + fpcm.vars.jsvars.editorGalleryTagLink
         );
     },
 

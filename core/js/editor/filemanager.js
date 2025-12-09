@@ -43,21 +43,13 @@ if (fpcm.editor !== undefined) {
                 icon: "images",
                 click: function(_ui) {
 
-                    let _var = fpcm.dom.findElementInDialogFrame(_ui, '.fpcm-ui-list-checkbox:checked');
-                    if (!_var.length) {
+                    let _items = fpcm.dom.findElementInDialogFrame(_ui, '.fpcm-ui-list-checkbox[data-type=image]:checked');
+
+                    if (!_items || !_items.length) {
                         return false;
                     }
 
-                    var values = [];
-                    _var.map(function (idx, item) {
-                        values.push(item.dataset.gallery);
-                    });
-
-                    if (!values.length) {
-                        return false;
-                    }
-
-                    fpcm.editor.insertGalleryByEditor(values);
+                    fpcm.editor.insertGalleryByEditor(_items);
                     return false;
                 }
             });

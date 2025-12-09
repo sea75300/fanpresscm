@@ -61,6 +61,10 @@ fpcm.filemanager = {
         fpcm.filemanager.initPropertiesButton();
         fpcm.filemanager.initCopyButton();
         fpcm.filemanager.initReminderButton();
+        
+        if (fpcm.filemanager.listActions) {
+            fpcm.filemanager.listActions.init();
+        }
     },
 
     initInsertButtons: function () {
@@ -74,7 +78,6 @@ fpcm.filemanager = {
 
             if (!_isMedia && _ui.dataset.insertType === 'video' ||
                 _isMedia && _ui.dataset.insertType === 'image') {
-                fpcm.ui_dialogs.close('editor-html-filemanager', true);
                 return;
             }
 
@@ -107,16 +110,12 @@ fpcm.filemanager = {
 
         fpcm.dom.bindClick('#btnInsertGallery', function () {
 
-            var values = [];
-            fpcm.dom.fromClass('fpcm-ui-list-checkbox:checked').map(function (idx, item) {
-                values.push(jQuery(item).data('gallery'));
-            });
-
-            if (!values.length) {
+            let _items = document.querySelectorAll('.fpcm-ui-list-checkbox[data-type=image]:checked');
+            if (!_items || !_items.length) {
                 return false;
             }
 
-            parent.fpcm.editor.insertGalleryByEditor(values);
+            parent.fpcm.editor.insertGalleryByEditor(_items);
             return false;
         });
 

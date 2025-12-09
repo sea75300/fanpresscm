@@ -82,7 +82,7 @@ trait authorImages {
         }
 
         $res = true;
-        foreach (\fpcm\model\files\image::$allowedExts as $ext) {
+        foreach (\fpcm\model\files\authorImage::$allowedExts as $ext) {
 
             $filename = $author->getImage() . '.' . $ext;
             $authorImage = new \fpcm\model\files\authorImage($filename);

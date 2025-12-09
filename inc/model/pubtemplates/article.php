@@ -347,7 +347,7 @@ final class article extends template {
             $isThumb = (substr($fileName, 0, $thumbLen) === self::GALLERY_TAG_THUMB) ? true : false;
             $isLink = (substr($fileName, $linkLen) === self::GALLERY_TAG_LINK) ? true : false;
 
-            $imgObj = new \fpcm\model\files\image(
+            $imgObj = new \fpcm\model\files\mediaFile(
                 substr(
                     $fileName,
                     ($isThumb ? $thumbLen : 0),

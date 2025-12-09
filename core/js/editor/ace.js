@@ -253,7 +253,7 @@ if (fpcm.editor) {
         if (insertSize && _url) {
             let _imgObj = new Image();
             _imgObj.src = _url;
-            _imgObj.onload = function () {                
+            _imgObj.onload = function () {
                 self.document.getElementById(fpcm.ui.prepareId('imageswidth', true)).value  = _imgObj.naturalWidth;
                 self.document.getElementById(fpcm.ui.prepareId('imagesheight', true)).value  = _imgObj.naturalHeight;
             };
@@ -539,12 +539,12 @@ if (fpcm.editor) {
                     path: _value
                 },
                 execDone: function (result) {
-                    
+
                     let _prevArea = document.getElementById(_preview);
                     if (!_prevArea) {
-                        
+
                     }
-                    
+
                     _prevArea.innerText = result.data;
 
                     let _cfg = fpcm.vars.jsvars.editorConfig.ace;
@@ -608,7 +608,7 @@ if (fpcm.editor) {
 
         let _mprevDiv = document.createElement('div');
         _mprevDiv.id = fpcm.ui.prepareId('editor-html-insertmedia-preview', true);
-        _mprevDiv.classList.add('col-12', 'col-md-10', 'my-3')
+        _mprevDiv.classList.add('col-12', 'col-md-10', 'my-3');
 
         _content.appendChild(_mprevDiv);
 
@@ -820,7 +820,7 @@ if (fpcm.editor) {
             },
             fileManagerAction: function () {
                 fileOpenMode = 1;
-                fpcm.editor.showFileManager(2);
+                fpcm.editor.showFileManager(2, 'file');
             }
         });
     };

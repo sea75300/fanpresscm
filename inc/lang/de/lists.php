@@ -18,6 +18,12 @@ $lang = array (
     'OGG Audio' => 'audio/ogg',
     'WAV Audio' => 'audio/wav',
   ),
+  'FILE_LIST_MEDIA_TYPE_LIST' => 
+  array (
+    'Alle' => -1,
+    'Bilder' => 0,
+    'Audio/Video' => 1,
+  ),
   'GLOBAL_SORTBY_LIST' => 
   array (
     'Aufsteigend' => 'asc',
@@ -32,12 +38,6 @@ $lang = array (
     'Ä' => 'AE',
     'Ö' => 'OE',
     'Ü' => 'UE',
-  ),
-  'FILE_LIST_MEDIA_TYPE_LIST' => 
-  array (
-    'Alle' => -1,
-    'Bilder' => 0,
-    'Audio/Video' => 1,
   ),
   'SYSTEM_DAYS' => 
   array (

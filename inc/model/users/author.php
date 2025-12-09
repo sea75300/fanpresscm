@@ -706,7 +706,7 @@ class author extends \fpcm\model\abstracts\dataset {
             return $asUrl ? $data[$usernameHash]['url'] : $data[$usernameHash]['data'];
         }
 
-        foreach (\fpcm\model\files\image::$allowedExts as $ext) {
+        foreach (\fpcm\model\files\authorImage::$allowedExts as $ext) {
 
             $img = new \fpcm\model\files\authorImage($author->getImage() . '.' . $ext);
             if (!$img->exists() || $img->getFilesize() > FPCM_AUTHOR_IMAGE_MAX_SIZE) {

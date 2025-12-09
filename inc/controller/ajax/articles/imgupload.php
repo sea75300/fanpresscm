@@ -40,7 +40,7 @@ class imgupload extends \fpcm\controller\abstracts\ajaxController
 
         $localPath = \fpcm\model\files\ops::getUploadPath($name, $this->config->file_subfolders);
         if (file_exists($localPath)) {
-            \fpcm\model\files\image::getCropperFilename($name);
+            \fpcm\model\files\mediaFile::getCropperFilename($name);
         }
 
         $uploader = new \fpcm\model\files\fileuploader([

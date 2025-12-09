@@ -35,7 +35,7 @@ trait check
             return false;
         }
 
-        $this->type = \fpcm\model\files\image::class;
+        $this->type = \fpcm\model\files\mediaFile::class;
         return true;
     }
 
