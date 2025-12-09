@@ -91,7 +91,7 @@ class indexer extends \fpcm\model\abstracts\tablelist
             $text = $instance?->prepareText($result->text);
             $meta = $result->meta ?? '';
             
-            $lightbox = $result->model === 'images';
+            $lightbox = $result->model === 'mediafiles';
             if ($lightbox) {
                 $lightboxes++;
             }
@@ -172,7 +172,7 @@ class indexer extends \fpcm\model\abstracts\tablelist
         }
 
         if ($perm->uploads->visible) {
-            $this->models['files'] = '\fpcm\model\files\mediaFilesList';
+            $this->models['mediafiles'] = '\fpcm\model\files\mediaFilesList';
         }
 
         if ($perm->system->ipaddr) {

@@ -413,7 +413,7 @@ implements \fpcm\model\interfaces\gsearchIndex {
      */
     public function getCountQuery(): \fpcm\model\dbal\selectParams
     {
-        return $this->getSearchQueryObj()->setItem('\'images\' as model, count(id) as count');
+        return $this->getSearchQueryObj()->setItem('\'mediafiles\' as model, count(id) as count');
     }
 
     /**
@@ -423,10 +423,10 @@ implements \fpcm\model\interfaces\gsearchIndex {
     public function getSearchQuery(): \fpcm\model\dbal\selectParams
     {
         return $this->getSearchQueryObj()->setItem(
-            '\'images\' as model, ' .
+            '\'mediafiles\' as model, ' .
             'filename as oid,' .
             $this->dbcon->concatString(['filename', '";"', 'alttext', '";"', 'filetime']).' as text, ' .
-            $this->dbcon->concatString(['width', '":"', 'height']).' as meta'
+            $this->dbcon->concatString(['width', '":"', 'height', '":"', 'media_type']).' as meta'
         )->setFetchAll(true);
     }
 
@@ -438,7 +438,7 @@ implements \fpcm\model\interfaces\gsearchIndex {
     public function getElementLink(mixed $filename): string
     {
         $tmp = new mediaFile($filename, false);
-        return $tmp->getImageUrl();
+        return $tmp->getFileUrl();
     }
 
     /**

@@ -85,14 +85,19 @@ fpcm.gsearch = {
                         let text = _result.items[i].text;
                         let icon = _result.items[i].icon;
                         let meta = _result.items[i].meta;
-                        let linkCss = _result.items[i].lightbox ? 'fpcm ui-link-fancybox' : '';
-
-                        let linkData = '';
-                        if (_result.items[i].lightbox && meta) {
-                            let _sz = meta.split(':');
-                            linkData = `data-pswp-width="${_sz[0]}" data-pswp-height="${_sz[1]}"`;
+                        if (meta) {
+                            meta = meta.split(':');
                         }
 
+                        let linkCss = _result.items[i].lightbox && meta[2] == 0 ? 'fpcm ui-link-fancybox' : '';
+
+                        let linkData = '';
+                        if (_result.items[i].lightbox && meta[2] == 0) {
+                            linkData = `data-pswp-width="${meta[0]}" data-pswp-height="${meta[1]}"`;
+                        }
+                        else if (_result.items[i].lightbox && meta[2] == 1) {
+                            linkData = `target="_blank"`;
+                        }
 
                         _list += `<div class="${_resCss}"><a href="${link}" target="_blank" class="text-truncate ${linkCss}" ${linkData}>${icon}${text}</a></div>`;
                     }
