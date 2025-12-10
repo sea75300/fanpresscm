@@ -294,6 +294,36 @@ class aceEditor extends articleEditor {
 
         $fields = [
             [
+                (new \fpcm\view\helper\radiobutton('mediatype', 'mediatypea'))
+                    ->setText('EDITOR_INSERTMEDIA_AUDIO')
+                    ->setClass('fpcm-editor-mediatype')
+                    ->setValue('audio')
+                    ->setSelected(true)
+                    ->setSwitch(true)
+                    ->setLabelTypeFloat()
+                    ->setBottomSpace(''),
+                (new \fpcm\view\helper\radiobutton('mediatype', 'mediatypev'))
+                    ->setText('EDITOR_INSERTMEDIA_VIDEO')
+                    ->setClass('fpcm-editor-mediatype')
+                    ->setValue('video')
+                    ->setSwitch(true)
+                    ->setLabelTypeFloat()
+                    ->setBottomSpace(''),
+                (new \fpcm\view\helper\checkbox('controls', 'controls'))
+                    ->setText('EDITOR_INSERTMEDIA_CONTROLS')
+                    ->setValue(1)
+                    ->setSelected(true)
+                    ->setSwitch(true)
+                    ->setLabelTypeFloat()
+                    ->setBottomSpace(''),
+                (new \fpcm\view\helper\checkbox('autoplay', 'autoplay'))
+                    ->setText('EDITOR_INSERTMEDIA_AUTOPLAY')
+                    ->setValue(1)
+                    ->setSwitch(true)
+                    ->setLabelTypeFloat()
+                    ->setBottomSpace('')
+            ],
+            [
                 (new \fpcm\view\helper\textInput('media[path]', 'mediapath'))
                     ->setType('url')
                     ->setValue('')
@@ -339,34 +369,18 @@ class aceEditor extends articleEditor {
                     ->setIconOnly()
             ],
             [
-                (new \fpcm\view\helper\radiobutton('mediatype', 'mediatypea'))
-                    ->setText('EDITOR_INSERTMEDIA_AUDIO')
-                    ->setClass('fpcm-editor-mediatype')
-                    ->setValue('audio')
-                    ->setSelected(true)
-                    ->setSwitch(true)
-                    ->setLabelTypeFloat()
-                    ->setBottomSpace(''),
-                (new \fpcm\view\helper\radiobutton('mediatype', 'mediatypev'))
-                    ->setText('EDITOR_INSERTMEDIA_VIDEO')
-                    ->setClass('fpcm-editor-mediatype')
-                    ->setValue('video')
-                    ->setSwitch(true)
-                    ->setLabelTypeFloat()
-                    ->setBottomSpace(''),
-                (new \fpcm\view\helper\checkbox('controls', 'controls'))
-                    ->setText('EDITOR_INSERTMEDIA_CONTROLS')
-                    ->setValue(1)
-                    ->setSelected(true)
-                    ->setSwitch(true)
-                    ->setLabelTypeFloat()
-                    ->setBottomSpace(''),
-                (new \fpcm\view\helper\checkbox('autoplay', 'autoplay'))
-                    ->setText('EDITOR_INSERTMEDIA_AUTOPLAY')
-                    ->setValue(1)
-                    ->setSwitch(true)
+                (new \fpcm\view\helper\numberInput('media[width]'))
+                    ->setText('SYSTEM_OPTIONS_NEWSSHOWMAXIMGSIZEWIDTH')
+                    ->setIcon('arrows-left-right')
                     ->setLabelTypeFloat()
                     ->setBottomSpace('')
+                    ->setReadonly(),
+                (new \fpcm\view\helper\numberInput('media[height]'))
+                    ->setText('SYSTEM_OPTIONS_NEWSSHOWMAXIMGSIZEHEIGHT')
+                    ->setIcon('arrows-up-down')
+                    ->setLabelTypeFloat()
+                    ->setBottomSpace('')
+                    ->setReadonly()
             ]
         ];
 

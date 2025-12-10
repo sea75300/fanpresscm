@@ -234,7 +234,7 @@ if (fpcm.editor) {
                 var urlField = 'mediapath';
                 var titleField = false;
                 var relField = false;
-                var insertSize = false;
+                var insertSize = !document.getElementById(fpcm.ui.prepareId('mediawidth', true)).readOnly;
                 break;
         }
 
@@ -251,13 +251,27 @@ if (fpcm.editor) {
         }
 
         if (insertSize && _url) {
-            let _imgObj = new Image();
-            _imgObj.src = _url;
-            _imgObj.onload = function () {
-                self.document.getElementById(fpcm.ui.prepareId('imageswidth', true)).value  = _imgObj.naturalWidth;
-                self.document.getElementById(fpcm.ui.prepareId('imagesheight', true)).value  = _imgObj.naturalHeight;
-            };
+
+            if (self.fileOpenMode === 2) {
+                let _imgObj = new Image();
+                _imgObj.src = _url;
+                _imgObj.onload = function () {
+                    self.document.getElementById(fpcm.ui.prepareId('imageswidth', true)).value  = _imgObj.naturalWidth;
+                    self.document.getElementById(fpcm.ui.prepareId('imagesheight', true)).value  = _imgObj.naturalHeight;
+                };
+            }
+            else if (self.fileOpenMode === 3) {
+
+                let _videoObj = document.createElement('video');
+                _videoObj.src = _url;
+                _videoObj.addEventListener('loadedmetadata', function(e){
+                    self.document.getElementById(fpcm.ui.prepareId('mediawidth', true)).value = _videoObj.videoWidth;
+                    self.document.getElementById(fpcm.ui.prepareId('mediaheight', true)).value = _videoObj.videoHeight;
+                });
+            }
+
         }
+
 
         fpcm.ui_dialogs.close('editor-html-filemanager');
         return true;
@@ -608,7 +622,7 @@ if (fpcm.editor) {
 
         let _mprevDiv = document.createElement('div');
         _mprevDiv.id = fpcm.ui.prepareId('editor-html-insertmedia-preview', true);
-        _mprevDiv.classList.add('col-12', 'col-md-10', 'my-3');
+        _mprevDiv.classList.add('m-3');
 
         _content.appendChild(_mprevDiv);
 
@@ -628,12 +642,33 @@ if (fpcm.editor) {
                     document.getElementById(fpcm.ui.prepareId('editor-html-insertmedia-preview', true)).innerHTML = data.aTag + data.eTag;
                 }
             }],
-            dlOnOpen: function() {
+            dlOnOpenAfter: function() {
 
-                fpcm.dom.bindClick('#' + fpcm.vars.jsvars.dialogs.insertMedia.fields[2][1].id, function () {
+                fpcm.dom.bindClick('#' + fpcm.vars.jsvars.dialogs.insertMedia.fields[3][1].id, function () {
                     fpcm.editor.showFileManager(4, 'image');
                     return false;
                 });
+
+                let _inEl = document.getElementsByName('mediatype');
+
+                for (var _el of _inEl) {
+
+                    _el.addEventListener('change', function (_ev) {
+
+                        let _whRo = _ev.currentTarget.value === 'audio';
+                        let _idW = fpcm.ui.prepareId('mediawidth', true);
+                        let _idH = fpcm.ui.prepareId('mediaheight', true);
+
+                        document.getElementById(_idW).readOnly = _whRo;
+                        document.getElementById(_idH).readOnly = _whRo;
+
+                        if (_whRo) {
+                            document.getElementById(_idW).value = '';
+                            document.getElementById(_idH).value = '';
+                        }
+
+                    });
+                }
 
             },
             insertAction: function() {
@@ -896,7 +931,7 @@ if (fpcm.editor) {
 
     };
 
-    fpcm.editor.getMediaData = function (_addWidth) {
+    fpcm.editor.getMediaData = function (_isPreview) {
 
         var tagName = document.querySelector('input[name=mediatype]:checked').value.replace(/[^a-z]/, '');
 
@@ -906,21 +941,41 @@ if (fpcm.editor) {
             fpcm.ui.prepareId('mediapath2', true),
             fpcm.ui.prepareId('mediaformat', true),
             fpcm.ui.prepareId('mediaformat2', true),
+            fpcm.ui.prepareId('mediaformat', true),
+            fpcm.ui.prepareId('mediaformat2', true),
+            fpcm.ui.prepareId('mediawidth', true),
+            fpcm.ui.prepareId('mediaheight', true),
             fpcm.ui.prepareId('autoplay:checked', true),
             fpcm.ui.prepareId('controls:checked', true)
         ]);
 
-        var aTag  = '<' + tagName + (_addWidth ? ' class="fpcm-full-width"' : '') + (_formData.controls_checked ? ' controls' : '');
-            aTag +=  (_formData.mediaposter ? ' poster="' + _formData.mediaposter + '"' : '') + '>';
-            aTag += '<source src="' + _formData.mediapath + '"' + (_formData.mediaformat ? ' type="' + _formData.mediaformat.match(/[a-z]{5}\/{1}[a-z0-9]{3,}/) + '"' : '') + (_formData.autoplay_checked ? ' autoplay' : '') + '>';
+        let _ctrl = _formData.controls_checked ? ' controls' : '';
+        let _aply = _formData.autoplay_checked ? ' autoplay' : '';
+        let _pstr = _formData.mediaposter ? ` poster="${_formData.mediaposter}"` : '';
+        
+        let _vres = '';
+        if (_isPreview) {            
+            _vres = ' class="w-100" ';
+        }
+        else if (tagName === 'video') {
+            _vres = ` width="${_formData.mediawidth}" height="${_formData.mediaheight}"`;
+        }
+
+        let _atag = `<${tagName}${_vres}${_ctrl}${_pstr}${_aply}>`;
+
+        if (_formData.mediapath) {
+            let _met1 = _formData.mediaformat ? ` type="${_formData.mediaformat.match(/[a-z]{5}\/{1}[a-z0-9]{3,}/)}"` : '';
+            _atag += `<source src="${_formData.mediapath}"${_met1}>`;
+        }
 
         if (_formData.mediapath2) {
-            aTag += '<source src="' + _formData.mediapath2 + '"' + (_formData.mediaformat2 ? ' type="' + _formData.mediaformat2.match(/[a-z]{5}\/{1}[a-z0-9]{3,}/) + '"' : '') + '>';
+            let _met2 = _formData.mediaformat2 ? ` type="${_formData.mediaformat2.match(/[a-z]{5}\/{1}[a-z0-9]{3,}/)}"` : '';
+            _atag += `<source src="${_formData.mediapath2}"${_met2}>`;
         }
 
         return {
-            aTag: aTag,
-            eTag: '</' + tagName + '>'
+            aTag: _atag,
+            eTag: `</${tagName}>`
         }
     }
 

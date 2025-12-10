@@ -84,7 +84,7 @@ export class element_input {
         }
         
         if (this.readonly) {
-            _input.readonly = true;
+            _input.readOnly = true;
         }
         
         if (this.autofocus) {
