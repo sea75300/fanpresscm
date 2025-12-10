@@ -48,10 +48,31 @@ class userRollList extends \fpcm\model\abstracts\tablelist {
     {
         $params = (new \fpcm\model\dbal\selectParams($this->table))
             ->setFetchAll(true)
-            ->setWhere('id>0 '.$this->dbcon->orderBy(['id ASC, leveltitle ASC']))
-            ->setCallback($this->callback);
+            ->setWhere('id>0 '.$this->dbcon->orderBy(['id ASC, leveltitle ASC']));
 
-        return $this->dbcon->selectFetch($params);
+        if (method_exists($params, 'setCallback')) {
+            $params->setCallback($this->callback);
+        }
+
+        $return = $this->dbcon->selectFetch($params);
+
+        if (method_exists($params, 'setCallback')) {
+            return $return;
+        }
+
+        $res = [];
+        foreach ($return as $r) {
+            $this->callback($r, $res);
+
+            $ro = new userRoll();
+            if (!$ro->createFromDbObject($r)) {
+                return;
+            }
+
+            $res[$ro->getId()] = $ro;
+        }
+
+        return $res;
     }
 
     /**

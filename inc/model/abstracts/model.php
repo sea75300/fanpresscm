@@ -117,7 +117,11 @@ abstract class model implements \fpcm\model\interfaces\model, \Stringable {
     public function __construct($id = null)
     {
         $this->dbcon = \fpcm\classes\loader::getObject('\fpcm\classes\database');
-        $this->events = \fpcm\events\events::getInstance();
+
+        $this->events = method_exists('\fpcm\events\events', 'getInstance')
+                      ? \fpcm\events\events::getInstance()
+                      : new \fpcm\events\events();
+
         $this->cache = \fpcm\classes\loader::getObject('\fpcm\classes\cache');
 
         if (\fpcm\classes\baseconfig::installerEnabled()) {

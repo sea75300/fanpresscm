@@ -44,8 +44,8 @@ class v530a1 extends migration {
         $results = [];
 
         foreach ($files as $id => $filename) {
-            $img = new \fpcm\model\files\image($filename);
-            $results[$filename] = (int) $img->update();
+            $mfo = new \fpcm\model\files\mediaFile($filename);
+            $results[$filename] = (int) $mfo->update();
         }
 
         $err = array_keys($results, 0);

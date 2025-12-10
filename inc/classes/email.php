@@ -207,7 +207,11 @@ final class email {
      */
     public function submit()
     {
-        $ev = \fpcm\events\events::getInstance()->trigger('emailSubmit', [
+        $eo = method_exists('\fpcm\events\events', 'getInstance')
+            ? \fpcm\events\events::getInstance()
+            : new \fpcm\events\events();
+
+        $ev = $eo->trigger('emailSubmit', [
             'headers' => $this->headers,
             'maildata' => [
                 'to' => $this->to,
