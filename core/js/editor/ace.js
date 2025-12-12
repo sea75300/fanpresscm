@@ -253,21 +253,19 @@ if (fpcm.editor) {
         if (insertSize && _url) {
 
             if (self.fileOpenMode === 2) {
-                let _imgObj = new Image();
-                _imgObj.src = _url;
-                _imgObj.onload = function () {
-                    self.document.getElementById(fpcm.ui.prepareId('imageswidth', true)).value  = _imgObj.naturalWidth;
-                    self.document.getElementById(fpcm.ui.prepareId('imagesheight', true)).value  = _imgObj.naturalHeight;
-                };
+                fpcm.fileProperties.setImageResolution(
+                    _url,
+                    self.document.getElementById(fpcm.ui.prepareId('imageswidth', true)),
+                    self.document.getElementById(fpcm.ui.prepareId('imagesheight', true))
+                );
             }
             else if (self.fileOpenMode === 3) {
 
-                let _videoObj = document.createElement('video');
-                _videoObj.src = _url;
-                _videoObj.addEventListener('loadedmetadata', function(e){
-                    self.document.getElementById(fpcm.ui.prepareId('mediawidth', true)).value = _videoObj.videoWidth;
-                    self.document.getElementById(fpcm.ui.prepareId('mediaheight', true)).value = _videoObj.videoHeight;
-                });
+                fpcm.fileProperties.setVideoResolution(
+                    _url,
+                    self.document.getElementById(fpcm.ui.prepareId('mediawidth', true)),
+                    self.document.getElementById(fpcm.ui.prepareId('mediaheight', true))
+                );
             }
 
         }
@@ -952,9 +950,9 @@ if (fpcm.editor) {
         let _ctrl = _formData.controls_checked ? ' controls' : '';
         let _aply = _formData.autoplay_checked ? ' autoplay' : '';
         let _pstr = _formData.mediaposter ? ` poster="${_formData.mediaposter}"` : '';
-        
+
         let _vres = '';
-        if (_isPreview) {            
+        if (_isPreview) {
             _vres = ' class="w-100" ';
         }
         else if (tagName === 'video') {

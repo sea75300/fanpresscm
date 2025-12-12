@@ -118,7 +118,7 @@ fpcm.comments = {
     
     deleteSingleArticle: function() {
         
-        fpcm.dom.bindClick('.fpcm-ui-button-delete-comment-single', function (_e, _ui) {
+        fpcm.dom.bindClick('a[data-comid]', function (_e, _ui) {
 
             fpcm.ui_dialogs.confirm({
                 

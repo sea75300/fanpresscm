@@ -61,7 +61,7 @@ fpcm.filemanager = {
         fpcm.filemanager.initPropertiesButton();
         fpcm.filemanager.initCopyButton();
         fpcm.filemanager.initReminderButton();
-        
+
         if (fpcm.filemanager.listActions) {
             fpcm.filemanager.listActions.init();
         }
@@ -123,7 +123,7 @@ fpcm.filemanager = {
 
     initRenameButtons: function() {
 
-        fpcm.dom.bindClick('.fpcm-filelist-rename', function (_e, _ui) {
+        fpcm.dom.bindClick('a.dropdown-item[data-action="rename"]', function (_e, _ui) {
 
             if (!fpcm.ui.langvarExists('FILE_LIST_RENAME_NEWNAME')) {
                 console.log('FILE_LIST_RENAME_NEWNAME');
@@ -193,7 +193,7 @@ fpcm.filemanager = {
     },
 
     initEditButtons: function() {
-        fpcm.dom.bindClick('.fpcm-filelist-link-edit', function (_e, _ui) {
+        fpcm.dom.bindClick('a.dropdown-item[data-action="edit"]', function (_e, _ui) {
             fpcm.imageEditor.initEditorDialog({
                 afterUpload: function () {
                     fpcm.filemanager.reloadFiles();
@@ -207,7 +207,7 @@ fpcm.filemanager = {
 
     initAltTextButtons: function() {
 
-        fpcm.dom.bindClick('.fpcm-filelist-link-alttext', function (_e, _ui) {
+        fpcm.dom.bindClick('a.dropdown-item[data-action="alttext"]', function (_e, _ui) {
 
             var _input = new fpcm.ui.forms.input();
             _input.name = 'alt-text-dialog';
@@ -251,7 +251,7 @@ fpcm.filemanager = {
 
     initDeleteButtons: function() {
 
-        fpcm.dom.bindClick('.fpcm-filelist-delete',function (_e, _ui) {
+        fpcm.dom.bindClick('a.dropdown-item[data-action="delete"]',function (_e, _ui) {
             fpcm.ui_dialogs.confirm({
                 clickNoDefault: true,
                 focusNo: true,
@@ -507,7 +507,7 @@ fpcm.filemanager = {
                 cols: 2
             },
             {
-                prop: 'resulution',
+                prop: 'resolution',
                 label: 'FILE_LIST_RESOLUTION',
                 icon: new fpcm.ui.forms.icon('maximize', 'lg'),
                 cols: 2
@@ -534,7 +534,7 @@ fpcm.filemanager = {
 
         ];
 
-        fpcm.dom.bindClick('.fpcm-filelist-properties', function (_e, _ui) {
+        fpcm.dom.bindClick('a.dropdown-item[data-action="properties"]', function (_e, _ui) {
 
             let _titleTxt = '';
             let _titleHtml = '';
@@ -542,12 +542,18 @@ fpcm.filemanager = {
             let _dlgContent = document.createElement('div');
             _dlgContent.classList.add('list-group');
 
+            let _mfSckip = ['resolution', 'credits'];
+
             for (var _idx in _form) {
 
                 let _propCfg = _form[_idx];
 
+                if (_ui.dataset.mft === '1' && _mfSckip.includes(_propCfg.prop)) {
+                    continue;
+                }
+
                 switch (_propCfg.prop) {
-                    case 'resulution' :
+                    case 'resolution' :
                         _titleTxt = _ui.dataset.fileresx + ' X ' + _ui.dataset.fileresy + ' ' + fpcm.ui.translate('FILE_LIST_RESOLUTION_PIXEL');
                         _titleHtml = _ui.dataset.fileresx + fpcm.ui.getIcon('times') + _ui.dataset.fileresy + ' ' + fpcm.ui.translate('FILE_LIST_RESOLUTION_PIXEL');
                         break;
@@ -569,7 +575,7 @@ fpcm.filemanager = {
                 _row.appendChild(_colDescr);
 
                 if (!_titleHtml) {
-                    _titleHtml = '&nbsp;'
+                    _titleHtml = '&nbsp;';
                 }
 
                 let _colValue = document.createElement('div');

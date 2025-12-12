@@ -131,6 +131,7 @@ class filelist extends \fpcm\controller\abstracts\controller
         $this->view->setViewVars(array_merge([
             'mode' => $this->mode,
             'hasFiles' => $hasFiles,
+            'allowedFileTypes' => \fpcm\model\files\mediaFile::$allowedExts
         ], $uploader->getViewVars() ));
 
         $this->assignSearchFromVars();

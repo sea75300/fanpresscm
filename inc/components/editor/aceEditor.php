@@ -89,6 +89,7 @@ class aceEditor extends articleEditor {
             \fpcm\classes\dirs::getLibUrl('ace/ace.js'),
             \fpcm\classes\dirs::getLibUrl('ace/ext-language_tools.js'),
             \fpcm\classes\dirs::getLibUrl('ace/ext-inline_autocomplete.js'),
+            'files/fileProperties.js',
             'editor/filemanager.js',
             'editor/ace.js'
         ];

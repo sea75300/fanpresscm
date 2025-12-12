@@ -257,7 +257,6 @@ trait lists {
             $extMenuOptions[] = (new \fpcm\view\helper\dropdownItem('ddDelete'.$article->getId()))
                                 ->setIcon('trash')
                                 ->setText('GLOBAL_DELETE')
-                                ->setClass('fpcm-ui-button-delete fpcm-ui-button-delete-article-single')
                                 ->setData(['articleid' => $article->getId()]);
         }
 

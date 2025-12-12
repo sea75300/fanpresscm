@@ -818,7 +818,9 @@ implements \fpcm\model\interfaces\validateFileType,
             'fileresy' => $this->getHeight(),
             'filehash' => $this->getFileHash(),
             'filemime' => $this->getMimetype(),
-            'credits' => $this->getIptcStr()
+            'credits' => $this->getIptcStr(),
+            'action' => 'properties',
+            'mft' => $this->getMediaType()
         ];
     }
 

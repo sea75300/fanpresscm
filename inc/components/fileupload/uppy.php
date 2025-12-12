@@ -94,10 +94,6 @@ final class uppy extends uploader {
      */
     public function getViewVars(): array
     {
-        
-        /* @var $no \fpcm\model\theme\notifications */
-        $no = \fpcm\classes\loader::getObject('\fpcm\model\theme\notifications');
-        
         return [
             'uploadTemplatePath' => $this->getTemplate(),
             'uploadMultiple' => true

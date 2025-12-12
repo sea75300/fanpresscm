@@ -37,7 +37,7 @@
         <ul class="dropdown-menu <?php if ($ddLastEnd && $is_last($i)) : ?>dropdown-menu-end<?php endif; ?>" aria-labelledby="nbexp<?php $hash; ?>">
         <?php if ($theView->permissions->uploads->rename) : ?>
           <li>
-            <?php $theView->dropdownItem(uniqid('rename'))->setText('FILE_LIST_RENAME')->setIcon('edit')->setClass('fpcm-filelist-rename')->setData(['file' => $file->getCryptFileName(), 'oldname' => basename($file->getFilename(), '.'.$file->getExtension())]); ?>
+            <?php $theView->dropdownItem(uniqid('rename'))->setText('FILE_LIST_RENAME')->setIcon('edit')->setData(['action' => 'rename', 'file' => $file->getCryptFileName(), 'oldname' => basename($file->getFilename(), '.'.$file->getExtension())]); ?>
           </li>
         <?php endif; ?>
         <?php if ($theView->permissions->uploads->add) : ?>
@@ -52,13 +52,12 @@
             <?php $theView->dropdownItem(uniqid('properties'))
                     ->setText('GLOBAL_PROPERTIES')
                     ->setIcon('info-circle')
-                    ->setClass('fpcm-filelist-properties')
                     ->setData($file->getPropertiesArray($theView->userId2Text($file->getUserid(), 'USERS_SYSTEMUSER'))); ?>
           </li>
           <?php if ($theView->permissions->uploads->delete) : ?>
           <li><hr class="dropdown-divider"></li>
           <li>
-            <?php $theView->dropdownItem(uniqid('delete'))->setText('GLOBAL_DELETE')->setIcon('trash')->setClass('fpcm-filelist-delete')->setData(['file' => $file->getCryptFileName(), 'filename' => $file->getFilename()]); ?>
+            <?php $theView->dropdownItem(uniqid('delete'))->setText('GLOBAL_DELETE')->setIcon('trash')->setData(['action' => 'delete', 'file' => $file->getCryptFileName(), 'filename' => $file->getFilename()]); ?>
           </li>
           <?php endif; ?>
         </ul>

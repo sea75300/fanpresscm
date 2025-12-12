@@ -127,7 +127,7 @@ fpcm.articles = {
 
     deleteSingleArticle: function() {
         
-        fpcm.dom.bindClick('.fpcm-ui-button-delete-article-single', function (_e, _ui) {
+        fpcm.dom.bindClick('a[data-articleid]', function (_e, _ui) {
 
             fpcm.ui_dialogs.confirm({
                 
