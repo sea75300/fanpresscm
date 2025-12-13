@@ -1,6 +1,6 @@
 # FanPress CM News System version 5
 
-The FanPress CM News System version 5 is a lightweight but powerful content management system for small and mid-size websites, especially blogs and such looking for a post management system in combination with static HTML.
+The FanPress CM News System version 5 is a lightweight but powerful blog-like content management system for small and mid-size websites, especially blogs and such looking for a post management system in combination with static HTML.
 
 ## Demo system
 
