@@ -2,7 +2,12 @@
 <!DOCTYPE HTML>
 <HTML lang="<?php print $theView->langCode; ?>" data-bs-theme="<?php if ($theView->darkMode) : ?>dark<?php else : ?>light<?php endif; ?>">
     <head>
-        <title><?php $theView->write('HEADLINE'); ?> <?php print $theView->version; ?> | <?php $theView->escape($theView->currentUser->getDisplayName()); ?></title>
+        <title>
+            <?php $theView->write('HEADLINE'); ?> <?php print $theView->version; ?> |
+            <?php if ($theView->currentUser != null && is_object($theView->currentUser)) : ?>
+                <?php $theView->escape($theView->currentUser->getDisplayName()); ?>
+            <?php endif; ?>
+        </title>
         <meta charset="utf-8"> 
         <meta name="robots" content="noindex, nofollow">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,7 +16,7 @@
         <link rel="icon" type="image/png" sizes="192x192" href="<?php print $theView->themePath; ?>android-icon-192x192.png">
         <link rel="icon" type="image/png" sizes="32x32" href="<?php print $theView->themePath; ?>favicon-32x32.png">
         <link rel="icon" type="image/png" sizes="16x16" href="<?php print $theView->themePath; ?>favicon-16x16.png">        
-        <link rel="shortcut icon" href="<?php print $theView->themePath; ?>favicon.ico" />
+        <link rel="shortcut icon" href="<?php print $theView->themePath; ?>favicon.ico">
         <link rel="manifest" href="<?php print $theView->themePath; ?>manifest.json">
         <?php include_once 'includefiles.php'; ?>
         <?php include_once 'vars.php'; ?>
