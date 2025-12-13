@@ -26,9 +26,11 @@ fpcm.langedit = {
             _row.classList.add('row', 'py-2', 'border-bottom', 'border-1', 'border-secondary');
             _row.setAttribute('data-var', _var);
 
+            let _btntyp = fpcm.ui.darkModeEnabled() ? 'btn-dark' : 'btn-light';
+
             let _btn1 = document.createElement('button');
             _btn1.dataset.varname = _var;
-            _btn1.classList.add('btn', 'btn-light', 'me-1');
+            _btn1.classList.add('btn', _btntyp, 'me-1');
             _btn1.innerHTML = (new fpcm.ui.forms.icon('edit')).getString();
             _btn1.setAttribute('title', fpcm.ui.translate('GLOBAL_EDIT'));
             _btn1.addEventListener('click', function (_e) {
@@ -48,6 +50,7 @@ fpcm.langedit = {
                             text: 'GLOBAL_SAVE',
                             icon: "check",
                             clickClose: true,
+                            primary: true,
                             click: function () {
 
                                 let _varName = document.getElementById(fpcm.ui.prepareId(_form[0].id, true)).value;
@@ -71,7 +74,7 @@ fpcm.langedit = {
 
             let _btn2 = document.createElement('button');
             _btn2.dataset.varname = _var;
-            _btn2.classList.add('btn', 'btn-light');
+            _btn2.classList.add('btn', _btntyp);
             _btn2.innerHTML = (new fpcm.ui.forms.icon('trash')).getString();
             _btn2.setAttribute('title', fpcm.ui.translate('GLOBAL_DELETE'));
             _btn2.addEventListener('click', function (_e) {
@@ -98,7 +101,6 @@ fpcm.langedit = {
 
             let _col3 = document.createElement('div');
             _col3.classList.add('col-4', 'align-self-center', 'flex-grow-1', 'text-wrap');
-
 
             let _varVal = fpcm.vars.jsvars.langfile[_var];
             if (_varVal instanceof Object) {
@@ -155,7 +157,7 @@ fpcm.langedit = {
 
                                 return false;
                             }
-                            
+
 
                             fpcm.vars.jsvars.langfile[_varName] = _varValue;
                             fpcm.langedit.executeSave();
@@ -170,7 +172,7 @@ fpcm.langedit = {
             if (!document.getElementsByName('lang').length) {
                 fpcm.langedit.executeSave(true);
             }
-            
+
             return true;
 
         }, false, true);

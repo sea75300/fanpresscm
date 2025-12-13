@@ -77,6 +77,10 @@ class v530a1 extends migration {
             return false;
         }
 
+        if ($cfg->file_subfolders !== null && !$cfg->remove('file_subfolders')) {
+            return false;
+        }
+
         $codeMirror = $cfg->system_editor === '\fpcm\components\editor\htmlEditor';
         if (!$codeMirror) {
             return true;

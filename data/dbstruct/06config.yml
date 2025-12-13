@@ -255,11 +255,6 @@ defaultvalues:
             config_name: "file_list_limit"
             config_value: "25"
             modulekey: ""
-        file_subfolders:
-            id: NULL
-            config_name: "file_subfolders"
-            config_value: "1"
-            modulekey: ""
         file_view:
             id: NULL
             config_name: "file_view"

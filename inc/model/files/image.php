@@ -519,7 +519,7 @@ implements \fpcm\model\interfaces\validateFileType,
      */
     public function addUploadFolder() : bool
     {
-        $this->fullpath = ops::getUploadPath($this->filename, $this->config->file_subfolders);
+        $this->fullpath = ops::getUploadPath($this->filename);
 
         if (!file_exists(dirname($this->fullpath))) {
             mkdir(dirname($this->fullpath));
@@ -738,7 +738,7 @@ implements \fpcm\model\interfaces\validateFileType,
         $copy->addUploadFolder();
 
         $subFolderbase = basename(dirname($copy->getFullpath()));
-        if ($this->config->file_subfolders && !str_starts_with($copy->getFilename(), $subFolderbase)) {
+        if (!str_starts_with($copy->getFilename(), $subFolderbase)) {
             $copy->setFilename(basename(dirname($copy->getFullpath())) . DIRECTORY_SEPARATOR . $copy->getFilename());
         }
 

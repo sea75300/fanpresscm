@@ -11,10 +11,10 @@ Help language file
         <![CDATA[
 
         <p>Das Dashboard ist eine zentrale Anlaufstelle nach dem Login in FanPress CM. Der Startbildschirm
-            zeigt viele verschiedene Informationen (u. a. zum Systemstatus oder geschriebenen Artikeln) an. Die 
+            zeigt viele verschiedene Informationen (u. a. zum Systemstatus oder geschriebenen Artikeln) an. Die
             verfügbaren Informationen können durch Module erweitert werden.</p>
 
-        <h3 class="pt-5 fs-1">Container</h3>
+        <h3 class="py-3 fs-1">Container</h3>
 
         <dl>
             <dt>Zuletzt geschriebene News:</dt>
@@ -35,16 +35,16 @@ Help language file
                 E-Mail zu verfassen.</dd>
         </dl>
 
-        <h3 class="pt-5 fs-1">Container-Funktionen</h3>
+        <h3 class="py-3 fs-1">Container-Funktionen</h3>
 
         <p>Über die zusätzlichen Links am Ende der Container können zusätzliche Informationen abgerufen werden
             oder es ist ein Schnellzugriff auf bestimmte Funktionen möglich.</p>
 
-        <p>Die Position der Container kann durch Klick auf den Button 
-            <span class="btn btn-sm btn-outline-dark"><span class="fpcm-ui-icon fa fa-fw fa-arrows-alt  "></span></span>
+        <p>Die Position der Container kann durch Klick auf den Button
+            <span class="btn btn-sm btn-outline-dark"><span class="fa fa-fw fa-arrows-alt  "></span></span>
             verändert werden. Die Reihenfolge legt jeder Benutzer selbst fest.
             Um bestimmte Container zu deaktivieren, klicke in der Fußzeile auf
-            den Button <span class="btn btn-sm btn-outline-dark"><span class="fpcm-ui-icon fa fa-fw fa-toggle-off"></span></span>.</p>
+            den Button <span class="btn btn-sm btn-outline-dark"><span class="fa fa-fw fa-toggle-off"></span></span>.</p>
 
         <p>Über das Dropdown "Container verwalten" in der Toolbar des Startbildschirms kann die Reihenfolge auf den Standard zurückgesetzt bzw.
             deaktivierte Container wieder reaktiviert werden.</p>
@@ -58,7 +58,7 @@ Help language file
             durch Module erweitert werden können. Du kannst einem Artikel Kategorien zuweisen, ihn "anpinnen", sodass er über allen anderen Artikeln
             dargestellt wird und verschiedene weitere Einstellungen vornehmen.</p>
 
-        <h3 class="pt-5 fs-1">Editor</h3>
+        <h3 class="py-3 fs-1">Editor</h3>
 
         <dl>
             <dt>TinyMCE:</dt>
@@ -69,15 +69,15 @@ Help language file
             <dd class="pb-2">Dieser Editor ist ein reiner HTML-Editor, welcher verschiedene Formatierungsmöglichkeiten
                 bietet sowie zusätzliche Funktionen wie Syntax-Highlighting. Dieser Editor-Type wird zudem immer für die
                 Bearbeitung der Temlplates und Artikel-Vorlagen geladen.</dd>
-        </dl>        
+        </dl>
 
-        <h3 class="pt-5 fs-1">Eigenschaften</h3>
+        <h3 class="py-3 fs-1">Eigenschaften</h3>
 
         <dl>
             <dt>Artikelbild:</dt>
             <dd class="pb-2">Mit dem Artikelbild kannst du einen Artikel eine zusätzliche Dekoration, optische
                 Beschreibung etc. geben. Die Position und Größe des Artikelbildes kann über das Artikel-Template festgelegt werden.
-                Über den Button <span class="btn btn-sm btn-outline-dark"><span class="fpcm-ui-icon fa fa-fw fa-folder-open"></span></span> 
+                Über den Button <span class="btn btn-sm btn-outline-dark"><span class="fa fa-fw fa-folder-open"></span></span>
                 rechts neben dem Eingabefeld kannst du ein bereits hochgeladenes Bild auswählen und weitere Bilder hochladen.</dd>
 
             <dt>Text für Artikellinks:</dt>
@@ -88,8 +88,8 @@ Help language file
             <dt>Quellenverzeichnis:</dt>
             <dd class="pb-2">Der Inhalt dieses Feldes wird durch den Template-Tag "{{sources}}" dargestellt. Hier kannst du Links zu deinen Informationsquellen,
                 Quellen von Bildern, Videos etc. oder zu weiterführenden Informationen angeben. Links werden so weit es geht automatisch in HTML-Links umgewandelt.</dd>
-            <dd class="pb-2">Einträge im Quellenverzeichnis werden gespeichert und bei Übereinstimmung zur Auswahl angezeigt. Über den Button 
-                "Quellenverzeichnis-Einträge" <span class="btn btn-sm btn-outline-dark"><span class="fpcm-ui-icon fa fa-fw fa-pen"></span></span> können die Einträge aus der Autovervollständigung entfernt werden.</dd>
+            <dd class="pb-2">Einträge im Quellenverzeichnis werden gespeichert und bei Übereinstimmung zur Auswahl angezeigt. Über den Button
+                "Quellenverzeichnis-Einträge" <span class="btn btn-sm btn-outline-dark"><span class="fa fa-fw fa-pen"></span></span> können die Einträge aus der Autovervollständigung entfernt werden.</dd>
 
             <dt>Artikel freischalten:</dt>
             <dd class="pb-2">Mittels dieser Option kannst du einen neuen Artikel verfassen und zu einem bestimmten
@@ -102,7 +102,10 @@ Help language file
 
             <dt>Artikel pinnen:</dt>
             <dd class="pb-2">"Gepinnte" Artikel werden im Frontend vor allen anderen verfügbaren Artikeln angezeigt, auch
-                auch wenn das Datum ihrer Veröffentlichung vor neueren Artikeln liegt.</dd>
+                auch wenn das Datum ihrer Veröffentlichung vor neueren Artikeln liegt. Über die zusätzliche Datumsauswahl
+                kannst du festlegen, bis zu welchem Datum der Artikel gepinnt bleibt. Nach dem Überschreiten des Datums
+                wird der Artikel automatisch abgepinnt.</dd>
+
             <dt>Kommentare aktiv:</dt>
             <dd class="pb-2">Über diese Option kann das Kommentar-System für einen einzelnen Artikel gesteuert werden.
                 ist die Option nicht aktiv, so können keine Kommentare auf der Artikel verfasst werden.</dd>
@@ -120,7 +123,7 @@ Help language file
                 FanPress CM-eigenen "Gefällt mir"-Button. Eine Summe über alle geteilten Inhalte pro Artikel wird in den Artikel-Listen neben der Kommentar-Anzahl angezeigt.</dd>
         </dl>
 
-        <h3 class="pt-5 fs-1">Register</h3>
+        <h3 class="py-3 fs-1">Register</h3>
 
         <p>Der Artikel-Editor kann am oberen Rand bis zu vier Tabs enthalten.</p>
 
@@ -133,8 +136,8 @@ Help language file
             <dt>Kommentare:</dt>
             <dd class="pb-2">Dieses Register beinhaltet Auflistung aller Kommentare, welche zum ausgewählten Artikel
                 geschrieben wurden. Die Liste bietet dir die Möglichkeit, einzelne Kommentare zu löschen. Über einen Klick auf den Bearbeiten-Button
-                <span class="btn btn-sm btn-outline-dark"><span class="fpcm-ui-icon fa fa-fw fa-edit"></span></span>
-                kann der entsprechende Kommentar bearbeitet werden (freischalten, auf privat setzen etc.). Der Zugriff auf die Kommentare 
+                <span class="btn btn-sm btn-outline-dark"><span class="fa fa-fw fa-edit"></span></span>
+                kann der entsprechende Kommentar bearbeitet werden (freischalten, auf privat setzen etc.). Der Zugriff auf die Kommentare
                 wird über die Berechtigungen geregelt. Ausführliche Informationen hierzu findest du in der Hilfe den "Kommentare"-Bereichs
                 über das Hauptmenü.</dd>
             <dt>Revisionen:</dt>
@@ -145,36 +148,38 @@ Help language file
                 aktuellen Artikel-Version angezeigt.</dd>
         </dl>
 
-        <h3 class="pt-5 fs-1">Buttons und Aktionen</h3>
+        <h3 class="py-3 fs-1">Buttons und Aktionen</h3>
 
         <dl>
-            <dt>Löschen-Buttons</dt>
-            <dd class="pb-2">Je nach geöffnetem Register werden unterschiedlichen Löschen-Buttons <span class="btn btn-sm btn-outline-dark"><span class="fpcm-ui-icon fa fa-fw fa-trash"></span></span> angezeigt. Diese dienen dazu, entsprechende Elemente des
+            <dt><span class="btn btn-sm btn-outline-dark"><span class="fa fa-fw fa-trash"></span></span> Löschen</dt>
+            <dd class="pb-2">Je nach geöffnetem Register werden unterschiedlichen Löschen-Buttons angezeigt. Diese dienen dazu, entsprechende Elemente des
                 angezeigten Tabs zu löschen.</dd>
-            <dt>Artikel auf Webseite anzeigen</dt>
-            <dd class="pb-2">Über diesen Button <span class="btn btn-sm btn-outline-dark"><span class="fpcm-ui-icon fa fa-fw fa-play"></span></span> wird der aktuell im Editor geöffnete Artikel im Frontend, d. h. auf deiner Webseite geöffnet.</dd>
-            <dt>Kurzlink</dt>
-            <dd class="pb-2">Über diesen Button <span class="btn btn-sm btn-outline-dark"><span class="fpcm-ui-icon fa fa-fw fa-external-link-square-alt"></span></span> ist es bei gespeicherten Artikeln möglich, die URL über den Dienst <a rel="noreferrer,noopener,external" href=http://is.gd>is.gd</a> kürzen
+            <dt><span class="btn btn-sm btn-outline-dark"><span class="fa fa-fw fa-play"></span></span> Artikel auf Webseite anzeigen</dt>
+            <dd class="pb-2">Über diesen Button wird der aktuell im Editor geöffnete Artikel im Frontend, d. h. auf deiner Webseite geöffnet.</dd>
+            <dt><span class="btn btn-sm btn-outline-dark"><span class="fa fa-fw fa-external-link-square-alt"></span></span> Kurzlink</dt>
+            <dd class="pb-2">Über diesen Button ist es bei gespeicherten Artikeln möglich, die URL über den Dienst <a rel="noreferrer,noopener,external" href=http://is.gd>is.gd</a> kürzen
                 zu lassen und bei sozialen Netzwerken etc. zu nutzen. Der genutzte Dienst kann über ein Modul-Event geändert werden.</dd>
-            <dt>Artikelbild anzeigen</dt>
-            <dd class="pb-2">Wurde für den Artikel ein Artikelbild definiert, so kann dieses über diese Schaltfläche <span class="btn btn-sm btn-outline-dark"><span class="fpcm-ui-icon fa fa-fw fa-image"></span></span> angezeigt werden.</dd>
-            <dt>Bearbeiten (Kommentare)</dt>
-            <dd class="pb-2">Die Schaltfläche <strong>Bearbeiten</strong> <span class="btn btn-sm btn-outline-dark"><span class="fpcm-ui-icon fa fa-fw fa-edit"></span></span> in der Toolbar des Kommentar-Registers öffnen einen Massenbearbeitung-Dialog analog der
+            <dt><span class="btn btn-sm btn-outline-dark"><span class="fa fa-fw fa-image"></span></span> Artikelbild anzeigen</dt>
+            <dd class="pb-2">Wurde für den Artikel ein Artikelbild definiert, so kann dieses über diese Schaltfläche angezeigt werden.</dd>
+            <dt><span class="btn btn-sm btn-outline-dark"><span class="fa fa-fw fa-copy"></span></span> Kopieren</dt>
+            <dd class="pb-2">Möchtest du einen bestehenden Artikel als Basis für einen neuen Artikel nutzen, kannst du diesen über
+                diese Schaltfläche kopieren.</dd>
+            <dt><span class="btn btn-sm btn-outline-dark"><span class="fa fa-fw fa-edit"></span></span> Bearbeiten (Kommentare)</dt>
+            <dd class="pb-2">Die Schaltfläche Bearbeiten in der Toolbar des Kommentar-Registers öffnen einen Massenbearbeitung-Dialog analog der
                 globalen Kommentar-Liste. Hierüber kommen bestimmte Status der ausgewählten Kommentare verändert werden. Die gleiche Schaltfläche in der Kommentar-Liste
                 öffnet des ausgewählten Kommentars in einem Dialog, wo dieser komplett bearbeitet werden kann.</dd>
-            <dt>Revision wiederherstellen (Revisionen)</dt>
-            <dd class="pb-2">Diese Schaltfläche <span class="btn btn-sm btn-outline-dark"><span class="fpcm-ui-icon fa fa-fw fa-undo"></span></span> ermöglicht es, den aktuellen Artikel auf die ausgewählte Artikel-Revision zurückzusetzen. Beim Zurücksetzen wird
+            <dt><span class="btn btn-sm btn-outline-dark"><span class="fa fa-fw fa-undo"></span></span> Revision wiederherstellen (Revisionen)</dt>
+            <dd class="pb-2">Diese Schaltfläche ermöglicht es, den aktuellen Artikel auf die ausgewählte Artikel-Revision zurückzusetzen. Beim Zurücksetzen wird
                 automatisch eine neue Revision des aktuellen Stands erzeugt, bevor die ältere Version wiederhergestellt wird.</dd>
-            <dt>Revision öffnen (Revisionen)</dt>
-            <dd class="pb-2">Über diesen Button <span class="btn btn-sm btn-outline-dark"><span class="fpcm-ui-icon fa fa-fw fa-play"></span></span> kann eine bestimmte Revision geöffnet werden. Es wird eine Vergleichansicht zwischen der ausgewählten
+            <dt><span class="btn btn-sm btn-outline-dark"><span class="fa fa-fw fa-play"></span></span> Revision öffnen (Revisionen)</dt>
+            <dd class="pb-2">Über diesen Button kann eine bestimmte Revision geöffnet werden. Es wird eine Vergleichansicht zwischen der ausgewählten
                 Revision (linke Seite) und dem aktuellen Zustand des Artikels (rechte Seite) angezeigt. Der Artikeltext selbst wird in einer DIFF-Ansicht dargestellt, d. h. Veränderungen werden
                 innerhalb des Textes dargestellt.</dd>
-            <dt>Zurück zur aktuellen Ansicht (Revisionen)</dt>
-            <dd class="pb-2">Wurde eine Revision geöffnet, so gelangst du durch diese Schaltfläche <span class="btn btn-sm btn-outline-dark"><span class="fpcm-ui-icon fa fa-fw fa-chevron-circle-left"></span></span> 
-                zurück in den aktuellen Artikel.</dd>
+            <dt><span class="btn btn-sm btn-outline-dark"><span class="fa fa-fw fa-chevron-circle-left"></span></span>  Zurück zur aktuellen Ansicht (Revisionen)</dt>
+            <dd class="pb-2">Wurde eine Revision geöffnet, so gelangst du durch diese Schaltfläche zurück in den aktuellen Artikel.</dd>
         </dl>
 
-        <h3 class="pt-5 fs-1">Erweiterte Funktionen</h3>
+        <h3 class="py-3 fs-1">Erweiterte Funktionen</h3>
 
         <h4 class="pt-3">Weiterlesen-Link/ Seitenumbruch einfügen</h4>
 
@@ -183,19 +188,34 @@ Help language file
             einen Eintrag der Form <pre>&lt;!-- pagebreak --&gt;</pre> welcher im Frontend in einen Weiterlesen-Link umgesetzt wird. <b>Achtung!</b> Hierfür muss
         das Template entsprechend angepasst werden.</p>
 
-        <h4 class="pt-3">Einzelnes Bild in Artikel einfügen</h4>
+        <h4 class="pt-3">Dateiverknüpfung in Artikel einfügen</h4>
 
-        <p>Um den Pfad eines Bildes direkt in den <em>Bild einfügen</em>-Dialog zu übernehmen, klicke auf die Buttons <strong>Thumbnail-Pfad in Quelle einfügen</strong>
-            bzw. <strong>Datei-Pfad in Quelle einfügen</strong> unterhalb/ neben dem Thumbnail des jeweiligen Bildes. Je nach gewähltem Button wird der entsprechende Pfad
-            übernommen.</p>
+        <p>Um den Pfad eines Bildes direkt in den <em>Bild einfügen</em>-Dialog zu übernehmen, klicke auf die folgenden Buttons:
+        <ul>
+            <li class="pb-2">
+                <span class="btn btn-sm btn-outline-dark"><span class="fa fa-fw fa-image-portrait"></span></span> Thumbnail-URL Quelle:
+                Einfügen der Thumbnail-URL des gewählten Bilds
+            </li>
+            <li class="pb-2">
+                <span class="btn btn-sm btn-outline-dark"><span class="fa fa-fw fa-image"></span></span> Bild-URL Quelle:
+                Einfügen der URL des eigentlichen Bildes
+            </li>
+            <li class="pb-2">
+                <span class="btn btn-sm btn-outline-dark"><span class="fa fa-fw fa-file-arrow-down"></span></span> Einfügen:
+                Einfügen eines Audio- oder Video-Verweises in Artikel
+            </li>
+        </ul>
 
-        <p>Sollte die Übernahme einfach nicht funktionieren, so öffne via Rechtsklick das Kontextmenü der genannten Buttons. Wähle dort die
-            Option <strong>Link-Adresse kopieren / Verknüpfung kopieren / o. ä.</strong> aus und für den Pfad anschließend in das Feld <em>Quelle</em> im Editor
-            ein.</p>
+        <p>Funktioniert die Übernahme nicht, wählen den jeweiligen Button via rechtsklick an und dann die Option
+            <span class="btn btn-sm btn-outline-dark">Link-Adresse kopieren / Verknüpfung kopieren</span> (o. ä.) aus.
+            Füge die kopierte URL im Anschluss Feld <em>Quelle</em> im Editor ein.</p>
 
         <ul>
-            <li>Im HTML-Editor öffnet sich beim Eintippen in das Quelle-Feld zudem eine Autovervollständigung mit Treffern in der hochgeladenen Bilder.</li>
-            <li>Weiterhin kann im Einfügen-Dialog über den Button "Bild als Link einfügen" direkt eine Verlinkung zum ausgewählten Bild erzeugt werden.</li>
+            <li>Im HTML-Editor öffnet sich beim Eintippen in das Quelle-Feld zudem eine Autovervollständigung 
+                mit Treffern in der hochgeladenen Dateien.</li>
+            <li>Weiterhin kann im Einfügen-Dialog über den Button
+                <span class="btn btn-sm btn-outline-dark"><span class="fa fa-fw fa-link"></span> Bild als Link einfügen</span>
+                direkt eine Verlinkung zum ausgewählten Bild erzeugt werden.</li>
             <li>In TinyMCE steht im "Bild einfügen"-Dialog zudem der Punkt <strong>Bildliste</strong> zur Verfügung.</li>
         </ul>
 
@@ -226,7 +246,7 @@ Help language file
         <![CDATA[
         <p>Im Bereich <b>Artikel verwalten</b> kannst findest du alle gespeicherten Artikel in FanPress CM.</p>
 
-        <h3 class="pt-5 fs-1">Bereiche</h3>
+        <h3 class="py-3 fs-1">Bereiche</h3>
 
         <dl>
             <dt>Alle Artikel:</dt>
@@ -241,26 +261,47 @@ Help language file
 
         <p>Die verfügbaren Eigenschaften werden im Artikel-Editor näher beschrieben.</p>
 
-        <h3 class="pt-5 fs-1">Aktionen</h3>
+        <h3 class="py-3 fs-1">Aktionen</h3>
 
         <dl>
-            <dt>Bearbeiten:</dt>
+            <dt><span class="btn btn-sm btn-outline-dark"><span class="fa fa-plus"></span></span> Neu:</dt>
+            <dd class="pb-2">Shortcut, um den Artikel-Editor zum Verfassen eines neuen Artikels aufzurufen</dd>
+            <dt><span class="btn btn-sm btn-outline-dark"><span class="fa fa-edit"></span></span> Bearbeiten:</dt>
             <dd class="pb-2">Über die Massenbearbeitung können alle ausgewählten Artikel auf einmal bearbeitet werden.
                 Die auswählbaren Optionen entsprechen denen im Artikel-Editor.</dd>
-            <dt>Suche und Filter:</dt>
-            <dd class="pb-2">Über diesen Button kannst du mithilfe eines Dialogs die angezeigten Artikel anhand
-                verschiedener Kriterien weiter eingrenzen. Über die Hauptnavigation kannst du bereits eine Vorauswahl treffen, welche Artikel
-                dir angezeigt werden sollen. Unterschiedliche Felder können im Bedarfsfall miteinander verknüpft werden oder die Suche
-                in speziellen Konstellationen durchgeführt werden. Hierzu dient das linke Dropdown-Feld in der jeweiligen Zeile. Auf der
-                rechten Seite einer Zeile wird der jeweilige Wert angegeben. Der Button "Filter zurücksetzen" führt eine Aktualisierung der
-                aktuellen Ansicht durch. Hierdurch werden die Filter-Einstellungen komplett zurückgesetzt.
+            <dt><span class="btn btn-sm btn-outline-dark"><span class="fa fa-search"></span></span> Suche und Filter:</dt>
+            <dd class="pb-2">
+                Über diesen Button kannst du die angezeigten Elemente anhand eigener Bedingungen weiter eingrenzen.
+                Über die Hauptnavigation kannst du bereits eine Vorauswahl treffen, welche Artikel dir angezeigt werden sollen.
+                <ul>
+                    <li><span class="btn btn-sm btn-outline-success"><span class="fa fa-plus"></span></span> Hinzufügen:
+                        Um eine Bedingung festzulegen, klicke auf den Hinzufügen-Button links in der Ecke des Dialogs.
+                        Wähle dann ein Feld aus, in dem du suchen möchtest. Je nach Feldtyp kannst du entweder
+                        einen freien Wert angeben  oder aus der Vorgabe von Werten auswählen.</li>
+                    <li><span class="btn btn-sm btn-outline-dark"><span class="fa fa-minus"></span></span> Entfernen:
+                        Um eine Bedingung zu entfernen, klicke auf den Entfernen-Button. Die entsprechende Zeile
+                        wird mitsammt aller Einstellungen entfernt.</li>
+                    <li><span class="btn btn-sm btn-outline-dark">
+                            <span class="fa fa-filter-circle-xmark"></span></span> Filter zurücksetzen: führt eine Aktualisierung der
+                        aktuellen Ansicht durch, die Filter-Einstellungen werden komplett zurückgesetzt</li>
+                    <li>Du kannst in mehreren Feldern gleichzeitig suchen. Verknüpfe dafür die einzelnen Bedigungen anhand von
+                        entsprechend deinem erwartete Ergebnis.</li>
+                    <li><em>Und</em>-Verknüfpung: Greift stärker als <em>Oder</em>, alle betroffenen
+                        Bedingungen müssen für ein Ergebnis übereinstimmen.</li>
+                    <li><em>Oder</em>-Verknüfpung: mindestens eine Bedingungen muss für ein Ergebnis übereinstimmen</li>
+                    <li><em>Klammern</em>: Inhalte in Klammern werden vor <em>Und / Oder</em> ausgewertet</li>
+                    <li><em>Sortierung</em>: Über die Auswahl der Sortierung beeinflusst du, in welcherm Reihenfolge
+                        deine Suchergebnisse angezeigt werden</li>
+                </ul>
             </dd>
-            <dt>Löschen:</dt>
+            <dt><span class="btn btn-sm btn-outline-dark"><span class="fa fa-trash"></span></span> Löschen:</dt>
             <dd class="pb-2">Den bzw. die ausgewählten Artikel löschen.</dd>
-            <dt>Artikel-Cache leeren:</dt>
+            <dt><span class="btn btn-sm btn-outline-dark"><span class="fa fa-recycle"></span></span> Artikel-Cache leeren:</dt>
             <dd class="pb-2">Über diese Aktion kann bei Bedarf gezielt der Cache eines einzelnen bzw. der ausgewählten Artikel geleert und somit
                 beim Öffnen des Frontends ein erneutes rendern der entsprechenden Artikel erzwungen werden. Dies ist hilfreich, wenn Änderungen an Artikeln nicht sofort übernommen
                 werden.</dd>
+            <dt><span class="btn btn-sm btn-outline-dark"><span class="fa fa-play"></span></span> Artikel auf Webseite anzeigen:</dt>
+            <dd class="pb-2">Über diese Aktion rufst du den entsprechenden Artikel direkt aufd deiner Webseite auf.</dd>
         </dl>
         ]]>
     </chapter>
@@ -271,7 +312,7 @@ Help language file
         <p>Willst du nur die Artikel zu einem bestimmten Artikel anzeigen lassen, geht das wie gewohnt über die Liste
             auf dem Kommentar-Tab im Artikel-Editor.</p>
 
-        <h3 class="pt-5 fs-1">Eigenschaften</h3>
+        <h3 class="py-3 fs-1">Eigenschaften</h3>
 
         <dl>
             <dt>Kommentar ist privat:</dt>
@@ -290,31 +331,54 @@ Help language file
                 verschieben. Das Eingabefeld unterstützt die Suche nach Artikeln mittels Autovervollständigung.</dd>
         </dl>
 
-        <h3 class="pt-5 fs-1">Aktionen</h3>
+        <h3 class="py-3 fs-1">Aktionen</h3>
 
         <dl>
-            <dt>Bearbeiten:</dt>
+            <dt><span class="btn btn-sm btn-outline-dark"><span class="fa fa-edit"></span></span> Bearbeiten:</dt>
             <dd class="pb-2">Über die Massenbearbeitung können alle ausgewählten Kommentare auf einmal bearbeitet werden.
                 Die auswählbaren Optionen entsprechen denen im Kommentar-Editor.</dd>
-            <dt>Suche und Filter:</dt>
-            <dd class="pb-2">Über diesen Button kannst du mithilfe eines Dialogs die angezeigten Kommentare anhand
-                verschiedener Kriterien weiter eingrenzen. Unterschiedliche Felder können im Bedarfsfall miteinander verknüpft werden oder die Suche
-                in speziellen Konstellationen durchgeführt werden. Hierzu dient das linke Dropdown-Feld in der jeweiligen Zeile. Auf der
-                rechten Seite einer Zeile wird der jeweilige Wert angegeben.</dd>
-            <dt>Löschen:</dt>
+            <dt><span class="btn btn-sm btn-outline-dark"><span class="fa fa-search"></span></span> Suche und Filter:</dt>
+            <dd class="pb-2">
+                Über diesen Button kannst du die angezeigten Elemente anhand eigener Bedingungen weiter eingrenzen.
+                <ul>
+                    <li><span class="btn btn-sm btn-outline-success"><span class="fa fa-plus"></span></span> Hinzufügen:
+                        Um eine Bedingung festzulegen, klicke auf den Hinzufügen-Button links in der Ecke des Dialogs.
+                        Wähle dann ein Feld aus, in dem du suchen möchtest. Je nach Feldtyp kannst du entweder
+                        einen freien Wert angeben  oder aus der Vorgabe von Werten auswählen.</li>
+                    <li><span class="btn btn-sm btn-outline-dark"><span class="fa fa-minus"></span></span> Entfernen:
+                        Um eine Bedingung zu entfernen, klicke auf den Entfernen-Button. Die entsprechende Zeile
+                        wird mitsammt aller Einstellungen entfernt.</li>
+                    <li><span class="btn btn-sm btn-outline-dark">
+                            <span class="fa fa-filter-circle-xmark"></span></span> Filter zurücksetzen: führt eine Aktualisierung der
+                        aktuellen Ansicht durch, die Filter-Einstellungen werden komplett zurückgesetzt</li>
+                    <li>Du kannst in mehreren Feldern gleichzeitig suchen. Verknüpfe dafür die einzelnen Bedigungen anhand von
+                        entsprechend deinem erwartete Ergebnis.</li>
+                    <li><em>Und</em>-Verknüfpung: Greift stärker als <em>Oder</em>, alle betroffenen
+                        Bedingungen müssen für ein Ergebnis übereinstimmen.</li>
+                    <li><em>Oder</em>-Verknüfpung: mindestens eine Bedingungen muss für ein Ergebnis übereinstimmen</li>
+                    <li><em>Klammern</em>: Inhalte in Klammern werden vor <em>Und / Oder</em> ausgewertet</li>
+                    <li><em>Sortierung</em>: Über die Auswahl der Sortierung beeinflusst du, in welcherm Reihenfolge
+                        deine Suchergebnisse angezeigt werden</li>
+                </ul>
+            </dd>
+            <dt><span class="btn btn-sm btn-outline-dark"><span class="fa fa-trash"></span></span> Löschen:</dt>
             <dd class="pb-2">Den bzw. die ausgewählten Kommentare löschen.</dd>
-            <dt>Zugehörigen Artikel bearbeiten:</dt>
+            <dt><span class="btn btn-sm btn-outline-dark"><span class="fa fa-book"></span></span> Zugehörigen Artikel bearbeiten:</dt>
             <dd class="pb-2">Durch diesen Button gelangst du direkt in Artikel-Editor, in welchem der zum ausgewählten Kommentar zugehörige
                 Artikel geöffnet wurde.</dd>
-            <dt>Whois:</dt>
+            <dt><span class="btn btn-sm btn-outline-dark"><span class="fa fa-home"></span></span> Whois:</dt>
             <dd class="pb-2">Über diesen Button kannst du eine Whois-Abfrage auf die IP-Adresse durchführen, um bspw. den etwaigen Standort
                 herauszufinden.</dd>
-            <dt>IP-Adresse sperren:</dt>
+            <dt><span class="btn btn-sm btn-outline-dark"><span class="fa fa-globe"></span></span> IP-Adresse sperren:</dt>
             <dd class="pb-2">Über diesen Button kann für die gespeicherte IP-Adresse eine Sperre eingerichtet werden. Hierzu wird das entsprechende
                 Recht zu verwalten von IP-Adressen benötigt. Die Sperren können unter <strong>Optionen > IP-Adressen</strong> aufgehoben werden.</dd>
+            <dt><span class="btn btn-sm btn-outline-dark"><span class="fa fa-play"></span></span> Artikel auf Webseite anzeigen:</dt>
+            <dd class="pb-2">Über diese Aktion rufst du den entsprechenden Artikel direkt aufd deiner Webseite auf.</dd>
+            <dt><span class="btn btn-sm btn-outline-dark"><span class="fa fa-envelope"></span></span> E-Mail verfassen:</dt>
+            <dd class="pb-2">Über diese Aktion kannst du an den Verfassen eines Kommentars direkt eine E-Mail schreiben.</dd>
         </dl>
 
-        <h3 class="pt-5 fs-1">Kommentar-Editor</h3>
+        <h3 class="py-3 fs-1">Kommentar-Editor</h3>
 
         <p>Der Editor bietet genau wie der Artikel-Editor die Auswahl zwischen TinyMCE und ACE Editor, besitzt jedoch nicht alle Funktionen des Artikel-Editors. Oberhalb des Editors
             werden noch zusätzliche Informationen angezeigt, u. a. von welcher IP-Adresse der Kommentar geschrieben wurde. Diese Information kann zur Vermeidung von Spam, bei Straftaten etc.
@@ -339,71 +403,77 @@ Help language file
             sich auch direkt aus dem Artikel-Editor heraus aufrufen. Er zeigt neben einem Vorschau-Bild noch einige zusätzliche Informationen zur
             hochgeladenen Datei an.</p>
 
-        <h3 class="pt-5 fs-1">Aktionen</h3>
+        <h3 class="py-3 fs-1">Aktionen</h3>
 
         <dl>
-            <dt><span class="btn btn-sm btn-outline-dark"><span class="fpcm-ui-icon fa fa-fw fa-search"></span></span> Suche und Filter:</dt>
+            <dt><span class="btn btn-sm btn-outline-dark"><span class="fa fa-fw fa-search"></span></span> Suche und Filter:</dt>
             <dd class="pb-2">Über diesen Button kannst du mithilfe eines Dialogs die angezeigten Element
                 anhand von Dateiname, alternativer Beschriftung, Credits-Feld, Upload-Zeit, Benutzer
                 gefiltert werden. </dd>
-            <dt><span class="btn btn-sm btn-outline-dark"><span class="fpcm-ui-icon fa fa-fw fa-image"></span></span> Thumbnails erzeugen:</dt>
+            <dt><span class="btn btn-sm btn-outline-dark"><span class="fa fa-fw fa-image"></span></span> Thumbnails erzeugen:</dt>
             <dd class="pb-2">Für ausgewählte Dateien kann das Thumbnail neu erzeugt werden.</dd>
-            <dt><span class="btn btn-sm btn-outline-dark"><span class="fpcm-ui-icon fa fa-fw fa-trash"></span></span> Löschen:</dt>
+            <dt><span class="btn btn-sm btn-outline-dark"><span class="fa fa-fw fa-trash"></span></span> Löschen:</dt>
             <dd class="pb-2">Die ausgewählten Dateien können gelöscht werden. Wichtig! Für Dateien existiert kein Papierkorb.</dd>
-            <dt><span class="btn btn-sm btn-outline-dark"><span class="fpcm-ui-icon fa fa-fw fa-edit"></span></span> Umbenennen:</dt>
+            <dt><span class="btn btn-sm btn-outline-dark"><span class="fa fa-fw fa-edit"></span></span> Umbenennen:</dt>
             <dd class="pb-2">Über den Button kann die Datei umbenannt werden, die Dateiendung muss dabei nicht angehangen werden.</dd>
-            <dt><span class="btn btn-sm btn-outline-dark"><span class="fpcm-ui-icon fa fa-fw fa-magic"></span></span> Bild bearbeiten:</dt>
+            <dt><span class="btn btn-sm btn-outline-dark"><span class="fa fa-fw fa-magic"></span></span> Bild bearbeiten:</dt>
             <dd class="pb-2">FanPress CM bringt einen einfachen Bildeditor mit. Dieser ermöglicht es, hochgeladenen Grafiken in ihrer Größe
-                zu verändern, zu drehen, zoomen oder Bereiche auszuschneiden.</dd>            
-            <dt><span class="btn btn-sm btn-outline-dark"><span class="fpcm-ui-icon fa fa-fw fa-edit"></span></span> Kopieren:</dt>
+                zu verändern, zu drehen, zoomen oder Bereiche auszuschneiden.</dd>
+            <dt><span class="btn btn-sm btn-outline-dark"><span class="fa fa-fw fa-copy"></span></span> Kopieren:</dt>
             <dd class="pb-2">Eine vorhandene Datei kann kopiert werden. Die Kopie erhält automatisch einen neuen Namen im Format
-                <em>Kopie von XYZ</em>.</dd>            
-            <dt><span class="btn btn-sm btn-outline-dark"><span class="fpcm-ui-icon fa fa-fw fa-keyboard"></span></span> Alternativtext eingeben:</dt>
+                <em>Kopie von XYZ</em>.</dd>
+            <dt><span class="btn btn-sm btn-outline-dark"><span class="fa fa-fw fa-keyboard"></span></span> Alternativtext eingeben:</dt>
             <dd class="pb-2">Der Alternativtext ermöglicht eine gesonderte Beschreibung für die gewählte Grafik zu hinterlegen.</dd>
-            <dt><span class="btn btn-sm btn-outline-dark"><span class="fpcm-ui-icon fa fa-fw fa-info-circle"></span></span> Eigenschaften:</dt>
+            <dt><span class="btn btn-sm btn-outline-dark"><span class="fa fa-fw fa-info-circle"></span></span> Eigenschaften:</dt>
             <dd class="pb-2">Über diesen Button werden relevante Informationen zum gewählten Eintrag (Upload-Datum/ Benutzer, Dateigröße, Auflösung usw.) angezeigt.</dd>
-            <dt><span class="btn btn-sm btn-outline-dark"><span class="fpcm-ui-icon fa fa-fw fa-cogs"></span></span> Optionen:</dt>
+            <dt><span class="btn btn-sm btn-outline-dark"><span class="fa fa-fw fa-cogs"></span></span> Optionen:</dt>
             <dd class="pb-2">Dieser Button öffnet einen Dialog zum Setzen von Einstellungen für den Dateimanager, welche auch im Profil gesetzt
                 werden können.</dd>
-            <dt><span class="btn btn-sm btn-outline-dark"><span class="fpcm-ui-icon fa fa-fw fa-bell"></span></span> Erinnerungen:</dt>
-            <dd class="pb-2">Über den "Glocke"-Button können auf hochgeladene Dateien Erinnerungen gesetzt 
+            <dt><span class="btn btn-sm btn-outline-dark"><span class="fa fa-fw fa-bell"></span></span> Erinnerungen:</dt>
+            <dd class="pb-2">Über diesen Button können auf hochgeladene Dateien Erinnerungen gesetzt
                 werden. Die Glock wird gelb, sobald die Fälligkeit ereicht wurde, bei einer gesetzten
                 Erinnerung ist der Button grau. In diesem Fall kann die Erinnerung durch Klick auf den Button bearbeitet werden.
-                Pro Benutzer kann pro Datei eine Erinnerung gesetzt werden.</dd>            
-            <dt><span class="btn btn-sm btn-outline-dark"><span class="fpcm-ui-icon fa fa-fw fa-image"></span></span> Artikelbild festlegen:</strong> (nur Editor)</dt>
+                Pro Benutzer kann pro Datei genau eine Erinnerung gesetzt werden. Erinnerungen dienen dazu, sich bspw. beim
+                Auflauf von Bildrechten o. ä. benachichtigen zu lassen.</dd>
+            <dt><span class="btn btn-sm btn-outline-dark"><span class="fa fa-fw fa-image"></span></span> Artikelbild festlegen:</strong> (nur Editor)</dt>
             <dd class="pb-2">Ausgewählte Datei als Artikelbild festlegen.</dd>
-            <dt><span class="btn btn-sm btn-outline-dark"><span class="fpcm-ui-icon fa fa-fw fa-image-portrait"></span></span> Thumbnail-URL einfügen:</strong> (nur Editor)</dt>
+            <dt><span class="btn btn-sm btn-outline-dark"><span class="fa fa-fw fa-image-portrait"></span></span> Thumbnail-URL einfügen:</strong> (nur Editor)</dt>
             <dd class="pb-2">Thumbnail-URL der ausgewählten Datei in Dialog übernehmen.</dd>
-            <dt><span class="btn btn-sm btn-outline-dark"><span class="fpcm-ui-icon fa fa-fw fa-panorama"></span></span> Bild-URL einfügen:</strong> (nur Editor)</dt>
+            <dt><span class="btn btn-sm btn-outline-dark"><span class="fa fa-fw fa-panorama"></span></span> Bild-URL einfügen:</strong> (nur Editor)</dt>
             <dd class="pb-2">Bild-URL der ausgewählten Datei in Dialog übernehmen.</dd>
         </dl>
 
-        <h3 class="pt-5 fs-1">Eigenschaften</h3>
+        <h3 class="py-3 fs-1">Eigenschaften</h3>
 
         <dl>
-            <dt><span class="fpcm-ui-icon fa fa-fw fa-calendar"></span> Zuletzt geändert:</dt>
+            <dt><span class="fa fa-fw fa-calendar"></span> Zuletzt geändert:</dt>
             <dd class="pb-2">Zeitpunkt der letzten Änderung bzw. des Uploads</dd>
-            <dt><span class="fpcm-ui-icon fa fa-fw fa-user"></span> Hochgeladen von:</dt>
+            <dt><span class="fa fa-fw fa-user"></span> Hochgeladen von:</dt>
             <dd class="pb-2">Benutzer der Uploads</dd>
-            <dt><span class="fpcm-ui-icon fa fa-fw fa-weight"></span> Dateigröße:</dt>
+            <dt><span class="fa fa-fw fa-weight"></span> Dateigröße:</dt>
             <dd class="pb-2">Dateigröße der Grafik</dd>
-            <dt><span class="fpcm-ui-icon fa fa-fw fa-maximize"></span> Auflösung:</dt>
+            <dt><span class="fa fa-fw fa-maximize"></span> Auflösung:</dt>
             <dd class="pb-2">Größe der Grafike in Pixel (Breite mal Höhe)</dd>
-            <dt><span class="fpcm-ui-icon fa fa-fw fa-circle-question"></span> MIME-Typ:</dt>
+            <dt><span class="fa fa-fw fa-circle-question"></span> MIME-Typ:</dt>
             <dd class="pb-2">Internet Media Type der Datei</dd>
-            <dt><span class="fpcm-ui-icon fa fa-fw fa-hashtag"></span> Dateihash:</dt>
+            <dt><span class="fa fa-fw fa-hashtag"></span> Dateihash:</dt>
             <dd class="pb-2">SHA-256-Hash der Datei</dd>
-            <dt><span class="fpcm-ui-icon fa fa-fw fa-copyright"></span> Credits:</dt>
+            <dt><span class="fa fa-fw fa-copyright"></span> Credits:</dt>
             <dd class="pb-2">IPTC-Daten der Grafik</dd>
         </dl>
 
-        <h3 class="pt-5 fs-1">Ansichten</h3>
+        <h3 class="py-3 fs-1">Ansichten</h3>
 
         <dl>
             <dt>Karten:</dt>
-            <dd class="pb-2">Diese Ansicht stellt die hochgeladenen Grafiken nebeneinander dar.</dd>
-            <dt>Liste:</dt>
-            <dd class="pb-2">Diese Ansicht stellt die hochgeladenen Grafiken in einer Liste untereinander dar.</dd>
+            <dd class="pb-2">Karten: große Vorschau oben, darunter Informationen zu Dateiname, Alternativtext und
+                den verfügbaren Aktionen, je fünf Elemente pro Zeile</dd>
+            <dt>Liste (Details):</dt>
+            <dd class="pb-2">Elemente untereinander, Vorschau link, darunter Informationen zu Dateiname, Alternativtext und
+                den verfügbaren Aktionen</dd>
+            <dt>Liste (klein):</dt>
+            <dd class="pb-2">Listenansicht ohne Vorschau, diese wird über ersten hervorgehobenen Button geöffnet,
+                Listenanzeige von Informationen zu Dateiname, letzter Änderung, Dateigröße</dd>
         </dl>
         ]]>
     </chapter>
@@ -412,7 +482,7 @@ Help language file
         <p>Das eigene <b>Profil</b> können alle Benutzer über das Profil-Menü oben rechts aufrufen. Über den Button <span class="btn btn-sm btn-outline-dark">Zurücksetzen</span>
             können die Einstellungen auf die Systemweiten Vorgaben zurücksetzen.</p>
 
-        <h3 class="pt-5 fs-1">Profil</h3>
+        <h3 class="py-3 fs-1">Profil</h3>
 
         <dl>
             <dt>Angezeigter Name:</dt>
@@ -428,7 +498,7 @@ Help language file
             <dd class="pb-2">Zur Änderung des Passwortes und bestimmter anderer Einstellungen ist eine Bestätigung per Passwort nötig.</dd>
         </dl>
 
-        <h3 class="pt-5 fs-1">Zwei-Faktor-Authentifizierung (optional)</h3>
+        <h3 class="py-3 fs-1">Zwei-Faktor-Authentifizierung (optional)</h3>
 
         <p>Die Zwei-Faktor-Authentifizierung bietet einen zusätzlichen Schutz deines Logins gegen Fishing, Bots und ähnliches. Die Nutzung ist optional und kann
             durch einen Administrator bei Bedarf aktiviert werden. Der zweite Faktor zum Login wird mittels einer App bspw. auf deinem Smartphone realisiert.</p>
@@ -442,15 +512,15 @@ Help language file
             <li>Trage im Anschluss den ersten sechsstelligen Zahlencode in das Eingabefeld ein und speichere den Vorgang</li>
         </ol>
 
-        <h3 class="pt-5 fs-1">Erweitert</h3>
+        <h3 class="py-3 fs-1">Erweitert</h3>
         <dl>
             <dt>Biografie / Sonstiges:</strong> (optional)</dt>
-            <dd class="pb-2">Kurzer Info-Text zum Autor, der in den News angezeigt werden kann.</dd>            
+            <dd class="pb-2">Kurzer Info-Text zum Autor, der in den News angezeigt werden kann.</dd>
             <dt>Avatar:</strong> (optional)</dt>
             <dd class="pb-2">Benutzer-Avatar, Dateiname entspricht dem Muster <em>benutzername.jpg/png/gif/bmp</em></dd>
         </dl>
 
-        <h3 class="pt-5 fs-1">Benutzereinstellungen</h3>
+        <h3 class="py-3 fs-1">Benutzereinstellungen</h3>
         <dl>
             <dt>Zeitzone:</dt>
             <dd class="pb-2">Zeitzone für Datums- und Zeit-Angaben.</dd>
@@ -472,13 +542,13 @@ Help language file
                 bspw. abends sein.
                 Dieser kann bereits standardmäßig aktiv sein.</dd>
             <dt>Hintergrundbild:</dt>
-            <dd class="pb-2">Über diese Auswahl kann der Hintergrund mit einem Bild versehen werden. 
+            <dd class="pb-2">Über diese Auswahl kann der Hintergrund mit einem Bild versehen werden.
                 Es werden drei Motive ausgeliefert.<br>
                 Eigene Grafiken können unter <em>/core/theme/backdrops</em> in den Formaten
-                JPG; PNG und SVG hinterlegt werden. Die Grafiken sollten mindestens 
+                JPG; PNG und SVG hinterlegt werden. Die Grafiken sollten mindestens
                 Full-HD oder besser WAHD-Auflösung besitzen. Credits können in der Datei der Form <em>bildName.jpg.txt</em> mitgeliefert
                 werden.<br>
-                Großen Grafiken im JPG- oder PNG-Format können die Ladezeit von 
+                Großen Grafiken im JPG- oder PNG-Format können die Ladezeit von
                 FanPress CM negativ beinflussen.</dd>
         </dl>
 
@@ -490,33 +560,34 @@ Help language file
             gelten grundsätzlich für alle Benutzer, sofern diese nicht vom einzelnen Anwender verändert wurden. Entsprechende Änderungen
             können bei Bedarf im Profil oder der Benutzer-Verwaltung zurückgesetzt werden.</p>
 
-        <p>Einige Bereiche besitzen eine <em>Frontend</em>-Box. Die entsprechenden Einstellungen beeinflussen, wie sich FanPress CM
-            in den veröffentlichen Bereichen verhält, welche auf deiner Webseite angezeigt werden.</p>
+        <p>Im Dropdown <span class="btn">Erweitern</span> findest du zwei Optionen zur
+            Ausführung der Update-Prüfung und zur Übermittlung von einigen statistischen
+            Informationen zu deiner FanPress CM-Installation.</p>
 
-        <p>Über den Button <strong>Auf Aktualisierung prüfen</strong> in der Toolbar kannst du die Prüfung auf System-Updates manuell starten.</p>
+        <hr>
 
-        <h3 class="pt-5 fs-1">Allgemein</h3>
+        <h3 class="py-3 fs-1">Allgemein</h3>
 
         <dl>
-            <dt>Allgemein - E-Mail-Adresse:</dt>
+            <dt>E-Mail-Adresse:</dt>
             <dd class="pb-2">Zentrale E-Mail-Adresse für Systembenachrichtigungen.</dd>
-            <dt>Allgemein - Basis-URL für Artikellinks:</dt>
+            <dt>Basis-URL für Artikellinks:</dt>
             <dd class="pb-2">Basis-URL für Artikellinks im Frontend, wichtig v. a. bei der Nutzung
                 von phpinclude. Entspricht in vielen Fällen der <em>deine-domain.xyz/index.php</em> oder der Datei, in der
                 <em>fpcmapi.php</em> inkludiert ist.</dd>
-            <dt>Allgemein - Datum- und Zeitanzeige:</dt>
+            <dt>Datum- und Zeitanzeige:</dt>
             <dd class="pb-2">Maske für die Anzeige von Datums- und Zeitangaben.</dd>
-            <dt>Allgemein - Zeitzone:</dt>
+            <dt>Zeitzone:</dt>
             <dd class="pb-2">Globale Zeitzone, kann durch Profileinstellung überschrieben werden.</dd>
-            <dt>Allgemein - Sprache:</dt>
+            <dt>Sprache:</dt>
             <dd class="pb-2">Globale Spracheinstellung für alle Benutzer sowie im Frontend.</dd>
-            <dt>Allgemein - Anzahl Elemente pro Seite im ACP:</dt>
+            <dt>Anzahl Elemente pro Seite im ACP:</dt>
             <dd class="pb-2">Anzahl an Elementen im Admin-Bereich, wenn die Liste die Möglichkeit bietet,
                 durch Seiten zu blättern (z. B. Artikel- und Kommentar-Listen)</dd>
-            <dt>Allgemein - Zeit bis zum Cache-Timeout:</dt>
+            <dt>Zeit bis zum Cache-Timeout:</dt>
             <dd class="pb-2">Zeitraum, nachdem der Inhalt des Cache als abgelaufen betrachtet wird und der Inhalt
                 neu aufgebaut wird. Diese Einstellung ist vor allem für den Frontend-Inhalt wichtig.</dd>
-            <dt>Allgemein - Vorhaltezeit für gelöschte Elemente:</dt>
+            <dt>Vorhaltezeit für gelöschte Elemente:</dt>
             <dd class="pb-2">Anzahl an Tagen, bis Elemente im Papierkorb automatisch gelöscht werden.</dd>
             <dt>Dunkles Design verwenden:</dt>
             <dd class="pb-2">Diese Option ermöglich die (De-)Aktivierung eines Dark Modes.
@@ -525,33 +596,47 @@ Help language file
                 bspw. abends sein.</dd>
         </dl>
 
-        <h3 class="pt-5 fs-1">Editor & Dateimanager</h3>
+        <hr>
+
+        <h3 class="py-3 fs-1">Editor</h3>
 
         <dl>
-            <dt>Editor - Editor auswählen:</dt>
+            <dt>Editor auswählen:</dt>
             <dd class="pb-2">Standardmäßig kann hier zwischen TinyMCE und ACE Editor gewählt werden.
                 Zusätzliche Editoren können über Module bereitgestellt werden. Diese Einstellung gilt für Artikel- und Kommentar-Editor im Admin-Bereich.</dd>
-            <dt>Editor - Standard-Schriftgröße im Editor:</dt>
+            <dt>Standard-Schriftgröße im Editor:</dt>
             <dd class="pb-2">Schriftgröße, die standardmäßig im aktiven Editor genutzt wird.</dd>
-            <dt>Editor - Revisionen aktivieren:</dt>
+            <dt>Revisionen aktivieren:</dt>
             <dd class="pb-2">Soll FanPress CM Revisionen beim Speichern eines Artikels anlegen. Sind die Revisionen nicht aktiv,
                 so werden Artikel beim Speichern sofort überschrieben und der bisherige Stand ist verloren.</dd>
-            <dt>Editor - Alte Revisionen löschen, wenn älter als:</dt>
+            <dt>Alte Revisionen löschen, wenn älter als:</dt>
             <dd class="pb-2">Revisionen, welche älter als der angegebene Wert sind, werden beim nächsten Durchlauf des
                 zugehörigen Cronjobs aus der Datenbank entfernt. Wurde der Wert "Nie" ausgewählt, so bleiben alle Revisionen erhalten, bis sie
                 irgendwann manuell gelöscht werden.</dd>
-            <dt>Editor - CSS-Klassen im Editor:</dt>
+            <dt>CSS-Klassen im Editor:</dt>
             <dd class="pb-2">CSS-Klassen zur Nutzung im FanPress CM Editor. Bei den CSS-Klassen handelt es sich in der Regel
                 um solche, die du auch auf deiner Webseite verwendest.</dd>
-            <dt>Dateimanager - Dateien beim Upload in Unterordner organisieren:</dt>
-            <dd class="pb-2">Über diese Option kannst du festlegen, dass Dateien beim Upload in Unterordnern abgelegt werden.
-                Diese besitzen immer das Muster <em>YYYY-MM</em> (vierstellige Jahreszahl - zweistelliger Monat). </dd>
-            <dt>Dateimanager - Anzahl Bilder pro Seite:</dt>
-            <dd class="pb-2">Anzahl an Bildern, die im Dateimanager pro Seite angezeigt werden.</dd>
-            <dt>Dateimanager - Dateimanager-Ansicht:</dt>
-            <dd class="pb-2">Über diese Option kann ausgewählt werden, ob die Dateien im Dateimanager nebeneinander als Karten
-                oder untereinander in einer Listenform angezeigt werden. Die dargestellten Informationen bleiben die gleichen.</dd>
-            <dt>Dateimanager - Dateiname-Muster bearbeiteter Bilder:</dt>
+        </dl>
+
+        <hr>
+
+        <h3 class="py-3 fs-1">Dateimanager</h3>
+
+        <dl>
+            <dt>Anzahl Dateien pro Seite:</dt>
+            <dd class="pb-2">Anzahl an Dateien, die im Dateimanager pro Seite angezeigt werden.</dd>
+            <dt>Dateimanager-Ansicht:</dt>
+            <dd class="pb-2">Über diese Option kann ausgewählt werden, in welcher Form die Dateien im Dateimanager
+                angezeigt werden.</dd>
+            <ul>
+                <li>Karten: große Vorschau oben, darunter Informationen zu Dateiname, Alternativtext und
+                    den verfügbaren Aktionen, je fünf Elemente pro Zeile</li>
+                <li>Liste (Details): Elemente untereinander, Vorschau link, darunter Informationen zu Dateiname, Alternativtext und
+                    den verfügbaren Aktionen</li>
+                <li>Liste (klein): Listenansicht ohne Vorschau, diese wird über ersten hervorgehobenen Button geöffnet,
+                    Listenanzeige von Informationen zu Dateiname, letzter Änderung, Dateigröße</li>
+            </ul>
+            <dt>Dateiname-Muster bearbeiteter Bilder:</dt>
             <dd class="pb-2">Werden Bilder im Dateimanager oder Artikel-Editor bearbeitet, so erfolgt die Speicherung der neuen Datei
                 unter einem Namen, welcher dem eingestellten Muster entspricht. Folgende Platzhalter können verwendet werden:
                 <ul>
@@ -561,120 +646,139 @@ Help language file
                     <li>{{hash}}: Dateihash</li>
                     <li>{{userid}}:  Benutzer-ID</li>
                     <li>{{random}}: Zufallszahl</li>
-                </ul></dd>
-            <dt>Dateimanager - Thumbnail-Größe:</dt>
-            <dd class="pb-2">Größe von erzeugten Thumbnails.</dd>
+                </ul>
+            </dd>
+            <dt>Thumbnail-Größe:</dt>
+            <dd class="pb-2">Größe von erzeugten Vorschaubildern von hochgeladenen Grafiken. Die Änderung der Größe führt nicht
+                automatisch zu einer Neuerzeugung der Vorschaubilder.</dd>
         </dl>
 
-        <h3 class="pt-5 fs-1">Artikel</h3>
+        <hr>
+
+        <h3 class="py-3 fs-1">Artikel</h3>
 
         <dl>
-            <dt><em>Frontend</em> - Anzahl Artikel pro öffentlicher Seite:</dt>
+            <dt>Anzahl Artikel pro öffentlicher Seite:</dt>
             <dd class="pb-2">Anzahl an Artikeln, die im Frontend ausgegeben werden sollen. Diese Option beeinflusst die Anzahl
                 an Artikeln in der öffentlichen Liste der aktiven Artikel, des öffentlichen Archivs sowie im RSS-Feed.</dd>
-            <dt><em>Frontend</em> - Template für Artikel-Liste:</dt>
+            <dt>Template für Artikel-Liste:</dt>
             <dd class="pb-2">Template, welches für die Artikel-Liste genutzt werden soll.</dd>
-            <dt><em>Frontend</em> - Template für einzelnen Artikel:</dt>
+            <dt>Template für einzelnen Artikel:</dt>
             <dd class="pb-2">Template, welches für einen einzelnen Artikel verwendet werden soll. Die hier getroffene
                 Auswahl beeinflusst die angezeigten Register im Template-Editor</dd>
-            <dt><em>Frontend</em> - News sortieren nach:</dt>
+            <dt>News sortieren nach:</dt>
             <dd class="pb-2">Reihenfolge, nach der Artikel im Frontend sortiert werden sollen. Die erste Auswahl legt fest,
                 nach welchem Kriterium die Sortierung erfolgt (im Standard den Zeitpunkt der Veröffentlichung), die zweite Auswahl die Richtung.</dd>
-            <dt><em>Frontend</em> - Share-Buttons anzeigen:</dt>
+            <dt>Share-Buttons anzeigen:</dt>
             <dd class="pb-2">Hierüber können die Share-Buttons deaktiviert werden. Wurde der entsprechende Platzhalter in
                 einem Template verwendet, so wird er bei der Einstellung "Nein" aus der Frontend-Anzeige entfernt.</dd>
-            <dt><em>Frontend</em> - Geteilte Artikel über Share-Buttons zählen:</dt>
+            <dt>Geteilte Artikel über Share-Buttons zählen:</dt>
             <dd class="pb-2">Diese Option ermöglicht es zu zählen, wie oft ein Artikel über die Share-Buttons bereits geteilt
                 wurde. Diese Option wie oft ein Artikel geteilt wurde und wann dies zuletzt erfolgte. Es erfolgt keine Erfassung, von welcher IP etc.
                 dies erfolgte.</dd>
-            <dt><em>Frontend</em> - URL-Rewriting für Artikellinks aktivieren:</dt>
+            <dt>URL-Rewriting für Artikellinks aktivieren:</dt>
             <dd class="pb-2">Statt der klassischen Artikel-URL mit der Artikel-ID wird eine erweiterte Version erzeugt,
                 welche um den Artikel-Titel erweitert wird. Bei Änderung am Titel kann sich diese URL daher nachträglich ändern. Die klassische Variante
                 steht weiterhin zur Verfügung.</dd>
-            <dt><em>Frontend</em> - RSS-Feed ist aktiv:</dt>
+            <dt>RSS-Feed ist aktiv:</dt>
             <dd class="pb-2">Über diese Option kann der RSS-Feed aktiviert werden.</dd>
-            <dt>Archiv - Archiv-Link anzeigen:</dt>
+            <dt>Archiv-Link anzeigen:</dt>
             <dd class="pb-2">Diese Einstellung ermöglicht es, dass öffentliche Artikel-Archiv für deine Benutzer zu deaktivieren.
                 Somit sind nur die Artikel sichtbar, welche in den aktiven Artikeln im Admin-Bereich ausgelistet werden.</dd>
-            <dt>Archiv - Artikel in Archiv anzeigen ab:</dt>
+            <dt>Artikel in Archiv anzeigen ab:</dt>
             <dd class="pb-2">Vor dem Datum angegebenen Datum veröffentlichte Artikel, welche im Archiv abgelegt wurden,
                 werden nicht für Besucher deiner Webseite angezeigt. ist dieses Feld leer, so werden alle archivierten Artikel angezeigt.</dd>
         </dl>
 
-        <h3 class="pt-5 fs-1">Kommentare</h3>
+        <hr>
+
+        <h3 class="py-3 fs-1">Kommentare</h3>
+
+        <h4>Kommentare</h4>
 
         <dl>
-            <dt>Kommentare - Kommentar-System ist aktiv:</dt>
+            <dt>Kommentar-System ist aktiv:</dt>
             <dd class="pb-2">Kommentar-System komplett aktivieren bzw. deaktivieren.</dd>
-            <dt>Kommentare - Zustimmung zur Datenschutz-Erklärung erforderlich:</dt>
+            <dt>Standardmäßig für neue Artikel aktivieren:</dt>
+            <dd class="pb-2">sind Kommentare für neue Artikel beim Schreiben bereits aktiv
+                oder müssen diese manuell aktiviert werden</dd>
+            <dt>Datenschutz-Zustimmung erforderlich:</dt>
             <dd class="pb-2">Diese Option aktiviert eine zusätzliche Prüfung, ob die Checkbox für die Zustimmung
                 zur Speicherung personenbezogener Daten nach dem Verfassen eines Kommentars angehakt wurde. Diese Option sollte aktiv sein,
-                wenn du das Kommentar-System verwendest und deine Webseite Besucher aus dem Raum der Europäische Union hat.</dd>
-            <dt>Kommentare - Kommentar-Benachrichtigung an:</dt>
+                wenn du das Kommentar-System verwendest und deine Webseite Besucher aus dem Geltungsbereich der DSGVO hat.</dd>
+            <dt>Kommentar-Benachrichtigung an:</dt>
             <dd class="pb-2">Auswahl, an welche E-Mail-Adresse die Benachrichtigung über einen neuen Kommentar geht
                 (Autor des Artikels, globale E-Mail-Adresse aus den Systemeinstellungen oder an beide).</dd>
-            <dt>Kommentare - Kommentar-Template:</dt>
+            <dt>Kommentar-Template:</dt>
             <dd class="pb-2">Template für die Anzeige von Kommentaren im Frontend.</dd>
-            <dt>Kommentare - Zeitsperre zwischen zwei Kommentaren:</dt>
+            <dt>Zeitsperre zwischen zwei Kommentaren:</dt>
             <dd class="pb-2">Zeitspanne die zwischen zwei Kommentaren von derselben IP-Adresse vergangen
                 sein muss.</dd>
-            <dt>Kommentare - E-Mail-Adresse erforderlich:</dt>
+            <dt>E-Mail-Adresse erforderlich:</dt>
             <dd class="pb-2">Muss E-Mail-Adresse beim Schreiben eines Kommentars
                 angegeben werden oder nicht.</dd>
-            <dt>Kommentare - Kommentar-Freigabe erforderlich:</dt>
+            <dt>Kommentar-Freigabe erforderlich:</dt>
             <dd class="pb-2">Kommentare sind sofort sichtbar oder müssen manuell durch den Autor oder einen
                 Admin freigegeben werden. Ob Artikel freigegeben werden können, hängt von den Berechtigungen des Benutzers ab</dd>
-
-            <dt>Captcha-Einstellungen - Captcha-Frage:</dt>
-            <dd class="pb-2">Frage für das Standard-Captcha.</dd>
-            <dt>Captcha-Einstellungen - Antwort auf Captcha-Frage:</dt>
-            <dd class="pb-2">Antwort für das Standard-Spam-Plugin.</dd>
-            <dt>Captcha-Einstellungen - Automatische Spam-Markierung:</dt>
-            <dd class="pb-2">Wurden Kommentare eines Autors so oft wie eingestellt als Spam markiert,
-                so werden neue Kommentare automatisch als Spam deklariert.</dd>
         </dl>
 
-        <h3 class="pt-5 fs-1">Erweitert</h3>
+        <h4>Captcha-Einstellungen</h4>
+
+        <p>Die Captcha-Einstellungen gelten nur für das Standard-Q&A-Captcha von FanPress CM. Wird das
+            Captcha durch ein Modul ersetzt, so werden diese Optionen ggf. nicht betrachtet.</p>
 
         <dl>
-            <dt>Sicherheit & Wartung - Wartungsmodus aktiv:</dt>
+            <dt>Captcha-Frage:</dt>
+            <dd class="pb-2">Frage für das Standard-Captcha.</dd>
+            <dt>Antwort auf Captcha-Frage:</dt>
+            <dd class="pb-2">Antwort für das Standard-Spam-Plugin.</dd>
+            <dt>Automatische Spam-Markierung:</dt>
+            <dd class="pb-2">Wurden Kommentare eines Autors so oft wie eingestellt
+                als Spam markiert, so werden neue Kommentare automatisch als Spam deklariert.</dd>
+        </dl>
+
+        <hr>
+
+        <h3 class="py-3 fs-1">Erweitert</h3>
+
+        <h4>Sicherheit & Wartung</h4>
+
+        <dl>
+            <dt>Wartungsmodus aktiv:</dt>
             <dd class="pb-2">Wurde der Wartungsmodus aktiviert, so haben nur angemeldete Benutzer Zugriff auf FanPress CM.
                 Besucher deiner Seite etc. erhalten eine Hinweis-Meldung. Nur bereits angemeldete Benutzer können in diesem Status Änderungen
                 am System vornehmen.</dd>
-            <dt>Sicherheit & Wartung - Maximale Länge einer Admin-Sitzung:</dt>
-            <dd class="pb-2">Länge einer Session Admin-Bereich. Eine Session läuft automatisch ab, wenn innerhalb der angegebenen
-                Zeit keine Aktion im Admin-Bereich erfolgte bzw. der Check der Session fehlgeschlagen ist.</dd>
-            <dt>Sicherheit & Wartung - Anzahl Login-Versuche vor temporärer Sperre:</dt>
+            <dt>Anzahl Login-Versuche vor temporärer Sperre:</dt>
             <dd class="pb-2">Hiermit kann die Anzahl der fehlgeschlagenen Logins einstellen, bis der Login vorübergehend
                 gesperrt wird. Diese Option erschwert die Übernahme von Benutzer-Accounts durch massenweises Durchprobieren von Passwörtern etc.</dd>
-            <dt>Sicherheit & Wartung - Zwei-Faktor-Authentifizierung:</dt>
+            <dt>Zwei-Faktor-Authentifizierung:</dt>
             <dd class="pb-2">Die Zwei-Faktor-Authentifizierung bietet einen zusätzlichen Schutz von Benutzer-Konten gegen Fishing,
                 Bots und ähnliches. Die Nutzung ist optional und wird durch jeden Benutzer selbst festgelegt. Der zweite Faktor zum Login wird mittels
                 der App "Google Authenticator" auf dem Smartphone des Benutzers realisiert. Wurde die Zwei-Faktor-Authentifizierung aktiviert, so erscheint
                 initial ein QR-Code, welcher eingescannt und bestätigt werden muss.</dd>
-            <dt>Sicherheit & Wartung - Benutzer-Passwörter gegen Pwned Passwords prüfen:</dt>
+            <dt>Benutzer-Passwörter gegen den Dienst haveibeenpwned.com/passwords prüfen:</dt>
             <dd class="pb-2">Bei Aktivierung dieser Option werden eingegebene Benutzer-Passwörter in einen SHA1-Hash umgewandelt
                 und dessen erste fünf Zeichen an den Dienst <a rel="noreferrer,noopener,external" href="https://haveibeenpwned.com/Passwords" target="_blank">Pwned Passwords</a>
                 übermittelt. Ist das Passwort in dieser Datenbank enthalten und bereits mehr als 100-mal geknackt worden, so wird eine Meldung ausgegeben.
             </dd>
+        </dl>
 
-            <dt>Update-Einstellungen - E-Mail-Benachrichtigung, wenn Updates verfügbar:</dt>
+        <h4>Update-Einstellungen</h4>
+        <dl>
+            <dt>E-Mail-Benachrichtigung, wenn Updates verfügbar:</dt>
             <dd class="pb-2">Diese Option ermöglicht es, die Benachrichtigung über
                 verfügbare Updates durch den Update-Cronjob zu de/aktivieren. Die Benachrichtigung erfolgt dabei immer an die globale
                 E-Mail-Adresse in den Systemeinstellungen.</dd>
-            <dt>Update-Einstellungen - Entwickler-Versionen bei Update-Check anzeigen:</dt>
+            <dt>Entwickler-Versionen bei Update-Check anzeigen:</dt>
             <dd class="pb-2">Neben den offiziellen Releases gibt es immer wieder Entwickler- und Test-Versionen.
                 Nach Aktivierung dieser Option werden solche Versionen beim Update-Check angezeigt. <b>Achtung: Entwickler- und Test-Versionen
                     können Fehler oder unvollständige Änderungen enthalten! Nutze diese Versionen daher nur, wenn du dazu aufgefordert wurdest oder dir
                     bei Problemen, Datenverlust, o. ä. notfalls selbst helfen kannst.</b></dd>
-            <dt>Update-Einstellungen - Update-Check-Intervall, wenn externe Server-Verbindungen nicht möglich:</dt>
-            <dd class="pb-2">Kann deine FanPress CM Installation keine direkte Verbindung zum Update herstellen,
-                so wird dir in regelmäßigem Abstand ein Dialog angezeigt, welcher die Download-Seite auf
-                <a rel="noreferrer,noopener,external" href="https://Nobody-Knows.org">Nobody-Knows.org</a> angezeigt. Mit dieser Einstellung kann festgelegt werden, in welchem
-                zeitlichen Abstand dies passiert.</dd>
         </dl>
 
-        <h3 class="pt-5 fs-1">E-Mail-Versand </h3>
+        <hr>
+
+        <h3 class="py-3 fs-1">E-Mail-Versand </h3>
 
         <dl>
             <dt>E-Mails via SMTP versenden:</dt>
@@ -704,16 +808,21 @@ Help language file
             </dd>
         </dl>
 
-        <h3 class="pt-5 fs-1">Systemprüfung</h3>
+        <p class="alert alert-info"><span class="fa fa-exclamation-triangle"></span> Hinweis! FanPress CM unterstützt auf absehbare Zeit
+            nur E-Mail-Server, welche eine klassische Authentifizierung via Benutzername und Passwort anbieten. Die aktuellen
+            OAuth2-Verfahren für Anbieter wie Microsoft oder Google werden nicht unterstützt.</p>
 
-        <p>Über die Systemprüfung kannst du deine aktuelle Installation auf mögliche Fehlkonfigurationen prüfen lassen.</p>
+        <hr>
 
-        <p>Die Prüfung erfolgt erstmalig bei der Installation und sorgt dafür, dass alle notwendigen Module von PHP verfügbar sind,
-            die Unterordner im <em>/data</em>-Verzeichnis beschreibbar sind etc.</p>
+        <h3 class="py-3 fs-1">Systemprüfung</h3>
 
-        <p>Die Systemprüfung unterscheidet zwischen zwingend erforderlichen Punkten. 
-            Dies sind z. B. eine bestimmte PHP- oder MariaDB/Postgres-Version, bestimmte Funktionen von PHP oder 
-            Schreibrechten auf die Ordner unter im <em>/data</em>-Verzeichnis. Wurden diese Punkte nicht erfolgreich 
+        <p>Über die Systemprüfung kannst du deine FanPress CM-Isnatalltion auf überprüfen. Diese erfolgt erstmalig
+            bei der Installation und sorgt dafür, dass alle notwendigen Voraussetzungen (z. B. PHP-Version und Module),
+            Datenbank-Version, Schreibrechte im <em>/data</em>-Verzeichnis stimmen.</p>
+
+        <p>Die Systemprüfung unterscheidet zwischen zwingend erforderlichen Punkten.
+            Dies sind z. B. eine bestimmte PHP- oder MariaDB/Postgres-Version, bestimmte Funktionen von PHP oder
+            Schreibrechten auf die Ordner unter im <em>/data</em>-Verzeichnis. Wurden diese Punkte nicht erfolgreich
             geprüft, kann es bei der Nutzung von FanPress CM zu Fehlern kommen oder diese gar nicht möglich sein.</p>
 
         <p>Punkte, welche mit <em>optional</em> gekennzeichnet sind, müssen nicht zwangsläufig erfüllt sein, erhöhen jedoch den
@@ -722,7 +831,7 @@ Help language file
         <p>Bei der Prüfung auf einen verfügbaren MariaDB- oder Postgres-Datenbanktreiber ist es ausreichend, dass eine der beiden
             Datenbanken verfügbar ist.</p>
 
-        <p>Der Startbildschirm-Container "systemprüfung" umfasst eine Kurzzusammenfassung der Systemprüfung.</p>
+        <p>Der Startbildschirm-Container "Systemprüfung" umfasst eine Kurzzusammenfassung der Systemprüfung.</p>
         ]]>
     </chapter>
     <chapter ref="HL_OPTIONS_USERS">
@@ -730,7 +839,7 @@ Help language file
 
         <p>Mit den entsprechenden Rechten können Benutzer und Benutzer-Rollen verwaltet werden.</p>
 
-        <h3 class="pt-5 fs-1">Benutzer</h3>
+        <h3 class="py-3 fs-1">Benutzer</h3>
 
         <ul>
             <li>Über Benutzer wird der Zugriff auf den Admin-Bereich gesteuert, sowie dokumentiert, wer welchen Artikel,
@@ -746,9 +855,9 @@ Help language file
                 löschen zu lassen. Wurde ein Benutzer gelöscht, so wird bei allen verweisen auf den Benutzer angezeigt, dass er
                 nicht gefunden wurde.</li>
             <li>Über den Button <strong>E-Mail verfassen</strong> kann aus dem von euch festgelegten Standard-E-Mail-Programm eine Nachricht versendet werden.</li>
-        </ul>      
+        </ul>
 
-        <h3 class="pt-5 fs-1">Benutzer-Rollen</h3>
+        <h3 class="py-3 fs-1">Benutzer-Rollen</h3>
 
         <p>Ein Benutzer ist immer Mitglied einer Rolle, über deren Berechtigungen der Zugriff des Benutzers auf bestimmte Funktionen
             gesteuert wird.</p>
@@ -758,7 +867,7 @@ Help language file
         <p>Mit Version 4.5 wurde die Möglichkeit eingeführt, einen <b>Codex</b> für Gruppen zu definieren. Dieser dient dazu, Benutzern
             der gewählten Rolle bspw. Tipps zu Quellen, Hinweise beim Verfassen von Artikeln oder sonstige Anmerkungen zu geben.</p>
 
-        <h3 class="pt-5 fs-1">Berechtigungen</h3>
+        <h3 class="py-3 fs-1">Berechtigungen</h3>
 
         <p>Benutzer mit entsprechenden Rechten können hier die Zugriffsrechte auf verschiedene Dinge von FanPress CM ändern und
             den Zugriff einschränken. Der Bereich sollte nur von Administratoren nutzbar sein! Der Rolle "Administrator" kann der
@@ -834,7 +943,7 @@ Help language file
             <dt>Profil ändern</dt>
             <dd class="pb-2">Benutzer kann sein Profil ändern</dd>
             <dt>CSV-Import ausführen</dt>
-            <dd class="pb-2">Benutzer kann über den CSV-Import Artikel, 
+            <dd class="pb-2">Benutzer kann über den CSV-Import Artikel,
                 Kommentare, Kategorien bzw. Textzensur/Autokorrektur-Einträge
                 importieren.</dd>
             <dt>Module aktivieren/deaktivieren</dt>
@@ -871,16 +980,16 @@ Help language file
                 kann nötig werden, wenn zum Beispiel Bots (Spam, Suchmaschinen etc.) häufig ihre IP-Adresse wechseln.</li>
         </ul>
 
-        <h3 class="pt-5 fs-1">Sperren einrichten</h3>
+        <h3 class="py-3 fs-1">Sperren einrichten</h3>
 
         <ul>
             <li>Um eine <strong>einzelne</strong> IP-Adresse (z. B. 192.168.1.2) zu sperren, trage diese komplett in das Feld <em>IP-Adresse</em> ein.</li>
-            <li>Um <strong>mehrere IP-Adressen bzw. einen Bereich</strong> zu sperren (z. B. 192.168.2.1, 192.168.2.11, 192.168.2.111), ersetzte die 
+            <li>Um <strong>mehrere IP-Adressen bzw. einen Bereich</strong> zu sperren (z. B. 192.168.2.1, 192.168.2.11, 192.168.2.111), ersetzte die
                 entsprechenden Stellen Zahl(en) durch einen <em>*</em> (z. B. 192.168.2.* oder 192.168.*.*) und trage dies in das Feld <em>IP-Adresse</em> ein.</li>
             <li>Für IPv6-Adressen (aa11::22bb:cc33:d4d4:e5e5) gehen analog vor, ersetze hier die Stellen zwischen den Doppelpunkten.</li>
         </ul>
 
-        <h3 class="pt-5 fs-1">Aktionen</h3>
+        <h3 class="py-3 fs-1">Aktionen</h3>
 
         <dl>
             <dt>Keine Kommentare schreiben</dt>
@@ -955,7 +1064,7 @@ Help language file
             </ul>
         </div>
 
-        <h3 class="pt-5 fs-1">Templates</h3>
+        <h3 class="py-3 fs-1">Templates</h3>
 
         <dl>
             <dt>Artikel-Liste:</dt>
@@ -976,7 +1085,7 @@ Help language file
             <dd class="pb-2">HTML-Vorlagen zu Nutzung im Artikel-Editor. (TinyMCE bzw. HTML-Ansicht).</dd>
         </dl>
 
-        <h3 class="pt-5 fs-1">Editor</h3>
+        <h3 class="py-3 fs-1">Editor</h3>
 
         <dl>
             <dt>Verwendbare Platzhalter:</dt>
@@ -997,7 +1106,7 @@ Help language file
             <dd class="pb-2">Platzhaltern mit einem öffnenden und schließendem Tag in der Form "{{A}}:{{/A}}" kann der Doppelpunkt durch einen eigenen Text ersetzt werden.</dd>
         </dl>
 
-        <h3 class="pt-5 fs-1">Vorlagen</h3>
+        <h3 class="py-3 fs-1">Vorlagen</h3>
 
         <ul>
             <li>Vorlagen sind HTML-Dateien, deren Inhalt im Artikel-Editor verwendet werden kann.</li>
@@ -1006,7 +1115,7 @@ Help language file
                 angepasst werden. Weitere können bei Bedarf ins System hochgeladen werden.</li>
         </ul>
 
-        <h3 class="pt-5 fs-1">Verfügbare Attribute</h3>
+        <h3 class="py-3 fs-1">Verfügbare Attribute</h3>
 
         <p>Die Template-Platzhalter können seit Version 4.1 <em>Attribute</em> besitzen, welche die Frontend-Ausgabe weiter beeinflussen. Attribute werden in der Form
             <em>AttributeName="AttributeWert"</em> angegeben. Platzhalter können mehrere Attribute besitzen, wobei mehrere gleichzeitig verwendet werden können.
@@ -1063,8 +1172,8 @@ Help language file
                 bereinigt dieser Cronjob die Artikel-Revisionen im eingestellten Intervall. Standardmäßig erfolgt dies einmal im Monat.</dd>
 
             <dt>Dateiindex neu aufbauen:</dt>
-            <dd class="pb-2">Standardmäßig einmal pro Tag wird der Dateiindex, d. h. die Informationen über hochgeladene Bilder
-                neu aufgebaut. Hierbei werden gelöschte Dateien entfernt und ggf. neu hochgeladene Bilder erfasst, sollte dies beim Upload nicht automatisch erfolgt sein.</dd>
+            <dd class="pb-2">Standardmäßig einmal pro Tag wird der Dateiindex, d. h. die Informationen über hochgeladene Dateien
+                neu aufgebaut. Hierbei werden gelöschte Dateien entfernt und ggf. neu hochgeladene Dateien erfasst, sollte dies beim Upload nicht automatisch erfolgt sein.</dd>
 
             <dt>Dateimanager-Thumbnails erzeugen:</dt>
             <dd class="pb-2">Dieser Cronjob erzeugt die Vorschaubilder im Dateimanager neu. (Standard: einmal pro Woche)</dd>
@@ -1150,7 +1259,7 @@ Help language file
         <p>Durch Module kann die Funktionalität von FanPress CM umfangreich erweitert werden. Die Verwaltung von verfügbaren und/oder
             installierten Modulen erfolgt in diesem Bereich.</p>
 
-        <h3 class="pt-5 fs-1">Register</h3>
+        <h3 class="py-3 fs-1">Register</h3>
 
         <dl>
             <dt>Installierte Module:</dt>
@@ -1158,16 +1267,16 @@ Help language file
                 Module aus dem öffentlichen Repository oder eigene Modul sein, welche dort noch nicht verfügbar sind.</dd>
             <dt>Verfügbare Module:</dt>
             <dd class="pb-2">Die verfügbaren Module listen alle Modul auf, welche im öffentlichen Repository verfügbar sind.
-                Diese Module werden vor der Veröffentlichung geprüft. Über das öffentliche Repository werden auch Aktualisierungen zur Verfügung 
+                Diese Module werden vor der Veröffentlichung geprüft. Über das öffentliche Repository werden auch Aktualisierungen zur Verfügung
                 gestellt. Wurde ein Modul bereits installiert, so wird dieses in der Übersicht weiterhin angezeigt.</dd>
             <dt>Modul-Paketdatei hochladen:</dt>
             <dd class="pb-2">Über dieses Register können Module aus externen Quellen ins System hochgeladen werden. Die
                 als ZIP-Archive gepackten Module werden bei diesem Vorgang automatisch entpackt. Die Nutzung der Upload-Funktion kann notwendig
                 werden, wenn dein Host keine Verbindung zu externen Servern zulässt. Dieses Register ist standardmäßig deaktiviert und muss
-                durch Anpassung der Konstante "FPCM_DISABLE_MODULE_ZIPUPLOAD" aktiviert werden.</dd>
+                durch Anpassung der Konstante <code>FPCM_DISABLE_MODULE_ZIPUPLOAD</code> aktiviert werden.</dd>
         </dl>
 
-        <h3 class="pt-5 fs-1">Aktionen</h3>
+        <h3 class="py-3 fs-1">Aktionen</h3>
 
         <dl>
             <dt>Modul-Detail-Informationen:</dt>
@@ -1175,6 +1284,9 @@ Help language file
                 angezeigt werden.</dd>
             <dt>Modul installieren:</dt>
             <dd class="pb-2">Über diesen Button kann ein Modul installiert werden.</dd>
+            <dt>Modul-Paketdatei herunterladen:</dt>
+            <dd class="pb-2">Kann ein Modul wider Erwarten nicht installiert werden, so kannst du die
+                entsprechende Paketdatei hier herunterladen und manuell installieren.</dd>
             <dt>Modul deinstallieren:</dt>
             <dt>Modul löschen:</dt>
             <dd class="pb-2">Die Deinstallation eines Moduls entfernt alle durch das Modul angelegten
@@ -1193,6 +1305,8 @@ Help language file
             <dt>Modul konfigurieren:</dt>
             <dd class="pb-2">Dieser Button wird angezeigt, wenn das Modul das Template <em>configure.php</em>
                 beinhaltet.</dd>
+            <dt>Changelog:</dt>
+            <dd class="pb-2">Anzeige des Changelog des Moduls. Diese Informationen umfassen einen Verlauf der Änderungen an einem Modul.</dd>
         </dl>
 
         <p>Im Bereich der Aktionen werden im Bedarfsfall weitere Informationen angezeigt, z. B. bei fehlenden Abhängigkeiten oder Schreibrechten
@@ -1201,13 +1315,15 @@ Help language file
         <p>Sind für mehrere Module Aktualisierungen verfügbar, so erscheint in der Toolbar der Button "Updates für alle Module einspielen".
             Über diesen können - ohne zusätzlichen Wechsel zurück in den Modulmanager - alle Aktualisierungen nacheinander eingespielt werden.</p>
 
-        <h3 class="pt-5 fs-1">Modul-Detail-Informationen</h3>
+        <h3 class="py-3 fs-1">Modul-Detail-Informationen</h3>
 
         <dl>
             <dt>Schlüssel:</dt>
             <dd class="pb-2">Dies ist die interne Bezeichnung des Moduls. Der Schlüssel muss einmalig sein.</dd>
             <dt>Name:</dt>
             <dd class="pb-2">Der Name ist eine nicht-technische Bezeichnung und gibt eine kurze Information, welchem Zweck das Modul dient.</dd>
+            <dt>Beschreibung:</dt>
+            <dd class="pb-2">Dieser Wert beinhaltet eine erweiterte Beschreibung zum Modul.</dd>
             <dt>Version (lokal):</dt>
             <dt>Version (Server):</dt>
             <dd class="pb-2">Hier wird die Version angezeigt, welche lokal installiert und ggf. im öffentlichen
@@ -1218,12 +1334,20 @@ Help language file
                 E-Mail-Adresse o.ä. sein.</dd>
             <dt>Info-Link:</dt>
             <dd class="pb-2">Diese Angabe enthält eine URL für weiteren Informationen zum Modul.</dd>
-            <dt>Beschreibung:</dt>
-            <dd class="pb-2">Dieser Wert beinhaltet eine erweiterte Kurzbeschreibung zum Modul.</dd>
+            <dt>Support & Kontakt:</dt>
+            <dd class="pb-2">Informationen, wie du bei Fragen oder Probleme Unterstützung für das Modul erhäst bzw. du den
+                Author kontaktieren möchtest.</dd>
+            <dt>Lizenz:</dt>
+            <dd class="pb-2">Informationen zur Lizenzierung des Moduls.</dd>
             <dt>Erfordert PHP:</dt>
             <dd class="pb-2">Module können eine bestimmte PHP-Version voraussetzen, diese wird hier angegeben.</dd>
             <dt>Erfordert FanPress CM:</dt>
             <dd class="pb-2">Module können eine bestimmte FanPress CM -Version voraussetzen, diese wird hier angegeben.</dd>
+            <dt>Pfad im /data-Ordner:</dt>
+            <dd class="pb-2">Werden von einem Modul eigene Dateien gepflegt, werden diese in diesem Ordner unterhalb
+                des /data-Ordners abgelegt.</dd>
+            <dt> Dateihash:</dt>
+            <dd class="pb-2">SHA256-Hash der Paketinstallationsdatei</dd>
         </dl>
 
         ]]>
@@ -1257,10 +1381,10 @@ Help language file
     </chapter>
     <chapter ref="IMPORT_MAIN">
         <![CDATA[
-        <p>Der CSV-Import dient der Übernahme von Daten aus anderen Content-Management-Systemen nach FanPress CM mittels 
+        <p>Der CSV-Import dient der Übernahme von Daten aus anderen Content-Management-Systemen nach FanPress CM mittels
             <a rel="noreferrer,noopener,external" href="https://de.wikipedia.org/wiki/CSV_(Dateiformat)" target="_blank">CSV-Datei</a>.</p>
 
-        <h3 class="pt-5 fs-1">Einstellungen</h3>
+        <h3 class="py-3 fs-1">Einstellungen</h3>
 
         <p>Bevor der Import gestartet werden kann, müsse verschiedene Einstellungen festgelegt werden.</p>
 
@@ -1295,11 +1419,11 @@ Help language file
                     <li>Artikel > Überschrift: wird die Daten aus Spalte 1 der CSV-Datei befüllt</li>
                     <li>Artikel > Artikeltext: wird die Daten aus Spalte 2 der CSV-Datei befüllt</li>
                     <li>Artikel > Veröffentlichung: wird die Daten aus Spalte 3 der CSV-Datei befüllt</li>
-                </ol>            
+                </ol>
             </dd>
         </dl>
 
-        <h3 class="pt-5 fs-1">Aufbereitung von Import-Daten</h3>
+        <h3 class="py-3 fs-1">Aufbereitung von Import-Daten</h3>
         <p>In Abhängigkeit vom ursprünglichen CMS ist im Regelfall eine vorherige Aufbereitung der Daten notwendig.</p>
 
         <dl>
@@ -1338,7 +1462,7 @@ Help language file
             </dd>
         </dl>
 
-        <h3 class="pt-5 fs-1">Hinweise</h3>
+        <h3 class="py-3 fs-1">Hinweise</h3>
 
         <dl>
             <dt>Vermeidung von defekten Umlauten und Sonderzeichen</dt>

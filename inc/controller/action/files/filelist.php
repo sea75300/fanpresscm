@@ -312,7 +312,7 @@ class filelist extends \fpcm\controller\abstracts\controller
         $settingsDlg = (new \fpcm\view\helper\dialog('filesSettings'));
         $settingsDlg->setFields([
             (new \fpcm\view\helper\select('file_list_limit'))
-                ->setText('SYSTEM_OPTIONS_ACPARTICLES_LIMIT')
+                ->setText('SYSTEM_OPTIONS_FILEMANAGER_LIMIT')
                 ->setOptions( \fpcm\model\system\config::getAcpArticleLimits() )
                 ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
                 ->setSelected($this->config->file_list_limit)

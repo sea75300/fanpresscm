@@ -17,17 +17,6 @@
             </div>
         </div>
 
-        <div class="row my-2 row-cols-1 row-cols-xl-2">
-            <div class="col">
-            <?php $theView->boolSelect('file_subfolders')
-                    ->setText('SYSTEM_OPTIONS_NEWS_SUBFOLDERS')
-                    ->setSelected($globalConfig->file_subfolders); ?>
-            </div>
-            <div class="col">
-
-            </div>
-        </div>
-
         <div class="row my-2">
             <div class="col flex-grow-1">
                 <?php $theView->textInput('file_cropper_name')->setValue($globalConfig->file_cropper_name); ?>

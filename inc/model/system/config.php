@@ -64,7 +64,6 @@ use fpcm\model\traits\eventModuleEmpty;
  *
  * @property int    $file_thumb_size Thumbnail size
  * @property int    $file_list_limit Nubmer of files per page
- * @property bool   $file_subfolders Create subfolder of form YYYY-MM
  * @property string $file_view File manager view
  * @property string $file_cropper_name Image editor file name
  *
