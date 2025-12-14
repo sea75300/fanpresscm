@@ -110,6 +110,12 @@ final class database {
     const tableArticleCategories = 'articles_categories';
 
     /**
+     * Reminders table
+     * @since 5.3.0-a1
+     */
+    const tableReminders = 'reminders';
+
+    /**
      * View for session and user data
      * @since 4.4.3
      */

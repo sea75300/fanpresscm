@@ -26,12 +26,12 @@ class trash extends \fpcm\controller\abstracts\controller
     }
 
     /**
-     *
+     * 
      * @return string
      */
     protected function getHelpLink()
     {
-        return 'hl_article_edit';
+        return 'articles_trash';
     }
 
     /**

@@ -94,23 +94,15 @@ class setConfig extends \fpcm\controller\abstracts\ajaxController {
         if (!$this->checkWhitelist($var)) {
             return false;
         }
+        
+        $value = $this->request->fromPOST('value', [ \fpcm\model\http\request::FILTER_BASE64DECODE ]);
 
         switch ($var) {
             case 'dashboardpos' :
                 $return = $this->session->getCurrentUser()->resetDashboard();
                 break;
             case 'dashboard_containers_disabled' :
-
-                $usrmeta = $this->session->currentUser->getUserMeta();
-
-                $usrmeta->{$var} = array_filter($usrmeta->{$var}, function ($str) {
-                    return $str !== $this->request->fromPOST('value', [ \fpcm\model\http\request::FILTER_BASE64DECODE ]);
-                });
-
-                $this->session->currentUser->disablePasswordSecCheck();
-                $this->session->currentUser->setUserMeta($usrmeta);
-                $return = $this->session->currentUser->update() === true;
-
+                $return = $this->session->getCurrentUser()->resetDisabledDashboardContainer($var, $value);
                 break;
             default:
                 $return = true;

@@ -271,7 +271,7 @@ class sysstats extends \fpcm\model\dashboard\types\dataview {
                 size: 3
             )
         ];
-        
+
         $rows[] = [
             'icon' => new \fpcm\model\dashboard\components\dataviewItem(
                 value: new \fpcm\view\helper\icon('globe'),
@@ -311,6 +311,26 @@ class sysstats extends \fpcm\model\dashboard\types\dataview {
                 type: \fpcm\model\dashboard\components\dataviewItem::TYPE_TEXT,
                 align: 'end',
                 class: $dicc,
+                size: 3
+            )
+        ];
+
+        $rows[] = [
+            'icon' => new \fpcm\model\dashboard\components\dataviewItem(
+                value: new \fpcm\view\helper\icon('bell'),
+                type: \fpcm\model\dashboard\components\dataviewItem::TYPE_ICONS,
+                size: 'auto'
+            ),
+            'label' => new \fpcm\model\dashboard\components\dataviewItem(
+                value: 'SYSTEM_STATS_CACHE_REMINDERS',
+                type: \fpcm\model\dashboard\components\dataviewItem::TYPE_TEXT,
+                class: 'text-truncate'
+            ),
+            'value' => new \fpcm\model\dashboard\components\dataviewItem(
+                value: $this->dbStats['reminders'],
+                type: \fpcm\model\dashboard\components\dataviewItem::TYPE_TEXT,
+                align: 'end',
+                class: 'text-truncate',
                 size: 3
             )
         ];
@@ -444,8 +464,8 @@ class sysstats extends \fpcm\model\dashboard\types\dataview {
             (new \fpcm\model\dbal\selectParams(\fpcm\classes\database::tableAuthors))->setItem("'users_active' AS descr, {$countStr}")->setWhere('disabled = 0'),
             (new \fpcm\model\dbal\selectParams(\fpcm\classes\database::tableFiles))->setItem("'upload_count' AS descr, {$countStr}"),
             (new \fpcm\model\dbal\selectParams(\fpcm\classes\database::tableFiles))->setItem("'upload_size' AS descr, SUM(filesize)"),
-            
             (new \fpcm\model\dbal\selectParams(\fpcm\classes\database::tableIpAdresses))->setItem("'ip_locks' AS descr, {$countStr}"),
+            (new \fpcm\model\dbal\selectParams(\fpcm\classes\database::tableReminders))->setItem("'reminders' AS descr, {$countStr}"),
 
         ], \PDO::FETCH_KEY_PAIR);
 

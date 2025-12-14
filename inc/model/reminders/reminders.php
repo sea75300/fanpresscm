@@ -23,10 +23,12 @@ implements \fpcm\model\interfaces\isObjectInstancable {
     use \fpcm\model\traits\getObjectInstance;
 
     /**
-     *  Table name
-     * @var string
+     * Contructor
      */
-    protected $table = 'reminders';
+    public function __construct() {
+        $this->table = \fpcm\classes\database::tableReminders;
+        return parent::__construct();
+    }
 
     /**
      * Fetch reminders for given type and object ids
@@ -142,11 +144,11 @@ implements \fpcm\model\interfaces\isObjectInstancable {
         if ($oids === null) {
             return false;
         }
-        
+
         if (!is_array($oids)) {
             $oids = [$oids];
         }
-        
+
         if (!count($oids)) {
             return true;
         }

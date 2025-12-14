@@ -603,6 +603,30 @@ class author extends \fpcm\model\abstracts\dataset {
     }
 
     /**
+     * Reset Dashboard container settings
+     * @return bool
+     * @since 4.1
+     */
+    public function resetDisabledDashboardContainer(string $var, ?string $value)
+    {
+        $meta = $this->getUserMeta();
+
+        if ($value === null) {
+            $meta->{$var} = [];
+        }
+        else {
+            $meta->{$var} = array_filter($meta->{$var}, function ($str) use ($value) {
+                return $str !== $value;
+            });
+        }
+
+        $this->setUserMeta($meta);
+        $this->disablePasswordSecCheck();
+        $this->setPassword(null);
+        return $this->update();
+    }
+
+    /**
      * Füllt Objekt mit Daten aus Datenbank-Result
      * @param object $object
      * @return bool

@@ -23,12 +23,6 @@ implements \JsonSerializable {
     use \fpcm\model\traits\getFieldsParam;
 
     /**
-     *  Table name
-     * @var string
-     */
-    protected $table = 'reminders';
-
-    /**
      * User id
      * @var int
      */
@@ -57,6 +51,15 @@ implements \JsonSerializable {
      * @var string
      */
     protected string $comment = '';
+
+    /**
+     * Contructor
+     */
+    public function __construct()
+    {
+        $this->table = \fpcm\classes\database::tableReminders;
+        return parent::__construct();
+    }
 
     /**
      * Save reminder

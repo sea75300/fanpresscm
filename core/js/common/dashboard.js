@@ -15,7 +15,7 @@ fpcm.dashboard = {
 
     init: function () {
 
-        fpcm.dom.bindClick('#btnResetDashboardSettings', fpcm.dashboard.resetPositions);
+        fpcm.dom.bindClick('button[data-dashboard-reset-action]', fpcm.dashboard.resetDashboardSettings);
         fpcm.dom.bindEvent('#offcanvasInfo', 'shown.bs.offcanvas', fpcm.dashboard.fetchDisabledContainer);
         fpcm.dom.bindEvent('#offcanvasInfo', 'hidden.bs.offcanvas', function () {
             fpcm.dom.fromTag('#fpcm-ui-container-disabled-list > a[data-container]').empty();
@@ -91,7 +91,7 @@ fpcm.dashboard = {
         });
     },
 
-    resetPositions: function (_e)
+    resetDashboardSettings: function (_e)
     {
         fpcm.ui_dialogs.confirm({
             clickYes: function () {
@@ -99,15 +99,22 @@ fpcm.dashboard = {
                 let _spin = document.createElement('span');
                 _spin.classList.add('spinner-border', 'spinner-border-sm', 'ms-1');
                 _e.delegateTarget.appendChild(_spin);
+                _e.delegateTarget.disabled = true;
 
                 fpcm.ajax.post('setconfig', {
                     data: {
                         op: 'reset',
-                        var: 'dashboardpos'
+                        var: _e.delegateTarget.dataset.dashboardResetAction
                     },
                     execDone: function () {
                         fpcm.dashboard.init();
+
+                        if (_e.delegateTarget.dataset.dashboardResetAction === 'dashboard_containers_disabled') {
+                            fpcm.dashboard.fetchDisabledContainer();
+                        }
+
                         _e.delegateTarget.removeChild(_spin);
+                        _e.delegateTarget.disabled = false;
                     },
                     quiet: true
                 });

@@ -41,15 +41,52 @@ Help language file
             oder es ist ein Schnellzugriff auf bestimmte Funktionen möglich.</p>
 
         <p>Die Position der Container kann durch Klick auf den Button
-            <span class="btn btn-sm btn-outline-dark"><span class="fa fa-fw fa-arrows-alt  "></span></span>
+            <span class="btn btn-sm btn-outline-dark"><span class="fa fa-fw fa-arrows-alt"></span></span>
             verändert werden. Die Reihenfolge legt jeder Benutzer selbst fest.
             Um bestimmte Container zu deaktivieren, klicke in der Fußzeile auf
             den Button <span class="btn btn-sm btn-outline-dark"><span class="fa fa-fw fa-toggle-off"></span></span>.</p>
 
-        <p>Über das Dropdown "Container verwalten" in der Toolbar des Startbildschirms kann die Reihenfolge auf den Standard zurückgesetzt bzw.
-            deaktivierte Container wieder reaktiviert werden.</p>
+        <h3 class="py-3 fs-1">Container verwalten</h3>
 
+        <dl>
+            <dt><span class="btn btn-sm btn-outline-dark"><span class="fa fa-fw fa-bars"></span> Container verwalten</span></dt>
+            <dd class="pb-2">ber den Button  können Aktionen für alle Container ausgeführt werden.</dd>
+            <dt><span class="btn btn-sm btn-outline-dark"><span class="fa fa-fw fa-undo"></span> Positionen zurücksetzen</span></dt>
+            <dd class="pb-2">Über diesen Button kannst du alle veränderten Positionen der Startbildschirm-Container zurücksetzen und stattdessen
+            die Standardpositionen verwenden</dd>
+            <dt><span class="btn btn-sm btn-outline-dark"><span class="fa fa-fw fa-toggle-on"></span> Deaktivierte zurücksetzen</span></dt>
+            <dd class="pb-2">Über diesen Button kannst du alle deaktivierten Startbildschirm-Container auf einmal reaktivieren.</dd>
+        </dl>
 
+        <h3 class="py-3 fs-1">Funktionen in der Kopfzeile</h3>
+
+        <p>In fast allen Ansichten von FanPress CM wird im oberen Bereich eine Kopfzeile mit dem FPCM-Logo und zusätzlichen Funktionen angezeigt.</p>
+        <dl>
+            <dt><span class="btn btn-sm btn-outline-dark"><span class="fa fa-fw fa-search"></span></span> Globale Suche</dt>
+            <dd>Der Lupe-Button in der oberen Kopfzeile stellt eine FPCM-weite Suche zur Funktion. Dies hilft dir, falls du einmal etwas suchst aber nicht
+            genau weißt, wo der Suchgebriff enthalten ist. Die globale Suche sucht in Artikeln, Kommentaren, Dateien und IP-Adress-Sperren.</dd>
+            <dt><span class="btn btn-sm btn-outline-dark"><span class="fa fa-fw fa-play"></span></span> Artikel auf Webseite anzeigen</dt>
+            <dd class="pb-2">Über diesen Button wird eine Webseite mit der eingestellten Startseite geöffnet.</dd>
+            <dt><span class="btn btn-sm btn-outline-dark"><span class="fa fa-recycle"></span></span> Cache leeren:</dt>
+            <dd class="pb-2">Über diese Aktion kann der Cache geleert werden. Der Cache speichert informationen zwischen, um die Performance bspw. im Frontent
+                zu erhöhen.</dd>
+            <dt><span class="btn btn-sm btn-outline-dark"><span class="fa fa-question-circle"></span></span> Hilfe-Eintrag aufrufen:</dt>
+            <dd class="pb-2">Dieser Button zeigt u. a. diesen Eintrag hier an.</dd>
+            <dt><span class="btn btn-sm btn-outline-dark"><span class="fa fa-envelope"></span></span> Benachrichtigungen:</dt>
+            <dd class="pb-2">Benachrichtigung entstehen durch wichtige Erenignisse, welche ggf. eine Aktion von dir erfordern. Dies können z. B.
+            Updates, aktive Erinnerungen, neue Kommentare o. ä. sein. Die Aktivierung von bestimmten Funktionen kann ebenfalls zu einer 
+            Benachrichtigung führen. Benachrichtigungen können temporär doer dauerhaft angezeigt werden. Manche Benachrichtigungen umfassen
+            lediglich Text, andere ermöglichen direkt die Ausführung von bestimmten Aktionen.</dd>
+            <dt><span class="btn btn-sm btn-outline-dark"><span class="fa fa-user-circle"></span></span> Benutzer-Menü:</dt>
+            <dd class="pb-2">Das Benutzermenü umfasst eine Sammlung von Funktionen und Informationen zur aktuellen Benutzersitzung. Hier
+            findest du u. a. Informationen zu deiner IP-Adresse, dem Start deines Logins. Außerdem werden dir hier die Link zu deinem Profile,
+            der "Kontakt & Support"-Seite sowie der Logout angezeigt.</dd>
+            <dt><span class="btn btn-sm btn-outline-dark"><span class="fa fa-moon"></span></span> / <span class="btn btn-sm btn-outline-dark"><span class="fa fa-sun"></span></span> 
+            Design-Wechsel:</dt>
+            <dd class="pb-2">Das letzte Icons in der Kopfzeiel ermöglicht dir einen schnellen Wechsel zwischen hellem und dunklen Design von FanPress CM. 
+            Beachte, dass bei diesem Wechsel immer die gesamte Ansicht neu geladen wird!</dd>
+        </dl>
+        
         ]]>
     </chapter>
     <chapter ref="ARTICLES_EDITOR">
@@ -1358,10 +1395,10 @@ Help language file
             Papierkorb sollten nicht bearbeitet werden.</p>
         <p>Die Papierkörbe werden regelmäßig automatisch geleert.</p>
         <dl>
-            <dt>Element wiederherstellen</dt>
+            <dt><span class="btn btn-sm btn-outline-dark"><span class="fa fa-fw fa-trash-restore"></span> Element wiederherstellen</span></dt>
             <dd class="pb-2">Über diese Option können die ausgewählten Elemente wiederherstellt werden. Dabei wird jeweils
                 die letzte Version eines Artikels bzw. Kommentars wiederhergestellt.</dd>
-            <dt>Papierkorb leeren</dt>
+            <dt><span class="btn btn-sm btn-outline-dark"><span class="fa fa-fw fa-recycle"></span> Papierkorb leeren</span></dt>
             <dd class="pb-2">Über die Auswahl dieser Option wird der Papierkorb komplett geleert. Eine Lösung einzelner
                 Elemente ist nicht vorgesehen.</dd>
         </dl>
