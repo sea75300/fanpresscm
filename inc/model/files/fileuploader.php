@@ -71,7 +71,7 @@ final class fileuploader extends \fpcm\model\abstracts\staticModel {
             if ($mime === null) {
                 $mime = $fileTypes[$key];
             }
-            if ($fileTypes[$key] !== $mime || !image::isValidType(\fpcm\model\abstracts\file::retrieveFileExtension($fileNames[$key]), $mime )) {
+            if ($fileTypes[$key] !== $mime || !mediaFile::isValidType(\fpcm\model\abstracts\file::retrieveFileExtension($fileNames[$key]), $mime )) {
                 trigger_error('Unsupported filetype '.$mime.' in ' . $fileNames[$key]);
                 $res['error'][$key] = $fileNames[$key];
                 continue;
@@ -79,33 +79,26 @@ final class fileuploader extends \fpcm\model\abstracts\staticModel {
 
             $fileName = $this->getUploadFileName($fileNames[$key]);
             $uploadParent = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_UPLOADS, dirname($fileName));
-            if ($this->config->file_subfolders && !is_dir($uploadParent) && !mkdir($uploadParent)) {
+            if (!is_dir($uploadParent) && !mkdir($uploadParent)) {
                 trigger_error('Failed to create month-based upload parent folder');
                 return false;
             }
 
-            $image = new image($fileName);
-            if (!$image->moveUploadedFile($value)) {
+            $mfo = new mediaFile($fileName);
+            if (!$mfo->moveUploadedFile($value)) {
                 trigger_error('Unable to move uploaded to to uploader folder! ' . $fileNames[$key]);
                 $res['error'][$key] = $fileNames[$key];
                 continue;
             }
 
-            $image->createThumbnail();
-            $image->setFiletime(time());
-            $image->setUserid($userId);
+            $mfo->createThumbnail();
+            $mfo->setFiletime(time());
+            $mfo->setUserid($userId);
 
-            if ($image->exists()) {
-
-                if (!$image->update()) {
-                    trigger_error('Unable to update uploaded file to database list! ' . $fileNames[$key]);
-                    $res['error'][$key] = $fileNames[$key];
-                    continue;
-                }
-
-            }
-            elseif (!$image->save()) {
-                trigger_error('Unable to add uploaded file to database list! ' . $fileNames[$key]);
+            
+            $fn = $mfo->exists() ? 'update' : 'save';
+            if (!$mfo->{$fn}()) {
+                trigger_error(sprintf('Unable to %s uploaded file %s to database list ', $fn, $fileNames[$key]));
                 $res['error'][$key] = $fileNames[$key];
                 continue;
             }
@@ -171,7 +164,7 @@ final class fileuploader extends \fpcm\model\abstracts\staticModel {
     }
 
     /**
-     * Returns complete file name which includes sub folder name for uploaded images
+     * Returns complete file name which includes sub folder name for uploaded mediaFiles
      * @param string $fileName
      * @return string
      */

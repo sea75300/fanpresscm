@@ -2,16 +2,16 @@
 
 require_once dirname(dirname(__DIR__)) . '/testBase.php';
 
-class imagesTest extends testBase {
+class mediafilesTest extends testBase {
 
     /**
-     * @var fpcm\model\files\imagelist
+     * @var fpcm\model\files\mediaFilesList
      */
     protected $object;
 
     protected function setUp() : void
     {
-        $this->className = 'files\\imagelist';
+        $this->className = 'files\\mediaFilesList';
         parent::setUp();
     }
 
@@ -37,9 +37,9 @@ class imagesTest extends testBase {
         $this->assertTrue(is_array($data));
         $this->assertGreaterThanOrEqual(1, count($data));
 
-        /* @var $object \fpcm\model\files\image */
+        /* @var $object \fpcm\model\files\mediaFile */
         $object = $data[$GLOBALS['imageName']];
-        $this->assertInstanceOf('\\fpcm\\model\\files\\image', $object);
+        $this->assertInstanceOf('\\fpcm\\model\\files\\mediaFile', $object);
         $this->assertEquals($GLOBALS['imageName'], $object->getFilename());
         $this->assertEquals($GLOBALS['imageUserId'], $object->getUserid());
         $this->assertEquals($GLOBALS['imageCreated'], $object->getFiletime());
@@ -50,7 +50,7 @@ class imagesTest extends testBase {
     public function testGetCropperFilename()
     {
         $filename = $GLOBALS['imageName'];
-        \fpcm\model\files\image::getCropperFilename($filename);
+        \fpcm\model\files\mediaFile::getCropperFilename($filename);
 
         $this->assertNotEquals($GLOBALS['imageName'], $filename);
         $this->assertStringContainsString('_cropped_', $filename);
@@ -58,7 +58,7 @@ class imagesTest extends testBase {
 
     public function testGetPropertiesArray()
     {
-        $object =  new \fpcm\model\files\image($GLOBALS['imageName']);
+        $object =  new \fpcm\model\files\mediaFile($GLOBALS['imageName']);
         $data = $object->getPropertiesArray('Stefan');
 
         $keys = [
@@ -83,7 +83,7 @@ class imagesTest extends testBase {
             $ext = fpcm\model\abstracts\file::retrieveFileExtension($file);
             $this->assertTrue(in_array($ext, ['png', 'jpg', 'gif']));
             $mime = (new finfo(FILEINFO_MIME_TYPE))->file($file);
-            $this->assertTrue(\fpcm\model\files\image::isValidType($ext, $mime), 'Mismatched ' . $ext . ' and ' . $mime);
+            $this->assertTrue(\fpcm\model\files\mediaFile::isValidType($ext, $mime), 'Mismatched ' . $ext . ' and ' . $mime);
         }
 
         unset($ext, $file, $files);
@@ -93,7 +93,7 @@ class imagesTest extends testBase {
         $this->assertEquals('bmp', $ext);
 
         $mime = (new finfo(FILEINFO_MIME_TYPE))->file($file);
-        $this->assertFalse(\fpcm\model\files\image::isValidType($ext, $mime));
+        $this->assertFalse(\fpcm\model\files\mediaFile::isValidType($ext, $mime));
 
     }
 
@@ -105,8 +105,8 @@ class imagesTest extends testBase {
         $GLOBALS['imageCreated'] = time();
         $GLOBALS['imageAltText'] = 'Test 001';
 
-        /* @var $GLOBALS['imageObj'] \fpcm\model\files\image */
-        $GLOBALS['imageObj'] = new \fpcm\model\files\image($GLOBALS['imageName']);
+        /* @var $GLOBALS['imageObj'] \fpcm\model\files\mediaFile */
+        $GLOBALS['imageObj'] = new \fpcm\model\files\mediaFile($GLOBALS['imageName']);
         file_put_contents($GLOBALS['imageObj']->getFullpath(), 'data:image/gif;base64,R0lGODlhDQANAJEAAAAAABAQEOfn5wAAACH/C05FVFNDQVBFMi4wAwEAAAAh+QQFlgAAACwAAAAADQANAAACJoQxmccj/wZDsErjosibQsdtYfWNpBgpSqpZkcdlF5y8DTk3KlMAACH5BAUKAAAALAAAAAANAA0AAAIlhDGZxyP/BkOwSuOqpdEl+GlaKIKZgnbRGHGZcB5neMnjhKFMAQA7');
         $GLOBALS['imageObj']->setUserid($GLOBALS['imageUserId']);
         $GLOBALS['imageObj']->setFiletime($GLOBALS['imageCreated']);

@@ -55,10 +55,10 @@ implements \JsonSerializable {
     /**
      * Contructor
      */
-    public function __construct()
+    public function __construct(?int $id = null)
     {
         $this->table = \fpcm\classes\database::tableReminders;
-        return parent::__construct();
+        parent::__construct($id);
     }
 
     /**
@@ -121,7 +121,8 @@ implements \JsonSerializable {
      * return user id or -1
      * @return int
      */
-    public function getUserID(): int {
+    public function getUserID(): int
+    {
         return $this->user_id;
     }
 
@@ -129,7 +130,8 @@ implements \JsonSerializable {
      *
      * @return int
      */
-    public function getOid(): int {
+    public function getOid(): int
+    {
         return $this->oid;
     }
 
@@ -137,7 +139,8 @@ implements \JsonSerializable {
      * Returns reminder time
      * @return int
      */
-    public function getTime(): int {
+    public function getTime(): int
+    {
         return $this->resubtime;
     }
 
@@ -145,17 +148,19 @@ implements \JsonSerializable {
      * Returns reminder object path
      * @return string
      */
-    public function getObjName(): string {
+    public function getObjName(): string
+    {
         return $this->obj_name;
     }
 
     /**
      * Set user id
-     * @param int $user_id
+     * @param int $userID
      * @return $this
      */
-    public function setUserID(int $user_id) {
-        $this->user_id = $user_id;
+    public function setUserID(int $userID)
+    {
+        $this->user_id = $userID;
         return $this;
     }
 
@@ -164,7 +169,8 @@ implements \JsonSerializable {
      * @param int $oid
      * @return $this
      */
-    public function setOid(int $oid) {
+    public function setOid(int $oid)
+    {
         $this->oid = $oid;
         return $this;
     }
@@ -174,18 +180,20 @@ implements \JsonSerializable {
      * @param int $resubtime
      * @return $this
      */
-    public function setTime(int $resubtime) {
+    public function setTime(int $resubtime)
+    {
         $this->resubtime = $resubtime;
         return $this;
     }
 
     /**
      * Set reminder object path
-     * @param string $obj_name
+     * @param string $objName
      * @return $this
      */
-    public function setObjName(string $obj_name) {
-        $this->obj_name = $obj_name;
+    public function setObjName(string $objName)
+    {
+        $this->obj_name = $objName;
         return $this;
     }
 
@@ -193,7 +201,8 @@ implements \JsonSerializable {
      * Fetch reminder comment
      * @return string
      */
-    public function getComment(): string {
+    public function getComment(): string
+    {
         return $this->comment;
     }
 
@@ -202,7 +211,8 @@ implements \JsonSerializable {
      * @param string $comment
      * @return $this
      */
-    public function setComment(string $comment) {
+    public function setComment(string $comment)
+    {
         $this->comment = $comment;
         return $this;
     }

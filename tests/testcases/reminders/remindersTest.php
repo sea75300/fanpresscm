@@ -40,6 +40,13 @@ class remindersTest extends testBase {
         $this->assertTrue($del->delete());
         
     }
+
+    public function testDeleteReminders()
+    {
+        $object = new fpcm\model\reminders\reminders();
+        $result = $object->removeByObject('files', [ $GLOBALS['test_reminder_oid'] ]);
+        $this->assertTrue($result);
+    }
     
     private function createReminder()
     {

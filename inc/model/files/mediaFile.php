@@ -399,9 +399,9 @@ implements \fpcm\model\interfaces\validateFileType,
         $saveValues['height'] = (int) $saveValues['height'];
         $saveValues['userid'] = (int) $saveValues['userid'];
 
-        $ev = $this->events->trigger('image\save', $saveValues);
+        $ev = $this->events->trigger('mediafile\save', $saveValues);
         if (!$ev->getSuccessed() || !$ev->getContinue()) {
-            trigger_error(sprintf("Event image\save failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            trigger_error(sprintf("Event mediafile\save failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
             return [];
         }
 
@@ -428,9 +428,9 @@ implements \fpcm\model\interfaces\validateFileType,
 
         $saveValues[] = $this->filename;
 
-        $ev = $this->events->trigger('image\update', $saveValues);
+        $ev = $this->events->trigger('mediafile\update', $saveValues);
         if (!$ev->getSuccessed() || !$ev->getContinue()) {
-            trigger_error(sprintf("Event image\save failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            trigger_error(sprintf("Event mediafile\save failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
             return false;
         }
 
@@ -445,6 +445,12 @@ implements \fpcm\model\interfaces\validateFileType,
     public function delete()
     {
         if (!$this->isValidDataFolder('', \fpcm\classes\dirs::DATA_UPLOADS)) {
+            return false;
+        }
+
+        $ev = $this->events->trigger('mediafile\beforeDelete', $this->fullpath);
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event mediafile\beforeDelete failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
             return false;
         }
 
@@ -479,6 +485,17 @@ implements \fpcm\model\interfaces\validateFileType,
         }
 
         $newnameExt = $newname.'.'.$this->getExtension();
+
+        $ev = $this->events->trigger('mediafile\beforeRename', [
+            $this->fullpath,
+            $newnameExt
+        ]);
+
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event mediafile\beforeRename failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return false;
+        }
+
         if (!$this->isValidDataFolder($this->getFilepath(), \fpcm\classes\dirs::DATA_UPLOADS) || !parent::rename($newnameExt)) {
             return false;
         }
@@ -495,6 +512,12 @@ implements \fpcm\model\interfaces\validateFileType,
 
         if (!$res) {
             trigger_error('Unable to update database file info for ' . $oldname);
+            return false;
+        }
+
+        $ev = $this->events->trigger('mediafile\afterRename', $this->fullpath);
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event mediafile\afterRename failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
             return false;
         }
 
@@ -561,9 +584,9 @@ implements \fpcm\model\interfaces\validateFileType,
             return false;
         }
 
-        $ev = $this->events->trigger('image\thumbnailCreate', $this);
+        $ev = $this->events->trigger('mediafile\thumbnailCreate', $this);
         if (!$ev->getSuccessed() || !$ev->getContinue()) {
-            trigger_error(sprintf("Event image\thumbnailCreate failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            trigger_error(sprintf("Event mediafile\thumbnailCreate failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
             return false;
         }
 
@@ -582,7 +605,7 @@ implements \fpcm\model\interfaces\validateFileType,
      */
     public function addUploadFolder() : bool
     {
-        $this->fullpath = ops::getUploadPath($this->filename, $this->config->file_subfolders);
+        $this->fullpath = ops::getUploadPath($this->filename);
 
         if (!file_exists(dirname($this->fullpath))) {
             mkdir(dirname($this->fullpath));
@@ -856,7 +879,7 @@ implements \fpcm\model\interfaces\validateFileType,
         if (!copy($this->fullpath, $copy->getFullpath())) {
             return 0;
         }
-        
+
         $copy->init(false);
 
         if ($copy->isAudioVideo()) {

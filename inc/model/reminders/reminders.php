@@ -25,7 +25,8 @@ implements \fpcm\model\interfaces\isObjectInstancable {
     /**
      * Contructor
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->table = \fpcm\classes\database::tableReminders;
         return parent::__construct();
     }
