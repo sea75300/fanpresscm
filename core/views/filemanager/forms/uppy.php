@@ -3,7 +3,7 @@
     <?php if (isset($allowedFileTypes) && is_array($allowedFileTypes)) : ?>
     <div class="row">
         <div class="col">
-        <?php $theView->alert('light')->setIcon('photo-film me-3')->setText(implode(', ', $allowedFileTypes))->setClass('fs-6'); ?>
+        <?php $theView->alert('light')->setIcon('photo-film me-3')->setText(implode(', ', array_unique($allowedFileTypes)))->setClass('fs-6'); ?>
         </div>
     </div>
     <?php endif; ?>

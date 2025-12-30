@@ -100,18 +100,6 @@ class uppy extends \fpcm\controller\abstracts\ajaxController
         $obj->setFiletime(time());
         $obj->setUserid($this->session->getUserId());
 
-        /*if ($obj->exists()) {
-            if (!$obj->update()) {
-                trigger_error('Unable to update uploaded file to database list! ' . $realFile);
-                $this->response->setCode(500)->fetch();
-            }
-
-        }
-        elseif (!$obj->save()) {
-            trigger_error('Unable to add uploaded file to database list! ' . $realFile);
-            $this->response->setCode(500)->fetch();
-        }*/
-
         $this->response->setCode(200)->fetch();
     }
 

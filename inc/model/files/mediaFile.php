@@ -27,6 +27,9 @@ implements \fpcm\model\interfaces\validateFileType,
     /* Media file type audio or video */
     const TYPE_AUDIOVIDEO = 1;
 
+    /* Invalid type */
+    const TYPE_INVALID = -1;
+
     /* Media file types delimiter */
     private const TYPE_AUDIOVIDEO_DELIM = 4;
 
@@ -962,13 +965,13 @@ implements \fpcm\model\interfaces\validateFileType,
     public static function getMediaFileType(string $ext, string $type = null) : int
     {
         $extKey = array_search($ext, self::$allowedExts);
-        $mineKey = array_search($type, self::$allowedTypes);
+        $mimeKey = array_search($type, self::$allowedTypes);
 
-        if ($extKey > self::TYPE_AUDIOVIDEO_DELIM && $mineKey > self::TYPE_AUDIOVIDEO_DELIM) {
+        if ($extKey > self::TYPE_AUDIOVIDEO_DELIM && $mimeKey > self::TYPE_AUDIOVIDEO_DELIM) {
             return self::TYPE_AUDIOVIDEO;
         }
 
-        return self::TYPE_IMAGE;
+        return $extKey === false || $mimeKey === false ? self::TYPE_INVALID : self::TYPE_IMAGE;
     }
 
 }

@@ -684,7 +684,8 @@ fpcm.filemanager = {
         return [
             'image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp',
             '.jpeg', '.jpg', '.png', '.gif', '.webp',
-            'video/mp4', 'video/ogg', 'video/webm', 'audio/mpeg', 'audio/wav', 'audio/ogg',
+            'video/mp4', 'video/ogg', 'video/webm',
+            'audio/mpeg', 'audio/wav', 'audio/ogg',
             '.ogg', '.webm', '.mp4', '.mp3', '.wav',
         ];
 

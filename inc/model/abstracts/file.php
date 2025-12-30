@@ -374,7 +374,7 @@ abstract class file implements \Stringable {
      * @since 3.3
      */
     public function moveUploadedFile($uploadedPath)
-    {
+    {        
         if (!$this->isValidDataFolder($this->filepath)) {
             return false;
         }
