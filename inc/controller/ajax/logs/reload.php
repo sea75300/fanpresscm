@@ -237,11 +237,12 @@ class reload extends \fpcm\controller\abstracts\ajaxController
         $this->view->assign('items', $items);
         $this->view->assign('size', \fpcm\classes\tools::calcSize($log->getFilesize()));
         $this->view->render();
+        return true;
     }
 
     /**
-     *
-     * @return bool
+     * Assign vars for dataview
+     * @return void
      */
     private function assignDataViewvars()
     {

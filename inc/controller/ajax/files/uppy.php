@@ -35,7 +35,8 @@ class uppy extends \fpcm\controller\abstracts\ajaxController
     }
 
     /**
-     * Controller-Processing
+     * Controller processing
+     * @return void
      */
     public function process()
     {
@@ -47,10 +48,10 @@ class uppy extends \fpcm\controller\abstracts\ajaxController
     }
 
     /**
-     *
-     * @return array
+     * Default upload
+     * @return void
      */
-    protected function processDefault() : array
+    protected function processDefault()
     {
         if (!$this->permissions->uploads->visible || !$this->permissions->uploads->add) {
             $this->response->setCode(403)->fetch();
@@ -104,10 +105,10 @@ class uppy extends \fpcm\controller\abstracts\ajaxController
     }
 
     /**
-     *
-     * @return array
+     * Drafts upload
+     * @return void
      */
-    protected function processDrafts() : array
+    protected function processDrafts()
     {
         if (!$this->permissions->system->drafts) {
             $this->response->setCode(403)->fetch();
@@ -142,10 +143,10 @@ class uppy extends \fpcm\controller\abstracts\ajaxController
     }
 
     /**
-     *
-     * @return array
+     * User image upload
+     * @return void
      */
-    protected function processUserimage() : array
+    protected function processUserimage()
     {
         $userId = $this->request->fromGET('uid', [\fpcm\model\http\request::FILTER_CASTINT]);
         if (!$userId)  {
@@ -191,10 +192,10 @@ class uppy extends \fpcm\controller\abstracts\ajaxController
     }
 
     /**
-     *
-     * @return array
+     * CSV upload
+     * @return void
      */
-    protected function processCsv() : array
+    protected function processCsv()
     {
         if (!$this->permissions->system->options) {
             $this->response->setCode(403)->fetch();
@@ -239,10 +240,10 @@ class uppy extends \fpcm\controller\abstracts\ajaxController
     }
 
     /**
-     *
-     * @return array
+     * Module upload
+     * @return void
      */
-    protected function processModules() : array
+    protected function processModules()
     {
         $this->response->setCode(415)->fetch();
 

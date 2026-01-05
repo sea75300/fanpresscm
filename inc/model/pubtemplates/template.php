@@ -459,7 +459,7 @@ class template extends \fpcm\model\abstracts\file {
      */
     protected function fetchReplaceTags() : bool
     {
-        throw new Exception('Unfinished function');
+        throw new \Exception('Unfinished function');
 
         $res = preg_match_all(self::FETCH_REGEX, $this->content, $this->tagMatches);
         if (!$res === false) {
@@ -498,16 +498,19 @@ class template extends \fpcm\model\abstracts\file {
             return \fpcm\classes\dirs::getPublicAssetUrl($files[1]);
         }
 
+        $res = '';
         foreach ($files as $file) {
 
             $tf = \fpcm\classes\dirs::getFullDirPath('public/' . $file);
 
             if (file_exists($tf)) {
-                return \fpcm\classes\dirs::getPublicAssetUrl($file);
+                $res = \fpcm\classes\dirs::getPublicAssetUrl($file);
+                break;
             }
 
         }
 
+        return $res;
     }
 
 }

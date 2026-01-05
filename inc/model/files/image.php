@@ -767,7 +767,7 @@ implements \fpcm\model\interfaces\validateFileType,
 
     /**
      * Get cropper filename string
-     * @return string
+     * @return void
      * @since 5.0.0-a1
      */
     public static function getCropperFilename(string &$filename)

@@ -9,7 +9,7 @@ namespace fpcm\model\files;
 
 /**
  * Author image file objekt
- * 
+ *
  * @package fpcm\model\files
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2022, Stefan Seehafer
@@ -29,7 +29,7 @@ final class authorImage extends mediaFile {
      * @var array
      */
     public static $allowedExts = ['jpeg', 'jpg', 'png', 'gif', 'webp'];
-    
+
     /**
      * Konstruktor
      * @param string $filename Dateiname
@@ -177,6 +177,8 @@ final class authorImage extends mediaFile {
             $this->whstring = $fileData[3];
             $this->mimetype = $fileData['mime'];
         }
+
+        return true;
     }
 
     /**

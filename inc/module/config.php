@@ -38,7 +38,7 @@ class config implements \JsonSerializable {
 
     /**
      * Module config data
-     * @var bool
+     * @var array
      */
     protected $data = [];
 

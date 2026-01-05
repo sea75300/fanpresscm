@@ -62,7 +62,7 @@ class cache extends \fpcm\controller\abstracts\ajaxController
 
     /**
      * Controller-Processing
-     * @return bool
+     * @return void
      */
     public function process()
     {

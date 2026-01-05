@@ -47,6 +47,10 @@ implements
         $this->view->assign('userRoll', $this->userRoll);
     }
 
+    /**
+     * Controller-Processing
+     * @return void
+     */   
     public function process()
     {
         $this->initButtons();

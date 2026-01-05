@@ -45,6 +45,7 @@ class autocompleteCleanup extends \fpcm\controller\abstracts\ajaxController
 
     /**
      * Controller-Processing
+     * @return void
      */
     public function process()
     {
@@ -73,7 +74,7 @@ class autocompleteCleanup extends \fpcm\controller\abstracts\ajaxController
         $fopt = new \fpcm\model\files\fileOption(\fpcm\model\articles\article::SOURCES_AUTOCOMPLETE);
         return $fopt->write($data);
     }
-    
+
     private function hasNoArticlesAccess() : bool
     {
         return !$this->permissions->article->edit && !$this->permissions->article->editall ? true : false;

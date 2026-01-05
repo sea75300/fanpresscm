@@ -56,6 +56,10 @@ implements \fpcm\controller\interfaces\requestFunctions {
         return true;
     }
 
+    /**
+     * Controller-Processing
+     * @return void
+     */
     public function process()
     {
         parent::process();

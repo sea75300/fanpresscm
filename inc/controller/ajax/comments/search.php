@@ -80,6 +80,10 @@ class search extends \fpcm\controller\abstracts\ajaxController
         return true;
     }
 
+    /**
+     * Controller-Processing
+     * @return void
+     */
     public function process()
     {
         $this->initDataView();

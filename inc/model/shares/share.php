@@ -185,6 +185,7 @@ class share extends \fpcm\model\abstracts\dataset {
     public function increase()
     {
         $this->sharecount++;
+        return true;
     }
 
     /**

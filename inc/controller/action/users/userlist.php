@@ -101,8 +101,8 @@ class userlist extends \fpcm\controller\abstracts\controller
     }
 
     /**
-     *
-     * @return bool
+     * Controller-Processing
+     * @return void
      */
     public function process()
     {
@@ -160,7 +160,6 @@ class userlist extends \fpcm\controller\abstracts\controller
 
         $this->view->addAjaxPageToken('users/actions');
         $this->view->render();
-        return true;
     }
 
     /**

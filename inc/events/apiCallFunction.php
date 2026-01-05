@@ -27,7 +27,7 @@ final class apiCallFunction extends \fpcm\events\abstracts\event {
      * Executes a certain event
      * @return bool|mixed
      */
-    public function run()
+    public function run() : \fpcm\module\eventResult
     {
         $functionData = explode('_', $this->data['name'], 3);
 

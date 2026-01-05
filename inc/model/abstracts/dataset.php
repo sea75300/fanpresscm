@@ -204,7 +204,8 @@ abstract class dataset implements \fpcm\model\interfaces\dataset, \Stringable {
     }
 
     /**
-     * Inittiert Objekt mit Daten aus der Datenbank, sofern ID vergeben wurde
+     * Init object with database data
+     * @return bool
      */
     public function init()
     {
@@ -219,6 +220,8 @@ abstract class dataset implements \fpcm\model\interfaces\dataset, \Stringable {
         foreach ($data as $key => $value) {
             $this->$key = $value;
         }
+        
+        return true;
     }
 
     /**

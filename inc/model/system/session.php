@@ -482,14 +482,16 @@ final class session extends \fpcm\model\abstracts\dataset implements \fpcm\model
         return $this->dbcon->delete($this->table, "sessionid NOT " . $this->dbcon->dbLike() . " ? AND lastaction < ?", array($this->sessionid, time()));
     }
 
+
     /**
-     * Inittiert Objekt mit Daten aus der Datenbank, sofern ID vergeben wurde
+     * Init object with database data
+     * @return bool
      */
     public function init()
     {
         if ($this->sessionid === null) {
             $this->sessionExists = false;
-            return;
+            return false;
         }
 
         $this->currentUser = new \fpcm\model\users\author();
@@ -502,7 +504,7 @@ final class session extends \fpcm\model\abstracts\dataset implements \fpcm\model
 
         if ($data === false) {
             $this->sessionExists = false;
-            return;
+            return false;
         }
 
         $userData = new \stdClass();
@@ -522,6 +524,8 @@ final class session extends \fpcm\model\abstracts\dataset implements \fpcm\model
         if (!defined('FPCM_MODE_NOPAGETOKEN') && session_status() !== PHP_SESSION_ACTIVE) {
             session_start();
         }
+
+        return true;
     }
 
     /**

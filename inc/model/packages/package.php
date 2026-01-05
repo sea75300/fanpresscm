@@ -99,6 +99,12 @@ abstract class package {
     protected $preValidate = true;
 
     /**
+     * Protocol property
+     * @var array
+     */
+    protected $protocol = [];
+
+    /**
      * Konstruktor
      * @param string $packageName
      */

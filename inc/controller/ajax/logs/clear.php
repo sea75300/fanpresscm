@@ -66,7 +66,8 @@ class clear extends \fpcm\controller\abstracts\ajaxController
     }
 
     /**
-     * Controller-Processing
+     * Controller processing
+     * @return void
      */
     public function process()
     {
@@ -100,7 +101,6 @@ class clear extends \fpcm\controller\abstracts\ajaxController
             $res ? \fpcm\view\message::TYPE_NOTICE : \fpcm\view\message::TYPE_ERROR,
             $res ? \fpcm\view\message::ICON_NOTICE : \fpcm\view\message::ICON_ERROR
         ))->fetch();
-
     }
 
     /**

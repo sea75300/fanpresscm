@@ -60,9 +60,12 @@ class userRollList extends \fpcm\model\abstracts\tablelist {
             return $return;
         }
 
+        $cbF = $this->callback;
+        
         $res = [];
         foreach ($return as $r) {
-            $this->callback($r, $res);
+
+            $cbF($r, $res);
 
             $ro = new userRoll();
             if (!$ro->createFromDbObject($r)) {

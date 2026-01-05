@@ -111,7 +111,7 @@ final class comment extends template {
     /**
      * Mentions parsen
      * @param string $content
-     * @return string
+     * @return void
      */
     protected function parseMentions(&$content)
     {

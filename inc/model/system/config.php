@@ -244,9 +244,10 @@ final class config extends dataset implements \fpcm\model\interfaces\isObjectIns
         $this->newConfig = ['system_maintenance' => (int) $mode];
         return $this->update();
     }
-
+    
     /**
-     * Inittiert Objekt mit Daten aus der Datenbank
+     * Init object with database data
+     * @return bool
      */
     public function init()
     {
@@ -261,7 +262,6 @@ final class config extends dataset implements \fpcm\model\interfaces\isObjectIns
         }
 
         $this->data['smtp_settings'] = new conf\smtpSettings($this->data['smtp_settings']);
-
         return true;
     }
 

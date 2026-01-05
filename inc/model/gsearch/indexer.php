@@ -61,7 +61,7 @@ class indexer extends \fpcm\model\abstracts\tablelist
     {
         $result = $this->events->trigger('search\models', $this->models);
         if (!$result->getSuccessed() || !$result->getContinue()) {
-            return new resultSet([], 0);
+            return new resultSet([], 0, false);
         }
         
         $this->models = $result->getData();

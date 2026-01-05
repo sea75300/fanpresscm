@@ -70,6 +70,7 @@ class permissions extends \fpcm\controller\abstracts\controller
 
     /**
      * Controller-Processing
+     * @return void
      */
     public function process()
     {        
@@ -90,5 +91,3 @@ class permissions extends \fpcm\controller\abstracts\controller
     }
 
 }
-
-?>

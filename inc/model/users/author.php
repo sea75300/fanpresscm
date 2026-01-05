@@ -675,9 +675,10 @@ class author extends \fpcm\model\abstracts\dataset {
 
         return true;
     }
-
+    
     /**
-     * Inittiert Objekt mit Daten aus der Datenbank, sofern ID vergeben wurde
+     * Init object with database data
+     * @return bool
      */
     public function init()
     {
@@ -700,6 +701,7 @@ class author extends \fpcm\model\abstracts\dataset {
 
         $this->objExists = true;
         $this->createFromDbObject($data);
+        return true;
     }
 
     /**

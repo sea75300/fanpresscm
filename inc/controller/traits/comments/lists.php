@@ -163,12 +163,12 @@ trait lists {
     }
 
     /**
-     *
+     * Initialize Data view object
      * @return bool
      */
     protected function initDataView()
     {
-        $this->commentDataView();
+        return $this->commentDataView();
     }
 
     /**

@@ -22,6 +22,10 @@ implements \fpcm\controller\interfaces\requestFunctions
      */
     protected $item;
 
+    /**
+     * Controller-Processing
+     * @return void
+     */
     public function process()
     {
         define('FPCM_VIEW_FLOATING_LABEL_ALL', true);

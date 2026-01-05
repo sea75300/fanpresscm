@@ -29,8 +29,8 @@ class help extends \fpcm\controller\abstracts\controller
     }
 
     /**
-     * Controller-Processing
-     * @return bool
+     * Controller processing
+     * @return void
      */
     public function process()
     {

@@ -73,13 +73,13 @@ class moduleInfo extends \fpcm\controller\abstracts\ajaxController
     }
 
     /**
-     * Controller-Processing
-     * @return bool
+     * Controller processing
+     * @return void
      */
     public function process()
     {
         if (!$this->module) {
-            return false;
+            return;
         }
 
         $this->view->showHeaderFooter(\fpcm\view\view::INCLUDE_HEADER_NONE);

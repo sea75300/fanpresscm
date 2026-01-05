@@ -109,7 +109,8 @@ trait dataView {
                 $this->view->addTabs('tabs-'.$this->getDataViewName(), $tabs);
             }
         }
-        
+
+        return true;
     }
 
     /**

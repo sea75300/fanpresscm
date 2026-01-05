@@ -77,7 +77,8 @@ class base extends \fpcm\controller\abstracts\controller
     }
 
     /**
-     * Konstruktor
+     * Controller-Processing
+     * @return void
      */
     public function process()
     {

@@ -197,7 +197,8 @@ abstract class model implements \fpcm\model\interfaces\model, \Stringable {
     }
 
     /**
-     * Inittiert Objekt mit Daten aus der Datenbank, sofern ID vergeben wurde
+     * Init object with database data
+     * @return bool
      */
     public function init()
     {
@@ -212,6 +213,8 @@ abstract class model implements \fpcm\model\interfaces\model, \Stringable {
         foreach ($data as $key => $value) {
             $this->$key = $value;
         }
+        
+        return true;
     }
 
     /**

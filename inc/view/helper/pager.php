@@ -83,7 +83,7 @@ implements \JsonSerializable {
         $this->itemsPerPage = (int) $itemsPerPage;
         $this->maxItemCount = (int) $maxItemCount;
 
-        return parent::__construct('pager');
+        parent::__construct('pager');
     }
 
     /**

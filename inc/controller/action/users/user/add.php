@@ -17,6 +17,10 @@ class add extends base {
      */
     protected $author;
 
+    /**
+     * Controller-Processing
+     * @return void
+     */
     public function process()
     {
         parent::process();

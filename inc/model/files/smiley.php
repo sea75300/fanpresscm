@@ -287,11 +287,12 @@ final class smiley extends \fpcm\model\abstracts\file implements \JsonSerializab
         }
 
         $this->initImageSize();
+        return true;
     }
 
     /**
      * Fetch smileyy data by id
-     * @return boolean
+     * @return bool
      */
     public function initById()
     {
@@ -311,6 +312,7 @@ final class smiley extends \fpcm\model\abstracts\file implements \JsonSerializab
 
         $this->setFilename($this->filename);
         $this->initImageSize();
+        return true;
     }
 
     /**

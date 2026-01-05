@@ -98,15 +98,6 @@ class fpcmnews extends \fpcm\model\dashboard\types\dataview {
     }
 
     /**
-     * Returns container height
-     * @return string
-     */
-    public function getHeight()
-    {
-        return self::DASHBOARD_HEIGHT_SMALL_MEDIUM;
-    }
-
-    /**
      * Return button object
      * @return \fpcm\view\helper\linkButton|null
      * @since 5.0.0-b3

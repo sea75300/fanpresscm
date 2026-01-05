@@ -46,7 +46,8 @@ class copy extends \fpcm\controller\abstracts\ajaxController
     private string $callback = '';
 
     /**
-     * Controller-Processing
+     * Controller processing
+     * @return void
      */
     public function process()
     {
@@ -69,7 +70,7 @@ class copy extends \fpcm\controller\abstracts\ajaxController
     }
 
     /**
-     *
+     * Article copy
      * @return bool
      */
     protected function processArticle() : bool
@@ -108,7 +109,7 @@ class copy extends \fpcm\controller\abstracts\ajaxController
     }
 
     /**
-     *
+     * Comment copy
      * @return bool
      */
     protected function processCategory() : bool
@@ -146,7 +147,7 @@ class copy extends \fpcm\controller\abstracts\ajaxController
     }
 
     /**
-     *
+     * File copy
      * @return bool
      */
     protected function processFile() : bool
@@ -184,7 +185,7 @@ class copy extends \fpcm\controller\abstracts\ajaxController
     }
 
     /**
-     *
+     * Text item copy
      * @return bool
      */
     protected function processText() : bool
@@ -222,7 +223,7 @@ class copy extends \fpcm\controller\abstracts\ajaxController
     }
 
     /**
-     *
+     * Roll copy
      * @return bool
      */
     protected function processRoll() : bool
@@ -260,7 +261,7 @@ class copy extends \fpcm\controller\abstracts\ajaxController
     }
 
     /**
-     *
+     * Copy module event
      * @return void
      * @since 5.2.3-dev
      */

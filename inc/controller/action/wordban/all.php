@@ -57,8 +57,8 @@ implements \fpcm\controller\interfaces\requestFunctions
     }
 
     /**
-     * 
-     * @return bool
+     * Controller-Processing
+     * @return void
      */
     public function process()
     {
@@ -71,8 +71,6 @@ implements \fpcm\controller\interfaces\requestFunctions
             (new \fpcm\view\helper\linkButton('addnew'))->setUrl(\fpcm\classes\tools::getFullControllerLink('wordban/add'))->setText('GLOBAL_NEW')->setIcon('ban')->setPrimary(),
             (new \fpcm\view\helper\deleteButton('delete'))->setClickConfirm()
         ]);
-        
-        return true;
     }
 
     /**

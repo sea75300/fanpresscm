@@ -247,7 +247,7 @@ final class installer extends \fpcm\model\abstracts\cli {
 
     /**
      * Ersten Benutzer erzeugen
-     * @return bool
+     * @return void
      */
     private function createUserAccount()
     {
@@ -259,7 +259,7 @@ final class installer extends \fpcm\model\abstracts\cli {
             $this->output('The selected username should not be used due to security problems...' . PHP_EOL);
             if ($this->input('Do you want to proceed with the username? (y/n)') === 'n') {
                 $this->conf['user']['username'] = $this->input('Please enter a new username?');
-                return false;
+                return;
             }
         }
 

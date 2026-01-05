@@ -88,7 +88,8 @@ class moduleInstaller extends \fpcm\controller\abstracts\ajaxController
     }
 
     /**
-     * Controller-Processing
+     * Controller processing
+     * @return void
      */
     public function process()
     {

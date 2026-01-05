@@ -1255,17 +1255,12 @@ class view {
     }
 
     /**
-     * Add path for default forms.php view file
-     * @param string str
-     * @since 5.0-dev
-     */
-    
-    /**
      * Add path for form view, use forms.php file if no .php extention given
      * @param string $str
-     * @return type
+     * @return void
+     * @since 5.0-dev
      */
-    public function includeForms(string $str)
+    public function includeForms(string $str) : void
     {
         if (!str_ends_with($str, self::VIEW_FILE_EXTENSION)) {
             $str .= '/forms' . self::VIEW_FILE_EXTENSION;

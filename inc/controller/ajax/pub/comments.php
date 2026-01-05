@@ -63,22 +63,20 @@ class comments extends \fpcm\controller\abstracts\ajaxController {
     }
 
     /**
-     * Controller-Processing
-     * @return bool
+     * Controller processing
+     * @return void
      */
-    public function process() : bool
+    public function process()
     {
         $act = $this->request->fromPOST('action');
 
         if (!$act) {
             $this->response->setCode(500)->fetch();
-            return true;
         }
 
         $actFn = 'process'.ucfirst($act);
         if (!method_exists($this, $actFn)) {
             $this->response->setCode(500)->fetch();
-            return true;
         }
 
         $this->aid = $this->request->fromPOST('oid', [
@@ -87,11 +85,9 @@ class comments extends \fpcm\controller\abstracts\ajaxController {
 
         if (!$this->aid || !$this->{$actFn}()) {
             $this->response->setCode(500)->fetch();
-            return false;
         }
 
         $this->response->setReturnData($this->returnData)->fetch();
-        return true;
     }
 
     /**
@@ -249,7 +245,7 @@ class comments extends \fpcm\controller\abstracts\ajaxController {
         }
 
         if ($this->config->comments_notify > 0 && !$this->session->exists()) {
-            $to[] = $this->userList->getEmailByUserId($article->getCreateuser());
+            $to[] = (new \fpcm\model\users\userList) ->getEmailByUserId($article->getCreateuser());
         }
 
         if (!count($to) || $this->session->exists()) {

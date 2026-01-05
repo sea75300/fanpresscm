@@ -54,7 +54,7 @@ class api extends \fpcm\model\abstracts\staticModel {
      */
     final public function __call($name, $arguments)
     {
-        throw new \Exception(sprintf("Undefined function calls %s in %s", __CLASS__));
+        throw new \Exception(sprintf("Undefined function calls %s in %s", $name, __CLASS__));
     }
 
     /**
@@ -66,6 +66,6 @@ class api extends \fpcm\model\abstracts\staticModel {
      */
     final public static function __callStatic($name, $arguments)
     {
-        throw new \Exception(sprintf("Undefined function calls %s in %s", __CLASS__));
+        throw new \Exception(sprintf("Undefined function calls %s in %s", $name, __CLASS__));
     }
 }

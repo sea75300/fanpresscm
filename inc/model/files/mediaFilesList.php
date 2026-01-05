@@ -341,7 +341,7 @@ implements \fpcm\model\interfaces\gsearchIndex {
 
             $proc = new thumbnailCreator($folderFile, $file->getFileManagerThumbnail());
             if (!$proc->{$fn}(\fpcm\classes\dirs::DATA_FMTMP)) {
-                trigger_error('Error while creating filemanager thumbnail '.$file->getFileManagerThumbnail().PHP_EOL.$exc->getMessage());
+                trigger_error('Error while creating filemanager thumbnail '.$file->getFileManagerThumbnail());
                 continue;
             }
 

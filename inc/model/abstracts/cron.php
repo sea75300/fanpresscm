@@ -380,7 +380,6 @@ abstract class cron implements \fpcm\model\interfaces\cron {
     /**
      * Sets execution parameter
      * @param array $execParams
-     * @return $this
      * @since 5.0.0-b3
      */
     final public function setExecParams(array $execParams)

@@ -35,8 +35,8 @@ class loader extends \fpcm\controller\abstracts\ajaxController
     }
 
     /**
-     * Controller-Processing
-     * @return bool
+     * Controller processing
+     * @return void
      */
     public function process()
     {

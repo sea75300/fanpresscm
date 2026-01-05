@@ -256,7 +256,7 @@ final class sharebuttons extends template {
 
         $ev = $this->events->trigger('pub\parseShareButtons', $tags);
         if (!$ev->getSuccessed() || !$ev->getContinue()) {
-            trigger_error(sprintf("Event %s failed. Returned success = %s, continue = %s", $uev, $ev->getSuccessed(), $ev->getContinue()));
+            trigger_error(sprintf("Event pub\parseShareButtons failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
             return [];
         }
 

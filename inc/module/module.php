@@ -775,7 +775,7 @@ class module {
         foreach ($configOptions as $key => $value) {
             $key = $this->getFullPrefix($key);
             if ($sysConfig->add($key, $value, $this->mkey) === false) {
-                trigger_error('Unable to create config option ' . $key.', error code: '.$res);
+                trigger_error('Unable to create config option ' . $key);
                 return false;
             }
         }
@@ -1274,7 +1274,7 @@ class module {
                 continue;
             }
 
-            $this->output('Processing of migration '. get_class($migration).' failed!.');
+            $migration->output('Processing of migration '. get_class($migration).' failed!.');
             return false;
         }
 

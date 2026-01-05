@@ -82,7 +82,6 @@ final class updateButton extends button {
 
         if ($this->readonly) {
             $class .= ' pe-none';
-            $this->url .= ' pe-none';
         }
 
         if ($this->iconOnly) {

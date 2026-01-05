@@ -88,12 +88,14 @@ class syscheck extends \fpcm\controller\abstracts\ajaxController
     }
 
     /**
-     * Controller-Processing
+     * Controller processing
+     * @return bool
      */
     public function process()
     {
         $this->view->assign('checkOptions', $this->getCheckOptions());
         $this->view->render();
+        return true;
     }
 
     /**
@@ -142,7 +144,7 @@ class syscheck extends \fpcm\controller\abstracts\ajaxController
 
         $text .= PHP_EOL;
 
-        $stats = new \fpcm\model\dashboard\sysstats();
+        $stats = new \fpcm\model\dashboard\containers\sysstats();
         $data = explode(PHP_EOL, strip_tags($stats->getContent()));
 
         foreach ($data as $value) {

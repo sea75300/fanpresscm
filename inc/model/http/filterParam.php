@@ -84,6 +84,7 @@ final class filterParam {
     public function setValue(mixed $value)
     {
         $this->value = $value;
+        return $this;
     }
 
 }

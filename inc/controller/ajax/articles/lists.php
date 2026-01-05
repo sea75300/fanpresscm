@@ -66,6 +66,8 @@ class lists extends \fpcm\controller\abstracts\ajaxController
             return [];
         }
 
+        $articleIds = [];
+        
         $articleIds = array_merge(
             $articleIds,
             array_walk( $this->items, function ($monthData) {
@@ -185,6 +187,10 @@ class lists extends \fpcm\controller\abstracts\ajaxController
         return true;
     }
 
+    /**
+     * Controller-Processing
+     * @return void
+     */
     public function process()
     {
         $this->count = $this->isFilter ? false : $this->articleList->countArticlesByCondition($this->conditions);

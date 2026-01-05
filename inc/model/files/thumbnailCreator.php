@@ -85,7 +85,7 @@ class thumbnailCreator {
             }
 
             $img->save($this->destination);
-        } catch (Exception $exc) {
+        } catch (\Exception $exc) {
             trigger_error('Error while creating file thumbnail '.$this->destination.PHP_EOL.$exc);
             return false;
         }
