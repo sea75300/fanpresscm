@@ -232,11 +232,11 @@ fpcm.ui_dialogs = {
                 _btn.classList.add(..._classes);
 
                 if (!_obj.showLabel) {
-                    _btn.innerHTML = fpcm.ui.getIcon(_obj.icon);
+                    _btn.innerHTML = (new fpcm.ui.forms.icon(_obj.icon)).getString();
                     _btn.title = fpcm.ui.translate(_obj.text);
                 }
                 else {
-                    _btn.innerHTML = (_obj.icon ? fpcm.ui.getIcon(_obj.icon) + ' <span class="fpcm-ui-label ps-1">' : '') + fpcm.ui.translate(_obj.text) + (_obj.icon ? '</span>' : '');
+                    _btn.innerHTML = (_obj.icon ? (new fpcm.ui.forms.icon(_obj.icon)).getString() + ' <span class="fpcm-ui-label ps-1">' : '') + fpcm.ui.translate(_obj.text) + (_obj.icon ? '</span>' : '');
                 }
 
                 if (_obj.disabled !== undefined) {

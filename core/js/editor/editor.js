@@ -115,14 +115,13 @@ fpcm.editor = {
 
         if (!_result.length) {
 
-            let _notFound = fpcm.ui.getIcon('list-ul', {
-                stack: 'ban fpcm-ui-important-text',
-                stackTop: true,
-            }) + ' ' + fpcm.ui.translate('GLOBAL_NOTFOUND2');
+            let _iO = new fpcm.ui.forms.icon('list-ul');
+            _iO.stack = 'ban fpcm-ui-important-text';
+            _iO.stackTop = true;
 
             _result = [{
                 value: false,
-                label: _notFound
+                label: _iO.getString() + ' ' + fpcm.ui.translate('GLOBAL_NOTFOUND2')
             }];
         }
 

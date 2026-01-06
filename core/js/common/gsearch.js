@@ -63,10 +63,13 @@ fpcm.gsearch = {
                 let _resCss = 'dropdown-item-text fpcm ui-search-global-results text-truncate';
 
                 if (_result.count < 1 || !_result.items) {
-                    let _l = fpcm.ui.getIcon('list-ul', {
-                        stack: 'ban fpcm-ui-important-text',
-                        stackTop: true,
-                    }) + ' ' + fpcm.ui.translate('GLOBAL_NOTFOUND2');
+
+                    let _iO = new fpcm.ui.forms.icon('list-ul');
+                    _iO.stack = 'ban fpcm-ui-important-text';
+                    _iO.stackTop = true;
+
+                    let _l = _iO.getString() + ' ' + fpcm.ui.translate('GLOBAL_NOTFOUND2');
+
                     _list += `<div class="${_resCss}"><div class="alert alert-secondary mb-0" role="alert">${_l}</div></div>`;
                 }
                 else {

@@ -555,7 +555,7 @@ fpcm.filemanager = {
                 switch (_propCfg.prop) {
                     case 'resolution' :
                         _titleTxt = _ui.dataset.fileresx + ' X ' + _ui.dataset.fileresy + ' ' + fpcm.ui.translate('FILE_LIST_RESOLUTION_PIXEL');
-                        _titleHtml = _ui.dataset.fileresx + fpcm.ui.getIcon('times') + _ui.dataset.fileresy + ' ' + fpcm.ui.translate('FILE_LIST_RESOLUTION_PIXEL');
+                        _titleHtml = _ui.dataset.fileresx + (new fpcm.ui.forms.icon('times')).getString() + _ui.dataset.fileresy + ' ' + fpcm.ui.translate('FILE_LIST_RESOLUTION_PIXEL');
                         break;
                     default:
                         _titleTxt = _ui.dataset[_propCfg.prop];
