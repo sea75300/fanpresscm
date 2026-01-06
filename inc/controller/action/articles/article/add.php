@@ -26,6 +26,10 @@ class add extends base {
         return $this->permissions->article->add;
     }
 
+    /**
+     * Controller processing
+     * @return void
+     */
     public function process()
     {
         parent::process();

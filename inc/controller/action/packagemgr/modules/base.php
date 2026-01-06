@@ -11,7 +11,6 @@ namespace fpcm\controller\action\packagemgr\modules;
 
 abstract class base extends \fpcm\controller\action\packagemgr\abstracts\base
 {
-
     protected \fpcm\model\updater\modules $updater;
 
     /**
@@ -79,8 +78,8 @@ abstract class base extends \fpcm\controller\action\packagemgr\abstracts\base
     }
 
     /**
-     * Controller-Processing
-     * @return bool
+     * Controller processing
+     * @return void
      */
     public function process()
     {
@@ -135,9 +134,7 @@ abstract class base extends \fpcm\controller\action\packagemgr\abstracts\base
 
         $this->view->addButtons($buttons);
         $this->view->addJsFiles(['packages/manager.js', 'packages/modules.js']);
-
         parent::process();
-
     }
 
     /**

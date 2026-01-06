@@ -47,6 +47,10 @@ implements \fpcm\controller\interfaces\requestFunctions
         return true;
     }
 
+    /**
+     * Controller processing
+     * @return void
+     */
     public function process()
     {        
         $this->items = $this->smileyList->getDatabaseList();

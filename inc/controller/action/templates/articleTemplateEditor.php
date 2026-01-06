@@ -71,7 +71,7 @@ implements \fpcm\controller\interfaces\requestFunctions
 
     /**
      * Controller-Processing
-     * @return bool
+     * @return void
      */
     public function process()
     {

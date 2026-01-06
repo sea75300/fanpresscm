@@ -1,6 +1,8 @@
 <?php
 
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'lib' . DIRECTORY_SEPARATOR . 'spyc' . DIRECTORY_SEPARATOR . 'Spyc.php';
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'lib' . DIRECTORY_SEPARATOR . 'sonata-project'. DIRECTORY_SEPARATOR . 'GoogleAuthenticator' . DIRECTORY_SEPARATOR . 'autoload.php';
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'lib' . DIRECTORY_SEPARATOR . 'PHPMailer'. DIRECTORY_SEPARATOR . 'autoload.php';
 
 spl_autoload_register(function($class)
 {
@@ -50,3 +52,5 @@ spl_autoload_register(function($class)
     require $includePath;
     return true;
 });
+
+\fpcm\classes\dirs::init();

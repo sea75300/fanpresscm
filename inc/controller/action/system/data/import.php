@@ -26,7 +26,8 @@ class import extends \fpcm\controller\abstracts\controller
     }
 
     /**
-     * Controller-Processing
+     * Controller processing
+     * @return void
      */
     public function process()
     {
@@ -75,7 +76,6 @@ class import extends \fpcm\controller\abstracts\controller
         $this->view->assign('progressbarName', 'csvimport');
         $this->view->assign('uploadMultiple', false);
         $this->view->setHelpLink('IMPORT_MAIN');
-
         $this->view->render();
     }
 

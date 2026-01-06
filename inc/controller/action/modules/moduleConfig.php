@@ -100,8 +100,8 @@ class moduleConfig extends \fpcm\controller\abstracts\controller implements \fpc
     }
 
     /**
-     * Controller-Processing
-     * @return bool
+     * Controller processing
+     * @return void
      */
     public function process()
     {        
@@ -131,6 +131,7 @@ class moduleConfig extends \fpcm\controller\abstracts\controller implements \fpc
         $this->view->addTabs('-'.$prefix, [
             (new \fpcm\view\helper\tabItem('configure-'.$prefix))->setFile($this->getViewPath())->setText('SYSTEM_HL_OPTIONS_GENERAL')
         ]);
+
         $this->view->render();
     }
     
@@ -212,5 +213,3 @@ class moduleConfig extends \fpcm\controller\abstracts\controller implements \fpc
     }
 
 }
-
-?>

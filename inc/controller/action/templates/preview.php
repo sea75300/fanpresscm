@@ -47,7 +47,7 @@ class preview extends \fpcm\controller\abstracts\controller
 
     /**
      * Controller-Processing
-     * @return bool
+     * @return void
      */
     public function process()
     {
@@ -95,13 +95,13 @@ class preview extends \fpcm\controller\abstracts\controller
         $evJs = $this->events->trigger('pub\addJsFiles', $jsfiles);
         if (!$evJs->getSuccessed() || !$evJs->getContinue()) {
             trigger_error(sprintf("Event pub\addJsFiles failed. Returned success = %s, continue = %s", $evJs->getSuccessed(), $evJs->getContinue()));
-            return false;
+            return;
         }
 
         $evCss = $this->events->trigger('pub\addCssFiles', $cssfiles);
         if (!$evCss->getSuccessed() || !$evCss->getContinue()) {
             trigger_error(sprintf("Event pub\addCssFiles failed. Returned success = %s, continue = %s", $evCss->getSuccessed(), $evCss->getContinue()));
-            return false;
+            return;
         }
 
         $this->view->overrideJsFiles($evJs->getData());
@@ -251,5 +251,3 @@ class preview extends \fpcm\controller\abstracts\controller
     }
 
 }
-
-?>

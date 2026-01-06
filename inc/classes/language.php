@@ -312,7 +312,7 @@ final class language {
      * Ersetzt Monat (1-12) in sprachspezifischen String
      * @param int $monthId
      * @param bool $return
-     * @return type
+     * @return void|string
      */
     public function writeMonth($monthId, $return = false)
     {

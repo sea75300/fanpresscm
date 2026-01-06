@@ -112,7 +112,8 @@ implements \fpcm\controller\interfaces\requestFunctions
     }
 
     /**
-     * Controller-Processing
+     * Controller processing
+     * @return void
      */
     public function process()
     {
@@ -128,7 +129,7 @@ implements \fpcm\controller\interfaces\requestFunctions
             $this->items = [];
             $this->initDataView();
             $this->view->render();
-            return true;
+            return;
         }
 
 

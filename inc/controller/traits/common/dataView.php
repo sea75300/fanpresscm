@@ -30,6 +30,12 @@ trait dataView {
     protected $itemsCount = null;
 
     /**
+     * Dataview instance
+     * @var \fpcm\components\dataView\dataView
+     */
+    protected $dataView;
+
+    /**
      * Returns default description string for "No entries found"
      * @return string
      */

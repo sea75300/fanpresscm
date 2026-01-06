@@ -7,7 +7,9 @@
 
 namespace fpcm\controller\ajax\pub;
 
-define('FPCM_NOTOKEN', true);
+if (!defined('FPCM_NOTOKEN')) {
+    define('FPCM_NOTOKEN', true);
+}
 
 /**
  * AJAX controller for share link save

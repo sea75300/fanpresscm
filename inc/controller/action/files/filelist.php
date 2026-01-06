@@ -65,6 +65,10 @@ class filelist extends \fpcm\controller\abstracts\controller
         return true;
     }
 
+    /**
+     * Controller processing
+     * @return void
+     */
     public function process()
     {
         $hasFiles = ($this->fileList->getDatabaseFileCount() ? true : false);
@@ -112,7 +116,7 @@ class filelist extends \fpcm\controller\abstracts\controller
         if (!trim($uploader->getTemplate()) || !realpath($uploader->getTemplate())) {
             trigger_error('Undefined file upload template given in '.$uploader->getTemplate());
             $this->execDestruct = false;
-            return false;
+            return;
         }
 
         $jsFiles = ['files/module.js', 'files/search.js', 'ui/dnd.js'];

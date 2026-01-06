@@ -131,8 +131,8 @@ implements \fpcm\controller\interfaces\requestFunctions
     }
 
     /**
-     *
-     * @return void
+     * Controller requesting
+     * @return bool
      */
     public function request()
     {
@@ -144,7 +144,7 @@ implements \fpcm\controller\interfaces\requestFunctions
     }
 
     /**
-     *
+     * Controller processing
      * @return void
      */
     public function process()

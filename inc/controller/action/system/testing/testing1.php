@@ -29,7 +29,7 @@ implements
     }
 
     /**
-     *
+     * Controller processing
      * @return bool
      */
     public function process() : bool

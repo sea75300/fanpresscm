@@ -74,6 +74,12 @@ trait lists {
     protected $filterError = null;
 
     /**
+     * Dataview object instance
+     * @var \fpcm\components\dataView\dataView
+     */
+    protected $dataView;
+
+    /**
      * Initialisiert Suchformular-Daten
      * @param array $users
      */

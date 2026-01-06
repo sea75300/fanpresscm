@@ -49,7 +49,8 @@ class logs extends \fpcm\controller\abstracts\controller {
     }
 
     /**
-     * Controller-Processing
+     * Controller processing
+     * @return void
      */
     public function process()
     {

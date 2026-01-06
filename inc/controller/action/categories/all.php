@@ -78,8 +78,8 @@ class all extends \fpcm\controller\abstracts\controller implements \fpcm\control
     }
 
     /**
-     * 
-     * @return bool
+     * Controller processing
+     * @return void
      */
     public function process()
     {
@@ -135,7 +135,6 @@ class all extends \fpcm\controller\abstracts\controller implements \fpcm\control
         ]);
 
         $this->view->render();
-        return true;
     }
 
     protected function getDataViewTabs() : array

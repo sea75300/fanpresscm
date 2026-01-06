@@ -9,8 +9,13 @@
 
 namespace fpcm\controller\action\installer;
 
-define('FPCM_INSTALLER_NOCACHE', true);
-define('FPCM_MODE_NOPAGETOKEN', true);
+if (!defined('FPCM_INSTALLER_NOCACHE')) {
+    define('FPCM_INSTALLER_NOCACHE', true);
+}
+
+if (!defined('FPCM_MODE_NOPAGETOKEN')) {
+    define('FPCM_MODE_NOPAGETOKEN', true);
+}
 
 class main extends \fpcm\controller\abstracts\controller {
 
@@ -161,6 +166,10 @@ class main extends \fpcm\controller\abstracts\controller {
         return true;
     }
 
+    /**
+     * Controller processing
+     * @return void
+     */
     public function process()
     {
         $tabCount = count(array_keys($this->tabsDef));

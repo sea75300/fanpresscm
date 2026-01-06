@@ -33,7 +33,8 @@ class update extends \fpcm\controller\action\packagemgr\abstracts\base
     }
 
     /**
-     * Controller-Processing
+     * Controller processing
+     * @return void
      */
     public function process()
     {

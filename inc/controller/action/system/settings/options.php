@@ -76,8 +76,8 @@ class options extends \fpcm\controller\abstracts\controller implements \fpcm\con
     }
 
     /**
-     * Controller-Processing
-     * @return bool
+     * Controller processing
+     * @return void
      */
     public function process()
     {

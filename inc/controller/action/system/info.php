@@ -25,7 +25,7 @@ class info extends \fpcm\controller\abstracts\controller {
     }
 
     /**
-     * 
+     * Controller processing
      * @return bool
      */
     public function process() : bool

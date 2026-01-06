@@ -192,8 +192,8 @@ class profile extends \fpcm\controller\abstracts\controller
     }
 
     /**
-     * Controller-Processing
-     * @return bool
+     * Controller processing
+     * @return void
      */
     public function process()
     {
@@ -225,7 +225,6 @@ class profile extends \fpcm\controller\abstracts\controller
         ], 'fpcm ui-tabs-function-autoinit', $this->getActiveTab());
 
         $this->view->setFormAction('system/profile');
-
         $this->view->render();
     }
 

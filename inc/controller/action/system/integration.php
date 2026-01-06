@@ -26,9 +26,13 @@ implements \fpcm\controller\interfaces\viewByNamespace
         return parent::request();
     }
 
+    /**
+     * Controller processing
+     * @return bool
+     */
     public function process(): bool
     {
-        
+
         $this->view->setViewVars([
             'items' => [
                 'INTEGRATION_INCLUDE_API' => 'api',
@@ -43,11 +47,11 @@ implements \fpcm\controller\interfaces\viewByNamespace
             'categories' => (new \fpcm\model\categories\categoryList())->getCategoriesNameListAll(),
             'templates' => (new \fpcm\model\pubtemplates\templatelist())->getArticleTemplates(),
             'basedir' => dirname(\fpcm\classes\dirs::getFullDirPath('/')). DIRECTORY_SEPARATOR.'index.php'
-            
+
         ]);
-        
+
         $this->view->addJsFilesLate(['system/integration.js']);
-        
+
         $this->view->addTabs('integration', [
             (new \fpcm\view\helper\tabItem('integration'))->setFile($this->getViewPath())
         ]);
@@ -61,9 +65,8 @@ implements \fpcm\controller\interfaces\viewByNamespace
         $this->view->addJsVars([
             'articlesDefault' => $this->config->articles_limit
         ]);
-        
+
         $this->view->addJsLangVars(['INTEGRATION_TEXT_API']);
-        
         return true;
     }
 }

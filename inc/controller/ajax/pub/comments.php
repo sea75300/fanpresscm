@@ -7,7 +7,10 @@
 
 namespace fpcm\controller\ajax\pub;
 
-define('FPCM_NOTOKEN', true);
+if (!defined('FPCM_NOTOKEN')) {
+    define('FPCM_NOTOKEN', true);
+}
+
 
 /**
  * AJAX controlelr to work comments
@@ -91,7 +94,7 @@ class comments extends \fpcm\controller\abstracts\ajaxController {
     }
 
     /**
-     * 
+     *
      * @return bool
      */
     protected function processGetList() : bool
@@ -115,9 +118,9 @@ class comments extends \fpcm\controller\abstracts\ajaxController {
 
             $i++;
         }
-        
+
         sleep(2);
-        
+
         return true;
     }
 

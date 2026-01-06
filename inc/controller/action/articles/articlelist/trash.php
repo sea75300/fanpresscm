@@ -43,6 +43,10 @@ class trash extends \fpcm\controller\abstracts\controller
         return 'articles/listouter';
     }
 
+    /**
+     * Controller processing
+     * @return void
+     */
     public function process()
     {
         $this->isTrash = true;

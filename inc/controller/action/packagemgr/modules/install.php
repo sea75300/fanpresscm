@@ -12,8 +12,8 @@ namespace fpcm\controller\action\packagemgr\modules;
 class install extends base {
 
     /**
-     * Controller-Processing
-     * @return bool
+     * Controller processing
+     * @return void
      */
     public function process()
     {

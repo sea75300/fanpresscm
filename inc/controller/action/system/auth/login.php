@@ -124,7 +124,8 @@ implements \fpcm\controller\interfaces\requestFunctions {
     }
 
     /**
-     * Controller-Processing
+     * Controller processing
+     * @return void
      */
     public function process()
     {

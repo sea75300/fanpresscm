@@ -56,7 +56,7 @@ class ajaxController extends controller {
 
     /**
      * Redirect if user is not logged in
-     * @return bool
+     * @return void
      */
     protected function redirectNoSession()
     {
@@ -93,6 +93,7 @@ class ajaxController extends controller {
         }
         
         $this->response->setCode(503)->addHeaders('HTTP/1.1 401 Service in is maintenance')->fetch();
+        return true;
     }
 
 }

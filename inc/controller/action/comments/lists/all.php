@@ -53,8 +53,8 @@ class all extends \fpcm\controller\abstracts\controller
     }
 
     /**
-     * @see \fpcm\controller\abstracts\controller::process()
-     * @return mixed
+     * Controller processing
+     * @return void
      */
     public function process()
     {

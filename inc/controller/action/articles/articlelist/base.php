@@ -64,8 +64,8 @@ abstract class base extends \fpcm\controller\abstracts\controller
     }
 
     /**
-     * Controller-Processing
-     * @return bool
+     * Controller processing
+     * @return void
      */
     public function process()
     {
@@ -131,8 +131,6 @@ abstract class base extends \fpcm\controller\abstracts\controller
         $this->view->addTabs('articles', [
             (new \fpcm\view\helper\tabItem('articles'))->setText($this->getTabHeadline())->setFile('articles/listouter.php')
         ]);
-
-        return true;
     }
 
     /**

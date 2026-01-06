@@ -163,8 +163,8 @@ abstract class showcommon extends \fpcm\controller\abstracts\pubController {
     }
 
     /**
-     * Controller ausführen
-     * @return bool
+     * Controller processing
+     * @return void
      */
     public function process()
     {

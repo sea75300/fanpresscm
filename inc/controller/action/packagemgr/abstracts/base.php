@@ -10,8 +10,7 @@
 namespace fpcm\controller\action\packagemgr\abstracts;
 
 abstract class base extends \fpcm\controller\abstracts\controller
-{
-
+{    
     /**
      *
      * @var bool
@@ -55,8 +54,8 @@ abstract class base extends \fpcm\controller\abstracts\controller
     }
 
     /**
-     *
-     * @return bool
+     * Controller processing
+     * @return void
      */
     public function process() {
 

@@ -33,6 +33,12 @@ trait lists {
      *
      * @var array
      */
+    protected $users = [];
+
+    /**
+     *
+     * @var array
+     */
     protected $relatedCounts = [];
 
     /**
@@ -58,6 +64,12 @@ trait lists {
      * @var \fpcm\components\dataView\dataView
      */
     protected $dataView;
+
+    /**
+     * Category list instance
+     * @var \fpcm\model\categories\categoryList
+     */
+    protected $categoryList;
 
     /**
      * Kategorien übersetzen

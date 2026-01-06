@@ -51,7 +51,7 @@ class logout extends \fpcm\controller\abstracts\controller {
 
     /**
      * Controller-Processing
-     * @return type
+     * @return void
      */
     public function process()
     {

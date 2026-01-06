@@ -45,7 +45,8 @@ class langedit extends \fpcm\controller\abstracts\controller implements \fpcm\co
     }
 
     /**
-     * Controller-Processing
+     * Controller processing
+     * @return void
      */
     public function process()
     {

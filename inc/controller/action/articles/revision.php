@@ -130,8 +130,8 @@ implements \fpcm\controller\interfaces\requestFunctions
     }
 
     /**
-     * @see \fpcm\controller\abstracts\controller::process()
-     * @return mixed
+     * Controller processing
+     * @return void
      */
     public function process()
     {

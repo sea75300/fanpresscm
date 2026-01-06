@@ -50,7 +50,7 @@ class templates extends \fpcm\controller\abstracts\controller implements \fpcm\c
 
     /**
      * Controller-Processing
-     * @return bool
+     * @return void
      */
     public function process()
     {
@@ -208,8 +208,8 @@ class templates extends \fpcm\controller\abstracts\controller implements \fpcm\c
 
 
     /**
-     *
-     * @return bool
+     * Init dataview for template files
+     * @return void
      */
     private function initDataView()
     {

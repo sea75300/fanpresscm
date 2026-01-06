@@ -105,8 +105,8 @@ implements \fpcm\controller\interfaces\requestFunctions
     }
 
     /**
-     *
-     * @return bool
+     * Controller processing
+     * @return void
      */
     public function process()
     {
@@ -223,10 +223,12 @@ implements \fpcm\controller\interfaces\requestFunctions
         }
 
         $this->view->render();
-
-        return true;
     }
 
+    /**
+     * Save comment button event
+     * @return bool
+     */
     protected function onCommentSave() : bool
     {
         if (!$this->checkPageToken()) {
@@ -282,6 +284,7 @@ implements \fpcm\controller\interfaces\requestFunctions
         }
 
         $this->view->addErrorMessage('SAVE_FAILED_COMMENT');
+        return false;
     }
 
 }

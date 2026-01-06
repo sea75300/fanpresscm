@@ -8,8 +8,14 @@
 /**
  * FPCM frontend api flag
  */
-define('FPCM_FE', true);
-define('FPCM_MODE_NOPAGETOKEN', true);
+
+if (!defined('FPCM_FE')) {
+    define('FPCM_FE', true);
+}
+
+if (!defined('FPCM_MODE_NOPAGETOKEN')) {
+    define('FPCM_MODE_NOPAGETOKEN', true);
+}
 
 /**
  * Include of base files

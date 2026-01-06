@@ -25,6 +25,8 @@ implements
     protected $userRoll;
 
     protected $update = false;
+    
+    protected $headlineVar;
 
     public function isAccessible(): bool
     {
