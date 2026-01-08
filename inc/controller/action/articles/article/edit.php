@@ -189,14 +189,21 @@ class edit extends base {
                 $this->view->addButton((new \fpcm\view\helper\button('massEdit', 'massEdit'))
                         ->setText('GLOBAL_EDIT')
                         ->setIcon('edit')
-                        ->setClass( $this->getToolbarButtonToggleClass(2) ));
+                        ->setToolbarToggle(
+                            toolbarTab: 2,
+                            default: true
+                        )
+                    );
             }
 
             if ($this->permissions->comment->delete) {
                 $this->view->addButton((new \fpcm\view\helper\deleteButton('deleteComment'))
-                    ->setClass( $this->getToolbarButtonToggleClass(2) )
                     ->setText('EDITOR_COMMENTS_DELETE')
                     ->setOnClick('comments.deleteMultipleArticle')
+                    ->setToolbarToggle(
+                        toolbarTab: 2,
+                        default: true
+                    )
                 );
             }
 
@@ -292,12 +299,12 @@ class edit extends base {
                 ->setUrlbyObject($this->article)
                 ->setTarget(\fpcm\view\helper\linkButton::TARGET_NEW)
                 ->setIconOnly()
-                ->setClass( $this->getToolbarButtonToggleClass(1, ',', true) ),
+                ->setToolbarToggle(1),
             (new \fpcm\view\helper\button('shortlink'))
                 ->setText('EDITOR_ARTICLE_SHORTLINK')
                 ->setIcon('external-link-square-alt')
                 ->setIconOnly()
-                ->setClass( $this->getToolbarButtonToggleClass(1, ',', true) )
+                ->setToolbarToggle(1)
                 ->setData([
                     'article' => $this->article->getId()
                 ])
@@ -307,7 +314,7 @@ class edit extends base {
 
             $this->view->addButton(
                 (new \fpcm\view\helper\copyButton('articleCopy'))
-                    ->setClass( $this->getToolbarButtonToggleClass(1, '', true) )
+                    ->setToolbarToggle(1)
                     ->setReadonly($this->article->isInEdit())
                     ->setCopyParams($this->article, 'article')
             );
@@ -320,12 +327,12 @@ class edit extends base {
                     ->setText('EDITOR_ARTICLEIMAGE_SHOW')
                     ->setIcon('image')
                     ->setIconOnly()
-                    ->setClass($this->getToolbarButtonToggleClass(1, 'fpcm ui-link-fancybox', true)));
+                    ->setToolbarToggle(1));
         }
 
         if ($this->permissions->article->delete && !$this->request->fromGET('rev')) {
             $this->view->addButton((new \fpcm\view\helper\deleteButton('articleDelete'))
-                    ->setClass( $this->getToolbarButtonToggleClass(1, true))
+                    ->setToolbarToggle(1)
                     ->setReadonly($this->article->isInEdit())
                     ->setClickConfirm());
         }
@@ -335,9 +342,15 @@ class edit extends base {
                     ->setText('EDITOR_REVISION_RESTORE')
                     ->setIcon('undo')
                     ->setReadonly($this->article->isInEdit())
-                    ->setClass( $this->getToolbarButtonToggleClass(3) ));
+                    ->setToolbarToggle(
+                        toolbarTab: 3,
+                        default: true
+                    ));
             $this->view->addButton((new \fpcm\view\helper\deleteButton('revisionDelete'))
-                    ->setClass($this->getToolbarButtonToggleClass(3) )
+                    ->setToolbarToggle(
+                        toolbarTab: 3,
+                        default: true
+                    )
                     ->setText('EDITOR_REVISION_DELETE')
                     ->setClickConfirm());
         }
@@ -404,7 +417,7 @@ class edit extends base {
             (new \fpcm\view\helper\linkButton('open-relation'))
                 ->setText('COMMENTS_EDITARTICLE')
                 ->setIcon('arrow-down-up-across-line')
-                ->setClass( $this->getToolbarButtonToggleClass(1, '', true) )
+                ->setToolbarToggle(1)
                 ->setIconOnly()
                 ->setReadonly($tmp->isInEdit())
                 ->setUrl($tmp->getEditLink())

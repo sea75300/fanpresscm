@@ -224,7 +224,7 @@ implements \fpcm\controller\interfaces\requestFunctions
 
         $this->view->addButton(
             (new \fpcm\view\helper\saveButton('articleSave'))
-                ->setClass( $this->getToolbarButtonToggleClass(1, '', true) )
+                ->setToolbarToggle(1)
                 ->setReadonly($this->article->isInEdit())
                 ->setPrimary()
         );

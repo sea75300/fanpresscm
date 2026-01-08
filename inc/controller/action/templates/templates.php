@@ -91,23 +91,33 @@ class templates extends \fpcm\controller\abstracts\controller implements \fpcm\c
 
         $this->view->setFormAction('templates/templates');
 
-        $hiddenClass2 = $this->getActiveTab() != 6 ? 'fpcm-ui-hidden' : '';
-
         $buttons = [
-            (new \fpcm\view\helper\saveButton('saveTemplates'))->setClass( $this->getToolbarButtonToggleClass(1, '', true) )->setPrimary(),
-            (new \fpcm\view\helper\button('showpreview'))->setText('GLOBAL_PREVIEW')->setIcon('eye')->setClass( $this->getToolbarButtonToggleClass(1, '', true) )
+            (new \fpcm\view\helper\saveButton('saveTemplates'))
+                ->setToolbarToggle(1)
+                ->setPrimary(),
+            (new \fpcm\view\helper\button('showpreview'))
+                ->setText('GLOBAL_PREVIEW')
+                ->setIcon('eye')
+                ->setToolbarToggle(1)
         ];
 
         if ($this->permissions->system->drafts) {
 
 
             $buttons[] =  (new \fpcm\view\helper\deleteButton('fileDelete'))
-                ->setClass('fpcm-ui-maintoolbarbuttons-tab3 ' . $hiddenClass2 )->setClickConfirm();
+                ->setToolbarToggle(
+                    toolbarTab: 2,
+                    default: true
+                )
+                ->setClickConfirm();
 
             $buttons[] =  (new \fpcm\view\helper\button('fileUpload'))
                 ->setText('FILE_LIST_UPLOADFORM')
-                ->setClass('fpcm-ui-maintoolbarbuttons-tab3 ' . $hiddenClass2 )
                 ->setIcon('upload')
+                ->setToolbarToggle(
+                    toolbarTab: 2,
+                    default: true
+                )
                 ->setData([
                     'bs-toggle' => 'offcanvas',
                     'bs-target' => '#offcanvasUpload'
@@ -198,7 +208,7 @@ class templates extends \fpcm\controller\abstracts\controller implements \fpcm\c
                     ->setText('TEMPLATE_HL_DRAFTS')
                     ->setFile( $this->getViewPath() )
                     ->setData(['noEmpty' => true])
-                    ->setTabToolbar(3)
+                    ->setTabToolbar(2)
                     ->setDataViewId('draftfiles');
         }
 

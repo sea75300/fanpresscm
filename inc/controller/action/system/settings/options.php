@@ -115,7 +115,7 @@ class options extends \fpcm\controller\abstracts\controller implements \fpcm\con
         ]);
 
         $steps = range(50, 400, 50);
-        
+
         $this->view->assign('thumbsizes', array_combine($steps, $steps));
 
         $this->view->assign('smtpAuthTypes', \fpcm\classes\email::getAuthenticationTypes());
@@ -164,8 +164,10 @@ class options extends \fpcm\controller\abstracts\controller implements \fpcm\con
             $actions[] = (new \fpcm\view\helper\dropdownItem('testSmtp'))->setText('SYSTEM_OPTIONS_EMAIL_CHECK')->setIcon('envelope-circle-check')->setValue('2');
         }
 
+        $saveDefDisabled = $this->getActiveTab() === 7 || $this->syscheck;
+
         $this->view->addButtons([
-            (new \fpcm\view\helper\saveButton('configSave'))->setPrimary(),
+            (new \fpcm\view\helper\saveButton('configSave'))->setPrimary()->setToolbarToggle(1, \fpcm\view\helper\button::TOGGLE_ACTION_DISABLE, $saveDefDisabled),
             (new \fpcm\view\helper\dropdown('actions'))->setText('GLOBAL_EXTENDED')->setIcon('bars')->setOptions($actions)
         ]);
 

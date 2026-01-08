@@ -640,6 +640,7 @@ class controller implements \fpcm\controller\interfaces\controller {
      * @param int $active
      * @return string
      * @since 5.2.0.a1
+     * @deprecated 5.3.0-a1
      */
     protected function getToolbarButtonToggleClass(int $tabIndex, string $class = '', bool $notIfNull = false): string
     {
