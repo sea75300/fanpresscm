@@ -10,12 +10,18 @@ namespace fpcm\controller\action\articles\article;
 /**
  * Article controller base
  * @article Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2024, Stefan Seehafer
+ * @copyright (c) 2011-2026, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 abstract class base extends \fpcm\controller\abstracts\controller
 implements \fpcm\controller\interfaces\requestFunctions
 {
+
+    const MESSAGE_RESTORE_REVISION = 'rvres';
+
+    const MESSAGE_ARTICLE_ADDED = 'added';
+
+    const MESSAGE_ARTICLE_APPROVE = 'approval';
 
     /**
      *
@@ -336,7 +342,7 @@ implements \fpcm\controller\interfaces\requestFunctions
         else {
             $this->article->setPinnedUntil(0);
         }
-        
+
         $this->article->setComments($data['comments'] ?? !$this->article->getId() && $this->config->comments_default_active);
 
         $relates_to = intval($data['relatesto'] ?? 0);

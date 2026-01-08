@@ -10,7 +10,7 @@ namespace fpcm\controller\action\articles\article;
 /**
  * Article edit controller
  * @article Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2024, Stefan Seehafer
+ * @copyright (c) 2011-2026, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 class edit extends base {
@@ -83,23 +83,17 @@ class edit extends base {
         $this->userList     = new \fpcm\model\users\userList();
         $this->commentList  = new \fpcm\model\comments\commentList();
 
-        $this->handleRevisionActions();
-        $this->handleDeleteAction();
+        $msg = $this->request->fromGET('msg');
 
-        $res = false;
+        $msgText = match ($msg) {
+            self::MESSAGE_RESTORE_REVISION => 'ARTICLEREVRESTORE',
+            self::MESSAGE_ARTICLE_ADDED => 'ARTICLE',
+            self::MESSAGE_ARTICLE_APPROVE => 'ARTICLE_APPROVAL',
+            default => null,
+        };
 
-        $added = $this->request->fromGET('added', [
-            \fpcm\model\http\request::FILTER_CASTINT
-        ]);
-
-        if ($res > 0 || $added === 1) {
-            $this->view->addNoticeMessage('SAVE_SUCCESS_ARTICLE');
-            return true;
-        }
-
-        if ($added == 2) {
-            $this->view->addNoticeMessage('SAVE_SUCCESS_ARTICLE_APPROVAL');
-            return true;
+        if ($msgText) {
+            $this->view->addNoticeMessage('SAVE_SUCCESS_' . $msgText);
         }
 
         return true;
@@ -116,7 +110,10 @@ class edit extends base {
 
         parent::process();
 
-        $this->view->setFormAction($this->article->getEditLink(), [], true);
+        $this->view->setFormAction(
+            controller: $this->article->getEditLink(),
+            isLink: true
+        );
         $this->view->assign('editorMode', 1);
         $this->view->assign('postponedTimer', $this->article->getCreatetime());
         $this->view->assign('pinnedTimer', $this->article->getPinnedUntil());
@@ -141,21 +138,34 @@ class edit extends base {
             'TEMPLATE_ARTICLE_ARTICLEIMAGE'
         ]);
 
-        if ($this->article->isInEdit()) {
+        $this->addButtons();
+        $this->assignChangeData();
+        $this->assignShares();
+        $this->showInEditMessage();
+    }
 
-            $data = $this->article->getInEdit();
-
-            $username = $this->language->translate('GLOBAL_NOTFOUND');
-            if (is_array($data)) {
-                $user = new \fpcm\model\users\author($data[1]);
-                if ($user->exists()) {
-                    $username = $user->getDisplayname();
-                }
-            }
-
-            $this->view->addMessage('EDITOR_STATUS_INEDIT', ['{{username}}' => $username]);
+    private function showInEditMessage() : bool
+    {
+        if (!$this->article->isInEdit()) {
+            return false;
         }
 
+        $data = $this->article->getInEdit();
+
+        $username = $this->language->translate('GLOBAL_NOTFOUND');
+        if (is_array($data)) {
+            $user = new \fpcm\model\users\author($data[1]);
+            if ($user->exists()) {
+                $username = $user->getDisplayname();
+            }
+        }
+
+        $this->view->addMessage('EDITOR_STATUS_INEDIT', ['{{username}}' => $username]);
+        return true;
+    }
+
+    private function assignChangeData()
+    {
         $this->view->assign('createInfo', $this->language->translate('GLOBAL_USER_ON_TIME', [
             '{{username}}' => \fpcm\classes\tools::userId2Text($this->article->getCreateuser()),
             '{{time}}'     => new \fpcm\view\helper\dateText($this->article->getCreatetime())
@@ -165,131 +175,14 @@ class edit extends base {
             '{{username}}' => \fpcm\classes\tools::userId2Text($this->article->getChangeuser()),
             '{{time}}'     => new \fpcm\view\helper\dateText($this->article->getChangetime())
         ]));
+    }
 
-        $this->addButtons();
-
+    private function assignShares()
+    {
         $shares = (new \fpcm\model\shares\shares())->getByArticleId($this->article->getId());
 
         $this->view->assign('shares', $shares);
         $this->view->assign('showShares', $this->config->system_share_count);
-    }
-
-    /**
-     * Initialisiert Berechtigungen
-     */
-    protected function initPermissions()
-    {
-        $editComments = $this->permissions->editComments();
-        $this->view->assign('showComments', $editComments);
-
-        if ($editComments) {
-
-            $this->view->addJsFiles(['comments/module.js', 'articles/deleteCallback.js']);
-            if ($this->permissions->editCommentsMass()) {
-                $this->view->addButton((new \fpcm\view\helper\button('massEdit', 'massEdit'))
-                        ->setText('GLOBAL_EDIT')
-                        ->setIcon('edit')
-                        ->setToolbarToggle(
-                            toolbarTab: 2,
-                            default: true
-                        )
-                    );
-            }
-
-            if ($this->permissions->comment->delete) {
-                $this->view->addButton((new \fpcm\view\helper\deleteButton('deleteComment'))
-                    ->setText('EDITOR_COMMENTS_DELETE')
-                    ->setOnClick('comments.deleteMultipleArticle')
-                    ->setToolbarToggle(
-                        toolbarTab: 2,
-                        default: true
-                    )
-                );
-            }
-
-            $this->initCommentMassEditForm(2);
-        }
-
-        $this->view->assign('currentUserId', $this->session->getUserId());
-        $this->view->assign('isAdmin', $this->session->getCurrentUser()->isAdmin());
-    }
-
-    /**
-     *
-     * @return bool
-     */
-    private function handleDeleteAction()
-    {
-        if (!$this->buttonClicked('articleDelete') || !$this->checkPageToken) {
-            return true;
-        }
-
-        if ($this->article->isInEdit()) {
-            return false;
-        }
-
-        if ($this->permissions->article->delete && $this->article->delete()) {
-            $this->redirect('articles/listall');
-            return true;
-        }
-
-        $this->view->addErrorMessage('DELETE_FAILED_ARTICLE');
-        return false;
-    }
-
-    /**
-     *
-     * @return bool
-     */
-    private function handleRevisionActions()
-    {
-        if ($this->request->fromGET('revrestore')) {
-            $this->view->addNoticeMessage('SAVE_SUCCESS_ARTICLEREVRESTORE');
-        }
-
-        if (!$this->permissions->article->revisions) {
-            return false;
-        }
-
-        $revisionIdsArray = $this->request->fromPOST('revisionIds', [\fpcm\model\http\request::FILTER_CASTINT]);
-        if (!is_array($revisionIdsArray) || !count($revisionIdsArray)) {
-            return false;
-        }
-
-        if (!$this->checkPageToken) {
-            return false;
-        }
-
-        if ($this->buttonClicked('revisionDelete')) {
-            if ($this->article->deleteRevisions($revisionIdsArray)) {
-                $this->view->addNoticeMessage('DELETE_SUCCESS_REVISIONS');
-            } else {
-                $this->view->addErrorMessage('DELETE_FAILED_REVISIONS');
-            }
-
-            return true;
-        }
-
-        if (!$this->buttonClicked('articleRevisionRestore')) {
-            return true;
-        }
-
-        $rid = array_shift($revisionIdsArray);
-        if ($this->article->restoreRevision($rid)) {
-            $this->redirect('articles/edit&id=' . $this->article->getId() . '&revrestore=1');
-            return true;
-        }
-
-        $this->view->addErrorMessage('SAVE_FAILED_ARTICLEREVRESTORE');
-        return true;
-    }
-
-    protected function onArticleSaveAfterSuccess(int $id): bool
-    {
-        $this->article->createRevision();
-        $this->view->addNoticeMessage('SAVE_SUCCESS_ARTICLE');
-
-        return true;
     }
 
     private function addButtons()
@@ -423,6 +316,121 @@ class edit extends base {
                 ->setUrl($tmp->getEditLink())
                 ->setTarget(\fpcm\view\helper\linkButton::TARGET_NEW)
         );
+    }
+
+    protected function initPermissions()
+    {
+        $editComments = $this->permissions->editComments();
+        $this->view->assign('showComments', $editComments);
+
+        if ($editComments) {
+
+            $this->view->addJsFiles(['comments/module.js', 'articles/deleteCallback.js']);
+            if ($this->permissions->editCommentsMass()) {
+                $this->view->addButton((new \fpcm\view\helper\button('massEdit', 'massEdit'))
+                        ->setText('GLOBAL_EDIT')
+                        ->setIcon('edit')
+                        ->setToolbarToggle(
+                            toolbarTab: 2,
+                            default: true
+                        )
+                    );
+            }
+
+            if ($this->permissions->comment->delete) {
+                $this->view->addButton((new \fpcm\view\helper\deleteButton('deleteComment'))
+                    ->setText('EDITOR_COMMENTS_DELETE')
+                    ->setOnClick('comments.deleteMultipleArticle')
+                    ->setToolbarToggle(
+                        toolbarTab: 2,
+                        default: true
+                    )
+                );
+            }
+
+            $this->initCommentMassEditForm(2);
+        }
+
+        $this->view->assign('currentUserId', $this->session->getUserId());
+        $this->view->assign('isAdmin', $this->session->getCurrentUser()->isAdmin());
+    }
+
+    protected function onArticleSaveAfterSuccess(int $id): bool
+    {
+        $this->article->createRevision();
+        $this->view->addNoticeMessage('SAVE_SUCCESS_ARTICLE');
+        return true;
+    }
+
+    protected function onArticleDelete(): bool
+    {
+        if (!$this->permissions->article->delete ||
+            $this->article->isInEdit() ||
+            !$this->checkPageToken) {
+            $this->view->addErrorMessage('DELETE_FAILED_ARTICLE');
+            return false;
+        }
+
+        if (!$this->article->delete()) {
+            $this->view->addErrorMessage('DELETE_FAILED_ARTICLE');
+            return false;
+        }
+
+        $this->redirect('articles/listall');
+        return true;
+    }
+
+    protected function onArticleRevisionRestore(): bool
+    {
+        if (!$this->permissions->article->revisions ||
+            $this->article->isInEdit() ||
+            !$this->checkPageToken) {
+            $this->view->addErrorMessage('SAVE_FAILED_ARTICLEREVRESTORE');
+            return false;
+        }
+
+        $revIds = $this->request->fromPOST('revisionIds', [\fpcm\model\http\request::FILTER_CASTINT]);
+        if (!is_array($revIds) || !count($revIds)) {
+            $this->view->addErrorMessage('SAVE_FAILED_ARTICLEREVRESTORE');
+            return false;
+        }
+
+
+        $rid = array_shift($revIds);
+        if (!$this->article->restoreRevision($rid)) {
+            $this->view->addErrorMessage('SAVE_FAILED_ARTICLEREVRESTORE');
+            return false;
+        }
+
+        $this->redirect('articles/edit', [
+            'id' => $this->article->getId(),
+            'msg' => self::MESSAGE_RESTORE_REVISION
+        ]);
+        return true;
+    }
+
+    protected function onRevisionDelete(): bool
+    {
+        if (!$this->permissions->article->revisions ||
+            $this->article->isInEdit() ||
+            !$this->checkPageToken) {
+            $this->view->addErrorMessage('SAVE_FAILED_ARTICLEREVRESTORE');
+            return false;
+        }
+
+        $revIds = $this->request->fromPOST('revisionIds', [\fpcm\model\http\request::FILTER_CASTINT]);
+        if (!is_array($revIds) || !count($revIds)) {
+            $this->view->addErrorMessage('SAVE_FAILED_ARTICLEREVRESTORE');
+            return false;
+        }
+
+        if (!$this->article->deleteRevisions($revIds)) {
+            $this->view->addErrorMessage('DELETE_FAILED_REVISIONS');
+            return false;
+        }
+
+        $this->view->addNoticeMessage('DELETE_SUCCESS_REVISIONS');
+        return true;
     }
 
 }
