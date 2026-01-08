@@ -644,6 +644,13 @@ class controller implements \fpcm\controller\interfaces\controller {
      */
     protected function getToolbarButtonToggleClass(int $tabIndex, string $class = '', bool $notIfNull = false): string
     {
+        trigger_error(sprintf(
+            "The usesage of CSS classes to toggle toolbar items is deprecated " .
+            "as of FPCM 5.3.0-a1. Use item method %s instead!",
+            __METHOD__,
+            'setToolbarToggle'
+        ));
+        
         $active = $this->getActiveTab();
 
         $hidden = $tabIndex !== $active ? 'fpcm-ui-hidden' : '';
