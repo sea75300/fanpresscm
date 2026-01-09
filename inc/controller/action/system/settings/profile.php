@@ -9,7 +9,9 @@
 
 namespace fpcm\controller\action\system\settings;
 
-class profile extends \fpcm\controller\abstracts\controller
+class profile
+extends \fpcm\controller\abstracts\controller
+implements \fpcm\controller\interfaces\requestFunctions
 {
 
     use \fpcm\controller\traits\common\timezone,
@@ -52,26 +54,15 @@ class profile extends \fpcm\controller\abstracts\controller
      */
     public function request()
     {
-
         $this->user = $this->session->getCurrentUser();
         $this->initUploader($this->user);
-
-        $this->deleteImage($this->user);
-        $this->uploadImage($this->user);
 
         if ($this->config->system_2fa_auth) {
             include_once \fpcm\classes\loader::libGetFilePath('sonata-project'.DIRECTORY_SEPARATOR.'GoogleAuthenticator');
             $this->gAuth = new \Sonata\GoogleAuthenticator\GoogleAuthenticator();
         }
 
-        if (($this->buttonClicked('profileSave') || $this->buttonClicked('resetProfileSettings')) && !$this->checkPageToken()) {
-            $this->view->addErrorMessage('CSRF_INVALID');
-        }
-
         $this->reloadSite = 0;
-
-        $this->resetProfileSettings();
-        $this->saveProfile();
 
         $this->view->assign('author', $this->user);
         $this->view->assign('avatar', \fpcm\model\users\author::getAuthorImageDataOrPath($this->user, false));
@@ -83,9 +74,9 @@ class profile extends \fpcm\controller\abstracts\controller
      * Reset profile settings
      * @return bool
      */
-    private function resetProfileSettings() : bool
+    private function onResetProfileSettings() : bool
     {
-        if (!$this->buttonClicked('resetProfileSettings') || !$this->checkPageToken) {
+        if (!$this->checkPageToken) {
             return false;
         }
 
@@ -103,9 +94,9 @@ class profile extends \fpcm\controller\abstracts\controller
      * Execute save process
      * @return bool
      */
-    private function saveProfile() : bool
+    private function onProfileSave() : bool
     {
-        if (!$this->buttonClicked('profileSave') || !$this->checkPageToken) {
+        if (!$this->checkPageToken) {
             return true;
         }
 
@@ -125,7 +116,6 @@ class profile extends \fpcm\controller\abstracts\controller
         $this->user->setChangeTime(time());
         $this->user->setChangeUser((int) $this->session->getUserId());
 
-        $save = true;
         if ($saveData['password'] && $saveData['password_confirm']) {
 
             if (!$this->checkCurrentPass($saveData['current_pass'])) {

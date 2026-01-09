@@ -110,7 +110,7 @@
         </div>
 
         <?php if ($showDisableButton) : ?>
-        <div class="row my-2 <?php print $inProfile ? 'fpcm-ui-hidden' : '' ?>">
+        <div class="row row-cols-2 my-2 <?php print $inProfile ? 'fpcm-ui-hidden' : '' ?>">
             <div class="col">
                     <?php $theView->boolSelect('data[disabled]')
                     ->setSelected($author->getDisabled())

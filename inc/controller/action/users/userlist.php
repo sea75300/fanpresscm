@@ -190,10 +190,11 @@ class userlist extends \fpcm\controller\abstracts\controller
         $dataView = new \fpcm\components\dataView\dataView('userlist');
 
         $dataView->addColumns([
-            (new \fpcm\components\dataView\column('button'))->setSize(3),
+            (new \fpcm\components\dataView\column('button'))->setSize('auto'),
             (new \fpcm\components\dataView\column('username', 'GLOBAL_USERNAME')),
             (new \fpcm\components\dataView\column('email', 'GLOBAL_EMAIL')),
             (new \fpcm\components\dataView\column('registered', 'USERS_REGISTEREDTIME')),
+            (new \fpcm\components\dataView\column('lastchange', 'GLOBAL_LASTCHANGE')),
             (new \fpcm\components\dataView\column('metadata'))->setAlign('center')
         ]);
 
@@ -212,16 +213,17 @@ class userlist extends \fpcm\controller\abstracts\controller
         
         foreach($usersInGroups AS $rollId => $users) {
 
-            $title  = '<b>' . $descr.': '.$this->language->translate($userGroups[$rollId]->getRollName()) . '</b>';
-
             $dataView->addRow(
-                new \fpcm\components\dataView\row([
-                    new \fpcm\components\dataView\rowCol('button', '', 'd-none d-lg-block'),
-                    new \fpcm\components\dataView\rowCol('username', $title),
-                    new \fpcm\components\dataView\rowCol('email', '', 'd-none d-lg-block'),
-                    new \fpcm\components\dataView\rowCol('registered', '', 'd-none d-lg-block'),
-                    new \fpcm\components\dataView\rowCol('metadata', '', 'd-none d-lg-block'),
-                ], '', true
+                new \fpcm\components\dataView\row(
+                    columns: [
+                        new \fpcm\components\dataView\rowCol('button', (new \fpcm\view\helper\icon('user-group')), 'd-none d-lg-block'),
+                        new \fpcm\components\dataView\rowCol('username', $this->language->translate($userGroups[$rollId]->getRollName())),
+                        new \fpcm\components\dataView\rowCol('email', '', 'd-none d-lg-block'),
+                        new \fpcm\components\dataView\rowCol('registered', '', 'd-none d-lg-block'),
+                        new \fpcm\components\dataView\rowCol('lastchange', '', 'd-none d-lg-block'),
+                        new \fpcm\components\dataView\rowCol('metadata', '', 'd-none d-lg-block'),
+                    ],
+                    isheadline: true
             ));
 
             /* @var $user \fpcm\model\users\author */
@@ -277,6 +279,7 @@ class userlist extends \fpcm\controller\abstracts\controller
                         new \fpcm\components\dataView\rowCol('username', new \fpcm\view\helper\escape($user->getDisplayname()) ),
                         new \fpcm\components\dataView\rowCol('email', new \fpcm\view\helper\escape($user->getEmail())),
                         new \fpcm\components\dataView\rowCol('registered', new \fpcm\view\helper\dateText($user->getRegistertime())),
+                        new \fpcm\components\dataView\rowCol('lastchange', new \fpcm\view\helper\dateText($user->getChangeTime())),
                         new \fpcm\components\dataView\rowCol('metadata', implode('', $metadata), 'fs-5', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
                     ], $user->getDisabled() ? 'text-body-secondary' : ''
                 ));

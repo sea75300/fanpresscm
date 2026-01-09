@@ -10,8 +10,7 @@
 namespace fpcm\controller\action\users\user;
 
 class edit
-extends base
-implements \fpcm\controller\interfaces\requestFunctions {
+extends base {
 
     use \fpcm\controller\traits\users\deleteDialog;
 
@@ -45,13 +44,6 @@ implements \fpcm\controller\interfaces\requestFunctions {
         }
 
         $this->view->setFormAction($this->user->getEditLink(), [], true);
-
-        if (!$this->checkPageToken) {
-            return true;
-        }
-
-        $this->uploadImage($this->user);
-        $this->deleteImage($this->user);
 
         return true;
     }

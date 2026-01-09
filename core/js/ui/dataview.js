@@ -13,6 +13,8 @@ fpcm.dataview = {
 
     _baseItem: {},
 
+    _emptyHeads: [],
+
     render: function (id, params) {
 
         if (!params) {
@@ -37,6 +39,8 @@ fpcm.dataview = {
             return false;
         }
 
+        fpcm.dataview._emptyHeads = [];
+
         var obj         = fpcm.vars.jsvars.dataviews[id];
         var style       = '';
 
@@ -55,6 +59,25 @@ fpcm.dataview = {
 
         if (typeof params.onRenderAfter === 'function') {
             params.onRenderAfter.call();
+        }
+
+        for (var _index of fpcm.dataview._emptyHeads) {
+
+            let _col = _index.split(':');
+
+            let _headId = `${obj.fullId}-dataview-headcol-${_col[0]}${_col[1]}`;
+
+            let _firstRow = {
+                try1: document.getElementById(`${obj.fullId}-dataview-row-0-dataview-rowcol-${_col[0]}0`),
+                try2: document.getElementById(`${obj.fullId}-dataview-row-1-dataview-rowcol-${_col[0]}1`)
+            };
+
+            if (_firstRow.try1.offsetWidth && !_firstRow.try1.parentElement.classList.contains('fpcm-ui-dataview-subhead')) {
+                document.getElementById(_headId).style.width = _firstRow.try1.offsetWidth + 'px';
+            }
+            else if (_firstRow.try2.offsetWidth) {
+                document.getElementById(_headId).style.width = _firstRow.try2.offsetWidth + 'px';
+            }
         }
 
         fpcm.ui.assignCheckboxes();
@@ -191,6 +214,11 @@ fpcm.dataview = {
                 _ede.classList.add('d-block', 'd-md-none');
                 _ede.innerHTML = '&nbsp;';
                 _colEl.appendChild(_ede);
+
+                let _colIndex = `${_col.name}:${_i}`;
+                if (_col.size === 'auto' && !fpcm.dataview._emptyHeads.includes(_colIndex)) {
+                    fpcm.dataview._emptyHeads.push(_colIndex);
+                }
             }
 
             _colEl.classList.add(..._style);
