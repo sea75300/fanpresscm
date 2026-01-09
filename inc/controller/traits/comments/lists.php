@@ -152,10 +152,11 @@ trait lists {
     {
         return [
             (new \fpcm\components\dataView\column('select', (new \fpcm\view\helper\checkbox('fpcm-select-all'))->setClass('fpcm-select-all')))->setSize(1)->setAlign('center'),
-            (new \fpcm\components\dataView\column('button', ''))->setSize(2)->setAlign('center'),
+            (new \fpcm\components\dataView\column('button', ''))->setSize('auto')->setAlign('center'),
             (new \fpcm\components\dataView\column('name', 'COMMMENT_AUTHOR')),
             (new \fpcm\components\dataView\column('create', 'COMMMENT_CREATEDATE'))->setAlign('center'),
-            (new \fpcm\components\dataView\column('metadata', ''))->setAlign('center')
+            (new \fpcm\components\dataView\column('change', 'GLOBAL_LASTCHANGE'))->setAlign('center'),
+            (new \fpcm\components\dataView\column('metadata', ''))->setAlign('center')->setSize('auto')
         ];
     }
 
@@ -251,6 +252,7 @@ trait lists {
                 new \fpcm\components\dataView\rowCol('button', $buttons, 'fpcm-ui-dataview-align-center fpcm-ui-font-small', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
                 new \fpcm\components\dataView\rowCol('name', sprintf('<strong>%s</strong><span class="fpcm ui-font-small d-block">%s %s</span>', $comment->getName(), (new \fpcm\view\helper\icon('at'))->setText('GLOBAL_EMAIL'), $comment->getEmail()), 'fpcm-ui-ellipsis'),
                 new \fpcm\components\dataView\rowCol('create', new \fpcm\view\helper\dateText($comment->getCreatetime()), 'fpcm-ui-ellipsis'),
+                new \fpcm\components\dataView\rowCol('change', new \fpcm\view\helper\dateText($comment->getChangetime() ? $comment->getChangetime() : $comment->getCreatetime()), 'fpcm-ui-ellipsis'),
                 new \fpcm\components\dataView\rowCol('metadata', implode('', $comment->getMetaDataStatusIcons()), 'fs-5', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
             ]));
         }

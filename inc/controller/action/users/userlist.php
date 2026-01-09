@@ -279,7 +279,7 @@ class userlist extends \fpcm\controller\abstracts\controller
                         new \fpcm\components\dataView\rowCol('username', new \fpcm\view\helper\escape($user->getDisplayname()) ),
                         new \fpcm\components\dataView\rowCol('email', new \fpcm\view\helper\escape($user->getEmail())),
                         new \fpcm\components\dataView\rowCol('registered', new \fpcm\view\helper\dateText($user->getRegistertime())),
-                        new \fpcm\components\dataView\rowCol('lastchange', new \fpcm\view\helper\dateText($user->getChangeTime())),
+                        new \fpcm\components\dataView\rowCol('lastchange', new \fpcm\view\helper\dateText($user->getChangeTime() ?  $user->getChangeTime() : $user->getRegistertime())),
                         new \fpcm\components\dataView\rowCol('metadata', implode('', $metadata), 'fs-5', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
                     ], $user->getDisabled() ? 'text-body-secondary' : ''
                 ));
