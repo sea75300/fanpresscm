@@ -235,6 +235,7 @@ class edit extends base {
                     ->setText('EDITOR_REVISION_RESTORE')
                     ->setIcon('undo')
                     ->setReadonly($this->article->isInEdit())
+                    ->setPrimary()
                     ->setToolbarToggle(
                         toolbarTab: 3,
                         default: true
@@ -334,6 +335,7 @@ class edit extends base {
                             toolbarTab: 2,
                             default: true
                         )
+                        ->setPrimary()
                     );
             }
 
