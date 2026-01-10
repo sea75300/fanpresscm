@@ -39,21 +39,21 @@ class pubController extends controller {
      */
     public function __construct()
     {
-        $this->request = \fpcm\classes\loader::getObject('\fpcm\model\http\request');
+        $this->request = \fpcm\model\http\request::getInstance();
         if (\fpcm\classes\baseconfig::installerEnabled() || !\fpcm\classes\baseconfig::dbConfigExists()) {
             exit;
         }
 
-        $this->events = \fpcm\classes\loader::getObject('\fpcm\events\events');
-        $this->cache = \fpcm\classes\loader::getObject('\fpcm\classes\cache');
-        $this->config = \fpcm\classes\loader::getObject('\fpcm\model\system\config');
-        $this->session = \fpcm\classes\loader::getObject('\fpcm\model\system\session');
+        $this->events = \fpcm\events\events::getInstance();
+        $this->config = \fpcm\model\system\config::getInstance();
+        $this->session = \fpcm\model\system\session::getInstance();
         $this->config->setUserSettings();
 
-        $this->ipList = \fpcm\classes\loader::getObject('\fpcm\model\ips\iplist');
-        $this->crons = \fpcm\classes\loader::getObject('\fpcm\model\crons\cronlist');
+        $this->crypt = \fpcm\classes\crypt::getInstance();
 
-        $this->crypt = \fpcm\classes\loader::getObject('\fpcm\classes\crypt');
+        $this->cache = \fpcm\classes\loader::getObject('\fpcm\classes\cache');
+        $this->ipList = \fpcm\classes\loader::getObject('\fpcm\model\ips\iplist');
+
         $this->language = \fpcm\classes\loader::getObject('\fpcm\classes\language', $this->config->system_lang);
 
         $this->hasActiveModule();
