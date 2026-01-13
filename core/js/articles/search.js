@@ -41,7 +41,7 @@ fpcm.search = {
                         return;
                     }
 
-                    fpcm.articles.loadArticles({
+                    fpcm.articles.loadItems({
                         filter: _filter
                     });
                 },

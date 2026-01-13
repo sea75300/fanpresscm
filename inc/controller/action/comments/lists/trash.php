@@ -85,19 +85,19 @@ class trash extends \fpcm\controller\abstracts\controller
         $this->view->addAjaxPageToken('clearTrash');
         $this->view->assign('commentsMode', 1);
         $this->view->setFormAction('comments/trash');
-        $this->view->addJsFiles(['comments/module.js']);
+        $this->view->addJsFiles(['comments/trash.js']);
 
         $this->view->addButtons([    
             (new \fpcm\view\helper\button('restoreFromTrash'))
                 ->setIcon('trash-restore')
                 ->setText('ARTICLE_LIST_RESTOREARTICLE')
-                ->setOnClick('comments.restoreFromTrash')
+                ->setOnClick('comments_trash.restoreFromTrash')
                 ->setPrimary(),
             (new \fpcm\view\helper\button('emptyTrash'))
                 ->setIcon('recycle')
                 ->setText('ARTICLE_LIST_EMPTYTRASH')
                 ->setIconOnly()
-                ->setOnClick('comments.emptyTrash')
+                ->setOnClick('comments_trash.emptyTrash')
         ]);
         
         $this->view->addTabs('comments', [

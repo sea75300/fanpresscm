@@ -129,8 +129,6 @@ class lists extends \fpcm\controller\abstracts\ajaxController
 
         $sort = $filter['sort'] ?? null;
 
-        $cond = (count($filter) >= 2 ? \fpcm\model\abstracts\searchWrapper::COMBINATION_STR_AND : '');
-
         switch ($this->request->fromPOST('mode')) {
             case self::MODE_ARCHIVE :
                 $this->conditions->modeArchive = true;

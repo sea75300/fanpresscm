@@ -261,10 +261,13 @@ implements \fpcm\controller\interfaces\requestFunctions
         if ($this->showComments && $this->config->system_comments_enabled) {
 
             $tabs[] = (new \fpcm\view\helper\tabItem('comments'))
-                    ->setUrl(\fpcm\classes\tools::getFullControllerLink('ajax/editor/editorlist', [
-                        'id' => $this->article->getId(),
-                        'view' => 'comments'])
-                    )
+                    ->setUrl(\fpcm\classes\tools::getFullControllerLink(
+                        'ajax/comments/lists',
+                        [
+                            'article_id' => $this->article->getId(),
+                            'mode' => 2
+                        ]
+                    ))
                     ->setText('HL_ARTICLE_EDIT_COMMENTS', [ 'count' => $this->commentCount ])
                     ->setDataViewId('commentlist')
                     ->setTabToolbar(2);

@@ -72,10 +72,10 @@ fpcm.dataview = {
                 try2: document.getElementById(`${obj.fullId}-dataview-row-1-dataview-rowcol-${_col[0]}1`)
             };
 
-            if (_firstRow.try1.offsetWidth && !_firstRow.try1.parentElement.classList.contains('fpcm-ui-dataview-subhead')) {
+            if (_firstRow.try1 && _firstRow.try1.offsetWidth && !_firstRow.try1.parentElement.classList.contains('fpcm-ui-dataview-subhead')) {
                 document.getElementById(_headId).style.width = _firstRow.try1.offsetWidth + 'px';
             }
-            else if (_firstRow.try2.offsetWidth) {
+            else if (_firstRow.try2 && _firstRow.try2.offsetWidth) {
                 document.getElementById(_headId).style.width = _firstRow.try2.offsetWidth + 'px';
             }
         }

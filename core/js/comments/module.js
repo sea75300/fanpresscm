@@ -18,27 +18,17 @@ fpcm.comments = {
                 fpcm.ui.relocate('self');
             });
         });
+  
+        fpcm.worker.postMessage({
+            namespace: 'comments',
+            function: 'loadItems',
+            id: 'comments.loadItems',
+            param: {
+                page: fpcm.vars.jsvars.listPage
+            }
+        });    
     
         fpcm.comments.assignActionsList();
-    },
-    
-    initAfter: function() {
-        
-        if (!fpcm.dataview) {
-            return false;
-        }
-        
-        if (fpcm.dataview.exists('commenttrash')) {
-            fpcm.dataview.render('commenttrash');            
-            return true;
-        }
-        
-        if (fpcm.dataview.exists('commentlist')) {
-            fpcm.dataview.render('commentlist');
-            fpcm.comments.deleteSingleArticle();
-        }
-        
-        
     },
 
     assignActionsList: function() {
@@ -79,6 +69,58 @@ fpcm.comments = {
         return true;
     },
 
+    loadItems: function(_params) {
+
+        if (!fpcm.vars.jsvars.listMode) {
+            return;
+        }
+
+        if (!_params) {
+            _params = {};
+        }
+
+        let _fnParams = {
+            mode: fpcm.vars.jsvars.listMode,
+            page: _params.page !== undefined ? parseInt(_params.page) : 1,
+            module: 'comments',
+            onRenderDataViewAfter: function () {
+                fpcm.comments.assignActionsList();
+                fpcm.comments.deleteSingleArticle();
+            },
+            onPagerNext: function () {
+                fpcm.comments.loadItems({
+                    page: fpcm.vars.jsvars.pager.showNextButton,
+                    loader: true
+                });
+                
+                return true;
+            },
+            onPagerBack: function () {
+                fpcm.comments.loadItems({
+                    page: fpcm.vars.jsvars.pager.showBackButton,
+                    loader: true
+                });
+
+                return true;
+            },
+            onPagerSelect: function (event, ui) {
+
+                fpcm.comments.loadItems({
+                    page: ui.value,
+                    loader: true
+                });
+
+                return true;
+            }
+        };
+
+        if (_params.filter instanceof Object) {
+            _fnParams.filter = _params.filter;
+        }
+
+        fpcm.ajax.getItemList(_fnParams);        
+    },
+
     startCommentSearch: function (_params) {
 
         if (((new Date()).getTime() - fpcm.vars.jsvars.commentsLastSearch) < 10000) {
@@ -89,7 +131,7 @@ fpcm.comments = {
             return false;
         }
 
-        fpcm.ajax.post('comments/search', {
+        fpcm.ajax.post('comments/lists', {
             data: _params,
             execDone: function (result) {
 
@@ -104,16 +146,6 @@ fpcm.comments = {
         });
 
         fpcm.vars.jsvars.commentsLastSearch = (new Date()).getTime();
-    },
-
-    emptyTrash: function() {
-
-        fpcm.system.emptyTrash({
-            fn: 'clearComments'
-        });
-
-        return true;
-
     },
     
     deleteSingleArticle: function() {
@@ -166,23 +198,6 @@ fpcm.comments = {
         });
 
         return true;    
-    },
-
-    restoreFromTrash: function() {
-
-        var ids = fpcm.dom.getCheckboxCheckedValues('.fpcm-ui-list-checkbox');
-        if (ids.length == 0) {
-            fpcm.ui_loader.hide();
-            return false;
-        }
-
-        fpcm.system.emptyTrash({
-            fn: 'restoreComments',
-            ids: ids
-        });
-
-        return true;
-
     },
     
     resetActionsMenu: function () {

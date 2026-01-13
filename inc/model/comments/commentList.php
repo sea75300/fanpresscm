@@ -146,6 +146,7 @@ implements \fpcm\model\interfaces\gsearchIndex {
         }
 
         $where .= ' ' . implode(' ', $where2);
+        
 
         $obj = (new \fpcm\model\dbal\selectParams($this->table))
                 ->setFetchAll(true)

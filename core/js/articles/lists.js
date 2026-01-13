@@ -16,8 +16,8 @@ fpcm.articles = {
 
         fpcm.worker.postMessage({
             namespace: 'articles',
-            function: 'loadArticles',
-            id: 'articles.loadArticles',
+            function: 'loadItems',
+            id: 'articles.loadItems',
             param: {
                 page: fpcm.vars.jsvars.listPage
             }
@@ -27,7 +27,7 @@ fpcm.articles = {
 
             fpcm.system.initMassEditDialog('articles/massedit', 'articles-massedit', fpcm.articles, {
                 onSuccess: function () {
-                    fpcm.articles.loadArticles({
+                    fpcm.articles.loadItems({
                         loader: true
                     });
 
@@ -64,7 +64,7 @@ fpcm.articles = {
         return true;
     },
     
-    loadArticles: function(_params) {
+    loadItems: function(_params) {
 
         if (!_params) {
             _params = {};
@@ -79,7 +79,7 @@ fpcm.articles = {
                 fpcm.articles.deleteSingleArticle();
             },
             onPagerNext: function () {
-                fpcm.articles.loadArticles({
+                fpcm.articles.loadItems({
                     page: fpcm.vars.jsvars.pager.showNextButton,
                     loader: true
                 });
@@ -87,7 +87,7 @@ fpcm.articles = {
                 return true;
             },
             onPagerBack: function () {
-                fpcm.articles.loadArticles({
+                fpcm.articles.loadItems({
                     page: fpcm.vars.jsvars.pager.showBackButton,
                     loader: true
                 });
@@ -96,7 +96,7 @@ fpcm.articles = {
             },
             onPagerSelect: function (event, ui) {
 
-                fpcm.articles.loadArticles({
+                fpcm.articles.loadItems({
                     page: ui.value,
                     loader: true
                 });
@@ -141,7 +141,7 @@ fpcm.articles = {
                         execDone: function (result) {
 
                             if (result.code == 1) {
-                                fpcm.articles.loadArticles({
+                                fpcm.articles.loadItems({
                                     loader: true
                                 });
                                 return true;
@@ -182,7 +182,7 @@ fpcm.articles = {
                         fpcm.articles.resetActionsMenu();
 
                         if (result.code == 1) {
-                            fpcm.articles.loadArticles({
+                            fpcm.articles.loadItems({
                                 loader: true
                             });
                             return true;

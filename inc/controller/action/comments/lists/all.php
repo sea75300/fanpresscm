@@ -10,29 +10,23 @@ namespace fpcm\controller\action\comments\lists;
 /**
  * Comment list controller
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2022, Stefan Seehafer
+ * @copyright (c) 2011-2025, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 class all extends \fpcm\controller\abstracts\controller
 {
 
-    use \fpcm\controller\traits\comments\lists,
-        \fpcm\controller\traits\common\listSettings;
-
-    /**
-     * Data view object
-     * @var \fpcm\components\dataView\dataView
-     */
-    protected $dataView;
+    use \fpcm\controller\traits\common\lists,
+        \fpcm\controller\traits\common\massedit,
+        \fpcm\controller\traits\common\listSettings,
+        \fpcm\controller\traits\comments\lists,
+        \fpcm\controller\traits\comments\massEdit;
 
     /**
      *
-     * @return bool
+     * @var int
      */
-    public function isAccessible(): bool
-    {
-        return $this->config->system_comments_enabled && $this->permissions->editComments();
-    }
+    protected $mode = 1;
 
     /**
      *
@@ -93,9 +87,8 @@ class all extends \fpcm\controller\abstracts\controller
 
         $this->addListSettingsDialog();
 
-        $this->initDataView();
-        $this->view->addDataView($this->dataView);
-        $this->view->addPager(new \fpcm\view\helper\pager('comments/list', $this->page, $this->commentCount, $this->config->articles_acp_limit, $this->maxItemCount));
+        $this->view->addDataView( new \fpcm\components\dataView\dataView('commentlist') );
+        $this->view->addPager(new \fpcm\view\helper\pager('comments/lists', $this->page, 1, $this->config->articles_acp_limit, 1));
 
         $this->view->addTabs('comments', [
             (new \fpcm\view\helper\tabItem('tabs-comments-list'))
@@ -215,7 +208,8 @@ class all extends \fpcm\controller\abstracts\controller
 
         $this->view->addJsVars([
             'commentsLastSearch' => 0,
-            'massEditSaveFailed' => 'SAVE_FAILED_COMMENTS'
+            'massEditSaveFailed' => 'SAVE_FAILED_COMMENTS',
+            'listMode' => 'all'
         ]);
         
         $this->view->addFromLibrary('sortable_js/', [
@@ -226,8 +220,8 @@ class all extends \fpcm\controller\abstracts\controller
     protected function getDataViewTabs() : array
     {
         return [
-            (new \fpcm\view\helper\tabItem('tabs-'.$this->getDataViewName().'-list'))
-                ->setUrl('#tabs-'.$this->getDataViewName().'-list')
+            (new \fpcm\view\helper\tabItem('tabs-commentlist-list'))
+                ->setUrl('#tabs-commentlist-list')
                 ->setText('COMMMENT_HEADLINE')
                 ->setFile($this->getViewPath() . '.php')
         ];

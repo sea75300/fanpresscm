@@ -13,7 +13,8 @@ class edit extends \fpcm\controller\abstracts\controller
 implements \fpcm\controller\interfaces\requestFunctions
 {
 
-    use \fpcm\model\comments\permissions;
+    use \fpcm\model\comments\permissions,
+        \fpcm\controller\traits\comments\lists;
 
     /**
      *
@@ -82,6 +83,11 @@ implements \fpcm\controller\interfaces\requestFunctions
     public function request()
     {
         $this->mode = $this->request->getIntMode();
+        
+        if (!in_array($this->mode, [self::MODE_ALL, self::MODE_ARTICLE])) {
+            $this->view = new \fpcm\view\error('LOAD_FAILED_COMMENT', 'comments/list');
+            return false;
+        }
 
         $id = $this->request->getID();
         if (!$id) {
@@ -110,7 +116,7 @@ implements \fpcm\controller\interfaces\requestFunctions
      */
     public function process()
     {
-        if ($this->mode === 2) {
+        if ($this->mode === self::MODE_ARTICLE) {
             $this->view->showHeaderFooter(\fpcm\view\view::INCLUDE_HEADER_SIMPLE);
             $this->view->setBodyClass('m-2 fpcm ui-classic-backdrop');
         }
@@ -163,14 +169,14 @@ implements \fpcm\controller\interfaces\requestFunctions
             $this->view->assign('changeInfo', $this->language->translate('GLOBAL_NOCHANGE'));
         }
 
-        $hiddenClass = $this->mode === 2 ? 'fpcm-ui-hidden' : '';
+        $articleExists = $this->mode === self::MODE_ARTICLE;
+        
+        $hiddenClass = $articleExists ? 'fpcm-ui-hidden' : '';
 
         $buttons     = [];
         $buttons[]   = (new \fpcm\view\helper\saveButton('commentSave'))->setClass($hiddenClass)->setPrimary();
 
-        $articleExists = $this->mode === 2;
-
-        if ($this->mode === 1) {
+        if ($this->mode === self::MODE_ALL) {
             $article     = new \fpcm\model\articles\article($this->comment->getArticleid());
             $articleExists = $article->exists();
             if ($article->exists()) {

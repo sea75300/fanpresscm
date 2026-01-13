@@ -16,6 +16,7 @@ namespace fpcm\controller\action\articles\article;
 class edit extends base {
 
     use \fpcm\controller\traits\comments\lists,
+        \fpcm\controller\traits\comments\massEdit,
         \fpcm\model\articles\permissions,
         \fpcm\model\traits\shareLinks;
 
@@ -328,7 +329,7 @@ class edit extends base {
 
             $this->view->addJsFiles(['comments/module.js', 'articles/deleteCallback.js']);
             if ($this->permissions->editCommentsMass()) {
-                $this->view->addButton((new \fpcm\view\helper\button('massEdit', 'massEdit'))
+                $this->view->addButton((new \fpcm\view\helper\button('massEdit'))
                         ->setText('GLOBAL_EDIT')
                         ->setIcon('edit')
                         ->setToolbarToggle(

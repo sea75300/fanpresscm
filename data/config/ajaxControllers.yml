@@ -43,7 +43,7 @@ ajax/modules/fetch: ajax/modules/fetchList
 ajax/modules/info: ajax/modules/moduleInfo
 ajax/installer/checkdb: ajax/installer/checkdb
 ajax/installer/initdb: ajax/installer/initdb
-ajax/comments/search: ajax/comments/search
+ajax/comments/lists: ajax/comments/lists
 ajax/comments/massedit: ajax/comments/massedit
 ajax/comments/lockip: ajax/comments/lockIp
 ajax/comments/delete: ajax/comments/delete

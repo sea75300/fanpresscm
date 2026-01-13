@@ -42,8 +42,7 @@ fpcm.search = {
                         return;
                     }
 
-                    fpcm.comments.startCommentSearch({
-                        mode: fpcm.vars.jsvars.articleSearchMode,
+                    fpcm.comments.loadItems({
                         filter: _filter
                     });
                 },
