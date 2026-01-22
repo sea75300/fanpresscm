@@ -12,7 +12,8 @@ namespace fpcm\controller\action\users\user;
 class edit
 extends base {
 
-    use \fpcm\controller\traits\users\deleteDialog;
+    use \fpcm\controller\traits\users\deleteDialog,
+        \fpcm\controller\traits\users\onResetProfileSettings;
 
     /**
      *
@@ -60,12 +61,13 @@ extends base {
         $showDisableButton = (!$this->user->getDisabled() && ($this->userId == $this->session->getUserId() || $userList->countActiveUsers() == 1)) ? false : true;
         
         $this->initDeleteConfirmDialog($userList);
-
         $this->twoFactorAuthForm();
+
         $this->view->assign('showDisableButton', $showDisableButton);
         $this->view->assign('showExtended', true);
         $this->view->assign('showImage', true);
         $this->view->assign('avatar', \fpcm\model\users\author::getAuthorImageDataOrPath($this->user, false));
+        $this->view->assign('reloadSite', $this->reloadSite);
 
         $buttons = [
             (new \fpcm\view\helper\saveButton('userSave'))->setPrimary(),
@@ -110,22 +112,6 @@ extends base {
         $tabs[] = (new \fpcm\view\helper\tabItem('meta'))->setText('USERS_META_OPTIONS')->setFile('users/editormeta.php');
         $this->view->addTabs('users', $tabs, 'fpcm ui-tabs-autoinit', $this->getActiveTab());
 
-    }
-
-    protected function onResetProfileSettings()
-    {
-        if (!$this->checkPageToken) {
-            return true;
-        }
-
-        if ($this->user->resetProfileSettings() === false) {
-            $this->view->addErrorMessage('SAVE_FAILED_USER_PROFILE');
-            return false;
-        }
-
-        $this->view->addNoticeMessage('SAVE_SUCCESS_RESETPROFILE');
-        $this->view->assign('reloadSite', true);
-        return true;
     }
 
 }

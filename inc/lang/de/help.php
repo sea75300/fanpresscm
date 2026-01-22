@@ -968,7 +968,7 @@ Help language file
             <dt>Updates durchführen</dt>
             <dd class="pb-2">Benutzer kann verfügbare Updates installieren.</dd>
             <dt>System-Protokolle verwalten</dt>
-            <dd class="pb-2">Benutzer kann die vom System erzeugten Protokolldateien einsehen und bei Bedarf bereinigen</dd>
+            <dd class="pb-2">Benutzer kann die vom System erzeugten kkolldateien einsehen und bei Bedarf bereinigen</dd>
             <dt>Cronjobs verwalten</dt>
             <dd class="pb-2">Benutzer kann Cronjobs verwalten</dd>
             <dt>Backups verwalten</dt>
@@ -1249,31 +1249,57 @@ Help language file
     </chapter>
     <chapter ref="HL_LOGS">
         <![CDATA[
-        <p>Im Bereich <em>Protokolle</em> findest du eine Auflistung aller bisherigen Benutzer-Logins, System-Meldungen von FanPress und
-            Fehlermeldungen durch PHP selbst oder der Datenbank. Über den Button <strong>Leeren</strong> kannst du Meldungen etc. löschen
-            lassen.</p>
-
         <dl>
+            <h3 class="py-3 fs-1">Protokolle</h3>
+            
             <dt>Sessions:</dt>
-            <dd class="pb-2">Dieses Protokoll zeigt eine Übersicht über die Logins aller Benutzer, abgesehen von aktuell aktiven Sessions, z. B. deiner eigenen.
-                Angezeigt werden alle relevanten Informationen, d. h. wer hat sich, wann ein- bzw. ausgeloggt. Externe Logins erfolgten über die Funktionen der FanPress CM-API. Der
-                User-Agent enthält Informationen, mit welchem Browser oder Programm der Login erfolgte.</dd>
+            <dd class="pb-2">Dieses Protokoll zeigt eine Übersicht über die 
+                Logins aller Benutzer, abgesehen von aktuell aktiven 
+                Sessions, z. B. deiner eigenen. Externe Logins entstehen über 
+                die Funktionen der FanPress CM-API.</dd>
             <dt>Sonstige:</dt>
-            <dd class="pb-2">Dieses Protokoll beinhaltet allgemeine Meldungen von FanPress CM, Status-Meldungen und falls nötig Diagnose-Informationen.</dd>
+            <dd class="pb-2">Dieses Protokoll beinhaltet allgemeine Meldungen 
+                von FanPress CM, Status-Meldungen und falls nötig 
+                Diagnose-Informationen.</dd>
             <dt>Ereignisse:</dt>
-            <dd class="pb-2">In diesem Protokoll werden allen von Fehlern, welche im Betrieb, bei Updates, Änderungen der Systemkonfiguration etc. auftreten.
-                Fatale PHP_Fehler können hier unter Umständen nicht angezeigt werden, da die System-Protokollierung zu diesem Zeitpunkt noch nicht greift. Nicht alle Einträge sind
-                zwangsläufig kritisch. Bei Fragen lassen uns einfach eine Nachricht zukommen.</dd>
+            <dd class="pb-2">In diesem Protokoll werden allen von Fehlern, 
+                welche im Betrieb, bei Updates, Änderungen der 
+                Systemkonfiguration etc. auftreten. Fatale PHP-Fehler können 
+                unter Umständen nicht angezeigt werden, da die 
+                System-Protokollierung zu diesem Zeitpunkt noch nicht greift. 
+                Nicht alle Einträge sind kritisch.</dd>
             <dt>Datenbank:</dt>
-            <dd class="pb-2">Die Datenbank-Protokolldatei enthält weitergehende Informationen zu Ereignissen auf Datenbank-Seite, z. B. fehlschlagende Abfragen, fehlschlagende
-                Verbindungen zum Datenbank-Server etc.</dd>
+            <dd class="pb-2">Die Datenbank-Protokolldatei enthält weitergehende 
+                Informationen zu Ereignissen auf Datenbank-Seite, z. B. 
+                fehlschlagende Abfragen, Verbindungsfehler etc.</dd>
             <dt>Cronjobs:</dt>
-            <dd class="pb-2">Hier werden Status-Informationen, Laufzeiten etc. zu ausgeführten Cronjobs protokolliert. Dieses Log kann in Abhängigkeit von der
-                Cronjob-Konfiguration sehr schnell stark wachsen und sollte daher regelmäßig bereinigt werden.</dd>
+            <dd class="pb-2">Hier werden Status-Informationen, Laufzeiten etc. 
+                zu ausgeführten Cronjobs protokolliert. Dieses Log kann in 
+                Abhängigkeit von der Cronjob-Konfiguration sehr schnell stark 
+                wachsen und sollte daher regelmäßig bereinigt werden.</dd>
             <dt>Paketmanager:</dt>
-            <dd class="pb-2">Dieses Protokoll beinhaltet Status-Informationen zu System-Updates, sowie Installation oder Updates von Modulen.
-                Im Paketmanager-Protokoll werden Dateien ohne Änderungen ausgegraut angezeigt, andere Einträge sind schwarz.</dd>
+            <dd class="pb-2">Dieses Protokoll beinhaltet Status-Informationen 
+                zu System-Updates, sowie Installation oder Updates von Modulen. 
+                Im Paketmanager-Protokoll werden Dateien ohne Änderungen 
+                ausgegraut angezeigt, andere Einträge sind schwarz.</dd>
         </dl>
+        
+        <p>Durch Module können zusätzliche Protokolle angelegt werden.</p>
+        
+        <h3 class="py-3 fs-1">Aktionen</h3>
+        
+        <dl>
+            <dt><span class="btn btn-sm btn-outline-dark"><span class="fa fa-fw fa-recycle"></span> Leeren</span></dt>
+            <dd class="pb-2">Über die Auswahl dieser Option wird das aktuelle 
+                Protokoll komplett geleert.  Eine Löschung einzelner Einträge 
+                ist nicht vorgesehen. Dieser Prozess kann nicht rückgängig 
+                gemacht werden!</dd>
+            <dt><span class="btn btn-sm btn-outline-dark"><span class="fa fa-fw fa-search"></span> Suchen & Filter</span></dt>
+            <dd class="pb-2">Über den Filterdialog kannst du das aktuelle Protokoll
+                nach Stichwörtern durchsuchen. Beachte, dass die Suche bei
+                sehr großen Protokolldateien viel Zeit in Anspruch nehmen
+                kann.</dd>
+        </dl>        
         ]]>
     </chapter>
     <chapter ref="HL_BACKUPS">
@@ -1399,7 +1425,7 @@ Help language file
             <dd class="pb-2">Über diese Option können die ausgewählten Elemente wiederherstellt werden. Dabei wird jeweils
                 die letzte Version eines Artikels bzw. Kommentars wiederhergestellt.</dd>
             <dt><span class="btn btn-sm btn-outline-dark"><span class="fa fa-fw fa-recycle"></span> Papierkorb leeren</span></dt>
-            <dd class="pb-2">Über die Auswahl dieser Option wird der Papierkorb komplett geleert. Eine Lösung einzelner
+            <dd class="pb-2">Über die Auswahl dieser Option wird der Papierkorb komplett geleert. Eine Löschung einzelner
                 Elemente ist nicht vorgesehen.</dd>
         </dl>
         ]]>

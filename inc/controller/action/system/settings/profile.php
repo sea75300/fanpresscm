@@ -16,13 +16,9 @@ implements \fpcm\controller\interfaces\requestFunctions
 
     use \fpcm\controller\traits\common\timezone,
         \fpcm\controller\traits\users\authorImages,
-        \fpcm\controller\traits\users\settings;
+        \fpcm\controller\traits\users\settings,
+        \fpcm\controller\traits\users\onResetProfileSettings;
 
-    /**
-     *
-     * @var bool
-     */
-    protected $reloadSite;
 
     /**
      *
@@ -62,31 +58,9 @@ implements \fpcm\controller\interfaces\requestFunctions
             $this->gAuth = new \Sonata\GoogleAuthenticator\GoogleAuthenticator();
         }
 
-        $this->reloadSite = 0;
-
         $this->view->assign('author', $this->user);
         $this->view->assign('avatar', \fpcm\model\users\author::getAuthorImageDataOrPath($this->user, false));
 
-        return true;
-    }
-
-    /**
-     * Reset profile settings
-     * @return bool
-     */
-    private function onResetProfileSettings() : bool
-    {
-        if (!$this->checkPageToken) {
-            return false;
-        }
-
-        if ($this->user->resetProfileSettings() === false) {
-            $this->view->addErrorMessage('SAVE_FAILED_USER_PROFILE');
-            return false;
-        }
-
-        $this->view->addNoticeMessage('SAVE_SUCCESS_RESETPROFILE');
-        $this->reloadSite = 1;
         return true;
     }
 
