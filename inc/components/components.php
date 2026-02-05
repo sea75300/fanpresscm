@@ -10,7 +10,7 @@ namespace fpcm\components;
 /**
  * FanPress CM 5.x component loader
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2018-2022, Stefan Seehafer
+ * @copyright (c) 2018-2025, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\components
  */
@@ -39,7 +39,8 @@ final class components {
     {
         $list = [
             'SYSTEM_OPTIONS_NEWS_EDITOR_TINYMCE5' => '\fpcm\components\editor\tinymceEditor5',
-            'SYSTEM_OPTIONS_NEWS_EDITOR_ACE' => '\fpcm\components\editor\aceEditor'
+            'SYSTEM_OPTIONS_NEWS_EDITOR_ACE' => '\fpcm\components\editor\aceEditor',
+            'Sun Editor (Beta)' => '\fpcm\components\editor\sunEditor'
         ];
 
         $ev = \fpcm\events\events::getInstance()->trigger('editor\getEditors', $list);

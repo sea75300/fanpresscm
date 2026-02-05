@@ -69,20 +69,6 @@ fpcm.editor = {
         });
     },
 
-    initTinyMce: function() {
-        fpcm.editor_tinymce.create(fpcm.vars.jsvars.editorConfig);
-    },
-
-    initAce: function() {
-
-        fpcm.editor_ace.create({
-           elementId: fpcm.ui.prepareId('content-ace', true),
-           textareaId: 'commenttext',
-           type: 'commenttext'
-        });
-
-    },
-
     getGalleryReplacement: function (_values) {
         return fpcm.vars.jsvars.editorGalleryTagStart.replace(
             '{{IMAGES}}',
