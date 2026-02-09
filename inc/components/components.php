@@ -39,8 +39,7 @@ final class components {
     {
         $list = [
             'SYSTEM_OPTIONS_NEWS_EDITOR_TINYMCE5' => '\fpcm\components\editor\tinymceEditor5',
-            'SYSTEM_OPTIONS_NEWS_EDITOR_ACE' => '\fpcm\components\editor\aceEditor',
-            'Sun Editor (Beta)' => '\fpcm\components\editor\sunEditor'
+            'SYSTEM_OPTIONS_NEWS_EDITOR_ACE' => '\fpcm\components\editor\aceEditor'
         ];
 
         $ev = \fpcm\events\events::getInstance()->trigger('editor\getEditors', $list);
