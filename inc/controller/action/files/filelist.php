@@ -120,8 +120,10 @@ class filelist extends \fpcm\controller\abstracts\controller
         }
 
         $jsFiles = ['files/module.js', 'files/search.js', 'ui/dnd.js'];
-        if ($this->mode == 2 && $this->config->system_editor === '\fpcm\components\editor\tinymceEditor5') {
-            $jsFiles[] = 'files/tinymce5Messages.js';
+        $messageMode = in_array(trim($this->config->system_editor, '\\'), [\fpcm\components\editor\tinymceEditor5::class, \fpcm\components\editor\hugerte::class]);
+
+        if ($this->mode == 2 && $messageMode) {
+            $jsFiles[] = 'files/editorMessages.js';
         }
 
         if ($this->mode > 1) {

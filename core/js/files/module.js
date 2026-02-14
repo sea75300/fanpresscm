@@ -71,8 +71,6 @@ fpcm.filemanager = {
 
         fpcm.dom.bindClick('a.btn[data-insert-type]', function (_e, _ui) {
 
-            debugger;
-
             let _search = new URLSearchParams(window.location.search);
             let _isMedia = _search.get('m') === 'media';
 

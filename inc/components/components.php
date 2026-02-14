@@ -39,6 +39,7 @@ final class components {
     {
         $list = [
             'SYSTEM_OPTIONS_NEWS_EDITOR_TINYMCE5' => '\fpcm\components\editor\tinymceEditor5',
+            'HugeRTE Editor' => '\fpcm\components\editor\hugerte',
             'SYSTEM_OPTIONS_NEWS_EDITOR_ACE' => '\fpcm\components\editor\aceEditor'
         ];
 

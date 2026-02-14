@@ -1,14 +1,14 @@
 /**
- * FanPress CM Filemanager TinyMCE 5 message listener Namespace
+ * FanPress CM Editor listener for filemanager messages
  * @article Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2020, Stefan Seehafer
+ * @copyright (c) 2020-2026, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 if (fpcm === undefined) {
     var fpcm = {};
 }
 
-fpcm.filemanagerTinyMCE5Msg = {
+fpcm.editorMessages = {
 
     tabsObj: {},
 

@@ -97,9 +97,7 @@ fpcm.editor = {
         if (!_items || !_items.length) {
             return '';
         }
-        
-        debugger;
-        
+
         let _urls = [];
         for (var _item of _items) {
             _urls.push(_item.dataset.gallery);
