@@ -151,5 +151,3 @@ trait dataView {
     }
 
 }
-
-?>

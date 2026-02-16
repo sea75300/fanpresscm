@@ -13,7 +13,9 @@ namespace fpcm\controller\action\ips;
  * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class all extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\requestFunctions
+class all
+extends \fpcm\controller\abstracts\controller
+implements \fpcm\controller\interfaces\requestFunctions
 {
 
     use \fpcm\controller\traits\common\dataView,
@@ -33,12 +35,25 @@ class all extends \fpcm\controller\abstracts\controller implements \fpcm\control
     private $sorts;
 
     /**
+     * Current Page
+     * @var int
+     */
+    protected ?int $page = 1;
+
+    /**
+     * Current offset
+     * @var int
+     */
+    protected int $offset = 0;
+
+    /**
      * Request-Handler
      * @return bool
      */
     public function request()
     {
         $this->sorts = ['SYSTEM_OPTIONS_NEWS_SORTING_ORDER' => '-1'] + $this->language->translate('GLOBAL_SORTBY_LIST');
+        $this->page = $this->request->getPage();
 
         if ($this->request->hasMessage('added')) {
             $this->view->addNoticeMessage('SAVE_SUCCESS_IPADDRESS');
@@ -66,8 +81,13 @@ class all extends \fpcm\controller\abstracts\controller implements \fpcm\control
             $sort = '';
         }
 
-        $userList = new \fpcm\model\users\userList();
-        $this->items = $this->ipList->getIpAll($sort);
+        $offset = \fpcm\classes\tools::getPageOffset($this->page, $this->config->articles_acp_limit);
+
+        $this->items = $this->ipList->getIpAll(
+            sorting: $sort,
+            offset: $offset,
+            limit: $this->config->articles_acp_limit
+        );
 
         $this->initDataView();
 
@@ -80,6 +100,14 @@ class all extends \fpcm\controller\abstracts\controller implements \fpcm\control
         ]);
 
         $this->view->addToolbarRight((string) (new \fpcm\view\helper\select('sortlist'))->setOptions($this->sorts)->setSelected($sort)->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED));
+
+        $this->view->addPager(new \fpcm\view\helper\pager(
+            'ips/list',
+            $this->page,
+            count($this->items),
+            $this->config->articles_acp_limit,
+            $this->ipList->getCount()
+        ));
 
         $this->view->render();
     }
@@ -147,6 +175,10 @@ class all extends \fpcm\controller\abstracts\controller implements \fpcm\control
         ];
     }
 
+    /**
+     *
+     * @return bool
+     */
     protected function onDelete()
     {
 

@@ -238,12 +238,7 @@ fpcm.ajax = {
                     fpcm.ui.addMessage(result.message);
                     return false;
                 }
-
-                fpcm.vars.jsvars.dataviews[result.dataViewName] = result.dataViewVars;
-                fpcm.dataview.updateAndRender(result.dataViewName, {
-                    onRenderAfter: _params.onRenderDataViewAfter
-                });
-
+                
                 if (_params.filter) {
                     fpcm.ui.togglePager(true);
                 }
@@ -285,6 +280,11 @@ fpcm.ajax = {
                         }
                     });
                 }
+
+                fpcm.vars.jsvars.dataviews[result.dataViewName] = result.dataViewVars;
+                fpcm.dataview.updateAndRender(result.dataViewName, {
+                    onRenderAfter: _params.onRenderDataViewAfter
+                });
 
                 return true;
             }

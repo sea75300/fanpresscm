@@ -36,17 +36,32 @@ implements \fpcm\model\interfaces\gsearchIndex {
     }
 
     /**
-     * Liefert IP-Adressen aus Datenbank zurück
+     * Returns list of ip addresses
+     * @param string $sorting
+     * @param int|null $offset
+     * @param int|null $limit
      * @return array
      */
-    public function getIpAll(string $sorting = '')
+    public function getIpAll(string $sorting = '', ?int $offset = null, ?int $limit = null)
     {
         $sObj = new \fpcm\model\dbal\selectParams($this->table);
+
+        $where = [];
+
         if (trim($sorting)) {
-            $sObj->setWhere('id > 0 ' . $this->dbcon->orderBy(['iptime '.$sorting]));
+            $where[] = $this->dbcon->orderBy(['iptime '.$sorting]);
+        }
+
+        if ($offset !== null && $limit !== null) {
+            $where[] = $this->dbcon->limitQuery($limit, $offset);
+        }
+
+        if (count($where)) {
+            $sObj->setWhere( sprintf( 'id > 0 %s', implode(' ', $where) ) );
         }
 
         $items = $this->dbcon->selectFetch($sObj->setFetchAll(true));
+
         if (!$items) {
             return [];
         }
@@ -105,7 +120,7 @@ implements \fpcm\model\interfaces\gsearchIndex {
     }
 
     /**
-     * Löscht IP-Adressen aus Datenbank
+     * Delete ip address set
      * @param array $ids
      * @return bool
      */
@@ -116,6 +131,15 @@ implements \fpcm\model\interfaces\gsearchIndex {
         }
 
         return $this->dbcon->delete($this->table, 'id IN (' . implode(',', $ids) . ')');
+    }
+
+    /**
+     * Count locked ip address sets
+     * @return int
+     */
+    public function getCount() : int
+    {
+        return $this->dbcon->count($this->table);
     }
 
     /**

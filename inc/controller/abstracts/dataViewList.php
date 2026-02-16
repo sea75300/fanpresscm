@@ -172,6 +172,7 @@ abstract class dataViewList extends ajaxController {
             $this->pager
         ))->fetch();
 
+        return true;
     }
 
     /**

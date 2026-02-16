@@ -52,6 +52,11 @@ class all extends \fpcm\controller\abstracts\controller
      */
     public function process()
     {
+        $pg = $this->request->getPage();
+        if ($pg) {
+            $this->page = $pg;
+        }
+
         $this->view->addAjaxPageToken('comments/delete');
         $this->view->assign('commentsMode', 1);
         $this->view->addJsLangVars([
@@ -67,6 +72,9 @@ class all extends \fpcm\controller\abstracts\controller
 
         $this->view->addJsFiles(['comments/module.js', 'comments/search.js', 'comments/deleteCallback.js', 'ui/dnd.js']);
         $this->view->setFormAction('comments/list');
+        $this->view->addJsVars([
+            'listPage' => $this->page
+        ]);
 
         $searchPrimary = true;
         if ($this->permissions->editCommentsMass()) {
@@ -88,7 +96,13 @@ class all extends \fpcm\controller\abstracts\controller
         $this->addListSettingsDialog();
 
         $this->view->addDataView( new \fpcm\components\dataView\dataView('commentlist') );
-        $this->view->addPager(new \fpcm\view\helper\pager('comments/lists', $this->page, 1, $this->config->articles_acp_limit, 1));
+        $this->view->addPager(new \fpcm\view\helper\pager(
+            'comments/list',
+            $this->page,
+            1,
+            $this->config->articles_acp_limit,
+            1
+        ));
 
         $this->view->addTabs('comments', [
             (new \fpcm\view\helper\tabItem('tabs-comments-list'))

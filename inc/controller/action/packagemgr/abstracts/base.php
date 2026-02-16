@@ -10,15 +10,15 @@
 namespace fpcm\controller\action\packagemgr\abstracts;
 
 abstract class base extends \fpcm\controller\abstracts\controller
-{    
+{
     /**
-     *
+     * Update db flag
      * @var bool
      */
     protected $updateDb;
 
     /**
-     *
+     * Steps flag
      * @var array
      */
     protected $steps = [

@@ -78,26 +78,6 @@ class editorlist extends \fpcm\controller\abstracts\ajaxController
      * 
      * @return bool
      */
-    protected function processComments()
-    {
-        if (!$this->config->system_comments_enabled || !$this->permissions->editComments()) {
-            return false;
-        }
-        
-        $this->conditions->articleid = $this->oid;
-        $this->conditions->searchtype = 0;
-
-        $this->commentDataView();
-        $dvVars = $this->dataView->getJsVars();
-        
-        $this->response->setReturnData( new \fpcm\model\http\responseDataview( $this->getDataViewName(), $dvVars['dataviews'][$this->getDataViewName()]) );
-        return true;
-    }
-
-    /**
-     * 
-     * @return bool
-     */
     protected function processRevisions()
     {
         if (!$this->permissions->article->revisions || !$this->article->exists()) {
