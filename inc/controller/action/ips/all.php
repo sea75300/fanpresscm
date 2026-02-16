@@ -76,8 +76,13 @@ implements \fpcm\controller\interfaces\requestFunctions
      */
     public function process()
     {
-        $sort = $this->request->fromPOST('sortlist');
-        if ($sort === null || !in_array($sort, $this->sorts)) {
+        $params = [];
+
+        $sort = $this->request->fetchAll('sortlist');
+        if ($sort !== null && in_array($sort, $this->sorts)) {
+            $params['sortlist'] = $sort;
+        }
+        else {
             $sort = '';
         }
 
@@ -91,8 +96,20 @@ implements \fpcm\controller\interfaces\requestFunctions
 
         $this->initDataView();
 
+        $this->view->addPager(new \fpcm\view\helper\pager(
+            'ips/list' . (count($params) ? '&' . http_build_query($params) : ''),
+            $this->page,
+            count($this->items),
+            $this->config->articles_acp_limit,
+            $this->ipList->getCount()
+        ));
+        
+        if (!isset($params['page']) && $this->page) {
+            $params['page'] = $this->page;
+        }
+
         $this->view->assign('headline', 'HL_OPTIONS_IPBLOCKING');
-        $this->view->setFormAction('ips/list');
+        $this->view->setFormAction('ips/list', $params);
         $this->view->addJsFiles(['system/ipadresses.js']);
         $this->view->addButtons([
             (new \fpcm\view\helper\linkButton('addnew'))->setUrl(\fpcm\classes\tools::getFullControllerLink('ips/add'))->setText('GLOBAL_NEW')->setIcon('globe')->setPrimary(),
@@ -100,14 +117,6 @@ implements \fpcm\controller\interfaces\requestFunctions
         ]);
 
         $this->view->addToolbarRight((string) (new \fpcm\view\helper\select('sortlist'))->setOptions($this->sorts)->setSelected($sort)->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED));
-
-        $this->view->addPager(new \fpcm\view\helper\pager(
-            'ips/list',
-            $this->page,
-            count($this->items),
-            $this->config->articles_acp_limit,
-            $this->ipList->getCount()
-        ));
 
         $this->view->render();
     }
