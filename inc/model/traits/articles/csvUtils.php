@@ -55,7 +55,7 @@ trait csvUtils {
 
         $timer = false;
         if (isset($data['createtime']) && \fpcm\classes\dateTimeHelper::validateDateString($data['createtime'], true)) {
-            $timer = strtotime($data['createtime']);
+            $timer = \fpcm\classes\dateTimeHelper::getTimestampFromString($data['createtime']);
         }
 
         if ($timer === false) {

@@ -154,7 +154,7 @@ class search extends \fpcm\model\abstracts\searchWrapper {
             return;
         }
 
-        $this->datefrom = strtotime($this->datefrom);
+        $this->datefrom = \fpcm\classes\dateTimeHelper::getTimestampFromString($this->datefrom);
     }
 
     /**
@@ -167,7 +167,7 @@ class search extends \fpcm\model\abstracts\searchWrapper {
             return;
         }
 
-        $this->dateto = strtotime($this->dateto);
+        $this->dateto = \fpcm\classes\dateTimeHelper::getTimestampFromString($this->dateto);
     }
 
     /**

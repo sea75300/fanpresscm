@@ -67,7 +67,7 @@ class fpcmnews extends \fpcm\model\dashboard\types\dataview {
                     value: sprintf(
                         '<strong>%s</strong><br><span class="text-secondary">%s</span>',
                         new \fpcm\view\helper\escape(strip_tags($item->title)),
-                        new \fpcm\view\helper\dateText(strtotime($item->pubDate))
+                        new \fpcm\view\helper\dateText(\fpcm\classes\dateTimeHelper::getTimestampFromString($item->pubDate))
                     ),
                     class: 'fpcm-ui-font-small text-truncate'
                 )
