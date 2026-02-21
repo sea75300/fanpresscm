@@ -369,8 +369,8 @@ final class config extends dataset implements \fpcm\model\interfaces\isObjectIns
 
         if (isset($this->newConfig['articles_archive_datelimit'])) {
 
-            $this->newConfig['articles_archive_datelimit']  = $this->newConfig['articles_archive_datelimit'] && \fpcm\classes\tools::validateDateString($this->newConfig['articles_archive_datelimit'])
-                                                            ? strtotime($this->newConfig['articles_archive_datelimit'])
+            $this->newConfig['articles_archive_datelimit']  = $this->newConfig['articles_archive_datelimit'] && \fpcm\classes\dateTimeHelper::validateDateString($this->newConfig['articles_archive_datelimit'])
+                                                            ? \fpcm\classes\dateTimeHelper::getTimestampFromString($this->newConfig['articles_archive_datelimit'])
                                                             : 0;
         }
 

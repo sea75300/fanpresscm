@@ -79,7 +79,7 @@ class setReminder extends \fpcm\controller\abstracts\ajaxController
             return false;
         }
         
-        $dt = \fpcm\classes\tools::getTimestampFromString($this->time['date'], $this->time['time']);
+        $dt = \fpcm\classes\dateTimeHelper::getTimestampFromString($this->time['date'], $this->time['time']);
 
         $id = $this->rid ?? null;
 

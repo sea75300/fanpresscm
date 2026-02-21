@@ -183,11 +183,11 @@ class search extends \fpcm\model\abstracts\searchWrapper {
      */
     public function prepareDatefrom() : void
     {
-        if (!\fpcm\classes\tools::validateDateString($this->datefrom)) {
+        if (!\fpcm\classes\dateTimeHelper::validateDateString($this->datefrom)) {
             return;
         }
 
-        $this->datefrom = strtotime($this->datefrom);
+        $this->datefrom = \fpcm\classes\dateTimeHelper::getTimestampFromString($this->datefrom);
     }
 
     /**
@@ -196,11 +196,11 @@ class search extends \fpcm\model\abstracts\searchWrapper {
      */
     public function prepareDateto() : void
     {
-        if (!\fpcm\classes\tools::validateDateString($this->dateto)) {
+        if (!\fpcm\classes\dateTimeHelper::validateDateString($this->dateto)) {
             return;
         }
 
-        $this->dateto = strtotime($this->dateto);
+        $this->dateto = \fpcm\classes\dateTimeHelper::getTimestampFromString($this->dateto);
     }
 
     /**
@@ -237,11 +237,11 @@ class search extends \fpcm\model\abstracts\searchWrapper {
      */
     public function prepareChangefrom() : void
     {
-        if (!\fpcm\classes\tools::validateDateString($this->changefrom)) {
+        if (!\fpcm\classes\dateTimeHelper::validateDateString($this->changefrom)) {
             return;
         }
 
-        $this->changefrom = strtotime($this->changefrom);
+        $this->changefrom = \fpcm\classes\dateTimeHelper::getTimestampFromString($this->changefrom);
     }
 
     /**
@@ -250,11 +250,11 @@ class search extends \fpcm\model\abstracts\searchWrapper {
      */
     public function prepareChangeto() : void
     {
-        if (!\fpcm\classes\tools::validateDateString($this->changeto)) {
+        if (!\fpcm\classes\dateTimeHelper::validateDateString($this->changeto)) {
             return;
         }
 
-        $this->changeto = strtotime($this->changeto);
+        $this->changeto = \fpcm\classes\dateTimeHelper::getTimestampFromString($this->changeto);
     }
 
     /**

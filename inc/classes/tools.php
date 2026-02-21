@@ -9,7 +9,7 @@ namespace fpcm\classes;
 
 /**
  * FanPress CM internal tools class
- * 
+ *
  * @package fpcm\classes\tools
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2022, Stefan Seehafer
@@ -151,7 +151,7 @@ final class tools {
         $data = [];
 
         $request = new \fpcm\model\http\request();
-        
+
         $mode = $request->fromGET('mode');
         $key = $request->fromGET('key');
 
@@ -182,7 +182,7 @@ final class tools {
         if (!is_string($data)) {
             $data = '';
         }
-        
+
         return hash(security::defaultHashAlgo, $data);
     }
 
@@ -194,35 +194,8 @@ final class tools {
      */
     public static function validateDateString(string $str, $widthTime = false) : bool
     {
-        $regex  = $widthTime
-                ? '/^([0-9]{4})\-([0-9]{2})\-([0-9]{2})\ ([0-9]{2})\:([0-9]{2})$/'
-                : '/^([0-9]{4})\-([0-9]{2})\-([0-9]{2})$/';
-        
-        if (preg_match($regex, $str, $matches) !== 1) {            
-            return false;
-        }
-        
-        if ((int) $matches[2] < 1 || (int) $matches[2] > 12) {
-            return false;
-        }
-        
-        if ((int) $matches[3] < 1 || (int) $matches[3] > 31) {
-            return false;
-        }
-        
-        if (!$widthTime) {
-            return true;
-        }
-        
-        if ((int) $matches[4] < 0 || (int) $matches[4] > 23) {
-            return false;
-        }
-        
-        if ((int) $matches[5] < 0 || (int) $matches[5] > 59) {
-            return false;
-        }
-
-        return true;
+        trigger_error(sprintf('%s is deprectaed as of FPCM 5.3.0-b2, use fpcm\classes\dateTimeHelper::validateDateString instead!', __METHOD__));
+        return dateTimeHelper::validateDateString($str, $widthTime);
     }
 
     /**
@@ -240,14 +213,14 @@ final class tools {
     }
 
     /**
-     * 
+     *
      * @param string $str
      * @return string
      * @since 5.0.0-rc4
      */
     public static function parseLinks(string $str) : string
     {
-        return preg_replace('/((http|https?):\/\/\S+[^\s.,>)\]\"\'<\/])/i', "<a href=\"$0\">$0</a>", $str);    
+        return preg_replace('/((http|https?):\/\/\S+[^\s.,>)\]\"\'<\/])/i', "<a href=\"$0\">$0</a>", $str);
     }
 
     /**
@@ -261,12 +234,12 @@ final class tools {
         if (!preg_match('/(\d{1,}\.{1}\d{1,}).*/', $str, $matches)) {
             return $str;
         }
-        
+
         return $matches[1] ?? $str;
     }
 
     /**
-     * 
+     *
      * @param string $prefix
      * @return string
      * @since 5.1.0-a1
@@ -274,23 +247,6 @@ final class tools {
     public static function getAreaName(string $prefix) : string
     {
         return 'extend' . ucfirst($prefix) . ucfirst(str_replace('/', '', \fpcm\classes\loader::getObject('\fpcm\model\http\request')->getModule()));
-    }
-
-    /**
-     * Returns timestamp from string data
-     * @param string $date
-     * @param string $time
-     * @return int
-     */
-    public static function getTimestampFromString(string $date, string $time) : int
-    {
-        $zsec = ':00';
-        
-        if (!str_ends_with($time, $zsec)) {
-            $time .= $zsec;
-        }
-
-        return strtotime($date . ' ' . $time);
     }
 
     /**
@@ -303,7 +259,7 @@ final class tools {
     {
         $ul = \fpcm\model\users\userList::getInstance();
         $users = $ul->getUsersNameList(true);
-        
+
         return $users[$uid] ?? \fpcm\classes\loader::getObject('\fpcm\classes\language')->translate($emtpyString);
     }
 }

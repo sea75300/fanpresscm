@@ -311,8 +311,8 @@ implements \fpcm\controller\interfaces\requestFunctions
 
         $this->article->setCategories($categories);
 
-        if (!isset($data['archived']) && isset($data['postponed']) && \fpcm\classes\tools::validateDateString($data['postponedate'])) {
-            $timer = \fpcm\classes\tools::getTimestampFromString($data['postponedate'], $data['postponetime']);
+        if (!isset($data['archived']) && isset($data['postponed']) && \fpcm\classes\dateTimeHelper::validateDateString($data['postponedate'])) {
+            $timer = \fpcm\classes\dateTimeHelper::getTimestampFromString($data['postponedate'], $data['postponetime']);
 
             $postpone = 1;
             if ($timer === false) {
@@ -334,13 +334,9 @@ implements \fpcm\controller\interfaces\requestFunctions
         $this->article->setPinned($data['pinned'] ?? 0);
         $this->article->setDraft($data['draft'] ?? 0);
 
-        if ($this->article->getPinned() &&
-            isset($data['pinned_until']) && trim($data['pinned_until']) &&
-            \fpcm\classes\tools::validateDateString($data['pinned_until'])
-        ) {
-            $puDt = new \DateTime($data['pinned_until']);
-            $puDt->setTime(23, 59, 59);
-            $this->article->setPinnedUntil($puDt->getTimestamp());
+        $pinnedUntil = $data['pinned_until'] ?? null;
+        if ($this->article->getPinned() && $pinnedUntil !== null && \fpcm\classes\dateTimeHelper::validateDateString($pinnedUntil)) {
+            $this->article->setPinnedUntil( \fpcm\classes\dateTimeHelper::getLastDayTimestamp($data['pinned_until']) );
         }
         else {
             $this->article->setPinnedUntil(0);

@@ -242,11 +242,11 @@ class search extends \fpcm\model\abstracts\searchWrapper {
      */
     public function prepareDatefrom() : void
     {
-        if (!\fpcm\classes\tools::validateDateString($this->datefrom)) {
+        if (!\fpcm\classes\dateTimeHelper::validateDateString($this->datefrom)) {
             return;
         }
 
-        $this->datefrom = strtotime($this->datefrom);
+        $this->datefrom = \fpcm\classes\dateTimeHelper::getTimestampFromString($this->datefrom);
     }
 
     /**
@@ -255,11 +255,11 @@ class search extends \fpcm\model\abstracts\searchWrapper {
      */
     public function prepareDateto() : void
     {
-        if (!\fpcm\classes\tools::validateDateString($this->dateto)) {
+        if (!\fpcm\classes\dateTimeHelper::validateDateString($this->dateto)) {
             return;
         }
 
-        $this->dateto = strtotime($this->dateto);
+        $this->dateto = \fpcm\classes\dateTimeHelper::getTimestampFromString($this->dateto);
     }
 
     /**

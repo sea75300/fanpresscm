@@ -448,6 +448,8 @@ fpcm.filemanager = {
                 dlOnOpen: function () {
 
                     if (!_rid) {
+                        let _dateObj = new Date();
+                        document.getElementById(fpcm.ui.prepareId('resub-time', true)).value = `${_dateObj.getHours()}:${_dateObj.getMinutes()}:00`;
                         return false;
                     }
 

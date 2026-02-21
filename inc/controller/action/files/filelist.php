@@ -55,7 +55,7 @@ class filelist extends \fpcm\controller\abstracts\controller
         $this->userList = \fpcm\model\users\userList::getInstance();
 
         $this->mode = $this->request->getIntMode();
-        if ($this->mode == self::FILEMANAGER_TYPE_MAIN) {
+        if ($this->mode < self::FILEMANAGER_TYPE_EDITOR) {
             return true;
         }
 

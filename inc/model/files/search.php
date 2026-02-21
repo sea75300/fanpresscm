@@ -150,7 +150,7 @@ class search extends \fpcm\model\abstracts\searchWrapper {
      */
     public function prepareDatefrom() : void
     {
-        if (!\fpcm\classes\tools::validateDateString($this->datefrom)) {
+        if (!\fpcm\classes\dateTimeHelper::validateDateString($this->datefrom)) {
             return;
         }
 
@@ -163,7 +163,7 @@ class search extends \fpcm\model\abstracts\searchWrapper {
      */
     public function prepareDateto() : void
     {
-        if (!\fpcm\classes\tools::validateDateString($this->dateto)) {
+        if (!\fpcm\classes\dateTimeHelper::validateDateString($this->dateto)) {
             return;
         }
 
