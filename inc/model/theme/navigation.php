@@ -245,7 +245,8 @@ class navigation extends \fpcm\model\abstracts\staticModel {
             (new navigationItem())->setUrl('system/backups')
                 ->setDescription('HL_BACKUPS')
                 ->setIcon('life-ring')
-                ->setAccessible($this->permissions->system->backups),
+                ->setAccessible($this->permissions->system->backups)
+                ->setSpacer(),
             (new navigationItem())->setUrl('system/logs')
                 ->setDescription('HL_LOGS')
                 ->setIcon('exclamation-triangle')
