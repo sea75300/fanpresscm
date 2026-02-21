@@ -231,7 +231,7 @@ class userlist extends \fpcm\controller\abstracts\controller
 
                 $noRb   = $user->getId() == $currentUser ? true : false;
 
-                $count = (string) $articleCount[$userId] ?? 0;
+                $count = (string) ($articleCount[$userId] ?? 0);
                 
                 $count = str_pad($count, $cLen, 0, STR_PAD_LEFT);
 

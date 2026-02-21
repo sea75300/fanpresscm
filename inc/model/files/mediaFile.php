@@ -955,14 +955,14 @@ implements \fpcm\model\interfaces\validateFileType,
 
         return in_array($type, self::$allowedTypes) && in_array($ext, self::$allowedExts) && $assigned === $type;
     }
-
+    
     /**
      * Retrieve media file type flag
      * @param string $ext
-     * @param string $type
+     * @param string|null $type
      * @return int
      */
-    public static function getMediaFileType(string $ext, string $type = null) : int
+    public static function getMediaFileType(string $ext, ?string $type = null) : int
     {
         $extKey = array_search($ext, self::$allowedExts);
         $mimeKey = array_search($type, self::$allowedTypes);

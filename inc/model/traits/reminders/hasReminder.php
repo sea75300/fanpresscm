@@ -5,12 +5,12 @@
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
-namespace fpcm\model\traits;
+namespace fpcm\model\traits\reminders;
 
 /**
  * Remidner check trait
  * 
- * @package fpcm\model\traits
+ * @package fpcm\model\traits\reminders
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2025, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
@@ -24,7 +24,7 @@ trait hasReminder {
      */
     public function hasReminder() : bool
     {
-        $rem = \fpcm\model\reminders\reminders::getInstance()->getRemindersForDatasets(self::class, []);
+        $rem = \fpcm\model\reminders\reminders::getInstance()->getRemindersForDatasets(static::class, []);
         
         if (!isset($rem[$this->id])) {
             return false;

@@ -8,13 +8,13 @@
 namespace fpcm\migrations;
 
 /**
- * Migration to v5.2.5-a2
+ * Migration to v5.3.0-a2
  *
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2025, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\migrations
- * @since 5.2.5-a2
+ * @since 5.3.0-a2
  * @see migration
  */
 class v530a2 extends migration {

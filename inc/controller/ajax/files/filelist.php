@@ -167,7 +167,7 @@ class filelist extends \fpcm\controller\abstracts\ajaxController
         $this->view->assign('showPager', $this->showPager);
         $this->view->assign('thumbsize', $this->config->file_thumb_size . 'px');
         $this->view->assign('pager', $pager);
-        $this->view->assign('reminders', \fpcm\model\reminders\reminders::getInstance()->getRemindersForDatasets(\fpcm\model\files\image::class));
+        $this->view->assign('reminders', \fpcm\model\reminders\reminders::getInstance()->getRemindersForDatasets(\fpcm\model\files\mediaFile::class));
         $this->view->assign('ddModeUp', $this->listModeView !== 'small');
         $this->view->assign('ddLastEnd', $this->listModeView === 'cards');
         $this->view->assign('limit', $this->config->file_list_limit);

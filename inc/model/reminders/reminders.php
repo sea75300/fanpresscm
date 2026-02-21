@@ -20,7 +20,8 @@ class reminders
 extends \fpcm\model\abstracts\tablelist
 implements \fpcm\model\interfaces\isObjectInstancable {
 
-    use \fpcm\model\traits\getObjectInstance;
+    use \fpcm\model\traits\getObjectInstance,
+        \fpcm\model\traits\reminders\whitelist;
 
     /**
      * Contructor
@@ -57,6 +58,11 @@ implements \fpcm\model\interfaces\isObjectInstancable {
         $params = [$uid];
 
         if ($type) {
+
+            if (!$this->isListed($type)) {
+                return [];
+            }
+
             $query .= ' AND obj_name = ?';
             $params[] = $type;
         }

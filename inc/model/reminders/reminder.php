@@ -20,7 +20,8 @@ class reminder
 extends \fpcm\model\abstracts\model
 implements \JsonSerializable {
 
-    use \fpcm\model\traits\getFieldsParam;
+    use \fpcm\model\traits\getFieldsParam,
+        \fpcm\model\traits\reminders\whitelist;
 
     /**
      * User id
@@ -68,6 +69,10 @@ implements \JsonSerializable {
      */
     public function save(): bool
     {
+        if (!$this->isListed($this->obj_name)) {
+            throw new \Exception('REMINDER_SAVE_FAILED');
+        }
+
         $params = $this->getPreparedSaveParams();
 
         $res = $this->dbcon->insert($this->table, $params);
@@ -90,6 +95,10 @@ implements \JsonSerializable {
      */
     public function update(): bool
     {
+        if (!$this->isListed($this->obj_name)) {
+            throw new \Exception('REMINDER_SAVE_FAILED');
+        }
+
         $params = $this->getPreparedSaveParams();
         $params[] = $this->id;
 
