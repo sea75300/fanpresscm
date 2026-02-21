@@ -133,8 +133,6 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
      */
     public function request()
     {
-        $this->crons->registerCron('postponedArticles');
-
         $this->articleId = $this->request->fromGET('id');
         if (!$this->articleId) {
             $this->view->addErrorMessage('LOAD_FAILED_ARTICLE');

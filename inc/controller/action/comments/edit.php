@@ -83,7 +83,7 @@ implements \fpcm\controller\interfaces\requestFunctions
     public function request()
     {
         $this->mode = $this->request->getIntMode();
-        
+
         if (!in_array($this->mode, [self::MODE_ALL, self::MODE_ARTICLE])) {
             $this->view = new \fpcm\view\error('LOAD_FAILED_COMMENT', 'comments/list');
             return false;
@@ -170,7 +170,7 @@ implements \fpcm\controller\interfaces\requestFunctions
         }
 
         $articleExists = $this->mode === self::MODE_ARTICLE;
-        
+
         $hiddenClass = $articleExists ? 'fpcm-ui-hidden' : '';
 
         $buttons     = [];
@@ -212,6 +212,9 @@ implements \fpcm\controller\interfaces\requestFunctions
                     ]);
         }
 
+        if ($this->permissions->comment->delete && $this->mode === self::MODE_ALL) {
+            $buttons[] = (new \fpcm\view\helper\deleteButton('commentDelete'))->setClickConfirm();
+        }
 
         $this->view->addButtons($buttons);
 
@@ -291,6 +294,26 @@ implements \fpcm\controller\interfaces\requestFunctions
 
         $this->view->addErrorMessage('SAVE_FAILED_COMMENT');
         return false;
+    }
+
+    /**
+     *
+     * @return bool
+     */
+    protected function onCommentDelete() : bool
+    {
+        if (!$this->checkPageToken()) {
+            $this->view->addErrorMessage('CSRF_INVALID');
+            return false;
+        }
+
+        if (!$this->permissions->comment->delete || !$this->comment->delete()) {
+            $this->view->addErrorMessage('DELETE_FAILED_COMMENTS');
+            return false;
+        }
+
+        $this->redirect('comments/list');
+        return true;
     }
 
 }
