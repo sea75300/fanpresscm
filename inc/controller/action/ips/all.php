@@ -20,7 +20,8 @@ implements \fpcm\controller\interfaces\requestFunctions
 
     use \fpcm\controller\traits\common\dataView,
         \fpcm\controller\traits\theme\nav\ips,
-        \fpcm\model\traits\statusIcons;
+        \fpcm\model\traits\statusIcons,
+        \fpcm\controller\traits\common\listSettings;
 
     /**
      *
@@ -103,20 +104,22 @@ implements \fpcm\controller\interfaces\requestFunctions
             $this->config->articles_acp_limit,
             $this->ipList->getCount()
         ));
-        
+
         if (!isset($params['page']) && $this->page) {
             $params['page'] = $this->page;
         }
 
         $this->view->assign('headline', 'HL_OPTIONS_IPBLOCKING');
         $this->view->setFormAction('ips/list', $params);
-        $this->view->addJsFiles(['system/ipadresses.js']);
+        $this->view->addJsFiles(['system/ips/module.js', 'system/ips/actions.js']);
         $this->view->addButtons([
             (new \fpcm\view\helper\linkButton('addnew'))->setUrl(\fpcm\classes\tools::getFullControllerLink('ips/add'))->setText('GLOBAL_NEW')->setIcon('globe')->setPrimary(),
             (new \fpcm\view\helper\deleteButton('delete'))->setClickConfirm(),
         ]);
 
-        $this->view->addToolbarRight((string) (new \fpcm\view\helper\select('sortlist'))->setOptions($this->sorts)->setSelected($sort)->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED));
+        $this->appendListSettingsDialog([
+            (new \fpcm\view\helper\select('sortlist'))->setOptions($this->sorts)->setSelected($sort)->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
+        ]);
 
         $this->view->render();
     }
