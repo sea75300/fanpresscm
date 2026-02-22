@@ -50,7 +50,7 @@ fpcm.options = {
         fpcm.ui_tabs.render('options', {
             onRenderHtmlAfter: function (_event, _result) {
 
-                if (_event.originalTarget.dataset.tabIndex != 6) {
+                if (_event.originalTarget.dataset.tabIndex != 7) {
                     return;
                 }
 
