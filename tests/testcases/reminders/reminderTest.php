@@ -19,7 +19,7 @@ class reminderTest extends testBase {
         $GLOBALS['test_reminder_date'] = mktime(23, 59, 59, 12, 31, date('Y'));
         $GLOBALS['test_reminder_user'] = 9999;
         $GLOBALS['test_reminder_oid'] = 9999;
-        $GLOBALS['test_reminder_obj'] = 'files';
+        $GLOBALS['test_reminder_obj'] = \fpcm\model\files\mediaFile::class;
 
         $object->setComment($GLOBALS['test_reminder_comment']);
         $object->setTime($GLOBALS['test_reminder_date']);
