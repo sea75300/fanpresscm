@@ -544,18 +544,15 @@ fpcm.system = {
                     {
                         text: 'HL_HELP_CHANGELOG',
                         icon: "code-branch",
-                        click: function () {
-                            window.open(_ui.dataset.changelog, '_blank');
-                        },
-                        class: 'btn-info'
+                        class: 'btn-info',
+                        isLeft: true,
+                        click: () => window.open(_ui.dataset.changelog, '_blank')
                     },
                     {
                         text: 'GLOBAL_YES',
                         icon: "check",
-                        click: function () {
-                            fpcm.ui.relocate(_ui.dataset.update);
-                        },
-                        class: 'btn-success'
+                        class: 'btn-success',
+                        click: () => fpcm.ui.relocate(_ui.dataset.update)
                     },
                     {
                         text: 'GLOBAL_NO',
