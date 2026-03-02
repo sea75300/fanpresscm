@@ -54,8 +54,13 @@ implements \fpcm\model\interfaces\isObjectInstancable {
             return [];
         }
 
-        $query = 'user_id = ?';
-        $params = [$uid];
+        if ($uid === -1) {
+            $query = 'user_id > 0';
+        }
+        else {
+            $query = 'user_id = ?';
+            $params = [$uid];
+        }
 
         if ($type) {
 

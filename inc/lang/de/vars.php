@@ -87,6 +87,7 @@ $lang = array (
   'CRONJOB_LIST_NEXTEXEC' => 'nächste Ausführung',
   'CRONJOB_MAIL_SUBJECT_POSTPONEDARTICLES' => 'Geplante Artikel wurden veröffentlicht',
   'CRONJOB_POSTPONEDARTICLES' => 'geplante Artikel veröffentlichen',
+  'CRONJOB_REMINDERMAILS' => 'Erinnerungen per E-Mail an ausgeloggte Benutzer',
   'CRONJOB_REMOVEREVISIONS' => 'Artikel-Revisionen bereinigen',
   'CRONJOB_UNPINARTICLES' => 'Artikel nach Datum abpinnen',
   'CRONJOB_UPDATECHECK' => 'Prüfung auf Updates',

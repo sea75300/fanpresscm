@@ -436,6 +436,31 @@ final class session extends \fpcm\model\abstracts\dataset implements \fpcm\model
     }
 
     /**
+     * Returns list of active sessions
+     * @return array
+     * @since 5.3.0-b3
+     */
+    public function getActiveSessions() : array
+    {
+        $timeout = time() - FPCM_USER_SESSION * 5;
+
+        $obj = new \fpcm\model\dbal\selectParams($this->table);
+        $obj->setItem('id, userid')
+            ->setWhere("external = 0 AND (login > ? OR lastaction >= ?)")
+            ->setParams([$timeout, $timeout])
+            ->setFetchStyle(\PDO::FETCH_KEY_PAIR)
+            ->setFetchAll();
+
+        $items = $this->dbcon->selectFetch($obj);
+
+        if (!is_array($items)) {
+            return [];
+        }
+
+        return $items;
+    }
+
+    /**
      * Retrieve sessions list by condition
      * @param string $search
      * @param array $params
