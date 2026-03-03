@@ -56,6 +56,12 @@ class reminderMails extends \fpcm\model\abstracts\cron {
             $text = $reminder->getDescription();
 
             $email->setText($text);
+            $email->setHtml(true);
+            
+            $email->fromTemplate('activeReminder', [
+                (string) new \fpcm\view\helper\dateText($reminder->getTime()),
+                $reminder->getComment() ?? $this->language->translate('HL_REMINDER')
+            ]);
 
             $res = $email->submit();
             if (!$res) {
