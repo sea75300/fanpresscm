@@ -54,6 +54,12 @@ implements \JsonSerializable {
     protected string $comment = '';
 
     /**
+     * Reminder was mailed
+     * @var int
+     */
+    protected int $last_mailed = 0;
+
+    /**
      * Contructor
      */
     public function __construct(?int $id = null)
@@ -227,6 +233,25 @@ implements \JsonSerializable {
     }
 
     /**
+     * Get last mailng timestamp
+     * @return int
+     */
+    public function getLastMailed(): int
+    {
+        return $this->last_mailed;
+    }
+
+    /**
+     * Set last mailing tiemstamp
+     * @param int $last_mailed
+     * @return $this
+     */
+    public function setLastMailed(int $last_mailed) {
+        $this->last_mailed = $last_mailed;
+        return $this;
+    }
+
+    /**
      * JSON data
      * @return array
      * @ignore
@@ -263,4 +288,6 @@ implements \JsonSerializable {
 
         return vsprintf($pattern, $params);
     }
+
+
 }

@@ -87,4 +87,5 @@ final class dateTimeHelper {
         $puDt->setTime(23, 59, 59);
         return $puDt->getTimestamp();
     }
+
 }

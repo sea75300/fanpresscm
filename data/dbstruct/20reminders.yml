@@ -32,6 +32,10 @@ cols:
         type: varchar
         length: 512
         params: NOT NULL
+    last_mailed:
+        type: bigint
+        length: 20
+        params: NOT NULL
 indices:
     oou:
         col:

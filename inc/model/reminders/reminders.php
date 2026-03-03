@@ -40,7 +40,13 @@ implements \fpcm\model\interfaces\isObjectInstancable {
      * @param int|null $uid
      * @return array|\fpcm\model\reminders\reminder
      */
-    public function getRemindersForDatasets(string $type = '', int $start = 0, array $oids = [], ?int $uid = null)
+    public function getRemindersForDatasets(
+        string $type = '',
+        int $start = 0,
+        array $oids = [],
+        ?int $uid = null,
+        ?int $lastMailed = null
+    )
     {
         $ch = \fpcm\classes\tools::getHash(__METHOD__.$type.implode('', $oids));
 
@@ -75,6 +81,11 @@ implements \fpcm\model\interfaces\isObjectInstancable {
         if ($start) {
             $query .= ' AND resubtime <= ?';
             $params[] = $start;
+        }
+
+        if ($lastMailed) {
+            $query .= ' AND last_mailed <= ?';
+            $params[] = $lastMailed;
         }
 
         if (count($oids)) {

@@ -253,7 +253,7 @@ abstract class migration implements \Stringable {
     }
 
     /**
-     * 
+     * Alter table execution
      * @return bool
      * @since 5.0.0-b1
      */

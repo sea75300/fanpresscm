@@ -28,7 +28,8 @@ class reminderMails extends \fpcm\model\abstracts\cron {
         $reminders = $instance->getRemindersForDatasets(
             type: '',
             start: time() - 60,
-            uid: -1
+            uid: -1,
+            lastMailed: time() - FPCM_DATE_SECONDS
         );
 
         if (!count($reminders)) {
@@ -52,11 +53,7 @@ class reminderMails extends \fpcm\model\abstracts\cron {
 
             $email = new \fpcm\classes\email($user->getEmail(), $hlLang);
 
-            $text = sprintf(
-                '%s: %s',
-                new \fpcm\view\helper\dateText($reminder->getTime()),
-                $reminder->getComment() ?? $hlLang
-            );
+            $text = $reminder->getDescription();
 
             $email->setText($text);
 
@@ -65,9 +62,11 @@ class reminderMails extends \fpcm\model\abstracts\cron {
                 trigger_error(sprintf('Failed to submit reminder "%s" to e-mail address "%s"', $text, $user->getEmail()));
                 continue;
             }
-            
-            fpcmLogSystem(sprintf('Submited reminder "%s" to e-mail address "%s"', $text, $user->getEmail()));
 
+            $reminder->setLastMailed(time());
+            $reminder->update();
+
+            fpcmLogSystem( sprintf('Submited reminder "%s" to e-mail address "%s" on %s', $text, $user->getEmail(), new \fpcm\view\helper\dateText($reminder->getLastMailed()) ) );
         }
 
         $this->updateLastExecTime();
