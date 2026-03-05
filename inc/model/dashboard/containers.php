@@ -117,7 +117,7 @@ class containers extends \fpcm\model\abstracts\staticModel implements \ArrayAcce
     public function offsetSet(mixed $offset, mixed $value): void
     {
         trigger_error(sprintf(
-            'Accessing dashboard container list in event "%s" is deprecated. Use %s::%s/%s method instead in "%s".',
+            'Accessing dashboard container list in event "%s" as array is deprecated. Use %s::%s/%s methods instead in "%s".',
             'dashboardContainersLoad',
             __CLASS__,
             'addContainer',
