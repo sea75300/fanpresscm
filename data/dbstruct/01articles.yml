@@ -99,7 +99,7 @@ indices:
     title:
         col: title
         isUnqiue: false
-    categories:
+    category:
         col: categories
         isUnqiue: false
     createuser:
