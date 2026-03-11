@@ -8,11 +8,11 @@
 namespace fpcm\model\dbal;
 
 /**
- * IP-Listen Objekt
- * 
+ * SQL param select parameter wrapper Objekt
+ *
  * @package fpcm\model\system
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2022, Stefan Seehafer
+ * @copyright (c) 2011-2026, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 class selectParams implements \Stringable {
@@ -21,56 +21,56 @@ class selectParams implements \Stringable {
      * Database table name
      * @var string
      */
-    private $table = '';
+    private string $table = '';
 
     /**
      * Select item string
      * @var string
      */
-    private $item = '*';
+    private string $item = '*';
 
     /**
      * Where clause
      * @var string
      */
-    private $where = '';
+    private string $where = '';
 
     /**
      * JOIN clause
      * @var string
      */
-    private $join = '';
+    private string $join = '';
 
     /**
      * Select params
-     * @var array 
-     */    
-    private $params = [];
+     * @var array
+     */
+    private array $params = [];
 
     /**
      * SELECT DISTINCT flag
      * @var bool
      */
-    private $distinct = false;
+    private bool $distinct = false;
 
     /**
      * Return raw result flag
      * @var bool
      */
-    private $returnResult = false;
+    private bool $returnResult = false;
 
     /**
      * Fetch all mode
      * @var bool
      */
-    private $fetchAll = false;
+    private bool $fetchAll = false;
 
     /**
      * Fetch style
      * @var int
      * @since 4.2.1
      */
-    private $fetchStyle = 5;
+    private int $fetchStyle = 5;
 
     /**
      * Fetch assign callback function
@@ -78,6 +78,13 @@ class selectParams implements \Stringable {
      * @since 5.3.0-a1
      */
     private $callback;
+
+    /**
+     * Set select params object
+     * @var selectParams|null
+     * @since 5.3.0-b3
+     */
+    private ?selectParams $subParams = null;
 
     /**
      * Constructor method, as of FPCM 4.1 the destination table(s) can be set directly
@@ -124,7 +131,7 @@ class selectParams implements \Stringable {
     {
         return $this->join;
     }
-    
+
     /**
      * Return select params
      * @return array
@@ -169,7 +176,7 @@ class selectParams implements \Stringable {
     public function getFetchStyle() : int {
         return $this->fetchStyle;
     }
-    
+
     /**
      * Set database table name(s)
      * @param string|array $table
@@ -195,6 +202,7 @@ class selectParams implements \Stringable {
     /**
      * Set Where clause
      * @param string $where
+     * @param string $inQuery
      * @return $this
      */
     public function setWhere(string $where)
@@ -289,8 +297,26 @@ class selectParams implements \Stringable {
     {
         $this->callback = $callback;
         return $this;
-    }    
+    }
+
+    /**
+     * Subquery 
+     * @param selectParams|null $subParams
+     * @return $this
+     */
     
+    /**
+     * 
+     * @param selectParams|null $subParams
+     * @return $this
+     * @since 5.3.0-b3
+     */
+    public function setSubQueryParams(?selectParams $subParams)
+    {
+        $this->subParams = $subParams;
+        return $this;
+    }
+
     /**
      * Return query string
      * @return string
@@ -298,12 +324,25 @@ class selectParams implements \Stringable {
      */
     final public function getQuery() : string
     {
-        $sql  = $this->getDistinct() ? 'SELECT DISTINCT' : 'SELECT';
-        $sql .= " {$this->getItem()} FROM {$this->getTable()}";
-        $sql .= $this->getJoin() ? " {$this->getJoin()}" : "";
-        $sql .= $this->getWhere() ? " WHERE {$this->getWhere()}" : "";   
+
+        $sql  = sprintf('SELECT %s ', $this->getDistinct() ? 'DISTINCT' : '');
+        $sql .= sprintf('%s FROM %s', $this->getItem(), $this->getTable());
+
+        if ($this->getJoin()) {
+            $sql .= sprintf(' %s', $this->getJoin());
+        }
         
-        return $sql;
+        if (!$this->getWhere()) {
+            return $sql;
+        }
+
+        $where = $this->getWhere();
+        
+        if ($this->subParams instanceof selectParams) {
+            $where = sprintf($where, $this->subParams->getQuery());
+        }
+
+        return sprintf('%s WHERE %s', $sql, $where);
     }
 
     /**

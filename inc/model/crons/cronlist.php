@@ -11,7 +11,7 @@ namespace fpcm\model\crons;
 
 /**
  * Cronjob list object
- * 
+ *
  * @package fpcm\model\crons
  * @author Stefan Seehafer <sea75300@yahoo.de>
  */
@@ -30,7 +30,7 @@ final class cronlist extends \fpcm\model\abstracts\staticModel {
     {
         $this->events = \fpcm\classes\loader::getObject('\fpcm\events\events');
     }
-    
+
     /**
      * Register cronjob for execution
      * @param string $cronName
@@ -62,7 +62,7 @@ final class cronlist extends \fpcm\model\abstracts\staticModel {
         if (!$cron->checkTime()) {
             return null;
         }
-        
+
         if ($cron->isRunning()) {
             fpcmLogCron('Skip execution "' . $cron->getCronName() . '", cronjob already running...');
             return true;
@@ -128,13 +128,17 @@ final class cronlist extends \fpcm\model\abstracts\staticModel {
             $this->dbcon = \fpcm\classes\loader::getObject('\fpcm\classes\database');
         }
 
-        $obj = (new \fpcm\model\dbal\selectParams(\fpcm\classes\database::tableCronjobs))
-                ->setWhere('(lastexec+execinterval) < ? AND execinterval > -1 AND (modulekey IS NULL OR modulekey NOT IN (SELECT mkey from '.$this->dbcon->getTablePrefixed(\fpcm\classes\database::tableModules).' where active = 0))')
-                ->setParams([time()])
-                ->setFetchAll(true);
+        $subPa = new \fpcm\model\dbal\selectParams( $this->dbcon->getTablePrefixed(\fpcm\classes\database::tableModules) );
+        $subPa->setItem('mkey')->setWhere('active = 0');
 
-        return $this->getResult($this->dbcon->selectFetch($obj), true);        
-        
+        $obj = (new \fpcm\model\dbal\selectParams(\fpcm\classes\database::tableCronjobs))
+                ->setWhere('(lastexec+execinterval) < ? AND execinterval > -1 AND (modulekey IS NULL OR modulekey NOT IN (%s))')
+                ->setParams([time()])
+                ->setFetchAll(true)
+                ->setSubQueryParams($subPa);
+
+        return $this->getResult($this->dbcon->selectFetch($obj), true);
+
     }
 
     /**
@@ -154,7 +158,7 @@ final class cronlist extends \fpcm\model\abstracts\staticModel {
 
         return $this->getResult($this->dbcon->selectFetch($obj));
     }
-    
+
     /**
      * Creates result list
      * @param array $values
@@ -178,7 +182,7 @@ final class cronlist extends \fpcm\model\abstracts\staticModel {
             if ($value->modulekey === null) {
                 $value->modulekey = '';
             }
-            
+
             $cronName   = trim($value->modulekey)
                         ? \fpcm\module\module::getCronNamespace($value->modulekey, $value->cjname)
                         : \fpcm\model\abstracts\cron::getCronNamespace($value->cjname);
