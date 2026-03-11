@@ -52,11 +52,6 @@ final class database {
     const tableFiles = 'uploadfiles';
 
     /**
-     * Dateiindex-Tabelle
-     */
-    const tableMedia = 'files_media';
-
-    /**
      * Tabeller gesperrter IP-Adressen
      */
     const tableIpAdresses = 'blockedip';

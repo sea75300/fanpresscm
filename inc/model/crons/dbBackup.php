@@ -68,6 +68,7 @@ class dbBackup extends \fpcm\model\abstracts\cron {
         $dumpSettings['include-tables'][] = $this->dbcon->getTablePrefixed(\fpcm\classes\database::tableIpAdresses);
         $dumpSettings['include-tables'][] = $this->dbcon->getTablePrefixed(\fpcm\classes\database::tableModules);
         $dumpSettings['include-tables'][] = $this->dbcon->getTablePrefixed(\fpcm\classes\database::tablePermissions);
+        $dumpSettings['include-tables'][] = $this->dbcon->getTablePrefixed(\fpcm\classes\database::tableReminders);
         $dumpSettings['include-tables'][] = $this->dbcon->getTablePrefixed(\fpcm\classes\database::tableRevisions);
         $dumpSettings['include-tables'][] = $this->dbcon->getTablePrefixed(\fpcm\classes\database::tableRoll);
         $dumpSettings['include-tables'][] = $this->dbcon->getTablePrefixed(\fpcm\classes\database::tableShares);
