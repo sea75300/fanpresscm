@@ -153,7 +153,7 @@ class notifications implements \Countable {
     {
         if (!count($this->notifications)) {
             $this->addNotification(new \fpcm\model\theme\notificationItem(
-                (new \fpcm\view\helper\icon('ban'))->setText('GLOBAL_NOTFOUND2'),
+                (new \fpcm\view\helper\icon('ban'))->setText('GLOBAL_NOTFOUND2')->setClass('text-info-emphasis'),
                 '',
                 '',
                 'disabled'

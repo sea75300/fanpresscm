@@ -1364,6 +1364,7 @@ class view {
             self::ROOTURL_CORE_JS . 'ui/tabs' . $ext,
             self::ROOTURL_CORE_JS . 'ui/pager' . $ext,
             self::ROOTURL_CORE_JS . 'system' . $ext,
+            self::ROOTURL_CORE_JS . 'common/refresh' . $ext,
             self::ROOTURL_CORE_JS . 'common/reminders' . $ext,
             self::ROOTURL_CORE_JS . 'common/gsearch' . $ext
         ];
