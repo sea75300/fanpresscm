@@ -17,7 +17,7 @@ class remindersTest extends testBase {
         $object = $this->object;
         
         $test1 = $object->getRemindersForDatasets(
-            'files',
+            \fpcm\model\files\mediaFile::class,
             time(),
             [ $GLOBALS['test_reminder_oid'] ],
             $GLOBALS['test_reminder_user']
@@ -27,7 +27,7 @@ class remindersTest extends testBase {
         $this->assertTrue(isset($test1[$GLOBALS['test_reminder_oid']]));
 
         $test2 = $object->getRemindersForDatasets(
-            'files',
+            \fpcm\model\files\mediaFile::class,
             0,
             [],
             $GLOBALS['test_reminder_user']
@@ -44,7 +44,7 @@ class remindersTest extends testBase {
     public function testDeleteReminders()
     {
         $object = new fpcm\model\reminders\reminders();
-        $result = $object->removeByObject('files', [ $GLOBALS['test_reminder_oid'] ]);
+        $result = $object->removeByObject(\fpcm\model\files\mediaFile::class, [ $GLOBALS['test_reminder_oid'] ]);
         $this->assertTrue($result);
     }
     
@@ -56,7 +56,7 @@ class remindersTest extends testBase {
         $GLOBALS['test_reminder_date'] = time()-60;
         $GLOBALS['test_reminder_user'] = 999;
         $GLOBALS['test_reminder_oid'] = 999;
-        $GLOBALS['test_reminder_obj'] = 'files';
+        $GLOBALS['test_reminder_obj'] = \fpcm\model\files\mediaFile::class;
 
         $object->setComment($GLOBALS['test_reminder_comment']);
         $object->setTime($GLOBALS['test_reminder_date']);

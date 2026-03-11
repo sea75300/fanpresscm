@@ -34,18 +34,18 @@ fpcm.reminders = {
                 comment: _comment
             },
             execDone: function (_res) {
-                
+
                 if (_res.txt) {
                     fpcm.ui.addMessage(_res);
                 }
-                
+
                 _callback(_res);
 
             }
         });
-        
+
     },
-    
+
     get: function (_remindertype, _rid, _callback) {
 
         fpcm.ajax.get('reminder/get', {
@@ -61,14 +61,14 @@ fpcm.reminders = {
                     _res.comment === undefined) {
                     return false;
                 }
-                
+
                 _callback(_res);
             }
         });
     },
-    
+
     delete: function (_remindertype, _rid, _callback) {
-        
+
         fpcm.ajax.post('reminder/delete', {
             quiet: true,
             data: {
@@ -80,11 +80,11 @@ fpcm.reminders = {
                 if (_res.txt) {
                     fpcm.ui.addMessage(_res);
                 }
-                
+
                 _callback(_res);
 
             }
-        });  
-        
+        });
+
     }
 };

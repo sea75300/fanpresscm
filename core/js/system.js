@@ -1,7 +1,7 @@
 /**
  * FanPress CM system javascript functions
  * @article Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2015-2024, Stefan Seehafer
+ * @copyright (c) 2015-2026, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -13,13 +13,6 @@ fpcm.system = {
 
     init: function ()
     {
-
-        fpcm.worker.postMessage({
-            namespace: 'system',
-            function: 'doRefresh',
-            interval: 60000,
-            id: 'system.refresh'
-        });
 
         fpcm.system.initPasswordFieldActions();
         fpcm.system.showHelpDialog();
@@ -152,40 +145,6 @@ fpcm.system = {
         });
 
         fpcm.vars.jsvars.sessionCheck = false;
-    },
-
-    doRefresh: function () {
-
-        if (fpcm.vars.jsvars.noRefresh) {
-            return false;
-        }
-
-        fpcm.ajax.post('refresh', {
-            quiet: true,
-            async: true,
-            data: {
-                articleId: fpcm.vars.jsvars.articleId
-            },
-            execDone: function (_result) {
-
-                fpcm.worker.postMessage({
-                    cmd: 'remove',
-                    id: 'system.refresh'
-                });
-
-                for (let _m in fpcm) {
-
-                    if (!fpcm[_m].onRefresh) {
-                        continue;
-                    }
-
-                    fpcm[_m].onRefresh(_result);
-                }
-
-            },
-        });
-
-        return true;
     },
 
     generatePasswdString: function () {
@@ -410,39 +369,6 @@ fpcm.system = {
 
     },
 
-    addAjaxNotifications: function(_nstring, _count) {
-
-        let _idStr = '#fpcm-id-notifications';
-        if (!fpcm.dom.fromId(_idStr).length) {
-            return false;
-        }
-
-        fpcm.dom.assignHtml(_idStr, _nstring);
-        let _el = fpcm.dom.fromId('notificationsCount').html(_count);
-
-        if (_count) {
-
-            fpcm.dom.bindClick('button[data-set-read-notify]', function (_ui) {
-
-                fpcm.ui.replaceIcon(_ui.currentTarget.id, 'fa-envelope-circle-check', 'circle-notch fa-spin-pulse');
-
-                fpcm.reminders.delete(
-                    _ui.currentTarget.dataset.setReadType,
-                    _ui.currentTarget.dataset.setReadNotify,
-                    function () {
-                        _ui.currentTarget.parentElement.parentElement.remove();
-                    }
-                );
-
-            });
-
-            _el.removeClass('d-none');
-            return true;
-        }
-
-        _el.addClass('d-none');
-    },
-
     checkForUpdates: function () {
 
         fpcm.dom.bindClick('#checkUpdate', function () {
@@ -565,20 +491,6 @@ fpcm.system = {
 
 
         });
-
-    },
-
-    onRefresh: function (_result) {
-
-        if (!fpcm.vars.jsvars.sessionCheck) {
-            return false;
-        }
-
-        if (_result.sessionCode) {
-            return true;
-        }
-
-        fpcm.system.showSessionCheckDialog();
 
     },
     

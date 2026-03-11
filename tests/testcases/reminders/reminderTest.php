@@ -67,7 +67,7 @@ class reminderTest extends testBase {
     public function testDeleteReminders()
     {
         $object = new fpcm\model\reminders\reminders();
-        $result = $object->removeByObject('files', [ $GLOBALS['test_reminder_oid'] ]);
+        $result = $object->removeByObject(\fpcm\model\files\mediaFile::class, [ $GLOBALS['test_reminder_oid'] ]);
         $this->assertTrue($result);
     }
 
