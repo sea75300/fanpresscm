@@ -82,7 +82,7 @@ class selectParams implements \Stringable {
     /**
      * Set select params object
      * @var selectParams|null
-     * @since 5.3.0-b3
+     * @since 5.3.0-b4
      */
     private ?selectParams $subParams = null;
 
@@ -309,7 +309,7 @@ class selectParams implements \Stringable {
      * 
      * @param selectParams|null $subParams
      * @return $this
-     * @since 5.3.0-b3
+     * @since 5.3.0-b4
      */
     public function setSubQueryParams(?selectParams $subParams)
     {
