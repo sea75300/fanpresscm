@@ -11,22 +11,6 @@ namespace fpcm\controller\action\packagemgr\modules;
 
 class update extends base {
 
-    /**
-     * Controller processing
-     * @return void
-     */
-    public function process()
-    {
-        parent::process();
-
-        if ($this->updateDb) {
-            return;
-        }
-
-        $this->steps['checkFs'] = true;
-
-    }
-
     protected function getMode() : string
     {
         return 'update';

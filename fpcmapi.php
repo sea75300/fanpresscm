@@ -422,13 +422,23 @@ class fpcmAPI {
     }
 
     /**
-     * Returns url of Bootstrap lib
+     * Returns url of Bootstrap CSS lib
      * @return string
      * @since 5.3.0-a1
      */
     public function getBootstrap() : string
     {
         return \fpcm\classes\dirs::getLibUrl('bootstrap/css/bootstrap.min.css');
+    }
+
+    /**
+     * Returns url of Bootstrap JS lib
+     * @return string
+     * @since 5.3.0-b5
+     */
+    public function getBootstrapJs() : string
+    {
+        return \fpcm\classes\dirs::getLibUrl('bootstrap/js/bootstrap.bundle.min.js');
     }
 
     /**

@@ -100,6 +100,7 @@ abstract class base extends \fpcm\controller\action\packagemgr\abstracts\base
 
         if ($this->updateDb) {
             $this->steps = array_map([$this, 'invert'], $this->steps);
+            $this->steps['backupFs'] = false;
             $this->steps['updateDb'] = true;
         }
         else {
