@@ -33,7 +33,7 @@ class v530a1 extends migration {
 
         if (!is_array($files)) {
             trigger_error('Unable to fetch data from files index!');
-            return true;
+            return false;
         }
 
         if (!count($files)) {
@@ -65,19 +65,19 @@ class v530a1 extends migration {
     {
         $cfg = $this->getConfig();
 
-        if ($cfg->system_loader_jquery !== null && !$cfg->remove('system_loader_jquery')) {
+        if ($cfg->system_loader_jquery !== false && !$cfg->remove('system_loader_jquery')) {
             return false;
         }
 
-        if ($cfg->system_mode !== null && !$cfg->remove('system_mode')) {
+        if ($cfg->system_mode !== false && !$cfg->remove('system_mode')) {
             return false;
         }
 
-        if ($cfg->system_css_path !== null && !$cfg->remove('system_css_path')) {
+        if ($cfg->system_css_path !== false && !$cfg->remove('system_css_path')) {
             return false;
         }
 
-        if ($cfg->file_subfolders !== null && !$cfg->remove('file_subfolders')) {
+        if ($cfg->file_subfolders !== false && !$cfg->remove('file_subfolders')) {
             return false;
         }
 
