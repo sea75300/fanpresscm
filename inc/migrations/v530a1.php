@@ -33,7 +33,7 @@ class v530a1 extends migration {
 
         if (!is_array($files)) {
             trigger_error('Unable to fetch data from files index!');
-            return false;
+            return true;
         }
 
         if (!count($files)) {
