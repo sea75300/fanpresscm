@@ -59,6 +59,8 @@ abstract class base extends \fpcm\controller\action\packagemgr\abstracts\base
             return false;
         }
 
+        parent::request();
+
         $this->key = $this->request->fromGET('key', [
             \fpcm\model\http\request::FILTER_URLDECODE
         ]);
@@ -69,8 +71,6 @@ abstract class base extends \fpcm\controller\action\packagemgr\abstracts\base
             $this->view = new \fpcm\view\error('MODULES_KEY_INVALID');
             return false;
         }
-
-        parent::request();
 
         $this->steps['backupFs'] = false;
 

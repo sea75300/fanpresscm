@@ -20,8 +20,6 @@ class update extends base {
         parent::process();
 
         if ($this->updateDb) {
-            $this->steps = array_map([$this, 'invert'], $this->steps);
-            $this->steps['updateDb'] = true;
             return;
         }
 

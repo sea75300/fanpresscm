@@ -71,7 +71,7 @@ final class article extends template {
      * @var array
      */
     protected $replacementInternal = array(
-        '<readmore>:</readmore>'
+        //'<readmore>:</readmore>'
     );
 
     /**
@@ -85,8 +85,8 @@ final class article extends template {
      * @var array
      */
     protected $cleanups = array(
-        '<p><readmore>' => '<readmore>',
-        '</readmore></p>' => '</readmore>'
+        /*'<p><readmore>' => '<readmore>',
+        '</readmore></p>' => '</readmore>'*/
     );
 
     /**
@@ -139,8 +139,8 @@ final class article extends template {
             $splitTags = explode(':', $replacement);
 
             if ($splitTags[0] === '<readmore>') {
-                $replacementData[$splitTags[0]] = '<a href="#" class="fpcm-pub-readmore-link" id="' . $value . '">' . $this->language->translate('ARTICLES_PUBLIC_READMORE') . '</a><div class="fpcm-pub-readmore-text" id="fpcm-pub-readmore-text-' . $value . '">';
-                $replacementData[$splitTags[1]] = '</div>';
+                //$replacementData[$splitTags[0]] = '<a href="#" class="fpcm-pub-readmore-link" id="' . $value . '">' . $this->language->translate('ARTICLES_PUBLIC_READMORE') . '</a><div class="fpcm-pub-readmore-text" id="fpcm-pub-readmore-text-' . $value . '">';
+                //$replacementData[$splitTags[1]] = '</div>';
                 continue;
             }
 
@@ -222,7 +222,7 @@ final class article extends template {
             '{{categoryTexts}}' => implode(PHP_EOL, array_keys($categories)),
             '{{permaLink}}:{{/permaLink}}' => $article->getElementLink(),
             '{{commentLink}}:{{/commentLink}}' => $article->getElementLink('#comments'),
-            '<readmore>:</readmore>' => $article->getId(),
+            //'<readmore>:</readmore>' => $article->getId(),
             '{{articleImage}}' => $article->getArticleImage(),
             '{{sources}}' => $article->getSources(),
             '{{oldarticle}}' => $article->isOldArticle() ? $this->language->translate('PUBLIC_ARTICLE_OLD') : ''
