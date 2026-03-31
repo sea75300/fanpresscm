@@ -41,7 +41,7 @@ class tinymceEditor5 implements \JsonSerializable {
      * custom_elements setting
      * @var string
      */
-    public $custom_elements = 'readmore';
+    public $custom_elements = '';
 
     /**
      * toolbar setting

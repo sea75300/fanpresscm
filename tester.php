@@ -11,9 +11,10 @@
 <HTML lang="de">
     <head>
         <title>FPCM Tester</title>
-        <link rel="stylesheet prefetch" type="text/css" href="./../style/style.css">
+        <link rel="stylesheet prefetch" type="text/css" href="https://shakira-addicted.net/layouts/v46/style.css">
         <link rel="stylesheet prefetch" type="text/css" href="<?php print $api->getBootstrap(); ?>">
         <link rel="stylesheet prefetch" type="text/css" href="<?php print $api->getFontAwesome(); ?>">
+        <script type="text/javascript" src="<?php print $api->getBootstrapJs(); ?>"></script>
     </head>
     <body class="background-brown-dark">
 
@@ -26,11 +27,12 @@
             <h2>Module</h2>
             <?php
                 try {
-                    $api->getModuleApi('nkorg/calendar')->display();
+                    //$api->getModuleApi('nkorg/calendar')->display();
                     $api->getModuleApi('nkorg/extstats')->countAll();
                     $api->getModuleApi('nkorg/polls')->displayPoll();
                 } catch (Exception $exc) {
-                    echo $exc->getMessage();
+                    
+                    sprintf('<div class="alert alert-danger my-3">%s</div>', $exc->getMessage());
                 }
             ?>
         </div>

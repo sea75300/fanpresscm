@@ -29,7 +29,7 @@ class template extends \fpcm\model\abstracts\file {
     protected $allowedTags = array(
         '<div>', '<span>', '<p>', '<b>', '<strong>', '<i>', '<em>', '<u>', '<a>', '<h1>', '<h2>', '<h3>', '<h4>', '<h5>',
         '<h6>', '<img>', '<table>', '<tr>', '<td>', '<br>', '<form>', '<input>', '<button>', '<select>', '<option>',
-        '<ul>', '<ol>', '<li>', '<script>', '<iframe>', '<label>'
+        '<ul>', '<ol>', '<li>', '<script>', '<iframe>', '<label>', '<svg>', '<path>'
     );
 
     /**

@@ -2,7 +2,7 @@
 
 /**
  * Public article template file object
- * 
+ *
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
@@ -12,7 +12,7 @@ namespace fpcm\model\pubtemplates;
 
 /**
  * Article Template Objekt
- * 
+ *
  * @package fpcm\model\system
  * @author Stefan Seehafer <sea75300@yahoo.de>
  */
@@ -67,27 +67,10 @@ final class article extends template {
     );
 
     /**
-     * Interne Platzhalter
-     * @var array
-     */
-    protected $replacementInternal = array(
-        //'<readmore>:</readmore>'
-    );
-
-    /**
      * Kommentar-Parsner aktiv
      * @var bool
      */
     protected $commentsEnabled = true;
-
-    /**
-     * Tag-Kombinationen, die beseitigt werden müssen
-     * @var array
-     */
-    protected $cleanups = array(
-        /*'<p><readmore>' => '<readmore>',
-        '</readmore></p>' => '</readmore>'*/
-    );
 
     /**
      * List of attributes by replacement tag
@@ -125,12 +108,12 @@ final class article extends template {
         if (!$ev->getSuccessed() || !$ev->getContinue()) {
             trigger_error(sprintf("Event template\parseArticle failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
             return false;
-        }        
-        
-        $this->replacementTags = $ev->getData();        
+        }
+
+        $this->replacementTags = $ev->getData();
 
         $tags = array_merge($this->replacementInternal, $this->replacementTags);
-        
+
         $replacementData = [];
         $replacementData1 = [];
 
@@ -138,26 +121,20 @@ final class article extends template {
 
             $splitTags = explode(':', $replacement);
 
-            if ($splitTags[0] === '<readmore>') {
-                //$replacementData[$splitTags[0]] = '<a href="#" class="fpcm-pub-readmore-link" id="' . $value . '">' . $this->language->translate('ARTICLES_PUBLIC_READMORE') . '</a><div class="fpcm-pub-readmore-text" id="fpcm-pub-readmore-text-' . $value . '">';
-                //$replacementData[$splitTags[1]] = '</div>';
-                continue;
-            }
-
             $replacementDataResult = [];
             $this->parseTag($splitTags[0], $value, $replacementDataResult, $replacement);
 
             if (!count($replacementDataResult)) {
                 $replacementData[$splitTags[0]] = $value;
             }
-            
+
             foreach ($replacementDataResult as $idx => $newVal) {
-                
+
                 if (!is_int($idx)) {
                     $replacementData[$idx] = $newVal;
                     continue;
                 }
-                
+
                 $replacementData[$splitTags[$idx]] = $replacementDataResult[$idx];
             }
 
@@ -166,11 +143,15 @@ final class article extends template {
         $this->lazyReplace($replacementData['{{text}}']);
         $this->lazyReplace($replacementData['{{textShort}}']);
 
-        return $this->parseSmileys($this->parseGallery(str_replace(
+        $str = str_replace(
             array_keys($replacementData),
-            $this->cleanup(array_values($replacementData)),
+            array_values($replacementData),
             $this->content
-        )));
+        );
+
+        $str = $this->parseGallery($str);
+
+        return $this->parseSmileys($str);
     }
 
     /**
@@ -203,7 +184,7 @@ final class article extends template {
         $share->assignData($article->getElementLink(), $article->getTitle(), $article->getId());
 
         $this->data['tmpLink'] = $article->getElementLink();
-        
+
         $this->setReplacementTags([
             '{{headline}}' => $article->getTitle(),
             '{{text}}' => $article->getContent(),
@@ -222,23 +203,12 @@ final class article extends template {
             '{{categoryTexts}}' => implode(PHP_EOL, array_keys($categories)),
             '{{permaLink}}:{{/permaLink}}' => $article->getElementLink(),
             '{{commentLink}}:{{/commentLink}}' => $article->getElementLink('#comments'),
-            //'<readmore>:</readmore>' => $article->getId(),
             '{{articleImage}}' => $article->getArticleImage(),
             '{{sources}}' => $article->getSources(),
             '{{oldarticle}}' => $article->isOldArticle() ? $this->language->translate('PUBLIC_ARTICLE_OLD') : ''
         ]);
-        
-        return true;
-    }
 
-    /**
-     * Cleanup tags
-     * @param string $values
-     * @return string
-     */
-    protected function cleanup($values)
-    {
-        return \fpcm\classes\tools::strReplaceArray($values, $this->cleanups);
+        return true;
     }
 
     /**
@@ -276,7 +246,7 @@ final class article extends template {
         if (!$pos) {
             return true;
         }
-        
+
         $return[0] = substr( $value, 0, $pos ) .
                     "<a href=\"{$this->data['tmpLink']}\" class=\"fpcm-pub-pagebreak-link\">".
                     $this->language->translate('ARTICLES_PUBLIC_READMORE') .
@@ -341,7 +311,7 @@ final class article extends template {
 
         $thumbLen = 6;
         $linkLen = -5;
-        
+
         $data = array_map(function ($fileName) use ($w, $h, $thumbLen, $linkLen)
         {
             $isThumb = (substr($fileName, 0, $thumbLen) === self::GALLERY_TAG_THUMB) ? true : false;
