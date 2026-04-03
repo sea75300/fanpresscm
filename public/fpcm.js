@@ -311,7 +311,7 @@ if (fpcm === undefined) {
 
             doRefresh: function() {
 
-                if (fpcm.vars.ajaxRefreshDisable) {
+                if (fpcm.vars.ajaxRefreshDisable || !fpcm.vars.ajaxActionPath) {
                     return false;
                 }
 
