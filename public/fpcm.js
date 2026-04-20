@@ -371,7 +371,11 @@ if (fpcm === undefined) {
 
             doAjax: async function (_config) {
 
-                if (!fpcm.vars.ajaxActionPath && !_config.ajaxActionPath) {
+                if (!fpcm.vars.ajaxActionPath) {
+                    return false;
+                }
+
+                if (!_config.action) {
                     console.error('Unable to execute AJAX request due to missing request destination!');
                     console.error(_config);
                     return false;
