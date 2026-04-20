@@ -470,7 +470,7 @@ fpcm.system = {
                     {
                         text: 'HL_HELP_CHANGELOG',
                         icon: "code-branch",
-                        class: 'btn-info',
+                        class: 'btn-outline-secondary',
                         isLeft: true,
                         click: () => window.open(_ui.dataset.changelog, '_blank')
                     },
