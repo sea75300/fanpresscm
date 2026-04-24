@@ -561,4 +561,15 @@ abstract class helper implements \Stringable {
         return $return;
     }
 
+    /**
+     * Adds fpcm-id prefix to any id given
+     * @param string $id
+     * @return string
+     * @since 5.3.0-rc1
+     */
+    final public static function addIdPrefix(string $id) : string
+    {
+        return sprintf('fpcm-id-%s', $id);
+    }
+
 }

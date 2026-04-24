@@ -47,15 +47,32 @@ class help extends \fpcm\controller\abstracts\controller
             $chapter = 0;
         }
 
-        $data = $this->getChapter($ref);
+        $chapters = $this->getChapter($ref);
+
+        if ($chapters === null) {
+            $chapters = [];
+        }
+        
+        $topMenuHelp = $this->getChapter('TOP_MENU_FUNCTIONS');
 
         $this->view->showHeaderFooter(\fpcm\view\view::INCLUDE_HEADER_NONE);
         $this->view->setViewVars([
             'headline' => $ref,
-            'content'  => count($data) && isset($data[$chapter]) ? trim($data[$chapter]) : $this->language->translate('GLOBAL_NOTFOUND2')
+            'content'  => $this->getChapterContent($chapters, $chapter),
+            'topMenuHelp' => $this->getChapterContent($topMenuHelp)
         ]);
 
         $this->view->render();
     }
-
+    
+    /**
+     * Get chapter content string
+     * @param array $chapters
+     * @param int $chapter
+     * @return string
+     */
+    private function getChapterContent(array $chapters, int $chapter = 0) : string
+    {
+        return $chapters[$chapter] ?? $this->language->translate('GLOBAL_NOTFOUND2');
+    }
 }

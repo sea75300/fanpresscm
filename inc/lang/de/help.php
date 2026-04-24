@@ -4,9 +4,38 @@ Help language file
 @author Stefan Seehafer <sea75300@yahoo.de>
 @copyright (c) 2011-2022, Stefan Seehafer
 @license http://www.gnu.org/licenses/gpl.txt GPLv3
-*/
 -->
 <chapters>
+    <chapter ref="TOP_MENU_FUNCTIONS">
+        <![CDATA[
+        <p>In fast allen Ansichten von FanPress CM wird im oberen Bereich eine Kopfzeile mit dem FPCM-Logo und zusätzlichen Funktionen angezeigt.</p>
+        <dl>
+            <dt><span class="btn btn-sm btn-outline-dark"><span class="fa fa-fw fa-search"></span></span> Globale Suche</dt>
+            <dd>Der Lupe-Button in der oberen Kopfzeile stellt eine FPCM-weite Suche zur Funktion. Dies hilft dir, falls du einmal etwas suchst aber nicht
+            genau weißt, wo der Suchgebriff enthalten ist. Die globale Suche sucht in Artikeln, Kommentaren, Dateien und IP-Adress-Sperren.</dd>
+            <dt><span class="btn btn-sm btn-outline-dark"><span class="fa fa-fw fa-play"></span></span> Artikel auf Webseite anzeigen</dt>
+            <dd class="pb-2">Über diesen Button wird eine Webseite mit der eingestellten Startseite geöffnet.</dd>
+            <dt><span class="btn btn-sm btn-outline-dark"><span class="fa fa-recycle"></span></span> Cache leeren:</dt>
+            <dd class="pb-2">Über diese Aktion kann der Cache geleert werden. Der Cache speichert informationen zwischen, um die Performance bspw. im Frontent
+                zu erhöhen.</dd>
+            <dt><span class="btn btn-sm btn-outline-dark"><span class="fa fa-question-circle"></span></span> Hilfe-Eintrag aufrufen:</dt>
+            <dd class="pb-2">Dieser Button zeigt u. a. diesen Eintrag hier an.</dd>
+            <dt><span class="btn btn-sm btn-outline-dark"><span class="fa fa-envelope"></span></span> Benachrichtigungen:</dt>
+            <dd class="pb-2">Benachrichtigung entstehen durch wichtige Erenignisse, welche ggf. eine Aktion von dir erfordern. Dies können z. B.
+            Updates, aktive Erinnerungen, neue Kommentare o. ä. sein. Die Aktivierung von bestimmten Funktionen kann ebenfalls zu einer 
+            Benachrichtigung führen. Benachrichtigungen können temporär doer dauerhaft angezeigt werden. Manche Benachrichtigungen umfassen
+            lediglich Text, andere ermöglichen direkt die Ausführung von bestimmten Aktionen.</dd>
+            <dt><span class="btn btn-sm btn-outline-dark"><span class="fa fa-user-circle"></span></span> Benutzer-Menü:</dt>
+            <dd class="pb-2">Das Benutzermenü umfasst eine Sammlung von Funktionen und Informationen zur aktuellen Benutzersitzung. Hier
+            findest du u. a. Informationen zu deiner IP-Adresse, dem Start deines Logins. Außerdem werden dir hier die Link zu deinem Profile,
+            der "Kontakt & Support"-Seite sowie der Logout angezeigt.</dd>
+            <dt><span class="btn btn-sm btn-outline-dark"><span class="fa fa-moon"></span></span> / <span class="btn btn-sm btn-outline-dark"><span class="fa fa-sun"></span></span> 
+            Design-Wechsel:</dt>
+            <dd class="pb-2">Das letzte Icons in der Kopfzeiel ermöglicht dir einen schnellen Wechsel zwischen hellem und dunklen Design von FanPress CM. 
+            Beachte, dass bei diesem Wechsel immer die gesamte Ansicht neu geladen wird!</dd>
+        </dl>
+        ]]>
+    </chapter>    
     <chapter ref="HL_DASHBOARD">
         <![CDATA[
 
@@ -56,37 +85,7 @@ Help language file
             die Standardpositionen verwenden</dd>
             <dt><span class="btn btn-sm btn-outline-dark"><span class="fa fa-fw fa-toggle-on"></span> Deaktivierte zurücksetzen</span></dt>
             <dd class="pb-2">Über diesen Button kannst du alle deaktivierten Startbildschirm-Container auf einmal reaktivieren.</dd>
-        </dl>
-
-        <h3 class="py-3 fs-1">Funktionen in der Kopfzeile</h3>
-
-        <p>In fast allen Ansichten von FanPress CM wird im oberen Bereich eine Kopfzeile mit dem FPCM-Logo und zusätzlichen Funktionen angezeigt.</p>
-        <dl>
-            <dt><span class="btn btn-sm btn-outline-dark"><span class="fa fa-fw fa-search"></span></span> Globale Suche</dt>
-            <dd>Der Lupe-Button in der oberen Kopfzeile stellt eine FPCM-weite Suche zur Funktion. Dies hilft dir, falls du einmal etwas suchst aber nicht
-            genau weißt, wo der Suchgebriff enthalten ist. Die globale Suche sucht in Artikeln, Kommentaren, Dateien und IP-Adress-Sperren.</dd>
-            <dt><span class="btn btn-sm btn-outline-dark"><span class="fa fa-fw fa-play"></span></span> Artikel auf Webseite anzeigen</dt>
-            <dd class="pb-2">Über diesen Button wird eine Webseite mit der eingestellten Startseite geöffnet.</dd>
-            <dt><span class="btn btn-sm btn-outline-dark"><span class="fa fa-recycle"></span></span> Cache leeren:</dt>
-            <dd class="pb-2">Über diese Aktion kann der Cache geleert werden. Der Cache speichert informationen zwischen, um die Performance bspw. im Frontent
-                zu erhöhen.</dd>
-            <dt><span class="btn btn-sm btn-outline-dark"><span class="fa fa-question-circle"></span></span> Hilfe-Eintrag aufrufen:</dt>
-            <dd class="pb-2">Dieser Button zeigt u. a. diesen Eintrag hier an.</dd>
-            <dt><span class="btn btn-sm btn-outline-dark"><span class="fa fa-envelope"></span></span> Benachrichtigungen:</dt>
-            <dd class="pb-2">Benachrichtigung entstehen durch wichtige Erenignisse, welche ggf. eine Aktion von dir erfordern. Dies können z. B.
-            Updates, aktive Erinnerungen, neue Kommentare o. ä. sein. Die Aktivierung von bestimmten Funktionen kann ebenfalls zu einer 
-            Benachrichtigung führen. Benachrichtigungen können temporär doer dauerhaft angezeigt werden. Manche Benachrichtigungen umfassen
-            lediglich Text, andere ermöglichen direkt die Ausführung von bestimmten Aktionen.</dd>
-            <dt><span class="btn btn-sm btn-outline-dark"><span class="fa fa-user-circle"></span></span> Benutzer-Menü:</dt>
-            <dd class="pb-2">Das Benutzermenü umfasst eine Sammlung von Funktionen und Informationen zur aktuellen Benutzersitzung. Hier
-            findest du u. a. Informationen zu deiner IP-Adresse, dem Start deines Logins. Außerdem werden dir hier die Link zu deinem Profile,
-            der "Kontakt & Support"-Seite sowie der Logout angezeigt.</dd>
-            <dt><span class="btn btn-sm btn-outline-dark"><span class="fa fa-moon"></span></span> / <span class="btn btn-sm btn-outline-dark"><span class="fa fa-sun"></span></span> 
-            Design-Wechsel:</dt>
-            <dd class="pb-2">Das letzte Icons in der Kopfzeiel ermöglicht dir einen schnellen Wechsel zwischen hellem und dunklen Design von FanPress CM. 
-            Beachte, dass bei diesem Wechsel immer die gesamte Ansicht neu geladen wird!</dd>
-        </dl>
-        
+        </dl>        
         ]]>
     </chapter>
     <chapter ref="ARTICLES_EDITOR">
@@ -1433,13 +1432,27 @@ Help language file
     <chapter ref="HL_HELP_SUPPORT">
         <![CDATA[
         <p>Solltest du Fragen haben oder (technische) Hilfe benötigen, kannst du über verschiedene Wege Kontakt aufzunehmen.</p>
-        <p>Unseren Bugtracker findest du auf <a rel="noreferrer,noopener,external" href="https://github.com/sea75300/fanpresscm4/issues" target="_blank">GitHub.com</a>, hier werden
-            Weiterentwicklungen, Bugfixes und sonstige Fragen entgegengenommen. Alternativ schreibe eine E-Mail an
-            <em>fanpress@nobody-knows.org</em> oder <em>sea75300@yahoo.de</em> oder hinterlasse unter
-            <a rel="noreferrer,noopener,external" href="https://nobody-knows.org/download/fanpress-cm/" target="_blank">Nobody-Knows.org</a> einen Kommentar auf der Projekt-Seite.</p>
-
-        <p>Das Modul <em>FanPress CM Support</em> erstellt während der Installation einen Benutzer-Zugang zur deiner FanPress CM Installation
-            und übermittelt einige grundlegende System-Informationen.</p>
+        <p>Unseren Bugtracker findest du auf GitHub.com, hier werden
+            Weiterentwicklungen, Bugfixes und sonstige Fragen entgegengenommen. Alternativ schreibe eine E-Mail oder hinterlasse 
+            einen Kommentar auf der Projekt-Seite.
+        </p>
+        
+        <div class="d-flex justify-content-end">
+            <div class="btn-group">
+                <a class="btn btn-outline-secondary shadow" rel="noreferrer,noopener,external" href="mailto:fanpress@nobody-knows.org" target="_blank">
+                    <span class="fa fa-fw fa-envelope"></span> E-Mail
+                </a>
+                <a class="btn btn-outline-secondary shadow" rel="noreferrer,noopener,external" href="https://nobody-knows.org/download/fanpress-cm/" target="_blank">
+                    <span class="fa fa-fw fa-exchange"></span> Projektseite
+                </a>
+                <a class="btn btn-outline-secondary shadow" rel="noreferrer,noopener,external" href="https://github.com/sea75300/fanpresscm4/issues" target="_blank">
+                    <span class="fab fa-fw fa-github"></span> GitHub Bug Tracker
+                </a>
+            </div>
+            
+        </div>
+        
+        <p></p>
         ]]>
     </chapter>
     <chapter ref="IMPORT_MAIN">

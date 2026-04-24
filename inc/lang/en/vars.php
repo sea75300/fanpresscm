@@ -356,6 +356,7 @@ $lang = array (
   'GLOBAL_YES' => 'Yes',
   'HEADLINE' => 'FanPress CM News System',
   'HELP_BTN_OPEN' => 'Open help entry',
+  'HELP_TOP_MENU_FUNCTIONS' => 'Function in top menu',
   'HL_ARCHIVE' => 'Archive',
   'HL_ARTICLES' => 'Manage article',
   'HL_ARTICLE_ADD' => 'Write article',

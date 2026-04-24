@@ -64,7 +64,7 @@
                         <span class="d-none d-md-inline"><?php $theView->write('PROFILE_MENU_NOTIFICATIONS'); ?></span>
                         <?php $theView->badge('notificationsCount')->setText('PROFILE_MENU_NOTIFICATIONS')->setValue(count($theView->notifications))->addPadding(-1)->setClass('rounded-pill text-bg-warning ' . ( count($theView->notifications) ? '' : 'd-none' ) ); ?>
                     </a>
-                    <ul class="dropdown-menu dropdown-menu-end fpcm ui-z-index-top ui-max-width-md ui-blurring ui-background-dropdown-85" aria-labelledby="fpcm-notify-menu" id="fpcm-id-notifications">
+                    <ul class="dropdown-menu dropdown-menu-end fpcm ui-z-index-top ui-max-width-md ui-blurring ui-background-dropdown-85 ui-dropdown-limit overflow-y-scroll" aria-labelledby="fpcm-notify-menu" id="fpcm-id-notifications">
                         <?php print $theView->notifications; ?>
                     </ul>
                 </li>

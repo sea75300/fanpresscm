@@ -270,4 +270,16 @@ class viewVars {
         print 'col-12 col-md-6';
     }
 
+    /**
+     * Adds fpcm-id prefix to any id given
+     * @param string $id
+     * @return string
+     * @since 5.3.0-rc1
+     * @see helper\helper::addIDPrefix
+     */
+    final public function addIDPrefix(string $id) : string
+    {
+        return helper\helper::addIDPrefix($id);
+    }
+
 }

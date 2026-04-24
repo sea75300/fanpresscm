@@ -346,7 +346,7 @@ fpcm.system = {
                 quiet: true,
                 data: {
                     ref: _ui.dataset.ref,
-                    chapter: _ui.dataset.chapter,
+                    chapter: _ui.dataset.chapter
                 },
                 execDone: function (_result) {
 
