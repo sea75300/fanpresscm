@@ -7,11 +7,11 @@
 <pre class="mb-0">.fpcm-pub-articletoolbar-main { }
 .fpcm-pub-articletoolbar-article { }
 .fpcm-pub-article-image { }
+.fpcm-pub-article-archive-message { }
 .fpcm-pub-sharebuttons { }
+.fpcm-pub-sharebutton-count { }
 .fpcm-pub-category-icon { }
 .fpcm-pub-category-text { }
-.fpcm-pub-readmore-link { }
-.fpcm-pub-readmore-text { }
 .fpcm-pub-websitelink { }
 .fpcm-pub-permalink { }
 .fpcm-pub-commentlink { }
