@@ -10,7 +10,7 @@ if (fpcm === undefined) {
 
 fpcm.editor_hugerte = {
 
-    create: function (config) {
+    create: function (_config) {
 
         params = {
             selector: 'textarea',
@@ -25,7 +25,8 @@ fpcm.editor_hugerte = {
                 "%Y-%m-%d",
                 "%D",
             ],
-            theme: config.theme,
+            theme: _config.theme,
+            content_css: _config.content_css,
             menubar: false,
             relative_urls: false,
             image_advtab: true,
@@ -37,114 +38,114 @@ fpcm.editor_hugerte = {
             content_style: 'body { font-size: ' + fpcm.vars.jsvars.editorDefaultFontsize + '; } figure > img { margin: 0.25rem; }'
         };
 
-        if (config.skin !== undefined) {
-            params.skin = config.skin;
+        if (_config.skin !== undefined) {
+            params.skin = _config.skin;
         }
 
-        if (config.width !== undefined) {
-            params.width = config.width;
+        if (_config.width !== undefined) {
+            params.width = _config.width;
         }
 
-        if (config.language !== undefined) {
-            params.language = config.language;
+        if (_config.language !== undefined) {
+            params.language = _config.language;
         }
 
-        if (config.plugins !== undefined) {
-            params.plugins = config.plugins;
+        if (_config.plugins !== undefined) {
+            params.plugins = _config.plugins;
         }
 
-        if (config.toolbar !== undefined) {
-            params.toolbar1 = config.toolbar;
+        if (_config.toolbar !== undefined) {
+            params.toolbar1 = _config.toolbar;
         }
 
-        if (config.autosave_prefix !== undefined) {
-            params.autosave_prefix = config.autosave_prefix;
-            params.autosave_retention = config.autosave_retention ? config.autosave_retention : '15m';
+        if (_config.autosave_prefix !== undefined) {
+            params.autosave_prefix = _config.autosave_prefix;
+            params.autosave_retention = _config.autosave_retention ? _config.autosave_retention : '15m';
             params.autosave_restore_when_empty = false;
         }
 
-        if (config.images_upload_url !== undefined && config.automatic_uploads !== undefined) {
-            params.images_upload_url = config.images_upload_url;
-            params.automatic_uploads = config.automatic_uploads;
+        if (_config.images_upload_url !== undefined && _config.automatic_uploads !== undefined) {
+            params.images_upload_url = _config.images_upload_url;
+            params.automatic_uploads = _config.automatic_uploads;
             params.images_reuse_filename = true;
         }
 
-        if (config.templates !== undefined) {
-            params.templates = config.templates;
+        if (_config.templates !== undefined) {
+            params.templates = _config.templates;
         }
 
-        if (config.textpattern_patterns !== undefined) {
-            params.textpattern_patterns = config.textpattern_patterns;
+        if (_config.textpattern_patterns !== undefined) {
+            params.textpattern_patterns = _config.textpattern_patterns;
         }
 
-        if (config.image_list !== undefined) {
-            params.image_list = config.image_list;
+        if (_config.image_list !== undefined) {
+            params.image_list = _config.image_list;
         }
 
-        if (config.link_list !== undefined) {
-            params.link_list = config.link_list;
+        if (_config.link_list !== undefined) {
+            params.link_list = _config.link_list;
         }
 
-        if (config.image_class_list !== undefined) {
-            params.image_class_list = config.image_class_list;
+        if (_config.image_class_list !== undefined) {
+            params.image_class_list = _config.image_class_list;
         }
 
-        if (config.link_class_list !== undefined) {
-            params.link_class_list = config.link_class_list;
+        if (_config.link_class_list !== undefined) {
+            params.link_class_list = _config.link_class_list;
         }
 
-        if (config.image_caption !== undefined) {
-            params.image_caption = config.image_caption;
+        if (_config.image_caption !== undefined) {
+            params.image_caption = _config.image_caption;
         }
 
-        params.link_assume_external_targets = (config.link_assume_external_targets !== undefined
-                ? config.link_assume_external_targets
+        params.link_assume_external_targets = (_config.link_assume_external_targets !== undefined
+                ? _config.link_assume_external_targets
                 : true);
 
-        if (config.image_caption !== undefined) {
-            params.image_caption = config.image_caption;
+        if (_config.image_caption !== undefined) {
+            params.image_caption = _config.image_caption;
         }
 
-        if (config.file_picker !== undefined && typeof config.file_picker == 'function') {
-            params.file_picker_callback = config.file_picker;
+        if (_config.file_picker !== undefined && typeof _config.file_picker == 'function') {
+            params.file_picker_callback = _config.file_picker;
         }
 
-        if (config.onInit !== undefined && typeof config.onInit == 'function') {
-            params.setup = config.onInit;
+        if (_config.onInit !== undefined && typeof _config.onInit == 'function') {
+            params.setup = _config.onInit;
         } else {
             params.setup = function (editor) {
-                if (config.onInitAfterStd) {
-                    config.onInitAfterStd(editor);
+                if (_config.onInitAfterStd) {
+                    _config.onInitAfterStd(editor);
                 }
             }
         }
 
-        if (config.autoresize_min_height !== undefined) {
-            params.autoresize_min_height = config.autoresize_min_height ? config.autoresize_min_height : '250';
+        if (_config.autoresize_min_height !== undefined) {
+            params.autoresize_min_height = _config.autoresize_min_height ? _config.autoresize_min_height : '250';
         }
 
-        if (config.min_height !== undefined) {
-            params.min_height = config.min_height ? config.min_height : '250';
+        if (_config.min_height !== undefined) {
+            params.min_height = _config.min_height ? _config.min_height : '250';
         }
 
-        if (config.onPaste !== undefined) {
-            params.paste_preprocess = config.onPaste;
+        if (_config.onPaste !== undefined) {
+            params.paste_preprocess = _config.onPaste;
         }
 
-        if (config.custom_elements) {
-            params.custom_elements = config.custom_elements;
+        if (_config.custom_elements) {
+            params.custom_elements = _config.custom_elements;
         }
 
-        if (config.file_picker_types) {
-            params.file_picker_types = config.file_picker_types;
+        if (_config.file_picker_types) {
+            params.file_picker_types = _config.file_picker_types;
         }
 
-        if (config.emoticons_append) {
-            params.emoticons_append = config.emoticons_append;
+        if (_config.emoticons_append) {
+            params.emoticons_append = _config.emoticons_append;
         }
 
-        if (config.skin) {
-            params.skin = config.skin;
+        if (_config.skin) {
+            params.skin = _config.skin;
         }
 
         hugerte.init(params);

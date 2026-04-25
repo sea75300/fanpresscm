@@ -140,6 +140,12 @@ class hugerte implements \JsonSerializable {
     public $skin = 'oxide';
 
     /**
+     * image_caption setting
+     * @var string
+     */
+    public $content_css = 'hugerte-5';
+
+    /**
      * Constructor
      * @param \fpcm\model\system\config $config
      * @param array $pluginFolders
@@ -186,6 +192,7 @@ class hugerte implements \JsonSerializable {
 
         if (\fpcm\model\system\session::getInstance()?->getCurrentUser()?->getUserMeta()?->system_darkmode) {
             $this->skin .= '-dark';
+            $this->content_css .= '-dark';
         }
         
         $this->language = $config->system_lang;
