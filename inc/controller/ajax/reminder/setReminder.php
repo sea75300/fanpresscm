@@ -12,7 +12,7 @@ namespace fpcm\controller\ajax\reminder;
  *
  * @package fpcm\controller\ajax\commom
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2025, Stefan Seehafer
+ * @copyright (c) 2025-2026, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @since 5.3.0-dev
  */
@@ -78,12 +78,22 @@ class setReminder extends \fpcm\controller\abstracts\ajaxController
 
             return false;
         }
-        
+
         $dt = \fpcm\classes\dateTimeHelper::getTimestampFromString($this->time['date'], $this->time['time']);
 
         $id = $this->rid ?? null;
 
         $obj = new \fpcm\model\reminders\reminder($id);
+
+        if ($this->rid && $obj->getUserID() !== $this->session->getUserId()) {
+            $this->response->setReturnData(new \fpcm\view\message(
+                $this->language->translate('REMINDER_SAVE_FAILED'),
+                \fpcm\view\message::TYPE_ERROR
+            ))->fetch();
+
+            return false;
+        }
+
         $obj->setOid($this->oid);
         $obj->setUserID($this->uid);
         $obj->setObjName($this->type);
@@ -91,7 +101,7 @@ class setReminder extends \fpcm\controller\abstracts\ajaxController
         $obj->setTime($dt);
 
         $fn = $this->rid ? 'update' : 'save';
-        
+
         try {
             $res = $obj->{$fn}();
         } catch (\Exception $exc) {

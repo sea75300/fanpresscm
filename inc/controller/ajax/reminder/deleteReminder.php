@@ -12,7 +12,7 @@ namespace fpcm\controller\ajax\reminder;
  *
  * @package fpcm\controller\ajax\commom
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2025, Stefan Seehafer
+ * @copyright (c) 2025-2026, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @since 5.3.0-dev
  */
@@ -52,6 +52,14 @@ class deleteReminder extends \fpcm\controller\abstracts\ajaxController
 
         $rem = new \fpcm\model\reminders\reminder($this->rid);
         if (!$rem->exists()) {
+            $this->response->setReturnData(new \fpcm\view\message(
+                $this->language->translate('REMINDER_DELETE_FAILED'),
+                \fpcm\view\message::TYPE_ERROR
+            ))->fetch();
+            return false;
+        }
+        
+        if ($rem->getUserID() !== $this->session->getUserId()) {
             $this->response->setReturnData(new \fpcm\view\message(
                 $this->language->translate('REMINDER_DELETE_FAILED'),
                 \fpcm\view\message::TYPE_ERROR
