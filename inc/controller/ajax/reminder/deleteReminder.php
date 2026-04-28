@@ -58,8 +58,14 @@ class deleteReminder extends \fpcm\controller\abstracts\ajaxController
             ))->fetch();
             return false;
         }
-        
-        if ($rem->getUserID() !== $this->session->getUserId()) {
+
+        $suid = $this->session->getUserId();
+        $ruid = $rem->getUserID();
+
+        if ($ruid !== $suid) {
+
+            trigger_error(sprintf('Reminder %s for user %s cannot be deleted by user %s!', $this->oid, $ruid, $suid));
+
             $this->response->setReturnData(new \fpcm\view\message(
                 $this->language->translate('REMINDER_DELETE_FAILED'),
                 \fpcm\view\message::TYPE_ERROR

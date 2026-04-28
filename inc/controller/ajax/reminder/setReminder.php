@@ -85,7 +85,13 @@ class setReminder extends \fpcm\controller\abstracts\ajaxController
 
         $obj = new \fpcm\model\reminders\reminder($id);
 
-        if ($this->rid && $obj->getUserID() !== $this->session->getUserId()) {
+        $suid = $this->session->getUserId();
+        $ruid = $rem->getUserID();
+
+        if ($this->rid && $ruid !== $suid) {
+
+            trigger_error(sprintf('Reminder %s for user %s cannot be changed by user %s!', $this->oid, $ruid, $suid));
+
             $this->response->setReturnData(new \fpcm\view\message(
                 $this->language->translate('REMINDER_SAVE_FAILED'),
                 \fpcm\view\message::TYPE_ERROR

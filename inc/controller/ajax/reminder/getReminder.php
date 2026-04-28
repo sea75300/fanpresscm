@@ -48,13 +48,18 @@ class getReminder extends \fpcm\controller\abstracts\ajaxController
             return false;
         }
 
+        $suid = $this->session->getUserId();
         $rem = new \fpcm\model\reminders\reminder($this->oid);
         if (!$rem->exists()) {
+            trigger_error(sprintf('Open to undefined reminder id %s by user %s!', $this->oid, $ruid, $suid));
             $this->response->setReturnData([])->fetch();
             return false;
         }
 
-        if ($rem->getUserID() !== $this->session->getUserId()) {
+        $ruid = $rem->getUserID();
+        
+        if ($ruid !== $suid) {
+            trigger_error(sprintf('Reminder %s for user %s cannot be accessed by ser %s!', $this->oid, $ruid, $suid));
             $this->response->setReturnData([])->fetch();
             return false;
         }
