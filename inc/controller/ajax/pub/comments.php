@@ -202,6 +202,8 @@ class comments extends \fpcm\controller\abstracts\ajaxController {
 
             return true;
         }
+        
+        $this->cache->cleanup();
 
         $data['website'] = filter_var($data['website'], FILTER_VALIDATE_URL);
         $data['website'] = $data['website'] ?? '';
