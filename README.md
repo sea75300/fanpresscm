@@ -4,7 +4,7 @@ The FanPress CM News System version 5 is a lightweight but powerful blog-like co
 
 ## Demo system
 
-A small live demo system is available at https://area51.nobody-knows.org/fanpress4/.
+A small live demo system is available at https://area51.nobody-knows.org/fanpress/.
 
 * Username: __preview__
 * Password: __Preview2018___
