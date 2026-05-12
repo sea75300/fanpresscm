@@ -44,7 +44,7 @@ fpcm.dom = {
             return false;
         }
 
-        fpcm.dom.fromId(_id).focus();
+        fpcm.dom.fromId(_id).trigger('focus');
     },
 
     assignHtml: function(_id, data)
@@ -263,10 +263,10 @@ fpcm.dom = {
         }
 
         if (_unbind === true) {
-            fpcm.dom.fromTag(_element).unbind(_ob);
+            fpcm.dom.fromTag(_element).off(_ob);
         }
 
-        fpcm.dom.fromTag(_element).bind(_ob, function (_event, _selecto, _data, _handler) {
+        fpcm.dom.fromTag(_element).on(_ob, function (_event, _selecto, _data, _handler) {
 
             if (_handler === undefined) {
                 _handler = false;

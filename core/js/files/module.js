@@ -182,7 +182,7 @@ fpcm.filemanager = {
                     }
                 ],
                 dlOnOpenAfter: function () {
-                    document.getElementById('fpcm-id-new-filename-dialog').focus();
+                    document.getElementById('fpcm-id-new-filename-dialog').trigger('focus');
                 }
             });
 
@@ -239,7 +239,7 @@ fpcm.filemanager = {
                     }
                 ],
                 dlOnOpenAfter: function () {
-                    document.getElementById('fpcm-id-alt-text-dialog').focus();
+                    document.getElementById('fpcm-id-alt-text-dialog').trigger('focus');
                 }
             });
 

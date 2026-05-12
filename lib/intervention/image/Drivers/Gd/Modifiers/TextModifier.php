@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Intervention\Image\Drivers\Gd\Modifiers;
 
-use Intervention\Image\Exceptions\ColorException;
-use Intervention\Image\Exceptions\RuntimeException;
+use Intervention\Image\Exceptions\ModifierException;
+use Intervention\Image\Exceptions\StateException;
 use Intervention\Image\Interfaces\ImageInterface;
 use Intervention\Image\Interfaces\SpecializedInterface;
 use Intervention\Image\Modifiers\TextModifier as GenericTextModifier;
@@ -16,6 +16,9 @@ class TextModifier extends GenericTextModifier implements SpecializedInterface
      * {@inheritdoc}
      *
      * @see ModifierInterface::apply()
+     *
+     * @throws ModifierException
+     * @throws StateException
      */
     public function apply(ImageInterface $image): ImageInterface
     {
@@ -28,52 +31,52 @@ class TextModifier extends GenericTextModifier implements SpecializedInterface
 
         foreach ($image as $frame) {
             imagealphablending($frame->native(), true);
-            if ($this->font->hasFilename()) {
+            if ($this->font->hasFile()) {
                 foreach ($lines as $line) {
                     foreach ($this->strokeOffsets($this->font) as $offset) {
                         imagettftext(
-                            $frame->native(),
-                            $fontProcessor->nativeFontSize($this->font),
-                            $this->font->angle() * -1,
-                            $line->position()->x() + $offset->x(),
-                            $line->position()->y() + $offset->y(),
-                            $strokeColor,
-                            $this->font->filename(),
-                            (string) $line
+                            image: $frame->native(),
+                            size: $fontProcessor->nativeFontSize($this->font),
+                            angle: $this->font->angle() * -1,
+                            x: $line->position()->x() + $offset->x(),
+                            y: $line->position()->y() + $offset->y(),
+                            color: $strokeColor,
+                            font_filename: $this->font->filepath(),
+                            text: (string) $line
                         );
                     }
 
                     imagettftext(
-                        $frame->native(),
-                        $fontProcessor->nativeFontSize($this->font),
-                        $this->font->angle() * -1,
-                        $line->position()->x(),
-                        $line->position()->y(),
-                        $textColor,
-                        $this->font->filename(),
-                        (string) $line
+                        image: $frame->native(),
+                        size: $fontProcessor->nativeFontSize($this->font),
+                        angle: $this->font->angle() * -1,
+                        x: $line->position()->x(),
+                        y: $line->position()->y(),
+                        color: $textColor,
+                        font_filename: $this->font->filepath(),
+                        text: (string) $line
                     );
                 }
             } else {
                 foreach ($lines as $line) {
                     foreach ($this->strokeOffsets($this->font) as $offset) {
                         imagestring(
-                            $frame->native(),
-                            $this->gdFont(),
-                            $line->position()->x() + $offset->x(),
-                            $line->position()->y() + $offset->y(),
-                            (string) $line,
-                            $strokeColor
+                            image: $frame->native(),
+                            font: $this->gdFont(),
+                            x: $line->position()->x() + $offset->x(),
+                            y: $line->position()->y() + $offset->y(),
+                            string: (string) $line,
+                            color: $strokeColor
                         );
                     }
 
                     imagestring(
-                        $frame->native(),
-                        $this->gdFont(),
-                        $line->position()->x(),
-                        $line->position()->y(),
-                        (string) $line,
-                        $textColor
+                        image: $frame->native(),
+                        font: $this->gdFont(),
+                        x: $line->position()->x(),
+                        y: $line->position()->y(),
+                        string: (string) $line,
+                        color: $textColor
                     );
                 }
             }
@@ -85,22 +88,20 @@ class TextModifier extends GenericTextModifier implements SpecializedInterface
     /**
      * Decode text color in GD compatible format
      *
-     * @throws RuntimeException
-     * @throws ColorException
+     * @throws StateException
      */
     protected function gdTextColor(ImageInterface $image): int
     {
         return $this
             ->driver()
-            ->colorProcessor($image->colorspace())
-            ->colorToNative(parent::textColor());
+            ->colorProcessor($image)
+            ->export(parent::textColor());
     }
 
     /**
      * Decode color for stroke (outline) effect in GD compatible format
      *
-     * @throws RuntimeException
-     * @throws ColorException
+     * @throws StateException
      */
     protected function gdStrokeColor(ImageInterface $image): int
     {
@@ -111,26 +112,24 @@ class TextModifier extends GenericTextModifier implements SpecializedInterface
         $color = parent::strokeColor();
 
         if ($color->isTransparent()) {
-            throw new ColorException(
-                'The stroke color must be fully opaque.'
-            );
+            throw new StateException('The stroke color must be fully opaque');
         }
 
         return $this
             ->driver()
-            ->colorProcessor($image->colorspace())
-            ->colorToNative($color);
+            ->colorProcessor($image)
+            ->export($color);
     }
 
     /**
-     * Return GD's internal font size (if no ttf file is set)
+     * Return GD's internal font size
      */
     private function gdFont(): int
     {
-        if (is_numeric($this->font->filename())) {
-            return intval($this->font->filename());
+        if (!in_array($this->font->size(), range(1, 5))) {
+            return 1;
         }
 
-        return 1;
+        return (int) $this->font->size();
     }
 }

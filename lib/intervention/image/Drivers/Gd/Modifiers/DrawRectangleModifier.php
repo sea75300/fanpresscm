@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Intervention\Image\Drivers\Gd\Modifiers;
 
-use RuntimeException;
+use Intervention\Image\Exceptions\ColorDecoderException;
+use Intervention\Image\Exceptions\ModifierException;
+use Intervention\Image\Exceptions\StateException;
 use Intervention\Image\Interfaces\ImageInterface;
 use Intervention\Image\Interfaces\SpecializedInterface;
 use Intervention\Image\Modifiers\DrawRectangleModifier as GenericDrawRectangleModifier;
@@ -16,7 +18,9 @@ class DrawRectangleModifier extends GenericDrawRectangleModifier implements Spec
      *
      * @see ModifierInterface::apply()
      *
-     * @throws RuntimeException
+     * @throws ModifierException
+     * @throws StateException
+     * @throws ColorDecoderException
      */
     public function apply(ImageInterface $image): ImageInterface
     {
@@ -33,7 +37,7 @@ class DrawRectangleModifier extends GenericDrawRectangleModifier implements Spec
                     $position->y(),
                     $position->x() + $this->drawable->width(),
                     $position->y() + $this->drawable->height(),
-                    $this->driver()->colorProcessor($image->colorspace())->colorToNative(
+                    $this->driver()->colorProcessor($image)->export(
                         $this->backgroundColor()
                     )
                 );
@@ -49,7 +53,7 @@ class DrawRectangleModifier extends GenericDrawRectangleModifier implements Spec
                     $position->y(),
                     $position->x() + $this->drawable->width(),
                     $position->y() + $this->drawable->height(),
-                    $this->driver()->colorProcessor($image->colorspace())->colorToNative(
+                    $this->driver()->colorProcessor($image)->export(
                         $this->borderColor()
                     )
                 );

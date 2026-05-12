@@ -1371,6 +1371,7 @@ class view {
         
         if (\fpcm\classes\baseconfig::debugModeActive()) {
             $files[] = self::ROOTURL_CORE_JS . 'common/dev' . $ext;
+            $files[] = 'https://code.jquery.com/jquery-migrate-4.0.2.js';
         }
         
         $this->addJsFiles($files);

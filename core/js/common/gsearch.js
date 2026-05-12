@@ -22,7 +22,7 @@ fpcm.gsearch = {
         });
 
         fpcm.dom.bindEvent('#fpcm-id-search-global-btn', 'shown.bs.dropdown', function (_e, _ui) {
-            fpcm.dom.fromId('fpcm-id-search-global-text').focus();
+            fpcm.dom.fromId('fpcm-id-search-global-text').trigger('focus');
         });
 
         fpcm.dom.bindEvent('#fpcm-id-search-global-text', 'keydown', function (_e,_ui) {

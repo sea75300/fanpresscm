@@ -62,9 +62,10 @@ fpcm.system = {
 
     initPasswordFieldActions: function () {
 
-        fpcm.dom.fromId('password_confirm').focusout(function () {
+        fpcm.dom.bindEvent('#password_confirm', 'focusout', function (_e, _ui) {
+
             var password = fpcm.dom.fromId('password').val();
-            var confirm = fpcm.dom.fromTag(this).val();
+            var confirm = _ui.value;
 
             if (password != confirm) {
                 fpcm.ui.addMessage({
@@ -116,7 +117,7 @@ fpcm.system = {
             body: 'SESSION_TIMEOUT',
             timeout: -1,
             click: function (event) {
-                window.focus();
+                window.trigger('focus');
             }
         });
 

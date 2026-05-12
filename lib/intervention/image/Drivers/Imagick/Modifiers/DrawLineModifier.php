@@ -5,7 +5,11 @@ declare(strict_types=1);
 namespace Intervention\Image\Drivers\Imagick\Modifiers;
 
 use ImagickDraw;
-use RuntimeException;
+use ImagickDrawException;
+use ImagickException;
+use Intervention\Image\Exceptions\ColorDecoderException;
+use Intervention\Image\Exceptions\ModifierException;
+use Intervention\Image\Exceptions\StateException;
 use Intervention\Image\Interfaces\ImageInterface;
 use Intervention\Image\Interfaces\SpecializedInterface;
 use Intervention\Image\Modifiers\DrawLineModifier as GenericDrawLineModifier;
@@ -13,28 +17,45 @@ use Intervention\Image\Modifiers\DrawLineModifier as GenericDrawLineModifier;
 class DrawLineModifier extends GenericDrawLineModifier implements SpecializedInterface
 {
     /**
-     * @throws RuntimeException
+     * @throws ModifierException
+     * @throws StateException
+     * @throws ColorDecoderException
      */
     public function apply(ImageInterface $image): ImageInterface
     {
-        $drawing = new ImagickDraw();
-        $drawing->setStrokeWidth($this->drawable->width());
-        $drawing->setFillOpacity(0);
-        $drawing->setStrokeColor(
-            $this->driver()->colorProcessor($image->colorspace())->colorToNative(
-                $this->backgroundColor()
-            )
-        );
+        try {
+            $drawing = new ImagickDraw();
+            $drawing->setStrokeWidth($this->drawable->width());
+            $drawing->setFillOpacity(0);
 
-        $drawing->line(
-            $this->drawable->start()->x(),
-            $this->drawable->start()->y(),
-            $this->drawable->end()->x(),
-            $this->drawable->end()->y(),
-        );
+            if ($this->drawable->hasBackgroundColor()) {
+                $drawing->setStrokeColor(
+                    $this->driver()->colorProcessor($image)->export(
+                        $this->backgroundColor()
+                    )
+                );
+            }
+
+            $drawing->line(
+                $this->drawable->start()->x(),
+                $this->drawable->start()->y(),
+                $this->drawable->end()->x(),
+                $this->drawable->end()->y(),
+            );
+        } catch (ImagickException | ImagickDrawException $e) {
+            throw new ModifierException(
+                'Failed to apply ' . self::class . ', unable to build ImagickDraw object',
+                previous: $e
+            );
+        }
 
         foreach ($image as $frame) {
-            $frame->native()->drawImage($drawing);
+            $result = $frame->native()->drawImage($drawing);
+            if ($result === false) {
+                throw new ModifierException(
+                    'Failed to apply ' . self::class . ', unable draw line on image',
+                );
+            }
         }
 
         return $image;

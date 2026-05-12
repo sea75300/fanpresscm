@@ -85,16 +85,15 @@ fpcm.article = {
             return true;
         }
 
-        fpcm.dom.fromId('btnShortlink').click(function (event, handler) {
+        fpcm.dom.bindClick('#btnShortlink', function (_ev, _ui) {
 
             fpcm.ajax.get('editor/editorlist', {
                 dataType: 'json',
                 data: {
-                    id: fpcm.dom.fromTag(this).data().article,
+                    id: _ui.dataset.article,
                     view: 'shortlink'
                 },
                 execDone: function (result) {
-
 
                     let _par = {
                         id: 'editor-shortlink',
@@ -110,7 +109,7 @@ fpcm.article = {
                                      return true;
                                  }
 
-                                 _el.select();
+                                 _el.trigger('select');
                                 document.execCommand('copy');
                             }
                         }]
@@ -127,7 +126,7 @@ fpcm.article = {
 
              return false;
         });
-        
+
     },
     
     _initCommentDialog: function(_url) {

@@ -31,15 +31,18 @@ fpcm.dashboard = {
                 fpcm.dashboard.initDraggable();
                 fpcm.system.openUpdateDialog('btnStartUpdate');
 
-                jQuery.each(fpcm.dashboard.onDone, function (idx, object) {
+                if (fpcm.dashboard.onDone instanceof Object) {
 
-                    if (!object.execAfter || typeof object.execAfter !== 'function') {
-                        return true;
+                    for (var _container in fpcm.dashboard.onDone) {
+
+                        if (!_container.execAfter || typeof _container.execAfter !== 'function') {
+                            continue;
+                        }
+
+                        _container.execAfter();
+
                     }
-
-                    object.execAfter();
-                });
-
+                }
 
                 return false;
             }
