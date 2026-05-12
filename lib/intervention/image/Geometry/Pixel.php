@@ -9,14 +9,16 @@ use Intervention\Image\Interfaces\ColorInterface;
 class Pixel extends Point
 {
     /**
-     * Create new pixel instance.
+     * Create new pixel instance
+     *
+     * @return void
      */
     public function __construct(
         protected ColorInterface $background,
         protected int $x,
         protected int $y
     ) {
-        parent::__construct($x, $y);
+        //
     }
 
     /**

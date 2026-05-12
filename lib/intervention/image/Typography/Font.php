@@ -4,35 +4,25 @@ declare(strict_types=1);
 
 namespace Intervention\Image\Typography;
 
-use Intervention\Image\Alignment;
-use Intervention\Image\Exceptions\DirectoryNotFoundException;
-use Intervention\Image\Exceptions\FileNotFoundException;
-use Intervention\Image\Exceptions\FileNotReadableException;
-use Intervention\Image\Exceptions\FilesystemException;
-use Intervention\Image\Exceptions\InvalidArgumentException;
-use Intervention\Image\Interfaces\ColorInterface;
+use Intervention\Image\Exceptions\FontException;
 use Intervention\Image\Interfaces\FontInterface;
-use Intervention\Image\Traits\CanParseFilePath;
-use TypeError;
-use ValueError;
 
 class Font implements FontInterface
 {
-    use CanParseFilePath;
+    protected float $size = 12;
+    protected float $angle = 0;
+    protected mixed $color = '000000';
+    protected mixed $strokeColor = 'ffffff';
+    protected int $strokeWidth = 0;
+    protected ?string $filename = null;
+    protected string $alignment = 'left';
+    protected string $valignment = 'bottom';
+    protected float $lineHeight = 1.25;
+    protected ?int $wrapWidth = null;
 
-    public function __construct(
-        protected ?string $filepath = null,
-        protected float $size = 12,
-        protected float $angle = 0,
-        protected string|ColorInterface $color = '000000',
-        protected string|ColorInterface $strokeColor = 'ffffff',
-        protected int $strokeWidth = 0,
-        protected Alignment $alignmentHorizontal = Alignment::LEFT,
-        protected Alignment $alignmentVertical = Alignment::BOTTOM,
-        protected float $lineHeight = 1.25,
-        protected ?int $wrapWidth = null,
-    ) {
-        //
+    public function __construct(?string $filename = null)
+    {
+        $this->filename = $filename;
     }
 
     /**
@@ -82,16 +72,17 @@ class Font implements FontInterface
     /**
      * {@inheritdoc}
      *
-     * @see FontInterface::setFilepath()
+     * @see FontInterface::setFilename()
      *
-     * @throws InvalidArgumentException
-     * @throws DirectoryNotFoundException
-     * @throws FileNotFoundException
-     * @throws FileNotReadableException
+     * @throws FontException
      */
-    public function setFilepath(string $path): FontInterface
+    public function setFilename(string $filename): FontInterface
     {
-        $this->filepath = self::readableFilePathOrFail($path);
+        if (!file_exists($filename)) {
+            throw new FontException('Font file ' . $filename . ' does not exist.');
+        }
+
+        $this->filename = $filename;
 
         return $this;
     }
@@ -99,25 +90,21 @@ class Font implements FontInterface
     /**
      * {@inheritdoc}
      *
-     * @see FontInterface::filepath()
+     * @see FontInterface::filename()
      */
-    public function filepath(): ?string
+    public function filename(): ?string
     {
-        try {
-            return self::readableFilePathOrFail($this->filepath);
-        } catch (FilesystemException | InvalidArgumentException) {
-            return null;
-        }
+        return $this->filename;
     }
 
     /**
      * {@inheritdoc}
      *
-     * @see FontInterface::hasFile()
+     * @see FontInterface::hasFilename()
      */
-    public function hasFile(): bool
+    public function hasFilename(): bool
     {
-        return $this->filepath() !== null;
+        return !is_null($this->filename) && is_file($this->filename);
     }
 
     /**
@@ -125,7 +112,7 @@ class Font implements FontInterface
      *
      * @see FontInterface::setColor()
      */
-    public function setColor(string|ColorInterface $color): FontInterface
+    public function setColor(mixed $color): FontInterface
     {
         $this->color = $color;
 
@@ -137,7 +124,7 @@ class Font implements FontInterface
      *
      * @see FontInterface::color()
      */
-    public function color(): null|string|ColorInterface
+    public function color(): mixed
     {
         return $this->color;
     }
@@ -147,7 +134,7 @@ class Font implements FontInterface
      *
      * @see FontInterface::setStrokeColor()
      */
-    public function setStrokeColor(string|ColorInterface $color): FontInterface
+    public function setStrokeColor(mixed $color): FontInterface
     {
         $this->strokeColor = $color;
 
@@ -159,7 +146,7 @@ class Font implements FontInterface
      *
      * @see FontInterface::strokeColor()
      */
-    public function strokeColor(): null|string|ColorInterface
+    public function strokeColor(): mixed
     {
         return $this->strokeColor;
     }
@@ -168,14 +155,12 @@ class Font implements FontInterface
      * {@inheritdoc}
      *
      * @see FontInterface::setStrokeWidth()
-     *
-     * @throws InvalidArgumentException
      */
     public function setStrokeWidth(int $width): FontInterface
     {
         if (!in_array($width, range(0, 10))) {
-            throw new InvalidArgumentException(
-                'The stroke width must be in the range from 0 to 10'
+            throw new FontException(
+                'The stroke width must be in the range from 0 to 10.'
             );
         }
 
@@ -207,27 +192,21 @@ class Font implements FontInterface
     /**
      * {@inheritdoc}
      *
-     * @see FontInterface::alignmentHorizontal()
+     * @see FontInterface::alignment()
      */
-    public function alignmentHorizontal(): Alignment
+    public function alignment(): string
     {
-        return $this->alignmentHorizontal;
+        return $this->alignment;
     }
 
     /**
      * {@inheritdoc}
      *
-     * @see FontInterface::setAlignmentHorizontal()
-     *
-     * @throws InvalidArgumentException
+     * @see FontInterface::setAlignment()
      */
-    public function setAlignmentHorizontal(string|Alignment $alignment): FontInterface
+    public function setAlignment(string $value): FontInterface
     {
-        try {
-            $this->alignmentHorizontal = is_string($alignment) ? Alignment::from($alignment) : $alignment;
-        } catch (ValueError | TypeError) {
-            throw new InvalidArgumentException('Invalid value for alignment');
-        }
+        $this->alignment = $value;
 
         return $this;
     }
@@ -235,27 +214,21 @@ class Font implements FontInterface
     /**
      * {@inheritdoc}
      *
-     * @see FontInterface::alignmentVertical()
+     * @see FontInterface::valignment()
      */
-    public function alignmentVertical(): Alignment
+    public function valignment(): string
     {
-        return $this->alignmentVertical;
+        return $this->valignment;
     }
 
     /**
      * {@inheritdoc}
      *
-     * @see FontInterface::setAlignmentVertical()
-     *
-     * @throws InvalidArgumentException
+     * @see FontInterface::setValignment()
      */
-    public function setAlignmentVertical(string|Alignment $alignment): FontInterface
+    public function setValignment(string $value): FontInterface
     {
-        try {
-            $this->alignmentVertical = is_string($alignment) ? Alignment::from($alignment) : $alignment;
-        } catch (ValueError | TypeError) {
-            throw new InvalidArgumentException('Invalid value for alignment');
-        }
+        $this->valignment = $value;
 
         return $this;
     }

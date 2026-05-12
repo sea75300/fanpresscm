@@ -5,170 +5,88 @@ declare(strict_types=1);
 namespace Intervention\Image\Drivers\Imagick\Modifiers;
 
 use ImagickDraw;
-use ImagickDrawException;
-use ImagickException;
 use ImagickPixel;
-use ImagickPixelException;
-use Intervention\Image\Exceptions\InvalidArgumentException;
-use Intervention\Image\Exceptions\ModifierException;
-use Intervention\Image\Exceptions\StateException;
 use Intervention\Image\Interfaces\ImageInterface;
 use Intervention\Image\Interfaces\SpecializedInterface;
 use Intervention\Image\Modifiers\ContainModifier as GenericContainModifier;
 
 class ContainModifier extends GenericContainModifier implements SpecializedInterface
 {
-    /**
-     * @throws InvalidArgumentException
-     * @throws ModifierException
-     * @throws StateException
-     */
     public function apply(ImageInterface $image): ImageInterface
     {
-        $crop = $this->cropSize($image);
-        $resize = $this->resizeSize($image);
-
-        try {
-            $transparent = new ImagickPixel('transparent');
-        } catch (ImagickPixelException $e) {
-            throw new ModifierException(
-                'Failed to apply ' . self::class . ', unable to create ImagickPixel',
-                previous: $e,
-            );
-        }
-
-        $background = $this->driver()
-            ->colorProcessor($image)
-            ->export(
-                $this->backgroundColor()
-            );
+        $crop = $this->getCropSize($image);
+        $resize = $this->getResizeSize($image);
+        $transparent = new ImagickPixel('transparent');
+        $background = $this->driver()->colorProcessor($image->colorspace())->colorToNative(
+            $this->driver()->handleInput($this->background)
+        );
 
         foreach ($image as $frame) {
-            try {
-                $result = $frame->native()->scaleImage(
-                    $crop->width(),
-                    $crop->height(),
-                );
-                if ($result === false) {
-                    throw new ModifierException(
-                        'Failed to apply ' . self::class . ', unable to resize image',
-                    );
-                }
-            } catch (ImagickException $e) {
-                throw new ModifierException(
-                    'Failed to apply ' . self::class . ', unable to resize image',
-                    previous: $e
-                );
-            }
+            $frame->native()->scaleImage(
+                $crop->width(),
+                $crop->height(),
+            );
 
-            try {
-                $result = $frame->native()->setBackgroundColor($transparent)
-                    && $frame->native()->setImageBackgroundColor($transparent);
-                if ($result === false) {
-                    throw new ModifierException(
-                        'Failed to apply ' . self::class . ', unable to set image background color',
-                    );
-                }
-            } catch (ImagickException $e) {
-                throw new ModifierException(
-                    'Failed to apply ' . self::class . ', unable to set image background color',
-                    previous: $e
-                );
-            }
+            $frame->native()->setBackgroundColor($transparent);
+            $frame->native()->setImageBackgroundColor($transparent);
 
-            try {
-                $result = $frame->native()->extentImage(
-                    $resize->width(),
-                    $resize->height(),
-                    $crop->pivot()->x() * -1,
-                    $crop->pivot()->y() * -1
-                );
-                if ($result === false) {
-                    throw new ModifierException(
-                        'Failed to apply ' . self::class . ', unable to resize image',
-                    );
-                }
-            } catch (ImagickException | ImagickDrawException $e) {
-                throw new ModifierException(
-                    'Failed to apply ' . self::class . ', unable to resize image',
-                    previous: $e
-                );
-            }
+            $frame->native()->extentImage(
+                $resize->width(),
+                $resize->height(),
+                $crop->pivot()->x() * -1,
+                $crop->pivot()->y() * -1
+            );
 
             if ($resize->width() > $crop->width()) {
                 // fill new emerged background
-                try {
-                    $draw = new ImagickDraw();
-                    $draw->setFillColor($background);
+                $draw = new ImagickDraw();
+                $draw->setFillColor($background);
 
-                    $delta = abs($crop->pivot()->x());
+                $delta = abs($crop->pivot()->x());
 
-                    if ($delta > 0) {
-                        $draw->rectangle(
-                            0,
-                            0,
-                            $delta - 1,
-                            $resize->height()
-                        );
-                    }
-
+                if ($delta > 0) {
                     $draw->rectangle(
-                        $crop->width() + $delta,
                         0,
-                        $resize->width(),
+                        0,
+                        $delta - 1,
                         $resize->height()
                     );
-
-                    $result = $frame->native()->drawImage($draw);
-                    if ($result === false) {
-                        throw new ModifierException(
-                            'Failed to apply ' . self::class . ', unable fill new image areas with replacement color',
-                        );
-                    }
-                } catch (ImagickException | ImagickDrawException $e) {
-                    throw new ModifierException(
-                        'Failed to apply ' . self::class . ', unable fill new image areas with replacement color',
-                        previous: $e
-                    );
                 }
+
+                $draw->rectangle(
+                    $crop->width() + $delta,
+                    0,
+                    $resize->width(),
+                    $resize->height()
+                );
+
+                $frame->native()->drawImage($draw);
             }
 
             if ($resize->height() > $crop->height()) {
                 // fill new emerged background
-                try {
-                    $draw = new ImagickDraw();
-                    $draw->setFillColor($background);
+                $draw = new ImagickDraw();
+                $draw->setFillColor($background);
 
-                    $delta = abs($crop->pivot()->y());
+                $delta = abs($crop->pivot()->y());
 
-                    if ($delta > 0) {
-                        $draw->rectangle(
-                            0,
-                            0,
-                            $resize->width(),
-                            $delta - 1
-                        );
-                    }
-
+                if ($delta > 0) {
                     $draw->rectangle(
                         0,
-                        $crop->height() + $delta,
+                        0,
                         $resize->width(),
-                        $resize->height()
-                    );
-
-                    $result = $frame->native()->drawImage($draw);
-                    if ($result === false) {
-                        throw new ModifierException(
-                            'Failed to apply ' . self::class . ', unable fill new image areas with replacement color',
-                        );
-                    }
-                } catch (ImagickException | ImagickDrawException $e) {
-                    throw new ModifierException(
-                        'Failed to apply ' . self::class . ', unable fill new image areas with replacement color',
-                        previous: $e
+                        $delta - 1
                     );
                 }
+
+                $draw->rectangle(
+                    0,
+                    $crop->height() + $delta,
+                    $resize->width(),
+                    $resize->height()
+                );
+
+                $frame->native()->drawImage($draw);
             }
         }
 

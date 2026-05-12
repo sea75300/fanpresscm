@@ -15,7 +15,9 @@ use Traversable;
 class Point implements PointInterface, IteratorAggregate
 {
     /**
-     * Create new point instance.
+     * Create new point instance
+     *
+     * @return void
      */
     public function __construct(
         protected int $x = 0,

@@ -4,82 +4,51 @@ declare(strict_types=1);
 
 namespace Intervention\Image\Drivers\Gd\Decoders;
 
-use Intervention\Image\Exceptions\DriverException;
+use Intervention\Image\Exceptions\RuntimeException;
+use Intervention\Image\Interfaces\ColorInterface;
 use Intervention\Image\Interfaces\DecoderInterface;
 use Intervention\Image\Interfaces\ImageInterface;
-use Intervention\Image\Exceptions\ImageDecoderException;
-use Intervention\Image\Exceptions\InvalidArgumentException;
-use Intervention\Image\Exceptions\NotSupportedException;
-use Intervention\Image\Exceptions\StateException;
+use Intervention\Image\Exceptions\DecoderException;
 use Intervention\Image\Format;
-use Intervention\Image\Modifiers\OrientModifier;
-use Intervention\Image\Traits\CanDetectImageSources;
-use Stringable;
+use Intervention\Image\Modifiers\AlignRotationModifier;
 
 class BinaryImageDecoder extends NativeObjectDecoder implements DecoderInterface
 {
-    use CanDetectImageSources;
-
-    /**
-     * {@inheritdoc}
-     *
-     * @see DecoderInterface::supports()
-     */
-    public function supports(mixed $input): bool
-    {
-        return $this->couldBeBinaryData($input);
-    }
-
     /**
      * {@inheritdoc}
      *
      * @see DecoderInterface::decode()
-     *
-     * @throws InvalidArgumentException
-     * @throws ImageDecoderException
-     * @throws DriverException
-     * @throws StateException
-     * @throws NotSupportedException
      */
-    public function decode(mixed $input): ImageInterface
+    public function decode(mixed $input): ImageInterface|ColorInterface
     {
-        if (!is_string($input) && !$input instanceof Stringable) {
-            throw new InvalidArgumentException(
-                'Image source must be binary data of type string or instance of ' . Stringable::class,
-            );
+        if (!is_string($input)) {
+            throw new DecoderException('Unable to decode input');
         }
 
-        $input = (string) $input;
-
-        if ($input === '') {
-            throw new InvalidArgumentException('Unable to decode binary data from empty string');
-        }
-
-        return $this->isGifFormat($input) ? $this->decodeGif($input) : $this->decodeBinary($input);
+        return match ($this->isGifFormat($input)) {
+            true => $this->decodeGif($input),
+            default => $this->decodeBinary($input),
+        };
     }
 
     /**
      * Decode image from given binary data
      *
-     * @throws InvalidArgumentException
-     * @throws ImageDecoderException
-     * @throws DriverException
-     * @throws StateException
-     * @throws NotSupportedException
+     * @throws RuntimeException
      */
     private function decodeBinary(string $input): ImageInterface
     {
         $gd = @imagecreatefromstring($input);
 
         if ($gd === false) {
-            throw new ImageDecoderException('Failed to decode unsupported image format from binary data');
+            throw new DecoderException('Unable to decode input');
         }
 
         // create image instance
         $image = parent::decode($gd);
 
         // get media type
-        $mediaType = $this->mediaTypeByBinary($input);
+        $mediaType = $this->getMediaTypeByBinary($input);
 
         // extract & set exif data for appropriate formats
         if (in_array($mediaType->format(), [Format::JPEG, Format::TIFF])) {
@@ -91,7 +60,7 @@ class BinaryImageDecoder extends NativeObjectDecoder implements DecoderInterface
 
         // adjust image orientation
         if ($this->driver()->config()->autoOrientation) {
-            $image->modify(new OrientModifier());
+            $image->modify(new AlignRotationModifier());
         }
 
         return $image;

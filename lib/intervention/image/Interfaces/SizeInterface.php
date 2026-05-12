@@ -4,111 +4,120 @@ declare(strict_types=1);
 
 namespace Intervention\Image\Interfaces;
 
-use Intervention\Image\Alignment;
-use Traversable;
+use Intervention\Image\Exceptions\GeometryException;
 
-/**
- * @extends Traversable<int>
- */
-interface SizeInterface extends Traversable
+interface SizeInterface
 {
     /**
-     * Get width.
+     * Get width
      */
     public function width(): int;
 
     /**
-     * Get height.
+     * Get height
      */
     public function height(): int;
 
     /**
-     * Get pivot point.
+     * Get pivot point
      */
     public function pivot(): PointInterface;
 
     /**
-     * Set width.
+     * Set width
      */
     public function setWidth(int $width): self;
 
     /**
-     * Set height.
+     * Set height
      */
     public function setHeight(int $height): self;
 
     /**
-     * Set pivot point.
+     * Set pivot point
      */
     public function setPivot(PointInterface $pivot): self;
 
     /**
-     * Calculate aspect ratio of the current size.
+     * Calculate aspect ratio of the current size
      */
     public function aspectRatio(): float;
 
     /**
-     * Determine if current size fits within given size.
+     * Determine if current size fits into given size
      */
-    public function fitsWithin(self $size): bool;
+    public function fitsInto(self $size): bool;
 
     /**
-     * Determine if size is in landscape format.
+     * Determine if size is in landscape format
      */
     public function isLandscape(): bool;
 
     /**
-     * Determine if size is in portrait format.
+     * Determine if size is in portrait format
      */
     public function isPortrait(): bool;
 
     /**
-     * Move pivot to the given alignment position in the size and adjust the new position by given offset values.
+     * Move pivot to given position in size
      */
-    public function movePivot(string|Alignment $alignment, int $x = 0, int $y = 0): self;
+    public function movePivot(string $position, int $offset_x = 0, int $offset_y = 0): self;
 
     /**
-     * Align pivot relative to given size at given alignment position.
+     * Align pivot of current object to given position
      */
-    public function alignPivotTo(self $size, string|Alignment $alignment): self;
+    public function alignPivotTo(self $size, string $position): self;
 
     /**
-     * Calculate the relative position to another size based on the pivot point settings of both sizes.
+     * Calculate the relative position to another Size
+     * based on the pivot point settings of both sizes.
      */
-    public function offsetTo(self $size): PointInterface;
+    public function relativePositionTo(self $size): PointInterface;
 
     /**
-     * @see Resizer::resize()
+     * @see ImageInterface::resize()
+     *
+     * @throws GeometryException
      */
     public function resize(?int $width = null, ?int $height = null): self;
 
     /**
-     * @see Resizer::resizeDown()
+     * @see ImageInterface::resizeDown()
+     *
+     * @throws GeometryException
      */
     public function resizeDown(?int $width = null, ?int $height = null): self;
 
     /**
-     * @see Resizer::scale()
+     * @see ImageInterface::scale()
+     *
+     * @throws GeometryException
      */
     public function scale(?int $width = null, ?int $height = null): self;
 
     /**
-     * @see Resizer::scaleDown()
+     * @see ImageInterface::scaleDown()
+     *
+     * @throws GeometryException
      */
     public function scaleDown(?int $width = null, ?int $height = null): self;
 
     /**
-     * @see Resizer::cover()
+     * @see ImageInterface::cover()
+     *
+     * @throws GeometryException
      */
     public function cover(int $width, int $height): self;
 
     /**
-     * @see Resizer::contain()
+     * @see ImageInterface::contain()
+     *
+     * @throws GeometryException
      */
     public function contain(int $width, int $height): self;
 
     /**
-     * @see Resizer::containDown()
+     * @throws GeometryException
      */
-    public function containDown(int $width, int $height): self;
+    public function containMax(int $width, int $height): self;
 }

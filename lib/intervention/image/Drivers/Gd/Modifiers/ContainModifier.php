@@ -4,18 +4,17 @@ declare(strict_types=1);
 
 namespace Intervention\Image\Drivers\Gd\Modifiers;
 
-use Intervention\Image\Colors\Rgb\Colorspace as Rgb;
+use Intervention\Image\Colors\Rgb\Channels\Blue;
+use Intervention\Image\Colors\Rgb\Channels\Green;
+use Intervention\Image\Colors\Rgb\Channels\Red;
 use Intervention\Image\Drivers\Gd\Cloner;
-use Intervention\Image\Exceptions\ModifierException;
+use Intervention\Image\Exceptions\ColorException;
+use Intervention\Image\Interfaces\ColorInterface;
 use Intervention\Image\Interfaces\FrameInterface;
 use Intervention\Image\Interfaces\ImageInterface;
 use Intervention\Image\Interfaces\SizeInterface;
 use Intervention\Image\Interfaces\SpecializedInterface;
 use Intervention\Image\Modifiers\ContainModifier as GenericContainModifier;
-use Intervention\Image\Colors\Rgb\Color as RgbColor;
-use Intervention\Image\Exceptions\DriverException;
-use Intervention\Image\Exceptions\InvalidArgumentException;
-use Intervention\Image\Exceptions\StateException;
 
 class ContainModifier extends GenericContainModifier implements SpecializedInterface
 {
@@ -23,55 +22,46 @@ class ContainModifier extends GenericContainModifier implements SpecializedInter
      * {@inheritdoc}
      *
      * @see ModifierInterface::apply()
-     *
-     * @throws InvalidArgumentException
-     * @throws ModifierException
-     * @throws StateException
-     * @throws DriverException
      */
     public function apply(ImageInterface $image): ImageInterface
     {
-        $crop = $this->cropSize($image);
-        $resize = $this->resizeSize($image);
-        $backgroundColor = $this->backgroundColor()->toColorspace(Rgb::class);
-
-        if (!$backgroundColor instanceof RgbColor) {
-            throw new ModifierException('Failed to normalize background color to RGB color space');
-        }
+        $crop = $this->getCropSize($image);
+        $resize = $this->getResizeSize($image);
+        $background = $this->driver()->handleInput($this->background);
+        $blendingColor = $this->driver()->handleInput(
+            $this->driver()->config()->blendingColor
+        );
 
         foreach ($image as $frame) {
-            $this->modify($frame, $crop, $resize, $backgroundColor);
+            $this->modify($frame, $crop, $resize, $background, $blendingColor);
         }
 
         return $image;
     }
 
     /**
-     * @throws InvalidArgumentException
-     * @throws ModifierException
-     * @throws DriverException
+     * @throws ColorException
      */
-    private function modify(
+    protected function modify(
         FrameInterface $frame,
         SizeInterface $crop,
         SizeInterface $resize,
-        RgbColor $backgroundColor
+        ColorInterface $background,
+        ColorInterface $blendingColor
     ): void {
         // create new gd image
-        $modified = Cloner::cloneEmpty($frame->native(), $resize, $backgroundColor);
+        $modified = Cloner::cloneEmpty($frame->native(), $resize, $background);
 
         // make image area transparent to keep transparency
         // even if background-color is set
         $transparent = imagecolorallocatealpha(
             $modified,
-            $backgroundColor->red()->value(),
-            $backgroundColor->green()->value(),
-            $backgroundColor->blue()->value(),
+            $blendingColor->channel(Red::class)->value(),
+            $blendingColor->channel(Green::class)->value(),
+            $blendingColor->channel(Blue::class)->value(),
             127,
         );
-
         imagealphablending($modified, false); // do not blend / just overwrite
-
         imagecolortransparent($modified, $transparent);
         imagefilledrectangle(
             $modified,
@@ -82,7 +72,7 @@ class ContainModifier extends GenericContainModifier implements SpecializedInter
             $transparent
         );
 
-        // copy image from original with background alpha
+        // copy image from original with blending alpha
         imagealphablending($modified, true);
         imagecopyresampled(
             $modified,

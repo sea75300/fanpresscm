@@ -4,109 +4,74 @@ declare(strict_types=1);
 
 namespace Intervention\Image;
 
-use Intervention\Image\Exceptions\DirectoryNotFoundException;
-use Intervention\Image\Exceptions\FileNotFoundException;
-use Intervention\Image\Exceptions\FileNotReadableException;
-use Intervention\Image\Exceptions\FileNotWritableException;
-use Intervention\Image\Exceptions\StreamException;
-use Intervention\Image\Exceptions\InvalidArgumentException;
+use Intervention\Image\Exceptions\NotWritableException;
+use Intervention\Image\Exceptions\RuntimeException;
 use Intervention\Image\Interfaces\FileInterface;
-use Intervention\Image\Traits\CanBuildStream;
-use Intervention\Image\Traits\CanParseFilePath;
+use Intervention\Image\Traits\CanBuildFilePointer;
 use Stringable;
 
 class File implements FileInterface, Stringable
 {
-    use CanBuildStream;
-    use CanParseFilePath;
+    use CanBuildFilePointer;
 
     /**
      * @var resource
      */
-    protected $stream;
+    protected $pointer;
 
     /**
-     * Create new instance.
+     * Create new instance
      *
      * @param string|resource|null $data
-     * @throws InvalidArgumentException
-     * @throws StreamException
+     * @throws RuntimeException
      */
     public function __construct(mixed $data = null)
     {
-        $this->stream = self::buildStreamOrFail($data);
+        $this->pointer = $this->buildFilePointer($data);
     }
 
     /**
-     * {@inheritdoc}
+     * Create file object from path in file system
      *
-     * @see FileInterface::fromPath()
-     *
-     * @throws InvalidArgumentException
-     * @throws DirectoryNotFoundException
-     * @throws FileNotFoundException
-     * @throws FileNotReadableException
-     * @throws StreamException
+     * @throws RuntimeException
      */
     public static function fromPath(string $path): self
     {
-        $stream = fopen(self::readableFilePathOrFail($path), 'r');
-
-        if ($stream === false) {
-            throw new FileNotReadableException('Failed to open file from path "' . $path . '"');
-        }
-
-        return new self($stream);
+        return new self(fopen($path, 'r'));
     }
 
     /**
      * {@inheritdoc}
      *
      * @see FileInterface::save()
-     *
-     * @throws InvalidArgumentException
-     * @throws DirectoryNotFoundException
-     * @throws FileNotWritableException
-     * @throws StreamException
      */
-    public function save(string $path): void
+    public function save(string $filepath): void
     {
-        if ($path === '') {
-            throw new InvalidArgumentException('Path must not be an empty string');
-        }
-
-        if (strlen($path) > PHP_MAXPATHLEN) {
-            throw new InvalidArgumentException(
-                "Path is longer than the configured max. value of " . PHP_MAXPATHLEN
-            );
-        }
-
-        $dir = pathinfo($path, PATHINFO_DIRNAME);
+        $dir = pathinfo($filepath, PATHINFO_DIRNAME);
 
         if (!is_dir($dir)) {
-            throw new DirectoryNotFoundException(
-                'Can\'t write to path. Directory "' . $dir . '" does not exist'
+            throw new NotWritableException(
+                "Can't write image to path. Directory does not exist."
             );
         }
 
         if (!is_writable($dir)) {
-            throw new FileNotWritableException(
-                'Can\'t write to path. Directory "' . $dir . '" is not writable'
+            throw new NotWritableException(
+                "Can't write image to path. Directory is not writable."
             );
         }
 
-        if (is_file($path) && !is_writable($path)) {
-            throw new FileNotWritableException(
-                "Can't write to path. Existing file " . $path . " is not writable"
+        if (is_file($filepath) && !is_writable($filepath)) {
+            throw new NotWritableException(
+                sprintf("Can't write image. Path (%s) is not writable.", $filepath)
             );
         }
 
         // write data
-        $saved = file_put_contents($path, $this->toStream());
-
+        $saved = @file_put_contents($filepath, $this->toFilePointer());
         if ($saved === false) {
-            throw new FileNotWritableException(
-                "Failed to write file to path " . $path
+            throw new NotWritableException(
+                sprintf("Can't write image data to path (%s).", $filepath)
             );
         }
     }
@@ -115,52 +80,32 @@ class File implements FileInterface, Stringable
      * {@inheritdoc}
      *
      * @see FileInterface::toString()
-     *
-     * @throws StreamException
      */
     public function toString(): string
     {
-        $data = stream_get_contents($this->toStream(), offset: 0);
-
-        if ($data === false) {
-            throw new StreamException('Unable to read data from stream');
-        }
-
-        return $data;
+        return stream_get_contents($this->toFilePointer(), offset: 0);
     }
 
     /**
      * {@inheritdoc}
      *
-     * @see FileInterface::toStream()
-     *
-     * @throws StreamException
+     * @see FileInterface::toFilePointer()
      */
-    public function toStream()
+    public function toFilePointer()
     {
-        $rewind = rewind($this->stream);
+        rewind($this->pointer);
 
-        if ($rewind === false) {
-            throw new StreamException('Failed to rewind stream');
-        }
-
-        return $this->stream;
+        return $this->pointer;
     }
 
     /**
      * {@inheritdoc}
      *
      * @see FileInterface::size()
-     *
-     * @throws StreamException
      */
     public function size(): int
     {
-        $info = fstat($this->toStream());
-
-        if (!is_array($info)) {
-            throw new StreamException('Unable to read size of stream');
-        }
+        $info = fstat($this->toFilePointer());
 
         return intval($info['size']);
     }
@@ -169,8 +114,6 @@ class File implements FileInterface, Stringable
      * {@inheritdoc}
      *
      * @see FileInterface::__toString()
-     *
-     * @throws StreamException
      */
     public function __toString(): string
     {

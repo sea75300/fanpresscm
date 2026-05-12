@@ -5,17 +5,18 @@ declare(strict_types=1);
 namespace Intervention\Image\Colors;
 
 use Intervention\Image\File;
+use Intervention\Image\Exceptions\RuntimeException;
 use Intervention\Image\Interfaces\ProfileInterface;
 
 class Profile extends File implements ProfileInterface
 {
     /**
-     * Create color profile instance from given path in file system.
+     * Create profile object from path in file system
+     *
+     * @throws RuntimeException
      */
     public static function fromPath(string $path): self
     {
-        $stream = fopen(self::readableFilePathOrFail($path), 'r');
-
-        return new self($stream);
+        return new self(fopen($path, 'r'));
     }
 }

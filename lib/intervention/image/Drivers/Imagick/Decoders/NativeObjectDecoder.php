@@ -5,17 +5,14 @@ declare(strict_types=1);
 namespace Intervention\Image\Drivers\Imagick\Decoders;
 
 use Imagick;
-use ImagickException;
 use Intervention\Image\Drivers\Imagick\Core;
 use Intervention\Image\Drivers\SpecializableDecoder;
-use Intervention\Image\Exceptions\DriverException;
-use Intervention\Image\Exceptions\ImageDecoderException;
-use Intervention\Image\Exceptions\InvalidArgumentException;
-use Intervention\Image\Exceptions\StateException;
+use Intervention\Image\Exceptions\DecoderException;
 use Intervention\Image\Image;
+use Intervention\Image\Interfaces\ColorInterface;
 use Intervention\Image\Interfaces\ImageInterface;
 use Intervention\Image\Interfaces\SpecializedInterface;
-use Intervention\Image\Modifiers\OrientModifier;
+use Intervention\Image\Modifiers\AlignRotationModifier;
 use Intervention\Image\Modifiers\RemoveAnimationModifier;
 
 class NativeObjectDecoder extends SpecializableDecoder implements SpecializedInterface
@@ -23,85 +20,50 @@ class NativeObjectDecoder extends SpecializableDecoder implements SpecializedInt
     /**
      * {@inheritdoc}
      *
-     * @see DecoderInterface::supports()
-     */
-    public function supports(mixed $input): bool
-    {
-        return $input instanceof Imagick;
-    }
-
-    /**
-     * {@inheritdoc}
-     *
      * @see DecoderInterface::decode()
-     *
-     * @throws InvalidArgumentException
-     * @throws StateException
-     * @throws DriverException
-     * @throws ImageDecoderException
      */
-    public function decode(mixed $input): ImageInterface
+    public function decode(mixed $input): ImageInterface|ColorInterface
     {
-        if (!$input instanceof Imagick) {
-            throw new InvalidArgumentException('Image source must be an instance of Imagick');
+        if (!is_object($input)) {
+            throw new DecoderException('Unable to decode input');
+        }
+
+        if (!($input instanceof Imagick)) {
+            throw new DecoderException('Unable to decode input');
         }
 
         // For some JPEG formats, the "coalesceImages()" call leads to an image
         // completely filled with background color. The logic behind this is
         // incomprehensible for me; could be an imagick bug.
-        try {
-            if ($input->getImageFormat() !== 'JPEG') {
-                $input = $input->coalesceImages();
-            }
-        } catch (ImagickException $e) {
-            throw new DriverException('Failed to coalesce image', previous: $e);
+        if ($input->getImageFormat() !== 'JPEG') {
+            $input = $input->coalesceImages();
         }
 
         // turn images with colorspace 'GRAY' into 'SRGB' to avoid working on
-        // grayscale colorspace images as this results images loosing color
+        // greyscale colorspace images as this results images loosing color
         // information when placed into this image.
-        try {
-            if ($input->getImageColorspace() === Imagick::COLORSPACE_GRAY) {
-                $input->setImageColorspace(Imagick::COLORSPACE_SRGB);
-            }
-        } catch (ImagickException $e) {
-            throw new DriverException('Failed to convert image to sRGB', previous: $e);
+        if ($input->getImageColorspace() == Imagick::COLORSPACE_GRAY) {
+            $input->setImageColorspace(Imagick::COLORSPACE_SRGB);
         }
 
         // create image object
-        $image = new Image($this->driver(), new Core($input));
-
-        // If autoOrientation is disabled, automatic image alignment should be prevented.
-        // Therefore, it is set to "undefined" here. To still be able to correct the
-        // orientation manually later, we save the original value.
-        if ($this->driver()->config()->autoOrientation === false) {
-            try {
-                $image->core()->meta()->set('originalImageOrientation', $input->getImageOrientation());
-                $input->setImageOrientation(Imagick::ORIENTATION_UNDEFINED);
-            } catch (ImagickException $e) {
-                throw new ImageDecoderException(
-                    'Failed to set adjust image orientation',
-                    previous: $e
-                );
-            }
-        }
+        $image = new Image(
+            $this->driver(),
+            new Core($input)
+        );
 
         // discard animation depending on config
         if (!$this->driver()->config()->decodeAnimation) {
             $image->modify(new RemoveAnimationModifier());
         }
 
-        // adjust image rotation
+        // adjust image rotatation
         if ($this->driver()->config()->autoOrientation) {
-            $image->modify(new OrientModifier());
+            $image->modify(new AlignRotationModifier());
         }
 
         // set media type on origin
-        try {
-            $image->origin()->setMediaType($input->getImageMimeType());
-        } catch (ImagickException $e) {
-            throw new ImageDecoderException('Failed to retrieve image media type', previous: $e);
-        }
+        $image->origin()->setMediaType($input->getImageMimeType());
 
         return $image;
     }

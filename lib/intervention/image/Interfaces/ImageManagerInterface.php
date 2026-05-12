@@ -4,85 +4,60 @@ declare(strict_types=1);
 
 namespace Intervention\Image\Interfaces;
 
-use SplFileInfo;
-use Stringable;
+use Intervention\Image\Exceptions\RuntimeException;
 
 interface ImageManagerInterface
 {
     /**
-     * Create a new image manager using the given driver.
+     * Create new image instance with given width & height
+     *
+     * @link https://image.intervention.io/v3/basics/instantiation#create-new-images
+     *
+     * @throws RuntimeException
      */
-    public static function usingDriver(string|DriverInterface $driver, mixed ...$options): self;
+    public function create(int $width, int $height): ImageInterface;
 
     /**
-     * Create a new image with the given width and height.
-     */
-    public function createImage(
-        int $width,
-        int $height,
-        null|callable|AnimationFactoryInterface $animation = null,
-    ): ImageInterface;
-
-    /**
-     * Decode an image from the given source which can be one of the following:
+     * Create new image instance from given input which can be one of the following
      *
      * - Path in filesystem
-     * - Raw binary image data
+     * - File Pointer resource
      * - SplFileInfo object
+     * - Raw binary image data
      * - Base64 encoded image data
-     * - Data URI string or instance of DataUriInterface
-     * - Stream resource
-     * - Instance of ImageInterface
-     * - Instance of EncodedImageInterface
+     * - Data Uri
+     * - Intervention\Image\Image Instance
      *
-     * Optionally, one or more specific decoders can be provided. If no
-     * decoders are specified, all available decoders will be tried.
+     * To decode the raw input data, you can optionally specify a decoding strategy
+     * with the second parameter. This can be an array of class names or objects
+     * of decoders to be processed in sequence. In this case, the input must be
+     * decodedable with one of the decoders passed. It is also possible to pass
+     * a single object or class name of a decoder.
      *
-     * @link https://image.intervention.io/v4/basics/instantiation#read-image-sources
+     * All decoders that implement the `DecoderInterface::class` can be passed. Usually
+     * a selection of classes of the namespace `Intervention\Image\Decoders`
      *
-     * @param null|string|array<string|DecoderInterface>|DecoderInterface $decoders
+     * If the second parameter is not set, an attempt to decode the input is made
+     * with all available decoders of the driver.
+     *
+     * @link https://image.intervention.io/v3/basics/instantiation#read-image-sources
+     *
+     * @param string|array<string|DecoderInterface>|DecoderInterface $decoders
+     * @throws RuntimeException
      */
-    public function decode(mixed $source, null|string|array|DecoderInterface $decoders = null): ImageInterface;
+    public function read(mixed $input, string|array|DecoderInterface $decoders = []): ImageInterface;
 
     /**
-     * Decode an image from the given file path.
+     * Create new animated image by given callback
      *
-     * @link https://image.intervention.io/v4/basics/instantiation#read-images-from-file-paths
+     * @link https://image.intervention.io/v3/basics/instantiation#create-animations
+     *
+     * @throws RuntimeException
      */
-    public function decodePath(string|Stringable $path): ImageInterface;
+    public function animate(callable $init): ImageInterface;
 
     /**
-     * Decode an image from the given raw binary data.
-     *
-     * @link https://image.intervention.io/v4/basics/instantiation#read-images-from-binary-data
+     * Return currently used driver
      */
-    public function decodeBinary(string|Stringable $binary): ImageInterface;
-
-    /**
-     * Decode an image from the given SplFileInfo object.
-     *
-     * @link https://image.intervention.io/v4/basics/instantiation#read-images-from-splfileinfo-objects
-     */
-    public function decodeSplFileInfo(SplFileInfo $splFileInfo): ImageInterface;
-
-    /**
-     * Decode an image from the given base64 encoded data.
-     *
-     * @link https://image.intervention.io/v4/basics/instantiation#read-images-from-base64-encoded-data
-     */
-    public function decodeBase64(string|Stringable $base64): ImageInterface;
-
-    /**
-     * Decode an image from the given data URI.
-     *
-     * @link https://image.intervention.io/v4/basics/instantiation#read-images-from-data-uri-scheme
-     */
-    public function decodeDataUri(string|Stringable|DataUriInterface $dataUri): ImageInterface;
-
-    /**
-     * Decode an image from the given stream resource.
-     *
-     * @link https://image.intervention.io/v4/basics/instantiation#read-images-from-stream
-     */
-    public function decodeStream(mixed $stream): ImageInterface;
+    public function driver(): DriverInterface;
 }

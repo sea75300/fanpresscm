@@ -4,59 +4,46 @@ declare(strict_types=1);
 
 namespace Intervention\Image\Modifiers;
 
-use Intervention\Image\Alignment;
 use Intervention\Image\Drivers\SpecializableModifier;
-use Intervention\Image\Exceptions\InvalidArgumentException;
-use Intervention\Image\Exceptions\StateException;
-use Intervention\Image\Interfaces\ColorInterface;
+use Intervention\Image\Exceptions\RuntimeException;
+use Intervention\Image\Geometry\Rectangle;
 use Intervention\Image\Interfaces\ImageInterface;
 use Intervention\Image\Interfaces\SizeInterface;
-use Intervention\Image\Size;
 
 class ResizeCanvasModifier extends SpecializableModifier
 {
     /**
-     * Create new modifier object.
+     * Create new modifier object
+     *
+     * @return void
      */
     public function __construct(
         public ?int $width = null,
         public ?int $height = null,
-        public null|string|ColorInterface $background = null,
-        public string|Alignment $alignment = Alignment::CENTER
+        public mixed $background = 'ffffff',
+        public string $position = 'center'
     ) {
         //
     }
 
     /**
-     * Build the crop size to be used for the ResizeCanvas process.
+     * Build the crop size to be used for the ResizeCanvas process
      *
-     * @throws InvalidArgumentException
+     * @throws RuntimeException
      */
     protected function cropSize(ImageInterface $image, bool $relative = false): SizeInterface
     {
         $size = match ($relative) {
-            true => new Size(
+            true => new Rectangle(
                 is_null($this->width) ? $image->width() : $image->width() + $this->width,
                 is_null($this->height) ? $image->height() : $image->height() + $this->height,
             ),
-            default => new Size(
+            default => new Rectangle(
                 is_null($this->width) ? $image->width() : $this->width,
                 is_null($this->height) ? $image->height() : $this->height,
             ),
         };
 
-        return $size->alignPivotTo($image->size(), $this->alignment);
-    }
-
-    /**
-     * Return color to fill the newly created areas after rotation.
-     *
-     * @throws StateException
-     */
-    protected function backgroundColor(): ColorInterface
-    {
-        return $this->driver()->decodeColor(
-            $this->background ?? $this->driver()->config()->backgroundColor,
-        );
+        return $size->alignPivotTo($image->size(), $this->position);
     }
 }

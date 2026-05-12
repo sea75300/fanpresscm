@@ -4,18 +4,14 @@ declare(strict_types=1);
 
 namespace Intervention\Image\Drivers\Gd\Modifiers;
 
-use Intervention\Image\Colors\Rgb\Colorspace as RgbColorspace;
 use Intervention\Image\Drivers\Gd\Cloner;
-use Intervention\Image\Exceptions\InvalidArgumentException;
-use Intervention\Image\Exceptions\ModifierException;
-use Intervention\Image\Exceptions\StateException;
+use Intervention\Image\Exceptions\ColorException;
+use Intervention\Image\Interfaces\ColorInterface;
 use Intervention\Image\Interfaces\FrameInterface;
 use Intervention\Image\Interfaces\ImageInterface;
 use Intervention\Image\Interfaces\SizeInterface;
 use Intervention\Image\Interfaces\SpecializedInterface;
 use Intervention\Image\Modifiers\CropModifier as GenericCropModifier;
-use Intervention\Image\Colors\Rgb\Color as RgbColor;
-use Intervention\Image\Exceptions\DriverException;
 
 class CropModifier extends GenericCropModifier implements SpecializedInterface
 {
@@ -23,21 +19,12 @@ class CropModifier extends GenericCropModifier implements SpecializedInterface
      * {@inheritdoc}
      *
      * @see ModifierInterface::apply()
-     *
-     * @throws InvalidArgumentException
-     * @throws ModifierException
-     * @throws StateException
-     * @throws DriverException
      */
     public function apply(ImageInterface $image): ImageInterface
     {
         $originalSize = $image->size();
         $crop = $this->crop($image);
-        $background = $this->backgroundColor()->toColorspace(RgbColorspace::class);
-
-        if (!$background instanceof RgbColor) {
-            throw new ModifierException('Failed to normalize background color to RGB color space');
-        }
+        $background = $this->driver()->handleInput($this->background);
 
         foreach ($image as $frame) {
             $this->cropFrame($frame, $originalSize, $crop, $background);
@@ -47,28 +34,26 @@ class CropModifier extends GenericCropModifier implements SpecializedInterface
     }
 
     /**
-     * @throws InvalidArgumentException
-     * @throws ModifierException
-     * @throws DriverException
+     * @throws ColorException
      */
-    private function cropFrame(
+    protected function cropFrame(
         FrameInterface $frame,
         SizeInterface $originalSize,
         SizeInterface $resizeTo,
-        RgbColor $background
+        ColorInterface $background
     ): void {
         // create new image with transparent background
         $modified = Cloner::cloneEmpty($frame->native(), $resizeTo, $background);
 
         // define offset
-        $offsetX = $resizeTo->pivot()->x() + $this->x;
-        $offsetY = $resizeTo->pivot()->y() + $this->y;
+        $offset_x = $resizeTo->pivot()->x() + $this->offset_x;
+        $offset_y = $resizeTo->pivot()->y() + $this->offset_y;
 
         // define target width & height
         $targetWidth = min($resizeTo->width(), $originalSize->width());
         $targetHeight = min($resizeTo->height(), $originalSize->height());
-        $targetWidth = $targetWidth < $originalSize->width() ? $targetWidth + $offsetX : $targetWidth;
-        $targetHeight = $targetHeight < $originalSize->height() ? $targetHeight + $offsetY : $targetHeight;
+        $targetWidth = $targetWidth < $originalSize->width() ? $targetWidth + $offset_x : $targetWidth;
+        $targetHeight = $targetHeight < $originalSize->height() ? $targetHeight + $offset_y : $targetHeight;
 
         // don't alpha blend for copy operation to keep transparent areas of original image
         imagealphablending($modified, false);
@@ -77,8 +62,8 @@ class CropModifier extends GenericCropModifier implements SpecializedInterface
         imagecopyresampled(
             $modified,
             $frame->native(),
-            $offsetX * -1,
-            $offsetY * -1,
+            $offset_x * -1,
+            $offset_y * -1,
             0,
             0,
             $targetWidth,

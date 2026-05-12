@@ -6,26 +6,28 @@ namespace Intervention\Image\Drivers\Gd;
 
 use GdImage;
 use Intervention\Image\Drivers\AbstractFrame;
-use Intervention\Image\Exceptions\DriverException;
-use Intervention\Image\Exceptions\InvalidArgumentException;
+use Intervention\Image\Exceptions\ColorException;
+use Intervention\Image\Exceptions\InputException;
+use Intervention\Image\Geometry\Rectangle;
 use Intervention\Image\Image;
 use Intervention\Image\Interfaces\DriverInterface;
 use Intervention\Image\Interfaces\FrameInterface;
 use Intervention\Image\Interfaces\ImageInterface;
 use Intervention\Image\Interfaces\SizeInterface;
-use Intervention\Image\Size;
 
 class Frame extends AbstractFrame implements FrameInterface
 {
     /**
      * Create new frame instance
+     *
+     * @return void
      */
     public function __construct(
         protected GdImage $native,
         protected float $delay = 0,
-        protected int $disposalMethod = 1,
-        protected int $offsetLeft = 0,
-        protected int $offsetTop = 0
+        protected int $dispose = 1,
+        protected int $offset_left = 0,
+        protected int $offset_top = 0
     ) {
         //
     }
@@ -44,17 +46,9 @@ class Frame extends AbstractFrame implements FrameInterface
      * {@inheritdoc}
      *
      * @see FrameInterface::setNative()
-     *
-     * @throws InvalidArgumentException
      */
     public function setNative(mixed $native): FrameInterface
     {
-        if (!$native instanceof GdImage) {
-            throw new InvalidArgumentException(
-                'Value for argument setNative() "$native" must be instanceof of ' . GdImage::class,
-            );
-        }
-
         $this->native = $native;
 
         return $this;
@@ -74,12 +68,10 @@ class Frame extends AbstractFrame implements FrameInterface
      * {@inheritdoc}
      *
      * @see FrameInterface::size()
-     *
-     * @throws InvalidArgumentException
      */
     public function size(): SizeInterface
     {
-        return new Size(imagesx($this->native), imagesy($this->native));
+        return new Rectangle(imagesx($this->native), imagesy($this->native));
     }
 
     /**
@@ -107,27 +99,27 @@ class Frame extends AbstractFrame implements FrameInterface
     /**
      * {@inheritdoc}
      *
-     * @see FrameInterface::disposalMethod()
+     * @see FrameInterface::dispose()
      */
-    public function disposalMethod(): int
+    public function dispose(): int
     {
-        return $this->disposalMethod;
+        return $this->dispose;
     }
 
     /**
      * {@inheritdoc}
      *
-     * @see FrameInterface::setDisposalMethod()
+     * @see FrameInterface::setDispose()
      *
-     * @throws InvalidArgumentException
+     * @throws InputException
      */
-    public function setDisposalMethod(int $method): FrameInterface
+    public function setDispose(int $dispose): FrameInterface
     {
-        if (!in_array($method, [0, 1, 2, 3])) {
-            throw new InvalidArgumentException('Value for disposal method "$method" must be 0, 1, 2 or 3');
+        if (!in_array($dispose, [0, 1, 2, 3])) {
+            throw new InputException('Value for argument $dispose must be 0, 1, 2 or 3.');
         }
 
-        $this->disposalMethod = $method;
+        $this->dispose = $dispose;
 
         return $this;
     }
@@ -139,8 +131,8 @@ class Frame extends AbstractFrame implements FrameInterface
      */
     public function setOffset(int $left, int $top): FrameInterface
     {
-        $this->offsetLeft = $left;
-        $this->offsetTop = $top;
+        $this->offset_left = $left;
+        $this->offset_top = $top;
 
         return $this;
     }
@@ -152,7 +144,7 @@ class Frame extends AbstractFrame implements FrameInterface
      */
     public function offsetLeft(): int
     {
-        return $this->offsetLeft;
+        return $this->offset_left;
     }
 
     /**
@@ -162,7 +154,7 @@ class Frame extends AbstractFrame implements FrameInterface
      */
     public function setOffsetLeft(int $offset): FrameInterface
     {
-        $this->offsetLeft = $offset;
+        $this->offset_left = $offset;
 
         return $this;
     }
@@ -174,7 +166,7 @@ class Frame extends AbstractFrame implements FrameInterface
      */
     public function offsetTop(): int
     {
-        return $this->offsetTop;
+        return $this->offset_top;
     }
 
     /**
@@ -184,7 +176,7 @@ class Frame extends AbstractFrame implements FrameInterface
      */
     public function setOffsetTop(int $offset): FrameInterface
     {
-        $this->offsetTop = $offset;
+        $this->offset_top = $offset;
 
         return $this;
     }
@@ -192,8 +184,7 @@ class Frame extends AbstractFrame implements FrameInterface
     /**
      * This workaround helps cloning GdImages which is currently not possible.
      *
-     * @throws InvalidArgumentException
-     * @throws DriverException
+     * @throws ColorException
      */
     public function __clone(): void
     {

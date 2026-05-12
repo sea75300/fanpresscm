@@ -4,54 +4,56 @@ declare(strict_types=1);
 
 namespace Intervention\Image\Geometry\Factories;
 
-use Intervention\Image\Exceptions\InvalidArgumentException;
+use Closure;
+use Intervention\Image\Geometry\Point;
 use Intervention\Image\Geometry\Rectangle;
-use Intervention\Image\Interfaces\ColorInterface;
 use Intervention\Image\Interfaces\DrawableFactoryInterface;
 use Intervention\Image\Interfaces\DrawableInterface;
+use Intervention\Image\Interfaces\PointInterface;
 
 class RectangleFactory implements DrawableFactoryInterface
 {
     protected Rectangle $rectangle;
 
     /**
-     * Create new instance.
+     * Create new instance
      *
-     * @throws InvalidArgumentException
+     * @return void
      */
-    public function __construct(null|callable|Rectangle $rectangle = null)
-    {
-        $this->rectangle = $rectangle instanceof Rectangle ? clone $rectangle : new Rectangle(0, 0);
+    public function __construct(
+        protected PointInterface $pivot = new Point(),
+        null|Closure|Rectangle $init = null,
+    ) {
+        $this->rectangle = is_a($init, Rectangle::class) ? $init : new Rectangle(0, 0, $pivot);
+        $this->rectangle->setPosition($pivot);
 
-        if (is_callable($rectangle)) {
-            $rectangle($this);
+        if (is_callable($init)) {
+            $init($this);
         }
     }
 
     /**
      * {@inheritdoc}
      *
-     * @see DrawableFactoryInterface::build()
-     *
-     * @throws InvalidArgumentException
+     * @see DrawableFactoryInterface::init()
      */
-    public static function build(null|callable|DrawableInterface $drawable = null): Rectangle
+    public static function init(null|Closure|DrawableInterface $init = null): self
     {
-        return (new self($drawable))->drawable();
+        return new self(init: $init);
     }
 
     /**
      * {@inheritdoc}
      *
-     * @see DrawableFactoryInterface::drawable()
+     * @see DrawableFactoryInterface::create()
      */
-    public function drawable(): Rectangle
+    public function create(): DrawableInterface
     {
         return $this->rectangle;
     }
 
     /**
-     * Set the size of the rectangle to be produced.
+     * Set the size of the rectangle to be produced
      */
     public function size(int $width, int $height): self
     {
@@ -61,7 +63,7 @@ class RectangleFactory implements DrawableFactoryInterface
     }
 
     /**
-     * Set the width of the rectangle to be produced.
+     * Set the width of the rectangle to be produced
      */
     public function width(int $width): self
     {
@@ -71,7 +73,7 @@ class RectangleFactory implements DrawableFactoryInterface
     }
 
     /**
-     * Set the height of the rectangle to be produced.
+     * Set the height of the rectangle to be produced
      */
     public function height(int $height): self
     {
@@ -81,9 +83,9 @@ class RectangleFactory implements DrawableFactoryInterface
     }
 
     /**
-     * Set the background color of the rectangle to be produced.
+     * Set the background color of the rectangle to be produced
      */
-    public function background(string|ColorInterface $color): self
+    public function background(mixed $color): self
     {
         $this->rectangle->setBackgroundColor($color);
 
@@ -91,11 +93,9 @@ class RectangleFactory implements DrawableFactoryInterface
     }
 
     /**
-     * Set the border color & border size of the rectangle to be produced.
-     *
-     * @throws InvalidArgumentException
+     * Set the border color & border size of the rectangle to be produced
      */
-    public function border(string|ColorInterface $color, int $size = 1): self
+    public function border(mixed $color, int $size = 1): self
     {
         $this->rectangle->setBorder($color, $size);
 
@@ -103,12 +103,10 @@ class RectangleFactory implements DrawableFactoryInterface
     }
 
     /**
-     * Set the position where the rectangle should be drawn.
+     * Produce the rectangle
      */
-    public function at(int $x, int $y): self
+    public function __invoke(): Rectangle
     {
-        $this->rectangle->position()->setPosition($x, $y);
-
-        return $this;
+        return $this->rectangle;
     }
 }

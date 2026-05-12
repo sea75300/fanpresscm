@@ -5,9 +5,7 @@ declare(strict_types=1);
 namespace Intervention\Image\Drivers\Gd\Modifiers;
 
 use Intervention\Image\Drivers\Gd\Cloner;
-use Intervention\Image\Exceptions\DriverException;
-use Intervention\Image\Exceptions\InvalidArgumentException;
-use Intervention\Image\Exceptions\ModifierException;
+use Intervention\Image\Exceptions\ColorException;
 use Intervention\Image\Interfaces\FrameInterface;
 use Intervention\Image\Interfaces\ImageInterface;
 use Intervention\Image\Interfaces\SizeInterface;
@@ -20,15 +18,11 @@ class CoverModifier extends GenericCoverModifier implements SpecializedInterface
      * {@inheritdoc}
      *
      * @see ModifierInterface::apply()
-     *
-     * @throws InvalidArgumentException
-     * @throws ModifierException
-     * @throws DriverException
      */
     public function apply(ImageInterface $image): ImageInterface
     {
-        $crop = $this->cropSize($image);
-        $resize = $this->resizeSize($crop);
+        $crop = $this->getCropSize($image);
+        $resize = $this->getResizeSize($crop);
 
         foreach ($image as $frame) {
             $this->modifyFrame($frame, $crop, $resize);
@@ -38,9 +32,7 @@ class CoverModifier extends GenericCoverModifier implements SpecializedInterface
     }
 
     /**
-     * @throws InvalidArgumentException
-     * @throws ModifierException
-     * @throws DriverException
+     * @throws ColorException
      */
     protected function modifyFrame(FrameInterface $frame, SizeInterface $crop, SizeInterface $resize): void
     {

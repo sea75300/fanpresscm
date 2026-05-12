@@ -4,14 +4,15 @@ declare(strict_types=1);
 
 namespace Intervention\Image\Drivers\Imagick\Modifiers;
 
+use Intervention\Image\Exceptions\GeometryException;
 use Intervention\Image\Interfaces\SizeInterface;
 
 class CoverDownModifier extends CoverModifier
 {
     /**
-     * Calculate resizing size of the cover down process
+     * @throws GeometryException
      */
-    protected function resizeSize(SizeInterface $size): SizeInterface
+    public function getResizeSize(SizeInterface $size): SizeInterface
     {
         return $size->resizeDown($this->width, $this->height);
     }

@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace Intervention\Image\Drivers\Gd\Modifiers;
 
-use Intervention\Image\Exceptions\ColorDecoderException;
-use Intervention\Image\Exceptions\ModifierException;
-use Intervention\Image\Exceptions\StateException;
+use RuntimeException;
 use Intervention\Image\Interfaces\ImageInterface;
 use Intervention\Image\Interfaces\SpecializedInterface;
 use Intervention\Image\Modifiers\DrawEllipseModifier as GenericDrawEllipseModifier;
@@ -18,9 +16,7 @@ class DrawEllipseModifier extends GenericDrawEllipseModifier implements Speciali
      *
      * @see ModifierInterface::apply()
      *
-     * @throws ModifierException
-     * @throws StateException
-     * @throws ColorDecoderException
+     * @throws RuntimeException
      */
     public function apply(ImageInterface $image): ImageInterface
     {
@@ -36,7 +32,7 @@ class DrawEllipseModifier extends GenericDrawEllipseModifier implements Speciali
                         $this->drawable->position()->y(),
                         $this->drawable->width() - 1,
                         $this->drawable->height() - 1,
-                        $this->driver()->colorProcessor($image)->export(
+                        $this->driver()->colorProcessor($image->colorspace())->colorToNative(
                             $this->backgroundColor()
                         )
                     );
@@ -57,11 +53,11 @@ class DrawEllipseModifier extends GenericDrawEllipseModifier implements Speciali
                     $this->drawable->height(),
                     0,
                     360,
-                    $this->driver()->colorProcessor($image)->export(
+                    $this->driver()->colorProcessor($image->colorspace())->colorToNative(
                         $this->borderColor()
                     )
                 );
-            } elseif ($this->drawable->hasBackgroundColor()) {
+            } else {
                 imagealphablending($frame->native(), true);
                 imagesetthickness($frame->native(), 0);
                 imagefilledellipse(
@@ -70,7 +66,7 @@ class DrawEllipseModifier extends GenericDrawEllipseModifier implements Speciali
                     $this->drawable()->position()->y(),
                     $this->drawable->width(),
                     $this->drawable->height(),
-                    $this->driver()->colorProcessor($image)->export(
+                    $this->driver()->colorProcessor($image->colorspace())->colorToNative(
                         $this->backgroundColor()
                     )
                 );

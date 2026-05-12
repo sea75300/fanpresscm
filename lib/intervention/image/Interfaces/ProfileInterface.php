@@ -4,17 +4,10 @@ declare(strict_types=1);
 
 namespace Intervention\Image\Interfaces;
 
-use Stringable;
-
-interface ProfileInterface extends Stringable
+interface ProfileInterface
 {
     /**
-     * Create profile object from path in file system.
+     * Cast color profile object to string
      */
-    public static function fromPath(string $path): self;
-
-    /**
-     * Transform object to string.
-     */
-    public function toString(): string;
+    public function __toString(): string;
 }

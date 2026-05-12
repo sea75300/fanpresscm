@@ -4,23 +4,19 @@ declare(strict_types=1);
 
 namespace Intervention\Image\Drivers\Gd\Modifiers;
 
-use Intervention\Image\Exceptions\ColorDecoderException;
-use Intervention\Image\Exceptions\ModifierException;
-use Intervention\Image\Exceptions\StateException;
+use RuntimeException;
 use Intervention\Image\Interfaces\ImageInterface;
 use Intervention\Image\Interfaces\SpecializedInterface;
-use Intervention\Image\Modifiers\DrawPolygonModifier as GenericDrawPolygonModifier;
+use Intervention\Image\Modifiers\DrawPolygonModifier as ModifiersDrawPolygonModifier;
 
-class DrawPolygonModifier extends GenericDrawPolygonModifier implements SpecializedInterface
+class DrawPolygonModifier extends ModifiersDrawPolygonModifier implements SpecializedInterface
 {
     /**
      * {@inheritdoc}
      *
      * @see ModifierInterface::apply()
      *
-     * @throws ModifierException
-     * @throws StateException
-     * @throws ColorDecoderException
+     * @throws RuntimeException
      */
     public function apply(ImageInterface $image): ImageInterface
     {
@@ -31,7 +27,7 @@ class DrawPolygonModifier extends GenericDrawPolygonModifier implements Speciali
                 imagefilledpolygon(
                     $frame->native(),
                     $this->drawable->toArray(),
-                    $this->driver()->colorProcessor($image)->export(
+                    $this->driver()->colorProcessor($image->colorspace())->colorToNative(
                         $this->backgroundColor()
                     )
                 );
@@ -43,7 +39,7 @@ class DrawPolygonModifier extends GenericDrawPolygonModifier implements Speciali
                 imagepolygon(
                     $frame->native(),
                     $this->drawable->toArray(),
-                    $this->driver()->colorProcessor($image)->export(
+                    $this->driver()->colorProcessor($image->colorspace())->colorToNative(
                         $this->borderColor()
                     )
                 );

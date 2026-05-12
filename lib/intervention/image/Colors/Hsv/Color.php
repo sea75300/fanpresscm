@@ -5,73 +5,30 @@ declare(strict_types=1);
 namespace Intervention\Image\Colors\Hsv;
 
 use Intervention\Image\Colors\AbstractColor;
-use Intervention\Image\Colors\Hsv\Channels\Alpha;
 use Intervention\Image\Colors\Hsv\Channels\Hue;
 use Intervention\Image\Colors\Hsv\Channels\Saturation;
 use Intervention\Image\Colors\Hsv\Channels\Value;
-use Intervention\Image\Colors\Hsv\Decoders\StringColorDecoder;
-use Intervention\Image\Colors\Rgb\Colorspace as Rgb;
-use Intervention\Image\Exceptions\ColorException;
-use Intervention\Image\Exceptions\DriverException;
-use Intervention\Image\Exceptions\InvalidArgumentException;
-use Intervention\Image\Exceptions\NotSupportedException;
+use Intervention\Image\Colors\Rgb\Colorspace as RgbColorspace;
 use Intervention\Image\InputHandler;
 use Intervention\Image\Interfaces\ColorChannelInterface;
+use Intervention\Image\Interfaces\ColorInterface;
 use Intervention\Image\Interfaces\ColorspaceInterface;
 
 class Color extends AbstractColor
 {
     /**
-     * Create new color object.
+     * Create new color object
      *
-     * @throws InvalidArgumentException
+     * @return void
      */
-    public function __construct(int|Hue $h, int|Saturation $s, int|Value $v, float|Alpha $a = 1)
+    public function __construct(int $h, int $s, int $v)
     {
+        /** @throws void */
         $this->channels = [
-            is_int($h) ? new Hue($h) : $h,
-            is_int($s) ? new Saturation($s) : $s,
-            is_int($v) ? new Value($v) : $v,
-            is_float($a) ? new Alpha($a) : $a,
+            new Hue($h),
+            new Saturation($s),
+            new Value($v),
         ];
-    }
-
-    /**
-     * {@inheritdoc}
-     *
-     * @see ColorInterface::create()
-     *
-     * @throws InvalidArgumentException
-     */
-    public static function create(int|Hue $h, int|Saturation $s, int|Value $v, float|Alpha $a = 1): self
-    {
-        return new self($h, $s, $v, $a);
-    }
-
-    /**
-     * Parse HSV color from string.
-     *
-     * @throws InvalidArgumentException
-     * @throws ColorException
-     */
-    public static function parse(string $input): self
-    {
-        try {
-            $color = InputHandler::usingDecoders([
-                StringColorDecoder::class,
-            ])->handle($input);
-        } catch (NotSupportedException | DriverException $e) {
-            throw new InvalidArgumentException(
-                'Unable to parse HSV color from input "' . $input . '"',
-                previous: $e,
-            );
-        }
-
-        if (!$color instanceof self) {
-            throw new ColorException('Result must be instance of ' . self::class);
-        }
-
-        return $color;
     }
 
     /**
@@ -85,7 +42,19 @@ class Color extends AbstractColor
     }
 
     /**
-     * Return the Hue channel.
+     * {@inheritdoc}
+     *
+     * @see ColorInterface::create()
+     */
+    public static function create(mixed $input): ColorInterface
+    {
+        return InputHandler::withDecoders([
+            Decoders\StringColorDecoder::class,
+        ])->handle($input);
+    }
+
+    /**
+     * Return the Hue channel
      */
     public function hue(): ColorChannelInterface
     {
@@ -94,7 +63,7 @@ class Color extends AbstractColor
     }
 
     /**
-     * Return the Saturation channel.
+     * Return the Saturation channel
      */
     public function saturation(): ColorChannelInterface
     {
@@ -103,7 +72,7 @@ class Color extends AbstractColor
     }
 
     /**
-     * Return the Value channel.
+     * Return the Value channel
      */
     public function value(): ColorChannelInterface
     {
@@ -111,24 +80,9 @@ class Color extends AbstractColor
         return $this->channel(Value::class);
     }
 
-    /**
-     * Return alpha channel.
-     */
-    public function alpha(): ColorChannelInterface
+    public function toHex(string $prefix = ''): string
     {
-        /** @throws void */
-        return $this->channel(Alpha::class);
-    }
-
-    /**
-     * {@inheritdoc}
-     *
-     * @see ColorInterface::toHex()
-     */
-    public function toHex(bool $prefix = false): string
-    {
-        // @phpstan-ignore missingType.checkedException
-        return $this->toColorspace(Rgb::class)->toHex($prefix);
+        return $this->convertTo(RgbColorspace::class)->toHex($prefix);
     }
 
     /**
@@ -138,18 +92,8 @@ class Color extends AbstractColor
      */
     public function toString(): string
     {
-        if ($this->isTransparent()) {
-            return sprintf(
-                'hsv(%d %d%% %d%% / %s)',
-                $this->hue()->value(),
-                $this->saturation()->value(),
-                $this->value()->value(),
-                $this->alpha()->toString(),
-            );
-        }
-
         return sprintf(
-            'hsv(%d %d%% %d%%)',
+            'hsv(%d, %d%%, %d%%)',
             $this->hue()->value(),
             $this->saturation()->value(),
             $this->value()->value()
@@ -159,10 +103,30 @@ class Color extends AbstractColor
     /**
      * {@inheritdoc}
      *
-     * @see ColorInterface::isGrayscale()
+     * @see ColorInterface::isGreyscale()
      */
-    public function isGrayscale(): bool
+    public function isGreyscale(): bool
     {
-        return floatval($this->saturation()->value()) === 0.0;
+        return $this->saturation()->value() == 0;
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @see ColorInterface::isTransparent()
+     */
+    public function isTransparent(): bool
+    {
+        return false;
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @see ColorInterface::isClear()
+     */
+    public function isClear(): bool
+    {
+        return false;
     }
 }

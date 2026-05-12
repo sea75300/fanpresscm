@@ -4,26 +4,16 @@ declare(strict_types=1);
 
 namespace Intervention\Image\Colors\Cmyk\Channels;
 
-use Intervention\Image\Colors\IntegerColorChannel;
+use Intervention\Image\Colors\AbstractColorChannel;
 
-class Cyan extends IntegerColorChannel
+class Cyan extends AbstractColorChannel
 {
-    /**
-     * {@inheritdoc}
-     *
-     * @see ColorChannelInterface::min()
-     */
-    public static function min(): float
+    public function min(): int
     {
         return 0;
     }
 
-    /**
-     * {@inheritdoc}
-     *
-     * @see ColorChannelInterface::max()
-     */
-    public static function max(): float
+    public function max(): int
     {
         return 100;
     }

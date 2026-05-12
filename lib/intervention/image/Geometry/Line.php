@@ -4,11 +4,8 @@ declare(strict_types=1);
 
 namespace Intervention\Image\Geometry;
 
-use Intervention\Image\Colors\AbstractColor;
-use Intervention\Image\Geometry\Factories\LineFactory;
 use Intervention\Image\Geometry\Traits\HasBackgroundColor;
 use Intervention\Image\Geometry\Traits\HasBorder;
-use Intervention\Image\Interfaces\DrawableFactoryInterface;
 use Intervention\Image\Interfaces\DrawableInterface;
 use Intervention\Image\Interfaces\PointInterface;
 
@@ -18,7 +15,9 @@ class Line implements DrawableInterface
     use HasBackgroundColor;
 
     /**
-     * Create new line instance.
+     * Create new line instance
+     *
+     * @return void
      */
     public function __construct(
         protected PointInterface $start,
@@ -43,7 +42,7 @@ class Line implements DrawableInterface
      *
      * @see DrawableInterface::setPosition()
      */
-    public function setPosition(PointInterface $position): self
+    public function setPosition(PointInterface $position): DrawableInterface
     {
         $this->start = $position;
 
@@ -59,7 +58,7 @@ class Line implements DrawableInterface
     }
 
     /**
-     * Set line width.
+     * Set line width
      */
     public function setWidth(int $width): self
     {
@@ -69,7 +68,7 @@ class Line implements DrawableInterface
     }
 
     /**
-     * Get starting point of line.
+     * Get starting point of line
      */
     public function start(): PointInterface
     {
@@ -77,7 +76,7 @@ class Line implements DrawableInterface
     }
 
     /**
-     * get end point of line.
+     * get end point of line
      */
     public function end(): PointInterface
     {
@@ -85,7 +84,7 @@ class Line implements DrawableInterface
     }
 
     /**
-     * Set starting point of line.
+     * Set starting point of line
      */
     public function setStart(PointInterface $start): self
     {
@@ -95,7 +94,7 @@ class Line implements DrawableInterface
     }
 
     /**
-     * Set starting point of line by coordinates.
+     * Set starting point of line by coordinates
      */
     public function from(int $x, int $y): self
     {
@@ -106,7 +105,7 @@ class Line implements DrawableInterface
     }
 
     /**
-     * Set end point of line by coordinates.
+     * Set end point of line by coordinates
      */
     public function to(int $x, int $y): self
     {
@@ -117,52 +116,12 @@ class Line implements DrawableInterface
     }
 
     /**
-     * Set end point of line.
+     * Set end point of line
      */
     public function setEnd(PointInterface $end): self
     {
         $this->end = $end;
 
         return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     *
-     * @see DrawableInterface::factory()
-     */
-    public function factory(): DrawableFactoryInterface
-    {
-        return new LineFactory($this);
-    }
-
-    /**
-     * {@inheritdoc}
-     *
-     * @see DrawableInterface::adjust()
-     */
-    public function adjust(callable $adjustments): DrawableInterface
-    {
-        $factory = $this->factory();
-        $adjustments($factory);
-
-        return $factory->drawable();
-    }
-
-    /**
-     * Clone line.
-     */
-    public function __clone(): void
-    {
-        $this->start = clone $this->start;
-        $this->end = clone $this->end;
-
-        if ($this->backgroundColor instanceof AbstractColor) {
-            $this->backgroundColor = clone $this->backgroundColor;
-        }
-
-        if ($this->borderColor instanceof AbstractColor) {
-            $this->borderColor = clone $this->borderColor;
-        }
     }
 }

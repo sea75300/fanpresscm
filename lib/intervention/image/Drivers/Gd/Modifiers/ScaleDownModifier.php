@@ -12,9 +12,9 @@ class ScaleDownModifier extends ResizeModifier
     /**
      * {@inheritdoc}
      *
-     * @see ResizeModifier::adjustedSize()
+     * @see ResizeModifier::getAdjustedSize()
      */
-    protected function adjustedSize(ImageInterface $image): SizeInterface
+    protected function getAdjustedSize(ImageInterface $image): SizeInterface
     {
         return $image->size()->scaleDown($this->width, $this->height);
     }

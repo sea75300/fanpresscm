@@ -4,34 +4,36 @@ declare(strict_types=1);
 
 namespace Intervention\Image\Interfaces;
 
-use Stringable;
+use Intervention\Image\Exceptions\RuntimeException;
 
-interface FileInterface extends Stringable
+interface FileInterface
 {
     /**
-     * Create file object from path in file system.
+     * Save data in given path in file system
+     *
+     * @throws RuntimeException
      */
-    public static function fromPath(string $path): self;
+    public function save(string $filepath): void;
 
     /**
-     * Save data in given path in file system.
-     */
-    public function save(string $path): void;
-
-    /**
-     * Create stream resource from encoded data.
+     * Create file pointer from encoded data
      *
      * @return resource
      */
-    public function toStream();
+    public function toFilePointer();
 
     /**
-     * Return size in bytes.
+     * Return size in bytes
      */
     public function size(): int;
 
     /**
-     * Transform file object into string.
+     * Turn encoded data into string
      */
     public function toString(): string;
+
+    /**
+     * Cast encoded data into string
+     */
+    public function __toString(): string;
 }

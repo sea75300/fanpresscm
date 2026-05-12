@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Intervention\Image\Typography;
 
-use Intervention\Image\Alignment;
-use Intervention\Image\Interfaces\ColorInterface;
+use Closure;
+use Intervention\Image\Exceptions\FontException;
 use Intervention\Image\Interfaces\FontInterface;
 
 class FontFactory
@@ -13,39 +13,27 @@ class FontFactory
     protected FontInterface $font;
 
     /**
-     * Create new instance.
+     * Create new instance
+     *
+     * @param Closure|FontInterface $init
+     * @throws FontException
+     * @return void
      */
-    public function __construct(null|callable|FontInterface $font = null)
+    public function __construct(callable|Closure|FontInterface $init)
     {
-        $this->font = $font instanceof FontInterface ? clone $font : new Font();
+        $this->font = is_a($init, FontInterface::class) ? $init : new Font();
 
-        if (is_callable($font)) {
-            $font($this);
+        if (is_callable($init)) {
+            $init($this);
         }
     }
 
     /**
-     * Create the end product of the factory statically by calling given callable
+     * Set the filename of the font to be built
      */
-    public static function build(null|callable|FontInterface $font = null): FontInterface
+    public function filename(string $value): self
     {
-        return (new self($font))->font();
-    }
-
-    /**
-     * Return the end product of the factory
-     */
-    public function font(): FontInterface
-    {
-        return $this->font;
-    }
-
-    /**
-     * Set the filename of the font to be built.
-     */
-    public function filename(string $path): self
-    {
-        $this->font->setFilepath($path);
+        $this->font->setFilename($value);
 
         return $this;
     }
@@ -55,25 +43,17 @@ class FontFactory
      *
      * @see self::filename()
      */
-    public function file(string $path): self
+    public function file(string $value): self
     {
-        return $this->filename($path);
+        return $this->filename($value);
     }
 
     /**
-     * {@inheritdoc}
+     * Set outline stroke effect for the font to be built
      *
-     * @see self::filename()
+     * @throws FontException
      */
-    public function filepath(string $path): self
-    {
-        return $this->filename($path);
-    }
-
-    /**
-     * Set outline stroke effect for the font to be built.
-     */
-    public function stroke(string|ColorInterface $color, int $width = 1): self
+    public function stroke(mixed $color, int $width = 1): self
     {
         $this->font->setStrokeWidth($width);
         $this->font->setStrokeColor($color);
@@ -82,68 +62,80 @@ class FontFactory
     }
 
     /**
-     * Set color for the font to be built.
+     * Set color for the font to be built
      */
-    public function color(string|ColorInterface $color): self
+    public function color(mixed $value): self
     {
-        $this->font->setColor($color);
+        $this->font->setColor($value);
 
         return $this;
     }
 
     /**
-     * Set the size for the font to be built.
+     * Set the size for the font to be built
      */
-    public function size(float $size): self
+    public function size(float $value): self
     {
-        $this->font->setSize($size);
+        $this->font->setSize($value);
 
         return $this;
     }
 
     /**
-     * Set the horizontal and/or vertical alignment of the font.
+     * Set the horizontal alignment of the font to be built
      */
-    public function align(null|string|Alignment $horizontal = null, null|string|Alignment $vertical = null): self
+    public function align(string $value): self
     {
-        if ($horizontal !== null) {
-            $this->font->setAlignmentHorizontal($horizontal);
-        }
-
-        if ($vertical !== null) {
-            $this->font->setAlignmentVertical($vertical);
-        }
+        $this->font->setAlignment($value);
 
         return $this;
     }
 
     /**
-     * Set the line height of the font to be built.
+     * Set the vertical alignment of the font to be built
      */
-    public function lineHeight(float $height): self
+    public function valign(string $value): self
     {
-        $this->font->setLineHeight($height);
+        $this->font->setValignment($value);
 
         return $this;
     }
 
     /**
-     * Set the clockwise rotation angle of the font to be built.
+     * Set the line height of the font to be built
      */
-    public function angle(float $angle): self
+    public function lineHeight(float $value): self
     {
-        $this->font->setAngle($angle);
+        $this->font->setLineHeight($value);
 
         return $this;
     }
 
     /**
-     * Set the maximum width of the text block to be built.
+     * Set the rotation angle of the font to be built
+     */
+    public function angle(float $value): self
+    {
+        $this->font->setAngle($value);
+
+        return $this;
+    }
+
+    /**
+     * Set the maximum width of the text block to be built
      */
     public function wrap(int $width): self
     {
         $this->font->setWrapWidth($width);
 
         return $this;
+    }
+
+    /**
+     * Build font
+     */
+    public function __invoke(): FontInterface
+    {
+        return $this->font;
     }
 }

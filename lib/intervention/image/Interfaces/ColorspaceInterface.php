@@ -7,21 +7,14 @@ namespace Intervention\Image\Interfaces;
 interface ColorspaceInterface
 {
     /**
-     * Return array of all color channel classnames of the colorspace.
-     *
-     * @return array<string>
+     * Convert given color to the format of the current colorspace
      */
-    public static function channels(): array;
+    public function importColor(ColorInterface $color): ColorInterface;
 
     /**
-     * Create new color in colorspace from given normalized (0-1) channel values.
+     * Create new color in colorspace from given normalized channel values
      *
      * @param array<float> $normalized
      */
-    public static function colorFromNormalized(array $normalized): ColorInterface;
-
-    /**
-     * Convert given color to the format of the current colorspace.
-     */
-    public function importColor(ColorInterface $color): ColorInterface;
+    public function colorFromNormalized(array $normalized): ColorInterface;
 }

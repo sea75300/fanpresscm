@@ -5,11 +5,7 @@ declare(strict_types=1);
 namespace Intervention\Image\Drivers;
 
 use Intervention\Image\Config;
-use Intervention\Image\Exceptions\ColorDecoderException;
 use Intervention\Image\Exceptions\DriverException;
-use Intervention\Image\Exceptions\ImageDecoderException;
-use Intervention\Image\Exceptions\InvalidArgumentException;
-use Intervention\Image\Exceptions\MissingDependencyException;
 use Intervention\Image\Exceptions\NotSupportedException;
 use Intervention\Image\InputHandler;
 use Intervention\Image\Interfaces\AnalyzerInterface;
@@ -21,14 +17,22 @@ use Intervention\Image\Interfaces\ImageInterface;
 use Intervention\Image\Interfaces\ModifierInterface;
 use Intervention\Image\Interfaces\SpecializableInterface;
 use Intervention\Image\Interfaces\SpecializedInterface;
+use ReflectionClass;
 
 abstract class AbstractDriver implements DriverInterface
 {
     /**
-     * @throws MissingDependencyException
+     * Driver options
      */
-    public function __construct(protected Config $config = new Config())
+    protected Config $config;
+
+    /**
+     * @throws DriverException
+     * @return void
+     */
+    public function __construct()
     {
+        $this->config = new Config();
         $this->checkHealth();
     }
 
@@ -45,120 +49,23 @@ abstract class AbstractDriver implements DriverInterface
     /**
      * {@inheritdoc}
      *
-     * @see DriverInterface::decodeImage()
-     *
-     * @throws InvalidArgumentException
-     * @throws ImageDecoderException
-     * @throws DriverException
+     * @see DriverInterface::handleInput()
      */
-    public function decodeImage(mixed $input, ?array $decoders = null): ImageInterface
+    public function handleInput(mixed $input, array $decoders = []): ImageInterface|ColorInterface
     {
-        $decoders = $decoders === null ? InputHandler::IMAGE_DECODERS : $decoders;
-
-        if (count($decoders) === 0) {
-            throw new InvalidArgumentException('No decoders in array');
-        }
-
-        try {
-            $result = InputHandler::usingDecoders($decoders, $this)->handle($input);
-        } catch (NotSupportedException) {
-            $type = is_object($input) ? $input::class : gettype($input);
-            throw new InvalidArgumentException('Unsupported image source type "' . $type . '"');
-        }
-
-        if (!$result instanceof ImageInterface) {
-            throw new ImageDecoderException('Result must be instance of ' . ImageInterface::class);
-        }
-
-        return $result;
+        return InputHandler::withDecoders($decoders, $this)->handle($input);
     }
 
     /**
      * {@inheritdoc}
      *
-     * @see DriverInterface::decodeColor()
-     *
-     * @throws InvalidArgumentException
-     * @throws ColorDecoderException
-     * @throws DriverException
+     * @see DriverInterface::specialize()
      */
-    public function decodeColor(mixed $input, ?array $decoders = null): ColorInterface
-    {
-        $decoders = $decoders === null ? InputHandler::COLOR_DECODERS : $decoders;
-
-        if (count($decoders) === 0) {
-            throw new InvalidArgumentException('No decoders in array');
-        }
-
-        try {
-            $result = InputHandler::usingDecoders($decoders, $this)->handle($input);
-        } catch (NotSupportedException) {
-            throw new ColorDecoderException('Unknown color format');
-        }
-
-        if (!$result instanceof ColorInterface) {
-            throw new ColorDecoderException('Result must be instance of ' . ColorInterface::class);
-        }
-
-        return $result;
-    }
-
-    /**
-     * {@inheritdoc}
-     *
-     * @see DriverInterface::specializeModifier()
-     *
-     * @throws NotSupportedException
-     */
-    public function specializeModifier(ModifierInterface $modifier): ModifierInterface
-    {
-        return $this->specialize($modifier);
-    }
-
-    /**
-     * {@inheritdoc}
-     *
-     * @see DriverInterface::specializeAnalyzer()
-     *
-     * @throws NotSupportedException
-     */
-    public function specializeAnalyzer(AnalyzerInterface $analyzer): AnalyzerInterface
-    {
-        return $this->specialize($analyzer);
-    }
-
-    /**
-     * {@inheritdoc}
-     *
-     * @see DriverInterface::specializeEncoder()
-     *
-     * @throws NotSupportedException
-     */
-    public function specializeEncoder(EncoderInterface $encoder): EncoderInterface
-    {
-        return $this->specialize($encoder);
-    }
-
-    /**
-     * {@inheritdoc}
-     *
-     * @see DriverInterface::specializeDecoder()
-     *
-     * @throws NotSupportedException
-     */
-    public function specializeDecoder(DecoderInterface $decoder): DecoderInterface
-    {
-        return $this->specialize($decoder);
-    }
-
-    /**
-     * @throws NotSupportedException
-     */
-    private function specialize(
+    public function specialize(
         ModifierInterface|AnalyzerInterface|EncoderInterface|DecoderInterface $object
     ): ModifierInterface|AnalyzerInterface|EncoderInterface|DecoderInterface {
         // return object directly if no specializing is possible
-        if (!$object instanceof SpecializableInterface) {
+        if (!($object instanceof SpecializableInterface)) {
             return $object;
         }
 
@@ -170,30 +77,51 @@ abstract class AbstractDriver implements DriverInterface
         }
 
         // resolve classname for specializable object
-        $objectShortname = substr($object::class, (int) strrpos($object::class, '\\') + 1);
-
-        $specializedClassname = implode("\\", [
-            substr($this::class, 0, (int) strrpos($this::class, '\\')), // driver's namespace
+        $specialized_classname = implode("\\", [
+            (new ReflectionClass($this))->getNamespaceName(), // driver's namespace
             match (true) {
                 $object instanceof ModifierInterface => 'Modifiers',
                 $object instanceof AnalyzerInterface => 'Analyzers',
                 $object instanceof EncoderInterface => 'Encoders',
                 $object instanceof DecoderInterface => 'Decoders',
             },
-            $objectShortname,
+            $object_shortname = (new ReflectionClass($object))->getShortName(),
         ]);
 
         // fail if driver specialized classname does not exists
-        if (!class_exists($specializedClassname)) {
+        if (!class_exists($specialized_classname)) {
             throw new NotSupportedException(
-                "Class '" . $objectShortname . "' is not supported by " . $this->id() . " driver"
+                "Class '" . $object_shortname . "' is not supported by " . $this->id() . " driver."
             );
         }
 
         // create a driver specialized object with the specializable properties of generic object
-        $specialized = new $specializedClassname(...$object->specializationArguments());
+        $specialized = new $specialized_classname(...$object->specializable());
 
         // attach driver
         return $specialized->setDriver($this);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @see DriverInterface::specializeMultiple()
+     *
+     * @throws NotSupportedException
+     * @throws DriverException
+     */
+    public function specializeMultiple(array $objects): array
+    {
+        return array_map(
+            function (string|object $object): ModifierInterface|AnalyzerInterface|EncoderInterface|DecoderInterface {
+                return $this->specialize(
+                    match (true) {
+                        is_string($object) => new $object(),
+                        is_object($object) => $object,
+                    }
+                );
+            },
+            $objects
+        );
     }
 }

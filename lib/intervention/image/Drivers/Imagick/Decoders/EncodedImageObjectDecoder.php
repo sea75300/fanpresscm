@@ -6,45 +6,22 @@ namespace Intervention\Image\Drivers\Imagick\Decoders;
 
 use Intervention\Image\EncodedImage;
 use Intervention\Image\Exceptions\DecoderException;
-use Intervention\Image\Exceptions\DriverException;
-use Intervention\Image\Exceptions\ImageDecoderException;
-use Intervention\Image\Exceptions\InvalidArgumentException;
-use Intervention\Image\Exceptions\StateException;
 use Intervention\Image\Interfaces\ImageInterface;
-use Intervention\Image\Interfaces\EncodedImageInterface;
+use Intervention\Image\Interfaces\ColorInterface;
 
 class EncodedImageObjectDecoder extends BinaryImageDecoder
 {
     /**
      * {@inheritdoc}
      *
-     * @see DecoderInterface::supports()
-     */
-    public function supports(mixed $input): bool
-    {
-        return $input instanceof EncodedImageInterface;
-    }
-
-    /**
-     * {@inheritdoc}
-     *
      * @see DecoderInterface::decode()
-     *
-     * @throws InvalidArgumentException
-     * @throws DriverException
-     * @throws StateException
-     * @throws ImageDecoderException
      */
-    public function decode(mixed $input): ImageInterface
+    public function decode(mixed $input): ImageInterface|ColorInterface
     {
-        if (!$input instanceof EncodedImageInterface) {
-            throw new InvalidArgumentException('Image source must be of type ' . EncodedImage::class);
+        if (!is_a($input, EncodedImage::class)) {
+            throw new DecoderException('Unable to decode input');
         }
 
-        try {
-            return parent::decode($input->toString());
-        } catch (DecoderException) {
-            throw new ImageDecoderException(EncodedImage::class . ' contains unsupported image type');
-        }
+        return parent::decode($input->toString());
     }
 }

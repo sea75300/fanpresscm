@@ -4,23 +4,54 @@ declare(strict_types=1);
 
 namespace Intervention\Image\Colors;
 
-use Intervention\Image\Exceptions\InvalidArgumentException;
+use Intervention\Image\Exceptions\ColorException;
 use Intervention\Image\Interfaces\ColorChannelInterface;
 use Stringable;
 
 abstract class AbstractColorChannel implements ColorChannelInterface, Stringable
 {
-    /**
-     * Main color channel value.
-     */
-    protected int|float $value;
+    protected int $value;
 
     /**
      * {@inheritdoc}
      *
-     * @see ColorChannelInterface::normalized()
+     * @see ColorChannelInterface::__construct()
      */
-    public function normalized(int $precision = 32): float
+    public function __construct(?int $value = null, ?float $normalized = null)
+    {
+        $this->value = $this->validate(
+            match (true) {
+                is_null($value) && is_numeric($normalized) => intval(round($normalized * $this->max())),
+                is_numeric($value) && is_null($normalized) => $value,
+                default => throw new ColorException('Color channels must either have a value or a normalized value')
+            }
+        );
+    }
+
+    /**
+     * Alias of value()
+     */
+    public function toInt(): int
+    {
+        return $this->value;
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @see ColorChannelInterface::value()
+     */
+    public function value(): int
+    {
+        return $this->value;
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @see ColorChannelInterface::normalize()
+     */
+    public function normalize(int $precision = 32): float
     {
         return round(($this->value() - $this->min()) / ($this->max() - $this->min()), $precision);
     }
@@ -28,40 +59,12 @@ abstract class AbstractColorChannel implements ColorChannelInterface, Stringable
     /**
      * {@inheritdoc}
      *
-     * @see ColorChannelInterface::scale()
-     *
-     * @throws InvalidArgumentException
+     * @see ColorChannelInterface::validate()
      */
-    public function scale(int $percent): self
-    {
-        if ($percent === 0) {
-            return $this;
-        }
-
-        if ($percent < -100 || $percent > 100) {
-            throw new InvalidArgumentException('Percentage value must be between -100 and 100');
-        }
-
-        $normalized = $this->normalized();
-        $base = $percent >= 0 ? (1 - $normalized) : $normalized;
-        $scaled = min(1.0, max(0.0, $normalized + $base / 100 * $percent));
-        $this->value = static::fromNormalized($scaled)->value();
-
-        return $this;
-    }
-
-    /**
-     * Throw exception if the given value is not applicable for channel
-     * otherwise the value is returned unchanged.
-     *
-     * @throws InvalidArgumentException
-     */
-    protected function validValueOrFail(int|float $value): mixed
+    public function validate(mixed $value): mixed
     {
         if ($value < $this->min() || $value > $this->max()) {
-            throw new InvalidArgumentException(
-                'Color channel ' . $this::class . ' value must be in range ' . $this->min() . ' to ' . $this->max(),
-            );
+            throw new ColorException('Color channel value must be in range ' . $this->min() . ' to ' . $this->max());
         }
 
         return $value;

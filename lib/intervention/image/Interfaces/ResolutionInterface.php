@@ -4,48 +4,50 @@ declare(strict_types=1);
 
 namespace Intervention\Image\Interfaces;
 
-use Intervention\Image\Length;
-use Stringable;
-
-interface ResolutionInterface extends Stringable
+interface ResolutionInterface
 {
     /**
-     * Factory method to create resolution with given dots per inch.
-     */
-    public static function dpi(float $x, float $y): self;
-
-    /**
-     * Factory method to create resolution with given pixels per inch.
-     */
-    public static function ppi(float $x, float $y): self;
-
-    /**
-     * Convert resolution to units per inch.
-     */
-    public function perInch(): self;
-
-    /**
-     * Convert resolution to units per centimeter.
-     */
-    public function perCm(): self;
-
-    /**
-     * Return resolution of x-axis value.
+     * Return resolution of x-axis
      */
     public function x(): float;
 
     /**
-     * Return resolution on y-axis value.
+     * Set resolution on x-axis
+     */
+    public function setX(float $x): self;
+
+    /**
+     * Return resolution on y-axis
      */
     public function y(): float;
 
     /**
-     * Return length unit of resolution.
+     * Set resolution on y-axis
      */
-    public function length(): Length;
+    public function setY(float $y): self;
 
     /**
-     * Transform object to string.
+     * Convert the resolution to DPI
+     */
+    public function perInch(): self;
+
+    /**
+     * Convert the resolution to DPCM
+     */
+    public function perCm(): self;
+
+    /**
+     * Return string representation of unit
+     */
+    public function unit(): string;
+
+    /**
+     * Transform object to string
      */
     public function toString(): string;
+
+    /**
+     * Cast object to string
+     */
+    public function __toString(): string;
 }

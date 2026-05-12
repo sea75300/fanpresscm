@@ -4,37 +4,24 @@ declare(strict_types=1);
 
 namespace Intervention\Image;
 
-use Intervention\Image\Decoders\Base64ImageDecoder;
-use Intervention\Image\Decoders\BinaryImageDecoder;
-use Intervention\Image\Decoders\DataUriImageDecoder;
-use Intervention\Image\Decoders\FilePathImageDecoder;
-use Intervention\Image\Decoders\StreamImageDecoder;
-use Intervention\Image\Decoders\SplFileInfoImageDecoder;
-use Intervention\Image\Exceptions\DriverException;
-use Intervention\Image\Exceptions\ImageDecoderException;
-use Intervention\Image\Exceptions\InvalidArgumentException;
-use Intervention\Image\Interfaces\AnimationFactoryInterface;
-use Intervention\Image\Interfaces\DataUriInterface;
-use Intervention\Image\Interfaces\DecoderInterface;
 use Intervention\Image\Interfaces\DriverInterface;
 use Intervention\Image\Interfaces\ImageInterface;
+use Intervention\Image\Drivers\Gd\Driver as GdDriver;
+use Intervention\Image\Drivers\Imagick\Driver as ImagickDriver;
+use Intervention\Image\Exceptions\DriverException;
+use Intervention\Image\Exceptions\InputException;
+use Intervention\Image\Interfaces\DecoderInterface;
 use Intervention\Image\Interfaces\ImageManagerInterface;
-use Intervention\Image\Traits\CanResolveDriver;
-use SplFileInfo;
-use Stringable;
 
-class ImageManager implements ImageManagerInterface
+final class ImageManager implements ImageManagerInterface
 {
-    use CanResolveDriver;
-
-    public DriverInterface $driver;
+    private DriverInterface $driver;
 
     /**
-     * Create new image manager instance.
+     * @link https://image.intervention.io/v3/basics/configuration-drivers#create-a-new-image-manager-instance
      *
-     * @link https://image.intervention.io/v4/basics/configuration-drivers#create-a-new-image-manager-instance
-     *
-     * @throws InvalidArgumentException
+     * @throws DriverException
+     * @throws InputException
      */
     public function __construct(string|DriverInterface $driver, mixed ...$options)
     {
@@ -42,139 +29,115 @@ class ImageManager implements ImageManagerInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Create image manager with given driver
      *
-     * @see ImageManagerInterface::usingDriver()
+     * @link https://image.intervention.io/v3/basics/configuration-drivers#static-constructor
      *
-     * @throws InvalidArgumentException
+     * @throws DriverException
+     * @throws InputException
      */
-    public static function usingDriver(string|DriverInterface $driver, mixed ...$options): ImageManagerInterface
+    public static function withDriver(string|DriverInterface $driver, mixed ...$options): self
     {
         return new self(self::resolveDriver($driver, ...$options));
     }
 
     /**
+     * Create image manager with GD driver
+     *
+     * @link https://image.intervention.io/v3/basics/configuration-drivers#static-gd-driver-constructor
+     *
+     * @throws DriverException
+     * @throws InputException
+     */
+    public static function gd(mixed ...$options): self
+    {
+        return self::withDriver(new GdDriver(), ...$options);
+    }
+
+    /**
+     * Create image manager with Imagick driver
+     *
+     * @link https://image.intervention.io/v3/basics/configuration-drivers#static-imagick-driver-constructor
+     *
+     * @throws DriverException
+     * @throws InputException
+     */
+    public static function imagick(mixed ...$options): self
+    {
+        return self::withDriver(new ImagickDriver(), ...$options);
+    }
+
+    /**
      * {@inheritdoc}
      *
-     * @see ImageManagerInterface::createImage()
-     *
-     * @throws InvalidArgumentException
-     * @throws DriverException
+     * @see ImageManagerInterface::create()
      */
-    public function createImage(
-        int $width,
-        int $height,
-        null|callable|AnimationFactoryInterface $animation = null,
-    ): ImageInterface {
-        if ($animation instanceof AnimationFactoryInterface) {
-            return $animation->image($this->driver);
-        }
-
-        if (is_callable($animation)) {
-            return AnimationFactory::build($width, $height, $animation, $this->driver);
-        }
-
+    public function create(int $width, int $height): ImageInterface
+    {
         return $this->driver->createImage($width, $height);
     }
 
     /**
      * {@inheritdoc}
      *
-     * @see ImageManagerInterface::decode()
-     *
-     * @throws InvalidArgumentException
-     * @throws ImageDecoderException
-     * @throws DriverException
+     * @see ImageManagerInterface::read()
      */
-    public function decode(mixed $source, null|string|array|DecoderInterface $decoders = null): ImageInterface
+    public function read(mixed $input, string|array|DecoderInterface $decoders = []): ImageInterface
     {
-        return $this->driver->decodeImage(
-            $source,
-            in_array(gettype($decoders), ['string', 'object']) ? [$decoders] : $decoders,
+        return $this->driver->handleInput(
+            $input,
+            match (true) {
+                is_string($decoders), is_a($decoders, DecoderInterface::class) => [$decoders],
+                default => $decoders,
+            }
         );
     }
 
     /**
      * {@inheritdoc}
      *
-     * @see ImageManagerInterface::decodePath()
-     *
-     * @throws InvalidArgumentException
-     * @throws ImageDecoderException
-     * @throws DriverException
+     * @see ImageManagerInterface::animate()
      */
-    public function decodePath(string|Stringable $path): ImageInterface
+    public function animate(callable $init): ImageInterface
     {
-        return $this->decode($path, FilePathImageDecoder::class);
+        return $this->driver->createAnimation($init);
     }
 
     /**
      * {@inheritdoc}
      *
-     * @see ImageManagerInterface::decodeBinary()
-     *
-     * @throws InvalidArgumentException
-     * @throws ImageDecoderException
-     * @throws DriverException
+     * @see ImageManagerInterface::driver()
      */
-    public function decodeBinary(string|Stringable $binary): ImageInterface
+    public function driver(): DriverInterface
     {
-        return $this->decode($binary, BinaryImageDecoder::class);
+        return $this->driver;
     }
 
     /**
-     * {@inheritdoc}
+     * Return driver object from given input which might be driver classname or instance of DriverInterface
      *
-     * @see ImageManagerInterface::decodeSplFileInfo()
-     *
-     * @throws InvalidArgumentException
-     * @throws ImageDecoderException
      * @throws DriverException
+     * @throws InputException
      */
-    public function decodeSplFileInfo(SplFileInfo $splFileInfo): ImageInterface
+    private static function resolveDriver(string|DriverInterface $driver, mixed ...$options): DriverInterface
     {
-        return $this->decode($splFileInfo, SplFileInfoImageDecoder::class);
-    }
+        $driver = match (true) {
+            $driver instanceof DriverInterface => $driver,
+            class_exists($driver) => new $driver(),
+            default => throw new DriverException(
+                'Unable to resolve driver. Argment must be either an instance of ' .
+                    DriverInterface::class . '::class or a qualified namespaced name of the driver class.',
+            ),
+        };
 
-    /**
-     * {@inheritdoc}
-     *
-     * @see ImageManagerInterface::decodeBase64()
-     *
-     * @throws InvalidArgumentException
-     * @throws ImageDecoderException
-     * @throws DriverException
-     */
-    public function decodeBase64(string|Stringable $base64): ImageInterface
-    {
-        return $this->decode($base64, Base64ImageDecoder::class);
-    }
+        if (!$driver instanceof DriverInterface) {
+            throw new DriverException(
+                'Unable to resolve driver. Driver object must implement ' . DriverInterface::class . '.',
+            );
+        }
 
-    /**
-     * {@inheritdoc}
-     *
-     * @see ImageManagerInterface::decodeDataUri()
-     *
-     * @throws InvalidArgumentException
-     * @throws ImageDecoderException
-     * @throws DriverException
-     */
-    public function decodeDataUri(string|Stringable|DataUriInterface $dataUri): ImageInterface
-    {
-        return $this->decode($dataUri, DataUriImageDecoder::class);
-    }
+        $driver->config()->setOptions(...$options);
 
-    /**
-     * {@inheritdoc}
-     *
-     * @see ImageManagerInterface::decodeStream()
-     *
-     * @throws InvalidArgumentException
-     * @throws ImageDecoderException
-     * @throws DriverException
-     */
-    public function decodeStream(mixed $stream): ImageInterface
-    {
-        return $this->decode($stream, StreamImageDecoder::class);
+        return $driver;
     }
 }

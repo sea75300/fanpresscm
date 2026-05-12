@@ -4,11 +4,8 @@ declare(strict_types=1);
 
 namespace Intervention\Image\Geometry;
 
-use Intervention\Image\Colors\AbstractColor;
-use Intervention\Image\Geometry\Factories\EllipseFactory;
 use Intervention\Image\Geometry\Traits\HasBackgroundColor;
 use Intervention\Image\Geometry\Traits\HasBorder;
-use Intervention\Image\Interfaces\DrawableFactoryInterface;
 use Intervention\Image\Interfaces\DrawableInterface;
 use Intervention\Image\Interfaces\PointInterface;
 
@@ -18,7 +15,9 @@ class Ellipse implements DrawableInterface
     use HasBackgroundColor;
 
     /**
-     * Create new ellipse instance.
+     * Create new Ellipse
+     *
+     * @return void
      */
     public function __construct(
         protected int $width,
@@ -51,7 +50,7 @@ class Ellipse implements DrawableInterface
     }
 
     /**
-     * Return pivot point of Ellipse.
+     * Return pivot point of Ellipse
      */
     public function pivot(): PointInterface
     {
@@ -59,7 +58,7 @@ class Ellipse implements DrawableInterface
     }
 
     /**
-     * Set size of Ellipse.
+     * Set size of Ellipse
      */
     public function setSize(int $width, int $height): self
     {
@@ -67,7 +66,7 @@ class Ellipse implements DrawableInterface
     }
 
     /**
-     * Set width of Ellipse.
+     * Set width of Ellipse
      */
     public function setWidth(int $width): self
     {
@@ -77,7 +76,7 @@ class Ellipse implements DrawableInterface
     }
 
     /**
-     * Set height of Ellipse.
+     * Set height of Ellipse
      */
     public function setHeight(int $height): self
     {
@@ -87,7 +86,7 @@ class Ellipse implements DrawableInterface
     }
 
     /**
-     * Get width of Ellipse.
+     * Get width of Ellipse
      */
     public function width(): int
     {
@@ -95,49 +94,10 @@ class Ellipse implements DrawableInterface
     }
 
     /**
-     * Get height of Ellipse.
+     * Get height of Ellipse
      */
     public function height(): int
     {
         return $this->height;
-    }
-
-    /**
-     * {@inheritdoc}
-     *
-     * @see DrawableInterface::factory()
-     */
-    public function factory(): DrawableFactoryInterface
-    {
-        return new EllipseFactory($this);
-    }
-
-    /**
-     * {@inheritdoc}
-     *
-     * @see DrawableInterface::adjust()
-     */
-    public function adjust(callable $adjustments): DrawableInterface
-    {
-        $factory = $this->factory();
-        $adjustments($factory);
-
-        return $factory->drawable();
-    }
-
-    /**
-     * Clone ellipse.
-     */
-    public function __clone(): void
-    {
-        $this->pivot = clone $this->pivot;
-
-        if ($this->backgroundColor instanceof AbstractColor) {
-            $this->backgroundColor = clone $this->backgroundColor;
-        }
-
-        if ($this->borderColor instanceof AbstractColor) {
-            $this->borderColor = clone $this->borderColor;
-        }
     }
 }

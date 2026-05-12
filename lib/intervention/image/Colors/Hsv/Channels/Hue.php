@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace Intervention\Image\Colors\Hsv\Channels;
 
-use Intervention\Image\Colors\IntegerColorChannel;
+use Intervention\Image\Colors\AbstractColorChannel;
 
-class Hue extends IntegerColorChannel
+class Hue extends AbstractColorChannel
 {
     /**
      * {@inheritdoc}
      *
      * @see ColorChannelInterface::min()
      */
-    public static function min(): float
+    public function min(): int
     {
         return 0;
     }
@@ -23,7 +23,7 @@ class Hue extends IntegerColorChannel
      *
      * @see ColorChannelInterface::max()
      */
-    public static function max(): float
+    public function max(): int
     {
         return 360;
     }

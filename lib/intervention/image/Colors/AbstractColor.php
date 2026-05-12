@@ -4,15 +4,7 @@ declare(strict_types=1);
 
 namespace Intervention\Image\Colors;
 
-use Intervention\Image\Colors\Hsl\Channels\Luminance;
-use Intervention\Image\Colors\Hsl\Channels\Saturation;
-use Intervention\Image\Colors\Hsl\Colorspace as HslColorspace;
-use Intervention\Image\Colors\Rgb\Channels\Blue;
-use Intervention\Image\Colors\Rgb\Channels\Green;
-use Intervention\Image\Colors\Rgb\Channels\Red;
-use Intervention\Image\Colors\Rgb\Colorspace as RgbColorspace;
 use Intervention\Image\Exceptions\ColorException;
-use Intervention\Image\Exceptions\InvalidArgumentException;
 use Intervention\Image\Interfaces\ColorChannelInterface;
 use Intervention\Image\Interfaces\ColorInterface;
 use Intervention\Image\Interfaces\ColorspaceInterface;
@@ -22,7 +14,7 @@ use Stringable;
 abstract class AbstractColor implements ColorInterface, Stringable
 {
     /**
-     * Color channels.
+     * Color channels
      *
      * @var array<ColorChannelInterface>
      */
@@ -42,8 +34,6 @@ abstract class AbstractColor implements ColorInterface, Stringable
      * {@inheritdoc}
      *
      * @see ColorInterface::channel()
-     *
-     * @throws InvalidArgumentException
      */
     public function channel(string $classname): ColorChannelInterface
     {
@@ -52,8 +42,8 @@ abstract class AbstractColor implements ColorInterface, Stringable
             fn(ColorChannelInterface $channel): bool => $channel::class === $classname,
         );
 
-        if (count($channels) === 0) {
-            throw new InvalidArgumentException('Color channel ' . $classname . ' could not be found');
+        if (count($channels) == 0) {
+            throw new ColorException('Color channel ' . $classname . ' could not be found.');
         }
 
         return reset($channels);
@@ -62,145 +52,56 @@ abstract class AbstractColor implements ColorInterface, Stringable
     /**
      * {@inheritdoc}
      *
-     * @see ColorInterface::toColorspace()
-     *
-     * @throws InvalidArgumentException
+     * @see ColorInterface::normalize()
      */
-    public function toColorspace(string|ColorspaceInterface $colorspace): ColorInterface
+    public function normalize(): array
     {
-        if (is_string($colorspace) && !class_exists($colorspace)) {
-            throw new InvalidArgumentException('Unknown color space (' . $colorspace . ') as conversion target');
-        }
+        return array_map(
+            fn(ColorChannelInterface $channel): float => $channel->normalize(),
+            $this->channels(),
+        );
+    }
 
-        $colorspace = is_string($colorspace) ? new $colorspace() : $colorspace;
+    /**
+     * {@inheritdoc}
+     *
+     * @see ColorInterface::toArray()
+     */
+    public function toArray(): array
+    {
+        return array_map(
+            fn(ColorChannelInterface $channel): int => $channel->value(),
+            $this->channels()
+        );
+    }
 
-        if (!$colorspace instanceof ColorspaceInterface) {
-            throw new InvalidArgumentException('Given color space must implement ' . ColorspaceInterface::class);
-        }
+    /**
+     * {@inheritdoc}
+     *
+     * @see ColorInterface::convertTo()
+     */
+    public function convertTo(string|ColorspaceInterface $colorspace): ColorInterface
+    {
+        $colorspace = match (true) {
+            is_object($colorspace) => $colorspace,
+            default => new $colorspace(),
+        };
 
         return $colorspace->importColor($this);
     }
 
     /**
-     * {@inheritdoc}
+     * Show debug info for the current color
      *
-     * @see ColorInterface::isTransparent()
-     */
-    public function isTransparent(): bool
-    {
-        return $this->alpha()->value() < $this->alpha()->max();
-    }
-
-    /**
-     * {@inheritdoc}
-     *
-     * @see ColorInterface::isClear()
-     */
-    public function isClear(): bool
-    {
-        return floatval($this->alpha()->value()) === 0.0;
-    }
-
-    /**
-     * {@inheritdoc}
-     *
-     * @see ColorInterface::withTransparency()
-     *
-     * @throws InvalidArgumentException
-     */
-    public function withTransparency(float $transparency): ColorInterface
-    {
-        $color = clone $this;
-
-        $color->channels = array_map(
-            fn(ColorChannelInterface $channel): ColorChannelInterface =>
-            $channel instanceof AlphaChannel ? $channel::fromNormalized($transparency) : $channel,
-            $this->channels
-        );
-
-        return $color;
-    }
-
-    /**
-     * {@inheritdoc}
-     *
-     * @see ColorInterface::withBrightness()
-     *
-     * @throws InvalidArgumentException
-     */
-    public function withBrightness(int $level): ColorInterface
-    {
-        $hsl = clone $this->toColorspace(HslColorspace::class);
-        $hsl->channel(Luminance::class)->scale($level);
-
-        return $hsl->toColorspace($this->colorspace());
-    }
-
-    /**
-     * {@inheritdoc}
-     *
-     * @see ColorInterface::withSaturation()
-     *
-     * @throws InvalidArgumentException
-     */
-    public function withSaturation(int $level): ColorInterface
-    {
-        $hsl = clone $this->toColorspace(HslColorspace::class);
-        $hsl->channel(Saturation::class)->scale($level);
-
-        return $hsl->toColorspace($this->colorspace());
-    }
-
-    /**
-     * {@inheritdoc}
-     *
-     * @see ColorInterface::withInversion()
-     *
-     * @throws ColorException
-     */
-    public function withInversion(): ColorInterface
-    {
-        try {
-            $rgb = $this->toColorspace(RgbColorspace::class);
-        } catch (InvalidArgumentException) {
-            throw new ColorException('Failed to invert color');
-        }
-
-        try {
-            $inverted = new \Intervention\Image\Colors\Rgb\Color(
-                255 - $rgb->channel(Red::class)->value(),
-                255 - $rgb->channel(Green::class)->value(),
-                255 - $rgb->channel(Blue::class)->value(),
-                $rgb->alpha()->normalized(),
-            );
-            return $inverted->toColorspace($this->colorspace());
-        } catch (InvalidArgumentException) {
-            throw new ColorException('Failed to invert color');
-        }
-    }
-
-    /**
-     * Show debug info for the current color.
-     *
-     * @return array<string, string>
+     * @return array<string, int>
      */
     public function __debugInfo(): array
     {
         return array_reduce($this->channels(), function (array $result, ColorChannelInterface $item) {
             $key = strtolower((new ReflectionClass($item))->getShortName());
-            $result[$key] = $item->toString();
+            $result[$key] = $item->value();
             return $result;
         }, []);
-    }
-
-    /**
-     * Clone color.
-     */
-    public function __clone(): void
-    {
-        foreach ($this->channels as $key => $channel) {
-            $this->channels[$key] = clone $channel;
-        }
     }
 
     /**

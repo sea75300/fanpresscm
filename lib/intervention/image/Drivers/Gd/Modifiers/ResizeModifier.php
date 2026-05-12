@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Intervention\Image\Drivers\Gd\Modifiers;
 
 use Intervention\Image\Drivers\Gd\Cloner;
-use Intervention\Image\Exceptions\DriverException;
-use Intervention\Image\Exceptions\InvalidArgumentException;
-use Intervention\Image\Exceptions\ModifierException;
+use Intervention\Image\Exceptions\ColorException;
+use Intervention\Image\Exceptions\GeometryException;
+use Intervention\Image\Exceptions\RuntimeException;
 use Intervention\Image\Interfaces\FrameInterface;
 use Intervention\Image\Interfaces\ImageInterface;
 use Intervention\Image\Interfaces\SizeInterface;
@@ -20,14 +20,10 @@ class ResizeModifier extends GenericResizeModifier implements SpecializedInterfa
      * {@inheritdoc}
      *
      * @see ModifierInterface::apply()
-     *
-     * @throws InvalidArgumentException
-     * @throws ModifierException
-     * @throws DriverException
      */
     public function apply(ImageInterface $image): ImageInterface
     {
-        $resizeTo = $this->adjustedSize($image);
+        $resizeTo = $this->getAdjustedSize($image);
         foreach ($image as $frame) {
             $this->resizeFrame($frame, $resizeTo);
         }
@@ -36,9 +32,7 @@ class ResizeModifier extends GenericResizeModifier implements SpecializedInterfa
     }
 
     /**
-     * @throws InvalidArgumentException
-     * @throws ModifierException
-     * @throws DriverException
+     * @throws ColorException
      */
     private function resizeFrame(FrameInterface $frame, SizeInterface $resizeTo): void
     {
@@ -65,8 +59,11 @@ class ResizeModifier extends GenericResizeModifier implements SpecializedInterfa
 
     /**
      * Return the size the modifier will resize to
+     *
+     * @throws RuntimeException
+     * @throws GeometryException
      */
-    protected function adjustedSize(ImageInterface $image): SizeInterface
+    protected function getAdjustedSize(ImageInterface $image): SizeInterface
     {
         return $image->size()->resize($this->width, $this->height);
     }

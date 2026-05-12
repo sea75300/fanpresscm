@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Intervention\Image;
 
 use Error;
-use Intervention\Image\Exceptions\InvalidArgumentException;
 use Intervention\Image\Exceptions\NotSupportedException;
 
 enum MediaType: string
@@ -38,13 +37,12 @@ enum MediaType: string
     case IMAGE_HEIC = 'image/heic';
     case IMAGE_X_HEIC = 'image/x-heic';
     case IMAGE_HEIF = 'image/heif';
-    case IMAGE_X_ICON = 'image/x-icon';
-    case IMAGE_VND_MICROSOFT_ICON = 'image/vnd.microsoft.icon';
 
     /**
-     * Create media type from given identifier.
+     * Create media type from given identifier
      *
-     * @throws InvalidArgumentException
+     * @param string|Format|MediaType|FileExtension $identifier
+     * @throws NotSupportedException
      */
     public static function create(string|self|Format|FileExtension $identifier): self
     {
@@ -53,25 +51,11 @@ enum MediaType: string
         }
 
         if ($identifier instanceof Format) {
-            try {
-                return $identifier->mediaType();
-            } catch (NotSupportedException $e) {
-                throw new InvalidArgumentException(
-                    'Unable to create media type from ' . $identifier::class,
-                    previous: $e
-                );
-            }
+            return $identifier->mediaType();
         }
 
         if ($identifier instanceof FileExtension) {
-            try {
-                return $identifier->mediaType();
-            } catch (NotSupportedException $e) {
-                throw new InvalidArgumentException(
-                    'Unable to create media type from "' . $identifier->value . '"',
-                    previous: $e
-                );
-            }
+            return $identifier->mediaType();
         }
 
         try {
@@ -79,8 +63,8 @@ enum MediaType: string
         } catch (Error) {
             try {
                 $type = FileExtension::from(strtolower($identifier))->mediaType();
-            } catch (Error | NotSupportedException) {
-                throw new InvalidArgumentException('Unable to create media type from "' . $identifier . '"');
+            } catch (Error) {
+                throw new NotSupportedException('Unable to create media type from "' . $identifier . '".');
             }
         }
 
@@ -88,19 +72,22 @@ enum MediaType: string
     }
 
     /**
-     * Try to create media type from given identifier and return null on failure.
+     * Try to create media type from given identifier and return null on failure
+     *
+     * @param string|Format|MediaType|FileExtension $identifier
+     * @return MediaType|null
      */
     public static function tryCreate(string|self|Format|FileExtension $identifier): ?self
     {
         try {
             return self::create($identifier);
-        } catch (InvalidArgumentException) {
+        } catch (NotSupportedException) {
             return null;
         }
     }
 
     /**
-     * Return the matching format for the current media (MIME) type.
+     * Return the matching format for the current media (MIME) type
      */
     public function format(): Format
     {
@@ -133,13 +120,11 @@ enum MediaType: string
             self::IMAGE_HEIF,
             self::IMAGE_HEIC,
             self::IMAGE_X_HEIC => Format::HEIC,
-            self::IMAGE_X_ICON,
-            self::IMAGE_VND_MICROSOFT_ICON => Format::ICO,
         };
     }
 
     /**
-     * Return the possible file extension for the current media type.
+     * Return the possible file extension for the current media type
      *
      * @return array<FileExtension>
      */
@@ -149,9 +134,7 @@ enum MediaType: string
     }
 
     /**
-     * Return the first file extension for the current media type.
-     *
-     * @throws NotSupportedException
+     * Return the first file extension for the current media type
      */
     public function fileExtension(): FileExtension
     {

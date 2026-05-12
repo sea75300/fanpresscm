@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace Intervention\Image\Traits;
 
-use Intervention\Image\Exceptions\NotSupportedException;
-use Intervention\Image\Exceptions\StateException;
+use Intervention\Image\Exceptions\DriverException;
 use Intervention\Image\Interfaces\DriverInterface;
 use Intervention\Image\Interfaces\SpecializableInterface;
 use ReflectionClass;
@@ -13,41 +12,24 @@ use ReflectionClass;
 trait CanBeDriverSpecialized
 {
     /**
-     * Cache for constructor parameter names keyed by class name.
-     *
-     * @var array<string, array<int, string>>
-     */
-    private static array $parameterCache = [];
-
-    /**
-     * The driver with which the instance will be specialized.
+     * The driver with which the instance may be specialized
      */
     protected DriverInterface $driver;
 
     /**
      * {@inheritdoc}
      *
-     * @see SpecializableInterface::specializationArguments()
+     * @see SpecializableInterface::specializable()
      */
-    public function specializationArguments(): array
+    public function specializable(): array
     {
-        $class = $this::class;
-
-        if (!isset(self::$parameterCache[$class])) {
-            $names = [];
-            $reflectionClass = new ReflectionClass($class);
-            $constructor = $reflectionClass->getConstructor();
-            if ($constructor !== null) {
-                foreach ($constructor->getParameters() as $parameter) {
-                    $names[] = $parameter->getName();
-                }
-            }
-            self::$parameterCache[$class] = $names;
-        }
-
         $specializable = [];
-        foreach (self::$parameterCache[$class] as $name) {
-            $specializable[$name] = $this->{$name};
+
+        $reflectionClass = new ReflectionClass($this::class);
+        if ($constructor = $reflectionClass->getConstructor()) {
+            foreach ($constructor->getParameters() as $parameter) {
+                $specializable[$parameter->getName()] = $this->{$parameter->getName()};
+            }
         }
 
         return $specializable;
@@ -57,17 +39,9 @@ trait CanBeDriverSpecialized
      * {@inheritdoc}
      *
      * @see SpecializableInterface::driver()
-     *
-     * @throws StateException
      */
     public function driver(): DriverInterface
     {
-        if (!isset($this->driver)) {
-            throw new StateException(
-                'Use setDriver() on ' . $this::class . ' to provide an applicable ' . DriverInterface::class,
-            );
-        }
-
         return $this->driver;
     }
 
@@ -75,14 +49,12 @@ trait CanBeDriverSpecialized
      * {@inheritdoc}
      *
      * @see SpecializableInterface::setDriver()
-     *
-     * @throws NotSupportedException
      */
     public function setDriver(DriverInterface $driver): SpecializableInterface
     {
         if (!$this->belongsToDriver($driver)) {
-            throw new NotSupportedException(
-                "Class '" . $this::class . "' can not be used with " . $driver->id() . " driver"
+            throw new DriverException(
+                "Class '" . $this::class . "' can not be used with " . $driver->id() . " driver."
             );
         }
 
@@ -92,13 +64,14 @@ trait CanBeDriverSpecialized
     }
 
     /**
-     * Determine if the current object belongs to the given driver's namespace.
+     * Determine if the current object belongs to the given driver's namespace
      */
     protected function belongsToDriver(object $driver): bool
     {
-        return str_starts_with(
-            $this::class,
-            substr($driver::class, 0, (int) strrpos($driver::class, '\\')), // driver namespace
-        );
+        $namespace = function (object $object): string {
+            return (new ReflectionClass($object))->getNamespaceName();
+        };
+
+        return str_starts_with($namespace($this), $namespace($driver));
     }
 }

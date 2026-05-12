@@ -5,12 +5,11 @@ declare(strict_types=1);
 namespace Intervention\Image\Drivers\Gd;
 
 use Intervention\Image\Drivers\AbstractFontProcessor;
-use Intervention\Image\Exceptions\DriverException;
-use Intervention\Image\Exceptions\InvalidArgumentException;
+use Intervention\Image\Exceptions\FontException;
 use Intervention\Image\Geometry\Point;
+use Intervention\Image\Geometry\Rectangle;
 use Intervention\Image\Interfaces\FontInterface;
 use Intervention\Image\Interfaces\SizeInterface;
-use Intervention\Image\Size;
 
 class FontProcessor extends AbstractFontProcessor
 {
@@ -18,46 +17,48 @@ class FontProcessor extends AbstractFontProcessor
      * {@inheritdoc}
      *
      * @see FontProcessorInterface::boxSize()
-     *
-     * @throws DriverException
-     * @throws InvalidArgumentException
      */
     public function boxSize(string $text, FontInterface $font): SizeInterface
     {
         // if the font has no ttf file the box size is calculated
         // with gd's internal font system: integer values from 1-5
-        if (!$font->hasFile()) {
-            // font size to gd's internal fonts (1-5)
-            $gdFont = (int) $font->size();
-
+        if (!$font->hasFilename()) {
             // calculate box size from gd font
-            $box = new Size(0, 0);
+            $box = new Rectangle(0, 0);
             $chars = mb_strlen($text);
             if ($chars > 0) {
                 $box->setWidth(
-                    $chars * $this->gdCharacterWidth($gdFont)
+                    $chars * $this->gdCharacterWidth((int) $font->filename())
                 );
                 $box->setHeight(
-                    $this->gdCharacterHeight($gdFont)
+                    $this->gdCharacterHeight((int) $font->filename())
                 );
             }
             return $box;
+        }
+
+        // build full path to font file to make sure to pass absolute path to imageftbbox()
+        // because of issues with different GD version behaving differently when passing
+        // relative paths to imageftbbox()
+        $fontPath = realpath($font->filename());
+        if ($fontPath === false) {
+            throw new FontException('Font file ' . $font->filename() . ' does not exist.');
         }
 
         // calculate box size from ttf font file with angle 0
         $box = imageftbbox(
             size: $this->nativeFontSize($font),
             angle: 0,
-            font_filename: $font->filepath(),
+            font_filename: $fontPath,
             string: $text,
         );
 
         if ($box === false) {
-            throw new DriverException('Unable to calculate box size of font');
+            throw new FontException('Unable to calculate box size of font ' . $font->filename() . '.');
         }
 
         // build size from points
-        return new Size(
+        return new Rectangle(
             width: intval(abs($box[6] - $box[4])), // difference of upper-left-x and upper-right-x
             height: intval(abs($box[7] - $box[1])), // difference if upper-left-y and lower-left-y
             pivot: new Point($box[6], $box[7]), // position of upper-left corner

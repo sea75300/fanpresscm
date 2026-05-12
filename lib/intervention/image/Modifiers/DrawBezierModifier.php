@@ -10,7 +10,9 @@ use Intervention\Image\Interfaces\DrawableInterface;
 class DrawBezierModifier extends AbstractDrawModifier
 {
     /**
-     * Create new modifier object.
+     * Create new modifier object
+     *
+     * @return void
      */
     public function __construct(public Bezier $drawable)
     {
@@ -18,9 +20,9 @@ class DrawBezierModifier extends AbstractDrawModifier
     }
 
     /**
-     * Return object to be drawn.
+     * Return object to be drawn
      */
-    protected function drawable(): DrawableInterface
+    public function drawable(): DrawableInterface
     {
         return $this->drawable;
     }

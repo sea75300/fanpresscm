@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Intervention\Image;
 
 use Error;
-use Intervention\Image\Exceptions\InvalidArgumentException;
 use Intervention\Image\Exceptions\NotSupportedException;
 
 enum FileExtension: string
@@ -32,12 +31,12 @@ enum FileExtension: string
     case JPX = 'jpx';
     case HEIC = 'heic';
     case HEIF = 'heif';
-    case ICO = 'ico';
 
     /**
-     * Create file extension from given identifier.
+     * Create file extension from given identifier
      *
-     * @throws InvalidArgumentException
+     * @param string|Format|MediaType|FileExtension $identifier
+     * @throws NotSupportedException
      */
     public static function create(string|self|Format|MediaType $identifier): self
     {
@@ -46,25 +45,11 @@ enum FileExtension: string
         }
 
         if ($identifier instanceof Format) {
-            try {
-                return $identifier->fileExtension();
-            } catch (NotSupportedException $e) {
-                throw new InvalidArgumentException(
-                    'Unable to create file extension from "' . $identifier::class . '"',
-                    previous: $e
-                );
-            }
+            return $identifier->fileExtension();
         }
 
         if ($identifier instanceof MediaType) {
-            try {
-                return $identifier->fileExtension();
-            } catch (NotSupportedException $e) {
-                throw new InvalidArgumentException(
-                    'Unable to create file extension from "' . $identifier->value . '"',
-                    previous: $e
-                );
-            }
+            return $identifier->fileExtension();
         }
 
         try {
@@ -72,8 +57,8 @@ enum FileExtension: string
         } catch (Error) {
             try {
                 $extension = MediaType::from(strtolower($identifier))->fileExtension();
-            } catch (Error | NotSupportedException) {
-                throw new InvalidArgumentException('Unable to create file extension from "' . $identifier . '"');
+            } catch (Error) {
+                throw new NotSupportedException('Unable to create file extension from "' . $identifier . '".');
             }
         }
 
@@ -81,19 +66,22 @@ enum FileExtension: string
     }
 
     /**
-     * Try to create media type from given identifier and return null on failure.
+     * Try to create media type from given identifier and return null on failure
+     *
+     * @param string|Format|MediaType|FileExtension $identifier
+     * @return FileExtension|null
      */
     public static function tryCreate(string|self|Format|MediaType $identifier): ?self
     {
         try {
             return self::create($identifier);
-        } catch (InvalidArgumentException) {
+        } catch (NotSupportedException) {
             return null;
         }
     }
 
     /**
-     * Return the matching format for the current file extension.
+     * Return the matching format for the current file extension
      */
     public function format(): Format
     {
@@ -120,7 +108,6 @@ enum FileExtension: string
             self::JPX => Format::JP2,
             self::HEIC,
             self::HEIF => Format::HEIC,
-            self::ICO => Format::ICO,
         };
     }
 
@@ -136,8 +123,6 @@ enum FileExtension: string
 
     /**
      * Return the first found media type for the current file extension.
-     *
-     * @throws NotSupportedException
      */
     public function mediaType(): MediaType
     {

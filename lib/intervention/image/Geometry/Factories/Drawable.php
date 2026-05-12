@@ -4,73 +4,53 @@ declare(strict_types=1);
 
 namespace Intervention\Image\Geometry\Factories;
 
-use Intervention\Image\Exceptions\InvalidArgumentException;
-use Intervention\Image\Geometry\Bezier;
-use Intervention\Image\Geometry\Circle;
-use Intervention\Image\Geometry\Ellipse;
-use Intervention\Image\Geometry\Line;
-use Intervention\Image\Geometry\Polygon;
-use Intervention\Image\Geometry\Rectangle;
-
 class Drawable
 {
     /**
-     * Create Bezier statically.
-     *
-     * @throws InvalidArgumentException
+     * Creeate BezierFactory statically
      */
-    public static function bezier(null|callable|Bezier $bezier = null): Bezier
+    public static function bezier(): BezierFactory
     {
-        return BezierFactory::build($bezier);
+        return new BezierFactory();
     }
 
     /**
-     * Create Circle statically.
-     *
-     * @throws InvalidArgumentException
+     * Creeate CircleFactory statically
      */
-    public static function circle(null|callable|Circle $circle = null): Circle
+    public static function circle(): CircleFactory
     {
-        return CircleFactory::build($circle);
+        return new CircleFactory();
     }
 
     /**
-     * Create Ellipse statically.
-     *
-     * @throws InvalidArgumentException
+     * Create EllipseFactory statically
      */
-    public static function ellipse(null|callable|Ellipse $ellipse = null): Ellipse
+    public static function ellipse(): EllipseFactory
     {
-        return EllipseFactory::build($ellipse);
+        return new EllipseFactory();
     }
 
     /**
-     * Create Line statically.
-     *
-     * @throws InvalidArgumentException
+     * Creeate LineFactory statically
      */
-    public static function line(null|callable|Line $line = null): Line
+    public static function line(): LineFactory
     {
-        return LineFactory::build($line);
+        return new LineFactory();
     }
 
     /**
-     * Create Polygon statically.
-     *
-     * @throws InvalidArgumentException
+     * Creeate PolygonFactory statically
      */
-    public static function polygon(null|callable|Polygon $polygon = null): Polygon
+    public static function polygon(): PolygonFactory
     {
-        return PolygonFactory::build($polygon);
+        return new PolygonFactory();
     }
 
     /**
-     * Create Rectangle statically.
-     *
-     * @throws InvalidArgumentException
+     * Creeate RectangleFactory statically
      */
-    public static function rectangle(null|callable|Rectangle $rectangle = null): Rectangle
+    public static function rectangle(): RectangleFactory
     {
-        return RectangleFactory::build($rectangle);
+        return new RectangleFactory();
     }
 }

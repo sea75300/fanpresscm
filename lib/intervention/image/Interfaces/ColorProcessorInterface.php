@@ -4,20 +4,21 @@ declare(strict_types=1);
 
 namespace Intervention\Image\Interfaces;
 
+use Intervention\Image\Exceptions\ColorException;
+
 interface ColorProcessorInterface
 {
     /**
-     * Transform the given color object into the driver's color represenation.
+     * Turn given color in the driver's color implementation
+     *
+     * @throws ColorException
      */
-    public function export(ColorInterface $color): mixed;
+    public function colorToNative(ColorInterface $color): mixed;
 
     /**
-     * Transform the given driver's represenation of a color into a color object.
+     * Turn the given driver's definition of a color into a color object
+     *
+     * @throws ColorException
      */
-    public function import(mixed $color): ColorInterface;
-
-    /**
-     * Return the colorspace the processor currently operates in.
-     */
-    public function colorspace(): ColorspaceInterface;
+    public function nativeToColor(mixed $native): ColorInterface;
 }

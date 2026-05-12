@@ -4,42 +4,54 @@ declare(strict_types=1);
 
 namespace Intervention\Image\Interfaces;
 
-use Stringable;
+use Intervention\Image\Exceptions\ColorException;
 
-interface ColorChannelInterface extends Stringable
+interface ColorChannelInterface
 {
     /**
-     * Create color channel from normalized (0.0 - 1.0) value.
+     * Create new instance by either value or normalized value
+     *
+     * @throws ColorException
      */
-    public static function fromNormalized(float $normalized): self;
+    public function __construct(?int $value = null, ?float $normalized = null);
 
     /**
-     * Return the channels value normalized to a float value from 0.0 to 1.0.
+     * Return color channels integer value
      */
-    public function normalized(int $precision = 32): float;
+    public function value(): int;
 
     /**
-     * Return the the minimal possible value of the color channel.
+     * Return the channels value normalized to a float value form 0 to 1 by its range
      */
-    public static function min(): float;
+    public function normalize(int $precision = 32): float;
 
     /**
-     * Return the the maximal possible value of the color channel.
+     * Throw exception if the given value is not applicable for channel
+     * otherwise the value is returned unchanged.
+     *
+     * @throws ColorException
      */
-    public static function max(): float;
+    public function validate(mixed $value): mixed;
 
     /**
-     * Return color channels value.
+     * Return the the minimal possible value of the color channel
      */
-    public function value(): int|float;
+    public function min(): int;
+
+    /*
+     * Return the the maximal possible value of the color channel
+     *
+     * @return int
+     */
+    public function max(): int;
 
     /**
-     * Scale channel value by given percent.
-     */
-    public function scale(int $percent): self;
-
-    /**
-     * Transform color channel's value to string.
+     * Cast color channel's value to string
      */
     public function toString(): string;
+
+    /**
+     * Cast color channel's value to string
+     */
+    public function __toString(): string;
 }
