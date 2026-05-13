@@ -33,9 +33,11 @@ fpcm.dashboard = {
 
                 if (fpcm.dashboard.onDone instanceof Object) {
 
-                    for (var _container in fpcm.dashboard.onDone) {
+                    for (var _name in fpcm.dashboard.onDone) {
 
-                        if (!_container.execAfter || typeof _container.execAfter !== 'function') {
+                        let _container = fpcm.dashboard.onDone[_name];
+
+                        if (!_container || !_container.execAfter || typeof _container.execAfter !== 'function') {
                             continue;
                         }
 

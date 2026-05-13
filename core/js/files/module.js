@@ -331,11 +331,11 @@ fpcm.filemanager = {
                             filename: items,
                             multiple: 1
                         },
-                        execDone: function (result) {
+                        execDone: function (_result) {
 
-                            jQuery.each(result, function (i, value) {
-                                fpcm.ui.addMessage(value, i == 1 ? true : false);
-                            });
+                            for (var _i in _result) {
+                                fpcm.ui.addMessage(_result[_i]);
+                            }
 
                             document.getElementById('fpcm-select-all').checked = false;
                             fpcm.filemanager.reloadFiles();
