@@ -18,8 +18,7 @@ namespace fpcm\model\cli;
  */
 final class installer extends \fpcm\model\abstracts\cli {
 
-    use \fpcm\controller\traits\system\syscheck,
-        \fpcm\controller\traits\common\timezone;
+    use \fpcm\controller\traits\common\timezone;
 
     /**
      * Installer Konfiguration aus YML-Datei
@@ -96,8 +95,11 @@ final class installer extends \fpcm\model\abstracts\cli {
     private function runSystemCheck()
     {
         $this->output('Executing system check...');
-
-        $rows = $this->getCheckOptionsSystem();
+        
+        $check = new \fpcm\model\system\check\check(false);
+        $check->perform();
+        
+        $rows = $check->getFullResult();
 
         $checkFailed = false;
 
@@ -105,7 +107,7 @@ final class installer extends \fpcm\model\abstracts\cli {
         foreach ($rows as $descr => $data) {
 
             print '.';
-            $lines[] = $data->asString(strip_tags($descr));
+            $lines[] = $data->asString();
 
             usleep(50000);
             if ($data->getOptional() || $data->getResult()) {

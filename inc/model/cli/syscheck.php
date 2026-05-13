@@ -26,9 +26,6 @@ final class syscheck extends \fpcm\model\abstracts\cli {
     {
         \fpcm\classes\loader::getObject('\fpcm\classes\language', FPCM_DEFAULT_LANGUAGE_CODE, false);
 
-        /*$sysCheckAction = new \fpcm\controller\ajax\system\syscheck();
-        $rows = $sysCheckAction->processCli();*/
-        
         $check = new \fpcm\model\system\check\check(false);
         $check->perform();
         

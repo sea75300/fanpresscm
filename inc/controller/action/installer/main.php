@@ -19,8 +19,7 @@ if (!defined('FPCM_MODE_NOPAGETOKEN')) {
 
 class main extends \fpcm\controller\abstracts\controller {
 
-    use \fpcm\controller\traits\system\syscheck,
-        \fpcm\controller\traits\common\timezone;
+    use \fpcm\controller\traits\common\timezone;
     
     const ACTION = 'system/installer';
 
@@ -262,15 +261,18 @@ class main extends \fpcm\controller\abstracts\controller {
      */
     protected function runStep2()
     {
-        $sysCheckResults = $this->getCheckOptionsSystem();
+        $check = new \fpcm\model\system\check\check();
+        $check->runCheck();
+        
+        $sysCheckResults = $check->getFullResult();
 
         $isOk = true;
         
-        /* @var $value \fpcm\model\system\syscheckOption */
-        foreach ($sysCheckResults as $key => $value) {
+        /* @var $value \fpcm\model\system\check\option */
+        foreach ($sysCheckResults as $value) {
             
             if ($value->getOptional() || $value->getResult()) {
-                continue;;
+                continue;
             }
 
             $isOk = false;
