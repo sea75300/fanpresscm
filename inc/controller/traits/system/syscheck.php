@@ -21,7 +21,7 @@ trait syscheck {
      * System-Check ausführen
      * @return array
      */
-    protected function getCheckOptionsSystem()
+    protected function getCheckOptionsSystem(bool $noView = false)
     {
         $checkOptions = [];
 
@@ -235,15 +235,26 @@ trait syscheck {
 
         $dirs = $this->getCheckFolders();
 
-        array_walk($dirs, function($folderPath, $description) use (&$checkOptions) {
+        array_walk($dirs, function($folderPath, $description) use (&$checkOptions, $noView) {
 
             $current = is_writable($folderPath);
             $pathOutput = \fpcm\model\files\ops::removeBaseDir($folderPath, true);
 
-            $lVar = $this->language->translate('SYSCHECK_FOLDER_' . strtoupper(basename($folderPath)));
+            $lVar = 'SYSCHECK_FOLDER_' . strtoupper(basename($folderPath));
+            if (!$this->language->exists($lVar)) {
+                $lVar = 'GLOBAL_UNKNOWN';
+            }
+
+            $lVar = $this->language->translate($lVar);
 
             $opt = new \fpcm\model\system\syscheckOption($current ? 'true' : 'false', '', (true && $current), false, true);
-            $checkOptions[$lVar . ' <span class="text-secondary">' . $pathOutput . ' </span>'] = $opt;
+            
+            if ($noView) {
+                $checkOptions[$lVar . ' - ' . $pathOutput] = $opt;
+            }
+            else {
+                $checkOptions[$lVar . ' <span class="text-secondary">' . $pathOutput . ' </span>'] = $opt;                
+            }
         });
 
         return $checkOptions;

@@ -9,7 +9,7 @@ namespace fpcm\controller\ajax\system;
 
 /**
  * AJAX-Controller - System Check
- * 
+ *
  * @package fpcm\controller\ajax\system
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2022, Stefan Seehafer
@@ -18,53 +18,19 @@ namespace fpcm\controller\ajax\system;
 class syscheck extends \fpcm\controller\abstracts\ajaxController
 {
 
-    use \fpcm\controller\traits\system\syscheck;
-
-    /**
-     *
-     * @var bool
-     */
-    protected $installer;
-
-    /**
-     * Add no view to returned values
-     * @var bool
-     */
-    protected $noView;
-
-    /**
-     * 
-     * @param bool $noView
-     */
-    public function __construct($noView = false)
-    {
-        $this->noView = $noView;
-        parent::__construct();
-    }
-
     /**
      * Get view path for controller
      * @return string
      */
     protected function getViewPath() : string
     {
-        return $this->noView || $this->request->fromPOST('sendstats') ? '' : 'system/syscheck';
+        return 'system/syscheck';
     }
 
     /**
-     * 
+     * is accessible
      * @return bool
      */
-    public function request()
-    {
-        if ($this->request->fromPOST('sendstats')) {
-            $this->submitStatsData();
-            return false;
-        }
-
-        return true;
-    }
-
     public function isAccessible(): bool
     {
         return $this->permissions->system->options;
@@ -76,11 +42,13 @@ class syscheck extends \fpcm\controller\abstracts\ajaxController
      */
     public function hasAccess()
     {
-        if (!\fpcm\classes\baseconfig::installerEnabled() && !\fpcm\classes\baseconfig::dbConfigExists()) {
+        $dbConf= \fpcm\classes\baseconfig::dbConfigExists();
+
+        if (!\fpcm\classes\baseconfig::installerEnabled() && !$dbConf) {
             return true;
         }
 
-        if (\fpcm\classes\baseconfig::dbConfigExists() && $this->session->exists() && $this->isAccessible()) {
+        if ($dbConf && $this->session->exists() && $this->isAccessible()) {
             return true;
         }
 
@@ -93,103 +61,11 @@ class syscheck extends \fpcm\controller\abstracts\ajaxController
      */
     public function process()
     {
-        $this->view->assign('checkOptions', $this->getCheckOptions());
+        $check = new \fpcm\model\system\check\check();
+
+        $this->view->assign('checkOptions', $check->runCheck());
         $this->view->render();
         return true;
-    }
-
-    /**
-     * System-Check-Optionen ermitteln
-     * @return array
-     */
-    private function getCheckOptions()
-    {
-        $options = $this->getCheckOptionsSystem();
-        
-        $ev = $this->events->trigger('runSystemCheck', $this->getCheckOptionsSystem());
-        if (!$ev->getSuccessed()) {
-            trigger_error(sprintf("Event runSystemCheck failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
-            return $options;
-        }
-
-        if (!$ev->getContinue()) {
-            trigger_error(sprintf("Event runSystemCheck failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
-            return [];
-        }
-        
-        return $ev->getData();
-    }
-
-    /**
-     * 
-     * @return bool
-     */
-    private function submitStatsData()
-    {
-        $data = array_slice($this->processCli(), 0, 18);
-
-        $text = 'Statistical data ' . \fpcm\classes\tools::getHash(\fpcm\classes\dirs::getRootUrl()) . PHP_EOL . PHP_EOL;
-
-        /* @var $value \fpcm\model\system\syscheckOption */
-        foreach ($data as $key => $value) {
-
-            if (!trim($key)) {
-                continue;
-            }
-            
-            $key = strip_tags($key);
-
-            $text .= '- ' . str_pad(trim($key), 40, '.') . ': ' . $value->getCurrent() . PHP_EOL;
-        }
-
-        $text .= PHP_EOL;
-
-        $stats = new \fpcm\model\dashboard\containers\sysstats();
-        $data = explode(PHP_EOL, strip_tags($stats->getContent()));
-
-        foreach ($data as $value) {
-            $value = explode(':', $value);
-
-            if (!isset($value[0]) || !isset($value[1])) {
-                continue;
-            }
-
-            $text .= '- ' . str_pad(trim($value[0]), 40, '.') . ': ' . $value[1] . PHP_EOL;
-        }
-
-        $email = new \fpcm\classes\email('sea75300@yahoo.de', 'FanPress CM Stats', $text);
-        $email->submit();
-
-        return true;
-    }
-
-    public function processCli()
-    {
-        $options = $this->getCheckOptionsSystem();
-        
-        $ev = $this->events->trigger('runSystemCheck', $this->getCheckOptionsSystem());
-        if (!$ev->getSuccessed()) {
-            trigger_error(sprintf("Event runSystemCheck failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
-            return $options;
-        }
-
-        if (!$ev->getContinue()) {
-            trigger_error(sprintf("Event runSystemCheck was stopped. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
-            return [];
-        }
-        
-        return $ev->getData();        
-        
-    }
-
-    public function getOptions() : array
-    {
-        return array_slice($this->processCli(), 16, 3);
-    }
-
-    public function getFolders() : array
-    {
-        return array_slice($this->processCli(), 20);
     }
 
 }

@@ -5,7 +5,7 @@
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
-namespace fpcm\model\system;
+namespace fpcm\model\system\check;
 
 /**
  * System config Objekt
@@ -15,7 +15,7 @@ namespace fpcm\model\system;
  * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-final class syscheckOption {
+final class option {
 
     const CLI_MASK = '| %-40.40s | %-20.20s | %1s |';
 
@@ -23,43 +23,49 @@ final class syscheckOption {
      * Current value
      * @var string
      */
-    protected $current  = '';
+    protected string $current  = '';
 
     /**
      * Help link
      * @var string
      */
-    protected $helplink = '';
+    protected string $helplink = '';
 
     /**
      * Check result
      * @var bool
      */
-    protected $result   = false;
+    protected bool $result   = false;
 
     /**
      * Option is not required
      * @var bool
      */
-    protected $optional = false;
+    protected bool $optional = false;
 
     /**
      * Option is checked folder
      * @var bool
      */
-    protected $isFolder = false;
+    protected bool $isFolder = false;
 
     /**
      * Option is checked folder
      * @var string
      */
-    protected $actionButton;
+    protected string $actionButton = '';
 
     /**
      * Add Notice
      * @var string
      */
-    protected $notice       = '';
+    protected string $notice       = '';
+
+    /**
+     * Option label
+     * @var string
+     */
+    protected string $label = '';
 
     /**
      * Konstruktor
@@ -69,10 +75,18 @@ final class syscheckOption {
      * @param bool $optional
      * @param bool $isFolder
      */
-    public function __construct($current, $helplink, $result, $optional = false, $isFolder = false)
+    public function __construct(
+            $current, 
+            $helplink = '', 
+            $result = '', 
+            $optional = false, 
+            $isFolder = false,
+            $label = ''
+        )
     {
         $this->current  = $current;
         $this->helplink = $helplink;
+        $this->label = $label;
         $this->result   = (bool) $result;
         $this->optional = (bool) $optional;
         $this->isFolder = (bool) $isFolder;
@@ -158,15 +172,20 @@ final class syscheckOption {
     {
         return $this->isFolder;
     }
-
+    
+    public function getLabel(): string
+    {
+        return $this->label;
+    }
+    
     /**
      * Returns check string for cli
      * @param string $descr
      * @return string
      */
-    public function asString($descr)
+    public function asString()
     {
-        $descr = \fpcm\classes\loader::getObject('\fpcm\classes\language')->replaceSpecialCharacters($descr);
+        $descr = \fpcm\classes\loader::getObject('\fpcm\classes\language')->replaceSpecialCharacters($this->label);
 
         if (mb_strlen($descr) > 40) {
             $descr = substr($descr, 0, 37).'...';

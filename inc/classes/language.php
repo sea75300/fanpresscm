@@ -309,6 +309,16 @@ final class language {
     }
 
     /**
+     * 
+     * @param string $var
+     * @return bool1
+     */
+    public function exists(string $var) : bool
+    {
+        return isset($GLOBALS['langdata'][strtoupper($var)]);
+    }
+
+    /**
      * Ersetzt Monat (1-12) in sprachspezifischen String
      * @param int $monthId
      * @param bool $return

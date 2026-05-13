@@ -54,18 +54,32 @@ class syscheck extends \fpcm\model\dashboard\types\dataview {
      */
     public function getRows(): array
     {
-        $sysCheckAction = new \fpcm\controller\ajax\system\syscheck(true);
+        $check = new \fpcm\model\system\check\check();
+        $check->perform();
 
         $rows = [];
 
-        /* @var $data \fpcm\model\system\syscheckOption */
-        foreach ($sysCheckAction->getOptions() as $description => $data) {
-
-            $txt = strip_tags($description);
+        $include = [
+            'phpversion' => 0,
+            'dbtype' => 1,
+            'pdo' => 2,
+            'sha256' => 3,
+            'gb' => 4,
+            'json' => 5,
+            'zip' => 6,
+            'openssl' => 7,
+            'curl' => 8,
+            'allow_url_fopen' => 9,
+            'opcache' => 10,
+            'memcache' => 11
+        ];
+        
+        /* @var $data \fpcm\model\system\check\option */
+        foreach ($check->getOptionsResult($include) as $data) {
 
             $rows[] = [
                 'description' => new \fpcm\model\dashboard\components\dataviewItem(
-                    value: $txt,
+                    value: $data->getLabel(),
                     type: \fpcm\model\dashboard\components\dataviewItem::TYPE_TEXT,
                     class: 'text-truncate'
                 ),
@@ -77,13 +91,11 @@ class syscheck extends \fpcm\model\dashboard\types\dataview {
             ];
         }
 
-        foreach ($sysCheckAction->getFolders() as $description => $data) {
-
-            $txt = strip_tags($description);
+        foreach ($check->getFolderResult() as $data) {
 
             $rows[] = [
                 'description' => new \fpcm\model\dashboard\components\dataviewItem(
-                    value: $txt,
+                    value: $data->getLabel(),
                     type: \fpcm\model\dashboard\components\dataviewItem::TYPE_TEXT,
                     class: 'text-truncate'
                 ),

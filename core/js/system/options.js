@@ -13,11 +13,7 @@ fpcm.options = {
     init: function () {
 
         fpcm.dom.bindClick('#syschecksubmitstats', function () {
-            fpcm.ajax.post('syscheck', {
-                data: {
-                    sendstats: 1
-                }
-            });
+            fpcm.ajax.post('stats');
         });
 
         fpcm.dom.bindClick('#testSmtp', function () {

@@ -26,8 +26,13 @@ final class syscheck extends \fpcm\model\abstracts\cli {
     {
         \fpcm\classes\loader::getObject('\fpcm\classes\language', FPCM_DEFAULT_LANGUAGE_CODE, false);
 
-        $sysCheckAction = new \fpcm\controller\ajax\system\syscheck();
-        $rows = $sysCheckAction->processCli();
+        /*$sysCheckAction = new \fpcm\controller\ajax\system\syscheck();
+        $rows = $sysCheckAction->processCli();*/
+        
+        $check = new \fpcm\model\system\check\check(false);
+        $check->perform();
+        
+        $rows = $check->getFullResult();
 
         $lines = [PHP_EOL];
 
@@ -36,12 +41,12 @@ final class syscheck extends \fpcm\model\abstracts\cli {
 
         $i = 1;
 
-        /* @var $data \fpcm\model\system\syscheckOption */
-        foreach ($rows as $descr => $data) {
+        /* @var $data \fpcm\model\system\check\option */
+        foreach ($rows as $data) {
             
             $progress->setCurrentValue($i++)->output();
 
-            $lines[] = $data->asString(strip_tags($descr));
+            $lines[] = $data->asString();
             usleep(50000);
         }
 

@@ -31,6 +31,7 @@ ajax/editor/editorlist: ajax/articles/editorlist
 ajax/dashboard/load: ajax/dashboard/loader
 ajax/dashboard/manager: ajax/dashboard/containerManager
 ajax/syscheck: ajax/system/syscheck
+ajax/stats: ajax/system/sendStats
 ajax/refresh: ajax/system/refresh
 ajax/crons/exec: ajax/crons/execasync
 ajax/crons/interval: ajax/crons/setinterval
