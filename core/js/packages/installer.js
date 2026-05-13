@@ -21,11 +21,9 @@ fpcm.installer = {
         sfields = jQuery('.fpcm-installer-data');
         sParams = {};
 
-        jQuery.each(sfields, function( key, obj ) {
-            var objVal  = jQuery(obj).val();
-            var objName = jQuery(obj).attr('id').replace('database', '');                                
-            sParams[objName] = objVal;
-        });
+        for (var _field of sfields) {
+            sParams[_field.dataset.type] = _field.value;            
+        }
         
         fpcm.ajax.post('installer/checkdb', {
             data: {
