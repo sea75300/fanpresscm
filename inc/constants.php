@@ -282,3 +282,12 @@ if (!defined('FPCM_SMTP_LEVEL')) {
      */
 //    define('FPCM_URLS_BASE', '');
 //}
+
+if (!defined('FPCM_IMAGE_PROCESSING_DRIVER')) {
+
+    /**
+     * Set Intervention\Image processing driver
+     * @since 5.3.0-rc3
+     */
+    define('FPCM_IMAGE_PROCESSING_DRIVER', 'Gd');
+}
