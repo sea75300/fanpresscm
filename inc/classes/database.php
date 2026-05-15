@@ -999,6 +999,10 @@ final class database {
      */
     public function getDbVersion()
     {
+        if (!$this->connection) {
+            return '';
+        }
+        
         return $this->connection->getAttribute(\PDO::ATTR_SERVER_VERSION);
     }
 

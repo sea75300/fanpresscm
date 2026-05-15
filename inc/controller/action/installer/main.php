@@ -261,9 +261,9 @@ class main extends \fpcm\controller\abstracts\controller {
      */
     protected function runStep2()
     {
-        $check = new \fpcm\model\system\check\check();
-        $check->runCheck();
-        
+        $check = new \fpcm\model\system\check\check();       
+        $check->perform();
+
         $sysCheckResults = $check->getFullResult();
 
         $isOk = true;

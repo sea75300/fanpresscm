@@ -208,6 +208,10 @@ class userlist extends \fpcm\controller\abstracts\controller
         }, ARRAY_FILTER_USE_BOTH);
 
 
+        if (!count($articleCount)) {
+            $articleCount = [0];
+        }
+        
         $max = max($articleCount);
         $cLen = strlen((string) $max);
         

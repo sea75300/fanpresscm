@@ -903,7 +903,11 @@ class view {
      */
     private function initAssignsWithSession() : bool
     {
-        if ( !$this->session?->exists() ) {
+        if (!\fpcm\classes\baseconfig::dbConfigExists()) {
+            return false;
+        }
+        
+        if ( !$this->session->exists()) {
             $this->defaultViewVars->darkMode = $this->config->system_darkmode;
             return false;
         }

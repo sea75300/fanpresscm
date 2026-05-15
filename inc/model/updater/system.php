@@ -71,6 +71,10 @@ implements \fpcm\model\interfaces\isObjectInstancable
             return remoteModel::FURLOPEN_ERROR;
         }
 
+        if ($this->version === null) {
+            $this->version = '';
+        }
+        
         $newVersion = version_compare($this->version, $this->config->system_version, '>');
         if ($newVersion && isset($this->phpversion) && version_compare(phpversion(), $this->phpversion, '<')) {
             fpcmLogSystem('FanPress CM ' . $this->version . ' is available, but requires PHP ' . $this->phpversion . ' or higher.');

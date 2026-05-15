@@ -43,6 +43,11 @@ final class check extends \fpcm\model\abstracts\staticModel {
     public function __construct(bool $html = true)
     {
         parent::__construct();
+
+        if (!$this->language instanceof \fpcm\classes\language) {
+            $this->language = \fpcm\classes\loader::getObject('\fpcm\classes\language');
+        }
+
         $this->html = $html;
     }
 
@@ -53,7 +58,7 @@ final class check extends \fpcm\model\abstracts\staticModel {
     public function runCheck()
     {
         $this->perform();
-        
+
         $result = $this->getFullResult();
 
         $ev = $this->events->trigger('runSystemCheck', $result);
@@ -373,10 +378,10 @@ final class check extends \fpcm\model\abstracts\staticModel {
     public function submitStats() : bool
     {
         $this->perform();
-        
+
         $options = '';
         $folders = '';
-        
+
         /* @var $opt \fpcm\model\system\check\option */
         foreach ($this->getOptionsResult() as $opt) {
             $options .= sprintf('<li>%s : %s -> %s</li>', $opt->getLabel(), $opt->getCurrent(), $opt->getResult());
