@@ -1,8 +1,4 @@
 
-:root {
-  --bs-font-sans-serif: 'Droid Sans', sans-serif ;
-  --fpcm-font-headline: 'Expletus Sans';
-}
 
 /* ------ General common styles */
 
@@ -164,12 +160,21 @@ img.fpcm-ui-smileylist-preview {
     cursor: pointer;
 }
 
+.fpcm.ui-autocomplete,
+.fpcm.ui-dropdown-limit {
+    max-height: 33vh;
+}
+
 .fpcm-ui-progressbar {
     height: 35px;
 }
 
 .fpcm.ui-progressbar-sm {
     height: 10px;
+}
+
+.fpcm.ui-progressbar-lg {
+    height: 50px;
 }
 
 .pre-box {

@@ -9,15 +9,13 @@ namespace fpcm\model\ips;
 
 /**
  * IP adress object
- * 
+ *
  * @package fpcm\model\system
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 class ipaddress extends \fpcm\model\abstracts\dataset {
-
-    use \fpcm\model\traits\eventModuleEmpty;
 
     /**
      * IP-Adresse
@@ -189,11 +187,15 @@ class ipaddress extends \fpcm\model\abstracts\dataset {
             return false;
         }
 
-        $params = $this->getPreparedSaveParams();
-        $params = $this->events->trigger('ipaddressSave', $params)->getData();
+        $sEv = $this->getEventName('save');
+        $ev = $this->events->trigger($sEv, $this->getPreparedSaveParams());
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event %s failed. Returned success = %s, continue = %s", $sEv, $ev->getSuccessed(), $ev->getContinue()));
+            return false;
+        }
 
         $return = false;
-        if ($this->dbcon->insert($this->table, $params)) {
+        if ($this->dbcon->insert($this->table, $ev->getData())) {
             $return = true;
         }
 
@@ -215,9 +217,17 @@ class ipaddress extends \fpcm\model\abstracts\dataset {
         }
 
         $params = $this->getPreparedSaveParams();
-        $params = $this->events->trigger('ipaddressUpdate', $params)->getData();        
-        $fields = array_keys($params);
         $params[] = $this->getId();
+
+        $uEv = $this->getEventName('update');
+        $ev = $this->events->trigger($uEv, $params);
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event %s failed. Returned success = %s, continue = %s", $uEv, $ev->getSuccessed(), $ev->getContinue()));
+            return false;
+        }
+
+        $params = $ev->getData();
+        $fields = $this->getFieldFromSaveParams($params);
 
         $return = false;
         if ( $this->dbcon->update($this->table, $fields, array_values($params), 'id = ?') ) {
@@ -227,7 +237,7 @@ class ipaddress extends \fpcm\model\abstracts\dataset {
         $this->cache->cleanup();
         return $return;
     }
-
+    
     /**
      * Check if ip address is locked
      * @param string $accessParams
@@ -252,6 +262,15 @@ class ipaddress extends \fpcm\model\abstracts\dataset {
         $result = $this->dbcon->fetch($this->dbcon->select($this->table, 'count(id) AS counted', $where, $adresses));
 
         return $result->counted ? true : false;
+    }
+
+    /**
+     * Returns event base
+     * @return string
+     */
+    protected function getEventModule(): string
+    {
+        return 'ips';
     }
 
 }

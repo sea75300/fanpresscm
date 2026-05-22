@@ -73,7 +73,8 @@ class initdb extends \fpcm\controller\abstracts\ajaxController {
     }
 
     /**
-     * Controller-Processing
+     * Controller processing
+     * @return bool
      */
     public function process()
     {
@@ -143,6 +144,7 @@ class initdb extends \fpcm\controller\abstracts\ajaxController {
         $progress->setNext( $progress->getCurrent() < count($files) && !$progress->getStop() );
         
         $this->response->setReturnData($progress)->fetch();
+        return true;
     }
 
     /**

@@ -221,27 +221,52 @@ implements \fpcm\model\interfaces\gsearchIndex {
     {
         $where = [];
         $valueParams = [];
+        $combination = '';
 
         if ( $conditions->isMultiple() ) {
-            $this->assignMultipleSearchParams($conditions, $where, $valueParams);
-            $combination = '';
+            $qas = $conditions->prepareFilterParams();
+
+            $where = $qas->getQueries();
+            $valueParams = $qas->getValues();
         }
         else {
             $this->assignSearchParams($conditions, $where, $valueParams);
             $combination = $conditions->combination !== null ? $conditions->combination : 'AND';
         }
 
-        $eventData = $this->events->trigger('article\getByCondition', [
+        $ev = $this->events->trigger('article\getByCondition', [
             'conditions' => $conditions,
             'where' => $where,
             'values' => $valueParams
-        ])->getData();
+        ]);
+
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event article\getByCondition failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return false;
+        }
+
+        $eventData = $ev->getData();
 
         $conditions = $eventData['conditions'];
         $where = $eventData['where'];
         $valueParams = $eventData['values'];
 
         $where = implode(" {$combination} ", $where);
+
+        if ($conditions->isMultiple()) {
+
+            if ($conditions->modeArchive) {
+                $where = sprintf("(%s) AND draft = 0 AND archived = 1", $where);
+            }
+            else if ($conditions->modeActive) {
+                $where = sprintf("(%s) AND archived = 0", $where);
+            }
+
+            if ($conditions->modeDeleted) {
+                $where = sprintf("(%s) AND deleted = 0", $where);
+            }
+
+        }
 
         $where2 = [];
         $where2[] = $this->dbcon->orderBy(
@@ -254,9 +279,9 @@ implements \fpcm\model\interfaces\gsearchIndex {
 
         $where .= ' ' . implode(' ', $where2);
 
-        $item   = $conditions->metaOnly
-                ? 'id, title, categories, createtime, createuser, changetime, changeuser, draft, archived, pinned, postponed, deleted, comments, approval, imagepath, sources, inedit ,pinned_until'
-                : '*';
+        $cols = 'id, title, categories, createtime, createuser, changetime, changeuser, draft, archived, pinned, postponed, deleted, comments, approval, imagepath, sources, inedit, pinned_until';
+        
+        $item = $conditions->metaOnly ? $cols : '*';
 
         $obj = (new \fpcm\model\dbal\selectParams($this->table))
                 ->setItem($item)
@@ -416,10 +441,17 @@ implements \fpcm\model\interfaces\gsearchIndex {
         $this->assignSearchParams($conditions, $where, $valueParams);
         $combination = $conditions->combination !== null ? $conditions->combination : 'AND';
 
-        $eventData = $this->events->trigger('article\getByConditionCount', [
+        $ev = $this->events->trigger('article\getByConditionCount', [
             'where' => $where,
             'values' => $valueParams
-        ])->getData();
+        ]);
+
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event article\getByConditionCount failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return 0;
+        }
+        
+        $eventData = $ev->getData();
 
         return $this->dbcon->count(
             $this->table,
@@ -540,23 +572,33 @@ implements \fpcm\model\interfaces\gsearchIndex {
     }
 
     /**
-     * Massenbearbeitung
+     * Mass editing function
      * @param array $articleIds
      * @param array $fields
-     * @since 3.6
+     * @return bool
      */
-    public function editArticlesByMass(array $articleIds, array $fields)
+    public function editArticlesByMass(array $articleIds, array $fields) : bool
     {
         if (!count($articleIds)) {
             return false;
         }
 
-        $result = $this->events->trigger('article\massEditBefore', [
+        $ev = $this->events->trigger('article\massEditBefore', [
             'fields' => $fields,
             'articleIds' => $articleIds
-        ])->getData();
+        ]);
 
-        foreach ($result as $key => $val) {
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event article\massEditBefore failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return false;
+        }
+
+        $data = $ev->getData();
+        if (!count($data) || !isset($data['fields']) || !isset($data['articleIds'])) {
+            return false;
+        }
+
+        foreach ($data as $key => $val) {
             ${$key} = $val;
         }
 
@@ -597,12 +639,18 @@ implements \fpcm\model\interfaces\gsearchIndex {
 
         $this->cache->cleanup();
 
-        $result = $this->events->trigger('article\massEditAfter', [
+        $ev = $this->events->trigger('article\massEditAfter', [
             'result' => $result,
             'fields' => $fields,
             'articleIds' => $articleIds
-        ])->getData();
+        ]);
 
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event article\massEditAfter failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return false;
+        }
+
+        $result = $ev->getData();
         return $result['result'];
     }
 
@@ -887,7 +935,7 @@ implements \fpcm\model\interfaces\gsearchIndex {
      */
     public function getSearchQuery(): \fpcm\model\dbal\selectParams
     {
-        return $this->getSearchQueryObj()->setItem('\'articles\' as model, id as oid, '.$this->dbcon->concatString(['title', '";"', 'createtime']).' as text')->setFetchAll(true);
+        return $this->getSearchQueryObj()->setItem('\'articles\' as model, id as oid, '.$this->dbcon->concatString(['title', '";"', 'createtime']).' as text, \'\' as meta')->setFetchAll(true);
     }
 
     /**

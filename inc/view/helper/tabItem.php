@@ -9,7 +9,7 @@ namespace fpcm\view\helper;
 
 /**
  * Tab item
- * 
+ *
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
  * @copyright (c) 2017, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
@@ -29,7 +29,7 @@ class tabItem extends helper {
      * @since 5.0-dev
      */
     const STATE_DISABLED = 2;
-    
+
     /**
      * Url
      * @var string
@@ -105,7 +105,7 @@ class tabItem extends helper {
      * @return $this
      * @since 4.3
      */
-    public function setFile(string $file) 
+    public function setFile(string $file)
     {
         if (substr($file, 0, 2) === '{$') {
             $file = \fpcm\classes\tools::strReplaceArray($file, [
@@ -113,7 +113,7 @@ class tabItem extends helper {
                 \fpcm\view\view::PATH_MODULE => $this->modulekey ? \fpcm\module\module::getTemplateDirByKey($this->modulekey, DIRECTORY_SEPARATOR) : '',
             ]);
         }
-        
+
         if (substr($file, -4) !== '.php') {
             $file .= '.php';
         }
@@ -129,7 +129,18 @@ class tabItem extends helper {
     }
 
     /**
-     * 
+     * Set data view inline template
+     * @return $this
+     * @since 5.3.0-a1
+     */
+    final public function useDataView()
+    {
+        $this->setFile('components/dataview_inline');
+        return $this;
+    }
+
+    /**
+     *
      * @param int $state
      * @return $this
      * @since 5.0-dev
@@ -141,7 +152,7 @@ class tabItem extends helper {
     }
 
     /**
-     * 
+     *
      * @param string $modulekey
      * @return $this
      * @since 5.0-dev
@@ -205,7 +216,7 @@ class tabItem extends helper {
         $this->preload = $preload;
         return $this;
     }
-    
+
     /**
      * Get item ID
      * @return string
@@ -253,17 +264,17 @@ class tabItem extends helper {
         switch ($this->state) {
             case self::STATE_ACTIVE :
                 $css .= 'active';
-                $this->setAria(['current' => 'page']);                
+                $this->setAria(['current' => 'page']);
                 break;
             case self::STATE_DISABLED :
                 $css .= 'disabled';
-                $this->setAria(['disabled' => 'true']);                
+                $this->setAria(['disabled' => 'true']);
                 break;
         }
 
         $html[] = '><a class="nav-link '.$css.'" href="'.$this->url.'" role="tab" '.$this->getDataString().' '.$this->getAriaString().'>'.$this->text.'</a>';
-        $html[] = '</li>';        
-        
+        $html[] = '</li>';
+
         return sprintf(
             '<li id="fpcm-tab-%s" %s class="nav-item"><a class="nav-link user-select-none %s" href="%s" role="tab" %s %s>%s</a></li>',
             $this->id,

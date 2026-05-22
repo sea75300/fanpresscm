@@ -104,24 +104,19 @@ final class Image implements ImageInterface
 {
     /**
      * The origin from which the image was created
-     *
-     * @var Origin
      */
-    protected Origin $origin;
+    private Origin $origin;
 
     /**
      * Create new instance
      *
-     * @param DriverInterface $driver
-     * @param CoreInterface $core
-     * @param CollectionInterface $exif
      * @throws RuntimeException
      * @return void
      */
     public function __construct(
-        protected DriverInterface $driver,
-        protected CoreInterface $core,
-        protected CollectionInterface $exif = new Collection()
+        private DriverInterface $driver,
+        private CoreInterface $core,
+        private CollectionInterface $exif = new Collection()
     ) {
         $this->origin = new Origin();
     }
@@ -882,7 +877,7 @@ final class Image implements ImageInterface
         );
     }
 
-     /**
+    /**
      * {@inheritdoc}
      *
      * @see ImageInterface::drawBezier()
@@ -941,9 +936,7 @@ final class Image implements ImageInterface
     /**
      * Alias of self::toJpeg()
      *
-     * @param mixed $options
      * @throws RuntimeException
-     * @return EncodedImageInterface
      */
     public function toJpg(mixed ...$options): EncodedImageInterface
     {
@@ -963,9 +956,7 @@ final class Image implements ImageInterface
     /**
      * ALias of self::toJpeg2000()
      *
-     * @param mixed $options
      * @throws RuntimeException
-     * @return EncodedImageInterface
      */
     public function toJp2(mixed ...$options): EncodedImageInterface
     {
@@ -1016,7 +1007,6 @@ final class Image implements ImageInterface
      * Alias if self::toBitmap()
      *
      * @throws RuntimeException
-     * @return EncodedImageInterface
      */
     public function toBmp(mixed ...$options): EncodedImageInterface
     {
@@ -1046,9 +1036,7 @@ final class Image implements ImageInterface
     /**
      * Alias of self::toTiff()
      *
-     * @param mixed $options
      * @throws RuntimeException
-     * @return EncodedImageInterface
      */
     public function toTif(mixed ...$options): EncodedImageInterface
     {
@@ -1066,9 +1054,24 @@ final class Image implements ImageInterface
     }
 
     /**
-     * Clone image
+     * Show debug info for the current image
      *
-     * @return void
+     * @return array<string, int>
+     */
+    public function __debugInfo(): array
+    {
+        try {
+            return [
+                'width' => $this->width(),
+                'height' => $this->height(),
+            ];
+        } catch (RuntimeException) {
+            return [];
+        }
+    }
+
+    /**
+     * Clone image
      */
     public function __clone(): void
     {

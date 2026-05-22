@@ -13,30 +13,22 @@ fpcm.comments = {
 
     init: function () {
 
-        if (fpcm.ui.langvarExists('ARTICLES_SEARCH')) {
-            fpcm.comments.initCommentSearch();
-        }
+        fpcm.dom.bindClick('#btnSettings', function (ev, _ui, _result) {
+            fpcm.ui_dialogs.settings('comments', 'settings', function () {
+                fpcm.ui.relocate('self');
+            });
+        });
+  
+        fpcm.worker.postMessage({
+            namespace: 'comments',
+            function: 'loadItems',
+            id: 'comments.loadItems',
+            param: {
+                page: fpcm.vars.jsvars.listPage
+            }
+        });    
     
         fpcm.comments.assignActionsList();
-    },
-    
-    initAfter: function() {
-        
-        if (!fpcm.dataview) {
-            return false;
-        }
-        
-        if (fpcm.dataview.exists('commenttrash')) {
-            fpcm.dataview.render('commenttrash');            
-            return true;
-        }
-        
-        if (fpcm.dataview.exists('commentlist')) {
-            fpcm.dataview.render('commentlist');
-            fpcm.comments.deleteSingleArticle();
-        }
-        
-        
     },
 
     assignActionsList: function() {
@@ -47,7 +39,7 @@ fpcm.comments = {
             }
         }
 
-        fpcm.dom.bindClick('#massEdit', function () {
+        fpcm.dom.bindClick('#btnMassEdit', function () {
             fpcm.system.initMassEditDialog('comments/massedit', 'comments-massedit', fpcm.comments);
             return false;
         });
@@ -76,60 +68,60 @@ fpcm.comments = {
 
         return true;
     },
-    
-    initCommentSearch: function() {
 
-        fpcm.dom.fromId('opensearch').unbind('click');
-        fpcm.dom.fromId('opensearch').click(function () {
+    loadItems: function(_params) {
 
-            fpcm.ui_dialogs.create({
-                id: 'comments-search',
-                title: 'ARTICLES_SEARCH',
-                closeButton: true,
-                dlButtons  : [
-                    {
-                        text: 'ARTICLE_SEARCH_START',
-                        icon: 'search',
-                        primary: true,
-                        clickClose: true,
-                        click: function() {
-                            
-                            var sParams = {
-                                mode: fpcm.vars.jsvars.articleSearchMode,
-                                filter: fpcm.dom.getValuesByClass('fpcm-comments-search-input')
-                            };
-                            
-                            sParams.filter.combinations = fpcm.dom.getValuesByClass('fpcm-ui-input-select-commentsearch-combination');
+        if (!fpcm.vars.jsvars.listMode) {
+            return;
+        }
 
-                            fpcm.comments.startCommentSearch(sParams);
-                        }
-                    },                    
-                    {
-                        text: 'GLOBAL_RESET',
-                        icon: "filter-circle-xmark" ,
-                        clickClose: true,
-                        click: function() {
-                            fpcm.ui.relocate('self');
-                        }
-                    }              
-                ],
-                dlOnOpen: function() {
-                    fpcm.dom.fromId('text').focus();
-                },
-                dlOnOpenAfter: function() {            
-                    fpcm.ui.autocomplete('#articleId', {
-                        source: fpcm.vars.ajaxActionPath + 'autocomplete&src=articles',
-                        minLength: 3
-                    });
-                }
-            });
+        if (!_params) {
+            _params = {};
+        }
 
-            return false;
-        });
+        let _fnParams = {
+            mode: fpcm.vars.jsvars.listMode,
+            page: _params.page !== undefined ? parseInt(_params.page) : 1,
+            module: 'comments',
+            onRenderDataViewAfter: function () {
+                fpcm.comments.assignActionsList();
+                fpcm.comments.deleteSingleArticle();
+            },
+            onPagerNext: function () {
+                fpcm.comments.loadItems({
+                    page: fpcm.vars.jsvars.pager.showNextButton,
+                    loader: true
+                });
+                
+                return true;
+            },
+            onPagerBack: function () {
+                fpcm.comments.loadItems({
+                    page: fpcm.vars.jsvars.pager.showBackButton,
+                    loader: true
+                });
 
+                return true;
+            },
+            onPagerSelect: function (event, ui) {
+
+                fpcm.comments.loadItems({
+                    page: ui.value,
+                    loader: true
+                });
+
+                return true;
+            }
+        };
+
+        if (_params.filter instanceof Object) {
+            _fnParams.filter = _params.filter;
+        }
+
+        fpcm.ajax.getItemList(_fnParams);        
     },
 
-    startCommentSearch: function (sParams) {
+    startCommentSearch: function (_params) {
 
         if (((new Date()).getTime() - fpcm.vars.jsvars.commentsLastSearch) < 10000) {
             fpcm.ui.addMessage({
@@ -139,8 +131,8 @@ fpcm.comments = {
             return false;
         }
 
-        fpcm.ajax.post('comments/search', {
-            data: sParams,
+        fpcm.ajax.post('comments/lists', {
+            data: _params,
             execDone: function (result) {
 
                 if (result.message) {
@@ -155,20 +147,10 @@ fpcm.comments = {
 
         fpcm.vars.jsvars.commentsLastSearch = (new Date()).getTime();
     },
-
-    emptyTrash: function() {
-
-        fpcm.system.emptyTrash({
-            fn: 'clearComments'
-        });
-
-        return true;
-
-    },
     
     deleteSingleArticle: function() {
         
-        fpcm.dom.bindClick('.fpcm-ui-button-delete-comment-single', function (_e, _ui) {
+        fpcm.dom.bindClick('a[data-comid]', function (_e, _ui) {
 
             fpcm.ui_dialogs.confirm({
                 
@@ -216,23 +198,6 @@ fpcm.comments = {
         });
 
         return true;    
-    },
-
-    restoreFromTrash: function() {
-
-        var ids = fpcm.dom.getCheckboxCheckedValues('.fpcm-ui-list-checkbox');
-        if (ids.length == 0) {
-            fpcm.ui_loader.hide();
-            return false;
-        }
-
-        fpcm.system.emptyTrash({
-            fn: 'restoreComments',
-            ids: ids
-        });
-
-        return true;
-
     },
     
     resetActionsMenu: function () {

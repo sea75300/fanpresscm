@@ -56,7 +56,7 @@ class ajaxController extends controller {
 
     /**
      * Redirect if user is not logged in
-     * @return bool
+     * @return void
      */
     protected function redirectNoSession()
     {
@@ -93,6 +93,33 @@ class ajaxController extends controller {
         }
         
         $this->response->setCode(503)->addHeaders('HTTP/1.1 401 Service in is maintenance')->fetch();
+        return true;
+    }
+
+    /**
+     * Magische Methode für nicht vorhandene Methoden
+     * @param string $name
+     * @param mixed $arguments
+     * @return bool
+     */
+    public function __call($name, $arguments)
+    {
+        http_response_code(404);
+        trigger_error(sprintf("Function not found %s->%s", self::class, $name));
+        return false;
+    }
+
+    /**
+     * Magische Methode für nicht vorhandene, statische Methoden
+     * @param string $name
+     * @param mixed $arguments
+     * @return bool
+     */
+    public static function __callStatic($name, $arguments)
+    {
+        http_response_code(404);
+        trigger_error(sprintf("Function not found %s::%s", self::class, $name));
+        return false;
     }
 
 }

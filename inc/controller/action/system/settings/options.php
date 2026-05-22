@@ -39,7 +39,7 @@ class options extends \fpcm\controller\abstracts\controller implements \fpcm\con
     protected $mailSettingsChanged = false;
 
     /**
-     * 
+     *
      * @return bool
      */
     public function isAccessible() : bool
@@ -76,8 +76,8 @@ class options extends \fpcm\controller\abstracts\controller implements \fpcm\con
     }
 
     /**
-     * Controller-Processing
-     * @return bool
+     * Controller processing
+     * @return void
      */
     public function process()
     {
@@ -100,12 +100,6 @@ class options extends \fpcm\controller\abstracts\controller implements \fpcm\con
         );
         $this->view->assign('sorts', $sorts);
 
-        $sortOrders = array(
-            'SYSTEM_OPTIONS_NEWS_ORDERASC' => 'ASC',
-            'SYSTEM_OPTIONS_NEWS_ORDERDESC' => 'DESC'
-        );
-        $this->view->assign('sortsOrders', $sortOrders);
-
         $templates = new \fpcm\model\pubtemplates\templatelist();
 
         $this->view->assign('articleTemplates', $templates->getArticleTemplates());
@@ -120,6 +114,10 @@ class options extends \fpcm\controller\abstracts\controller implements \fpcm\con
             'SYSTEM_OPTIONS_COMMENT_NOTIFY_ALL' => 2
         ]);
 
+        $steps = range(50, 400, 50);
+
+        $this->view->assign('thumbsizes', array_combine($steps, $steps));
+
         $this->view->assign('smtpAuthTypes', \fpcm\classes\email::getAuthenticationTypes());
         $this->view->assign('smtpEncryption', \fpcm\classes\email::getEncryptions());
         $this->view->assign('filemanagerViews', \fpcm\components\components::getFilemanagerViews());
@@ -127,22 +125,17 @@ class options extends \fpcm\controller\abstracts\controller implements \fpcm\con
         $this->view->assign('articleLimitListAcp', \fpcm\model\system\config::getAcpArticleLimits());
         $this->view->assign('defaultFontsizes', \fpcm\model\system\config::getDefaultFontsizes());
 
-        $twitter = new \fpcm\model\system\twitter();
-
-        $this->view->assign('twitterIsActive', $twitter->checkConnection());
-        $this->view->assign('twitterScreenName', $twitter->getUsername());
-
-        $this->view->addJsFiles(['system/options.js', 'systemcheck.js']);
+        $this->view->addJsFiles(['system/options.js']);
         $this->view->addJsVars([
             'runSysCheck' => $this->syscheck,
             'dtMasks' => $this->getDateTimeMasks()
         ]);
-        
+
         $this->view->setFormAction('system/options');
 
         $this->initButtons();
         $this->initTabs();
-        
+
         $this->view->render();
     }
 
@@ -155,16 +148,29 @@ class options extends \fpcm\controller\abstracts\controller implements \fpcm\con
 
         if (\fpcm\classes\baseconfig::canConnect() && $this->permissions->system->update) {
             $actions[] = (new \fpcm\view\helper\dropdownItem('checkUpdate'))->setText('PACKAGES_MANUALCHECK')->setIcon('sync')->setValue('3');
+
+            if (\fpcm\model\updater\system::getInstance()->changelog) {
+                $actions[] = (new \fpcm\view\helper\dropdownItem('checkUpdate'))
+                        ->setText('HL_HELP_CHANGELOG')
+                        ->setUrl(\fpcm\model\updater\system::getInstance()->changelog)
+                        ->setTarget('_blank')
+                        ->setValue(4)
+                        ->setIcon('code-branch');
+            }
+
         }
-        
+
         if ($this->config->smtp_enabled) {
             $actions[] = (new \fpcm\view\helper\dropdownItem('testSmtp'))->setText('SYSTEM_OPTIONS_EMAIL_CHECK')->setIcon('envelope-circle-check')->setValue('2');
         }
 
+        $saveDefDisabled = $this->getActiveTab() === 7 || $this->syscheck;
+
         $this->view->addButtons([
-            (new \fpcm\view\helper\saveButton('configSave'))->setPrimary(),
+            (new \fpcm\view\helper\saveButton('configSave'))->setPrimary()->setToolbarToggle(1, \fpcm\view\helper\button::TOGGLE_ACTION_DISABLE, $saveDefDisabled),
             (new \fpcm\view\helper\dropdown('actions'))->setText('GLOBAL_EXTENDED')->setIcon('bars')->setOptions($actions)
         ]);
+
         return true;
     }
 
@@ -182,24 +188,24 @@ class options extends \fpcm\controller\abstracts\controller implements \fpcm\con
                 ->setFile('system/editor.php')
                 ->setTabToolbar(1)
             ,
+            (new \fpcm\view\helper\tabItem('files'))
+                ->setText('HL_FILES_MNG')
+                ->setFile('system/files.php')
+                ->setTabToolbar(1)
+            ,
             (new \fpcm\view\helper\tabItem('articles'))
                 ->setText('SYSTEM_HL_OPTIONS_ARTICLES')
                 ->setFile('system/news.php')
                 ->setTabToolbar(1)
             ,
             (new \fpcm\view\helper\tabItem('comments'))
-                ->setText('COMMMENT_HEADLINE')                
+                ->setText('COMMMENT_HEADLINE')
                 ->setFile('system/comments.php')
                 ->setTabToolbar(1)
             ,
             (new \fpcm\view\helper\tabItem('extended'))
                 ->setText('GLOBAL_EXTENDED')
                 ->setFile('system/extended.php')
-                ->setTabToolbar(1)
-            ,
-            (new \fpcm\view\helper\tabItem('twitter'))
-                ->setText('SYSTEM_HL_OPTIONS_TWITTER')
-                ->setFile('system/twitter.php')
                 ->setTabToolbar(1)
             ,
             (new \fpcm\view\helper\tabItem('smtp'))
@@ -226,14 +232,6 @@ class options extends \fpcm\controller\abstracts\controller implements \fpcm\con
 
         $this->newconfig = $this->request->fromPOST(null);
 
-        foreach ($this->config->twitter_events as $key => $value) {
-            $this->newconfig['twitter_events'][$key] = $this->newconfig['twitter_events'][$key] ?? 0;
-        }
-
-        foreach ($this->config->twitter_data as $key => $value) {
-            $this->newconfig['twitter_data'][$key] = $this->newconfig['twitter_data'][$key] ?? '';
-        }
-
         foreach ($this->config->smtp_settings as $key => $value) {
             $this->newconfig['smtp_settings'][$key] = $this->newconfig['smtp_settings'][$key] ?? '';
         }
@@ -249,17 +247,6 @@ class options extends \fpcm\controller\abstracts\controller implements \fpcm\con
 
         if (!$this->config->update()) {
             $this->view->addErrorMessage('SAVE_FAILED_OPTIONS');
-            return false;
-        }
-
-        $this->view->addNoticeMessage('SAVE_SUCCESS_OPTIONS');
-        return true;
-    }
-
-    protected function onTwitterDisconnect() : bool
-    {
-        if (!$this->config->disableTwitter()) {
-            $this->view->addNoticeMessage('SAVE_FAILED_OPTIONS');
             return false;
         }
 

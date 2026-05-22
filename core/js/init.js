@@ -1,13 +1,14 @@
 /**
  * FanPress CM javascript bootstrapper
  * @article Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2020, Stefan Seehafer
+ * @copyright (c) 2020-2025, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
 jQuery.noConflict();
 
 (function () {
+
     fpcm.ui.init();
     fpcm.ui_notify.init();
 
@@ -48,32 +49,35 @@ jQuery.noConflict();
 
 
 jQuery(document).ready(function () {
-    jQuery.each(fpcm, function (idx, object) {
 
-        if (!object.init || typeof object.init !== 'function') {
-            return true;
+    for (var _mod in fpcm) {
+
+        if (!fpcm[_mod].init || typeof fpcm[_mod].init !== 'function') {
+            continue;
         }
 
         try {
-            object.init();
+            fpcm[_mod].init();
         } catch (_e) {
             console.log(_e);
             alert('UI init error!\n>> Code: ' + _e.message);
         }
 
-    });
+    }
 
-    jQuery.each(fpcm, function (idx, object) {
-        if (!object.initAfter || typeof object.initAfter !== 'function') {
-            return true;
+    for (var _mod2 in fpcm) {
+
+        if (!fpcm[_mod2].init || typeof fpcm[_mod2].initAfter !== 'function') {
+            continue;
         }
 
         try {
-            object.initAfter();
+            fpcm[_mod2].initAfter();
         } catch (_e) {
             console.log(_e);
             alert('UI initAfter error!\n>> Code: ' + _e.message);
         }
-    });
+
+    }
 
 });

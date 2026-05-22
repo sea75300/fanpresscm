@@ -52,10 +52,10 @@ class alttext extends \fpcm\controller\abstracts\ajaxController
             ))->fetch();
         }
 
-        $image = new \fpcm\model\files\image($fileName);
-        $image->setAltText(substr($altText, 0, 250));
+        $mfObj = new \fpcm\model\files\mediaFile($fileName);
+        $mfObj->setAltText(substr($altText, 0, 250));
         
-        if ($image->exists() && $image->update()) {
+        if ($mfObj->exists() && $mfObj->update()) {
             $this->response->setReturnData(new \fpcm\view\message(
                 $this->language->translate('SAVE_SUCCESS_FILE_ALTTEXT'),
                 \fpcm\view\message::TYPE_NOTICE

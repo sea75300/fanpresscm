@@ -16,11 +16,12 @@ namespace fpcm\controller\action\templates;
 
 class templates extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\requestFunctions
 {
-
     use \fpcm\controller\traits\templates\edit;
 
+    private \fpcm\components\editor\aceEditor $editor;
+
     /**
-     * 
+     *
      * @return string
      */
     protected function getViewPath() : string
@@ -29,7 +30,7 @@ class templates extends \fpcm\controller\abstracts\controller implements \fpcm\c
     }
 
     /**
-     * 
+     *
      * @return string
      */
     protected function getHelpLink()
@@ -43,67 +44,80 @@ class templates extends \fpcm\controller\abstracts\controller implements \fpcm\c
      */
     public function request()
     {
-        $editor = new \fpcm\components\editor\htmlEditor();
-        $this->view->addCssFiles($editor->getCssFiles());
-
-        $jsFiles = $editor->getJsFiles();
-        unset($jsFiles[16]);  
-
-        $this->view->addJsFiles($jsFiles);
+        $this->editor = new \fpcm\components\editor\aceEditor();
         return true;
     }
 
     /**
      * Controller-Processing
-     * @return bool
+     * @return void
      */
     public function process()
     {
-
         /* @var $uploader \fpcm\components\fileupload\uploader */
         $uploader = \fpcm\components\components::getFileUploader();
 
         $this->view->addJsVars(array_merge([
             'templateId' => 1,
-            'uploadDest' => 'drafts'
-        ], $uploader->getJsVars() ));
+            'uploadDest' => 'drafts',
+            'filemanagerUrl' => \fpcm\classes\tools::getFullControllerLink('files/list', ['mode' => '']),
+            'filemanagerMode' => 2,
+            'filemanagerPermissions' => $this->permissions->uploads,
+        ], $uploader->getJsVars(), $this->editor->getJsVars() ));
 
         $this->view->addCssFiles($uploader->getCssFiles());
-        $this->view->addJsLangVars(array_merge(['HL_TEMPLATE_PREVIEW', 'TEMPLATE_HL_DRAFTS_EDIT'], $uploader->getJsLangVars()));
-        $this->view->addJsFiles(array_merge(['templates/module.js'], $uploader->getJsFiles() ));
+        $this->view->addJsLangVars(array_merge(
+            [
+                'HL_FILES_MNG', 'ARTICLES_SEARCH', 'FILE_LIST_NEWTHUMBS', 'GLOBAL_DELETE',
+                'EDITOR_CATEGORIES_SEARCH', 'FILE_LIST_UPLOADFORM',
+                'TEMPLATE_HL_DRAFTS_EDIT'
+            ],
+            $uploader->getJsLangVars(),
+            $this->editor->getJsLangVars()
+        ));
+
+        $this->view->addJsFiles(array_merge(['templates/module.js'], $uploader->getJsFiles(), $this->editor->getJsFiles() ));
         $this->view->addJsFilesLate($uploader->getJsFilesLate());
         $this->view->setJsModuleFiles($uploader->getJsModuleFiles());
+        $this->view->addDialogs($this->editor->getDialogs());
 
-        if (!trim($uploader->getTemplate()) || !realpath($uploader->getTemplate())) {
-            trigger_error('Undefined file upload template given in '.$uploader->getTemplate());
-            $this->execDestruct = false;
-            return false;
+        if ($this->permissions->system->drafts) {
+            $this->view->includeForms('templates');
         }
-
-        $this->view->setViewVars( $uploader->getViewVars() );
+        
+        $this->view->setViewVars($uploader->getViewVars());
 
         $this->initDataView();
 
         $this->view->setFormAction('templates/templates');
-        
-        $hiddenClass1 = in_array($this->getActiveTab(), [6,7]) ? 'fpcm-ui-hidden' : '';
-        $hiddenClass2 = $this->getActiveTab() != 7 ? 'fpcm-ui-hidden' : '';
 
         $buttons = [
-            (new \fpcm\view\helper\saveButton('saveTemplates'))->setClass( $this->getToolbarButtonToggleClass(1, '', true) )->setPrimary(),
-            (new \fpcm\view\helper\button('showpreview'))->setText('GLOBAL_PREVIEW')->setIcon('eye')->setClass( $this->getToolbarButtonToggleClass(1, '', true) )
+            (new \fpcm\view\helper\saveButton('saveTemplates'))
+                ->setToolbarToggle(1)
+                ->setPrimary(),
+            (new \fpcm\view\helper\button('showpreview'))
+                ->setText('GLOBAL_PREVIEW')
+                ->setIcon('eye')
+                ->setToolbarToggle(1)
         ];
-        
+
         if ($this->permissions->system->drafts) {
-            
-            
+
+
             $buttons[] =  (new \fpcm\view\helper\deleteButton('fileDelete'))
-                ->setClass('fpcm-ui-maintoolbarbuttons-tab3 ' . $hiddenClass2 )->setClickConfirm();
-            
+                ->setToolbarToggle(
+                    toolbarTab: 2,
+                    default: true
+                )
+                ->setClickConfirm();
+
             $buttons[] =  (new \fpcm\view\helper\button('fileUpload'))
                 ->setText('FILE_LIST_UPLOADFORM')
-                ->setClass('fpcm-ui-maintoolbarbuttons-tab3 ' . $hiddenClass2 )
                 ->setIcon('upload')
+                ->setToolbarToggle(
+                    toolbarTab: 2,
+                    default: true
+                )
                 ->setData([
                     'bs-toggle' => 'offcanvas',
                     'bs-target' => '#offcanvasUpload'
@@ -111,18 +125,18 @@ class templates extends \fpcm\controller\abstracts\controller implements \fpcm\c
                 ->setAria([
                     'bs-controls' => 'offcanvasUpload',
                 ])
-                ->setPrimary();        
+                ->setPrimary();
         }
-        
-        $this->view->addButtons($buttons);        
-        
+
+        $this->view->addButtons($buttons);
+
         $this->initTabs();
 
         $this->view->render();
     }
 
     /**
-     * 
+     *
      * @return boolean
      */
     private function initTabs()
@@ -138,7 +152,7 @@ class templates extends \fpcm\controller\abstracts\controller implements \fpcm\c
                 ->setDataViewId(''),
 
         ];
-        
+
         if ($this->config->articles_template_active != $this->config->article_template_active) {
             $tabs[] = (new \fpcm\view\helper\tabItem('tpl-articleSingle'))
                 ->setText('TEMPLATE_HL_ARTICLE_SINGLE')
@@ -149,7 +163,7 @@ class templates extends \fpcm\controller\abstracts\controller implements \fpcm\c
                 ->setTabToolbar(1)
                 ->setDataViewId('');
         }
-        
+
         $tabs = array_merge($tabs, [
             (new \fpcm\view\helper\tabItem('tpl-comment'))
                 ->setText('TEMPLATE_HL_COMMENTS')
@@ -187,22 +201,14 @@ class templates extends \fpcm\controller\abstracts\controller implements \fpcm\c
                 ->setTabToolbar(1)
                 ->setDataViewId(''),
 
-            (new \fpcm\view\helper\tabItem('tpl-tweet'))
-                ->setText('TEMPLATE_HL_TWEET')
-                ->setUrl(\fpcm\classes\tools::getFullControllerLink('ajax/templates/fetch', [
-                    'tpl' => \fpcm\model\pubtemplates\tweet::TEMPLATE_ID
-                ]))
-                ->setData(['tplId' => \fpcm\model\pubtemplates\tweet::TEMPLATE_ID])
-                ->setTabToolbar(1)
-                ->setDataViewId(''),
         ]);
-        
+
         if ($this->permissions->system->drafts) {
             $tabs[] = (new \fpcm\view\helper\tabItem('tpl-editor-templates'))
                     ->setText('TEMPLATE_HL_DRAFTS')
                     ->setFile( $this->getViewPath() )
                     ->setData(['noEmpty' => true])
-                    ->setTabToolbar(3)
+                    ->setTabToolbar(2)
                     ->setDataViewId('draftfiles');
         }
 
@@ -212,8 +218,8 @@ class templates extends \fpcm\controller\abstracts\controller implements \fpcm\c
 
 
     /**
-     * 
-     * @return bool
+     * Init dataview for template files
+     * @return void
      */
     private function initDataView()
     {
@@ -221,12 +227,12 @@ class templates extends \fpcm\controller\abstracts\controller implements \fpcm\c
 
         $dataView = new \fpcm\components\dataView\dataView('draftfiles');
         $dataView->addColumns([
-            (new \fpcm\components\dataView\column('select', '', 'mx-3'))->setSize('auto')->setAlign('center'),
-            (new \fpcm\components\dataView\column('button', '', 'mx-3'))->setSize('auto')->setAlign('center'),
-            (new \fpcm\components\dataView\column('filename', 'FILE_LIST_FILENAME'))->setSize(8),
-            (new \fpcm\components\dataView\column('filesize', 'FILE_LIST_FILESIZE'))->setSize(2)
+            (new \fpcm\components\dataView\column('select'))->setSize(1)->setAlign('center'),
+            (new \fpcm\components\dataView\column('button'))->setSize(2)->setAlign('center'),
+            (new \fpcm\components\dataView\column('filename', 'FILE_LIST_FILENAME')),
+            (new \fpcm\components\dataView\column('filesize', 'FILE_LIST_FILESIZE'))->setSize(2)->setAlign('center')
         ]);
-        
+
         $items = $tplfilelist->getFolderObjectList();
         if (!count($items)) {
 
@@ -244,7 +250,7 @@ class templates extends \fpcm\controller\abstracts\controller implements \fpcm\c
                 false,
                 true
             ));
-            
+
             $this->view->addDataView($dataView);
             return true;
         }
@@ -266,12 +272,12 @@ class templates extends \fpcm\controller\abstracts\controller implements \fpcm\c
                 new \fpcm\components\dataView\rowCol('filesize', \fpcm\classes\tools::calcSize($templateFile->getFilesize()) )
             ]));
         }
-        
+
         $this->view->addDataView($dataView);
     }
 
     /**
-     * 
+     *
      * @return bool
      */
     protected function onFileDelete()
@@ -279,7 +285,7 @@ class templates extends \fpcm\controller\abstracts\controller implements \fpcm\c
         if (!$this->permissions->system->drafts) {
             return false;
         }
-        
+
         $delFiles = $this->request->fromPOST('deltplfiles', [
             \fpcm\model\http\request::FILTER_BASE64DECODE
         ]);

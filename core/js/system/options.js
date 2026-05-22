@@ -13,11 +13,7 @@ fpcm.options = {
     init: function () {
 
         fpcm.dom.bindClick('#syschecksubmitstats', function () {
-            fpcm.ajax.post('syscheck', {
-                data: {
-                    sendstats: 1
-                }
-            });
+            fpcm.ajax.post('stats');
         });
 
         fpcm.dom.bindClick('#testSmtp', function () {
@@ -46,6 +42,17 @@ fpcm.options = {
         });
 
         fpcm.system.checkForUpdates();
+
+        fpcm.ui_tabs.render('options', {
+            onRenderHtmlAfter: function (_event, _result) {
+
+                if (_event.originalTarget.dataset.tabIndex != 7) {
+                    return;
+                }
+
+                fpcm.system.openUpdateDialog('btnStartUpdate');
+            }
+        });
 
     }
 };

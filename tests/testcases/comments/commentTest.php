@@ -81,7 +81,7 @@ class commentTest extends testBase {
         
         foreach ($icons as $icon) {
             $this->assertInstanceOf('\fpcm\view\helper\icon', $icon);
-            $this->assertStringContainsString('<span class="fpcm-ui-icon-single fpcm-ui-editor-metainfo', (string) $icon );
+            $this->assertStringContainsString('<span class="fpcm-ui-icon-single', (string) $icon );
         }
         
     }

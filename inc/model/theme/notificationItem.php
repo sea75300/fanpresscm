@@ -40,7 +40,13 @@ class notificationItem implements \Stringable {
      * JavaScript Callback in fpcm.notifications
      * @var string
      */
-    protected $callback = '';
+    protected string|\fpcm\view\helper\linkButton|\fpcm\view\helper\button $callback = '';
+
+    /**
+     * Link callback
+     * @var bool
+     */
+    private bool $isLinkCallback = false;
 
     /**
      * Konstruktor
@@ -48,14 +54,26 @@ class notificationItem implements \Stringable {
      * @param string $id
      * @param string $callback
      */
-    function __construct(\fpcm\view\helper\icon $icon, string $id = '', string $callback = '', string $class = '')
+    function __construct(
+        \fpcm\view\helper\icon $icon,
+        string $id = '',
+        string|\fpcm\view\helper\linkButton|\fpcm\view\helper\button $callback = '',
+        string $class = ''
+    )
     {
-        $this->icon = $icon;
-        $this->icon->setSize('lg');
+        if (!trim($id)) {
+            $id = uniqid('fpcm-notification-item');
+        }
 
-        $this->id = trim($id) ? trim($id) : uniqid('fpcm-notification-item');
         $this->callback = $callback;
-        $this->class = sprintf('dropdown-item %s %s', trim($class), !trim($callback) ? 'disabled' : '');
+
+        $disabled = !is_object($this->callback) || (is_string($callback) && !trim($callback));
+
+        $this->class = sprintf('%s %s dropdown-item-text', trim($class), $disabled ? 'disabled' : '');
+        $this->id = $id;
+
+        $this->icon = $icon;
+        $this->icon->setStack('square')->setInvertIcon();
     }
 
     /**
@@ -92,15 +110,16 @@ class notificationItem implements \Stringable {
      */
     public function __toString() : string
     {
-        $callback = $this->getCallback();
+        $txt = $this->icon->getText();
 
         return sprintf(
-            '<li id="%s" class="%s text-truncate" %s %s %s</li>',
+            '<li title="%s" id="%s" class="%s"><span class="d-flex align-items-center"><span class="me-2">%s</span><span class="flex-grow-1 text-truncate">%s</span><span class="ms-3">%s</span></span></li>',
+            strip_tags($txt),
             $this->id,
             $this->class,
-            $this->getCallback(),
-            !str_contains($callback, '<a href') ? $this->icon : '',
-            $this->icon->getText()
+            $this->icon,
+            $txt,
+            $this->getCallback()
         );
 
     }
@@ -112,20 +131,37 @@ class notificationItem implements \Stringable {
      */
     private function getCallback() : string
     {
-        if (!trim($this->callback)) {
-            return '>';
+        if (!is_object($this->callback) && !trim($this->callback)) {
+            return '';
         }
 
-        if ( str_starts_with($this->callback, 'http') ) {
-            return sprintf(
-                '><a href="%s" class="%s">%s</a>',
-                $this->callback,
-                'btn btn-sm btn-warning',
-                $this->icon
-            );
+        if (is_string($this->callback)) {
+
+            $name = 'callback'.$this->id;
+
+            if (str_starts_with($this->callback, 'http')) {
+                $this->callback = (new \fpcm\view\helper\linkButton($name))->setUrl($this->callback)->setText('');
+            }
+            else {
+                $this->callback = (new \fpcm\view\helper\button($name))
+                    ->setData(['fn' => $this->callback])
+                    ->setText(strip_tags($this->icon->getText()));
+            }
+
+            $this->callback->overrideButtonType('secondary')->setIcon('circle-play');
         }
 
-        return sprintf(' data-callback="%s">', $this->callback);
+        if ($this->callback instanceof \fpcm\view\helper\linkButton ||
+            $this->callback instanceof \fpcm\view\helper\button) {
+
+            $this->callback->setIconOnly()->setClass('btn-sm me-1');
+
+            return (string) $this->callback;
+        }
+
+
+
+        return sprintf(' data-callback="%s"', $this->callback);
     }
 
 }

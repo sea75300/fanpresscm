@@ -15,9 +15,6 @@ class StringColorDecoder extends AbstractDecoder implements DecoderInterface
 {
     /**
      * Decode rgb color strings
-     *
-     * @param mixed $input
-     * @return ImageInterface|ColorInterface
      */
     public function decode(mixed $input): ImageInterface|ColorInterface
     {
@@ -32,7 +29,7 @@ class StringColorDecoder extends AbstractDecoder implements DecoderInterface
         }
 
         // rgb values
-        $values = array_map(function ($value) {
+        $values = array_map(function (string $value): int {
             return match (strpos($value, '%')) {
                 false => intval(trim($value)),
                 default => intval(round(floatval(trim(str_replace('%', '', $value))) / 100 * 255)),

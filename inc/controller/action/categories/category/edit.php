@@ -35,6 +35,10 @@ class edit extends base {
         return true;
     }
 
+    /**
+     * Controller processing
+     * @return void
+     */
     public function process()
     {
         $this->view->setFormAction($this->category->getEditLink(), [], true);

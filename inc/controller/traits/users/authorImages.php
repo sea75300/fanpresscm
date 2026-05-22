@@ -30,12 +30,92 @@ trait authorImages {
     protected $gAuth;
 
     /**
+     * Upload user image event
+     * @return bool
+     * @since 5.3.0-a1
+     */
+    protected function onUploadFile() : bool
+    {
+
+        if (!isset($this->user) || !$this->user instanceof \fpcm\model\users\author) {
+            return false;
+        }
+        
+        if (!$this->uploader instanceof \fpcm\components\fileupload\htmlupload) {
+            return false;
+        }
+        
+        if (!$this->checkPageToken) {
+            return false;
+        }
+
+        $files = $this->request->fromFiles();
+        if ($files === null) {
+            return false;
+        }
+        
+        $uploader = new \fpcm\model\files\fileuploader($files);
+        $res = $uploader->processAuthorImageUpload($this->user->getImage());
+
+        $this->cache->cleanup();
+        if ($res == true) {
+            $this->view->addNoticeMessage('SAVE_SUCCESS_UPLOADAUTHORIMG');
+            return true;
+        }
+
+        $this->view->addErrorMessage('SAVE_FAILED_UPLOADAUTHORIMG');
+        return false;
+    }
+    
+    /**
+     * Delete user image event
+     * @return bool
+     * @since 5.3.0-a1
+     */
+    protected function onFileDelete() : bool
+    {
+        if (!isset($this->user) || !$this->user instanceof \fpcm\model\users\author) {
+            return false;
+        }
+        
+        if (!$this->checkPageToken) {
+            return false;
+        }
+
+        $img = $this->user->getImage();
+        
+        $res = true;
+        foreach (\fpcm\model\files\authorImage::$allowedExts as $ext) {
+
+            $filename = $img . '.' . $ext;
+            $authorImage = new \fpcm\model\files\authorImage($filename);
+            if (!$authorImage->exists()) {
+                continue;
+            }
+
+            $res = $res && $authorImage->delete();
+        }
+
+        $this->cache->cleanup();
+        if ($res == true) {
+            $this->view->addNoticeMessage('DELETE_SUCCESS_FILEAUTHORIMG');
+            return true;
+        }
+
+        $this->view->addErrorMessage('DELETE_FAILED_FILEAUTHORIMG');
+        return false;
+    }
+
+    /**
      * Author-Avatar hochlanden
      * @param \fpcm\model\users\author $author
      * @return bool
+     * @deprecated 5.3.0-a1
      */
     protected function uploadImage($author)
     {
+        trigger_error(sprintf("%s is deprecated as of FPCM 5.3.0-a1. Use onUploadFile event with \fpcm\controller\interfaces\requestFunctions interface instead.", __METHOD__), E_USER_DEPRECATED);
+        
         if (!$author instanceof \fpcm\model\users\author) {
             return false;
         }
@@ -70,9 +150,12 @@ trait authorImages {
      * Author-Avatar löschen
      * @param \fpcm\model\users\author $author
      * @return bool
+     * @deprecated 5.3.0-a1
      */
     protected function deleteImage($author)
     {
+        trigger_error(sprintf("%s is deprecated as of FPCM 5.3.0-a1. Use onFileDelete event with \fpcm\controller\interfaces\requestFunctions interface instead.", __METHOD__), E_USER_DEPRECATED);
+        
         if (!$author instanceof \fpcm\model\users\author) {
             return false;
         }
@@ -82,7 +165,7 @@ trait authorImages {
         }
 
         $res = true;
-        foreach (\fpcm\model\files\image::$allowedExts as $ext) {
+        foreach (\fpcm\model\files\authorImage::$allowedExts as $ext) {
 
             $filename = $author->getImage() . '.' . $ext;
             $authorImage = new \fpcm\model\files\authorImage($filename);
@@ -147,9 +230,7 @@ trait authorImages {
         $this->view->addJsFiles(['users/userimage.js']);        
         $this->view->addJsVars(array_merge([
             'uploadDest' => 'userimage&uid=' . $author->getId(),
-            'userImgRedir' => \fpcm\classes\tools::getFullControllerLink('system/profile', [
-                'rg' => 1
-            ])
+            'userImgRedir' => \fpcm\classes\tools::getFullControllerLink('system/profile')
         ], $this->uploader->getJsVars() ));        
         
         

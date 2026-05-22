@@ -26,6 +26,6 @@ namespace fpcm\events\category;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\events
  */
-final class update extends \fpcm\events\abstracts\eventReturnArray {
+final class update extends \fpcm\events\abstracts\event {
 
 }

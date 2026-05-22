@@ -36,9 +36,9 @@ abstract class AbstractFontProcessor implements FontProcessorInterface
         foreach ($lines as $line) {
             $lineBoxSize = $this->boxSize((string) $line, $font);
             $lineWidth = $lineBoxSize->width() + $lineBoxSize->pivot()->x();
-            $xAdjustment = $font->alignment() == 'left' ? 0 : $blockWidth - $lineWidth;
-            $xAdjustment = $font->alignment() == 'right' ? intval(round($xAdjustment)) : $xAdjustment;
-            $xAdjustment = $font->alignment() == 'center' ? intval(round($xAdjustment / 2)) : $xAdjustment;
+            $xAdjustment = $font->alignment() === 'left' ? 0 : $blockWidth - $lineWidth;
+            $xAdjustment = $font->alignment() === 'right' ? intval(round($xAdjustment)) : $xAdjustment;
+            $xAdjustment = $font->alignment() === 'center' ? intval(round($xAdjustment / 2)) : $xAdjustment;
             $position = new Point($x + $xAdjustment, $y);
             $position->rotate($font->angle(), $pivot);
             $line->setPosition($position);
@@ -91,10 +91,7 @@ abstract class AbstractFontProcessor implements FontProcessorInterface
     /**
      * Reformat a text block by wrapping each line before the given maximum width
      *
-     * @param TextBlock $block
-     * @param FontInterface $font
      * @throws FontException
-     * @return TextBlock
      */
     protected function wrapTextBlock(TextBlock $block, FontInterface $font): TextBlock
     {
@@ -113,8 +110,6 @@ abstract class AbstractFontProcessor implements FontProcessorInterface
      * The output will be an array of formatted lines that are all within the
      * maximum width.
      *
-     * @param Line $line
-     * @param FontInterface $font
      * @throws FontException
      * @return array<Line>
      */
@@ -132,14 +127,14 @@ abstract class AbstractFontProcessor implements FontProcessorInterface
             // calculate width of newly formatted line
             $lineWidth = $this->boxSize(match ($formattedLine->count()) {
                 0 => $word,
-                default => (string) $formattedLine . ' ' . $word,
+                default => $formattedLine . ' ' . $word,
             }, $font)->width();
 
             // decide if word fits on current line or a new line must be created
             if ($line->count() === 1 || $lineWidth <= $font->wrapWidth()) {
                 $formattedLine->add($word);
             } else {
-                if ($formattedLine->count()) {
+                if ($formattedLine->count() !== 0) {
                     $wrapped[] = $formattedLine;
                 }
                 $formattedLine = new Line($word);
@@ -154,11 +149,7 @@ abstract class AbstractFontProcessor implements FontProcessorInterface
     /**
      * Build pivot point of textblock according to the font settings and based on given position
      *
-     * @param TextBlock $block
-     * @param FontInterface $font
-     * @param PointInterface $position
      * @throws FontException
-     * @return PointInterface
      */
     protected function buildPivot(TextBlock $block, FontInterface $font, PointInterface $position): PointInterface
     {

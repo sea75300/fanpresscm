@@ -10,10 +10,10 @@
     <div class="col-12 col-lg-5 col-xl-3">
         <div class="m-2">
             <div class="list-group h-100">
-                <div class="list-group-item bg-secondary text-white"><?php $theView->icon('plus'); ?> <?php $theView->write('TEMPLATE_REPLACEMENTS'); ?></div>
+                <div class="list-group-item bg-secondary bg-gradient text-white"><?php $theView->icon('plus'); ?> <?php $theView->write('TEMPLATE_REPLACEMENTS'); ?></div>
 
             <?php foreach ($replacements as $tag => $descr) : ?>
-                <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center fpcm-ui-template-tags" data-tag="<?php print $tag; ?>">
+                <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" data-tag="<?php print $tag; ?>">
 
                     <div class="d-block">
                         <h5 class="mb-1"><?php print $tag; ?></h5>
@@ -25,7 +25,7 @@
                     <?php endif; ?>
 
                     </div>
-                    <?php $theView->icon('plus')->setSize('lg')->setClass('ms-3'); ?>                        
+                    <?php $theView->icon('plus')->setSize('lg')->setClass('ms-3'); ?>
                 </a>
             <?php endforeach; ?>
             </div>
@@ -35,34 +35,29 @@
 
     <div class="col-12 col-lg-7 col-xl-9">
 
-        <?php if (count($allowedTagsList)) : ?>
-        <div class="row mt-2">
-
-            <div class="btn-toolbar" role="toolbar" aria-label="<?php $theView->write('TEMPLATE_EDITOR'); ?>">
-            <?php foreach ($allowedTagsList as $allowedTags) : ?>
-            <div class="btn-group m-1" role="group" aria-label="<?php $theView->write('TEMPLATE_EDITOR'); ?>">
-                <?php foreach ($allowedTags as $i => $tag) : ?>
-                    <?php $theView->button('tps-editor-'.substr($tag, 1, -1))->setText(htmlentities($tag))->setClass('fpcm-editor-html-click')->setData(['htmltag' => substr($tag, 1, -1)]); ?>
-                <?php endforeach; ?>
-            </div>
-            <?php endforeach; ?>
-            </div>
-
+        <div class="row my-2">
+            <?php require_once $theView->getIncludePath($toolbarTpl); ?>
         </div>
-        <?php endif; ?>
-
 
         <div class="row my-2">
-            <div class="col-12">
-                <?php $theView->textarea('template[content]', 'content_'.$tplId)->setValue($content, ENT_QUOTES)->setClass('fpcm-editor-html-click'); ?>
+            <div class="col">
+                <div id="fpcm-id-content-ace-<?php print $tplId; ?>"><?php print $theView->escapeVal($content, ENT_QUOTES); ?></div>
+                <?php $theView->textarea('template[content]', 'content-'.$tplId)->setValue($content, ENT_QUOTES)->setClass('d-none'); ?>
             </div>
         </div>
 
+        <div class="row my-2">
+            <div class="col">
+                <?php $theView->textInput('css-file-'.$tplId)
+                        ->setValue('https://')
+                        ->setText('SYSTEM_OPTIONS_STYLESHEET')
+                        ->setLabelTypeFloat();
+                ?>
+            </div>
+        </div>
 
-
+    </div>
 </div>
-
-<?php $theView->hiddenInput('template[id]')->setValue($tplId); ?>
 
 <script>
 fpcm.templates.createEditorInstance('<?php print $tplId; ?>');

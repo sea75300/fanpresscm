@@ -73,8 +73,8 @@ class trash extends \fpcm\controller\abstracts\controller
     }
 
     /**
-     * @see \fpcm\controller\abstracts\controller::process()
-     * @return mixed
+     * Controller processing
+     * @return void
      */
     public function process()
     {
@@ -85,19 +85,19 @@ class trash extends \fpcm\controller\abstracts\controller
         $this->view->addAjaxPageToken('clearTrash');
         $this->view->assign('commentsMode', 1);
         $this->view->setFormAction('comments/trash');
-        $this->view->addJsFiles(['comments/module.js']);
+        $this->view->addJsFiles(['comments/trash.js']);
 
         $this->view->addButtons([    
             (new \fpcm\view\helper\button('restoreFromTrash'))
                 ->setIcon('trash-restore')
                 ->setText('ARTICLE_LIST_RESTOREARTICLE')
-                ->setOnClick('comments.restoreFromTrash')
+                ->setOnClick('comments_trash.restoreFromTrash')
                 ->setPrimary(),
             (new \fpcm\view\helper\button('emptyTrash'))
                 ->setIcon('recycle')
                 ->setText('ARTICLE_LIST_EMPTYTRASH')
                 ->setIconOnly()
-                ->setOnClick('comments.emptyTrash')
+                ->setOnClick('comments_trash.emptyTrash')
         ]);
         
         $this->view->addTabs('comments', [
@@ -114,9 +114,9 @@ class trash extends \fpcm\controller\abstracts\controller
         return [
             (new \fpcm\components\dataView\column('select', (new \fpcm\view\helper\checkbox('fpcm-select-all'))->setClass('fpcm-select-all')))->setSize(1)->setAlign('center'),
             (new \fpcm\components\dataView\column('button', ''))->setSize(2),
-            (new \fpcm\components\dataView\column('name', 'COMMMENT_AUTHOR'))->setSize(2),
-            (new \fpcm\components\dataView\column('email', 'GLOBAL_EMAIL'))->setSize(3),
-            (new \fpcm\components\dataView\column('create', 'COMMMENT_CREATEDATE'))->setSize(3)->setAlign('center'),
+            (new \fpcm\components\dataView\column('name', 'COMMMENT_AUTHOR')),
+            (new \fpcm\components\dataView\column('email', 'GLOBAL_EMAIL')),
+            (new \fpcm\components\dataView\column('create', 'COMMMENT_CREATEDATE'))->setAlign('center'),
             (new \fpcm\components\dataView\column('metadata', ''))->setAlign('center'),
         ];
     }
@@ -151,5 +151,3 @@ class trash extends \fpcm\controller\abstracts\controller
     }
 
 }
-
-?>

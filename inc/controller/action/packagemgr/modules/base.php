@@ -9,10 +9,9 @@
 
 namespace fpcm\controller\action\packagemgr\modules;
 
-class base extends \fpcm\controller\abstracts\controller
+abstract class base extends \fpcm\controller\action\packagemgr\abstracts\base
 {
-
-    use \fpcm\controller\traits\packagemgr\initialize;
+    protected \fpcm\model\updater\modules $updater;
 
     /**
      * Module-Keys
@@ -31,27 +30,6 @@ class base extends \fpcm\controller\abstracts\controller
      * @var array
      */
     protected $jsVars = [];
-
-    /**
-     *
-     * @var bool
-     */
-    protected $updateDb;
-
-    /**
-     *
-     * @var array
-     */
-    protected $steps = [
-        'checkFs' => false,
-        'download' => true,
-        'checkPkg' => true,
-        'extract' => true,
-        'updateFs' => true,
-        'updateDb' => true,
-        'updateLog' => true,
-        'cleanup' => true
-    ];
 
     /**
      *
@@ -81,90 +59,104 @@ class base extends \fpcm\controller\abstracts\controller
             return false;
         }
 
+        parent::request();
+
         $this->key = $this->request->fromGET('key', [
             \fpcm\model\http\request::FILTER_URLDECODE
         ]);
 
-        if (!\fpcm\module\module::validateKey($this->key)) {
+        $this->updateMultiple = $this->key === \fpcm\module\modules::MODULES_ALL;
+
+        if (!$this->updateMultiple && !\fpcm\module\module::validateKey($this->key)) {
             $this->view = new \fpcm\view\error('MODULES_KEY_INVALID');
             return false;
         }
 
-        $this->updateDb = ($this->request->fromGET('update-db') !== null);
-        $this->updateMultiple = $this->request->fromGET('updateKeys') ? true : false;
+        $this->steps['backupFs'] = false;
 
         return trim($this->key) ? true : false;
     }
 
     /**
-     * Controller-Processing
-     * @return bool
+     * Controller processing
+     * @return void
      */
     public function process()
     {
-        $updater = (new \fpcm\model\updater\modules())->getDataCachedByKey($this->key);
-        $this->steps['pkgKey'] = $this->key;
-        $this->steps['pkgurl'] = $updater['packageUrl'] ?? '';
-        $this->steps['pkgname'] = isset($updater['packageUrl']) ? basename($updater['packageUrl']) : '';
-        $this->steps['pkgsize'] = isset($updater->size) && $updater->size ? '(' . \fpcm\classes\tools::calcSize($updater->size) . ')' : '';
+        $this->updater = new \fpcm\model\updater\modules();
+
+        $modPkg = $this->updater->getDataCachedByKey($this->key);
+
+        $keys = (new \fpcm\module\modules())->getInstalledUpdates();
+        
+        $jsData = [
+            'pkgKey' => $this->key,
+            'multiple' => $this->updateMultiple,
+            'pkgKeys' => $keys,
+            'pkgHashes' => array_map(function($key) {
+                return \fpcm\classes\tools::getHash($key);
+            }, $keys)
+        ];
+
+        if ($this->updateDb) {
+            $this->steps = array_map([$this, 'invert'], $this->steps);
+            $this->steps['backupFs'] = false;
+            $this->steps['updateDb'] = true;
+        }
+        else {
+            $jsData['pkgurl'] = $modPkg['packageUrl'] ?? '';
+            $jsData['pkgname'] = basename($modPkg['packageUrl'] ?? '');
+            $jsData['pkgsize'] = isset($modPkg['size']) ? \fpcm\classes\tools::calcSize($modPkg['size']) : $this->language->translate('GLOBAL_UNKNOWN');
+        }
+
+        $count = 0;
+
+        $jsData['steps'] = $this->getActiveSteps($count);
+        $this->steps['stepcount'] = $count;
 
         $this->view->setViewVars($this->steps);
-        $this->view->addJsVars($this->jsVars);
-        $this->view->addButtons([
-            (new \fpcm\view\helper\linkButton('backbtn'))->setText('MODULES_LIST_BACKTOLIST')->setUrl(\fpcm\classes\tools::getFullControllerLink('modules/list'))->setIcon('chevron-circle-left'),
-            (new \fpcm\view\helper\linkButton('protobtn'))->setText('HL_LOGS')->setUrl(\fpcm\classes\tools::getFullControllerLink('system/logs'))->setIcon('exclamation-triangle')->setTarget(\fpcm\view\helper\linkButton::TARGET_NEW),
+        $this->view->addJsVars([
+            'pkgdata' => $jsData,
+            'stepcount' => $this->steps['stepcount'],
+            'action' => $this->getMode()
         ]);
 
-        $tabText = $this->language->translate($this->steps['tabHeadline']).': '. $this->key;
+        $buttons = [
+            (new \fpcm\view\helper\linkButton('backbtn'))
+                ->setText('MODULES_LIST_BACKTOLIST')
+                ->setUrl(\fpcm\classes\tools::getFullControllerLink('modules/list'))
+                ->setIcon('chevron-circle-left'),
+            (new \fpcm\view\helper\linkButton('protobtn'))
+                ->setText('HL_LOGS')
+                ->setUrl(\fpcm\classes\tools::getFullControllerLink('system/logs'))
+                ->setIcon('exclamation-triangle')
+                ->setTarget(\fpcm\view\helper\linkButton::TARGET_NEW),
+        ];
 
-        $this->view->addTabs('updater', [
-            (new \fpcm\view\helper\tabItem('sysupdate'))->setText($tabText)->setFile($this->getViewPath())
-        ]);
-
-        $this->assignMultipleUpdates();
-        $this->view->addJsFiles(['modules/installer.js']);
-        $this->view->render();
-
+        $this->view->addButtons($buttons);
+        $this->view->addJsFiles(['packages/manager.js', 'packages/modules.js']);
+        parent::process();
     }
 
     /**
-     * Adds button to update next module
-     * @return bool
+     * Gte default step definition
+     * @return array
      */
-    private function assignMultipleUpdates() : bool
+    protected function initStepsDef(): array
     {
-        if (!$this->updateMultiple) {
-            return true;
-        }
+        $steps = parent::initStepsDef();
 
-        $updateKeys = $this->request->fromGET('updateKeys', [
-            \fpcm\model\http\request::FILTER_URLDECODE,
-            \fpcm\model\http\request::FILTER_BASE64DECODE,
-            \fpcm\model\http\request::FILTER_DECRYPT
-        ]);
-
-        if ($updateKeys === null || !trim($updateKeys)) {
-            return false;
-        }
-
-        $updateKeys = explode(';', $updateKeys);
-        if (!count($updateKeys)) {
-            return false;
-        }
-
-        $this->view->addButton(
-            (new \fpcm\view\helper\linkButton('runUpdateNext'))
-                ->setUrl(\fpcm\classes\tools::getFullControllerLink('package/modupdate', [
-                    'key' => array_shift($updateKeys),
-                    'updateKeys' => base64_encode($this->crypt->encrypt(implode(';', $updateKeys)))
-                ])
-            )->setText('MODULES_LIST_UPDATE_NEXT')
-            ->setIcon('sync')
-            ->setClass('fpcm ui-hidden')
-            ->setPrimary()
+        $steps['finish'] = new \fpcm\model\packages\step(
+            $this->language->translate('GLOBAL_FINISHED'),
+            '',
+            'stopTimer',
+            new \fpcm\view\helper\icon('circle-check'),
+            '',
+            ''
         );
 
-        return true;
+        return $steps;
     }
 
+    abstract protected function getMode() : string;
 }

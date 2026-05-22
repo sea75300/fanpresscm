@@ -25,7 +25,7 @@ class PngEncoder extends GenericPngEncoder implements SpecializedInterface
     {
         $output = $this->prepareOutput($image);
 
-        return $this->createEncodedImage(function ($pointer) use ($output) {
+        return $this->createEncodedImage(function ($pointer) use ($output): void {
             imageinterlace($output, $this->interlaced);
             imagepng($output, $pointer, -1);
         }, 'image/png');
@@ -34,11 +34,9 @@ class PngEncoder extends GenericPngEncoder implements SpecializedInterface
     /**
      * Prepare given image instance for PNG format output according to encoder settings
      *
-     * @param ImageInterface $image
      * @throws RuntimeException
      * @throws ColorException
      * @throws AnimationException
-     * @return GdImage
      */
     private function prepareOutput(ImageInterface $image): GdImage
     {

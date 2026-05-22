@@ -297,9 +297,15 @@ final class session extends \fpcm\model\abstracts\dataset implements \fpcm\model
      */
     public function save()
     {
+        $ev = $this->events->trigger('session\create', $this->getPreparedSaveParams());
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event session\create failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return false;
+        }
+
         return $this->dbcon->insert(
             $this->table,
-            $this->events->trigger('session\create', $this->getPreparedSaveParams())->getData()
+            $ev->getData()
         ) ? true : false;
     }
 
@@ -310,10 +316,16 @@ final class session extends \fpcm\model\abstracts\dataset implements \fpcm\model
     public function update()
     {
         $params = $this->getPreparedSaveParams();
-        $fields = array_keys($params);
-
         $params[] = $this->getSessionId();
-        $params = $this->events->trigger('session\update', $params)->getData();
+
+        $ev = $this->events->trigger('session\update', $params);
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event session\update failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return false;
+        }
+
+        $params = $ev->getData();
+        $fields = $this->getFieldFromSaveParams($params);
 
         $return = false;
         if ($this->dbcon->update($this->table, $fields, array_values($params), 'sessionid = ?')) {
@@ -422,7 +434,32 @@ final class session extends \fpcm\model\abstracts\dataset implements \fpcm\model
 
         return $sessions;
     }
-    
+
+    /**
+     * Returns list of active sessions
+     * @return array
+     * @since 5.3.0-b3
+     */
+    public function getActiveSessions() : array
+    {
+        $timeout = time() - FPCM_USER_SESSION * 5;
+
+        $obj = new \fpcm\model\dbal\selectParams($this->table);
+        $obj->setItem('id, userid')
+            ->setWhere("external = 0 AND (login > ? OR lastaction >= ?)")
+            ->setParams([$timeout, $timeout])
+            ->setFetchStyle(\PDO::FETCH_KEY_PAIR)
+            ->setFetchAll();
+
+        $items = $this->dbcon->selectFetch($obj);
+
+        if (!is_array($items)) {
+            return [];
+        }
+
+        return $items;
+    }
+
     /**
      * Retrieve sessions list by condition
      * @param string $search
@@ -432,16 +469,16 @@ final class session extends \fpcm\model\abstracts\dataset implements \fpcm\model
     public function getSessionsByCondition(string $search = '', array $params = [])
     {
         $sessions = [];
-        
+
         $sparams = new \fpcm\model\dbal\selectParams($this->table);
-        
+
         $where = "sessionid NOT " . $this->dbcon->dbLike() . " ?";
-        
+
         if (trim($search)) {
             $where = sprintf("%s %s" , $where, $search);
         }
 
-        $sparams->setWhere($where);        
+        $sparams->setWhere($where);
         $sparams->setParams(array_merge([$this->sessionid], $params));
         $sparams->setFetchAll(true);
 
@@ -470,14 +507,16 @@ final class session extends \fpcm\model\abstracts\dataset implements \fpcm\model
         return $this->dbcon->delete($this->table, "sessionid NOT " . $this->dbcon->dbLike() . " ? AND lastaction < ?", array($this->sessionid, time()));
     }
 
+
     /**
-     * Inittiert Objekt mit Daten aus der Datenbank, sofern ID vergeben wurde
+     * Init object with database data
+     * @return bool
      */
     public function init()
     {
         if ($this->sessionid === null) {
             $this->sessionExists = false;
-            return;
+            return false;
         }
 
         $this->currentUser = new \fpcm\model\users\author();
@@ -490,7 +529,7 @@ final class session extends \fpcm\model\abstracts\dataset implements \fpcm\model
 
         if ($data === false) {
             $this->sessionExists = false;
-            return;
+            return false;
         }
 
         $userData = new \stdClass();
@@ -510,6 +549,8 @@ final class session extends \fpcm\model\abstracts\dataset implements \fpcm\model
         if (!defined('FPCM_MODE_NOPAGETOKEN') && session_status() !== PHP_SESSION_ACTIVE) {
             session_start();
         }
+
+        return true;
     }
 
     /**
@@ -578,16 +619,6 @@ final class session extends \fpcm\model\abstracts\dataset implements \fpcm\model
     public function generateSessionId() : string
     {
         return \fpcm\classes\tools::getHash(bin2hex(random_bytes(64)));
-    }
-
-    /**
-     * Returns config class instance
-     * @return session
-     * @since 5.1.a-a1
-     */
-    public static function getInstance()
-    {
-        return self::getObjectInstance();
     }
 
 }

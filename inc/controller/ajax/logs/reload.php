@@ -136,12 +136,18 @@ class reload extends \fpcm\controller\abstracts\ajaxController
         }
 
         /* @var $log \fpcm\model\files\logfileResult */
-        $this->logObj = $this->events->trigger('logs\getModuleLog', [
+        $ev = $this->events->trigger('logs\getModuleLog', [
             'key' => $this->moduleKey,
             'log' => $this->log,
             'term' => $this->searchterm
-        ])->getData();
+        ]);
 
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event ajaxRefresh failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return false;
+        }
+
+        $this->logObj = $ev->getData();
         if (!$this->logObj instanceof \fpcm\model\logs\logfileResult) {
             return false;
         }
@@ -171,10 +177,10 @@ class reload extends \fpcm\controller\abstracts\ajaxController
         $where = '';
         $params = [];
         if ($this->searchterm !== null && strlen($this->searchterm) > 3) {
-            $where = 'AND (userid = ?OR ip = ? OR useragent LIKE ? )';
+            $where = 'AND (userid = ? OR ip = ? OR useragent LIKE ? )';
             $params = array_fill(0, 3, $this->searchterm);
             $params[2] = '%'.$params[2].'%';
-        }        
+        }
 
         $this->items = $this->session->getSessionsByCondition($where, $params);
         $this->userList = (new \fpcm\model\users\userList())->getUsersAll();
@@ -231,11 +237,12 @@ class reload extends \fpcm\controller\abstracts\ajaxController
         $this->view->assign('items', $items);
         $this->view->assign('size', \fpcm\classes\tools::calcSize($log->getFilesize()));
         $this->view->render();
+        return true;
     }
 
     /**
-     *
-     * @return bool
+     * Assign vars for dataview
+     * @return void
      */
     private function assignDataViewvars()
     {
@@ -299,10 +306,10 @@ class reload extends \fpcm\controller\abstracts\ajaxController
     private function getColsSessions() : array
     {
         return [
-            (new \fpcm\components\dataView\column('user', 'LOGS_LIST_USER', 'text-truncate'))->setSize(2),
-            (new \fpcm\components\dataView\column('period', 'LOGS_LIST_PERIOD'))->setSize(2)->setAlign('center'),
-            (new \fpcm\components\dataView\column('sessionid', 'LOGS_LIST_SESSIONID', 'text-truncate'))->setSize(4),
-            (new \fpcm\components\dataView\column('useragent', 'LOGS_LIST_USERAGENT'))->setSize(4),
+            (new \fpcm\components\dataView\column('user', 'LOGS_LIST_USER')),
+            (new \fpcm\components\dataView\column('period', 'LOGS_LIST_PERIOD')),
+            (new \fpcm\components\dataView\column('sessionid', 'LOGS_LIST_SESSIONID')),
+            (new \fpcm\components\dataView\column('useragent', 'LOGS_LIST_USERAGENT'))
         ];
     }
 
@@ -337,10 +344,14 @@ class reload extends \fpcm\controller\abstracts\ajaxController
      */
     private function getRowGeneric($item) : \fpcm\components\dataView\row
     {
+        if ($item->text === null) {
+            $item->text = '';
+        }
+
         return new \fpcm\components\dataView\row([
             new \fpcm\components\dataView\rowCol('time', $item->time),
             new \fpcm\components\dataView\rowCol('text', str_replace(['&NewLine;', PHP_EOL], '<br>', new \fpcm\view\helper\escape($item->text)), 'pre-box'),
-        ], ( isset($item->type) && trim($item->type) ? 'fpcm ui-logs-'.$item->type : '' ) );
+        ], ( isset($item->type) && trim($item->type) ? 'ui-logs-'.$item->type : '' ) );
     }
 
     /**
@@ -354,7 +365,7 @@ class reload extends \fpcm\controller\abstracts\ajaxController
 
         $username = sprintf(
             '<b>%s</b><br>%s <span class="d-inline-block" title="%s">%s</span><br><span class="text-secondary">%s %s</span>',
-            new \fpcm\view\helper\escape($this->getusername($item)),
+            new \fpcm\view\helper\escape($this->getUserName($item)),
             (new \fpcm\view\helper\icon('network-wired'))->setText('LOGS_LIST_IPADDRESS'),
             $ip,
             $ip,
@@ -373,10 +384,26 @@ class reload extends \fpcm\controller\abstracts\ajaxController
         $sid = new \fpcm\view\helper\escape($item->getSessionId());
 
         return new \fpcm\components\dataView\row([
-            new \fpcm\components\dataView\rowCol('user', $username),
-            new \fpcm\components\dataView\rowCol('period', $period),
-            new \fpcm\components\dataView\rowCol('sessionid', sprintf('<span class="d-inline-block" title="%s">%s</span>', $sid, $sid)),
-            new \fpcm\components\dataView\rowCol('useragent', new \fpcm\view\helper\escape($item->getUseragent())),
+            new \fpcm\components\dataView\rowCol(
+                name: 'user',
+                value: $username,
+                typeClass: 'text-truncate'
+            ),
+            new \fpcm\components\dataView\rowCol(
+                name: 'period',
+                value: $period,
+                typeClass: 'text-truncate'
+            ),
+            new \fpcm\components\dataView\rowCol(
+                name: 'sessionid',
+                value: sprintf('<span class="d-inline-block" title="%s">%s</span>', $sid, $sid),
+                typeClass: 'text-break'
+            ),
+            new \fpcm\components\dataView\rowCol(
+                name: 'useragent',
+                value: new \fpcm\view\helper\escape($item->getUseragent()),
+                typeClass: 'text-break'
+            )
         ]);
     }
 
@@ -393,14 +420,14 @@ class reload extends \fpcm\controller\abstracts\ajaxController
         ]);
     }
 
-    private function getusername(\fpcm\model\system\session $session) : string
+    /**
+     * Get Username
+     * @param \fpcm\model\system\session $session
+     * @return string
+     */
+    private function getUserName(\fpcm\model\system\session $session) : string
     {
-        if (!isset($this->userList[$session->getUserId()])) {
-            return $this->notfoundStr;
-        }
-
-        $name = $this->userList[$session->getUserId()]?->getDisplayName();
-        return $name ?? $this->notfoundStr;
+        return \fpcm\classes\tools::userId2Text($session->getUserId());
     }
 
 }

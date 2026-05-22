@@ -14,7 +14,7 @@ use fpcm\model\files\ops;
 
 /**
  * File model base
- * 
+ *
  * @package fpcm\model\abstracts
  * @abstract
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
@@ -43,7 +43,7 @@ abstract class file implements \Stringable {
 
     /**
      * Event-Liste
-     * @var \fpcm\events\events 
+     * @var \fpcm\events\events
      */
     protected $events;
 
@@ -120,7 +120,7 @@ abstract class file implements \Stringable {
      * @since 3.4
      */
     protected $cacheModule = '';
-    
+
     /**
      * Konstruktor
      * @param strong $filename
@@ -257,7 +257,7 @@ abstract class file implements \Stringable {
         if ($this->fullpath === null) {
             return false;
         }
-        
+
         return file_exists($this->fullpath);
     }
 
@@ -374,7 +374,7 @@ abstract class file implements \Stringable {
      * @since 3.3
      */
     public function moveUploadedFile($uploadedPath)
-    {
+    {        
         if (!$this->isValidDataFolder($this->filepath)) {
             return false;
         }
@@ -392,7 +392,7 @@ abstract class file implements \Stringable {
         if (!$this->isValidDataFolder() || !$this->isReadable()) {
             return false;
         }
-        
+
         $this->content = file_get_contents($this->fullpath);
 
         if (!trim($this->content)) {
@@ -437,7 +437,7 @@ abstract class file implements \Stringable {
     }
 
     /**
-     * 
+     *
      * Check if fullpath is valid path in /data folder structure
      * @param string $path
      * @param string $type
@@ -490,7 +490,7 @@ abstract class file implements \Stringable {
             return '';
         }
 
-        return strtolower($ext);        
+        return strtolower($ext);
     }
 
     /**
@@ -501,7 +501,7 @@ abstract class file implements \Stringable {
      */
     public static function retrieveFileName(string $filename) : string
     {
-        return pathinfo($filename, PATHINFO_FILENAME);        
+        return pathinfo($filename, PATHINFO_FILENAME);
     }
 
     /**
@@ -513,7 +513,7 @@ abstract class file implements \Stringable {
     {
         return tools::getHash($this->filename);
     }
-    
+
     /**
      * Retrieve real file path via finfo
      * @param string $path

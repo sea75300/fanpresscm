@@ -2,7 +2,7 @@
 
 /**
  * AJAX installer database connection check controller
- * 
+ *
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
@@ -12,7 +12,7 @@ namespace fpcm\controller\ajax\installer;
 
 /**
  * AJAX-Controller zur Prüfung der eingegebenen Datenbank-Zugangsdaten im Installer
- * 
+ *
  * @package fpcm\controller\ajax\installer\checkdb
  * @author Stefan Seehafer <sea75300@yahoo.de>
  */
@@ -27,7 +27,7 @@ class checkdb extends \fpcm\controller\abstracts\ajaxController {
     }
 
     /**
-     * 
+     *
      * @return bool
      */
     public function hasAccess()
@@ -53,9 +53,13 @@ class checkdb extends \fpcm\controller\abstracts\ajaxController {
         $databaseInfo = $this->request->fromPOST('dbdata');
 
         try {
-            $db = new \fpcm\classes\database($databaseInfo);
+            $db = new \fpcm\classes\database($databaseInfo, false);
         } catch (\PDOException $exc) {
             trigger_error($exc->getMessage());
+            exit('0');
+        }
+
+        if (!$db->getDbVersion()) {
             exit('0');
         }
 
@@ -75,7 +79,7 @@ class checkdb extends \fpcm\controller\abstracts\ajaxController {
     }
 
     /**
-     * 
+     *
      * @return bool
      */
     protected function initPermissionObject(): bool

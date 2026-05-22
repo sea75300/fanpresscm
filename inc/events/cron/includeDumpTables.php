@@ -20,6 +20,6 @@ namespace fpcm\events\cron;
  * @package fpcm\events
  * @since 3.1
  */
-final class includeDumpTables extends \fpcm\events\abstracts\eventReturnArray {
+final class includeDumpTables extends \fpcm\events\abstracts\event {
 
 }

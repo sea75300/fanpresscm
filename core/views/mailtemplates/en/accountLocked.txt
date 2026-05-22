@@ -1,0 +1,6 @@
+The username %s was locked temporarily, due to %s incorrect logins attempts.
+
+Locked at: %s
+IP address: %s
+
+Login-URL: %s

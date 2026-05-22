@@ -13,7 +13,8 @@ class edit extends \fpcm\controller\abstracts\controller
 implements \fpcm\controller\interfaces\requestFunctions
 {
 
-    use \fpcm\model\comments\permissions;
+    use \fpcm\model\comments\permissions,
+        \fpcm\controller\traits\comments\lists;
 
     /**
      *
@@ -83,6 +84,11 @@ implements \fpcm\controller\interfaces\requestFunctions
     {
         $this->mode = $this->request->getIntMode();
 
+        if (!in_array($this->mode, [self::MODE_ALL, self::MODE_ARTICLE])) {
+            $this->view = new \fpcm\view\error('LOAD_FAILED_COMMENT', 'comments/list');
+            return false;
+        }
+
         $id = $this->request->getID();
         if (!$id) {
             $this->redirect('comments/list');
@@ -105,12 +111,12 @@ implements \fpcm\controller\interfaces\requestFunctions
     }
 
     /**
-     *
-     * @return bool
+     * Controller processing
+     * @return void
      */
     public function process()
     {
-        if ($this->mode === 2) {
+        if ($this->mode === self::MODE_ARTICLE) {
             $this->view->showHeaderFooter(\fpcm\view\view::INCLUDE_HEADER_SIMPLE);
             $this->view->setBodyClass('m-2 fpcm ui-classic-backdrop');
         }
@@ -125,21 +131,14 @@ implements \fpcm\controller\interfaces\requestFunctions
 
         $viewVars = $editorPlugin->getViewVars();
 
-        if (isset($viewVars['editorButtons']) && count($viewVars['editorButtons'])) {
-            $viewVars['editorButtons']['frame']->setReturned(true);
-            unset($viewVars['editorButtons']['frame']);
-            $viewVars['editorButtons']['pagebreak']->setReturned(true);
-            unset($viewVars['editorButtons']['pagebreak']);
-            $viewVars['editorButtons']['drafts']->setReturned(true);
-            unset($viewVars['editorButtons']['drafts']);
-            $viewVars['editorButtons']['restore']->setReturned(true);
-            unset($viewVars['editorButtons']['restore']);
+        if ($viewVars instanceof \fpcm\components\editor\conf\aceVars) {
+            $viewVars->prepareComments();
+            $viewVars = $viewVars->toArray();
         }
 
         foreach ($viewVars as $key => $value) {
             $this->view->assign($key, $value);
         }
-
 
         $jsVars = $editorPlugin->getJsVars();
         if (is_object($jsVars['editorConfig']) && $jsVars['editorConfig'] instanceof \fpcm\components\editor\conf\tinymceEditor5) {
@@ -157,50 +156,41 @@ implements \fpcm\controller\interfaces\requestFunctions
         );
 
         $this->view->addJsVars($jsVars);
-        $this->view->addJsFiles(array_merge(['comments/module.js', 'comments/editor.js', 'editor/editor_videolinks.js'], $editorPlugin->getJsFiles()));
+        $this->view->addJsFiles(array_merge(['comments/module.js', 'comments/editor.js', 'editor/videolinks.js'], $editorPlugin->getJsFiles()));
         $this->view->addJsLangVars(array_merge(['HL_FILES_MNG', 'ARTICLES_SEARCH', 'FILE_LIST_NEWTHUMBS', 'GLOBAL_DELETE', 'FILE_LIST_INSERTGALLERY', 'FILE_LIST_UPLOADFORM'], $editorPlugin->getJsLangVars()));
 
         if ($this->comment->getChangeuser() && $this->comment->getChangetime()) {
-            $changeUser = new \fpcm\model\users\author($this->comment->getChangeuser());
-
             $this->view->assign(
                 'changeInfo', $this->language->translate('GLOBAL_USER_ON_TIME', array(
-                    '{{username}}' => $changeUser->exists() ? $changeUser->getDisplayname() : $this->language->translate('GLOBAL_NOTFOUND'),
+                    '{{username}}' => \fpcm\classes\tools::userId2Text($this->comment->getChangeuser()),
                     '{{time}}' => date($this->config->system_dtmask, $this->comment->getChangetime())
             )));
         } else {
             $this->view->assign('changeInfo', $this->language->translate('GLOBAL_NOCHANGE'));
         }
 
-        $hiddenClass = $this->mode === 2 ? 'fpcm-ui-hidden' : '';
+        $articleExists = $this->mode === self::MODE_ARTICLE;
+
+        $hiddenClass = $articleExists ? 'fpcm-ui-hidden' : '';
 
         $buttons     = [];
         $buttons[]   = (new \fpcm\view\helper\saveButton('commentSave'))->setClass($hiddenClass)->setPrimary();
 
-        $showArticleIdField = false;
-        $existsAlert = false;
-
-        if ($this->mode === 1) {
+        if ($this->mode === self::MODE_ALL) {
             $article     = new \fpcm\model\articles\article($this->comment->getArticleid());
-            $this->articleList->checkEditPermissions($article);
+            $articleExists = $article->exists();
             if ($article->exists()) {
-
-                $showArticleIdField = false;
-
+                $this->articleList->checkEditPermissions($article);
                 if ($article->getEditPermission()) {
                     $buttons[] = (new \fpcm\view\helper\editButton('editArticle'))->setUrlbyObject($article)->setText('COMMENTS_EDITARTICLE')->setIcon('book');
                 }
 
                 $buttons[] = (new \fpcm\view\helper\openButton('commentfe'))->setUrlbyObject($this->comment)->setTarget(\fpcm\view\helper\linkButton::TARGET_NEW);
             }
-            else {
-                $showArticleIdField = true;
-                $existsAlert = true;
-            }
         }
 
-        $this->view->assign('showArticleIdField', $showArticleIdField && $this->permissions->comment->move);
-        $this->view->assign('existsAlert', $existsAlert);
+        $this->view->assign('showArticleIdField', $this->permissions->comment->move);
+        $this->view->assign('articleExists', $articleExists);
 
         $buttons[] = (new \fpcm\view\helper\linkButton('whoisIp'))
                 ->setUrl("http://www.whois.com/whois/{$this->comment->getIpaddress()}")
@@ -222,6 +212,9 @@ implements \fpcm\controller\interfaces\requestFunctions
                     ]);
         }
 
+        if ($this->permissions->comment->delete && $this->mode === self::MODE_ALL) {
+            $buttons[] = (new \fpcm\view\helper\deleteButton('commentDelete'))->setClickConfirm();
+        }
 
         $this->view->addButtons($buttons);
 
@@ -233,12 +226,18 @@ implements \fpcm\controller\interfaces\requestFunctions
             (new \fpcm\view\helper\tabItem('comment'))->setText('COMMENTS_EDIT')->setFile($this->getViewPath() . '.php')
         ]);
 
+        $edDlg = $editorPlugin->getDialogs();
+        if (count($edDlg)) {
+            $this->view->addDialogs($edDlg);
+        }
 
         $this->view->render();
-
-        return true;
     }
 
+    /**
+     * Save comment button event
+     * @return bool
+     */
     protected function onCommentSave() : bool
     {
         if (!$this->checkPageToken()) {
@@ -294,6 +293,27 @@ implements \fpcm\controller\interfaces\requestFunctions
         }
 
         $this->view->addErrorMessage('SAVE_FAILED_COMMENT');
+        return false;
+    }
+
+    /**
+     *
+     * @return bool
+     */
+    protected function onCommentDelete() : bool
+    {
+        if (!$this->checkPageToken()) {
+            $this->view->addErrorMessage('CSRF_INVALID');
+            return false;
+        }
+
+        if (!$this->permissions->comment->delete || !$this->comment->delete()) {
+            $this->view->addErrorMessage('DELETE_FAILED_COMMENTS');
+            return false;
+        }
+
+        $this->redirect('comments/list');
+        return true;
     }
 
 }

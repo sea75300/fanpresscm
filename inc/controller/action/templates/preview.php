@@ -10,10 +10,9 @@ namespace fpcm\controller\action\templates;
 /**
  * Template preview controller
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2022, Stefan Seehafer
+ * @copyright (c) 2011-2025, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-
 class preview extends \fpcm\controller\abstracts\controller
 {
 
@@ -27,7 +26,7 @@ class preview extends \fpcm\controller\abstracts\controller
 
     /**
      *
-     * @var int 
+     * @var int
      */
     protected $tid;
 
@@ -48,10 +47,12 @@ class preview extends \fpcm\controller\abstracts\controller
 
     /**
      * Controller-Processing
-     * @return bool
+     * @return void
      */
     public function process()
     {
+        define('FPCM_MODE_PUBVIEW', true);        
+        
         $this->template = $this->getTemplateById($this->tid);
 
         switch ($this->tid) {
@@ -85,16 +86,27 @@ class preview extends \fpcm\controller\abstracts\controller
         $this->view->showHeaderFooter(\fpcm\view\view::INCLUDE_HEADER_SIMPLE);
 
         $cssfiles = [];
-        if (trim($this->config->system_css_path)) {
-            $cssfiles[] = trim($this->config->system_css_path);
+
+        $jsfiles = [
+            \fpcm\components\components::getjQuery(),
+            \fpcm\model\pubtemplates\template::getPublicJavascript(true)
+        ];
+
+        $evJs = $this->events->trigger('pub\addJsFiles', $jsfiles);
+        if (!$evJs->getSuccessed() || !$evJs->getContinue()) {
+            trigger_error(sprintf("Event pub\addJsFiles failed. Returned success = %s, continue = %s", $evJs->getSuccessed(), $evJs->getContinue()));
+            return;
         }
 
-        $this->view->overrideJsFiles($this->events->trigger('pub\addJsFiles', [
-            \fpcm\components\components::getjQuery(),
-            \fpcm\classes\dirs::getRootUrl('js/fpcm.js')
-        ])->getData());
-        
-        $this->view->overrideCssFiles($this->events->trigger('pub\addCssFiles', $cssfiles)->getData());
+        $evCss = $this->events->trigger('pub\addCssFiles', $cssfiles);
+        if (!$evCss->getSuccessed() || !$evCss->getContinue()) {
+            trigger_error(sprintf("Event pub\addCssFiles failed. Returned success = %s, continue = %s", $evCss->getSuccessed(), $evCss->getContinue()));
+            return;
+        }
+
+        $this->view->overrideJsFiles($evJs->getData());
+        $this->view->overrideCssFiles($evCss->getData());
+
         $this->view->render();
     }
 
@@ -172,14 +184,14 @@ class preview extends \fpcm\controller\abstracts\controller
     {
         $this->view = new \fpcm\view\view('public/showsingle');
         $this->view->assign('article', '');
-        
+
         $comment = new \fpcm\model\comments\comment();
         $comment->setName($this->session->getCurrentUser()->getDisplayname());
         $comment->setEmail($this->session->getCurrentUser()->getEmail());
         $comment->setWebsite($this->request->getHost());
         $comment->setText('Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis. ');
         $comment->setCreatetime(time() - 1800);
-        
+
         $this->template->assignByObject($comment, 1);
         $this->view->assign('comments', $this->template->parse());
         $this->view->assign('commentform', '');
@@ -230,7 +242,7 @@ class preview extends \fpcm\controller\abstracts\controller
 
         $this->view->assign('content', implode(PHP_EOL, $parsed));
     }
-    
+
     private function getShareButtonPreview()
     {
         $this->view = new \fpcm\view\view('public/showlatest');
@@ -239,5 +251,3 @@ class preview extends \fpcm\controller\abstracts\controller
     }
 
 }
-
-?>

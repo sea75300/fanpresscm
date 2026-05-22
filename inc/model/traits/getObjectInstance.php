@@ -22,8 +22,22 @@ trait getObjectInstance {
      * Common function to return class instance object
      * @return object
      * @since 5.1.0-a1
+     * @deprecated 5.3.0-dev
      */
     public static function getObjectInstance()
+    {
+        trigger_error(__TRAIT__ . '::' . __FUNCTION__ . ' is deprecated as of FPCM 5.3.0', E_USER_DEPRECATED);
+        return static::getInstance();
+        
+    }
+
+    /**
+     * Common function to return class instance object
+     * @return object
+     * @since 5.1.0-a1
+     * @see getObjectInstance
+     */
+    public static function getInstance()
     {
         $iClass = static::class;
         
@@ -32,7 +46,6 @@ trait getObjectInstance {
         }
         
         return $GLOBALS['fpcm']['objects'][$iClass];
-        
     }
 
 }

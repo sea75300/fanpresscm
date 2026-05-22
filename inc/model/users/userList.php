@@ -2,7 +2,7 @@
 
 /**
  * FanPress CM User List Model
- * 
+ *
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
  * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
@@ -12,11 +12,15 @@ namespace fpcm\model\users;
 
 /**
  * Benutzer-Liste Objekt
- * 
+ *
  * @package fpcm\model\user
  * @author Stefan Seehafer <sea75300@yahoo.de>
  */
-class userList extends \fpcm\model\abstracts\tablelist {
+class userList
+extends \fpcm\model\abstracts\tablelist
+implements \fpcm\model\interfaces\isObjectInstancable {
+
+    use \fpcm\model\traits\getObjectInstance;
 
     /**
      * User name cache
@@ -56,7 +60,7 @@ class userList extends \fpcm\model\abstracts\tablelist {
         $obj->setJoin('LEFT JOIN '.$prefixRollTab . ' ON '.$prefixUserTab . '.roll = '.$prefixRollTab . '.id');
         $obj->setWhere('1=1 '.$this->dbcon->orderBy(['registertime ASC']));
         $obj->setFetchAll(true);
-        
+
         $users = $this->dbcon->selectFetch($obj);
         if (!$users || !count($users)) {
             return [];
@@ -66,10 +70,11 @@ class userList extends \fpcm\model\abstracts\tablelist {
     }
 
     /**
-     * Liefert ein array aller Benutzer-Namen
+     * Returns list of all user naned
+     * @param bool $flip
      * @return array
      */
-    public function getUsersNameList()
+    public function getUsersNameList(bool $flip = false) : array
     {
         if (count($this->userNameList)) {
             return $this->userNameList;
@@ -78,6 +83,10 @@ class userList extends \fpcm\model\abstracts\tablelist {
         $this->userNameList = $this->dbcon->selectFetch( (new \fpcm\model\dbal\selectParams($this->table))->setItem('displayname, id')->setFetchAll(true)->setFetchStyle(\PDO::FETCH_KEY_PAIR) );
         if (!is_array($this->userNameList)) {
             $this->userNameList = [];
+        }
+
+        if ($flip) {
+            $this->userNameList = array_flip($this->userNameList);
         }
 
         return $this->userNameList;
@@ -92,7 +101,7 @@ class userList extends \fpcm\model\abstracts\tablelist {
         if (count($this->userEmailList)) {
             return $this->userEmailList;
         }
-        
+
         $this->userEmailList = $this->dbcon->selectFetch( (new \fpcm\model\dbal\selectParams($this->table))->setItem('email, id')->setFetchAll(true)->setFetchStyle(\PDO::FETCH_KEY_PAIR) );
         if (!is_array($this->userNameList)) {
             $this->userEmailList = [];
@@ -317,7 +326,6 @@ class userList extends \fpcm\model\abstracts\tablelist {
 
             $res = call_user_func(array($this, $functionName), $author, $res);
         }
-
 
         return $res;
     }

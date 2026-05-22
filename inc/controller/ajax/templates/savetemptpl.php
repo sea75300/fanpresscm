@@ -21,7 +21,8 @@ class savetemptpl extends \fpcm\controller\abstracts\ajaxController
     use \fpcm\controller\traits\templates\preview;
 
     /**
-     * Controller-Processing
+     * Controller processing
+     * @return void
      */
     public function process()
     {

@@ -2,6 +2,9 @@
 ---
 ajax/cache: ajax/common/cache
 ajax/copy: ajax/common/copy
+ajax/reminder/set: ajax/reminder/setReminder
+ajax/reminder/get: ajax/reminder/getReminder
+ajax/reminder/delete: ajax/reminder/deleteReminder
 ajax/autocomplete: ajax/common/autocomplete
 ajax/autocompleteCleanup: ajax/common/autocompleteCleanup
 ajax/searchall: ajax/common/searchall
@@ -18,7 +21,6 @@ ajax/files/alttext: ajax/files/alttext
 ajax/upload/uppy: ajax/files/uppy
 ajax/jqupload: ajax/files/jqupload
 ajax/articles/lists: ajax/articles/lists
-ajax/articles/tweet: ajax/articles/listnewtweets
 ajax/articles/massedit: ajax/articles/massedit
 ajax/articles/delete: ajax/articles/delete
 ajax/editor/cleartags: ajax/articles/removeeditortags
@@ -29,6 +31,7 @@ ajax/editor/editorlist: ajax/articles/editorlist
 ajax/dashboard/load: ajax/dashboard/loader
 ajax/dashboard/manager: ajax/dashboard/containerManager
 ajax/syscheck: ajax/system/syscheck
+ajax/stats: ajax/system/sendStats
 ajax/refresh: ajax/system/refresh
 ajax/crons/exec: ajax/crons/execasync
 ajax/crons/interval: ajax/crons/setinterval
@@ -41,7 +44,7 @@ ajax/modules/fetch: ajax/modules/fetchList
 ajax/modules/info: ajax/modules/moduleInfo
 ajax/installer/checkdb: ajax/installer/checkdb
 ajax/installer/initdb: ajax/installer/initdb
-ajax/comments/search: ajax/comments/search
+ajax/comments/lists: ajax/comments/lists
 ajax/comments/massedit: ajax/comments/massedit
 ajax/comments/lockip: ajax/comments/lockIp
 ajax/comments/delete: ajax/comments/delete
@@ -49,7 +52,8 @@ ajax/templates/savetemp: ajax/templates/savetemptpl
 ajax/templates/fetch: ajax/templates/fetchEditor
 ajax/templates/save: ajax/templates/saveTemplate
 ajax/categories/massedit: ajax/categories/massedit
-ajax/shareClick: ajax/pub/shareClick
+ajax/pub/shareClick: ajax/pub/shareClick
+ajax/pub/comments: ajax/pub/comments
 ajax/help: ajax/system/help
 ajax/passcheck: ajax/system/passcheck
 ajax/smtptest: ajax/system/smtpTest

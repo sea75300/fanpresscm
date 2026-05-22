@@ -32,8 +32,8 @@ class lockIp extends \fpcm\controller\abstracts\ajaxController
     }
     
     /**
-     * Request-Handler
-     * @return bool
+     * Controller-Processing
+     * @return void
      */
     public function process()
     {

@@ -204,6 +204,10 @@ fpcm.ajax = {
             page: _params.page !== undefined ? parseInt(_params.page) : 1,
         };
 
+        if (_params.type) {
+            _data.type = _params.type;
+        }
+
         if (_params.filter instanceof Object) {
             _data.filter = _params.filter;
         }
@@ -234,12 +238,7 @@ fpcm.ajax = {
                     fpcm.ui.addMessage(result.message);
                     return false;
                 }
-
-                fpcm.vars.jsvars.dataviews[result.dataViewName] = result.dataViewVars;
-                fpcm.dataview.updateAndRender(result.dataViewName, {
-                    onRenderAfter: _params.onRenderDataViewAfter
-                });
-
+                
                 if (_params.filter) {
                     fpcm.ui.togglePager(true);
                 }
@@ -281,6 +280,11 @@ fpcm.ajax = {
                         }
                     });
                 }
+
+                fpcm.vars.jsvars.dataviews[result.dataViewName] = result.dataViewVars;
+                fpcm.dataview.updateAndRender(result.dataViewName, {
+                    onRenderAfter: _params.onRenderDataViewAfter
+                });
 
                 return true;
             }

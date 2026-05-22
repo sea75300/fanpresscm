@@ -1,7 +1,7 @@
 /**
  * FanPress CM system javascript functions
  * @article Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2015-2024, Stefan Seehafer
+ * @copyright (c) 2015-2026, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -13,13 +13,6 @@ fpcm.system = {
 
     init: function ()
     {
-
-        fpcm.worker.postMessage({
-            namespace: 'system',
-            function: 'doRefresh',
-            interval: 60000,
-            id: 'system.refresh'
-        });
 
         fpcm.system.initPasswordFieldActions();
         fpcm.system.showHelpDialog();
@@ -54,35 +47,6 @@ fpcm.system = {
             _el.currentTarget.title = fpcm.ui.translate(_current.text);
             _el.delegateTarget.childNodes[0].classList.replace(_el.delegateTarget.childNodes[0].classList[3], _current.icon);
         });
-
-        fpcm.dom.bindClick('button[data-toolbar-name]', function (_el) {
-
-            if (!_el.delegateTarget) {
-                return false;
-            }
-
-            if (!_el.delegateTarget.dataset) {
-                return false;
-            }
-
-            if (!_el.delegateTarget.dataset.toolbarName) {
-                return false;
-            }
-
-            let _input = document.createElement('input');
-            _input.value = _el.delegateTarget.dataset.toolbarName;
-            _input.id = 'tmp' + _el.delegateTarget.dataset.toolbarName;
-            document.body.appendChild(_input);
-            document.getElementById(_input.id).select();
-            document.execCommand('copy');
-            document.body.removeChild(_input);
-            
-            fpcm.ui.addMessage(new fpcm.ui.message(
-                'info',
-                `Area ID copied: ${_input.value}`
-            ));
-        });
-
     },
 
     togglePasswordField: function (_event, _callee)
@@ -98,9 +62,10 @@ fpcm.system = {
 
     initPasswordFieldActions: function () {
 
-        fpcm.dom.fromId('password_confirm').focusout(function () {
+        fpcm.dom.bindEvent('#password_confirm', 'focusout', function (_e, _ui) {
+
             var password = fpcm.dom.fromId('password').val();
-            var confirm = fpcm.dom.fromTag(this).val();
+            var confirm = _ui.value;
 
             if (password != confirm) {
                 fpcm.ui.addMessage({
@@ -152,7 +117,7 @@ fpcm.system = {
             body: 'SESSION_TIMEOUT',
             timeout: -1,
             click: function (event) {
-                window.focus();
+                window.trigger('focus');
             }
         });
 
@@ -181,44 +146,6 @@ fpcm.system = {
         });
 
         fpcm.vars.jsvars.sessionCheck = false;
-    },
-
-    doRefresh: function () {
-
-        if (fpcm.vars.jsvars.noRefresh) {
-            return false;
-        }
-
-        fpcm.ajax.post('refresh', {
-            quiet: true,
-            async: true,
-            data: {
-                articleId: fpcm.vars.jsvars.articleId
-            },
-            execDone: function (result) {
-
-                fpcm.worker.postMessage({
-                    cmd: 'remove',
-                    id: 'system.refresh'
-                });
-
-
-                if (fpcm.vars.jsvars.articleId > 0 && fpcm.editor && fpcm.editor.showInEditDialog) {
-                    fpcm.editor.showInEditDialog(result);
-                }
-
-                if (result.sessionCode == 0 && fpcm.vars.jsvars.sessionCheck) {
-                    fpcm.system.showSessionCheckDialog();
-                }
-
-                if (result.notifications) {
-                    fpcm.system.addAjaxNotifications(result.notifications, result.notificationCount);
-                }
-
-            },
-        });
-
-        return true;
     },
 
     generatePasswdString: function () {
@@ -420,7 +347,7 @@ fpcm.system = {
                 quiet: true,
                 data: {
                     ref: _ui.dataset.ref,
-                    chapter: _ui.dataset.chapter,
+                    chapter: _ui.dataset.chapter
                 },
                 execDone: function (_result) {
 
@@ -441,24 +368,6 @@ fpcm.system = {
             return false;
         });
 
-    },
-
-    addAjaxNotifications: function(_nstring, _count) {
-
-        let _idStr = '#fpcm-id-notifications';
-        if (!fpcm.dom.fromId(_idStr).length) {
-            return false;
-        }
-
-        fpcm.dom.assignHtml(_idStr, _nstring);
-        let _el = fpcm.dom.fromId('notificationsCount').html(_count);
-
-        if (_count) {
-            _el.removeClass('d-none');
-            return true;
-        }
-
-        _el.addClass('d-none');
     },
 
     checkForUpdates: function () {
@@ -545,6 +454,57 @@ fpcm.system = {
             }
         });
 
+    },
+
+    openUpdateDialog: function(_bindId) {
+
+        fpcm.dom.bindClick('#' + _bindId, function (_e, _ui) {
+
+            fpcm.ui_dialogs.create({
+                id: 'updateCallback',
+                title: 'HL_PACKAGEMGR_SYSUPDATES',
+                content: fpcm.ui.translate('PACKAGES_UPDATE_CONFIRM'),
+                icon: {
+                    icon: 'cloud-download'
+                },
+                dlButtons: [
+                    {
+                        text: 'HL_HELP_CHANGELOG',
+                        icon: "code-branch",
+                        class: 'btn-outline-secondary',
+                        isLeft: true,
+                        click: () => window.open(_ui.dataset.changelog, '_blank')
+                    },
+                    {
+                        text: 'GLOBAL_YES',
+                        icon: "check",
+                        class: 'btn-success',
+                        click: () => fpcm.ui.relocate(_ui.dataset.update)
+                    },
+                    {
+                        text: 'GLOBAL_NO',
+                        icon: "times",
+                        class: 'btn-danger',
+                        clickClose: true
+                    }
+                ]
+            });
+
+
+        });
+
+    },
+    
+    toggleDarkMode: function () {
+        fpcm.ajax.post('setconfig', {
+            data: {
+                var: 'system_darkmode',
+                value: fpcm.ui.darkModeEnabled() ? 0 : 1
+            },
+            execDone: function (_result) {
+                fpcm.ui.relocate(window.location.href);
+            }
+        });
     }
 
 };

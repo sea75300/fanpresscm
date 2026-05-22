@@ -20,25 +20,25 @@ namespace fpcm\events\modules;
  * @package fpcm\events
  * @since 4
  */
-class configure extends \fpcm\events\abstracts\eventReturnArray {
+class configure extends \fpcm\events\abstracts\event {
 
     /**
      * Executes a certain event
      * @return array
      */
-    public function run()
+    public function run() : \fpcm\module\eventResult
     {
         $class = \fpcm\module\module::getEventNamespace($this->data, $this->getEventClassBase());
         if (!class_exists($class)) {
-            return (new \fpcm\module\eventResult)->setData(true);
+            return (new \fpcm\module\eventResult)->setData([]);
         }
 
         $obj = new $class($this->data);
         if (!$this->is_a($obj)) {
-            return (new \fpcm\module\eventResult)->setData(false);
+            return (new \fpcm\module\eventResult)->setData([]);
         }
 
-        return (new \fpcm\module\eventResult)->setData($obj->run());
+        return $obj->run();
     }
 
 }

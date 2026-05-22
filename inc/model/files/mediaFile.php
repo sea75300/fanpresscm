@@ -1,0 +1,977 @@
+<?php
+
+/**
+ * FanPress CM 5.x
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+ */
+
+namespace fpcm\model\files;
+
+/**
+ * Media file objekt
+ *
+ * @package fpcm\model\files
+ * @author Stefan Seehafer <sea75300@yahoo.de>
+ * @copyright (c) 2025, Stefan Seehafer
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+ * @since 5.3.0-a1
+ */
+class mediaFile
+extends \fpcm\model\abstracts\file
+implements \fpcm\model\interfaces\validateFileType,
+           \fpcm\model\interfaces\isCopyable {
+
+    /* Media file type image */
+    const TYPE_IMAGE = 0;
+
+    /* Media file type audio or video */
+    const TYPE_AUDIOVIDEO = 1;
+
+    /* Invalid type */
+    const TYPE_INVALID = -1;
+
+    /* Media file types delimiter */
+    private const TYPE_AUDIOVIDEO_DELIM = 4;
+
+    /**
+     * Erlaubte Dateitypen
+     * @var array
+     */
+    public static $allowedTypes = [
+        'image/jpeg',
+        'image/jpg',
+        'image/png',
+        'image/gif',
+        'image/webp',
+        'video/mp4',
+        'video/ogg',
+        'video/webm',
+        'audio/ogg',
+        'audio/mpeg',
+        'audio/wav'
+    ];
+
+    /**
+     * Erlaubte Dateiendungen
+     * @var array
+     */
+    public static $allowedExts = [
+        'jpeg',
+        'jpg',
+        'png',
+        'gif',
+        'webp',
+        'mp4',
+        'ogg',
+        'webm',
+        'ogg',
+        'mp3',
+        'wav'
+    ];
+
+    /**
+     * ID von Datei-Eintrag in DB
+     * @var int
+     */
+    protected $id;
+
+    /**
+     * Bild-Breite
+     * @var int
+     */
+    protected $width = 0;
+
+    /**
+     * Bild-Höhe
+     * @var int
+     */
+    protected $height = 0;
+
+    /**
+     * String in der Form width="" height=""
+     * @var string
+     */
+    protected $whstring;
+
+    /**
+     * Benutzer-ID des Uploaders
+     * @var int
+     */
+    protected $userid = 0;
+
+    /**
+     * Zeitpunkt des Uploads
+     * @var int
+     */
+    protected $filetime = 0;
+
+    /**
+     * Media file type (0 = image, 1 = audio/video)
+     * @var int
+     */
+    protected int $media_type = 0;
+
+    /**
+     * Alternate text
+     * @var string
+     */
+    protected $alttext = '';
+
+    /**
+     * MIME-Dateityp-Info
+     * @var string
+     */
+    protected $mimetype = '';
+
+    /**
+     * Exif/ IPCT data
+     * @var string
+     */
+    protected $iptcstr = '';
+
+    /**
+     * Flag if file is in file index
+     * @var bool
+     * @since 4.5
+     */
+    protected $isIndexed = false;
+
+    /**
+     * Felder die in Datenbank gespeichert werden können
+     * @var array
+     */
+    protected $dbParams = [
+        'userid', 'filename', 'filetime', 'filesize',
+        'alttext', 'mimetype', 'filehash', 'width',
+        'height', 'iptcstr', 'media_type'
+    ];
+
+    /**
+     * Konstruktor
+     * @param string $filename file name including sub path
+     * @param bool $initDB Datenbank-Eintrag initialisieren
+     * @param bool $forceInit Initialisierung erzwingen
+     */
+    public function __construct($filename = '', $initDB = true)
+    {
+        $this->table = \fpcm\classes\database::tableFiles;
+        $filename = $this->splitFilename($filename);
+        parent::__construct($filename);
+        $this->filename = $filename;
+        $this->init($initDB);
+    }
+
+    /**
+     * Returns base path for file
+     * @param string $filename
+     * @return string
+     */
+    protected function basePath($filename)
+    {
+        return \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_UPLOADS, $filename);
+    }
+
+    /**
+     * Datensatz-ID
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Returns image url
+     * @return string
+     * @since 5.3.0-a2
+     */
+    public function getFileUrl()
+    {
+        return \fpcm\classes\dirs::getDataUrl(\fpcm\classes\dirs::DATA_UPLOADS, $this->filename);
+    }
+
+    /**
+     * Bild-Url ausgeben
+     * @return string
+     */
+    public function getImageUrl()
+    {
+        return $this->getFileUrl();
+    }
+
+    /**
+     * Thumbnail-Url ausgeben
+     * @return string
+     */
+    public function getThumbnailUrl()
+    {
+        return \fpcm\classes\dirs::getDataUrl(\fpcm\classes\dirs::DATA_UPLOADS, $this->getThumbnail());
+    }
+
+    /**
+     * Dateimanager-Thumbnail ausgeben
+     * @return string
+     */
+    public function getFileManagerThumbnailUrl()
+    {
+        return \fpcm\classes\dirs::getDataUrl(\fpcm\classes\dirs::DATA_FMTMP, $this->filename);
+    }
+
+    /**
+     * Thumbnail-Pfad ausgeben
+     * @return string
+     */
+    public function getThumbnail()
+    {
+        $fnArr = explode('/', $this->filename, 2);
+        if (count($fnArr) == 2) {
+            return $fnArr[0].'/thumbs/'.$fnArr[1];
+        }
+
+        return 'thumbs/' . $this->filename;
+    }
+
+    /**
+     * kompletten Thumbnail-Pfad ausgeben
+     * @return string
+     */
+    public function getThumbnailFull()
+    {
+        return \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_UPLOADS, $this->getThumbnail());
+    }
+
+    /**
+     * Dateimanager-Thumbnail-Pfad ausgeben
+     * @return string
+     */
+    public function getFileManagerThumbnail()
+    {
+        return \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_FMTMP, $this->filename);
+    }
+
+    /**
+     * Checks if file amanager thumbnail exists
+     * @return bool
+     * @since 4.3
+     */
+    public function hasFileManageThumbnail() : bool
+    {
+        return file_exists($this->getFileManagerThumbnail());
+    }
+
+    /**
+     * Breite ausgeben
+     * @return int
+     */
+    public function getWidth()
+    {
+        return $this->width;
+    }
+
+    /**
+     * Höhe ausgeben
+     * @return int
+     */
+    public function getHeight()
+    {
+        return $this->height;
+    }
+
+    /**
+     * String width="" height="" auslesen
+     * @return string
+     */
+    public function getWhstring()
+    {
+        return $this->whstring;
+    }
+
+    /**
+     * Uploader-ID ausgeben
+     * @return int
+     */
+    public function getUserid()
+    {
+        return $this->userid;
+    }
+
+    /**
+     * Upload-Zeit ausgeben
+     * @return int
+     */
+    public function getFiletime()
+    {
+        return $this->filetime;
+    }
+
+    /**
+     * Get alternate text
+     * @return string
+     * @since 4.5
+     */
+    public function getAltText(): ?string
+    {
+        return $this->alttext;
+    }
+
+    /**
+     * MIME-Type ausgeben
+     * @return int
+     */
+    public function getMimetype()
+    {
+        return $this->mimetype;
+    }
+
+    /**
+     * Returns IPTC credit string
+     * @return string
+     */
+    public function getIptcStr() {
+        return $this->iptcstr;
+    }
+
+    /**
+     * Datensatz-ID setzen
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * Benutzer-ID setzen
+     * @param int $userid
+     */
+    public function setUserid($userid)
+    {
+        $this->userid = $userid;
+    }
+
+    /**
+     * Upload-Zeit setzen
+     * @param int $filetime
+     */
+    public function setFiletime($filetime)
+    {
+        $this->filetime = $filetime;
+    }
+
+    /**
+     * Set alternate text
+     * @param string $alttext
+     * #@since 4.5
+     */
+    public function setAltText(string $alttext)
+    {
+        $this->alttext = $alttext;
+    }
+
+    /**
+     * Get media type flag
+     * @return int
+     */
+    public function getMediaType(): int {
+        return $this->media_type;
+    }
+
+    /**
+     * set media type lag
+     * @param int $media_type
+     */
+    public function setMediaType(int $media_type) {
+        $this->media_type = $media_type;
+    }
+
+        /**
+     * Speichert einen neuen Datei-Eintrag in der Datenbank
+     * @return bool
+     */
+    public function save()
+    {
+        if ($this->exists(true) || !$this->isValidDataFolder($this->filepath, \fpcm\classes\dirs::DATA_UPLOADS)) {
+            return false;
+        }
+
+        $saveValues = $this->getSaveValues();
+        $saveValues['filehash'] = $this->getFileHash();
+        $saveValues['filesize'] = (int) $saveValues['filesize'];
+        $saveValues['filetime'] = (int) $saveValues['filetime'];
+        $saveValues['width'] = (int) $saveValues['width'];
+        $saveValues['height'] = (int) $saveValues['height'];
+        $saveValues['userid'] = (int) $saveValues['userid'];
+
+        $ev = $this->events->trigger('mediafile\save', $saveValues);
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event mediafile\save failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return [];
+        }
+
+        return $this->dbcon->insert($this->table, $ev->getData());
+    }
+
+    /**
+     * Aktualisiert einen Datei-Eintrag in der Datenbank
+     * @return bool
+     */
+    public function update()
+    {
+        if (!$this->exists(true) || !$this->isValidDataFolder()) {
+            return false;
+        }
+
+        $saveValues = $this->getSaveValues();
+        $saveValues['filehash'] = $this->getFileHash();
+        $saveValues['filesize'] = (int) $saveValues['filesize'];
+        $saveValues['filetime'] = (int) $saveValues['filetime'];
+        $saveValues['width'] = (int) $saveValues['width'];
+        $saveValues['height'] = (int) $saveValues['height'];
+        $saveValues['userid'] = (int) $saveValues['userid'];
+
+        $saveValues[] = $this->filename;
+
+        $ev = $this->events->trigger('mediafile\update', $saveValues);
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event mediafile\save failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return false;
+        }
+
+        $saveValues = $ev->getData();
+        return $this->dbcon->update($this->table, $this->dbParams, array_values($saveValues), "filename = ?");
+    }
+
+    /**
+     * Löscht Datei-Eintrag in Datenbank und Datei in Dateisystem
+     * @return bool
+     */
+    public function delete()
+    {
+        if (!$this->isValidDataFolder('', \fpcm\classes\dirs::DATA_UPLOADS)) {
+            return false;
+        }
+
+        $ev = $this->events->trigger('mediafile\beforeDelete', $this->fullpath);
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event mediafile\beforeDelete failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return false;
+        }
+
+        parent::delete();
+        if ($this->hasFileManageThumbnail()) {
+            unlink($this->getFileManagerThumbnail());
+        }
+
+        $fileName = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_UPLOADS, $this->getThumbnail());
+        if (file_exists($fileName)) {
+            unlink($fileName);
+        }
+
+        \fpcm\model\reminders\reminders::getInstance()->removeByObject(mediaFile::class, $this->id);
+
+        return $this->dbcon->delete($this->table, 'filename = ?', array($this->filename));
+    }
+
+    /**
+     * Benennt eine Datei um
+     * @param string $newname
+     * @param int $userId
+     * @return bool
+     */
+    public function rename($newname, $userId = false)
+    {
+        $newname = $this->splitFilename($newname);
+
+        $oldname = $this->filename;
+        if (strpos($oldname, '/') !== false) {
+            $newname = dirname($oldname).DIRECTORY_SEPARATOR.$newname;
+        }
+
+        $newnameExt = $newname.'.'.$this->getExtension();
+
+        $ev = $this->events->trigger('mediafile\beforeRename', [
+            $this->fullpath,
+            $newnameExt
+        ]);
+
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event mediafile\beforeRename failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return false;
+        }
+
+        if (!$this->isValidDataFolder($this->getFilepath(), \fpcm\classes\dirs::DATA_UPLOADS) || !parent::rename($newnameExt)) {
+            return false;
+        }
+
+        $this->filetime = time();
+        $this->userid = $userId;
+
+        $saveValues = $this->getSaveValues();
+        $saveValues['filehash'] = $this->getFileHash();
+
+        $params = array_merge(array_values($saveValues), [$oldname]);
+
+        $res = $this->dbcon->update($this->table, $this->dbParams, $params, "filename = ?");
+
+        if (!$res) {
+            trigger_error('Unable to update database file info for ' . $oldname);
+            return false;
+        }
+
+        $ev = $this->events->trigger('mediafile\afterRename', $this->fullpath);
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event mediafile\afterRename failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return false;
+        }
+
+        if (!$this->isImage()) {
+            return true;
+        }
+
+        if (!$this->createThumbnail()) {
+            return false;
+        }
+
+        $this->filename = $oldname;
+        unlink(\fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_UPLOADS, $this->getThumbnail()));
+
+        return true;
+    }
+
+    /**
+     * Check if image exists
+     * @param type $dbOnly
+     * @return bool
+     */
+    public function exists($dbOnly = false)
+    {
+        if (!$this->filename) {
+            return false;
+        }
+
+        $fileExists = $this->existsFolder();
+        if ($dbOnly) {
+            return (bool) $this->isIndexed;
+        }
+
+        return $fileExists && $this->isIndexed ? true : false;
+    }
+
+    /**
+     * Prüft, ob Bild nur in Dateisystem existiert
+     * @return bool
+     * @since 3.1.2
+     */
+    public function existsFolder()
+    {
+        if (!$this->isValidDataFolder($this->filepath)) {
+            return false;
+        }
+
+        return parent::exists();
+    }
+
+    /**
+     * Erzeugt ein Thumbnail für das aktuelle Bild
+     * @return bool
+     */
+    public function createThumbnail()
+    {
+        $fullPath = $this->getThumbnailFull();
+
+        $proc = new thumbnailCreator($this->getFullpath(), $fullPath);
+
+        $fn = thumbnailCreator::getFunctionName();
+
+        if (!$proc->{$fn}(\fpcm\classes\dirs::DATA_UPLOADS)) {
+            return false;
+        }
+
+        $ev = $this->events->trigger('mediafile\thumbnailCreate', $this);
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event mediafile\thumbnailCreate failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return false;
+        }
+
+        if (!file_exists($fullPath)) {
+            trigger_error('Unable to create thumbnail: ' . $this->getThumbnail());
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Add upload sub folder string
+     * @return bool
+     * @since 5.0.0-a3
+     */
+    public function addUploadFolder() : bool
+    {
+        $this->fullpath = ops::getUploadPath($this->filename);
+
+        if (!file_exists(dirname($this->fullpath))) {
+            mkdir(dirname($this->fullpath));
+        }
+
+        return true;
+    }
+
+    /**
+     * Returns true if media file is an image
+     * @return bool
+     */
+    final public function isImage() : bool
+    {
+        return $this->media_type === self::TYPE_IMAGE;
+    }
+
+    /**
+     * Returns true if media file is an audio- or video file
+     * @return bool
+     */
+    final public function isAudioVideo() : bool
+    {
+        return $this->media_type === self::TYPE_AUDIOVIDEO;
+    }
+
+    /**
+     * Returns true if mine type is audio file
+     * @return bool
+     */
+    final public function isAudio() : bool
+    {
+        return $this->isAudioVideo() && str_starts_with($this->mimetype, 'audio/');
+    }
+
+    /**
+     * Gibt Speicher-Values zurück
+     * @return array
+     */
+    protected function getSaveValues()
+    {
+        $values = [];
+        foreach ($this->dbParams as $key) {
+            $values[$key] = $this->$key ?? '';
+        }
+
+        return $values;
+    }
+
+    /**
+     * initialisiert Bild-Objekt
+     * @param bool $initDB
+     * @return bool
+     */
+    protected function init($initDB)
+    {
+        $this->isIndexed = false;
+        if ($initDB) {
+            $dbData = $this->dbcon->selectFetch((new \fpcm\model\dbal\selectParams($this->table))->setWhere('filename = ?')->setParams([$this->filename]));
+            if ($dbData) {
+                foreach ($dbData as $key => $value) {
+                    $this->$key = $value;
+                }
+                $this->isIndexed = true;
+            }
+        }
+
+        if (!parent::exists()) {
+            return true;
+        }
+
+        $this->extension = self::retrieveFileExtension($this->fullpath);
+
+        if (!$this->filesize) {
+            $this->filesize = filesize($this->fullpath);
+        }
+
+        if (!$this->mimetype) {
+            $this->mimetype = self::retrieveRealType($this->fullpath);
+        }
+
+        if (!$this->media_type) {
+            $this->media_type = self::getMediaFileType($this->extension, $this->mimetype);
+        }
+
+        if ($this->isAudioVideo()) {
+            return true;
+        }
+
+        if ( !$this->width || !$this->height) {
+
+            $fileData = getimagesize($this->fullpath, $metaInfo);
+            if (!is_array($fileData)) {
+                return true;
+            }
+
+            $this->width = $fileData[0];
+            $this->height = $fileData[1];
+            $this->whstring = $fileData[3];
+
+            $this->parseIptc($metaInfo);
+        }
+
+        return true;
+    }
+
+    /**
+     * Füllt Objekt mit Daten aus Datenbank-Result
+     * @param object $object
+     * @return bool
+     * @since 3.1.2
+     */
+    public function createFromDbObject($object)
+    {
+        if (!is_object($object)) {
+            return false;
+        }
+
+        $keys = array_keys($this->getPreparedSaveParams());
+        $keys[] = 'id';
+
+        foreach ($keys as $key) {
+            if (!isset($object->$key)) {
+                continue;
+            }
+
+            $this->$key = $object->$key;
+        }
+
+        $this->fullpath = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_UPLOADS, $this->filename);
+        $this->filepath = dirname($this->fullpath);
+
+        $this->init(false);
+
+        return true;
+    }
+
+    /**
+     * Bereitet Eigenschaften des Objects zum Speichern ind er Datenbank vor und entfernt nicht speicherbare Eigenschaften
+     * @return array
+     * @since 3.1.2
+     */
+    protected function getPreparedSaveParams()
+    {
+        $params = get_object_vars($this);
+        unset(
+            $params['cache'], $params['config'], $params['dbcon'],
+            $params['events'], $params['id'], $params['nodata'],
+            $params['system'], $params['table'], $params['dbExcludes'],
+            $params['language'], $params['editAction'], $params['objExists'],
+            $params['cacheName']
+        );
+
+        if ($this->nodata)
+            unset($params['data']);
+
+        return $params;
+    }
+
+    /**
+     * Splits filename with possible folder
+     * @param string $filename
+     * @return string
+     * @since 4.1
+     */
+    protected function splitFilename(string $filename) : string
+    {
+        $filename = explode('/', $filename, 2);
+
+        $fn = $filename[1] ?? $filename[0];
+        $this->escapeFileName($fn);
+        if (isset($filename[1])) {
+            $filename[1] = $fn;
+        }
+        else {
+            $filename[0] = $fn;
+        }
+
+        return implode('/', $filename);
+    }
+
+    /**
+     * reads IPTC data from file
+     * @param array $info
+     * @return bool
+     * @since 4.2.1
+     */
+    public function parseIptc($info)
+    {
+        if (!function_exists('iptcparse') || !is_array($info) || !count($info)) {
+            $this->iptcstr = '-';
+            return false;
+        }
+
+        $this->iptcstr = [];
+        array_map(function ($item) {
+
+            $iptc = iptcparse($item);
+            if (!is_array($iptc) || !count($iptc)) {
+                return [];
+            }
+
+            foreach (array_keys($iptc) as $s) {
+                $c = count ($iptc[$s]);
+                for ($i=0; $i <$c; $i++) {
+                    $this->iptcstr[$s] = $iptc[$s][$i];
+                }
+            }
+
+            $this->iptcstr = array_intersect_key($this->iptcstr, ['2#080' => 1, '2#110' => 1, '2#116' => 1]);
+
+        }, $info);
+
+        $tmp = iconv("UTF-8", "ISO-8859-1", is_array($this->iptcstr) ? implode(' / ', $this->iptcstr) : $this->iptcstr);
+        $this->iptcstr = htmlspecialchars(strip_tags($tmp));
+        return true;
+    }
+
+    /**
+     * Return properties array
+     * @param string $userName
+     * @return array
+     * @since 5.0.0-a1
+     */
+    public function getPropertiesArray(string $userName) : array
+    {
+        return [
+            'filename' => $this->getFilename(),
+            'filetime' => (string) new \fpcm\view\helper\dateText($this->getFiletime()),
+            'fileuser' => $userName,
+            'filesize' => \fpcm\classes\tools::calcSize($this->getFilesize()),
+            'fileresx' => $this->getWidth(),
+            'fileresy' => $this->getHeight(),
+            'filehash' => $this->getFileHash(),
+            'filemime' => $this->getMimetype(),
+            'credits' => $this->getIptcStr(),
+            'action' => 'properties',
+            'mft' => $this->getMediaType()
+        ];
+    }
+
+    /**
+     *
+     * @return int
+     */
+    public function copy(): int
+    {
+        $cn = self::class;
+
+        if (!$this->existsFolder()) {
+            return 0;
+        }
+
+        /* @var $copy mediaFile */
+        $copy = new $cn( $this->language->translate('GLOBAL_COPY_OF_FILE', [basename($this->filename)], true), false );
+        $copy->addUploadFolder();
+
+        $subFolderbase = basename(dirname($copy->getFullpath()));
+        if (!str_starts_with($copy->getFilename(), $subFolderbase)) {
+            $copy->setFilename(basename(dirname($copy->getFullpath())) . DIRECTORY_SEPARATOR . $copy->getFilename());
+        }
+
+        $copy->setAltText($this->alttext);
+        $copy->setUserid(\fpcm\model\system\session::getInstance()->getUserId());
+        $copy->setFiletime(time());
+
+        if ($copy->existsFolder()) {
+            return 0;
+        }
+
+        if (!copy($this->fullpath, $copy->getFullpath())) {
+            return 0;
+        }
+
+        $copy->init(false);
+
+        if ($copy->isAudioVideo()) {
+            return $copy->save() ?: 0;
+        }
+
+        if (!$copy->createThumbnail()) {
+            return 0;
+        }
+
+        if (!(new mediaFilesList())->createFilemanagerThumbs([$copy->getFullpath()])) {
+            return 0;
+        }
+
+        return $copy->save() ?: 0;
+    }
+
+    /**
+     * Get cropper filename string
+     * @return void
+     * @since 5.0.0-a1
+     */
+    public static function getCropperFilename(string &$filename)
+    {
+        $repl = [
+            '{{filename}}' => self::retrieveFileName($filename),
+            '{{date}}' => date('Y-m-d'),
+            '{{datelong}}' => date('Y-m.d_H-m-s'),
+            '{{hash}}' => \fpcm\classes\tools::getHash($filename),
+            '{{userid}}' => \fpcm\classes\loader::getObject('\fpcm\model\system\session')->getUserId(),
+            '{{random}}' => mt_rand()
+        ];
+
+        $pattern = \fpcm\classes\loader::getObject('\fpcm\model\system\config')->file_cropper_name;
+        if (!trim($pattern)) {
+            $pattern = '{{filename}}_cropped_{{date}}';
+        }
+
+        $filename = str_replace(
+            array_keys($repl),
+            array_values($repl),
+            $pattern
+        ) . '.' . self::retrieveFileExtension($filename);
+    }
+
+    /**
+     * Check if file extension and file type is valid
+     * @param string $ext
+     * @param string $type
+     * @return bool
+     * @since 4.5
+     * @see \fpcm\model\interfaces\validateFileType
+     */
+    public static function isValidType(string $ext, string $type, array $map = []) : bool
+    {
+        $comb = array_combine(self::$allowedTypes, self::$allowedExts);
+
+        $assigned = array_search($ext, $comb);
+        if (!$assigned) {
+            return false;
+        }
+
+        if ($ext === 'jpg' || $type === 'image/jpg') {
+            $assigned = 'image/jpeg';
+        }
+        elseif ($type === 'audio/ogg') {
+            $ext = 'ogg';
+            $assigned = 'audio/ogg';
+        }
+
+        return in_array($type, self::$allowedTypes) && in_array($ext, self::$allowedExts) && $assigned === $type;
+    }
+    
+    /**
+     * Retrieve media file type flag
+     * @param string $ext
+     * @param string|null $type
+     * @return int
+     */
+    public static function getMediaFileType(string $ext, ?string $type = null) : int
+    {
+        $extKey = array_search($ext, self::$allowedExts);
+        $mimeKey = array_search($type, self::$allowedTypes);
+
+        if ($extKey > self::TYPE_AUDIOVIDEO_DELIM && $mimeKey > self::TYPE_AUDIOVIDEO_DELIM) {
+            return self::TYPE_AUDIOVIDEO;
+        }
+
+        return $extKey === false || $mimeKey === false ? self::TYPE_INVALID : self::TYPE_IMAGE;
+    }
+
+}

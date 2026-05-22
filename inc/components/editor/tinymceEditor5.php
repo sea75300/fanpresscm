@@ -9,20 +9,20 @@ namespace fpcm\components\editor;
 
 /**
  * TinyMCE based editor plugin
- * 
+ *
  * @package fpcm\components\editor
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
  * @copyright (c) 2011-2021, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 class tinymceEditor5 extends articleEditor {
-    
+
     /**
      * Files list label name
      * @since 4.5
      */
     const FILELIST_LABEL = 'title';
-    
+
     /**
      * Files list value name
      * @since 4.5
@@ -33,7 +33,7 @@ class tinymceEditor5 extends articleEditor {
      * Liefert zu ladender CSS-Dateien für Editor zurück
      * @return array
      */
-    public function getCssFiles()
+    public function getCssFiles() : array
     {
         return [];
     }
@@ -53,16 +53,16 @@ class tinymceEditor5 extends articleEditor {
      */
     public function getCommentEditorTemplate()
     {
-        return \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'comments/editors/tinymce.php');        
+        return \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'comments/editors/tinymce.php');
     }
 
     /**
      * Liefert zu ladender Javascript-Dateien für Editor zurück
      * @return array
      */
-    public function getJsFiles()
+    public function getJsFiles() : array
     {
-        return [\fpcm\classes\loader::libGetFileUrl('tinymce5/tinymce.min.js'), 'editor/editor_tinymce.js', 'editor/editor_filemanager.js'];
+        return [\fpcm\classes\loader::libGetFileUrl('tinymce5/tinymce.min.js'), 'editor/tinymce.js', 'editor/filemanager.js'];
     }
 
     /**
@@ -93,7 +93,7 @@ class tinymceEditor5 extends articleEditor {
 
         $cssClasses = array_merge($editorStyles, $this->getEditorStyles());
 
-        return $this->events->trigger('editor\initTinymce', [
+        $cfg = [
             'editorConfig' => new conf\tinymceEditor5(
                 $this->config,
                 $pluginFolders,
@@ -104,9 +104,18 @@ class tinymceEditor5 extends articleEditor {
             ),
             'editorDefaultFontsize' => $this->config->system_editor_fontsize,
             'uploadFileRoot' => \fpcm\classes\dirs::getDataUrl(\fpcm\classes\dirs::DATA_UPLOADS, ''),
-            'galleryThumbStr' => \fpcm\model\pubtemplates\article::GALLERY_TAG_THUMB,
-            'editorInitFunction' => 'initTinyMce'
-        ])->getData();
+            'galleryThumbStr' => \fpcm\model\pubtemplates\article::GALLERY_TAG_THUMB
+        ];
+
+        $ev = $this->events->trigger('editor\initTinymce', $cfg);
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event editor\initTinymce failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return $cfg;
+        }
+
+        return $ev->getData();
+
+
     }
 
     /**
@@ -122,41 +131,43 @@ class tinymceEditor5 extends articleEditor {
      * Editor-Styles initialisieren
      * @return array
      */
-    protected function getEditorStyles()
+    protected function getEditorStyles() : array
     {
-        if (!$this->config->system_editor_css) {
+        $classes = parent::getEditorStyles();
+
+        if (!is_array($classes) || !count($classes)) {
             return [];
         }
 
-        $classes = explode(PHP_EOL, $this->config->system_editor_css);
+        $return = array_map(function ($class) {
+            return [
+                'title' => $class,
+                'value' => $class
+            ];
+        }, $classes);
 
-        $editorStyles = [];
-        foreach ($classes as $class) {
-            $class = trim(str_replace(array('.', '{', '}'), '', $class));
-            $editorStyles[] = array('title' => $class, 'value' => $class);
-        }
-
-        return $this->events->trigger('editor\addStyles', $editorStyles)->getData();
+        return array_values($return);
     }
 
     /**
      * Editor-Links initialisieren
-     * @return string
+     * @return array
      */
-    public function getEditorLinks(string $labelString = 'title')
+    public function getEditorLinks(string $labelString = 'title') : array
     {
-        $links = $this->events->trigger('editor\addLinks')->getData();
+        $links = parent::getEditorLinks();
         if (!is_array($links) || !count($links)) {
             return [];
         }
 
-        return array_map(function ($item) use ($labelString) {
+        $return = array_map(function ($item) use ($labelString) {
             return [
                 $labelString => $item['label'],
                 'value' => $item['value']
             ];
-
         }, $links);
+
+        return array_values($return);
     }
 
     /**
@@ -165,28 +176,22 @@ class tinymceEditor5 extends articleEditor {
      * @return array
      * @since 3.3
      */
-    public function getTemplateDrafts()
+    public function getTemplateDrafts() : array
     {
-        $templatefilelist = new \fpcm\model\files\templatefilelist();
-
-        $ret = [];
-        foreach ($templatefilelist->getFolderList() as $file) {
-
-            $basename = basename($file);
-
-            if ($basename === 'index.html') {
-                continue;
-                ;
-            }
-
-            $ret[] = array(
-                "title" => $basename,
-                "description" => $basename,
-                "url" => \fpcm\classes\dirs::getRootUrl(\fpcm\model\files\ops::removeBaseDir($file))
-            );
+        $tpFfiles = parent::getTemplateDrafts();
+        if (!is_array($tpFfiles) || !count($tpFfiles)) {
+            return [];
         }
 
-        return $ret;
+        $return = array_map(function ($basename) {
+            return [
+                'title' => $basename,
+                'description' => $basename,
+                'url' => \fpcm\classes\dirs::getDataUrl(\fpcm\classes\dirs::DATA_DRAFTS, $basename)
+            ];
+        }, $tpFfiles);
+
+        return array_values($return);
     }
 
     /**
@@ -195,8 +200,9 @@ class tinymceEditor5 extends articleEditor {
      * @return array
      * @since 3.3
      */
-    public function getJsLangVars()
+    public function getJsLangVars() : array
     {
         return ['EDITOR_INSERTSMILEY'];
     }
+
 }

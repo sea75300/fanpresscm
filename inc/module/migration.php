@@ -9,7 +9,7 @@ namespace fpcm\module;
 
 /**
  * Module migration base class
- * 
+ *
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2021, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
@@ -51,11 +51,11 @@ abstract class migration extends \fpcm\migrations\migration {
      * Returns migration class namespace
      * @param string $version
      * @return string
-     * @static
      */
     public static function getNamespace(string $version) : string
     {
-        module::getMigrationNamespace( $this->getModuleKey() , $version);
+        $key = \fpcm\module\module::getKeyFromClass(static::class);
+        return module::getMigrationNamespace($key, $version);
     }
 
 }

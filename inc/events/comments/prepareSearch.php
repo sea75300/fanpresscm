@@ -12,7 +12,6 @@ namespace fpcm\events\comments;
  * 
  * Event wird ausgeführt, wenn Kommentar-Suche durchgeführt wird
  * Parameter: array mit Liste der Suchparameter aus dem Suchformular
- * Rückgabe: array mit Liste der Suchparameter aus dem Suchformular
  * 
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
  * @copyright (c) 2011-2022, Stefan Seehafer
@@ -21,14 +20,5 @@ namespace fpcm\events\comments;
  * @since 3.3
  */
 final class prepareSearch extends \fpcm\events\abstracts\event {
-
-    /**
-     * Defines type of returned data
-     * @return string
-     */
-    protected function getReturnType()
-    {
-        return '\fpcm\model\comments\search';
-    }
 
 }

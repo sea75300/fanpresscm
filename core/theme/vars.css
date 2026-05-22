@@ -1,10 +1,11 @@
 /* ------ General colors */
 :root {
-    --fpcm-var-blurring: 5px;
+    --fpcm-var-blurring: 8px;
     --fpcm-var-easing: 0.5s;
     --fpcm-var-backdrop-image: url('./backdrops/pexels-asad-photo-maldives-4578810.jpg');
     --fpcm-modal-bg: var(--bs-light-bg-subtle);
     --fpcm-font-size-small: 0.85em;
+    --fpcm-font-headline: 'Expletus Sans';
 }
 
 [data-bs-theme=light] {
@@ -22,6 +23,5 @@
 
 [data-bs-theme=dark] {
     --bs-primary: rgba(13,110,253,0.6);
-    --fpcm-var-backdrop-image: '';
     --fpcm-white-50: rgba(var(--bs-tertiary-bg-rgb), 0.6);
 }

@@ -30,6 +30,12 @@ trait dataView {
     protected $itemsCount = null;
 
     /**
+     * Dataview instance
+     * @var \fpcm\components\dataView\dataView
+     */
+    protected $dataView;
+
+    /**
      * Returns default description string for "No entries found"
      * @return string
      */
@@ -109,7 +115,8 @@ trait dataView {
                 $this->view->addTabs('tabs-'.$this->getDataViewName(), $tabs);
             }
         }
-        
+
+        return true;
     }
 
     /**
@@ -144,5 +151,3 @@ trait dataView {
     }
 
 }
-
-?>

@@ -20,6 +20,6 @@ namespace fpcm\events\pub;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\events
  */
-final class templateHtmlTags extends \fpcm\events\abstracts\eventReturnArray {
+final class templateHtmlTags extends \fpcm\events\abstracts\event {
 
 }

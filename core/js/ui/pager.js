@@ -22,11 +22,11 @@ fpcm.ui.initPager = function (params) {
     var nextEl = fpcm.dom.fromId('pagerNext');
     var selectId = 'pageSelect';
 
-    backEl.unbind('click');
-    nextEl.unbind('click');
+    backEl.off('click');
+    nextEl.off('click');
 
     var selectEl = fpcm.dom.fromId(selectId);
-    selectEl.unbind('change');
+    selectEl.off('change');
 
     if (!params.backAction) {
         params.backAction = function () {
@@ -42,18 +42,18 @@ fpcm.ui.initPager = function (params) {
 
     if (fpcm.vars.jsvars.pager.showBackButton) {
         backEl.removeClass('disabled');
-        backEl.click(params.backAction);
+        backEl.on('click', params.backAction);
     } else if (!fpcm.vars.jsvars.pager.showBackButton && backEl && !backEl.hasClass('disabled')) {
         backEl.addClass('disabled');
     }
 
     if (fpcm.vars.jsvars.pager.showNextButton) {
         nextEl.removeClass('disabled');
-        nextEl.click(params.nextAction);
+        nextEl.on('click', params.nextAction);
     } else if (!fpcm.vars.jsvars.pager.showNextButton && nextEl && !nextEl.hasClass('disabled')) {
         nextEl.addClass('disabled');
     }
-    
+
     if (fpcm.vars.jsvars.pager.maxPages) {
         for (i = 1; i <= fpcm.vars.jsvars.pager.maxPages; i++) {
             if (!params.keepSelect) {

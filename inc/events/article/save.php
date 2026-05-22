@@ -12,13 +12,12 @@ namespace fpcm\events\article;
  * 
  * Event wird ausgeführt, wenn Artikel gespeichert wird
  * Parameter: array Artikel-Daten-Array
- * Rückgabe: array Artikel-Daten-Array
  * 
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
  * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\events
  */
-final class save extends \fpcm\events\abstracts\eventReturnArray {
+final class save extends \fpcm\events\abstracts\event {
 
 }

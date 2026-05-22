@@ -32,9 +32,7 @@ final class uppy extends uploader {
      */
     public function getCssFiles(): array
     {
-        return [
-            \fpcm\classes\dirs::getLibUrl('cropper_js/cropper.min.css'),
-        ];
+        return [];
     }
 
     /**
@@ -45,8 +43,7 @@ final class uppy extends uploader {
     {
         $return = [
             'files/uppy.js',
-            'files/imageEditor.js',
-            \fpcm\classes\dirs::getLibUrl('cropper_js/cropper.min.js')
+            'files/imageEditor.js'
         ];
 
         return $return;
@@ -97,10 +94,6 @@ final class uppy extends uploader {
      */
     public function getViewVars(): array
     {
-        
-        /* @var $no \fpcm\model\theme\notifications */
-        $no = \fpcm\classes\loader::getObject('\fpcm\model\theme\notifications');
-        
         return [
             'uploadTemplatePath' => $this->getTemplate(),
             'uploadMultiple' => true

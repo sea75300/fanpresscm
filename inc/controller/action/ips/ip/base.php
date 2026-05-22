@@ -64,7 +64,8 @@ implements \fpcm\controller\interfaces\requestFunctions
                     ->setIcon('network-wired')
                     ->setAutoFocused(true)
                     ->setPattern("^(?!.*({$this->current})).*")
-                    ->setLabelTypeFloat(),
+                    ->setLabelTypeFloat()
+                    ->setRequired(),
             new \fpcm\components\fieldGroup([
                 (new \fpcm\view\helper\checkbox('nocomments'))->setText('IPLIST_NOCOMMENTS')->setSelected($this->ipaddress->getNocomments())->setSwitch(true),
                 (new \fpcm\view\helper\checkbox('nologin'))->setText('IPLIST_NOLOGIN')->setSelected($this->ipaddress->getNologin())->setSwitch(true),

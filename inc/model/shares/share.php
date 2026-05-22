@@ -9,15 +9,13 @@ namespace fpcm\model\shares;
 
 /**
  * Artikel Objekt
- * 
+ *
  * @package fpcm\model\shares
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
  * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 class share extends \fpcm\model\abstracts\dataset {
-
-    use \fpcm\model\traits\eventModuleEmpty;
 
     /**
      * ARtciel id
@@ -27,7 +25,7 @@ class share extends \fpcm\model\abstracts\dataset {
 
     /**
      * Share count
-     * @var int 
+     * @var int
      */
     protected $sharecount = 0;
 
@@ -136,7 +134,13 @@ class share extends \fpcm\model\abstracts\dataset {
             return false;
         }
 
-        if (!$this->dbcon->insert($this->table, $this->getPreparedSaveParams())) {
+        $ev = $this->events->trigger($this->getEventName('save'), $this->getPreparedSaveParams());
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event ipaddressSave failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return false;
+        }
+
+        if (!$this->dbcon->insert($this->table, $ev->getData())) {
             return false;
         }
 
@@ -156,9 +160,17 @@ class share extends \fpcm\model\abstracts\dataset {
         }
 
         $params = $this->getPreparedSaveParams();
-        $fields = array_keys($params);
-
         $params[] = $this->getId();
+
+        $ev = $this->events->trigger($this->getEventName('update'), $params);
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event ipaddressUpdate failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return false;
+        }
+
+        $params = $ev->getData();
+        $fields = $this->getFieldFromSaveParams($params);
+
         if (!$this->dbcon->update($this->table, $fields, array_values($params), 'id = ?')) {
             return false;
         }
@@ -173,6 +185,7 @@ class share extends \fpcm\model\abstracts\dataset {
     public function increase()
     {
         $this->sharecount++;
+        return true;
     }
 
     /**
@@ -193,6 +206,15 @@ class share extends \fpcm\model\abstracts\dataset {
     {
         $icon = \fpcm\model\pubtemplates\sharebuttons::getShareItemClass($this->shareitem);
         return (string) (new \fpcm\view\helper\icon($icon['icon'], $icon['prefix']))->setSize('2x');
+    }
+    
+    /**
+     * Returns event base
+     * @return string
+     */
+    protected function getEventModule(): string
+    {
+        return 'share';
     }
 
 }

@@ -4,6 +4,7 @@
             ->setText('INSTALLER_DBCONNECTION_TYPE')
             ->setOptions($sqlDrivers)
             ->setClass('fpcm-installer-data')
+            ->setData(['type' => 'DBTYPE'])
             ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
             ->setLabelTypeFloat(); ?>
 </div>       
@@ -14,6 +15,7 @@
                 ->setPlaceholder('INSTALLER_DBCONNECTION_HOST')
                 ->setValue('localhost')
                 ->setClass('fpcm-installer-data')
+                ->setData(['type' => 'DBHOST'])
                 ->setLabelTypeFloat(); ?>
 </div>
 
@@ -22,6 +24,7 @@
                 ->setText('INSTALLER_DBCONNECTION_NAME')
                 ->setPlaceholder('INSTALLER_DBCONNECTION_NAME')
                 ->setClass('fpcm-installer-data')
+                ->setData(['type' => 'DBNAME'])
                 ->setLabelTypeFloat(); ?>
 </div>
 
@@ -30,6 +33,7 @@
                 ->setText('INSTALLER_DBCONNECTION_USER')
                 ->setPlaceholder('INSTALLER_DBCONNECTION_USER')
                 ->setClass('fpcm-installer-data')
+                ->setData(['type' => 'DBUSER'])
                 ->setLabelTypeFloat(); ?>
 </div>
 
@@ -38,6 +42,7 @@
                 ->setText('INSTALLER_DBCONNECTION_PASS')
                 ->setPlaceholder('INSTALLER_DBCONNECTION_PASS')
                 ->setClass('fpcm-installer-data')
+                ->setData(['type' => 'DBPASS'])
                 ->setLabelTypeFloat(); ?>
 </div>
 
@@ -47,5 +52,6 @@
                 ->setPlaceholder('INSTALLER_DBCONNECTION_PREF')
                 ->setValue('fpcm5')
                 ->setClass('fpcm-installer-data')
+                ->setData(['type' => 'DBPREF'])
                 ->setLabelTypeFloat(); ?>
 </div>

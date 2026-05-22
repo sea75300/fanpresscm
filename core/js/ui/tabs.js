@@ -89,16 +89,16 @@ fpcm.ui_tabs = {
 
                 if (!_ev.target.dataset.ajaxQuiet) {
 
-                    var _ldr = document.createElement('span');
-                    _ldr.classList.add('spinner-border');
-                    _ldr.classList.add('spinner-border-sm');
-                    _ldr.classList.add('ms-2');
-                    _ev.target.appendChild(_ldr);
-
+                    let _spin = _ev.target.querySelector('span.spinner-border');
+                    if (!_spin) {
+                        var _ldr = document.createElement('span');
+                        _ldr.classList.add('spinner-border', 'spinner-border-sm', 'ms-2');
+                        _ev.target.appendChild(_ldr);
+                    }
                 }
 
                 fpcm.ajax.get(_ev.target.href, {
-                    quiet: true, //_ev.target.dataset.ajaxQuiet ? true : false,
+                    quiet: true,
                     execDone: function (_result) {
 
                         if (!_ev.target.dataset.ajaxQuiet && _ldr) {
@@ -184,6 +184,37 @@ fpcm.ui_tabs = {
         if (!_active.dataset.toolbarButtons || !_prev.dataset.toolbarButtons ||
             _active.dataset.toolbarButtons === _prev.dataset.toolbarButtons) {
             return true;
+        }
+
+        let _itemsCurr = fpcm.ui.mainToolbar.find(`*[data-tab-item=${_active.dataset.toolbarButtons}]`);
+        let _itemsPrev = fpcm.ui.mainToolbar.find(`*[data-tab-item=${_prev.dataset.toolbarButtons}]`);
+
+        for (var _item of _itemsPrev) {
+
+            if (_item.dataset.tabItemAction === 'disable') {
+                _item.disabled = true;
+                continue;
+            }
+
+            if (_item.dataset.tabItemAction === 'hide') {
+                _item.classList.add('d-none');
+                continue;
+            }
+
+        }
+
+        for (var _item of _itemsCurr) {
+
+            if (_item.dataset.tabItemAction === 'disable') {
+                _item.disabled = false;
+                continue;
+            }
+
+            if (_item.dataset.tabItemAction === 'hide') {
+                _item.classList.remove('d-none');
+                continue;
+            }
+
         }
 
         fpcm.ui.mainToolbar.find('.fpcm-ui-maintoolbarbuttons-tab'+ _active.dataset.toolbarButtons).removeClass('fpcm-ui-hidden');

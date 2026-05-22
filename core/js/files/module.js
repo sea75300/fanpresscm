@@ -10,7 +10,7 @@ if (fpcm === undefined) {
 
 fpcm.filemanager = {
 
-    tabsObj: {},
+    viewType: 'images',
 
     init: function() {
 
@@ -22,13 +22,12 @@ fpcm.filemanager = {
                     fpcm.vars.jsvars.pager = _result.data.pager;
                 }
 
+                fpcm.filemanager.viewType = _event.target.dataset.viewtype;
                 fpcm.filemanager.initListActions();
+
+                document.getElementById('fpcm-select-all').checked = false;
             }
         });
-
-        if (fpcm.ui.langvarExists('ARTICLES_SEARCH')) {
-            fpcm.filemanager.initFilesSearch();
-        }
 
         fpcm.filemanager.initNewThumbButton();
         fpcm.filemanager.initDeleteMultipleButton();
@@ -37,34 +36,22 @@ fpcm.filemanager = {
 
     initAfter: function() {
 
-        if (fpcm.vars.jsvars.fmgrMode === 1) {
-
-            fpcm.ui.selectmenu('select[data-user_setting]', {
-                change: function (_ev, _ui) {
-
-                    document.getElementById('pageSelect').selectedIndex = 0;
-
-                    fpcm.ajax.post('setconfig', {
-                        data: {
-                            var: _ui.dataset.user_setting,
-                            value: _ui.value
-                        },
-                        execDone: fpcm.filemanager.reloadFiles
-                    });
-                }
-            });
-
+        if (fpcm.vars.jsvars.fmgrMode !== 1) {
+            return;
         }
 
-        fpcm.dom.fromId('btnFmgrUploadBack').click(function () {
-            fpcm.ui_tabs.show('#files', 0);
+        fpcm.dom.bindClick('#btnSettings', function () {
+
+            fpcm.ui_dialogs.settings('files', 'filesSettings', function (ev, _ui, _result) {
+                fpcm.filemanager.reloadFiles();
+            });
+
         });
 
     },
 
     initListActions: function () {
         fpcm.ui.assignCheckboxes();
-        fpcm.ui.initLightbox();
         fpcm.filemanager.initPagination();
         fpcm.filemanager.initInsertButtons();
         fpcm.filemanager.initRenameButtons();
@@ -73,68 +60,68 @@ fpcm.filemanager = {
         fpcm.filemanager.initAltTextButtons();
         fpcm.filemanager.initPropertiesButton();
         fpcm.filemanager.initCopyButton();
+        fpcm.filemanager.initReminderButton();
+
+        if (fpcm.filemanager.listActions) {
+            fpcm.filemanager.listActions.init();
+        }
     },
 
     initInsertButtons: function () {
 
-        if (fpcm.vars.jsvars.fmgrMode === 2) {
+        fpcm.dom.bindClick('a.btn[data-insert-type]', function (_e, _ui) {
 
-            fpcm.dom.bindClick('.fpcm-filelist-tinymce-thumb', function (_e, _ui) {
-                parent.fpcm.editor.insertThumbByEditor(_ui.href, _ui.dataset.imgtext);
+            let _search = new URLSearchParams(window.location.search);
+            let _isMedia = _search.get('m') === 'media';
+
+            if (!_isMedia && _ui.dataset.insertType === 'video' ||
+                _isMedia && _ui.dataset.insertType === 'image') {
+                return;
+            }
+
+            if (_isMedia && _ui.dataset.insertType === 'video') {
+                parent.fpcm.editor.insertFullByEditor(_ui.href, _ui.href);
                 fpcm.ui_dialogs.close('editor-html-filemanager', true);
-            });
+                return;
+            }
 
-            fpcm.dom.bindClick('.fpcm-filelist-tinymce-full', function (_e, _ui) {
-                parent.fpcm.editor.insertFullByEditor(_ui.href, _ui.dataset.imgtext);
-                fpcm.ui_dialogs.close('editor-html-filemanager', true);
-            });
+            switch (_ui.dataset.insertFn) {
+                case 'thumb' :
+                    parent.fpcm.editor.insertThumbByEditor(_ui.href, _ui.dataset.imgtext);
+                    break;
+                case 'full' :
+                    parent.fpcm.editor.insertFullByEditor(_ui.href, _ui.dataset.imgtext);
+                    break;
+                case 'articleimg' :
+                    parent.document.getElementById('articleimagepath').value  = _ui.href;
+                    break;
+                case 'poster-thumb' :
+                    parent.document.getElementById(fpcm.ui.prepareId('mediaposter', true)).value  = _ui.href;
+                    break;
+                case 'poster-full' :
+                    parent.document.getElementById(fpcm.ui.prepareId('mediaposter', true)).value  = _ui.href;
+                    break;
+            }
 
-            fpcm.dom.bindClick('#btnInsertGallery', function () {
+            fpcm.ui_dialogs.close('editor-html-filemanager', true);
+        });
 
-                var values = [];
-                fpcm.dom.fromClass('fpcm-ui-list-checkbox:checked').map(function (idx, item) {
-                    values.push(jQuery(item).data('gallery'));
-                });
+        fpcm.dom.bindClick('#btnInsertGallery', function () {
 
-                if (!values.length) {
-                    return false;
-                }
-
-                parent.fpcm.editor.insertGalleryByEditor(values);
+            let _items = document.querySelectorAll('.fpcm-ui-list-checkbox[data-type=image]:checked');
+            if (!_items || !_items.length) {
                 return false;
-            });
+            }
 
+            parent.fpcm.editor.insertGalleryByEditor(_items);
             return false;
-        }
-
-        if (fpcm.vars.jsvars.fmgrMode === 3) {
-
-            fpcm.dom.bindClick('.fpcm-filelist-articleimage', function (_e, _ui) {
-                parent.document.getElementById('articleimagepath').value  = _ui.href;
-                fpcm.ui_dialogs.close('editor-html-filemanager', true);
-            });
-
-            return false;
-        }
-
-        if (fpcm.vars.jsvars.fmgrMode === 4) {
-
-            fpcm.dom.bindClick('.fpcm-filelist-tinymce-thumb', function (_e, _ui) {
-                parent.document.getElementById('mediaposter').value  = _ui.href;
-                fpcm.ui_dialogs.close('editor-html-filemanager', true);
-            });
-
-            fpcm.dom.bindClick('.fpcm-filelist-tinymce-full', function (_e, _ui) {
-                parent.document.getElementById('mediaposter').value  = _ui.href;
-                fpcm.ui_dialogs.close('editor-html-filemanager', true);
-            });
-        }
+        });
 
     },
 
     initRenameButtons: function() {
 
-        fpcm.dom.bindClick('.fpcm-filelist-rename', function (_e, _ui) {
+        fpcm.dom.bindClick('a.dropdown-item[data-action="rename"]', function (_e, _ui) {
 
             if (!fpcm.ui.langvarExists('FILE_LIST_RENAME_NEWNAME')) {
                 console.log('FILE_LIST_RENAME_NEWNAME');
@@ -160,13 +147,21 @@ fpcm.filemanager = {
                         icon: "save",
                         clickClose: true,
                         primary: true,
-                        click: function() {
+                        click: function(_ev, _ui) {
 
                             let _inputEl = document.getElementById('fpcm-id-new-filename-dialog');
                             if (!_inputEl.value || !_inputEl.value.match(/^[a-z0-9_\.\-\(\)]+$/i)) {
 
+                                let _msg = fpcm.ui.translate('RENAME_FAILED_FILE')
+                                        .replace('{{filename1}}', _e.delegateTarget.dataset.oldname)
+                                        .replace('{{filename2}}', _inputEl.value);
+
+                                if (_inputEl.validationMessage) {
+                                    _msg = _inputEl.validationMessage;
+                                }
+
                                 fpcm.ui.addMessage({
-                                    txt: _inputEl.validationMessage,
+                                    txt: _msg,
                                     type: 'error'
                                 });
 
@@ -196,9 +191,12 @@ fpcm.filemanager = {
     },
 
     initEditButtons: function() {
-        fpcm.dom.bindClick('.fpcm-filelist-link-edit', function (_e, _ui) {
+        fpcm.dom.bindClick('a.dropdown-item[data-action="edit"]', function (_e, _ui) {
             fpcm.imageEditor.initEditorDialog({
-                afterUpload: fpcm.filemanager.reloadFiles,
+                afterUpload: function () {
+                    fpcm.filemanager.reloadFiles();
+                    fpcm.ui_dialogs.close('files-editor');
+                },
                 data: _ui.dataset
             });
             return false;
@@ -207,7 +205,7 @@ fpcm.filemanager = {
 
     initAltTextButtons: function() {
 
-        fpcm.dom.bindClick('.fpcm-filelist-link-alttext', function (_e, _ui) {
+        fpcm.dom.bindClick('a.dropdown-item[data-action="alttext"]', function (_e, _ui) {
 
             var _input = new fpcm.ui.forms.input();
             _input.name = 'alt-text-dialog';
@@ -245,16 +243,13 @@ fpcm.filemanager = {
                 }
             });
 
-
-
-
             return false;
         });
     },
 
     initDeleteButtons: function() {
 
-        fpcm.dom.bindClick('.fpcm-filelist-delete',function (_e, _ui) {
+        fpcm.dom.bindClick('a.dropdown-item[data-action="delete"]',function (_e, _ui) {
             fpcm.ui_dialogs.confirm({
                 clickNoDefault: true,
                 focusNo: true,
@@ -288,7 +283,7 @@ fpcm.filemanager = {
 
         fpcm.dom.bindClick('#btnCreateThumbs', function (event, ui) {
 
-            var items = fpcm.dom.getCheckboxCheckedValues('.fpcm-ui-list-checkbox');
+            var items = fpcm.dom.getCheckboxCheckedValues('.fpcm-ui-list-checkbox[data-type=image]');
             if (!items || !items.length) {
                 return false;
             }
@@ -303,9 +298,10 @@ fpcm.filemanager = {
                 },
                 execDone: function (result) {
 
-                    jQuery.each(result, function (i, value) {
-                        fpcm.ui.addMessage(value, i == 1 ? true : false);
-                    });
+                    for (var _i in result) {
+                        let _value = result[_i];
+                        fpcm.ui.addMessage(_value, _i == 1);
+                    }
 
                     fpcm.filemanager.reloadFiles();
                     ui.disabled = false;
@@ -335,13 +331,13 @@ fpcm.filemanager = {
                             filename: items,
                             multiple: 1
                         },
-                        execDone: function (result) {
+                        execDone: function (_result) {
 
-                            jQuery.each(result, function (i, value) {
-                                fpcm.ui.addMessage(value, i == 1 ? true : false);
-                            });
+                            for (var _i in _result) {
+                                fpcm.ui.addMessage(_result[_i]);
+                            }
 
-                            fpcm.dom.fromId('fpcm-select-all').prop('checked', false);
+                            document.getElementById('fpcm-select-all').checked = false;
                             fpcm.filemanager.reloadFiles();
                         }
                     });
@@ -363,6 +359,131 @@ fpcm.filemanager = {
 
     },
 
+    initReminderButton: function() {
+
+        fpcm.dom.bindClick('button[data-remindertype="files"]', function (_e) {
+
+            let _remDlg = fpcm.ui_dialogs.fromDOM('reminders');
+            let _rid = parseInt(_e.currentTarget.dataset.reminderid);
+            let _oid = parseInt(_e.currentTarget.dataset.id);
+
+            fpcm.ui_dialogs.create({
+                id: 'files-remidners',
+                title: 'HL_REMINDER',
+                content: _remDlg,
+                closeButton: true,
+                scrollable: false,
+                directAssignToDom: true,
+                dlButtons: [
+                    {
+                        text: 'GLOBAL_SAVE',
+                        icon: "save",
+                        clickClose: true,
+                        primary: true,
+                        click: function() {
+
+                            let _uid = parseInt(document.getElementById(fpcm.ui.prepareId('user-id', true)).value);
+                            if (!_uid) {
+                                fpcm.ui.addMessage({
+                                    txt: 'REMINDER_SAVE_FAILED',
+                                    type: 'error'
+                                });
+
+                                return false;
+                            }
+
+                            let _dt = {
+                                date: document.getElementById(fpcm.ui.prepareId('resub-date', true)).value,
+                                time: document.getElementById(fpcm.ui.prepareId('resub-time', true)).value
+                            }
+
+                            if (!_dt.date || !_dt.time) {
+                                fpcm.ui.addMessage({
+                                    txt: 'REMINDER_SAVE_FAILED',
+                                    type: 'error'
+                                });
+
+                                return false;
+                            }
+
+                            fpcm.reminders.set(
+                                _e.currentTarget.dataset.remindertype,
+                                _rid,
+                                _oid,
+                                _uid,
+                                _dt,
+                                document.getElementById(fpcm.ui.prepareId('resub-comment', true)).value,
+                                function (_res) {
+                                    if (!_res.reload) {
+                                        return false;
+                                    }
+
+                                    fpcm.filemanager.reloadFiles();
+                                }
+                            );
+                        }
+                    },
+                    {
+                        text: 'GLOBAL_DELETE',
+                        icon: "trash",
+                        clickClose: true,
+                        showLabel: false,
+                        disabled: !_rid,
+                        click: function() {
+
+                            fpcm.reminders.delete(
+                                _e.currentTarget.dataset.remindertype,
+                                _rid,
+                                function (_res) {
+                                    if (!_res.reload) {
+                                        return false;
+                                    }
+
+                                    fpcm.filemanager.reloadFiles();
+                                }
+                            );
+                        }
+                    },
+                ],
+                dlOnOpen: function () {
+
+                    if (!_rid) {
+                        let _dateObj = new Date();
+                        document.getElementById(fpcm.ui.prepareId('resub-time', true)).value = `${_dateObj.getHours()}:${_dateObj.getMinutes()}:00`;
+                        return false;
+                    }
+
+                    fpcm.reminders.get(
+                        _e.currentTarget.dataset.remindertype,
+                        _rid,
+                        function (_res) {
+
+                            let _uselect = document.getElementById(fpcm.ui.prepareId('user-id', true));
+                            let _secIndx = 0;
+
+                            for (var _o in _uselect.options) {
+                                _secIndx = _o;
+                                if (_uselect.options[_o].value == _res.uid) {
+                                    break;
+                                }
+                            }
+
+                            _uselect.value = _res.uid;
+                            _uselect.selectedIndex = _secIndx;
+
+                            document.getElementById(fpcm.ui.prepareId('resub-date', true)).value = _res.dateTime.date;
+                            document.getElementById(fpcm.ui.prepareId('resub-time', true)).value = _res.dateTime.time;
+                            document.getElementById(fpcm.ui.prepareId('resub-comment', true)).value = _res.comment;
+                        }
+                    );
+                }
+            });
+
+
+        });
+
+    },
+
     initPropertiesButton: function() {
 
         let _form = [
@@ -370,62 +491,71 @@ fpcm.filemanager = {
                 prop: 'filetime',
                 label: 'GLOBAL_LASTCHANGE',
                 icon: new fpcm.ui.forms.icon('calendar', 'lg'),
-                class: 'mb-2'
+                class: 'mb-2',
+                cols: 2
             },
             {
                 prop: 'fileuser',
                 label: 'FILE_LIST_UPLOAD_BY',
                 icon: new fpcm.ui.forms.icon('user', 'lg'),
-                class: 'mb-2'
+                cols: 2
             },
             {
                 prop: 'filesize',
                 label: 'FILE_LIST_FILESIZE',
                 icon: new fpcm.ui.forms.icon('weight', 'lg'),
-                class: 'mb-2'
+                cols: 2
             },
             {
-                prop: 'resulution',
+                prop: 'resolution',
                 label: 'FILE_LIST_RESOLUTION',
                 icon: new fpcm.ui.forms.icon('maximize', 'lg'),
-                class: 'mb-2'
+                cols: 2
             },
             {
                 prop: 'filemime',
                 label: 'FILE_LIST_FILETYPE',
                 icon: new fpcm.ui.forms.icon('file-circle-question', 'lg'),
-                class: 'mb-2'
-            },
-            {
-                prop: 'filehash',
-                label: 'FILE_LIST_FILEHASH',
-                icon: new fpcm.ui.forms.icon('hashtag', 'lg'),
-                class: 'mb-2'
+                cols: 2
             },
             {
                 prop: 'credits',
                 label: 'FILE_LIST_FILECREDITS',
                 icon: new fpcm.ui.forms.icon('copyright', 'lg'),
-                class: 'mb-2'
+                cols: 1
+            },
+            {
+                prop: 'filehash',
+                label: 'FILE_LIST_FILEHASH',
+                icon: new fpcm.ui.forms.icon('hashtag', 'lg'),
+                class: 'mb-2',
+                cols: 1
             }
 
         ];
 
-        fpcm.dom.bindClick('.fpcm-filelist-properties', function (_e, _ui) {
+        fpcm.dom.bindClick('a.dropdown-item[data-action="properties"]', function (_e, _ui) {
 
             let _titleTxt = '';
             let _titleHtml = '';
 
             let _dlgContent = document.createElement('div');
+            _dlgContent.classList.add('list-group');
+
+            let _mfSckip = ['resolution', 'credits'];
 
             for (var _idx in _form) {
 
                 let _propCfg = _form[_idx];
 
+                if (_ui.dataset.mft === '1' && _mfSckip.includes(_propCfg.prop)) {
+                    continue;
+                }
+
                 switch (_propCfg.prop) {
-                    case 'resulution' :
+                    case 'resolution' :
                         _titleTxt = _ui.dataset.fileresx + ' X ' + _ui.dataset.fileresy + ' ' + fpcm.ui.translate('FILE_LIST_RESOLUTION_PIXEL');
-                        _titleHtml = _ui.dataset.fileresx + fpcm.ui.getIcon('times') + _ui.dataset.fileresy + ' ' + fpcm.ui.translate('FILE_LIST_RESOLUTION_PIXEL');
+                        _titleHtml = _ui.dataset.fileresx + (new fpcm.ui.forms.icon('times')).getString() + _ui.dataset.fileresy + ' ' + fpcm.ui.translate('FILE_LIST_RESOLUTION_PIXEL');
                         break;
                     default:
                         _titleTxt = _ui.dataset[_propCfg.prop];
@@ -434,23 +564,31 @@ fpcm.filemanager = {
                 }
 
                 let _row = document.createElement('div');
-                _row.className = 'row g-0 ' + _propCfg.class;
+                _row.classList.add('row', 'row-cols-1', 'row-cols-lg-' + _propCfg.cols, 'g-0');
 
                 let _icon = _propCfg.icon;
                 _icon.iconClass = 'me-2';
 
                 let _colDescr = document.createElement('div');
-                _colDescr.className = 'col-form-label align-self-center col-12 col-md-3 me-3';
+                _colDescr.classList.add('col', 'align-self-center');
                 _colDescr.innerHTML = _icon.getString() + fpcm.ui.translate(_propCfg.label);
                 _row.appendChild(_colDescr);
 
+                if (!_titleHtml) {
+                    _titleHtml = '&nbsp;';
+                }
+
                 let _colValue = document.createElement('div');
-                _colValue.className = 'col align-self-center';
+                _colValue.classList.add('col', 'text-truncate');
                 _colValue.innerHTML = _titleHtml;
                 _colValue.title = _titleTxt;
                 _row.appendChild(_colValue);
 
-                _dlgContent.appendChild(_row);
+                let _listitem = document.createElement('div');
+                _listitem.classList.add('list-group-item');
+                _listitem.appendChild(_row);
+
+                _dlgContent.appendChild(_listitem);
             }
 
             fpcm.ui_dialogs.create({
@@ -498,6 +636,7 @@ fpcm.filemanager = {
             module: 'files',
             destination: "#fpcm-tab-files-list-pane",
             mode: fpcm.vars.jsvars.fmgrMode,
+            type: fpcm.filemanager.viewType,
             page: _page,
             filter: _filter ? _filter : null,
             loader: false,
@@ -510,113 +649,11 @@ fpcm.filemanager = {
 
                 fpcm.filemanager.initListActions();
                 fpcm.dom.fromClass('fpcm-select-all').prop('checked', false);
+                document.getElementById('fpcm-select-all').checked = false;
             }
         });
 
         return false;
-    },
-
-    initFilesSearch: function() {
-
-        fpcm.dom.bindClick('#btnOpenSearch', function () {
-
-            let _formData = fpcm.vars.jsvars.searchForm;
-
-            let _form = document.createElement('div');
-
-            for (var _fieldName in _formData.fields) {
-
-                let _field = _formData.fields[_fieldName];
-
-                let _tmp = new fpcm.ui.forms[_field.call];
-                _tmp.name = _fieldName;
-                _field.class += ' ' + _tmp.class;
-                _tmp.wrapper = 'form-floating';
-
-                if (!_tmp.assignFormObject) {
-                    continue;
-                }
-
-                _tmp.assignFormObject(_field);
-
-                let _row = document.createElement('div');
-                _row.className = 'row mb-3';
-
-                let _colDescr = document.createElement('div');
-                _colDescr.className = 'col-12' + (!_field.noCombination ? ' col-md-9' : '');
-                _tmp.assignToDom(_colDescr);
-
-                _row.appendChild(_colDescr);
-
-                let _colCombination = document.createElement('div');
-                _colCombination.className = 'col-12 col-md-3 align-self-center';
-
-                if (!_field.noCombination) {
-                    let _comb = new fpcm.ui.forms.select();
-                    _comb.name = 'combination' + _fieldName.charAt(0).toUpperCase() + _fieldName.slice(1);
-                    _comb.options = _formData.combinations.default;
-                    _comb.class = 'fpcm-ui-input-select-filessearch-combination ' + _comb.class;
-                    _comb.wrapper = 'form-floating';
-                    _comb.label = 'ARTICLE_SEARCH_LOGIC';
-
-                    _comb.assignToDom(_colCombination);
-                }
-
-                _row.appendChild(_colCombination);
-
-                _form.appendChild(_row);
-            }
-
-            fpcm.ui_dialogs.create({
-                id: 'files-search',
-                title: 'ARTICLES_SEARCH',
-                closeButton: true,
-                directAssignToDom: true,
-                content: _form,
-                dlButtons: [
-                    {
-                        text: fpcm.ui.translate('ARTICLE_SEARCH_START'),
-                        icon: "search",
-                        primary: true,
-                        clickClose: true,
-                        click: function(_ui, _bsObj) {
-
-                            var sParams = fpcm.dom.getValuesByClass('fpcm-files-search-input');
-                            sParams.combinations = fpcm.dom.getValuesByClass('fpcm-ui-input-select-filessearch-combination');
-
-                            fpcm.filemanager.startFilesSearch(sParams);
-                        }
-                    },
-                    {
-                        text: fpcm.ui.translate('GLOBAL_RESET'),
-                        icon: "filter-circle-xmark" ,
-                        clickClose: true,
-                        click: function() {
-                            fpcm.ui.relocate('self');
-                        }
-                    }
-                ],
-                dlOnOpenAfter: function () {
-                    document.getElementById('fpcm-id-filename').focus();
-                }
-            });
-
-            return false;
-        });
-
-    },
-
-    startFilesSearch: function (sParams) {
-
-        if (((new Date()).getTime() - fpcm.vars.jsvars.filesLastSearch) < 10000) {
-            fpcm.ui.addMessage({
-                type: 'error',
-                txt : fpcm.ui.translate('SEARCH_WAITMSG')
-            });
-            return false;
-        }
-
-        fpcm.filemanager.reloadFiles(1, sParams);
     },
 
     runFileIndexUpdate: function () {
@@ -640,5 +677,17 @@ fpcm.filemanager = {
         }
 
         return _el.value;
+    },
+
+    getAcceptTypesArr: function () {
+
+        return [
+            'image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp',
+            '.jpeg', '.jpg', '.png', '.gif', '.webp',
+            'video/mp4', 'video/ogg', 'video/webm',
+            'audio/mpeg', 'audio/wav', 'audio/ogg',
+            '.ogg', '.webm', '.mp4', '.mp3', '.wav',
+        ];
+
     }
 };

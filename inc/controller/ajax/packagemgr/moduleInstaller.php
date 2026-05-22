@@ -88,7 +88,8 @@ class moduleInstaller extends \fpcm\controller\abstracts\ajaxController
     }
 
     /**
-     * Controller-Processing
+     * Controller processing
+     * @return void
      */
     public function process()
     {
@@ -138,7 +139,7 @@ class moduleInstaller extends \fpcm\controller\abstracts\ajaxController
             $this->addErrorMessage('UPDATE_WRITEERROR');
         }
 
-        $this->res = $success === true ? true : false;
+        $this->res = $success === true;
 
         if (!$this->res) {
             return false;

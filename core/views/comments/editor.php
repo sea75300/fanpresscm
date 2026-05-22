@@ -1,7 +1,7 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
 <?php /* @var $comment fpcm\model\comments\comment */ ?>
 <?php if($commentsMode === 2) : ?><div class="d-none"><?php include_once $theView->getIncludePath('common/buttons.php'); ?></div><?php endif; ?>
-<fieldset class="mb-3">
+<fieldset>
     <div class="row row-cols-1 row-cols-lg-2 my-2">
         <div class="col">
 
@@ -45,10 +45,11 @@
                     ->setLabelTypeFloat()
                     ->setValue($comment->getIpaddress())
                     ->setIcon('network-wired')
-                    ->setSize('lg'); ?>
+                    ->setSize('lg')
+                    ->setBottomSpace($theView->permissions->comment->move ? 'mb-3' : ''); ?>
             </div>
 
-            <div class="row g-0 <?php if($commentsMode === 2 || !$showArticleIdField) : ?>d-none<?php endif; ?>">
+            <div class="row g-0 <?php if(!$theView->permissions->comment->move) : ?>d-none<?php endif; ?>">
             <?php $theView->textInput('comment[article]')
                     ->setText('COMMMENT_MOVE')
                     ->setPlaceholder('COMMMENT_MOVE')
@@ -58,10 +59,10 @@
                     ->setIcon('clipboard')
                     ->setSize('lg')
                     ->setClass('fpcm-ui-input-articleid'); ?>
-                
-                <?php if ($existsAlert) : ?>
+
+                <?php if (!$articleExists) : ?>
                 <div class="d-block">
-                    <?php $theView->alert('danger')->setText('LOAD_FAILED_COMMENT_ARTICLE'); ?>                    
+                    <?php $theView->alert('danger')->setText('LOAD_FAILED_COMMENT_ARTICLE'); ?>
                 </div>
                 <?php endif; ?>
             </div>
@@ -71,7 +72,7 @@
 
         <div class="col">
             <div class="list-group">
-                <div class="list-group-item bg-secondary text-white" aria-label="<?php $theView->write('COMMMENT_STATUS'); ?>">
+                <div class="list-group-item bg-secondary bg-gradient text-white" aria-label="<?php $theView->write('COMMMENT_STATUS'); ?>">
                     <?php $theView->icon('cogs')->setSize('lg'); ?> <span class="fpcm-ui-label ps-1"> <?php $theView->write('COMMMENT_STATUS'); ?>
                 </div>
                 <div class="list-group-item">
@@ -90,31 +91,28 @@
 
 <?php include \fpcm\components\components::getArticleEditor()->getCommentEditorTemplate(); ?>
 
-<fieldset class="my-2">
-    <legend class="fpcm-ui-font-small"><?php $theView->write('GLOBAL_METADATA'); ?></legend>
-
-    <div class="row g-0 my-2 fpcm-ui-font-small">
-        <div class="col-12 col-md-6">
-
-            <div class="row mb-1 row-cols-2">
-                <div class="col">
-                    <?php $theView->icon('calendar')->setSize('lg'); ?>
-                    <strong><?php $theView->write('COMMMENT_CREATEDATE'); ?>:</strong>
-                </div>
-                <div class="col">
-                    <?php $theView->dateText($comment->getCreatetime()); ?>
-                </div>
-            </div>
-
-            <div class="row mb-1 row-cols-2">
-                <div class="col">
-                    <?php $theView->icon('clock', 'far')->setSize('lg'); ?>
-                    <strong><?php $theView->write('GLOBAL_LASTCHANGE'); ?>:</strong>
-                </div>
-                <div class="col">
-                    <?php print $changeInfo; ?>
+<div class="row">
+    <div class="col my-3">
+        <div class="card bg-secondary-subtle">
+            <div class="card-body">
+                <h5 class="card-title"><?php $theView->write('GLOBAL_METADATA'); ?></h5>
+                <div class="row g-0 gap-2 row-cols-1 row-cols-lg-5">
+                    <div class="col">
+                        <?php $theView->icon('calendar')->setSize('lg'); ?>
+                        <strong><?php $theView->write('COMMMENT_CREATEDATE'); ?>:</strong>
+                    </div>
+                    <div class="col">
+                        <?php $theView->dateText($comment->getCreatetime()); ?>
+                    </div>
+                    <div class="col">
+                        <?php $theView->icon('clock', 'far')->setSize('lg'); ?>
+                        <strong><?php $theView->write('GLOBAL_LASTCHANGE'); ?>:</strong>
+                    </div>
+                    <div class="col">
+                        <?php print $changeInfo; ?>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</fieldset>
+</div>

@@ -21,6 +21,10 @@ class add extends base {
         return true;
     }
 
+    /**
+     * Controller processing
+     * @return void
+     */
     public function process() {
         $this->view->setFormAction('categories/add');
         parent::process();

@@ -46,6 +46,10 @@ implements \fpcm\controller\interfaces\requestFunctions
         return true;
     }
 
+    /**
+     * Controller processing
+     * @return void
+     */
     public function process()
     {
         define('FPCM_VIEW_FLOATING_LABEL_ALL', true);

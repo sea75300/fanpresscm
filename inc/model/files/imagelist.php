@@ -13,6 +13,7 @@ namespace fpcm\model\files;
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+ * @deprecated 5.3.0-a1
  */
 final class imagelist
 extends \fpcm\model\abstracts\filelist
@@ -37,6 +38,8 @@ implements \fpcm\model\interfaces\gsearchIndex {
      */
     public function __construct()
     {
+        trigger_error('The imagelist object is deprecated as of FPCM 5.3.0-a1, use the mediaFilesList object instead', E_USER_DEPRECATED);
+        
         parent::__construct();
 
         $this->table = \fpcm\classes\database::tableFiles;
@@ -99,7 +102,10 @@ implements \fpcm\model\interfaces\gsearchIndex {
         $combination = '';
 
         if ($conditions->isMultiple()) {
-            $this->assignMultipleSearchParams($conditions, $where, $valueParams, $combination);
+            $qas = $conditions->prepareFilterParams();
+
+            $where = $qas->getQueries();
+            $valueParams = $qas->getValues();
         }
         else {
             $this->assignSearchParams($conditions, $where, $valueParams, $combination);
@@ -194,6 +200,8 @@ implements \fpcm\model\interfaces\gsearchIndex {
             if (!$this->dbcon->delete($this->table, $this->dbcon->inQuery('id', $ids), array_values($ids)) ) {
                 trigger_error('Unable to remove file index data for files with names: ' . implode(', ', array_keys($notInFs)));
             }
+
+            \fpcm\model\reminders\reminders::getInstance()->removeByObject(image::class, $ids);
         }
 
         if (count($notInDb)) {
@@ -240,18 +248,18 @@ implements \fpcm\model\interfaces\gsearchIndex {
         }
 
         if (!in_array($image->getMimetype(), image::$allowedTypes) || !in_array(strtolower($image->getExtension()), image::$allowedExts)) {
-            trigger_error("Filetype not allowed in \"{$image->getFullpath()}\".");
+            trigger_error(sprintf('Filetype "%s" not allowed in "%s".', $image->getMimetype(), $image->getFilename()));
             return false;
         }
 
         $res = $image->save();
         if (!$res && $this->dbcon->getLastQueryErrorCode() === \fpcm\drivers\sqlDriver::CODE_ERROR_UNIQUEKEY) {
-            trigger_error("Unable to save image \"{$image->getFullpath()}\" to database, file is already indexed.");
+            trigger_error("Unable to save image \"{$image->getFilename()}\" to database, file is already indexed.");
             return false;
         }
 
         if (!$res) {
-            trigger_error("Unable to save image \"{$image->getFullpath()}\" to database, due to unknows reason.");
+            trigger_error("Unable to save image \"{$image->getFilename()}\" to database, due to unknows reason.");
             return false;
         }
 
@@ -326,7 +334,7 @@ implements \fpcm\model\interfaces\gsearchIndex {
 
             $proc = new thumbnailCreator($folderFile, $image->getFileManagerThumbnail());
             if (!$proc->{$fn}(\fpcm\classes\dirs::DATA_FMTMP)) {
-                trigger_error('Error while creating filemanager thumbnail '.$image->getFileManagerThumbnail().PHP_EOL.$exc->getMessage());
+                trigger_error('Error while creating filemanager thumbnail '.$image->getFileManagerThumbnail());
                 continue;
             }
 
@@ -387,41 +395,6 @@ implements \fpcm\model\interfaces\gsearchIndex {
     }
 
     /**
-     * Assigns search params object to value arrays
-     * @param \fpcm\model\files\search $conditions
-     * @param array $where
-     * @param array $valueParams
-     * @param string $combination
-     * @return bool
-     */
-    private function assignMultipleSearchParams(search $conditions, array &$where, array &$valueParams, string $combination) : bool
-    {
-        if ($conditions->filename) {
-            $where[] = "(filename ".$this->dbcon->dbLike()." ? OR alttext ".$this->dbcon->dbLike()." ?)";
-            $valueParams[] = '%' . $conditions->filename . '%';
-            $valueParams[] = '%' . $conditions->filename . '%';
-        }
-
-        if ($conditions->datefrom !== null) {
-            $where[] = $conditions->getCondition('datefrom', 'filetime >= ?');
-            $valueParams[] = $conditions->datefrom;
-        }
-
-        if ($conditions->dateto !== null) {
-            $where[] = $conditions->getCondition('dateto', 'filetime <= ?');
-            $valueParams[] = $conditions->dateto;
-        }
-
-        if ($conditions->userid > -1) {
-            $where[] = $conditions->getCondition('userid', $this->dbcon->inQuery('userid', [0, $conditions->userid]));
-            $valueParams[] = 0;
-            $valueParams[] = $conditions->userid;
-        }
-
-        return true;
-    }
-
-    /**
      * Get count query string
      * @return \fpcm\model\dbal\selectParams
      * @since 5.1-dev
@@ -437,7 +410,12 @@ implements \fpcm\model\interfaces\gsearchIndex {
      */
     public function getSearchQuery(): \fpcm\model\dbal\selectParams
     {
-        return $this->getSearchQueryObj()->setItem('\'images\' as model, filename as oid, '.$this->dbcon->concatString(['filename', '";"', 'alttext', '";"', 'filetime']).' as text')->setFetchAll(true);
+        return $this->getSearchQueryObj()->setItem(
+            '\'images\' as model, ' .
+            'filename as oid,' .
+            $this->dbcon->concatString(['filename', '";"', 'alttext', '";"', 'filetime']).' as text, ' .
+            $this->dbcon->concatString(['width', '":"', 'height']).' as meta'
+        )->setFetchAll(true);
     }
 
     /**

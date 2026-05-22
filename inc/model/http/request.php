@@ -17,6 +17,8 @@ namespace fpcm\model\http;
  */
 final class request implements \fpcm\model\interfaces\isObjectInstancable {
 
+    use \fpcm\model\traits\getObjectInstance;
+
     /**
      * HTTP Filter strip_tags
      */
@@ -163,7 +165,7 @@ final class request implements \fpcm\model\interfaces\isObjectInstancable {
         if (!is_array($value) || !isset($value[0])) {
             return '';
         }
-        
+
         unset($value[0]);
         if (isset($value[3]) && !trim($value[3])) {
             unset($value[3]);
@@ -176,7 +178,7 @@ final class request implements \fpcm\model\interfaces\isObjectInstancable {
         if ($value === null) {
             return '';
         }
-        
+
         return is_array($value) ? implode('/', $value) : $value;
     }
 
@@ -283,7 +285,7 @@ final class request implements \fpcm\model\interfaces\isObjectInstancable {
             return $value;
         }
 
-        return $this->filter($value, $filters);   
+        return $this->filter($value, $filters);
     }
 
     /**
@@ -304,14 +306,14 @@ final class request implements \fpcm\model\interfaces\isObjectInstancable {
     }
 
     /**
-     * Returns item keys for POST request 
+     * Returns item keys for POST request
      * @return array
      */
     public function getPOSTItems() : array
     {
         return array_keys($_POST);
     }
-    
+
     /**
      * Fetch data from cookies request
      * @param string $var
@@ -325,7 +327,7 @@ final class request implements \fpcm\model\interfaces\isObjectInstancable {
             return $value;
         }
 
-        return $this->filter($value, $filters);   
+        return $this->filter($value, $filters);
     }
 
     /**
@@ -362,23 +364,23 @@ final class request implements \fpcm\model\interfaces\isObjectInstancable {
 
     /**
      * Filter request values
-     * 
+     *
      * @param type $values
      * @param array $filters (@see FILTER_* constants)<br>
-     * 
+     *
      * allowedtags: allowed HTML tags for strip_tags<br>
      * mode: @see ENT_* constants of PHP<br>
      * object: return "json_decode" result as object or array<br>
      * regex: regex expression for preg_match/preg_filter<br>
      * regexReplace: filter expression for preg_filter
-     * 
+     *
      * @return mixed
      */
     public function filter($values, array $filters = [])
     {
         if (!$values) {
             return $values;
-        }  
+        }
 
         if (is_array($values)) {
 
@@ -390,16 +392,16 @@ final class request implements \fpcm\model\interfaces\isObjectInstancable {
         }
 
         array_map(function($filter) use (&$values, $filters) {
-            
+
             $filter = (int) $filter;
-            
+
             $filterMethod = 'assignFilter'.$filter;
             if (method_exists($this, $filterMethod)) {
                 $this->{$filterMethod}($values, $filters);
                 return true;
             }
-            
-            $filterMethod = $this->filterFuncsMap[$filter] ?? false;            
+
+            $filterMethod = $this->filterFuncsMap[$filter] ?? false;
             if (!$filterMethod) {
                 return true;
             }
@@ -409,10 +411,10 @@ final class request implements \fpcm\model\interfaces\isObjectInstancable {
 
         }, $filters);
 
-        return $values;        
-        
+        return $values;
+
     }
-    
+
     /**
      * Common filter
      * @param mixed $value
@@ -429,7 +431,7 @@ final class request implements \fpcm\model\interfaces\isObjectInstancable {
         $value = $function($value, $filters[self::PARAM_HTML_MODE] ?? (ENT_COMPAT | ENT_HTML401) );
         return true;
     }
-    
+
     /**
      * strip_tags filter
      * @param mixed $value
@@ -441,7 +443,7 @@ final class request implements \fpcm\model\interfaces\isObjectInstancable {
         $value = strip_tags($value, $filters[self::PARAM_STRIPTAGS_ALLOWED] ?? '');
         return true;
     }
-    
+
     /**
      * stripslashes filter
      * @param mixed $value
@@ -452,7 +454,7 @@ final class request implements \fpcm\model\interfaces\isObjectInstancable {
         $value = stripslashes($value);
         return true;
     }
-    
+
     /**
      * trim filter
      * @param mixed $value
@@ -463,7 +465,7 @@ final class request implements \fpcm\model\interfaces\isObjectInstancable {
         $value = trim($value);
         return true;
     }
-    
+
     /**
      * json_decode filter
      * @param mixed $value
@@ -475,7 +477,7 @@ final class request implements \fpcm\model\interfaces\isObjectInstancable {
         $value = json_decode($value, ($filters[self::PARAM_JSON_ASOBJECT] ? false : true));
         return true;
     }
-    
+
     /**
      * int cast filter
      * @param mixed $value
@@ -486,7 +488,7 @@ final class request implements \fpcm\model\interfaces\isObjectInstancable {
         $value = (int) $value;
         return true;
     }
-    
+
     /**
      * Descrypt filter
      * @see \fpcm\classes\crypt::decrypt
@@ -498,7 +500,7 @@ final class request implements \fpcm\model\interfaces\isObjectInstancable {
         $value = \fpcm\classes\loader::getObject('\fpcm\classes\crypt')->decrypt($value);
         return true;
     }
-    
+
     /**
      * urldecode filter
      * @param mixed $value
@@ -509,7 +511,7 @@ final class request implements \fpcm\model\interfaces\isObjectInstancable {
         $value = urldecode($value);
         return true;
     }
-    
+
     /**
      * base64_decode filter
      * @param mixed $value
@@ -520,7 +522,7 @@ final class request implements \fpcm\model\interfaces\isObjectInstancable {
         $value = base64_decode($value);
         return true;
     }
-    
+
     /**
      * ucfirst filter
      * @param mixed $value
@@ -531,7 +533,7 @@ final class request implements \fpcm\model\interfaces\isObjectInstancable {
         $value = ucfirst($value);
         return true;
     }
-    
+
     /**
      * ucfirst filter
      * @param mixed $value
@@ -544,7 +546,7 @@ final class request implements \fpcm\model\interfaces\isObjectInstancable {
         $value = $match;
         return true;
     }
-    
+
     /**
      * ucfirst filter
      * @param mixed $value
@@ -556,7 +558,7 @@ final class request implements \fpcm\model\interfaces\isObjectInstancable {
         $value = preg_filter($filters[self::PARAM_REGEX] ?? '', $filters[self::PARAM_REGEX_REPLACE] ?? '', $value);
         return true;
     }
-    
+
     /**
      * Sanitize filter
      * @param mixed $value
@@ -572,22 +574,6 @@ final class request implements \fpcm\model\interfaces\isObjectInstancable {
 
         $value = filter_var($value, $filters[self::PARAM_SANITIZE]);
         return true;
-    }
-
-    /**
-     * Returns HTTP request object
-     * @return request
-     * @since 5.1.3
-     */
-    public static function getInstance()
-    {
-        $iClass = static::class;
-        
-        if (!isset($GLOBALS['fpcm']['objects'][$iClass])) {
-            $GLOBALS['fpcm']['objects'][$iClass] = new $iClass();
-        }
-        
-        return $GLOBALS['fpcm']['objects'][$iClass];    
     }
 
 }

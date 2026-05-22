@@ -29,6 +29,7 @@ class removeeditortags extends \fpcm\controller\abstracts\ajaxController
 
     /**
      * Controller-Processing
+     * @return void
      */
     public function process()
     {

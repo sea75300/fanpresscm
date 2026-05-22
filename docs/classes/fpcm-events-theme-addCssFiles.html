@@ -173,7 +173,7 @@
     addCssFiles
 
         <span class="phpdocumentor-element__extends">
-        extends <a href="classes/fpcm-events-abstracts-eventReturnArray.html"><abbr title="\fpcm\events\abstracts\eventReturnArray">eventReturnArray</abbr></a>
+        extends <a href="classes/fpcm-events-abstracts-event.html"><abbr title="\fpcm\events\abstracts\event">event</abbr></a>
     </span>
     
             <div class="phpdocumentor-element__package">
@@ -254,41 +254,6 @@ Rückgabe: array Liste mit CSS-Dateien</p>
 </dt>
 <dd>Base instaces a module event has to implement</dd>
 
-            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
-    <a href="classes/fpcm-events-abstracts-event.html#constant_RETURNTYPE_ARRAY">RETURNTYPE_ARRAY</a>
-    <span>
-        &nbsp;= &#039;array&#039;                            </span>
-</dt>
-<dd>Array returntype für Module-Event</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
-    <a href="classes/fpcm-events-abstracts-event.html#constant_RETURNTYPE_EVENTRESULT">RETURNTYPE_EVENTRESULT</a>
-    <span>
-        &nbsp;= &#039;\\fpcm\\module\\eventResult&#039;                            </span>
-</dt>
-<dd>Object returntype für Module-Event</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
-    <a href="classes/fpcm-events-abstracts-event.html#constant_RETURNTYPE_OBJ">RETURNTYPE_OBJ</a>
-    <span>
-        &nbsp;= &#039;object&#039;                            </span>
-</dt>
-<dd>Object returntype für Module-Event</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
-    <a href="classes/fpcm-events-abstracts-event.html#constant_RETURNTYPE_SCALAR">RETURNTYPE_SCALAR</a>
-    <span>
-        &nbsp;= &#039;scalar&#039;                            </span>
-</dt>
-<dd>Object returntype für Module-Event</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
-    <a href="classes/fpcm-events-abstracts-event.html#constant_RETURNTYPE_VOID">RETURNTYPE_VOID</a>
-    <span>
-        &nbsp;= null                            </span>
-</dt>
-<dd>Object returntype für Module-Event</dd>
-
                     <dt class="phpdocumentor-table-of-contents__entry -property -protected">
     <a href="classes/fpcm-events-abstracts-event.html#property_cache">$cache</a>
     <span>
@@ -299,7 +264,7 @@ Rückgabe: array Liste mit CSS-Dateien</p>
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
     <a href="classes/fpcm-events-abstracts-event.html#property_data">$data</a>
     <span>
-                        &nbsp;: array&lt;string|int, mixed&gt;            </span>
+                        &nbsp;: mixed|<a href="classes/fpcm-module-eventResult.html"><abbr title="\fpcm\module\eventResult">eventResult</abbr></a>            </span>
 </dt>
 <dd>Event-Daten</dd>
 
@@ -334,9 +299,37 @@ Rückgabe: array Liste mit CSS-Dateien</p>
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/fpcm-events-abstracts-event.html#method_run">run()</a>
     <span>
-                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+                                &nbsp;: <a href="classes/fpcm-module-eventResult.html"><abbr title="\fpcm\module\eventResult">eventResult</abbr></a>    </span>
 </dt>
-<dd>Executes a certain event</dd>
+<dd>Executes event</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -protected">
+    <a href="classes/fpcm-events-abstracts-event.html#method_afterProcess">afterProcess()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+<dd>After event running</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -protected">
+    <a href="classes/fpcm-events-abstracts-event.html#method_afterRun">afterRun()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+<dd>After event running</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -protected">
+    <a href="classes/fpcm-events-abstracts-event.html#method_beforeProcess">beforeProcess()</a>
+    <span>
+                                &nbsp;: void    </span>
+</dt>
+<dd>Prepare event before processing</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -protected">
+    <a href="classes/fpcm-events-abstracts-event.html#method_beforeRun">beforeRun()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+<dd>Prepare event before running</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -protected">
     <a href="classes/fpcm-events-abstracts-event.html#method_getEventClassBase">getEventClassBase()</a>
@@ -353,11 +346,11 @@ Rückgabe: array Liste mit CSS-Dateien</p>
 <dd>Liefert Array mit Event-Klassen in installierten Modulen zurück</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -protected">
-    <a href="classes/fpcm-events-abstracts-event.html#method_getReturnType">getReturnType()</a>
+    <a href="classes/fpcm-events-abstracts-event.html#method_getEventParams">getEventParams()</a>
     <span>
-                                &nbsp;: string|bool|null    </span>
+                                &nbsp;: mixed    </span>
 </dt>
-<dd>Defines type of returned data</dd>
+<dd>Returns event params</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -protected">
     <a href="classes/fpcm-events-abstracts-event.html#method_is_a">is_a()</a>
@@ -367,11 +360,18 @@ Rückgabe: array Liste mit CSS-Dateien</p>
 <dd>Checks if module event class has implemented \fpcm\module\event</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -protected">
-    <a href="classes/fpcm-events-abstracts-event.html#method_toEventResult">toEventResult()</a>
+    <a href="classes/fpcm-events-abstracts-event.html#method_onNoClasses">onNoClasses()</a>
     <span>
                                 &nbsp;: <a href="classes/fpcm-module-eventResult.html"><abbr title="\fpcm\module\eventResult">eventResult</abbr></a>    </span>
 </dt>
-<dd>Convert event result to eventResult object</dd>
+<dd>Return event result object if no events will be triggered</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -protected">
+    <a href="classes/fpcm-events-abstracts-event.html#method_processClass">processClass()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+<dd>Process class data</dd>
 
         </dl>
 
@@ -392,7 +392,7 @@ Rückgabe: array Liste mit CSS-Dateien</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/events/abstracts/event.php"><a href="files/inc-events-abstracts-event.html"><abbr title="inc/events/abstracts/event.php">event.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">54</span>
+    <span class="phpdocumentor-element-found-in__line">24</span>
 
     </aside>
 
@@ -410,221 +410,6 @@ Rückgabe: array Liste mit CSS-Dateien</p>
         <section class="phpdocumentor-description"></section>
 
     
-
-</article>
-                    <article class="phpdocumentor-element -constant -public ">
-    <h4 class="phpdocumentor-element__name" id="constant_RETURNTYPE_ARRAY">
-        RETURNTYPE_ARRAY
-        <a href="classes/fpcm-events-abstracts-event.html#constant_RETURNTYPE_ARRAY" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="inc/events/abstracts/event.php"><a href="files/inc-events-abstracts-event.html"><abbr title="inc/events/abstracts/event.php">event.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">25</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Array returntype für Module-Event</p>
-
-    <code class="phpdocumentor-signature phpdocumentor-code ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type">mixed</span>
-    <span class="phpdocumentor-signature__name">RETURNTYPE_ARRAY</span>
-    = <span class="phpdocumentor-signature__default-value">&#039;array&#039;</span>
-</code>
-
-
-    
-        <section class="phpdocumentor-description"></section>
-
-    
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">since</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                            <span class="phpdocumentor-tag-link">3.4</span>
-                                                                                
-                                             
-                                    </dd>
-                        </dl>
-
-</article>
-                    <article class="phpdocumentor-element -constant -public ">
-    <h4 class="phpdocumentor-element__name" id="constant_RETURNTYPE_EVENTRESULT">
-        RETURNTYPE_EVENTRESULT
-        <a href="classes/fpcm-events-abstracts-event.html#constant_RETURNTYPE_EVENTRESULT" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="inc/events/abstracts/event.php"><a href="files/inc-events-abstracts-event.html"><abbr title="inc/events/abstracts/event.php">event.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">43</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Object returntype für Module-Event</p>
-
-    <code class="phpdocumentor-signature phpdocumentor-code ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type">mixed</span>
-    <span class="phpdocumentor-signature__name">RETURNTYPE_EVENTRESULT</span>
-    = <span class="phpdocumentor-signature__default-value">&#039;\\fpcm\\module\\eventResult&#039;</span>
-</code>
-
-
-    
-        <section class="phpdocumentor-description"></section>
-
-    
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">since</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                            <span class="phpdocumentor-tag-link">4</span>
-                                                                                
-                                             
-                                    </dd>
-                        </dl>
-
-</article>
-                    <article class="phpdocumentor-element -constant -public ">
-    <h4 class="phpdocumentor-element__name" id="constant_RETURNTYPE_OBJ">
-        RETURNTYPE_OBJ
-        <a href="classes/fpcm-events-abstracts-event.html#constant_RETURNTYPE_OBJ" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="inc/events/abstracts/event.php"><a href="files/inc-events-abstracts-event.html"><abbr title="inc/events/abstracts/event.php">event.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">31</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Object returntype für Module-Event</p>
-
-    <code class="phpdocumentor-signature phpdocumentor-code ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type">mixed</span>
-    <span class="phpdocumentor-signature__name">RETURNTYPE_OBJ</span>
-    = <span class="phpdocumentor-signature__default-value">&#039;object&#039;</span>
-</code>
-
-
-    
-        <section class="phpdocumentor-description"></section>
-
-    
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">since</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                            <span class="phpdocumentor-tag-link">3.4</span>
-                                                                                
-                                             
-                                    </dd>
-                        </dl>
-
-</article>
-                    <article class="phpdocumentor-element -constant -public ">
-    <h4 class="phpdocumentor-element__name" id="constant_RETURNTYPE_SCALAR">
-        RETURNTYPE_SCALAR
-        <a href="classes/fpcm-events-abstracts-event.html#constant_RETURNTYPE_SCALAR" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="inc/events/abstracts/event.php"><a href="files/inc-events-abstracts-event.html"><abbr title="inc/events/abstracts/event.php">event.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">37</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Object returntype für Module-Event</p>
-
-    <code class="phpdocumentor-signature phpdocumentor-code ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type">mixed</span>
-    <span class="phpdocumentor-signature__name">RETURNTYPE_SCALAR</span>
-    = <span class="phpdocumentor-signature__default-value">&#039;scalar&#039;</span>
-</code>
-
-
-    
-        <section class="phpdocumentor-description"></section>
-
-    
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">since</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                            <span class="phpdocumentor-tag-link">4</span>
-                                                                                
-                                             
-                                    </dd>
-                        </dl>
-
-</article>
-                    <article class="phpdocumentor-element -constant -public ">
-    <h4 class="phpdocumentor-element__name" id="constant_RETURNTYPE_VOID">
-        RETURNTYPE_VOID
-        <a href="classes/fpcm-events-abstracts-event.html#constant_RETURNTYPE_VOID" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="inc/events/abstracts/event.php"><a href="files/inc-events-abstracts-event.html"><abbr title="inc/events/abstracts/event.php">event.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">49</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Object returntype für Module-Event</p>
-
-    <code class="phpdocumentor-signature phpdocumentor-code ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type">mixed</span>
-    <span class="phpdocumentor-signature__name">RETURNTYPE_VOID</span>
-    = <span class="phpdocumentor-signature__default-value">null</span>
-</code>
-
-
-    
-        <section class="phpdocumentor-description"></section>
-
-    
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">since</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                            <span class="phpdocumentor-tag-link">4</span>
-                                                                                
-                                             
-                                    </dd>
-                        </dl>
 
 </article>
             </section>
@@ -651,7 +436,7 @@ Rückgabe: array Liste mit CSS-Dateien</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/events/abstracts/event.php"><a href="files/inc-events-abstracts-event.html"><abbr title="inc/events/abstracts/event.php">event.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">66</span>
+    <span class="phpdocumentor-element-found-in__line">36</span>
 
     </aside>
 
@@ -684,7 +469,7 @@ Rückgabe: array Liste mit CSS-Dateien</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/events/abstracts/event.php"><a href="files/inc-events-abstracts-event.html"><abbr title="inc/events/abstracts/event.php">event.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">60</span>
+    <span class="phpdocumentor-element-found-in__line">30</span>
 
     </aside>
 
@@ -692,7 +477,7 @@ Rückgabe: array Liste mit CSS-Dateien</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">protected</span>
-        <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;</span>
+        <span class="phpdocumentor-signature__type">mixed|<a href="classes/fpcm-module-eventResult.html"><abbr title="\fpcm\module\eventResult">eventResult</abbr></a></span>
     <span class="phpdocumentor-signature__name">$data</span>
     </code>
 
@@ -717,7 +502,7 @@ Rückgabe: array Liste mit CSS-Dateien</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/events/abstracts/event.php"><a href="files/inc-events-abstracts-event.html"><abbr title="inc/events/abstracts/event.php">event.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">72</span>
+    <span class="phpdocumentor-element-found-in__line">42</span>
 
     </aside>
 
@@ -754,7 +539,7 @@ Rückgabe: array Liste mit CSS-Dateien</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/events/abstracts/event.php"><a href="files/inc-events-abstracts-event.html"><abbr title="inc/events/abstracts/event.php">event.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">79</span>
+    <span class="phpdocumentor-element-found-in__line">49</span>
 
     </aside>
 
@@ -797,7 +582,7 @@ Rückgabe: array Liste mit CSS-Dateien</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/events/abstracts/event.php"><a href="files/inc-events-abstracts-event.html"><abbr title="inc/events/abstracts/event.php">event.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">271</span>
+    <span class="phpdocumentor-element-found-in__line">326</span>
 
     </aside>
 
@@ -840,7 +625,7 @@ Rückgabe: array Liste mit CSS-Dateien</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/events/abstracts/event.php"><a href="files/inc-events-abstracts-event.html"><abbr title="inc/events/abstracts/event.php">event.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">154</span>
+    <span class="phpdocumentor-element-found-in__line">124</span>
 
     </aside>
 
@@ -887,22 +672,220 @@ Rückgabe: array Liste mit CSS-Dateien</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/events/abstracts/event.php"><a href="files/inc-events-abstracts-event.html"><abbr title="inc/events/abstracts/event.php">event.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">226</span>
+    <span class="phpdocumentor-element-found-in__line">192</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Executes a certain event</p>
+        <p class="phpdocumentor-summary">Executes event</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">run</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+                    <span class="phpdocumentor-signature__name">run</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/fpcm-module-eventResult.html"><abbr title="\fpcm\module\eventResult">eventResult</abbr></a></span></code>
 
     
     
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+    <span class="phpdocumentor-signature__response_type"><a href="classes/fpcm-module-eventResult.html"><abbr title="\fpcm\module\eventResult">eventResult</abbr></a></span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -protected
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_afterProcess">
+        afterProcess()
+        <a href="classes/fpcm-events-abstracts-event.html#method_afterProcess" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/events/abstracts/event.php"><a href="files/inc-events-abstracts-event.html"><abbr title="inc/events/abstracts/event.php">event.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">278</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">After event running</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+                    <span class="phpdocumentor-signature__name">afterProcess</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+    
+    
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">5.3.0-dev</span>
+                                                                                
+                                             
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">bool</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -protected
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_afterRun">
+        afterRun()
+        <a href="classes/fpcm-events-abstracts-event.html#method_afterRun" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/events/abstracts/event.php"><a href="files/inc-events-abstracts-event.html"><abbr title="inc/events/abstracts/event.php">event.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">268</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">After event running</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+                    <span class="phpdocumentor-signature__name">afterRun</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+    
+    
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">5.3.0-dev</span>
+                                                                                
+                                             
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">bool</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -protected
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_beforeProcess">
+        beforeProcess()
+        <a href="classes/fpcm-events-abstracts-event.html#method_beforeProcess" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/events/abstracts/event.php"><a href="files/inc-events-abstracts-event.html"><abbr title="inc/events/abstracts/event.php">event.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">258</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Prepare event before processing</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+                    <span class="phpdocumentor-signature__name">beforeProcess</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/fpcm-module-event.html"><abbr title="\fpcm\module\event">event</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$event</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$event</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/fpcm-module-event.html"><abbr title="\fpcm\module\event">event</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">5.3.0-dev</span>
+                                                                                
+                                             
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">void</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -protected
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_beforeRun">
+        beforeRun()
+        <a href="classes/fpcm-events-abstracts-event.html#method_beforeRun" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/events/abstracts/event.php"><a href="files/inc-events-abstracts-event.html"><abbr title="inc/events/abstracts/event.php">event.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">246</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Prepare event before running</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+                    <span class="phpdocumentor-signature__name">beforeRun</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+    
+    
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">5.3.0-dev</span>
+                                                                                
+                                             
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">bool</span>
             &mdash;
         
     
@@ -920,7 +903,7 @@ Rückgabe: array Liste mit CSS-Dateien</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/events/abstracts/event.php"><a href="files/inc-events-abstracts-event.html"><abbr title="inc/events/abstracts/event.php">event.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">216</span>
+    <span class="phpdocumentor-element-found-in__line">177</span>
 
     </aside>
 
@@ -953,7 +936,7 @@ Rückgabe: array Liste mit CSS-Dateien</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/events/abstracts/event.php"><a href="files/inc-events-abstracts-event.html"><abbr title="inc/events/abstracts/event.php">event.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">189</span>
+    <span class="phpdocumentor-element-found-in__line">150</span>
 
     </aside>
 
@@ -993,29 +976,29 @@ Rückgabe: array Liste mit CSS-Dateien</p>
             -protected
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method_getReturnType">
-        getReturnType()
-        <a href="classes/fpcm-events-abstracts-event.html#method_getReturnType" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="method_getEventParams">
+        getEventParams()
+        <a href="classes/fpcm-events-abstracts-event.html#method_getEventParams" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/events/abstracts/event.php"><a href="files/inc-events-abstracts-event.html"><abbr title="inc/events/abstracts/event.php">event.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">163</span>
+    <span class="phpdocumentor-element-found-in__line">287</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Defines type of returned data</p>
+        <p class="phpdocumentor-summary">Returns event params</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">protected</span>
-                    <span class="phpdocumentor-signature__name">getReturnType</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string|bool|null</span></code>
+                    <span class="phpdocumentor-signature__name">getEventParams</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
 
     
     
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">string|bool|null</span>
+    <span class="phpdocumentor-signature__response_type">mixed</span>
             &mdash;
         
     
@@ -1033,7 +1016,7 @@ Rückgabe: array Liste mit CSS-Dateien</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/events/abstracts/event.php"><a href="files/inc-events-abstracts-event.html"><abbr title="inc/events/abstracts/event.php">event.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">173</span>
+    <span class="phpdocumentor-element-found-in__line">134</span>
 
     </aside>
 
@@ -1067,31 +1050,78 @@ Rückgabe: array Liste mit CSS-Dateien</p>
         class="phpdocumentor-element
             -method
             -protected
-                                                -final        "
+                                                        "
 >
-    <h4 class="phpdocumentor-element__name" id="method_toEventResult">
-        toEventResult()
-        <a href="classes/fpcm-events-abstracts-event.html#method_toEventResult" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="method_onNoClasses">
+        onNoClasses()
+        <a href="classes/fpcm-events-abstracts-event.html#method_onNoClasses" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/events/abstracts/event.php"><a href="files/inc-events-abstracts-event.html"><abbr title="inc/events/abstracts/event.php">event.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">281</span>
+    <span class="phpdocumentor-element-found-in__line">235</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Convert event result to eventResult object</p>
+        <p class="phpdocumentor-summary">Return event result object if no events will be triggered</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">protected</span>
-        <span class="phpdocumentor-signature__final">final</span>            <span class="phpdocumentor-signature__name">toEventResult</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$data</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/fpcm-module-eventResult.html"><abbr title="\fpcm\module\eventResult">eventResult</abbr></a></span></code>
+                    <span class="phpdocumentor-signature__name">onNoClasses</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/fpcm-module-eventResult.html"><abbr title="\fpcm\module\eventResult">eventResult</abbr></a></span></code>
+
+    
+    
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">5.3.0-dev</span>
+                                                                                
+                                             
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type"><a href="classes/fpcm-module-eventResult.html"><abbr title="\fpcm\module\eventResult">eventResult</abbr></a></span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -protected
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_processClass">
+        processClass()
+        <a href="classes/fpcm-events-abstracts-event.html#method_processClass" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/events/abstracts/event.php"><a href="files/inc-events-abstracts-event.html"><abbr title="inc/events/abstracts/event.php">event.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">298</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Process class data</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+                    <span class="phpdocumentor-signature__name">processClass</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$class</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
 
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$data</span>
-                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                <span class="phpdocumentor-signature__argument__name">$class</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                 
@@ -1099,9 +1129,23 @@ Rückgabe: array Liste mit CSS-Dateien</p>
             </dl>
 
     
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">5.3.0-dev</span>
+                                                                                
+                                             
+                                    </dd>
+                        </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type"><a href="classes/fpcm-module-eventResult.html"><abbr title="\fpcm\module\eventResult">eventResult</abbr></a></span>
+    <span class="phpdocumentor-signature__response_type">bool</span>
             &mdash;
         
     

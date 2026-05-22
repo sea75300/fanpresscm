@@ -15,10 +15,13 @@ namespace fpcm\controller\action\ips\ip;
  */
 class add extends base {
 
+    /**
+     * Controller processing
+     * @return void
+     */
     public function process()
     {
         $this->view->setFormAction('ips/add');
-        return true;
     }
 
 }

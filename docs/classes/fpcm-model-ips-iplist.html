@@ -185,6 +185,9 @@
                             </ul>
         </div>
     
+            <span class="phpdocumentor-element__implements">
+            implements
+                            <a href="classes/fpcm-model-interfaces-gsearchIndex.html"><abbr title="\fpcm\model\interfaces\gsearchIndex">gsearchIndex</abbr></a>                    </span>
     
     </h2>
 
@@ -218,7 +221,7 @@
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>(c) 2011-2022, Stefan Seehafer</p>
+                                                 <section class="phpdocumentor-description"><p>(c) 2011-2025, Stefan Seehafer</p>
 </section>
 
                                     </dd>
@@ -236,6 +239,18 @@
 
 
 
+<h3 id="interfaces_class_traits">
+    Interfaces, Classes, Traits and Enums
+    <a href="#interfaces_class_traits" class="headerlink"><i class="fas fa-link"></i></a>
+</h3>
+
+<dl class="phpdocumentor-table-of-contents">
+            <dt class="phpdocumentor-table-of-contents__entry -interface"><a href="classes/fpcm-model-interfaces-gsearchIndex.html"><abbr title="\fpcm\model\interfaces\gsearchIndex">gsearchIndex</abbr></a></dt>
+        <dd>FanPress CM Model global search indexer</dd>
+    
+    
+    
+    </dl>
 
 
 <h3 id="toc">
@@ -343,6 +358,27 @@
 <dd>Löscht IP-Adressen aus Datenbank</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-model-ips-iplist.html#method_getCountQuery">getCountQuery()</a>
+    <span>
+                                &nbsp;: <a href="classes/fpcm-model-dbal-selectParams.html"><abbr title="\fpcm\model\dbal\selectParams">selectParams</abbr></a>    </span>
+</dt>
+<dd>Returns count</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-model-ips-iplist.html#method_getElementIcon">getElementIcon()</a>
+    <span>
+                                &nbsp;: <a href="classes/fpcm-view-helper-icon.html"><abbr title="\fpcm\view\helper\icon">icon</abbr></a>    </span>
+</dt>
+<dd>Returns icon</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-model-ips-iplist.html#method_getElementLink">getElementLink()</a>
+    <span>
+                                &nbsp;: string    </span>
+</dt>
+<dd>Returns element link</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/fpcm-model-ips-iplist.html#method_getIpAll">getIpAll()</a>
     <span>
                                 &nbsp;: array&lt;string|int, mixed&gt;    </span>
@@ -350,11 +386,32 @@
 <dd>Liefert IP-Adressen aus Datenbank zurück</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-model-ips-iplist.html#method_getSearchQuery">getSearchQuery()</a>
+    <span>
+                                &nbsp;: <a href="classes/fpcm-model-dbal-selectParams.html"><abbr title="\fpcm\model\dbal\selectParams">selectParams</abbr></a>    </span>
+</dt>
+<dd>Return search data</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/fpcm-model-ips-iplist.html#method_ipIsLocked">ipIsLocked()</a>
     <span>
                                 &nbsp;: bool    </span>
 </dt>
 <dd>Prüft ob IP-Adresse gesperrt ist</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-model-ips-iplist.html#method_prepareText">prepareText()</a>
+    <span>
+                                &nbsp;: string    </span>
+</dt>
+<dd>Return element text</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a href="classes/fpcm-model-ips-iplist.html#method_getSearchQueryObj">getSearchQueryObj()</a>
+    <span>
+                                &nbsp;: <a href="classes/fpcm-model-dbal-selectParams.html"><abbr title="\fpcm\model\dbal\selectParams">selectParams</abbr></a>    </span>
+</dt>
+<dd>Returns selectParams object instance</dd>
 
         </dl>
 
@@ -676,7 +733,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/ips/iplist.php"><a href="files/inc-model-ips-iplist.html"><abbr title="inc/model/ips/iplist.php">iplist.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">24</span>
+    <span class="phpdocumentor-element-found-in__line">26</span>
 
     </aside>
 
@@ -793,7 +850,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/ips/iplist.php"><a href="files/inc-model-ips-iplist.html"><abbr title="inc/model/ips/iplist.php">iplist.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">29</span>
+    <span class="phpdocumentor-element-found-in__line">31</span>
 
     </aside>
 
@@ -859,7 +916,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/ips/iplist.php"><a href="files/inc-model-ips-iplist.html"><abbr title="inc/model/ips/iplist.php">iplist.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">110</span>
+    <span class="phpdocumentor-element-found-in__line">112</span>
 
     </aside>
 
@@ -895,6 +952,115 @@
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_getCountQuery">
+        getCountQuery()
+        <a href="classes/fpcm-model-ips-iplist.html#method_getCountQuery" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/ips/iplist.php"><a href="files/inc-model-ips-iplist.html"><abbr title="inc/model/ips/iplist.php">iplist.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">125</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Returns count</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">getCountQuery</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/fpcm-model-dbal-selectParams.html"><abbr title="\fpcm\model\dbal\selectParams">selectParams</abbr></a></span></code>
+
+    
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type"><a href="classes/fpcm-model-dbal-selectParams.html"><abbr title="\fpcm\model\dbal\selectParams">selectParams</abbr></a></span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getElementIcon">
+        getElementIcon()
+        <a href="classes/fpcm-model-ips-iplist.html#method_getElementIcon" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/ips/iplist.php"><a href="files/inc-model-ips-iplist.html"><abbr title="inc/model/ips/iplist.php">iplist.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">134</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Returns icon</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">getElementIcon</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/fpcm-view-helper-icon.html"><abbr title="\fpcm\view\helper\icon">icon</abbr></a></span></code>
+
+    
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type"><a href="classes/fpcm-view-helper-icon.html"><abbr title="\fpcm\view\helper\icon">icon</abbr></a></span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getElementLink">
+        getElementLink()
+        <a href="classes/fpcm-model-ips-iplist.html#method_getElementLink" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/ips/iplist.php"><a href="files/inc-model-ips-iplist.html"><abbr title="inc/model/ips/iplist.php">iplist.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">144</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Returns element link</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">getElementLink</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$id</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$id</span>
+                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">string</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_getIpAll">
         getIpAll()
         <a href="classes/fpcm-model-ips-iplist.html#method_getIpAll" class="headerlink"><i class="fas fa-link"></i></a>
@@ -902,7 +1068,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/ips/iplist.php"><a href="files/inc-model-ips-iplist.html"><abbr title="inc/model/ips/iplist.php">iplist.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">40</span>
+    <span class="phpdocumentor-element-found-in__line">42</span>
 
     </aside>
 
@@ -939,6 +1105,39 @@
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_getSearchQuery">
+        getSearchQuery()
+        <a href="classes/fpcm-model-ips-iplist.html#method_getSearchQuery" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/ips/iplist.php"><a href="files/inc-model-ips-iplist.html"><abbr title="inc/model/ips/iplist.php">iplist.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">156</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Return search data</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">getSearchQuery</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/fpcm-model-dbal-selectParams.html"><abbr title="\fpcm\model\dbal\selectParams">selectParams</abbr></a></span></code>
+
+    
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type"><a href="classes/fpcm-model-dbal-selectParams.html"><abbr title="\fpcm\model\dbal\selectParams">selectParams</abbr></a></span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_ipIsLocked">
         ipIsLocked()
         <a href="classes/fpcm-model-ips-iplist.html#method_ipIsLocked" class="headerlink"><i class="fas fa-link"></i></a>
@@ -946,7 +1145,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/ips/iplist.php"><a href="files/inc-model-ips-iplist.html"><abbr title="inc/model/ips/iplist.php">iplist.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">70</span>
+    <span class="phpdocumentor-element-found-in__line">72</span>
 
     </aside>
 
@@ -972,6 +1171,96 @@
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">bool</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_prepareText">
+        prepareText()
+        <a href="classes/fpcm-model-ips-iplist.html#method_prepareText" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/ips/iplist.php"><a href="files/inc-model-ips-iplist.html"><abbr title="inc/model/ips/iplist.php">iplist.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">166</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Return element text</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">prepareText</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$text</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$text</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">string</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getSearchQueryObj">
+        getSearchQueryObj()
+        <a href="classes/fpcm-model-ips-iplist.html#method_getSearchQueryObj" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/ips/iplist.php"><a href="files/inc-model-ips-iplist.html"><abbr title="inc/model/ips/iplist.php">iplist.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">177</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Returns selectParams object instance</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+                    <span class="phpdocumentor-signature__name">getSearchQueryObj</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/fpcm-model-dbal-selectParams.html"><abbr title="\fpcm\model\dbal\selectParams">selectParams</abbr></a></span></code>
+
+    
+    
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">5.1-dev</span>
+                                                                                
+                                             
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type"><a href="classes/fpcm-model-dbal-selectParams.html"><abbr title="\fpcm\model\dbal\selectParams">selectParams</abbr></a></span>
             &mdash;
         
     

@@ -55,7 +55,8 @@ class crons extends \fpcm\controller\abstracts\controller
     }
 
     /**
-     * Controller-Processing
+     * Controller processing
+     * @return void
      */
     public function process()
     {
@@ -91,9 +92,9 @@ class crons extends \fpcm\controller\abstracts\controller
         return [
             (new \fpcm\components\dataView\column('button', ''))->setSize(1)->setAlign('center'),
             (new \fpcm\components\dataView\column('interval', 'CRONJOB_LIST_INTERVAL'))->setSize(2)->setAlign('center'),
-            (new \fpcm\components\dataView\column('name', 'CRONJOB_LIST_NAME'))->setSize(4),
-            (new \fpcm\components\dataView\column('lastexec', 'CRONJOB_LIST_LASTEXEC'))->setSize(2)->setAlign('center'),
-            (new \fpcm\components\dataView\column('nextecec', 'CRONJOB_LIST_NEXTEXEC'))->setSize(2)->setAlign('center'),
+            (new \fpcm\components\dataView\column('name', 'CRONJOB_LIST_NAME')),
+            (new \fpcm\components\dataView\column('lastexec', 'CRONJOB_LIST_LASTEXEC'))->setAlign('center')->setSize('2'),
+            (new \fpcm\components\dataView\column('nextecec', 'CRONJOB_LIST_NEXTEXEC'))->setAlign('center')->setSize('2'),
         ];
     }
 
@@ -102,7 +103,7 @@ class crons extends \fpcm\controller\abstracts\controller
         return [
             (new \fpcm\view\helper\tabItem('tabs-'.$this->getDataViewName().'-list'))
                 ->setText('HL_CRONJOBS')
-                ->setFile('components/dataview__inline.php')
+                ->useDataView()
         ];
     }
 
@@ -145,6 +146,11 @@ class crons extends \fpcm\controller\abstracts\controller
 
         $nextExecTs = $cronjob->getNextExecTime();
 
+        $langVar = $cronjob->getCronNameLangVar();
+        if (!$this->language->exists($langVar)) {
+            $langVar = 'GLOBAL_UNKNOWN';
+        }
+        
         return new \fpcm\components\dataView\row([
 
             new \fpcm\components\dataView\rowCol('button', $this->getButtons($cronjob, $processingIcon, $playClass, $btnReadonly), '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
@@ -160,7 +166,10 @@ class crons extends \fpcm\controller\abstracts\controller
                         'cjmod' => $cronjob->getModuleKey()
                     ])
             ),
-            new \fpcm\components\dataView\rowCol('name', $this->language->translate($cronjob->getCronNameLangVar())),
+            
+            
+            
+            new \fpcm\components\dataView\rowCol('name', $this->language->translate($langVar)),
             new \fpcm\components\dataView\rowCol('lastexec', new \fpcm\view\helper\dateText($cronjob->getLastExecTime())),
             new \fpcm\components\dataView\rowCol('nextecec', $nextExecTs ? new \fpcm\view\helper\dateText( $nextExecTs ) : '-')
         ], $rowClass);

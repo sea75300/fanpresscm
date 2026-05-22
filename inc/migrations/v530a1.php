@@ -1,0 +1,109 @@
+<?php
+
+/**
+ * FanPress CM 5.x
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+ */
+
+namespace fpcm\migrations;
+
+/**
+ * Migration to v5.2.5-a1
+ *
+ * @author Stefan Seehafer <sea75300@yahoo.de>
+ * @copyright (c) 2025, Stefan Seehafer
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+ * @package fpcm\migrations
+ * @since 5.2.5-a1
+ * @see migration
+ */
+class v530a1 extends migration {
+
+    protected function alterTablesAfter(): bool {
+
+        fpcmLogSystem('Update files index...');
+
+        $obj = new \fpcm\model\dbal\selectParams(\fpcm\classes\database::tableFiles );
+        $obj->setWhere("filehash = '' AND mimetype = '' AND width = 0 AND height = 0");
+        $obj->setItem('id, filename');
+        $obj->setFetchStyle(\PDO::FETCH_KEY_PAIR);
+        $obj->setFetchAll(true);
+
+        $files = $this->getDB()->selectFetch($obj);
+
+        if (!is_array($files)) {
+            trigger_error('Unable to fetch data from files index!');
+            return false;
+        }
+
+        if (!count($files)) {
+            fpcmLogSystem('No files to update, skip process...');
+            return true;
+        }
+
+        $results = [];
+
+        foreach ($files as $id => $filename) {
+            $mfo = new \fpcm\model\files\mediaFile($filename);
+            $results[$filename] = (int) $mfo->update();
+        }
+
+        $err = array_keys($results, 0);
+        if (count($err)) {
+            fpcmLogSystem(sprintf("The following files could not be updates!\n\r%s", implode('\n\r', $err)));
+        }
+
+        fpcmLogSystem('Update files index finished...');
+        return true;
+    }
+
+    /**
+     * Execute additional system config updates
+     * @return bool
+     */
+    protected function updateSystemConfig() : bool
+    {
+        $cfg = $this->getConfig();
+
+        if ($cfg->system_loader_jquery !== false && !$cfg->remove('system_loader_jquery')) {
+            return false;
+        }
+
+        if ($cfg->system_mode !== false && !$cfg->remove('system_mode')) {
+            return false;
+        }
+
+        if ($cfg->system_css_path !== false && !$cfg->remove('system_css_path')) {
+            return false;
+        }
+
+        if ($cfg->file_subfolders !== false && !$cfg->remove('file_subfolders')) {
+            return false;
+        }
+
+        $codeMirror = $cfg->system_editor === '\fpcm\components\editor\htmlEditor';
+        if (!$codeMirror) {
+            return true;
+        }
+
+        $cfg->setNewConfig([
+            'system_editor' => '\fpcm\components\editor\aceEditor'
+        ]);
+
+        if (!$cfg->update()) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Returns new version, e. g. from version.txt
+     * @return string
+     */
+    protected function getNewVersion() : string
+    {
+        return '5.3.0-a1';
+    }
+
+}

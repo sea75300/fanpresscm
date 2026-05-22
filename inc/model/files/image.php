@@ -14,6 +14,7 @@ namespace fpcm\model\files;
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+ * @deprecated 5.3.0-a1
  */
 class image
 extends \fpcm\model\abstracts\file
@@ -84,7 +85,7 @@ implements \fpcm\model\interfaces\validateFileType,
      * Exif/ IPCT data
      * @var string
      */
-    protected $iptcStr;
+    protected $iptcstr;
 
     /**
      * Flag if file is in file index
@@ -97,7 +98,10 @@ implements \fpcm\model\interfaces\validateFileType,
      * Felder die in Datenbank gespeichert werden können
      * @var array
      */
-    protected $dbParams = ['userid', 'filename', 'filetime', 'filesize', 'alttext'];
+    protected $dbParams = [
+        'userid', 'filename', 'filetime', 'filesize',
+        'alttext', 'mimetype', 'filehash', 'width',
+        'height', 'iptcstr'];
 
     /**
      * Konstruktor
@@ -107,12 +111,12 @@ implements \fpcm\model\interfaces\validateFileType,
      */
     public function __construct($filename = '', $initDB = true)
     {
+        trigger_error('The image object is deprecated as of FPCM 5.3.0-a1, use the mediaFile object instead', E_USER_DEPRECATED);
+        
         $this->table = \fpcm\classes\database::tableFiles;
         $filename = $this->splitFilename($filename);
         parent::__construct($filename);
-
         $this->filename = $filename;
-
         $this->init($initDB);
     }
 
@@ -136,12 +140,22 @@ implements \fpcm\model\interfaces\validateFileType,
     }
 
     /**
+     * Returns image url
+     * @return string
+     * @since 5.3.0-a2
+     */
+    public function getFileUrl()
+    {
+        return \fpcm\classes\dirs::getDataUrl(\fpcm\classes\dirs::DATA_UPLOADS, $this->filename);
+    }
+
+    /**
      * Bild-Url ausgeben
      * @return string
      */
     public function getImageUrl()
     {
-        return \fpcm\classes\dirs::getDataUrl(\fpcm\classes\dirs::DATA_UPLOADS, $this->filename);
+        return $this->getFileUrl();
     }
 
     /**
@@ -273,7 +287,7 @@ implements \fpcm\model\interfaces\validateFileType,
      * @return string
      */
     public function getIptcStr() {
-        return $this->iptcStr;
+        return $this->iptcstr;
     }
 
     /**
@@ -324,9 +338,20 @@ implements \fpcm\model\interfaces\validateFileType,
         }
 
         $saveValues = $this->getSaveValues();
+        $saveValues['filehash'] = $this->getFileHash();
         $saveValues['filesize'] = (int) $saveValues['filesize'];
+        $saveValues['filetime'] = (int) $saveValues['filetime'];
+        $saveValues['width'] = (int) $saveValues['width'];
+        $saveValues['height'] = (int) $saveValues['height'];
+        $saveValues['userid'] = (int) $saveValues['userid'];
 
-        return $this->dbcon->insert($this->table, $this->events->trigger('image\save', $saveValues)->getData());
+        $ev = $this->events->trigger('image\save', $saveValues);
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event image\save failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return [];
+        }
+
+        return $this->dbcon->insert($this->table, $ev->getData());
     }
 
     /**
@@ -340,14 +365,22 @@ implements \fpcm\model\interfaces\validateFileType,
         }
 
         $saveValues = $this->getSaveValues();
+        $saveValues['filehash'] = $this->getFileHash();
         $saveValues['filesize'] = (int) $saveValues['filesize'];
         $saveValues['filetime'] = (int) $saveValues['filetime'];
+        $saveValues['width'] = (int) $saveValues['width'];
+        $saveValues['height'] = (int) $saveValues['height'];
         $saveValues['userid'] = (int) $saveValues['userid'];
 
         $saveValues[] = $this->filename;
-        $saveValues = $this->events->trigger('image\update', $saveValues)->getData();
 
+        $ev = $this->events->trigger('image\update', $saveValues);
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event image\save failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return false;
+        }
 
+        $saveValues = $ev->getData();
         return $this->dbcon->update($this->table, $this->dbParams, array_values($saveValues), "filename = ?");
     }
 
@@ -370,6 +403,8 @@ implements \fpcm\model\interfaces\validateFileType,
         if (file_exists($fileName)) {
             unlink($fileName);
         }
+
+        \fpcm\model\reminders\reminders::getInstance()->removeByObject(image::class, $this->id);
 
         return $this->dbcon->delete($this->table, 'filename = ?', array($this->filename));
     }
@@ -463,7 +498,12 @@ implements \fpcm\model\interfaces\validateFileType,
             return false;
         }
 
-        $this->events->trigger('image\thumbnailCreate', $this)->getData();
+        $ev = $this->events->trigger('image\thumbnailCreate', $this);
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event image\thumbnailCreate failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return false;
+        }
+
         if (!file_exists($fullPath)) {
             trigger_error('Unable to create thumbnail: ' . $this->getThumbnail());
             return false;
@@ -479,7 +519,7 @@ implements \fpcm\model\interfaces\validateFileType,
      */
     public function addUploadFolder() : bool
     {
-        $this->fullpath = ops::getUploadPath($this->filename, $this->config->file_subfolders);
+        $this->fullpath = ops::getUploadPath($this->filename);
 
         if (!file_exists(dirname($this->fullpath))) {
             mkdir(dirname($this->fullpath));
@@ -509,21 +549,15 @@ implements \fpcm\model\interfaces\validateFileType,
      */
     protected function init($initDB)
     {
+        $this->isIndexed = false;
         if ($initDB) {
             $dbData = $this->dbcon->selectFetch((new \fpcm\model\dbal\selectParams($this->table))->setWhere('filename = ?')->setParams([$this->filename]));
-            if (!$dbData) {
-                $this->isIndexed = false;
-            }
-            else {
+            if ($dbData) {
                 foreach ($dbData as $key => $value) {
                     $this->$key = $value;
                 }
-
                 $this->isIndexed = true;
             }
-        }
-        else {
-            $this->isIndexed = false;
         }
 
         if (!parent::exists()) {
@@ -536,17 +570,22 @@ implements \fpcm\model\interfaces\validateFileType,
             $this->filesize = filesize($this->fullpath);
         }
 
-        $fileData = getimagesize($this->fullpath, $metaInfo);
-        if (!is_array($fileData)) {
-            return true;
+        if (!$this->width || !$this->height || !$this->mimetype) {
+
+            $fileData = getimagesize($this->fullpath, $metaInfo);
+            if (!is_array($fileData)) {
+                return true;
+            }
+
+            $this->width = $fileData[0];
+            $this->height = $fileData[1];
+            $this->whstring = $fileData[3];
+            $this->mimetype = $fileData['mime'];
+
+            $this->parseIptc($metaInfo);
         }
 
-        $this->width = $fileData[0];
-        $this->height = $fileData[1];
-        $this->whstring = $fileData[3];
-        $this->mimetype = $fileData['mime'];
-
-        $this->parseIptc($metaInfo);
+        return true;
     }
 
     /**
@@ -588,7 +627,13 @@ implements \fpcm\model\interfaces\validateFileType,
     protected function getPreparedSaveParams()
     {
         $params = get_object_vars($this);
-        unset($params['cache'], $params['config'], $params['dbcon'], $params['events'], $params['id'], $params['nodata'], $params['system'], $params['table'], $params['dbExcludes'], $params['language'], $params['editAction'], $params['objExists'], $params['cacheName']);
+        unset(
+            $params['cache'], $params['config'], $params['dbcon'],
+            $params['events'], $params['id'], $params['nodata'],
+            $params['system'], $params['table'], $params['dbExcludes'],
+            $params['language'], $params['editAction'], $params['objExists'],
+            $params['cacheName']
+        );
 
         if ($this->nodata)
             unset($params['data']);
@@ -626,15 +671,12 @@ implements \fpcm\model\interfaces\validateFileType,
      */
     public function parseIptc($info)
     {
-        if ($this->iptcStr === null || trim($this->iptcStr)) {
-            return true;
-        }
-
         if (!function_exists('iptcparse') || !is_array($info) || !count($info)) {
+            $this->iptcstr = '-';
             return false;
         }
 
-        $this->iptcStr = [];
+        $this->iptcstr = [];
         array_map(function ($item) {
 
             $iptc = iptcparse($item);
@@ -645,16 +687,16 @@ implements \fpcm\model\interfaces\validateFileType,
             foreach (array_keys($iptc) as $s) {
                 $c = count ($iptc[$s]);
                 for ($i=0; $i <$c; $i++) {
-                    $this->iptcStr[$s] = $iptc[$s][$i];
+                    $this->iptcstr[$s] = $iptc[$s][$i];
                 }
             }
 
-            $this->iptcStr = array_intersect_key($this->iptcStr, ['2#080' => 1, '2#110' => 1, '2#116' => 1]);
+            $this->iptcstr = array_intersect_key($this->iptcstr, ['2#080' => 1, '2#110' => 1, '2#116' => 1]);
 
         }, $info);
 
-        $tmp = iconv("UTF-8", "ISO-8859-1", $this->iptcStr);
-        $this->iptcStr = htmlspecialchars(strip_tags($tmp));
+        $tmp = iconv("UTF-8", "ISO-8859-1", is_array($this->iptcstr) ? implode(' / ', $this->iptcstr) : $this->iptcstr);
+        $this->iptcstr = htmlspecialchars(strip_tags($tmp));
         return true;
     }
 
@@ -694,12 +736,12 @@ implements \fpcm\model\interfaces\validateFileType,
         /* @var $copy image */
         $copy = new $cn( $this->language->translate('GLOBAL_COPY_OF_FILE', [basename($this->filename)], true), false );
         $copy->addUploadFolder();
-        
-        $subFolderbase = basename(dirname($copy->getFullpath()));        
-        if ($this->config->file_subfolders && !str_starts_with($copy->getFilename(), $subFolderbase)) {
+
+        $subFolderbase = basename(dirname($copy->getFullpath()));
+        if (!str_starts_with($copy->getFilename(), $subFolderbase)) {
             $copy->setFilename(basename(dirname($copy->getFullpath())) . DIRECTORY_SEPARATOR . $copy->getFilename());
         }
-        
+
         $copy->setAltText($this->alttext);
         $copy->setUserid(\fpcm\model\system\session::getInstance()->getUserId());
         $copy->setFiletime(time());
@@ -719,13 +761,13 @@ implements \fpcm\model\interfaces\validateFileType,
         if (!(new imagelist())->createFilemanagerThumbs([$copy->getFullpath()])) {
             return 0;
         }
-        
+
         return $copy->save() ?: 0;
     }
 
     /**
      * Get cropper filename string
-     * @return string
+     * @return void
      * @since 5.0.0-a1
      */
     public static function getCropperFilename(string &$filename)

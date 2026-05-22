@@ -302,6 +302,13 @@
 </dt>
 <dd></dd>
 
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a href="classes/fpcm-view-view.html#constant_VIEW_FILE_EXTENSION">VIEW_FILE_EXTENSION</a>
+    <span>
+        &nbsp;= &#039;.php&#039;                            </span>
+</dt>
+<dd></dd>
+
                     <dt class="phpdocumentor-table-of-contents__entry -property -protected">
     <a href="classes/fpcm-view-view.html#property_bodyClass">$bodyClass</a>
     <span>
@@ -541,6 +548,13 @@
 <dd>Adds dataview object to view variables</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-view-view.html#method_addDialogs">addDialogs()</a>
+    <span>
+                                &nbsp;: mixed    </span>
+</dt>
+<dd>Add dialogs to view</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/fpcm-view-view.html#method_addErrorMessage">addErrorMessage()</a>
     <span>
                                 &nbsp;: void    </span>
@@ -548,7 +562,7 @@
 <dd>Add red error message</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/fpcm-view-view.html#method_addFromCpomponent">addFromCpomponent()</a>
+    <a href="classes/fpcm-view-view.html#method_addFromComponent">addFromComponent()</a>
     <span>
                                 &nbsp;: bool    </span>
 </dt>
@@ -691,9 +705,9 @@ do not use if you want to include tabs in another view!!!</dd>
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/fpcm-view-view.html#method_includeForms">includeForms()</a>
     <span>
-                                &nbsp;: mixed    </span>
+                                &nbsp;: <abbr title="\fpcm\view\type">type</abbr>    </span>
 </dt>
-<dd>Add path for default forms.php view file</dd>
+<dd>Add path for form view, use forms.php file if no .php extention given</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/fpcm-view-view.html#method_includeFullJsVarsNoheader">includeFullJsVarsNoheader()</a>
@@ -722,20 +736,6 @@ do not use if you want to include tabs in another view!!!</dd>
                                 &nbsp;: mixed    </span>
 </dt>
 <dd>Overrides new JS vars</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/fpcm-view-view.html#method_overrideJsLangVars">overrideJsLangVars()</a>
-    <span>
-                                &nbsp;: mixed    </span>
-</dt>
-<dd>Overrides new JS language vars</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/fpcm-view-view.html#method_prependjQuery">prependjQuery()</a>
-    <span>
-                                &nbsp;: mixed    </span>
-</dt>
-<dd>Force to load jQuery in Pub-Controllers before other JS-Files if not already done</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/fpcm-view-view.html#method_render">render()</a>
@@ -878,11 +878,11 @@ do not use if you want to include tabs in another view!!!</dd>
 <dd>Checks item if included system paths</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
-    <a href="classes/fpcm-view-view.html#method_initAssignsWidthSession">initAssignsWidthSession()</a>
+    <a href="classes/fpcm-view-view.html#method_handleEventResultData">handleEventResultData()</a>
     <span>
                                 &nbsp;: bool    </span>
 </dt>
-<dd>Init with existing session</dd>
+<dd>Handle event result</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/fpcm-view-view.html#method_initAssignsWithDb">initAssignsWithDb()</a>
@@ -890,6 +890,13 @@ do not use if you want to include tabs in another view!!!</dd>
                                 &nbsp;: bool    </span>
 </dt>
 <dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a href="classes/fpcm-view-view.html#method_initAssignsWithSession">initAssignsWithSession()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+<dd>Init with existing session</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/fpcm-view-view.html#method_initComponents">initComponents()</a>
@@ -1197,6 +1204,35 @@ do not use if you want to include tabs in another view!!!</dd>
     
 
 </article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_VIEW_FILE_EXTENSION">
+        VIEW_FILE_EXTENSION
+        <a href="classes/fpcm-view-view.html#constant_VIEW_FILE_EXTENSION" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">32</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">VIEW_FILE_EXTENSION</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;.php&#039;</span>
+</code>
+
+
+        <section class="phpdocumentor-description"></section>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+
+</article>
             </section>
 
         
@@ -1221,7 +1257,7 @@ do not use if you want to include tabs in another view!!!</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">61</span>
+    <span class="phpdocumentor-element-found-in__line">63</span>
 
     </aside>
 
@@ -1268,7 +1304,7 @@ do not use if you want to include tabs in another view!!!</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">122</span>
+    <span class="phpdocumentor-element-found-in__line">124</span>
 
     </aside>
 
@@ -1301,7 +1337,7 @@ do not use if you want to include tabs in another view!!!</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">140</span>
+    <span class="phpdocumentor-element-found-in__line">142</span>
 
     </aside>
 
@@ -1334,7 +1370,7 @@ do not use if you want to include tabs in another view!!!</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">152</span>
+    <span class="phpdocumentor-element-found-in__line">154</span>
 
     </aside>
 
@@ -1367,7 +1403,7 @@ do not use if you want to include tabs in another view!!!</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">98</span>
+    <span class="phpdocumentor-element-found-in__line">100</span>
 
     </aside>
 
@@ -1400,7 +1436,7 @@ do not use if you want to include tabs in another view!!!</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">134</span>
+    <span class="phpdocumentor-element-found-in__line">136</span>
 
     </aside>
 
@@ -1433,7 +1469,7 @@ do not use if you want to include tabs in another view!!!</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">158</span>
+    <span class="phpdocumentor-element-found-in__line">160</span>
 
     </aside>
 
@@ -1466,7 +1502,7 @@ do not use if you want to include tabs in another view!!!</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">54</span>
+    <span class="phpdocumentor-element-found-in__line">56</span>
 
     </aside>
 
@@ -1499,7 +1535,7 @@ do not use if you want to include tabs in another view!!!</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">183</span>
+    <span class="phpdocumentor-element-found-in__line">185</span>
 
     </aside>
 
@@ -1546,7 +1582,7 @@ do not use if you want to include tabs in another view!!!</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">79</span>
+    <span class="phpdocumentor-element-found-in__line">81</span>
 
     </aside>
 
@@ -1579,7 +1615,7 @@ do not use if you want to include tabs in another view!!!</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">86</span>
+    <span class="phpdocumentor-element-found-in__line">88</span>
 
     </aside>
 
@@ -1626,7 +1662,7 @@ do not use if you want to include tabs in another view!!!</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">116</span>
+    <span class="phpdocumentor-element-found-in__line">118</span>
 
     </aside>
 
@@ -1659,7 +1695,7 @@ do not use if you want to include tabs in another view!!!</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">92</span>
+    <span class="phpdocumentor-element-found-in__line">94</span>
 
     </aside>
 
@@ -1706,7 +1742,7 @@ do not use if you want to include tabs in another view!!!</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">110</span>
+    <span class="phpdocumentor-element-found-in__line">112</span>
 
     </aside>
 
@@ -1739,7 +1775,7 @@ do not use if you want to include tabs in another view!!!</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">164</span>
+    <span class="phpdocumentor-element-found-in__line">166</span>
 
     </aside>
 
@@ -1772,7 +1808,7 @@ do not use if you want to include tabs in another view!!!</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">104</span>
+    <span class="phpdocumentor-element-found-in__line">106</span>
 
     </aside>
 
@@ -1805,7 +1841,7 @@ do not use if you want to include tabs in another view!!!</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">197</span>
+    <span class="phpdocumentor-element-found-in__line">199</span>
 
     </aside>
 
@@ -1852,7 +1888,7 @@ do not use if you want to include tabs in another view!!!</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">204</span>
+    <span class="phpdocumentor-element-found-in__line">206</span>
 
     </aside>
 
@@ -1899,7 +1935,7 @@ do not use if you want to include tabs in another view!!!</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">128</span>
+    <span class="phpdocumentor-element-found-in__line">130</span>
 
     </aside>
 
@@ -1932,7 +1968,7 @@ do not use if you want to include tabs in another view!!!</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">170</span>
+    <span class="phpdocumentor-element-found-in__line">172</span>
 
     </aside>
 
@@ -1965,7 +2001,7 @@ do not use if you want to include tabs in another view!!!</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">190</span>
+    <span class="phpdocumentor-element-found-in__line">192</span>
 
     </aside>
 
@@ -2012,7 +2048,7 @@ do not use if you want to include tabs in another view!!!</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">146</span>
+    <span class="phpdocumentor-element-found-in__line">148</span>
 
     </aside>
 
@@ -2045,7 +2081,7 @@ do not use if you want to include tabs in another view!!!</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">67</span>
+    <span class="phpdocumentor-element-found-in__line">69</span>
 
     </aside>
 
@@ -2078,7 +2114,7 @@ do not use if you want to include tabs in another view!!!</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">176</span>
+    <span class="phpdocumentor-element-found-in__line">178</span>
 
     </aside>
 
@@ -2111,7 +2147,7 @@ do not use if you want to include tabs in another view!!!</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">48</span>
+    <span class="phpdocumentor-element-found-in__line">50</span>
 
     </aside>
 
@@ -2144,7 +2180,7 @@ do not use if you want to include tabs in another view!!!</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">42</span>
+    <span class="phpdocumentor-element-found-in__line">44</span>
 
     </aside>
 
@@ -2177,7 +2213,7 @@ do not use if you want to include tabs in another view!!!</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">36</span>
+    <span class="phpdocumentor-element-found-in__line">38</span>
 
     </aside>
 
@@ -2210,7 +2246,7 @@ do not use if you want to include tabs in another view!!!</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">73</span>
+    <span class="phpdocumentor-element-found-in__line">75</span>
 
     </aside>
 
@@ -2247,7 +2283,7 @@ do not use if you want to include tabs in another view!!!</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">211</span>
+    <span class="phpdocumentor-element-found-in__line">213</span>
 
     </aside>
 
@@ -2301,7 +2337,7 @@ do not use if you want to include tabs in another view!!!</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1254</span>
+    <span class="phpdocumentor-element-found-in__line">1320</span>
 
     </aside>
 
@@ -2358,7 +2394,7 @@ do not use if you want to include tabs in another view!!!</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">601</span>
+    <span class="phpdocumentor-element-found-in__line">605</span>
 
     </aside>
 
@@ -2408,7 +2444,7 @@ do not use if you want to include tabs in another view!!!</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">588</span>
+    <span class="phpdocumentor-element-found-in__line">592</span>
 
     </aside>
 
@@ -2453,7 +2489,7 @@ do not use if you want to include tabs in another view!!!</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">403</span>
+    <span class="phpdocumentor-element-found-in__line">418</span>
 
     </aside>
 
@@ -2496,7 +2532,7 @@ do not use if you want to include tabs in another view!!!</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1090</span>
+    <span class="phpdocumentor-element-found-in__line">1096</span>
 
     </aside>
 
@@ -2532,6 +2568,63 @@ do not use if you want to include tabs in another view!!!</dd>
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_addDialogs">
+        addDialogs()
+        <a href="classes/fpcm-view-view.html#method_addDialogs" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">1234</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Add dialogs to view</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">addDialogs</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$dialogs</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$dialogs</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">5.2.4-b3</span>
+                                                                                
+                                             
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">mixed</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_addErrorMessage">
         addErrorMessage()
         <a href="classes/fpcm-view-view.html#method_addErrorMessage" class="headerlink"><i class="fas fa-link"></i></a>
@@ -2539,7 +2632,7 @@ do not use if you want to include tabs in another view!!!</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">660</span>
+    <span class="phpdocumentor-element-found-in__line">651</span>
 
     </aside>
 
@@ -2582,14 +2675,14 @@ do not use if you want to include tabs in another view!!!</dd>
             -public
                                                 -final        "
 >
-    <h4 class="phpdocumentor-element__name" id="method_addFromCpomponent">
-        addFromCpomponent()
-        <a href="classes/fpcm-view-view.html#method_addFromCpomponent" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="method_addFromComponent">
+        addFromComponent()
+        <a href="classes/fpcm-view-view.html#method_addFromComponent" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">565</span>
+    <span class="phpdocumentor-element-found-in__line">569</span>
 
     </aside>
 
@@ -2597,7 +2690,7 @@ do not use if you want to include tabs in another view!!!</dd>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__final">final</span>            <span class="phpdocumentor-signature__name">addFromCpomponent</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/fpcm-model-interfaces-viewComponent.html"><abbr title="\fpcm\model\interfaces\viewComponent">viewComponent</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$component</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+        <span class="phpdocumentor-signature__final">final</span>            <span class="phpdocumentor-signature__name">addFromComponent</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/fpcm-model-interfaces-viewComponent.html"><abbr title="\fpcm\model\interfaces\viewComponent">viewComponent</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$component</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
 
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
@@ -2646,7 +2739,7 @@ do not use if you want to include tabs in another view!!!</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">505</span>
+    <span class="phpdocumentor-element-found-in__line">509</span>
 
     </aside>
 
@@ -2717,7 +2810,7 @@ do not use if you want to include tabs in another view!!!</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">534</span>
+    <span class="phpdocumentor-element-found-in__line">538</span>
 
     </aside>
 
@@ -2788,7 +2881,7 @@ do not use if you want to include tabs in another view!!!</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">385</span>
+    <span class="phpdocumentor-element-found-in__line">400</span>
 
     </aside>
 
@@ -2831,7 +2924,7 @@ do not use if you want to include tabs in another view!!!</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">394</span>
+    <span class="phpdocumentor-element-found-in__line">409</span>
 
     </aside>
 
@@ -2875,7 +2968,7 @@ do not use if you want to include tabs in another view!!!</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">460</span>
+    <span class="phpdocumentor-element-found-in__line">464</span>
 
     </aside>
 
@@ -2926,7 +3019,7 @@ do not use if you want to include tabs in another view!!!</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">412</span>
+    <span class="phpdocumentor-element-found-in__line">427</span>
 
     </aside>
 
@@ -2969,7 +3062,7 @@ do not use if you want to include tabs in another view!!!</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">683</span>
+    <span class="phpdocumentor-element-found-in__line">674</span>
 
     </aside>
 
@@ -3019,7 +3112,7 @@ do not use if you want to include tabs in another view!!!</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">672</span>
+    <span class="phpdocumentor-element-found-in__line">663</span>
 
     </aside>
 
@@ -3069,7 +3162,7 @@ do not use if you want to include tabs in another view!!!</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1183</span>
+    <span class="phpdocumentor-element-found-in__line">1194</span>
 
     </aside>
 
@@ -3133,7 +3226,7 @@ do not use if you want to include tabs in another view!!!</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1170</span>
+    <span class="phpdocumentor-element-found-in__line">1181</span>
 
     </aside>
 
@@ -3176,7 +3269,7 @@ do not use if you want to include tabs in another view!!!</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1210</span>
+    <span class="phpdocumentor-element-found-in__line">1221</span>
 
     </aside>
 
@@ -3240,7 +3333,7 @@ do not use if you want to include tabs in another view!!!</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1125</span>
+    <span class="phpdocumentor-element-found-in__line">1131</span>
 
     </aside>
 
@@ -3320,7 +3413,7 @@ do not use if you want to include tabs in another view!!!</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1195</span>
+    <span class="phpdocumentor-element-found-in__line">1206</span>
 
     </aside>
 
@@ -3377,7 +3470,7 @@ do not use if you want to include tabs in another view!!!</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">649</span>
+    <span class="phpdocumentor-element-found-in__line">640</span>
 
     </aside>
 
@@ -3449,7 +3542,7 @@ do not use if you want to include tabs in another view!!!</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">638</span>
+    <span class="phpdocumentor-element-found-in__line">629</span>
 
     </aside>
 
@@ -3499,7 +3592,7 @@ do not use if you want to include tabs in another view!!!</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1351</span>
+    <span class="phpdocumentor-element-found-in__line">1423</span>
 
     </aside>
 
@@ -3546,7 +3639,7 @@ do not use if you want to include tabs in another view!!!</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1013</span>
+    <span class="phpdocumentor-element-found-in__line">1019</span>
 
     </aside>
 
@@ -3593,7 +3686,7 @@ do not use if you want to include tabs in another view!!!</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">927</span>
+    <span class="phpdocumentor-element-found-in__line">933</span>
 
     </aside>
 
@@ -3626,7 +3719,7 @@ do not use if you want to include tabs in another view!!!</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">961</span>
+    <span class="phpdocumentor-element-found-in__line">967</span>
 
     </aside>
 
@@ -3669,15 +3762,15 @@ do not use if you want to include tabs in another view!!!</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1225</span>
+    <span class="phpdocumentor-element-found-in__line">1268</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Add path for default forms.php view file</p>
+        <p class="phpdocumentor-summary">Add path for form view, use forms.php file if no .php extention given</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">includeForms</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$str</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                    <span class="phpdocumentor-signature__name">includeForms</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$str</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><abbr title="\fpcm\view\type">type</abbr></span></code>
 
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
@@ -3687,29 +3780,14 @@ do not use if you want to include tabs in another view!!!</p>
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
+                
             </dd>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">since</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                            <span class="phpdocumentor-tag-link">5.0-dev</span>
-                                                                                
-                                             
-                                    </dd>
-                        </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">mixed</span>
+    <span class="phpdocumentor-signature__response_type"><abbr title="\fpcm\view\type">type</abbr></span>
             &mdash;
         
     
@@ -3727,7 +3805,7 @@ do not use if you want to include tabs in another view!!!</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">725</span>
+    <span class="phpdocumentor-element-found-in__line">716</span>
 
     </aside>
 
@@ -3770,7 +3848,7 @@ do not use if you want to include tabs in another view!!!</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1337</span>
+    <span class="phpdocumentor-element-found-in__line">1409</span>
 
     </aside>
 
@@ -3826,7 +3904,7 @@ do not use if you want to include tabs in another view!!!</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">431</span>
+    <span class="phpdocumentor-element-found-in__line">446</span>
 
     </aside>
 
@@ -3869,7 +3947,7 @@ do not use if you want to include tabs in another view!!!</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">440</span>
+    <span class="phpdocumentor-element-found-in__line">455</span>
 
     </aside>
 
@@ -3903,110 +3981,6 @@ do not use if you want to include tabs in another view!!!</p>
         class="phpdocumentor-element
             -method
             -public
-            -deprecated                                            "
->
-    <h4 class="phpdocumentor-element__name" id="method_overrideJsLangVars">
-        overrideJsLangVars()
-        <a href="classes/fpcm-view-view.html#method_overrideJsLangVars" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">450</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Overrides new JS language vars</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature -deprecated">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">overrideJsLangVars</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$jsVars</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
-
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$jsVars</span>
-                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-            </dl>
-
-    
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">deprecated</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                            <span class="phpdocumentor-tag-link">5.2</span>
-                                                                                
-                                             
-                                    </dd>
-                        </dl>
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">mixed</span>
-            &mdash;
-        
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_prependjQuery">
-        prependjQuery()
-        <a href="classes/fpcm-view-view.html#method_prependjQuery" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">624</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Force to load jQuery in Pub-Controllers before other JS-Files if not already done</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">prependjQuery</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
-
-    
-    
-    
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">since</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                            <span class="phpdocumentor-tag-link">3.2.0</span>
-                                                                                
-                                             
-                                    </dd>
-                        </dl>
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">mixed</span>
-            &mdash;
-        
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
                                                         "
 >
     <h4 class="phpdocumentor-element__name" id="method_render">
@@ -4016,7 +3990,7 @@ do not use if you want to include tabs in another view!!!</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">736</span>
+    <span class="phpdocumentor-element-found-in__line">727</span>
 
     </aside>
 
@@ -4059,7 +4033,7 @@ do not use if you want to include tabs in another view!!!</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">989</span>
+    <span class="phpdocumentor-element-found-in__line">995</span>
 
     </aside>
 
@@ -4102,7 +4076,7 @@ do not use if you want to include tabs in another view!!!</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1058</span>
+    <span class="phpdocumentor-element-found-in__line">1064</span>
 
     </aside>
 
@@ -4159,7 +4133,7 @@ do not use if you want to include tabs in another view!!!</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1070</span>
+    <span class="phpdocumentor-element-found-in__line">1076</span>
 
     </aside>
 
@@ -4216,7 +4190,7 @@ do not use if you want to include tabs in another view!!!</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">979</span>
+    <span class="phpdocumentor-element-found-in__line">985</span>
 
     </aside>
 
@@ -4259,7 +4233,7 @@ do not use if you want to include tabs in another view!!!</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1042</span>
+    <span class="phpdocumentor-element-found-in__line">1048</span>
 
     </aside>
 
@@ -4316,7 +4290,7 @@ do not use if you want to include tabs in another view!!!</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">694</span>
+    <span class="phpdocumentor-element-found-in__line">685</span>
 
     </aside>
 
@@ -4366,7 +4340,7 @@ do not use if you want to include tabs in another view!!!</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">476</span>
+    <span class="phpdocumentor-element-found-in__line">480</span>
 
     </aside>
 
@@ -4423,7 +4397,7 @@ do not use if you want to include tabs in another view!!!</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1024</span>
+    <span class="phpdocumentor-element-found-in__line">1030</span>
 
     </aside>
 
@@ -4480,7 +4454,7 @@ do not use if you want to include tabs in another view!!!</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">937</span>
+    <span class="phpdocumentor-element-found-in__line">943</span>
 
     </aside>
 
@@ -4530,7 +4504,7 @@ do not use if you want to include tabs in another view!!!</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">970</span>
+    <span class="phpdocumentor-element-found-in__line">976</span>
 
     </aside>
 
@@ -4573,7 +4547,7 @@ do not use if you want to include tabs in another view!!!</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">716</span>
+    <span class="phpdocumentor-element-found-in__line">707</span>
 
     </aside>
 
@@ -4646,7 +4620,7 @@ do not use if you want to include tabs in another view!!!</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1080</span>
+    <span class="phpdocumentor-element-found-in__line">1086</span>
 
     </aside>
 
@@ -4689,7 +4663,7 @@ do not use if you want to include tabs in another view!!!</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1234</span>
+    <span class="phpdocumentor-element-found-in__line">1281</span>
 
     </aside>
 
@@ -4732,7 +4706,7 @@ do not use if you want to include tabs in another view!!!</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1003</span>
+    <span class="phpdocumentor-element-found-in__line">1009</span>
 
     </aside>
 
@@ -4765,7 +4739,7 @@ do not use if you want to include tabs in another view!!!</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">786</span>
+    <span class="phpdocumentor-element-found-in__line">791</span>
 
     </aside>
 
@@ -4798,7 +4772,7 @@ do not use if you want to include tabs in another view!!!</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">244</span>
+    <span class="phpdocumentor-element-found-in__line">246</span>
 
     </aside>
 
@@ -4831,7 +4805,7 @@ do not use if you want to include tabs in another view!!!</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">422</span>
+    <span class="phpdocumentor-element-found-in__line">437</span>
 
     </aside>
 
@@ -4881,7 +4855,7 @@ do not use if you want to include tabs in another view!!!</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">370</span>
+    <span class="phpdocumentor-element-found-in__line">385</span>
 
     </aside>
 
@@ -4914,7 +4888,7 @@ do not use if you want to include tabs in another view!!!</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">280</span>
+    <span class="phpdocumentor-element-found-in__line">284</span>
 
     </aside>
 
@@ -4964,40 +4938,43 @@ do not use if you want to include tabs in another view!!!</p>
             -private
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method_initAssignsWidthSession">
-        initAssignsWidthSession()
-        <a href="classes/fpcm-view-view.html#method_initAssignsWidthSession" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="method_handleEventResultData">
+        handleEventResultData()
+        <a href="classes/fpcm-view-view.html#method_handleEventResultData" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">899</span>
+    <span class="phpdocumentor-element-found-in__line">1439</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Init with existing session</p>
+        <p class="phpdocumentor-summary">Handle event result</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                    <span class="phpdocumentor-signature__name">initAssignsWidthSession</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+                    <span class="phpdocumentor-signature__name">handleEventResultData</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/fpcm-module-eventResult.html"><abbr title="\fpcm\module\eventResult">eventResult</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$ev</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$evName</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
 
     
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$ev</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/fpcm-module-eventResult.html"><abbr title="\fpcm\module\eventResult">eventResult</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$evName</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
     
-    
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">since</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                            <span class="phpdocumentor-tag-link">5.2.0-a1</span>
-                                                                                
-                                             
-                                    </dd>
-                        </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">bool</span>
@@ -5018,7 +4995,7 @@ do not use if you want to include tabs in another view!!!</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">877</span>
+    <span class="phpdocumentor-element-found-in__line">882</span>
 
     </aside>
 
@@ -5057,6 +5034,53 @@ do not use if you want to include tabs in another view!!!</p>
             -private
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_initAssignsWithSession">
+        initAssignsWithSession()
+        <a href="classes/fpcm-view-view.html#method_initAssignsWithSession" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">904</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Init with existing session</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+                    <span class="phpdocumentor-signature__name">initAssignsWithSession</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+    
+    
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">5.2.0-a1</span>
+                                                                                
+                                             
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">bool</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_initComponents">
         initComponents()
         <a href="classes/fpcm-view-view.html#method_initComponents" class="headerlink"><i class="fas fa-link"></i></a>
@@ -5064,7 +5088,7 @@ do not use if you want to include tabs in another view!!!</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1321</span>
+    <span class="phpdocumentor-element-found-in__line">1393</span>
 
     </aside>
 
@@ -5111,7 +5135,7 @@ do not use if you want to include tabs in another view!!!</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1266</span>
+    <span class="phpdocumentor-element-found-in__line">1332</span>
 
     </aside>
 
@@ -5144,7 +5168,7 @@ do not use if you want to include tabs in another view!!!</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1285</span>
+    <span class="phpdocumentor-element-found-in__line">1351</span>
 
     </aside>
 
@@ -5177,7 +5201,7 @@ do not use if you want to include tabs in another view!!!</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">314</span>
+    <span class="phpdocumentor-element-found-in__line">318</span>
 
     </aside>
 
@@ -5224,7 +5248,7 @@ do not use if you want to include tabs in another view!!!</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">350</span>
+    <span class="phpdocumentor-element-found-in__line">360</span>
 
     </aside>
 

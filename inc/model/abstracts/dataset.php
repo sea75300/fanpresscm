@@ -24,6 +24,8 @@ use fpcm\model\dbal\selectParams;
  */
 abstract class dataset implements \fpcm\model\interfaces\dataset, \Stringable {
 
+    use \fpcm\model\traits\getFieldsParam;
+
     /**
      * DB-Verbindung
      * @var \fpcm\classes\database
@@ -202,7 +204,8 @@ abstract class dataset implements \fpcm\model\interfaces\dataset, \Stringable {
     }
 
     /**
-     * Inittiert Objekt mit Daten aus der Datenbank, sofern ID vergeben wurde
+     * Init object with database data
+     * @return bool
      */
     public function init()
     {
@@ -217,6 +220,8 @@ abstract class dataset implements \fpcm\model\interfaces\dataset, \Stringable {
         foreach ($data as $key => $value) {
             $this->$key = $value;
         }
+        
+        return true;
     }
 
     /**
@@ -275,13 +280,15 @@ abstract class dataset implements \fpcm\model\interfaces\dataset, \Stringable {
             $this->removeBannedTexts();
         }
 
-        if (!$this->dbcon->insert(
-                        $this->table, $this->events->trigger(
-                                $this->getEventName('save'),
-                                $this->getPreparedSaveParams()
-                        )->getData()
-                )
-        ) {
+        $beforeEvent = $this->getEventName('save');
+
+        $ev = $this->events->trigger($beforeEvent, $this->getPreparedSaveParams());
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event %s failed. Returned success = %s, continue = %s", $beforeEvent, $ev->getSuccessed(), $ev->getContinue()));
+            return false;
+        }
+
+        if (!$this->dbcon->insert($this->table, $ev->getData() )) {
             return false;
         }
 
@@ -291,7 +298,11 @@ abstract class dataset implements \fpcm\model\interfaces\dataset, \Stringable {
 
         $afterEvent = $this->getEventName('saveAfter');
         if (class_exists(event::getEventNamespace($afterEvent))) {
-            $this->events->trigger($afterEvent, $this->id)->getData();
+            $ev = $this->events->trigger($afterEvent, $this->id);
+            if (!$ev->getSuccessed() || !$ev->getContinue()) {
+                trigger_error(sprintf("Event %s failed. Returned success = %s, continue = %s", $afterEvent, $ev->getSuccessed(), $ev->getContinue()));
+                return false;
+            }
         }
 
         return $this->id;
@@ -309,19 +320,21 @@ abstract class dataset implements \fpcm\model\interfaces\dataset, \Stringable {
         }
 
         $params = $this->getPreparedSaveParams();
-        $fields = array_keys($params);
-
         $params[] = $this->getId();
-        $params = $this->events->trigger($this->getEventName('update'), $params)->getData();
+
+        $beforeEvent = $this->getEventName('update');
+
+        $ev = $this->events->trigger($beforeEvent, $params);
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event %s failed. Returned success = %s, continue = %s", $beforeEvent, $ev->getSuccessed(), $ev->getContinue()));
+            return false;
+        }
+
+        $params = $ev->getData();
+        $fields = $this->getFieldFromSaveParams($params);
 
         $return = false;
-        if ($this->dbcon->update(
-                $this->table,
-                $fields,
-                array_values($params),
-                'id = ?'
-            )
-        ) {
+        if ($this->dbcon->update($this->table, $fields, array_values($params), 'id = ?')) {
             $return = true;
         }
 
@@ -329,7 +342,11 @@ abstract class dataset implements \fpcm\model\interfaces\dataset, \Stringable {
 
         $afterEvent = $this->getEventName('updateAfter');
         if (class_exists(event::getEventNamespace($afterEvent))) {
-            $this->events->trigger($afterEvent, $this->id)->getData();
+            $ev = $this->events->trigger($afterEvent, $this->id);
+            if (!$ev->getSuccessed() || !$ev->getContinue()) {
+                trigger_error(sprintf("Event %s failed. Returned success = %s, continue = %s", $afterEvent, $ev->getSuccessed(), $ev->getContinue()));
+                return false;
+            }
         }
 
         return $return;
@@ -341,7 +358,24 @@ abstract class dataset implements \fpcm\model\interfaces\dataset, \Stringable {
      */
     public function delete()
     {
+        $evbn = $this->getEventName('deleteBefore');
+        $evb = $this->events->trigger($evbn, $this->id);
+
+        if (!$evb->getSuccessed() || !$evb->getContinue()) {
+            trigger_error(sprintf("Event %s failed. Returned success = %s, continue = %s", $evbn, $evb->getSuccessed(), $evb->getContinue()));
+            return false;
+        }
+
         $this->dbcon->delete($this->table, 'id = ?', [$this->id]);
+
+        $evan = $this->getEventName('deleteAfter');
+        $eva = $this->events->trigger($evan, $this->id);
+
+        if (!$eva->getSuccessed() || !$eva->getContinue()) {
+            trigger_error(sprintf("Event %s failed. Returned success = %s, continue = %s", $evan, $eva->getSuccessed(), $eva->getContinue()));
+            return false;
+        }
+
         $this->cache->cleanup();
         return true;
     }

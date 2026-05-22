@@ -251,7 +251,14 @@ class module {
      */
     public function getConfigViewVars() : array
     {
-        $res = \fpcm\classes\loader::getObject('\fpcm\events\events')->trigger('modules\configure', $this->mkey)->getData();
+        $ev = \fpcm\events\events::getInstance()->trigger('modules\configure', $this->mkey);
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event modules\configure failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return [];
+        }
+
+        $res = $ev->getData();
+        
         return is_array($res) && count($res) ? $res : [];
     }
 
@@ -278,7 +285,6 @@ class module {
 
         $this->systemConfig->init();
         $this->cache->cleanup();
-
         return true;
     }
 
@@ -365,6 +371,11 @@ class module {
             return false;
         }
 
+        if (version_compare($sysVersion, '5.3.0-dev', '<')) {
+            trigger_error(sprintf("Module %s does not support FanPress CM 5.3.x! This module connat be installed for now.", $this->mkey));
+            return false;
+        }
+
         if (version_compare($this->systemConfig->system_version, $sysVersion, '<')) {
             return false;
         }
@@ -385,6 +396,10 @@ class module {
 
         $phpVersion = '';
         $sysVersion = '';
+
+        if ($this->config->version === null) {
+            return false;
+        }
 
         $this->getVersionStrings($phpVersion, $sysVersion, $data['requirements']);
         if (version_compare($this->config->version, $data['version'], '>=')) {
@@ -413,7 +428,7 @@ class module {
         if (!$removeVersion) {
             return false;
         }
-        
+
         return version_compare($removeVersion, $this->config->version, '=') ? false : true;
     }
 
@@ -672,7 +687,13 @@ class module {
             return false;
         }
 
-        if (!\fpcm\classes\loader::getObject('\fpcm\events\events')->trigger('modules\installAfter', $this->mkey)->getData()) {
+        $ev = \fpcm\events\events::getInstance()->trigger('modules\installAfter', $this->mkey);
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event modules\installAfter failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return [];
+        }
+
+        if (!$ev->getData()) {
             return false;
         }
 
@@ -754,7 +775,7 @@ class module {
         foreach ($configOptions as $key => $value) {
             $key = $this->getFullPrefix($key);
             if ($sysConfig->add($key, $value, $this->mkey) === false) {
-                trigger_error('Unable to create config option ' . $key.', error code: '.$res);
+                trigger_error('Unable to create config option ' . $key);
                 return false;
             }
         }
@@ -982,7 +1003,13 @@ class module {
             return false;
         }
 
-        if (!\fpcm\classes\loader::getObject('\fpcm\events\events')->trigger('modules\updateAfter', $this->mkey)->getData()) {
+        $ev = \fpcm\events\events::getInstance()->trigger('modules\updateAfter', $this->mkey);
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event modules\updateAfter failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return [];
+        }
+
+        if (!$ev->getData()) {
             return false;
         }
 
@@ -1028,6 +1055,25 @@ class module {
 
         trigger_error('Unable to create module data path folder: ' . $this->getDataPath());
         return false;
+    }
+
+    /**
+     * Return full changelog URL
+     * @return string
+     * @since 5.3.0-a1
+     */
+    final public function getFullChangelogUrl() : string
+    {
+        $changelogUrl = $this->config->changelogUrl ?? '';
+        if (!trim($changelogUrl)) {
+            return '';
+        }
+        
+        if (!str_starts_with($changelogUrl, 'http')) {
+            $changelogUrl = self::getModuleUrlFromKey($this->mkey) . '/' . $changelogUrl;
+        }
+
+        return $changelogUrl;
     }
 
     /**
@@ -1191,17 +1237,17 @@ class module {
         });
 
         $migrations = array_filter($migrations, function ($class) {
-            
+
             if (!class_exists($class)) {
                 trigger_error(sprintf('Class not found %s', $class), E_USER_ERROR);
                 return false;
             }
-            
+
             if (!is_subclass_of($class, '\\fpcm\\module\\migration')) {
                 trigger_error(sprintf('Class %s must be an instance of \\fpcm\\module\\migration', $class), E_USER_ERROR);
                 return false;
             }
-            
+
             return true;
         });
 
@@ -1228,7 +1274,7 @@ class module {
                 continue;
             }
 
-            $this->output('Processing of migration '. get_class($migration).' failed!.');
+            $migration->output('Processing of migration '. get_class($migration).' failed!.');
             return false;
         }
 
@@ -1248,24 +1294,28 @@ class module {
             $data = $this->config->requirements;
         }
 
-        if (!isset($data['php']) || !isset($data['system'])) {
-            trigger_error('Invalid data given, missing index "ühü" and "system"');
+        if (is_array($data)) {
+            $data = new config\requirements($data);
+        }
+
+        if (!$data->php || !$data->system) {
+            trigger_error('Invalid data given for data "php" and "system".');
             return;
         }
 
         $phpRelease = \fpcm\classes\tools::getMajorMinorReleaseFromString(PHP_VERSION);
-        $phpVersion = is_array($data['php']) &&
-                      $data['php'][$phpRelease]
+        $phpVersion = is_array($data->php) &&
+                      $data->php[$phpRelease]
 
-                    ? $data['php'][$phpRelease]
-                    : $data['php'];
+                    ? $data->php[$phpRelease]
+                    : $data->php;
 
         $sysRelease = \fpcm\classes\tools::getMajorMinorReleaseFromString($this->systemConfig->system_version);
-        $sysVersion = is_array($data['system']) &&
-                      $data['system'][$sysRelease]
+        $sysVersion = is_array($data->system) &&
+                      $data->system[$sysRelease]
 
-                    ? $data['system'][$sysRelease]
-                    : $data['system'];
+                    ? $data->system[$sysRelease]
+                    : $data->system;
     }
 
     /**
@@ -1360,7 +1410,7 @@ class module {
         if (str_ends_with($migration, '.php')) {
             $migration = basename($migration, '.php');
         }
-        
+
         return "\\fpcm\\modules\\" . str_replace('/', '\\', $key) . "\\migrations\\{$migration}";
     }
 

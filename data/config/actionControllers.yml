@@ -2,6 +2,7 @@
 ---
 system/dashboard: action/system/dashboard
 system/info: action/system/info
+system/integration: action/system/integration
 system/login: action/system/auth/login
 system/logout: action/system/auth/logout
 system/options: action/system/settings/options
@@ -11,7 +12,6 @@ system/backups: action/system/data/backups
 system/crons: action/system/data/crons
 system/langedit: action/system/data/langedit
 system/import: action/system/data/import
-system/twitter: action/system/settings/twitterAssistant
 ##system/smtpOAuth: action/system/smtpOAuth
 templates/templates: action/templates/templates
 templates/preview: action/templates/preview

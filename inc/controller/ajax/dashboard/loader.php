@@ -35,8 +35,8 @@ class loader extends \fpcm\controller\abstracts\ajaxController
     }
 
     /**
-     * Controller-Processing
-     * @return bool
+     * Controller processing
+     * @return void
      */
     public function process()
     {
@@ -51,12 +51,31 @@ class loader extends \fpcm\controller\abstracts\ajaxController
      */
     protected function getClasses()
     {
-        $containers = array_map(array($this, 'parseClassname'), glob(\fpcm\classes\dirs::getIncDirPath('model' . DIRECTORY_SEPARATOR . 'dashboard' . DIRECTORY_SEPARATOR . '*.php')));
-        $containers = $this->events->trigger('dashboardContainersLoad', $containers)->getData();
+        $p = \fpcm\classes\dirs::getIncDirPath('model' . DIRECTORY_SEPARATOR . 'dashboard' . DIRECTORY_SEPARATOR . 'containers' . DIRECTORY_SEPARATOR . '*.php');
+        $glob = glob($p);
+        if (!is_array($glob)) {
+            return false;
+        }
+
+        $containers = (new \fpcm\model\dashboard\containers());
+        $containers->setPrefix('model\\dashboard\\containers');
+        $containers->addContainers( array_map(fn($filename) => basename($filename, '.php'), $glob) );
+
+        $ev = $this->events->trigger('dashboardContainersLoad', $containers);
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event dashboardContainersLoad failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return false;
+        }
+
+        $containers = $ev->getData();
+        if (!$containers->hasContainers()) {
+            return;
+        }
 
         $viewVars = $this->view->getViewVars();
+
         $jsFiles = [];
-        foreach ($containers as $container) {
+        foreach ($containers->getContainers() as $container) {
 
             /* @var $containerObj \fpcm\model\abstracts\dashcontainer */
             $containerObj = new $container();
@@ -64,7 +83,7 @@ class loader extends \fpcm\controller\abstracts\ajaxController
                 trigger_error('Dashboard container class "' . $container . '" must be an instance of "\fpcm\model\abstracts\dashcontainer".');
                 continue;
             }
-            
+
             if (!$this->checkPermissions($containerObj) || $containerObj->isDisabled()) {
                 continue;
             }
@@ -90,16 +109,6 @@ class loader extends \fpcm\controller\abstracts\ajaxController
         $this->view->setViewVars($viewVars);
         $this->view->assign('jsFiles', $jsFiles);
         ksort($this->containers);
-    }
-
-    /**
-     * Container-Klassen-Name parsen
-     * @param string $filename
-     * @return string
-     */
-    protected function parseClassname($filename)
-    {
-        return '\\fpcm\\model\\dashboard\\' . basename($filename, '.php');
     }
 
 }

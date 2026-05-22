@@ -9,10 +9,10 @@ namespace fpcm\model\comments;
 
 /**
  * Kommentar-Listen-Objekt
- * 
+ *
  * @package fpcm\model\comments
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2022, Stefan Seehafer
+ * @copyright (c) 2011-2025, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 class commentList
@@ -96,30 +96,47 @@ implements \fpcm\model\interfaces\gsearchIndex {
     {
         $where = [];
         $valueParams = [];
+        $combination = '';
 
         if ( $conditions->isMultiple() ) {
-            $this->assignMultipleSearchParams($conditions, $where, $valueParams);
-            $combination = '';
+            $qas = $conditions->prepareFilterParams();
+
+            $where = $qas->getQueries();
+            $valueParams = $qas->getValues();
         }
         else {
             $this->assignSearchParams($conditions, $where, $valueParams);
             $combination = $conditions->combination !== null ? $conditions->combination : 'AND';
         }
-        
+
         if (!count($where)) {
             $where = ['1=1'];
         }
 
-        $eventData = $this->events->trigger('comments\getByCondition', [
+        $ev = $this->events->trigger('comments\getByCondition', [
             'conditions' => $conditions,
             'where' => $where,
             'values' => $valueParams
-        ])->getData();
+        ]);
+
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event comments\getByCondition failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return false;
+        }
+
+        $eventData = $ev->getData();
 
         $where = $eventData['where'];
         $valueParams = $eventData['values'];
+        $conditions = $eventData['conditions'];
 
         $where = implode(" {$combination} ", $where);
+
+        if ($conditions->isMultiple()) {
+            if ($conditions->modeDeleted) {
+                $where = sprintf("(%s) AND deleted = 0", $where);
+            }
+        }
 
         $where2 = [];
         $where2[] = $this->dbcon->orderBy( ($conditions->orderby ? $conditions->orderby : ['createtime ASC']) );
@@ -129,13 +146,15 @@ implements \fpcm\model\interfaces\gsearchIndex {
         }
 
         $where .= ' ' . implode(' ', $where2);
+        
 
         $obj = (new \fpcm\model\dbal\selectParams($this->table))
                 ->setFetchAll(true)
                 ->setWhere($where)
                 ->setParams($valueParams);
-        
+
         $result = $this->dbcon->selectFetch($obj);
+
         if ($this->dbcon->getLastQueryErrorCode() === \fpcm\drivers\sqlDriver::CODE_ERROR_SYNTAX) {
             return \fpcm\drivers\sqlDriver::CODE_ERROR_SYNTAX;
         }
@@ -218,7 +237,7 @@ implements \fpcm\model\interfaces\gsearchIndex {
 
         $res = array_combine($articleIds, array_fill(0, count($articleIds), 0));
 
-        $obj = (new \fpcm\model\dbal\selectParams($this->table))->setItem('articleid, count(id) AS count')->setWhere("{$where} GROUP BY articleid")->setFetchAll(true);        
+        $obj = (new \fpcm\model\dbal\selectParams($this->table))->setItem('articleid, count(id) AS count')->setWhere("{$where} GROUP BY articleid")->setFetchAll(true);
         $articleCounts = $this->dbcon->selectFetch($obj);
         if (!count($articleCounts)) {
             return $res;
@@ -247,7 +266,7 @@ implements \fpcm\model\interfaces\gsearchIndex {
         $where = count($articleIds) ? "articleid IN (" . implode(',', $articleIds) . ")" : '1=1';
         $where .= " AND (private = 1 OR approved = 0) AND deleted = 0 GROUP BY articleid";
 
-        $obj = (new \fpcm\model\dbal\selectParams($this->table))->setItem('articleid, count(id) AS count')->setWhere($where)->setFetchAll(true);        
+        $obj = (new \fpcm\model\dbal\selectParams($this->table))->setItem('articleid, count(id) AS count')->setWhere($where)->setFetchAll(true);
         $articleCounts = $this->dbcon->selectFetch($obj);
         if (!count($articleCounts)) {
             return [0];
@@ -287,12 +306,14 @@ implements \fpcm\model\interfaces\gsearchIndex {
         $where[] = ($conditions->deleted ? 'deleted = 1' : 'deleted = 0');
 
         $combination = $conditions->combination ? $conditions->combination : 'AND';
-        
-        return $this->dbcon->count(
-            $this->table,
-            '*',
-            $this->events->trigger('comments\getByConditionCount', implode(" {$combination} ", $where))->getData()
-        );
+
+        $ev = $this->events->trigger('comments\getByConditionCount', implode(" {$combination} ", $where));
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event comments\getByConditionCount failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return false;
+        }
+
+        return $this->dbcon->count($this->table, '*', $ev->getData());
     }
 
     /**
@@ -317,13 +338,13 @@ implements \fpcm\model\interfaces\gsearchIndex {
      */
     public function spamExistsbyCommentData(comment $comment)
     {
-        $count = $this->dbcon->count($this->table, 'id', implode(' OR ', [            
+        $count = $this->dbcon->count($this->table, 'id', implode(' OR ', [
             'name ' . $this->dbcon->dbLike() . ' ?',
             'email ' . $this->dbcon->dbLike() . ' ?',
             'website ' . $this->dbcon->dbLike() . ' ?',
             'ipaddress ' . $this->dbcon->dbLike() . ' ?'
         ]) . ' AND spammer = 1 AND deleted = 0',
-        [            
+        [
             $comment->getName(), '%' .
             $comment->getEmail() . '%',
             '%' . $comment->getWebsite() . '%',
@@ -345,10 +366,20 @@ implements \fpcm\model\interfaces\gsearchIndex {
             return false;
         }
 
-        $result = $this->events->trigger('comments\massEditBefore', [
+        $ev = $this->events->trigger('comments\massEditBefore', [
             'fields' => $fields,
             'commentIds' => $commentIds
-        ])->getData();
+        ]);
+
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event comments\massEditBefore failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return false;
+        }
+
+        $result = $ev->getData();
+        if (!count($result) || !isset($result['fields']) || !isset($result['commentIds'])) {
+            return false;
+        }
 
         foreach ($result as $key => $val) {
             ${$key} = $val;
@@ -562,7 +593,7 @@ implements \fpcm\model\interfaces\gsearchIndex {
                     $valueParams[] = "%{$conditions->text}%";
                     $valueParams[] = "%{$conditions->text}%";
                     break;
-            }            
+            }
         }
 
         if ($conditions->datefrom) {
@@ -602,7 +633,7 @@ implements \fpcm\model\interfaces\gsearchIndex {
 
         $where[] = $conditions->getCondition('deleted', "deleted = ?");
         $valueParams[] = $conditions->deleted !== null ? $conditions->deleted : 0;
-        
+
         return true;
     }
 
@@ -622,7 +653,7 @@ implements \fpcm\model\interfaces\gsearchIndex {
      */
     public function getSearchQuery(): \fpcm\model\dbal\selectParams
     {
-        return $this->getSearchQueryObj()->setItem('\'comments\' as model, id as oid, '.$this->dbcon->concatString(['name', '";"', 'createtime']).' as text')->setFetchAll(true);
+        return $this->getSearchQueryObj()->setItem('\'comments\' as model, id as oid, '.$this->dbcon->concatString(['name', '";"', 'createtime']).' as text, \'\' as meta')->setFetchAll(true);
     }
 
     /**
@@ -634,7 +665,7 @@ implements \fpcm\model\interfaces\gsearchIndex {
     {
         $tmp = \fpcm\classes\loader::getObject('\fpcm\model\comments\comment', null);
         $tmp->setId($id);
-   
+
         return $tmp->getEditLink();
     }
 
@@ -680,21 +711,21 @@ implements \fpcm\model\interfaces\gsearchIndex {
         if (!$session->exists()) {
             return 0;
         }
-        
+
         $opt = new \fpcm\model\files\userFileOption('user'.$session->getUserId().'/lastcomments');
         $oVal = $opt->read();
 
         if (!is_object($oVal)) {
             $oVal = new \stdClass();
         }
-        
+
         $last = $oVal->last ?? $session->getLogin();
-        
+
         $now = time();
         if ($now - $last < 60) {
             return $oVal->count ?? 0;
         }
-        
+
         $count = $this->dbcon->count(
             $this->table,
             'id',
@@ -705,11 +736,11 @@ implements \fpcm\model\interfaces\gsearchIndex {
         if ($count === false) {
             return 0;
         }
-        
+
         $oVal->last = $now;
         $oVal->count = $count;
 
-        $opt->write($oVal);        
+        $opt->write($oVal);
         return $count;
     }
 

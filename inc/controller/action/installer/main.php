@@ -9,13 +9,17 @@
 
 namespace fpcm\controller\action\installer;
 
-define('FPCM_INSTALLER_NOCACHE', true);
-define('FPCM_MODE_NOPAGETOKEN', true);
+if (!defined('FPCM_INSTALLER_NOCACHE')) {
+    define('FPCM_INSTALLER_NOCACHE', true);
+}
+
+if (!defined('FPCM_MODE_NOPAGETOKEN')) {
+    define('FPCM_MODE_NOPAGETOKEN', true);
+}
 
 class main extends \fpcm\controller\abstracts\controller {
 
-    use \fpcm\controller\traits\system\syscheck,
-        \fpcm\controller\traits\common\timezone;
+    use \fpcm\controller\traits\common\timezone;
     
     const ACTION = 'system/installer';
 
@@ -161,6 +165,10 @@ class main extends \fpcm\controller\abstracts\controller {
         return true;
     }
 
+    /**
+     * Controller processing
+     * @return void
+     */
     public function process()
     {
         $tabCount = count(array_keys($this->tabsDef));
@@ -241,7 +249,7 @@ class main extends \fpcm\controller\abstracts\controller {
         
         $this->view->showHeaderFooter(\fpcm\view\view::INCLUDE_HEADER_SIMPLE);
         $this->view->assign('languages', array_flip($this->language->getLanguages()));
-        $this->view->addJsFiles(['{$coreJs}installer.js', '{$coreJs}systemcheck.js']);
+        $this->view->addJsFiles(['{$coreJs}packages/installer.js', '{$coreJs}common/systemcheck.js']);
         $this->view->addFromLibrary('nkorg/passgen', ['passgen.js']);
         $this->view->showPageToken(true);
         $this->view->setViewPath($this->getViewPath());
@@ -253,15 +261,18 @@ class main extends \fpcm\controller\abstracts\controller {
      */
     protected function runStep2()
     {
-        $sysCheckResults = $this->getCheckOptionsSystem();
+        $check = new \fpcm\model\system\check\check();       
+        $check->perform();
+
+        $sysCheckResults = $check->getFullResult();
 
         $isOk = true;
         
-        /* @var $value \fpcm\model\system\syscheckOption */
-        foreach ($sysCheckResults as $key => $value) {
+        /* @var $value \fpcm\model\system\check\option */
+        foreach ($sysCheckResults as $value) {
             
             if ($value->getOptional() || $value->getResult()) {
-                continue;;
+                continue;
             }
 
             $isOk = false;

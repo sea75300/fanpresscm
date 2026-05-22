@@ -8,27 +8,27 @@
                 <?php $theView->escape($theView->currentUser->getDisplayName()); ?>
             <?php endif; ?>
         </title>
-        <meta charset="utf-8"> 
+        <meta charset="utf-8">
         <meta name="robots" content="noindex, nofollow">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="theme-color" content="<?php if ($theView->darkMode) : ?>#212529<?php else : ?>#0073ea<?php endif; ?>">
         <link rel="apple-touch-icon" sizes="180x180" href="<?php print $theView->themePath; ?>apple-touch-icon.png">
         <link rel="icon" type="image/png" sizes="192x192" href="<?php print $theView->themePath; ?>android-icon-192x192.png">
         <link rel="icon" type="image/png" sizes="32x32" href="<?php print $theView->themePath; ?>favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="<?php print $theView->themePath; ?>favicon-16x16.png">        
+        <link rel="icon" type="image/png" sizes="16x16" href="<?php print $theView->themePath; ?>favicon-16x16.png">
         <link rel="shortcut icon" href="<?php print $theView->themePath; ?>favicon.ico">
         <link rel="manifest" href="<?php print $theView->themePath; ?>manifest.json">
         <?php include_once 'includefiles.php'; ?>
         <?php include_once 'vars.php'; ?>
-        
-        <?php if ($theView->backdrop && !$theView->darkMode) : ?>
+
+        <?php if ($theView->backdrop) : ?>
         <style>
             :root { --fpcm-var-backdrop-image: url('<?php print $theView->backdrop; ?>'); }
         </style>
         <?php endif; ?>
-    </head>    
+    </head>
 
-    <body class="fpcm-body <?php if ($theView->darkMode) : ?>bg-gradient<?php endif; ?> <?php print $theView->bodyClass; ?>" id="fpcm-body">
+    <body class="fpcm-body <?php print $theView->bodyClass; ?>" id="fpcm-body">
 
         <?php if ($theView->formActionTarget) : ?><form method="post" action="<?php print $theView->formActionTarget; ?>" enctype="multipart/form-data" id="fpcm-ui-form"><?php endif; ?>
 
@@ -38,11 +38,11 @@
         </header>
 
         <div class="d-lg-flex fpcm ui-mh-100vh fpcm ui-wrapper-content">
-            
+
             <div class="d-flex flex-column flex-shrink-0 w-auto fpcm ui-background-white-50p ui-blurring border-bottom border-1 border-secondary">
 
                 <?php include_once $theView->getIncludePath('common/navigation.php'); ?>
-                
+
                 <hr class="d-none d-lg-block">
                 <div class="d-none d-lg-block mb-2 text-center">
                     <?php $theView->button('minifyMenu')->setText('GLOBAL_HIDE')->setIcon('chevron-left')->setIconOnly()->setClass('btn-sm')->setData(['navhidden' => 0]); ?>
@@ -51,9 +51,9 @@
             </div>
 
             <div class="d-flex flex-column flex-grow-1 col-12 col-sm">
-                
+
                 <?php include_once $theView->getIncludePath('common/buttons.php'); ?>
-          
+
                 <div class="container-fluid px-2 pe-md-3 py-2">
 
                 <?php if ($theView->deprecationNotice !== null && trim($theView->deprecationNotice)) : ?><?php $theView->alert('warning')->setText($theView->deprecationNotice); ?><?php endif; ?>

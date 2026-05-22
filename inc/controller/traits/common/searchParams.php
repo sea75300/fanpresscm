@@ -15,6 +15,7 @@ namespace fpcm\controller\traits\common;
  * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @since 4.3
+ * @deprecated 5.3.0-dev
  */
 trait searchParams {
 
@@ -55,6 +56,5 @@ trait searchParams {
 
         return true;
     }
-
 
 }

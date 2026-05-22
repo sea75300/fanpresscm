@@ -6,7 +6,6 @@ body {
 
 body,
 i, em,
-.cm-s-fpcm.CodeMirror,
 .fpcm-ui-color-grey-dark {
     color: var(--bs-body-color);
 }
@@ -15,13 +14,20 @@ a, a:visited, a.fpcm-link, a.nav-link {
     color: var(--fpcm-link-color);
 }
 
+a.btn.btn-warning,
+a.btn.btn-info,
+a.btn.btn-secondary
+{
+    color: var(--bs-btn-color) !important;
+}
+
 #fpcm-top-menu a.nav-link {
     color: var(--bs-nav-link-color);
 }
 
 #fpcm-top-menu a.nav-link:focus,
 #fpcm-top-menu a.nav-link:hover {
-  color: var(--bs-nav-link-hover-color);
+    color: var(--bs-nav-link-hover-color);
 }
 
 #fpcm-ui-toolbar a.btn {
@@ -73,8 +79,8 @@ span.fpcm-ui-badge,
     background: rgba(var(--bs-secondary-rgb), 0.75);
 }
 
-div.fpcm.ui-files-item {
-    background: rgba(var(--bs-body-bg-rgb), 0.75);
+.fpcm.ui-background-dropdown-85 {
+    background: rgba(255, 255, 255, 0.85);
 }
 
 .fpcm.ui-color-blue-light {
@@ -196,6 +202,11 @@ div.fileupload-progress.in {
 }
 
 [data-bs-theme=dark] {
+    
+    body {
+        background-blend-mode: soft-light;
+    }
+    
     div.fpcm.ui-help-content > h3 {
         color: var(--bs-primary-text-emphasis);
     }
@@ -210,6 +221,10 @@ div.fileupload-progress.in {
     
     legend {
         background-color: var(--bs-dark-bg-subtle);
+    }
+
+    .fpcm.ui-background-dropdown-85 {
+        background: rgba(33, 37, 41, 0.85);
     }
     
 }

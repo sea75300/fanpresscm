@@ -19,6 +19,7 @@ namespace fpcm\events;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\events
  * @since 3.1.5
+ * @deprecated 5.3.0-dev
  */
 final class apiCallFunction extends \fpcm\events\abstracts\event {
 
@@ -26,7 +27,7 @@ final class apiCallFunction extends \fpcm\events\abstracts\event {
      * Executes a certain event
      * @return bool|mixed
      */
-    public function run()
+    public function run() : \fpcm\module\eventResult
     {
         $functionData = explode('_', $this->data['name'], 3);
 

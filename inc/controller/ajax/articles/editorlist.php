@@ -63,6 +63,7 @@ class editorlist extends \fpcm\controller\abstracts\ajaxController
 
     /**
      * Controller-Processing
+     * @return void
      */
     public function process()
     {        
@@ -71,26 +72,6 @@ class editorlist extends \fpcm\controller\abstracts\ajaxController
         }
 
         $this->response->fetch();
-    }
-
-    /**
-     * 
-     * @return bool
-     */
-    protected function processComments()
-    {
-        if (!$this->config->system_comments_enabled || !$this->permissions->editComments()) {
-            return false;
-        }
-        
-        $this->conditions->articleid = $this->oid;
-        $this->conditions->searchtype = 0;
-
-        $this->commentDataView();
-        $dvVars = $this->dataView->getJsVars();
-        
-        $this->response->setReturnData( new \fpcm\model\http\responseDataview( $this->getDataViewName(), $dvVars['dataviews'][$this->getDataViewName()]) );
-        return true;
     }
 
     /**
@@ -129,28 +110,30 @@ class editorlist extends \fpcm\controller\abstracts\ajaxController
                 ],
                 '', false, true
             ));
+            
+            $this->response->setReturnData( new \fpcm\model\http\responseDataview( 'revisionslist', $this->dataView->getJsVars()['dataviews']['revisionslist']) );
+            return true;
         }
-        else {
-            foreach ($revision as $revisionTime => $revisionTitle) {
 
-                $button = (new \fpcm\view\helper\linkButton('rev' . $revisionTime))
-                        ->setText('EDITOR_STATUS_REVISION_SHOW')
-                        ->setIcon('play')
-                        ->setIconOnly()
-                        ->setUrl(\fpcm\classes\tools::getControllerLink('articles/revision', [
-                            'aid' => $this->article->getId(), 
-                            'rid' => $revisionTime
-                        ]));
+        foreach ($revision as $revisionTime => $revisionTitle) {
 
-                $this->dataView->addRow(
-                    new \fpcm\components\dataView\row([
-                        new \fpcm\components\dataView\rowCol('select', (new \fpcm\view\helper\checkbox('revisionIds[]', 'chbx' . $revisionTime))->setClass('fpcm-ui-list-checkbox')->setValue($revisionTime), '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
-                        new \fpcm\components\dataView\rowCol('button', $button, 'fpcm-ui-dataview-align-center fpcm-ui-font-small', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
-                        new \fpcm\components\dataView\rowCol('title', new \fpcm\view\helper\escape(strip_tags($revisionTitle)), 'fpcm-ui-ellipsis'),
-                        new \fpcm\components\dataView\rowCol('date', new \fpcm\view\helper\dateText($revisionTime), 'fpcm-ui-ellipsis')
-                    ]
-                ));
-            }
+            $button = (new \fpcm\view\helper\linkButton('rev' . $revisionTime))
+                    ->setText('EDITOR_STATUS_REVISION_SHOW')
+                    ->setIcon('play')
+                    ->setIconOnly()
+                    ->setUrl(\fpcm\classes\tools::getControllerLink('articles/revision', [
+                        'aid' => $this->article->getId(), 
+                        'rid' => $revisionTime
+                    ]));
+
+            $this->dataView->addRow(
+                new \fpcm\components\dataView\row([
+                    new \fpcm\components\dataView\rowCol('select', (new \fpcm\view\helper\checkbox('revisionIds[]', 'chbx' . $revisionTime))->setClass('fpcm-ui-list-checkbox')->setValue($revisionTime), '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
+                    new \fpcm\components\dataView\rowCol('button', $button, 'fpcm-ui-dataview-align-center fpcm-ui-font-small', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
+                    new \fpcm\components\dataView\rowCol('title', new \fpcm\view\helper\escape(strip_tags($revisionTitle)), 'fpcm-ui-ellipsis'),
+                    new \fpcm\components\dataView\rowCol('date', new \fpcm\view\helper\dateText($revisionTime), 'fpcm-ui-ellipsis')
+                ]
+            ));
         }
 
         $this->response->setReturnData( new \fpcm\model\http\responseDataview( 'revisionslist', $this->dataView->getJsVars()['dataviews']['revisionslist']) );

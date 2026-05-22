@@ -9,10 +9,10 @@ namespace fpcm\model\captchas;
 
 /**
  * Default captcha plugin
- * 
+ *
  * @package fpcm\model\captchas
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2022, Stefan Seehafer
+ * @copyright (c) 2011-2025, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 class fpcmDefault extends \fpcm\model\abstracts\spamCaptcha {
@@ -27,31 +27,34 @@ class fpcmDefault extends \fpcm\model\abstracts\spamCaptcha {
      * Captcha-Antwort prüfen
      * @return bool
      */
-    public function checkAnswer()
+    public function checkAnswer() : bool
     {
         if ($this->session->exists()) {
             return true;
         }
 
-        /* @var $req \fpcm\model\http\request */
-        $req = \fpcm\classes\loader::getObject('\fpcm\model\http\request');
-        if (!$req->fromPOST('commentCaptcha') || $req->fromPOST('commentCaptcha') != $this->config->comments_antispam_answer) {
+        $req = \fpcm\model\http\request::getInstance();
+        $cval = $req->fromPOST('commentCaptcha');
+
+        if (!$cval) {
             return false;
         }
 
-        return true;
+        $cvalHash = \fpcm\classes\tools::getHash($cval);
+        $savedHash = \fpcm\classes\tools::getHash($this->config->comments_antispam_answer);
+
+        return hash_equals($savedHash, $cvalHash);
     }
 
     /**
      * zusätzliche Prüfungen durchführen
      * @return bool
      */
-    public function checkExtras()
+    public function checkExtras() : bool
     {
-        /* @var $req \fpcm\model\http\request */
-        $req = \fpcm\classes\loader::getObject('\fpcm\model\http\request');
-        
-        $cdata = $req->fromPOST('newcomment');
+        $req = \fpcm\model\http\request::getInstance();
+
+        $cdata = $req->fromPOST('comment');
         if ($this->maxCommentTextLinks <= preg_match_all("#(https?)://\S+[^\s.,>)\];'\"!?]#", $cdata['text'])) {
             return true;
         }
@@ -70,7 +73,7 @@ class fpcmDefault extends \fpcm\model\abstracts\spamCaptcha {
 
         return false;
     }
-    
+
     /**
      * Create input field for Captcha
      * @param bool $wrap
@@ -87,21 +90,21 @@ class fpcmDefault extends \fpcm\model\abstracts\spamCaptcha {
             ->setClass('fpcm-pub-textinput')
             ->setAutocomplete(false)
             ->setText($this->config->comments_antispam_question);
-        
+
         if ($float) {
             $obj->setLabelTypeFloat();
             $obj->setPlaceholder($this->config->comments_antispam_question);
         }
-        
+
         return (string) $obj;
     }
-    
+
     /**
      * Create input field for Captcha
      * @param bool $wrap
      * @return string
      */
-    public function createPluginInput($wrap = false)
+    public function createPluginInput($wrap = false) : string
     {
         if ($this->session->exists()) {
             return '';
@@ -114,7 +117,7 @@ class fpcmDefault extends \fpcm\model\abstracts\spamCaptcha {
      * Ausgabe des Captcha-Textes
      * @return string
      */
-    public function createPluginText()
+    public function createPluginText() : string
     {
         if ($this->session->exists()) {
             return '';

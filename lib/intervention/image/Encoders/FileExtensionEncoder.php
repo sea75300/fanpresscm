@@ -50,9 +50,7 @@ class FileExtensionEncoder extends AutoEncoder
     /**
      * Create matching encoder for given file extension
      *
-     * @param null|string|FileExtension $extension
      * @throws EncoderException
-     * @return EncoderInterface
      */
     protected function encoderByFileExtension(null|string|FileExtension $extension): EncoderInterface
     {
@@ -61,7 +59,7 @@ class FileExtensionEncoder extends AutoEncoder
         }
 
         try {
-            $extension = is_string($extension) ? FileExtension::from($extension) : $extension;
+            $extension = is_string($extension) ? FileExtension::from(strtolower($extension)) : $extension;
         } catch (Error) {
             throw new EncoderException('No encoder found for file extension (' . $extension . ').');
         }

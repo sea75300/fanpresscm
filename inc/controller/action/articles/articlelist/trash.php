@@ -26,12 +26,12 @@ class trash extends \fpcm\controller\abstracts\controller
     }
 
     /**
-     *
+     * 
      * @return string
      */
     protected function getHelpLink()
     {
-        return 'hl_article_edit';
+        return 'articles_trash';
     }
 
     /**
@@ -43,6 +43,10 @@ class trash extends \fpcm\controller\abstracts\controller
         return 'articles/listouter';
     }
 
+    /**
+     * Controller processing
+     * @return void
+     */
     public function process()
     {
         $this->isTrash = true;

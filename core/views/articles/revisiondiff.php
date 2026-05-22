@@ -91,87 +91,79 @@
     </div>
 </div>
 
-<div class="row g-0">
-
-    <div class="<?php $theView->defaultBoxHalf(); ?>">
-        <div class="row g-0">
-            <div class="col-12">
-                <fieldset class="my-2">
-                    <legend class="fs-6 bg-secondary"><?php $theView->write('GLOBAL_METADATA'); ?></legend>
-
-                    <div class="row g-0 my-2 fs-6">
-                        <div class="col-12">
-
-                            <div class="row mb-2">
-                                <div class="col-12">
-                                    <?php print implode(' ', $revision->getMetaDataStatusIcons(true, true, true)); ?>
-                                </div>
+<div class="row g-0 row-cols-1 row-cols-lg-2">
+    <div class="col">
+        <div class="row">
+            <div class="col my-3">
+                <div class="card bg-secondary-subtle">
+                    <div class="card-body">
+                        <h5 class="card-title"><?php $theView->write('GLOBAL_METADATA'); ?></h5>
+                        
+                        <div class="row g-0">
+                            <div class="col">
+                                <?php print implode(' ', $revision->getMetaDataStatusIcons(true, true, true)); ?>
                             </div>
-
-                            <div class="row mb-1 row-cols-2">
-                                <div class="col">
-                                    <?php $theView->icon('calendar')->setSize('lg'); ?>
-                                    <strong><?php $theView->write('GLOBAL_AUTHOR_EDITOR'); ?>:</strong>
-                                </div>
-                                <div class="col">
-                                    <?php print $revisionCreate; ?>
-                                </div>
+                        </div>
+                        
+                        <div class="row g-0 row-cols-1 row-cols-lg-2 my-2">
+                            <div class="col">
+                                <?php $theView->icon('calendar')->setSize('lg'); ?>
+                                <strong><?php $theView->write('GLOBAL_AUTHOR_EDITOR'); ?>:</strong>
                             </div>
-
-                            <div class="row mb-1">
-                                <div class="col">
-                                    <?php $theView->icon('clock', 'far')->setSize('lg'); ?>
-                                    <strong><?php $theView->write('GLOBAL_LASTCHANGE'); ?>:</strong>
-                                </div>
-                                <div class="col">
-                                    <?php print $revisionChange; ?>
-                                </div>
+                            <div class="col">
+                                <?php print $revisionCreate; ?>
+                            </div>
+                        </div>
+                        
+                        <div class="row g-0 row-cols-1 row-cols-lg-2">
+                            <div class="col">
+                                <?php $theView->icon('clock', 'far')->setSize('lg'); ?>
+                                <strong><?php $theView->write('GLOBAL_LASTCHANGE'); ?>:</strong>
+                            </div>
+                            <div class="col">
+                                <?php print $revisionChange; ?>
                             </div>
                         </div>
                     </div>
-                </fieldset>
+                </div>
             </div>
         </div>
     </div>
-    <div class="<?php $theView->defaultBoxHalf(); ?> ps-0 ps-md-2">
-        <div class="row g-0">
-            <div class="col-12">
-                <fieldset class="my-2">
-                    <legend class="fs-6"><?php $theView->write('GLOBAL_METADATA'); ?></legend>
-
-                    <div class="row g-0 my-2 fs-6">
-                        <div class="col-12">
-
-                            <div class="row mb-2">
-                                <div class="col-12">
-                                    <?php print implode(' ', $article->getMetaDataStatusIcons(true, true, true)); ?>
-                                </div>
+    <div class="col">
+        <div class="row">
+            <div class="col my-3">
+                <div class="card bg-secondary-subtle">
+                    <div class="card-body">
+                        <h5 class="card-title"><?php $theView->write('GLOBAL_METADATA'); ?></h5>
+                        
+                        <div class="row g-0">
+                            <div class="col">
+                                <?php print implode(' ', $article->getMetaDataStatusIcons(true, true, true)); ?>
                             </div>
-
-                            <div class="row mb-1 row-cols-2">
-                                <div class="col">
-                                    <?php $theView->icon('calendar')->setSize('lg'); ?>
-                                    <strong><?php $theView->write('GLOBAL_AUTHOR_EDITOR'); ?>:</strong>
-                                </div>
-                                <div class="col">
-                                    <?php print $articleCreate; ?>
-                                </div>
+                        </div>
+                        
+                        <div class="row g-0 row-cols-1 row-cols-lg-2 my-2">
+                            <div class="col">
+                                <?php $theView->icon('calendar')->setSize('lg'); ?>
+                                <strong><?php $theView->write('GLOBAL_AUTHOR_EDITOR'); ?>:</strong>
                             </div>
-
-                            <div class="row mb-1 row-cols-2">
-                                <div class="col">
-                                    <?php $theView->icon('clock', 'far')->setSize('lg'); ?>
-                                    <strong><?php $theView->write('GLOBAL_LASTCHANGE'); ?>:</strong>
-                                </div>
-                                <div class="col">
-                                    <?php print $articleChange; ?>
-                                </div>
+                            <div class="col">
+                                <?php print $articleCreate; ?>
+                            </div>
+                        </div>
+                        
+                        <div class="row g-0 row-cols-1 row-cols-lg-2">
+                            <div class="col">
+                                <?php $theView->icon('clock', 'far')->setSize('lg'); ?>
+                                <strong><?php $theView->write('GLOBAL_LASTCHANGE'); ?>:</strong>
+                            </div>
+                            <div class="col">
+                                <?php print $articleChange; ?>
                             </div>
                         </div>
                     </div>
-                </fieldset>
+                </div>
             </div>
         </div>
     </div>
-
 </div>

@@ -12,7 +12,6 @@ class EncodedImage extends File implements EncodedImageInterface
      * Create new instance
      *
      * @param string|resource $data
-     * @param string $mediaType
      */
     public function __construct(
         mixed $data,
@@ -49,5 +48,18 @@ class EncodedImage extends File implements EncodedImageInterface
     public function toDataUri(): string
     {
         return sprintf('data:%s;base64,%s', $this->mediaType(), base64_encode((string) $this));
+    }
+
+    /**
+     * Show debug info for the current image
+     *
+     * @return array<string, mixed>
+     */
+    public function __debugInfo(): array
+    {
+        return [
+            'mediaType' => $this->mediaType(),
+            'size' => $this->size(),
+        ];
     }
 }

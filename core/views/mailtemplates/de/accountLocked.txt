@@ -1,0 +1,6 @@
+Der Benutzeraccount %s wurde temporär gesperrt, da %s falsche Logins erfolgten.
+
+Sperrung um: %s
+IP-Adresse: %s
+
+Login-URL: %s

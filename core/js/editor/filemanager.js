@@ -1,0 +1,100 @@
+/**
+ * FanPress CM Filemanager Namespace
+ * @article Stefan Seehafer <sea75300@yahoo.de>
+ * @copyright (c) 2015-2018, Stefan Seehafer
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+ */
+if (fpcm === undefined) {
+    var fpcm = {};
+}
+
+if (fpcm.editor !== undefined) {
+
+    fpcm.editor.showFileManager = function(_mode, _type) {
+
+        if (_mode === undefined) {
+            _mode = fpcm.vars.jsvars.filemanagerMode;
+        }
+
+        let _btns = [{
+            text: 'ARTICLES_SEARCH',
+            icon: "search",
+            isLeft: true,
+            click: function(_ui) {
+                fpcm.dom.findElementInDialogFrame(_ui, '#btnOpenSearch').click();
+            }
+        }];
+
+
+        if (fpcm.vars.jsvars.filemanagerPermissions.add) {
+            _btns.push({
+                text: 'FILE_LIST_UPLOADFORM',
+                icon: "upload",
+                primary: true,
+                click: function(_ui) {
+                    fpcm.dom.findElementInDialogFrame(_ui, '#btnFileUpload').click();
+                }
+            });
+        }
+
+        if (!fpcm.editor.insertGalleryDisabled(_mode) && fpcm.ui.langvarExists('FILE_LIST_INSERTGALLERY')) {
+            _btns.push({
+                text: 'FILE_LIST_INSERTGALLERY',
+                icon: "images",
+                click: function(_ui) {
+
+                    let _items = fpcm.dom.findElementInDialogFrame(_ui, '.fpcm-ui-list-checkbox[data-type=image]:checked');
+
+                    if (!_items || !_items.length) {
+                        return false;
+                    }
+
+                    fpcm.editor.insertGalleryByEditor(_items);
+                    return false;
+                }
+            });
+        }
+
+        if (fpcm.vars.jsvars.filemanagerPermissions.thumbs) {
+            _btns.push({
+                text: 'FILE_LIST_NEWTHUMBS',
+                icon: "image",
+                click: function(_ui) {
+                    fpcm.dom.findElementInDialogFrame(_ui, '#btnCreateThumbs').click();
+                }
+            });
+        }
+
+        if (fpcm.vars.jsvars.filemanagerPermissions.delete) {
+            _btns.push({
+                text: 'GLOBAL_DELETE',
+                icon: "trash",
+                click: function(_ui) {
+                    fpcm.dom.findElementInDialogFrame(_ui, '#btnDeleteFiles').click();
+                }
+            });
+        }
+
+        if (_type !== undefined) {
+            _type = '&m=' + _type;
+        }
+        else {
+            _type = '';
+        }
+
+        fpcm.ui_dialogs.create({
+            id: 'editor-html-filemanager',
+            title: 'HL_FILES_MNG',
+            closeButton: true,
+            url: fpcm.vars.jsvars.filemanagerUrl + _mode + _type,
+            useSize: true,
+            size: 'xl modal-fullscreen-lg-down',
+            modalBodyClass: 'vh-75',
+            icon: {
+                icon: 'folder-open'
+            },
+            dlButtons: _btns
+        });
+    };
+
+}

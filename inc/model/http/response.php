@@ -72,7 +72,7 @@ final class response {
         $this->returnData = $returnData;
         return $this;
     }
-    
+
     /**
      * Fetch reponse data
      * @param bool $includeData
@@ -104,5 +104,5 @@ final class response {
     }
 
 
-    
+
 }

@@ -102,8 +102,8 @@ class feed extends \fpcm\controller\abstracts\pubController {
     }
 
     /**
-     * Controller ausführen
-     * @return bool
+     * Controller processing
+     * @return void
      */
     public function process()
     {
@@ -174,7 +174,7 @@ class feed extends \fpcm\controller\abstracts\pubController {
 
                 $uMail = $this->emails[$article->getCreateuser()] ?? '';
                 $uName = $this->users[$article->getCreateuser()] ?? '';
-                
+
                 if (trim($uName)) {
                     $aauthr = $dom->createElement('author', $uMail . ' (' . $uName . ')');
                     $item->appendChild($aauthr);
@@ -184,7 +184,13 @@ class feed extends \fpcm\controller\abstracts\pubController {
             }
 
             $dom->appendChild($rss);
-            $dom = $this->events->trigger('pub\prepareRssFeed', $dom)->getData();
+            $ev = $this->events->trigger('pub\prepareRssFeed', $dom);
+            if (!$ev->getSuccessed() || !$ev->getContinue()) {
+                trigger_error(sprintf("Event pub\prepareRssFeed failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+                return;
+            }
+
+            $dom = $ev->getData();
 
             $content .= $dom->saveXML();
 

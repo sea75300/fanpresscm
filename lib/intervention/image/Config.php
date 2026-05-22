@@ -11,24 +11,21 @@ class Config
     /**
      * Create config object instance
      *
-     * @param bool $autoOrientation
-     * @param bool $decodeAnimation
-     * @param mixed $blendingColor
      * @return void
      */
     public function __construct(
         public bool $autoOrientation = true,
         public bool $decodeAnimation = true,
         public mixed $blendingColor = 'ffffff',
+        public bool $strip = false,
     ) {
+        //
     }
 
     /**
      * Set values of given config options
      *
-     * @param mixed $options
      * @throws InputException
-     * @return Config
      */
     public function setOptions(mixed ...$options): self
     {
@@ -52,7 +49,7 @@ class Config
      */
     private function prepareOptions(array $options): array
     {
-        if (count($options) === 0) {
+        if ($options === []) {
             return $options;
         }
 

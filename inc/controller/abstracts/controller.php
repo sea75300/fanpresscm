@@ -235,7 +235,13 @@ class controller implements \fpcm\controller\interfaces\controller {
 
         $redirectString = 'Location: ' . ($controller ? \fpcm\classes\tools::getFullControllerLink($controller, $params) : 'index.php');
         if (is_object($this->events)) {
-            $redirectString = $this->events->trigger('controllerRedirect', $redirectString)->getData();
+            $ev = $this->events->trigger('controllerRedirect', $redirectString);
+            if (!$ev->getSuccessed() || !$ev->getContinue()) {
+                trigger_error(sprintf("Event controllerRedirect failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+                return false;
+            }
+
+            $redirectString = $ev->getData();
         }
 
         header($redirectString);
@@ -519,7 +525,8 @@ class controller implements \fpcm\controller\interfaces\controller {
     public function __call($name, $arguments)
     {
         http_response_code(404);
-        print "Function not found! {$name}";
+        $class = self::class;
+        print "Function not found! {$class}->{$name}";
         return false;
     }
 
@@ -532,7 +539,8 @@ class controller implements \fpcm\controller\interfaces\controller {
     public static function __callStatic($name, $arguments)
     {
         http_response_code(404);
-        print "Function not found! {$name}";
+        $class = self::class;
+        print "Function not found! {$class}::{$name}";
         return false;
     }
 
@@ -634,9 +642,17 @@ class controller implements \fpcm\controller\interfaces\controller {
      * @param int $active
      * @return string
      * @since 5.2.0.a1
+     * @deprecated 5.3.0-a1
      */
     protected function getToolbarButtonToggleClass(int $tabIndex, string $class = '', bool $notIfNull = false): string
     {
+        trigger_error(sprintf(
+            "The usesage of %s with CSS classes to toggle toolbar items is "
+          . "deprecated as of FPCM 5.3.0-a1. Use item method %s instead!",
+            __METHOD__,
+            'setToolbarToggle'
+        ));
+        
         $active = $this->getActiveTab();
 
         $hidden = $tabIndex !== $active ? 'fpcm-ui-hidden' : '';

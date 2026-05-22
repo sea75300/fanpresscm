@@ -12,10 +12,12 @@ namespace fpcm\view\helper;
  * 
  * @package fpcm\view\helper
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2022, Stefan Seehafer
+ * @copyright (c) 2011-2025, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class pager extends helper {
+class pager 
+extends helper
+implements \JsonSerializable {
 
     /**
      * Current page
@@ -81,7 +83,7 @@ class pager extends helper {
         $this->itemsPerPage = (int) $itemsPerPage;
         $this->maxItemCount = (int) $maxItemCount;
 
-        return parent::__construct('pager');
+        parent::__construct('pager');
     }
 
     /**
@@ -141,7 +143,7 @@ class pager extends helper {
      */
     public function getJsLangVars()
     {
-        return ['GLOBAL_PAGER'];
+        return ['GLOBAL_PAGER', 'GLOBAL_NEXT', 'GLOBAL_BACK'];
     }
 
     /**
@@ -158,6 +160,15 @@ class pager extends helper {
         ]);
 
         return $return;
+    }
+
+    /**
+     * JSON serialize
+     * @return mixed
+     */
+    public function jsonSerialize(): mixed
+    {
+        return $this->getJsVars();
     }
 
 }

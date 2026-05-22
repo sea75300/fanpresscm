@@ -83,7 +83,8 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController
     }
 
     /**
-     * Controller-Processing
+     * Controller processing
+     * @return void
      */
     public function process()
     {
@@ -106,9 +107,27 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController
      */
     protected function fetchLocal()
     {
+        $this->modules->suppress_deprecation_note = true;
+        
+        $text = $this->request->fromGET('text');
+        $status = $this->request->fromGET('status');
+
+        if ($text !== null || $status !== null) {
+            $search = new \fpcm\module\search();
+            $search->text = $text;
+            $search->status = $status;
+        }
+        else {
+            $search = null;
+        }
+
         $this->tab = 0;
-        $this->modules->updateFromFilesystem();
-        $this->items = $this->modules->getFromDatabase(true);
+
+        if ($search !== null) {
+            $this->modules->updateFromFilesystem();
+        }
+
+        $this->items = $this->modules->getFromDatabase(true, $search);
         $this->itemsCount = count($this->items);
         return true;
     }
@@ -156,10 +175,10 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController
     private function getColsLocal()
     {
         return [
-            (new \fpcm\components\dataView\column('buttons', 'GLOBAL_ACTIONS'))->setAlign('center text-md-right')->setSize(2),
-            (new \fpcm\components\dataView\column('description', 'MODULES_LIST_NAME'))->setSize(5),
-            (new \fpcm\components\dataView\column('key', 'MODULES_LIST_KEY'))->setSize(3),
-            (new \fpcm\components\dataView\column('version', 'MODULES_LIST_VERSION_LOCAL'))->setAlign('left text-lg-center')->setSize(2)
+            (new \fpcm\components\dataView\column('buttons', 'GLOBAL_ACTIONS'))->setAlign('center'),
+            (new \fpcm\components\dataView\column('description', 'MODULES_LIST_NAME')),
+            (new \fpcm\components\dataView\column('key', 'MODULES_LIST_KEY')),
+            (new \fpcm\components\dataView\column('version', 'MODULES_LIST_VERSION_LOCAL'))->setAlign('left')
         ];
     }
 
@@ -170,10 +189,10 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController
     private function getColsRemote()
     {
         return [
-            (new \fpcm\components\dataView\column('buttons', 'GLOBAL_ACTIONS'))->setAlign('center text-md-right')->setSize(2),
-            (new \fpcm\components\dataView\column('description', 'MODULES_LIST_NAME'))->setSize(5),
-            (new \fpcm\components\dataView\column('key', 'MODULES_LIST_KEY'))->setSize(3),
-            (new \fpcm\components\dataView\column('version', 'MODULES_LIST_VERSION_REMOTE'))->setAlign('left text-lg-center')->setSize(2)
+            (new \fpcm\components\dataView\column('buttons', 'GLOBAL_ACTIONS'))->setAlign('center'),
+            (new \fpcm\components\dataView\column('description', 'MODULES_LIST_NAME')),
+            (new \fpcm\components\dataView\column('key', 'MODULES_LIST_KEY')),
+            (new \fpcm\components\dataView\column('version', 'MODULES_LIST_VERSION_REMOTE'))->setAlign('left')
         ];
     }
 
@@ -214,7 +233,7 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController
         if (!$config->name) {
             $config->name = $config->key;
         }
-        
+
         if (!$config->version) {
             $config->version = '0.0.0';
         }
@@ -239,7 +258,7 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController
         $key = $config->key;
         $hash = \fpcm\classes\tools::getHash($key);
 
-        $buttons = [];        
+        $buttons = [];
         if (!$item->isInstallable()) {
             $buttons[] = (new \fpcm\view\helper\button('installable'.$hash))
                     ->overrideButtonType('danger')
@@ -247,7 +266,7 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController
                     ->setText('MODULES_FAILED_DEPENCIES')
                     ->setSize('lg')
                     ->setIconOnly();
-        }        
+        }
 
         $buttons[] = (new \fpcm\view\helper\button('info'.$hash))
             ->setText('MODULES_LIST_INFORMATIONS')
@@ -262,6 +281,15 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController
             ->setAria([
                 'bs-controls' => 'offcanvasInfo',
             ]);
+
+        if ($item->getConfig()->changelogUrl) {
+            $buttons[] = (new \fpcm\view\helper\linkButton('changelog'.$hash))
+                    ->setUrl($item->getFullChangelogUrl())
+                    ->setText('HL_HELP_CHANGELOG')
+                    ->setIcon('code-branch')
+                    ->setIconOnly()
+                    ->setRel('external');
+        }
 
         $isInstalled = in_array($item->getKey(), $this->installed);
 
@@ -402,6 +430,17 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController
                     ->setIconOnly()
                     ->setPrimary(true)
                     ->setClass('fpcm-ui-modulelist-action-local-update');
+
+            if ($item->getConfig()->changelogUrl) {
+                $buttons[] = (new \fpcm\view\helper\linkButton('changelog'.$hash))
+                        ->setUrl($item->getFullChangelogUrl())
+                        ->setText('HL_HELP_CHANGELOG')
+                        ->setIcon('code-branch')
+                        ->setIconOnly()
+                        ->setRel('external')
+                        ->overrideButtonType('info');
+            }
+
         }
 
         if ($hasLocalUpdates && !$hasUpdates) {

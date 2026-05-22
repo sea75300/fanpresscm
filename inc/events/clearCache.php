@@ -19,6 +19,6 @@ namespace fpcm\events;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\events
  */
-final class clearCache extends \fpcm\events\abstracts\eventReturnVoid {
+final class clearCache extends \fpcm\events\abstracts\event {
 
 }

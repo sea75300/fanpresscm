@@ -77,6 +77,7 @@ class main {
         }
         
         $controller->process();
+        return true;
     }
 
     /**

@@ -9,7 +9,7 @@ namespace fpcm\view\helper\traits;
 
 /**
  * View helper with Icon
- * 
+ *
  * @package fpcm\view\helper
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2022, Stefan Seehafer
@@ -55,6 +55,13 @@ trait iconHelper {
     protected $spinner = '';
 
     /**
+     * Margin class
+     * @var string
+     * @since 5.3.0-dev
+     */
+    protected $margin = '';
+
+    /**
      * Set icon
      * @param string $icon Icon CSS classes
      * @param string $prefix Icon prefix
@@ -89,7 +96,7 @@ trait iconHelper {
         $this->iconStack = ($useFa ? 'fa-' . $iconStack : $iconStack);
         return $this;
     }
-    
+
     /**
      * Set Icon size
      * @param string $size
@@ -124,7 +131,17 @@ trait iconHelper {
         $this->spinner = ($useFa ? 'fa-' . $spinner : $spinner);
         return $this;
     }
-    
+
+    /**
+     * Margin class
+     * @param string $margin
+     * @return $this
+     */
+    public function setMargin(string $margin) {
+        $this->margin = $margin;
+        return $this;
+    }
+
     /**
      * Return full icon string
      * @return string
@@ -135,7 +152,7 @@ trait iconHelper {
             return '';
         }
 
-        return "<span class=\"fpcm-ui-icon {$this->icon} {$this->size} {$this->spinner}\"></span> ";
+        return sprintf('<span class="fpcm-ui-icon %s %s %s %s"></span>', $this->icon, $this->size, $this->spinner, $this->margin);
     }
 
 }

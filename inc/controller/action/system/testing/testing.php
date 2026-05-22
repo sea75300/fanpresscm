@@ -12,6 +12,7 @@ namespace fpcm\controller\action\system\testing;
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+ * @ignore
  */
 
 class testing extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\viewByNamespace
@@ -21,11 +22,11 @@ class testing extends \fpcm\controller\abstracts\controller implements \fpcm\con
 
     public function isAccessible(): bool
     {
-        return defined('FPCM_DEBUG') && FPCM_DEBUG;
+        return \fpcm\classes\baseconfig::debugModeActive();
     }
 
     /**
-     *
+     * Controller processing
      * @return bool
      */
     public function process() : bool

@@ -25,11 +25,14 @@ class edit extends base {
         return true;
     }
 
+    /**
+     * Controller processing
+     * @return void
+     */
     public function process()
     {
         $this->view->addButton( (new \fpcm\view\helper\deleteButton('deleteIp'))->setClickConfirm() );
         $this->view->setFormAction('ips/edit&id='.$this->id);
-        return true;
     }
 
     protected function onDeleteIp()

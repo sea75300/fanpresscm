@@ -25,6 +25,8 @@ implements
     protected $userRoll;
 
     protected $update = false;
+    
+    protected $headlineVar;
 
     public function isAccessible(): bool
     {
@@ -47,6 +49,10 @@ implements
         $this->view->assign('userRoll', $this->userRoll);
     }
 
+    /**
+     * Controller-Processing
+     * @return void
+     */   
     public function process()
     {
         $this->initButtons();

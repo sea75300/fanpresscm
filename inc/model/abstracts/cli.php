@@ -153,7 +153,7 @@ abstract class cli extends \fpcm\model\abstracts\staticModel {
         parent::__construct();
         $this->funcParams = $funcParams;
         
-        if (defined('FPCM_DEBUG') && FPCM_DEBUG) {
+        if (\fpcm\classes\baseconfig::debugModeActive()) {
             $this->output('> CLI DEBUG: ');
             $this->debug($this->funcParams);
         }

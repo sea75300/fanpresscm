@@ -9,33 +9,13 @@
 
 namespace fpcm\controller\action\packagemgr\system;
 
-class update extends \fpcm\controller\abstracts\controller
+class update extends \fpcm\controller\action\packagemgr\abstracts\base
 {
 
-    /**
-     *
-     * @var bool
-     */
-    protected $updateDb;
+    protected \fpcm\model\updater\system $updater;
 
     /**
      *
-     * @var array
-     */
-    protected $steps = [
-        'checkFs'   => true,
-        'download'  => true,
-        'checkPkg'  => true,
-        'extract'   => true,
-        'backupFs'  => true,
-        'updateFs'  => true,
-        'updateDb'  => true,
-        'updateLog' => true,
-        'cleanup'   => true
-    ];
-
-    /**
-     * 
      * @return bool
      */
     public function isAccessible(): bool
@@ -44,7 +24,7 @@ class update extends \fpcm\controller\abstracts\controller
     }
 
     /**
-     * 
+     *
      * @return string
      */
     protected function getViewPath() : string
@@ -53,63 +33,78 @@ class update extends \fpcm\controller\abstracts\controller
     }
 
     /**
-     * Request-Handler
-     * @return bool
-     */
-    public function request()
-    {
-        \fpcm\classes\baseconfig::enableAsyncCronjobs(false);
-        $this->updateDb = ($this->request->fromGET('update-db') !== null);
-        return true;
-    }
-
-    /**
-     * Controller-Processing
+     * Controller processing
+     * @return void
      */
     public function process()
     {
-        $jsData = [];
-        
+        $this->updater = new \fpcm\model\updater\system();
+
         if ($this->updateDb) {
             $this->steps = array_map([$this, 'invert'], $this->steps);
             $this->steps['updateDb'] = true;
         }
         else {
-            $updater = new \fpcm\model\updater\system();
-            $this->steps['pkgurl'] = $updater->url;
-            $this->steps['pkgsize'] = $updater->size ? '('.\fpcm\classes\tools::calcSize($updater->size).')' : '';
-            $this->steps['pkgname'] = basename($updater->url);
+            $this->steps['pkgurl'] = $this->updater->url;
+            $this->steps['pkgsize'] = $this->updater->size ? '('.\fpcm\classes\tools::calcSize($this->updater->size).')' : '';
+            $this->steps['pkgname'] = basename($this->updater->url);
         }
 
-        
+        $jsData = [];
+
+        $count = 0;
+
+        $jsData['steps'] = $this->getActiveSteps($count);
+        $this->steps['stepcount'] = $count;
+
         $this->view->setViewVars($this->steps);
         $this->view->addJsVars([
-            'pkgdata' => [
-                'update' => $jsData
-            ]
-        ]);
-        
-        $this->view->addButtons([
-            (new \fpcm\view\helper\linkButton('backbtn'))->setText('PACKAGES_BACKTODASHBOARD')->setUrl(\fpcm\classes\tools::getFullControllerLink('system/dashboard'))->setIcon('chevron-circle-left'),
-            (new \fpcm\view\helper\linkButton('protobtn'))->setText('HL_LOGS')->setUrl(\fpcm\classes\tools::getFullControllerLink('system/logs'))->setIcon('exclamation-triangle')->setTarget(\fpcm\view\helper\linkButton::TARGET_NEW),
-        ]);
-        
-        $this->view->addTabs('updater', [
-            (new \fpcm\view\helper\tabItem('sysupdate'))->setText('HL_PACKAGEMGR_SYSUPDATES')->setFile($this->getViewPath())
+            'pkgdata' => $jsData,
+            'stepcount' => $this->steps['stepcount']
         ]);
 
-        $this->view->addJsFiles(['updater.js']);
-        $this->view->render();
+        $buttons = [
+            (new \fpcm\view\helper\linkButton('backbtn'))
+                ->setText('PACKAGES_BACKTODASHBOARD')
+                ->setUrl(\fpcm\classes\tools::getFullControllerLink('system/dashboard'))
+                ->setIcon('chevron-circle-left'),
+            (new \fpcm\view\helper\linkButton('protobtn'))
+                ->setText('HL_LOGS')
+                ->setUrl(\fpcm\classes\tools::getFullControllerLink('system/logs'))
+                ->setIcon('exclamation-triangle')
+                ->setTarget(\fpcm\view\helper\linkButton::TARGET_NEW),
+            (new \fpcm\view\helper\linkButton('optionsBtn'))
+                ->setText('HL_OPTIONS_SYSTEM')
+                ->setUrl(\fpcm\classes\tools::getFullControllerLink('system/options', ['rg' => 5]))
+                ->setIcon('cog')
+                ->setTarget(\fpcm\view\helper\linkButton::TARGET_NEW)
+                ->setIconOnly(),
+            (new \fpcm\view\helper\linkButton('cronjobsBtn'))
+                ->setText('HL_CRONJOBS')
+                ->setUrl(\fpcm\classes\tools::getFullControllerLink('system/crons'))
+                ->setIcon('history')
+                ->setTarget(\fpcm\view\helper\linkButton::TARGET_NEW)
+                ->setIconOnly()
+        ];
+
+        if ($this->updater->changelog && !$this->updateDb) {
+            $buttons[] = (new \fpcm\view\helper\linkButton('changeLog'))
+                ->setText('HL_HELP_CHANGELOG')
+                ->setUrl($this->updater->changelog)
+                ->setIcon('code-branch')
+                ->setIconOnly()
+                ->setRel('external');
+        }
+
+        $this->view->addButtons($buttons);
+        $this->view->addJsFiles(['packages/manager.js', 'packages/updater.js']);
+
+        parent::process();
     }
 
-    /**
-     * 
-     * @param bool $data
-     * @return bool
-     */
-    private function invert($data)
+    protected function getTabHeadline() : string
     {
-        return !$data;
+        return 'HL_PACKAGEMGR_SYSUPDATES';
     }
 
 }

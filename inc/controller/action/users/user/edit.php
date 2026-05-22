@@ -10,16 +10,10 @@
 namespace fpcm\controller\action\users\user;
 
 class edit
-extends base
-implements \fpcm\controller\interfaces\requestFunctions {
+extends base {
 
-    use \fpcm\controller\traits\users\deleteDialog;
-    
-    /**
-     *
-     * @var bool
-     */
-    protected $showExtended = true;
+    use \fpcm\controller\traits\users\deleteDialog,
+        \fpcm\controller\traits\users\onResetProfileSettings;
 
     /**
      *
@@ -52,16 +46,13 @@ implements \fpcm\controller\interfaces\requestFunctions {
 
         $this->view->setFormAction($this->user->getEditLink(), [], true);
 
-        if (!$this->checkPageToken) {
-            return true;
-        }
-
-        $this->uploadImage($this->user);
-        $this->deleteImage($this->user);
-
         return true;
     }
 
+    /**
+     * Controller-Processing
+     * @return void
+     */
     public function process()
     {
         parent::process();
@@ -70,12 +61,13 @@ implements \fpcm\controller\interfaces\requestFunctions {
         $showDisableButton = (!$this->user->getDisabled() && ($this->userId == $this->session->getUserId() || $userList->countActiveUsers() == 1)) ? false : true;
         
         $this->initDeleteConfirmDialog($userList);
-
         $this->twoFactorAuthForm();
+
         $this->view->assign('showDisableButton', $showDisableButton);
         $this->view->assign('showExtended', true);
         $this->view->assign('showImage', true);
         $this->view->assign('avatar', \fpcm\model\users\author::getAuthorImageDataOrPath($this->user, false));
+        $this->view->assign('reloadSite', $this->reloadSite);
 
         $buttons = [
             (new \fpcm\view\helper\saveButton('userSave'))->setPrimary(),
@@ -95,19 +87,16 @@ implements \fpcm\controller\interfaces\requestFunctions {
 
         $this->view->addButtons($buttons);
 
-        $chgUser = new \fpcm\model\users\author($this->user->getChangeUser());
-
         $this->view->assign('createInfo', new \fpcm\view\helper\dateText($this->user->getRegistertime()));
 
         $this->view->assign('changeInfo', $this->language->translate('GLOBAL_USER_ON_TIME', [
-            '{{username}}' => $chgUser->exists() ? $chgUser->getDisplayname() : $this->language->translate('GLOBAL_NOTFOUND'),
+            '{{username}}' => \fpcm\classes\tools::userId2Text($this->user->getChangeUser()),
             '{{time}}'     => new \fpcm\view\helper\dateText($this->user->getChangetime())
         ]));
 
         $this->view->addJsVars([
             'userImgRedir' => \fpcm\classes\tools::getFullControllerLink('users/edit', [
-                'id' => $this->user->getId(),
-                'rg' => 1
+                'id' => $this->user->getId()
             ])
         ]);
 
@@ -120,31 +109,9 @@ implements \fpcm\controller\interfaces\requestFunctions {
     {
         $tabs = [];
         $tabs[] = (new \fpcm\view\helper\tabItem('edit'))->setText('USERS_EDIT')->setFile( $this->getViewPath() . '.php');
-
-        if ($this->showExtended) {
-            $tabs[] = (new \fpcm\view\helper\tabItem('extended'))->setText('GLOBAL_EXTENDED')->setFile('users/usereditor_extended.php');
-        }
-
         $tabs[] = (new \fpcm\view\helper\tabItem('meta'))->setText('USERS_META_OPTIONS')->setFile('users/editormeta.php');
-
         $this->view->addTabs('users', $tabs, 'fpcm ui-tabs-autoinit', $this->getActiveTab());
 
-    }
-
-    protected function onResetProfileSettings()
-    {
-        if (!$this->checkPageToken) {
-            return true;
-        }
-
-        if ($this->user->resetProfileSettings() === false) {
-            $this->view->addErrorMessage('SAVE_FAILED_USER_PROFILE');
-            return false;
-        }
-
-        $this->view->addNoticeMessage('SAVE_SUCCESS_RESETPROFILE');
-        $this->view->assign('reloadSite', true);
-        return true;
     }
 
 }

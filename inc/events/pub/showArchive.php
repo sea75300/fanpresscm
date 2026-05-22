@@ -19,6 +19,6 @@ namespace fpcm\events\pub;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\events
  */
-final class showArchive extends \fpcm\events\abstracts\eventReturnArray {
+final class showArchive extends \fpcm\events\abstracts\event {
 
 }

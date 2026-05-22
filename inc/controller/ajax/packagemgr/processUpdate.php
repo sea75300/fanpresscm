@@ -9,7 +9,7 @@ namespace fpcm\controller\ajax\packagemgr;
 
 /**
  * AJAX system updates controller
- * 
+ *
  * @package fpcm\controller\ajax\packagemgr\sysupdater
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2022, Stefan Seehafer
@@ -35,7 +35,7 @@ class processUpdate extends \fpcm\controller\abstracts\ajaxController
      * @var \fpcm\model\packages\update
      */
     protected $pkg;
-    
+
     /**
      *
      * @var bool
@@ -61,7 +61,7 @@ class processUpdate extends \fpcm\controller\abstracts\ajaxController
     protected $versionDataFile = false;
 
     /**
-     * 
+     *
      * @return bool
      */
     public function isAccessible(): bool
@@ -80,7 +80,8 @@ class processUpdate extends \fpcm\controller\abstracts\ajaxController
     }
 
     /**
-     * Controller-Processing
+     * Controller processing
+     * @return void
      */
     public function process()
     {
@@ -89,7 +90,7 @@ class processUpdate extends \fpcm\controller\abstracts\ajaxController
         if ($this->processByParam('exec', 'step') === self::ERROR_PROCESS_BYPARAMS) {
             $this->response->setReturnData(new \fpcm\model\http\responseDataPkgMgr(false))->fetch();
         }
-        
+
         $this->response->setReturnData(new \fpcm\model\http\responseDataPkgMgr($this->res, $this->pkgdata, $this->message));
 
         usleep(500000);
@@ -131,7 +132,7 @@ class processUpdate extends \fpcm\controller\abstracts\ajaxController
             $this->res = false;
             return false;
         }
-        
+
         $this->res = $this->pkg->download();
         if ($this->res === true) {
             fpcmLogSystem('Download of package '.$this->pkg->getRemotePath().' was successful.');
@@ -142,7 +143,7 @@ class processUpdate extends \fpcm\controller\abstracts\ajaxController
         \fpcm\classes\baseconfig::enableAsyncCronjobs(true);
         $this->res = false;
     }
-    
+
     protected function execCheckPkg()
     {
         $this->res = $this->pkg->checkPackage();
@@ -151,6 +152,9 @@ class processUpdate extends \fpcm\controller\abstracts\ajaxController
             return true;
         }
 
+        $this->addErrorMessage('PACKAGES_FAILED_ERROR'.$this->res, [
+            $this->pkg->getCompareSignaturesString()
+        ], true);
         \fpcm\classes\baseconfig::enableAsyncCronjobs(true);
         $this->res = false;
     }
@@ -206,7 +210,7 @@ class processUpdate extends \fpcm\controller\abstracts\ajaxController
 
         fpcmLogSystem('Database update failed. See error and database log for further information.');
     }
-    
+
     protected function execUpdateLog()
     {
         fpcmLogSystem('Update package manager logfile!');
@@ -236,11 +240,12 @@ class processUpdate extends \fpcm\controller\abstracts\ajaxController
     }
 
     /**
-     * 
+     *
      * @param string $var
+     * @param array $params
      */
-    private function addErrorMessage($var, $params = [])
+    private function addErrorMessage($var, $params = [], $spf = false)
     {
-        $this->message = new \fpcm\view\message($this->language->translate($var, $params), \fpcm\view\message::TYPE_ERROR);
+        $this->message = new \fpcm\view\message($this->language->translate($var, $params, $spf), \fpcm\view\message::TYPE_ERROR);
     }
 }

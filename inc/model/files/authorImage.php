@@ -9,14 +9,26 @@ namespace fpcm\model\files;
 
 /**
  * Author image file objekt
- * 
+ *
  * @package fpcm\model\files
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @since 3.6
  */
-final class authorImage extends image {
+final class authorImage extends mediaFile {
+
+    /**
+     * Erlaubte Dateitypen
+     * @var array
+     */
+    public static $allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
+
+    /**
+     * Erlaubte Dateiendungen
+     * @var array
+     */
+    public static $allowedExts = ['jpeg', 'jpg', 'png', 'gif', 'webp'];
 
     /**
      * Konstruktor
@@ -165,6 +177,8 @@ final class authorImage extends image {
             $this->whstring = $fileData[3];
             $this->mimetype = $fileData['mime'];
         }
+
+        return true;
     }
 
     /**

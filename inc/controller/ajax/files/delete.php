@@ -70,7 +70,8 @@ class delete extends \fpcm\controller\abstracts\ajaxController
     }
 
     /**
-     * Controller-Processing
+     * Controller processing
+     * @return void
      */
     public function process()
     {
@@ -92,8 +93,8 @@ class delete extends \fpcm\controller\abstracts\ajaxController
         
         $replace = ['{{filenames}}' => basename($this->fileName)];
 
-        $img = new \fpcm\model\files\image($this->fileName);
-        if ($img->isValidDataFolder('', \fpcm\classes\dirs::DATA_UPLOADS) && $img->delete()) {
+        $mfObj = new \fpcm\model\files\mediaFile($this->fileName);
+        if ($mfObj->delete()) {
             
             $this->response->setReturnData(new \fpcm\view\message(
                 $this->language->translate('DELETE_SUCCESS_FILES', $replace),
@@ -125,7 +126,7 @@ class delete extends \fpcm\controller\abstracts\ajaxController
 
         array_walk($this->fileName, function ($fileName)
         {
-            if ((new \fpcm\model\files\image($fileName))->delete()) {
+            if ((new \fpcm\model\files\mediaFile($fileName))->delete()) {
                 $this->deleted['ok'][] = $fileName;
                 return true;
             }

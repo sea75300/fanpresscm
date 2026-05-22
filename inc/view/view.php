@@ -28,6 +28,8 @@ class view {
 
     const PATH_COMPONENTS = '{$components}';
     const PATH_MODULE = '{$module}';
+    
+    const VIEW_FILE_EXTENSION = '.php';
 
     /**
      * Complete view path
@@ -263,7 +265,9 @@ class view {
             'AJAX_RESPONSE_ERROR', 'CONFIRM_MESSAGE', 'CACHE_CLEARED_OK',
             'SELECT_ITEMS_MSG', 'HL_HELP', 'CSRF_INVALID', 'HEADLINE',
             'GLOBAL_RESET', 'GLOBAL_PLEASEWAIT', 'LABEL_SEARCH_GLOBAL_RESULTSIZE',
-            'GLOBAL_HIDE', 'GLOBAL_SHOW'
+            'GLOBAL_HIDE', 'GLOBAL_SHOW', 'HL_PACKAGEMGR_SYSUPDATES',
+            'HL_HELP_CHANGELOG', 'PACKAGES_UPDATE_CONFIRM',
+            'HL_PACKAGEMGR_SYSUPDATES', 'GLOBAL_SELECT'
         ]);
 
         $this->jsLangVars['calendar']['days'] = $this->language->getDays();
@@ -332,13 +336,19 @@ class view {
 
         ];
 
-        $result = $this->events->trigger('view\extendProfileMenu', $default);
-        if (!$result->getSuccessed() || !$result->getContinue()) {
+        $ev = $this->events->trigger('view\extendProfileMenu', $default);
+        if (!$this->handleEventResultData($ev, 'view\extendProfileMenu')) {
             $this->defaultViewVars->profileMenuButtons = $default;
             return false;
         }
+        
+        $btns = $ev->getData();
+        if (!is_array($btns)) {
+            trigger_error("Returned data of view\extendProfileMenu event must be an array, retuning to default only!");
+            $btns = $default;
+        }
 
-        $this->defaultViewVars->profileMenuButtons = $result->getData();
+        $this->defaultViewVars->profileMenuButtons = $btns;
         return true;
     }
 
@@ -352,10 +362,15 @@ class view {
         $toolbarButtons = new \fpcm\events\view\extendToolbarResult();
         $toolbarButtons->buttons = $this->buttons;
 
-        /* @var $toolbarButtons \fpcm\events\view\extendToolbarResult */
-        $toolbarButtons = $this->events->trigger('view\extendToolbar', $toolbarButtons);
-        if ($toolbarButtons instanceof \fpcm\module\eventResult) {
-            $toolbarButtons = $toolbarButtons->getData();
+        $ev = $this->events->trigger('view\extendToolbar', $toolbarButtons);
+        if (!$this->handleEventResultData($ev, 'view\extendToolbar')) {
+            return false;
+        }
+
+        $toolbarButtons = $ev->getData();
+        if (!$toolbarButtons instanceof \fpcm\events\view\extendToolbarResult) {
+            trigger_error("Returned data of view\\extendToolbar event must be an instance of \\fpcm\\events\\view\\extendToolbarResult");
+            return false;
         }
 
         $this->defaultViewVars->toolbarArea = $toolbarButtons->area;
@@ -440,17 +455,6 @@ class view {
     public function overrideJsFiles(array $jsFiles)
     {
         $this->jsFiles = $jsFiles;
-    }
-
-    /**
-     * Overrides new JS language vars
-     * @param array $jsVars
-     * @deprecated 5.2
-     */
-    public function overrideJsLangVars(array $jsVars)
-    {
-        trigger_error(sprintf('%s is deprecated as of FPCM 5.2. Use "addJsLangVars" function with second parameter true instead.', __METHOD__), E_USER_DEPRECATED);
-        $this->addJsLangVars($jsVars, true);
     }
 
     /**
@@ -562,7 +566,7 @@ class view {
      * @return bool
      * @since 5.2.0-a1
      */
-    final public function addFromCpomponent($component) : bool
+    final public function addFromComponent($component) : bool
     {
 
         if (!$component instanceof \fpcm\model\interfaces\viewComponent) {
@@ -615,19 +619,6 @@ class view {
         }
 
         $this->buttons[] = $button;
-    }
-
-    /**
-     * Force to load jQuery in Pub-Controllers before other JS-Files if not already done
-     * @since 3.2.0
-     */
-    public function prependjQuery()
-    {
-        if ($this->config->system_loader_jquery) {
-            return false;
-        }
-
-        array_unshift($this->jsFiles, \fpcm\components\components::getjQuery());
     }
 
     /**
@@ -740,19 +731,29 @@ class view {
         }
 
         if (!file_exists($this->viewPath) || strpos(realpath($this->viewPath), \fpcm\classes\dirs::getFullDirPath('') ) !== 0) {
-            trigger_error("View file {$this->viewName} not found in {$this->viewPath}!", E_USER_ERROR);
-            exit("View file {$this->viewName} not found in {$this->viewPath}!");
+            throw new \Exception(sprintf("View file %s not found in %s", $this->viewName, $this->viewPath));
         }
 
         $this->initAssigns();
-        extract($this->events->trigger('view\renderBefore', $this->viewVars)->getData());
+
+        $ev = $this->events->trigger('view\renderBefore', $this->viewVars);
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            throw new \Exception(sprintf("Event view\renderBefore failed for %s. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue(), $this->viewPath));
+        }
+
+        $vars = $ev->getData();
+        if (!is_array($vars)) {
+            throw new \Exception("Return data of view\renderBefore must be an array!");
+        }
+        
+        extract($vars);
 
         switch ($this->showHeader) {
             case self::INCLUDE_HEADER_FULL :
-                include_once \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'common/header.php');
+                include_once \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'common/header' . self::VIEW_FILE_EXTENSION);
                 break;
             case self::INCLUDE_HEADER_SIMPLE :
-                include_once \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'common/headersimple.php');
+                include_once \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'common/headersimple' . self::VIEW_FILE_EXTENSION);
                 break;
         }
 
@@ -760,14 +761,18 @@ class view {
 
         switch ($this->showHeader) {
             case self::INCLUDE_HEADER_FULL :
-                include_once \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'common/footer.php');
+                include_once \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'common/footer' . self::VIEW_FILE_EXTENSION);
                 break;
             case self::INCLUDE_HEADER_SIMPLE :
-                include_once \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'common/footersimple.php');
+                include_once \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'common/footersimple' . self::VIEW_FILE_EXTENSION);
                 break;
         }
 
-        $this->events->trigger('view\renderAfter');
+        $ev = $this->events->trigger('view\renderAfter');
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            throw new \Exception(sprintf("Event view\renderAfter failed failed for %s. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue(), $this->viewPath));
+        }
+
         $this->rendered = true;
 
         if ($return) {
@@ -788,13 +793,13 @@ class view {
         $this->defaultViewVars->loggedIn = false;
 
         $this->initAssignsWithDb();
-        $this->initAssignsWidthSession();
+        $this->initAssignsWithSession();
 
         $this->defaultViewVars->langCode = $this->language->getLangCode();
         $this->defaultViewVars->self = trim(filter_var($_SERVER['PHP_SELF'], FILTER_SANITIZE_URL));
         $this->defaultViewVars->basePath = \fpcm\classes\tools::getFullControllerLink();
         $this->defaultViewVars->themePath = \fpcm\classes\dirs::getCoreUrl(\fpcm\classes\dirs::CORE_THEME);
-        $this->defaultViewVars->debugMode = defined('FPCM_DEBUG') && FPCM_DEBUG;
+        $this->defaultViewVars->debugMode = \fpcm\classes\baseconfig::debugModeActive();
 
         /* @var $req \fpcm\model\http\request */
         $req = \fpcm\classes\loader::getObject('\fpcm\model\http\request');
@@ -896,9 +901,14 @@ class view {
      * @return bool
      * @since 5.2.0-a1
      */
-    private function initAssignsWidthSession() : bool
+    private function initAssignsWithSession() : bool
     {
-        if ( !$this->session?->exists() ) {
+        if (!\fpcm\classes\baseconfig::dbConfigExists()) {
+            return false;
+        }
+        
+        if ( !$this->session->exists()) {
+            $this->defaultViewVars->darkMode = $this->config->system_darkmode;
             return false;
         }
 
@@ -936,7 +946,7 @@ class view {
      */
     public function setViewPath($viewName, $module = null)
     {
-        $viewName .= '.php';
+        $viewName .= self::VIEW_FILE_EXTENSION;
 
         $this->viewPath = $module
                         ? \fpcm\module\module::getTemplateDirByKey($module, $viewName)
@@ -1135,11 +1145,16 @@ class view {
         $etRes->activeTab = $active;
 
         $ev = $this->events->trigger('view\extendTabs', $etRes);
-        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+        if (!$this->handleEventResultData($ev, 'view\extendTabs')) {
             return false;
         }
 
         $etRes = $ev->getData();
+        if (!$etRes instanceof \fpcm\events\view\extendTabsResult) {
+            trigger_error("Returned data of view\extendTabs event must be an instance of \fpcm\events\view\extendTabsResult");
+            return false;
+        }
+
 
         $tabsId = $etRes->tabsId;
         $tabs = $etRes->tabs;
@@ -1182,7 +1197,7 @@ class view {
      */
     public function addOffCanvas(string $headline, string $filePath)
     {
-        $this->assign('offcanvasFile', $filePath . '.php');
+        $this->assign('offcanvasFile', $filePath . self::VIEW_FILE_EXTENSION);
         $this->assign('offcanvasHeadline', $headline);
         $this->defaultViewVars->showOffCanvas = true;
     }
@@ -1225,31 +1240,37 @@ class view {
         if (!isset($this->jsVars['dialogs'])) {
             $this->jsVars['dialogs'] = [];
         }
-        
+
         if (!is_array($dialogs)) {
             $dialogs = [$dialogs];
         }
 
         /* @var helper\dialog $dlg */
         foreach ($dialogs as $dlg) {
-            
+
             if (!$dlg instanceof helper\dialog) {
                 continue;
             }
-            
-            $this->jsVars['dialogs'][$dlg->getName()] = $dlg;
+
+            $this->jsVars['dialogs'][$dlg->getName()] = $dlg;            
+            $this->addJsLangVars($dlg->getJsLangVars());
         }
-        
+
     }
 
     /**
-     * Add path for default forms.php view file
-     * @param string str
+     * Add path for form view, use forms.php file if no .php extention given
+     * @param string $str
+     * @return void
      * @since 5.0-dev
      */
-    public function includeForms(string $str)
+    public function includeForms(string $str) : void
     {
-        $this->defaultViewVars->includeForms = $str . '/forms.php';
+        if (!str_ends_with($str, self::VIEW_FILE_EXTENSION)) {
+            $str .= '/forms' . self::VIEW_FILE_EXTENSION;
+        }
+
+        $this->defaultViewVars->includeForms = $str;
     }
 
     /**
@@ -1262,11 +1283,30 @@ class view {
             return false;
         }
 
-        $this->jsFiles = $this->events->trigger($type.'\addJsFiles', $this->jsFiles)->getData();
-        $this->jsFilesLate = $this->events->trigger($type.'\addJsFilesLate', $this->jsFilesLate)->getData();
-        $this->jsModuleFiles = $this->events->trigger($type.'\addJsModules', $this->jsModuleFiles)->getData();
-        $this->cssFiles = $this->events->trigger($type.'\addCssFiles', $this->cssFiles)->getData();
+        $ev1 = $this->events->trigger($type.'\addJsFiles', $this->jsFiles);
+        if (!$this->handleEventResultData($ev1, $type.'\addJsFiles')) {
+            return false;
+        }
 
+        $ev2 = $this->events->trigger($type.'\addJsFilesLate', $this->jsFilesLate);
+        if (!$this->handleEventResultData($ev2, $type.'\addJsFilesLate')) {
+            return false;
+        }
+
+        $ev3 = $this->events->trigger($type.'\addJsModules', $this->jsModuleFiles);
+        if (!$this->handleEventResultData($ev3, $type.'\addJsModules')) {
+            return false;
+        }
+
+        $ev4 = $this->events->trigger($type.'\addCssFiles', $this->cssFiles);
+        if (!$this->handleEventResultData($ev4, $type.'\addCssFiles')) {
+            return false;
+        }
+
+        $this->jsFiles = $ev1->getData();
+        $this->jsFilesLate = $ev2->getData();
+        $this->jsModuleFiles = $ev3->getData();
+        $this->cssFiles = $ev4->getData();
         return true;
     }
 
@@ -1315,23 +1355,30 @@ class view {
 
         $ext = self::getJsExt();
 
-        $this->addJsFiles([
+        $files = [
             \fpcm\components\components::getjQuery(),
-            self::ROOTURL_LIB.'bootstrap/js/bootstrap.bundle.min.js',
-            self::ROOTURL_LIB.'bs-autocomplete/autocomplete.js',
-            '{$coreJs}/ajax' . $ext,
-            '{$coreJs}/dom' . $ext,
-            '{$coreJs}/ui/base' . $ext,
-            '{$coreJs}/ui/dialogs' . $ext,
-            '{$coreJs}/ui/webnotify' . $ext,
-            '{$coreJs}/ui/notifications' . $ext,
-            '{$coreJs}/ui/loader' . $ext,
-            '{$coreJs}/ui/tabs' . $ext,
-            '{$coreJs}/ui/pager' . $ext,
-            '{$coreJs}/ui/deprecated' . $ext,
-            '{$coreJs}/system' . $ext,
-            '{$coreJs}/gsearch' . $ext
-        ]);
+            self::ROOTURL_LIB . 'bootstrap/js/bootstrap.bundle.min.js',
+            self::ROOTURL_CORE_JS . 'ajax' . $ext,
+            self::ROOTURL_CORE_JS . 'dom' . $ext,
+            self::ROOTURL_CORE_JS . 'ui/base' . $ext,
+            self::ROOTURL_CORE_JS . 'ui/dialogs' . $ext,
+            self::ROOTURL_CORE_JS . 'ui/webnotify' . $ext,
+            self::ROOTURL_CORE_JS . 'ui/notifications' . $ext,
+            self::ROOTURL_CORE_JS . 'ui/loader' . $ext,
+            self::ROOTURL_CORE_JS . 'ui/tabs' . $ext,
+            self::ROOTURL_CORE_JS . 'ui/pager' . $ext,
+            self::ROOTURL_CORE_JS . 'system' . $ext,
+            self::ROOTURL_CORE_JS . 'common/refresh' . $ext,
+            self::ROOTURL_CORE_JS . 'common/reminders' . $ext,
+            self::ROOTURL_CORE_JS . 'common/gsearch' . $ext
+        ];
+        
+        if (\fpcm\classes\baseconfig::debugModeActive()) {
+            $files[] = self::ROOTURL_CORE_JS . 'common/dev' . $ext;
+            $files[] = 'https://code.jquery.com/jquery-migrate-4.0.2.js';
+        }
+        
+        $this->addJsFiles($files);
 
         $this->addJsFilesLate([self::ROOTURL_CORE_JS.'init'.self::getJsExt()]);
         $this->setJsModuleFiles(['/ui/forms.js']);
@@ -1349,7 +1396,7 @@ class view {
             return;
         }
 
-        $this->addFromCpomponent( \fpcm\components\components::getLightbox() );
+        $this->addFromComponent( \fpcm\components\components::getLightbox() );
         return;
     }
 
@@ -1381,5 +1428,21 @@ class view {
         }
 
         return '.min'.$jsExt;
+    }
+
+    /**
+     * Handle event result
+     * @param \fpcm\module\eventResult $ev
+     * @param string $evName
+     * @return bool
+     */
+    private function handleEventResultData(\fpcm\module\eventResult $ev, string $evName) : bool
+    {
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event %s failed. Returned success = %s, continue = %s", addslashes($evName), $ev->getSuccessed(), $ev->getContinue()));
+            return false;
+        }
+
+        return true;
     }
 }

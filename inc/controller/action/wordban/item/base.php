@@ -22,6 +22,10 @@ implements \fpcm\controller\interfaces\requestFunctions
      */
     protected $item;
 
+    /**
+     * Controller-Processing
+     * @return void
+     */
     public function process()
     {
         define('FPCM_VIEW_FLOATING_LABEL_ALL', true);
@@ -40,11 +44,13 @@ implements \fpcm\controller\interfaces\requestFunctions
                     ->setValue($this->item->getSearchtext())
                     ->setText('WORDBAN_NAME')
                     ->setIcon('filter')
-                    ->setAutoFocused(true),
+                    ->setAutoFocused(true)
+                    ->setRequired(),
             (new \fpcm\view\helper\textInput('wbitem[replacementtext]'))
                     ->setValue($this->item->getReplacementtext())
                     ->setText('WORDBAN_REPLACEMENT_TEXT')
-                    ->setIcon('edit'),
+                    ->setIcon('edit')
+                    ->setRequired(),
             new \fpcm\components\fieldGroup([               
                 (new \fpcm\view\helper\checkbox('wbitem[replacetxt]'))->setText('WORDBAN_REPLACETEXT')->setSelected($this->item->getReplaceTxt())->setSwitch(true),
                 (new \fpcm\view\helper\checkbox('wbitem[lockarticle]'))->setText('WORDBAN_APPROVE_ARTICLE')->setSelected($this->item->getLockArticle())->setSwitch(true),

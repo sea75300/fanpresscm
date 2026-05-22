@@ -10,7 +10,7 @@ namespace fpcm\controller\action\articles\article;
 /**
  * Article add controller
  * @article Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2022, Stefan Seehafer
+ * @copyright (c) 2011-2026, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 class add extends base {
@@ -26,10 +26,12 @@ class add extends base {
         return $this->permissions->article->add;
     }
 
+    /**
+     * Controller processing
+     * @return void
+     */
     public function process()
     {
-        $this->article->enableTweetCreation($this->config->twitter_events['create']);
-
         parent::process();
 
         $this->view->setFormAction('articles/add');
@@ -47,11 +49,10 @@ class add extends base {
     {
         $this->redirect('articles/edit', [
             'id' => $id,
-            'added' => $this->permissions->article->approve ? 2 : 1
+            'msg' => $this->permissions->article->approve ? self::MESSAGE_ARTICLE_APPROVE : self::MESSAGE_ARTICLE_ADDED
         ]);
 
         return true;
     }
-
 
 }

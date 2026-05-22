@@ -14,7 +14,8 @@ namespace fpcm\view\helper;
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
- * @since 4-5
+ * @since 4.5
+ * @deprecated 5.3.0-a1
  */
 class jsIcon extends icon implements \JsonSerializable {
 

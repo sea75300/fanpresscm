@@ -19,14 +19,14 @@ namespace fpcm\events\editor;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\events
  */
-final class addLinks extends \fpcm\events\abstracts\eventReturnArray {
+final class addLinks extends \fpcm\events\abstracts\event {
 
     /**
      * Executes a certain event
      * @param void $data
      * @return array
      */
-    public function run()
+    public function run() : \fpcm\module\eventResult
     {
         $this->data = [ ['label' => 'Example', 'value' => 'Example'] ];
         return parent::run();

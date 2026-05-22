@@ -48,7 +48,7 @@ abstract class event {
      * Execute event
      * @return mixed
      */
-    abstract public function run();
+    abstract public function run() : \fpcm\module\eventResult;
 
 
     /**

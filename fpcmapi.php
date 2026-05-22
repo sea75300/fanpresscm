@@ -8,8 +8,14 @@
 /**
  * FPCM frontend api flag
  */
-define('FPCM_FE', true);
-define('FPCM_MODE_NOPAGETOKEN', true);
+
+if (!defined('FPCM_FE')) {
+    define('FPCM_FE', true);
+}
+
+if (!defined('FPCM_MODE_NOPAGETOKEN')) {
+    define('FPCM_MODE_NOPAGETOKEN', true);
+}
 
 /**
  * Include of base files
@@ -36,7 +42,7 @@ class fpcmAPI {
      * Ausführung unter PHP 7+
      * @var bool
      */
-    protected $versionFailed = false;
+    protected static $versionFailed = false;
 
     /**
      * Konstruktor, prüft PHP-Version, Installer-Status und Datenbank-Config-Status
@@ -44,7 +50,7 @@ class fpcmAPI {
      */
     public function __construct()
     {
-        $this->versionFailed = version_compare(PHP_VERSION, FPCM_PHP_REQUIRED, '<') || !\fpcm\classes\baseconfig::dbConfigExists() || \fpcm\classes\baseconfig::installerEnabled();
+        self::$versionFailed = version_compare(PHP_VERSION, FPCM_PHP_REQUIRED, '<') || !\fpcm\classes\baseconfig::dbConfigExists() || \fpcm\classes\baseconfig::installerEnabled();
     }
 
     /**
@@ -83,7 +89,7 @@ class fpcmAPI {
      */
     public function showArticles(array $params = [])
     {
-        if ($this->versionFailed) {
+        if (self::$versionFailed) {
             return false;
         }
 
@@ -132,7 +138,7 @@ class fpcmAPI {
      */
     public function showLatestNews(array $params = [])
     {
-        if ($this->versionFailed) {
+        if (self::$versionFailed) {
             return false;
         }
 
@@ -161,7 +167,7 @@ class fpcmAPI {
      */
     public function showPageNumber($divider = "&bull; Page")
     {
-        if ($this->versionFailed) {
+        if (self::$versionFailed) {
             return false;
         }
 
@@ -176,7 +182,7 @@ class fpcmAPI {
      */
     public function showTitle($divider = "&bull;")
     {
-        if ($this->versionFailed) {
+        if (self::$versionFailed) {
             return false;
         }
 
@@ -193,20 +199,12 @@ class fpcmAPI {
      * @param array $arguments
      * @return mixed
      * @since 3.1.5
+     * @deprecated 5.3.0-a1
+     * @see getModuleApi
      */
     public function __call($name, $arguments)
     {
-        if ($this->versionFailed) {
-            return false;
-        }
-
-        $this->initObjects();
-
-        return fpcm\classes\loader::getObject('fpcm\events\events')->trigger('apiCallFunction', [
-            'name' => $name,
-            'args' => $arguments
-        ])->getData();
-
+        trigger_error(sprintf('Dynamic function call via event "apiCallFunction::%s"  is no longer as of FPCM 3.5.0-a1! Use %s::getModuleApi(string $moduleKey) instead!', $name, self::class), E_USER_DEPRECATED);
     }
 
     /**
@@ -217,19 +215,11 @@ class fpcmAPI {
      * @param array $arguments
      * @return mixed
      * @since 3.1.5
+     * @deprecated 5.3.0-a1
      */
     public static function __callStatic($name, $arguments)
     {
-        if ($this->versionFailed) {
-            return false;
-        }
-
-        $this->initObjects();
-
-        return fpcm\classes\loader::getObject('fpcm\events\events')->trigger('apiCallFunction', [
-                    'name' => $name,
-                    'args' => $arguments
-        ])->getData();
+        trigger_error(sprintf('Dynamic static function call via event "apiCallFunction::%s"  is no longer as of FPCM 3.5.0-a1', $name), E_USER_DEPRECATED);
     }
 
     /**
@@ -240,7 +230,7 @@ class fpcmAPI {
      */
     public function loginExternal(array $credentials)
     {
-        if ($this->versionFailed) {
+        if (self::$versionFailed) {
             return false;
         }
 
@@ -269,7 +259,7 @@ class fpcmAPI {
      */
     public function logoutExternal($sessionId)
     {
-        if ($this->versionFailed) {
+        if (self::$versionFailed) {
             return false;
         }
 
@@ -293,11 +283,11 @@ class fpcmAPI {
      */
     public function fpcmEnCrypt($value)
     {
-        if ($this->versionFailed) {
+        if (self::$versionFailed) {
             return false;
         }
 
-        return fpcm\classes\loader::getObject('fpcm\classes\crypt')->encrypt($value);
+        return \fpcm\classes\crypt::getInstance()->encrypt($value);
     }
 
     /**
@@ -308,11 +298,11 @@ class fpcmAPI {
      */
     public function fpcmDeCrypt($value)
     {
-        if ($this->versionFailed) {
+        if (self::$versionFailed) {
             return false;
         }
 
-        return fpcm\classes\loader::getObject('fpcm\classes\crypt')->decrypt($value);
+        return \fpcm\classes\crypt::getInstance()->decrypt($value);
     }
 
     /**
@@ -393,7 +383,7 @@ class fpcmAPI {
      */
     public function isMaintenance() : bool
     {
-        return \fpcm\classes\loader::getObject('\fpcm\model\system\config')->system_maintenance;
+        return \fpcm\model\system\config::getInstance()->system_maintenance;
     }
 
     /**
@@ -405,14 +395,60 @@ class fpcmAPI {
     {
         define('FPCM_PUBJS_LOADED', 1);
 
-        if ( defined('FPCM_DEBUG') && FPCM_DEBUG ||
-             !file_exists(\fpcm\classes\dirs::getFullDirPath('js/fpcm.min.js') ) )  {
-            return \fpcm\classes\dirs::getRootUrl('js/fpcm.js');
+        return fpcm\model\pubtemplates\template::getPublicJavascript();
+    }
+
+    /**
+     * Call module api
+     * @param string $key
+     * @return \fpcm\module\api|bool
+     * @since 5.3.0-a1
+     */
+    public function getModuleApi(string $key)
+    {
+        $en = 'modules\api';
+
+        $ev = fpcm\events\events::getInstance()->trigger($en, $key);
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            throw new \Exception(sprintf("Event %s failed. Returned success = %s, continue = %s", $en, $ev->getSuccessed(), $ev->getContinue()));
         }
 
-        return \fpcm\classes\dirs::getRootUrl('js/fpcm.min.js');
+        $res = $ev->getData();
+        if (!$res instanceof \fpcm\module\api) {
+            throw new \Exception(sprintf("Invalid api instance for %s", $key));
+        }
+
+        return $res;
+    }
+
+    /**
+     * Returns url of Bootstrap CSS lib
+     * @return string
+     * @since 5.3.0-a1
+     */
+    public function getBootstrap() : string
+    {
+        return \fpcm\classes\dirs::getLibUrl('bootstrap/css/bootstrap.min.css');
+    }
+
+    /**
+     * Returns url of Bootstrap JS lib
+     * @return string
+     * @since 5.3.0-b5
+     */
+    public function getBootstrapJs() : string
+    {
+        return \fpcm\classes\dirs::getLibUrl('bootstrap/js/bootstrap.bundle.min.js');
+    }
+
+    /**
+     * Returns url of Font Awesome lib
+     * @return string
+     * @since 5.3.0-a1
+     */
+    public function getFontAwesome() : string
+    {
+        return \fpcm\classes\dirs::getLibUrl('font-awesome/css/all.min.css');
     }
 
 }
-
-?>

@@ -9,14 +9,18 @@ namespace fpcm\model\permissions;
 
 /**
  * Permissions handler object
- * 
+ *
  * @package fpcm\model\permissions
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @since 4.4
  */
-class permissions extends \fpcm\model\abstracts\dataset {
+class permissions
+extends \fpcm\model\abstracts\dataset
+implements \fpcm\model\interfaces\isObjectInstancable {
+    
+    use \fpcm\model\traits\getObjectInstance;
 
     /**
      * Rollen-ID
@@ -38,7 +42,7 @@ class permissions extends \fpcm\model\abstracts\dataset {
 
     /**
      * Article permissions
-     * @var items\article 
+     * @var items\article
      */
     public $article;
 
@@ -93,7 +97,7 @@ class permissions extends \fpcm\model\abstracts\dataset {
             return;
         }
 
-        $this->cacheName = $useCache ? 'permissioncache' . $rollid: false;       
+        $this->cacheName = $useCache ? 'permissioncache' . $rollid: false;
         $this->rollid = $rollid;
         $this->init();
     }
@@ -149,7 +153,7 @@ class permissions extends \fpcm\model\abstracts\dataset {
             $this->initItems();
             return true;
         }
-        
+
         $data = $this->dbcon->selectFetch( (new \fpcm\model\dbal\selectParams($this->table))->setWhere('rollid = ?')->setParams([$this->rollid]) );
 
         $this->id = $data->id;
@@ -177,7 +181,7 @@ class permissions extends \fpcm\model\abstracts\dataset {
         if (!($this->events instanceof \fpcm\events\events)) {
             $this->events = \fpcm\classes\loader::getObject('\fpcm\events\events');
         }
-        
+
         $this->refresh();
         return parent::save() === false ? false : true;
     }
@@ -193,11 +197,17 @@ class permissions extends \fpcm\model\abstracts\dataset {
         }
 
         $params = $this->getPreparedSaveParams();
-        $params = $this->events->trigger($this->getEventName('update'), $params)->getData();
-
-        $fields = array_keys($params);
-
         $params[] = $this->getRollId();
+
+        $upEvN = $this->getEventName('update');
+        $ev = $this->events->trigger($upEvN, $params);
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event %s failed. Returned success = %s, continue = %s", $upEvN, $ev->getSuccessed(), $ev->getContinue()));
+            return false;
+        }
+
+        $params = $ev->getData();
+        $fields = $this->getFieldFromSaveParams($params);
 
         $return = false;
         if ($this->dbcon->update($this->table, $fields, array_values($params), 'rollid = ?')) {
@@ -215,6 +225,14 @@ class permissions extends \fpcm\model\abstracts\dataset {
      */
     public function delete()
     {
+        $evn = $this->getEventName('delete');
+        $ev = $this->events->trigger($evn, $this->rollid);
+
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event %s failed. Returned success = %s, continue = %s", $evn, $ev->getSuccessed(), $ev->getContinue()));
+            return false;
+        }
+
         $this->dbcon->delete($this->table, 'rollid = ?', [$this->rollid]);
         $this->refresh();
         return true;
@@ -275,7 +293,7 @@ class permissions extends \fpcm\model\abstracts\dataset {
         if (!$this->article->massedit) {
             return false;
         }
-        
+
         return $this->editArticles();
     }
 
@@ -292,7 +310,7 @@ class permissions extends \fpcm\model\abstracts\dataset {
         if ($this->article->editall && $this->comment->editall) {
             return true;
         }
-        
+
         return false;
     }
 
@@ -360,12 +378,12 @@ class permissions extends \fpcm\model\abstracts\dataset {
         if (!is_array($this->permissiondata)) {
             return false;
         }
-        
+
         foreach ($this->permissiondata as $key => $value) {
             $className = "\\fpcm\\model\\permissions\items\\{$key}";
             $this->$key = new $className($value);
         }
-        
+
         return true;
     }
 

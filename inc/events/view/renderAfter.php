@@ -19,6 +19,6 @@ namespace fpcm\events\view;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\events
  */
-final class renderAfter extends \fpcm\events\abstracts\eventReturnVoid {
+final class renderAfter extends \fpcm\events\abstracts\event {
 
 }

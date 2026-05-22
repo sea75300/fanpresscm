@@ -15,7 +15,7 @@ if (file_exists(dirname(__DIR__) . '/data/config/constants.custom.php')) {
  * @since 3.5
  * @ignore
  */
-define('FPCM_PHP_REQUIRED', '8.0.0');
+define('FPCM_PHP_REQUIRED', '8.2.0');
 
 /**
  * Constant of seconds per day
@@ -124,7 +124,7 @@ if (!defined('FPCM_AUTHOR_IMAGE_MAX_SIZE')) {
      * Maximale Größe von Author-Bildern
      * @since 3.6
      */
-    define('FPCM_AUTHOR_IMAGE_MAX_SIZE', 32768);
+    define('FPCM_AUTHOR_IMAGE_MAX_SIZE', 65536);
 }
 
 if (!defined('FPCM_INSECURE_USERNAMES')) {
@@ -256,16 +256,6 @@ if (!defined('FPCM_DISABLE_AJAX_CRONJOBS_REFRESH')) {
     define('FPCM_DISABLE_AJAX_CRONJOBS_REFRESH', false);
 }
 
-if (!defined('FPCM_TWITTER_DSIABLE_API')) {
-
-    /**
-     * Disable twitter api connector
-     * @link https://www.heise.de/news/Twitter-macht-API-Zugang-kostenpflichtig-mit-einer-Woche-Vorlaufzeit-7480995.html
-     * @since 5.1.0-b4
-     */
-    define('FPCM_TWITTER_DSIABLE_API', true);
-}
-
 if (!defined('FPCM_ARTICLES_OLDMESSAGE_INTERVALL')) {
 
     /**
@@ -273,6 +263,15 @@ if (!defined('FPCM_ARTICLES_OLDMESSAGE_INTERVALL')) {
      * @since 5.2.0-a1
      */
     define('FPCM_ARTICLES_OLDMESSAGE_INTERVALL', 31104000);
+}
+
+if (!defined('FPCM_SMTP_LEVEL')) {
+
+    /**
+     * Enable SMTP error log output
+     * @since 5.3.0-a1
+     */
+    define('FPCM_SMTP_LEVEL', 0);
 }
 
 //if (!defined('FPCM_URLS_BASE')) {
@@ -283,3 +282,12 @@ if (!defined('FPCM_ARTICLES_OLDMESSAGE_INTERVALL')) {
      */
 //    define('FPCM_URLS_BASE', '');
 //}
+
+if (!defined('FPCM_IMAGE_PROCESSING_DRIVER')) {
+
+    /**
+     * Set Intervention\Image processing driver
+     * @since 5.3.0-rc3
+     */
+    define('FPCM_IMAGE_PROCESSING_DRIVER', 'Gd');
+}

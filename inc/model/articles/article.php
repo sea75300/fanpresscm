@@ -27,7 +27,6 @@ implements
         \fpcm\model\traits\articles\csvUtils,
         \fpcm\model\traits\articles\iconUtils,
         \fpcm\model\traits\articles\revisionUtils,
-        \fpcm\model\traits\articles\twitterUtils,
         \fpcm\model\traits\articles\sourcesUtils;
 
     /**
@@ -206,8 +205,6 @@ implements
         'defaultPermissions',
         'forceDelete',
         'editPermission',
-        'tweetOverride',
-        'tweetCreate',
         'crypt'
     ];
 
@@ -664,12 +661,6 @@ implements
     {
         $idParam = ($this->config->articles_link_urlrewrite ? $this->getArticleNicePath() : $this->getId());
 
-        if (!$this->config->system_mode) {
-            return \fpcm\classes\tools::getFullControllerLink('fpcm/article', [
-                'id' => $idParam
-            ]);
-        }
-
         return $this->config->system_url . '?module=fpcm/article&id=' . $idParam.$params;
     }
 
@@ -694,13 +685,19 @@ implements
 
         $external = !\fpcm\classes\baseconfig::canConnect() || (defined('FPCM_ARTICLE_DISABLE_SHORTLINKS') && FPCM_ARTICLE_DISABLE_SHORTLINKS) ? false : true;
 
-        $return = $this->events->trigger('article\getShortLink', [
+        $ev = $this->events->trigger('article\getShortLink', [
             'url' => $elLink,
             'encoded' => $elLinkEncode,
             'active' => $external,
             'default' => true,
-        ])->getData();
+        ]);
 
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event runSystemCheck failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return $elLink;
+        }
+
+        $return = $ev->getData();
         if (!$external) {
             return $elLink;
         }
@@ -740,6 +737,17 @@ implements
     {
         $this->cleanupCaches();
 
+        $evbn = $this->getEventName('deleteBefore');
+        $ev = $this->events->trigger($evbn, [
+            'id' => $this->id,
+            'force' => $this->forceDelete
+        ]);
+
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event %s failed. Returned success = %s, continue = %s", $evbn, $ev->getSuccessed(), $ev->getContinue()));
+            return false;
+        }
+
         if (!$this->forceDelete) {
             $this->deleted = 1;
 
@@ -752,8 +760,18 @@ implements
         $commentList = new \fpcm\model\comments\commentList();
         $commentList->deleteCommentsByArticle($this->id);
 
-        $return = parent::delete();
+        $return = $this->dbcon->delete($this->table, 'id = ?', [$this->id]);
+        $this->cache->cleanup();
+
         $this->deleted = 1;
+
+        $evan = $this->getEventName('deleteAfter');
+        $eva = $this->events->trigger($evan, $this->id);
+
+        if (!$eva->getSuccessed() || !$eva->getContinue()) {
+            trigger_error(sprintf("Event %s failed. Returned success = %s, continue = %s", $evan, $eva->getSuccessed(), $eva->getContinue()));
+            return false;
+        }
 
         return $return;
     }
@@ -938,7 +956,6 @@ implements
     {
         $this->pushCategories();
         $this->cleanupCaches();
-        $this->createTweet();
         return true;
     }
 
@@ -953,7 +970,6 @@ implements
         $this->pushCategories();
         $this->cleanupCaches();
         $this->init();
-        $this->createTweet();
         return true;
     }
 

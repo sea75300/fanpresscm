@@ -47,6 +47,10 @@ implements \fpcm\controller\interfaces\requestFunctions
         return true;
     }
 
+    /**
+     * Controller processing
+     * @return void
+     */
     public function process()
     {        
         $this->items = $this->smileyList->getDatabaseList();
@@ -67,7 +71,7 @@ implements \fpcm\controller\interfaces\requestFunctions
         return [
             (new \fpcm\view\helper\tabItem($this->getDataViewName().'-list'))
                 ->setText('HL_OPTIONS_SMILEYS')
-                ->setFile('components/dataview__inline.php')
+                ->useDataView()
         ];
     }
 
@@ -79,10 +83,10 @@ implements \fpcm\controller\interfaces\requestFunctions
     {
         return [
             (new \fpcm\components\dataView\column('select', (new \fpcm\view\helper\checkbox('fpcm-select-all'))->setClass('fpcm-select-all')))->setSize(1)->setAlign('center'),
-            (new \fpcm\components\dataView\column('buttons', ''))->setSize(1),
-            (new \fpcm\components\dataView\column('filename', 'FILE_LIST_FILENAME'))->setSize(3),
-            (new \fpcm\components\dataView\column('code', 'FILE_LIST_SMILEYCODE'))->setSize(3),
-            (new \fpcm\components\dataView\column('image', ''))->setAlign('center')->setSize(4),
+            (new \fpcm\components\dataView\column('buttons'))->setSize(1),
+            (new \fpcm\components\dataView\column('filename', 'FILE_LIST_FILENAME')),
+            (new \fpcm\components\dataView\column('code', 'FILE_LIST_SMILEYCODE')),
+            (new \fpcm\components\dataView\column('image'))->setAlign('center'),
         ];
     }
 

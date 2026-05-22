@@ -16,7 +16,10 @@ namespace fpcm\classes;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @since 3.5
  */
-final class crypt implements \fpcm\model\interfaces\isObjectInstancable {
+final class crypt implements \fpcm\model\interfaces\isObjectInstancable
+{
+
+    use \fpcm\model\traits\getObjectInstance;
 
     /**
      * Methode zur Verschlüsselung
@@ -215,23 +218,6 @@ final class crypt implements \fpcm\model\interfaces\isObjectInstancable {
     public static function getRandomString($length = 32) : string
     {
         return random_bytes($length);
-    }
-
-    /**
-     * Returns config class instance
-     * @return config
-     * @since 5.2.2
-     */
-    public static function getInstance()
-    {
-        $iClass = self::class;
-        
-        if (!isset($GLOBALS['fpcm']['objects'][$iClass])) {
-            $GLOBALS['fpcm']['objects'][$iClass] = new $iClass();
-        }
-        
-        return $GLOBALS['fpcm']['objects'][$iClass];
-        
     }
 
 }

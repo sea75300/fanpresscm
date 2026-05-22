@@ -1,36 +1,74 @@
-<div id="fpcm-pub-formbox">
-    <div class="fpcm-pub-formbox-top">{{formHeadline}}</div>
-    <div class="fpcm-pub-formbox-center">
-        <form method="post" action="{{submitUrl}}">
-            <table>
-                <tr>
-                    <td>{{nameDescription}}:</td>
-                    <td>{{nameField}}</td>
-                </tr>
-                <tr>
-                    <td>{{emailDescription}}:</td>
-                    <td>{{emailField}}</td>
-                </tr>
-                <tr>
-                    <td>{{websiteDescription}}:</td>
-                    <td>{{websiteField}} (optional)</td>
-                </tr>
-                <tr>
-                    <td><b>{{smileysDescription}}:</b></td>
-                    <td>{{smileys}}</td>
-                </tr>
-            </table>
+<div class="post">
+  <div class="content col-12">
+    <h4>{{formHeadline}}</h4>
 
-            <p>{{textfield}}</p>  
-            <p>{{tags}}</p>
-            <p>{{spampluginQuestion}} {{spampluginField}}</p>
-            <p>
-                {{submitButton}}
-                {{resetButton}}<br>
-                {{privateCheckbox}} privat<br>
-                {{privacyComfirmation}} Ich stimme der Datenschutz-Erklärung dieser Webseite zu.
-            </p>
-        </form>
-    </div>
-    <div class="fpcm-pub-formbox-bottom"></div>    
+    <form method="post" action="{{submitUrl}}" name="cform">
+      <div class="row row-cols-2">
+        <div class="col-4">
+          {{nameDescription}}
+        </div>
+        <div class="col">
+          {{nameField}}
+        </div>
+      </div>
+      <div class="row row-cols-2">
+        <div class="col-4">
+          {{emailDescription}} (wird nicht veröffentlicht)
+        </div>
+        <div class="col">
+          {{emailField}}
+        </div>
+      </div>  
+      <div class="row row-cols-2">
+        <div class="col-4">
+          {{websiteDescription}} (optional)
+        </div>
+        <div class="col">
+          {{websiteField}}
+        </div>
+      </div>  
+      <div class="row row-cols-2">
+        <div class="col-4">
+          Was möchtest du sagen?
+        </div>
+        <div class="col">
+          <div>
+            {{textfield}}  
+          </div>
+          <div class="px-2">
+            Verfügbare HTML-Tags: {{tags}}
+          </div>          
+        </div>            
+      </div>
+      <div class="row row-cols-2">
+        <div class="col">
+          {{spampluginQuestion}} 
+        </div>
+        <div class="col">
+          {{spampluginField}}
+        </div>
+      </div>
+      <div class="row row-cols-2">
+        <div class="col-auto">
+          {{privateCheckbox}}
+        </div>
+        <div class="col">
+          Dieser Kommentar ist privat.
+        </div>
+      </div>
+      <div class="row row-cols-2">
+        <div class="col-auto">
+          {{privacyComfirmation}}
+        </div>
+        <div class="col">
+          Ich stimme der <a href="https://shakira-addicted.net/domain/impressum/#datenschutz">Datenschutzerklärung</a> dieser Webseite zu.
+        </div>
+      </div> 
+      <div class="row">
+        <div class="col align-center">
+          {{submitButton}} {{resetButton}}
+        </div>
+      </div>
+    </form>
+  </div>   
 </div>

@@ -17,6 +17,10 @@ class add extends base {
      */
     protected $author;
 
+    /**
+     * Controller-Processing
+     * @return void
+     */
     public function process()
     {
         parent::process();
@@ -25,6 +29,7 @@ class add extends base {
             (new \fpcm\view\helper\saveButton('userSave'))->setPrimary(),
             (new \fpcm\view\helper\checkbox('data[passInfoUser]'))->setText('USERS_SENDUSERINFO')->setSwitch(true)->setWrapperClass('ms-2 mb-0 mt-1')
         ]);
+
         $this->view->setFormAction('users/add');
         $this->view->assign('showDisableButton', false);
         $this->view->assign('showExtended', false);

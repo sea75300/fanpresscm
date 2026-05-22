@@ -101,8 +101,8 @@ class userlist extends \fpcm\controller\abstracts\controller
     }
 
     /**
-     *
-     * @return bool
+     * Controller-Processing
+     * @return void
      */
     public function process()
     {
@@ -160,7 +160,6 @@ class userlist extends \fpcm\controller\abstracts\controller
 
         $this->view->addAjaxPageToken('users/actions');
         $this->view->render();
-        return true;
     }
 
     /**
@@ -191,11 +190,12 @@ class userlist extends \fpcm\controller\abstracts\controller
         $dataView = new \fpcm\components\dataView\dataView('userlist');
 
         $dataView->addColumns([
-            (new \fpcm\components\dataView\column('button', '', 'flex-grow-1'))->setSize('auto')->setAlign('center'),
-            (new \fpcm\components\dataView\column('username', 'GLOBAL_USERNAME'))->setSize(3),
-            (new \fpcm\components\dataView\column('email', 'GLOBAL_EMAIL'))->setSize(3),
-            (new \fpcm\components\dataView\column('registered', 'USERS_REGISTEREDTIME'))->setSize(2)->setAlign('center'),
-            (new \fpcm\components\dataView\column('metadata', '', 'flex-grow-1'))->setSize('auto')->setAlign('center'),
+            (new \fpcm\components\dataView\column('button'))->setSize('auto'),
+            (new \fpcm\components\dataView\column('username', 'GLOBAL_USERNAME')),
+            (new \fpcm\components\dataView\column('email', 'GLOBAL_EMAIL')),
+            (new \fpcm\components\dataView\column('registered', 'USERS_REGISTEREDTIME')),
+            (new \fpcm\components\dataView\column('lastchange', 'GLOBAL_LASTCHANGE')),
+            (new \fpcm\components\dataView\column('metadata'))->setAlign('center')
         ]);
 
         $articleCount = $this->articleList->countArticlesByUsers();
@@ -208,18 +208,26 @@ class userlist extends \fpcm\controller\abstracts\controller
         }, ARRAY_FILTER_USE_BOTH);
 
 
+        if (!count($articleCount)) {
+            $articleCount = [0];
+        }
+        
+        $max = max($articleCount);
+        $cLen = strlen((string) $max);
+        
         foreach($usersInGroups AS $rollId => $users) {
 
-            $title  = '<b>' . $descr.': '.$this->language->translate($userGroups[$rollId]->getRollName()) . '</b>';
-
             $dataView->addRow(
-                new \fpcm\components\dataView\row([
-                    new \fpcm\components\dataView\rowCol('button', '', 'd-none d-lg-block'),
-                    new \fpcm\components\dataView\rowCol('username', $title),
-                    new \fpcm\components\dataView\rowCol('email', '', 'd-none d-lg-block'),
-                    new \fpcm\components\dataView\rowCol('registered', '', 'd-none d-lg-block'),
-                    new \fpcm\components\dataView\rowCol('metadata', '', 'd-none d-lg-block'),
-                ], '', true
+                new \fpcm\components\dataView\row(
+                    columns: [
+                        new \fpcm\components\dataView\rowCol('button', (new \fpcm\view\helper\icon('user-group')), 'd-none d-lg-block'),
+                        new \fpcm\components\dataView\rowCol('username', $this->language->translate($userGroups[$rollId]->getRollName())),
+                        new \fpcm\components\dataView\rowCol('email', '', 'd-none d-lg-block'),
+                        new \fpcm\components\dataView\rowCol('registered', '', 'd-none d-lg-block'),
+                        new \fpcm\components\dataView\rowCol('lastchange', '', 'd-none d-lg-block'),
+                        new \fpcm\components\dataView\rowCol('metadata', '', 'd-none d-lg-block'),
+                    ],
+                    isheadline: true
             ));
 
             /* @var $user \fpcm\model\users\author */
@@ -227,14 +235,16 @@ class userlist extends \fpcm\controller\abstracts\controller
 
                 $noRb   = $user->getId() == $currentUser ? true : false;
 
-                $count = isset($articleCount[$userId]) ? $articleCount[$userId] : 0;
+                $count = (string) ($articleCount[$userId] ?? 0);
+                
+                $count = str_pad($count, $cLen, 0, STR_PAD_LEFT);
 
                 $this->chartItems[$user->getDisplayname()] = $count;
                 $this->chartItemColors[$user->getDisplayname()] = \fpcm\components\charts\chartItem::getRandomColor();
 
                 $metadata = [
                     (new \fpcm\view\helper\badge('art'.$userId))->setValue($count)->setText('USERS_ARTICLE_COUNT')->setIcon('book'),
-                    $this->getStatusColor( (new \fpcm\view\helper\icon('user-slash fa-inverse'))->setText('USERS_DISABLED')->setClass('fpcm-ui-editor-metainfo')->setStack('square') , $user->getDisabled() )
+                    $this->getStatusColor( (new \fpcm\view\helper\icon('user-slash fa-inverse'))->setText('USERS_DISABLED')->setStack('square') , $user->getDisabled() )
                 ];
 
                 $buttons = [
@@ -273,6 +283,7 @@ class userlist extends \fpcm\controller\abstracts\controller
                         new \fpcm\components\dataView\rowCol('username', new \fpcm\view\helper\escape($user->getDisplayname()) ),
                         new \fpcm\components\dataView\rowCol('email', new \fpcm\view\helper\escape($user->getEmail())),
                         new \fpcm\components\dataView\rowCol('registered', new \fpcm\view\helper\dateText($user->getRegistertime())),
+                        new \fpcm\components\dataView\rowCol('lastchange', new \fpcm\view\helper\dateText($user->getChangeTime() ?  $user->getChangeTime() : $user->getRegistertime())),
                         new \fpcm\components\dataView\rowCol('metadata', implode('', $metadata), 'fs-5', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
                     ], $user->getDisabled() ? 'text-body-secondary' : ''
                 ));
@@ -296,8 +307,8 @@ class userlist extends \fpcm\controller\abstracts\controller
         $dataView = new \fpcm\components\dataView\dataView('rollslist');
 
         $dataView->addColumns([
-            (new \fpcm\components\dataView\column('button', ''))->setSize(2)->setAlign('center'),
-            (new \fpcm\components\dataView\column('title', 'USERS_ROLLS_NAME'))->setSize('auto'),
+            (new \fpcm\components\dataView\column('button'))->setSize(2)->setAlign('center'),
+            (new \fpcm\components\dataView\column('title', 'USERS_ROLLS_NAME')),
         ]);
 
         $dest = $this->getControllerLink('users/list', ['rg' => 1]);
@@ -350,7 +361,7 @@ class userlist extends \fpcm\controller\abstracts\controller
         if ($this->permissions->system->rolls) {
             $tabs[] = (new \fpcm\view\helper\tabItem('rolls'))
                     ->setText('USERS_LIST_ROLLS')
-                    ->setFile('components/dataview__inline.php')
+                    ->useDataView()
                     ->setTabToolbar(2);
         }
         

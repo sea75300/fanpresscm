@@ -47,8 +47,8 @@ class edit extends base {
     }
 
     /**
-     *
-     * @return bool
+     * Controller-Processing
+     * @return void
      */
     public function process() {
 
@@ -56,7 +56,7 @@ class edit extends base {
             $this->assignToView();
         }
 
-        return parent::process();
+        parent::process();
     }
 
 }

@@ -80,7 +80,7 @@ final class email {
      * @param sring $from Absender-Adresse, Default: fanpresscm@@hostdomain.xyz
      * @param bool $html enthält $text HTML-Code ja/nein
      */
-    function __construct($to, $subject, $text, $from = false, $html = false)
+    function __construct(string $to, string $subject, string $text = '', bool|string $from = false, bool $html = false)
     {
         $this->to = $to;
         $this->from = $from ? $from : 'FanPress CM <fanpresscm@' . ($_SERVER['HTTP_HOST'] ?? 'localhost') . '>';
@@ -88,7 +88,7 @@ final class email {
         $this->text = is_array($text) ? implode(PHP_EOL, $text) : $text;
         $this->html = $html;
 
-        $this->config = loader::getObject('\fpcm\model\system\config');
+        $this->config = \fpcm\model\system\config::getInstance();
     }
 
     /**
@@ -207,7 +207,11 @@ final class email {
      */
     public function submit()
     {
-        $eventData = loader::getObject('\fpcm\events\events')->trigger('emailSubmit', [
+        $eo = method_exists('\fpcm\events\events', 'getInstance')
+            ? \fpcm\events\events::getInstance()
+            : new \fpcm\events\events();
+
+        $ev = $eo->trigger('emailSubmit', [
             'headers' => $this->headers,
             'maildata' => [
                 'to' => $this->to,
@@ -218,9 +222,12 @@ final class email {
             'attachments' => $this->attachments
         ]);
 
-        if (is_object($eventData) && $eventData instanceof \fpcm\module\eventResult) {
-            $eventData = $eventData->getData();
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event emailSubmit failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return false;
         }
+
+        $eventData = $ev->getData();        
 
         $this->headers = $eventData['headers'];
         $this->attachments = $eventData['attachments'];
@@ -299,7 +306,7 @@ final class email {
 
         $tplPath = $fromData
                  ? dirs::getDataDirPath(dirs::DATA_BACKUP, $filename)
-                 : dirs::getCoreDirPath(dirs::CORE_VIEWS, 'mailtemplates/' . $filename);
+                 : dirs::getCoreDirPath(dirs::CORE_VIEWS, 'mailtemplates/' . $this->config->system_lang . '/' . $filename);
 
         $tplPathR = realpath($tplPath);
         if (!$tplPathR || !str_starts_with($tplPath, \fpcm\classes\dirs::getFullDirPath('/')) ) {
@@ -380,6 +387,11 @@ final class email {
         $this->mailer->Timeout = FPCM_SMTP_TIMEOUT ?? 5;
 
         $this->mailer->Debugoutput = function($str, $level) {
+            
+            if (defined('FPCM_SMTP_LEVEL') && !FPCM_SMTP_LEVEL) {
+                return;
+            }
+            
             trigger_error($str);
         };
 

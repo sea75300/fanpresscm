@@ -9,18 +9,16 @@
 
 namespace fpcm\controller\action\system\settings;
 
-class profile extends \fpcm\controller\abstracts\controller
+class profile
+extends \fpcm\controller\abstracts\controller
+implements \fpcm\controller\interfaces\requestFunctions
 {
 
     use \fpcm\controller\traits\common\timezone,
         \fpcm\controller\traits\users\authorImages,
-        \fpcm\controller\traits\users\settings;
+        \fpcm\controller\traits\users\settings,
+        \fpcm\controller\traits\users\onResetProfileSettings;
 
-    /**
-     *
-     * @var bool
-     */
-    protected $reloadSite;
 
     /**
      *
@@ -38,7 +36,7 @@ class profile extends \fpcm\controller\abstracts\controller
     }
 
     /**
-     * 
+     *
      * @return bool
      */
     public function isAccessible(): bool
@@ -52,60 +50,27 @@ class profile extends \fpcm\controller\abstracts\controller
      */
     public function request()
     {
-
         $this->user = $this->session->getCurrentUser();
         $this->initUploader($this->user);
-
-        $this->deleteImage($this->user);
-        $this->uploadImage($this->user);
 
         if ($this->config->system_2fa_auth) {
             include_once \fpcm\classes\loader::libGetFilePath('sonata-project'.DIRECTORY_SEPARATOR.'GoogleAuthenticator');
             $this->gAuth = new \Sonata\GoogleAuthenticator\GoogleAuthenticator();
         }
 
-        if (($this->buttonClicked('profileSave') || $this->buttonClicked('resetProfileSettings')) && !$this->checkPageToken()) {
-            $this->view->addErrorMessage('CSRF_INVALID');
-        }
-
-        $this->reloadSite = 0;
-
-        $this->resetProfileSettings();
-        $this->saveProfile();
-
         $this->view->assign('author', $this->user);
         $this->view->assign('avatar', \fpcm\model\users\author::getAuthorImageDataOrPath($this->user, false));
-        
+
         return true;
     }
-    
-    /**
-     * Reset profile settings
-     * @return bool
-     */
-    private function resetProfileSettings() : bool
-    {
-        if (!$this->buttonClicked('resetProfileSettings') || !$this->checkPageToken) {
-            return false;
-        }
 
-        if ($this->user->resetProfileSettings() === false) {
-            $this->view->addErrorMessage('SAVE_FAILED_USER_PROFILE');
-            return false;
-        }
-
-        $this->view->addNoticeMessage('SAVE_SUCCESS_RESETPROFILE');
-        $this->reloadSite = 1;
-        return true;
-    }
-    
     /**
      * Execute save process
      * @return bool
      */
-    private function saveProfile() : bool
+    private function onProfileSave() : bool
     {
-        if (!$this->buttonClicked('profileSave') || !$this->checkPageToken) {
+        if (!$this->checkPageToken) {
             return true;
         }
 
@@ -113,19 +78,18 @@ class profile extends \fpcm\controller\abstracts\controller
         if ($saveData['email'] !== $this->user->getEmail() && !$this->checkCurrentPass($saveData['current_pass'])) {
             return false;
         }
-        
+
         $this->user->setEmail($saveData['email']);
         $this->user->setDisplayName($saveData['displayname']);
 
         $metaData = $this->user->getUserMeta();
         $metaData->mergeData($this->request->fromPOST('usermeta'));
-        
+
         $this->user->setUserMeta($metaData);
         $this->user->setUsrinfo($saveData['usrinfo']);
         $this->user->setChangeTime(time());
         $this->user->setChangeUser((int) $this->session->getUserId());
 
-        $save = true;
         if ($saveData['password'] && $saveData['password_confirm']) {
 
             if (!$this->checkCurrentPass($saveData['current_pass'])) {
@@ -171,7 +135,7 @@ class profile extends \fpcm\controller\abstracts\controller
         }
 
         $this->reloadSite = ($metaData['system_lang'] != $this->config->system_lang ? 1 : 0);
-        $this->view->addNoticeMessage('SAVE_SUCCESS_EDITUSER_PROFILE');        
+        $this->view->addNoticeMessage('SAVE_SUCCESS_EDITUSER_PROFILE');
         return true;
     }
 
@@ -192,11 +156,11 @@ class profile extends \fpcm\controller\abstracts\controller
     }
 
     /**
-     * Controller-Processing
-     * @return bool
+     * Controller processing
+     * @return void
      */
     public function process()
-    {        
+    {
         $this->settingsToView();
         $this->twoFactorAuthForm();
 
@@ -217,16 +181,14 @@ class profile extends \fpcm\controller\abstracts\controller
         $this->view->addButtons([
             (new \fpcm\view\helper\saveButton('profileSave'))->setPrimary(),
             (new \fpcm\view\helper\submitButton('resetProfileSettings'))->setText('GLOBAL_RESET')->setIcon('undo')
-        ]);  
+        ]);
 
         $this->view->addTabs('profile', [
            (new \fpcm\view\helper\tabItem('user'))->setText('HL_PROFILE')->setFile($this->getViewPath()),
-           (new \fpcm\view\helper\tabItem('extended'))->setText('GLOBAL_EXTENDED')->setFile('users/usereditor_extended.php'),
            (new \fpcm\view\helper\tabItem('meta'))->setText('USERS_META_OPTIONS')->setFile('users/editormeta.php'),
         ], 'fpcm ui-tabs-function-autoinit', $this->getActiveTab());
 
         $this->view->setFormAction('system/profile');
-
         $this->view->render();
     }
 

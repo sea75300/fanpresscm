@@ -49,6 +49,7 @@ class actions extends \fpcm\controller\abstracts\ajaxController
         }
 
         $this->response->setReturnData($res)->fetch();
+        return true;
     }
 
     /**

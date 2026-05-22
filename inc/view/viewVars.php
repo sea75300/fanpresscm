@@ -171,9 +171,9 @@ class viewVars {
      * @param string $var
      * @param array $params
      */
-    public function write($var, array $params = [])
+    public function write($var, array $params = [], bool $spf = false)
     {
-        print $this->translate($var, $params);
+        print $this->translate($var, $params, $spf);
     }
     
     /**
@@ -183,9 +183,9 @@ class viewVars {
      * @param array $params
      * @return string
      */
-    public function translate($var, array $params = [])
+    public function translate($var, array $params = [], bool $spf = false)
     {
-        return $this->lang->translate($var, $params);
+        return $this->lang->translate($var, $params, $spf);
     }
 
     /**
@@ -225,6 +225,17 @@ class viewVars {
     {
         return \fpcm\classes\tools::calcSize($value, $decimals, $delimDec, $delimTousands);
     }
+    
+    /**
+     * Translate user id to display name
+     * @param int $uid
+     * @return string
+     * @since 5.3.0-dev
+     */
+    public function userId2Text(int $uid, string $emtpyString = 'GLOBAL_NOTFOUND') : string
+    {
+        return \fpcm\classes\tools::userId2Text($uid, $emtpyString);
+    }
 
     /**
      * Returns page token field view helper object
@@ -257,6 +268,18 @@ class viewVars {
     final public function defaultBoxHalf() : void
     {
         print 'col-12 col-md-6';
+    }
+
+    /**
+     * Adds fpcm-id prefix to any id given
+     * @param string $id
+     * @return string
+     * @since 5.3.0-rc1
+     * @see helper\helper::addIDPrefix
+     */
+    final public function addIDPrefix(string $id) : string
+    {
+        return helper\helper::addIDPrefix($id);
     }
 
 }

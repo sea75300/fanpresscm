@@ -23,4 +23,16 @@ namespace fpcm\events\view;
  */
 final class extendTabs extends \fpcm\events\abstracts\event {
 
+    use \fpcm\events\traits\extendUiEvent;
+
+    /**
+     * Preprare event before running
+     * @return bool
+     */
+    protected function beforeRun() : void
+    {
+        $this->area = \fpcm\classes\tools::getAreaName('toolbar');
+        $this->beforeRunData = $this->data;
+    }
+
 }

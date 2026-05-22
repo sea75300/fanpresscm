@@ -46,11 +46,16 @@ final class repository extends remoteModel {
 
         $minorVer = $this->config->getVersionNumberString();
 
+        $file = $this->config->system_updates_devcheck ? 'dev' : 'release';
+
+        $us = trim(baseconfig::$updateServer, '/');
+        $ms = trim(baseconfig::$moduleServer, '/');
+        
         $this->files = [
-            baseconfig::$updateServer.'release.yml' => self::FOPT_UPDATES,
-            baseconfig::$updateServer.'release'.$minorVer.'.yml' => self::FOPT_UPDATES,
-            baseconfig::$moduleServer.'release.yml' => self::FOPT_MODULES,
-            baseconfig::$moduleServer.'release'.$minorVer.'.yml' => self::FOPT_MODULES
+            sprintf('%s/%s/%s.yml', $us, 'main', $file) => self::FOPT_UPDATES,
+            sprintf('%s/%s/%s.yml', $us, $minorVer, $file) => self::FOPT_UPDATES,
+            sprintf('%s/%s/%s.yml', $ms, 'main', $file) => self::FOPT_MODULES,
+            sprintf('%s/%s/%s.yml', $ms, $minorVer, $file) => self::FOPT_MODULES
         ];
 
         return true;

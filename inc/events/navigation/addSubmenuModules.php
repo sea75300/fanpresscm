@@ -19,6 +19,6 @@ namespace fpcm\events\navigation;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\events
  */
-final class addSubmenuModules extends \fpcm\events\abstracts\eventReturnArray {
+final class addSubmenuModules extends \fpcm\events\abstracts\event {
 
 }

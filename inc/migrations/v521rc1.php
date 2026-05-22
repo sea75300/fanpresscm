@@ -97,8 +97,9 @@ class v521rc1 extends migration {
                 return unlink($f);
             }, $diff);            
 
-            return true;
         }
+        
+        return true;
 
     }
 

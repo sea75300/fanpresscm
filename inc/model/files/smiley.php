@@ -16,6 +16,8 @@ namespace fpcm\model\files;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 final class smiley extends \fpcm\model\abstracts\file implements \JsonSerializable {
+    
+    use \fpcm\model\traits\getFieldsParam;
 
     /**
      * ID von Datei-Eintrag in DB
@@ -187,11 +189,14 @@ final class smiley extends \fpcm\model\abstracts\file implements \JsonSerializab
             return false;
         }
 
-        $saveValues = $this->getSaveValues();
-        $saveValues = $this->events->trigger('smileySave', $saveValues)->getData();
+        $ev = $this->events->trigger('smileySave', $this->getSaveValues());
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event smileySave failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return false;
+        }
 
         $this->cache->cleanup();
-        return $this->dbcon->insert($this->table, $saveValues);
+        return $this->dbcon->insert($this->table, $ev->getData());
     }
 
     /**
@@ -205,10 +210,16 @@ final class smiley extends \fpcm\model\abstracts\file implements \JsonSerializab
         }
 
         $saveValues = $this->getSaveValues();
-        $saveValues = $this->events->trigger('smileyUpdate', $saveValues)->getData();
-        
-        $fields = array_keys($saveValues);
         $saveValues[] = $this->getId();
+        
+        $ev = $this->events->trigger('smileyUpdate', $saveValues);
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event smileyUpdate failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return false;
+        }
+
+        $saveValues = $ev->getData();
+        $fields = $this->getFieldFromSaveParams($saveValues);
 
         $this->cache->cleanup();
         return $this->dbcon->update($this->table, $fields, array_values($saveValues), 'id = ?');
@@ -276,11 +287,12 @@ final class smiley extends \fpcm\model\abstracts\file implements \JsonSerializab
         }
 
         $this->initImageSize();
+        return true;
     }
 
     /**
      * Fetch smileyy data by id
-     * @return boolean
+     * @return bool
      */
     public function initById()
     {
@@ -300,6 +312,7 @@ final class smiley extends \fpcm\model\abstracts\file implements \JsonSerializab
 
         $this->setFilename($this->filename);
         $this->initImageSize();
+        return true;
     }
 
     /**
@@ -398,5 +411,3 @@ final class smiley extends \fpcm\model\abstracts\file implements \JsonSerializab
     }
 
 }
-
-?>

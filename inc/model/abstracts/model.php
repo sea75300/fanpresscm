@@ -9,7 +9,7 @@ namespace fpcm\model\abstracts;
 
 /**
  * Model base object
- * 
+ *
  * @package fpcm\model\abstracts
  * @abstract
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
@@ -62,7 +62,7 @@ abstract class model implements \fpcm\model\interfaces\model, \Stringable {
 
     /**
      * Event-Liste
-     * @var \fpcm\events\events 
+     * @var \fpcm\events\events
      */
     protected $events;
 
@@ -117,14 +117,18 @@ abstract class model implements \fpcm\model\interfaces\model, \Stringable {
     public function __construct($id = null)
     {
         $this->dbcon = \fpcm\classes\loader::getObject('\fpcm\classes\database');
-        $this->events = \fpcm\classes\loader::getObject('\fpcm\events\events');
+
+        $this->events = method_exists('\fpcm\events\events', 'getInstance')
+                      ? \fpcm\events\events::getInstance()
+                      : new \fpcm\events\events();
+
         $this->cache = \fpcm\classes\loader::getObject('\fpcm\classes\cache');
 
         if (\fpcm\classes\baseconfig::installerEnabled()) {
             return false;
         }
 
-        $this->config = \fpcm\classes\loader::getObject('\fpcm\model\system\config');
+        $this->config = \fpcm\model\system\config::getInstance();
         $this->language = \fpcm\classes\loader::getObject('\fpcm\classes\language');
         $this->notifications = \fpcm\classes\loader::getObject('\fpcm\model\theme\notifications');
 
@@ -193,7 +197,8 @@ abstract class model implements \fpcm\model\interfaces\model, \Stringable {
     }
 
     /**
-     * Inittiert Objekt mit Daten aus der Datenbank, sofern ID vergeben wurde
+     * Init object with database data
+     * @return bool
      */
     public function init()
     {
@@ -208,6 +213,8 @@ abstract class model implements \fpcm\model\interfaces\model, \Stringable {
         foreach ($data as $key => $value) {
             $this->$key = $value;
         }
+        
+        return true;
     }
 
     /**
@@ -265,16 +272,18 @@ abstract class model implements \fpcm\model\interfaces\model, \Stringable {
      */
     public function createFromDbObject($object)
     {
-
-        if (!is_object($object))
+        if (!is_object($object)) {
             return false;
+        }
 
         $keys = array_keys($this->getPreparedSaveParams());
         $keys[] = 'id';
 
         foreach ($keys as $key) {
-            if (!isset($object->$key))
+            if (!isset($object->$key)) {
                 continue;
+            }
+
             $this->$key = $object->$key;
         }
 
@@ -291,7 +300,12 @@ abstract class model implements \fpcm\model\interfaces\model, \Stringable {
     {
         $params = get_object_vars($this);
         unset(
-                $params['cache'], $params['config'], $params['dbcon'], $params['events'], $params['session'], $params['id'], $params['nodata'], $params['system'], $params['table'], $params['dbExcludes'], $params['language'], $params['editAction'], $params['objExists'], $params['cacheName'], $params['cacheModule'], $params['wordbanList'], $params['notifications']
+            $params['cache'], $params['config'], $params['dbcon'],
+            $params['events'], $params['session'], $params['id'],
+            $params['nodata'], $params['system'], $params['table'],
+            $params['dbExcludes'], $params['language'], $params['editAction'],
+            $params['objExists'], $params['cacheName'], $params['cacheModule'],
+            $params['wordbanList'], $params['notifications']
         );
 
         if ($this->nodata) {

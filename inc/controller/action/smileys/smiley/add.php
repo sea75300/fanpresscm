@@ -11,6 +11,10 @@ namespace fpcm\controller\action\smileys\smiley;
 
 class add extends base {
 
+    /**
+     * Controller processing
+     * @return void
+     */
     public function process()
     {
         $this->view->setFormAction('smileys/add');

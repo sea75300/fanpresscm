@@ -16,7 +16,7 @@ namespace fpcm\view\helper;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 abstract class input extends helper
-implements interfaces\jsDialogHelper {
+implements interfaces\jsDialogHelper, \JsonSerializable {
 
     use traits\iconHelper,
         traits\valueHelper,

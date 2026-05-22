@@ -9,14 +9,14 @@ namespace fpcm\view\helper;
 
 /**
  * Abstract view helper object
- * 
+ *
  * @package fpcm\view\helper
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 abstract class helper implements \Stringable {
-    
+
     use traits\cssClassHelper,
         traits\ariaHelper;
 
@@ -31,6 +31,12 @@ abstract class helper implements \Stringable {
 
     /*  @since 5.0.0-b5 */
     const LABEL_TYPE_FLOATING = 'form-floating';
+
+    /*  @since 5.3.0-a1 */
+    const TOGGLE_ACTION_HIDE = 'hide';
+
+    /*  @since 5.3.0-a1 */
+    const TOGGLE_ACTION_DISABLE = 'disable';
 
     /**
      * Element data
@@ -145,7 +151,7 @@ abstract class helper implements \Stringable {
         $this->initLabel();
 
         $this->id = trim($id) ? $id : $this->getCleanName();
-        
+
         if (defined('FPCM_VIEW_FLOATING_LABEL_ALL') && FPCM_VIEW_FLOATING_LABEL_ALL) {
             $this->setLabelTypeFloat();
         }
@@ -161,7 +167,7 @@ abstract class helper implements \Stringable {
         $this->returned = (bool) $returned;
         return $this;
     }
-        
+
     /**
      * @ignore
      * @return string
@@ -233,7 +239,7 @@ abstract class helper implements \Stringable {
      */
     final protected function getDescriptionTextString(string $prefix = 'ps-1')
     {
-        return "<span class=\"fpcm-ui-label {$prefix}\">{$this->text}</span>";
+        return "<span class=\"fpcm-ui-label {$prefix} {$this->labelClass}\">{$this->text}</span>";
     }
 
     /**
@@ -249,7 +255,7 @@ abstract class helper implements \Stringable {
             $this instanceof boolToText ) {
             return false;
         }
-        
+
         $this->text = self::TEXT_DEFAULT_LABEL.strtoupper(preg_replace('/([^A-Za-z0-9\_]+)/', '_', rtrim($this->name, ']')));
         $this->text = $this->language->translate($this->text);
         return true;
@@ -265,7 +271,7 @@ abstract class helper implements \Stringable {
     }
 
     /**
-     * 
+     *
      * @return bool
      * @since 5.1-dev
      */
@@ -287,13 +293,13 @@ abstract class helper implements \Stringable {
         }
 
         $return = array_map(function ($value, $key) use ($prefix) {
-            
+
             if (is_object($value) || is_array($value)) {
                 $value = json_encode($value);
             }
 
-            return "{$prefix}-{$key}=\"{$value}\"";            
-            
+            return "{$prefix}-{$key}=\"{$value}\"";
+
         }, array_values($data), array_keys($data));
 
         return implode(' ', $return);
@@ -328,7 +334,7 @@ abstract class helper implements \Stringable {
      * @param boolean $readonly
      * @return $this
      */
-    public function setReadonly($readonly)
+    public function setReadonly($readonly = true)
     {
         $this->readonly = (bool) $readonly;
         return $this;
@@ -353,7 +359,7 @@ abstract class helper implements \Stringable {
     {
         return $this->autoFocused ? 'autofocus' : '';
     }
-    
+
     /**
      * Use div wrapper around input field
      * @param bool $useWrapper
@@ -399,7 +405,7 @@ abstract class helper implements \Stringable {
         $this->bottomSpace = $bottomSpace;
         return $this;
     }
-        
+
     /**
      * Set required flag
      * @param bool $required
@@ -423,7 +429,7 @@ abstract class helper implements \Stringable {
         $this->text = $this->language->translate($text, $params, $spf);
         return $this;
     }
-    
+
     /**
      * Set label typ to floating
      * @return $this
@@ -464,12 +470,12 @@ abstract class helper implements \Stringable {
      */
     public function setData(array $data)
     {
-        $this->data = $data;
+        $this->data = array_merge($this->data, $data);
         return $this;
     }
 
     /**
-     * 
+     *
      * @param array $param
      * @return bool
      * @since 4.5
@@ -494,9 +500,32 @@ abstract class helper implements \Stringable {
                 $value = $viewVars[$fromVar];
             }
 
-            $this->{'set'.ucfirst($func)}($value);            
+            $this->{'set'.ucfirst($func)}($value);
         }
 
+        return $this;
+    }
+    
+    /**
+     * Set tab to toggle toolbar item
+     * @param string $toolbarTab
+     * @param string $action
+     * @param bool $default
+     * @return $this
+     * @since 5.3.0-a1
+     */
+    final public function setToolbarToggle(string $toolbarTab, string $action = self::TOGGLE_ACTION_HIDE, bool $default = false)
+    {
+        $this->data['tab-item'] = $toolbarTab;
+        $this->data['tab-item-action'] = $action;
+        
+        if ($action === self::TOGGLE_ACTION_HIDE && $default) {
+            $this->class .= ' d-none';
+        }
+        if ($action === self::TOGGLE_ACTION_DISABLE && $default) {
+            $this->setReadonly();
+        }
+        
         return $this;
     }
 
@@ -527,9 +556,20 @@ abstract class helper implements \Stringable {
         $this->returned = true;
 
         unset($return['language'], $return['returned'], $return['returnString'], $return['firstOption']);
-        $return['type'] = str_replace('fpcm\\view\\helper\\', '', get_called_class());
+        $return['callback'] = str_replace('fpcm\\view\\helper\\', '', get_called_class());
 
         return $return;
+    }
+
+    /**
+     * Adds fpcm-id prefix to any id given
+     * @param string $id
+     * @return string
+     * @since 5.3.0-rc1
+     */
+    final public static function addIdPrefix(string $id) : string
+    {
+        return sprintf('fpcm-id-%s', $id);
     }
 
 }

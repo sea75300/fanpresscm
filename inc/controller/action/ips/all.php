@@ -13,40 +13,39 @@ namespace fpcm\controller\action\ips;
  * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class all extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\requestFunctions
+class all
+extends \fpcm\controller\abstracts\controller
+implements \fpcm\controller\interfaces\requestFunctions
 {
 
     use \fpcm\controller\traits\common\dataView,
         \fpcm\controller\traits\theme\nav\ips,
-        \fpcm\model\traits\statusIcons;
+        \fpcm\model\traits\statusIcons,
+        \fpcm\controller\traits\common\listSettings;
 
     /**
      *
-     * @var array
-     */
-    private $users = [];
-
-    /**
-     *
-     * @var array
-     */
-    private $notfoundStr = '';
-
-    /**
-     * 
      * @var \fpcm\components\dataView\dataView
      */
     protected $dataView;
 
     /**
-     * 
+     *
      * @var array
      */
-    private $sorts = [
-        'SYSTEM_OPTIONS_NEWS_SORTING_ORDER' => '-1',
-        'SYSTEM_OPTIONS_NEWS_ORDERASC' => 'ASC',
-        'SYSTEM_OPTIONS_NEWS_ORDERDESC' => 'DESC',
-    ];
+    private $sorts;
+
+    /**
+     * Current Page
+     * @var int
+     */
+    protected ?int $page = 1;
+
+    /**
+     * Current offset
+     * @var int
+     */
+    protected int $offset = 0;
 
     /**
      * Request-Handler
@@ -54,6 +53,9 @@ class all extends \fpcm\controller\abstracts\controller implements \fpcm\control
      */
     public function request()
     {
+        $this->sorts = ['SYSTEM_OPTIONS_NEWS_SORTING_ORDER' => '-1'] + $this->language->translate('GLOBAL_SORTBY_LIST');
+        $this->page = $this->request->getPage();
+
         if ($this->request->hasMessage('added')) {
             $this->view->addNoticeMessage('SAVE_SUCCESS_IPADDRESS');
         }
@@ -70,54 +72,76 @@ class all extends \fpcm\controller\abstracts\controller implements \fpcm\control
     }
 
     /**
-     * Controller-Processing
+     * Controller processing
+     * @return void
      */
     public function process()
     {
-        $sort = $this->request->fromPOST('sortlist');
-        if ($sort === null || !in_array(strtoupper($sort), $this->sorts)) {
+        $params = [];
+
+        $sort = $this->request->fetchAll('sortlist');
+        if ($sort !== null && in_array($sort, $this->sorts)) {
+            $params['sortlist'] = $sort;
+        }
+        else {
             $sort = '';
         }
 
-        $userList = new \fpcm\model\users\userList();
-        $this->items = $this->ipList->getIpAll($sort);
-        $this->users = $userList->getUsersAll();
-        
-        $this->notfoundStr = $this->language->translate('GLOBAL_NOTFOUND');
-        
+        $offset = \fpcm\classes\tools::getPageOffset($this->page, $this->config->articles_acp_limit);
+
+        $this->items = $this->ipList->getIpAll(
+            sorting: $sort,
+            offset: $offset,
+            limit: $this->config->articles_acp_limit
+        );
+
         $this->initDataView();
-        
+
+        $this->view->addPager(new \fpcm\view\helper\pager(
+            'ips/list' . (count($params) ? '&' . http_build_query($params) : ''),
+            $this->page,
+            count($this->items),
+            $this->config->articles_acp_limit,
+            $this->ipList->getCount()
+        ));
+
+        if (!isset($params['page']) && $this->page) {
+            $params['page'] = $this->page;
+        }
+
         $this->view->assign('headline', 'HL_OPTIONS_IPBLOCKING');
-        $this->view->setFormAction('ips/list');
-        $this->view->addJsFiles(['system/ipadresses.js']);
+        $this->view->setFormAction('ips/list', $params);
+        $this->view->addJsFiles(['system/ips/module.js', 'system/ips/actions.js']);
         $this->view->addButtons([
             (new \fpcm\view\helper\linkButton('addnew'))->setUrl(\fpcm\classes\tools::getFullControllerLink('ips/add'))->setText('GLOBAL_NEW')->setIcon('globe')->setPrimary(),
             (new \fpcm\view\helper\deleteButton('delete'))->setClickConfirm(),
         ]);
 
-        $this->view->addToolbarRight((string) (new \fpcm\view\helper\select('sortlist'))->setOptions($this->sorts)->setSelected($sort)->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED));        
+        $this->appendListSettingsDialog([
+            (new \fpcm\view\helper\select('sortlist'))->setOptions($this->sorts)->setSelected($sort)->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
+        ]);
 
         $this->view->render();
     }
 
     /**
-     * 
+     *
      * @return array
      */
     protected function getDataViewCols()
     {
         return [
             (new \fpcm\components\dataView\column('select', (new \fpcm\view\helper\checkbox('fpcm-select-all'))->setClass('fpcm-select-all')))->setSize(1)->setAlign('center'),
-            (new \fpcm\components\dataView\column('button', ''))->setSize(1)->setAlign('center'),
-            (new \fpcm\components\dataView\column('ipaddress', 'IPLIST_IPADDRESS'))->setSize(4),
-            (new \fpcm\components\dataView\column('user', 'LOGS_LIST_USER'))->setSize(2),
-            (new \fpcm\components\dataView\column('time', 'IPLIST_IPTIME'))->setSize(2),
-            (new \fpcm\components\dataView\column('metadata', ''))->setAlign('center'),
+            (new \fpcm\components\dataView\column('button'))->setSize(1)->setAlign('center'),
+            (new \fpcm\components\dataView\column('ipaddress', 'IPLIST_IPADDRESS')),
+            (new \fpcm\components\dataView\column('user', 'LOGS_LIST_USER')),
+            (new \fpcm\components\dataView\column('time', 'IPLIST_IPTIME')),
+            (new \fpcm\components\dataView\column('metadata'))->setAlign('center')->setSize(2)
         ];
     }
 
     /**
-     * 
+     *
      * @return string
      */
     protected function getDataViewName()
@@ -126,20 +150,18 @@ class all extends \fpcm\controller\abstracts\controller implements \fpcm\control
     }
 
     /**
-     * 
+     *
      * @param \fpcm\model\ips\ipaddress $item
      * @return \fpcm\components\dataView\row
      */
     protected function initDataViewRow($item)
     {
-        $userName   = isset($this->users[$item->getUserid()])
-                    ? $this->users[$item->getUserid()]->getDisplayName()
-                    : $this->notfoundStr;
-        
+        $userName   = \fpcm\classes\tools::userId2Text($item->getUserid());
+
         $metaData   = [
-            $this->getStatusColor( (new \fpcm\view\helper\icon('comment-slash fa-inverse'))->setClass('fpcm-ui-editor-metainfo')->setText('IPLIST_NOCOMMENTS')->setStack('square'), $item->getNocomments() ),
-            $this->getStatusColor( (new \fpcm\view\helper\icon('sign-in-alt fa-inverse'))->setClass('fpcm-ui-editor-metainfo')->setText('IPLIST_NOLOGIN')->setStack('square'), $item->getNologin() ),
-            $this->getStatusColor( (new \fpcm\view\helper\icon('ban fa-inverse'))->setClass('fpcm-ui-editor-metainfo')->setText('IPLIST_NOACCESS')->setStack('square') , $item->getNoaccess() ),
+            $this->getStatusColor( (new \fpcm\view\helper\icon('comment-slash fa-inverse'))->setText('IPLIST_NOCOMMENTS')->setStack('square'), $item->getNocomments() ),
+            $this->getStatusColor( (new \fpcm\view\helper\icon('sign-in-alt fa-inverse'))->setText('IPLIST_NOLOGIN')->setStack('square'), $item->getNologin() ),
+            $this->getStatusColor( (new \fpcm\view\helper\icon('ban fa-inverse'))->setText('IPLIST_NOACCESS')->setStack('square') , $item->getNoaccess() ),
         ];
 
         return new \fpcm\components\dataView\row([
@@ -161,10 +183,14 @@ class all extends \fpcm\controller\abstracts\controller implements \fpcm\control
         return [
             (new \fpcm\view\helper\tabItem('tabs-'.$this->getDataViewName().'-list'))
                 ->setText('HL_OPTIONS_IPBLOCKING')
-                ->setFile('components/dataview__inline.php')
+                ->useDataView()
         ];
     }
-    
+
+    /**
+     *
+     * @return bool
+     */
     protected function onDelete()
     {
 
@@ -182,10 +208,10 @@ class all extends \fpcm\controller\abstracts\controller implements \fpcm\control
             $this->view->addNoticeMessage('DELETE_SUCCESS_IPADDRESS');
             return true;
         }
-      
+
         $this->view->addErrorMessage('DELETE_FAILED_IPADDRESS');
         return true;
     }
 
-    
+
 }

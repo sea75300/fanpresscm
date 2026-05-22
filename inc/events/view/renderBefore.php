@@ -21,13 +21,4 @@ namespace fpcm\events\view;
  */
 final class renderBefore extends \fpcm\events\abstracts\event {
 
-    /**
-     * Defines type of returned data
-     * @return string
-     */
-    protected function getReturnType()
-    {
-        return '\fpcm\view\viewVars';
-    }
-
 }

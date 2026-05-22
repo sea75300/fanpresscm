@@ -185,13 +185,19 @@
                             </ul>
         </div>
     
+            <span class="phpdocumentor-element__implements">
+            implements
+                            <a href="classes/fpcm-model-interfaces-isObjectInstancable.html"><abbr title="\fpcm\model\interfaces\isObjectInstancable">isObjectInstancable</abbr></a>                    </span>
     
+            <span class="phpdocumentor-element__extends">
+            Uses
+                            <a href="classes/fpcm-model-traits-getObjectInstance.html"><abbr title="\fpcm\model\traits\getObjectInstance">getObjectInstance</abbr></a>                    </span>
     </h2>
 
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/updater/system.php"><a href="files/inc-model-updater-system.html"><abbr title="inc/model/updater/system.php">system.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">33</span>
+    <span class="phpdocumentor-element-found-in__line">34</span>
 
     </aside>
 
@@ -236,6 +242,18 @@
 
 
 
+<h3 id="interfaces_class_traits">
+    Interfaces, Classes, Traits and Enums
+    <a href="#interfaces_class_traits" class="headerlink"><i class="fas fa-link"></i></a>
+</h3>
+
+<dl class="phpdocumentor-table-of-contents">
+            <dt class="phpdocumentor-table-of-contents__entry -interface"><a href="classes/fpcm-model-interfaces-isObjectInstancable.html"><abbr title="\fpcm\model\interfaces\isObjectInstancable">isObjectInstancable</abbr></a></dt>
+        <dd>Interface for objects with build in cache loader</dd>
+    
+    
+    
+    </dl>
 
 
 <h3 id="toc">
@@ -266,6 +284,13 @@
 <dd>Develop prefix</dd>
 
                     <dt class="phpdocumentor-table-of-contents__entry -property -public">
+    <a href="classes/fpcm-model-updater-system.html#property_changelog">$changelog</a>
+    <span>
+                        &nbsp;: string            </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/fpcm-model-updater-system.html#property_force">$force</a>
     <span>
                         &nbsp;: bool            </span>
@@ -399,13 +424,6 @@
 <dd>Konstruktor</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/fpcm-model-updater-system.html#method_checkManual">checkManual()</a>
-    <span>
-                                &nbsp;: bool    </span>
-</dt>
-<dd>Manueller Update-Check durchführen</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/fpcm-model-updater-system.html#method_filesListExists">filesListExists()</a>
     <span>
                                 &nbsp;: bool    </span>
@@ -420,11 +438,18 @@
 <dd>Cache-Name zurückgeben</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/fpcm-model-updater-system.html#method_getManualCheckAddress">getManualCheckAddress()</a>
+    <a href="classes/fpcm-model-traits-getObjectInstance.html#method_getInstance">getInstance()</a>
     <span>
-                                &nbsp;: string    </span>
+                                &nbsp;: object    </span>
 </dt>
-<dd>Gibt Link für Manuelle Update-Prüfung zurück, seit FPCM 3.x Link zur Download-Seite von FanPress CM</dd>
+<dd>Common function to return class instance object</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-model-traits-getObjectInstance.html#method_getObjectInstance">getObjectInstance()</a>
+    <span>
+                                &nbsp;: object    </span>
+</dt>
+<dd>Common function to return class instance object</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/fpcm-model-updater-system.html#method_init">init()</a>
@@ -459,7 +484,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/updater/system.php"><a href="files/inc-model-updater-system.html"><abbr title="inc/model/updater/system.php">system.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">38</span>
+    <span class="phpdocumentor-element-found-in__line">44</span>
 
     </aside>
 
@@ -488,7 +513,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/updater/system.php"><a href="files/inc-model-updater-system.html"><abbr title="inc/model/updater/system.php">system.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">50</span>
+    <span class="phpdocumentor-element-found-in__line">56</span>
 
     </aside>
 
@@ -531,7 +556,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/updater/system.php"><a href="files/inc-model-updater-system.html"><abbr title="inc/model/updater/system.php">system.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">44</span>
+    <span class="phpdocumentor-element-found-in__line">50</span>
 
     </aside>
 
@@ -573,6 +598,41 @@
             Properties
             <a href="classes/fpcm-model-updater-system.html#properties" class="headerlink"><i class="fas fa-link"></i></a>
         </h3>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_changelog">
+        $changelog
+        <a href="classes/fpcm-model-updater-system.html#property_changelog" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/updater/system.php"><a href="files/inc-model-updater-system.html"><abbr title="inc/model/updater/system.php">system.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">0</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">string</span>
+    <span class="phpdocumentor-signature__name">$changelog</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Changelog URL</p>
+</section>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+
+</article>
                     <article
         class="
             phpdocumentor-element
@@ -1206,7 +1266,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/updater/system.php"><a href="files/inc-model-updater-system.html"><abbr title="inc/model/updater/system.php">system.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">56</span>
+    <span class="phpdocumentor-element-found-in__line">62</span>
 
     </aside>
 
@@ -1267,39 +1327,6 @@
         class="phpdocumentor-element
             -method
             -public
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_checkManual">
-        checkManual()
-        <a href="classes/fpcm-model-updater-system.html#method_checkManual" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/updater/system.php"><a href="files/inc-model-updater-system.html"><abbr title="inc/model/updater/system.php">system.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">85</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Manueller Update-Check durchführen</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">checkManual</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
-
-    
-    
-    
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">bool</span>
-            &mdash;
-        
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
                                                 -final        "
 >
     <h4 class="phpdocumentor-element__name" id="method_filesListExists">
@@ -1309,7 +1336,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/updater/system.php"><a href="files/inc-model-updater-system.html"><abbr title="inc/model/updater/system.php">system.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">146</span>
+    <span class="phpdocumentor-element-found-in__line">118</span>
 
     </aside>
 
@@ -1390,31 +1417,108 @@
         class="phpdocumentor-element
             -method
             -public
-                                                        "
+                                    -static                    "
 >
-    <h4 class="phpdocumentor-element__name" id="method_getManualCheckAddress">
-        getManualCheckAddress()
-        <a href="classes/fpcm-model-updater-system.html#method_getManualCheckAddress" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="method_getInstance">
+        getInstance()
+        <a href="classes/fpcm-model-traits-getObjectInstance.html#method_getInstance" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/updater/system.php"><a href="files/inc-model-updater-system.html"><abbr title="inc/model/updater/system.php">system.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/traits/getObjectInstance.php"><a href="files/inc-model-traits-getobjectinstance.html"><abbr title="inc/model/traits/getObjectInstance.php">getObjectInstance.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">98</span>
+    <span class="phpdocumentor-element-found-in__line">40</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Gibt Link für Manuelle Update-Prüfung zurück, seit FPCM 3.x Link zur Download-Seite von FanPress CM</p>
+        <p class="phpdocumentor-summary">Common function to return class instance object</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">getManualCheckAddress</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getInstance</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">object</span></code>
 
     
     
     
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">5.1.0-a1</span>
+                                                                                
+                                             
+                                    </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">see</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                    <span class="phpdocumentor-tag-link"><a href="classes/fpcm-model-traits-getObjectInstance.html"><abbr title="\fpcm\model\traits\getObjectInstance">getObjectInstance</abbr></a></span>
+                                        
+                                             
+                                    </dd>
+                        </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">string</span>
+    <span class="phpdocumentor-signature__response_type">object</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+            -deprecated                        -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getObjectInstance">
+        getObjectInstance()
+        <a href="classes/fpcm-model-traits-getObjectInstance.html#method_getObjectInstance" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/traits/getObjectInstance.php"><a href="files/inc-model-traits-getobjectinstance.html"><abbr title="inc/model/traits/getObjectInstance.php">getObjectInstance.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">27</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Common function to return class instance object</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature -deprecated">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getObjectInstance</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">object</span></code>
+
+    
+    
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">5.1.0-a1</span>
+                                                                                
+                                             
+                                    </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">deprecated</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">5.3.0-dev</span>
+                                                                                
+                                             
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">object</span>
             &mdash;
         
     
@@ -1432,7 +1536,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/updater/system.php"><a href="files/inc-model-updater-system.html"><abbr title="inc/model/updater/system.php">system.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">107</span>
+    <span class="phpdocumentor-element-found-in__line">91</span>
 
     </aside>
 
@@ -1465,7 +1569,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/updater/system.php"><a href="files/inc-model-updater-system.html"><abbr title="inc/model/updater/system.php">system.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">62</span>
+    <span class="phpdocumentor-element-found-in__line">68</span>
 
     </aside>
 

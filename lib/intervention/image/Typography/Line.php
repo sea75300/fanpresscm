@@ -9,12 +9,13 @@ use Countable;
 use Intervention\Image\Geometry\Point;
 use Intervention\Image\Interfaces\PointInterface;
 use IteratorAggregate;
+use Stringable;
 use Traversable;
 
 /**
  * @implements IteratorAggregate<string>
  */
-class Line implements IteratorAggregate, Countable
+class Line implements IteratorAggregate, Countable, Stringable
 {
     /**
      * Segments (usually individual words including punctuation marks) of the line
@@ -26,8 +27,6 @@ class Line implements IteratorAggregate, Countable
     /**
      * Create new text line object with given text & position
      *
-     * @param string $text
-     * @param PointInterface $position
      * @return void
      */
     public function __construct(
@@ -35,15 +34,12 @@ class Line implements IteratorAggregate, Countable
         protected PointInterface $position = new Point()
     ) {
         if (is_string($text)) {
-            $this->segments = explode(" ", $text);
+            $this->segments = $this->wordsSeperatedBySpaces($text) ? explode(" ", $text) : mb_str_split($text);
         }
     }
 
     /**
      * Add word to current line
-     *
-     * @param string $word
-     * @return Line
      */
     public function add(string $word): self
     {
@@ -64,8 +60,6 @@ class Line implements IteratorAggregate, Countable
 
     /**
      * Get Position of line
-     *
-     * @return PointInterface
      */
     public function position(): PointInterface
     {
@@ -74,9 +68,6 @@ class Line implements IteratorAggregate, Countable
 
     /**
      * Set position of current line
-     *
-     * @param PointInterface $point
-     * @return Line
      */
     public function setPosition(PointInterface $point): self
     {
@@ -87,8 +78,6 @@ class Line implements IteratorAggregate, Countable
 
     /**
      * Count segments (individual words including punctuation marks) of line
-    *
-     * @return int
      */
     public function count(): int
     {
@@ -97,8 +86,6 @@ class Line implements IteratorAggregate, Countable
 
     /**
      * Count characters of line
-     *
-     * @return int
      */
     public function length(): int
     {
@@ -106,12 +93,33 @@ class Line implements IteratorAggregate, Countable
     }
 
     /**
+     * Dermine if words are sperarated by spaces in the written language of the given text
+     */
+    private function wordsSeperatedBySpaces(string $text): bool
+    {
+        return 1 !== preg_match(
+            '/[' .
+            '\x{4E00}-\x{9FFF}' . // CJK Unified Ideographs (chinese)
+            '\x{3400}-\x{4DBF}' . // CJK Unified Ideographs Extension A (chinese)
+            '\x{3040}-\x{309F}' . // hiragana (japanese)
+            '\x{30A0}-\x{30FF}' . // katakana (japanese)
+            '\x{0E00}-\x{0E7F}' . // thai
+            ']/u',
+            $text
+        );
+    }
+
+    /**
      * Cast line to string
-     *
-     * @return string
      */
     public function __toString(): string
     {
-        return implode(" ", $this->segments);
+        $string = implode("", $this->segments);
+
+        if ($this->wordsSeperatedBySpaces($string)) {
+            return implode(" ", $this->segments);
+        }
+
+        return $string;
     }
 }

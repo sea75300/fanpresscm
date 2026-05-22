@@ -9,7 +9,7 @@ namespace fpcm\view\helper;
 
 /**
  * Select menu view helper object
- * 
+ *
  * @package fpcm\view\helper
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2021, Stefan Seehafer
@@ -56,7 +56,9 @@ class dropdownItem extends helper {
      * @return string
      */
     protected function getString(): string
-    {        
+    {
+        $this->setMargin('me-2');
+        
         return "<li><a href=\"{$this->url}\" {$this->getIdString()} {$this->getClassString()} {$this->getDataString()} {$this->getTargetString()}>{$this->getIconString()}{$this->language->translate($this->text)}</a></li>";
     }
 

@@ -269,5 +269,22 @@ final class mysql implements sqlDriver {
     {
         return "show tables;";
     }
+    
+    /**
+     * Get FROM_UNIXTIME string
+     * @param string $col
+     * @param string $format
+     * @param string $alias
+     * @return string
+     * @since 5.3.0-a1
+     */
+    public function fromTimeStamp(string $col, string $format = '', string $alias = 'dtSTr'): string
+    {
+        if (!trim($format)) {
+            return sprintf("FROM_UNIXTIME(%s) as %s", $col, $alias);
+        }
+        
+        return sprintf("FROM_UNIXTIME(%s, '%s') as %s", $col, $format, $alias);
+    }
 
 }

@@ -9,13 +9,15 @@ namespace fpcm\module;
 
 /**
  * Modules list
- * 
+ *
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\module
  */
 class modules extends \fpcm\model\abstracts\tablelist {
+
+    const MODULES_ALL = 'all';
 
     /**
      * Enabled modules cache
@@ -30,6 +32,15 @@ class modules extends \fpcm\model\abstracts\tablelist {
     private $keyCache;
 
     /**
+     * Suppress deprecation note in module manager
+     * @var bool
+     * @since 5.3.0-dev
+     * @ignore
+     * @internal
+     */
+    public bool $suppress_deprecation_note = false;
+
+    /**
      * Konstruktor
      * @return bool
      */
@@ -38,7 +49,7 @@ class modules extends \fpcm\model\abstracts\tablelist {
         $this->table = \fpcm\classes\database::tableModules;
         $this->dbcon = \fpcm\classes\loader::getObject('\fpcm\classes\database');
         $this->cache = \fpcm\classes\loader::getObject('\fpcm\classes\cache');
-        
+
         if (\fpcm\classes\baseconfig::installerEnabled()) {
             return false;
         }
@@ -56,7 +67,7 @@ class modules extends \fpcm\model\abstracts\tablelist {
         if (\fpcm\classes\baseconfig::installerEnabled()) {
             return [];
         }
-        
+
         if (is_array($this->keyCache)) {
             return $this->keyCache;
         }
@@ -74,20 +85,50 @@ class modules extends \fpcm\model\abstracts\tablelist {
 
         return $this->keyCache;
     }
-    
+
     /**
-     * Fetch modules from database
-     * @param type $sort
+     * Fetch local module database
+     * @param bool $sort
+     * @param \fpcm\model\modules\search|null $search
      * @return array
      */
-    public function getFromDatabase($sort = false) : array
+    public function getFromDatabase(bool $sort = false, ?\fpcm\module\search $search = null) : array
     {
         if (\fpcm\classes\baseconfig::installerEnabled()) {
             return [];
         }
 
-        $where = $sort ? '1=1 '.$this->dbcon->orderBy(['installed DESC, active DESC, mkey ASC']) : '';
-        $result = $this->dbcon->selectFetch( (new \fpcm\model\dbal\selectParams($this->table))->setFetchAll(true)->setWhere($where) );
+        $whereQ = ['1=1'];
+        $params = [];
+
+        if ($search instanceof \fpcm\module\search) {
+
+            if ($search->text) {
+                $whereQ[] = '(mkey LIKE ? OR data LIKE ?)';
+                $params[] = "%{$search->text}%";
+                $params[] = "%{$search->text}%";
+            }
+
+            if ($search->status > -1) {
+                $whereQ[] = '(installed = 1 AND active = ?)';
+                $params[] = $search->status;
+            }
+
+        }
+
+        $where = implode(' AND ', $whereQ);
+
+        if ($sort) {
+            $where .= ' ' . $this->dbcon->orderBy(['installed DESC, active DESC, mkey ASC']);
+        }
+
+        $obj = (new \fpcm\model\dbal\selectParams($this->table))->setFetchAll(true)->setWhere($where);
+
+        if (count($params)) {
+            $obj->setParams($params);
+        }
+
+        $result = $this->dbcon->selectFetch($obj);
         if (!$result) {
             return [];
         }
@@ -110,7 +151,7 @@ class modules extends \fpcm\model\abstracts\tablelist {
             return [];
         }
 
-        $result = $this->dbcon->selectFetch( (new \fpcm\model\dbal\selectParams($this->table))->setWhere('installed = 1')->setFetchAll(true) );        
+        $result = $this->dbcon->selectFetch( (new \fpcm\model\dbal\selectParams($this->table))->setWhere('installed = 1')->setFetchAll(true) );
         if (!$result) {
             return [];
         }
@@ -125,31 +166,32 @@ class modules extends \fpcm\model\abstracts\tablelist {
 
     /**
      * Get installed modules with updates
-     * @return array
+     * @param bool $countOnly
+     * @return int|array
      */
-    public function getInstalledUpdates() : array
+    public function getInstalledUpdates(bool $countOnly = false) : int|array
     {
         if (\fpcm\classes\baseconfig::installerEnabled()) {
-            return [];
+            return $countOnly ? 0 : [];
         }
 
         $installed = $this->getInstalledDatabase();
         if (!count($installed)) {
-            return [];
+            return $countOnly ? 0 : [];
         }
 
         $list = [];
         foreach ($installed as $key => $module) {
-            
+
             if (!$module->hasUpdates()) {
                 continue;
             }
-            
+
             $list[] = $key;
-            
+
         }
 
-        return $list;
+        return $countOnly ? count($list) : $list;
     }
 
     /**
@@ -159,24 +201,26 @@ class modules extends \fpcm\model\abstracts\tablelist {
     public function getFromRepository() : array
     {
         $repoData = (new \fpcm\model\updater\modules())->getData();
-        
+
         if (!is_array($repoData) || !count($repoData)) {
             return [];
         }
-        
+
         $modules = [];
         foreach ($repoData as $key => $value) {
-            
+
             $module = new repoModule($key, false);
             $module->createFromRepoArray([
                 'name' => $value['name'],
-                'description' => isset($value['description']) ? $value['description'] : '',
-                'version' => isset($value['version']) ? $value['version'] : '',
-                'author' => isset($value['author']) ?$value['author'] : '',
-                'link' => isset($value['link']) ?$value['link'] : '',
-                'requirements' => isset($value['requirements']) ? $value['requirements'] : []
+                'description' => $value['description'] ?? '',
+                'version' => $value['version'] ?? '',
+                'author' => $value['author'] ?? '',
+                'link' => $value['link'] ?? '',
+                'requirements' => $value['requirements'] ?? [],
+                'changelogUrl' => $value['changelog'] ?? '',
+                'size' => $value['size'] ?? '',
             ]);
-            
+
             $modules[$key] = $module;
         }
 
@@ -223,25 +267,38 @@ class modules extends \fpcm\model\abstracts\tablelist {
         if (is_array($this->enabledCache)) {
             return $this->enabledCache;
         }
-        
+
         $cacheName = 'modules/'. __FUNCTION__;
-        
+
         if (!$this->cache->isExpired($cacheName)) {
             $this->enabledCache = $this->cache->read($cacheName);
             return is_array($this->enabledCache) ? $this->enabledCache : [];
         }
 
         $this->enabledCache = [];
-        $result = $this->dbcon->selectFetch((new \fpcm\model\dbal\selectParams())->setTable($this->table)->setItem('mkey')->setWhere('installed = 1 AND active = 1')->setFetchAll(true));
+        $result = $this->dbcon->selectFetch((new \fpcm\model\dbal\selectParams())->setTable($this->table)->setItem('mkey, data')->setWhere('installed = 1 AND active = 1')->setFetchAll(true));
         if (!$result) {
             $this->cache->write($cacheName, []);
             return $this->enabledCache;
         }
 
         foreach ($result as $dataset) {
+
+            if ($dataset->data) {
+                $cfg = new config($dataset->mkey, $dataset->data);
+                if (version_compare($cfg->requirements->system, '5.3.0-dev', '<')) {
+
+                    if (!$this->suppress_deprecation_note) {
+                        trigger_error(sprintf("Module %s does not support FanPress CM 5.3.x! This module connat be installed for now.", $dataset->mkey));
+                    }
+
+                    continue;
+                }
+            }
+
             $this->enabledCache[] = $dataset->mkey;
         }
-        
+
         $this->cache->write($cacheName, $this->enabledCache);
         return $this->enabledCache;
     }

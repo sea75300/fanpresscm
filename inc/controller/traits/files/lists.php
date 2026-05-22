@@ -16,6 +16,19 @@ namespace fpcm\controller\traits\files;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 trait lists {
+    
+    const FILEMANAGER_TYPE_MAIN = 1;
+
+    const FILEMANAGER_TYPE_EDITOR = 2;
+
+    const FILEMANAGER_TYPE_ARTICLE_IMG = 3;
+
+
+    /**
+     * Modus
+     * @var int
+     */
+    protected int $mode = 1;
 
     /**
      *
@@ -32,7 +45,6 @@ trait lists {
     public function initViewAssigns($list, $users)
     {
         $this->view->assign('files', $list);
-        $this->view->assign('users', $users);
         $this->view->assign('mode', $this->mode);
         $this->view->assign('filterError', $this->filterError);
         $this->view->assign('listAction', 'files/list');

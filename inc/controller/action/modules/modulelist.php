@@ -67,16 +67,18 @@ class modulelist extends \fpcm\controller\abstracts\controller
     }
 
     /**
-     * 
-     * @return bool
+     * Controller processing
+     * @return void
      */
     public function process()
     {
-
         $this->view->addJsLangVars([
             'MODULES_LIST_INFORMATIONS', 'MODULES_FAILED_ENABLE',
             'MODULES_FAILED_DISABLE', 'MODULES_FAILED_INSTALL',
-            'MODULES_FAILED_UNINSTALL', 'MODULES_LIST_INSTALL'
+            'MODULES_FAILED_UNINSTALL', 'MODULES_LIST_INSTALL',
+            'MODULES_SEARCH_FILTER_STATUS', 'MODULES_SEARCH_FILTER_TEXT',
+            'ARTICLES_SEARCH', 'GLOBAL_ACTIVE', 'GLOBAL_INACTIVE',
+            'ARTICLE_SEARCH_START'
         ]);
 
         $this->view->addJsFiles(['modules/list.js']);
@@ -88,7 +90,11 @@ class modulelist extends \fpcm\controller\abstracts\controller
                 'enabledFailed' => \fpcm\module\module::STATUS_NOT_ENABLED,
                 'disabledFailed' => \fpcm\module\module::STATUS_NOT_DISABLED,
             ],
-            'uploadDest' => 'modules'
+            'uploadDest' => 'modules',
+            'search' => [
+                'text' => '',
+                'status' => '',
+            ]
         ]);
 
         $this->view->assign('canUpload', !$this->uploadDisabled);
@@ -98,14 +104,16 @@ class modulelist extends \fpcm\controller\abstracts\controller
         
         $buttons = [];
         if (\fpcm\classes\baseconfig::canConnect() && $this->permissions->modules->install) {
-            $buttons[] = (new \fpcm\view\helper\button('checkUpdate', 'checkUpdate'))->setText('PACKAGES_MANUALCHECK')->setIcon('sync');
-            
-            $updatesAvailable = (new \fpcm\module\modules())->getInstalledUpdates();
-            if (count($updatesAvailable) > 1) {
+            $buttons[] = (new \fpcm\view\helper\button('checkUpdate', 'checkUpdate'))
+                ->setText('PACKAGES_MANUALCHECK')
+                ->setIcon('sync')
+                ->setPrimary();
+
+            if ((new \fpcm\module\modules())->getInstalledUpdates(true) > 0) {
                 $buttons[] = (new \fpcm\view\helper\linkButton('runUpdateAll'))
                         ->setUrl(\fpcm\classes\tools::getFullControllerLink('package/modupdate', [
-                                'key' => array_shift($updatesAvailable),
-                                'updateKeys' => urlencode(base64_encode($this->crypt->encrypt(implode(';', $updatesAvailable))))
+                                'key' => \fpcm\module\modules::MODULES_ALL,
+                                'multiple' => true
                             ])
                         )->setText('MODULES_LIST_UPDATE_ALL')
                         ->setIcon('sync')
@@ -113,6 +121,11 @@ class modulelist extends \fpcm\controller\abstracts\controller
             }
             
         }
+        
+        $buttons[] = (new \fpcm\view\helper\button('opensearch'))
+            ->setText('ARTICLES_SEARCH')
+            ->setIcon('search')
+            ->setIconOnly();
 
         $this->view->addButtons($buttons);
         
@@ -132,7 +145,6 @@ class modulelist extends \fpcm\controller\abstracts\controller
         
         $this->view->addTabs('modulemgr', $this->tabs);
         $this->view->addOffCanvas( (new \fpcm\view\helper\icon('plug') . $this->language->translate('MODULES_LIST_INFORMATIONS')) , 'modules/offcanvas');
-        return true;
     }
 
     /**

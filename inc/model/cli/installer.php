@@ -18,8 +18,7 @@ namespace fpcm\model\cli;
  */
 final class installer extends \fpcm\model\abstracts\cli {
 
-    use \fpcm\controller\traits\system\syscheck,
-        \fpcm\controller\traits\common\timezone;
+    use \fpcm\controller\traits\common\timezone;
 
     /**
      * Installer Konfiguration aus YML-Datei
@@ -96,8 +95,11 @@ final class installer extends \fpcm\model\abstracts\cli {
     private function runSystemCheck()
     {
         $this->output('Executing system check...');
-
-        $rows = $this->getCheckOptionsSystem();
+        
+        $check = new \fpcm\model\system\check\check(false);
+        $check->perform();
+        
+        $rows = $check->getFullResult();
 
         $checkFailed = false;
 
@@ -105,7 +107,7 @@ final class installer extends \fpcm\model\abstracts\cli {
         foreach ($rows as $descr => $data) {
 
             print '.';
-            $lines[] = $data->asString(strip_tags($descr));
+            $lines[] = $data->asString();
 
             usleep(50000);
             if ($data->getOptional() || $data->getResult()) {
@@ -223,7 +225,6 @@ final class installer extends \fpcm\model\abstracts\cli {
             'system_url' => $this->conf['config']['sysurl'],
             'system_lang' => $this->conf['config']['language'],
             'system_email' => $this->conf['config']['email'],
-            'system_mode' => $this->conf['config']['mode'],
             'system_dtmask' => $this->conf['config']['datetimemask'],
             'system_timezone' => $this->conf['config']['timezone'],
             'system_cache_timeout' => $this->conf['config']['cachetimeout'],
@@ -248,7 +249,7 @@ final class installer extends \fpcm\model\abstracts\cli {
 
     /**
      * Ersten Benutzer erzeugen
-     * @return bool
+     * @return void
      */
     private function createUserAccount()
     {
@@ -260,7 +261,7 @@ final class installer extends \fpcm\model\abstracts\cli {
             $this->output('The selected username should not be used due to security problems...' . PHP_EOL);
             if ($this->input('Do you want to proceed with the username? (y/n)') === 'n') {
                 $this->conf['user']['username'] = $this->input('Please enter a new username?');
-                return false;
+                return;
             }
         }
 

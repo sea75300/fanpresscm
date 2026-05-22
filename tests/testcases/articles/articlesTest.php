@@ -236,12 +236,20 @@ class articlesTest extends testBase {
 
     public function testDeleteArticlesByUser()
     {
+        /* @var $art2 \fpcm\model\articles\article */
+        $art2 = new \fpcm\model\articles\article();
+
+        $art2->setTitle('FPCM UnitTest Article ' . microtime(true). ' in ' . __METHOD__);
+        $art2->setContent('FPCM UnitTest Article from https://nobody-knows.org in ' . __METHOD__ . '!');
+        $art2->setCreatetime(time());
+        $art2->setCreateuser(99999);
+
         $db = new \fpcm\classes\database();
         if ($db->getDbtype() === \fpcm\classes\database::DBTYPE_POSTGRES) {
             $this->markTestSkipped('Deletes all articles while running on Postgres');
         }
 
-        $result = $this->object->deleteArticlesByUser(2);
+        $result = $this->object->deleteArticlesByUser(99999);
         $this->assertTrue($result);
     }
 

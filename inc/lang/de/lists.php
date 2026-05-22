@@ -18,6 +18,17 @@ $lang = array (
     'OGG Audio' => 'audio/ogg',
     'WAV Audio' => 'audio/wav',
   ),
+  'FILE_LIST_MEDIA_TYPE_LIST' => 
+  array (
+    'Alle' => -1,
+    'Bilder' => 0,
+    'Audio/Video' => 1,
+  ),
+  'GLOBAL_SORTBY_LIST' => 
+  array (
+    'Aufsteigend' => 'asc',
+    'Absteigend' => 'desc',
+  ),
   'LANGUAGE_CHARACTER_REPLACE' => 
   array (
     'ä' => 'ae',

@@ -21,16 +21,22 @@ use fpcm\model\packages\update;
  * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\model\updater
- * 
+ *
  * @property string $version New system version
  * @property bool $force Force update to new version
  * @property string $url URL for package
  * @property string $signature Package signature
  * @property string $phpversion Minimum required PHP version
  * @property string $release Package release
+ * @property string $changelog Changelog URL
  * @property int $size Package size
  */
-final class system extends staticModel {
+final class system
+extends staticModel
+implements \fpcm\model\interfaces\isObjectInstancable
+{
+
+    use \fpcm\model\traits\getObjectInstance;
 
     /**
      * Status, dass Update erzwungen wird
@@ -65,6 +71,10 @@ final class system extends staticModel {
             return remoteModel::FURLOPEN_ERROR;
         }
 
+        if ($this->version === null) {
+            $this->version = '';
+        }
+        
         $newVersion = version_compare($this->version, $this->config->system_version, '>');
         if ($newVersion && isset($this->phpversion) && version_compare(phpversion(), $this->phpversion, '<')) {
             fpcmLogSystem('FanPress CM ' . $this->version . ' is available, but requires PHP ' . $this->phpversion . ' or higher.');
@@ -79,28 +89,6 @@ final class system extends staticModel {
     }
 
     /**
-     * Manueller Update-Check durchführen
-     * @return bool
-     */
-    public function checkManual()
-    {
-        if ($this->updateAvailable() !== remoteModel::FURLOPEN_ERROR) {
-            return false;
-        }
-
-        return (!baseconfig::canConnect() && time() > filectime(baseconfig::getVersionFromFile()) + $this->config->system_updates_manual) ? true : false;
-    }
-
-    /**
-     * Gibt Link für Manuelle Update-Prüfung zurück, seit FPCM 3.x Link zur Download-Seite von FanPress CM
-     * @return string
-     */
-    public function getManualCheckAddress()
-    {
-        return baseconfig::$updateServerManualLink;
-    }
-
-    /**
      * Initialize class data
      * @return bool
      */
@@ -109,30 +97,18 @@ final class system extends staticModel {
         $this->fileOption = new fileOption(repository::FOPT_UPDATES);
 
         $foptData = \Spyc::YAMLLoadString($this->fileOption->read());
-        
-        $currentVersionComplete = $this->config->system_version;
-        $currentVersionMinor    = \fpcm\classes\tools::getMajorMinorReleaseFromString($currentVersionComplete);
 
-        if ($this->config->system_updates_devcheck) {
-            $currentVersionComplete .= '-'.self::PREFIX_DEV;
-            $currentVersionMinor .= '-'.self::PREFIX_DEV;
-        }
-
-        if (isset($foptData[$currentVersionComplete])) {
-            $this->data = $foptData[$currentVersionComplete];
-        }
-        elseif (isset($foptData[$currentVersionMinor]) ) {
-            $this->data = $foptData[$currentVersionMinor];
-        }
-        elseif ($this->config->system_updates_devcheck && isset ($foptData[self::PREFIX_DEV])) {
-            $this->data = $foptData[self::PREFIX_DEV];
-        }
-        else {
+        $this->data = $foptData[$this->config->system_version] ?? [];
+        if (!count($this->data)) {
             $this->data = $foptData[self::PREFIX_DEFAULT] ?? [];
         }
 
         if ($this->size === null) {
             $this->size = 0;
+        }
+
+        if ($this->changelog === null) {
+            $this->changelog = '';
         }
 
         return true;
@@ -149,5 +125,3 @@ final class system extends staticModel {
     }
 
 }
-
-?>

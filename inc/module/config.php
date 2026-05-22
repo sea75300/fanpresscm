@@ -9,7 +9,7 @@ namespace fpcm\module;
 
 /**
  * Module config
- * 
+ *
  * @property string $key Module key
  * @property string $author Module author
  * @property string $name Module name
@@ -21,13 +21,14 @@ namespace fpcm\module;
  * @property string $support Support link
  * @property string $licence License name, default value is GPLv3
  * @property string $licenceUrl License fiel url
+ * @property string $changelogUrl changelog url
  * @property bool $useDataFolder Use data folder
  * @property bool $removeDataFolder Removce data folder
- * @property array $requirements Module requirements array
+ * @property config\requirements $requirements Module requirements array
  * @property array $tables Module tables data
  * @property array $configOptions Module config data
  * @property array $crons Module cronjob data
- * 
+ *
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
@@ -37,7 +38,7 @@ class config implements \JsonSerializable {
 
     /**
      * Module config data
-     * @var bool
+     * @var array
      */
     protected $data = [];
 
@@ -54,10 +55,15 @@ class config implements \JsonSerializable {
         $this->data     = array_merge($this->data, ($installed === null
                         ? \Spyc::YAMLLoad($this->basePath.DIRECTORY_SEPARATOR.'module.yml')
                         : (is_array($installed) ? $installed :  json_decode($installed, true)) ) );
+
+
+        if (isset($this->data['requirements']) && is_array($this->data['requirements'])) {
+            $this->data['requirements'] = new config\requirements($this->data['requirements']);
+        }
     }
 
     /**
-     * 
+     *
      * @param string $name
      * @return mixed|null
      * @ignore
@@ -72,7 +78,7 @@ class config implements \JsonSerializable {
     }
 
     /**
-     * 
+     *
      * @param string $name
      * @param mixed $value
      * @ignore

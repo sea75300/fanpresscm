@@ -15,7 +15,8 @@ namespace fpcm\view\helper;
  * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class button extends helper {
+class button extends helper
+implements interfaces\jsDialogHelper, \JsonSerializable {
 
     use traits\iconHelper,
         traits\typeHelper,
@@ -94,6 +95,10 @@ class button extends helper {
      */
     public function overrideButtonType(string $type)
     {
+        if ($type === '') {
+            return $this;
+        }
+        
         $this->class = preg_replace('/(btn-)(\w+\s{1})(.*)/i', '$1'.$type.' $3', $this->class);
         return $this;
     }

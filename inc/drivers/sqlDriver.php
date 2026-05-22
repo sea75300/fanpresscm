@@ -97,6 +97,16 @@ interface sqlDriver {
      * @return string
      */
     public function getNotQuery($field);
+    
+    /**
+     * Covert unix timestamp to date
+     * @param string $col
+     * @param string $format
+     * @param string $alias
+     * @return string
+     * @since 5.3.0-a1
+     */
+    public function fromTimeStamp(string $col, string $format = '', string $alias = 'dtSTr') : string;
 
     /**
      * Datentyp-Mapping für Yaml-basierte Tabelle-Definitionen

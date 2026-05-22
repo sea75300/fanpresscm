@@ -9,7 +9,9 @@
 
 namespace fpcm\controller\action\users\user;
 
-class base extends \fpcm\controller\abstracts\controller
+class base
+extends \fpcm\controller\abstracts\controller
+implements \fpcm\controller\interfaces\requestFunctions
 {
 
     use \fpcm\controller\traits\common\timezone,
@@ -31,12 +33,6 @@ class base extends \fpcm\controller\abstracts\controller
 
     /**
      *
-     * @var bool
-     */
-    protected $showExtended = false;
-
-    /**
-     * 
      * @return string
      */
     protected function getViewPath() : string
@@ -45,7 +41,7 @@ class base extends \fpcm\controller\abstracts\controller
     }
 
     /**
-     * 
+     *
      * @return bool
      */
     public function isAccessible(): bool
@@ -54,7 +50,7 @@ class base extends \fpcm\controller\abstracts\controller
     }
 
     /**
-     * 
+     *
      * @return bool
      */
     protected function initActionObjects()
@@ -65,31 +61,25 @@ class base extends \fpcm\controller\abstracts\controller
     }
 
     /**
-     * 
+     *
      * @return bool
      */
     public function request()
     {
         $this->initFormData();
-        if (($this->buttonClicked('userSave') || $this->buttonClicked('resetProfileSettings')) && !$this->checkPageToken()) {
-            $this->view->addErrorMessage('CSRF_INVALID');
-            $this->view->assign('author', $this->user);
-            return true;
-        }
-
-        $this->save();
         $this->view->assign('author', $this->user);
         return true;
     }
 
     /**
-     * Konstruktor
+     * Controller-Processing
+     * @return void
      */
     public function process()
     {
         $this->initTabs();
         $this->settingsToView();
-        
+
         $this->view->assign('externalSave', true);
         $this->view->assign('inProfile', false);
 
@@ -103,13 +93,13 @@ class base extends \fpcm\controller\abstracts\controller
     }
 
     /**
-     * 
+     *
      * @return bool
      */
-    protected function save()
+    protected function onUserSave() : bool
     {
-        if (!$this->buttonClicked('userSave')) {
-            return true;
+        if (!$this->checkPageToken()) {
+            return false;
         }
 
         $data = $this->initFormData();
@@ -119,12 +109,12 @@ class base extends \fpcm\controller\abstracts\controller
 
         $save = true;
         if ($data['password'] && $data['password_confirm']) {
-            if (md5($data['password']) == md5($data['password_confirm'])) {
-                $this->user->setPassword($data['password']);
-            } else {
-                $save = false;
+            if (md5($data['password']) !== md5($data['password_confirm'])) {
                 $this->view->addErrorMessage('SAVE_FAILED_PASSWORD_MATCH');
+                return false;
             }
+
+            $this->user->setPassword($data['password']);
         } else {
             $this->user->disablePasswordSecCheck();
             $this->user->setPassword(null);
@@ -136,7 +126,7 @@ class base extends \fpcm\controller\abstracts\controller
 
         if ($save) {
             $res = ( $this->userId ? $this->user->update() : $this->user->save() );
-            
+
             if (isset($data['passInfoUser']) && $data['password'] && $data['password_confirm'] && filter_var($this->user->getEmail(), FILTER_VALIDATE_EMAIL)) {
                 $msg = (new \fpcm\classes\email(
                     $this->user->getEmail(),
@@ -155,26 +145,38 @@ class base extends \fpcm\controller\abstracts\controller
             if ($res === false) {
                 $this->view->addErrorMessage('SAVE_FAILED_USER');
                 fpcmLogSystem('Failed to save changes made to user '.$this->user->getUsername().'.');
-            } elseif ($res === true) {
-                fpcmLogSystem('Changes made to user '.$this->user->getUsername().' successful.');
-                $this->redirect('users/list', array('msg' => $this->userId ? 2 : 1));
-            } elseif ($res === \fpcm\model\users\author::AUTHOR_ERROR_PASSWORDINSECURE) {
+                return false;
+            }
+
+            if ($res === \fpcm\model\users\author::AUTHOR_ERROR_PASSWORDINSECURE) {
                 fpcmLogSystem('Failed to save changes made to user '.$this->user->getUsername().' due to insecure password.');
                 $this->view->addErrorMessage('SAVE_FAILED_PASSWORD_SECURITY');
-            } elseif ($res === \fpcm\model\users\author::AUTHOR_ERROR_EXISTS) {
+                return false;
+            }
+
+            if ($res === \fpcm\model\users\author::AUTHOR_ERROR_EXISTS) {
                 fpcmLogSystem('Failed to save user '.$this->user->getUsername().', username already exists.');
                 $this->view->addErrorMessage('SAVE_FAILED_USER_EXISTS');
-            } elseif ($res === \fpcm\model\users\author::AUTHOR_ERROR_NOEMAIL) {
+                return false;
+            }
+
+            if ($res === \fpcm\model\users\author::AUTHOR_ERROR_NOEMAIL) {
                 fpcmLogSystem('Failed to save changes made to user '.$this->user->getUsername().' due to invalid e-mail address.');
                 $this->view->addErrorMessage('SAVE_FAILED_USER_EMAIL');
+                return false;
             }
         }
-        
+
+        fpcmLogSystem('Changes made to user '.$this->user->getUsername().' successful.');
+        $this->redirect('users/list', [
+            'msg' => $this->userId ? 2 : 1
+        ]);
+
         return true;
     }
 
     /**
-     * 
+     *
      * @return array
      */
     protected function initFormData() : array
@@ -191,12 +193,12 @@ class base extends \fpcm\controller\abstracts\controller
 
         $metaData = $this->user->getUserMeta();
         if (is_object($metaData)) {
-            
+
             $userMetaForm = $this->request->fromPOST('usermeta');
             if (!is_array($userMetaForm)) {
                 $userMetaForm = [];
-            }            
-            
+            }
+
             $metaData->mergeData($userMetaForm);
             $this->user->setUserMeta($metaData);
         }

@@ -253,13 +253,6 @@
 
 <dl class="phpdocumentor-table-of-contents">
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
-    <a href="classes/fpcm-model-cli-files.html#constant_DIRS_DATA_WHITELIST">DIRS_DATA_WHITELIST</a>
-    <span>
-        &nbsp;= [&#039;dbstruct&#039;, &#039;share&#039;]                            </span>
-</dt>
-<dd>/data folder whitelist for checks</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/fpcm-model-abstracts-cli.html#constant_PARAM_CHGROLL">PARAM_CHGROLL</a>
     <span>
         &nbsp;= &#039;--chgroll&#039;                            </span>
@@ -477,13 +470,6 @@
 <dd>Base path</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
-    <a href="classes/fpcm-model-cli-files.html#property_dirsIndex">$dirsIndex</a>
-    <span>
-                        &nbsp;: array&lt;string|int, mixed&gt;            </span>
-</dt>
-<dd>Directory index array</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/fpcm-model-cli-files.html#property_excludes">$excludes</a>
     <span>
                         &nbsp;: array&lt;string|int, mixed&gt;            </span>
@@ -491,11 +477,11 @@
 <dd>Folder excludes parameter</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
-    <a href="classes/fpcm-model-cli-files.html#property_filesIndex">$filesIndex</a>
+    <a href="classes/fpcm-model-cli-files.html#property_obj">$obj</a>
     <span>
-                        &nbsp;: array&lt;string|int, mixed&gt;            </span>
+                        &nbsp;: <a href="classes/fpcm-model-files-filesIndexCheck.html"><abbr title="\fpcm\model\files\filesIndexCheck">filesIndexCheck</abbr></a>            </span>
 </dt>
-<dd>File index array</dd>
+<dd>files.txt index check object</dd>
 
                 <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/fpcm-model-abstracts-staticModel.html#method___construct">__construct()</a>
@@ -584,35 +570,6 @@
             Constants
             <a href="classes/fpcm-model-cli-files.html#constants" class="headerlink"><i class="fas fa-link"></i></a>
         </h3>
-                    <article class="phpdocumentor-element -constant -public ">
-    <h4 class="phpdocumentor-element__name" id="constant_DIRS_DATA_WHITELIST">
-        DIRS_DATA_WHITELIST
-        <a href="classes/fpcm-model-cli-files.html#constant_DIRS_DATA_WHITELIST" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/cli/files.php"><a href="files/inc-model-cli-files.html"><abbr title="inc/model/cli/files.php">files.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">24</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">/data folder whitelist for checks</p>
-
-    <code class="phpdocumentor-signature phpdocumentor-code ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type">mixed</span>
-    <span class="phpdocumentor-signature__name">DIRS_DATA_WHITELIST</span>
-    = <span class="phpdocumentor-signature__default-value">[&#039;dbstruct&#039;, &#039;share&#039;]</span>
-</code>
-
-
-    
-        <section class="phpdocumentor-description"></section>
-
-    
-
-</article>
                     <article class="phpdocumentor-element -constant -public ">
     <h4 class="phpdocumentor-element__name" id="constant_PARAM_CHGROLL">
         PARAM_CHGROLL
@@ -1593,7 +1550,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/cli/files.php"><a href="files/inc-model-cli-files.html"><abbr title="inc/model/cli/files.php">files.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">51</span>
+    <span class="phpdocumentor-element-found-in__line">31</span>
 
     </aside>
 
@@ -1617,39 +1574,6 @@
             -private
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="property_dirsIndex">
-        $dirsIndex
-        <a href="classes/fpcm-model-cli-files.html#property_dirsIndex" class="headerlink"><i class="fas fa-link"></i></a>
-        <span class="phpdocumentor-element__modifiers">
-                                </span>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/cli/files.php"><a href="files/inc-model-cli-files.html"><abbr title="inc/model/cli/files.php">files.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">39</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Directory index array</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;</span>
-    <span class="phpdocumentor-signature__name">$dirsIndex</span>
-     = <span class="phpdocumentor-signature__default-value">[]</span></code>
-
-    
-    
-    
-
-</article>
-                    <article
-        class="
-            phpdocumentor-element
-            -property
-            -private
-                                                        "
->
     <h4 class="phpdocumentor-element__name" id="property_excludes">
         $excludes
         <a href="classes/fpcm-model-cli-files.html#property_excludes" class="headerlink"><i class="fas fa-link"></i></a>
@@ -1659,7 +1583,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/cli/files.php"><a href="files/inc-model-cli-files.html"><abbr title="inc/model/cli/files.php">files.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">45</span>
+    <span class="phpdocumentor-element-found-in__line">25</span>
 
     </aside>
 
@@ -1683,26 +1607,26 @@
             -private
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="property_filesIndex">
-        $filesIndex
-        <a href="classes/fpcm-model-cli-files.html#property_filesIndex" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="property_obj">
+        $obj
+        <a href="classes/fpcm-model-cli-files.html#property_obj" class="headerlink"><i class="fas fa-link"></i></a>
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/cli/files.php"><a href="files/inc-model-cli-files.html"><abbr title="inc/model/cli/files.php">files.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">33</span>
+    <span class="phpdocumentor-element-found-in__line">37</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">File index array</p>
+        <p class="phpdocumentor-summary">files.txt index check object</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;</span>
-    <span class="phpdocumentor-signature__name">$filesIndex</span>
-     = <span class="phpdocumentor-signature__default-value">[]</span></code>
+        <span class="phpdocumentor-signature__type"><a href="classes/fpcm-model-files-filesIndexCheck.html"><abbr title="\fpcm\model\files\filesIndexCheck">filesIndexCheck</abbr></a></span>
+    <span class="phpdocumentor-signature__name">$obj</span>
+    </code>
 
     
     
@@ -1805,7 +1729,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/cli/files.php"><a href="files/inc-model-cli-files.html"><abbr title="inc/model/cli/files.php">files.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">258</span>
+    <span class="phpdocumentor-element-found-in__line">131</span>
 
     </aside>
 
@@ -1838,7 +1762,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/cli/files.php"><a href="files/inc-model-cli-files.html"><abbr title="inc/model/cli/files.php">files.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">57</span>
+    <span class="phpdocumentor-element-found-in__line">43</span>
 
     </aside>
 
@@ -2057,7 +1981,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/cli/files.php"><a href="files/inc-model-cli-files.html"><abbr title="inc/model/cli/files.php">files.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">86</span>
+    <span class="phpdocumentor-element-found-in__line">73</span>
 
     </aside>
 
@@ -2100,7 +2024,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/cli/files.php"><a href="files/inc-model-cli-files.html"><abbr title="inc/model/cli/files.php">files.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">277</span>
+    <span class="phpdocumentor-element-found-in__line">150</span>
 
     </aside>
 
@@ -2143,7 +2067,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/cli/files.php"><a href="files/inc-model-cli-files.html"><abbr title="inc/model/cli/files.php">files.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">188</span>
+    <span class="phpdocumentor-element-found-in__line">106</span>
 
     </aside>
 

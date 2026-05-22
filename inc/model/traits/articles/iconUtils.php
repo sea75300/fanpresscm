@@ -36,7 +36,7 @@ trait iconUtils {
      */
     public function getStatusIconDraft()
     {
-        return $this->getStatusColor((new \fpcm\view\helper\icon('file-alt fa-inverse', 'far'))
+        return $this->getStatusColor((new \fpcm\view\helper\icon('pen-ruler fa-inverse'))
                         ->setClass('fpcm-ui-editor-metainfo fpcm-ui-editor-metainfo-draft')
                         ->setText('EDITOR_STATUS_DRAFT')
                         ->setStack('square'), $this->getDraft());
@@ -88,18 +88,6 @@ trait iconUtils {
                         ->setClass('fpcm-ui-editor-metainfo fpcm-ui-editor-metainfo-archived')
                         ->setText('EDITOR_STATUS_ARCHIVE')
                         ->setStack('square'), $this->getArchived());
-    }
-
-    /**
-     * Returns archive status icon
-     * @return \fpcm\view\helper\icon
-     */
-    public function getStatusIconTwitter()
-    {
-        return $this->getStatusColor((new \fpcm\view\helper\icon('twitter fab fa-inverse'))
-                        ->setClass('fpcm-ui-editor-metainfo fpcm-ui-editor-metainfo-twitter')
-                        ->setText('EDITOR_TWEET_ENABLED')
-                        ->setStack('square'), $this->tweetCreationEnabled());
     }
 
     /**

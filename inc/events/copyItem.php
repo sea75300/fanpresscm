@@ -26,7 +26,7 @@ final class copyItem extends abstracts\event {
      * Executes the event
      * @return null|\fpcm\module\eventResult
      */
-    public function run()
+    public function run() : \fpcm\module\eventResult
     {
         $obj = new \fpcm\module\module($this->data['key']);
         if (!$obj->isInstalled() || !$obj->isActive()) {
@@ -42,9 +42,7 @@ final class copyItem extends abstracts\event {
         unset($this->data['key']);
 
         $eventOb = new $class($this->data);
-        $return = $this->is_a($eventOb) ? $eventOb->run() : null;
-
-        return $this->toEventResult($return);
+        return $eventOb->run();
     }
 
 }

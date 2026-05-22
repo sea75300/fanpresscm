@@ -43,14 +43,15 @@ class searchall extends \fpcm\controller\abstracts\ajaxController
     }
 
     /**
-     * Controller-Processing
+     * Controller processing
+     * @return void
      */
     public function process()
     {
         usleep(2500);
         
         if (!trim($this->term) || strlen($this->term) < 3) {
-            $this->response->setReturnData(new \fpcm\model\gsearch\resultSet([], 0))->fetch();
+            $this->response->setReturnData(new \fpcm\model\gsearch\resultSet([], 0, false))->fetch();
         }
 
         $cond = new \fpcm\model\gsearch\conditions($this->term);

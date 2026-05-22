@@ -9,44 +9,14 @@ namespace fpcm\events\abstracts;
 
 /**
  * Event model base
- * 
+ *
  * @package fpcm\events\abstracts
  * @abstract
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2021, Stefan Seehafer
+ * @copyright (c) 2011-2025, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 abstract class event {
-
-    /**
-     * Array returntype für Module-Event
-     * @since 3.4
-     */
-    const RETURNTYPE_ARRAY = 'array';
-
-    /**
-     * Object returntype für Module-Event
-     * @since 3.4
-     */
-    const RETURNTYPE_OBJ = 'object';
-
-    /**
-     * Object returntype für Module-Event
-     * @since 4
-     */
-    const RETURNTYPE_SCALAR = 'scalar';
-
-    /**
-     * Object returntype für Module-Event
-     * @since 4
-     */
-    const RETURNTYPE_EVENTRESULT = '\\fpcm\\module\\eventResult';
-
-    /**
-     * Object returntype für Module-Event
-     * @since 4
-     */
-    const RETURNTYPE_VOID = null;
 
     /**
      * Base instaces a module event has to implement
@@ -55,7 +25,7 @@ abstract class event {
 
     /**
      * Event-Daten
-     * @var array
+     * @var mixed|\fpcm\module\eventResult
      */
     protected $data;
 
@@ -88,7 +58,7 @@ abstract class event {
         if (isset($GLOBALS['fpcm']['events']['activeModules']) && count($GLOBALS['fpcm']['events']['activeModules'])) {
             return;
         }
-        
+
         if (!$this->cache->isExpired('modules/activeeventscache')) {
             $GLOBALS['fpcm']['events']['activeModules'] = $this->cache->read('modules/activeeventscache');
             return;
@@ -157,27 +127,18 @@ abstract class event {
     }
 
     /**
-     * Defines type of returned data
-     * @return string|bool|null
-     */
-    protected function getReturnType()
-    {
-        return self::RETURNTYPE_SCALAR;
-    }
-
-    /**
      * Checks if module event class has implemented \fpcm\module\event
      * @param mixed $object
      * @return bool
      */
-    protected function is_a($object)
+    protected function is_a($object) : bool
     {
         $base = self::EVENT_BASE_INSTANCE;
         if ($object instanceof $base) {
             return true;
         }
 
-        trigger_error('Event object of class ' . get_class($object) . ' must be an instance of ' . self::EVENT_BASE_INSTANCE . '!');
+        trigger_error(sprintf("Event object of class %s must be an instance of %s", $object::class, self::EVENT_BASE_INSTANCE));
         return false;
     }
 
@@ -186,7 +147,7 @@ abstract class event {
      * @return array
      * @since 3.3
      */
-    protected function getEventClasses()
+    protected function getEventClasses() : array
     {
         if (!count($GLOBALS['fpcm']['events']['activeModules'])) {
             return [];
@@ -213,7 +174,7 @@ abstract class event {
      * Returns event base class data
      * @return string
      */
-    protected function getEventClassBase()
+    protected function getEventClassBase() : string
     {
         return str_replace('fpcm\\events\\', '', static::class);
     }
@@ -223,44 +184,138 @@ abstract class event {
      * @param array $data
      * @return array
      */
-    public function run()
+
+    /**
+     * Executes event
+     * @return \fpcm\module\eventResult
+     */
+    public function run() : \fpcm\module\eventResult
     {
+        $this->beforeRun();
+
         $eventClasses = $this->getEventClasses();
-        
         if (!count($eventClasses)) {
-            return (new \fpcm\module\eventResult())->setData($this->data);     
+            return $this->onNoClasses();
         }
 
-        $base = $this->getEventClassBase();
-        $eventResult = $this->data;
+        if ($this instanceof \fpcm\events\interfaces\componentProvider) {
+            $eventClasses = array_slice($eventClasses, 0, 1);
+        }
 
-        foreach ($eventClasses as $class) {
+        $max = count($eventClasses) - 1;
+
+        foreach ($eventClasses as $i => $class) {
 
             if (!class_exists($class)) {
-                trigger_error('Undefined event class '.$class);
-                continue;
-            }
-            
-            if ($eventResult instanceof \fpcm\module\eventResult) {
-                $eventResult = $eventResult->getData();
-            }
-            
-            /* @var \fpcm\module\event $module */
-            $module = new $class($eventResult);
-            if (!$this->is_a($module)) {
+                trigger_error(sprintf('Undefined event class %s, Event: %s', $class, self::class));
                 continue;
             }
 
-            $eventResult = $module->run();
-            
-            if (empty($eventResult)) {
-                trigger_error(sprintf('The return value of the module event "%s" cannot be empty. An instance of "\fpcm\module\eventResult" is required at least.', $module::class), E_USER_ERROR);
-                $eventResult = $this->toEventResult($this->data);
+            $this->processClass($class);
+            if (!$this->data->getSuccessed() || !$this->data->getContinue()) {
+                 return $this->data;
             }
-            
+
+            if ($i < $max) {
+                $this->afterProcess();
+            }
+
+        }
+
+        $this->afterRun();
+
+        return $this->data;
+    }
+
+    /**
+     * Return event result object if no events will be triggered
+     * @return \fpcm\module\eventResult
+     * @since 5.3.0-dev
+     */
+    protected function onNoClasses() : \fpcm\module\eventResult
+    {
+        return (new \fpcm\module\eventResult())->setData($this->data);
+    }
+
+
+    /**
+     * Prepare event before running
+     * @return bool
+     * @since 5.3.0-dev
+     */
+    protected function beforeRun() : void
+    {
+        return;
+    }
+
+    /**
+     * 
+     * Prepare event before processing
+     * @param \fpcm\module\event $event
+     * @return void
+     * @since 5.3.0-dev
+     */
+    protected function beforeProcess(\fpcm\module\event $event) : void
+    {
+        return;
+    }
+
+    /**
+     * After event running
+     * @return bool
+     * @since 5.3.0-dev
+     */
+    protected function afterRun() : void
+    {
+        return;
+    }
+
+    /**
+     * After event running
+     * @return bool
+     * @since 5.3.0-dev
+     */
+    protected function afterProcess() : void
+    {
+        $this->data = $this->data->getData();
+    }
+
+    /**
+     * Returns event params
+     * @return mixed
+     */
+    protected function getEventParams() : mixed
+    {
+        return $this->data;
+    }
+
+    /**
+     * Process class data
+     * @param string $class
+     * @return bool
+     * @since 5.3.0-dev
+     */
+    protected function processClass(string $class) : bool
+    {
+        $module = new $class($this->getEventParams());
+        if (!$this->is_a($module)) {
+            return false;
         }
         
-        return $this->toEventResult($eventResult);
+        $this->beforeProcess($module);
+
+        try {
+
+            $this->data = method_exists($this, 'doEventbyArea')
+                        ? $this->doEventbyArea($module)
+                        : $module->run();
+
+        } catch (\Throwable $e) {
+            trigger_error($e);
+            return false;
+        }
+
+        return true;
     }
 
     /**
@@ -271,20 +326,6 @@ abstract class event {
     final public static function getEventNamespace(string $event) : string
     {
         return 'fpcm\\events\\'.$event;
-    }
-
-    /**
-     * Convert event result to eventResult object
-     * @param mixed $data
-     * @return \fpcm\module\eventResult
-     */
-    final protected function toEventResult(mixed $data): \fpcm\module\eventResult
-    {
-        if ($data instanceof \fpcm\module\eventResult) {
-            return $data;
-        }
-
-        return (new \fpcm\module\eventResult())->setData($data);
     }
 
 }

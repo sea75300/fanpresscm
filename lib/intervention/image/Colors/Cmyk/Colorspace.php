@@ -34,16 +34,14 @@ class Colorspace implements ColorspaceInterface
      */
     public function colorFromNormalized(array $normalized): ColorInterface
     {
-        $values = array_map(function ($classname, $value_normalized) {
-            return (new $classname(normalized: $value_normalized))->value();
-        }, self::$channels, $normalized);
-
-        return new Color(...$values);
+        return new Color(...array_map(
+            fn(string $classname, float $value_normalized) => (new $classname(normalized: $value_normalized))->value(),
+            self::$channels,
+            $normalized,
+        ));
     }
 
     /**
-     * @param ColorInterface $color
-     * @return ColorInterface
      * @throws ColorException
      */
     public function importColor(ColorInterface $color): ColorInterface
@@ -57,8 +55,6 @@ class Colorspace implements ColorspaceInterface
     }
 
     /**
-     * @param ColorInterface $color
-     * @return Color
      * @throws ColorException
      */
     protected function importRgbColor(ColorInterface $color): CmykColor

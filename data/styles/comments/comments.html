@@ -1,6 +1,13 @@
-<div {{mentionid}}>
-    <h3 class="fpcm-pub-comment-headline"><a href="mailto:{{email}}">{{author}}</a> wrote on {{date}}</h3>
-    <p class="fpcm-pub-comment-meta">{{website}}</p>
-    <div class="fpcm-pub-comment-content">{{text}}</div>
-    <p class="fpcm-pub-comment-count">Kommentar #{{number}} - {{mention}}antworten{{/mention}}</p>
-</div>
+<section>
+  <div class="post" {{mentionid}}>
+    <h4>Kommentar #{{number}}</h4>
+    <div class="content">
+      {{text}}
+    </div>
+    <div class="meta-info">
+      <span class="date">{{date}}</span>
+      <span class="author">Author: {{author}}</span>
+      <span class="mention">{{mention}}Antworten{{/mention}}</span>
+    </div>
+  </div>
+</section>

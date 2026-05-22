@@ -10,14 +10,18 @@ namespace fpcm\controller\action\articles\article;
 /**
  * Article controller base
  * @article Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2024, Stefan Seehafer
+ * @copyright (c) 2011-2026, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 abstract class base extends \fpcm\controller\abstracts\controller
 implements \fpcm\controller\interfaces\requestFunctions
 {
 
-    use \fpcm\controller\traits\articles\newteets;
+    const MESSAGE_RESTORE_REVISION = 'rvres';
+
+    const MESSAGE_ARTICLE_ADDED = 'added';
+
+    const MESSAGE_ARTICLE_APPROVE = 'approval';
 
     /**
      *
@@ -45,7 +49,7 @@ implements \fpcm\controller\interfaces\requestFunctions
 
     /**
      *
-     * @var \fpcm\model\abstracts\articleEditor
+     * @var \fpcm\components\editor\articleEditor
      */
     protected $editorPlugin;
 
@@ -133,8 +137,8 @@ implements \fpcm\controller\interfaces\requestFunctions
     }
 
     /**
-     *
-     * @return void
+     * Controller requesting
+     * @return bool
      */
     public function request()
     {
@@ -146,7 +150,7 @@ implements \fpcm\controller\interfaces\requestFunctions
     }
 
     /**
-     *
+     * Controller processing
      * @return void
      */
     public function process()
@@ -162,7 +166,7 @@ implements \fpcm\controller\interfaces\requestFunctions
         $this->view->addJsFiles(array_merge([
                 'articles/articlebase.js',
                 'editor/editor.js',
-                'editor/editor_videolinks.js',
+                'editor/videolinks.js',
             ],
             $this->editorPlugin->getJsFiles()
         ));
@@ -176,6 +180,10 @@ implements \fpcm\controller\interfaces\requestFunctions
         );
 
         $viewVars = $this->editorPlugin->getViewVars();
+        if ($viewVars instanceof \fpcm\components\editor\conf\aceVars) {
+            $viewVars = $viewVars->toArray();
+        }
+
         foreach ($viewVars as $key => $value) {
             $this->view->assign($key, $value);
         }
@@ -196,8 +204,6 @@ implements \fpcm\controller\interfaces\requestFunctions
         $this->view->assign('showDraftStatus', true);
         $this->view->assign('userfields', $this->getUserFields());
         $this->view->assign('rollCodex', (new \fpcm\model\users\userRoll($this->session->getCurrentUser()->getRoll()))->getCodex());
-
-        $this->initTwitter();
 
         $this->view->assign('urlRewrite', $this->config->articles_link_urlrewrite);
         $this->view->setActiveTab($this->getActiveTab());
@@ -224,32 +230,16 @@ implements \fpcm\controller\interfaces\requestFunctions
 
         $this->view->addButton(
             (new \fpcm\view\helper\saveButton('articleSave'))
-                ->setClass( $this->getToolbarButtonToggleClass(1, '', true) )
+                ->setToolbarToggle(1)
                 ->setReadonly($this->article->isInEdit())
                 ->setPrimary()
         );
 
-        return true;
-    }
-
-    private function initTwitter()
-    {
-        $twitter    = $this->getTwitterInstace();
-        $twitterOk  = $twitter->checkRequirements();
-
-        if ($twitterOk) {
-            $tpl = $this->getTemplateContent();
-
-            $this->view->assign('twitterTplPlaceholder', $tpl['tpl'] );
-            $this->view->assign('twitterReplacements', $tpl['vars'] );
-            $this->view->assign('showTwitter', true);
-
-            return true;
+        $edDlg = $this->editorPlugin->getDialogs();
+        if (count($edDlg)) {
+            $this->view->addDialogs($edDlg);
         }
 
-        $this->view->assign('twitterTplPlaceholder', []);
-        $this->view->assign('twitterReplacements', []);
-        $this->view->assign('showTwitter', false);
         return true;
     }
 
@@ -271,10 +261,13 @@ implements \fpcm\controller\interfaces\requestFunctions
         if ($this->showComments && $this->config->system_comments_enabled) {
 
             $tabs[] = (new \fpcm\view\helper\tabItem('comments'))
-                    ->setUrl(\fpcm\classes\tools::getFullControllerLink('ajax/editor/editorlist', [
-                        'id' => $this->article->getId(),
-                        'view' => 'comments'])
-                    )
+                    ->setUrl(\fpcm\classes\tools::getFullControllerLink(
+                        'ajax/comments/lists',
+                        [
+                            'article_id' => $this->article->getId(),
+                            'mode' => 2
+                        ]
+                    ))
                     ->setText('HL_ARTICLE_EDIT_COMMENTS', [ 'count' => $this->commentCount ])
                     ->setDataViewId('commentlist')
                     ->setTabToolbar(2);
@@ -318,8 +311,8 @@ implements \fpcm\controller\interfaces\requestFunctions
 
         $this->article->setCategories($categories);
 
-        if (!isset($data['archived']) && isset($data['postponed']) && \fpcm\classes\tools::validateDateString($data['postponedate'])) {
-            $timer = strtotime($data['postponedate'] . ' ' . $data['postponetime'] . ':00');
+        if (!isset($data['archived']) && isset($data['postponed']) && \fpcm\classes\dateTimeHelper::validateDateString($data['postponedate'])) {
+            $timer = \fpcm\classes\dateTimeHelper::getTimestampFromString($data['postponedate'], $data['postponetime']);
 
             $postpone = 1;
             if ($timer === false) {
@@ -341,13 +334,9 @@ implements \fpcm\controller\interfaces\requestFunctions
         $this->article->setPinned($data['pinned'] ?? 0);
         $this->article->setDraft($data['draft'] ?? 0);
 
-        if ($this->article->getPinned() &&
-            isset($data['pinned_until']) && trim($data['pinned_until']) &&
-            \fpcm\classes\tools::validateDateString($data['pinned_until'])
-        ) {
-            $puDt = new \DateTime($data['pinned_until']);
-            $puDt->setTime(23, 59, 59);
-            $this->article->setPinnedUntil($puDt->getTimestamp());
+        $pinnedUntil = $data['pinned_until'] ?? null;
+        if ($this->article->getPinned() && $pinnedUntil !== null && \fpcm\classes\dateTimeHelper::validateDateString($pinnedUntil)) {
+            $this->article->setPinnedUntil( \fpcm\classes\dateTimeHelper::getLastDayTimestamp($data['pinned_until']) );
         }
         else {
             $this->article->setPinnedUntil(0);
@@ -389,12 +378,18 @@ implements \fpcm\controller\interfaces\requestFunctions
      * * nicht unterstütze Typen werden zu textinput
      * @return array
      */
-    protected function getUserFields()
+    protected function getUserFields() : array
     {
-        $fields = $this->events->trigger('editor\addUserFields')->getData();
-
-        if (!is_array($fields) || !count($fields))
+        $ev = $this->events->trigger('editor\addUserFields');
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event editor\addUserFields failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
             return [];
+        }
+
+        $fields = $ev->getData();
+        if (!is_array($fields) || !count($fields)) {
+            return [];
+        }
 
         return $fields;
     }
@@ -451,14 +446,8 @@ implements \fpcm\controller\interfaces\requestFunctions
             return false;
         }
 
-        if (isset($data['tweettxt']) && $data['tweettxt']) {
-            $this->article->setTweetOverride($data['tweettxt']);
-        }
-
         $this->article->setChangetime($allTimer);
         $this->article->setChangeuser($this->session->getUserId());
-
-        $this->article->enableTweetCreation(isset($data['tweet']) ? true : false);
 
         $res = $this->article->{$fn}();
 

@@ -16,8 +16,6 @@ namespace fpcm\controller\ajax\modules;
 class execAction extends \fpcm\controller\abstracts\ajaxController
 {
 
-    use \fpcm\controller\traits\modules\moduleactions;
-
     /**
      * Module key
      * @var array
@@ -56,19 +54,20 @@ class execAction extends \fpcm\controller\abstracts\ajaxController
     }
 
     /**
-     * Controller-Processing
+     * Controller processing
+     * @return void
      */
     public function process()
     {
         if (!\fpcm\module\module::validateKey($this->key))
         {
-            trigger_error('Module processing step '.$this->step.' not defined!');
+            trigger_error('Invalid module key ' . $this->key . '!');
             $this->response->setCode(400)->addHeaders('Bad Request')->fetch();
         }
         
         
         if ($this->processByParam('process', 'action') === self::ERROR_PROCESS_BYPARAMS) {
-            trigger_error('Invalid module module '.$this->request->fromPOST('action').' action detected!');
+            trigger_error('Invalid module action '.$this->request->fromPOST('action').'!');
             $this->response->setReturnData( new \fpcm\model\http\responseData(0) )->fetch();
         }
 

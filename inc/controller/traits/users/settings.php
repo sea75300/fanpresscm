@@ -9,7 +9,7 @@ namespace fpcm\controller\traits\users;
 
 /**
  * Author settings assignment trait
- * 
+ *
  * @package fpcm\controller\traits\users\authorImages
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2022, Stefan Seehafer
@@ -22,9 +22,7 @@ trait settings {
     {
         $userRolls = new \fpcm\model\users\userRollList();
         $this->view->assign('userRolls', $userRolls->getUserRollsTranslated());
-        $this->view->assign('languages', array_flip($this->language->getLanguages()));        
-        
-        
+        $this->view->assign('languages', array_flip($this->language->getLanguages()));
         $this->view->assign('timezoneAreas', $this->getTimeZonesAreas());
         $this->view->assign('articleLimitList', \fpcm\model\system\config::getAcpArticleLimits());
         $this->view->assign('defaultFontsizes', \fpcm\model\system\config::getDefaultFontsizes());

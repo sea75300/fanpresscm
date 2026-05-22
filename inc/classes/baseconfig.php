@@ -9,7 +9,7 @@ namespace fpcm\classes;
 
 /**
  * Base config class
- * 
+ *
  * @package fpcm\classes\baseconfig
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2022, Stefan Seehafer
@@ -33,12 +33,6 @@ final class baseconfig {
      * @var string
      */
     public static $moduleServer;
-
-    /**
-     * Link für manuellen Module-Manager
-     * @var string
-     */
-    public static $moduleServerManualLink;
 
     /**
      * auszuschließende Ordner
@@ -91,7 +85,7 @@ final class baseconfig {
         if (defined('FPCM_FE') && FPCM_FE) {
             return true;
         }
-        
+
         self::$installerEnabledFile = dirs::getDataDirPath(dirs::DATA_CONFIG, 'installer.enabled');
 
         if (self::dbConfigExists()) {
@@ -395,6 +389,16 @@ final class baseconfig {
     }
 
     /**
+     * Debug mode active
+     * @return bool
+     * @since 5.3.0-dev
+     */
+    public static function debugModeActive() : bool
+    {
+        return defined('FPCM_DEBUG') && FPCM_DEBUG;
+    }
+
+    /**
      * Aktiviert bzw. deaktiviert asynchrone Cronjob-Ausführung
      * @param bool $status neuer Status
      * @return bool
@@ -421,7 +425,6 @@ final class baseconfig {
         self::$updateServer = $servers['updates'];
         self::$moduleServer = $servers['modules'];
         self::$updateServerManualLink = $servers['updatesManual'];
-        self::$moduleServerManualLink = $servers['modulesManual'];
     }
 
     /**

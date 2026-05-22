@@ -18,37 +18,14 @@ use fpcm\classes\loader;
  * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-abstract class dashcontainer extends model implements \fpcm\model\interfaces\dashcontainer, \Stringable {
+abstract class dashcontainer
+extends model
+implements \fpcm\model\interfaces\dashcontainer, \Stringable {
 
     /**
      * Default container cache module
      */
     const CACHE_M0DULE_DASHBOARD = 'dashboard';
-
-    /**
-     * Container height big
-     */
-    const DASHBOARD_HEIGHT_VERYBIG = 'very-big';
-
-    /**
-     * Container height big
-     */
-    const DASHBOARD_HEIGHT_BIG = 'big';
-
-    /**
-     * Container height medium
-     */
-    const DASHBOARD_HEIGHT_MEDIUM = 'middle';
-
-    /**
-     * Container height medium
-     */
-    const DASHBOARD_HEIGHT_SMALL_MEDIUM = 'small-medium';
-
-    /**
-     * Container height SMALL
-     */
-    const DASHBOARD_HEIGHT_SMALL = 'small';
 
     /**
      * Container max position
@@ -86,7 +63,7 @@ abstract class dashcontainer extends model implements \fpcm\model\interfaces\das
     final public function __construct()
     {
         parent::__construct();
-        $this->permissions = \fpcm\classes\loader::getObject('\fpcm\model\permissions\permissions');
+        $this->permissions = \fpcm\model\permissions\permissions::getInstance();
         $this->initObjects();
     }
 
@@ -111,22 +88,13 @@ abstract class dashcontainer extends model implements \fpcm\model\interfaces\das
     }
 
     /**
-     * Container-Höhe-Klasse (big/middle/small) zurückgeben
-     * @return string
-     */
-    public function getHeight()
-    {
-        return self::DASHBOARD_HEIGHT_SMALL;
-    }
-
-    /**
      * Returns stored container position
      * @return int|bool
      * @since 4.1
      */
     final public function getStoredPosition()
     {
-        $conf = loader::getObject('\fpcm\model\system\session')->getCurrentUser()->getUserMeta('dashboardpos');
+        $conf = \fpcm\model\system\session::getInstance()->getCurrentUser()->getUserMeta('dashboardpos');
         return is_array($conf) && isset($conf[$this->getName()]) ? $conf[$this->getName()] : false;
     }
 
@@ -137,7 +105,7 @@ abstract class dashcontainer extends model implements \fpcm\model\interfaces\das
      */
     final public function isDisabled() : bool
     {
-        $conf = loader::getObject('\fpcm\model\system\session')->getCurrentUser()->getUserMeta('dashboard_containers_disabled');
+        $conf = \fpcm\model\system\session::getInstance()->getCurrentUser()->getUserMeta('dashboard_containers_disabled');
         if (!is_array($conf)) {
             return false;
         }
@@ -264,7 +232,7 @@ abstract class dashcontainer extends model implements \fpcm\model\interfaces\das
         $html[] = '         </h3>';
         $html[] = '     </div>';
         
-        $html[] = '     <div class="card-body p-2 pe-0 ui-align-ellipsis">';
+        $html[] = '     <div class="card-body p-2 ui-align-ellipsis">';
         $html[] = '         <div class="card-text fpcm dashboard-container content">' . $this->getContent() . '</div>';
         $html[] = '     </div>';
         $html[] = '     <div class="card-footer bg-transparent">';
@@ -313,5 +281,3 @@ abstract class dashcontainer extends model implements \fpcm\model\interfaces\das
     }
     
 }
-
-?>

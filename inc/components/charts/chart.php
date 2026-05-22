@@ -111,7 +111,7 @@ implements \JsonSerializable, \Stringable, \fpcm\model\interfaces\JsModuleFiles 
     public function getJsFiles() : array
     {
         return [
-            \fpcm\classes\dirs::getLibUrl('chart-js/chart.umd.js'),
+            \fpcm\classes\dirs::getLibUrl('chart-js/chart.umd.min.js'),
             'ui/chart.js'
         ];
     }

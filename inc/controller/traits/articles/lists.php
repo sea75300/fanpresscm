@@ -19,30 +19,6 @@ trait lists {
 
     /**
      *
-     * @var \fpcm\model\categories\categoryList
-     */
-    protected $categoryList;
-
-    /**
-     *
-     * @var \fpcm\model\users\userList
-     */
-    protected $userList;
-
-    /**
-     *
-     * @var \fpcm\model\articles\articlelist
-     */
-    protected $articleList;
-
-    /**
-     *
-     * @var \fpcm\model\comments\commentList
-     */
-    protected $commentList;
-
-    /**
-     *
      * @var int
      */
     protected $count = 0;
@@ -52,6 +28,12 @@ trait lists {
      * @var array
      */
     protected $items = [];
+
+    /**
+     *
+     * @var array
+     */
+    protected $users = [];
 
     /**
      *
@@ -70,11 +52,6 @@ trait lists {
      * @var bool
      */
     protected $showDraftStatus = true;
-    /**
-     *
-     * @var bool
-     */
-    protected $showTwitter = false;
 
     /**
      *
@@ -87,6 +64,12 @@ trait lists {
      * @var \fpcm\components\dataView\dataView
      */
     protected $dataView;
+
+    /**
+     * Category list instance
+     * @var \fpcm\model\categories\categoryList
+     */
+    protected $categoryList;
 
     /**
      * Kategorien übersetzen
@@ -133,13 +116,10 @@ trait lists {
 
             return true;
         }
-        
-        
-        
+
         $showCommentsStatus = $this->config->system_comments_enabled;
         $showSharesCount = $this->config->system_share_count;
         $showDeleteButton = $this->permissions->article->delete && !($this->isTrash ?? false);
-        $showTwitterButton = $this->showTwitter;
 
         /* @var $article \fpcm\model\articles\article */
         foreach ($this->items as $articleMonth => $articles) {
@@ -164,7 +144,7 @@ trait lists {
                             ->addItem( (new \fpcm\view\helper\openButton('articlefe'))->setUrlbyObject($article)->setTarget(\fpcm\view\helper\linkButton::TARGET_NEW) )
                             ->addItem( (new \fpcm\view\helper\editButton('articleedit'))->setUrlbyObject($article) );
                 
-                $this->getExtLineMenu($buttons, $article, $showDeleteButton, $showTwitterButton);
+                $this->getExtLineMenu($buttons, $article, $showDeleteButton);
 
                 $title = [
                     '<strong>' . strip_tags($article->getTitle()) . '</strong>',
@@ -184,7 +164,12 @@ trait lists {
                         new \fpcm\components\dataView\row([
                             new \fpcm\components\dataView\rowCol('select', (new \fpcm\view\helper\checkbox('actions[' . ($article->getEditPermission() || $article->isInEdit() ? 'ids' : 'ro') . '][]', 'chbx' . $articleId))->setClass('fpcm-ui-list-checkbox fpcm-ui-list-checkbox-subitem' . $articleMonth)->setValue($articleId)->setReadonly(!$article->getEditPermission()), '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
                             new \fpcm\components\dataView\rowCol('button', $buttons, 'fpcm-ui-dataview-align-center fpcm-ui-font-small', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
-                            new \fpcm\components\dataView\rowCol('title', implode(PHP_EOL, $title), 'fpcm-ui-ellipsis'),
+                            new \fpcm\components\dataView\rowCol(
+                                name: 'title',
+                                value: implode(PHP_EOL, $title),
+                                class: 'text-truncate',
+                                typeClass: 'text-truncate'
+                            ),
                             new \fpcm\components\dataView\rowCol('categories', wordwrap(implode(', ', $article->getCategories()), 50, '<br>')),
                             new \fpcm\components\dataView\rowCol('metadata', implode('', $metaDataIcons), 'fs-5', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
                         ])
@@ -262,7 +247,6 @@ trait lists {
         \fpcm\view\helper\controlgroup &$buttons,
         \fpcm\model\articles\article $article,
         bool $showDeleteButton,
-        bool $showTweetButton = false,
     ) : bool
     {
         $extMenuOptions = [];
@@ -275,30 +259,16 @@ trait lists {
                 ->setReadonly($article->getEditPermission())
                 ->setData($article->getArticleCacheParams());
             
-
-        
-            if ($showTweetButton) {
-
-                $extMenuOptions[] = (new \fpcm\view\helper\dropdownItem('newtweet'.$article->getId(), 'newtweet'.$article->getId()))
-                    ->setText('ARTICLE_LIST_NEWTWEET')
-                    ->setIcon('twitter', 'fab')
-                    ->setIconOnly()
-                    ->setClass('fpcm-ui-article-twitter-single')
-                    ->setData(['articleid' => $article->getId()]);
-                
-            }
-            
-            if ($showDeleteButton || $showTweetButton) {
+            if ($showDeleteButton) {
                 $extMenuOptions[] = new \fpcm\view\helper\dropdownSpacer();
             }
-            
+
         }
 
         if ($showDeleteButton) {
             $extMenuOptions[] = (new \fpcm\view\helper\dropdownItem('ddDelete'.$article->getId()))
                                 ->setIcon('trash')
                                 ->setText('GLOBAL_DELETE')
-                                ->setClass('fpcm-ui-button-delete fpcm-ui-button-delete-article-single')
                                 ->setData(['articleid' => $article->getId()]);
         }
 
@@ -327,9 +297,9 @@ trait lists {
         return [
             (new \fpcm\components\dataView\column('select', (new \fpcm\view\helper\checkbox('fpcm-select-all'))->setClass('fpcm-select-all')))->setSize(1)->setAlign('center'),
             (new \fpcm\components\dataView\column('button', ''))->setSize(2)->setAlign('center'),
-            (new \fpcm\components\dataView\column('title', 'ARTICLE_LIST_TITLE'))->setSize(4),
-            (new \fpcm\components\dataView\column('categories', 'HL_CATEGORIES_MNG'))->setSize(3)->setAlign('center'),
-            (new \fpcm\components\dataView\column('metadata', ''))->setAlign('center')->setSize(2),
+            (new \fpcm\components\dataView\column('title', 'ARTICLE_LIST_TITLE')),
+            (new \fpcm\components\dataView\column('categories', 'HL_CATEGORIES_MNG'))->setAlign('center'),
+            (new \fpcm\components\dataView\column('metadata', ''))->setAlign('center')
         ];
     }
 

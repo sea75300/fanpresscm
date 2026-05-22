@@ -9,13 +9,14 @@ namespace fpcm\view\helper;
 
 /**
  * Text input view helper object
- * 
+ *
  * @package fpcm\view\helper
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-abstract class radiocheck extends helper {
+abstract class radiocheck extends helper
+implements interfaces\jsDialogHelper, \JsonSerializable {
 
     use traits\iconHelper,
         traits\valueHelper,
@@ -86,7 +87,7 @@ abstract class radiocheck extends helper {
         $this->switch = $switch;
         return $this;
     }
-    
+
     /**
      * Return element string
      * @return string
@@ -94,6 +95,37 @@ abstract class radiocheck extends helper {
     protected function getString()
     {
         $labelClass = ' form-check-label '.$this->labelClass;
+
+        $wrapStart = '';
+        $wrapEnd = '';
+
+        if ($this->text && !$this->iconOnly) {
+            $wrapStart = sprintf(
+                '<div class="form-check %s %s %s">',
+                $this->inline ? 'form-check-inline' : '',
+                $this->switch ? 'form-switch' : '',
+                $this->wrapperClass
+            );
+
+        }
+        elseif ($this->switch) {
+            $wrapStart = '<div class="form-check form-switch">';
+        }
+
+        if ($this->text && !$this->iconOnly || $this->switch) {
+            $wrapEnd = '</div>';
+        }
+
+        $inEL = sprintf(
+            '<input type="%s" %s %s %s %s %s %s>',
+            $this->type,
+            $this->getNameIdString(),
+            $this->getValueString(),
+            $this->getClassString(),
+            $this->getReadonlyString(),
+            $this->getDataString(),
+            $this->getSelectedString()
+        );
         
         $wrapStart = '';
         $wrapEnd = '';
@@ -131,7 +163,7 @@ abstract class radiocheck extends helper {
             $descr = $this->iconOnly ? '' : $this->getDescriptionTextString();
             $inLa = sprintf('<label for="%s" class="%s">%s%s</label>', $this->id, $labelClass, $this->getIconString(), $descr);
         }
-        
+
         return $wrapStart .$inEL . $inLa . $wrapEnd;
 
     }

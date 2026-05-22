@@ -269,14 +269,6 @@ final class language {
     }
 
     /**
-     * Gibt Text für übergebene Sprachavriable zurück
-     * @param string $langvar Sprachvariable
-     * @param array $replaceParams Liste von Platzhaltern in der Sprachvariable mit zu ersetzendem Text
-     * * Aufbau: Key = Platzhalter => Value = Text
-     * @return string
-     */
-
-    /**
      * Return value of language variable
      * @param string|null $langvar language variable
      * @param array $replaceParams replacement values for placeholder in variable text
@@ -317,10 +309,20 @@ final class language {
     }
 
     /**
+     * 
+     * @param string $var
+     * @return bool1
+     */
+    public function exists(string $var) : bool
+    {
+        return isset($GLOBALS['langdata'][strtoupper($var)]);
+    }
+
+    /**
      * Ersetzt Monat (1-12) in sprachspezifischen String
      * @param int $monthId
      * @param bool $return
-     * @return type
+     * @return void|string
      */
     public function writeMonth($monthId, $return = false)
     {
@@ -381,7 +383,7 @@ final class language {
         }
         return $days;
     }
-    
+
     /**
      * Replaces special characters of current language
      * @param string $str
@@ -394,7 +396,7 @@ final class language {
         if (!$map) {
             return $str;
         }
-        
+
         return strtr($str, $map);
     }
 
@@ -464,6 +466,54 @@ final class language {
         unset($GLOBALS['langdata']);
         $this->init();
         return true;
+    }
+
+    /**
+     * Check if language files are writable
+     * @return bool
+     * @since 5.3.0-dev
+     */
+    public function filesWritable() : bool
+    {
+        return is_writable($this->getFileName(self::FILENAME_LISTS)) && is_writable($this->getFileName(self::FILENAME_VARS));
+    }
+
+    public function compare()
+    {
+
+        $path = dirs::getIncDirPath('lang' . DIRECTORY_SEPARATOR . '*' . DIRECTORY_SEPARATOR . '*.php');
+
+        $files = glob($path);
+        if (!is_array($files) || !count($files)) {
+            return [];
+        }
+
+        $files = array_filter($files, fn($f) => !str_ends_with($f, 'help.php'));
+        if (!is_array($files) || !count($files)) {
+            return [];
+        }
+
+        $compare = [];
+        foreach ($files as $file) {
+
+            include $file;
+            if (empty($lang)) {
+                continue;
+            }
+
+            $langCode = basename(dirname($file));
+
+            if (!isset($compare[$langCode])) {
+                $compare[$langCode] = [];
+            }
+            
+            $compare[$langCode] = array_merge_recursive($compare[$langCode], array_keys($lang));
+
+        }
+
+        list($l1, $l2) = array_values($compare);
+
+        return array_diff($l1, $l2);
     }
 
     /**

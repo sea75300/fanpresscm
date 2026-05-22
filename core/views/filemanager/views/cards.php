@@ -1,0 +1,77 @@
+<?php /* @var $theView fpcm\view\viewVars */ /* @var $file fpcm\model\files\mediaFile */ ?>
+<div class="justify-content-end">
+
+    <?php if ($showPager && in_array($mode, [2, 3, 4])) : ?>
+    <div class="navbar">
+        <div class="container-fluid">
+            <div class="navbar me-auto d-flex gap-1"></div>
+            <div class="navbar ms-auto gap-1">
+                <?php print $pager; ?>
+            </div>
+        </div>
+    </div>
+    <?php endif; ?>
+
+    <?php if ($filterError) : ?>
+    <p class="p-3"><?php $theView->icon('search')->setStack('ban text-danger')->setSize('lg')->setStackTop(true); ?> <?php $theView->write('SEARCH_ERROR'); ?></p>
+    <?php elseif (!count($files)) : ?>
+    <p class="p-3"><?php $theView->icon('images', 'far')->setStack('ban text-danger')->setSize('lg')->setStackTop(true); ?> <?php $theView->write('GLOBAL_NOTFOUND2'); ?></p>
+    <?php else : ?>
+        <?php $i = 0; ?>
+        <div class="card-group g-0 fpcm ui-files-card">
+        <?php foreach($files AS $file) : ?>
+        <?php $i++; ?>
+            <div class="card my-2 mx-sm-2 rounded fpcm ui-files-item ui-background-transition shadow">
+
+            <?php if ($file->isImage()) : ?>
+                <a href="<?php print $file->getFileUrl(); ?>"
+                   class="fpcm ui-link-fancybox"
+                   data-pswp-width="<?php print $file->getWidth(); ?>"
+                   data-pswp-height="<?php print $file->getHeight(); ?>">
+                <?php if ($file->hasFileManageThumbnail()) : ?>
+                    <img class="card-img-top rounded-top overflow-hidden" loading="lazy"
+                         src="<?php print $file->getFileManagerThumbnailUrl(); ?>"
+                         title="<?php print $file->getFileName(); ?>"
+                         alt="<?php if ($file->getAltText()) : ?><?php print $theView->escapeVal($file->getAltText()); ?><?php else : ?><?php print $theView->escapeVal(basename($file->getFilename())); ?><?php endif; ?>">
+                <?php else : ?>
+                    <img class="card-img-top rounded-top overflow-hidden p-5" loading="lazy" src="<?php print fpcm\classes\loader::libGetFileUrl('font-awesome/svg/image.svg'); ?>" title="<?php print $file->getFileName(); ?>">
+                <?php endif; ?>
+                </a>
+            <?php elseif ($file->isAudioVideo()) : ?>
+                <video controls
+                       height="300" 
+                       class="card-img-top rounded-top<?php if ($file->isAudio()) : ?> bg-body-tertiary p-3<?php endif; ?>" 
+                       <?php if ($file->isAudio()) : ?>poster="<?php print fpcm\classes\loader::libGetFileUrl('font-awesome/svg/file-audio.svg'); ?>"<?php endif; ?>>
+                    <source src="<?php print $file->getFileUrl(); ?>" type="<?php print $file->getMimetype(); ?>">
+                </video>
+            <?php endif; ?>
+
+                <div class="card-body">
+                    <p class="card-title text-center"><?php print $theView->escapeVal(basename($file->getFilename())); ?></p>
+                    <?php if ($file->isImage() && $file->getAltText()) : ?>
+                    <p class="card-subtitle text-center fs-6 text-secondary-emphasis"><?php print $theView->escapeVal($file->getAltText()); ?></p>
+                    <?php endif; ?>
+
+                    <?php if (!$file->existsFolder()) : ?>
+                    <div class="card-text">
+                        <?php $theView->alert('danger')->setIcon('image', 'far')->setText('FILE_LIST_UPLOAD_NOTFOUND'); ?>
+                    </div>
+                    <?php endif; ?>
+
+                </div>
+
+                <div class="card-footer bg-transparent">
+                    <div class="navbar gap-1 justify-content-center">
+                        <?php $btnList = $file->isAudioVideo() ? 'videos' : 'images'; ?>
+                        <?php include $theView->getIncludePath('filemanager/buttons/'.$btnList.'.php'); ?>
+                    </div>
+                </div>
+            </div>
+            <?php if ($is_last($i)) : ?>
+            </div><div class="card-group g-0 fpcm ui-files-card">
+            <?php endif; ?>
+        <?php endforeach; ?>
+        <?php print implode('', array_fill(1, $addColsToEnd, '<div class="card my-2 mx-sm-2 border-0 bg-transparent">&nbsp;</div>')); ?>
+        </div>
+    <?php endif; ?>
+</div>

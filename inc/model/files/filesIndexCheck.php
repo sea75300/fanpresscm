@@ -27,12 +27,12 @@ final class filesIndexCheck {
     ];
 
     /**
-     * @var fanpress/ folder string
+     * @var fanpress folder string
      */
     private const FPCM_FOLDER_STR = 'fanpress/';
 
     /**
-     * @var /data folder string
+     * @var data folder string
      */
     private const DATA_FOLDER_STR = '/data';
 
@@ -147,7 +147,6 @@ final class filesIndexCheck {
 
         $this->completeIndex = array_slice($this->completeIndex, 0, -2);
         if (!is_array($this->completeIndex)) {
-            $this->output('Invalid files data', true);
             throw new \Exception('Invalid files data', -2);
         }
 
@@ -250,7 +249,7 @@ final class filesIndexCheck {
         }
 
         if (!$this->indexed) {
-            throw new \Exception(sprintf('Index was nout build before, cancel process...', $this->path), -8);
+            throw new \Exception(sprintf('Index was not build for path %s, cancel process...', $this->path), -8);
         }
 
         $this->index = 1;

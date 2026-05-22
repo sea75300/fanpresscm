@@ -11,18 +11,18 @@ A small live demo system is available at https://area51.nobody-knows.org/fanpres
 
 ## Base Requirements
 
-* __FanPress CM 5.0:__ PHP 8.0 or better
+* __FanPress CM 5.3:__ PHP 8.2 or better
 * MySQL/ Maria DB 7 or Postgres 9.4
 * complete requirements check will be performed during setup.
 
-The inclusion into a website depends on how you use the system. An assistant for integration is provided. If you do it manually, here are further information:
+## Integration
 
-## PHP include
+The CMS is meant for pages using mostly static HTML content pages in combination with a lightwieght blog-like system. The integration uses PHP's include system.
 
-When using PHP include, first include the API file and create a new API object.
+First include the API file and create a new API object.
 
 ```php
-<?php include_once 'fanpress/fpcmapi.php'; ?>
+<?php include_once __DIR__ . '/fanpress/fpcmapi.php'; ?>
 <?php $api = new fpcmAPI(); ?>
 ```
 
@@ -44,19 +44,6 @@ The following functions are available:
     * _divider_: parameter for a separator of your text in <title>
 
 A full list of additional functions can be found in our [class documentation](https://sea75300.github.io/fanpresscm/classes/fpcmAPI.html).
-
-## iframes
-
-In case you are using iframes you have to call the controllers manually.
-
-* **your-domain.xyz/fanpress/index.php?module=fpcm/list**
-    * show all active articles
-* **your-domain.xyz/fanpress/index.php?module=fpcm/archive**
-    * show article archive
-* **your-domain.xyz/fanpress/index.php?module=fpcm/article&&id=A_DIGIT**
-    * show a single article with given id including comments
-* **your-domain.xyz/fanpress/index.php?module=fpcm/latest**
-    * show the latest news
 
 ## RSS Feed
 

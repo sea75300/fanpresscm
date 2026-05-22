@@ -18,14 +18,7 @@ namespace fpcm\controller\ajax\files;
 class filelist extends \fpcm\controller\abstracts\ajaxController
 {
 
-    use \fpcm\controller\traits\files\lists,
-        \fpcm\controller\traits\common\searchParams;
-
-    /**
-     * Dateimanager-Modus
-     * @var int
-     */
-    protected $mode = 1;
+    use \fpcm\controller\traits\files\lists;
 
     /**
      *
@@ -35,9 +28,15 @@ class filelist extends \fpcm\controller\abstracts\ajaxController
 
     /**
      *
-     * @var \fpcm\model\files\search
+     * @var bool
      */
     protected $showPager = false;
+
+    /**
+     *
+     * @var string
+     */
+    protected $listModeView = '';
 
     /**
      *
@@ -59,7 +58,7 @@ class filelist extends \fpcm\controller\abstracts\ajaxController
         ]);
 
         if (!$this->mode) {
-            $this->mode = 1;
+            $this->mode = self::FILEMANAGER_TYPE_MAIN;
         }
 
         $this->filter = new \fpcm\model\files\search();
@@ -70,30 +69,24 @@ class filelist extends \fpcm\controller\abstracts\ajaxController
             return true;
         }
 
-        $this->filter->setMultiple(true);
-        $this->assignParamsVars( ($filter['combinations'] ?? []) , $this->filter);
+        $this->filter->setMultiple();
+        $this->filter->setFilterParams($filter);
 
-        if (trim($filter['filename'])) {
-            $this->filter->filename = $this->request->filter($filter['filename'], [
-                \fpcm\model\http\request::FILTER_URLDECODE,
-                \fpcm\model\http\request::FILTER_TRIM,
-                \fpcm\model\http\request::FILTER_HTMLENTITY_DECODE,
-                \fpcm\model\http\request::FILTER_HTMLSPECIALCHARS
-            ]);
+        $sort = $filter['sort'] ?? null;
+        if ($sort) {
+            $this->filter->prepareOrder($sort['field'], $sort['order']);
         }
 
-        if ($filter['datefrom'] && \fpcm\classes\tools::validateDateString($filter['datefrom'])) {
-            $this->filter->datefrom   = strtotime($filter['datefrom']);
-        }
+        return true;
+    }
 
-        if ($filter['dateto'] && \fpcm\classes\tools::validateDateString($filter['dateto'])) {
-            $this->filter->dateto     = strtotime($filter['dateto']);
-        }
-
-        if ($filter['userid']) {
-            $this->filter->userid     = (int) $filter['userid'];
-        }
-
+    /**
+     * 
+     * @return bool
+     */
+    protected function initActionObjects(): bool
+    {
+        $this->listModeView = in_array($this->config->file_view, \fpcm\components\components::getFilemanagerViews()) ? $this->config->file_view : 'cards';
         return true;
     }
 
@@ -103,45 +96,69 @@ class filelist extends \fpcm\controller\abstracts\ajaxController
      */
     protected function getViewPath() : string
     {
-        return 'filemanager/'.$this->getListView();
+        return 'filemanager/views/' . $this->listModeView;
     }
 
     /**
-     * Controller-Processing
+     * Controller processing
+     * @return void
      */
     public function process()
     {
-        $fileList = new \fpcm\model\files\imagelist();
+        $mfObj = new \fpcm\model\files\mediaFilesList();
 
         $page = $this->request->fromPOST('page', [
             \fpcm\model\http\request::FILTER_CASTINT
         ]);
 
         $this->filter->limit = $this->showPager ? [$this->config->file_list_limit, \fpcm\classes\tools::getPageOffset($page, $this->config->file_list_limit)] : null;
-        $list = $fileList->getDatabaseListByCondition($this->filter);
+        $files = $mfObj->getDatabaseListByCondition($this->filter);
 
-        if ($list === \fpcm\drivers\sqlDriver::CODE_ERROR_SYNTAX) {
-            $list = [];
+        if ($files === \fpcm\drivers\sqlDriver::CODE_ERROR_SYNTAX) {
+            $files = [];
             $this->filterError = true;
         }
 
-        $max = count($list);
+        $max = count($files);
 
         $pager = new \fpcm\view\helper\pager(
             'ajax/files/lists&mode='.$this->mode,
             $page,
             $max,
             $this->config->file_list_limit,
-            $this->showPager ? $fileList->getDatabaseCountByCondition($this->filter) : 1
+            $this->showPager ? $mfObj->getDatabaseCountByCondition($this->filter) : 1
         );
 
-        $list = $this->events->trigger('reloadFileList', $list)->getData();
+        $ev = $this->events->trigger('reloadFileList', $files);
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event reloadFileList failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return false;
+        }
+
+        $files = $ev->getData();
 
         $userList = new \fpcm\model\users\userList();
-        $this->initViewAssigns($list, $userList->getUsersAll());
+        $this->initViewAssigns($files, $userList->getUsersAll());
 
         $this->view->assign('is_last', function ($i) {
             return $i % FPCM_FILEMAGER_ITEMS_ROW === 0;
+        });
+
+        $this->view->assign('has_reminder', function ($reminders, $id, &$hasRem) {
+
+            $hasRem = 0;
+
+            $rem = $reminders[$id] ?? false;
+            if (!$rem) {
+                return '';
+            }
+
+            $hasRem = $rem->getId();
+            if ($rem->getTime() <= time()) {
+                return 'info';
+            }
+
+            return 'outline-info';
         });
 
         $addColsToEnd = FPCM_FILEMAGER_ITEMS_ROW - $max % FPCM_FILEMAGER_ITEMS_ROW;
@@ -150,6 +167,10 @@ class filelist extends \fpcm\controller\abstracts\ajaxController
         $this->view->assign('showPager', $this->showPager);
         $this->view->assign('thumbsize', $this->config->file_thumb_size . 'px');
         $this->view->assign('pager', $pager);
+        $this->view->assign('reminders', \fpcm\model\reminders\reminders::getInstance()->getRemindersForDatasets(\fpcm\model\files\mediaFile::class));
+        $this->view->assign('ddModeUp', $this->listModeView !== 'small');
+        $this->view->assign('ddLastEnd', $this->listModeView === 'cards');
+        $this->view->assign('limit', $this->config->file_list_limit);
 
         $responseData = new \fpcm\model\http\responseDataHtml(
             $this->view->render(true), [
@@ -160,15 +181,6 @@ class filelist extends \fpcm\controller\abstracts\ajaxController
         $pager = null;
 
         $this->response->setReturnData($responseData)->fetch();
-    }
-
-    /**
-     *
-     * @return string
-     */
-    private function getListView() : string
-    {
-        return in_array($this->config->file_view, \fpcm\components\components::getFilemanagerViews()) ? $this->config->file_view : 'cards';
     }
 
 }

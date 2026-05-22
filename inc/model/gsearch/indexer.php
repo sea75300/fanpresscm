@@ -61,7 +61,7 @@ class indexer extends \fpcm\model\abstracts\tablelist
     {
         $result = $this->events->trigger('search\models', $this->models);
         if (!$result->getSuccessed() || !$result->getContinue()) {
-            return new resultSet([], 0);
+            return new resultSet([], 0, false);
         }
         
         $this->models = $result->getData();
@@ -89,13 +89,14 @@ class indexer extends \fpcm\model\abstracts\tablelist
             $link = $instance?->getElementLink($result->oid);
             $icon = $instance?->getElementIcon();
             $text = $instance?->prepareText($result->text);
+            $meta = $result->meta ?? '';
             
-            $lightbox = $result->model === 'images';
+            $lightbox = $result->model === 'mediafiles';
             if ($lightbox) {
                 $lightboxes++;
             }
 
-            $setItems[] = new resultItem($text, $link, $icon, $lightbox);
+            $setItems[] = new resultItem($text, $link, $icon, $lightbox, $meta);
             
         }
 
@@ -152,11 +153,15 @@ class indexer extends \fpcm\model\abstracts\tablelist
 
         return count($cResults) && count($sResults);
     }
-    
-    private function initDefaultModels()
+
+    /**
+     * Init models whitelist
+     * @return void
+     */
+    private function initDefaultModels() : void
     {
         /* @var $perm \fpcm\model\permissions\permissions */
-        $perm = \fpcm\classes\loader::getObject('\fpcm\model\permissions\permissions');
+        $perm = \fpcm\model\permissions\permissions::getInstance();
 
         if ($perm->editArticles()) {
             $this->models['articles'] = '\fpcm\model\articles\articlelist';
@@ -167,7 +172,11 @@ class indexer extends \fpcm\model\abstracts\tablelist
         }
 
         if ($perm->uploads->visible) {
-            $this->models['images'] = '\fpcm\model\files\imagelist';
+            $this->models['mediafiles'] = '\fpcm\model\files\mediaFilesList';
+        }
+
+        if ($perm->system->ipaddr) {
+            $this->models['ipaddress'] = '\fpcm\model\ips\iplist';
         }
 
     }

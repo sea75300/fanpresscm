@@ -37,6 +37,10 @@ export class element_input {
     labelIcon = false;
     
     required = false;
+    
+    icon = false;
+    
+    data = [];
 
     assignToDom(_destination) {
         
@@ -61,9 +65,15 @@ export class element_input {
             this.id = this.name;
         }
         
-        _input.id = 'fpcm-id-' + this.id;
+        _input.id = fpcm.ui.prepareId(this.id, true);
         _input.value = this.value;
         _input.className = this.class;
+
+        if (this.data) {
+            for (var _attr in this.data) {
+                _input.setAttribute('data-' + _attr, this.data[_attr]);
+            }
+        }
         
         if (this.maxlenght) {
             _input.maxLength = this.maxlenght;
@@ -74,7 +84,7 @@ export class element_input {
         }
         
         if (this.readonly) {
-            _input.readonly = true;
+            _input.readOnly = true;
         }
         
         if (this.autofocus) {
@@ -100,15 +110,21 @@ export class element_input {
         if (this.required) {
             _input.required = this.required;
         }
-        
+
         _wrapper.appendChild(_input);
 
         if (this.label) {
+
             let _label = document.createElement('label');
             _label.htmlFor = _input.id;
             _label.className = 'fpcm ui-label';
 
             this.label = fpcm.ui.translate(this.label);
+            
+            if (this.icon) {
+                let _ti = this.icon.split(' ');
+                this.labelIcon = new fpcm.ui.forms.icon(_ti[2].replace('fa-', ''), _ti[1].replace('fa-', ''));
+            }            
 
             if (this.labelIcon) {
                 this.label = this.labelIcon.getString() + ' ' + this.label;
@@ -123,7 +139,7 @@ export class element_input {
     }
     
     assignFormObject(_field) {
-        
+
         for (var _idx in this) {
             if (!_field[_idx]) {
                 continue;

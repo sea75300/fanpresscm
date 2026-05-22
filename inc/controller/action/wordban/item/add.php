@@ -12,12 +12,20 @@ namespace fpcm\controller\action\wordban\item;
 class add extends base
 {
 
+    /**
+     * Controller requesting
+     * @return bool
+     */
     public function request()
     {
         $this->item = new \fpcm\model\wordban\item();
         return true;
     }
 
+    /**
+     * Controller-Processing
+     * @return void
+     */
     public function process()
     {
         $this->view->setFormAction('wordban/add');

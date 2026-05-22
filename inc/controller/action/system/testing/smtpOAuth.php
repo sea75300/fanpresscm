@@ -5,6 +5,7 @@
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+ * @ignore
  */
 
 namespace fpcm\controller\action\system\testing;
@@ -31,8 +32,8 @@ class smtpOAuth extends \fpcm\controller\abstracts\controller
     }
 
     /**
-     * Controller-Processing
-     * @return bool
+     * Controller processing
+     * @return void
      */
     public function process()
     {

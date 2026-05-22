@@ -75,28 +75,40 @@ class rename extends \fpcm\controller\abstracts\ajaxController
     }
 
     /**
-     * Controller-Processing
+     * Controller processing
+     * @return void
      */
     public function process()
     {
-        $image = new \fpcm\model\files\image($this->fileName, false);
+        $mfObj = new \fpcm\model\files\mediaFile($this->fileName, false);
 
-        $replace = ['{{filename1}}' => basename($this->fileName), '{{filename2}}' => basename($this->newFileName)];
-        if ($image->rename($this->newFileName, $this->session->getUserId())) {
+        $replace = [
+            '{{filename1}}' => basename($this->fileName),
+            '{{filename2}}' => basename($this->newFileName)
+        ];
 
-            (new \fpcm\model\files\imagelist())->createFilemanagerThumbs();
+        if ($mfObj->rename($this->newFileName, $this->session->getUserId())) {
 
-            $this->response->setReturnData(new \fpcm\view\message(
+            if ($mfObj->isImage()) {
+                (new \fpcm\model\files\mediaFilesList())->createFilemanagerThumbs();
+            }            
+
+            $msg = new \fpcm\view\message(
                 $this->language->translate('DELETE_SUCCESS_RENAME', $replace),
                 \fpcm\view\message::TYPE_NOTICE
-            ))->fetch();            
+            );
+            
+            $this->response->setReturnData()->fetch();            
 
         }
+        else {
+            $msg = new \fpcm\view\message(
+                $this->language->translate('RENAME_FAILED_FILE', $replace),
+                \fpcm\view\message::TYPE_ERROR
+            );
+        }
 
-        $this->response->setReturnData(new \fpcm\view\message(
-            $this->language->translate('RENAME_FAILED_FILE', $replace),
-            \fpcm\view\message::TYPE_ERROR
-        ))->fetch();            
+        $this->response->setReturnData($msg)->fetch();            
 
     }
 

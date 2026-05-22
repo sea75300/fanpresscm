@@ -9,7 +9,7 @@ namespace fpcm\controller\ajax\articles;
 
 /**
  * AJAX Article list controller
- * 
+ *
  * @package fpcm\controller\ajax\articles\search
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2020, Stefan Seehafer
@@ -19,11 +19,9 @@ namespace fpcm\controller\ajax\articles;
 class lists extends \fpcm\controller\abstracts\ajaxController
 {
 
-    use \fpcm\controller\traits\common\searchParams,
-        \fpcm\controller\traits\articles\listsCommon,
-        \fpcm\controller\traits\articles\lists,
-        \fpcm\controller\traits\articles\newteets;
-    
+    use \fpcm\controller\traits\articles\listsCommon,
+        \fpcm\controller\traits\articles\lists;
+
     const MODE_ALL = 'all';
 
     const MODE_ACTIVE = 'active';
@@ -35,18 +33,6 @@ class lists extends \fpcm\controller\abstracts\ajaxController
      * @var \fpcm\model\articles\search
      */
     private $conditions;
-
-    /**
-     * Current Page
-     * @var int
-     */
-    protected $page = 1;
-
-    /**
-     * Current offset
-     * @var int
-     */
-    protected $offset = 0;
 
     /**
      * View message
@@ -61,7 +47,7 @@ class lists extends \fpcm\controller\abstracts\ajaxController
     protected $isFilter = false;
 
     /**
-     * 
+     *
      * @return bool
      */
     public function isAccessible(): bool
@@ -70,7 +56,7 @@ class lists extends \fpcm\controller\abstracts\ajaxController
         if ($res === self::ERROR_PROCESS_BYPARAMS) {
             return false;
         }
-        
+
         return $res;
     }
 
@@ -80,6 +66,8 @@ class lists extends \fpcm\controller\abstracts\ajaxController
             return [];
         }
 
+        $articleIds = [];
+        
         $articleIds = array_merge(
             $articleIds,
             array_walk( $this->items, function ($monthData) {
@@ -89,17 +77,17 @@ class lists extends \fpcm\controller\abstracts\ajaxController
 
         return $articleIds;
     }
-    
+
     protected function getModePermsAll() : bool
     {
         return $this->permissions->article->edit || $this->permissions->article->editall;
     }
-    
+
     protected function getModePermsActive() : bool
     {
         return $this->permissions->article->edit;
     }
-    
+
     protected function getModePermsArchive() : bool
     {
         if (!$this->permissions->article->edit && !$this->permissions->article->editall) {
@@ -108,12 +96,12 @@ class lists extends \fpcm\controller\abstracts\ajaxController
 
         return $this->permissions->article->archive;
     }
-    
+
     protected function getModeConditionsAll() : void
     {
         $this->conditions->orderby = ['createtime DESC'];
     }
-    
+
     protected function getModeConditionsActive() : void
     {
         $this->showArchivedStatus = false;
@@ -121,7 +109,7 @@ class lists extends \fpcm\controller\abstracts\ajaxController
         $this->conditions->deleted = 0;
         $this->conditions->orderby = ['createtime DESC'];
     }
-    
+
     protected function getModeConditionsArchive() : void
     {
         $this->showArchivedStatus = false;
@@ -130,93 +118,42 @@ class lists extends \fpcm\controller\abstracts\ajaxController
         $this->conditions->deleted = 0;
         $this->conditions->orderby = ['createtime DESC'];
     }
-    
+
     protected function getFilterConditions() : void
     {
         $filter = $this->request->fromPOST('filter');
 
-        $this->conditions->setMultiple(true);
-        
-        $this->assignParamsVars( ($filter['combinations'] ?? []) , $this->conditions);
-
-        if (trim($filter['text'])) {
-
-            $filter['text'] = $this->request->filter($filter['text'], [
-                \fpcm\model\http\request::FILTER_URLDECODE,
-                \fpcm\model\http\request::FILTER_TRIM,
-                \fpcm\model\http\request::FILTER_HTMLENTITY_DECODE,
-                \fpcm\model\http\request::FILTER_HTMLSPECIALCHARS
-            ]);
-
-            switch ($filter['searchtype']) {
-                case \fpcm\model\articles\search::TYPE_TITLE :
-                    $this->conditions->title = $filter['text'];
-                    break;
-                case \fpcm\model\articles\search::TYPE_CONTENT :
-                    $this->conditions->content = $filter['text'];
-                    break;
-                case \fpcm\model\articles\search::TYPE_COMBINED_OR :
-                    $this->conditions->combination   = 'OR';
-                    $this->conditions->title = $filter['text'];
-                    $this->conditions->content = $filter['text'];
-                    break;
-                default:
-                    $this->conditions->combination   = 'AND';
-                    $this->conditions->title = $filter['text'];
-                    $this->conditions->content = $filter['text'];
-                    break;
-            }
+        if (!$this->isFilter) {
+            return;
         }
 
-        if ($filter['userid'] > 0) {
-            $this->conditions->user = (int) $filter['userid'];
-        }
-
-        if ($filter['categoryid'] > 0) {
-            $this->conditions->category = (int) $filter['categoryid'];
-        }
-
-        if ($filter['datefrom'] && \fpcm\classes\tools::validateDateString($filter['datefrom'])) {
-            $this->conditions->datefrom = strtotime($filter['datefrom']);
-        }
-
-        if ($filter['dateto'] && \fpcm\classes\tools::validateDateString($filter['dateto'])) {
-            $this->conditions->dateto = strtotime($filter['dateto']);
-        }
-
-        if ($filter['pinned'] > -1) {
-            $this->conditions->pinned = (int) $filter['pinned'];
-        }
-
-        if ($filter['postponed'] > -1) {
-            $this->conditions->postponed = (int) $filter['postponed'];
-        }
-
-        if ($filter['comments'] > -1) {
-            $this->conditions->comments = (int) $filter['comments'];
-        }
-
-        if ($filter['draft'] > -1) {
-            $this->conditions->draft = (int) $filter['draft'];
-        }
-
-        if ($filter['approval'] > -1) {
-            $this->conditions->approval = (int) $filter['approval'];
-        }
+        $sort = $filter['sort'] ?? null;
 
         switch ($this->request->fromPOST('mode')) {
             case self::MODE_ARCHIVE :
-                $this->conditions->combinationDraft = \fpcm\model\articles\search::COMBINATION_AND;
-                $this->conditions->combinationArchived = \fpcm\model\articles\search::COMBINATION_AND;
+                $this->conditions->modeArchive = true;
                 break;
             case self::MODE_ACTIVE :
-                $this->conditions->combinationArchived = \fpcm\model\articles\search::COMBINATION_AND;
+                $this->conditions->modeActive = true;
                 break;
         }
 
-        $this->conditions->combinationDeleted = \fpcm\model\articles\search::COMBINATION_AND;
+        $this->conditions->modeDeleted = false;
 
-        $this->conditions = $this->events->trigger('article\prepareSearch', $this->conditions)->getData();
+        $this->conditions->setMultiple();
+        $this->conditions->setFilterParams($filter);
+
+        if ($sort) {
+            $this->conditions->prepareOrder($sort['field'], $sort['order']);
+        }
+
+        $ev = $this->events->trigger('article\prepareSearch', $this->conditions);
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event article\prepareSearch failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return;
+        }
+
+        $this->conditions = $ev->getData();
     }
 
     /**
@@ -229,15 +166,15 @@ class lists extends \fpcm\controller\abstracts\ajaxController
 
         $this->initActionObjects();
         $this->relatedCounts = $this->articleList->getRelatedItemsCount($this->getItemsIds());
-        
+
         $this->conditions = new \fpcm\model\articles\search();
-        
+
         $res = $this->processByParam('getModeConditions', 'mode');
         if ($res === self::ERROR_PROCESS_BYPARAMS) {
             $this->response->setReturnData( new \fpcm\view\message($this->language->translate($this->isFilter ? 'SEARCH_ERROR' : 'ARTICLELIST_ERROR'), \fpcm\view\message::TYPE_ERROR) )->fetch();
         }
 
-        $this->isFilter = $this->request->fromPOST('filter') === null ? false : true;
+        $this->isFilter = $this->request->fromPOST('filter') !== null;
         if ($this->isFilter) {
             $this->getFilterConditions();
         }
@@ -245,10 +182,13 @@ class lists extends \fpcm\controller\abstracts\ajaxController
             $this->conditions->limit = [$this->config->articles_acp_limit, \fpcm\classes\tools::getPageOffset($this->page, $this->config->articles_acp_limit)];
         }
 
-        $this->showTwitter = $this->getTwitterInstace()->checkConnection();
         return true;
     }
 
+    /**
+     * Controller-Processing
+     * @return void
+     */
     public function process()
     {
         $this->count = $this->isFilter ? false : $this->articleList->countArticlesByCondition($this->conditions);
@@ -265,11 +205,26 @@ class lists extends \fpcm\controller\abstracts\ajaxController
 
         $this->initDataView();
 
+        if (!$this->isFilter) {
+            
+            $pager = new \fpcm\view\helper\pager(
+                actionLink: 'ajax/articles/lists',
+                currentPage: $this->page,
+                currentPageItemsCount: count($this->items),
+                itemsPerPage: $this->config->articles_acp_limit,
+                maxItemCount: $this->count
+            );
+        }
+        else {
+            $pager = null;
+        }
+        
+
         $this->response->setReturnData(new \fpcm\model\http\responseDataview(
             $this->getDataViewName(),
             $this->dataView->getJsVars()['dataviews'][$this->getDataViewName()],
             $this->message,
-            $this->isFilter ? '' : (new \fpcm\view\helper\pager('ajax/articles/lists', $this->page, count($this->items), $this->config->articles_acp_limit, $this->count))
+            $pager
         ))->fetch();
     }
 

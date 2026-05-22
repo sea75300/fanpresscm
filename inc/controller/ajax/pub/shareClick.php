@@ -7,11 +7,13 @@
 
 namespace fpcm\controller\ajax\pub;
 
-define('FPCM_NOTOKEN', true);
+if (!defined('FPCM_NOTOKEN')) {
+    define('FPCM_NOTOKEN', true);
+}
 
 /**
- * AJAX controller zum Cache leeren 
- * 
+ * AJAX controller for share link save
+ *
  * @package fpcm\controller\ajax\pub
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2022, Stefan Seehafer
@@ -32,7 +34,7 @@ class shareClick extends \fpcm\controller\abstracts\ajaxController {
     private $oid;
 
     /**
-     * 
+     *
      * @return bool
      */
     public function hasAccess() : bool
@@ -56,7 +58,7 @@ class shareClick extends \fpcm\controller\abstracts\ajaxController {
 
         $this->oid = $this->request->fromGET('oid', [\fpcm\model\http\request::FILTER_CASTINT]);
         $this->item = $this->request->fromGET('item');
-        
+
         if (!$this->oid || !$this->item) {
             return false;
         }
@@ -83,7 +85,7 @@ class shareClick extends \fpcm\controller\abstracts\ajaxController {
     }
 
     /**
-     * 
+     *
      * @return bool
      */
     protected function initPermissionObject(): bool
@@ -92,5 +94,3 @@ class shareClick extends \fpcm\controller\abstracts\ajaxController {
     }
 
 }
-
-?>

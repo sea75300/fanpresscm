@@ -11,7 +11,7 @@ namespace fpcm\model\categories;
 
 /**
  * Kategorie-Listen-Objekt
- * 
+ *
  * @package fpcm\model\categories
  * @author Stefan Seehafer <sea75300@yahoo.de>
  */
@@ -57,7 +57,7 @@ class categoryList extends \fpcm\model\abstracts\tablelist {
         if (!is_array($categories)) {
             return [];
         }
-        
+
         return $categories;
     }
 
@@ -154,7 +154,7 @@ class categoryList extends \fpcm\model\abstracts\tablelist {
 
             $result['<span class="fpcm-pub-category-text">' . $category->getName() . '</span>'] = ($category->getIconPath() ? $category->getCategoryImage() : '');
         }
-        
+
         return $result;
     }
 
@@ -170,15 +170,25 @@ class categoryList extends \fpcm\model\abstracts\tablelist {
             return false;
         }
 
-        $result = $this->events->trigger('category\massEditBefore', [
+        $ev = $this->events->trigger('category\massEditBefore', [
             'fields' => $fields,
             'ids' => $ids
-        ])->getData();
+        ]);
 
-        foreach ($result as $key => $val) {
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event category\massEditBefore failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return false;
+        }
+
+        $data = $ev->getData();
+        if (!count($data) || !isset($data['fields']) || !isset($data['ids'])) {
+            return false;
+        }
+
+        foreach ($data as $key => $val) {
             ${$key} = $val;
         }
-        
+
         if (isset($fields['groups']) && $fields['groups'] === -1) {
             unset($fields['groups']);
         }
@@ -199,13 +209,19 @@ class categoryList extends \fpcm\model\abstracts\tablelist {
             $this->dbcon->inQuery('id', $ids)
         );
 
-        $result = $this->events->trigger('category\massEditAfter', [
+        $ev = $this->events->trigger('category\massEditAfter', [
             'result' => $result,
             'fields' => $fields,
             'ids' => $ids
-        ])->getData();
+        ]);
 
-        return $result['result'];
+        if (!$ev->getSuccessed() || !$ev->getContinue()) {
+            trigger_error(sprintf("Event category\massEditAfter failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
+            return false;
+        }
+
+        $result = $ev->getData();
+        return $result['result'];        
     }
 
 }

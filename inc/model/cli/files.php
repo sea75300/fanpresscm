@@ -75,7 +75,7 @@ final class files extends \fpcm\model\abstracts\cli {
         fpcmLogSystem('Scan for file system for outdated files...');
 
         if (!$this->obj->exists()) {
-            $this->output(sprintf('%s does not exists or is no readable', $filesPath), true);
+            $this->output(sprintf('%s does not exists or is no readable', \fpcm\model\packages\update::getFilesListPath()), true);
         }
 
         try {

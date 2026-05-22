@@ -9,7 +9,7 @@ namespace fpcm\controller\traits\articles;
 
 /**
  * Artikelliste trait
- * 
+ *
  * @package fpcm\controller\traits\articles\lists
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2022, Stefan Seehafer
@@ -17,6 +17,30 @@ namespace fpcm\controller\traits\articles;
  */
 trait listsCommon {
 
+    /**
+     *
+     * @var \fpcm\model\categories\categoryList
+     */
+    protected $categoryList;
+
+    /**
+     *
+     * @var \fpcm\model\users\userList
+     */
+    protected $userList;
+
+    /**
+     *
+     * @var \fpcm\model\articles\articlelist
+     */
+    protected $articleList;
+
+    /**
+     *
+     * @var \fpcm\model\comments\commentList
+     */
+    protected $commentList;    
+    
     /**
      *
      * @var array
@@ -30,7 +54,19 @@ trait listsCommon {
     protected $users = [];
 
     /**
-     * 
+     * Current Page
+     * @var int
+     */
+    protected $page = 1;
+
+    /**
+     * Current offset
+     * @var int
+     */
+    protected $offset = 0;
+
+    /**
+     *
      * @return bool
      */
     protected function initActionObjects()
@@ -39,14 +75,13 @@ trait listsCommon {
         $this->categoryList = new \fpcm\model\categories\categoryList();
         $this->commentList = new \fpcm\model\comments\commentList();
         $this->userList = new \fpcm\model\users\userList();
-        
         $this->users = $this->userList->getUsersNameList();
         $this->categories = $this->categoryList->getCategoriesNameListCurrent();
         return true;
     }
 
     /**
-     * 
+     *
      * @return string
      */
     protected function getDataViewName()

@@ -9,16 +9,39 @@ namespace fpcm\events;
 
 /**
  * Module-Event: dashboardContainersLoad
- * 
+ *
  * Event wird ausgeführt, wenn Liste von Dashboard-Container-Klassen geladen wird
  * Parameter: array mit Liste von Container-Klassen
  * Rückgabe: array mit Liste von Container-Klassen, zurückgegebene Klassen müssen müssen das Interface "\fpcm\model\abstracts\dashcontainer" implementieren!
- * 
+ *
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2022, Stefan Seehafer
+ * @copyright (c) 2011-2025, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\events
  */
-final class dashboardContainersLoad extends \fpcm\events\abstracts\eventReturnArray {
+final class dashboardContainersLoad extends \fpcm\events\abstracts\event
+{
 
+    /**
+     * Prepare event before running
+     * @return bool
+     * @since 5.3.0-dev
+     */
+    protected function beforeProcess(\fpcm\module\event $event) : void
+    {
+        $key = str_replace('/', '\\', \fpcm\module\module::getKeyFromClass($event::class));
+        $this->data->setPrefix(sprintf('modules\%s', $key));
+        return;
+    }
+
+    /**
+     * After event running
+     * @return bool
+     * @since 5.3.0-dev
+     */
+    protected function afterProcess() : void
+    {
+        parent::afterProcess();
+        $this->data->resetPrefix();
+    }
 }

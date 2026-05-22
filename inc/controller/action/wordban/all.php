@@ -57,8 +57,8 @@ implements \fpcm\controller\interfaces\requestFunctions
     }
 
     /**
-     * 
-     * @return bool
+     * Controller-Processing
+     * @return void
      */
     public function process()
     {
@@ -71,8 +71,6 @@ implements \fpcm\controller\interfaces\requestFunctions
             (new \fpcm\view\helper\linkButton('addnew'))->setUrl(\fpcm\classes\tools::getFullControllerLink('wordban/add'))->setText('GLOBAL_NEW')->setIcon('ban')->setPrimary(),
             (new \fpcm\view\helper\deleteButton('delete'))->setClickConfirm()
         ]);
-        
-        return true;
     }
 
     /**
@@ -92,10 +90,10 @@ implements \fpcm\controller\interfaces\requestFunctions
     {
         return [
             (new \fpcm\components\dataView\column('select', (new \fpcm\view\helper\checkbox('fpcm-select-all'))->setClass('fpcm-select-all')))->setSize(1)->setAlign('center'),
-            (new \fpcm\components\dataView\column('button', ''))->setSize(1)->setAlign('center'),
-            (new \fpcm\components\dataView\column('subject', 'WORDBAN_NAME'))->setSize(4),
-            (new \fpcm\components\dataView\column('replacement', 'WORDBAN_REPLACEMENT_TEXT'))->setSize(4),
-            (new \fpcm\components\dataView\column('metadata', ''))->setAlign('center'),
+            (new \fpcm\components\dataView\column('button'))->setSize(1)->setAlign('center'),
+            (new \fpcm\components\dataView\column('subject', 'WORDBAN_NAME')),
+            (new \fpcm\components\dataView\column('replacement', 'WORDBAN_REPLACEMENT_TEXT')),
+            (new \fpcm\components\dataView\column('metadata'))->setAlign('center')->setSize(2),
         ];
     }
 
@@ -107,9 +105,9 @@ implements \fpcm\controller\interfaces\requestFunctions
     protected function initDataViewRow($item)
     {
         $metaData   = [
-            $this->getStatusColor( (new \fpcm\view\helper\icon('search fa-inverse'))->setClass('fpcm-ui-editor-metainfo')->setText('WORDBAN_REPLACETEXT')->setStack('square'), $item->getReplaceTxt() ),
-            $this->getStatusColor( (new \fpcm\view\helper\icon('thumbs-up fa-inverse', 'far'))->setClass('fpcm-ui-editor-metainfo')->setText('WORDBAN_APPROVE_ARTICLE')->setStack('square'), $item->getLockArticle() ),
-            $this->getStatusColor( (new \fpcm\view\helper\icon('check-circle fa-inverse', 'far'))->setClass('fpcm-ui-editor-metainfo')->setText('WORDBAN_APPROVA_COMMENT')->setStack('square'), $item->getCommentApproval() ),
+            $this->getStatusColor( (new \fpcm\view\helper\icon('search fa-inverse'))->setText('WORDBAN_REPLACETEXT')->setStack('square'), $item->getReplaceTxt() ),
+            $this->getStatusColor( (new \fpcm\view\helper\icon('thumbs-up fa-inverse', 'far'))->setText('WORDBAN_APPROVE_ARTICLE')->setStack('square'), $item->getLockArticle() ),
+            $this->getStatusColor( (new \fpcm\view\helper\icon('check-circle fa-inverse', 'far'))->setText('WORDBAN_APPROVA_COMMENT')->setStack('square'), $item->getCommentApproval() ),
         ];        
 
         return new \fpcm\components\dataView\row([
@@ -126,7 +124,7 @@ implements \fpcm\controller\interfaces\requestFunctions
         return [
             (new \fpcm\view\helper\tabItem('tabs-'.$this->getDataViewName().'-list'))
                 ->setText('HL_OPTIONS_WORDBAN')
-                ->setFile('components/dataview__inline.php')
+                ->useDataView()
         ];
     }
     

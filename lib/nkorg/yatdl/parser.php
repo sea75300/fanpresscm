@@ -5,7 +5,7 @@ namespace nkorg\yatdl;
 /**
  * YaML Table Definition Language Parser Library\n
  * Parser
- * 
+ *
  * @package nkorg\yatdl
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2016-2022, Stefan Seehafer
@@ -88,7 +88,7 @@ final class parser {
     protected $dataTypeList = [];
 
     /**
-     * 
+     *
      * @param array $tabData
      * @param string $driver
      * @param array $dataTypes
@@ -134,7 +134,7 @@ final class parser {
         if (!$this->checkYamlArray()) {
             return self::ERROR_YAMLCHECK_FAILED;
         }
-        
+
         $this->driver->setYamlArray($this->tabData);
         if ($this->tabData->isview === null) {
             return $this->parseTable();
@@ -157,7 +157,7 @@ final class parser {
     }
 
     /**
-     * 
+     *
      * @return bool
      */
     public function getParsingOk()
@@ -299,18 +299,35 @@ final class parser {
 
         $textTypes = dataTypes::getTextTypeList();
 
+        $cols = array_keys($this->tabData->cols);
+        $removeNullCols = [];
+
         $values = [];
         foreach ($this->tabData->defaultvalues['rows'] as $row) {
 
-            array_walk($row, function (&$colval, $col) use ($textTypes, &$values)  {
-                $colval = in_array($this->tabData->cols[$col]['type'], $textTypes) ? "'{$colval}'" : $colval;
-            });
+            $cVal = [];
+            foreach ($row as $col => $colval) {
 
-            $values[] = implode(', ', $row);
-            
+                if ($colval === null) {
+
+                    if (!in_array($col, $removeNullCols)) {
+                        $removeNullCols[] = $col;
+                    }
+
+                    continue;
+                }
+
+                $cVal[] = in_array($this->tabData->cols[$col]['type'], $textTypes) ? "'{$colval}'" : $colval;
+            }
+
+            $values[] = implode(', ', $cVal);
         }
 
-        $cols = implode(', ', array_keys($this->tabData->cols));
+        if (count($removeNullCols)) {
+            $cols = array_diff($cols, $removeNullCols);
+        }
+
+        $cols = implode(', ', $cols);
         $values = implode('), (', $values);
 
         $this->sqlArray['defaultinsert'] = "INSERT INTO {{dbpref}}_{$this->tabData->name} ({$cols}) VALUES ($values);";
@@ -322,7 +339,7 @@ final class parser {
      * @return boolean
      */
     private function checkYamlArray()
-    {        
+    {
         if ($this->tabData->isview !== null && $this->tabData->isview) {
 
             if ($this->tabData->query === null && $this->tabData->{'query'.$this->currentDriver}) {
@@ -394,7 +411,7 @@ final class parser {
     private function createViewString() : bool
     {
         $queryStr = $this->tabData->{'query'.$this->currentDriver} ?? $this->tabData->query;
- 
+
         if (!trim($queryStr)) {
             return false;
         }

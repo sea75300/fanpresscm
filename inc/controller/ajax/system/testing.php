@@ -34,11 +34,12 @@ class testing extends \fpcm\controller\abstracts\ajaxController
      */
     public function hasAccess()
     {
-        return defined('FPCM_DEBUG') && FPCM_DEBUG;
+        return \fpcm\classes\baseconfig::debugModeActive();
     }
     
     /**
-     * Controller-Processing
+     * Controller processing
+     * @return void
      */
     public function process()
     {        

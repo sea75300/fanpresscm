@@ -9,7 +9,7 @@ namespace fpcm\classes;
 
 /**
  * FanPress CM Database abstraction layer
- * 
+ *
  * @package fpcm\classes\database
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2022, Stefan Seehafer
@@ -102,8 +102,14 @@ final class database {
      * Article categories tables
      * @since 5.1-a1
      */
-    const tableArticleCategories = 'articles_categories';    
-    
+    const tableArticleCategories = 'articles_categories';
+
+    /**
+     * Reminders table
+     * @since 5.3.0-a1
+     */
+    const tableReminders = 'reminders';
+
     /**
      * View for session and user data
      * @since 4.4.3
@@ -278,7 +284,7 @@ final class database {
     {
         $distinct = $distinct ? 'DISTINCT ' : '';
         $sql = "SELECT {$distinct}{$item} FROM {$this->getTablePrefixed($table)}";
-        
+
         if ($where !== null) {
             $sql .= " WHERE $where";
         }
@@ -303,8 +309,20 @@ final class database {
         if (!$result instanceof \PDOStatement) {
             return false;
         }
-        
-        return $this->fetch($result, $obj->getFetchAll(), $obj->getFetchStyle());
+
+        $return = $this->fetch($result, $obj->getFetchAll(), $obj->getFetchStyle());
+
+        $callback = $obj->getCallback();
+        if (!$callback) {
+            return $return;
+        }
+
+        $res = [];
+        foreach ($return as $value) {
+            $callback($value, $res);
+        }
+
+        return $res;
     }
 
     /**
@@ -317,10 +335,10 @@ final class database {
      */
     public function unionSelectFetch(array $selects, int $fetchStyle = \PDO::FETCH_OBJ, bool $returnResult = false, ?int $count = null, ?int $offset = null)
     {
-        $selects = array_filter($selects, function ($item) {            
+        $selects = array_filter($selects, function ($item) {
             return ($item instanceof \fpcm\model\dbal\selectParams);
         });
-        
+
         if (!count($selects)) {
             return [];
         }
@@ -331,7 +349,7 @@ final class database {
             $params = array_merge($params, $obj->getParams());
             return $obj->getQuery();
         }, $selects);
-        
+
         if (!count($queries)) {
             return [];
         }
@@ -514,7 +532,7 @@ final class database {
         $sql = "SELECT max(id) as maxid from {$this->getTablePrefixed($table)};";
         $data = $this->fetch($this->query($sql));
 
-        if (defined('FPCM_DEBUG') && FPCM_DEBUG && defined('FPCM_DEBUG_SQL') && FPCM_DEBUG_SQL) {
+        if (\fpcm\classes\baseconfig::debugModeActive() && defined('FPCM_DEBUG_SQL') && FPCM_DEBUG_SQL) {
             fpcmLogSql("MAXID from {$this->getTablePrefixed($table)} is {$data->maxid}.");
         }
 
@@ -542,7 +560,7 @@ final class database {
     public function createIndex(string $table, string $indexName, string|array $field, $isUnique = false)
     {
         return $this->exec( $this->driver->createIndexString($this->getTablePrefixed($table), $indexName, $field, $isUnique) );
-    }   
+    }
 
     /**
      * Executes a sql query
@@ -562,8 +580,8 @@ final class database {
         if ($this->explain) {
             $command = 'EXPLAIN ' . $command;
         }
-        
-        $this->replacePrefixVar($command);        
+
+        $this->replacePrefixVar($command);
 
         $statement = $this->connection->prepare($command);
         if (!trim($statement->queryString)) {
@@ -571,7 +589,7 @@ final class database {
             return false;
         }
 
-        if (defined('FPCM_DEBUG') && FPCM_DEBUG && defined('FPCM_DEBUG_SQL') && FPCM_DEBUG_SQL) {
+        if (\fpcm\classes\baseconfig::debugModeActive() && defined('FPCM_DEBUG_SQL') && FPCM_DEBUG_SQL) {
             fpcmLogSql($statement->queryString);
         }
 
@@ -590,7 +608,7 @@ final class database {
         try {
             $res = $statement->execute($bindParams);
         } catch (\PDOException $e) {
-            $this->lastQueryErrorCode = $this->driver->mapErrorCodes($e->getCode());                        
+            $this->lastQueryErrorCode = $this->driver->mapErrorCodes($e->getCode());
             fpcmLogSql((string) $e . $this->getStatementError($statement));
             return false;
         }
@@ -620,17 +638,17 @@ final class database {
 
         $sql = file_get_contents($path);
         $this->replacePrefixVar($sql);
-        
+
         $this->lastQueryString = $sql;
 
-        if (defined('FPCM_DEBUG') && FPCM_DEBUG && defined('FPCM_DEBUG_SQL') && FPCM_DEBUG_SQL) {
+        if (\fpcm\classes\baseconfig::debugModeActive() && defined('FPCM_DEBUG_SQL') && FPCM_DEBUG_SQL) {
             fpcmLogSql($sql);
         }
-        
+
         try {
             $this->connection->exec($sql);
         } catch (\PDOException $e) {
-            $this->lastQueryErrorCode = $this->driver->mapErrorCodes($e->getCode());                        
+            $this->lastQueryErrorCode = $this->driver->mapErrorCodes($e->getCode());
             fpcmLogSql((string) $e . PHP_EOL.'Query: ' . $this->lastQueryString);
             return false;
         }
@@ -661,14 +679,14 @@ final class database {
 
         $this->lastQueryString = $sql;
 
-        if (defined('FPCM_DEBUG') && FPCM_DEBUG && defined('FPCM_DEBUG_SQL') && FPCM_DEBUG_SQL) {
+        if (\fpcm\classes\baseconfig::debugModeActive() && defined('FPCM_DEBUG_SQL') && FPCM_DEBUG_SQL) {
             fpcmLogSql($sql);
         }
-        
+
         try {
             $this->connection->exec($sql);
         } catch (\PDOException $e) {
-            $this->lastQueryErrorCode = $this->driver->mapErrorCodes($e->getCode());                        
+            $this->lastQueryErrorCode = $this->driver->mapErrorCodes($e->getCode());
             fpcmLogSql((string) $e . PHP_EOL.'Query: ' . $this->lastQueryString);
             return false;
         }
@@ -701,7 +719,7 @@ final class database {
             return false;
         }
 
-        if (defined('FPCM_DEBUG') && FPCM_DEBUG && defined('FPCM_DEBUG_SQL') && FPCM_DEBUG_SQL) {
+        if (\fpcm\classes\baseconfig::debugModeActive() && defined('FPCM_DEBUG_SQL') && FPCM_DEBUG_SQL) {
             fpcmLogSql($statement->queryString);
         }
 
@@ -733,7 +751,7 @@ final class database {
 
         return $err;
     }
-    
+
     /**
      * Returns result set from database query
      * @param \PDOStatement $result
@@ -761,7 +779,7 @@ final class database {
         $params = $this->driver->getLastInsertIdParams($this->lastTable);
         $return = $params ? $this->connection->lastInsertId($params) : $this->connection->lastInsertId();
 
-        if (defined('FPCM_DEBUG') && FPCM_DEBUG && defined('FPCM_DEBUG_SQL') && FPCM_DEBUG_SQL) {
+        if (\fpcm\classes\baseconfig::debugModeActive() && defined('FPCM_DEBUG_SQL') && FPCM_DEBUG_SQL) {
             fpcmLogSql("Last insert id was: $return");
         }
 
@@ -795,7 +813,7 @@ final class database {
     {
         try {
             fpcmLogSql('Transaction commit forced, transaction available: ' . ($this->connection->inTransaction() ? 'YES' : 'NO'));
-            $res = $this->connection->commit();            
+            $res = $this->connection->commit();
         } catch (\PDOException $exc) {
             fpcmLogSql('Failed to commit transaction' . PHP_EOL . PHP_EOL . $exc->getTraceAsString());
             return false;
@@ -828,7 +846,7 @@ final class database {
     {
         return $this->lastQueryErrorCode;
     }
-    
+
     /**
      * Erzeugt LIMIT-SQL-String
      * @param int $offset
@@ -884,6 +902,18 @@ final class database {
     public function inQuery(string $field, array $values, bool $not = false) : string
     {
         return $field.($not ? ' NOT ' : '').' IN ('. implode(', ', array_fill(0, count($values), '?')).')';
+    }
+
+    /**
+     * 
+     * @param string $col
+     * @param string $format
+     * @return string
+     * @since 5.3.0-a1
+     */
+    public function fromTimeStamp(string $col, string $format = '', string $alias = 'dtSTr'): string
+    {
+        return $this->driver->fromTimeStamp($col, $format, $alias);
     }
 
     /**
@@ -969,6 +999,10 @@ final class database {
      */
     public function getDbVersion()
     {
+        if (!$this->connection) {
+            return '';
+        }
+        
         return $this->connection->getAttribute(\PDO::ATTR_SERVER_VERSION);
     }
 
@@ -1029,7 +1063,7 @@ final class database {
     }
 
     /**
-     * Add columns to database table by definition in object of type @see \fpcm\model\system\yatdl 
+     * Add columns to database table by definition in object of type @see \fpcm\model\system\yatdl
      * @param \fpcm\model\system\yatdl $yatdl
      * @return bool
      */
@@ -1079,7 +1113,7 @@ final class database {
     }
 
     /**
-     * Removes columns to database table by definition in object of type @see \fpcm\model\system\yatdl 
+     * Removes columns to database table by definition in object of type @see \fpcm\model\system\yatdl
      * @param \fpcm\model\system\yatdl $yatdl
      * @return bool
      */
@@ -1105,7 +1139,7 @@ final class database {
     }
 
     /**
-     * Add columns to database table by definition in object of type @see \fpcm\model\system\yatdl 
+     * Add columns to database table by definition in object of type @see \fpcm\model\system\yatdl
      * @param \fpcm\model\system\yatdl $yatdl
      * @return bool
      * @since 4.1
@@ -1158,7 +1192,7 @@ final class database {
         if ($result === false) {
             fpcmLogSql('Failed to create view '.$viewName.' created successful.');
             return false;
-        }        
+        }
 
         fpcmLogSql('View '.$viewName.' created successful.');
         return true;

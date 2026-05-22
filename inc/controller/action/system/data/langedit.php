@@ -45,7 +45,8 @@ class langedit extends \fpcm\controller\abstracts\controller implements \fpcm\co
     }
 
     /**
-     * Controller-Processing
+     * Controller processing
+     * @return void
      */
     public function process()
     {
@@ -64,9 +65,11 @@ class langedit extends \fpcm\controller\abstracts\controller implements \fpcm\co
         });
 
         $fullLang = array_diff_key($fullLang, array_flip(array_keys($fullLang, $skipVal)));
+        $writable = $this->langObj->filesWritable();
+
         $this->view->addButtons([
-            (new \fpcm\view\helper\saveButton('save'))->setPrimary(),
-            (new \fpcm\view\helper\button('new'))->setText('Neue Variable')->setIcon('plus')
+            (new \fpcm\view\helper\saveButton('save'))->setPrimary()->setReadonly(!$writable),
+            (new \fpcm\view\helper\button('new'))->setText('Neue Variable')->setIcon('plus')->setReadonly(!$writable)
         ]);
 
         $this->view->addToolbarRight([
@@ -74,44 +77,69 @@ class langedit extends \fpcm\controller\abstracts\controller implements \fpcm\co
                 ->setOptions(array_flip($this->language->getLanguages()))
                 ->setSelected($this->langObj->getLangCode())
                 ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED),
-            (new \fpcm\view\helper\submitButton('selectLang'))->setText('GLOBAL_OK')->setIcon('check')->setIconOnly()
+            (new \fpcm\view\helper\submitButton('selectLang'))->setText('GLOBAL_OK')->setIcon('check')->setIconOnly(),
+            (new \fpcm\view\helper\submitButton('compare'))->setText('Compare')->setIcon('code-compare')->setIconOnly(),
         ]);
 
         ksort($fullLang);
 
+        $this->view->addJsVars([
+            'langfile' => $fullLang
+        ]);
+
         $this->view->setFormAction('system/langedit');
-        $this->view->assign('langVars', $fullLang);
         $this->view->addJsFiles(['system/langedit.js']);
         $this->view->render();
     }
 
     public function onSave()
     {
-        $langsave = $this->request->fromPOST('lang', [\fpcm\model\http\request::FILTER_TRIM ]);
+        $langsave = $this->request->fromPOST('lang', [
+            \fpcm\model\http\request::FILTER_JSON_DECODE,
+            \fpcm\model\http\request::PARAM_JSON_ASOBJECT => false
+        ]);
+
+        if (!is_array($langsave)) {
+            $this->view->addErrorMessage('Failed to save language data, invalid data given! Check error log!');
+            return false;
+        }
+
         ksort($langsave);
 
         $lists = array_filter($langsave, function ($value) {
-            return (substr($value, 0, 2) === 'a:') ? true : false;
+            return is_array($value);
         });
 
-        $vars = array_diff($langsave, $lists);
+        $vars = array_diff_key($langsave, $lists);
+
         array_walk($vars, function (&$value) {
             $value = str_replace(\fpcm\classes\language::VARTEXT_NEWLINE, PHP_EOL, $value);
         });
 
+        if (!is_array($vars) || !is_array($lists)) {
+            $this->view->addErrorMessage('Failed to save language data, invalid data given! Check error log!');
+            return false;
+        }
+
         $res = $this->langObj->saveFiles(
             $vars,
-            array_map('unserialize', $lists)
+            $lists
         );
 
         if (!$res) {
-            $this->view->addErrorMessage('Fehler beim speichern, Error-Log-prüfen!');
+            $this->view->addErrorMessage('Failed to save data, check error log!');
             return false;
         }
 
         $this->view->addNoticeMessage('Änderungen gespeichert.');
         return true;
 
+    }
+
+    public function onCompare()
+    {
+        $this->view->assign('diff', $this->langObj->compare());
+        return true;
     }
 
 }

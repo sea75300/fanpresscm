@@ -6,7 +6,7 @@
         <meta http-equiv="content-type" content= "text/html; charset=utf-8">
         <meta name="robots" content="noindex, nofollow">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="shortcut icon" href="<?php print $theView->themePath; ?>favicon.png" type="image/png" />
+        <link rel="shortcut icon" href="<?php print $theView->themePath; ?>favicon.png" type="image/png">
         <?php include_once 'includefiles.php'; ?>
         <?php include_once 'vars.php'; ?>
 
@@ -33,7 +33,13 @@
                     </div>
                 </header>
 
-                <?php $theView->alert('danger')->setText($errorMessage)->setIcon($icon)->setClass('d-flex align-items-center justify-content-center')->setSize('2x'); ?>
+                <?php
+                    $theView->alert('danger')
+                        ->setText($errorMessage)
+                        ->setIcon($icon . ' pe-5')
+                        ->setClass('d-flex align-items-center justify-content-center')
+                        ->setSize('2x');
+                ?>
                 <p class="text-center"><?php $theView->linkButton('backBtn')->setUrl($backController ? $backController : 'javascript:window.history.back();')->setText('GLOBAL_BACK')->setIcon('chevron-circle-left'); ?></p>
             </div>
         </div>

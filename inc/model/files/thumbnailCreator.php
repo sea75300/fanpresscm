@@ -70,7 +70,9 @@ class thumbnailCreator {
     public function create(string $type) : bool
     {
         try {
-            $mgr = new \Intervention\Image\ImageManager( \Intervention\Image\Drivers\Gd\Driver::class );
+            $driver = sprintf('\\Intervention\\Image\\Drivers\\%s\\Driver', FPCM_IMAGE_PROCESSING_DRIVER);
+
+            $mgr = new \Intervention\Image\ImageManager( $driver );
             $img = $mgr->read($this->source);
             $img->coverDown($this->thumbSize, $this->thumbSize);
 
@@ -85,7 +87,7 @@ class thumbnailCreator {
             }
 
             $img->save($this->destination);
-        } catch (Exception $exc) {
+        } catch (\Exception $exc) {
             trigger_error('Error while creating file thumbnail '.$this->destination.PHP_EOL.$exc);
             return false;
         }

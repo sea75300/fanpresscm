@@ -13,10 +13,11 @@ class FillModifier extends SpecializableModifier
         public mixed $color,
         public ?PointInterface $position = null
     ) {
+        //
     }
 
     public function hasPosition(): bool
     {
-        return !empty($this->position);
+        return $this->position instanceof PointInterface;
     }
 }

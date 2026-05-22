@@ -20,8 +20,8 @@ class containerManager extends \fpcm\controller\abstracts\ajaxController
         \fpcm\controller\traits\system\dashPermissions;
 
     /**
-     * Controller-Processing
-     * @return bool
+     * Controller processing
+     * @return void
      */
     public function process()
     {

@@ -21,5 +21,5 @@ namespace fpcm\events;
  */
 final class ajaxRefresh extends \fpcm\events\abstracts\event
 {
-    
+
 }

@@ -12,7 +12,6 @@ namespace fpcm\events\article;
  * 
  * Event wird ausgeführt, wenn Artikel-Suche ausgeführt wird
  * Parameter: array Suchbedingungen
- * Rückgabe: array Suchbedingungen
  * 
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
  * @copyright (c) 2011-2022, Stefan Seehafer
@@ -20,24 +19,23 @@ namespace fpcm\events\article;
  * @package fpcm\events
  * @since 3.4
  */
-final class getByCondition extends \fpcm\events\abstracts\eventReturnArray {
+final class getByCondition extends \fpcm\events\abstracts\event {
 
     /**
-     * Executes a certain event
-     * @return array
+     * After event running
+     * @return bool
      */
-    public function run()
+    protected function afterRun() : void
     {
-        $eventData = parent::run();
+        $tmp = $this->data->getData();
         
-        $obj = $eventData->getData();
-        if (!isset($obj['where']) || !is_array($obj['where']) ||
-            !isset($obj['conditions']) || $obj['conditions'] instanceof \fpcm\model\articles\search ||
-            !isset($obj['values']) || !is_array($obj['values'])) {
-            return (new \fpcm\module\eventResult)->setContinue(true)->setData($this->data);
+        if (!isset($tmp['where']) || !is_array($tmp['where']) ||
+            !isset($tmp['conditions']) || !$tmp['conditions'] instanceof \fpcm\model\articles\search ||
+            !isset($tmp['values']) || !is_array($tmp['values'])) {
+
+            $this->data = (new \fpcm\module\eventResult)->setSuccessed(false)->setData([]);
         }
 
-        return $eventData;
-    }
+    }    
 
 }
