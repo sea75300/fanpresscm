@@ -127,6 +127,37 @@ implements interfaces\jsDialogHelper, \JsonSerializable {
             $this->getSelectedString()
         );
         
+        $wrapStart = '';
+        $wrapEnd = '';
+
+        if ($this->text && !$this->iconOnly) {
+            $wrapStart = sprintf(
+                '<div class="form-check %s %s %s">',
+                $this->inline ? 'form-check-inline' : '',
+                $this->switch ? 'form-switch' : '',
+                $this->wrapperClass
+            );
+
+        }
+        elseif ($this->switch) {
+            $wrapStart = '<div class="form-check form-switch">';
+        }
+
+        if ($this->text && !$this->iconOnly || $this->switch) {
+            $wrapEnd = '</div>';
+        }
+
+        $inEL = sprintf(
+            '<input type="%s" %s %s %s %s %s %s>',
+            $this->type,
+            $this->getNameIdString(),
+            $this->getValueString(),
+            $this->getClassString(),
+            $this->getReadonlyString(),
+            $this->getDataString(),
+            $this->getSelectedString()
+        );
+        
         $inLa = '';
         if ($this->text && !$this->iconOnly) {
             $descr = $this->iconOnly ? '' : $this->getDescriptionTextString();
