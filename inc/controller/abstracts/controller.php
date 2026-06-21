@@ -525,9 +525,9 @@ class controller implements \fpcm\controller\interfaces\controller {
     public function __call($name, $arguments)
     {
         http_response_code(404);
-        $class = self::class;
-        print "Function not found! {$class}->{$name}";
-        return false;
+        $this->view = new \fpcm\view\error(sprintf('Function "%s" does not exists in %s', $name, static::class));
+        $this->view->render();
+        exit;
     }
 
     /**
@@ -539,9 +539,8 @@ class controller implements \fpcm\controller\interfaces\controller {
     public static function __callStatic($name, $arguments)
     {
         http_response_code(404);
-        $class = self::class;
-        print "Function not found! {$class}::{$name}";
-        return false;
+        (new \fpcm\view\error(sprintf('Static function "%s" does not exists in %s', $name, static::class)))->render();
+        exit;
     }
 
     /**
