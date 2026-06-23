@@ -50,7 +50,7 @@ final class repository extends remoteModel {
 
         $us = trim(baseconfig::$updateServer, '/');
         $ms = trim(baseconfig::$moduleServer, '/');
-        
+
         $this->files = [
             sprintf('%s/%s/%s.yml', $us, 'main', $file) => self::FOPT_UPDATES,
             sprintf('%s/%s/%s.yml', $us, $minorVer, $file) => self::FOPT_UPDATES,
@@ -60,7 +60,7 @@ final class repository extends remoteModel {
 
         return true;
     }
-    
+
     /**
      * Fetchs data from remote repository source
      * @param bool $cliOutput
@@ -71,7 +71,7 @@ final class repository extends remoteModel {
         $cliProgress = new \fpcm\model\cli\progress(count($this->files));
         $cliProgress->setOutputText('Fetch package information');
         $i = 0;
-        
+
         clearstatcache();
         foreach ($this->files as $rem => $local) {
 
@@ -79,10 +79,6 @@ final class repository extends remoteModel {
 
             $i++;
             $cliProgress->setCurrentValue($i)->output();
-
-            if (strpos(get_headers($rem)[0], 'HTTP/1.1 404 Not Found') !== false) {
-                continue;
-            }
 
             $this->remoteServer = $rem;
             $this->current      = $local;

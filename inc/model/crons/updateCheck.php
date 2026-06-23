@@ -52,4 +52,20 @@ class updateCheck extends \fpcm\model\abstracts\cron {
         return true;
     }
 
+    /**
+     * Destructor call if update cronjob is still running
+     * @return void
+     */
+    public function __destruct()
+    {
+        if (!$this->isrunning) {
+            return;
+        }
+        
+        fpcmLogCron('Destruct called!');
+        
+        $this->setFinished();
+        $this->updateLastExecTime();
+    }
+
 }
