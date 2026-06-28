@@ -125,10 +125,6 @@
                 
             </li>
                     <li>
-                <a href="packages/fpcm-module.html" class="">module</a>
-                
-            </li>
-                    <li>
                 <a href="packages/fpcm-drivers.html" class="">drivers</a>
                 
             </li>
@@ -138,6 +134,10 @@
             </li>
                     <li>
                 <a href="packages/fpcm-migrations.html" class="">migrations</a>
+                
+            </li>
+                    <li>
+                <a href="packages/fpcm-module.html" class="">module</a>
                 
             </li>
                     <li>
@@ -191,7 +191,7 @@
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/search.php"><a href="files/inc-model-files-search.html"><abbr title="inc/model/files/search.php">search.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">32</span>
+    <span class="phpdocumentor-element-found-in__line">33</span>
 
     </aside>
 
@@ -351,6 +351,13 @@
 <dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
+    <a href="classes/fpcm-model-files-search.html#property_mediatype">$mediatype</a>
+    <span>
+                        &nbsp;: int            </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/fpcm-model-files-search.html#property_orderby">$orderby</a>
     <span>
                         &nbsp;: array&lt;string|int, mixed&gt;            </span>
@@ -505,6 +512,13 @@
 <dd>Assign Filename field</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-model-files-search.html#method_assignMediatype">assignMediatype()</a>
+    <span>
+                                &nbsp;: void    </span>
+</dt>
+<dd>Assign user id field</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/fpcm-model-files-search.html#method_assignUserid">assignUserid()</a>
     <span>
                                 &nbsp;: void    </span>
@@ -587,6 +601,13 @@
                                 &nbsp;: <a href="classes/fpcm-model-dbal-queryAssignResult.html"><abbr title="\fpcm\model\dbal\queryAssignResult">queryAssignResult</abbr></a>    </span>
 </dt>
 <dd>Parse and assigns UI filter params array to queries</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-model-files-search.html#method_prepareMediatype">prepareMediatype()</a>
+    <span>
+                                &nbsp;: void    </span>
+</dt>
+<dd>Prepare user id value</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/fpcm-model-abstracts-searchWrapper.html#method_prepareOrder">prepareOrder()</a>
@@ -1121,6 +1142,41 @@
     </code>
 
         <section class="phpdocumentor-description"><p>Abfrage einschränken</p>
+</section>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_mediatype">
+        $mediatype
+        <a href="classes/fpcm-model-files-search.html#property_mediatype" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/search.php"><a href="files/inc-model-files-search.html"><abbr title="inc/model/files/search.php">search.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">0</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">int</span>
+    <span class="phpdocumentor-signature__name">$mediatype</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>Media type (-1 all, 0 image, 1 audio/video)</p>
 </section>
 
         <section class="phpdocumentor-description"></section>
@@ -1797,7 +1853,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/search.php"><a href="files/inc-model-files-search.html"><abbr title="inc/model/files/search.php">search.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">53</span>
+    <span class="phpdocumentor-element-found-in__line">54</span>
 
     </aside>
 
@@ -1830,7 +1886,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/search.php"><a href="files/inc-model-files-search.html"><abbr title="inc/model/files/search.php">search.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">68</span>
+    <span class="phpdocumentor-element-found-in__line">69</span>
 
     </aside>
 
@@ -1863,7 +1919,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/search.php"><a href="files/inc-model-files-search.html"><abbr title="inc/model/files/search.php">search.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">83</span>
+    <span class="phpdocumentor-element-found-in__line">84</span>
 
     </aside>
 
@@ -1896,7 +1952,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/search.php"><a href="files/inc-model-files-search.html"><abbr title="inc/model/files/search.php">search.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">97</span>
+    <span class="phpdocumentor-element-found-in__line">98</span>
 
     </aside>
 
@@ -1929,7 +1985,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/search.php"><a href="files/inc-model-files-search.html"><abbr title="inc/model/files/search.php">search.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">38</span>
+    <span class="phpdocumentor-element-found-in__line">39</span>
 
     </aside>
 
@@ -1955,6 +2011,39 @@
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_assignMediatype">
+        assignMediatype()
+        <a href="classes/fpcm-model-files-search.html#method_assignMediatype" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/search.php"><a href="files/inc-model-files-search.html"><abbr title="inc/model/files/search.php">search.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">128</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Assign user id field</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">assignMediatype</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+    
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">void</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_assignUserid">
         assignUserid()
         <a href="classes/fpcm-model-files-search.html#method_assignUserid" class="headerlink"><i class="fas fa-link"></i></a>
@@ -1962,7 +2051,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/search.php"><a href="files/inc-model-files-search.html"><abbr title="inc/model/files/search.php">search.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">111</span>
+    <span class="phpdocumentor-element-found-in__line">112</span>
 
     </aside>
 
@@ -2121,7 +2210,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/search.php"><a href="files/inc-model-files-search.html"><abbr title="inc/model/files/search.php">search.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">182</span>
+    <span class="phpdocumentor-element-found-in__line">206</span>
 
     </aside>
 
@@ -2168,7 +2257,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/search.php"><a href="files/inc-model-files-search.html"><abbr title="inc/model/files/search.php">search.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">172</span>
+    <span class="phpdocumentor-element-found-in__line">196</span>
 
     </aside>
 
@@ -2295,7 +2384,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/search.php"><a href="files/inc-model-files-search.html"><abbr title="inc/model/files/search.php">search.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">136</span>
+    <span class="phpdocumentor-element-found-in__line">151</span>
 
     </aside>
 
@@ -2328,7 +2417,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/search.php"><a href="files/inc-model-files-search.html"><abbr title="inc/model/files/search.php">search.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">149</span>
+    <span class="phpdocumentor-element-found-in__line">164</span>
 
     </aside>
 
@@ -2361,7 +2450,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/search.php"><a href="files/inc-model-files-search.html"><abbr title="inc/model/files/search.php">search.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">127</span>
+    <span class="phpdocumentor-element-found-in__line">142</span>
 
     </aside>
 
@@ -2410,6 +2499,39 @@
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type"><a href="classes/fpcm-model-dbal-queryAssignResult.html"><abbr title="\fpcm\model\dbal\queryAssignResult">queryAssignResult</abbr></a></span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_prepareMediatype">
+        prepareMediatype()
+        <a href="classes/fpcm-model-files-search.html#method_prepareMediatype" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/search.php"><a href="files/inc-model-files-search.html"><abbr title="inc/model/files/search.php">search.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">186</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Prepare user id value</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">prepareMediatype</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+    
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">void</span>
             &mdash;
         
     
@@ -2491,7 +2613,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/search.php"><a href="files/inc-model-files-search.html"><abbr title="inc/model/files/search.php">search.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">162</span>
+    <span class="phpdocumentor-element-found-in__line">177</span>
 
     </aside>
 

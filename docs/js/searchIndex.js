@@ -3,7 +3,7 @@ Search.appendIndex(
                 {
             "fqsen": "\\FPCM_FE",
             "name": "FPCM_FE",
-            "summary": "FPCM\u0020frontend\u0020api\u0020flag",
+            "summary": "",
             "url": "namespaces/default.html#constant_FPCM_FE"
         },                {
             "fqsen": "\\FPCM_MODE_NOPAGETOKEN",
@@ -120,6 +120,21 @@ Search.appendIndex(
             "name": "getModuleApi",
             "summary": "Call\u0020module\u0020api",
             "url": "classes/fpcmAPI.html#method_getModuleApi"
+        },                {
+            "fqsen": "\\fpcmAPI\u003A\u003AgetBootstrap\u0028\u0029",
+            "name": "getBootstrap",
+            "summary": "Returns\u0020url\u0020of\u0020Bootstrap\u0020CSS\u0020lib",
+            "url": "classes/fpcmAPI.html#method_getBootstrap"
+        },                {
+            "fqsen": "\\fpcmAPI\u003A\u003AgetBootstrapJs\u0028\u0029",
+            "name": "getBootstrapJs",
+            "summary": "Returns\u0020url\u0020of\u0020Bootstrap\u0020JS\u0020lib",
+            "url": "classes/fpcmAPI.html#method_getBootstrapJs"
+        },                {
+            "fqsen": "\\fpcmAPI\u003A\u003AgetFontAwesome\u0028\u0029",
+            "name": "getFontAwesome",
+            "summary": "Returns\u0020url\u0020of\u0020Font\u0020Awesome\u0020lib",
+            "url": "classes/fpcmAPI.html#method_getFontAwesome"
         },                {
             "fqsen": "\\fpcmAPI\u003A\u003A\u0024controllers",
             "name": "controllers",
@@ -821,6 +836,11 @@ Search.appendIndex(
             "summary": "Article\u0020categories\u0020tables",
             "url": "classes/fpcm-classes-database.html#constant_tableArticleCategories"
         },                {
+            "fqsen": "\\fpcm\\classes\\database\u003A\u003AtableReminders",
+            "name": "tableReminders",
+            "summary": "Reminders\u0020table",
+            "url": "classes/fpcm-classes-database.html#constant_tableReminders"
+        },                {
             "fqsen": "\\fpcm\\classes\\database\u003A\u003AviewSessionUserdata",
             "name": "viewSessionUserdata",
             "summary": "View\u0020for\u0020session\u0020and\u0020user\u0020data",
@@ -1010,6 +1030,11 @@ Search.appendIndex(
             "name": "DATA_UPLOADS",
             "summary": "",
             "url": "classes/fpcm-classes-dirs.html#constant_DATA_UPLOADS"
+        },                {
+            "fqsen": "\\fpcm\\classes\\dirs\u003A\u003ADATA_MEDIA",
+            "name": "DATA_MEDIA",
+            "summary": "",
+            "url": "classes/fpcm-classes-dirs.html#constant_DATA_MEDIA"
         },                {
             "fqsen": "\\fpcm\\classes\\dirs\u003A\u003ADATA_DBDUMP",
             "name": "DATA_DBDUMP",
@@ -1275,6 +1300,11 @@ Search.appendIndex(
             "name": "translate",
             "summary": "Return\u0020value\u0020of\u0020language\u0020variable",
             "url": "classes/fpcm-classes-language.html#method_translate"
+        },                {
+            "fqsen": "\\fpcm\\classes\\language\u003A\u003Aexists\u0028\u0029",
+            "name": "exists",
+            "summary": "",
+            "url": "classes/fpcm-classes-language.html#method_exists"
         },                {
             "fqsen": "\\fpcm\\classes\\language\u003A\u003AwriteMonth\u0028\u0029",
             "name": "writeMonth",
@@ -1595,11 +1625,6 @@ Search.appendIndex(
             "name": "getAreaName",
             "summary": "",
             "url": "classes/fpcm-classes-tools.html#method_getAreaName"
-        },                {
-            "fqsen": "\\fpcm\\classes\\tools\u003A\u003AgetTimestampFromString\u0028\u0029",
-            "name": "getTimestampFromString",
-            "summary": "Returns\u0020timestamp\u0020from\u0020string\u0020data",
-            "url": "classes/fpcm-classes-tools.html#method_getTimestampFromString"
         },                {
             "fqsen": "\\fpcm\\classes\\tools\u003A\u003AuserId2Text\u0028\u0029",
             "name": "userId2Text",
@@ -2043,7 +2068,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\fpcm\\components\\dataView\\rowCol\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "Konstruktor",
+            "summary": "Constructor",
             "url": "classes/fpcm-components-dataView-rowCol.html#method___construct"
         },                {
             "fqsen": "\\fpcm\\components\\dataView\\rowCol\u003A\u003ACOLTYPE_VALUE",
@@ -2070,6 +2095,11 @@ Search.appendIndex(
             "name": "class",
             "summary": "Column\u0020class",
             "url": "classes/fpcm-components-dataView-rowCol.html#property_class"
+        },                {
+            "fqsen": "\\fpcm\\components\\dataView\\rowCol\u003A\u003A\u0024typeClass",
+            "name": "typeClass",
+            "summary": "Type\u0020class",
+            "url": "classes/fpcm-components-dataView-rowCol.html#property_typeClass"
         },                {
             "fqsen": "\\fpcm\\components\\dataView\\rowCol\u003A\u003A\u0024type",
             "name": "type",
@@ -2746,6 +2776,11 @@ Search.appendIndex(
             "summary": "Enable\u0020SMTP\u0020error\u0020log\u0020output",
             "url": "namespaces/default.html#constant_FPCM_SMTP_LEVEL"
         },                {
+            "fqsen": "\\FPCM_IMAGE_PROCESSING_DRIVER",
+            "name": "FPCM_IMAGE_PROCESSING_DRIVER",
+            "summary": "Set\u0020Intervention\\Image\u0020processing\u0020driver",
+            "url": "namespaces/default.html#constant_FPCM_IMAGE_PROCESSING_DRIVER"
+        },                {
             "fqsen": "\\fpcm\\controller\\abstracts\\ajaxController",
             "name": "ajaxController",
             "summary": "Basis\u0020f\u00FCr\u0020AJAX\u002DController",
@@ -2770,6 +2805,16 @@ Search.appendIndex(
             "name": "maintenanceMode",
             "summary": "Maintenance\u0020mode\u0020check",
             "url": "classes/fpcm-controller-abstracts-ajaxController.html#method_maintenanceMode"
+        },                {
+            "fqsen": "\\fpcm\\controller\\abstracts\\ajaxController\u003A\u003A__call\u0028\u0029",
+            "name": "__call",
+            "summary": "Magische\u0020Methode\u0020f\u00FCr\u0020nicht\u0020vorhandene\u0020Methoden",
+            "url": "classes/fpcm-controller-abstracts-ajaxController.html#method___call"
+        },                {
+            "fqsen": "\\fpcm\\controller\\abstracts\\ajaxController\u003A\u003A__callStatic\u0028\u0029",
+            "name": "__callStatic",
+            "summary": "Magische\u0020Methode\u0020f\u00FCr\u0020nicht\u0020vorhandene,\u0020statische\u0020Methoden",
+            "url": "classes/fpcm-controller-abstracts-ajaxController.html#method___callStatic"
         },                {
             "fqsen": "\\fpcm\\controller\\abstracts\\ajaxController\u003A\u003A\u0024updateCheckEnabled",
             "name": "updateCheckEnabled",
@@ -3766,15 +3811,30 @@ Search.appendIndex(
             "summary": "Module\u002DEvent\u003A\u0020save",
             "url": "classes/fpcm-events-image-save.html"
         },                {
+            "fqsen": "\\fpcm\\events\\image\\save\u003A\u003AbeforeRun\u0028\u0029",
+            "name": "beforeRun",
+            "summary": "Prepare\u0020event\u0020before\u0020running",
+            "url": "classes/fpcm-events-image-save.html#method_beforeRun"
+        },                {
             "fqsen": "\\fpcm\\events\\image\\thumbnailCreate",
             "name": "thumbnailCreate",
             "summary": "Module\u002DEvent\u003A\u0020thumbnailCreate",
             "url": "classes/fpcm-events-image-thumbnailCreate.html"
         },                {
+            "fqsen": "\\fpcm\\events\\image\\thumbnailCreate\u003A\u003AbeforeRun\u0028\u0029",
+            "name": "beforeRun",
+            "summary": "Prepare\u0020event\u0020before\u0020running",
+            "url": "classes/fpcm-events-image-thumbnailCreate.html#method_beforeRun"
+        },                {
             "fqsen": "\\fpcm\\events\\image\\update",
             "name": "update",
             "summary": "Module\u002DEvent\u003A\u0020update",
             "url": "classes/fpcm-events-image-update.html"
+        },                {
+            "fqsen": "\\fpcm\\events\\image\\update\u003A\u003AbeforeRun\u0028\u0029",
+            "name": "beforeRun",
+            "summary": "Prepare\u0020event\u0020before\u0020running",
+            "url": "classes/fpcm-events-image-update.html#method_beforeRun"
         },                {
             "fqsen": "\\fpcm\\events\\logs\\addToList",
             "name": "addToList",
@@ -4328,7 +4388,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\fpcm\\migrations\\migration\u003A\u003AdefaultAlterTables\u0028\u0029",
             "name": "defaultAlterTables",
-            "summary": "",
+            "summary": "Alter\u0020table\u0020execution",
             "url": "classes/fpcm-migrations-migration.html#method_defaultAlterTables"
         },                {
             "fqsen": "\\fpcm\\migrations\\migration\u003A\u003AdefaultAddSystemOptions\u0028\u0029",
@@ -4816,11 +4876,6 @@ Search.appendIndex(
             "summary": "Container\u002DBreite\u002DCSS\u002DKlasse\u0020\u0028big\/small\u0029\u0020zur\u00FCckgeben",
             "url": "classes/fpcm-model-abstracts-dashcontainer.html#method_getWidth"
         },                {
-            "fqsen": "\\fpcm\\model\\abstracts\\dashcontainer\u003A\u003AgetHeight\u0028\u0029",
-            "name": "getHeight",
-            "summary": "Container\u002DH\u00F6he\u002DKlasse\u0020\u0028big\/middle\/small\u0029\u0020zur\u00FCckgeben",
-            "url": "classes/fpcm-model-abstracts-dashcontainer.html#method_getHeight"
-        },                {
             "fqsen": "\\fpcm\\model\\abstracts\\dashcontainer\u003A\u003AgetStoredPosition\u0028\u0029",
             "name": "getStoredPosition",
             "summary": "Returns\u0020stored\u0020container\u0020position",
@@ -4891,31 +4946,6 @@ Search.appendIndex(
             "summary": "Default\u0020container\u0020cache\u0020module",
             "url": "classes/fpcm-model-abstracts-dashcontainer.html#constant_CACHE_M0DULE_DASHBOARD"
         },                {
-            "fqsen": "\\fpcm\\model\\abstracts\\dashcontainer\u003A\u003ADASHBOARD_HEIGHT_VERYBIG",
-            "name": "DASHBOARD_HEIGHT_VERYBIG",
-            "summary": "Container\u0020height\u0020big",
-            "url": "classes/fpcm-model-abstracts-dashcontainer.html#constant_DASHBOARD_HEIGHT_VERYBIG"
-        },                {
-            "fqsen": "\\fpcm\\model\\abstracts\\dashcontainer\u003A\u003ADASHBOARD_HEIGHT_BIG",
-            "name": "DASHBOARD_HEIGHT_BIG",
-            "summary": "Container\u0020height\u0020big",
-            "url": "classes/fpcm-model-abstracts-dashcontainer.html#constant_DASHBOARD_HEIGHT_BIG"
-        },                {
-            "fqsen": "\\fpcm\\model\\abstracts\\dashcontainer\u003A\u003ADASHBOARD_HEIGHT_MEDIUM",
-            "name": "DASHBOARD_HEIGHT_MEDIUM",
-            "summary": "Container\u0020height\u0020medium",
-            "url": "classes/fpcm-model-abstracts-dashcontainer.html#constant_DASHBOARD_HEIGHT_MEDIUM"
-        },                {
-            "fqsen": "\\fpcm\\model\\abstracts\\dashcontainer\u003A\u003ADASHBOARD_HEIGHT_SMALL_MEDIUM",
-            "name": "DASHBOARD_HEIGHT_SMALL_MEDIUM",
-            "summary": "Container\u0020height\u0020medium",
-            "url": "classes/fpcm-model-abstracts-dashcontainer.html#constant_DASHBOARD_HEIGHT_SMALL_MEDIUM"
-        },                {
-            "fqsen": "\\fpcm\\model\\abstracts\\dashcontainer\u003A\u003ADASHBOARD_HEIGHT_SMALL",
-            "name": "DASHBOARD_HEIGHT_SMALL",
-            "summary": "Container\u0020height\u0020SMALL",
-            "url": "classes/fpcm-model-abstracts-dashcontainer.html#constant_DASHBOARD_HEIGHT_SMALL"
-        },                {
             "fqsen": "\\fpcm\\model\\abstracts\\dashcontainer\u003A\u003ADASHBOARD_POS_MAX",
             "name": "DASHBOARD_POS_MAX",
             "summary": "Container\u0020max\u0020position",
@@ -4978,7 +5008,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\fpcm\\model\\abstracts\\dataset\u003A\u003Ainit\u0028\u0029",
             "name": "init",
-            "summary": "Inittiert\u0020Objekt\u0020mit\u0020Daten\u0020aus\u0020der\u0020Datenbank,\u0020sofern\u0020ID\u0020vergeben\u0020wurde",
+            "summary": "Init\u0020object\u0020with\u0020database\u0020data",
             "url": "classes/fpcm-model-abstracts-dataset.html#method_init"
         },                {
             "fqsen": "\\fpcm\\model\\abstracts\\dataset\u003A\u003AgetId\u0028\u0029",
@@ -5448,7 +5478,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\fpcm\\model\\abstracts\\model\u003A\u003Ainit\u0028\u0029",
             "name": "init",
-            "summary": "Inittiert\u0020Objekt\u0020mit\u0020Daten\u0020aus\u0020der\u0020Datenbank,\u0020sofern\u0020ID\u0020vergeben\u0020wurde",
+            "summary": "Init\u0020object\u0020with\u0020database\u0020data",
             "url": "classes/fpcm-model-abstracts-model.html#method_init"
         },                {
             "fqsen": "\\fpcm\\model\\abstracts\\model\u003A\u003AgetId\u0028\u0029",
@@ -8691,9 +8721,14 @@ Search.appendIndex(
             "summary": "Auszuf\u00FChrender\u0020Cron\u002DCode",
             "url": "classes/fpcm-model-crons-updateCheck.html#method_run"
         },                {
+            "fqsen": "\\fpcm\\model\\crons\\updateCheck\u003A\u003A__destruct\u0028\u0029",
+            "name": "__destruct",
+            "summary": "Destructor\u0020call\u0020if\u0020update\u0020cronjob\u0020is\u0020still\u0020running",
+            "url": "classes/fpcm-model-crons-updateCheck.html#method___destruct"
+        },                {
             "fqsen": "\\fpcm\\model\\dbal\\selectParams",
             "name": "selectParams",
-            "summary": "IP\u002DListen\u0020Objekt",
+            "summary": "SQL\u0020param\u0020select\u0020parameter\u0020wrapper\u0020Objekt",
             "url": "classes/fpcm-model-dbal-selectParams.html"
         },                {
             "fqsen": "\\fpcm\\model\\dbal\\selectParams\u003A\u003A__construct\u0028\u0029",
@@ -8801,6 +8836,11 @@ Search.appendIndex(
             "summary": "Set\u0020callback\u0020function",
             "url": "classes/fpcm-model-dbal-selectParams.html#method_setCallback"
         },                {
+            "fqsen": "\\fpcm\\model\\dbal\\selectParams\u003A\u003AsetSubQueryParams\u0028\u0029",
+            "name": "setSubQueryParams",
+            "summary": "",
+            "url": "classes/fpcm-model-dbal-selectParams.html#method_setSubQueryParams"
+        },                {
             "fqsen": "\\fpcm\\model\\dbal\\selectParams\u003A\u003AgetQuery\u0028\u0029",
             "name": "getQuery",
             "summary": "Return\u0020query\u0020string",
@@ -8860,6 +8900,11 @@ Search.appendIndex(
             "name": "callback",
             "summary": "Fetch\u0020assign\u0020callback\u0020function",
             "url": "classes/fpcm-model-dbal-selectParams.html#property_callback"
+        },                {
+            "fqsen": "\\fpcm\\model\\dbal\\selectParams\u003A\u003A\u0024subParams",
+            "name": "subParams",
+            "summary": "Set\u0020select\u0020params\u0020object",
+            "url": "classes/fpcm-model-dbal-selectParams.html#property_subParams"
         },                {
             "fqsen": "\\fpcm\\model\\files\\authorImage",
             "name": "authorImage",
@@ -8940,6 +8985,16 @@ Search.appendIndex(
             "name": "createFromDbObject",
             "summary": "F\u00FCllt\u0020Objekt\u0020mit\u0020Daten\u0020aus\u0020Datenbank\u002DResult",
             "url": "classes/fpcm-model-files-authorImage.html#method_createFromDbObject"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\authorImage\u003A\u003A\u0024allowedTypes",
+            "name": "allowedTypes",
+            "summary": "Erlaubte\u0020Dateitypen",
+            "url": "classes/fpcm-model-files-authorImage.html#property_allowedTypes"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\authorImage\u003A\u003A\u0024allowedExts",
+            "name": "allowedExts",
+            "summary": "Erlaubte\u0020Dateiendungen",
+            "url": "classes/fpcm-model-files-authorImage.html#property_allowedExts"
         },                {
             "fqsen": "\\fpcm\\model\\files\\backdropImage",
             "name": "backdropImage",
@@ -9218,7 +9273,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\fpcm\\model\\files\\fileuploader\u003A\u003AgetUploadFileName\u0028\u0029",
             "name": "getUploadFileName",
-            "summary": "Returns\u0020complete\u0020file\u0020name\u0020which\u0020includes\u0020sub\u0020folder\u0020name\u0020for\u0020uploaded\u0020images",
+            "summary": "Returns\u0020complete\u0020file\u0020name\u0020which\u0020includes\u0020sub\u0020folder\u0020name\u0020for\u0020uploaded\u0020mediaFiles",
             "url": "classes/fpcm-model-files-fileuploader.html#method_getUploadFileName"
         },                {
             "fqsen": "\\fpcm\\model\\files\\fileuploader\u003A\u003AgetFinfoData\u0028\u0029",
@@ -9260,6 +9315,11 @@ Search.appendIndex(
             "name": "getId",
             "summary": "Datensatz\u002DID",
             "url": "classes/fpcm-model-files-image.html#method_getId"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\image\u003A\u003AgetFileUrl\u0028\u0029",
+            "name": "getFileUrl",
+            "summary": "Returns\u0020image\u0020url",
+            "url": "classes/fpcm-model-files-image.html#method_getFileUrl"
         },                {
             "fqsen": "\\fpcm\\model\\files\\image\u003A\u003AgetImageUrl\u0028\u0029",
             "name": "getImageUrl",
@@ -9756,11 +9816,6 @@ Search.appendIndex(
             "summary": "Creates\u0020upload\u0020filepath",
             "url": "classes/fpcm-model-files-ops.html#method_getUploadPath"
         },                {
-            "fqsen": "\\fpcm\\model\\files\\ops\u003A\u003AgetUploadUrl\u0028\u0029",
-            "name": "getUploadUrl",
-            "summary": "Creates\u0020upload\u0020url",
-            "url": "classes/fpcm-model-files-ops.html#method_getUploadUrl"
-        },                {
             "fqsen": "\\fpcm\\model\\files\\ops\u003A\u003ArealpathNoExists\u0028\u0029",
             "name": "realpathNoExists",
             "summary": "\u0022realpath\u0022\u0020wrapper\u0020for\u0020non\u002Dexisting\u0020files",
@@ -9806,6 +9861,11 @@ Search.appendIndex(
             "summary": "Assign\u0020user\u0020id\u0020field",
             "url": "classes/fpcm-model-files-search.html#method_assignUserid"
         },                {
+            "fqsen": "\\fpcm\\model\\files\\search\u003A\u003AassignMediatype\u0028\u0029",
+            "name": "assignMediatype",
+            "summary": "Assign\u0020user\u0020id\u0020field",
+            "url": "classes/fpcm-model-files-search.html#method_assignMediatype"
+        },                {
             "fqsen": "\\fpcm\\model\\files\\search\u003A\u003AprepareFilename\u0028\u0029",
             "name": "prepareFilename",
             "summary": "Prepare\u0020Filename\u0020value",
@@ -9825,6 +9885,11 @@ Search.appendIndex(
             "name": "prepareUserid",
             "summary": "Prepare\u0020user\u0020id\u0020value",
             "url": "classes/fpcm-model-files-search.html#method_prepareUserid"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\search\u003A\u003AprepareMediatype\u0028\u0029",
+            "name": "prepareMediatype",
+            "summary": "Prepare\u0020user\u0020id\u0020value",
+            "url": "classes/fpcm-model-files-search.html#method_prepareMediatype"
         },                {
             "fqsen": "\\fpcm\\model\\files\\search\u003A\u003AgetOrderFields\u0028\u0029",
             "name": "getOrderFields",
@@ -10778,7 +10843,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\fpcm\\model\\http\\responseDataview\u003A\u003A\u0024pager",
             "name": "pager",
-            "summary": "Dataview\u0020pager",
+            "summary": "Dataview\u0020pager\u0020data",
             "url": "classes/fpcm-model-http-responseDataview.html#property_pager"
         },                {
             "fqsen": "\\fpcm\\model\\interfaces\\cacheBackend",
@@ -11178,7 +11243,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\fpcm\\model\\ips\\iplist\u003A\u003AgetIpAll\u0028\u0029",
             "name": "getIpAll",
-            "summary": "Liefert\u0020IP\u002DAdressen\u0020aus\u0020Datenbank\u0020zur\u00FCck",
+            "summary": "Returns\u0020list\u0020of\u0020ip\u0020addresses",
             "url": "classes/fpcm-model-ips-iplist.html#method_getIpAll"
         },                {
             "fqsen": "\\fpcm\\model\\ips\\iplist\u003A\u003AipIsLocked\u0028\u0029",
@@ -11188,8 +11253,13 @@ Search.appendIndex(
         },                {
             "fqsen": "\\fpcm\\model\\ips\\iplist\u003A\u003AdeleteIpAdresses\u0028\u0029",
             "name": "deleteIpAdresses",
-            "summary": "L\u00F6scht\u0020IP\u002DAdressen\u0020aus\u0020Datenbank",
+            "summary": "Delete\u0020ip\u0020address\u0020set",
             "url": "classes/fpcm-model-ips-iplist.html#method_deleteIpAdresses"
+        },                {
+            "fqsen": "\\fpcm\\model\\ips\\iplist\u003A\u003AgetCount\u0028\u0029",
+            "name": "getCount",
+            "summary": "Count\u0020locked\u0020ip\u0020address\u0020sets",
+            "url": "classes/fpcm-model-ips-iplist.html#method_getCount"
         },                {
             "fqsen": "\\fpcm\\model\\ips\\iplist\u003A\u003AgetCountQuery\u0028\u0029",
             "name": "getCountQuery",
@@ -11575,6 +11645,11 @@ Search.appendIndex(
             "name": "preValidate",
             "summary": "Prevalidation\u0020failed",
             "url": "classes/fpcm-model-packages-package.html#property_preValidate"
+        },                {
+            "fqsen": "\\fpcm\\model\\packages\\package\u003A\u003A\u0024protocol",
+            "name": "protocol",
+            "summary": "Protocol\u0020property",
+            "url": "classes/fpcm-model-packages-package.html#property_protocol"
         },                {
             "fqsen": "\\fpcm\\model\\packages\\repository",
             "name": "repository",
@@ -12166,11 +12241,6 @@ Search.appendIndex(
             "summary": "Assigns\u0020template\u0020variables\u0020by\u0020object\u0020of\u0020type\u0020\u0040see\u0020\\fpcm\\model\\articles\\article",
             "url": "classes/fpcm-model-pubtemplates-article.html#method_assignByObject"
         },                {
-            "fqsen": "\\fpcm\\model\\pubtemplates\\article\u003A\u003Acleanup\u0028\u0029",
-            "name": "cleanup",
-            "summary": "Cleanup\u0020tags",
-            "url": "classes/fpcm-model-pubtemplates-article.html#method_cleanup"
-        },                {
             "fqsen": "\\fpcm\\model\\pubtemplates\\article\u003A\u003AprocessAttributes\u0028\u0029",
             "name": "processAttributes",
             "summary": "Fetch\u0020and\u0020replace\u0020tag\u0020attributes",
@@ -12231,20 +12301,10 @@ Search.appendIndex(
             "summary": "Template\u002DPlatzhalter",
             "url": "classes/fpcm-model-pubtemplates-article.html#property_replacementTags"
         },                {
-            "fqsen": "\\fpcm\\model\\pubtemplates\\article\u003A\u003A\u0024replacementInternal",
-            "name": "replacementInternal",
-            "summary": "Interne\u0020Platzhalter",
-            "url": "classes/fpcm-model-pubtemplates-article.html#property_replacementInternal"
-        },                {
             "fqsen": "\\fpcm\\model\\pubtemplates\\article\u003A\u003A\u0024commentsEnabled",
             "name": "commentsEnabled",
             "summary": "Kommentar\u002DParsner\u0020aktiv",
             "url": "classes/fpcm-model-pubtemplates-article.html#property_commentsEnabled"
-        },                {
-            "fqsen": "\\fpcm\\model\\pubtemplates\\article\u003A\u003A\u0024cleanups",
-            "name": "cleanups",
-            "summary": "Tag\u002DKombinationen,\u0020die\u0020beseitigt\u0020werden\u0020m\u00FCssen",
-            "url": "classes/fpcm-model-pubtemplates-article.html#property_cleanups"
         },                {
             "fqsen": "\\fpcm\\model\\pubtemplates\\article\u003A\u003A\u0024replacementAttributesMap",
             "name": "replacementAttributesMap",
@@ -12878,7 +12938,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\fpcm\\model\\system\\config\u003A\u003Ainit\u0028\u0029",
             "name": "init",
-            "summary": "Inittiert\u0020Objekt\u0020mit\u0020Daten\u0020aus\u0020der\u0020Datenbank",
+            "summary": "Init\u0020object\u0020with\u0020database\u0020data",
             "url": "classes/fpcm-model-system-config.html#method_init"
         },                {
             "fqsen": "\\fpcm\\model\\system\\config\u003A\u003AprepareDataSave\u0028\u0029",
@@ -13186,6 +13246,11 @@ Search.appendIndex(
             "summary": "Gibt\u0020gespeicherte\u0020Session\u002DInformationen\u0020zur\u00FCck",
             "url": "classes/fpcm-model-system-session.html#method_getSessions"
         },                {
+            "fqsen": "\\fpcm\\model\\system\\session\u003A\u003AgetActiveSessions\u0028\u0029",
+            "name": "getActiveSessions",
+            "summary": "Returns\u0020list\u0020of\u0020active\u0020sessions",
+            "url": "classes/fpcm-model-system-session.html#method_getActiveSessions"
+        },                {
             "fqsen": "\\fpcm\\model\\system\\session\u003A\u003AgetSessionsByCondition\u0028\u0029",
             "name": "getSessionsByCondition",
             "summary": "Retrieve\u0020sessions\u0020list\u0020by\u0020condition",
@@ -13198,7 +13263,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\fpcm\\model\\system\\session\u003A\u003Ainit\u0028\u0029",
             "name": "init",
-            "summary": "Inittiert\u0020Objekt\u0020mit\u0020Daten\u0020aus\u0020der\u0020Datenbank,\u0020sofern\u0020ID\u0020vergeben\u0020wurde",
+            "summary": "Init\u0020object\u0020with\u0020database\u0020data",
             "url": "classes/fpcm-model-system-session.html#method_init"
         },                {
             "fqsen": "\\fpcm\\model\\system\\session\u003A\u003A__get\u0028\u0029",
@@ -14366,6 +14431,11 @@ Search.appendIndex(
             "summary": "Reset\u0020Dashboard\u0020container\u0020settings",
             "url": "classes/fpcm-model-users-author.html#method_resetDashboard"
         },                {
+            "fqsen": "\\fpcm\\model\\users\\author\u003A\u003AresetDisabledDashboardContainer\u0028\u0029",
+            "name": "resetDisabledDashboardContainer",
+            "summary": "Reset\u0020Dashboard\u0020container\u0020settings",
+            "url": "classes/fpcm-model-users-author.html#method_resetDisabledDashboardContainer"
+        },                {
             "fqsen": "\\fpcm\\model\\users\\author\u003A\u003AcreateFromDbObject\u0028\u0029",
             "name": "createFromDbObject",
             "summary": "F\u00FCllt\u0020Objekt\u0020mit\u0020Daten\u0020aus\u0020Datenbank\u002DResult",
@@ -14388,7 +14458,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\fpcm\\model\\users\\author\u003A\u003Ainit\u0028\u0029",
             "name": "init",
-            "summary": "Inittiert\u0020Objekt\u0020mit\u0020Daten\u0020aus\u0020der\u0020Datenbank,\u0020sofern\u0020ID\u0020vergeben\u0020wurde",
+            "summary": "Init\u0020object\u0020with\u0020database\u0020data",
             "url": "classes/fpcm-model-users-author.html#method_init"
         },                {
             "fqsen": "\\fpcm\\model\\users\\author\u003A\u003AgetAuthorImageDataOrPath\u0028\u0029",
@@ -16346,6 +16416,11 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/fpcm-view-helper-helper.html#method_initFromYml"
         },                {
+            "fqsen": "\\fpcm\\view\\helper\\helper\u003A\u003AsetToolbarToggle\u0028\u0029",
+            "name": "setToolbarToggle",
+            "summary": "Set\u0020tab\u0020to\u0020toggle\u0020toolbar\u0020item",
+            "url": "classes/fpcm-view-helper-helper.html#method_setToolbarToggle"
+        },                {
             "fqsen": "\\fpcm\\view\\helper\\helper\u003A\u003AgetString\u0028\u0029",
             "name": "getString",
             "summary": "Return\u0020element\u0020string",
@@ -16355,6 +16430,11 @@ Search.appendIndex(
             "name": "jsonSerialize",
             "summary": "JSON\u0020data",
             "url": "classes/fpcm-view-helper-helper.html#method_jsonSerialize"
+        },                {
+            "fqsen": "\\fpcm\\view\\helper\\helper\u003A\u003AaddIdPrefix\u0028\u0029",
+            "name": "addIdPrefix",
+            "summary": "Adds\u0020fpcm\u002Did\u0020prefix\u0020to\u0020any\u0020id\u0020given",
+            "url": "classes/fpcm-view-helper-helper.html#method_addIdPrefix"
         },                {
             "fqsen": "\\fpcm\\view\\helper\\helper\u003A\u003AID_START_PREFIX",
             "name": "ID_START_PREFIX",
@@ -16375,6 +16455,16 @@ Search.appendIndex(
             "name": "LABEL_TYPE_FLOATING",
             "summary": "",
             "url": "classes/fpcm-view-helper-helper.html#constant_LABEL_TYPE_FLOATING"
+        },                {
+            "fqsen": "\\fpcm\\view\\helper\\helper\u003A\u003ATOGGLE_ACTION_HIDE",
+            "name": "TOGGLE_ACTION_HIDE",
+            "summary": "",
+            "url": "classes/fpcm-view-helper-helper.html#constant_TOGGLE_ACTION_HIDE"
+        },                {
+            "fqsen": "\\fpcm\\view\\helper\\helper\u003A\u003ATOGGLE_ACTION_DISABLE",
+            "name": "TOGGLE_ACTION_DISABLE",
+            "summary": "",
+            "url": "classes/fpcm-view-helper-helper.html#constant_TOGGLE_ACTION_DISABLE"
         },                {
             "fqsen": "\\fpcm\\view\\helper\\helper\u003A\u003A\u0024data",
             "name": "data",
@@ -16735,6 +16825,11 @@ Search.appendIndex(
             "name": "getString",
             "summary": "Return\u0020element\u0020string",
             "url": "classes/fpcm-view-helper-pager.html#method_getString"
+        },                {
+            "fqsen": "\\fpcm\\view\\helper\\pager\u003A\u003AjsonSerialize\u0028\u0029",
+            "name": "jsonSerialize",
+            "summary": "JSON\u0020serialize",
+            "url": "classes/fpcm-view-helper-pager.html#method_jsonSerialize"
         },                {
             "fqsen": "\\fpcm\\view\\helper\\pager\u003A\u003A\u0024currentPage",
             "name": "currentPage",
@@ -18201,6 +18296,11 @@ Search.appendIndex(
             "summary": "Prints\u0020default\u0020box\u0020values",
             "url": "classes/fpcm-view-viewVars.html#method_defaultBoxHalf"
         },                {
+            "fqsen": "\\fpcm\\view\\viewVars\u003A\u003AaddIDPrefix\u0028\u0029",
+            "name": "addIDPrefix",
+            "summary": "Adds\u0020fpcm\u002Did\u0020prefix\u0020to\u0020any\u0020id\u0020given",
+            "url": "classes/fpcm-view-viewVars.html#method_addIDPrefix"
+        },                {
             "fqsen": "\\fpcm\\view\\viewVars\u003A\u003A\u0024vars",
             "name": "vars",
             "summary": "Var\u0020values",
@@ -18746,26 +18846,6 @@ Search.appendIndex(
             "summary": "Returns\u0020new\u0020version,\u0020e.\u0020g.\u0020from\u0020version.txt",
             "url": "classes/fpcm-migrations-v525a1.html#method_getNewVersion"
         },                {
-            "fqsen": "\\fpcm\\migrations\\v530dev",
-            "name": "v530dev",
-            "summary": "Migration\u0020to\u0020v5.2.5\u002Da1",
-            "url": "classes/fpcm-migrations-v530dev.html"
-        },                {
-            "fqsen": "\\fpcm\\migrations\\v530dev\u003A\u003AalterTablesAfter\u0028\u0029",
-            "name": "alterTablesAfter",
-            "summary": "Execute\u0020additional\u0020database\u0020table\u0020changes",
-            "url": "classes/fpcm-migrations-v530dev.html#method_alterTablesAfter"
-        },                {
-            "fqsen": "\\fpcm\\migrations\\v530dev\u003A\u003AupdateSystemConfig\u0028\u0029",
-            "name": "updateSystemConfig",
-            "summary": "Execute\u0020additional\u0020system\u0020config\u0020updates",
-            "url": "classes/fpcm-migrations-v530dev.html#method_updateSystemConfig"
-        },                {
-            "fqsen": "\\fpcm\\migrations\\v530dev\u003A\u003AgetNewVersion\u0028\u0029",
-            "name": "getNewVersion",
-            "summary": "Returns\u0020new\u0020version,\u0020e.\u0020g.\u0020from\u0020version.txt",
-            "url": "classes/fpcm-migrations-v530dev.html#method_getNewVersion"
-        },                {
             "fqsen": "\\fpcm\\model\\dashboard\\components\\dataviewItem",
             "name": "dataviewItem",
             "summary": "Dashboard\u0020dataview\u0020item\u0020object",
@@ -18875,11 +18955,6 @@ Search.appendIndex(
             "name": "getPosition",
             "summary": "Returns\u0020container\u0020position",
             "url": "classes/fpcm-model-dashboard-containers-fpcmnews.html#method_getPosition"
-        },                {
-            "fqsen": "\\fpcm\\model\\dashboard\\containers\\fpcmnews\u003A\u003AgetHeight\u0028\u0029",
-            "name": "getHeight",
-            "summary": "Returns\u0020container\u0020height",
-            "url": "classes/fpcm-model-dashboard-containers-fpcmnews.html#method_getHeight"
         },                {
             "fqsen": "\\fpcm\\model\\dashboard\\containers\\fpcmnews\u003A\u003AgetButton\u0028\u0029",
             "name": "getButton",
@@ -19046,11 +19121,6 @@ Search.appendIndex(
             "summary": "Returns\u0020container\u0020position",
             "url": "classes/fpcm-model-dashboard-containers-syscheck.html#method_getPosition"
         },                {
-            "fqsen": "\\fpcm\\model\\dashboard\\containers\\syscheck\u003A\u003AgetHeight\u0028\u0029",
-            "name": "getHeight",
-            "summary": "Returns\u0020container\u0020height",
-            "url": "classes/fpcm-model-dashboard-containers-syscheck.html#method_getHeight"
-        },                {
             "fqsen": "\\fpcm\\model\\dashboard\\containers\\syscheck\u003A\u003AgetWidth\u0028\u0029",
             "name": "getWidth",
             "summary": "Get\u0020width",
@@ -19090,11 +19160,6 @@ Search.appendIndex(
             "name": "getPosition",
             "summary": "Returns\u0020container\u0020position",
             "url": "classes/fpcm-model-dashboard-containers-sysstats.html#method_getPosition"
-        },                {
-            "fqsen": "\\fpcm\\model\\dashboard\\containers\\sysstats\u003A\u003AgetHeight\u0028\u0029",
-            "name": "getHeight",
-            "summary": "Returns\u0020container\u0020height",
-            "url": "classes/fpcm-model-dashboard-containers-sysstats.html#method_getHeight"
         },                {
             "fqsen": "\\fpcm\\model\\dashboard\\containers\\sysstats\u003A\u003AgetWidth\u0028\u0029",
             "name": "getWidth",
@@ -19166,10 +19231,10 @@ Search.appendIndex(
             "summary": "Returns\u0020JavaScript\u0020language\u0020variables",
             "url": "classes/fpcm-model-dashboard-containers-updatecheck.html#method_getJavascriptLangVars"
         },                {
-            "fqsen": "\\fpcm\\model\\dashboard\\containers\\updatecheck\u003A\u003ArenderTable\u0028\u0029",
-            "name": "renderTable",
-            "summary": "Renders\u0020table\u0020row\u0020and\u0020cells",
-            "url": "classes/fpcm-model-dashboard-containers-updatecheck.html#method_renderTable"
+            "fqsen": "\\fpcm\\model\\dashboard\\containers\\updatecheck\u003A\u003AaddItem\u0028\u0029",
+            "name": "addItem",
+            "summary": "",
+            "url": "classes/fpcm-model-dashboard-containers-updatecheck.html#method_addItem"
         },                {
             "fqsen": "\\fpcm\\model\\dashboard\\containers\\updatecheck\u003A\u003AgetButton\u0028\u0029",
             "name": "getButton",
@@ -19346,10 +19411,10 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/fpcm-model-dashboard-types-dataview.html#property_cols"
         },                {
-            "fqsen": "\\fpcm\\model\\dashboard\\types\\dataview\u003A\u003A\u0024fotnsize",
-            "name": "fotnsize",
+            "fqsen": "\\fpcm\\model\\dashboard\\types\\dataview\u003A\u003A\u0024fontsize",
+            "name": "fontsize",
             "summary": "",
-            "url": "classes/fpcm-model-dashboard-types-dataview.html#property_fotnsize"
+            "url": "classes/fpcm-model-dashboard-types-dataview.html#property_fontsize"
         },                {
             "fqsen": "\\fpcm\\model\\dbal\\queryAssignResult",
             "name": "queryAssignResult",
@@ -19636,6 +19701,11 @@ Search.appendIndex(
             "summary": "Resubmission\u0020object",
             "url": "classes/fpcm-model-reminders-reminder.html"
         },                {
+            "fqsen": "\\fpcm\\model\\reminders\\reminder\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "Contructor",
+            "url": "classes/fpcm-model-reminders-reminder.html#method___construct"
+        },                {
             "fqsen": "\\fpcm\\model\\reminders\\reminder\u003A\u003Asave\u0028\u0029",
             "name": "save",
             "summary": "Save\u0020reminder",
@@ -19701,15 +19771,20 @@ Search.appendIndex(
             "summary": "Set\u0020reminder\u0020comment",
             "url": "classes/fpcm-model-reminders-reminder.html#method_setComment"
         },                {
+            "fqsen": "\\fpcm\\model\\reminders\\reminder\u003A\u003AgetLastMailed\u0028\u0029",
+            "name": "getLastMailed",
+            "summary": "Get\u0020last\u0020mailng\u0020timestamp",
+            "url": "classes/fpcm-model-reminders-reminder.html#method_getLastMailed"
+        },                {
+            "fqsen": "\\fpcm\\model\\reminders\\reminder\u003A\u003AsetLastMailed\u0028\u0029",
+            "name": "setLastMailed",
+            "summary": "Set\u0020last\u0020mailing\u0020tiemstamp",
+            "url": "classes/fpcm-model-reminders-reminder.html#method_setLastMailed"
+        },                {
             "fqsen": "\\fpcm\\model\\reminders\\reminder\u003A\u003AgetDescription\u0028\u0029",
             "name": "getDescription",
             "summary": "Returns\u0020description\u0020for\u0020reminder",
             "url": "classes/fpcm-model-reminders-reminder.html#method_getDescription"
-        },                {
-            "fqsen": "\\fpcm\\model\\reminders\\reminder\u003A\u003A\u0024table",
-            "name": "table",
-            "summary": "Table\u0020name",
-            "url": "classes/fpcm-model-reminders-reminder.html#property_table"
         },                {
             "fqsen": "\\fpcm\\model\\reminders\\reminder\u003A\u003A\u0024user_id",
             "name": "user_id",
@@ -19736,10 +19811,20 @@ Search.appendIndex(
             "summary": "Remidner\u0020comment",
             "url": "classes/fpcm-model-reminders-reminder.html#property_comment"
         },                {
+            "fqsen": "\\fpcm\\model\\reminders\\reminder\u003A\u003A\u0024last_mailed",
+            "name": "last_mailed",
+            "summary": "Reminder\u0020was\u0020mailed",
+            "url": "classes/fpcm-model-reminders-reminder.html#property_last_mailed"
+        },                {
             "fqsen": "\\fpcm\\model\\reminders\\reminders",
             "name": "reminders",
             "summary": "Resubmissions\u0020list\u0020object",
             "url": "classes/fpcm-model-reminders-reminders.html"
+        },                {
+            "fqsen": "\\fpcm\\model\\reminders\\reminders\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "Contructor",
+            "url": "classes/fpcm-model-reminders-reminders.html#method___construct"
         },                {
             "fqsen": "\\fpcm\\model\\reminders\\reminders\u003A\u003AgetRemindersForDatasets\u0028\u0029",
             "name": "getRemindersForDatasets",
@@ -19761,11 +19846,6 @@ Search.appendIndex(
             "summary": "Map\u0020internal\u0020type\u0020to\u0020public\u0020type",
             "url": "classes/fpcm-model-reminders-reminders.html#method_mapPublic"
         },                {
-            "fqsen": "\\fpcm\\model\\reminders\\reminders\u003A\u003A\u0024table",
-            "name": "table",
-            "summary": "Table\u0020name",
-            "url": "classes/fpcm-model-reminders-reminders.html#property_table"
-        },                {
             "fqsen": "\\fpcm\\model\\traits\\getFieldsParam",
             "name": "getFieldsParam",
             "summary": "Gte\u0020fields\u0020from\u0020save\u0020params\u0020trait",
@@ -19775,16 +19855,6 @@ Search.appendIndex(
             "name": "getFieldFromSaveParams",
             "summary": "Retrieve\u0020field\u0020names\u0020from\u0020save\u0020\u00FCarams",
             "url": "classes/fpcm-model-traits-getFieldsParam.html#method_getFieldFromSaveParams"
-        },                {
-            "fqsen": "\\fpcm\\model\\traits\\hasReminder",
-            "name": "hasReminder",
-            "summary": "Remidner\u0020check\u0020trait",
-            "url": "classes/fpcm-model-traits-hasReminder.html"
-        },                {
-            "fqsen": "\\fpcm\\model\\traits\\hasReminder\u003A\u003AhasReminder\u0028\u0029",
-            "name": "hasReminder",
-            "summary": "Returns\u0020true\u0020object\u0020has\u0020reminders",
-            "url": "classes/fpcm-model-traits-hasReminder.html#method_hasReminder"
         },                {
             "fqsen": "\\fpcm\\module\\api",
             "name": "api",
@@ -20006,10 +20076,1890 @@ Search.appendIndex(
             "summary": "Set\u0020updater\u0020object",
             "url": "classes/fpcm-view-helper-updateButton.html#method_setUpdater"
         },                {
+            "fqsen": "\\fpcm\\view\\helper\\updateButton\u003A\u003AasInline\u0028\u0029",
+            "name": "asInline",
+            "summary": "Render\u0020link\u0020button\u0020as\u0020inline\u0020list\u0020group\u0020item",
+            "url": "classes/fpcm-view-helper-updateButton.html#method_asInline"
+        },                {
             "fqsen": "\\fpcm\\view\\helper\\updateButton\u003A\u003A\u0024updater",
             "name": "updater",
             "summary": "Updater\u0020object",
             "url": "classes/fpcm-view-helper-updateButton.html#property_updater"
+        },                {
+            "fqsen": "\\fpcm\\classes\\dateTimeHelper",
+            "name": "dateTimeHelper",
+            "summary": "FPCM\u0020date\u0020time\u0020helper",
+            "url": "classes/fpcm-classes-dateTimeHelper.html"
+        },                {
+            "fqsen": "\\fpcm\\classes\\dateTimeHelper\u003A\u003AvalidateDateString\u0028\u0029",
+            "name": "validateDateString",
+            "summary": "Validates\u0020date\u0020string",
+            "url": "classes/fpcm-classes-dateTimeHelper.html#method_validateDateString"
+        },                {
+            "fqsen": "\\fpcm\\classes\\dateTimeHelper\u003A\u003AgetTimestampFromString\u0028\u0029",
+            "name": "getTimestampFromString",
+            "summary": "Returns\u0020timestamp\u0020from\u0020string\u0020data",
+            "url": "classes/fpcm-classes-dateTimeHelper.html#method_getTimestampFromString"
+        },                {
+            "fqsen": "\\fpcm\\classes\\dateTimeHelper\u003A\u003AgetLastDayTimestamp\u0028\u0029",
+            "name": "getLastDayTimestamp",
+            "summary": "Returns\u0020timestamp\u0020for\u0020date\u0020\u002B\u002023\u003A59\u003A59",
+            "url": "classes/fpcm-classes-dateTimeHelper.html#method_getLastDayTimestamp"
+        },                {
+            "fqsen": "\\fpcm\\components\\editor\\conf\\hugerte",
+            "name": "hugerte",
+            "summary": "TinyMCE\u00205\u0020based\u0020editor\u0020plugin\u0020config\u0020class",
+            "url": "classes/fpcm-components-editor-conf-hugerte.html"
+        },                {
+            "fqsen": "\\fpcm\\components\\editor\\conf\\hugerte\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "Constructor",
+            "url": "classes/fpcm-components-editor-conf-hugerte.html#method___construct"
+        },                {
+            "fqsen": "\\fpcm\\components\\editor\\conf\\hugerte\u003A\u003AprepareComments\u0028\u0029",
+            "name": "prepareComments",
+            "summary": "INit\u0020editor\u0020plugins\u0020for\u0020comment\u0020editor",
+            "url": "classes/fpcm-components-editor-conf-hugerte.html#method_prepareComments"
+        },                {
+            "fqsen": "\\fpcm\\components\\editor\\conf\\hugerte\u003A\u003A\u0024theme",
+            "name": "theme",
+            "summary": "Editor\u0020theme",
+            "url": "classes/fpcm-components-editor-conf-hugerte.html#property_theme"
+        },                {
+            "fqsen": "\\fpcm\\components\\editor\\conf\\hugerte\u003A\u003A\u0024language",
+            "name": "language",
+            "summary": "Editor\u0020language",
+            "url": "classes/fpcm-components-editor-conf-hugerte.html#property_language"
+        },                {
+            "fqsen": "\\fpcm\\components\\editor\\conf\\hugerte\u003A\u003A\u0024plugins",
+            "name": "plugins",
+            "summary": "plugins\u0020setting",
+            "url": "classes/fpcm-components-editor-conf-hugerte.html#property_plugins"
+        },                {
+            "fqsen": "\\fpcm\\components\\editor\\conf\\hugerte\u003A\u003A\u0024custom_elements",
+            "name": "custom_elements",
+            "summary": "custom_elements\u0020setting",
+            "url": "classes/fpcm-components-editor-conf-hugerte.html#property_custom_elements"
+        },                {
+            "fqsen": "\\fpcm\\components\\editor\\conf\\hugerte\u003A\u003A\u0024toolbar",
+            "name": "toolbar",
+            "summary": "toolbar\u0020setting",
+            "url": "classes/fpcm-components-editor-conf-hugerte.html#property_toolbar"
+        },                {
+            "fqsen": "\\fpcm\\components\\editor\\conf\\hugerte\u003A\u003A\u0024link_class_list",
+            "name": "link_class_list",
+            "summary": "link_class_list\u0020setting",
+            "url": "classes/fpcm-components-editor-conf-hugerte.html#property_link_class_list"
+        },                {
+            "fqsen": "\\fpcm\\components\\editor\\conf\\hugerte\u003A\u003A\u0024image_class_list",
+            "name": "image_class_list",
+            "summary": "image_class_list\u0020setting",
+            "url": "classes/fpcm-components-editor-conf-hugerte.html#property_image_class_list"
+        },                {
+            "fqsen": "\\fpcm\\components\\editor\\conf\\hugerte\u003A\u003A\u0024link_list",
+            "name": "link_list",
+            "summary": "link_list\u0020setting",
+            "url": "classes/fpcm-components-editor-conf-hugerte.html#property_link_list"
+        },                {
+            "fqsen": "\\fpcm\\components\\editor\\conf\\hugerte\u003A\u003A\u0024image_list",
+            "name": "image_list",
+            "summary": "image_list\u0020setting",
+            "url": "classes/fpcm-components-editor-conf-hugerte.html#property_image_list"
+        },                {
+            "fqsen": "\\fpcm\\components\\editor\\conf\\hugerte\u003A\u003A\u0024textpattern_patterns",
+            "name": "textpattern_patterns",
+            "summary": "textpattern_patterns\u0020setting",
+            "url": "classes/fpcm-components-editor-conf-hugerte.html#property_textpattern_patterns"
+        },                {
+            "fqsen": "\\fpcm\\components\\editor\\conf\\hugerte\u003A\u003A\u0024templates",
+            "name": "templates",
+            "summary": "templates\u0020setting",
+            "url": "classes/fpcm-components-editor-conf-hugerte.html#property_templates"
+        },                {
+            "fqsen": "\\fpcm\\components\\editor\\conf\\hugerte\u003A\u003A\u0024autosave_prefix",
+            "name": "autosave_prefix",
+            "summary": "autosave_prefix\u0020setting",
+            "url": "classes/fpcm-components-editor-conf-hugerte.html#property_autosave_prefix"
+        },                {
+            "fqsen": "\\fpcm\\components\\editor\\conf\\hugerte\u003A\u003A\u0024images_upload_url",
+            "name": "images_upload_url",
+            "summary": "images_upload_url\u0020setting",
+            "url": "classes/fpcm-components-editor-conf-hugerte.html#property_images_upload_url"
+        },                {
+            "fqsen": "\\fpcm\\components\\editor\\conf\\hugerte\u003A\u003A\u0024automatic_uploads",
+            "name": "automatic_uploads",
+            "summary": "automatic_uploads\u0020setting",
+            "url": "classes/fpcm-components-editor-conf-hugerte.html#property_automatic_uploads"
+        },                {
+            "fqsen": "\\fpcm\\components\\editor\\conf\\hugerte\u003A\u003A\u0024width",
+            "name": "width",
+            "summary": "width\u0020setting",
+            "url": "classes/fpcm-components-editor-conf-hugerte.html#property_width"
+        },                {
+            "fqsen": "\\fpcm\\components\\editor\\conf\\hugerte\u003A\u003A\u0024min_height",
+            "name": "min_height",
+            "summary": "min_height\u0020setting",
+            "url": "classes/fpcm-components-editor-conf-hugerte.html#property_min_height"
+        },                {
+            "fqsen": "\\fpcm\\components\\editor\\conf\\hugerte\u003A\u003A\u0024file_picker_types",
+            "name": "file_picker_types",
+            "summary": "file_picker_types\u0020setting",
+            "url": "classes/fpcm-components-editor-conf-hugerte.html#property_file_picker_types"
+        },                {
+            "fqsen": "\\fpcm\\components\\editor\\conf\\hugerte\u003A\u003A\u0024pagebreak_separator",
+            "name": "pagebreak_separator",
+            "summary": "pagebreak_separator\u0020setting",
+            "url": "classes/fpcm-components-editor-conf-hugerte.html#property_pagebreak_separator"
+        },                {
+            "fqsen": "\\fpcm\\components\\editor\\conf\\hugerte\u003A\u003A\u0024image_caption",
+            "name": "image_caption",
+            "summary": "image_caption\u0020setting",
+            "url": "classes/fpcm-components-editor-conf-hugerte.html#property_image_caption"
+        },                {
+            "fqsen": "\\fpcm\\components\\editor\\conf\\hugerte\u003A\u003A\u0024skin",
+            "name": "skin",
+            "summary": "image_caption\u0020setting",
+            "url": "classes/fpcm-components-editor-conf-hugerte.html#property_skin"
+        },                {
+            "fqsen": "\\fpcm\\components\\editor\\conf\\hugerte\u003A\u003A\u0024content_css",
+            "name": "content_css",
+            "summary": "image_caption\u0020setting",
+            "url": "classes/fpcm-components-editor-conf-hugerte.html#property_content_css"
+        },                {
+            "fqsen": "\\fpcm\\components\\editor\\hugerte",
+            "name": "hugerte",
+            "summary": "HugeRTE\u0020based\u0020editor\u0020plugin",
+            "url": "classes/fpcm-components-editor-hugerte.html"
+        },                {
+            "fqsen": "\\fpcm\\components\\editor\\hugerte\u003A\u003AgetCssFiles\u0028\u0029",
+            "name": "getCssFiles",
+            "summary": "Liefert\u0020zu\u0020ladender\u0020CSS\u002DDateien\u0020f\u00FCr\u0020Editor\u0020zur\u00FCck",
+            "url": "classes/fpcm-components-editor-hugerte.html#method_getCssFiles"
+        },                {
+            "fqsen": "\\fpcm\\components\\editor\\hugerte\u003A\u003AgetEditorTemplate\u0028\u0029",
+            "name": "getEditorTemplate",
+            "summary": "Pfad\u0020der\u0020Editor\u002DTemplate\u002DDatei",
+            "url": "classes/fpcm-components-editor-hugerte.html#method_getEditorTemplate"
+        },                {
+            "fqsen": "\\fpcm\\components\\editor\\hugerte\u003A\u003AgetCommentEditorTemplate\u0028\u0029",
+            "name": "getCommentEditorTemplate",
+            "summary": "Pfad\u0020der\u0020Kommentar\u002DEditor\u002DTemplate\u002DDatei",
+            "url": "classes/fpcm-components-editor-hugerte.html#method_getCommentEditorTemplate"
+        },                {
+            "fqsen": "\\fpcm\\components\\editor\\hugerte\u003A\u003AgetJsFiles\u0028\u0029",
+            "name": "getJsFiles",
+            "summary": "Liefert\u0020zu\u0020ladender\u0020Javascript\u002DDateien\u0020f\u00FCr\u0020Editor\u0020zur\u00FCck",
+            "url": "classes/fpcm-components-editor-hugerte.html#method_getJsFiles"
+        },                {
+            "fqsen": "\\fpcm\\components\\editor\\hugerte\u003A\u003AgetJsVars\u0028\u0029",
+            "name": "getJsVars",
+            "summary": "Array\u0020von\u0020Javascript\u002DVariablen,\u0020welche\u0020in\u0020Editor\u002DTemplate\u0020genutzt\u0020werden",
+            "url": "classes/fpcm-components-editor-hugerte.html#method_getJsVars"
+        },                {
+            "fqsen": "\\fpcm\\components\\editor\\hugerte\u003A\u003AgetViewVars\u0028\u0029",
+            "name": "getViewVars",
+            "summary": "Array\u0020von\u0020Variablen,\u0020welche\u0020in\u0020Editor\u002DTemplate\u0020genutzt\u0020werden",
+            "url": "classes/fpcm-components-editor-hugerte.html#method_getViewVars"
+        },                {
+            "fqsen": "\\fpcm\\components\\editor\\hugerte\u003A\u003AgetEditorStyles\u0028\u0029",
+            "name": "getEditorStyles",
+            "summary": "Editor\u002DStyles\u0020initialisieren",
+            "url": "classes/fpcm-components-editor-hugerte.html#method_getEditorStyles"
+        },                {
+            "fqsen": "\\fpcm\\components\\editor\\hugerte\u003A\u003AgetEditorLinks\u0028\u0029",
+            "name": "getEditorLinks",
+            "summary": "Editor\u002DLinks\u0020initialisieren",
+            "url": "classes/fpcm-components-editor-hugerte.html#method_getEditorLinks"
+        },                {
+            "fqsen": "\\fpcm\\components\\editor\\hugerte\u003A\u003AgetTemplateDrafts\u0028\u0029",
+            "name": "getTemplateDrafts",
+            "summary": "Arary\u0020mit\u0020Informationen\u0020u.\u0020a.\u0020f\u00FCr\u0020template\u002DPlugin\u0020von\u0020HugeRTE",
+            "url": "classes/fpcm-components-editor-hugerte.html#method_getTemplateDrafts"
+        },                {
+            "fqsen": "\\fpcm\\components\\editor\\hugerte\u003A\u003AgetJsLangVars\u0028\u0029",
+            "name": "getJsLangVars",
+            "summary": "Array\u0020von\u0020Sprachvariablen\u0020f\u00FCr\u0020Nutzung\u0020in\u0020Javascript",
+            "url": "classes/fpcm-components-editor-hugerte.html#method_getJsLangVars"
+        },                {
+            "fqsen": "\\fpcm\\components\\editor\\hugerte\u003A\u003AFILELIST_LABEL",
+            "name": "FILELIST_LABEL",
+            "summary": "Files\u0020list\u0020label\u0020name",
+            "url": "classes/fpcm-components-editor-hugerte.html#constant_FILELIST_LABEL"
+        },                {
+            "fqsen": "\\fpcm\\components\\editor\\hugerte\u003A\u003AFILELIST_VALUE",
+            "name": "FILELIST_VALUE",
+            "summary": "Files\u0020list\u0020value\u0020name",
+            "url": "classes/fpcm-components-editor-hugerte.html#constant_FILELIST_VALUE"
+        },                {
+            "fqsen": "\\fpcm\\controller\\abstracts\\dataViewList",
+            "name": "dataViewList",
+            "summary": "AJAX\u0020dataview\u0020controller",
+            "url": "classes/fpcm-controller-abstracts-dataViewList.html"
+        },                {
+            "fqsen": "\\fpcm\\controller\\abstracts\\dataViewList\u003A\u003Arequest\u0028\u0029",
+            "name": "request",
+            "summary": "Controller\u0020request\u0020processing",
+            "url": "classes/fpcm-controller-abstracts-dataViewList.html#method_request"
+        },                {
+            "fqsen": "\\fpcm\\controller\\abstracts\\dataViewList\u003A\u003Aprocess\u0028\u0029",
+            "name": "process",
+            "summary": "process\u0020controller",
+            "url": "classes/fpcm-controller-abstracts-dataViewList.html#method_process"
+        },                {
+            "fqsen": "\\fpcm\\controller\\abstracts\\dataViewList\u003A\u003AinitActionObjects\u0028\u0029",
+            "name": "initActionObjects",
+            "summary": "Init\u0020mail\u0020objects",
+            "url": "classes/fpcm-controller-abstracts-dataViewList.html#method_initActionObjects"
+        },                {
+            "fqsen": "\\fpcm\\controller\\abstracts\\dataViewList\u003A\u003AgetCols\u0028\u0029",
+            "name": "getCols",
+            "summary": "Dataview\u0020columns",
+            "url": "classes/fpcm-controller-abstracts-dataViewList.html#method_getCols"
+        },                {
+            "fqsen": "\\fpcm\\controller\\abstracts\\dataViewList\u003A\u003AgetName\u0028\u0029",
+            "name": "getName",
+            "summary": "Returns\u0020list\u0020name",
+            "url": "classes/fpcm-controller-abstracts-dataViewList.html#method_getName"
+        },                {
+            "fqsen": "\\fpcm\\controller\\abstracts\\dataViewList\u003A\u003AgetRow\u0028\u0029",
+            "name": "getRow",
+            "summary": "Get\u0020dataview\u0020row",
+            "url": "classes/fpcm-controller-abstracts-dataViewList.html#method_getRow"
+        },                {
+            "fqsen": "\\fpcm\\controller\\abstracts\\dataViewList\u003A\u003Aexecute\u0028\u0029",
+            "name": "execute",
+            "summary": "Execute\u0020filter",
+            "url": "classes/fpcm-controller-abstracts-dataViewList.html#method_execute"
+        },                {
+            "fqsen": "\\fpcm\\controller\\abstracts\\dataViewList\u003A\u003AinitLists\u0028\u0029",
+            "name": "initLists",
+            "summary": "Init\u0020lists\u0020objects",
+            "url": "classes/fpcm-controller-abstracts-dataViewList.html#method_initLists"
+        },                {
+            "fqsen": "\\fpcm\\controller\\abstracts\\dataViewList\u003A\u003AgetModul\u0028\u0029",
+            "name": "getModul",
+            "summary": "Returns\u0020Module\u0020name",
+            "url": "classes/fpcm-controller-abstracts-dataViewList.html#method_getModul"
+        },                {
+            "fqsen": "\\fpcm\\controller\\abstracts\\dataViewList\u003A\u003AafterProcess\u0028\u0029",
+            "name": "afterProcess",
+            "summary": "After\u0020process\u0020list",
+            "url": "classes/fpcm-controller-abstracts-dataViewList.html#method_afterProcess"
+        },                {
+            "fqsen": "\\fpcm\\controller\\abstracts\\dataViewList\u003A\u003AinitPageData\u0028\u0029",
+            "name": "initPageData",
+            "summary": "Init\u0020page\u0028r\u0029\u0020data",
+            "url": "classes/fpcm-controller-abstracts-dataViewList.html#method_initPageData"
+        },                {
+            "fqsen": "\\fpcm\\controller\\abstracts\\dataViewList\u003A\u003A\u0024pager",
+            "name": "pager",
+            "summary": "Pager\u0020object",
+            "url": "classes/fpcm-controller-abstracts-dataViewList.html#property_pager"
+        },                {
+            "fqsen": "\\fpcm\\controller\\abstracts\\dataViewList\u003A\u003A\u0024conditions",
+            "name": "conditions",
+            "summary": "Conditions\u0020object",
+            "url": "classes/fpcm-controller-abstracts-dataViewList.html#property_conditions"
+        },                {
+            "fqsen": "\\fpcm\\controller\\abstracts\\dataViewList\u003A\u003A\u0024filter",
+            "name": "filter",
+            "summary": "Filter\u0020array",
+            "url": "classes/fpcm-controller-abstracts-dataViewList.html#property_filter"
+        },                {
+            "fqsen": "\\fpcm\\controller\\abstracts\\dataViewList\u003A\u003A\u0024items",
+            "name": "items",
+            "summary": "Items\u0020list\u0020array",
+            "url": "classes/fpcm-controller-abstracts-dataViewList.html#property_items"
+        },                {
+            "fqsen": "\\fpcm\\controller\\abstracts\\dataViewList\u003A\u003A\u0024countMax",
+            "name": "countMax",
+            "summary": "Max\u0020count\u0020of\u0020item",
+            "url": "classes/fpcm-controller-abstracts-dataViewList.html#property_countMax"
+        },                {
+            "fqsen": "\\fpcm\\controller\\abstracts\\dataViewList\u003A\u003A\u0024itemsPerPage",
+            "name": "itemsPerPage",
+            "summary": "Items\u0020per\u0020page",
+            "url": "classes/fpcm-controller-abstracts-dataViewList.html#property_itemsPerPage"
+        },                {
+            "fqsen": "\\fpcm\\controller\\abstracts\\dataViewList\u003A\u003A\u0024countCurrent",
+            "name": "countCurrent",
+            "summary": "Current\u0020items\u0020on\u0020page",
+            "url": "classes/fpcm-controller-abstracts-dataViewList.html#property_countCurrent"
+        },                {
+            "fqsen": "\\fpcm\\controller\\abstracts\\dataViewList\u003A\u003A\u0024isFilter",
+            "name": "isFilter",
+            "summary": "Is\u0020filter\u0020view",
+            "url": "classes/fpcm-controller-abstracts-dataViewList.html#property_isFilter"
+        },                {
+            "fqsen": "\\fpcm\\controller\\abstracts\\dataViewList\u003A\u003A\u0024hasPager",
+            "name": "hasPager",
+            "summary": "has\u0020pager",
+            "url": "classes/fpcm-controller-abstracts-dataViewList.html#property_hasPager"
+        },                {
+            "fqsen": "\\fpcm\\controller\\abstracts\\dataViewList\u003A\u003A\u0024message",
+            "name": "message",
+            "summary": "Message\u0020object",
+            "url": "classes/fpcm-controller-abstracts-dataViewList.html#property_message"
+        },                {
+            "fqsen": "\\fpcm\\controller\\interfaces\\controller",
+            "name": "controller",
+            "summary": "Controller\u0020base\u0020interface",
+            "url": "classes/fpcm-controller-interfaces-controller.html"
+        },                {
+            "fqsen": "\\fpcm\\controller\\interfaces\\controller\u003A\u003Arequest\u0028\u0029",
+            "name": "request",
+            "summary": "Request\u0020processing,\nfalse\u0020prevent\u0020execution\u0020of\u0020\u0040see\u0020process\u0028\u0029",
+            "url": "classes/fpcm-controller-interfaces-controller.html#method_request"
+        },                {
+            "fqsen": "\\fpcm\\controller\\interfaces\\controller\u003A\u003AhasAccess\u0028\u0029",
+            "name": "hasAccess",
+            "summary": "Access\u0020check\u0020processing,\nfalse\u0020prevent\u0020execution\u0020of\u0020\u0040see\u0020request\u0028\u0029\u0020\u0040see\u0020process\u0028\u0029",
+            "url": "classes/fpcm-controller-interfaces-controller.html#method_hasAccess"
+        },                {
+            "fqsen": "\\fpcm\\controller\\interfaces\\controller\u003A\u003Aprocess\u0028\u0029",
+            "name": "process",
+            "summary": "Controller\u002DProcessing",
+            "url": "classes/fpcm-controller-interfaces-controller.html#method_process"
+        },                {
+            "fqsen": "\\fpcm\\controller\\interfaces\\requestFunctions",
+            "name": "requestFunctions",
+            "summary": "Process\u0020button\u0020clicks\u0020as\u0020functions,\u0020function\u0020name\u0020has\u0020to\u0020be\u0020\u0022onBUTTONNAME\u0022",
+            "url": "classes/fpcm-controller-interfaces-requestFunctions.html"
+        },                {
+            "fqsen": "\\fpcm\\controller\\interfaces\\requestFunctions\u003A\u003AprocessButtons\u0028\u0029",
+            "name": "processButtons",
+            "summary": "Must\u0020return\u0020true,\u0020if\u0020controller\u0020is\u0020accessible",
+            "url": "classes/fpcm-controller-interfaces-requestFunctions.html#method_processButtons"
+        },                {
+            "fqsen": "\\fpcm\\controller\\interfaces\\viewByNamespace",
+            "name": "viewByNamespace",
+            "summary": "Try\u0020to\u0020retrieve\u0020view\u0020name\u0020by\u0020class\u0020namespace",
+            "url": "classes/fpcm-controller-interfaces-viewByNamespace.html"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\articles\\lists",
+            "name": "lists",
+            "summary": "Artikelliste\u0020trait",
+            "url": "classes/fpcm-controller-traits-articles-lists.html"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\articles\\lists\u003A\u003AtranslateCategories\u0028\u0029",
+            "name": "translateCategories",
+            "summary": "Kategorien\u0020\u00FCbersetzen",
+            "url": "classes/fpcm-controller-traits-articles-lists.html#method_translateCategories"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\articles\\lists\u003A\u003AinitDataView\u0028\u0029",
+            "name": "initDataView",
+            "summary": "",
+            "url": "classes/fpcm-controller-traits-articles-lists.html#method_initDataView"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\articles\\lists\u003A\u003AgetCommentBadge\u0028\u0029",
+            "name": "getCommentBadge",
+            "summary": "",
+            "url": "classes/fpcm-controller-traits-articles-lists.html#method_getCommentBadge"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\articles\\lists\u003A\u003AgetSharesBadge\u0028\u0029",
+            "name": "getSharesBadge",
+            "summary": "",
+            "url": "classes/fpcm-controller-traits-articles-lists.html#method_getSharesBadge"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\articles\\lists\u003A\u003AgetMetaData\u0028\u0029",
+            "name": "getMetaData",
+            "summary": "",
+            "url": "classes/fpcm-controller-traits-articles-lists.html#method_getMetaData"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\articles\\lists\u003A\u003AgetExtLineMenu\u0028\u0029",
+            "name": "getExtLineMenu",
+            "summary": "",
+            "url": "classes/fpcm-controller-traits-articles-lists.html#method_getExtLineMenu"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\articles\\lists\u003A\u003AgetDataViewCols\u0028\u0029",
+            "name": "getDataViewCols",
+            "summary": "",
+            "url": "classes/fpcm-controller-traits-articles-lists.html#method_getDataViewCols"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\articles\\lists\u003A\u003A\u0024count",
+            "name": "count",
+            "summary": "",
+            "url": "classes/fpcm-controller-traits-articles-lists.html#property_count"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\articles\\lists\u003A\u003A\u0024items",
+            "name": "items",
+            "summary": "",
+            "url": "classes/fpcm-controller-traits-articles-lists.html#property_items"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\articles\\lists\u003A\u003A\u0024users",
+            "name": "users",
+            "summary": "",
+            "url": "classes/fpcm-controller-traits-articles-lists.html#property_users"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\articles\\lists\u003A\u003A\u0024relatedCounts",
+            "name": "relatedCounts",
+            "summary": "",
+            "url": "classes/fpcm-controller-traits-articles-lists.html#property_relatedCounts"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\articles\\lists\u003A\u003A\u0024showArchivedStatus",
+            "name": "showArchivedStatus",
+            "summary": "",
+            "url": "classes/fpcm-controller-traits-articles-lists.html#property_showArchivedStatus"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\articles\\lists\u003A\u003A\u0024showDraftStatus",
+            "name": "showDraftStatus",
+            "summary": "",
+            "url": "classes/fpcm-controller-traits-articles-lists.html#property_showDraftStatus"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\articles\\lists\u003A\u003A\u0024isTrash",
+            "name": "isTrash",
+            "summary": "",
+            "url": "classes/fpcm-controller-traits-articles-lists.html#property_isTrash"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\articles\\lists\u003A\u003A\u0024dataView",
+            "name": "dataView",
+            "summary": "Data\u0020view\u0020object",
+            "url": "classes/fpcm-controller-traits-articles-lists.html#property_dataView"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\articles\\lists\u003A\u003A\u0024categoryList",
+            "name": "categoryList",
+            "summary": "Category\u0020list\u0020instance",
+            "url": "classes/fpcm-controller-traits-articles-lists.html#property_categoryList"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\articles\\listsCommon",
+            "name": "listsCommon",
+            "summary": "Artikelliste\u0020trait",
+            "url": "classes/fpcm-controller-traits-articles-listsCommon.html"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\articles\\listsCommon\u003A\u003AinitActionObjects\u0028\u0029",
+            "name": "initActionObjects",
+            "summary": "",
+            "url": "classes/fpcm-controller-traits-articles-listsCommon.html#method_initActionObjects"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\articles\\listsCommon\u003A\u003AgetDataViewName\u0028\u0029",
+            "name": "getDataViewName",
+            "summary": "",
+            "url": "classes/fpcm-controller-traits-articles-listsCommon.html#method_getDataViewName"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\articles\\listsCommon\u003A\u003A\u0024categoryList",
+            "name": "categoryList",
+            "summary": "",
+            "url": "classes/fpcm-controller-traits-articles-listsCommon.html#property_categoryList"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\articles\\listsCommon\u003A\u003A\u0024userList",
+            "name": "userList",
+            "summary": "",
+            "url": "classes/fpcm-controller-traits-articles-listsCommon.html#property_userList"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\articles\\listsCommon\u003A\u003A\u0024articleList",
+            "name": "articleList",
+            "summary": "",
+            "url": "classes/fpcm-controller-traits-articles-listsCommon.html#property_articleList"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\articles\\listsCommon\u003A\u003A\u0024commentList",
+            "name": "commentList",
+            "summary": "",
+            "url": "classes/fpcm-controller-traits-articles-listsCommon.html#property_commentList"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\articles\\listsCommon\u003A\u003A\u0024categories",
+            "name": "categories",
+            "summary": "",
+            "url": "classes/fpcm-controller-traits-articles-listsCommon.html#property_categories"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\articles\\listsCommon\u003A\u003A\u0024users",
+            "name": "users",
+            "summary": "",
+            "url": "classes/fpcm-controller-traits-articles-listsCommon.html#property_users"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\articles\\listsCommon\u003A\u003A\u0024page",
+            "name": "page",
+            "summary": "Current\u0020Page",
+            "url": "classes/fpcm-controller-traits-articles-listsCommon.html#property_page"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\articles\\listsCommon\u003A\u003A\u0024offset",
+            "name": "offset",
+            "summary": "Current\u0020offset",
+            "url": "classes/fpcm-controller-traits-articles-listsCommon.html#property_offset"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\comments\\massEdit",
+            "name": "massEdit",
+            "summary": "Kommentar\u002DListe\u0020trait",
+            "url": "classes/fpcm-controller-traits-comments-massEdit.html"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\comments\\massEdit\u003A\u003AinitCommentMassEditForm\u0028\u0029",
+            "name": "initCommentMassEditForm",
+            "summary": "Initialisiert\u0020Suchformular\u002DDaten",
+            "url": "classes/fpcm-controller-traits-comments-massEdit.html#method_initCommentMassEditForm"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\common\\dataView",
+            "name": "dataView",
+            "summary": "Dataview\u0020trait",
+            "url": "classes/fpcm-controller-traits-common-dataView.html"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\common\\dataView\u003A\u003AgetNotFoundDesription\u0028\u0029",
+            "name": "getNotFoundDesription",
+            "summary": "Returns\u0020default\u0020description\u0020string\u0020for\u0020\u0022No\u0020entries\u0020found\u0022",
+            "url": "classes/fpcm-controller-traits-common-dataView.html#method_getNotFoundDesription"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\common\\dataView\u003A\u003AgetViewPath\u0028\u0029",
+            "name": "getViewPath",
+            "summary": "",
+            "url": "classes/fpcm-controller-traits-common-dataView.html#method_getViewPath"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\common\\dataView\u003A\u003AinitDataView\u0028\u0029",
+            "name": "initDataView",
+            "summary": "Initialize\u0020Data\u0020view\u0020object",
+            "url": "classes/fpcm-controller-traits-common-dataView.html#method_initDataView"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\common\\dataView\u003A\u003AgetDataViewName\u0028\u0029",
+            "name": "getDataViewName",
+            "summary": "Get\u0020data\u0020view\u0020name",
+            "url": "classes/fpcm-controller-traits-common-dataView.html#method_getDataViewName"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\common\\dataView\u003A\u003AgetDataViewCols\u0028\u0029",
+            "name": "getDataViewCols",
+            "summary": "Get\u0020data\u0020view\u0020Columns",
+            "url": "classes/fpcm-controller-traits-common-dataView.html#method_getDataViewCols"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\common\\dataView\u003A\u003AgetDataViewTabs\u0028\u0029",
+            "name": "getDataViewTabs",
+            "summary": "Get\u0020data\u0020view\u0020Columns",
+            "url": "classes/fpcm-controller-traits-common-dataView.html#method_getDataViewTabs"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\common\\dataView\u003A\u003AinitDataViewRow\u0028\u0029",
+            "name": "initDataViewRow",
+            "summary": "Initialize\u0020Data\u0020view\u0020row",
+            "url": "classes/fpcm-controller-traits-common-dataView.html#method_initDataViewRow"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\common\\dataView\u003A\u003A\u0024items",
+            "name": "items",
+            "summary": "Data\u0020view\u0020items\u0020array",
+            "url": "classes/fpcm-controller-traits-common-dataView.html#property_items"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\common\\dataView\u003A\u003A\u0024itemsCount",
+            "name": "itemsCount",
+            "summary": "Data\u0020view\u0020object",
+            "url": "classes/fpcm-controller-traits-common-dataView.html#property_itemsCount"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\common\\dataView\u003A\u003A\u0024dataView",
+            "name": "dataView",
+            "summary": "Dataview\u0020instance",
+            "url": "classes/fpcm-controller-traits-common-dataView.html#property_dataView"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\common\\fetchHelp",
+            "name": "fetchHelp",
+            "summary": "Fetch\u0020help\u0020data\u0020traot",
+            "url": "classes/fpcm-controller-traits-common-fetchHelp.html"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\common\\fetchHelp\u003A\u003AgetChapter\u0028\u0029",
+            "name": "getChapter",
+            "summary": "",
+            "url": "classes/fpcm-controller-traits-common-fetchHelp.html#method_getChapter"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\common\\isAccessibleTrue",
+            "name": "isAccessibleTrue",
+            "summary": "isAccessible\u0020true\u0020trait\u0020for\u0020actions\u0020without\u0020permissions",
+            "url": "classes/fpcm-controller-traits-common-isAccessibleTrue.html"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\common\\isAccessibleTrue\u003A\u003AisAccessible\u0028\u0029",
+            "name": "isAccessible",
+            "summary": "",
+            "url": "classes/fpcm-controller-traits-common-isAccessibleTrue.html#method_isAccessible"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\common\\lists",
+            "name": "lists",
+            "summary": "Common\u0020dataview\u0020lists\u0020trait",
+            "url": "classes/fpcm-controller-traits-common-lists.html"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\common\\lists\u003A\u003A\u0024dataView",
+            "name": "dataView",
+            "summary": "Data\u0020view\u0020object",
+            "url": "classes/fpcm-controller-traits-common-lists.html#property_dataView"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\common\\lists\u003A\u003A\u0024userList",
+            "name": "userList",
+            "summary": "User\u0020list\u0020object",
+            "url": "classes/fpcm-controller-traits-common-lists.html#property_userList"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\common\\lists\u003A\u003A\u0024users",
+            "name": "users",
+            "summary": "",
+            "url": "classes/fpcm-controller-traits-common-lists.html#property_users"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\common\\lists\u003A\u003A\u0024page",
+            "name": "page",
+            "summary": "Current\u0020Page",
+            "url": "classes/fpcm-controller-traits-common-lists.html#property_page"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\common\\lists\u003A\u003A\u0024offset",
+            "name": "offset",
+            "summary": "Current\u0020offset",
+            "url": "classes/fpcm-controller-traits-common-lists.html#property_offset"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\common\\listSettings",
+            "name": "listSettings",
+            "summary": "User\u0020settings\u0020dialog\u0020btrait",
+            "url": "classes/fpcm-controller-traits-common-listSettings.html"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\common\\listSettings\u003A\u003AaddListSettingsDialog\u0028\u0029",
+            "name": "addListSettingsDialog",
+            "summary": "Add\u0020list\u0020settings\u0020dialohg\u0020as\u0020single\u0020items\u0020to\u0020right\u0020toolbar",
+            "url": "classes/fpcm-controller-traits-common-listSettings.html#method_addListSettingsDialog"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\common\\listSettings\u003A\u003AappendListSettingsDialog\u0028\u0029",
+            "name": "appendListSettingsDialog",
+            "summary": "Add\u0020list\u0020settings\u0020button\u0020with\u0020additiona\u0020items",
+            "url": "classes/fpcm-controller-traits-common-listSettings.html#method_appendListSettingsDialog"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\common\\listSettings\u003A\u003AinitSettingsDialog\u0028\u0029",
+            "name": "initSettingsDialog",
+            "summary": "Init\u0020settings\u0020dialog\u0020data",
+            "url": "classes/fpcm-controller-traits-common-listSettings.html#method_initSettingsDialog"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\common\\listSettings\u003A\u003AgetButtonItem\u0028\u0029",
+            "name": "getButtonItem",
+            "summary": "Get\u0020button\u0020item",
+            "url": "classes/fpcm-controller-traits-common-listSettings.html#method_getButtonItem"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\common\\massedit",
+            "name": "massedit",
+            "summary": "Mass\u0020editing\u0020trait",
+            "url": "classes/fpcm-controller-traits-common-massedit.html"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\common\\massedit\u003A\u003AassignNoChangeYesNo\u0028\u0029",
+            "name": "assignNoChangeYesNo",
+            "summary": "",
+            "url": "classes/fpcm-controller-traits-common-massedit.html#method_assignNoChangeYesNo"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\common\\massedit\u003A\u003AassignPageToken\u0028\u0029",
+            "name": "assignPageToken",
+            "summary": "",
+            "url": "classes/fpcm-controller-traits-common-massedit.html#method_assignPageToken"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\common\\massedit\u003A\u003AassignFields\u0028\u0029",
+            "name": "assignFields",
+            "summary": "",
+            "url": "classes/fpcm-controller-traits-common-massedit.html#method_assignFields"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\common\\massedit\u003A\u003A\u0024yesNoChangeList",
+            "name": "yesNoChangeList",
+            "summary": "",
+            "url": "classes/fpcm-controller-traits-common-massedit.html#property_yesNoChangeList"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\common\\searchParams",
+            "name": "searchParams",
+            "summary": "Search\u0020form\u0020trait",
+            "url": "classes/fpcm-controller-traits-common-searchParams.html"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\common\\searchParams\u003A\u003AassignSearchFromVars\u0028\u0029",
+            "name": "assignSearchFromVars",
+            "summary": "Assigns\u0020basic\u0020Search\u0020field\u0020vars",
+            "url": "classes/fpcm-controller-traits-common-searchParams.html#method_assignSearchFromVars"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\common\\searchParams\u003A\u003AassignParamsVars\u0028\u0029",
+            "name": "assignParamsVars",
+            "summary": "Assigns\u0020Search\u0020combinations\u0020to\u0020searchWrapper\u0020object",
+            "url": "classes/fpcm-controller-traits-common-searchParams.html#method_assignParamsVars"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\common\\simpleEditForm",
+            "name": "simpleEditForm",
+            "summary": "Simple\u0020edit\u0020form\u0020trait",
+            "url": "classes/fpcm-controller-traits-common-simpleEditForm.html"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\common\\simpleEditForm\u003A\u003AassignFields\u0028\u0029",
+            "name": "assignFields",
+            "summary": "",
+            "url": "classes/fpcm-controller-traits-common-simpleEditForm.html#method_assignFields"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\common\\simpleEditForm\u003A\u003AgetViewPath\u0028\u0029",
+            "name": "getViewPath",
+            "summary": "",
+            "url": "classes/fpcm-controller-traits-common-simpleEditForm.html#method_getViewPath"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\common\\timezone",
+            "name": "timezone",
+            "summary": "Zeitzonen\u0020trait",
+            "url": "classes/fpcm-controller-traits-common-timezone.html"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\common\\timezone\u003A\u003AgetTimeZones\u0028\u0029",
+            "name": "getTimeZones",
+            "summary": "Gibt\u0020\u00FCbersetzte\u0020Zeitzonen\u0020zur\u00FCck",
+            "url": "classes/fpcm-controller-traits-common-timezone.html#method_getTimeZones"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\common\\timezone\u003A\u003AgetTimeZonesAreas\u0028\u0029",
+            "name": "getTimeZonesAreas",
+            "summary": "Returns\u0020timezones\u0020by\u0020global\u0020area",
+            "url": "classes/fpcm-controller-traits-common-timezone.html#method_getTimeZonesAreas"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\common\\timezone\u003A\u003AgetDateTimeMasks\u0028\u0029",
+            "name": "getDateTimeMasks",
+            "summary": "DateTime\u002DMaske\u0020mit\u0020Beispielen",
+            "url": "classes/fpcm-controller-traits-common-timezone.html#method_getDateTimeMasks"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\modules\\controllerProperties",
+            "name": "controllerProperties",
+            "summary": "Dynamic\u0020controller\u0020properties\u0020trait",
+            "url": "classes/fpcm-controller-traits-modules-controllerProperties.html"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\modules\\controllerProperties\u003A\u003A__get\u0028\u0029",
+            "name": "__get",
+            "summary": "Magic\u0020get\u0020to\u0020prevent\u0020dynamic\u0020property\u0020message\u0020from\u0020modules",
+            "url": "classes/fpcm-controller-traits-modules-controllerProperties.html#method___get"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\modules\\controllerProperties\u003A\u003A__set\u0028\u0029",
+            "name": "__set",
+            "summary": "Magic\u0020set\u0020to\u0020prevent\u0020dynamic\u0020property\u0020message\u0020from\u0020modules",
+            "url": "classes/fpcm-controller-traits-modules-controllerProperties.html#method___set"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\modules\\controllerProperties\u003A\u003A\u0024controllerProperties",
+            "name": "controllerProperties",
+            "summary": "",
+            "url": "classes/fpcm-controller-traits-modules-controllerProperties.html#property_controllerProperties"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\packagemgr\\initialize",
+            "name": "initialize",
+            "summary": "Trait\u0020f\u00FCr\u0020Initialisierung\u0020von\u0020Paket\u0020Manager",
+            "url": "classes/fpcm-controller-traits-packagemgr-initialize.html"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\packagemgr\\initialize\u003A\u003AinitPkgManagerData\u0028\u0029",
+            "name": "initPkgManagerData",
+            "summary": "Gibt\u0020gemeinsame\u0020initiale\u0020Daten\u0020f\u00FCr\u0020Paketmanager\u0020zur\u00FCck,\nbeeinhaltet\u0020Benachrichtigungen,\u0020Statusinfos,\u0020etc.",
+            "url": "classes/fpcm-controller-traits-packagemgr-initialize.html#method_initPkgManagerData"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\pub\\apiMode",
+            "name": "apiMode",
+            "summary": "Pub\u0020controller\u0020apiMode\u0020trait",
+            "url": "classes/fpcm-controller-traits-pub-apiMode.html"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\pub\\apiMode\u003A\u003A\u0024commentCount",
+            "name": "commentCount",
+            "summary": "Comment\u0020count",
+            "url": "classes/fpcm-controller-traits-pub-apiMode.html#property_commentCount"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\pub\\apiMode\u003A\u003A\u0024apiMode",
+            "name": "apiMode",
+            "summary": "API\u0020mode",
+            "url": "classes/fpcm-controller-traits-pub-apiMode.html#property_apiMode"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\reminder\\check",
+            "name": "check",
+            "summary": "Reminder\u0020permission\u0020check\u0020trait",
+            "url": "classes/fpcm-controller-traits-reminder-check.html"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\reminder\\check\u003A\u003AcheckFiles\u0028\u0029",
+            "name": "checkFiles",
+            "summary": "",
+            "url": "classes/fpcm-controller-traits-reminder-check.html#method_checkFiles"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\reminder\\check\u003A\u003A\u0024type",
+            "name": "type",
+            "summary": "Remidner\u0020object\u0020type",
+            "url": "classes/fpcm-controller-traits-reminder-check.html#property_type"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\system\\dashPermissions",
+            "name": "dashPermissions",
+            "summary": "Dashboard\u0020permissions\u0020trait",
+            "url": "classes/fpcm-controller-traits-system-dashPermissions.html"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\system\\dashPermissions\u003A\u003AcheckPermissions\u0028\u0029",
+            "name": "checkPermissions",
+            "summary": "Check\u0020container\u0020permissions",
+            "url": "classes/fpcm-controller-traits-system-dashPermissions.html#method_checkPermissions"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\system\\syscheck",
+            "name": "syscheck",
+            "summary": "System\u0020check\u0020trait",
+            "url": "classes/fpcm-controller-traits-system-syscheck.html"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\system\\syscheck\u003A\u003AgetCheckOptionsSystem\u0028\u0029",
+            "name": "getCheckOptionsSystem",
+            "summary": "System\u002DCheck\u0020ausf\u00FChren",
+            "url": "classes/fpcm-controller-traits-system-syscheck.html#method_getCheckOptionsSystem"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\system\\syscheck\u003A\u003AgetCheckFolders\u0028\u0029",
+            "name": "getCheckFolders",
+            "summary": "Check\u0020folders",
+            "url": "classes/fpcm-controller-traits-system-syscheck.html#method_getCheckFolders"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\templates\\edit",
+            "name": "edit",
+            "summary": "\u002DTemplate\u0020editor\u0020trait",
+            "url": "classes/fpcm-controller-traits-templates-edit.html"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\templates\\edit\u003A\u003AgetArticleTemplate\u0028\u0029",
+            "name": "getArticleTemplate",
+            "summary": "",
+            "url": "classes/fpcm-controller-traits-templates-edit.html#method_getArticleTemplate"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\templates\\edit\u003A\u003AgetArticleSingleTemplate\u0028\u0029",
+            "name": "getArticleSingleTemplate",
+            "summary": "",
+            "url": "classes/fpcm-controller-traits-templates-edit.html#method_getArticleSingleTemplate"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\templates\\edit\u003A\u003AgetCommentTemplate\u0028\u0029",
+            "name": "getCommentTemplate",
+            "summary": "",
+            "url": "classes/fpcm-controller-traits-templates-edit.html#method_getCommentTemplate"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\templates\\edit\u003A\u003AgetCommentFormTemplate\u0028\u0029",
+            "name": "getCommentFormTemplate",
+            "summary": "",
+            "url": "classes/fpcm-controller-traits-templates-edit.html#method_getCommentFormTemplate"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\templates\\edit\u003A\u003AgetshareButtonsTemplate\u0028\u0029",
+            "name": "getshareButtonsTemplate",
+            "summary": "",
+            "url": "classes/fpcm-controller-traits-templates-edit.html#method_getshareButtonsTemplate"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\templates\\edit\u003A\u003AgetLatestNewsTemplate\u0028\u0029",
+            "name": "getLatestNewsTemplate",
+            "summary": "",
+            "url": "classes/fpcm-controller-traits-templates-edit.html#method_getLatestNewsTemplate"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\templates\\edit\u003A\u003AisAccessible\u0028\u0029",
+            "name": "isAccessible",
+            "summary": "",
+            "url": "classes/fpcm-controller-traits-templates-edit.html#method_isAccessible"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\templates\\edit\u003A\u003A\u0024template",
+            "name": "template",
+            "summary": "",
+            "url": "classes/fpcm-controller-traits-templates-edit.html#property_template"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\templates\\edit\u003A\u003A\u0024prefix",
+            "name": "prefix",
+            "summary": "",
+            "url": "classes/fpcm-controller-traits-templates-edit.html#property_prefix"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\templates\\preview",
+            "name": "preview",
+            "summary": "Template\u0020preview\u0020trait",
+            "url": "classes/fpcm-controller-traits-templates-preview.html"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\templates\\preview\u003A\u003AgetTemplateById\u0028\u0029",
+            "name": "getTemplateById",
+            "summary": "",
+            "url": "classes/fpcm-controller-traits-templates-preview.html#method_getTemplateById"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\templates\\preview\u003A\u003AisAccessible\u0028\u0029",
+            "name": "isAccessible",
+            "summary": "",
+            "url": "classes/fpcm-controller-traits-templates-preview.html#method_isAccessible"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\theme\\nav\\categories",
+            "name": "categories",
+            "summary": "Category\u0020manager\u0020nav\u0020trait",
+            "url": "classes/fpcm-controller-traits-theme-nav-categories.html"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\theme\\nav\\categories\u003A\u003AisAccessible\u0028\u0029",
+            "name": "isAccessible",
+            "summary": "",
+            "url": "classes/fpcm-controller-traits-theme-nav-categories.html#method_isAccessible"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\theme\\nav\\categories\u003A\u003AgetHelpLink\u0028\u0029",
+            "name": "getHelpLink",
+            "summary": "",
+            "url": "classes/fpcm-controller-traits-theme-nav-categories.html#method_getHelpLink"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\theme\\nav\\categories\u003A\u003AgetActiveNavigationElement\u0028\u0029",
+            "name": "getActiveNavigationElement",
+            "summary": "",
+            "url": "classes/fpcm-controller-traits-theme-nav-categories.html#method_getActiveNavigationElement"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\theme\\nav\\ips",
+            "name": "ips",
+            "summary": "IP\u0020manager\u0020nav\u0020trait",
+            "url": "classes/fpcm-controller-traits-theme-nav-ips.html"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\theme\\nav\\ips\u003A\u003AgetActiveNavigationElement\u0028\u0029",
+            "name": "getActiveNavigationElement",
+            "summary": "",
+            "url": "classes/fpcm-controller-traits-theme-nav-ips.html#method_getActiveNavigationElement"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\theme\\nav\\ips\u003A\u003AisAccessible\u0028\u0029",
+            "name": "isAccessible",
+            "summary": "",
+            "url": "classes/fpcm-controller-traits-theme-nav-ips.html#method_isAccessible"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\theme\\nav\\ips\u003A\u003AgetHelpLink\u0028\u0029",
+            "name": "getHelpLink",
+            "summary": "",
+            "url": "classes/fpcm-controller-traits-theme-nav-ips.html#method_getHelpLink"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\theme\\nav\\smileys",
+            "name": "smileys",
+            "summary": "Smiley\u0020manager\u0020nav\u0020trait",
+            "url": "classes/fpcm-controller-traits-theme-nav-smileys.html"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\theme\\nav\\smileys\u003A\u003AgetActiveNavigationElement\u0028\u0029",
+            "name": "getActiveNavigationElement",
+            "summary": "",
+            "url": "classes/fpcm-controller-traits-theme-nav-smileys.html#method_getActiveNavigationElement"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\theme\\nav\\smileys\u003A\u003AgetHelpLink\u0028\u0029",
+            "name": "getHelpLink",
+            "summary": "",
+            "url": "classes/fpcm-controller-traits-theme-nav-smileys.html#method_getHelpLink"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\theme\\nav\\smileys\u003A\u003AisAccessible\u0028\u0029",
+            "name": "isAccessible",
+            "summary": "",
+            "url": "classes/fpcm-controller-traits-theme-nav-smileys.html#method_isAccessible"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\theme\\nav\\texts",
+            "name": "texts",
+            "summary": "Texts\u0020manager\u0020nav\u0020trait",
+            "url": "classes/fpcm-controller-traits-theme-nav-texts.html"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\theme\\nav\\texts\u003A\u003AisAccessible\u0028\u0029",
+            "name": "isAccessible",
+            "summary": "",
+            "url": "classes/fpcm-controller-traits-theme-nav-texts.html#method_isAccessible"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\theme\\nav\\texts\u003A\u003AgetHelpLink\u0028\u0029",
+            "name": "getHelpLink",
+            "summary": "",
+            "url": "classes/fpcm-controller-traits-theme-nav-texts.html#method_getHelpLink"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\theme\\nav\\texts\u003A\u003AgetActiveNavigationElement\u0028\u0029",
+            "name": "getActiveNavigationElement",
+            "summary": "",
+            "url": "classes/fpcm-controller-traits-theme-nav-texts.html#method_getActiveNavigationElement"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\theme\\nav\\users",
+            "name": "users",
+            "summary": "User\u0020manager\u0020nav\u0020trait",
+            "url": "classes/fpcm-controller-traits-theme-nav-users.html"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\theme\\nav\\users\u003A\u003AgetActiveNavigationElement\u0028\u0029",
+            "name": "getActiveNavigationElement",
+            "summary": "",
+            "url": "classes/fpcm-controller-traits-theme-nav-users.html#method_getActiveNavigationElement"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\theme\\nav\\users\u003A\u003AgetHelpLink\u0028\u0029",
+            "name": "getHelpLink",
+            "summary": "",
+            "url": "classes/fpcm-controller-traits-theme-nav-users.html#method_getHelpLink"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\theme\\viewAjaxDummy",
+            "name": "viewAjaxDummy",
+            "summary": "Ajax\u0020view\u0020dummy\u0020return\u0020trait",
+            "url": "classes/fpcm-controller-traits-theme-viewAjaxDummy.html"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\theme\\viewAjaxDummy\u003A\u003AgetViewPath\u0028\u0029",
+            "name": "getViewPath",
+            "summary": "",
+            "url": "classes/fpcm-controller-traits-theme-viewAjaxDummy.html#method_getViewPath"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\users\\authorImages",
+            "name": "authorImages",
+            "summary": "Author\u0020image\u0020processing\u0020trait",
+            "url": "classes/fpcm-controller-traits-users-authorImages.html"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\users\\authorImages\u003A\u003AonUploadFile\u0028\u0029",
+            "name": "onUploadFile",
+            "summary": "Upload\u0020user\u0020image\u0020event",
+            "url": "classes/fpcm-controller-traits-users-authorImages.html#method_onUploadFile"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\users\\authorImages\u003A\u003AonFileDelete\u0028\u0029",
+            "name": "onFileDelete",
+            "summary": "Delete\u0020user\u0020image\u0020event",
+            "url": "classes/fpcm-controller-traits-users-authorImages.html#method_onFileDelete"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\users\\authorImages\u003A\u003AuploadImage\u0028\u0029",
+            "name": "uploadImage",
+            "summary": "Author\u002DAvatar\u0020hochlanden",
+            "url": "classes/fpcm-controller-traits-users-authorImages.html#method_uploadImage"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\users\\authorImages\u003A\u003AdeleteImage\u0028\u0029",
+            "name": "deleteImage",
+            "summary": "Author\u002DAvatar\u0020l\u00F6schen",
+            "url": "classes/fpcm-controller-traits-users-authorImages.html#method_deleteImage"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\users\\authorImages\u003A\u003AtwoFactorAuthForm\u0028\u0029",
+            "name": "twoFactorAuthForm",
+            "summary": "",
+            "url": "classes/fpcm-controller-traits-users-authorImages.html#method_twoFactorAuthForm"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\users\\authorImages\u003A\u003AinitUploader\u0028\u0029",
+            "name": "initUploader",
+            "summary": "",
+            "url": "classes/fpcm-controller-traits-users-authorImages.html#method_initUploader"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\users\\authorImages\u003A\u003A\u0024uploader",
+            "name": "uploader",
+            "summary": "",
+            "url": "classes/fpcm-controller-traits-users-authorImages.html#property_uploader"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\users\\authorImages\u003A\u003A\u0024gAuth",
+            "name": "gAuth",
+            "summary": "",
+            "url": "classes/fpcm-controller-traits-users-authorImages.html#property_gAuth"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\users\\deleteDialog",
+            "name": "deleteDialog",
+            "summary": "User\u0020delete\u0020dialog\u0020trait",
+            "url": "classes/fpcm-controller-traits-users-deleteDialog.html"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\users\\deleteDialog\u003A\u003AinitDeleteConfirmDialog\u0028\u0029",
+            "name": "initDeleteConfirmDialog",
+            "summary": "",
+            "url": "classes/fpcm-controller-traits-users-deleteDialog.html#method_initDeleteConfirmDialog"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\users\\onResetProfileSettings",
+            "name": "onResetProfileSettings",
+            "summary": "Author\u0020image\u0020processing\u0020trait",
+            "url": "classes/fpcm-controller-traits-users-onResetProfileSettings.html"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\users\\onResetProfileSettings\u003A\u003AonResetProfileSettings\u0028\u0029",
+            "name": "onResetProfileSettings",
+            "summary": "Reset\u0020profile\u0020settings",
+            "url": "classes/fpcm-controller-traits-users-onResetProfileSettings.html#method_onResetProfileSettings"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\users\\onResetProfileSettings\u003A\u003A\u0024reloadSite",
+            "name": "reloadSite",
+            "summary": "Reload\u0020pae",
+            "url": "classes/fpcm-controller-traits-users-onResetProfileSettings.html#property_reloadSite"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\users\\savePermissions",
+            "name": "savePermissions",
+            "summary": "Author\u0020image\u0020processing\u0020trait",
+            "url": "classes/fpcm-controller-traits-users-savePermissions.html"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\users\\savePermissions\u003A\u003AsavePermissions\u0028\u0029",
+            "name": "savePermissions",
+            "summary": "",
+            "url": "classes/fpcm-controller-traits-users-savePermissions.html#method_savePermissions"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\users\\savePermissions\u003A\u003AfetchRollPermssions\u0028\u0029",
+            "name": "fetchRollPermssions",
+            "summary": "",
+            "url": "classes/fpcm-controller-traits-users-savePermissions.html#method_fetchRollPermssions"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\users\\savePermissions\u003A\u003AassignToView\u0028\u0029",
+            "name": "assignToView",
+            "summary": "",
+            "url": "classes/fpcm-controller-traits-users-savePermissions.html#method_assignToView"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\users\\savePermissions\u003A\u003A\u0024rollId",
+            "name": "rollId",
+            "summary": "",
+            "url": "classes/fpcm-controller-traits-users-savePermissions.html#property_rollId"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\users\\savePermissions\u003A\u003A\u0024permissionObj",
+            "name": "permissionObj",
+            "summary": "Permission\u0020object",
+            "url": "classes/fpcm-controller-traits-users-savePermissions.html#property_permissionObj"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\users\\settings",
+            "name": "settings",
+            "summary": "Author\u0020settings\u0020assignment\u0020trait",
+            "url": "classes/fpcm-controller-traits-users-settings.html"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\users\\settings\u003A\u003AsettingsToView\u0028\u0029",
+            "name": "settingsToView",
+            "summary": "",
+            "url": "classes/fpcm-controller-traits-users-settings.html#method_settingsToView"
+        },                {
+            "fqsen": "\\fpcm\\events\\editor\\initHugerte",
+            "name": "initHugerte",
+            "summary": "Module\u002DEvent\u003A\u0020initHugerte\nTriggered\u0020in\u0020case\u0020an\u0020HugeRTE\u0020editor\u0020is\u0020created",
+            "url": "classes/fpcm-events-editor-initHugerte.html"
+        },                {
+            "fqsen": "\\fpcm\\events\\mediafile\\afterRename",
+            "name": "afterRename",
+            "summary": "Module\u002DEvent\u003A\u0020afterRename",
+            "url": "classes/fpcm-events-mediafile-afterRename.html"
+        },                {
+            "fqsen": "\\fpcm\\events\\mediafile\\beforeDelete",
+            "name": "beforeDelete",
+            "summary": "Module\u002DEvent\u003A\u0020beforeDelete",
+            "url": "classes/fpcm-events-mediafile-beforeDelete.html"
+        },                {
+            "fqsen": "\\fpcm\\events\\mediafile\\beforeRename",
+            "name": "beforeRename",
+            "summary": "Module\u002DEvent\u003A\u0020beforeRename",
+            "url": "classes/fpcm-events-mediafile-beforeRename.html"
+        },                {
+            "fqsen": "\\fpcm\\events\\mediafile\\save",
+            "name": "save",
+            "summary": "Module\u002DEvent\u003A\u0020save",
+            "url": "classes/fpcm-events-mediafile-save.html"
+        },                {
+            "fqsen": "\\fpcm\\events\\mediafile\\thumbnailCreate",
+            "name": "thumbnailCreate",
+            "summary": "Module\u002DEvent\u003A\u0020thumbnailCreate",
+            "url": "classes/fpcm-events-mediafile-thumbnailCreate.html"
+        },                {
+            "fqsen": "\\fpcm\\events\\mediafile\\update",
+            "name": "update",
+            "summary": "Event\u003A\u0020update",
+            "url": "classes/fpcm-events-mediafile-update.html"
+        },                {
+            "fqsen": "\\fpcm\\migrations\\v530a1",
+            "name": "v530a1",
+            "summary": "Migration\u0020to\u0020v5.2.5\u002Da1",
+            "url": "classes/fpcm-migrations-v530a1.html"
+        },                {
+            "fqsen": "\\fpcm\\migrations\\v530a1\u003A\u003AalterTablesAfter\u0028\u0029",
+            "name": "alterTablesAfter",
+            "summary": "Execute\u0020additional\u0020database\u0020table\u0020changes",
+            "url": "classes/fpcm-migrations-v530a1.html#method_alterTablesAfter"
+        },                {
+            "fqsen": "\\fpcm\\migrations\\v530a1\u003A\u003AupdateSystemConfig\u0028\u0029",
+            "name": "updateSystemConfig",
+            "summary": "Execute\u0020additional\u0020system\u0020config\u0020updates",
+            "url": "classes/fpcm-migrations-v530a1.html#method_updateSystemConfig"
+        },                {
+            "fqsen": "\\fpcm\\migrations\\v530a1\u003A\u003AgetNewVersion\u0028\u0029",
+            "name": "getNewVersion",
+            "summary": "Returns\u0020new\u0020version,\u0020e.\u0020g.\u0020from\u0020version.txt",
+            "url": "classes/fpcm-migrations-v530a1.html#method_getNewVersion"
+        },                {
+            "fqsen": "\\fpcm\\migrations\\v530a2",
+            "name": "v530a2",
+            "summary": "Migration\u0020to\u0020v5.3.0\u002Da2",
+            "url": "classes/fpcm-migrations-v530a2.html"
+        },                {
+            "fqsen": "\\fpcm\\migrations\\v530a2\u003A\u003AalterTablesAfter\u0028\u0029",
+            "name": "alterTablesAfter",
+            "summary": "Execute\u0020additional\u0020database\u0020table\u0020changes",
+            "url": "classes/fpcm-migrations-v530a2.html#method_alterTablesAfter"
+        },                {
+            "fqsen": "\\fpcm\\migrations\\v530a2\u003A\u003AgetNewVersion\u0028\u0029",
+            "name": "getNewVersion",
+            "summary": "Returns\u0020new\u0020version,\u0020e.\u0020g.\u0020from\u0020version.txt",
+            "url": "classes/fpcm-migrations-v530a2.html#method_getNewVersion"
+        },                {
+            "fqsen": "\\fpcm\\migrations\\v530b2",
+            "name": "v530b2",
+            "summary": "Migration\u0020to\u0020v5.3.0\u002Db2",
+            "url": "classes/fpcm-migrations-v530b2.html"
+        },                {
+            "fqsen": "\\fpcm\\migrations\\v530b2\u003A\u003AalterTablesAfter\u0028\u0029",
+            "name": "alterTablesAfter",
+            "summary": "Alter\u0020table\u0020data",
+            "url": "classes/fpcm-migrations-v530b2.html#method_alterTablesAfter"
+        },                {
+            "fqsen": "\\fpcm\\migrations\\v530b2\u003A\u003AgetNewVersion\u0028\u0029",
+            "name": "getNewVersion",
+            "summary": "Returns\u0020new\u0020version,\u0020e.\u0020g.\u0020from\u0020version.txt",
+            "url": "classes/fpcm-migrations-v530b2.html#method_getNewVersion"
+        },                {
+            "fqsen": "\\fpcm\\migrations\\v530b3",
+            "name": "v530b3",
+            "summary": "Migration\u0020to\u0020v5.3.0\u002Db3",
+            "url": "classes/fpcm-migrations-v530b3.html"
+        },                {
+            "fqsen": "\\fpcm\\migrations\\v530b3\u003A\u003AalterTablesAfter\u0028\u0029",
+            "name": "alterTablesAfter",
+            "summary": "Execute\u0020additional\u0020database\u0020table\u0020changes",
+            "url": "classes/fpcm-migrations-v530b3.html#method_alterTablesAfter"
+        },                {
+            "fqsen": "\\fpcm\\migrations\\v530b3\u003A\u003AgetNewVersion\u0028\u0029",
+            "name": "getNewVersion",
+            "summary": "Returns\u0020new\u0020version,\u0020e.\u0020g.\u0020from\u0020version.txt",
+            "url": "classes/fpcm-migrations-v530b3.html#method_getNewVersion"
+        },                {
+            "fqsen": "\\fpcm\\migrations\\v530b5",
+            "name": "v530b5",
+            "summary": "Migration\u0020to\u0020v5.3.0\u002Db5",
+            "url": "classes/fpcm-migrations-v530b5.html"
+        },                {
+            "fqsen": "\\fpcm\\migrations\\v530b5\u003A\u003AalterTablesAfter\u0028\u0029",
+            "name": "alterTablesAfter",
+            "summary": "Execute\u0020additional\u0020database\u0020table\u0020changes",
+            "url": "classes/fpcm-migrations-v530b5.html#method_alterTablesAfter"
+        },                {
+            "fqsen": "\\fpcm\\migrations\\v530b5\u003A\u003AgetNewVersion\u0028\u0029",
+            "name": "getNewVersion",
+            "summary": "Returns\u0020new\u0020version,\u0020e.\u0020g.\u0020from\u0020version.txt",
+            "url": "classes/fpcm-migrations-v530b5.html#method_getNewVersion"
+        },                {
+            "fqsen": "\\fpcm\\model\\crons\\reminderMails",
+            "name": "reminderMails",
+            "summary": "Check\u0020and\u0020submit\u0020e\u002Dmail\u0020for\u0020reminders\u0020cronjob",
+            "url": "classes/fpcm-model-crons-reminderMails.html"
+        },                {
+            "fqsen": "\\fpcm\\model\\crons\\reminderMails\u003A\u003Arun\u0028\u0029",
+            "name": "run",
+            "summary": "Auszuf\u00FChrender\u0020Cron\u002DCode",
+            "url": "classes/fpcm-model-crons-reminderMails.html#method_run"
+        },                {
+            "fqsen": "\\fpcm\\model\\dashboard\\types\\chart",
+            "name": "chart",
+            "summary": "Dataview\u0020type\u0020dashboard\u0020trait",
+            "url": "classes/fpcm-model-dashboard-types-chart.html"
+        },                {
+            "fqsen": "\\fpcm\\model\\dashboard\\types\\chart\u003A\u003AgetChartName\u0028\u0029",
+            "name": "getChartName",
+            "summary": "Returns\u0020chart\u0020name",
+            "url": "classes/fpcm-model-dashboard-types-chart.html#method_getChartName"
+        },                {
+            "fqsen": "\\fpcm\\model\\dashboard\\types\\chart\u003A\u003AgetChartType\u0028\u0029",
+            "name": "getChartType",
+            "summary": "Returns\u0020chart\u0020type",
+            "url": "classes/fpcm-model-dashboard-types-chart.html#method_getChartType"
+        },                {
+            "fqsen": "\\fpcm\\model\\dashboard\\types\\chart\u003A\u003AgetContainerScript\u0028\u0029",
+            "name": "getContainerScript",
+            "summary": "Returns\u0020container\u0020JS\u0020script\u0020file",
+            "url": "classes/fpcm-model-dashboard-types-chart.html#method_getContainerScript"
+        },                {
+            "fqsen": "\\fpcm\\model\\dashboard\\types\\chart\u003A\u003AgetContent\u0028\u0029",
+            "name": "getContent",
+            "summary": "Return\u0020rendered\u0020content",
+            "url": "classes/fpcm-model-dashboard-types-chart.html#method_getContent"
+        },                {
+            "fqsen": "\\fpcm\\model\\dashboard\\types\\chart\u003A\u003AgetJavascriptFiles\u0028\u0029",
+            "name": "getJavascriptFiles",
+            "summary": "Returns\u0020Javascript\u0020files",
+            "url": "classes/fpcm-model-dashboard-types-chart.html#method_getJavascriptFiles"
+        },                {
+            "fqsen": "\\fpcm\\model\\dashboard\\types\\chart\u003A\u003AinitChartInstance\u0028\u0029",
+            "name": "initChartInstance",
+            "summary": "Init\u0020chart\u0020object",
+            "url": "classes/fpcm-model-dashboard-types-chart.html#method_initChartInstance"
+        },                {
+            "fqsen": "\\fpcm\\model\\dashboard\\types\\chart\u003A\u003A\u0024chart",
+            "name": "chart",
+            "summary": "Chart\u0020container",
+            "url": "classes/fpcm-model-dashboard-types-chart.html#property_chart"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFile",
+            "name": "mediaFile",
+            "summary": "Media\u0020file\u0020objekt",
+            "url": "classes/fpcm-model-files-mediaFile.html"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFile\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "Konstruktor",
+            "url": "classes/fpcm-model-files-mediaFile.html#method___construct"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFile\u003A\u003AbasePath\u0028\u0029",
+            "name": "basePath",
+            "summary": "Returns\u0020base\u0020path\u0020for\u0020file",
+            "url": "classes/fpcm-model-files-mediaFile.html#method_basePath"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFile\u003A\u003AgetId\u0028\u0029",
+            "name": "getId",
+            "summary": "Datensatz\u002DID",
+            "url": "classes/fpcm-model-files-mediaFile.html#method_getId"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFile\u003A\u003AgetFileUrl\u0028\u0029",
+            "name": "getFileUrl",
+            "summary": "Returns\u0020image\u0020url",
+            "url": "classes/fpcm-model-files-mediaFile.html#method_getFileUrl"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFile\u003A\u003AgetImageUrl\u0028\u0029",
+            "name": "getImageUrl",
+            "summary": "Bild\u002DUrl\u0020ausgeben",
+            "url": "classes/fpcm-model-files-mediaFile.html#method_getImageUrl"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFile\u003A\u003AgetThumbnailUrl\u0028\u0029",
+            "name": "getThumbnailUrl",
+            "summary": "Thumbnail\u002DUrl\u0020ausgeben",
+            "url": "classes/fpcm-model-files-mediaFile.html#method_getThumbnailUrl"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFile\u003A\u003AgetFileManagerThumbnailUrl\u0028\u0029",
+            "name": "getFileManagerThumbnailUrl",
+            "summary": "Dateimanager\u002DThumbnail\u0020ausgeben",
+            "url": "classes/fpcm-model-files-mediaFile.html#method_getFileManagerThumbnailUrl"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFile\u003A\u003AgetThumbnail\u0028\u0029",
+            "name": "getThumbnail",
+            "summary": "Thumbnail\u002DPfad\u0020ausgeben",
+            "url": "classes/fpcm-model-files-mediaFile.html#method_getThumbnail"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFile\u003A\u003AgetThumbnailFull\u0028\u0029",
+            "name": "getThumbnailFull",
+            "summary": "kompletten\u0020Thumbnail\u002DPfad\u0020ausgeben",
+            "url": "classes/fpcm-model-files-mediaFile.html#method_getThumbnailFull"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFile\u003A\u003AgetFileManagerThumbnail\u0028\u0029",
+            "name": "getFileManagerThumbnail",
+            "summary": "Dateimanager\u002DThumbnail\u002DPfad\u0020ausgeben",
+            "url": "classes/fpcm-model-files-mediaFile.html#method_getFileManagerThumbnail"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFile\u003A\u003AhasFileManageThumbnail\u0028\u0029",
+            "name": "hasFileManageThumbnail",
+            "summary": "Checks\u0020if\u0020file\u0020amanager\u0020thumbnail\u0020exists",
+            "url": "classes/fpcm-model-files-mediaFile.html#method_hasFileManageThumbnail"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFile\u003A\u003AgetWidth\u0028\u0029",
+            "name": "getWidth",
+            "summary": "Breite\u0020ausgeben",
+            "url": "classes/fpcm-model-files-mediaFile.html#method_getWidth"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFile\u003A\u003AgetHeight\u0028\u0029",
+            "name": "getHeight",
+            "summary": "H\u00F6he\u0020ausgeben",
+            "url": "classes/fpcm-model-files-mediaFile.html#method_getHeight"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFile\u003A\u003AgetWhstring\u0028\u0029",
+            "name": "getWhstring",
+            "summary": "String\u0020width\u003D\u0022\u0022\u0020height\u003D\u0022\u0022\u0020auslesen",
+            "url": "classes/fpcm-model-files-mediaFile.html#method_getWhstring"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFile\u003A\u003AgetUserid\u0028\u0029",
+            "name": "getUserid",
+            "summary": "Uploader\u002DID\u0020ausgeben",
+            "url": "classes/fpcm-model-files-mediaFile.html#method_getUserid"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFile\u003A\u003AgetFiletime\u0028\u0029",
+            "name": "getFiletime",
+            "summary": "Upload\u002DZeit\u0020ausgeben",
+            "url": "classes/fpcm-model-files-mediaFile.html#method_getFiletime"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFile\u003A\u003AgetAltText\u0028\u0029",
+            "name": "getAltText",
+            "summary": "Get\u0020alternate\u0020text",
+            "url": "classes/fpcm-model-files-mediaFile.html#method_getAltText"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFile\u003A\u003AgetMimetype\u0028\u0029",
+            "name": "getMimetype",
+            "summary": "MIME\u002DType\u0020ausgeben",
+            "url": "classes/fpcm-model-files-mediaFile.html#method_getMimetype"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFile\u003A\u003AgetIptcStr\u0028\u0029",
+            "name": "getIptcStr",
+            "summary": "Returns\u0020IPTC\u0020credit\u0020string",
+            "url": "classes/fpcm-model-files-mediaFile.html#method_getIptcStr"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFile\u003A\u003AsetId\u0028\u0029",
+            "name": "setId",
+            "summary": "Datensatz\u002DID\u0020setzen",
+            "url": "classes/fpcm-model-files-mediaFile.html#method_setId"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFile\u003A\u003AsetUserid\u0028\u0029",
+            "name": "setUserid",
+            "summary": "Benutzer\u002DID\u0020setzen",
+            "url": "classes/fpcm-model-files-mediaFile.html#method_setUserid"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFile\u003A\u003AsetFiletime\u0028\u0029",
+            "name": "setFiletime",
+            "summary": "Upload\u002DZeit\u0020setzen",
+            "url": "classes/fpcm-model-files-mediaFile.html#method_setFiletime"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFile\u003A\u003AsetAltText\u0028\u0029",
+            "name": "setAltText",
+            "summary": "Set\u0020alternate\u0020text",
+            "url": "classes/fpcm-model-files-mediaFile.html#method_setAltText"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFile\u003A\u003AgetMediaType\u0028\u0029",
+            "name": "getMediaType",
+            "summary": "Get\u0020media\u0020type\u0020flag",
+            "url": "classes/fpcm-model-files-mediaFile.html#method_getMediaType"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFile\u003A\u003AsetMediaType\u0028\u0029",
+            "name": "setMediaType",
+            "summary": "set\u0020media\u0020type\u0020lag",
+            "url": "classes/fpcm-model-files-mediaFile.html#method_setMediaType"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFile\u003A\u003Asave\u0028\u0029",
+            "name": "save",
+            "summary": "Speichert\u0020einen\u0020neuen\u0020Datei\u002DEintrag\u0020in\u0020der\u0020Datenbank",
+            "url": "classes/fpcm-model-files-mediaFile.html#method_save"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFile\u003A\u003Aupdate\u0028\u0029",
+            "name": "update",
+            "summary": "Aktualisiert\u0020einen\u0020Datei\u002DEintrag\u0020in\u0020der\u0020Datenbank",
+            "url": "classes/fpcm-model-files-mediaFile.html#method_update"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFile\u003A\u003Adelete\u0028\u0029",
+            "name": "delete",
+            "summary": "L\u00F6scht\u0020Datei\u002DEintrag\u0020in\u0020Datenbank\u0020und\u0020Datei\u0020in\u0020Dateisystem",
+            "url": "classes/fpcm-model-files-mediaFile.html#method_delete"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFile\u003A\u003Arename\u0028\u0029",
+            "name": "rename",
+            "summary": "Benennt\u0020eine\u0020Datei\u0020um",
+            "url": "classes/fpcm-model-files-mediaFile.html#method_rename"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFile\u003A\u003Aexists\u0028\u0029",
+            "name": "exists",
+            "summary": "Check\u0020if\u0020image\u0020exists",
+            "url": "classes/fpcm-model-files-mediaFile.html#method_exists"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFile\u003A\u003AexistsFolder\u0028\u0029",
+            "name": "existsFolder",
+            "summary": "Pr\u00FCft,\u0020ob\u0020Bild\u0020nur\u0020in\u0020Dateisystem\u0020existiert",
+            "url": "classes/fpcm-model-files-mediaFile.html#method_existsFolder"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFile\u003A\u003AcreateThumbnail\u0028\u0029",
+            "name": "createThumbnail",
+            "summary": "Erzeugt\u0020ein\u0020Thumbnail\u0020f\u00FCr\u0020das\u0020aktuelle\u0020Bild",
+            "url": "classes/fpcm-model-files-mediaFile.html#method_createThumbnail"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFile\u003A\u003AaddUploadFolder\u0028\u0029",
+            "name": "addUploadFolder",
+            "summary": "Add\u0020upload\u0020sub\u0020folder\u0020string",
+            "url": "classes/fpcm-model-files-mediaFile.html#method_addUploadFolder"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFile\u003A\u003AisImage\u0028\u0029",
+            "name": "isImage",
+            "summary": "Returns\u0020true\u0020if\u0020media\u0020file\u0020is\u0020an\u0020image",
+            "url": "classes/fpcm-model-files-mediaFile.html#method_isImage"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFile\u003A\u003AisAudioVideo\u0028\u0029",
+            "name": "isAudioVideo",
+            "summary": "Returns\u0020true\u0020if\u0020media\u0020file\u0020is\u0020an\u0020audio\u002D\u0020or\u0020video\u0020file",
+            "url": "classes/fpcm-model-files-mediaFile.html#method_isAudioVideo"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFile\u003A\u003AisAudio\u0028\u0029",
+            "name": "isAudio",
+            "summary": "Returns\u0020true\u0020if\u0020mine\u0020type\u0020is\u0020audio\u0020file",
+            "url": "classes/fpcm-model-files-mediaFile.html#method_isAudio"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFile\u003A\u003AgetSaveValues\u0028\u0029",
+            "name": "getSaveValues",
+            "summary": "Gibt\u0020Speicher\u002DValues\u0020zur\u00FCck",
+            "url": "classes/fpcm-model-files-mediaFile.html#method_getSaveValues"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFile\u003A\u003Ainit\u0028\u0029",
+            "name": "init",
+            "summary": "initialisiert\u0020Bild\u002DObjekt",
+            "url": "classes/fpcm-model-files-mediaFile.html#method_init"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFile\u003A\u003AcreateFromDbObject\u0028\u0029",
+            "name": "createFromDbObject",
+            "summary": "F\u00FCllt\u0020Objekt\u0020mit\u0020Daten\u0020aus\u0020Datenbank\u002DResult",
+            "url": "classes/fpcm-model-files-mediaFile.html#method_createFromDbObject"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFile\u003A\u003AgetPreparedSaveParams\u0028\u0029",
+            "name": "getPreparedSaveParams",
+            "summary": "Bereitet\u0020Eigenschaften\u0020des\u0020Objects\u0020zum\u0020Speichern\u0020ind\u0020er\u0020Datenbank\u0020vor\u0020und\u0020entfernt\u0020nicht\u0020speicherbare\u0020Eigenschaften",
+            "url": "classes/fpcm-model-files-mediaFile.html#method_getPreparedSaveParams"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFile\u003A\u003AsplitFilename\u0028\u0029",
+            "name": "splitFilename",
+            "summary": "Splits\u0020filename\u0020with\u0020possible\u0020folder",
+            "url": "classes/fpcm-model-files-mediaFile.html#method_splitFilename"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFile\u003A\u003AparseIptc\u0028\u0029",
+            "name": "parseIptc",
+            "summary": "reads\u0020IPTC\u0020data\u0020from\u0020file",
+            "url": "classes/fpcm-model-files-mediaFile.html#method_parseIptc"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFile\u003A\u003AgetPropertiesArray\u0028\u0029",
+            "name": "getPropertiesArray",
+            "summary": "Return\u0020properties\u0020array",
+            "url": "classes/fpcm-model-files-mediaFile.html#method_getPropertiesArray"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFile\u003A\u003Acopy\u0028\u0029",
+            "name": "copy",
+            "summary": "Creates\u0020copy\u0020of\u0020current\u0020object",
+            "url": "classes/fpcm-model-files-mediaFile.html#method_copy"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFile\u003A\u003AgetCropperFilename\u0028\u0029",
+            "name": "getCropperFilename",
+            "summary": "Get\u0020cropper\u0020filename\u0020string",
+            "url": "classes/fpcm-model-files-mediaFile.html#method_getCropperFilename"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFile\u003A\u003AisValidType\u0028\u0029",
+            "name": "isValidType",
+            "summary": "Check\u0020if\u0020file\u0020extension\u0020and\u0020file\u0020type\u0020is\u0020valid",
+            "url": "classes/fpcm-model-files-mediaFile.html#method_isValidType"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFile\u003A\u003AgetMediaFileType\u0028\u0029",
+            "name": "getMediaFileType",
+            "summary": "Retrieve\u0020media\u0020file\u0020type\u0020flag",
+            "url": "classes/fpcm-model-files-mediaFile.html#method_getMediaFileType"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFile\u003A\u003ATYPE_IMAGE",
+            "name": "TYPE_IMAGE",
+            "summary": "",
+            "url": "classes/fpcm-model-files-mediaFile.html#constant_TYPE_IMAGE"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFile\u003A\u003ATYPE_AUDIOVIDEO",
+            "name": "TYPE_AUDIOVIDEO",
+            "summary": "",
+            "url": "classes/fpcm-model-files-mediaFile.html#constant_TYPE_AUDIOVIDEO"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFile\u003A\u003ATYPE_INVALID",
+            "name": "TYPE_INVALID",
+            "summary": "",
+            "url": "classes/fpcm-model-files-mediaFile.html#constant_TYPE_INVALID"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFile\u003A\u003ATYPE_AUDIOVIDEO_DELIM",
+            "name": "TYPE_AUDIOVIDEO_DELIM",
+            "summary": "",
+            "url": "classes/fpcm-model-files-mediaFile.html#constant_TYPE_AUDIOVIDEO_DELIM"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFile\u003A\u003A\u0024allowedTypes",
+            "name": "allowedTypes",
+            "summary": "Erlaubte\u0020Dateitypen",
+            "url": "classes/fpcm-model-files-mediaFile.html#property_allowedTypes"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFile\u003A\u003A\u0024allowedExts",
+            "name": "allowedExts",
+            "summary": "Erlaubte\u0020Dateiendungen",
+            "url": "classes/fpcm-model-files-mediaFile.html#property_allowedExts"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFile\u003A\u003A\u0024id",
+            "name": "id",
+            "summary": "ID\u0020von\u0020Datei\u002DEintrag\u0020in\u0020DB",
+            "url": "classes/fpcm-model-files-mediaFile.html#property_id"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFile\u003A\u003A\u0024width",
+            "name": "width",
+            "summary": "Bild\u002DBreite",
+            "url": "classes/fpcm-model-files-mediaFile.html#property_width"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFile\u003A\u003A\u0024height",
+            "name": "height",
+            "summary": "Bild\u002DH\u00F6he",
+            "url": "classes/fpcm-model-files-mediaFile.html#property_height"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFile\u003A\u003A\u0024whstring",
+            "name": "whstring",
+            "summary": "String\u0020in\u0020der\u0020Form\u0020width\u003D\u0022\u0022\u0020height\u003D\u0022\u0022",
+            "url": "classes/fpcm-model-files-mediaFile.html#property_whstring"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFile\u003A\u003A\u0024userid",
+            "name": "userid",
+            "summary": "Benutzer\u002DID\u0020des\u0020Uploaders",
+            "url": "classes/fpcm-model-files-mediaFile.html#property_userid"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFile\u003A\u003A\u0024filetime",
+            "name": "filetime",
+            "summary": "Zeitpunkt\u0020des\u0020Uploads",
+            "url": "classes/fpcm-model-files-mediaFile.html#property_filetime"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFile\u003A\u003A\u0024media_type",
+            "name": "media_type",
+            "summary": "Media\u0020file\u0020type\u0020\u00280\u0020\u003D\u0020image,\u00201\u0020\u003D\u0020audio\/video\u0029",
+            "url": "classes/fpcm-model-files-mediaFile.html#property_media_type"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFile\u003A\u003A\u0024alttext",
+            "name": "alttext",
+            "summary": "Alternate\u0020text",
+            "url": "classes/fpcm-model-files-mediaFile.html#property_alttext"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFile\u003A\u003A\u0024mimetype",
+            "name": "mimetype",
+            "summary": "MIME\u002DDateityp\u002DInfo",
+            "url": "classes/fpcm-model-files-mediaFile.html#property_mimetype"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFile\u003A\u003A\u0024iptcstr",
+            "name": "iptcstr",
+            "summary": "Exif\/\u0020IPCT\u0020data",
+            "url": "classes/fpcm-model-files-mediaFile.html#property_iptcstr"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFile\u003A\u003A\u0024isIndexed",
+            "name": "isIndexed",
+            "summary": "Flag\u0020if\u0020file\u0020is\u0020in\u0020file\u0020index",
+            "url": "classes/fpcm-model-files-mediaFile.html#property_isIndexed"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFile\u003A\u003A\u0024dbParams",
+            "name": "dbParams",
+            "summary": "Felder\u0020die\u0020in\u0020Datenbank\u0020gespeichert\u0020werden\u0020k\u00F6nnen",
+            "url": "classes/fpcm-model-files-mediaFile.html#property_dbParams"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFilesList",
+            "name": "mediaFilesList",
+            "summary": "Media\u0020files\u0020list\u0020object",
+            "url": "classes/fpcm-model-files-mediaFilesList.html"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFilesList\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "Konstruktor",
+            "url": "classes/fpcm-model-files-mediaFilesList.html#method___construct"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFilesList\u003A\u003AgetFolderList\u0028\u0029",
+            "name": "getFolderList",
+            "summary": "Return\u0020list\u0020of\u0020files\u0020in\u0020file\u0020system",
+            "url": "classes/fpcm-model-files-mediaFilesList.html#method_getFolderList"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFilesList\u003A\u003AgetDatabaseList\u0028\u0029",
+            "name": "getDatabaseList",
+            "summary": "Gibt\u0020Dateiindex\u0020in\u0020Datenbank\u0020zur\u00FCck",
+            "url": "classes/fpcm-model-files-mediaFilesList.html#method_getDatabaseList"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFilesList\u003A\u003AgetDatabaseListByCondition\u0028\u0029",
+            "name": "getDatabaseListByCondition",
+            "summary": "Fetch\u0020file\u0020index\u0020by\u0020condition",
+            "url": "classes/fpcm-model-files-mediaFilesList.html#method_getDatabaseListByCondition"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFilesList\u003A\u003AgetDatabaseCountByCondition\u0028\u0029",
+            "name": "getDatabaseCountByCondition",
+            "summary": "Fetch\u0020file\u0020index\u0020by\u0020condition",
+            "url": "classes/fpcm-model-files-mediaFilesList.html#method_getDatabaseCountByCondition"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFilesList\u003A\u003AupdateFileIndex\u0028\u0029",
+            "name": "updateFileIndex",
+            "summary": "Updates\u0020file\u0020index",
+            "url": "classes/fpcm-model-files-mediaFilesList.html#method_updateFileIndex"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFilesList\u003A\u003AaddToIndex\u0028\u0029",
+            "name": "addToIndex",
+            "summary": "Add\u0020single\u0020file\u0020to\u0020index",
+            "url": "classes/fpcm-model-files-mediaFilesList.html#method_addToIndex"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFilesList\u003A\u003AgetDatabaseFileCount\u0028\u0029",
+            "name": "getDatabaseFileCount",
+            "summary": "Liefert\u0020Anzahl\u0020von\u0020Dateieintr\u00E4gen\u0020in\u0020Datenbank\u0020zur\u00FCck",
+            "url": "classes/fpcm-model-files-mediaFilesList.html#method_getDatabaseFileCount"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFilesList\u003A\u003AcreateFilemanagerThumbs\u0028\u0029",
+            "name": "createFilemanagerThumbs",
+            "summary": "Creates\u0020file\u0020manager\u0020thumbnails",
+            "url": "classes/fpcm-model-files-mediaFilesList.html#method_createFilemanagerThumbs"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFilesList\u003A\u003AgetUploadFolderSize\u0028\u0029",
+            "name": "getUploadFolderSize",
+            "summary": "Gibt\u0020aktuelle\u0020Gr\u00F6\u00DFe\u0020des\u0020upload\u002DOrdners\u0020in\u0020byte\u0020zur\u00FCck",
+            "url": "classes/fpcm-model-files-mediaFilesList.html#method_getUploadFolderSize"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFilesList\u003A\u003AassignSearchParams\u0028\u0029",
+            "name": "assignSearchParams",
+            "summary": "Assigns\u0020search\u0020params\u0020from\u0020search\u0020object\u0020to\u0020where\u0020condition",
+            "url": "classes/fpcm-model-files-mediaFilesList.html#method_assignSearchParams"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFilesList\u003A\u003AgetCountQuery\u0028\u0029",
+            "name": "getCountQuery",
+            "summary": "Get\u0020count\u0020query\u0020string",
+            "url": "classes/fpcm-model-files-mediaFilesList.html#method_getCountQuery"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFilesList\u003A\u003AgetSearchQuery\u0028\u0029",
+            "name": "getSearchQuery",
+            "summary": "Get\u0020query\u0020string",
+            "url": "classes/fpcm-model-files-mediaFilesList.html#method_getSearchQuery"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFilesList\u003A\u003AgetElementLink\u0028\u0029",
+            "name": "getElementLink",
+            "summary": "Return\u0020link\u0020to\u0020element\u0020link",
+            "url": "classes/fpcm-model-files-mediaFilesList.html#method_getElementLink"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFilesList\u003A\u003AgetElementIcon\u0028\u0029",
+            "name": "getElementIcon",
+            "summary": "Return\u0020link\u0020icon",
+            "url": "classes/fpcm-model-files-mediaFilesList.html#method_getElementIcon"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFilesList\u003A\u003AgetSearchQueryObj\u0028\u0029",
+            "name": "getSearchQueryObj",
+            "summary": "Returns\u0020selectParams\u0020object\u0020instance",
+            "url": "classes/fpcm-model-files-mediaFilesList.html#method_getSearchQueryObj"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFilesList\u003A\u003AprepareText\u0028\u0029",
+            "name": "prepareText",
+            "summary": "Prepare\u0020result\u0020text",
+            "url": "classes/fpcm-model-files-mediaFilesList.html#method_prepareText"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFilesList\u003A\u003A\u0024indexUserId",
+            "name": "indexUserId",
+            "summary": "User\u0020id\u0020to\u0020use\u0020for\u0020file\u0020indexing",
+            "url": "classes/fpcm-model-files-mediaFilesList.html#property_indexUserId"
+        },                {
+            "fqsen": "\\fpcm\\model\\files\\mediaFilesList\u003A\u003A\u0024finfo",
+            "name": "finfo",
+            "summary": "finfo\u0020instance",
+            "url": "classes/fpcm-model-files-mediaFilesList.html#property_finfo"
+        },                {
+            "fqsen": "\\fpcm\\model\\system\\check\\check",
+            "name": "check",
+            "summary": "System\u0020check\u0020runner\u0020Objekt",
+            "url": "classes/fpcm-model-system-check-check.html"
+        },                {
+            "fqsen": "\\fpcm\\model\\system\\check\\check\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "Constructor",
+            "url": "classes/fpcm-model-system-check-check.html#method___construct"
+        },                {
+            "fqsen": "\\fpcm\\model\\system\\check\\check\u003A\u003ArunCheck\u0028\u0029",
+            "name": "runCheck",
+            "summary": "System\u002DCheck\u002DOptionen\u0020ermitteln",
+            "url": "classes/fpcm-model-system-check-check.html#method_runCheck"
+        },                {
+            "fqsen": "\\fpcm\\model\\system\\check\\check\u003A\u003Aperform\u0028\u0029",
+            "name": "perform",
+            "summary": "System\u002DCheck\u0020ausf\u00FChren",
+            "url": "classes/fpcm-model-system-check-check.html#method_perform"
+        },                {
+            "fqsen": "\\fpcm\\model\\system\\check\\check\u003A\u003AgetOptionsResult\u0028\u0029",
+            "name": "getOptionsResult",
+            "summary": "Return\u0020check\u0020result",
+            "url": "classes/fpcm-model-system-check-check.html#method_getOptionsResult"
+        },                {
+            "fqsen": "\\fpcm\\model\\system\\check\\check\u003A\u003AgetFolderResult\u0028\u0029",
+            "name": "getFolderResult",
+            "summary": "Return\u0020folders\u0020result",
+            "url": "classes/fpcm-model-system-check-check.html#method_getFolderResult"
+        },                {
+            "fqsen": "\\fpcm\\model\\system\\check\\check\u003A\u003AgetFullResult\u0028\u0029",
+            "name": "getFullResult",
+            "summary": "Return\u0020complete\u0020result",
+            "url": "classes/fpcm-model-system-check-check.html#method_getFullResult"
+        },                {
+            "fqsen": "\\fpcm\\model\\system\\check\\check\u003A\u003AgetCheckFolders\u0028\u0029",
+            "name": "getCheckFolders",
+            "summary": "Check\u0020folders",
+            "url": "classes/fpcm-model-system-check-check.html#method_getCheckFolders"
+        },                {
+            "fqsen": "\\fpcm\\model\\system\\check\\check\u003A\u003AtoBoolText\u0028\u0029",
+            "name": "toBoolText",
+            "summary": "Convert\u0020bool\u0020value\u0020to\u0020bool\u0020text",
+            "url": "classes/fpcm-model-system-check-check.html#method_toBoolText"
+        },                {
+            "fqsen": "\\fpcm\\model\\system\\check\\check\u003A\u003AsubmitStats\u0028\u0029",
+            "name": "submitStats",
+            "summary": "",
+            "url": "classes/fpcm-model-system-check-check.html#method_submitStats"
+        },                {
+            "fqsen": "\\fpcm\\model\\system\\check\\check\u003A\u003A\u0024html",
+            "name": "html",
+            "summary": "HTML\u0020output\u0020check",
+            "url": "classes/fpcm-model-system-check-check.html#property_html"
+        },                {
+            "fqsen": "\\fpcm\\model\\system\\check\\check\u003A\u003A\u0024result",
+            "name": "result",
+            "summary": "Check\u0020options\u0020result\u0020data",
+            "url": "classes/fpcm-model-system-check-check.html#property_result"
+        },                {
+            "fqsen": "\\fpcm\\model\\system\\check\\check\u003A\u003A\u0024folders",
+            "name": "folders",
+            "summary": "Check\u0020folders\u0020result\u0020data",
+            "url": "classes/fpcm-model-system-check-check.html#property_folders"
+        },                {
+            "fqsen": "\\fpcm\\model\\system\\check\\option",
+            "name": "option",
+            "summary": "System\u0020config\u0020Objekt",
+            "url": "classes/fpcm-model-system-check-option.html"
+        },                {
+            "fqsen": "\\fpcm\\model\\system\\check\\option\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "Konstruktor",
+            "url": "classes/fpcm-model-system-check-option.html#method___construct"
+        },                {
+            "fqsen": "\\fpcm\\model\\system\\check\\option\u003A\u003AgetActionButton\u0028\u0029",
+            "name": "getActionButton",
+            "summary": "Return\u0020button\u0020code",
+            "url": "classes/fpcm-model-system-check-option.html#method_getActionButton"
+        },                {
+            "fqsen": "\\fpcm\\model\\system\\check\\option\u003A\u003AsetActionButton\u0028\u0029",
+            "name": "setActionButton",
+            "summary": "Set\u0020Action\u0020Button",
+            "url": "classes/fpcm-model-system-check-option.html#method_setActionButton"
+        },                {
+            "fqsen": "\\fpcm\\model\\system\\check\\option\u003A\u003AgetNotice\u0028\u0029",
+            "name": "getNotice",
+            "summary": "Returns\u0020notice",
+            "url": "classes/fpcm-model-system-check-option.html#method_getNotice"
+        },                {
+            "fqsen": "\\fpcm\\model\\system\\check\\option\u003A\u003AsetNotice\u0028\u0029",
+            "name": "setNotice",
+            "summary": "Set\u0020notice",
+            "url": "classes/fpcm-model-system-check-option.html#method_setNotice"
+        },                {
+            "fqsen": "\\fpcm\\model\\system\\check\\option\u003A\u003AgetCurrent\u0028\u0029",
+            "name": "getCurrent",
+            "summary": "Returns\u0020current\u0020value",
+            "url": "classes/fpcm-model-system-check-option.html#method_getCurrent"
+        },                {
+            "fqsen": "\\fpcm\\model\\system\\check\\option\u003A\u003AgetHelplink\u0028\u0029",
+            "name": "getHelplink",
+            "summary": "Returns\u0020info\/help\u0020link",
+            "url": "classes/fpcm-model-system-check-option.html#method_getHelplink"
+        },                {
+            "fqsen": "\\fpcm\\model\\system\\check\\option\u003A\u003AgetResult\u0028\u0029",
+            "name": "getResult",
+            "summary": "Returns\u0020check\u0020value",
+            "url": "classes/fpcm-model-system-check-option.html#method_getResult"
+        },                {
+            "fqsen": "\\fpcm\\model\\system\\check\\option\u003A\u003AgetOptional\u0028\u0029",
+            "name": "getOptional",
+            "summary": "Returns\u0020optional\u0020flasg",
+            "url": "classes/fpcm-model-system-check-option.html#method_getOptional"
+        },                {
+            "fqsen": "\\fpcm\\model\\system\\check\\option\u003A\u003A\u0024isFolder",
+            "name": "isFolder",
+            "summary": "Option\u0020is\u0020checked\u0020folder",
+            "url": "classes/fpcm-model-system-check-option.html#property_isFolder"
+        },                {
+            "fqsen": "\\fpcm\\model\\system\\check\\option\u003A\u003AgetLabel\u0028\u0029",
+            "name": "getLabel",
+            "summary": "",
+            "url": "classes/fpcm-model-system-check-option.html#method_getLabel"
+        },                {
+            "fqsen": "\\fpcm\\model\\system\\check\\option\u003A\u003AasString\u0028\u0029",
+            "name": "asString",
+            "summary": "Returns\u0020check\u0020string\u0020for\u0020cli",
+            "url": "classes/fpcm-model-system-check-option.html#method_asString"
+        },                {
+            "fqsen": "\\fpcm\\model\\system\\check\\option\u003A\u003ACLI_MASK",
+            "name": "CLI_MASK",
+            "summary": "",
+            "url": "classes/fpcm-model-system-check-option.html#constant_CLI_MASK"
+        },                {
+            "fqsen": "\\fpcm\\model\\system\\check\\option\u003A\u003A\u0024current",
+            "name": "current",
+            "summary": "Current\u0020value",
+            "url": "classes/fpcm-model-system-check-option.html#property_current"
+        },                {
+            "fqsen": "\\fpcm\\model\\system\\check\\option\u003A\u003A\u0024helplink",
+            "name": "helplink",
+            "summary": "Help\u0020link",
+            "url": "classes/fpcm-model-system-check-option.html#property_helplink"
+        },                {
+            "fqsen": "\\fpcm\\model\\system\\check\\option\u003A\u003A\u0024result",
+            "name": "result",
+            "summary": "Check\u0020result",
+            "url": "classes/fpcm-model-system-check-option.html#property_result"
+        },                {
+            "fqsen": "\\fpcm\\model\\system\\check\\option\u003A\u003A\u0024optional",
+            "name": "optional",
+            "summary": "Option\u0020is\u0020not\u0020required",
+            "url": "classes/fpcm-model-system-check-option.html#property_optional"
+        },                {
+            "fqsen": "\\fpcm\\model\\system\\check\\option\u003A\u003A\u0024actionButton",
+            "name": "actionButton",
+            "summary": "Option\u0020is\u0020checked\u0020folder",
+            "url": "classes/fpcm-model-system-check-option.html#property_actionButton"
+        },                {
+            "fqsen": "\\fpcm\\model\\system\\check\\option\u003A\u003A\u0024notice",
+            "name": "notice",
+            "summary": "Add\u0020Notice",
+            "url": "classes/fpcm-model-system-check-option.html#property_notice"
+        },                {
+            "fqsen": "\\fpcm\\model\\system\\check\\option\u003A\u003A\u0024label",
+            "name": "label",
+            "summary": "Option\u0020label",
+            "url": "classes/fpcm-model-system-check-option.html#property_label"
+        },                {
+            "fqsen": "\\fpcm\\model\\traits\\assignThisProperties",
+            "name": "assignThisProperties",
+            "summary": "Assign\u0020properties\u0020from\u0020dataset\u0020to\u0020current\u0020object",
+            "url": "classes/fpcm-model-traits-assignThisProperties.html"
+        },                {
+            "fqsen": "\\fpcm\\model\\traits\\assignThisProperties\u003A\u003AassignThis\u0028\u0029",
+            "name": "assignThis",
+            "summary": "Assign\u0020\u0024data\u0020to\u0020current\u0020object",
+            "url": "classes/fpcm-model-traits-assignThisProperties.html#method_assignThis"
+        },                {
+            "fqsen": "\\fpcm\\model\\traits\\reminders\\hasReminder",
+            "name": "hasReminder",
+            "summary": "Remidner\u0020check\u0020trait",
+            "url": "classes/fpcm-model-traits-reminders-hasReminder.html"
+        },                {
+            "fqsen": "\\fpcm\\model\\traits\\reminders\\hasReminder\u003A\u003AhasReminder\u0028\u0029",
+            "name": "hasReminder",
+            "summary": "Returns\u0020true\u0020object\u0020has\u0020reminders",
+            "url": "classes/fpcm-model-traits-reminders-hasReminder.html#method_hasReminder"
+        },                {
+            "fqsen": "\\fpcm\\model\\traits\\reminders\\whitelist",
+            "name": "whitelist",
+            "summary": "Reminer\u0020whitelist\u0020trait",
+            "url": "classes/fpcm-model-traits-reminders-whitelist.html"
+        },                {
+            "fqsen": "\\fpcm\\model\\traits\\reminders\\whitelist\u003A\u003AisListed\u0028\u0029",
+            "name": "isListed",
+            "summary": "Check\u0020is\u0020object\u0020type\u0020is\u0020white\u0020listed",
+            "url": "classes/fpcm-model-traits-reminders-whitelist.html#method_isListed"
+        },                {
+            "fqsen": "\\fpcm\\model\\traits\\reminders\\whitelist\u003A\u003A\u0024whitelist",
+            "name": "whitelist",
+            "summary": "Reminder\u0020object\u0020whitelist",
+            "url": "classes/fpcm-model-traits-reminders-whitelist.html#property_whitelist"
+        },                {
+            "fqsen": "\\fpcm\\controller\\abstracts\\module\\dataViewList",
+            "name": "dataViewList",
+            "summary": "Module\u0020Dataview\u0020controller\u0020base",
+            "url": "classes/fpcm-controller-abstracts-module-dataViewList.html"
         },                {
             "fqsen": "\\",
             "name": "\\",
@@ -20076,6 +22026,76 @@ Search.appendIndex(
             "summary": "",
             "url": "namespaces/fpcm-controller-abstracts-module.html"
         },                {
+            "fqsen": "\\fpcm\\controller\\interfaces",
+            "name": "interfaces",
+            "summary": "",
+            "url": "namespaces/fpcm-controller-interfaces.html"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\articles",
+            "name": "articles",
+            "summary": "",
+            "url": "namespaces/fpcm-controller-traits-articles.html"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits",
+            "name": "traits",
+            "summary": "",
+            "url": "namespaces/fpcm-controller-traits.html"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\comments",
+            "name": "comments",
+            "summary": "",
+            "url": "namespaces/fpcm-controller-traits-comments.html"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\common",
+            "name": "common",
+            "summary": "",
+            "url": "namespaces/fpcm-controller-traits-common.html"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\modules",
+            "name": "modules",
+            "summary": "",
+            "url": "namespaces/fpcm-controller-traits-modules.html"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\packagemgr",
+            "name": "packagemgr",
+            "summary": "",
+            "url": "namespaces/fpcm-controller-traits-packagemgr.html"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\pub",
+            "name": "pub",
+            "summary": "",
+            "url": "namespaces/fpcm-controller-traits-pub.html"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\reminder",
+            "name": "reminder",
+            "summary": "",
+            "url": "namespaces/fpcm-controller-traits-reminder.html"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\system",
+            "name": "system",
+            "summary": "",
+            "url": "namespaces/fpcm-controller-traits-system.html"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\templates",
+            "name": "templates",
+            "summary": "",
+            "url": "namespaces/fpcm-controller-traits-templates.html"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\theme\\nav",
+            "name": "nav",
+            "summary": "",
+            "url": "namespaces/fpcm-controller-traits-theme-nav.html"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\theme",
+            "name": "theme",
+            "summary": "",
+            "url": "namespaces/fpcm-controller-traits-theme.html"
+        },                {
+            "fqsen": "\\fpcm\\controller\\traits\\users",
+            "name": "users",
+            "summary": "",
+            "url": "namespaces/fpcm-controller-traits-users.html"
+        },                {
             "fqsen": "\\fpcm\\drivers",
             "name": "drivers",
             "summary": "",
@@ -20140,6 +22160,11 @@ Search.appendIndex(
             "name": "logs",
             "summary": "",
             "url": "namespaces/fpcm-events-logs.html"
+        },                {
+            "fqsen": "\\fpcm\\events\\mediafile",
+            "name": "mediafile",
+            "summary": "",
+            "url": "namespaces/fpcm-events-mediafile.html"
         },                {
             "fqsen": "\\fpcm\\events\\modules",
             "name": "modules",
@@ -20361,6 +22386,11 @@ Search.appendIndex(
             "summary": "",
             "url": "namespaces/fpcm-model-shares.html"
         },                {
+            "fqsen": "\\fpcm\\model\\system\\check",
+            "name": "check",
+            "summary": "",
+            "url": "namespaces/fpcm-model-system-check.html"
+        },                {
             "fqsen": "\\fpcm\\model\\system\\conf",
             "name": "conf",
             "summary": "",
@@ -20385,6 +22415,11 @@ Search.appendIndex(
             "name": "traits",
             "summary": "",
             "url": "namespaces/fpcm-model-traits.html"
+        },                {
+            "fqsen": "\\fpcm\\model\\traits\\reminders",
+            "name": "reminders",
+            "summary": "",
+            "url": "namespaces/fpcm-model-traits-reminders.html"
         },                {
             "fqsen": "\\fpcm\\model\\updater",
             "name": "updater",

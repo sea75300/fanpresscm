@@ -125,10 +125,6 @@
                 
             </li>
                     <li>
-                <a href="packages/fpcm-module.html" class="">module</a>
-                
-            </li>
-                    <li>
                 <a href="packages/fpcm-drivers.html" class="">drivers</a>
                 
             </li>
@@ -138,6 +134,10 @@
             </li>
                     <li>
                 <a href="packages/fpcm-migrations.html" class="">migrations</a>
+                
+            </li>
+                    <li>
+                <a href="packages/fpcm-module.html" class="">module</a>
                 
             </li>
                     <li>
@@ -188,7 +188,7 @@
     
             <span class="phpdocumentor-element__extends">
             Uses
-                            <abbr title="\fpcm\controller\traits\system\syscheck">syscheck</abbr>,                             <abbr title="\fpcm\controller\traits\common\timezone">timezone</abbr>                    </span>
+                            <a href="classes/fpcm-controller-traits-common-timezone.html"><abbr title="\fpcm\controller\traits\common\timezone">timezone</abbr></a>                    </span>
     </h2>
 
         <aside class="phpdocumentor-element-found-in">
@@ -487,6 +487,27 @@
 <dd>Cache-Name zurückgeben</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-controller-traits-common-timezone.html#method_getDateTimeMasks">getDateTimeMasks()</a>
+    <span>
+                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+</dt>
+<dd>DateTime-Maske mit Beispielen</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-controller-traits-common-timezone.html#method_getTimeZones">getTimeZones()</a>
+    <span>
+                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+</dt>
+<dd>Gibt übersetzte Zeitzonen zurück</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-controller-traits-common-timezone.html#method_getTimeZonesAreas">getTimeZonesAreas()</a>
+    <span>
+                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+</dt>
+<dd>Returns timezones by global area</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/fpcm-model-cli-installer.html#method_help">help()</a>
     <span>
                                 &nbsp;: array&lt;string|int, mixed&gt;    </span>
@@ -552,7 +573,7 @@
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/fpcm-model-cli-installer.html#method_createUserAccount">createUserAccount()</a>
     <span>
-                                &nbsp;: bool    </span>
+                                &nbsp;: void    </span>
 </dt>
 <dd>Ersten Benutzer erzeugen</dd>
 
@@ -1282,7 +1303,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/cli/installer.php"><a href="files/inc-model-cli-installer.html"><abbr title="inc/model/cli/installer.php">installer.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">28</span>
+    <span class="phpdocumentor-element-found-in__line">27</span>
 
     </aside>
 
@@ -1680,6 +1701,119 @@
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_getDateTimeMasks">
+        getDateTimeMasks()
+        <a href="classes/fpcm-controller-traits-common-timezone.html#method_getDateTimeMasks" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/controller/traits/common/timezone.php"><a href="files/inc-controller-traits-common-timezone.html"><abbr title="inc/controller/traits/common/timezone.php">timezone.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">56</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">DateTime-Maske mit Beispielen</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">getDateTimeMasks</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+
+    
+    
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">3.6</span>
+                                                                                
+                                             
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getTimeZones">
+        getTimeZones()
+        <a href="classes/fpcm-controller-traits-common-timezone.html#method_getTimeZones" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/controller/traits/common/timezone.php"><a href="files/inc-controller-traits-common-timezone.html"><abbr title="inc/controller/traits/common/timezone.php">timezone.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">24</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Gibt übersetzte Zeitzonen zurück</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">getTimeZones</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+
+    
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getTimeZonesAreas">
+        getTimeZonesAreas()
+        <a href="classes/fpcm-controller-traits-common-timezone.html#method_getTimeZonesAreas" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/controller/traits/common/timezone.php"><a href="files/inc-controller-traits-common-timezone.html"><abbr title="inc/controller/traits/common/timezone.php">timezone.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">38</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Returns timezones by global area</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">getTimeZonesAreas</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+
+    
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_help">
         help()
         <a href="classes/fpcm-model-cli-installer.html#method_help" class="headerlink"><i class="fas fa-link"></i></a>
@@ -1687,7 +1821,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/cli/installer.php"><a href="files/inc-model-cli-installer.html"><abbr title="inc/model/cli/installer.php">installer.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">310</span>
+    <span class="phpdocumentor-element-found-in__line">312</span>
 
     </aside>
 
@@ -1720,7 +1854,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/cli/installer.php"><a href="files/inc-model-cli-installer.html"><abbr title="inc/model/cli/installer.php">installer.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">34</span>
+    <span class="phpdocumentor-element-found-in__line">33</span>
 
     </aside>
 
@@ -1939,7 +2073,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/cli/installer.php"><a href="files/inc-model-cli-installer.html"><abbr title="inc/model/cli/installer.php">installer.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">54</span>
+    <span class="phpdocumentor-element-found-in__line">53</span>
 
     </aside>
 
@@ -1972,7 +2106,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/cli/installer.php"><a href="files/inc-model-cli-installer.html"><abbr title="inc/model/cli/installer.php">installer.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">288</span>
+    <span class="phpdocumentor-element-found-in__line">290</span>
 
     </aside>
 
@@ -2005,7 +2139,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/cli/installer.php"><a href="files/inc-model-cli-installer.html"><abbr title="inc/model/cli/installer.php">installer.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">180</span>
+    <span class="phpdocumentor-element-found-in__line">182</span>
 
     </aside>
 
@@ -2038,7 +2172,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/cli/installer.php"><a href="files/inc-model-cli-installer.html"><abbr title="inc/model/cli/installer.php">installer.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">252</span>
+    <span class="phpdocumentor-element-found-in__line">254</span>
 
     </aside>
 
@@ -2046,14 +2180,14 @@
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                    <span class="phpdocumentor-signature__name">createUserAccount</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+                    <span class="phpdocumentor-signature__name">createUserAccount</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
     
     
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">bool</span>
+    <span class="phpdocumentor-signature__response_type">void</span>
             &mdash;
         
     
@@ -2071,7 +2205,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/cli/installer.php"><a href="files/inc-model-cli-installer.html"><abbr title="inc/model/cli/installer.php">installer.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">138</span>
+    <span class="phpdocumentor-element-found-in__line">140</span>
 
     </aside>
 
@@ -2104,7 +2238,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/cli/installer.php"><a href="files/inc-model-cli-installer.html"><abbr title="inc/model/cli/installer.php">installer.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">216</span>
+    <span class="phpdocumentor-element-found-in__line">218</span>
 
     </aside>
 
@@ -2137,7 +2271,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/cli/installer.php"><a href="files/inc-model-cli-installer.html"><abbr title="inc/model/cli/installer.php">installer.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">75</span>
+    <span class="phpdocumentor-element-found-in__line">74</span>
 
     </aside>
 
@@ -2170,7 +2304,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/cli/installer.php"><a href="files/inc-model-cli-installer.html"><abbr title="inc/model/cli/installer.php">installer.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">96</span>
+    <span class="phpdocumentor-element-found-in__line">95</span>
 
     </aside>
 

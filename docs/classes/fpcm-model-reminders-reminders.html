@@ -125,10 +125,6 @@
                 
             </li>
                     <li>
-                <a href="packages/fpcm-module.html" class="">module</a>
-                
-            </li>
-                    <li>
                 <a href="packages/fpcm-drivers.html" class="">drivers</a>
                 
             </li>
@@ -138,6 +134,10 @@
             </li>
                     <li>
                 <a href="packages/fpcm-migrations.html" class="">migrations</a>
+                
+            </li>
+                    <li>
+                <a href="packages/fpcm-module.html" class="">module</a>
                 
             </li>
                     <li>
@@ -191,7 +191,7 @@
     
             <span class="phpdocumentor-element__extends">
             Uses
-                            <a href="classes/fpcm-model-traits-getObjectInstance.html"><abbr title="\fpcm\model\traits\getObjectInstance">getObjectInstance</abbr></a>                    </span>
+                            <a href="classes/fpcm-model-traits-getObjectInstance.html"><abbr title="\fpcm\model\traits\getObjectInstance">getObjectInstance</abbr></a>,                             <a href="classes/fpcm-model-traits-reminders-whitelist.html"><abbr title="\fpcm\model\traits\reminders\whitelist">whitelist</abbr></a>                    </span>
     </h2>
 
         <aside class="phpdocumentor-element-found-in">
@@ -334,18 +334,25 @@
 <dd>Notifications</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
-    <a href="classes/fpcm-model-reminders-reminders.html#property_table">$table</a>
+    <a href="classes/fpcm-model-abstracts-tablelist.html#property_table">$table</a>
     <span>
                         &nbsp;: string            </span>
 </dt>
-<dd>Table name</dd>
+<dd>Tabellen-Name</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/fpcm-model-traits-reminders-whitelist.html#property_whitelist">$whitelist</a>
+    <span>
+                        &nbsp;: array&lt;string|int, mixed&gt;            </span>
+</dt>
+<dd>Reminder object whitelist</dd>
 
                 <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/fpcm-model-abstracts-tablelist.html#method___construct">__construct()</a>
+    <a href="classes/fpcm-model-reminders-reminders.html#method___construct">__construct()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd>Konstruktor</dd>
+<dd>Contructor</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/fpcm-model-abstracts-tablelist.html#method___destruct">__destruct()</a>
@@ -395,6 +402,13 @@
                                 &nbsp;: bool    </span>
 </dt>
 <dd>Delete reminders by object id(s)</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -protected">
+    <a href="classes/fpcm-model-traits-reminders-whitelist.html#method_isListed">isListed()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+<dd>Check is object type is white listed</dd>
 
         </dl>
 
@@ -756,24 +770,57 @@
 >
     <h4 class="phpdocumentor-element__name" id="property_table">
         $table
-        <a href="classes/fpcm-model-reminders-reminders.html#property_table" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/fpcm-model-abstracts-tablelist.html#property_table" class="headerlink"><i class="fas fa-link"></i></a>
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/reminders/reminders.php"><a href="files/inc-model-reminders-reminders.html"><abbr title="inc/model/reminders/reminders.php">reminders.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/tablelist.php"><a href="files/inc-model-abstracts-tablelist.html"><abbr title="inc/model/abstracts/tablelist.php">tablelist.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">29</span>
+    <span class="phpdocumentor-element-found-in__line">32</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Table name</p>
+        <p class="phpdocumentor-summary">Tabellen-Name</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">protected</span>
         <span class="phpdocumentor-signature__type">string</span>
     <span class="phpdocumentor-signature__name">$table</span>
-     = <span class="phpdocumentor-signature__default-value">&#039;reminders&#039;</span></code>
+    </code>
+
+    
+    
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_whitelist">
+        $whitelist
+        <a href="classes/fpcm-model-traits-reminders-whitelist.html#property_whitelist" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/traits/reminders/whitelist.php"><a href="files/inc-model-traits-reminders-whitelist.html"><abbr title="inc/model/traits/reminders/whitelist.php">whitelist.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">25</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Reminder object whitelist</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;</span>
+    <span class="phpdocumentor-signature__name">$whitelist</span>
+     = <span class="phpdocumentor-signature__default-value">[&#039;fpcm\\model\\files\\mediaFile&#039;]</span></code>
 
     
     
@@ -795,16 +842,16 @@
 >
     <h4 class="phpdocumentor-element__name" id="method___construct">
         __construct()
-        <a href="classes/fpcm-model-abstracts-tablelist.html#method___construct" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/fpcm-model-reminders-reminders.html#method___construct" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/tablelist.php"><a href="files/inc-model-abstracts-tablelist.html"><abbr title="inc/model/abstracts/tablelist.php">tablelist.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/reminders/reminders.php"><a href="files/inc-model-reminders-reminders.html"><abbr title="inc/model/reminders/reminders.php">reminders.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">90</span>
+    <span class="phpdocumentor-element-found-in__line">29</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Konstruktor</p>
+        <p class="phpdocumentor-summary">Contructor</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -866,7 +913,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/reminders/reminders.php"><a href="files/inc-model-reminders-reminders.html"><abbr title="inc/model/reminders/reminders.php">reminders.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">104</span>
+    <span class="phpdocumentor-element-found-in__line">129</span>
 
     </aside>
 
@@ -1019,7 +1066,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/reminders/reminders.php"><a href="files/inc-model-reminders-reminders.html"><abbr title="inc/model/reminders/reminders.php">reminders.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">39</span>
+    <span class="phpdocumentor-element-found-in__line">43</span>
 
     </aside>
 
@@ -1027,7 +1074,7 @@
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">getRemindersForDatasets</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$type</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$start</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$oids</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">[]</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">int|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$uid</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;|<a href="classes/fpcm-model-reminders-reminder.html"><abbr title="\fpcm\model\reminders\reminder">reminder</abbr></a></span></code>
+                    <span class="phpdocumentor-signature__name">getRemindersForDatasets</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$type</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$start</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$oids</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">[]</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">int|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$uid</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">int|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$lastMailed</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;|<a href="classes/fpcm-model-reminders-reminder.html"><abbr title="\fpcm\model\reminders\reminder">reminder</abbr></a></span></code>
 
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
@@ -1060,6 +1107,14 @@
             <dd class="phpdocumentor-argument-list__definition">
                 
             </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$lastMailed</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int|null</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
             </dl>
 
     
@@ -1083,7 +1138,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/reminders/reminders.php"><a href="files/inc-model-reminders-reminders.html"><abbr title="inc/model/reminders/reminders.php">reminders.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">165</span>
+    <span class="phpdocumentor-element-found-in__line">194</span>
 
     </aside>
 
@@ -1126,7 +1181,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/reminders/reminders.php"><a href="files/inc-model-reminders-reminders.html"><abbr title="inc/model/reminders/reminders.php">reminders.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">140</span>
+    <span class="phpdocumentor-element-found-in__line">165</span>
 
     </aside>
 
@@ -1149,6 +1204,49 @@
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$oids</span>
                 : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;|int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">bool</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -protected
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_isListed">
+        isListed()
+        <a href="classes/fpcm-model-traits-reminders-whitelist.html#method_isListed" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/traits/reminders/whitelist.php"><a href="files/inc-model-traits-reminders-whitelist.html"><abbr title="inc/model/traits/reminders/whitelist.php">whitelist.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">34</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Check is object type is white listed</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+                    <span class="phpdocumentor-signature__name">isListed</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$type</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$type</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                 

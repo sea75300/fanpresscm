@@ -125,10 +125,6 @@
                 
             </li>
                     <li>
-                <a href="packages/fpcm-module.html" class="">module</a>
-                
-            </li>
-                    <li>
                 <a href="packages/fpcm-drivers.html" class="">drivers</a>
                 
             </li>
@@ -138,6 +134,10 @@
             </li>
                     <li>
                 <a href="packages/fpcm-migrations.html" class="">migrations</a>
+                
+            </li>
+                    <li>
+                <a href="packages/fpcm-module.html" class="">module</a>
                 
             </li>
                     <li>
@@ -314,13 +314,6 @@
 <dd>Cache name</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
-    <a href="classes/fpcm-model-pubtemplates-article.html#property_cleanups">$cleanups</a>
-    <span>
-                        &nbsp;: array&lt;string|int, mixed&gt;            </span>
-</dt>
-<dd>Tag-Kombinationen, die beseitigt werden müssen</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -property -protected">
     <a href="classes/fpcm-model-pubtemplates-article.html#property_commentsEnabled">$commentsEnabled</a>
     <span>
                         &nbsp;: bool            </span>
@@ -426,7 +419,7 @@
 <dd>List of attributes by replacement tag</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
-    <a href="classes/fpcm-model-pubtemplates-article.html#property_replacementInternal">$replacementInternal</a>
+    <a href="classes/fpcm-model-pubtemplates-template.html#property_replacementInternal">$replacementInternal</a>
     <span>
                         &nbsp;: array&lt;string|int, mixed&gt;            </span>
 </dt>
@@ -753,13 +746,6 @@
                                 &nbsp;: string    </span>
 </dt>
 <dd>Returns base path for file</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -protected">
-    <a href="classes/fpcm-model-pubtemplates-article.html#method_cleanup">cleanup()</a>
-    <span>
-                                &nbsp;: string    </span>
-</dt>
-<dd>Cleanup tags</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -protected">
     <a href="classes/fpcm-model-pubtemplates-template.html#method_init">init()</a>
@@ -1135,7 +1121,7 @@
     <span class="phpdocumentor-signature__visibility">protected</span>
         <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;</span>
     <span class="phpdocumentor-signature__name">$allowedTags</span>
-     = <span class="phpdocumentor-signature__default-value">array(&#039;&lt;div&gt;&#039;, &#039;&lt;span&gt;&#039;, &#039;&lt;p&gt;&#039;, &#039;&lt;b&gt;&#039;, &#039;&lt;strong&gt;&#039;, &#039;&lt;i&gt;&#039;, &#039;&lt;em&gt;&#039;, &#039;&lt;u&gt;&#039;, &#039;&lt;a&gt;&#039;, &#039;&lt;h1&gt;&#039;, &#039;&lt;h2&gt;&#039;, &#039;&lt;h3&gt;&#039;, &#039;&lt;h4&gt;&#039;, &#039;&lt;h5&gt;&#039;, &#039;&lt;h6&gt;&#039;, &#039;&lt;img&gt;&#039;, &#039;&lt;table&gt;&#039;, &#039;&lt;tr&gt;&#039;, &#039;&lt;td&gt;&#039;, &#039;&lt;br&gt;&#039;, &#039;&lt;form&gt;&#039;, &#039;&lt;input&gt;&#039;, &#039;&lt;button&gt;&#039;, &#039;&lt;select&gt;&#039;, &#039;&lt;option&gt;&#039;, &#039;&lt;ul&gt;&#039;, &#039;&lt;ol&gt;&#039;, &#039;&lt;li&gt;&#039;, &#039;&lt;script&gt;&#039;, &#039;&lt;iframe&gt;&#039;, &#039;&lt;label&gt;&#039;)</span></code>
+     = <span class="phpdocumentor-signature__default-value">array(&#039;&lt;div&gt;&#039;, &#039;&lt;span&gt;&#039;, &#039;&lt;p&gt;&#039;, &#039;&lt;b&gt;&#039;, &#039;&lt;strong&gt;&#039;, &#039;&lt;i&gt;&#039;, &#039;&lt;em&gt;&#039;, &#039;&lt;u&gt;&#039;, &#039;&lt;a&gt;&#039;, &#039;&lt;h1&gt;&#039;, &#039;&lt;h2&gt;&#039;, &#039;&lt;h3&gt;&#039;, &#039;&lt;h4&gt;&#039;, &#039;&lt;h5&gt;&#039;, &#039;&lt;h6&gt;&#039;, &#039;&lt;img&gt;&#039;, &#039;&lt;table&gt;&#039;, &#039;&lt;tr&gt;&#039;, &#039;&lt;td&gt;&#039;, &#039;&lt;br&gt;&#039;, &#039;&lt;form&gt;&#039;, &#039;&lt;input&gt;&#039;, &#039;&lt;button&gt;&#039;, &#039;&lt;select&gt;&#039;, &#039;&lt;option&gt;&#039;, &#039;&lt;ul&gt;&#039;, &#039;&lt;ol&gt;&#039;, &#039;&lt;li&gt;&#039;, &#039;&lt;script&gt;&#039;, &#039;&lt;iframe&gt;&#039;, &#039;&lt;label&gt;&#039;, &#039;&lt;svg&gt;&#039;, &#039;&lt;path&gt;&#039;)</span></code>
 
     
     
@@ -1262,39 +1248,6 @@
             -protected
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="property_cleanups">
-        $cleanups
-        <a href="classes/fpcm-model-pubtemplates-article.html#property_cleanups" class="headerlink"><i class="fas fa-link"></i></a>
-        <span class="phpdocumentor-element__modifiers">
-                                </span>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/pubtemplates/article.php"><a href="files/inc-model-pubtemplates-article.html"><abbr title="inc/model/pubtemplates/article.php">article.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">87</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Tag-Kombinationen, die beseitigt werden müssen</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">protected</span>
-        <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;</span>
-    <span class="phpdocumentor-signature__name">$cleanups</span>
-     = <span class="phpdocumentor-signature__default-value">array(&#039;&lt;p&gt;&lt;readmore&gt;&#039; =&gt; &#039;&lt;readmore&gt;&#039;, &#039;&lt;/readmore&gt;&lt;/p&gt;&#039; =&gt; &#039;&lt;/readmore&gt;&#039;)</span></code>
-
-    
-    
-    
-
-</article>
-                    <article
-        class="
-            phpdocumentor-element
-            -property
-            -protected
-                                                        "
->
     <h4 class="phpdocumentor-element__name" id="property_commentsEnabled">
         $commentsEnabled
         <a href="classes/fpcm-model-pubtemplates-article.html#property_commentsEnabled" class="headerlink"><i class="fas fa-link"></i></a>
@@ -1304,7 +1257,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/pubtemplates/article.php"><a href="files/inc-model-pubtemplates-article.html"><abbr title="inc/model/pubtemplates/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">81</span>
+    <span class="phpdocumentor-element-found-in__line">73</span>
 
     </aside>
 
@@ -1794,7 +1747,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/pubtemplates/article.php"><a href="files/inc-model-pubtemplates-article.html"><abbr title="inc/model/pubtemplates/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">97</span>
+    <span class="phpdocumentor-element-found-in__line">80</span>
 
     </aside>
 
@@ -1834,14 +1787,14 @@
 >
     <h4 class="phpdocumentor-element__name" id="property_replacementInternal">
         $replacementInternal
-        <a href="classes/fpcm-model-pubtemplates-article.html#property_replacementInternal" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/fpcm-model-pubtemplates-template.html#property_replacementInternal" class="headerlink"><i class="fas fa-link"></i></a>
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/pubtemplates/article.php"><a href="files/inc-model-pubtemplates-article.html"><abbr title="inc/model/pubtemplates/article.php">article.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/pubtemplates/template.php"><a href="files/inc-model-pubtemplates-template.html"><abbr title="inc/model/pubtemplates/template.php">template.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">73</span>
+    <span class="phpdocumentor-element-found-in__line">45</span>
 
     </aside>
 
@@ -1851,7 +1804,7 @@
     <span class="phpdocumentor-signature__visibility">protected</span>
         <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;</span>
     <span class="phpdocumentor-signature__name">$replacementInternal</span>
-     = <span class="phpdocumentor-signature__default-value">array(&#039;&lt;readmore&gt;:&lt;/readmore&gt;&#039;)</span></code>
+     = <span class="phpdocumentor-signature__default-value">[]</span></code>
 
     
     
@@ -2038,7 +1991,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/pubtemplates/article.php"><a href="files/inc-model-pubtemplates-article.html"><abbr title="inc/model/pubtemplates/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">105</span>
+    <span class="phpdocumentor-element-found-in__line">88</span>
 
     </aside>
 
@@ -2083,7 +2036,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/pubtemplates/article.php"><a href="files/inc-model-pubtemplates-article.html"><abbr title="inc/model/pubtemplates/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">193</span>
+    <span class="phpdocumentor-element-found-in__line">174</span>
 
     </aside>
 
@@ -3274,7 +3227,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/pubtemplates/article.php"><a href="files/inc-model-pubtemplates-article.html"><abbr title="inc/model/pubtemplates/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">118</span>
+    <span class="phpdocumentor-element-found-in__line">101</span>
 
     </aside>
 
@@ -3604,7 +3557,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/pubtemplates/article.php"><a href="files/inc-model-pubtemplates-article.html"><abbr title="inc/model/pubtemplates/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">180</span>
+    <span class="phpdocumentor-element-found-in__line">161</span>
 
     </aside>
 
@@ -3874,49 +3827,6 @@
             -protected
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method_cleanup">
-        cleanup()
-        <a href="classes/fpcm-model-pubtemplates-article.html#method_cleanup" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="inc/model/pubtemplates/article.php"><a href="files/inc-model-pubtemplates-article.html"><abbr title="inc/model/pubtemplates/article.php">article.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">239</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Cleanup tags</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">protected</span>
-                    <span class="phpdocumentor-signature__name">cleanup</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$values</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
-
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$values</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-            </dl>
-
-    
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">string</span>
-            &mdash;
-        
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -protected
-                                                        "
->
     <h4 class="phpdocumentor-element__name" id="method_init">
         init()
         <a href="classes/fpcm-model-pubtemplates-template.html#method_init" class="headerlink"><i class="fas fa-link"></i></a>
@@ -4145,7 +4055,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/pubtemplates/article.php"><a href="files/inc-model-pubtemplates-article.html"><abbr title="inc/model/pubtemplates/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">327</span>
+    <span class="phpdocumentor-element-found-in__line">297</span>
 
     </aside>
 
@@ -4366,7 +4276,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/pubtemplates/article.php"><a href="files/inc-model-pubtemplates-article.html"><abbr title="inc/model/pubtemplates/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">294</span>
+    <span class="phpdocumentor-element-found-in__line">264</span>
 
     </aside>
 
@@ -4494,7 +4404,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/pubtemplates/article.php"><a href="files/inc-model-pubtemplates-article.html"><abbr title="inc/model/pubtemplates/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">273</span>
+    <span class="phpdocumentor-element-found-in__line">243</span>
 
     </aside>
 
@@ -4666,7 +4576,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/model/pubtemplates/article.php"><a href="files/inc-model-pubtemplates-article.html"><abbr title="inc/model/pubtemplates/article.php">article.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">253</span>
+    <span class="phpdocumentor-element-found-in__line">223</span>
 
     </aside>
 
