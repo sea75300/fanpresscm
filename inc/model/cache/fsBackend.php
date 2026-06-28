@@ -284,7 +284,7 @@ class fsBackend implements \fpcm\model\interfaces\cacheBackend {
             
         }, $cacheFiles);
         
-        fpcmLogSystem(sprintf('Cache cleanup %s finished.', $cacheName));
+        fpcmLogSystem(sprintf('Cache cleanup %s finished.', $cacheName ?? 'complete'));
         return true;
     }
 
