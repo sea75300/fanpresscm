@@ -68,7 +68,7 @@ implements \fpcm\controller\interfaces\requestFunctions
      * Execute save process
      * @return bool
      */
-    private function onProfileSave() : bool
+    public function onProfileSave() : bool
     {
         if (!$this->checkPageToken) {
             return true;
