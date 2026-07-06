@@ -224,11 +224,12 @@ implements \fpcm\model\interfaces\validateFileType,
     public function getThumbnail()
     {
         $fnArr = explode('/', $this->filename, 2);
+
         if (count($fnArr) == 2) {
-            return $fnArr[0].'/thumbs/'.$fnArr[1];
+            return $fnArr[0] . '/thumbs/' . $fnArr[1];
         }
 
-        return 'thumbs/' . $this->filename;
+        return date('Y-m') . '/thumbs/' . $this->filename;
     }
 
     /**
