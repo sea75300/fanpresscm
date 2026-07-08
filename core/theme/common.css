@@ -183,7 +183,7 @@ img.fpcm-ui-smileylist-preview {
 
 textarea.fpcm-ui-textarea-medium,
 textarea.fpcm.ui-textarea-medium {
-    min-height: 25vh;
+    min-height: 15lh;
 }
 
 textarea.fpcm.ui-textarea-noresize {
