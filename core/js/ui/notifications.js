@@ -40,6 +40,14 @@ fpcm.notifications = {
             return false;
         }
 
+        if (parseInt(sessionStorage.getItem('last_notification_count')) !== _count) {
+            fpcm.ui_notify.show({
+                body: fpcm.ui.translate('NOTIFICATIONS_NEW')
+            });
+        }
+
+        sessionStorage.setItem('last_notification_count', _count);
+
         fpcm.dom.assignHtml(_idStr, _nstring);
         let _el = fpcm.dom.fromId('notificationsCount').html(_count);
 

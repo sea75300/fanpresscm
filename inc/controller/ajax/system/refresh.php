@@ -161,7 +161,7 @@ class refresh extends \fpcm\controller\abstracts\ajaxController
     }
 
     /**
-     * 
+     *
      * @return void
      */
     private function getNotifications() : void
@@ -169,10 +169,10 @@ class refresh extends \fpcm\controller\abstracts\ajaxController
         if (!$this->session->exists()) {
             return;
         }
-        
+
         $no = new \fpcm\model\theme\notifications();
         $no->prependSystemNotifications();
-        
+
         (new \fpcm\model\reminders\reminders())->appendNotifications($no);
 
         /* @var $result \fpcm\module\eventResult */

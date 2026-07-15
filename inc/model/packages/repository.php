@@ -80,6 +80,11 @@ final class repository extends remoteModel {
             $i++;
             $cliProgress->setCurrentValue($i)->output();
 
+            $headers = get_headers($rem);            
+            if (!is_array($headers) || !isset($headers[0]) || str_contains($headers[0], 'HTTP/1.1 404 Not Found')) {
+                continue;
+            }
+
             $this->remoteServer = $rem;
             $this->current      = $local;
 
