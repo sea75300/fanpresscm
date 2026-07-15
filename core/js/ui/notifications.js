@@ -40,7 +40,7 @@ fpcm.notifications = {
             return false;
         }
 
-        if (parseInt(sessionStorage.getItem('last_notification_count')) !== _count) {
+        if (parseInt(sessionStorage.getItem('last_notification_count')) < _count) {
             fpcm.ui_notify.show({
                 body: fpcm.ui.translate('NOTIFICATIONS_NEW')
             });
