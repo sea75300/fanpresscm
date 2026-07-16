@@ -578,8 +578,7 @@ implements \fpcm\model\interfaces\validateFileType,
      */
     public function createThumbnail()
     {
-        if ($this->mimetype === 'image/gif' ||
-            $this->extension === 'git') {
+        if (in_array($this->extension, ['gif', 'bmp'])) {
             fpcmLogSystem(sprintf(
                 'File of type %s (%s) is not supported for thumbnail creation. Skip file "%s"',
                 $this->extension,

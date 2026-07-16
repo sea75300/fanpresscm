@@ -304,16 +304,25 @@ implements \fpcm\model\interfaces\gsearchIndex {
             if (mediaFile::getMediaFileType($ext, $mime) === mediaFile::TYPE_AUDIOVIDEO) {
                 return false;
             }
+            
+            if (in_array($ext, ['gif', 'bmp']) ||
+                substr($folderFile, -4) === '.bmp' ||
+                substr($folderFile, -4) === '.gif'
+                ) {
+
+                fpcmLogSystem(sprintf(
+                    'File of type %s (%s) is not supported for thumbnail creation. Skip file "%s"',
+                    $ext,
+                    $mime,
+                    ops::removeBaseDir($folderFile)
+                ));
+
+                return false;
+            }
 
             if (filesize($folderFile) >= $filesizeLimit) {
                 $msgPath = ops::removeBaseDir($folderFile);
                 fpcmLogSystem("Skip filemanager thumbnail generation for {$msgPath} because of image dimension. You may reduce file size?");
-                return false;
-            }
-
-            if ($ext == 'bmp' || substr($folderFile, -4) === '.bmp') {
-                $msgPath = ops::removeBaseDir($folderFile);
-                fpcmLogSystem("Skip filemanager thumbnail generation for {$msgPath}, \"".$ext."\" is no supported. You may use another image type?");
                 return false;
             }
 
