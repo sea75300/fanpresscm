@@ -34,7 +34,7 @@
                          title="<?php print $file->getFileName(); ?>"
                          alt="<?php if ($file->getAltText()) : ?><?php print $theView->escapeVal($file->getAltText()); ?><?php else : ?><?php print $theView->escapeVal(basename($file->getFilename())); ?><?php endif; ?>">
                 <?php else : ?>
-                    <img class="card-img-top rounded-top overflow-hidden p-5" loading="lazy" src="<?php print fpcm\classes\loader::libGetFileUrl('font-awesome/svg/image.svg'); ?>" title="<?php print $file->getFileName(); ?>">
+                    <img class="card-img-top rounded-top overflow-hidden p-5" loading="lazy" src="<?php print fpcm\classes\loader::libGetFileUrl('font-awesome/svg/file-image.svg'); ?>" title="<?php print $file->getFileName(); ?>">
                 <?php endif; ?>
                 </a>
             <?php elseif ($file->isAudioVideo()) : ?>
