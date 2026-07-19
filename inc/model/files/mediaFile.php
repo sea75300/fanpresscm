@@ -224,11 +224,12 @@ implements \fpcm\model\interfaces\validateFileType,
     public function getThumbnail()
     {
         $fnArr = explode('/', $this->filename, 2);
+
         if (count($fnArr) == 2) {
-            return $fnArr[0].'/thumbs/'.$fnArr[1];
+            return $fnArr[0] . '/thumbs/' . $fnArr[1];
         }
 
-        return 'thumbs/' . $this->filename;
+        return date('Y-m') . '/thumbs/' . $this->filename;
     }
 
     /**
@@ -577,6 +578,16 @@ implements \fpcm\model\interfaces\validateFileType,
      */
     public function createThumbnail()
     {
+        if (in_array($this->extension, ['gif', 'bmp'])) {
+            fpcmLogSystem(sprintf(
+                'File of type %s (%s) is not supported for thumbnail creation. Skip file "%s"',
+                $this->extension,
+                $this->mimetype,
+                $this->filename
+            ));
+            return true;
+        }
+        
         $fullPath = $this->getThumbnailFull();
 
         $proc = new thumbnailCreator($this->getFullpath(), $fullPath);

@@ -3,7 +3,7 @@
 /**
  * FanPress CM language variables file: en
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2025, Stefan Seehafer
+ * @copyright (c) 2011-2026, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -56,7 +56,7 @@ $lang = array (
   'COMMENTS_PUBLIC_FORMHEADLINE' => 'Leave a comment',
   'COMMMENT_APPROVE' => 'Comment is approved',
   'COMMMENT_AUTHOR' => 'Name',
-  'COMMMENT_CREATEDATE' => 'Written on',
+  'COMMMENT_CREATEDATE' => 'Posted on',
   'COMMMENT_HEADLINE' => 'Comments',
   'COMMMENT_IMPORT_ARTICLEID' => 'Article ID',
   'COMMMENT_IPADDRESS' => 'Author IP address',
@@ -290,7 +290,7 @@ $lang = array (
   'GLOBAL_ADD' => 'Add',
   'GLOBAL_ADMINISTRATOR' => 'Administrator',
   'GLOBAL_AUTHOR' => 'Author',
-  'GLOBAL_AUTHOR_EDITOR' => 'Written by',
+  'GLOBAL_AUTHOR_EDITOR' => 'Posten by',
   'GLOBAL_BACK' => 'Back',
   'GLOBAL_CACHE_CLEAR' => 'Clear cache',
   'GLOBAL_CLOSE' => 'Close',
@@ -551,6 +551,7 @@ $lang = array (
   'MODULES_SEARCH_FILTER_TEXT' => 'Search by name or key',
   'MSG_FILES_CREATETHUMBS' => 'Regenerating thumbnails...',
   'NAVIGATION_SHOW' => 'Menu',
+  'NOTIFICATIONS_NEW' => 'You have new notifications!',
   'NOTIFICATION_ERROR_EVENTS' => 'An error occurred during the event "{{eventName}}". Check the system logs and update your installed modules.',
   'NOTIFICATION_EXPERIMENTAL_MINJS' => 'Minimized JavaScript files are used. Changes may not be applied immediately.',
   'PACKAGEMANAGER_BACKUPFS' => 'Create filesystem backup...',
@@ -649,7 +650,7 @@ $lang = array (
   'PUBLIC_ARTICLE_OLD' => 'This article is very old yet. Its information can be wrong or outdated.',
   'PUBLIC_ARTICLE_PINNED' => 'This article is pinned and displayed above all others.',
   'PUBLIC_COMMENT_EMAIL_SUBJECT' => 'A new comment has been posted.',
-  'PUBLIC_COMMENT_EMAIL_TEXT' => 'A comment was written by {{name}} (email address: {{email}}) on the article {{articleurl}}.
+  'PUBLIC_COMMENT_EMAIL_TEXT' => 'A comment was created by {{name}} (email address: {{email}}) on the article {{articleurl}}.
 
 {{commenttext}}
 

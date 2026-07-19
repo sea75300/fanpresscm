@@ -125,10 +125,6 @@
                 
             </li>
                     <li>
-                <a href="packages/fpcm-module.html" class="">module</a>
-                
-            </li>
-                    <li>
                 <a href="packages/fpcm-drivers.html" class="">drivers</a>
                 
             </li>
@@ -138,6 +134,10 @@
             </li>
                     <li>
                 <a href="packages/fpcm-migrations.html" class="">migrations</a>
+                
+            </li>
+                    <li>
+                <a href="packages/fpcm-module.html" class="">module</a>
                 
             </li>
                     <li>
@@ -181,14 +181,16 @@
             in package
             <ul class="phpdocumentor-breadcrumbs">
                                     <li class="phpdocumentor-breadcrumb"><a href="packages/fpcm.html">fpcm</a></li>
-                                    <li class="phpdocumentor-breadcrumb"><a href="packages/fpcm-module.html">module</a></li>
+                                    <li class="phpdocumentor-breadcrumb"><a href="packages/fpcm-controller.html">controller</a></li>
+                                    <li class="phpdocumentor-breadcrumb"><a href="packages/fpcm-controller-abstracts.html">abstracts</a></li>
+                                    <li class="phpdocumentor-breadcrumb"><a href="packages/fpcm-controller-abstracts-module.html">module</a></li>
                             </ul>
         </div>
     
     
             <span class="phpdocumentor-element__extends">
             Uses
-                            <a href="classes/fpcm-module-tools.html"><abbr title="\fpcm\module\tools">tools</abbr></a>,                             <abbr title="\fpcm\controller\traits\modules\controllerProperties">controllerProperties</abbr>                    </span>
+                            <a href="classes/fpcm-module-tools.html"><abbr title="\fpcm\module\tools">tools</abbr></a>,                             <a href="classes/fpcm-controller-traits-modules-controllerProperties.html"><abbr title="\fpcm\controller\traits\modules\controllerProperties">controllerProperties</abbr></a>                    </span>
     </h2>
 
         <aside class="phpdocumentor-element-found-in">
@@ -430,6 +432,13 @@
 </dt>
 <dd>Active tab save</dd>
 
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/fpcm-controller-traits-modules-controllerProperties.html#property_controllerProperties">$controllerProperties</a>
+    <span>
+                        &nbsp;: mixed            </span>
+</dt>
+<dd></dd>
+
                 <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/fpcm-controller-abstracts-controller.html#method___call">__call()</a>
     <span>
@@ -457,6 +466,20 @@
                                 &nbsp;: void    </span>
 </dt>
 <dd>Destruktor</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-controller-traits-modules-controllerProperties.html#method___get">__get()</a>
+    <span>
+                                &nbsp;: mixed    </span>
+</dt>
+<dd>Magic get to prevent dynamic property message from modules</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/fpcm-controller-traits-modules-controllerProperties.html#method___set">__set()</a>
+    <span>
+                                &nbsp;: void    </span>
+</dt>
+<dd>Magic set to prevent dynamic property message from modules</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/fpcm-controller-abstracts-controller.html#method_buttonClicked">buttonClicked()</a>
@@ -1461,6 +1484,40 @@ false prevent execution</dd>
     
 
 </article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_controllerProperties">
+        $controllerProperties
+        <a href="classes/fpcm-controller-traits-modules-controllerProperties.html#property_controllerProperties" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/controller/traits/modules/controllerProperties.php"><a href="files/inc-controller-traits-modules-controllerproperties.html"><abbr title="inc/controller/traits/modules/controllerProperties.php">controllerProperties.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">20</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">$controllerProperties</span>
+     = <span class="phpdocumentor-signature__default-value">[]</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+
+</article>
             </section>
 
             <section class="phpdocumentor-methods">
@@ -1531,7 +1588,7 @@ false prevent execution</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/controller/abstracts/controller.php"><a href="files/inc-controller-abstracts-controller.html"><abbr title="inc/controller/abstracts/controller.php">controller.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">538</span>
+    <span class="phpdocumentor-element-found-in__line">539</span>
 
     </aside>
 
@@ -1614,7 +1671,7 @@ false prevent execution</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/controller/abstracts/controller.php"><a href="files/inc-controller-abstracts-controller.html"><abbr title="inc/controller/abstracts/controller.php">controller.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">549</span>
+    <span class="phpdocumentor-element-found-in__line">550</span>
 
     </aside>
 
@@ -1627,6 +1684,127 @@ false prevent execution</dd>
     
     
     
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">void</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method___get">
+        __get()
+        <a href="classes/fpcm-controller-traits-modules-controllerProperties.html#method___get" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/controller/traits/modules/controllerProperties.php"><a href="files/inc-controller-traits-modules-controllerproperties.html"><abbr title="inc/controller/traits/modules/controllerProperties.php">controllerProperties.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">28</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Magic get to prevent dynamic property message from modules</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">__get</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$name</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$name</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">5.2.0-rc4</span>
+                                                                                
+                                             
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">mixed</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method___set">
+        __set()
+        <a href="classes/fpcm-controller-traits-modules-controllerProperties.html#method___set" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="inc/controller/traits/modules/controllerProperties.php"><a href="files/inc-controller-traits-modules-controllerproperties.html"><abbr title="inc/controller/traits/modules/controllerProperties.php">controllerProperties.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">40</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Magic set to prevent dynamic property message from modules</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">__set</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$name</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$name</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$value</span>
+                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">since</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">5.2.0-rc4</span>
+                                                                                
+                                             
+                                    </dd>
+                        </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">void</span>
@@ -1746,7 +1924,7 @@ false prevent execution of request() and process()</p>
                     <span class="phpdocumentor-tag__name">see</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
-                                                                                    <span class="phpdocumentor-tag-link"><abbr title="\fpcm\controller\interfaces\controller">controller</abbr></span>
+                                                                                    <span class="phpdocumentor-tag-link"><a href="classes/fpcm-controller-interfaces-controller.html"><abbr title="\fpcm\controller\interfaces\controller">controller</abbr></a></span>
                                         
                                              
                                     </dd>
@@ -1840,7 +2018,7 @@ false prevent execution of request() and process()</p>
                     <span class="phpdocumentor-tag__name">see</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
-                                                                                    <span class="phpdocumentor-tag-link"><abbr title="\fpcm\controller\interfaces\controller">controller</abbr></span>
+                                                                                    <span class="phpdocumentor-tag-link"><a href="classes/fpcm-controller-interfaces-controller.html"><abbr title="\fpcm\controller\interfaces\controller">controller</abbr></a></span>
                                         
                                              
                                     </dd>
@@ -1935,7 +2113,7 @@ false prevent execution</p>
                     <span class="phpdocumentor-tag__name">see</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
-                                                                                    <span class="phpdocumentor-tag-link"><abbr title="\fpcm\controller\interfaces\controller">controller</abbr></span>
+                                                                                    <span class="phpdocumentor-tag-link"><a href="classes/fpcm-controller-interfaces-controller.html"><abbr title="\fpcm\controller\interfaces\controller">controller</abbr></a></span>
                                         
                                              
                                     </dd>
@@ -2136,7 +2314,7 @@ false prevent execution</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/controller/abstracts/controller.php"><a href="files/inc-controller-abstracts-controller.html"><abbr title="inc/controller/abstracts/controller.php">controller.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">575</span>
+    <span class="phpdocumentor-element-found-in__line">576</span>
 
     </aside>
 
@@ -2373,7 +2551,7 @@ false prevent execution</p>
         class="phpdocumentor-element
             -method
             -protected
-                                                        "
+            -deprecated                                            "
 >
     <h4 class="phpdocumentor-element__name" id="method_getToolbarButtonToggleClass">
         getToolbarButtonToggleClass()
@@ -2382,13 +2560,13 @@ false prevent execution</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/controller/abstracts/controller.php"><a href="files/inc-controller-abstracts-controller.html"><abbr title="inc/controller/abstracts/controller.php">controller.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">644</span>
+    <span class="phpdocumentor-element-found-in__line">646</span>
 
     </aside>
 
         <p class="phpdocumentor-summary">Get toolbar button toggle class</p>
 
-    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <code class="phpdocumentor-code phpdocumentor-signature -deprecated">
     <span class="phpdocumentor-signature__visibility">protected</span>
                     <span class="phpdocumentor-signature__name">getToolbarButtonToggleClass</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$tabIndex</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$class</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$notIfNull</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">false</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
 
@@ -2431,6 +2609,14 @@ false prevent execution</p>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                             <span class="phpdocumentor-tag-link">5.2.0.a1</span>
+                                                                                
+                                             
+                                    </dd>
+                                                <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">deprecated</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                            <span class="phpdocumentor-tag-link">5.3.0-a1</span>
                                                                                 
                                              
                                     </dd>
@@ -2488,7 +2674,7 @@ false prevent execution</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/controller/abstracts/controller.php"><a href="files/inc-controller-abstracts-controller.html"><abbr title="inc/controller/abstracts/controller.php">controller.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">564</span>
+    <span class="phpdocumentor-element-found-in__line">565</span>
 
     </aside>
 
@@ -2587,7 +2773,7 @@ false prevent execution</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/controller/abstracts/controller.php"><a href="files/inc-controller-abstracts-controller.html"><abbr title="inc/controller/abstracts/controller.php">controller.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">631</span>
+    <span class="phpdocumentor-element-found-in__line">632</span>
 
     </aside>
 
@@ -2710,7 +2896,7 @@ false prevent execution</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="inc/controller/abstracts/controller.php"><a href="files/inc-controller-abstracts-controller.html"><abbr title="inc/controller/abstracts/controller.php">controller.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">604</span>
+    <span class="phpdocumentor-element-found-in__line">605</span>
 
     </aside>
 

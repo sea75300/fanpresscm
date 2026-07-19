@@ -3,7 +3,7 @@
 /**
  * FanPress CM language variables file: de
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2025, Stefan Seehafer
+ * @copyright (c) 2011-2026, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -551,6 +551,7 @@ $lang = array (
   'MODULES_SEARCH_FILTER_TEXT' => 'Suche nach Name oder Schlüssel',
   'MSG_FILES_CREATETHUMBS' => 'Vorschaubilder werden neu erzeugt...',
   'NAVIGATION_SHOW' => 'Menü',
+  'NOTIFICATIONS_NEW' => 'Es gibt neue Benachrichtigungen für dich!',
   'NOTIFICATION_ERROR_EVENTS' => 'Beim Ausführen des Events "{{eventName}}" ist ein Fehler aufgetreten. Prüfe die Systemprokolle und aktualisiere installierte Module.',
   'NOTIFICATION_EXPERIMENTAL_MINJS' => 'Minimierte JavaScript-Dateien werden verwendet. Änderungen werden evtl. nicht sofort übernommen.',
   'PACKAGEMANAGER_BACKUPFS' => 'Erstelle Dateisystem-Backup...',

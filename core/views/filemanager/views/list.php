@@ -37,7 +37,7 @@
                                  width="<?php print $thumbsize; ?>"
                                  height="<?php print $thumbsize; ?>">
                         <?php else : ?>
-                            <img class="img-fluid rounded-start p-5" loading="lazy" src="<?php print fpcm\classes\loader::libGetFileUrl('font-awesome/svg/image.svg'); ?>" title="<?php print $file->getFileName(); ?>" width="<?php print $thumbsize; ?>" height="<?php print $thumbsize; ?>">
+                            <img class="img-fluid rounded-start p-5" loading="lazy" src="<?php print fpcm\classes\loader::libGetFileUrl('font-awesome/svg/file-image.svg'); ?>" title="<?php print $file->getFileName(); ?>" width="<?php print $thumbsize; ?>" height="<?php print $thumbsize; ?>">
                         <?php endif; ?>
                         </a>
                     <?php elseif ($file->isAudioVideo()) : ?>

@@ -25,7 +25,7 @@ class setReminder extends \fpcm\controller\abstracts\ajaxController
      * Reminder id
      * @var int
      */
-    private int $rid;
+    private ?int $rid;
 
     /**
      * Object id
@@ -81,12 +81,14 @@ class setReminder extends \fpcm\controller\abstracts\ajaxController
 
         $dt = \fpcm\classes\dateTimeHelper::getTimestampFromString($this->time['date'], $this->time['time']);
 
-        $id = $this->rid ?? null;
+        if ($this->rid === 0) {
+            $this->rid = null;
+        }
 
-        $obj = new \fpcm\model\reminders\reminder($id);
+        $obj = new \fpcm\model\reminders\reminder($this->rid);
 
         $suid = $this->session->getUserId();
-        $ruid = $rem->getUserID();
+        $ruid = $obj->getUserID();
 
         if ($this->rid && $ruid !== $suid) {
 

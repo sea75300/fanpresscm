@@ -41,12 +41,12 @@ final class error extends \fpcm\view\view {
      * @param string $backController
      * @param string $icon
      */
-    public function __construct($errorMessage, $backController = '', $icon = '')
+    public function __construct(string $errorMessage, string $backController = '', string $icon = '')
     {
         parent::__construct('common/error');
         $this->errorMessage = $this->language->translate($errorMessage);
         $this->backController = trim($backController ?? '');
-        $this->icon = trim($icon ?? 'exclamation-triangle');
+        $this->icon = trim($icon) ? $icon : 'triangle-exclamation';
         $this->showHeaderFooter(view::INCLUDE_HEADER_NONE);
     }
 

@@ -117,7 +117,7 @@ abstract class remoteModel extends staticModel {
         $remoteTest = @fsockopen(parse_url($this->remoteServer, PHP_URL_HOST), $this->remotePort);
 
         if (!$remoteTest) {
-            trigger_error('Unable to connect to remote server: ' . $this->remoteUrl);
+            trigger_error('Unable to connect to remote server: ' . $this->remoteServer);
             return false;
         }
 

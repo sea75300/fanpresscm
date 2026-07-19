@@ -147,7 +147,7 @@ var Search = (function () {
 
         window.addEventListener('keyup', function (event) {
             if (event.key === '/') {
-                searchField.trigger('focus');
+                searchField.focus();
             }
             if (event.code === 'Escape') {
                 close();

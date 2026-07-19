@@ -26,6 +26,10 @@ div.modal-body {
     background-color: var(--fpcm-modal-bg);
 }
 
+div.fpcm.ui-files-card audio {
+    margin-top: -2rem;
+}
+
 /* ------ TinyMCE */
 td.fpcm-tinymce-emoticons img {
     padding: 0.5em !important;

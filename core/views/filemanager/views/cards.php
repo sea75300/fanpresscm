@@ -34,16 +34,28 @@
                          title="<?php print $file->getFileName(); ?>"
                          alt="<?php if ($file->getAltText()) : ?><?php print $theView->escapeVal($file->getAltText()); ?><?php else : ?><?php print $theView->escapeVal(basename($file->getFilename())); ?><?php endif; ?>">
                 <?php else : ?>
-                    <img class="card-img-top rounded-top overflow-hidden p-5" loading="lazy" src="<?php print fpcm\classes\loader::libGetFileUrl('font-awesome/svg/image.svg'); ?>" title="<?php print $file->getFileName(); ?>">
+                    <img class="card-img-top rounded-top overflow-hidden p-5" height="300" width="300" loading="lazy" src="<?php print fpcm\classes\loader::libGetFileUrl('font-awesome/svg/file-image.svg'); ?>" title="<?php print $file->getFileName(); ?>">
                 <?php endif; ?>
                 </a>
             <?php elseif ($file->isAudioVideo()) : ?>
+
+                <?php if ($file->isAudio()) : ?>
+                
+                <img class="card-img-top rounded-top overflow-hidden p-5" height="300" width="300" loading="lazy" src="<?php print fpcm\classes\loader::libGetFileUrl('font-awesome/svg/file-audio.svg'); ?>" title="<?php print $file->getFileName(); ?>">
+                
+                <audio controls
+                       height="300"
+                    <source src="<?php print $file->getFileUrl(); ?>" type="<?php print $file->getMimetype(); ?>">
+                </audio>
+                <?php else : ?>
                 <video controls
-                       height="300" 
-                       class="card-img-top rounded-top<?php if ($file->isAudio()) : ?> bg-body-tertiary p-3<?php endif; ?>" 
-                       <?php if ($file->isAudio()) : ?>poster="<?php print fpcm\classes\loader::libGetFileUrl('font-awesome/svg/file-audio.svg'); ?>"<?php endif; ?>>
+                       height="300"
+                       class="card-img-top rounded-top"
                     <source src="<?php print $file->getFileUrl(); ?>" type="<?php print $file->getMimetype(); ?>">
                 </video>
+                <?php endif; ?>
+
+
             <?php endif; ?>
 
                 <div class="card-body">
