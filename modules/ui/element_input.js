@@ -39,6 +39,8 @@ export class element_input {
     required = false;
     
     icon = false;
+
+    onInput = null;
     
     data = [];
 
@@ -109,6 +111,10 @@ export class element_input {
         
         if (this.required) {
             _input.required = this.required;
+        }
+        
+        if (this.onInput) {
+            _input.addEventListener('keydown', this.onInput);
         }
 
         _wrapper.appendChild(_input);

@@ -442,6 +442,94 @@ if (fpcm.editor) {
 
     };
 
+    fpcm.editor.insertEmojis = function () {
+
+        let _div = document.createElement('div');
+
+        var _search = new fpcm.ui.forms.input();
+        _search.name = 'emoji-search';
+        _search.type = 'text';
+        _search.label = fpcm.ui.translate('ARTICLE_SEARCH_TEXT');
+        _search.value = '';
+        _search.labelIcon = new fpcm.ui.forms.icon();
+        _search.labelIcon.icon = 'search';
+        _search.onInput = function(_ev) {
+
+            let _hidden = document.querySelectorAll('span[data-emoji].d-none')
+            if (_hidden.length) {
+
+                for (var _i = 0; _i < _hidden.length; _i++) {
+
+                    if (!_hidden[_i]) {
+                        continue;
+                    }
+
+                    _hidden[_i].classList.remove('d-none');
+                }
+            }
+
+            let _term = _ev.currentTarget.value;
+            if (_term.length < 2) {
+                return;
+            }
+
+            for (var _em in fpcm.vars.jsvars.editorConfig.emojis) {
+
+                if (! fpcm.vars.jsvars.editorConfig.emojis[_em]) {
+                    continue;
+                }
+
+                let _name = fpcm.vars.jsvars.editorConfig.emojis[_em].name;
+                let _group = fpcm.vars.jsvars.editorConfig.emojis[_em].group;
+                let _slug = fpcm.vars.jsvars.editorConfig.emojis[_em].slug;
+
+
+                if (_name.search(_term) !== -1 ||
+                    _group.search(_term) !== -1) {
+                    continue;
+                }
+
+                let _id = fpcm.ui.prepareId('emoji-' + _slug, true);
+                document.getElementById(_id).classList.add('d-none');
+            }
+        };
+
+        _search.assignToDom(_div);
+
+
+        for (var _em in fpcm.vars.jsvars.editorConfig.emojis) {
+
+            if (! fpcm.vars.jsvars.editorConfig.emojis[_em]) {
+                continue;
+            }
+
+            var _dom = document.createElement('span');
+            _dom.innerHTML = _em;
+            _dom.id = fpcm.ui.prepareId('emoji-' + fpcm.vars.jsvars.editorConfig.emojis[_em].slug, true);
+            _dom.title = fpcm.vars.jsvars.editorConfig.emojis[_em].name;
+            _dom.setAttribute('data-emoji', _em);
+            _dom.classList.add('d-inline-block', 'btn', 'btn-outline-light', 'm-1', 'fs-4');
+
+            _dom.addEventListener('click', (_e) => {
+                fpcm.editor.insert(_e.currentTarget.dataset.emoji, '');
+            });
+
+            _div.appendChild(_dom);
+        }
+
+        fpcm.ui_dialogs.insert({
+            id: 'editor-html-insertemojis',
+            title: 'EDITOR_INSERTEMOJI',
+            directAssignToDom: true,
+            content: _div,
+            icon: {
+                icon: 'face-smile'
+            }
+
+        });
+
+    };
+
     fpcm.editor.insertSymbol = function () {
 
         fpcm.ui_dialogs.insert({

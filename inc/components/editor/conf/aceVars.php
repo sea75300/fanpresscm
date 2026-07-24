@@ -176,14 +176,15 @@ class aceVars {
             'pagebreak' => (new \fpcm\view\helper\button('-ace-readmore'))->setText('EDITOR_HTML_BUTTONS_PAGEBREAK')->setIcon('percentage')->setData(['action' => 'insertPageBreak']),
             'table' => (new \fpcm\view\helper\button('-ace-table'))->setText('EDITOR_INSERTTABLE')->setIcon('table')->setData(['action' => 'insertTable']),
             'delim4' => (new \fpcm\view\helper\toolbarSeperator('sep4'))->setClass(' me-1 mb-1'),
-            'smileys' => (new \fpcm\view\helper\button('-ace-smileys'))->setText('HL_OPTIONS_SMILEYS')->setIcon('smile-beam')->setData(['action' => 'insertSmilies']),
+            'emojis' => (new \fpcm\view\helper\button('-ace-emojis'))->setText('EDITOR_EMOJIS')->setIcon('face-smile')->setData(['action' => 'insertEmojis']),
             'drafts' => (new \fpcm\view\helper\button('-ace-drafts'))->setText('EDITOR_HTML_BUTTONS_ARTICLETPL')->setIcon('file-alt', 'far')->setData(['action' => 'insertDrafts']),
             'symbol' => (new \fpcm\view\helper\button('-ace-symbol'))->setText('EDITOR_HTML_BUTTONS_SYMBOL')->setIcon('font')->setData(['action' => 'insertSymbol']),
             'delim5' => (new \fpcm\view\helper\toolbarSeperator('sep5'))->setClass(' me-1 mb-1'),
             'removestyles' => (new \fpcm\view\helper\button('-ace-remstyles'))->setText('EDITOR_HTML_BUTTONS_REMOVESTYLE')->setIcon('remove-format')->setData(['action' => 'removeTags']),
             'restore' => (new \fpcm\view\helper\button('-ace-restore'))->setText('EDITOR_AUTOSAVE_RESTORE')->setIcon('robot')->setData(['action' => 'restoreSave'])->setReadonly(true),
             'undo' => (new \fpcm\view\helper\button('-ace-undo'))->setText('EDITOR_HTML_BUTTONS_UNDO')->setIcon('undo')->setData(['action' => 'undo'])->setReadonly(true),
-            'redo' => (new \fpcm\view\helper\button('-ace-redo'))->setText('EDITOR_HTML_BUTTONS_REDO')->setIcon('redo')->setData(['action' => 'redo'])->setReadonly(true)
+            'redo' => (new \fpcm\view\helper\button('-ace-redo'))->setText('EDITOR_HTML_BUTTONS_REDO')->setIcon('redo')->setData(['action' => 'redo'])->setReadonly(true),
+            'smileys' => (new \fpcm\view\helper\button('-ace-smileys'))->setText('HL_OPTIONS_SMILEYS')->setIcon('smile-beam')->setData(['action' => 'insertSmilies']),
         ];
     }
 

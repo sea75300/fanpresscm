@@ -227,7 +227,6 @@ implements \fpcm\controller\interfaces\requestFunctions
             'SYSTEM_OPTIONS_NEWS_SOURCESLIST'
         ], $this->editorPlugin->getJsLangVars()));
 
-
         $this->view->addButton(
             (new \fpcm\view\helper\saveButton('articleSave'))
                 ->setToolbarToggle(1)
