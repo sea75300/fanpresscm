@@ -141,7 +141,11 @@ class comments extends \fpcm\controller\abstracts\ajaxController {
             return true;
         }
 
-        $data = $this->request->fromPOST('comment');
+        $data = $this->request->fromPOST('comment', [
+            \fpcm\model\http\request::FILTER_STRIPSLASHES,
+            \fpcm\model\http\request::FILTER_TRIM,
+            \fpcm\model\http\request::FILTER_HTMLSPECIALCHARS
+        ]);
 
         $privacy = (bool) ($data['privacy'] ?? false);
 
@@ -212,7 +216,7 @@ class comments extends \fpcm\controller\abstracts\ajaxController {
         $commentObj->setName($data['name']);
         $commentObj->setEmail($data['email']);
         $commentObj->setWebsite($data['website']);
-        $commentObj->setText(\fpcm\model\comments\comment::prepareCommentText($data['text']));
+        $commentObj->setText($data['text']);
         $commentObj->setPrivate(isset($data['private']));
         $commentObj->setIpaddress($this->request->getIp());
         $commentObj->setApproved($this->config->comments_confirm ? false : true);
