@@ -119,6 +119,24 @@ abstract class cron implements \fpcm\model\interfaces\cron {
     }
 
     /**
+     * Destructor call if cronjob is still running
+     * to set finished and update last exec time
+     * @return void
+     * @since 5.3.2
+     */
+    public function __destruct()
+    {
+        if (!$this->isrunning) {
+            return;
+        }
+        
+        fpcmLogCron('Destruct called!');
+        
+        $this->setFinished();
+        $this->updateLastExecTime();
+    }
+
+    /**
      * Häufigkeit der Ausführung einschränken
      * @return bool
      */
@@ -364,7 +382,11 @@ abstract class cron implements \fpcm\model\interfaces\cron {
 
         $lkey = $this->getCronNameLangVar('MAIL_SUBJECT_');
 
-        $email = new \fpcm\classes\email( $conf->system_email, $lang->translate($lkey), '', false, $html);
+        $email = new \fpcm\classes\email(
+            to: $conf->system_email,
+            subject: $lang->translate($lkey),
+            html: $html
+        );
         
         if (!$email->fromTemplate($this->cronName, $vars, $fromData)) {
             return false;

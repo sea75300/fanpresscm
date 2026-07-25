@@ -310,8 +310,7 @@ implements \fpcm\controller\interfaces\requestFunctions {
 
             $mail = new \fpcm\classes\email(
                 $this->config->system_email,
-                $this->language->translate('LOGIN_ATTEMPTS_MAX_MAIL'),
-                ''
+                $this->language->translate('LOGIN_ATTEMPTS_MAX_MAIL')
             );
 
             $mail->setHtml(false);

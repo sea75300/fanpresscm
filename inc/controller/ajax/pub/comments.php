@@ -202,7 +202,7 @@ class comments extends \fpcm\controller\abstracts\ajaxController {
 
             return true;
         }
-        
+
         $this->cache->cleanup();
 
         $data['website'] = filter_var($data['website'], FILTER_VALIDATE_URL);
@@ -212,7 +212,7 @@ class comments extends \fpcm\controller\abstracts\ajaxController {
         $commentObj->setName($data['name']);
         $commentObj->setEmail($data['email']);
         $commentObj->setWebsite($data['website']);
-        $commentObj->setText(nl2br(strip_tags($data['text'], \fpcm\model\comments\comment::COMMENT_TEXT_HTMLTAGS_CHECK)));
+        $commentObj->setText(\fpcm\model\comments\comment::prepareCommentText($data['text']));
         $commentObj->setPrivate(isset($data['private']));
         $commentObj->setIpaddress($this->request->getIp());
         $commentObj->setApproved($this->config->comments_confirm ? false : true);
@@ -236,14 +236,6 @@ class comments extends \fpcm\controller\abstracts\ajaxController {
             \fpcm\view\message::TYPE_NOTICE
         );
 
-        $text = $this->language->translate('PUBLIC_COMMENT_EMAIL_TEXT', array(
-            '{{name}}' => $commentObj->getName(),
-            '{{email}}' => $commentObj->getEmail(),
-            '{{commenttext}}' => strip_tags($commentObj->getText()),
-            '{{articleurl}}' => $article->getElementLink(),
-            '{{systemurl}}' => \fpcm\classes\dirs::getRootUrl()
-        ));
-
         $to = [];
         if ($this->config->comments_notify != 1) {
             $to[] = $this->config->system_email;
@@ -257,7 +249,24 @@ class comments extends \fpcm\controller\abstracts\ajaxController {
             return true;
         }
 
-        $email = new \fpcm\classes\email(implode(',', array_unique($to)), $this->language->translate('PUBLIC_COMMENT_EMAIL_SUBJECT'), $text);
+        $email = new \fpcm\classes\email(
+            to: implode('; ', array_unique($to)),
+            subject:  $this->language->translate('PUBLIC_COMMENT_EMAIL_SUBJECT'),
+            html: true
+        );
+
+        $email->fromTemplate('newComment', [
+            $article->getElementLink(),
+            $article->getElementLink(),
+            $commentObj->getName(),
+            $commentObj->getEmail() ?? '-',
+            $commentObj->getWebsite() ?? '-',
+            $commentObj->getText(),
+            \fpcm\classes\dirs::getRootUrl()
+        ]);
+
+
+
         $email->submit();
         return true;
     }

@@ -76,7 +76,6 @@ $lang = array (
   'CRONJOB_CLEARTEMP' => 'temporäre Dateien aufräumen',
   'CRONJOB_DBBACKUP' => 'System-Datenbank sichern',
   'CRONJOB_DBBACKUPS_SUBJECT' => 'Datenbank-Sicherung wurde erzeugt',
-  'CRONJOB_DBBACKUPS_TEXT' => 'Um {{filetime}} wurde durch den Cronjob eine Sicherung der FanPress CM Datenbank-Tabellen erzeugt. Die Datei findest du unter {{dumpfile}} und als Anhang an dieser E-Mail.',
   'CRONJOB_ECEDUTING' => 'Cronjob <em>{{cjname}}</em> wird ausgeführt, bitte warten...',
   'CRONJOB_FILEINDEX' => 'Dateiindex neu aufbauen',
   'CRONJOB_FMTHUMBS' => 'Dateimanager-Thumbnails erzeugen',
@@ -92,9 +91,6 @@ $lang = array (
   'CRONJOB_UNPINARTICLES' => 'Artikel nach Datum abpinnen',
   'CRONJOB_UPDATECHECK' => 'Prüfung auf Updates',
   'CRONJOB_UPDATES_NEWVERSION' => 'Neue FanPress CM Version verfügbar',
-  'CRONJOB_UPDATES_NEWVERSION_TEXT' => 'Es ist eine neue Version {{version}} von FanPress CM verfügbar. Bitte melde dich im ACP an, um das Update durchzuführen.
-
-{{acplink}}',
   'CSRF_INVALID' => 'Das CSRF-Token ist ungültig. Die Aktion wurde nicht durchgeführt!',
   'DASHBOARD_LOADING' => 'Dashboard-Container werden geladen',
   'DASHBOARD_MANAGE_CONTAINER' => 'Container verwalten',
@@ -652,11 +648,6 @@ $lang = array (
   'PUBLIC_ARTICLE_OLD' => 'Dieser Artikel ist bereits sehr alt. Die Informationen können falsch oder veraltet sein.',
   'PUBLIC_ARTICLE_PINNED' => 'Dieser Artikel ist gepinnt und wird über allen anderen angezeigt.',
   'PUBLIC_COMMENT_EMAIL_SUBJECT' => 'Es wurde ein neuer Kommentar geschrieben',
-  'PUBLIC_COMMENT_EMAIL_TEXT' => 'Von {{name}} (E-Mail-Adresse: {{email}}) wurde ein Kommentar auf den Artikel {{articleurl}} geschrieben.
-
-{{commenttext}}
-
-Logge dich ein, um den Kommentar zu moderieren. {{systemurl}}',
   'PUBLIC_FAILED_CAPTCHA' => 'Du hast die Captcha-Frage nicht korrekt beantwortet!',
   'PUBLIC_FAILED_EMAIL' => 'Es wurde keine gültige E-Mail-Adresse eingegeben!',
   'PUBLIC_FAILED_FLOOD' => 'Bitte warte mindestens {{seconds}} Sekunden, bevor du einen weiteren Kommentar schreibst!',

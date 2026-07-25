@@ -76,7 +76,6 @@ $lang = array (
   'CRONJOB_CLEARTEMP' => 'Clean up temporary files',
   'CRONJOB_DBBACKUP' => 'Back up system database',
   'CRONJOB_DBBACKUPS_SUBJECT' => 'Database backup was created',
-  'CRONJOB_DBBACKUPS_TEXT' => 'At {{filetime}} the cronjob created a backup of the FanPress CM database tables. You can find the file at {{dumpfile}} and as an attachment to this email.',
   'CRONJOB_ECEDUTING' => 'Cronjob <em>{{cjname}}</em> is executed, please wait...',
   'CRONJOB_FILEINDEX' => 'Rebuild file index',
   'CRONJOB_FMTHUMBS' => 'Create file manager thumbnails',
@@ -92,9 +91,6 @@ $lang = array (
   'CRONJOB_UNPINARTICLES' => 'Unpic articles by date',
   'CRONJOB_UPDATECHECK' => 'Check for updates',
   'CRONJOB_UPDATES_NEWVERSION' => 'New FanPress CM version available',
-  'CRONJOB_UPDATES_NEWVERSION_TEXT' => 'There is a new version {{version}} of FanPress CM available. Please log in to the ACP to update.
-
-{{acplink}}.',
   'CSRF_INVALID' => 'The CSRF token is invalid. The action was not performed!',
   'DASHBOARD_LOADING' => 'Dashboard containers are loaded',
   'DASHBOARD_MANAGE_CONTAINER' => 'Manage containers',
@@ -652,11 +648,6 @@ $lang = array (
   'PUBLIC_ARTICLE_OLD' => 'This article is very old yet. Its information can be wrong or outdated.',
   'PUBLIC_ARTICLE_PINNED' => 'This article is pinned and displayed above all others.',
   'PUBLIC_COMMENT_EMAIL_SUBJECT' => 'A new comment has been posted.',
-  'PUBLIC_COMMENT_EMAIL_TEXT' => 'A comment was created by {{name}} (email address: {{email}}) on the article {{articleurl}}.
-
-{{commenttext}}
-
-Log in to moderate the comment. {{systemurl}}',
   'PUBLIC_FAILED_CAPTCHA' => 'You did not answer the captcha question correctly!',
   'PUBLIC_FAILED_EMAIL' => 'No valid e-mail address was entered!',
   'PUBLIC_FAILED_FLOOD' => 'Please wait at least {{seconds}} seconds before posting another comment!',

@@ -28,7 +28,7 @@ implements \fpcm\model\interfaces\isCsvImportable {
     /**
      * Erlaubte HTML-Tags in einem Kommentar, interne Prüfung
      */
-    const COMMENT_TEXT_HTMLTAGS_CHECK = '<b><strong><i><em><u><a><blockquote><q><p><span><div><ul><ol><li><img>';
+    const COMMENT_TEXT_HTMLTAGS_CHECK = ['<b>', '<strong>', '<i>', '<em>', '<u>', '<a>', '<blockquote>', '<q>', '<p>', '<span>', '<div>', '<ul>', '<ol>', '<li>', '<img>'];
 
     /**
      * Article-ID
@@ -551,7 +551,7 @@ implements \fpcm\model\interfaces\isCsvImportable {
 
         $obj->setArticleid($data['articleid']);
         $obj->setName($data['name']);
-        $obj->setText(nl2br(strip_tags($data['text'], \fpcm\model\comments\comment::COMMENT_TEXT_HTMLTAGS_CHECK)));
+        $obj->setText(self::prepareCommentText($data['text']));
         $obj->setEmail(filter_var($data['email'] ?? '', FILTER_SANITIZE_EMAIL) );
         $obj->setWebsite(filter_var($data['website'] ?? '', FILTER_SANITIZE_URL));
         $obj->setApproved($data['approved'] ?? 1);
@@ -656,6 +656,26 @@ implements \fpcm\model\interfaces\isCsvImportable {
         $this->cache->cleanup(\fpcm\model\articles\article::CACHE_ARTICLE_MODULE.'/'.\fpcm\classes\cache::CLEAR_ALL);
         $this->init();
         return true;
+    }
+
+    /**
+     * Prepared comment text, removed dangerous items
+     * @param string $text
+     * @return string
+     * @since 5.3.4
+     */
+    final public static function prepareCommentText(string $text) : string
+    {
+        $stripped = strip_tags($text, \fpcm\model\comments\comment::COMMENT_TEXT_HTMLTAGS_CHECK);
+        
+        $re = '/(\ on[\w])/mi';
+        $subst = " FPCM";
+
+        $result = preg_replace($re, $subst, $stripped);
+        
+        fpcmLogSystem($result);
+        
+        return nl2br($result);
     }
 
 }
