@@ -399,6 +399,16 @@ final class baseconfig {
     }
 
     /**
+     * Check if useage of min.js or .js files
+     * @return bool
+     * @since 5.4.0-dev
+     */
+    public static function useMinfiedJS() : bool
+    {
+        return defined('FPCM_VIEW_JS_USE_MINIFIED') && FPCM_VIEW_JS_USE_MINIFIED;
+    }
+
+    /**
      * Aktiviert bzw. deaktiviert asynchrone Cronjob-Ausführung
      * @param bool $status neuer Status
      * @return bool

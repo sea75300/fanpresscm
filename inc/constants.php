@@ -180,7 +180,7 @@ if (!defined('FPCM_VIEW_JS_USE_MINIFIED')) {
      * Disable upload für module package files
      * @since 4.5
      */
-    define('FPCM_VIEW_JS_USE_MINIFIED', false);
+    define('FPCM_VIEW_JS_USE_MINIFIED', true);
 }
 
 if (!defined('FPCM_PUB_SEARCH_MINLEN')) {

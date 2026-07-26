@@ -1427,7 +1427,8 @@ class view {
     final public static function getJsExt() : string
     {
         $jsExt = '.js';
-        if (\fpcm\classes\baseconfig::debugModeActive()) {
+
+        if (\fpcm\classes\baseconfig::debugModeActive() || !\fpcm\classes\baseconfig::useMinfiedJS()) {
             return $jsExt;
         }
 
