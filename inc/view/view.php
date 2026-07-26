@@ -28,7 +28,7 @@ class view {
 
     const PATH_COMPONENTS = '{$components}';
     const PATH_MODULE = '{$module}';
-    
+
     const VIEW_FILE_EXTENSION = '.php';
 
     /**
@@ -229,9 +229,13 @@ class view {
             $this->notifications = \fpcm\classes\loader::getObject('\fpcm\model\theme\notifications');
         }
 
+        $jsRoot = \fpcm\classes\baseconfig::debugModeActive()
+                ? \fpcm\classes\dirs::CORE_JS_SRC
+                : \fpcm\classes\dirs::CORE_JS;
+
         $this->rootUrls = [
             self::ROOTURL_LIB => \fpcm\classes\dirs::getLibUrl(''),
-            self::ROOTURL_CORE_JS => \fpcm\classes\dirs::getCoreUrl(\fpcm\classes\dirs::CORE_JS, ''),
+            self::ROOTURL_CORE_JS => \fpcm\classes\dirs::getCoreUrl($jsRoot, ''),
             self::ROOTURL_CORE_THEME => \fpcm\classes\dirs::getCoreUrl(\fpcm\classes\dirs::CORE_THEME, '')
         ];
 
@@ -341,7 +345,7 @@ class view {
             $this->defaultViewVars->profileMenuButtons = $default;
             return false;
         }
-        
+
         $btns = $ev->getData();
         if (!is_array($btns)) {
             trigger_error("Returned data of view\extendProfileMenu event must be an array, retuning to default only!");
@@ -745,7 +749,7 @@ class view {
         if (!is_array($vars)) {
             throw new \Exception("Return data of view\renderBefore must be an array!");
         }
-        
+
         extract($vars);
 
         switch ($this->showHeader) {
@@ -906,7 +910,7 @@ class view {
         if (!\fpcm\classes\baseconfig::dbConfigExists()) {
             return false;
         }
-        
+
         if ( !$this->session->exists()) {
             $this->defaultViewVars->darkMode = $this->config->system_darkmode;
             return false;
@@ -1252,7 +1256,7 @@ class view {
                 continue;
             }
 
-            $this->jsVars['dialogs'][$dlg->getName()] = $dlg;            
+            $this->jsVars['dialogs'][$dlg->getName()] = $dlg;
             $this->addJsLangVars($dlg->getJsLangVars());
         }
 
@@ -1372,12 +1376,12 @@ class view {
             self::ROOTURL_CORE_JS . 'common/reminders' . $ext,
             self::ROOTURL_CORE_JS . 'common/gsearch' . $ext
         ];
-        
+
         if (\fpcm\classes\baseconfig::debugModeActive()) {
             $files[] = self::ROOTURL_CORE_JS . 'common/dev' . $ext;
             $files[] = 'https://code.jquery.com/jquery-migrate-4.0.2.js';
         }
-        
+
         $this->addJsFiles($files);
 
         $this->addJsFilesLate([self::ROOTURL_CORE_JS.'init'.self::getJsExt()]);
@@ -1423,7 +1427,7 @@ class view {
     final public static function getJsExt() : string
     {
         $jsExt = '.js';
-        if (!defined('FPCM_VIEW_JS_USE_MINIFIED') || !FPCM_VIEW_JS_USE_MINIFIED) {
+        if (\fpcm\classes\baseconfig::debugModeActive()) {
             return $jsExt;
         }
 

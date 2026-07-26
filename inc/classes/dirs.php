@@ -33,6 +33,7 @@ final class dirs {
     const DATA_OPTIONS = 'options';
     const DATA_BACKUP = 'backup';
     const CORE_JS = 'js';
+    const CORE_JS_SRC = 'js';
     const CORE_THEME = 'theme';
     const CORE_VIEWS = 'views';
 
