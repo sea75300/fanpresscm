@@ -1176,20 +1176,6 @@ Help language file
 
         ]]>
     </chapter>
-    <chapter ref="HL_OPTIONS_SMILEYS">
-        <![CDATA[
-        <p>Benutzer mit den entsprechenden Rechten können die nutzbaren Smileys verwalten.</p>
-        <dl>
-            <dt>Smiley-Code:</dt>
-            <dd class="pb-2">Der Smiley-Code wird in Artikeln und Kommentaren als Platzhalter für die entsprechende
-                Grafik verwendet. Die Ersetzung erfolgt beim Parsen eines Artikels bzw. Kommentars im Frontend. Jeder Smiley-Code kann nur
-                einmal angelegt werden.</dd>
-            <dt>Dateiname:</dt>
-            <dd class="pb-2">Dieses Feld umfasst nur den Dateinamen der entsprechenden Smiley-Grafik, welche unter
-                <em>/data/smileys</em> abgelegt wurden.</dd>
-        </dl>
-        ]]>
-    </chapter>
     <chapter ref="HL_CRONJOBS">
         <![CDATA[
         <ul>

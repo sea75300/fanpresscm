@@ -285,15 +285,13 @@ final class check extends \fpcm\model\abstracts\staticModel {
 
 
         $memcache = \fpcm\classes\baseconfig::hasMemcache();
-        $this->result['memcache']
-            = new option(
-                current: $this->toBoolText($memcache ),
-                helplink: 'https://www.php.net/manual/de/book.memcache.php',
-                result: (true && $memcache),
-                optional: true,
-                label: $this->language->translate('SYSTEM_OPTIONS_SYSCHECK_MEMCACHE') . ' (' . $this->language->translate('GLOBAL_OPTIONAL') . ')'
-            );
-
+        $this->result['memcache'] = new option(
+            current: $this->toBoolText($memcache ),
+            helplink: 'https://www.php.net/manual/de/book.memcache.php',
+            result: (true && $memcache),
+            optional: true,
+            label: $this->language->translate('SYSTEM_OPTIONS_SYSCHECK_MEMCACHE') . ' (' . $this->language->translate('GLOBAL_OPTIONAL') . ')'
+        );
 
         $dirs = $this->getCheckFolders();
 
@@ -372,7 +370,7 @@ final class check extends \fpcm\model\abstracts\staticModel {
     }
 
     /**
-     *
+     * SUbmit system statistics
      * @return bool
      */
     public function submitStats() : bool
