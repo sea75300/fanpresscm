@@ -466,7 +466,6 @@ abstract class migration implements \Stringable {
             \fpcm\classes\database::tablePermissions,
             \fpcm\classes\database::tableRoll,
             \fpcm\classes\database::tableSessions,
-            \fpcm\classes\database::tableSmileys,
             \fpcm\classes\database::tableShares,
             \fpcm\classes\database::tableTexts,
             \fpcm\classes\database::tableRevisions

@@ -26,7 +26,6 @@
 .fpcm-pub-textinput { }
 .fpcm-pub-textarea { }
 .fpcm-pub-checkboxinput { }
-.fpcm-pub-smileys { }
 .fpcm-pub-commentsmiley { }</pre>
     </div>
 </div>

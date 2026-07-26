@@ -61,12 +61,6 @@ class system extends base {
     public $drafts;
 
     /**
-     * Smileys management
-     * @var bool
-     */
-    public $smileys;
-
-    /**
      * Update processing
      * @var bool
      */

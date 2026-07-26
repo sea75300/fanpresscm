@@ -29,9 +29,6 @@ wordban/add: action/wordban/item/add
 wordban/edit: action/wordban/item/edit
 wordban/list: action/wordban/all
 files/list: action/files/filelist
-smileys/list: action/smileys/all
-smileys/add: action/smileys/smiley/add
-smileys/edit: action/smileys/smiley/edit
 ips/list: action/ips/all
 ips/add: action/ips/ip/add
 ips/edit: action/ips/ip/edit

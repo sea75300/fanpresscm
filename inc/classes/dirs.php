@@ -22,7 +22,6 @@ final class dirs {
     const DATA_LOGS = 'logs';
     const DATA_STYLES = 'styles';
     const DATA_SHARE = 'share';
-    const DATA_SMILEYS = 'smileys';
     const DATA_TEMP = 'temp';
     const DATA_UPLOADS = 'uploads';
     const DATA_MEDIA = 'media';

@@ -962,8 +962,6 @@ Help language file
                 nicht entzogen werden.</dd>
             <dt>Templates verwalten</dt>
             <dd class="pb-2">Benutzer kann die Templates und Vorlagen bearbeiten</dd>
-            <dt>Smileys verwalten</dt>
-            <dd class="pb-2">Benutzer kann Smileys neu definieren und bestehende löschen</dd>
             <dt>Updates durchführen</dt>
             <dd class="pb-2">Benutzer kann verfügbare Updates installieren.</dd>
             <dt>System-Protokolle verwalten</dt>

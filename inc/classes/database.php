@@ -82,11 +82,6 @@ final class database {
     const tableShares = 'shares';
 
     /**
-     * Smiley-Tabelle
-     */
-    const tableSmileys = 'smileys';
-
-    /**
      * Wordsperre-Tabelle
      * @since 3.2
      */
