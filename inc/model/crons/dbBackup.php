@@ -7,11 +7,11 @@
 namespace fpcm\model\crons;
 
 /**
- * FanPress CM database dump cronjub
+ * FanPress CM database dump cronjob
  *
  * @package fpcm\model\crons
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2022, Stefan Seehafer
+ * @copyright (c) 2011-2025, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 class dbBackup extends \fpcm\model\abstracts\cron {
@@ -122,13 +122,15 @@ class dbBackup extends \fpcm\model\abstracts\cron {
         fpcmLogCron('Create email notification for new Database backup');
 
         $email = new \fpcm\classes\email(
-            \fpcm\classes\loader::getObject('\fpcm\model\system\config')->system_email,
-            \fpcm\classes\loader::getObject('\fpcm\classes\language')->translate('CRONJOB_DBBACKUPS_SUBJECT'),
-            \fpcm\classes\loader::getObject('\fpcm\classes\language')->translate('CRONJOB_DBBACKUPS_TEXT', array(
-                '{{filetime}}' => date(\fpcm\classes\loader::getObject('\fpcm\model\system\config')->system_dtmask, $this->getLastExecTime()),
-                '{{dumpfile}}' => \fpcm\model\files\ops::removeBaseDir($this->dumpfile)
-            ))
+            to: \fpcm\model\system\config::getInstance()->system_email,
+            subject: \fpcm\classes\loader::getObject('\fpcm\classes\language')->translate('CRONJOB_DBBACKUPS_SUBJECT'),
+            html: true
         );
+        
+        $email->fromTemplate('dbDump', [
+            date(\fpcm\classes\loader::getObject('\fpcm\model\system\config')->system_dtmask, $this->getLastExecTime()),
+            \fpcm\model\files\ops::removeBaseDir($this->dumpfile)
+        ]);
 
         if (defined('FPCM_CRON_DBDUMP_NOMAIL') && FPCM_CRON_DBDUMP_NOMAIL) {
             $email->submit();
@@ -145,6 +147,11 @@ class dbBackup extends \fpcm\model\abstracts\cron {
         return true;
     }
 
+    /**
+     * Get Database dump filer name
+     * @param string $dbName
+     * @return string
+     */
     public static function getDumpFileName(string $dbName) : string
     {
         return \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_DBDUMP, $dbName . '_' . date('Y-m-d_H-i-s') . '.sql');

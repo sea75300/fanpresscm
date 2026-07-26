@@ -175,9 +175,9 @@ class hugerte implements \JsonSerializable {
             'subscript', 'superscript', 'table', 'toc', '|', 'bullist', 'numlist', '|',
             'pagebreak', 'hr', 'blockquote', '|',
             'link', 'unlink', 'anchor', 'image', 'media', '|',
-            'fpcm_emoticons', 'charmap', 'insertdatetime', 'template', '|',
+            'emoticons', 'charmap', 'insertdatetime', 'template', '|',
             'undo', 'redo', 'removeformat', 'searchreplace', 'fullscreen', 'code', 'restoredraft', '|',
-            'emoticons', '|', 'help'
+            'fpcm_emoticons', '|', 'help'
         ]);
 
         $this->textpattern_patterns = $patterns;

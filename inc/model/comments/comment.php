@@ -28,7 +28,7 @@ implements \fpcm\model\interfaces\isCsvImportable {
     /**
      * Erlaubte HTML-Tags in einem Kommentar, interne Prüfung
      */
-    const COMMENT_TEXT_HTMLTAGS_CHECK = '<b><strong><i><em><u><a><blockquote><q><p><span><div><ul><ol><li><img>';
+    const COMMENT_TEXT_HTMLTAGS_CHECK = ['<b>', '<strong>', '<i>', '<em>', '<u>', '<a>', '<blockquote>', '<q>', '<p>', '<span>', '<div>', '<ul>', '<ol>', '<li>', '<img>'];
 
     /**
      * Article-ID
@@ -456,15 +456,15 @@ implements \fpcm\model\interfaces\isCsvImportable {
     }
 
     /**
-     * Bereitet Daten für Speicherung in Datenbank vor
+     * Prepares text for storage in database
      * @return bool
      * @since 3.6
      */
     public function prepareDataSave()
     {
-        $search = ['onload', 'onclick', 'onblur', 'onkey', 'onmouse'];
-        $this->text = str_replace($search, 'forbidden', $this->text);
-
+        $stripped = strip_tags($this->text, \fpcm\model\comments\comment::COMMENT_TEXT_HTMLTAGS_CHECK);
+        $noOns = preg_replace('/(\ on[\w])/mi', ' forbidden', $stripped);
+        $this->text = nl2br($noOns);
         return true;
     }
 
@@ -551,12 +551,13 @@ implements \fpcm\model\interfaces\isCsvImportable {
 
         $obj->setArticleid($data['articleid']);
         $obj->setName($data['name']);
-        $obj->setText(nl2br(strip_tags($data['text'], \fpcm\model\comments\comment::COMMENT_TEXT_HTMLTAGS_CHECK)));
+        $obj->setText($data['text']);
         $obj->setEmail(filter_var($data['email'] ?? '', FILTER_SANITIZE_EMAIL) );
         $obj->setWebsite(filter_var($data['website'] ?? '', FILTER_SANITIZE_URL));
         $obj->setApproved($data['approved'] ?? 1);
         $obj->setSpammer($data['spam'] ?? 0);
         $obj->setPrivate($data['spammer'] ?? 0);
+        $obj->prepareDataSave();
 
         $timer = false;
         if (isset($data['createtime']) && \fpcm\classes\dateTimeHelper::validateDateString($data['createtime'], true)) {

@@ -113,7 +113,8 @@ class aceEditor extends articleEditor {
                 ],
                 'autosavePref' => 'fpcm-editor-as-' . $this->session->getUserId() . 'draft',
                 'pageBreakVar' => \fpcm\model\pubtemplates\article::PAGEBREAK_TAG,
-                'drafts' => $this->getTemplateDrafts()
+                'drafts' => $this->getTemplateDrafts(),
+                'emojis' => json_decode(file_get_contents(\fpcm\classes\dirs::getFullDirPath('lib/unicode-emoji-json/data-by-emoji.json')))
             ]
         ];
 
@@ -145,7 +146,8 @@ class aceEditor extends articleEditor {
             'EDITOR_HTML_BUTTONS_IFRAME', 'EDITOR_LINKURL',
             'EDITOR_INSERTTABLE_ROWS', 'EDITOR_INSERTTABLE_COLS',
             'EDITOR_INSERTLIST_TYPESIGN', 'EDITOR_HTML_BUTTONS_ALEFT',
-            'EDITOR_HTML_BUTTONS_ACENTER', 'EDITOR_HTML_BUTTONS_ARIGHT'
+            'EDITOR_HTML_BUTTONS_ACENTER', 'EDITOR_HTML_BUTTONS_ARIGHT',
+            'EDITOR_INSERTEMOJI', 'ARTICLE_SEARCH_TEXT'
         ];
     }
     

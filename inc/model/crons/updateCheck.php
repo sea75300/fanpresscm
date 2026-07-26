@@ -39,33 +39,27 @@ class updateCheck extends \fpcm\model\abstracts\cron {
         if ($res && $config->system_updates_emailnotify && !$session->exists()) {
 
             $language = \fpcm\classes\loader::getObject('\fpcm\classes\language');
-            $email = new \fpcm\classes\email($config->system_email, $language->translate('CRONJOB_UPDATES_NEWVERSION'), $language->translate('CRONJOB_UPDATES_NEWVERSION_TEXT', [
-                '{{version}}' => $updater->version,
-                '{{acplink}}' => \fpcm\classes\dirs::getRootUrl()
-            ]));
+            $email = new \fpcm\classes\email(
+                to: $config->system_email, 
+                subject: $language->translate('CRONJOB_UPDATES_NEWVERSION'),
+                html: true
+            );
 
-            $res2 = $email->submit();
+            $email->fromTemplate('updateAvailable', [
+                $config->system_version,
+                $updater->version,
+                $updater->changelog,
+                $updater->changelog,
+                \fpcm\classes\dirs::getRootUrl()
+            ]);
+            
+            
+            $email->submit();
         }
 
         $this->updateLastExecTime();
 
         return true;
-    }
-
-    /**
-     * Destructor call if update cronjob is still running
-     * @return void
-     */
-    public function __destruct()
-    {
-        if (!$this->isrunning) {
-            return;
-        }
-        
-        fpcmLogCron('Destruct called!');
-        
-        $this->setFinished();
-        $this->updateLastExecTime();
     }
 
 }

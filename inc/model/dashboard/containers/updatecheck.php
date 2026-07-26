@@ -65,7 +65,7 @@ class updatecheck extends \fpcm\model\abstracts\dashcontainer implements \fpcm\m
     {
         if (!\fpcm\classes\baseconfig::canConnect()) {
             $this->addItem('exclamation-triangle', 'secondary', 'UPDATE_MODULECHECK_FAILED');
-            return sprintf('<div class="row">%s</div>', implode(PHP_EOL, $this->tableContent));
+            return sprintf('<div class="row g-0">%s</div>', implode(PHP_EOL, $this->tableContent));
         }
 
         $this->getSystemUpdateStatus();
@@ -76,7 +76,7 @@ class updatecheck extends \fpcm\model\abstracts\dashcontainer implements \fpcm\m
             itemClass: 'fpcm ui-background-white-50p'
         );
 
-        return sprintf('<div class="row">%s</div>', implode(PHP_EOL, $this->tableContent));
+        return sprintf('<div class="row g-0">%s</div>', implode(PHP_EOL, $this->tableContent));
     }
 
     /**
