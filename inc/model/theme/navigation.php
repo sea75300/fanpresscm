@@ -228,11 +228,6 @@ class navigation extends \fpcm\model\abstracts\staticModel {
                 ->setId('categories')
                 ->setAccessible($this->permissions->system->categories)
                 ->setSpacer(),
-            (new navigationItem())->setUrl('smileys/list')
-                ->setDescription('HL_OPTIONS_SMILEYS')
-                ->setIcon('smile-beam')
-                ->setId('smileys')
-                ->setAccessible($this->permissions->system->smileys),
             (new navigationItem())->setUrl('templates/templates')
                 ->setDescription('HL_OPTIONS_TEMPLATES')
                 ->setIcon('code')

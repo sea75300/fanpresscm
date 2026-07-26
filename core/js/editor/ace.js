@@ -75,7 +75,7 @@ fpcm.editor_ace = {
             fpcm.editor.insertTable();
         },
         "Ctrl-Alt-E": function() {
-            fpcm.editor.insertSmilies();
+            fpcm.editor.insertEmojis();
         },
         "Shift-Ctrl-D": function() {
             fpcm.editor.insertDrafts();
@@ -417,29 +417,6 @@ if (fpcm.editor) {
         });
 
         delete(_inRows, _inType);
-    };
-
-    fpcm.editor.insertSmilies = function () {
-
-        fpcm.ui_dialogs.insert({
-            id: 'editor-html-insertsmileys',
-            title: 'EDITOR_INSERTSMILEY',
-            icon: {
-                icon: 'face-smile'
-            },
-            dlOnOpen: function (_ui, _bso) {
-                fpcm.ajax.exec('editor/smileys', {
-                    quiet: true,
-                    execDone: function (_result) {
-                        _ui.querySelector('.modal-body').innerHTML = _result;
-                        fpcm.dom.bindClick('.fpcm-editor-htmlsmiley', function(_e, _ui) {
-                            fpcm.editor.insert(' ' + _ui.dataset.smileycode + ' ', '');
-                        });
-                    }
-                });
-            }
-        });
-
     };
 
     fpcm.editor.insertEmojis = function () {

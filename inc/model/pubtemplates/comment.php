@@ -105,7 +105,8 @@ final class comment extends template {
 
         $this->lazyReplace($content);
         $this->parseMentions($content);
-        return $this->parseSmileys($content);
+
+        return $content;
     }
 
     /**

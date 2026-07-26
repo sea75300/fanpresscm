@@ -20,8 +20,6 @@ class template extends \fpcm\model\abstracts\file {
 
     const FETCH_REGEX = '/\{{2}((\w*\s?)((?>\w*\=\".*\"\s?)*))\}{2}/i';
 
-    /* const FETCH_REGEX_ALT = '/\{{2}(((ABC|DEB)\s?)((?>\w*\=\".*\"\s?)*))\}{2}/i'; */
-
     /**
      * erlaubte Template-Tags
      * @var array
@@ -269,38 +267,6 @@ class template extends \fpcm\model\abstracts\file {
         }
 
         return $this->replacementTranslated;
-    }
-
-    /**
-     * Parst Smileys in Artikeln und Kommentaren
-     * @param string $content
-     * @return string
-     */
-    protected function parseSmileys($content)
-    {
-        if ($this->cache->isExpired('smileyCache')) {
-            $smileysList = new \fpcm\model\files\smileylist();
-            $smileys = $smileysList->getDatabaseList(true);
-            $this->cache->write('smileyCache', $smileys, $this->config->system_cache_timeout);
-        } else {
-            $smileys = $this->cache->read('smileyCache');
-        }
-
-        foreach ($smileys as $smiley) {
-            $content = str_replace($smiley->getSmileyCode(), $this->parseSmileyFilePath($smiley), $content);
-        }
-
-        return $content;
-    }
-
-    /**
-     * Parst Smileys
-     * @param \fpcm\model\files\smiley $smiley
-     * @return string
-     */
-    private function parseSmileyFilePath(\fpcm\model\files\smiley $smiley)
-    {
-        return "<img {$this->getLazyLoadingImg()} src=\"{$smiley->getSmileyUrl()}\" class=\"fpcm-pub-smiley\" {$smiley->getWhstring()} role=\"presentation\">";
     }
 
     /**

@@ -151,7 +151,7 @@ final class article extends template {
 
         $str = $this->parseGallery($str);
 
-        return $this->parseSmileys($str);
+        return $str;
     }
 
     /**

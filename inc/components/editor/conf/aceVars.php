@@ -183,8 +183,7 @@ class aceVars {
             'removestyles' => (new \fpcm\view\helper\button('-ace-remstyles'))->setText('EDITOR_HTML_BUTTONS_REMOVESTYLE')->setIcon('remove-format')->setData(['action' => 'removeTags']),
             'restore' => (new \fpcm\view\helper\button('-ace-restore'))->setText('EDITOR_AUTOSAVE_RESTORE')->setIcon('robot')->setData(['action' => 'restoreSave'])->setReadonly(true),
             'undo' => (new \fpcm\view\helper\button('-ace-undo'))->setText('EDITOR_HTML_BUTTONS_UNDO')->setIcon('undo')->setData(['action' => 'undo'])->setReadonly(true),
-            'redo' => (new \fpcm\view\helper\button('-ace-redo'))->setText('EDITOR_HTML_BUTTONS_REDO')->setIcon('redo')->setData(['action' => 'redo'])->setReadonly(true),
-            'smileys' => (new \fpcm\view\helper\button('-ace-smileys'))->setText('HL_OPTIONS_SMILEYS')->setIcon('smile-beam')->setData(['action' => 'insertSmilies']),
+            'redo' => (new \fpcm\view\helper\button('-ace-redo'))->setText('EDITOR_HTML_BUTTONS_REDO')->setIcon('redo')->setData(['action' => 'redo'])->setReadonly(true)
         ];
     }
 

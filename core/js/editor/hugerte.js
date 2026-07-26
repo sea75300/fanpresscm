@@ -265,68 +265,6 @@ if (fpcm.editor) {
 
         fpcm.vars.jsvars.editorConfig.onInitAfterStd = function (editor) {
 
-            editor.ui.registry.addButton('fpcm_emoticons', {
-                icon: 'emoji',
-                tooltip: fpcm.ui.translate('EDITOR_INSERTSMILEY'),
-                disabled: false,
-                onAction: function () {
-
-                    hugerte.activeEditor.windowManager.open({
-                        title: fpcm.ui.translate('EDITOR_INSERTSMILEY'),
-                        size: 'normal',
-                        body: {
-                            type: 'panel',
-                            items: [{
-                                    type: 'collection',
-                                    name: 'smileyList'
-                                }]
-                        },
-                        buttons: [
-                            {
-                                type: 'cancel',
-                                text: fpcm.ui.translate('GLOBAL_CLOSE'),
-                                disabled: false,
-                                primary: true
-                            },
-                        ],
-                        initialData: {
-                            smileyList: fpcm.vars.jsvars.editorConfig.fpcmEmoticons
-                        },
-                        onAction: function (api, data) {
-
-                            if (data.value) {
-                                editor.insertContent(data.value);
-                            }
-
-                            api.close();
-                        }
-                    });
-
-                },
-                onSetup: function (buttonApi) {
-                    fpcm.ajax.get('editor/smileys', {
-                        quiet: true,
-                        dataType: 'json',
-                        data: {
-                            json: true
-                        },
-                        execDone: function (items) {
-
-                            fpcm.vars.jsvars.editorConfig.fpcmEmoticons = [];
-
-                            for (var x = 0; x < items.length; x++) {
-                                fpcm.vars.jsvars.editorConfig.fpcmEmoticons.push({
-                                    text: items[x].code,
-                                    value: ' ' + items[x].code + ' ',
-                                    icon: items[x].img
-                                });
-                            }
-
-                        }
-                    });
-                }
-            });
-
             var _galleryPlaceholderClass = 'fpcm-content-gallery-placeholder';
 
             editor.on('ResolveName', function (e) {
