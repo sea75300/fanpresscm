@@ -2,12 +2,14 @@
 
 ## Supported Versions
 
-As of Oct 1st 2023, the following version branches are supported. Version with upcoming end of life are marked with check marks in spaces.
+As of 26. July 2026, the following version branches are supported. Version with upcoming end of life are marked with check marks in spaces.
 
-| Version | Supported          |
-| ------- | ------------------ |
-| 5.1.x   | :white_check_mark: |
-| <= 5.0  | :x: |
+| Version | Supported          |  EOL          | 
+| ------- | ------------------ |-------------- |
+| 5.3.x   | ✅ | tba |
+| 5.2.x   | 🟡 | 31. Dec 2026 |
+| 5.1.x   | :x: | 31. Feb 2025 |
+| <= 5.0  | :x: | 2023 |
 
 ## Reporting a Vulnerability
 
