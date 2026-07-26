@@ -8,8 +8,8 @@ As of 26. July 2026, the following version branches are supported. Version with 
 | ------- | ------------------ |-------------- |
 | 5.3.x   | ✔️ | tba |
 | 5.2.x   | 🟡 | 31. Dec 2026 |
-| 5.1.x   | :x: | 2025 |
-| <= 5.0  | :x: | 2024 |
+| 5.1.x   | :x: | 31. Feb 2025 |
+| <= 5.0  | :x: | 2023 |
 
 ## Reporting a Vulnerability
 
