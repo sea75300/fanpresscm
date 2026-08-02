@@ -105,7 +105,8 @@ fpcm.editor_ace = {
                 let _valNew = fpcm.editor_videolinks.replace(_delta.lines[0]);
                 _valNew = fpcm.editor_videolinks.createFrame(_valNew, true);
                 if (_valNew !== _delta.lines[0]) {
-                     fpcm.editor_ace._instance.session.replace(new ace.Range(_delta.start.row, _delta.start.column, _delta.end.row, _delta.end.column), _valNew);
+                    fpcm.editor_ace._instance.session.replace(new ace.Range(_delta.start.row, _delta.start.column, _delta.end.row, _delta.end.column), _valNew);
+                    _val = _val.replace(_delta.lines[0], _valNew);
                 }
             }
 

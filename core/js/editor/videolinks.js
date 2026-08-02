@@ -36,6 +36,7 @@ fpcm.editor_videolinks = {
     },
 
     replace: function (text) {
+
         if (text.search('youtube.com') >= 0 && text.search('watch') >= 0) {
             return text.replace('watch?v=', 'embed/').replace('youtube.com', 'youtube-nocookie.com').replace(/(&amp;).*/i, '').replace(/\&.*/i, '');
         }
@@ -64,7 +65,15 @@ fpcm.editor_videolinks = {
 
         var code = fpcm.ui.createIFrame({
             src: url,
-            options: ['width="500"', 'height="300"', 'frameborder="0"', 'allowfullscreen'],
+            classes: 'n/a',
+            options: [
+                'width="500"',
+                'height="315"',
+                'frameborder="0"',
+                'allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"',
+                'referrerpolicy="strict-origin-when-cross-origin"',
+                'allowfullscreen="allowfullscreen"'
+            ],
             id: 'fpcm-articletext-videoframe-' + fpcm.ui.getUniqueID()
         });
 

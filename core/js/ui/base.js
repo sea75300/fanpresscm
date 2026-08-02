@@ -523,7 +523,7 @@ fpcm.ui = {
             return '';
         }
 
-        if (!params.classes) {
+        if (!params.classes && params.classes !== 'n/a') {
             params.classes = 'w-100';
         }
 
@@ -535,10 +535,11 @@ fpcm.ui = {
             params.options = [];
         }
 
-        params.style = params.style ? ' style="' + params.style + '"' : '';
-        params.options = params.options.length ? ' ' + params.options.join(' ') : '';
+        params.style = params.style ? ` style="${params.style}"` : '';
+        params.classes = params.classes && params.classes !== 'n/a' ? ` class="${params.classes}"` : '';
+        params.options = params.options.length ? ` ${params.options.join(' ')}` : '';
 
-        return '<iframe src="' + params.src + '" id="' + params.id + '" class="' + params.classes + '"' + params.style + params.options + '></iframe>';
+        return `<iframe src="${params.src}" id="${params.id}"${params.options}${params.classes}${params.style}></iframe>`
     },
 
     getIcon: function(_icon, _params) {

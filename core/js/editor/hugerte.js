@@ -35,7 +35,8 @@ fpcm.editor_hugerte = {
             browser_spellcheck: true,
             branding: false,
             element_format: 'html',
-            content_style: 'body { font-size: ' + fpcm.vars.jsvars.editorDefaultFontsize + '; } figure > img { margin: 0.25rem; }'
+            content_style: 'body { font-size: ' + fpcm.vars.jsvars.editorDefaultFontsize + '; } figure > img { margin: 0.25rem; }',
+            sandbox_iframes: false
         };
 
         if (_config.skin !== undefined) {
