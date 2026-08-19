@@ -18,87 +18,103 @@ use fpcm\model\files\fileOption;
  * @package fpcm\model\abstracts
  * @abstract
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2022, Stefan Seehafer
+ * @copyright (c) 2011-2026, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 abstract class cron implements \fpcm\model\interfaces\cron {
 
+    use \fpcm\model\traits\preparedObjectFields;
+    
+    const string ERROR_DESTRUCT = 'CE_DESTRUCT_CALL';
+    
     /**
      * Datenbank-Objekt
      * @var \fpcm\classes\database
      */
-    protected $dbcon;
+    protected ?database $dbcon = null;
 
     /**
      * Database table
      * @var string
      */
-    protected $table;
+    protected string $table = '';
 
     /**
      * Events object
      * @var \fpcm\events\events
      */
-    protected $events;
+    protected ?\fpcm\events\events $events = null;
 
     /**
      * Name des Crons
      * @var string
      */
-    protected $cronName;
+    protected string $cronName = '';
 
     /**
      * Zeitpunkt der letzten Ausführung
      * @var int
      */
-    protected $lastExecTime;
+    protected int $lastExecTime = 0;
 
     /**
      * Interval der Ausführung
      * @var int
      * @since 3.2.0
      */
-    protected $execinterval;
+    protected int $execinterval = 0;
 
     /**
      * Module key string
      * @var string
      * @since 4.3.0
      */
-    protected $modulekey;
+    protected string $modulekey = '';
 
     /**
      * Cronjob is running
      * @var bool
      * @since 4.5.0-a1
      */
-    protected $isrunning;
+    protected bool|int $isrunning = false;
+
+    /**
+     * Error code string
+     * @var string
+     */
+    protected string $error_code = '';
 
     /**
      * asynchrone Ausführung über cronasync-AJAX-Controller deaktivieren,
      * false wenn cronasync-AJAX nicht ausgführt werden soll
      * @var bool
      */
-    protected $runAsync = true;
+    protected bool $runAsync = true;
 
     /**
      * Daten, die von Cronjob zurückgegeben werden sollen
      * @var mixed
      */
-    protected $returnData = null;
+    protected mixed $returnData = null;
 
     /**
      * Wird Cronjob aktuell asynchron ausgeführt
      * @var bool
      */
-    protected $asyncCurrent = false;
+    protected bool $asyncCurrent = false;
 
     /**
      * add execution parameters
      * @var array
      * @since 5.0.0-b3
      */
-    protected $execParams = false;
+    protected array $execParams = [];
+
+    /**
+     * Object properties to be excluded indatabase statements
+     * @var array
+     */
+    protected $dbExcludes = ['cronName'];
     
     /**
      * Konstruktor
@@ -132,8 +148,10 @@ abstract class cron implements \fpcm\model\interfaces\cron {
         
         fpcmLogCron('Destruct called!');
         
-        $this->setFinished();
-        $this->updateLastExecTime();
+        $this->isrunning = 0;
+        $this->lastExecTime = time();
+        $this->error_code = static::ERROR_DESTRUCT;
+        $this->update();
     }
 
     /**
@@ -268,12 +286,13 @@ abstract class cron implements \fpcm\model\interfaces\cron {
     public function init()
     {
         $res = $this->dbcon->selectFetch((new selectParams($this->table))
-            ->setItem('lastexec, execinterval, isrunning, modulekey')
+            ->setItem('lastexec, execinterval, isrunning, modulekey, error_code')
             ->setWhere('cjname = ?')
             ->setParams([$this->cronName])
         );
 
-        $this->lastExecTime = isset($res->lastexec) ? $res->lastexec : 0;
+        $this->lastExecTime = intval($res->lastexec ?? 0);
+        $this->execinterval = intval($res->execinterval ?? 0);
     }
 
     /**
@@ -289,7 +308,7 @@ abstract class cron implements \fpcm\model\interfaces\cron {
         }
 
         if (isset($data->execinterval)) {
-            $this->execinterval = $data->execinterval;
+            $this->execinterval = (int) $data->execinterval;
         }
 
         if (isset($data->modulekey)) {
@@ -316,21 +335,27 @@ abstract class cron implements \fpcm\model\interfaces\cron {
     }
 
     /**
-     * Aktualisiert einen Artikel in der Datenbank
+     * Updates database entry
      * @return bool
      */
     public function update()
     {
-        return $this->dbcon->update($this->table, ['execinterval'], [$this->execinterval, $this->cronName], 'cjname = ?');
+        $values = $this->getPreparedSaveParams();
+        
+        $fields = array_keys($values);
+        $values[] = $this->cronName;
+        
+        
+        return $this->dbcon->update($this->table, $fields, $values, 'cjname = ?');
     }
 
     /**
      * Check is cronjob is running
      * @return bool
      */
-    public function isRunning()
+    public function isRunning() : bool
     {
-        return $this->isrunning ? true : false;
+        return (bool) $this->isrunning;
     }
 
     /**
@@ -434,5 +459,25 @@ abstract class cron implements \fpcm\model\interfaces\cron {
     {
         return "\\fpcm\\model\\crons\\{$cronId}";
     }
+
+    /**
+     * Returns error code
+     * @return string
+     */
+    public function getErrorCode(): string {
+        return $this->error_code;
+    }
+
+    /**
+     * Set error code
+     * @param string $code
+     * @return static
+     * @since 5.4.0-a1
+     */
+    public function setErrorCode(string $code): static {
+        $this->error_code = $code;
+        return $this;
+    }
+
 
 }

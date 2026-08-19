@@ -32,6 +32,10 @@ cols:
         type: bool
         length: 
         params: NULL
+    error_code:
+        type: varchar
+        length: 255
+        params: NULL
 indices:
     cjname:
         col: cjname
@@ -53,6 +57,7 @@ defaultvalues:
             execinterval: 2419200
             modulekey: 
             isrunning: 0
+            error_code: 
         2:
             id: NULL
             cjname: "clearLogs"
@@ -60,6 +65,7 @@ defaultvalues:
             execinterval: 2419200
             modulekey: 
             isrunning: 0
+            error_code: 
         3:
             id: NULL
             cjname: "clearTemp"
@@ -67,6 +73,7 @@ defaultvalues:
             execinterval: 604800
             modulekey: 
             isrunning: 0
+            error_code: 
         4:
             id: NULL
             cjname: "fmThumbs"
@@ -74,6 +81,7 @@ defaultvalues:
             execinterval: 604800
             modulekey: 
             isrunning: 0
+            error_code: 
         5:
             id: NULL
             cjname: "postponedArticles"
@@ -81,6 +89,7 @@ defaultvalues:
             execinterval: 600
             modulekey: 
             isrunning: 0
+            error_code: 
         6:
             id: NULL
             cjname: "updateCheck"
@@ -88,6 +97,7 @@ defaultvalues:
             execinterval: 86400
             modulekey: 
             isrunning: 0
+            error_code: 
         7:
             id: NULL
             cjname: "dbBackup"
@@ -95,6 +105,7 @@ defaultvalues:
             execinterval: 604800
             modulekey: 
             isrunning: 0
+            error_code: 
         8:
             id: NULL
             cjname: "fileindex"
@@ -102,6 +113,7 @@ defaultvalues:
             execinterval: 86400
             modulekey: 
             isrunning: 0
+            error_code: 
         9:
             id: NULL
             cjname: "removeRevisions"
@@ -109,6 +121,7 @@ defaultvalues:
             execinterval: 2419200
             modulekey: 
             isrunning: 0
+            error_code: 
         10:
             id: NULL
             cjname: "cleanupTrash"
@@ -116,6 +129,7 @@ defaultvalues:
             execinterval: 86400
             modulekey: 
             isrunning: 0
+            error_code: 
         11:
             id: NULL
             cjname: "unpinArticles"
@@ -123,6 +137,7 @@ defaultvalues:
             execinterval: 86400
             modulekey: 
             isrunning: 0
+            error_code: 
         12:
             id: NULL
             cjname: "reminderMails"
@@ -130,3 +145,4 @@ defaultvalues:
             execinterval: 21600
             modulekey: 
             isrunning: 0
+            error_code: 

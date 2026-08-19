@@ -18,6 +18,8 @@ namespace fpcm\model\abstracts;
  */
 abstract class model implements \fpcm\model\interfaces\model, \Stringable {
 
+    use \fpcm\model\traits\preparedObjectFields;
+    
     /**
      * DB-Verbindung
      * @var \fpcm\classes\database
@@ -290,48 +292,6 @@ abstract class model implements \fpcm\model\interfaces\model, \Stringable {
         $this->objExists = true;
 
         return true;
-    }
-
-    /**
-     * Bereitet Eigenschaften des Objects zum Speichern ind er Datenbank vor und entfernt nicht speicherbare Eigenschaften
-     * @return array
-     */
-    protected function getPreparedSaveParams()
-    {
-        $params = get_object_vars($this);
-        unset(
-            $params['cache'], $params['config'], $params['dbcon'],
-            $params['events'], $params['session'], $params['id'],
-            $params['nodata'], $params['system'], $params['table'],
-            $params['dbExcludes'], $params['language'], $params['editAction'],
-            $params['objExists'], $params['cacheName'], $params['cacheModule'],
-            $params['wordbanList'], $params['notifications']
-        );
-
-        if ($this->nodata) {
-            unset($params['data']);
-        }
-
-        if (!count($this->dbExcludes)) {
-            return $params;
-        }
-
-        return array_diff_key($params, array_flip($this->dbExcludes));
-    }
-
-    /**
-     * Gibt array mit Values für Prepared Statements zurück
-     * @param int $count
-     * @return int
-     */
-    public function getPreparedValueParams($count = false)
-    {
-
-        if ($count === false) {
-            $count = count($this->getPreparedSaveParams());
-        }
-
-        return array_fill(0, (int) $count, '?');
     }
 
     /**

@@ -167,8 +167,6 @@ class crons extends \fpcm\controller\abstracts\controller
                     ])
             ),
             
-            
-            
             new \fpcm\components\dataView\rowCol('name', $this->language->translate($langVar)),
             new \fpcm\components\dataView\rowCol('lastexec', new \fpcm\view\helper\dateText($cronjob->getLastExecTime())),
             new \fpcm\components\dataView\rowCol('nextecec', $nextExecTs ? new \fpcm\view\helper\dateText( $nextExecTs ) : '-')
