@@ -824,10 +824,6 @@ class view {
         $this->defaultViewVars->filesCss = array_unique( array_map([$this, 'addRootPath'], $this->cssFiles) );
         $this->defaultViewVars->filesECMAFiles = $this->jsModuleFiles;
 
-        if (defined('FPCM_VIEW_JS_USE_MINIFIED') || !FPCM_VIEW_JS_USE_MINIFIED) {
-            $this->rootUrls['.js'] = $this->getJsExt();
-        }
-
         $this->defaultViewVars->filesJs = array_unique( array_map([$this, 'addRootPath'], $this->jsFiles) );
         $this->defaultViewVars->filesJsLate = array_unique( array_map([$this, 'addRootPath'], $this->jsFilesLate) );
 

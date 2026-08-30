@@ -76,6 +76,7 @@ final class events implements \fpcm\model\interfaces\isObjectInstancable {
     /**
      * Gibt Liste mit Events des Systems zurück
      * @return array
+     * @deprecated 5.4.0-a1
      */
     public function getSystemEventList()
     {

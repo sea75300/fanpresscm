@@ -67,7 +67,7 @@ abstract class migration implements \Stringable {
     
     /**
      * Config object getter
-     * @return \fpcm\model\system\config
+     * @return \fpcm\classes\database
      */
     final protected function getDB() : \fpcm\classes\database
     {
@@ -80,7 +80,7 @@ abstract class migration implements \Stringable {
     
     /**
      * Config object getter
-     * @return \fpcm\model\system\config
+     * @return bool
      */
     final protected function isCli() : bool
     {

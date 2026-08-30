@@ -47,6 +47,11 @@ final class database {
     const tableCronjobs = 'cronjobs';
 
     /**
+     * Events cache table
+     */
+    const tableEvents= 'events';
+
+    /**
      * Dateiindex-Tabelle
      */
     const tableFiles = 'uploadfiles';
