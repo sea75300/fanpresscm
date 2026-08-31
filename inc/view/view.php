@@ -297,10 +297,16 @@ class view {
             return $item;
         }
 
+        $rootURLS = $this->rootUrls;
+        
+        if (str_starts_with($item, self::ROOTURL_LIB)) {
+            unset($rootURLS['.js']);
+        }
+        
         if (str_starts_with($item, self::ROOTURL_CORE_THEME) ||
             str_starts_with($item, self::ROOTURL_CORE_JS) ||
             str_starts_with($item, self::ROOTURL_LIB) ) {
-            return \fpcm\classes\tools::strReplaceArray($item, $this->rootUrls);
+            return \fpcm\classes\tools::strReplaceArray($item, $rootURLS);
         }
 
         if (str_ends_with($item, '.css') && !str_starts_with($item, self::ROOTURL_CORE_THEME)) {
@@ -311,7 +317,7 @@ class view {
             $prefix = self::ROOTURL_CORE_JS;
         }
 
-        return \fpcm\classes\tools::strReplaceArray($prefix . $item, $this->rootUrls);
+        return \fpcm\classes\tools::strReplaceArray($prefix . $item, $rootURLS);
     }
 
     /**
@@ -823,6 +829,10 @@ class view {
         $this->defaultViewVars->lang = \fpcm\classes\loader::getObject('\fpcm\classes\language');
         $this->defaultViewVars->filesCss = array_unique( array_map([$this, 'addRootPath'], $this->cssFiles) );
         $this->defaultViewVars->filesECMAFiles = $this->jsModuleFiles;
+
+        if (defined('FPCM_VIEW_JS_USE_MINIFIED') || !FPCM_VIEW_JS_USE_MINIFIED) {
+            $this->rootUrls['.js'] = $this->getJsExt();
+        }
 
         $this->defaultViewVars->filesJs = array_unique( array_map([$this, 'addRootPath'], $this->jsFiles) );
         $this->defaultViewVars->filesJsLate = array_unique( array_map([$this, 'addRootPath'], $this->jsFilesLate) );
@@ -1353,34 +1363,32 @@ class view {
             return;
         }
 
-        $ext = self::getJsExt();
-
         $files = [
             \fpcm\components\components::getjQuery(),
             self::ROOTURL_LIB . 'bootstrap/js/bootstrap.bundle.min.js',
-            self::ROOTURL_CORE_JS . 'ajax' . $ext,
-            self::ROOTURL_CORE_JS . 'dom' . $ext,
-            self::ROOTURL_CORE_JS . 'ui/base' . $ext,
-            self::ROOTURL_CORE_JS . 'ui/dialogs' . $ext,
-            self::ROOTURL_CORE_JS . 'ui/webnotify' . $ext,
-            self::ROOTURL_CORE_JS . 'ui/notifications' . $ext,
-            self::ROOTURL_CORE_JS . 'ui/loader' . $ext,
-            self::ROOTURL_CORE_JS . 'ui/tabs' . $ext,
-            self::ROOTURL_CORE_JS . 'ui/pager' . $ext,
-            self::ROOTURL_CORE_JS . 'system' . $ext,
-            self::ROOTURL_CORE_JS . 'common/refresh' . $ext,
-            self::ROOTURL_CORE_JS . 'common/reminders' . $ext,
-            self::ROOTURL_CORE_JS . 'common/gsearch' . $ext
+            self::ROOTURL_CORE_JS . 'ajax.js',
+            self::ROOTURL_CORE_JS . 'dom.js',
+            self::ROOTURL_CORE_JS . 'ui/base.js',
+            self::ROOTURL_CORE_JS . 'ui/dialogs.js',
+            self::ROOTURL_CORE_JS . 'ui/webnotify.js',
+            self::ROOTURL_CORE_JS . 'ui/notifications.js',
+            self::ROOTURL_CORE_JS . 'ui/loader.js',
+            self::ROOTURL_CORE_JS . 'ui/tabs.js',
+            self::ROOTURL_CORE_JS . 'ui/pager.js',
+            self::ROOTURL_CORE_JS . 'system.js',
+            self::ROOTURL_CORE_JS . 'common/refresh.js',
+            self::ROOTURL_CORE_JS . 'common/reminders.js',
+            self::ROOTURL_CORE_JS . 'common/gsearch.js'
         ];
 
         if (\fpcm\classes\baseconfig::debugModeActive()) {
-            $files[] = self::ROOTURL_CORE_JS . 'common/dev' . $ext;
+            $files[] = self::ROOTURL_CORE_JS . 'common/dev.js';
             $files[] = 'https://code.jquery.com/jquery-migrate-4.0.2.js';
         }
 
         $this->addJsFiles($files);
 
-        $this->addJsFilesLate([self::ROOTURL_CORE_JS.'init'.self::getJsExt()]);
+        $this->addJsFilesLate([self::ROOTURL_CORE_JS.'init.js']);
         $this->setJsModuleFiles(['/ui/forms.js']);
         return $this->jsFiles;
     }
