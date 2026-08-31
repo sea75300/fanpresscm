@@ -429,7 +429,7 @@ class template extends \fpcm\model\abstracts\file {
 
         $res = preg_match_all(self::FETCH_REGEX, $this->content, $this->tagMatches);
         if (!$res === false) {
-            trigger_error('Error while fetching template tags', E_USER_ERROR);
+            trigger_error('Error while fetching template tags');
             return false;
         }
 

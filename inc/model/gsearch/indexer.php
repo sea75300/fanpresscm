@@ -81,7 +81,7 @@ class indexer extends \fpcm\model\abstracts\tablelist
         foreach ($sResults as $result) {
             
             if (empty($result->model)) {
-                trigger_error('Global search return value "model" is missing or empty!', E_USER_ERROR);
+                trigger_error('Global search return value "model" is missing or empty!');
                 continue;
             }
 
@@ -128,7 +128,7 @@ class indexer extends \fpcm\model\abstracts\tablelist
             $this->instances[$key] = (new $class());
             
             if (!$this->instances[$key] instanceof \fpcm\model\interfaces\gsearchIndex) {
-                trigger_error(sprintf('Object of type %s must be implement the interface \fpcm\model\interfaces\gsearchIndex', $class), E_USER_ERROR);
+                trigger_error(sprintf('Object of type %s must be implement the interface \fpcm\model\interfaces\gsearchIndex', $class));
                 unset($this->instances[$key]);
                 continue;
             }

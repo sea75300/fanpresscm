@@ -101,7 +101,7 @@ final class finalizer extends \fpcm\model\abstracts\model {
             $i++;
 
             if (!$migration->process()) {
-                trigger_error('Processing of migration '. get_class($migration).' failed!.', E_USER_ERROR);
+                trigger_error('Processing of migration '. get_class($migration).' failed!.');
                 return false;
             }
 

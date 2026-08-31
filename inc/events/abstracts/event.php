@@ -153,9 +153,32 @@ abstract class event {
             return [];
         }
 
+        $baseClass = $this->getEventClassBase();
+
+        /* @var $db \fpcm\classes\database */
+        $db = \fpcm\classes\loader::getObject('\fpcm\classes\database');
+        
+        $vars = $GLOBALS['fpcm']['events']['activeModules'];
+        $inQuery = $db->inQuery('module_key', $vars);
+        
+        array_unshift($vars, $baseClass);
+        
+        $params = new \fpcm\model\dbal\selectParams(\fpcm\classes\database::tableEvents);
+        $params->setItem('id, class_name')
+                ->setWhere('event_name = ? AND ' . $inQuery)
+                ->setParams($vars, true)
+                ->setFetchAll()
+                ->setFetchStyle(\PDO::FETCH_KEY_PAIR)
+                ->setReturnResult(false);
+        
+        $classes = $db->selectFetch($params);
+
+        if (count($classes)) {
+            return $classes;
+        }
+        
         $classes = [];
 
-        $baseClass = $this->getEventClassBase();
         $eventBaseClass = DIRECTORY_SEPARATOR . 'events' . DIRECTORY_SEPARATOR . str_replace('\\', DIRECTORY_SEPARATOR, $baseClass) . '.php';
         foreach ($GLOBALS['fpcm']['events']['activeModules'] as $module) {
 

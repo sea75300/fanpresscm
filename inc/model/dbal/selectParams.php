@@ -221,14 +221,38 @@ class selectParams implements \Stringable {
         $this->join = $join;
         return $this;
     }
-
+    
     /**
-     * Set select data params for where clause
+     * Set assignment parameters for where clause
      * @param array $params
+     * @param bool $check
      * @return $this
      */
-    public function setParams(array $params)
+    public function setParams(array $params, bool $check = false)
     {
+
+        if (!$check) {
+            $this->params = $params;
+            return $this;
+        }
+        
+        $params = array_map(function ($item) {
+
+            if (!is_object($item) || !is_array($item)) {
+                return $item;
+            }
+
+            if (is_object($item)) {
+                return (string) $item;
+            }
+
+            return array_map(function($subItem) {
+                return  is_string($subItem) ? sprintf("'%s", $subItem) : $subItem;
+            }, $item);
+
+        }, $params);
+
+
         $this->params = $params;
         return $this;
     }
@@ -300,13 +324,13 @@ class selectParams implements \Stringable {
     }
 
     /**
-     * Subquery 
+     * Subquery
      * @param selectParams|null $subParams
      * @return $this
      */
-    
+
     /**
-     * 
+     *
      * @param selectParams|null $subParams
      * @return $this
      * @since 5.3.0-b4
@@ -331,13 +355,13 @@ class selectParams implements \Stringable {
         if ($this->getJoin()) {
             $sql .= sprintf(' %s', $this->getJoin());
         }
-        
+
         if (!$this->getWhere()) {
             return $sql;
         }
 
         $where = $this->getWhere();
-        
+
         if ($this->subParams instanceof selectParams) {
             $where = sprintf($where, $this->subParams->getQuery());
         }

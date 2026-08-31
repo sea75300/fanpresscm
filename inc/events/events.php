@@ -56,7 +56,7 @@ final class events implements \fpcm\model\interfaces\isObjectInstancable {
 
             $msg = sprintf("Unable to trigger event \"%s\" in \"%s\".\n- - - - -\nError-Code: %s\n- - - - -\n", $eventName, $eventClassName, $e);
 
-            trigger_error($msg, E_USER_ERROR);
+            trigger_error($msg);
             if (\fpcm\classes\baseconfig::isCli()) {
                 exit($msg);
             }

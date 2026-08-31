@@ -1239,12 +1239,12 @@ class module {
         $migrations = array_filter($migrations, function ($class) {
 
             if (!class_exists($class)) {
-                trigger_error(sprintf('Class not found %s', $class), E_USER_ERROR);
+                trigger_error(sprintf('Class not found %s', $class));
                 return false;
             }
 
             if (!is_subclass_of($class, '\\fpcm\\module\\migration')) {
-                trigger_error(sprintf('Class %s must be an instance of \\fpcm\\module\\migration', $class), E_USER_ERROR);
+                trigger_error(sprintf('Class %s must be an instance of \\fpcm\\module\\migration', $class));
                 return false;
             }
 
@@ -1513,7 +1513,7 @@ class module {
     {
         $regex = '/^([a-z0-9\_]{3,})(\/{1})([A-Za-z0-9\_]+)$/i';
         if (preg_match($regex, $key, $match) !== 1) {
-            trigger_error('Invalid module key, "'.$key.'" does not match '.$regex, E_USER_ERROR);
+            trigger_error('Invalid module key, "'.$key.'" does not match '.$regex);
             return false;
         }
 

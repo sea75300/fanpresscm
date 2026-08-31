@@ -311,6 +311,9 @@ final class database {
         }
 
         $return = $this->fetch($result, $obj->getFetchAll(), $obj->getFetchStyle());
+        
+        fpcmLogSystem(__METHOD__);
+        fpcmLogSystem($return);
 
         $callback = $obj->getCallback();
         if (!$callback) {
@@ -571,7 +574,7 @@ final class database {
     public function exec(string $command, array $bindParams = []) : bool
     {
         if (!trim($command)) {
-            trigger_error('Invalid SQL command detected, query was empty!', E_USER_ERROR);
+            trigger_error('Invalid SQL command detected, query was empty!');
             return false;
         }
 
@@ -585,7 +588,7 @@ final class database {
 
         $statement = $this->connection->prepare($command);
         if (!trim($statement->queryString)) {
-            trigger_error('Invalid SQL command detected, query was empty!', E_USER_ERROR);
+            trigger_error('Invalid SQL command detected, query was empty!');
             return false;
         }
 

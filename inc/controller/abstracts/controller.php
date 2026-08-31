@@ -295,7 +295,7 @@ class controller implements \fpcm\controller\interfaces\controller {
             return $this->checkPageToken;
         }
         elseif (!$hasFunc && ( !isset($_SERVER['HTTP_REFERER']) || strpos($_SERVER['HTTP_REFERER'], \fpcm\classes\dirs::getRootUrl()) === false )) {
-            trigger_error(sprintf('Referer %s check failed for %s.', $_SERVER['HTTP_REFERER'] ?? 'http(s)://??', static::class), E_USER_ERROR);
+            trigger_error(sprintf('Referer %s check failed for %s.', $_SERVER['HTTP_REFERER'] ?? 'http(s)://??', static::class));
             $this->checkPageToken = false;
             return $this->checkPageToken;
         }

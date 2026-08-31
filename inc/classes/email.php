@@ -310,7 +310,7 @@ final class email {
 
         $tplPathR = realpath($tplPath);
         if (!$tplPathR || !str_starts_with($tplPath, \fpcm\classes\dirs::getFullDirPath('/')) ) {
-            trigger_error(sprintf('Invalid mail template path found in "%s".', $tplPath), E_USER_ERROR);
+            trigger_error(sprintf('Invalid mail template path found in "%s".', $tplPath));
             $this->text = '';
             return false;
         }
@@ -319,14 +319,14 @@ final class email {
 
         $this->text = file_get_contents($tplPath);
         if (!trim($this->text)) {
-            trigger_error(sprintf('Unable to read mail template content from "%s".', $tplPath), E_USER_ERROR);
+            trigger_error(sprintf('Unable to read mail template content from "%s".', $tplPath));
             $this->text = '';
             return false;
         }
 
         $this->text = vsprintf($this->text, $variables);
         if (!trim($this->text)) {
-            trigger_error(sprintf('Unable render mail template content "%s".', $tplPath), E_USER_ERROR);
+            trigger_error(sprintf('Unable render mail template content "%s".', $tplPath));
             $this->text = '';
             return false;
         }
