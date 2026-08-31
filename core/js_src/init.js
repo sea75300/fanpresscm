@@ -15,7 +15,7 @@ jQuery.noConflict();
     delete fpcm.ui.init;
     delete fpcm.ui_notify.init;
 
-    fpcm.worker = new Worker('core/js/worker.js');
+    fpcm.worker = new Worker('core/js/worker.min.js');
     fpcm.worker.onmessage = function(_event) {
 
         if (typeof _event.data.cmd) {
