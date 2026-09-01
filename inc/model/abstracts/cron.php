@@ -293,6 +293,8 @@ abstract class cron implements \fpcm\model\interfaces\cron {
 
         $this->lastExecTime = intval($res->lastexec ?? 0);
         $this->execinterval = intval($res->execinterval ?? 0);
+        $this->isrunning = intval($res->isrunning ?? 0);
+        $this->error_code = $res->error_code;
     }
 
     /**
@@ -313,6 +315,14 @@ abstract class cron implements \fpcm\model\interfaces\cron {
 
         if (isset($data->modulekey)) {
             $this->modulekey = $data->modulekey;
+        }
+
+        if (isset($data->error_code)) {
+            $this->error_code = $data->error_code;
+        }
+
+        if (isset($data->isrunning)) {
+            $this->isrunning = (int) $data->isrunning;
         }
     }
 

@@ -300,6 +300,7 @@ $lang = array (
   'GLOBAL_EDIT_SELECTED' => 'Edit selected',
   'GLOBAL_EMAIL' => 'E-mail address',
   'GLOBAL_ENABLE' => 'Enable',
+  'GLOBAL_ERROR_CODE' => 'Error code',
   'GLOBAL_EXTENDED' => 'Extended',
   'GLOBAL_EXTERNAL' => 'External',
   'GLOBAL_FINISHED' => 'Finished',

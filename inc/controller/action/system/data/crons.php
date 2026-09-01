@@ -151,6 +151,19 @@ class crons extends \fpcm\controller\abstracts\controller
             $langVar = 'GLOBAL_UNKNOWN';
         }
         
+        $name = $this->language->translate($langVar);
+        
+        if ($cronjob->getErrorCode()) {
+            $name = sprintf(
+                '%s<br>%s: %s',
+                $name,
+                $this->language->translate('GLOBAL_ERROR_CODE'),
+                $cronjob->getErrorCode()
+            );
+            
+            $rowClass = 'text-danger';
+        }
+        
         return new \fpcm\components\dataView\row([
 
             new \fpcm\components\dataView\rowCol('button', $this->getButtons($cronjob, $processingIcon, $playClass, $btnReadonly), '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
@@ -167,7 +180,7 @@ class crons extends \fpcm\controller\abstracts\controller
                     ])
             ),
             
-            new \fpcm\components\dataView\rowCol('name', $this->language->translate($langVar)),
+            new \fpcm\components\dataView\rowCol('name', $name),
             new \fpcm\components\dataView\rowCol('lastexec', new \fpcm\view\helper\dateText($cronjob->getLastExecTime())),
             new \fpcm\components\dataView\rowCol('nextecec', $nextExecTs ? new \fpcm\view\helper\dateText( $nextExecTs ) : '-')
         ], $rowClass);

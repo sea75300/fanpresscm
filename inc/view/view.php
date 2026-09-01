@@ -229,7 +229,7 @@ class view {
             $this->notifications = \fpcm\classes\loader::getObject('\fpcm\model\theme\notifications');
         }
 
-        $jsRoot = \fpcm\classes\baseconfig::debugModeActive()
+        $jsRoot = \fpcm\classes\baseconfig::debugModeActive() || !\fpcm\classes\baseconfig::useMinfiedJS()
                 ? \fpcm\classes\dirs::CORE_JS_SRC
                 : \fpcm\classes\dirs::CORE_JS;
 
