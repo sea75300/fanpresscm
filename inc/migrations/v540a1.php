@@ -74,8 +74,7 @@ class v540a1 extends migration {
 
             $classes = array_merge_recursive($level1, $level2);
 
-            fpcmLogSystem($classes);
-            
+            fpcmLogSystem($classes);            
 
             foreach ($classes as $class) {
                 
@@ -111,7 +110,6 @@ class v540a1 extends migration {
                 
             }
 
-            
         }            
         
 

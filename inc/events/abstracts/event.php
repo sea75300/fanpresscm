@@ -174,9 +174,21 @@ abstract class event {
         $classes = $db->selectFetch($params);
 
         if (count($classes)) {
-            return $classes;
+            return array_values($classes);
         }
         
+        return $this->legacyEventCollection($baseClass);
+    }
+
+    /**
+     * Collects module event classes the old fashion way on-
+     * the-fly from file system
+     * @param string $baseClass
+     * @return array
+     * @deprecated 5.4.0-a1
+     */
+    public function legacyEventCollection(string $baseClass) : array
+    {
         $classes = [];
 
         $eventBaseClass = DIRECTORY_SEPARATOR . 'events' . DIRECTORY_SEPARATOR . str_replace('\\', DIRECTORY_SEPARATOR, $baseClass) . '.php';
@@ -190,7 +202,7 @@ abstract class event {
             $classes[] = \fpcm\module\module::getEventNamespace($module, $baseClass);
         }
 
-        return $classes;
+        return $classes;        
     }
 
     /**

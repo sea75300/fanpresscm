@@ -389,7 +389,7 @@ final class database {
 
 
     /**
-     * Führt UPDATE-Befehl auf DB aus
+     * Executes update command to database
      * @param string $table
      * @param array $fields
      * @param array $params
@@ -406,13 +406,22 @@ final class database {
         return $this->exec($sql, $params);
     }
 
-    public function insertMultiple(string $table, array $fields, array $values) : mixed
+    /**
+     * Excutes insert of multiple rows in one command
+     * @param string $table
+     * @param array $fields
+     * @param array $values
+     * @return mixed
+     */
+    public function insertMultiple(
+        string $table,
+        array $fields,
+        array $values
+    ) : mixed
     {
 
         $table = $this->getTablePrefixed($table);
         $this->lastTable = $table;
-
-        //$vars = implode(', ', array_fill(0, (int) count($fields), '?'));
 
         $bindParams = [];
         $vars = [];
@@ -494,7 +503,7 @@ final class database {
     }
 
     /**
-     * Führt DELETE-Befehl auf DB aus
+     * Executes delete from command on table
      * @param string $table
      * @param string $where
      * @param array $params
@@ -511,7 +520,7 @@ final class database {
     }
 
     /**
-     * Ändert Tabellenstruktur via ALTER TABLE
+     * Executes and alter table command
      * @param string $table
      * @param string $methode
      * @param string $field
@@ -530,7 +539,7 @@ final class database {
     }
 
     /**
-     * Zählt nach den angebenen Einstellungen
+     * Counts number of items by query
      * @param string $table In welcher Tabelle soll gezählt werden
      * @param string $countitem Welche Spalte soll gezählt werden
      * @param string $where Nach welchen Filterkriterien soll gezählt werden
