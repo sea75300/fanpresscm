@@ -173,11 +173,35 @@ final class option {
         return $this->isFolder;
     }
     
+    /**
+     * Get option label
+     * @return string
+     */
     public function getLabel(): string
     {
         return $this->label;
     }
     
+    /**
+     * Get option result color
+     * @return string
+     * @since 5.3.4
+     */
+    public function getColor() : string
+    {
+        
+        if ($this->getResult()) {
+            return 'success';
+        }
+        
+        if (!$this->getResult() && $this->getOptional()) {
+            return 'warning';
+        }
+        
+        return 'danger';
+    }
+
+
     /**
      * Returns check string for cli
      * @param string $descr

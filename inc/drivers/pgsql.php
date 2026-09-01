@@ -277,60 +277,6 @@ final class pgsql implements sqlDriver {
         return sprintf("TO_TIMESTAMP(%s, '%s') as %s", $col, $format, $alias);
     }
 
-
-
-    public function insertMultiple(string $table, array $fields, array $values) : mixed
-    {
-
-        $table = $this->getTablePrefixed($table);
-        $this->lastTable = $table;
-
-        //$vars = implode(', ', array_fill(0, (int) count($fields), '?'));
-
-        $bindParams = [];
-        $vars = [];
-
-        $i = 0;
-        
-        foreach ($values as $row) {
-
-            $valueVars = [];
-            
-
-            foreach ($row as $value) {
-
-                
-                
-                $bindVar = ':val'.$i;
-
-                $bindParams[$bindVar] = $value;
-                $valueVars[] = $bindVar;
-                
-                $i++;
-            }
-
-            $vars[] = implode(', ', $valueVars);
-
-        }
-
-        $query = sprintf(
-            "INSERT INTO %s (%s) VALUES (%s);",
-            $table,
-            implode(', ', $fields),
-            implode('),(',  $vars)
-        );
-
-        fpcmLogSystem($query);
-        fpcmLogSystem($vars);
-        fpcmLogSystem($bindParams);
-
-        if ($this->exec($query, $bindParams) === false) {
-            return false;
-        }
-
-        return false;
-    }
-
     /**
      * Adds condition for insert on duplicate keys
      * @return string
