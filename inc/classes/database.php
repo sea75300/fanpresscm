@@ -311,9 +311,6 @@ final class database {
         }
 
         $return = $this->fetch($result, $obj->getFetchAll(), $obj->getFetchStyle());
-        
-        fpcmLogSystem(__METHOD__);
-        fpcmLogSystem($return);
 
         $callback = $obj->getCallback();
         if (!$callback) {
@@ -390,6 +387,7 @@ final class database {
         return $this->getLastInsertId();
     }
 
+
     /**
      * Führt UPDATE-Befehl auf DB aus
      * @param string $table
@@ -408,8 +406,54 @@ final class database {
         return $this->exec($sql, $params);
     }
 
+    public function insertMultiple(string $table, array $fields, array $values) : mixed
+    {
+
+        $table = $this->getTablePrefixed($table);
+        $this->lastTable = $table;
+
+        //$vars = implode(', ', array_fill(0, (int) count($fields), '?'));
+
+        $bindParams = [];
+        $vars = [];
+
+        $i = 0;
+
+        foreach ($values as $row) {
+
+            $valueVars = [];
+
+            foreach ($row as $value) {
+
+                $bindVar = ':val'.$i;
+
+                $bindParams[$bindVar] = $value;
+                $valueVars[] = $bindVar;
+
+                $i++;
+            }
+
+            $vars[] = implode(', ', $valueVars);
+
+        }
+
+        $query = sprintf(
+            "INSERT INTO %s (%s) VALUES (%s) %s;",
+            $table,
+            implode(', ', $fields),
+            implode('),(',  $vars),
+            $this->driver->onDuplicateKey()
+        );
+
+        if ($this->exec($query, $bindParams) === false) {
+            return false;
+        }
+
+        return true;
+    }
+
     /**
-     * Führt mehrere UPDATE-Befehl auf DB mit einmal aus
+     * Executes multiple update queries at once
      * @param string $table
      * @param array $fields
      * @param array $params
@@ -908,7 +952,7 @@ final class database {
     }
 
     /**
-     * 
+     *
      * @param string $col
      * @param string $format
      * @return string
@@ -1005,7 +1049,7 @@ final class database {
         if (!$this->connection) {
             return '';
         }
-        
+
         return $this->connection->getAttribute(\PDO::ATTR_SERVER_VERSION);
     }
 

@@ -170,6 +170,13 @@ interface sqlDriver {
     public function prepareIndexRow(string $table, $row, array &$data) : bool;
 
     /**
+     * Adds condition for insert on duplicate keys
+     * @return string
+     * @since 5.4.0-a1
+     */
+    public function onDuplicateKey() : string;
+
+    /**
      * Map driver error code to common system error code
      * @param int|string $code
      * @return int

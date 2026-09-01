@@ -258,7 +258,7 @@ class module {
         }
 
         $res = $ev->getData();
-        
+
         return is_array($res) && count($res) ? $res : [];
     }
 
@@ -687,6 +687,11 @@ class module {
             return false;
         }
 
+        if (!$this->buildEventCache()) {
+            trigger_error('Build of module event cache was not successful!');
+            return false;
+        }
+
         $ev = \fpcm\events\events::getInstance()->trigger('modules\installAfter', $this->mkey);
         if (!$ev->getSuccessed() || !$ev->getContinue()) {
             trigger_error(sprintf("Event modules\installAfter failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
@@ -876,6 +881,10 @@ class module {
             return false;
         }
 
+        if (!$this->cleanEventCache()) {
+            return false;
+        }
+
         if (!$this->removeModule()) {
             return false;
         }
@@ -1003,6 +1012,10 @@ class module {
             return false;
         }
 
+        if (!$this->buildEventCache()) {
+            return false;
+        }
+
         $ev = \fpcm\events\events::getInstance()->trigger('modules\updateAfter', $this->mkey);
         if (!$ev->getSuccessed() || !$ev->getContinue()) {
             trigger_error(sprintf("Event modules\updateAfter failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
@@ -1068,7 +1081,7 @@ class module {
         if (!trim($changelogUrl)) {
             return '';
         }
-        
+
         if (!str_starts_with($changelogUrl, 'http')) {
             $changelogUrl = self::getModuleUrlFromKey($this->mkey) . '/' . $changelogUrl;
         }
@@ -1316,6 +1329,60 @@ class module {
 
                     ? $data->system[$sysRelease]
                     : $data->system;
+    }
+
+    /**
+     * Removes events from event cache
+     * @return bool
+     */
+    private function cleanEventCache() : bool
+    {
+        
+        fpcmLogSystem(sprintf('Uninstalling events for module %s...', $this->mkey));
+        
+        return $this->db->delete(
+            \fpcm\classes\database::tableEvents,
+            'module_key = :module_key',
+            [
+                ':module_key' => $this->mkey
+            ]
+        );
+
+    }
+
+    private function buildEventCache() : bool
+    {
+
+        fpcmLogSystem(sprintf('Install events for module %s...', $this->mkey));
+        
+        $events = \fpcm\events\events::getInstance()->getSystemEventList();
+        
+        $values = [];
+        
+        foreach ($events as $event) {
+
+            $class = self::getEventNamespace($this->mkey, $event);
+            
+            if (!class_exists($class)) {
+                continue;
+            }
+
+            $values[] = [
+                $event,
+                $this->mkey,
+                $class
+            ];
+            
+        }
+        
+        $return = $this->db->insertMultiple(
+            \fpcm\classes\database::tableEvents,
+            ['event_name', 'module_key', 'class_name'],
+            $values
+        );
+
+        return $return;
+
     }
 
     /**

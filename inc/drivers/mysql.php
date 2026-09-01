@@ -269,6 +269,16 @@ final class mysql implements sqlDriver {
     {
         return "show tables;";
     }
+
+    /**
+     * Adds condition for insert on duplicate keys
+     * @return string
+     * @since 5.4.0-a1
+     */
+    public function onDuplicateKey(): string
+    {
+        return 'ON DUPLICATE KEY UPDATE id = id';
+    }
     
     /**
      * Get FROM_UNIXTIME string

@@ -74,9 +74,8 @@ final class events implements \fpcm\model\interfaces\isObjectInstancable {
     }
 
     /**
-     * Gibt Liste mit Events des Systems zurück
+     * Returns a list of all events
      * @return array
-     * @deprecated 5.4.0-a1
      */
     public function getSystemEventList()
     {
@@ -88,6 +87,15 @@ final class events implements \fpcm\model\interfaces\isObjectInstancable {
 
             $list[] = basename($file, '.php');
         }
+        
+        foreach (glob($this->getFullPath('*/*.php')) as $file) {
+
+            if ($file == __FILE__) {
+                continue;
+            }
+
+            $list[] = basename(dirname($file)) . '\\' . basename($file, '.php');
+        }        
 
         return $list;
     }
