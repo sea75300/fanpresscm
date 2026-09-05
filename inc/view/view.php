@@ -297,16 +297,10 @@ class view {
             return $item;
         }
 
-        $rootURLS = $this->rootUrls;
-        
-        if (str_starts_with($item, self::ROOTURL_LIB)) {
-            unset($rootURLS['.js']);
-        }
-        
         if (str_starts_with($item, self::ROOTURL_CORE_THEME) ||
             str_starts_with($item, self::ROOTURL_CORE_JS) ||
             str_starts_with($item, self::ROOTURL_LIB) ) {
-            return \fpcm\classes\tools::strReplaceArray($item, $rootURLS);
+            return \fpcm\classes\tools::strReplaceArray($item, $this->rootUrls);
         }
 
         if (str_ends_with($item, '.css') && !str_starts_with($item, self::ROOTURL_CORE_THEME)) {
@@ -317,7 +311,7 @@ class view {
             $prefix = self::ROOTURL_CORE_JS;
         }
 
-        return \fpcm\classes\tools::strReplaceArray($prefix . $item, $rootURLS);
+        return \fpcm\classes\tools::strReplaceArray($prefix . $item, $this->rootUrls);
     }
 
     /**
@@ -829,11 +823,6 @@ class view {
         $this->defaultViewVars->lang = \fpcm\classes\loader::getObject('\fpcm\classes\language');
         $this->defaultViewVars->filesCss = array_unique( array_map([$this, 'addRootPath'], $this->cssFiles) );
         $this->defaultViewVars->filesECMAFiles = $this->jsModuleFiles;
-
-        if (defined('FPCM_VIEW_JS_USE_MINIFIED') || !FPCM_VIEW_JS_USE_MINIFIED) {
-            $this->rootUrls['.js'] = $this->getJsExt();
-        }
-
         $this->defaultViewVars->filesJs = array_unique( array_map([$this, 'addRootPath'], $this->jsFiles) );
         $this->defaultViewVars->filesJsLate = array_unique( array_map([$this, 'addRootPath'], $this->jsFilesLate) );
 
@@ -851,7 +840,8 @@ class view {
                 ],
                 'jsvars' => $this->jsVars,
                 'ajaxActionPath' => \fpcm\classes\tools::getFullControllerLink('ajax/'),
-                'ajaxRefreshDisable' => defined('FPCM_DISABLE_AJAX_CRONJOBS_PUB') && FPCM_DISABLE_AJAX_CRONJOBS_PUB
+                'ajaxRefreshDisable' => defined('FPCM_DISABLE_AJAX_CRONJOBS_PUB') && FPCM_DISABLE_AJAX_CRONJOBS_PUB,
+                'js_src' => \fpcm\classes\baseconfig::useMinfiedJS() ? 'js' : 'js_src'
             ]
         ];
 
@@ -1430,13 +1420,7 @@ class view {
      */
     final public static function getJsExt() : string
     {
-        $jsExt = '.js';
-
-        if (\fpcm\classes\baseconfig::debugModeActive() || !\fpcm\classes\baseconfig::useMinfiedJS()) {
-            return $jsExt;
-        }
-
-        return '.min'.$jsExt;
+        return '.js';
     }
 
     /**
