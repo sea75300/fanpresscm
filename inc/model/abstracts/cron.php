@@ -294,7 +294,7 @@ abstract class cron implements \fpcm\model\interfaces\cron {
         $this->lastExecTime = intval($res->lastexec ?? 0);
         $this->execinterval = intval($res->execinterval ?? 0);
         $this->isrunning = intval($res->isrunning ?? 0);
-        $this->error_code = $res->error_code;
+        $this->error_code = $res->error_code ?? '';
     }
 
     /**

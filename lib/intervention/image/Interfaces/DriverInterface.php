@@ -5,9 +5,7 @@ declare(strict_types=1);
 namespace Intervention\Image\Interfaces;
 
 use Intervention\Image\Config;
-use Intervention\Image\Exceptions\DriverException;
-use Intervention\Image\Exceptions\NotSupportedException;
-use Intervention\Image\Exceptions\RuntimeException;
+use Intervention\Image\Exceptions\MissingDependencyException;
 use Intervention\Image\FileExtension;
 use Intervention\Image\Format;
 use Intervention\Image\MediaType;
@@ -15,64 +13,102 @@ use Intervention\Image\MediaType;
 interface DriverInterface
 {
     /**
-     * Return drivers unique id
+     * Create new driver instance with configuration.
+     */
+    public function __construct(Config $config);
+
+    /**
+     * Return drivers unique id.
      */
     public function id(): string;
 
     /**
-     * Get driver configuration
+     * Get driver configuration.
      */
     public function config(): Config;
 
     /**
-     * Resolve given (generic) object into a specialized version for the current driver
+     * Resolve given modifier into a specialized version for the current driver.
      *
-     * @throws NotSupportedException
-     * @throws DriverException
+     * @template T of ModifierInterface
+     * @param T $modifier
+     * @return T
      */
-    public function specialize(
-        ModifierInterface|AnalyzerInterface|EncoderInterface|DecoderInterface $object
-    ): ModifierInterface|AnalyzerInterface|EncoderInterface|DecoderInterface;
+    public function specializeModifier(ModifierInterface $modifier): ModifierInterface;
 
     /**
-     * Resolve array of classnames or objects into their specialized version for the current driver
+     * Resolve given analyzer into a specialized version for the current driver.
      *
-     * @param array<string|object> $objects
-     * @throws NotSupportedException
-     * @throws DriverException
-     * @return array<object>
+     * @template T of AnalyzerInterface
+     * @param T $analyzer
+     * @return T
      */
-    public function specializeMultiple(array $objects): array;
+    public function specializeAnalyzer(AnalyzerInterface $analyzer): AnalyzerInterface;
 
     /**
-     * Create new image instance with the current driver in given dimensions
+     * Resolve given encoder into a specialized version for the current driver.
      *
-     * @throws RuntimeException
+     * @template T of EncoderInterface
+     * @param T $encoder
+     * @return T
+     */
+    public function specializeEncoder(EncoderInterface $encoder): EncoderInterface;
+
+    /**
+     * Resolve given decoder into a specialized version for the current driver.
+     *
+     * @template T of DecoderInterface
+     * @param T $decoder
+     * @return T
+     */
+    public function specializeDecoder(DecoderInterface $decoder): DecoderInterface;
+
+    /**
+     * Create new image instance in the given dimensions and with full transparent
+     * background and the current driver in given dimensions.
      */
     public function createImage(int $width, int $height): ImageInterface;
 
     /**
-     * Create new animated image
+     * Create new core instance from array of frame objects.
      *
-     * @throws RuntimeException
+     * @param array<int|string, FrameInterface> $frames
      */
-    public function createAnimation(callable $init): ImageInterface;
+    public function createCore(array $frames): CoreInterface;
 
     /**
-     * Handle given input by decoding it to ImageInterface or ColorInterface
+     * Decode image source with given decoders. Try all image decoders by default.
+     *
+     * Image sources can be as follows:
+     *
+     * - Path in filesystem
+     * - Raw binary image data
+     * - Base64 encoded image data
+     * - Data Uri
+     * - Stream resource
+     * - SplFileInfo object
+     * - Intervention Image Instance (Intervention\Image\Image)
+     * - Encoded Intervention Image (Intervention\Image\EncodedImage)
+     * - Driver-specific image (instance of GDImage or Imagick)
      *
      * @param array<string|DecoderInterface> $decoders
-     * @throws RuntimeException
      */
-    public function handleInput(mixed $input, array $decoders = []): ImageInterface|ColorInterface;
+    public function decodeImage(mixed $input, ?array $decoders = null): ImageInterface;
 
     /**
-     * Return color processor for the given colorspace
+     * Decode color source with given decoders. Try all color decoders by default.
+     *
+     * @param array<string|DecoderInterface> $decoders
      */
-    public function colorProcessor(ColorspaceInterface $colorspace): ColorProcessorInterface;
+    public function decodeColor(mixed $input, ?array $decoders = null): ColorInterface;
 
     /**
-     * Return font processor of the current driver
+     * Return color processor for the given image and its colorspace.
+     */
+    public function colorProcessor(ImageInterface $image): ColorProcessorInterface;
+
+    /**
+     * Return font processor of the current driver.
      */
     public function fontProcessor(): FontProcessorInterface;
 
@@ -80,7 +116,7 @@ interface DriverInterface
      * Check whether all requirements for operating the driver are met and
      * throw exception if the check fails.
      *
-     * @throws DriverException
+     * @throws MissingDependencyException
      */
     public function checkHealth(): void;
 
@@ -89,4 +125,9 @@ interface DriverInterface
      * underlying PHP extension was built with support for the format.
      */
     public function supports(string|Format|FileExtension|MediaType $identifier): bool;
+
+    /**
+     * Return the version number of the image driver currently in use.
+     */
+    public function version(): string;
 }

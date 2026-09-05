@@ -69,25 +69,26 @@ class thumbnailCreator {
      */
     public function create(string $type) : bool
     {
+        if (!ops::isValidDataFolder($this->parent, $type)) {
+            trigger_error(sprintf('Error while creating file thumbnail %s, invalid data path: %s', $this->destination, $this->parent));
+            return false;
+        }
+
+        if (!is_dir($this->parent) && !mkdir($this->parent)) {
+            trigger_error(sprintf('Error while creating file thumbnail %s, unable to create parent folder: %s', $this->destination, $this->parent));
+            return false;
+        }
+
+        $driver = sprintf('\\Intervention\\Image\\Drivers\\%s\\Driver', FPCM_IMAGE_PROCESSING_DRIVER);
+
         try {
-            $driver = sprintf('\\Intervention\\Image\\Drivers\\%s\\Driver', FPCM_IMAGE_PROCESSING_DRIVER);
 
-            $mgr = new \Intervention\Image\ImageManager( $driver );
-            $img = $mgr->read($this->source);
-            $img->coverDown($this->thumbSize, $this->thumbSize);
+            \Intervention\Image\ImageManager::usingDriver($driver)
+            ->decode($this->source)
+            ->coverDown($this->thumbSize, $this->thumbSize)
+            ->save($this->destination);
 
-            if (!ops::isValidDataFolder($this->parent, $type)) {
-                trigger_error(sprintf('Error while creating file thumbnail %s, invalid data path: %s', $this->destination, $this->parent));
-                return false;
-            }
-
-            if (!is_dir($this->parent) && !mkdir($this->parent)) {
-                trigger_error(sprintf('Error while creating file thumbnail %s, unable to create parent folder: %s', $this->destination, $this->parent));
-                return false;
-            }
-
-            $img->save($this->destination);
-        } catch (\Exception $exc) {
+        } catch (\Intervention\Image\Exceptions\ImageException $exc) {
             trigger_error('Error while creating file thumbnail '.$this->destination.PHP_EOL.$exc);
             return false;
         }
