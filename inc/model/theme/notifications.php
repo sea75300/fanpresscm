@@ -55,7 +55,7 @@ class notifications implements \Countable {
             ));
         }
 
-        if (defined('FPCM_VIEW_JS_USE_MINIFIED') && FPCM_VIEW_JS_USE_MINIFIED) {
+        if (!defined('FPCM_VIEW_JS_USE_MINIFIED') || !FPCM_VIEW_JS_USE_MINIFIED) {
             $this->addNotification(new \fpcm\model\theme\notificationItem(
                 (new \fpcm\view\helper\icon('js', 'fab'))->setText('NOTIFICATION_EXPERIMENTAL_MINJS')
             ));
