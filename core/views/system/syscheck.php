@@ -28,6 +28,9 @@
             <?php print $opt->getCurrent(); ?>
         <?php endif; ?>
         </div>
+        <div class="list-group-item list-group-item-<?php print $opt->getColor(); ?>">
+            <?php $theView->icon($opt->getIcon()); ?>
+        </div>
     </div>
 <?php endforeach; ?>
 </div>

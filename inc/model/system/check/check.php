@@ -128,7 +128,7 @@ final class check extends \fpcm\model\abstracts\staticModel {
         $this->result['memory'] = new option(
             current: $curVal . ' MiB',
             helplink: 'http://php.net/manual/info.configuration.php',
-            result: ($curVal >= $recomVal ? true : false),
+            result: $curVal >= $recomVal,
             optional: true,
             label: $this->language->translate('SYSTEM_OPTIONS_SYSCHECK_PHPMEMLIMIT', [ 'value' => $recomVal . ' MiB'])
         );
