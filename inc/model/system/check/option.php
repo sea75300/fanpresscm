@@ -201,6 +201,25 @@ final class option {
         return 'danger';
     }
 
+    /**
+     * Get option result icon
+     * @return string
+     * @since 5.3.5
+     */
+    public function getIcon() : string
+    {
+
+        if ($this->getResult()) {
+            return 'check';
+        }
+        
+        if (!$this->getResult() && $this->getOptional()) {
+            return 'genderless';
+        }
+        
+        return 'triangle-exclamation';
+    }
+
 
     /**
      * Returns check string for cli

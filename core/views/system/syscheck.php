@@ -13,7 +13,6 @@
         <?php print $theView->shorthelpButton($optName)
                 ->setText('GLOBAL_INFO')
                 ->setUrl($opt->getHelplink())
-                ->setSize('lg')
                 ->asInline('w-auto', sprintf('list-group-item-%s', $opt->getColor())); ?>
         <?php endif; ?>
         <div class="list-group-item align-content-center col flex-grow-1 list-group-item-<?php print $opt->getColor(); ?>">
@@ -28,6 +27,9 @@
         <?php else : ?>
             <?php print $opt->getCurrent(); ?>
         <?php endif; ?>
+        </div>
+        <div class="list-group-item list-group-item-<?php print $opt->getColor(); ?>">
+            <?php $theView->icon($opt->getIcon()); ?>
         </div>
     </div>
 <?php endforeach; ?>
