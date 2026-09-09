@@ -1,44 +1,29 @@
 # Cropper.js
 
-> JavaScript image cropper.
+[![Coverage Status](https://img.shields.io/codecov/c/github/fengyuanchen/cropperjs.svg)](https://codecov.io/gh/fengyuanchen/cropperjs) [![Downloads](https://img.shields.io/npm/dm/cropperjs.svg)](https://www.npmjs.com/package/cropperjs) [![Version](https://img.shields.io/npm/v/cropperjs.svg)](https://www.npmjs.com/package/cropperjs)
 
-## Main npm package files
+> JavaScript image cropper. This is the branch for v2.x. For v1.x, check out the [`v1`](https://github.com/fengyuanchen/cropperjs/tree/v1) branch.
 
-```text
-dist/
-├── cropper.js         (UMD, bundled)
-├── cropper.min.js     (UMD, bundled, compressed)
-├── cropper.raw.js     (UMD, unbundled, default)
-├── cropper.esm.js     (ECMAScript Module, bundled)
-├── cropper.esm.min.js (ECMAScript Module, bundled, compressed)
-├── cropper.esm.raw.js (ECMAScript Module, unbundled)
-└── cropper.d.ts       (TypeScript Declaration File)
-```
-
-## Getting started
-
-### Installation
-
-```sh
-npm install cropperjs
-```
-
-### Usage
-
-```js
-import Cropper from 'cropperjs';
-
-const image = new Image();
-
-image.src = '/path/to/image.jpg';
-
-const cropper = new Cropper(image);
-```
+- [Website](https://fengyuanchen.github.io/cropperjs/)
 
 ## Versioning
 
-Maintained under the [Semantic Versioning guidelines](https://semver.org).
+Maintained under the [Semantic Versioning guidelines](https://semver.org/).
+
+## Commit Message Guidelines
+
+Git commits message follows the [Conventional Commits guidelines](https://conventionalcommits.org/).
 
 ## License
 
-[MIT](https://opensource.org/licenses/MIT)
+[MIT](https://opensource.org/licenses/MIT) © [Chen Fengyuan](https://chenfengyuan.com/)
+
+## Related projects
+
+- [angular-cropperjs](https://github.com/matheusdavidson/angular-cropperjs) by [@matheusdavidson](https://github.com/matheusdavidson)
+- [blazor-cropperjs](https://github.com/CropperBlazor/Cropper.Blazor) by [@ColdForeign](https://github.com/ColdForeign), [@MaxymGorn](https://github.com/MaxymGorn)
+- [cropperjs-react-wrapper](https://github.com/trigger-xyz/cropperjs-react-wrapper) by [@trigger_xyz](https://github.com/trigger-xyz) (compatible with v2)
+- [ember-cropperjs](https://github.com/danielthall/ember-cropperjs) by [@danielthall](https://github.com/danielthall)
+- [iron-cropper](https://github.com/safetychanger/iron-cropper) by [@safetychanger](https://github.com/safetychanger)
+- [react-cropper](https://github.com/react-cropper/react-cropper) by [@roadmanfong](https://github.com/roadmanfong)
+- [vue-cropperjs](https://github.com/Agontuk/vue-cropperjs) by [@Agontuk](https://github.com/Agontuk)
