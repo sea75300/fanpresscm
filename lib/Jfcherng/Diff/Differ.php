@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Jfcherng\Diff;
 
+use Jfcherng\Diff\Options\DifferOptions;
 use Jfcherng\Diff\Utility\Arr;
 
 /**
@@ -20,7 +21,7 @@ final class Differ
     /**
      * @var int a safe number for indicating showing all contexts
      */
-    public const CONTEXT_ALL = \PHP_INT_MAX >> 3;
+    public const int CONTEXT_ALL = \PHP_INT_MAX >> 3;
 
     /**
      * @var string used to indicate a line has no EOL
@@ -28,12 +29,12 @@ final class Differ
      * Arbitrary chars from the 15-16th Unicode reserved areas
      * and hopefully, they won't appear in source texts
      */
-    public const LINE_NO_EOL = "\u{fcf28}\u{fc231}";
+    public const string LINE_NO_EOL = "\u{fcf28}\u{fc231}";
 
     /**
      * @var array cached properties and their default values
      */
-    private const CACHED_PROPERTIES = [
+    private const array CACHED_PROPERTIES = [
         'groupedOpcodes' => [],
         'groupedOpcodesGnu' => [],
         'oldNoEolAtEofIdx' => -1,
@@ -42,9 +43,9 @@ final class Differ
     ];
 
     /**
-     * @var array array of the options that have been applied for generating the diff
+     * @var DifferOptions options applied for generating the diff
      */
-    public array $options = [];
+    public DifferOptions $options;
 
     /**
      * @var string[] the old sequence
@@ -99,33 +100,15 @@ final class Differ
     private array $groupedOpcodesGnu = [];
 
     /**
-     * @var array associative array of the default options available for the Differ class and their default value
-     */
-    private static array $defaultOptions = [
-        // show how many neighbor lines
-        // Differ::CONTEXT_ALL can be used to show the whole file
-        'context' => 3,
-        // ignore case difference
-        'ignoreCase' => false,
-        // ignore line ending difference
-        'ignoreLineEnding' => false,
-        // ignore whitespace difference
-        'ignoreWhitespace' => false,
-        // if the input sequence is too long, it will just gives up (especially for char-level diff)
-        'lengthLimit' => 2000,
-        // if truthy, when inputs are identical, the whole inputs will be rendered in the output
-        'fullContextIfIdentical' => false,
-    ];
-
-    /**
      * The constructor.
      *
-     * @param string[] $old     array containing the lines of the old string to compare
-     * @param string[] $new     array containing the lines of the new string to compare
-     * @param array    $options the options
+     * @param string[]            $old     array containing the lines of the old string to compare
+     * @param string[]            $new     array containing the lines of the new string to compare
+     * @param array|DifferOptions $options the options
      */
-    public function __construct(array $old, array $new, array $options = [])
+    public function __construct(array $old, array $new, DifferOptions|array $options = [])
     {
+        $this->options = new DifferOptions();
         $this->sequenceMatcher = new SequenceMatcher([], []);
 
         $this->setOldNew($old, $new)->setOptions($options);
@@ -175,14 +158,16 @@ final class Differ
     /**
      * Set the options.
      *
-     * @param array $options the options
+     * @param array|DifferOptions $options the options
      */
-    public function setOptions(array $options): self
+    public function setOptions(DifferOptions|array $options): self
     {
-        $mergedOptions = $options + self::$defaultOptions;
+        $newOptions = $options instanceof DifferOptions
+            ? $options
+            : DifferOptions::fromArray($options);
 
-        if ($this->options !== $mergedOptions) {
-            $this->options = $mergedOptions;
+        if ($this->options != $newOptions) {
+            $this->options = $newOptions;
             $this->isCacheDirty = true;
         }
 
@@ -220,9 +205,9 @@ final class Differ
     /**
      * Get the options.
      *
-     * @return array the options
+     * @return DifferOptions the options
      */
-    public function getOptions(): array
+    public function getOptions(): DifferOptions
     {
         return $this->options;
     }
@@ -317,7 +302,7 @@ final class Differ
 
         $this->getGroupedOpcodesPre($old, $new);
 
-        if ($this->oldNewComparison === 0 && $this->options['fullContextIfIdentical']) {
+        if ($this->oldNewComparison === 0 && $this->options->fullContextIfIdentical) {
             $opcodes = [
                 [
                     [SequenceMatcher::OP_EQ, 0, \count($old), 0, \count($new)],
@@ -326,7 +311,7 @@ final class Differ
         } else {
             $opcodes = $this->sequenceMatcher
                 ->setSequences($old, $new)
-                ->getGroupedOpcodes($this->options['context'])
+                ->getGroupedOpcodes($this->options->context)
             ;
         }
 
@@ -353,7 +338,7 @@ final class Differ
 
         $this->getGroupedOpcodesGnuPre($old, $new);
 
-        if ($this->oldNewComparison === 0 && $this->options['fullContextIfIdentical']) {
+        if ($this->oldNewComparison === 0 && $this->options->fullContextIfIdentical) {
             $opcodes = [
                 [
                     [SequenceMatcher::OP_EQ, 0, \count($old), 0, \count($new)],
@@ -362,7 +347,7 @@ final class Differ
         } else {
             $opcodes = $this->sequenceMatcher
                 ->setSequences($old, $new)
-                ->getGroupedOpcodes($this->options['context'])
+                ->getGroupedOpcodes($this->options->context)
             ;
         }
 
@@ -500,7 +485,7 @@ final class Differ
             $this->newNoEolAtEofIdx = $this->getNew(-1) === [''] ? -1 : \count($this->new);
             $this->oldNewComparison = $this->old <=> $this->new;
 
-            $this->sequenceMatcher->setOptions($this->options);
+            $this->sequenceMatcher->setOptions($this->options->toSequenceMatcherOptions());
         }
 
         return $this;

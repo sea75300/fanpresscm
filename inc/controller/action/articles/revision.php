@@ -209,19 +209,19 @@ implements \fpcm\controller\interfaces\requestFunctions
 
         try {
 
-            $differOptions = [];
+            $differOptions = new \Jfcherng\Diff\Options\DifferOptions();
 
             $rLang = match ($this->config->system_lang) {
                 'de' => 'deu',
                 default => 'eng',
             };
-
-            $rendererOptions = [
-                'detailLevel' => 'word',
-                'language' => $rLang,
-                'lineNumbers' => false,
-                'showHeader' => false
-            ];
+            
+            $rendererOptions = new \Jfcherng\Diff\Options\RendererOptions(
+                detailLevel: 'word',
+                language: $rLang,
+                lineNumbers: false,
+                showHeader: false
+            );
 
             $resultTitle = DiffHelper::calculate($this->revision->getTitle(), $this->article->getTitle(), 'Combined', $differOptions, $rendererOptions);
             $resultContent = DiffHelper::calculate($this->revision->getContent(), $this->article->getContent(), 'Combined', $differOptions, $rendererOptions);

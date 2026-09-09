@@ -15,11 +15,12 @@ final class JsonText extends AbstractText
     /**
      * {@inheritdoc}
      */
-    public const INFO = [
+    public const array INFO = [
         'desc' => 'Text JSON',
         'type' => 'Text',
     ];
 
+    #[\Override]
     protected function renderWorker(Differ $differ): string
     {
         $ret = [];
@@ -28,11 +29,11 @@ final class JsonText extends AbstractText
             $ret[] = $this->renderHunk($differ, $hunk);
         }
 
-        if ($this->options['outputTagAsString']) {
+        if ($this->options->outputTagAsString) {
             $this->convertTagToString($ret);
         }
 
-        return json_encode($ret, $this->options['jsonEncodeFlags']);
+        return json_encode($ret, $this->options->jsonEncodeFlags);
     }
 
     /**

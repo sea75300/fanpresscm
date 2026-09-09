@@ -224,10 +224,12 @@ final class config extends dataset implements \fpcm\model\interfaces\isObjectIns
         /* @var $user \fpcm\model\users\author */
         $user = loader::stackPull('currentUser');
         if (!$user || !$user->getId() || $this->userConfigSet) {
+            date_default_timezone_set($this->system_timezone);
             return false;
         }
 
         $user->getUserMeta()->mergeToConfig($this->data);
+        date_default_timezone_set($this->system_timezone);
 
         loader::getObject('\fpcm\classes\language', $this->system_lang, false);
         $this->userConfigSet = true;
@@ -244,7 +246,7 @@ final class config extends dataset implements \fpcm\model\interfaces\isObjectIns
         $this->newConfig = ['system_maintenance' => (int) $mode];
         return $this->update();
     }
-    
+
     /**
      * Init object with database data
      * @return bool

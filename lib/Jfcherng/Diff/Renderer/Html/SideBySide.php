@@ -14,11 +14,12 @@ final class SideBySide extends AbstractHtml
     /**
      * {@inheritdoc}
      */
-    public const INFO = [
+    public const array INFO = [
         'desc' => 'Side by side',
         'type' => 'Html',
     ];
 
+    #[\Override]
     protected function redererChanges(array $changes): string
     {
         if (empty($changes)) {
@@ -26,7 +27,7 @@ final class SideBySide extends AbstractHtml
         }
 
         $wrapperClasses = [
-            ...$this->options['wrapperClasses'],
+            ...$this->options->wrapperClasses,
             'diff', 'diff-html', 'diff-side-by-side',
         ];
 
@@ -42,11 +43,11 @@ final class SideBySide extends AbstractHtml
      */
     protected function renderTableHeader(): string
     {
-        if (!$this->options['showHeader']) {
+        if (!$this->options->showHeader) {
             return '';
         }
 
-        $colspan = $this->options['lineNumbers'] ? ' colspan="2"' : '';
+        $colspan = $this->options->lineNumbers ? ' colspan="2"' : '';
 
         return
             '<thead>' .
@@ -62,7 +63,7 @@ final class SideBySide extends AbstractHtml
      */
     protected function renderTableSeparateBlock(): string
     {
-        $colspan = $this->options['lineNumbers'] ? '4' : '2';
+        $colspan = $this->options->lineNumbers ? '4' : '2';
 
         return
             '<tbody class="skipped">' .
@@ -82,7 +83,7 @@ final class SideBySide extends AbstractHtml
         $ret = '';
 
         foreach ($hunks as $i => $hunk) {
-            if ($i > 0 && $this->options['separateBlock']) {
+            if ($i > 0 && $this->options->separateBlock) {
                 $ret .= $this->renderTableSeparateBlock();
             }
 
@@ -101,22 +102,13 @@ final class SideBySide extends AbstractHtml
      */
     protected function renderTableBlock(array $block): string
     {
-        switch ($block['tag']) {
-            case SequenceMatcher::OP_EQ:
-                $content = $this->renderTableBlockEqual($block);
-                break;
-            case SequenceMatcher::OP_INS:
-                $content = $this->renderTableBlockInsert($block);
-                break;
-            case SequenceMatcher::OP_DEL:
-                $content = $this->renderTableBlockDelete($block);
-                break;
-            case SequenceMatcher::OP_REP:
-                $content = $this->renderTableBlockReplace($block);
-                break;
-            default:
-                $content = '';
-        }
+        $content = match ($block['tag']) {
+            SequenceMatcher::OP_EQ => $this->renderTableBlockEqual($block),
+            SequenceMatcher::OP_INS => $this->renderTableBlockInsert($block),
+            SequenceMatcher::OP_DEL => $this->renderTableBlockDelete($block),
+            SequenceMatcher::OP_REP => $this->renderTableBlockReplace($block),
+            default => '',
+        };
 
         return '<tbody class="change change-' . self::TAG_CLASS_MAP[$block['tag']] . '">' . $content . '</tbody>';
     }
@@ -235,13 +227,13 @@ final class SideBySide extends AbstractHtml
         return
             '<tr>' .
                 (
-                    $this->options['lineNumbers']
+                    $this->options->lineNumbers
                         ? $this->renderLineNumberColumn('old', $oldLineNum)
                         : ''
                 ) .
                 $this->renderLineContentColumn('old', $oldLine) .
                 (
-                    $this->options['lineNumbers']
+                    $this->options->lineNumbers
                         ? $this->renderLineNumberColumn('new', $newLineNum)
                         : ''
                 ) .

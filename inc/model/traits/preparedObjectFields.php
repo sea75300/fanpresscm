@@ -40,7 +40,7 @@ trait preparedObjectFields {
         }
 
         $excludes = $this->dbExcludes ?? null;
-        if (!is_array(§excludes)) {
+        if (!is_array($excludes)) {
             return $params;
         }
 

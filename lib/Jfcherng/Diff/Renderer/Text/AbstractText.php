@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Jfcherng\Diff\Renderer\Text;
 
 use Jfcherng\Diff\Exception\UnsupportedFunctionException;
+use Jfcherng\Diff\Options\RendererOptions;
 use Jfcherng\Diff\Renderer\AbstractRenderer;
 use Jfcherng\Diff\Renderer\RendererConstant;
 use Jfcherng\Utility\CliColor;
@@ -17,26 +18,27 @@ abstract class AbstractText extends AbstractRenderer
     /**
      * @var bool is this renderer pure text?
      */
-    public const IS_TEXT_RENDERER = true;
+    public const bool IS_TEXT_RENDERER = true;
 
     /**
      * @var string the diff output representing there is no EOL at EOF in the GNU diff tool
      */
-    public const GNU_OUTPUT_NO_EOL_AT_EOF = '\ No newline at end of file';
+    public const string GNU_OUTPUT_NO_EOL_AT_EOF = '\ No newline at end of file';
 
     /**
      * @var bool controls whether cliColoredString() is enabled or not
      */
     protected $isCliColorEnabled = false;
 
-    public function setOptions(array $options): AbstractRenderer
+    #[\Override]
+    public function setOptions(RendererOptions|array $options): AbstractRenderer
     {
         parent::setOptions($options);
 
         // determine $this->isCliColorEnabled
-        if ($this->options['cliColorization'] === RendererConstant::CLI_COLOR_ENABLE) {
+        if ($this->options->cliColorization === RendererConstant::CLI_COLOR_ENABLE) {
             $this->isCliColorEnabled = true;
-        } elseif ($this->options['cliColorization'] === RendererConstant::CLI_COLOR_DISABLE) {
+        } elseif ($this->options->cliColorization === RendererConstant::CLI_COLOR_DISABLE) {
             $this->isCliColorEnabled = false;
         } else {
             $this->isCliColorEnabled = \PHP_SAPI === 'cli' && $this->hasColorSupport(\STDOUT);
@@ -45,11 +47,13 @@ abstract class AbstractText extends AbstractRenderer
         return $this;
     }
 
+    #[\Override]
     public function getResultForIdenticalsDefault(): string
     {
         return '';
     }
 
+    #[\Override]
     protected function renderArrayWorker(array $differArray): string
     {
         throw new UnsupportedFunctionException(__METHOD__);
@@ -132,6 +136,6 @@ abstract class AbstractText extends AbstractRenderer
         $stat = @fstat($stream);
 
         // Check if formatted mode is S_IFCHR
-        return $stat ? 0020000 === ($stat['mode'] & 0170000) : false;
+        return $stat ? 0o020000 === ($stat['mode'] & 0o170000) : false;
     }
 }

@@ -9,10 +9,8 @@ use Jfcherng\Utility\MbString;
 
 final class Line extends AbstractLineRenderer
 {
-    /**
-     * @return static
-     */
-    public function render(MbString $mbOld, MbString $mbNew): LineRendererInterface
+    #[\Override]
+    public function render(MbString $mbOld, MbString $mbNew): static
     {
         [$start, $end] = $this->getChangedExtentRegion($mbOld, $mbNew);
 

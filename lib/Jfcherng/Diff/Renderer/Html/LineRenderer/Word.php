@@ -12,10 +12,8 @@ use Jfcherng\Utility\MbString;
 
 final class Word extends AbstractLineRenderer
 {
-    /**
-     * @return static
-     */
-    public function render(MbString $mbOld, MbString $mbNew): LineRendererInterface
+    #[\Override]
+    public function render(MbString $mbOld, MbString $mbNew): static
     {
         static $splitRegex = '/([' . RendererConstant::PUNCTUATIONS_RANGE . '])/uS';
         static $dummyHtmlClosure = RendererConstant::HTML_CLOSURES[0] . RendererConstant::HTML_CLOSURES[1];
@@ -51,10 +49,10 @@ final class Word extends AbstractLineRenderer
             }
         }
 
-        if (!empty($hunk) && !empty($this->rendererOptions['wordGlues'])) {
+        if (!empty($hunk) && !empty($this->rendererOptions->wordGlues)) {
             $regexGlues = array_map(
                 static fn (string $glue): string => preg_quote($glue, '/'),
-                $this->rendererOptions['wordGlues'],
+                $this->rendererOptions->wordGlues,
             );
 
             $gluePattern = '/^(?:' . implode('|', $regexGlues) . ')+$/uS';

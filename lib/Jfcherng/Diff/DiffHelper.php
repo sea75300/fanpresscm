@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Jfcherng\Diff;
 
 use Jfcherng\Diff\Factory\RendererFactory;
+use Jfcherng\Diff\Options\DifferOptions;
+use Jfcherng\Diff\Options\RendererOptions;
 use Jfcherng\Diff\Renderer\RendererConstant;
 
 final class DiffHelper
@@ -114,11 +116,11 @@ final class DiffHelper
     /**
      * All-in-one static method to calculate the diff between two strings (or arrays of strings).
      *
-     * @param string|string[] $old             the old string (or array of lines)
-     * @param string|string[] $new             the new string (or array of lines)
-     * @param string          $renderer        the renderer name
-     * @param array           $differOptions   the options for Differ object
-     * @param array           $rendererOptions the options for renderer object
+     * @param string|string[]       $old             the old string (or array of lines)
+     * @param string|string[]       $new             the new string (or array of lines)
+     * @param string                $renderer        the renderer name
+     * @param array|DifferOptions   $differOptions   the options for Differ object
+     * @param array|RendererOptions $rendererOptions the options for renderer object
      *
      * @return string the rendered differences
      */
@@ -126,8 +128,8 @@ final class DiffHelper
         $old,
         $new,
         string $renderer = 'Unified',
-        array $differOptions = [],
-        array $rendererOptions = []
+        DifferOptions|array $differOptions = [],
+        RendererOptions|array $rendererOptions = []
     ): string {
         // always convert into array form
         \is_string($old) && ($old = explode("\n", $old));
@@ -146,11 +148,11 @@ final class DiffHelper
     /**
      * All-in-one static method to calculate the diff between two files.
      *
-     * @param string $old             the path of the old file
-     * @param string $new             the path of the new file
-     * @param string $renderer        the renderer name
-     * @param array  $differOptions   the options for Differ object
-     * @param array  $rendererOptions the options for renderer object
+     * @param string                $old             the path of the old file
+     * @param string                $new             the path of the new file
+     * @param string                $renderer        the renderer name
+     * @param array|DifferOptions   $differOptions   the options for Differ object
+     * @param array|RendererOptions $rendererOptions the options for renderer object
      *
      * @throws \LogicException   path is a directory
      * @throws \RuntimeException path cannot be opened
@@ -161,8 +163,8 @@ final class DiffHelper
         string $old,
         string $new,
         string $renderer = 'Unified',
-        array $differOptions = [],
-        array $rendererOptions = []
+        DifferOptions|array $differOptions = [],
+        RendererOptions|array $rendererOptions = []
     ): string {
         // we want to leave the line-ending problem to static::calculate()
         // so do not set SplFileObject::DROP_NEW_LINE flag

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Jfcherng\Diff\Renderer\Html;
 
 use Jfcherng\Diff\Factory\LineRendererFactory;
+use Jfcherng\Diff\Options\DifferOptions;
 use Jfcherng\Diff\Renderer\RendererConstant;
 use Jfcherng\Diff\SequenceMatcher;
 use Jfcherng\Diff\Utility\ReverseIterator;
@@ -20,7 +21,7 @@ final class Combined extends AbstractHtml
     /**
      * {@inheritdoc}
      */
-    public const INFO = [
+    public const array INFO = [
         'desc' => 'Combined',
         'type' => 'Html',
     ];
@@ -28,8 +29,9 @@ final class Combined extends AbstractHtml
     /**
      * {@inheritdoc}
      */
-    public const AUTO_FORMAT_CHANGES = false;
+    public const bool AUTO_FORMAT_CHANGES = false;
 
+    #[\Override]
     protected function redererChanges(array $changes): string
     {
         if (empty($changes)) {
@@ -37,7 +39,7 @@ final class Combined extends AbstractHtml
         }
 
         $wrapperClasses = [
-            ...$this->options['wrapperClasses'],
+            ...$this->options->wrapperClasses,
             'diff', 'diff-html', 'diff-combined',
         ];
 
@@ -53,7 +55,7 @@ final class Combined extends AbstractHtml
      */
     protected function renderTableHeader(): string
     {
-        if (!$this->options['showHeader']) {
+        if (!$this->options->showHeader) {
             return '';
         }
 
@@ -88,7 +90,7 @@ final class Combined extends AbstractHtml
         $ret = '';
 
         foreach ($hunks as $i => $hunk) {
-            if ($i > 0 && $this->options['separateBlock']) {
+            if ($i > 0 && $this->options->separateBlock) {
                 $ret .= $this->renderTableSeparateBlock();
             }
 
@@ -107,22 +109,13 @@ final class Combined extends AbstractHtml
      */
     protected function renderTableBlock(array $block): string
     {
-        switch ($block['tag']) {
-            case SequenceMatcher::OP_EQ:
-                $content = $this->renderTableBlockEqual($block);
-                break;
-            case SequenceMatcher::OP_INS:
-                $content = $this->renderTableBlockInsert($block);
-                break;
-            case SequenceMatcher::OP_DEL:
-                $content = $this->renderTableBlockDelete($block);
-                break;
-            case SequenceMatcher::OP_REP:
-                $content = $this->renderTableBlockReplace($block);
-                break;
-            default:
-                $content = '';
-        }
+        $content = match ($block['tag']) {
+            SequenceMatcher::OP_EQ => $this->renderTableBlockEqual($block),
+            SequenceMatcher::OP_INS => $this->renderTableBlockInsert($block),
+            SequenceMatcher::OP_DEL => $this->renderTableBlockDelete($block),
+            SequenceMatcher::OP_REP => $this->renderTableBlockReplace($block),
+            default => '',
+        };
 
         return '<tbody class="change change-' . self::TAG_CLASS_MAP[$block['tag']] . '">' . $content . '</tbody>';
     }
@@ -202,7 +195,7 @@ final class Combined extends AbstractHtml
      */
     protected function renderTableBlockReplace(array $block): string
     {
-        if ($this->options['detailLevel'] === 'none') {
+        if ($this->options->detailLevel === 'none') {
             return
                 $this->renderTableBlockDelete($block) .
                 $this->renderTableBlockInsert($block);
@@ -400,8 +393,8 @@ final class Combined extends AbstractHtml
         $mbOld ??= new MbString();
         $mbNew ??= new MbString();
         $lineRenderer ??= LineRendererFactory::make(
-            $this->options['detailLevel'],
-            [], /** @todo is it possible to get the differOptions here? */
+            $this->options->detailLevel,
+            new DifferOptions(), // Combined has no access to the Differ's options in this code path
             $this->options,
         );
 
@@ -433,7 +426,7 @@ final class Combined extends AbstractHtml
         /** @var float the changed ratio, 0 <= value < 1 */
         $changedRatio = ($sumLength - (\strlen($cleanLine) << 1)) / ($sumLength + 1);
 
-        return $changedRatio <= $this->options['mergeThreshold'];
+        return $changedRatio <= $this->options->mergeThreshold;
     }
 
     /**

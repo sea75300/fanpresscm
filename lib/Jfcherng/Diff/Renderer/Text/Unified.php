@@ -17,11 +17,12 @@ final class Unified extends AbstractText
     /**
      * {@inheritdoc}
      */
-    public const INFO = [
+    public const array INFO = [
         'desc' => 'Unified',
         'type' => 'Text',
     ];
 
+    #[\Override]
     protected function renderWorker(Differ $differ): string
     {
         $ret = '';

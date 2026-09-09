@@ -20,14 +20,14 @@ abstract class AbstractHtml extends AbstractRenderer
     /**
      * @var bool is this renderer pure text?
      */
-    public const IS_TEXT_RENDERER = false;
+    public const bool IS_TEXT_RENDERER = false;
 
     /**
      * @var string[] array of the different opcodes and how they are mapped to HTML classes
      *
      * @todo rename to OP_CLASS_MAP in v7
      */
-    public const TAG_CLASS_MAP = [
+    public const array TAG_CLASS_MAP = [
         SequenceMatcher::OP_DEL => 'del',
         SequenceMatcher::OP_EQ => 'eq',
         SequenceMatcher::OP_INS => 'ins',
@@ -42,8 +42,9 @@ abstract class AbstractHtml extends AbstractRenderer
      *
      * @var bool
      */
-    public const AUTO_FORMAT_CHANGES = true;
+    public const bool AUTO_FORMAT_CHANGES = true;
 
+    #[\Override]
     public function getResultForIdenticalsDefault(): string
     {
         return '';
@@ -61,7 +62,7 @@ abstract class AbstractHtml extends AbstractRenderer
     public function getChanges(Differ $differ): array
     {
         $lineRenderer = LineRendererFactory::make(
-            $this->options['detailLevel'],
+            $this->options->detailLevel,
             $differ->getOptions(),
             $this->options,
         );
@@ -102,6 +103,7 @@ abstract class AbstractHtml extends AbstractRenderer
         return $changes;
     }
 
+    #[\Override]
     protected function renderWorker(Differ $differ): string
     {
         $rendered = $this->redererChanges($this->getChanges($differ));
@@ -109,6 +111,7 @@ abstract class AbstractHtml extends AbstractRenderer
         return $this->cleanUpDummyHtmlClosures($rendered);
     }
 
+    #[\Override]
     protected function renderArrayWorker(array $differArray): string
     {
         $this->ensureChangesUseIntTag($differArray);
@@ -246,17 +249,17 @@ abstract class AbstractHtml extends AbstractRenderer
      */
     protected function formatStringFromLines(string $string): string
     {
-        if (!$this->options['spaceToHtmlTag']) {
-            $string = $this->expandTabs($string, $this->options['tabSize']);
+        if (!$this->options->spaceToHtmlTag) {
+            $string = $this->expandTabs($string, $this->options->tabSize);
         }
 
         $string = $this->htmlSafe($string);
 
-        if ($this->options['spacesToNbsp']) {
+        if ($this->options->spacesToNbsp) {
             $string = $this->htmlFixSpaces($string);
         }
 
-        if ($this->options['spaceToHtmlTag']) {
+        if ($this->options->spaceToHtmlTag) {
             $string = $this->htmlReplaceSpacesToHtmlTag($string);
         }
 
