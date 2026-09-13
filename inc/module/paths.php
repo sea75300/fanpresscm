@@ -33,6 +33,11 @@ class paths {
         $this->basePath = $basePath;
     }
 
+    /**
+     * read file in data path
+     * @param string $filename
+     * @return null
+     */
     final public function readFile(string $filename)
     {
         if (!file_exists($this->basePath . $filename)) {
@@ -48,6 +53,13 @@ class paths {
         return file_get_contents($this->basePath . $filename);
     }
 
+    /**
+     * Write file in data path
+     * @param string $filename
+     * @param type $data
+     * @param type $mode
+     * @return bool
+     */
     final public function writeFile(string $filename, $data, $mode = FILE_APPEND)
     {
         if (!file_exists($this->basePath . $filename)) {
@@ -63,6 +75,11 @@ class paths {
         return file_put_contents($this->basePath . $filename, $data, $mode);
     }
 
+    /**
+     * Delete file in data path
+     * @param string $filename
+     * @return bool
+     */
     final public function deleteFile(string $filename)
     {
         if (!file_exists($this->basePath . $filename)) {

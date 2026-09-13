@@ -298,6 +298,31 @@ class module {
     }
 
     /**
+     * Fetch preview images
+     * @return array
+     * @since 5.4.0-a1
+     */
+    public function getPreviewImages() : array
+    {        
+        $images = $this->config->images ?? [];
+        if (!count($images)) {
+            return [];
+        }
+
+        $baseUrl = $this->installed
+                  ? self::getModuleUrlFromKey($this->mkey) . '/images/'
+                  : sprintf(
+                        '%simages/%s/',
+                        \fpcm\classes\baseconfig::$moduleServer,
+                        \fpcm\classes\tools::getHash($this->mkey)
+                    );
+
+        return array_map(function($image) use ($baseUrl) {
+            return $baseUrl . $image;
+        }, $images);
+    }
+
+    /**
      * Initialize object with database data
      * @param object $result
      * @return bool
@@ -1337,9 +1362,9 @@ class module {
      */
     private function cleanEventCache() : bool
     {
-        
+
         fpcmLogSystem(sprintf('Uninstalling events for module %s...', $this->mkey));
-        
+
         return $this->db->delete(
             \fpcm\classes\database::tableEvents,
             'module_key = :module_key',
@@ -1350,19 +1375,23 @@ class module {
 
     }
 
+    /**
+     * Builds event cache entries for module
+     * @return bool
+     */
     private function buildEventCache() : bool
     {
 
         fpcmLogSystem(sprintf('Install events for module %s...', $this->mkey));
-        
+
         $events = \fpcm\events\events::getInstance()->getSystemEventList();
-        
+
         $values = [];
-        
+
         foreach ($events as $event) {
 
             $class = self::getEventNamespace($this->mkey, $event);
-            
+
             if (!class_exists($class)) {
                 continue;
             }
@@ -1372,9 +1401,9 @@ class module {
                 $this->mkey,
                 $class
             ];
-            
+
         }
-        
+
         $return = $this->db->insertMultiple(
             \fpcm\classes\database::tableEvents,
             ['event_name', 'module_key', 'class_name'],

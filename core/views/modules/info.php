@@ -2,16 +2,39 @@
 <div class="row g-0">
     <div class="col">
         <div class="card">
+            
+            <?php if ($moduleImages) : ?>
+            <div id="fpcm-id-carouselmodule-images" class="carousel slide">
+                <div class="carousel-inner">
+                    <?php foreach ($moduleImages as $index => $value) : ?>
+                    <div class="carousel-item<?php if (!$index) : ?> active<?php endif; ?>">
+                        <img src="<?php print $value; ?>" class="card-img-top" alt="<?php print $theView->escape($moduleName); ?>">
+                    </div>
+                    <?php endforeach; ?>
+                </div>                
+                <button class="carousel-control-prev" type="button" data-bs-target="#fpcm-id-carouselmodule-images" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden"><?php print $theView->write('GLOBAL_BACK'); ?></span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#fpcm-id-carouselmodule-images" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden"><?php print $theView->write('GLOBAL_NEXT'); ?></span>
+                </button>
+            </div>
+            <?php endif; ?>            
+            
             <h3 class="card-header text-truncate">
                 <?php print $theView->escape($moduleName); ?>
             </h3>
+
+
             <div class="card-body">
                 <h6 class="card-title text-truncate"><?php $theView->icon('book')->setSize('lg'); ?> <?php $theView->write('MODULES_LIST_DESCRIPTION'); ?>:</h6>
                 <div class="card-text">
                     <div class="pre-box"><?php print $theView->escape($moduleDescription); ?></div>
                 </div>
             </div>
-            <div class="card-footer btn-group">                
+            <div class="card-footer btn-group">
                 <?php $theView->button('install')->overrideButtonType('outline-secondary')->setReadonly(!$moduleInstall)->setIcon('plus-circle')->setText('MODULES_LIST_INSTALL')->setIconOnly()->setData(['hash' => $moduleKeyHash]); ?>
                 <?php $theView->linkButton('download')->overrideButtonType('outline-secondary')->setRel('external')->setReadonly(!$moduleDownload)->setUrl($moduleDownload)->setIcon('cloud-download-alt')->setIconOnly()->setText('MODULES_LIST_DOWNLOAD'); ?>
                 <?php $theView->linkButton('link')->overrideButtonType('outline-secondary')->setRel('external')->setUrl($moduleLink)->setIconOnly()->setTarget('_blank')->setText($moduleLink)->setIcon('house'); ?>

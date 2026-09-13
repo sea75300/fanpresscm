@@ -101,6 +101,7 @@ class moduleInfo extends \fpcm\controller\abstracts\ajaxController
         $this->view->assign('moduleKeyHash', \fpcm\classes\tools::getHash($this->module->getKey()));
         $this->view->assign('moduleDataPath', $config->useDataFolder ? \fpcm\model\files\ops::removeBaseDir($this->module->getDataPath(), true) : '-');
         $this->view->assign('moduleChangelogUrl', $this->module->getFullChangelogUrl());
+        $this->view->assign('moduleImages', $this->module->getPreviewImages());
 
         $data = \fpcm\classes\loader::getObject('\fpcm\model\updater\modules')->getDataCachedByKey($this->key);
         $this->view->assign('moduleDownload', $data['packageUrl'] ?? false);

@@ -28,9 +28,10 @@ namespace fpcm\module;
  * @property array $tables Module tables data
  * @property array $configOptions Module config data
  * @property array $crons Module cronjob data
+ * @property array $images Module preview images
  *
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2022, Stefan Seehafer
+ * @copyright (c) 2011-2026, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\module
  */

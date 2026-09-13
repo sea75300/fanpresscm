@@ -38,15 +38,22 @@ fpcm.pkgManager.beforeExecRequest = function () {
     let _groupline = document.createElement('div');
     _groupline.classList.add('list-group', 'list-group-horizontal-md', 'shadow', 'row-cols-md-3');
 
+
     let _icon1 = new fpcm.ui.forms.icon('plus-circle');
     let _grouplineCol1 = document.createElement('div');
     _grouplineCol1.classList.add('list-group-item', 'py-3', 'list-group-item-light');
-    _grouplineCol1.innerHTML = `${_icon1.getString()} ${fpcm.ui.translate('FILE_LIST_FILENAME')}: ${fpcm.vars.jsvars.pkgdata.pkgname}`;
+
+    if (fpcm.vars.jsvars.pkgdata.pkgname) {
+        _grouplineCol1.innerHTML = `${_icon1.getString()} ${fpcm.ui.translate('FILE_LIST_FILENAME')}: ${fpcm.vars.jsvars.pkgdata.pkgname}`;
+    }
 
     let _icon2 = new fpcm.ui.forms.icon('weight');
     let _grouplineCol2 = document.createElement('div');
     _grouplineCol2.classList.add('list-group-item', 'py-3', 'list-group-item-light');
-    _grouplineCol2.innerHTML = `${_icon2.getString()} ${fpcm.ui.translate('FILE_LIST_FILESIZE')}: ${fpcm.vars.jsvars.pkgdata.pkgsize}`;
+
+    if (fpcm.vars.jsvars.pkgdata.pkgname) {
+        _grouplineCol2.innerHTML = `${_icon2.getString()} ${fpcm.ui.translate('FILE_LIST_FILESIZE')}: ${fpcm.vars.jsvars.pkgdata.pkgsize}`;
+    }
 
     let _icon3 = new fpcm.ui.forms.icon('clock fa-far');
     let _grouplineCol3 = document.createElement('div');

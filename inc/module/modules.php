@@ -219,6 +219,7 @@ class modules extends \fpcm\model\abstracts\tablelist {
                 'requirements' => $value['requirements'] ?? [],
                 'changelogUrl' => $value['changelog'] ?? '',
                 'size' => $value['size'] ?? '',
+                'images' => $value['images'] ?? []
             ]);
 
             $modules[$key] = $module;
