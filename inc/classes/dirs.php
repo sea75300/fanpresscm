@@ -113,7 +113,7 @@ final class dirs {
      * @param boolean $base
      * @return string
      */
-    public static function getFullDirPath($type, $path = '', $base = false) : string
+    public static function getFullDirPath($type = '', $path = '', $base = false) : string
     {
         $path = $GLOBALS['fpcm']['dir']['base'] . $type . (trim($path ? DIRECTORY_SEPARATOR . $path : ''));
         return str_replace('//', DIRECTORY_SEPARATOR, ($base ? basename($path) : $path));

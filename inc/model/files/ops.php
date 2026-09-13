@@ -169,7 +169,7 @@ final class ops {
     {
         return hash_file(\fpcm\classes\security::defaultHashAlgo, $path);
     }
-    
+
     /**
      * Creates upload filepath
      * @param string $path
@@ -181,11 +181,11 @@ final class ops {
         $includeTime = true,
         ?string $type = null)
     {
-        
+
         if (!$type) {
             $type = \fpcm\classes\dirs::DATA_UPLOADS;
         }
-        
+
         if (!$includeTime) {
             return \fpcm\classes\dirs::getDataDirPath($type, $path);
         }
@@ -208,17 +208,17 @@ final class ops {
         if (!count($items)) {
             return '';
         }
-        
+
         $realpath = array_reduce($items, function ($carry, $item) use ($path) {
-            
+
             if ($carry === 0) {
                 $carry = DIRECTORY_SEPARATOR;
             }
-            
+
             if($item === "" || $item === ".") {
                 return $item;
             }
-            
+
             if ($item == '..') {
                 return dirname($carry);
             }
@@ -227,8 +227,8 @@ final class ops {
         });
 
         return $realpath;
-        
-        
+
+
     }
 
     /**
@@ -246,7 +246,7 @@ final class ops {
 
         $dataPath = \fpcm\classes\dirs::getDataDirPath($type);
         $realpath = realpath($path);
-        
+
         if (!trim($realpath)) {
             $realpath = self::realpathNoExists($path);
         }
@@ -254,7 +254,31 @@ final class ops {
         if (str_starts_with($realpath, $dataPath)) {
             return true;
         }
-        
+
+        trigger_error('Invalid data path found: '.$path);
+        return false;
+    }
+
+    /**
+     * Check if path is valid within FPCM base path
+     * @param string $path
+     * @return bool
+     * @since 5.4.0
+     */
+    public static function isValidBasePath(string $path) : bool
+    {
+        $realpath = realpath($path);
+
+        if (!trim($realpath)) {
+            $realpath = self::realpathNoExists($path);
+        }
+
+
+        $return = str_starts_with($path, $realpath);
+        if ($return) {
+            return true;
+        }
+
         trigger_error('Invalid data path found: '.$path);
         return false;
     }

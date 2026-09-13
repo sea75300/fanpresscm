@@ -175,6 +175,10 @@ final class filesIndexCheck {
                 $p = $fp;
             }
 
+            if (!ops::isValidBasePath($p)) {
+                return false;
+            }
+
             return is_dir($p);
         });
 
@@ -209,6 +213,10 @@ final class filesIndexCheck {
         foreach ($this->dirs as $dir) {
 
             $this->{$this->logFunction}($dir);
+
+            if (!ops::isValidBasePath($dir)) {
+                continue;
+            }
 
             $lup = realpath($dir . DIRECTORY_SEPARATOR);
             if (!$lup) {
@@ -254,9 +262,15 @@ final class filesIndexCheck {
 
         $this->index = 1;
 
+        $base = \fpcm\classes\dirs::getFullDirPath();
+
         foreach ($this->files as $path) {
 
             $this->{$this->logFunction}($path);
+
+            if (!ops::isValidBasePath($path)) {
+                continue;
+            }
 
             if (!file_exists($path) || !is_writable($path)) {
                 continue;
@@ -282,6 +296,10 @@ final class filesIndexCheck {
             foreach ($this->dirs as $path) {
 
                 $this->{$this->logFunction}($path);
+
+                if (!ops::isValidBasePath($path)) {
+                    continue;
+                }
 
                 if (!\fpcm\model\files\ops::deleteRecursive($path)) {
                     throw new \Exception(sprintf('Failed to remove folder %s, cancel process...', $path), -10);

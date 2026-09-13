@@ -227,6 +227,11 @@ class module extends package {
             $src = $srcBasePath.DIRECTORY_SEPARATOR.$file;
             $dest = $this->replaceFanPressBaseFolder($file);
 
+            if (!\fpcm\model\files\ops::isValidDataFolder($src, \fpcm\classes\dirs::DATA_TEMP) ||
+                !\fpcm\model\files\ops::isValidDataFolder($dest, \fpcm\classes\dirs::DATA_MODULES)) {
+                continue;
+            }            
+            
             if (!trim($src) || !trim($dest)) {
                 continue;
             }

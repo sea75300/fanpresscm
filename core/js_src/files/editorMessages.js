@@ -16,6 +16,14 @@ fpcm.editorMessages = {
         
         window.addEventListener('message', function (event) {
 
+            if (!event.isTrusted) {
+                return false;
+            }
+            
+            if (event.data.validSource !== window.parent.location.href) {
+                return false;
+            }
+
             if (!event.data || !event.data.cmd || event.source.location.href !== event.data.validSource) {
                 return false;
             }
