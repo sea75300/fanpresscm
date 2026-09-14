@@ -9,12 +9,12 @@ namespace fpcm\components\dataView;
 
 /**
  * Data view row column component
- * 
+ *
  * @package fpcm\components\dataView
  * @author Stefan Seehafer <sea75300@yahoo.de>
  */
 final class rowCol implements \JsonSerializable {
-    
+
     use \fpcm\model\traits\jsonSerializeReturnObject;
 
     const COLTYPE_VALUE     = 1;
@@ -49,7 +49,7 @@ final class rowCol implements \JsonSerializable {
      * @var int
      */
     protected $type     = 0;
-    
+
     /**
      * Constructor
      * @param string $name
@@ -58,13 +58,45 @@ final class rowCol implements \JsonSerializable {
      * @param type $type
      * @param string $typeClass
      */
-    public function __construct(string $name, $value = '', string $class = '', $type = self::COLTYPE_VALUE, string $typeClass = '')
+    public function __construct(string $name, string|array|object $value = '', string $class = '', $type = self::COLTYPE_VALUE, string $typeClass = '')
     {
+        if (is_object($value)) {
+            $value = (string) $value;
+        }
+        elseif (is_array($value)) {
+            $value = sprintf('<div>%s</div>', implode('', $value));
+        }
+
         $this->name  = $name;
-        $this->value = (is_object($value) ? (string) $value : $value);
+        $this->value = $value;
         $this->class = $class;
         $this->typeClass = $typeClass;
         $this->type  = (int) $type;
+    }
+
+    /**
+     * Create not found row col item
+     * @return array
+     * @since 5.4.0-a1
+     */
+    final public static function getNotFound() : array
+    {
+
+        $icon = (new \fpcm\view\helper\icon('list-ul '))
+                ->setSize('lg')
+                ->setStack(true)
+                ->setStackTop(true)
+                ->setStack('ban fpcm-ui-important-text');
+
+        $text = \fpcm\classes\loader::getObject('\fpcm\classes\language')->translate('GLOBAL_NOTFOUND2');
+
+        return [
+            new self(
+                name: 'col',
+                value: sprintf('%s %s', $icon, $text),
+                type: \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT
+            )
+        ];
     }
 
 }

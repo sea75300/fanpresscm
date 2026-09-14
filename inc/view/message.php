@@ -75,7 +75,7 @@ class message implements \JsonSerializable {
         $this->id = $id;
 
         if (!trim($this->id)) {
-            $this->id = md5($this->type . $this->txt);
+            $this->id = helper\helper::getRandomID('msg');
         }
     }
 

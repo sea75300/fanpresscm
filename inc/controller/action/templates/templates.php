@@ -236,19 +236,9 @@ class templates extends \fpcm\controller\abstracts\controller implements \fpcm\c
         $items = $tplfilelist->getFolderObjectList();
         if (!count($items)) {
 
-            $dataView->addRow(
-                new \fpcm\components\dataView\row([
-                    new \fpcm\components\dataView\rowCol(
-                        'col',
-                        (new \fpcm\view\helper\icon('list-ul '))->setSize('lg')->setStack(true)->setStack('ban fpcm-ui-important-text')->setStackTop(true).' '.
-                        $this->language->translate('GLOBAL_NOTFOUND2'),
-                        '',
-                        \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT
-                    ),
-                ],
-                '',
-                false,
-                true
+            $dataView->addRow(new \fpcm\components\dataView\row(
+                columns: \fpcm\components\dataView\rowCol::getNotFound(),
+                isNotFound: true
             ));
 
             $this->view->addDataView($dataView);
@@ -259,15 +249,20 @@ class templates extends \fpcm\controller\abstracts\controller implements \fpcm\c
         foreach ($items as $templateFile) {
 
             $buttons = [
-                '<div>',
-                (new \fpcm\view\helper\linkButton(uniqid()))->setText('GLOBAL_DOWNLOAD')->setUrl($templateFile->getFileUrl())->setIcon('download')->setIconOnly()->setTarget(\fpcm\view\helper\linkButton::TARGET_NEW),
-                (new \fpcm\view\helper\editButton(uniqid()))->setUrlbyObject($templateFile)->setClass('fpcm-articletemplates-edit'),
-                '</div>'
+                (new \fpcm\view\helper\linkButton(\fpcm\view\helper\helper::getRandomID('dl')))->setText('GLOBAL_DOWNLOAD')->setUrl($templateFile->getFileUrl())->setIcon('download')->setIconOnly()->setTarget(\fpcm\view\helper\linkButton::TARGET_NEW),
+                (new \fpcm\view\helper\editButton(\fpcm\view\helper\helper::getRandomID('ed')))->setUrlbyObject($templateFile)->setClass('fpcm-articletemplates-edit'),
             ];
 
+            $checkbox = new \fpcm\view\helper\checkbox('deltplfiles[]', 'chbx'.$templateFile->getFileNameHash());
+            $checkbox->setClass('fpcm-ui-list-checkbox')->setValue($templateFile->getBase64Filename());
+            
             $dataView->addRow(new \fpcm\components\dataView\row([
-                new \fpcm\components\dataView\rowCol('select', (new \fpcm\view\helper\checkbox('deltplfiles[]', 'chbx' . md5($templateFile->getFilename()) ))->setClass('fpcm-ui-list-checkbox')->setValue(base64_encode($templateFile->getFilename())), '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
-                new \fpcm\components\dataView\rowCol('button', implode('', $buttons) ),
+                new \fpcm\components\dataView\rowCol(
+                    name: 'select', 
+                    type: \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT,
+                    value: $checkbox
+                ),
+                new \fpcm\components\dataView\rowCol('button', $buttons),
                 new \fpcm\components\dataView\rowCol('filename', new \fpcm\view\helper\escape($templateFile->getFilename()) ),
                 new \fpcm\components\dataView\rowCol('filesize', \fpcm\classes\tools::calcSize($templateFile->getFilesize()) )
             ]));

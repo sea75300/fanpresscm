@@ -515,6 +515,15 @@ abstract class file implements \Stringable {
     }
 
     /**
+     * Get filename as base64 string
+     * @return string
+     */
+    final public function getBase64Filename() : string
+    {
+        return base64_encode($this->getFilename());
+    }
+
+    /**
      * Retrieve real file path via finfo
      * @param string $path
      * @return string

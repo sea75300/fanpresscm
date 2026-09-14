@@ -276,7 +276,7 @@ class edit extends base {
                     ->setSize('lg')
                     ->setUrl($url)
                     ->setTarget(\fpcm\view\helper\linkButton::TARGET_NEW)
-                    ->setValue(md5($share))
+                    ->setValue(\fpcm\classes\tools::getHash($share))
                     ->setText(ucfirst($share));
         }
 

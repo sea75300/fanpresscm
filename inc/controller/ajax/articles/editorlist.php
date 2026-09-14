@@ -4,7 +4,7 @@ namespace fpcm\controller\ajax\articles;
 
 /**
  * Kommentare bzw. Revisionen asynchron laden
- * 
+ *
  * @package fpcm\controller\ajax\articles\removeeditortags
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @since 3.6
@@ -40,7 +40,7 @@ class editorlist extends \fpcm\controller\abstracts\ajaxController
     protected $dataView;
 
     /**
-     * 
+     *
      * @return bool
      */
     public function request()
@@ -53,7 +53,7 @@ class editorlist extends \fpcm\controller\abstracts\ajaxController
     }
 
     /**
-     * 
+     *
      * @return bool
      */
     public function isAccessible(): bool
@@ -66,7 +66,7 @@ class editorlist extends \fpcm\controller\abstracts\ajaxController
      * @return void
      */
     public function process()
-    {        
+    {
         if ($this->processByParam('process', 'view') !== true) {
             $this->response->setReturnData([]);
         }
@@ -75,7 +75,7 @@ class editorlist extends \fpcm\controller\abstracts\ajaxController
     }
 
     /**
-     * 
+     *
      * @return bool
      */
     protected function processRevisions()
@@ -98,19 +98,12 @@ class editorlist extends \fpcm\controller\abstracts\ajaxController
         $this->dataView->addColumns($cols);
 
         if (!$count) {
-            $this->dataView->addRow(
-                new \fpcm\components\dataView\row([
-                    new \fpcm\components\dataView\rowCol(
-                        'title',
-                        (new \fpcm\view\helper\icon('list-ul '))->setSize('lg')->setStack(true)->setStack('ban fpcm-ui-important-text')->setStackTop(true).' '.
-                        $this->language->translate('GLOBAL_NOTFOUND2'),
-                        '',
-                        \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT
-                    ),
-                ],
-                '', false, true
+
+            $this->dataView->addRow(new \fpcm\components\dataView\row(
+                columns: \fpcm\components\dataView\rowCol::getNotFound(),
+                isNotFound: true
             ));
-            
+
             $this->response->setReturnData( new \fpcm\model\http\responseDataview( 'revisionslist', $this->dataView->getJsVars()['dataviews']['revisionslist']) );
             return true;
         }
@@ -122,7 +115,7 @@ class editorlist extends \fpcm\controller\abstracts\ajaxController
                     ->setIcon('play')
                     ->setIconOnly()
                     ->setUrl(\fpcm\classes\tools::getControllerLink('articles/revision', [
-                        'aid' => $this->article->getId(), 
+                        'aid' => $this->article->getId(),
                         'rid' => $revisionTime
                     ]));
 
@@ -141,7 +134,7 @@ class editorlist extends \fpcm\controller\abstracts\ajaxController
     }
 
     /**
-     * 
+     *
      * @return bool
      */
     protected function processShortlink()
@@ -149,7 +142,7 @@ class editorlist extends \fpcm\controller\abstracts\ajaxController
         if (!$this->article->exists()) {
             return false;
         }
-        
+
         $this->response->setReturnData([
             'shortend' => $this->article->getArticleShortLink(),
             'permalink' => \fpcm\classes\baseconfig::canConnect() || (defined('FPCM_ARTICLE_DISABLE_SHORTLINKS') && FPCM_ARTICLE_DISABLE_SHORTLINKS) ? true : false
@@ -159,7 +152,7 @@ class editorlist extends \fpcm\controller\abstracts\ajaxController
     }
 
     /**
-     * 
+     *
      * @return int
      */
     protected function getMode()
@@ -168,7 +161,7 @@ class editorlist extends \fpcm\controller\abstracts\ajaxController
     }
 
     /**
-     * 
+     *
      * @return bool
      */
     protected function initActionObjects()
@@ -186,7 +179,7 @@ class editorlist extends \fpcm\controller\abstracts\ajaxController
     }
 
     /**
-     * 
+     *
      * @return bool
      */
     protected function initObjectsComments()
@@ -195,7 +188,7 @@ class editorlist extends \fpcm\controller\abstracts\ajaxController
     }
 
     /**
-     * 
+     *
      * @return bool
      */
     protected function initObjectsRevisions()
@@ -205,7 +198,7 @@ class editorlist extends \fpcm\controller\abstracts\ajaxController
     }
 
     /**
-     * 
+     *
      * @return bool
      */
     protected function initObjectsShortlink()

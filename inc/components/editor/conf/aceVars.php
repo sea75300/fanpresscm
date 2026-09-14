@@ -33,11 +33,11 @@ class aceVars {
     public function __construct(array $editorStyles)
     {
         $this->editorStyles = array_map(function ($val) {
-            return (new \fpcm\view\helper\dropdownItem('style-'.md5($val)))
+            return (new \fpcm\view\helper\dropdownItem('style-'.\fpcm\classes\tools::getHash($val)))
                 ->setText($val)
                 ->setClass('fpcm-editor-ace-item')
                 ->setData(['htmltag' => $val, 'action' => 'insertStyle'])
-                ->setValue(md5($val));
+                ->setValue(\fpcm\classes\tools::getHash($val));
         }, $editorStyles);
 
         $this->editorFontsizes = [

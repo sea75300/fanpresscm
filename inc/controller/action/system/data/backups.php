@@ -174,7 +174,7 @@ implements \fpcm\controller\interfaces\requestFunctions
     protected function initDataViewRow($file)
     {
         $basename = basename($file);
-        $hash = md5($basename);
+        $hash = \fpcm\classes\tools::getHash($basename);
 
         $val = urlencode(base64_encode( $this->crypt->encrypt($basename)));
 
@@ -188,7 +188,11 @@ implements \fpcm\controller\interfaces\requestFunctions
                 ->setReadonly($ro);
 
         return new \fpcm\components\dataView\row([
-            new \fpcm\components\dataView\rowCol('select', $cbx, '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
+            new \fpcm\components\dataView\rowCol(
+                name: 'select',
+                value: $cbx,
+                type: \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT
+            ),
             new \fpcm\components\dataView\rowCol('name', sprintf('%s<br><span class="text-body-secondary fpcm ui-font-small">%s %s/%s</span>', $basename, (new \fpcm\view\helper\icon('folder-tree'))->setText('MODULES_LIST_DATAPATH'), $this->basePath, $basename)),
             new \fpcm\components\dataView\rowCol('size', \fpcm\classes\tools::calcSize(filesize($file)) ),
         ]);

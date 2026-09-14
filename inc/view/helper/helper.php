@@ -572,4 +572,21 @@ abstract class helper implements \Stringable {
         return sprintf('fpcm-id-%s', $id);
     }
 
+    /**
+     * Creates random element id string
+     * @param string $prefix
+     * @return string
+     */
+    final public static function getRandomID(string $prefix) : string
+    {
+        $random = sprintf(
+            "%s-",
+            $prefix,
+            (new \Random\Randomizer())->getBytesFromString('abcdefghijklmnopqrstuvwxyz0123456789-', 16)
+        );        
+        
+        
+        return self::addIdPrefix($random);
+    }
+
 }

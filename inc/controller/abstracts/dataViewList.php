@@ -131,17 +131,9 @@ abstract class dataViewList extends ajaxController {
 
         if (!$this->countCurrent) {
 
-            $this->dataView->addRow(
-                new \fpcm\components\dataView\row([
-                    new \fpcm\components\dataView\rowCol(
-                        'name',
-                        (new \fpcm\view\helper\icon('list-ul '))->setSize('lg')->setStack(true)->setStack('ban fpcm-ui-important-text')->setStackTop(true).' '.
-                        $this->language->translate('GLOBAL_NOTFOUND2'),
-                        '',
-                        \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT
-                    ),
-                ],
-                '', false, true
+            $this->dataView->addRow(new \fpcm\components\dataView\row(
+                columns: \fpcm\components\dataView\rowCol::getNotFound(),
+                isNotFound: true
             ));
 
         }

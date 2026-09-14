@@ -20,7 +20,7 @@ if (!defined('FPCM_MODE_NOPAGETOKEN')) {
 class main extends \fpcm\controller\abstracts\controller {
 
     use \fpcm\controller\traits\common\timezone;
-    
+
     const ACTION = 'system/installer';
 
     /**
@@ -114,9 +114,9 @@ class main extends \fpcm\controller\abstracts\controller {
         $this->request = \fpcm\classes\loader::getObject('\fpcm\model\http\request');
         return true;
     }
-    
+
     /**
-     * 
+     *
      * @return string
      */
     protected function getViewPath() : string
@@ -125,7 +125,7 @@ class main extends \fpcm\controller\abstracts\controller {
     }
 
     /**
-     * 
+     *
      * @return bool
      */
     public function hasAccess()
@@ -134,7 +134,7 @@ class main extends \fpcm\controller\abstracts\controller {
     }
 
     /**
-     * 
+     *
      * @return bool
      */
     public function request()
@@ -172,7 +172,7 @@ class main extends \fpcm\controller\abstracts\controller {
     public function process()
     {
         $tabCount = count(array_keys($this->tabsDef));
-        
+
         if ($this->step > $tabCount) {
             $this->view = new \fpcm\view\error('Undefined installer step!');
             $this->view->render();
@@ -190,7 +190,7 @@ class main extends \fpcm\controller\abstracts\controller {
             'INSTALLER_CREATETABLES_ERROR',
             'INSTALLER_CREATETABLES_HEAD'
         ]);
-        
+
         $prevStep = $this->step - 1;
         $nextStep = $this->step + 1;
 
@@ -203,7 +203,7 @@ class main extends \fpcm\controller\abstracts\controller {
         }
 
         $tplData = $this->tabsDef[$this->step] ?? $this->tabsDef[1];
-        
+
         $buttons = [];
         if ($this->showReloadBtn) {
             $buttons[] = (new \fpcm\view\helper\linkButton('reloadbtn'))->setText('GLOBAL_RELOAD')->setUrl(\fpcm\classes\tools::getControllerLink(self::ACTION, [
@@ -212,7 +212,7 @@ class main extends \fpcm\controller\abstracts\controller {
             ]))->setIcon('sync');
         }
         elseif ($this->step < $tabCount) {
-            
+
             if ($this->step > 1) {
 
                 $buttons[] = (new \fpcm\view\helper\linkButton('backNext'))
@@ -221,15 +221,15 @@ class main extends \fpcm\controller\abstracts\controller {
                     ->setIcon('chevron-circle-left')
                     ->setUrl(\fpcm\classes\tools::getControllerLink(self::ACTION, ['step' => $prevStep, 'language' => $this->langCode]) );
             }
-            
-            $fn = $this->step === 3 ? 'installer.checkDBData' : 0;            
+
+            $fn = $this->step === 3 ? 'installer.checkDBData' : 0;
             $buttons[] = (new \fpcm\view\helper\submitButton('submitNext'))
                 ->setText('GLOBAL_NEXT')
                 ->setClass('fpcm-installer-next-'.$this->step)
                 ->setIcon('chevron-circle-right')
                 ->setPrimary()
                 ->setOnClick($fn);
-            
+
 
         }
 
@@ -246,7 +246,7 @@ class main extends \fpcm\controller\abstracts\controller {
         $this->view->assign('fill', $tplData['fill'] ?? false);
         $this->view->assign('step', $this->step);
         $this->view->assign('progressWidth', ceil( ($this->step / $tabCount * 100) ) );
-        
+
         $this->view->showHeaderFooter(\fpcm\view\view::INCLUDE_HEADER_SIMPLE);
         $this->view->assign('languages', array_flip($this->language->getLanguages()));
         $this->view->addJsFiles(['{$coreJs}packages/installer.js', '{$coreJs}common/systemcheck.js']);
@@ -261,16 +261,16 @@ class main extends \fpcm\controller\abstracts\controller {
      */
     protected function runStep2()
     {
-        $check = new \fpcm\model\system\check\check();       
+        $check = new \fpcm\model\system\check\check();
         $check->perform();
 
         $sysCheckResults = $check->getFullResult();
 
         $isOk = true;
-        
+
         /* @var $value \fpcm\model\system\check\option */
         foreach ($sysCheckResults as $value) {
-            
+
             if ($value->getOptional() || $value->getResult()) {
                 continue;
             }
@@ -314,7 +314,7 @@ class main extends \fpcm\controller\abstracts\controller {
         $this->view->addJsVars(array(
             'sqlFilesCount' => count(\fpcm\classes\database::getTableFiles()),
         ));
-        
+
         $this->view->assign('progressbarName', 'dbtables');
     }
 
@@ -368,18 +368,18 @@ class main extends \fpcm\controller\abstracts\controller {
     {
         $data = $this->request->fromPOST('conf');
         $msg = $this->request->fromGET('msg');
-        
+
         $user = new \fpcm\model\users\author();
-        $user->setEmail(isset($data['system_email']) ? $data['system_email'] : (isset($_SESSION['username']) ? $_SESSION['email'] : ''));        
-        $user->setUserName(isset($_SESSION['username']) && $msg !== -5 ? $_SESSION['username'] : '');        
-        $user->setDisplayName(isset($_SESSION['displayname']) ? $_SESSION['displayname'] : '');        
+        $user->setEmail(isset($data['system_email']) ? $data['system_email'] : (isset($_SESSION['username']) ? $_SESSION['email'] : ''));
+        $user->setUserName(isset($_SESSION['username']) && $msg !== -5 ? $_SESSION['username'] : '');
+        $user->setDisplayName(isset($_SESSION['displayname']) ? $_SESSION['displayname'] : '');
         $user->setRoll(1);
 
         $this->view->assign('author', $user);
         $this->view->assign('userRolls', [
             'GLOBAL_ADMINISTRATOR' => 1
         ]);
-        
+
         $this->view->assign('showDisableButton', false);
         $this->view->assign('showExtended', false);
         $this->view->assign('showImage', false);
@@ -424,7 +424,7 @@ class main extends \fpcm\controller\abstracts\controller {
         $_SESSION['username'] = $data['username'];
         $_SESSION['email'] = $data['email'];
         $_SESSION['displayname'] = $data['displayname'];
-        
+
         foreach ($data as $key => $val) {
 
             if (trim($val)) {
@@ -459,9 +459,12 @@ class main extends \fpcm\controller\abstracts\controller {
         $user->setRegistertime(time());
         $user->setChangeTime(time());
         $user->setChangeUser(1);
-        
-        if ($data['password'] && $data['password_confirm'] && (md5($data['password']) == md5($data['password_confirm']))) {
-            $user->setPassword($data['password']);
+
+        $pw = $data['password'] ?? null;
+        $pwc = $data['password_confirm'] ?? null;
+
+        if ($pw && $pwc && hash_equals(hash('sha256', $pw), hash('sha256', $pwc))) {
+            $user->setPassword($pw);
         } else {
             $res = -4;
             $this->afterStepResult = false;

@@ -179,7 +179,7 @@ class dropdown extends helper {
             }
             
             if (! $value instanceof dropdownItem) {
-                $value = (new dropdownItem(md5(uniqid('ddi').$key.$value) ))->setText($key)->setValue($value);
+                $value = (new dropdownItem(helper::getRandomID('ddi')))->setText($key)->setValue($value);
             }         
 
             if ($value->getValue() == $this->selected) {
