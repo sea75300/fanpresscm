@@ -83,7 +83,7 @@ class userlist extends \fpcm\controller\abstracts\controller
     public function request()
     {
         $msgCode = $this->request->fromGET('msg');
-                
+
         $msg = match ($msgCode) {
             '1' => 'SAVE_SUCCESS_ADDUSER',
             '2' => 'SAVE_SUCCESS_EDITUSER',
@@ -211,21 +211,40 @@ class userlist extends \fpcm\controller\abstracts\controller
         if (!count($articleCount)) {
             $articleCount = [0];
         }
-        
+
         $max = max($articleCount);
         $cLen = strlen((string) $max);
-        
+
         foreach($usersInGroups AS $rollId => $users) {
 
             $dataView->addRow(
                 new \fpcm\components\dataView\row(
                     columns: [
-                        new \fpcm\components\dataView\rowCol('button', (new \fpcm\view\helper\icon('user-group')), 'd-none d-lg-block'),
-                        new \fpcm\components\dataView\rowCol('username', $this->language->translate($userGroups[$rollId]->getRollName())),
-                        new \fpcm\components\dataView\rowCol('email', '', 'd-none d-lg-block'),
-                        new \fpcm\components\dataView\rowCol('registered', '', 'd-none d-lg-block'),
-                        new \fpcm\components\dataView\rowCol('lastchange', '', 'd-none d-lg-block'),
-                        new \fpcm\components\dataView\rowCol('metadata', '', 'd-none d-lg-block'),
+                        new \fpcm\components\dataView\rowCol(
+                            'button',
+                            (new \fpcm\view\helper\icon('user-group')),
+                            'd-none d-lg-block'
+                        ),
+                        new \fpcm\components\dataView\rowCol(
+                            'username',
+                            $this->language->translate($userGroups[$rollId]->getRollName())
+                        ),
+                        new \fpcm\components\dataView\rowCol(
+                            name: 'email',
+                            class: 'd-none d-lg-block'
+                        ),
+                        new \fpcm\components\dataView\rowCol(
+                            name: 'registered',
+                            class: 'd-none d-lg-block'
+                        ),
+                        new \fpcm\components\dataView\rowCol(
+                            name: 'lastchange',
+                            class: 'd-none d-lg-block'
+                        ),
+                        new \fpcm\components\dataView\rowCol(
+                            name: 'metadata',
+                            class: 'd-none d-lg-block'
+                        )
                     ],
                     isheadline: true
             ));
@@ -236,7 +255,7 @@ class userlist extends \fpcm\controller\abstracts\controller
                 $noRb   = $user->getId() == $currentUser ? true : false;
 
                 $count = (string) ($articleCount[$userId] ?? 0);
-                
+
                 $count = str_pad($count, $cLen, 0, STR_PAD_LEFT);
 
                 $this->chartItems[$user->getDisplayname()] = $count;
@@ -253,7 +272,7 @@ class userlist extends \fpcm\controller\abstracts\controller
                 ];
 
                 if ($user->getDisabled()) {
-                    $buttons[] = (new \fpcm\view\helper\submitButton(uniqid('enableUser')))
+                    $buttons[] = (new \fpcm\view\helper\submitButton(\fpcm\view\helper\helper::getRandomID('enableUser')))
                         ->setText('GLOBAL_ENABLE')
                         ->setClass('fpcm ui-userlist-actione')
                         ->setIcon('user-check')
@@ -262,7 +281,7 @@ class userlist extends \fpcm\controller\abstracts\controller
                         ->setData(['oid' => $userId, 'fn' => 'enableUser', 'dest' => 'confirmExec']);
                 }
                 else {
-                    $buttons[] = (new \fpcm\view\helper\submitButton(uniqid('disableUser')))
+                    $buttons[] = (new \fpcm\view\helper\submitButton(\fpcm\view\helper\helper::getRandomID('disableUser')))
                         ->setText('GLOBAL_DISABLE')
                         ->setClass('fpcm ui-userlist-actione')
                         ->setIcon('user-lock')
@@ -271,7 +290,7 @@ class userlist extends \fpcm\controller\abstracts\controller
                         ->setData(['oid' => $userId, 'fn' => 'disableUser', 'dest' => 'confirmExec']);
                 }
 
-                $buttons[] = (new \fpcm\view\helper\deleteButton(uniqid('deleteUser')))
+                $buttons[] = (new \fpcm\view\helper\deleteButton(\fpcm\view\helper\helper::getRandomID('deleteUser')))
                         ->setClass('fpcm ui-userlist-actione')
                         ->setIconOnly()
                         ->setReadonly($noRb)
@@ -279,13 +298,23 @@ class userlist extends \fpcm\controller\abstracts\controller
 
                 $dataView->addRow(
                     new \fpcm\components\dataView\row([
-                        new \fpcm\components\dataView\rowCol('button', implode('', $buttons), '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
+                        new \fpcm\components\dataView\rowCol(
+                            name: 'button',
+                            value: $buttons,
+                            type: \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT
+                        ),
                         new \fpcm\components\dataView\rowCol('username', new \fpcm\view\helper\escape($user->getDisplayname()) ),
                         new \fpcm\components\dataView\rowCol('email', new \fpcm\view\helper\escape($user->getEmail())),
                         new \fpcm\components\dataView\rowCol('registered', new \fpcm\view\helper\dateText($user->getRegistertime())),
                         new \fpcm\components\dataView\rowCol('lastchange', new \fpcm\view\helper\dateText($user->getChangeTime() ?  $user->getChangeTime() : $user->getRegistertime())),
-                        new \fpcm\components\dataView\rowCol('metadata', implode('', $metadata), 'fs-5', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
-                    ], $user->getDisabled() ? 'text-body-secondary' : ''
+                        new \fpcm\components\dataView\rowCol(
+                            'metadata',
+                            $metadata,
+                            'fs-5',
+                            \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT
+                        ),
+                    ],
+                    $user->getDisabled() ? 'text-body-secondary' : ''
                 ));
 
             }
@@ -312,7 +341,7 @@ class userlist extends \fpcm\controller\abstracts\controller
         ]);
 
         $dest = $this->getControllerLink('users/list', ['rg' => 1]);
-        
+
         foreach($rolls AS $descr => $rollId) {
 
             $buttons = [
@@ -331,7 +360,7 @@ class userlist extends \fpcm\controller\abstracts\controller
                     ->setData(['type' => 'iframe']);
             }
 
-            $buttons[] = (new \fpcm\view\helper\deleteButton(uniqid('deleteROll')))
+            $buttons[] = (new \fpcm\view\helper\deleteButton(\fpcm\view\helper\helper::getRandomID('deleteROll')))
                     ->setClass('fpcm ui-rollslist-action-delete')
                     ->setIconOnly()
                     ->setReadonly($rollId <= 3)
@@ -339,7 +368,11 @@ class userlist extends \fpcm\controller\abstracts\controller
 
             $dataView->addRow(
                 new \fpcm\components\dataView\row([
-                    new \fpcm\components\dataView\rowCol('button', implode('', $buttons), '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
+                    new \fpcm\components\dataView\rowCol(
+                        name: 'button',
+                        value: $buttons,
+                        type: \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT
+                    ),
                     new \fpcm\components\dataView\rowCol('title', new \fpcm\view\helper\escape($descr) ),
                 ]
             ));
@@ -364,7 +397,7 @@ class userlist extends \fpcm\controller\abstracts\controller
                     ->useDataView()
                     ->setTabToolbar(2);
         }
-        
+
         $tabs[] = (new \fpcm\view\helper\tabItem('article-chart'))
                 ->setText('USERS_STATS_ARTICLE')
                 ->setFile('users/article-chart')

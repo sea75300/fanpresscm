@@ -58,13 +58,13 @@ final class rowCol implements \JsonSerializable {
      * @param type $type
      * @param string $typeClass
      */
-    public function __construct(string $name, string|array|object $value = '', string $class = '', $type = self::COLTYPE_VALUE, string $typeClass = '')
+    public function __construct(string $name, string|array|object $value = '', string $class = '', $type = self::COLTYPE_VALUE, string $typeClass = '', string $valueWrapper = '%s')
     {
         if (is_object($value)) {
             $value = (string) $value;
         }
         elseif (is_array($value)) {
-            $value = sprintf('<div>%s</div>', implode('', $value));
+            $value = sprintf($valueWrapper, implode('', $value));
         }
 
         $this->name  = $name;

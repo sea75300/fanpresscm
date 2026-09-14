@@ -159,7 +159,7 @@ trait lists {
                             new \fpcm\components\dataView\rowCol('button', $buttons, 'fpcm-ui-dataview-align-center fpcm-ui-font-small', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
                             new \fpcm\components\dataView\rowCol(
                                 name: 'title',
-                                value: implode(PHP_EOL, $title),
+                                value: $title,
                                 class: 'text-truncate',
                                 typeClass: 'text-truncate'
                             ),

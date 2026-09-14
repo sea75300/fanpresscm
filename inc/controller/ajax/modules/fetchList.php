@@ -175,7 +175,7 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController
     private function getColsLocal()
     {
         return [
-            (new \fpcm\components\dataView\column('buttons', 'GLOBAL_ACTIONS'))->setAlign('center'),
+            (new \fpcm\components\dataView\column('buttons', 'GLOBAL_ACTIONS')),
             (new \fpcm\components\dataView\column('description', 'MODULES_LIST_NAME')),
             (new \fpcm\components\dataView\column('key', 'MODULES_LIST_KEY')),
             (new \fpcm\components\dataView\column('version', 'MODULES_LIST_VERSION_LOCAL'))->setAlign('left')
@@ -189,7 +189,7 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController
     private function getColsRemote()
     {
         return [
-            (new \fpcm\components\dataView\column('buttons', 'GLOBAL_ACTIONS'))->setAlign('center'),
+            (new \fpcm\components\dataView\column('buttons', 'GLOBAL_ACTIONS')),
             (new \fpcm\components\dataView\column('description', 'MODULES_LIST_NAME')),
             (new \fpcm\components\dataView\column('key', 'MODULES_LIST_KEY')),
             (new \fpcm\components\dataView\column('version', 'MODULES_LIST_VERSION_REMOTE'))->setAlign('left')
@@ -239,7 +239,7 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController
         }
 
         return new \fpcm\components\dataView\row([
-            new \fpcm\components\dataView\rowCol('buttons', implode('', $buttons)),
+            new \fpcm\components\dataView\rowCol('buttons', $buttons),
             new \fpcm\components\dataView\rowCol('description', new \fpcm\view\helper\escape($config->name), $class ),
             new \fpcm\components\dataView\rowCol('key', new \fpcm\view\helper\escape($key), $class ),
             new \fpcm\components\dataView\rowCol('version', new \fpcm\view\helper\escape($config->version), $class )
@@ -282,15 +282,6 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController
                 'bs-controls' => 'offcanvasInfo',
             ]);
 
-        if ($item->getConfig()->changelogUrl) {
-            $buttons[] = (new \fpcm\view\helper\linkButton('changelog'.$hash))
-                    ->setUrl($item->getFullChangelogUrl())
-                    ->setText('HL_HELP_CHANGELOG')
-                    ->setIcon('code-branch')
-                    ->setIconOnly()
-                    ->setRel('external');
-        }
-
         $isInstalled = in_array($item->getKey(), $this->installed);
 
         if ($this->permissions->modules->install && !$isInstalled && $item->isInstallable()) {
@@ -302,8 +293,17 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController
                     ->setClass('fpcm-ui-modulelist-action-remote');
         }
 
+        if ($item->getConfig()->changelogUrl) {
+            $buttons[] = (new \fpcm\view\helper\linkButton('changelog'.$hash))
+                    ->setUrl($item->getFullChangelogUrl())
+                    ->setText('HL_HELP_CHANGELOG')
+                    ->setIcon('code-branch')
+                    ->setIconOnly()
+                    ->setRel('external');
+        }
+
         return new \fpcm\components\dataView\row([
-            new \fpcm\components\dataView\rowCol('buttons', implode('', $buttons)),
+            new \fpcm\components\dataView\rowCol('buttons', $buttons),
             new \fpcm\components\dataView\rowCol('description', new \fpcm\view\helper\escape($config->name ) ),
             new \fpcm\components\dataView\rowCol('key', new \fpcm\view\helper\escape($key) ),
             new \fpcm\components\dataView\rowCol('version', new \fpcm\view\helper\escape($config->version) )
@@ -430,17 +430,6 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController
                     ->setIconOnly()
                     ->setPrimary(true)
                     ->setClass('fpcm-ui-modulelist-action-local-update');
-
-            if ($item->getConfig()->changelogUrl) {
-                $buttons[] = (new \fpcm\view\helper\linkButton('changelog'.$hash))
-                        ->setUrl($item->getFullChangelogUrl())
-                        ->setText('HL_HELP_CHANGELOG')
-                        ->setIcon('code-branch')
-                        ->setIconOnly()
-                        ->setRel('external')
-                        ->overrideButtonType('info');
-            }
-
         }
 
         if ($hasLocalUpdates && !$hasUpdates) {
@@ -451,6 +440,16 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController
                 ->setIconOnly()
                 ->setPrimary(true)
                 ->setClass('fpcm-ui-modulelist-action-local-update');
+        }
+
+        if ($hasUpdates && $item->getConfig()->changelogUr) {
+            $buttons[] = (new \fpcm\view\helper\linkButton('changelog'.$hash))
+                    ->setUrl($item->getFullChangelogUrl())
+                    ->setText('HL_HELP_CHANGELOG')
+                    ->setIcon('code-branch')
+                    ->setIconOnly()
+                    ->setRel('external')
+                    ->overrideButtonType('info');
         }
 
         return $buttons;

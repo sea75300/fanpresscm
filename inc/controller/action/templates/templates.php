@@ -227,8 +227,8 @@ class templates extends \fpcm\controller\abstracts\controller implements \fpcm\c
 
         $dataView = new \fpcm\components\dataView\dataView('draftfiles');
         $dataView->addColumns([
-            (new \fpcm\components\dataView\column('select'))->setSize(1)->setAlign('center'),
-            (new \fpcm\components\dataView\column('button'))->setSize(2)->setAlign('center'),
+            (new \fpcm\components\dataView\column('select'))->setSize('auto')->setAlign('center'),
+            (new \fpcm\components\dataView\column('button'))->setSize('auto')->setAlign('center'),
             (new \fpcm\components\dataView\column('filename', 'FILE_LIST_FILENAME')),
             (new \fpcm\components\dataView\column('filesize', 'FILE_LIST_FILESIZE'))->setSize(2)->setAlign('center')
         ]);

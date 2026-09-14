@@ -31,7 +31,7 @@ if (fpcm.gsearch !== undefined) {
         children: 'a.fpcm.ui-link-fancybox',
         pswpModule: () => PhotoSwipeCore
     });
-    
+
     fpcm.gsearch._lightbox.captionPlugin = new PhotoSwipeDynamicCaption(fpcm.lightbox, {
         type: 'below',
         captionContent: (_slide) => {
@@ -51,6 +51,8 @@ if (fpcm.gsearch !== undefined) {
 
 if (fpcm.article !== undefined) {
 
+
+
     let _btnEl = document.getElementById('articleimg');
 
     if (_btnEl && _btnEl.dataset.pswpWidth === undefined && _btnEl.dataset.pswpHeight === undefined) {
@@ -69,4 +71,5 @@ if (fpcm.article !== undefined) {
     });
 
     fpcm.article._lightbox .init();
+
 }

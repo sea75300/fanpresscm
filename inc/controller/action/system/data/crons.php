@@ -90,7 +90,7 @@ class crons extends \fpcm\controller\abstracts\controller
     protected function getDataViewCols()
     {
         return [
-            (new \fpcm\components\dataView\column('button', ''))->setSize(1)->setAlign('center'),
+            (new \fpcm\components\dataView\column('button'))->setSize(1)->setAlign('center'),
             (new \fpcm\components\dataView\column('interval', 'CRONJOB_LIST_INTERVAL'))->setSize(2)->setAlign('center'),
             (new \fpcm\components\dataView\column('name', 'CRONJOB_LIST_NAME')),
             (new \fpcm\components\dataView\column('lastexec', 'CRONJOB_LIST_LASTEXEC'))->setAlign('center')->setSize('2'),

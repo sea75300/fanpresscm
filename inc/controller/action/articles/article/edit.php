@@ -219,6 +219,7 @@ class edit extends base {
             $this->view->addButton((new \fpcm\view\helper\linkButton('articleimg'))
                     ->setUrl($this->article->getImagepath())
                     ->setText('EDITOR_ARTICLEIMAGE_SHOW')
+                    ->setClass('fpcm ui-link-fancybox')
                     ->setIcon('image')
                     ->setIconOnly()
                     ->setToolbarToggle(1));
