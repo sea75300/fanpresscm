@@ -11,7 +11,7 @@ namespace fpcm\model\files;
  * FanPress CM filesystem operations model
  * @package fpcm\model\files
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2022, Stefan Seehafer
+ * @copyright (c) 2011-2026, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 final class ops {
@@ -255,6 +255,30 @@ final class ops {
             return true;
         }
         
+        trigger_error('Invalid data path found: '.$path);
+        return false;
+    }
+
+    /**
+     * Check if path is valid within FPCM base path
+     * @param string $path
+     * @return bool
+     * @since 5.3.6
+     */
+    public static function isValidBasePath(string $path) : bool
+    {
+        $realpath = realpath($path);
+
+        if (!trim($realpath)) {
+            $realpath = self::realpathNoExists($path);
+        }
+
+
+        $return = str_starts_with($path, $realpath);
+        if ($return) {
+            return true;
+        }
+
         trigger_error('Invalid data path found: '.$path);
         return false;
     }
