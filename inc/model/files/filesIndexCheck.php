@@ -262,8 +262,6 @@ final class filesIndexCheck {
 
         $this->index = 1;
 
-        $base = \fpcm\classes\dirs::getFullDirPath();
-
         foreach ($this->files as $path) {
 
             $this->{$this->logFunction}($path);

@@ -263,7 +263,7 @@ final class ops {
      * Check if path is valid within FPCM base path
      * @param string $path
      * @return bool
-     * @since 5.4.0
+     * @since 5.3.5
      */
     public static function isValidBasePath(string $path) : bool
     {
