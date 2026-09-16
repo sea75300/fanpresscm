@@ -56,6 +56,68 @@ class showall extends showcommon {
         $articles = $this->articleList->getArticlesByCondition($conditions);
         $this->users = $this->userList->getUsersForArticles(array_keys($articles));
 
+
+        if ($this->config->system_twig) {
+
+            $vars = [];
+
+            $notFoundStr = $this->language->translate('GLOBAL_NOTFOUND');
+
+            foreach ($articles as $article) {
+                
+                $author = $this->users[$article->getCreateuser()] ?? null;
+
+                $changeUser = $this->users[$article->getChangeuser()] ?? null;
+                
+                $categories = $this->categoryList->assignPublic($article);
+                $commentCount = $this->commentCounts[$article->getId()] ?? 0;
+                
+                /* @var $share sharebuttons */
+                $share = \fpcm\classes\loader::getObject('\fpcm\model\pubtemplates\sharebuttons');
+                $share->assignData($article->getElementLink(), $article->getTitle(), $article->getId());
+                
+                
+                $vars[] = [
+                    'headline' => $article->getTitle(),
+                    'text' => $article->getContent(),
+                    'textShort' => $article->getContent(),
+                    'date' => date($this->config->system_dtmask, $article->getCreatetime()),
+                    'statusPinned' => $article->getPinned() ? $this->language->translate('PUBLIC_ARTICLE_PINNED') : '',
+                    'shareButtons' => '',
+                    'commentCount' => $this->config->system_comments_enabled && $article->getComments() ? (int) $commentCount : 0,
+                    'author' => $author ? $author->getDisplayname() : $notFoundStr,
+                    'authorEmail' => ($author ? '<a href="mailto:' . $author->getEmail() . '">' . $author->getDisplayname() . '</a>' : ''),
+                    'authorAvatar' => $author ? \fpcm\model\users\author::getAuthorImageDataOrPath($author, 0) : '',
+                    'authorInfoText' => $author ? nl2br($author->getUsrinfo(), false) : '',
+                    'changeDate' => date($this->config->system_dtmask, $article->getChangetime()),
+                    'changeUser' => $changeUser ? $changeUser->getDisplayname() : $notFoundStr,
+                    'categoryIcons' => implode(PHP_EOL, array_values($categories)),
+                    'categoryTexts' => implode(PHP_EOL, array_keys($categories)),
+                    'permaLink' => $article->getElementLink(),
+                    'commentLink' => $article->getElementLink('#comments'),
+                    'articleImage' => $article->getArticleImage(),
+                    'sources' => $article->getSources(),
+                    'oldarticle' => $article->isOldArticle() ? $this->language->translate('PUBLIC_ARTICLE_OLD') : ''
+                ];
+            }
+
+            $twig = new \fpcm\model\pubtemplates\twig();
+            $twig->fromSystemTemplate('articles.html.twig', [
+                'articles' => $vars,
+                'debug' => \fpcm\classes\baseconfig::debugModeActive(),
+                'is_logged_in' => $this->session->exists(),
+                'permissions' => [
+                    'can_add' => true,
+                    'can_edit' => false
+                ]
+            ]);
+            echo $twig->render();                
+                
+            return [];
+        }
+
+
+
         foreach ($articles as $article) {
             $parsed[] = $this->assignData($article);
         }

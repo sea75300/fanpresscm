@@ -1,0 +1,48 @@
+{% if is_logged_in %}
+<div class="fpcm-pub-articletoolbar-main">
+    {% if permissions.can_add %}
+    <a target="_blank" href="{{ basePath }}articles/add">'HL_ARTICLE_ADD</a> &bull;
+    {% endif %}
+
+    {% if permissions.can_edit %}
+    <a target="_blank" href="{{ basePath }}articles/listactive">HL_ARTICLE_EDIT_ACTIVE</a> &bull;
+    {% endif %}
+
+    <a href="{{ basePath }}system/logout&redirect=1">LOGOUT_BTN</a>    
+</div>
+{% endif %}
+
+{% for article in articles %}
+<article>
+    <hr>
+    <div class="post">
+        <h3>{{ article.headline }}</h3>
+        
+        {% if article.statusPinned %}
+        <div class="status-pinned">
+            {{ article.statusPinned }}
+        </div>
+        {% endif %}
+        <div class="content">
+            {{ article.textShort }}
+        </div>
+        <div class="categories">
+            Kategorien: {{ article.categoryTexts }}
+        </div>
+        <div class="meta-info">
+            <span class="date">{{ article.date }}</span> 
+            <span class="author">Author: {{ article.author }}</span> 
+            <span class="link"><a href="{{ article.permaLink }}">Artikel-Link</a></span>
+            <span class="comment"><a href="{{ article.commentLink }}">{{ article.commentCount }} Kommentare</a></span>
+        </div>
+        {% if article.sources %}
+        <div class="source-links">
+            Quelle(n): {{ article.sources }}
+        </div>
+        {% endif %}        
+        <div class="share-buttons">
+            {{ article.shareButtons }}
+        </div>
+    </div>
+</article>
+{% endfor %}

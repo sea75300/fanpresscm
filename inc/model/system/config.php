@@ -37,6 +37,7 @@ use fpcm\model\traits\eventModuleEmpty;
  * @property int    $system_trash_cleanup Age of datasets in trash to cleanup
  * @property bool   $system_passcheck_enabled Password check enabled
  * @property bool   $system_darkmode Dark mode enabled on default for all users
+ * @property bool   $system_twig use Twig for frontend templates
  *
  * @property bool   $articles_revisions Enable revision system for articles
  * @property int    $articles_limit Number of articles per page in frontend
