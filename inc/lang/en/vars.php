@@ -859,6 +859,7 @@ $lang = array (
   'SYSTEM_OPTIONS_SYSCHECK_SUBMITSTATS' => 'Submit statistical data',
   'SYSTEM_OPTIONS_TIMEZONE' => 'Timezone',
   'SYSTEM_OPTIONS_TRASH_CLEANUP_DAYS' => 'Retention time for deleted elements',
+  'SYSTEM_OPTIONS_TEMPLATES_TWIG' => 'Use Twig for Frontend templates',
   'SYSTEM_OPTIONS_URL' => 'Base URL for article links',
   'SYSTEM_OPTIONS_USERS_PASSCHECK' => 'Check user passwords against haveibeenpwned.com/passwords service',
   'SYSTEM_STATS' => '{{icon="chart-bar"}} Statistics',

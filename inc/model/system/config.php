@@ -369,6 +369,10 @@ final class config extends dataset implements \fpcm\model\interfaces\isObjectIns
             $this->newConfig['system_darkmode'] = (int) $this->newConfig['system_darkmode'];
         }
 
+        if (isset($this->newConfig['articles_system_twig'])) {
+            $this->newConfig['system_twig'] = (int) $this->newConfig['articles_system_twig'];
+        }
+
         if (isset($this->newConfig['articles_archive_datelimit'])) {
 
             $this->newConfig['articles_archive_datelimit']  = $this->newConfig['articles_archive_datelimit'] && \fpcm\classes\dateTimeHelper::validateDateString($this->newConfig['articles_archive_datelimit'])

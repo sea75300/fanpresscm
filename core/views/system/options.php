@@ -51,6 +51,14 @@
                 ->setSelected($globalConfig->articles_acp_limit); ?>
             </div>
         </div>
+
+        <div class="row my-2 row-cols-1 row-cols-xl-2">
+            <div class="col">
+            <?php $theView->boolSelect('articles_system_twig')
+                ->setText('SYSTEM_OPTIONS_TEMPLATES_TWIG')
+                ->setSelected($globalConfig->system_twig); ?>
+            </div>
+        </div>
     </div>
 
     <div class="col">

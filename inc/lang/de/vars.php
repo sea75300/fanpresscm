@@ -858,6 +858,7 @@ $lang = array (
   'SYSTEM_OPTIONS_SYSCHECK_SUBMITSTATS' => 'Statistische Daten übermitteln',
   'SYSTEM_OPTIONS_TIMEZONE' => 'Zeitzone',
   'SYSTEM_OPTIONS_TRASH_CLEANUP_DAYS' => 'Vorhaltezeit für gelöschte Elemente',
+  'SYSTEM_OPTIONS_TEMPLATES_TWIG' => 'Twig für Frontend-Templates nutzen',
   'SYSTEM_OPTIONS_URL' => 'Basis-URL für Artikellinks',
   'SYSTEM_OPTIONS_USERS_PASSCHECK' => 'Benutzer-Passwörter gegen den Dienst haveibeenpwned.com/passwords prüfen',
   'SYSTEM_STATS' => '{{icon="chart-bar"}} Statistiken',

@@ -280,3 +280,8 @@ defaultvalues:
             config_name: "system_darkmode"
             config_value: "0"
             modulekey: ""
+        system_twig:
+            id: NULL
+            config_name: "system_twig"
+            config_value: "0"
+            modulekey: ""
