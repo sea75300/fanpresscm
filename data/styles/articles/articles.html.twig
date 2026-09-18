@@ -1,14 +1,14 @@
-{% if is_logged_in %}
+{% if fpcm.is_logged_in %}
 <div class="fpcm-pub-articletoolbar-main">
-    {% if permissions.can_add %}
-    <a target="_blank" href="{{ basePath }}articles/add">'HL_ARTICLE_ADD</a> &bull;
+    {% if fpcm.permissions.can_add %}
+    <a target="_blank" href="{{ fpcm.basePath }}articles/add">{{ fpcm.lang.HL_ARTICLE_ADD }}</a> &bull;
+    {% endif %}
+    
+    {% if fpcm.permissions.can_edit %}
+    <a target="_blank" href="{{ fpcm.basePath }}articles/listactive">{{ fpcm.lang.HL_ARTICLE_EDIT_ACTIVE }}</a> &bull;
     {% endif %}
 
-    {% if permissions.can_edit %}
-    <a target="_blank" href="{{ basePath }}articles/listactive">HL_ARTICLE_EDIT_ACTIVE</a> &bull;
-    {% endif %}
-
-    <a href="{{ basePath }}system/logout&redirect=1">LOGOUT_BTN</a>    
+    <a href="{{ fpcm.basePath }}system/logout&redirect=1">{{ fpcm.lang.LOGOUT_BTN }}</a>    
 </div>
 {% endif %}
 
@@ -20,18 +20,19 @@
         
         {% if article.statusPinned %}
         <div class="status-pinned">
-            {{ article.statusPinned }}
+            <p>{{ fpcm.lang.PUBLIC_ARTICLE_PINNED }}</p>
         </div>
         {% endif %}
         <div class="content">
             {{ article.textShort }}
         </div>
         <div class="categories">
-            Kategorien: {{ article.categoryTexts }}
+            Kategorien: {{ article.categoryTexts|join(' ') }}
         </div>
         <div class="meta-info">
             <span class="date">{{ article.date }}</span> 
             <span class="author">Author: {{ article.author }}</span> 
+            <span class="email"><a href="mailto:{{ article.authorEmail }}">{{ article.authorEmail }}</a></span>
             <span class="link"><a href="{{ article.permaLink }}">Artikel-Link</a></span>
             <span class="comment"><a href="{{ article.commentLink }}">{{ article.commentCount }} Kommentare</a></span>
         </div>
@@ -46,3 +47,20 @@
     </div>
 </article>
 {% endfor %}
+
+{% set pager = get_pager(pager_settings) %}
+
+<ul>
+{% if pager.previous %}
+    <li><a href="{{ pager.previous }}" class="fpcm-pub-pagination-prev">&larr;</a></li>
+{% endif %}    
+{% for page in pager.pages %}
+    <li><a href="{{ page.link }}" {% if page.class %}class="{{ page.class }}"{% endif %}>{{ page.label }}</a></li>
+{% endfor %}
+{% if pager.next %}
+    <li><a href="{{ pager.next }}" class="fpcm-pub-pagination-next">&rarr;</a></li>
+{% endif %}    
+{% if pager.archive %}
+    <li><a href="{{ pager.archive }}" class="fpcm-pub-pagination-archive">{{ fpcm.lang.ARTICLES_PUBLIC_ARCHIVE }}</a></li>
+{% endif %}    
+</ul>

@@ -16,6 +16,8 @@ namespace fpcm\classes;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 final class language {
+    
+    use \fpcm\model\traits\getObjectInstance;
 
     private const FILENAME_VARS = 'vars';
 
@@ -478,6 +480,10 @@ final class language {
         return is_writable($this->getFileName(self::FILENAME_LISTS)) && is_writable($this->getFileName(self::FILENAME_VARS));
     }
 
+    /**
+     * Compare language variables
+     * @return array
+     */
     public function compare()
     {
 

@@ -102,6 +102,10 @@ abstract class showcommon extends \fpcm\controller\abstracts\pubController {
      */
     protected function getViewPath(): string
     {
+        if ($this->config->system_twig) {
+            return 'public/twig';
+        }
+        
         return 'public/showall';
     }
 
