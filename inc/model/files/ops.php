@@ -238,7 +238,7 @@ final class ops {
      * @return bool
      * @since 4.5
      */
-    public static function isValidDataFolder(string $path = '', string $type = '/') : bool
+    public static function isValidDataFolder(string &$path = '', string $type = '/') : bool
     {
         if (!trim($path)) {
             return false;
@@ -252,6 +252,7 @@ final class ops {
         }
 
         if (str_starts_with($realpath, $dataPath)) {
+            $path = $realpath;
             return true;
         }
         
@@ -265,7 +266,7 @@ final class ops {
      * @return bool
      * @since 5.3.6
      */
-    public static function isValidBasePath(string $path) : bool
+    public static function isValidBasePath(string &$path) : bool
     {
         $realpath = realpath($path);
 
@@ -276,6 +277,7 @@ final class ops {
 
         $return = str_starts_with($path, $realpath);
         if ($return) {
+            $path = $realpath;
             return true;
         }
 
