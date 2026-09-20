@@ -162,7 +162,7 @@ if (fpcm === undefined) {
                 );
 
                 fpcm.system.bindClick(
-                    'a.fpcm-pub-sharebutton-count',
+                    'a.fpcm-pub-sharebutton[data-count="true"]',
                     (_ev) => {
                         let _item = _ev.currentTarget.dataset.onclick;
 

@@ -9,7 +9,7 @@ namespace fpcm\model\traits;
 
 /**
  * Share button link trait
- * 
+ *
  * @package fpcm\model\traits
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2023, Stefan Seehafer
@@ -29,6 +29,7 @@ trait shareLinks {
     {
 
         return match ($plattform) {
+            'likeButton' => sprintf('#', $url, $text),
             'facebook' => sprintf('https://www.facebook.com/sharer/sharer.php?u=%s&amp;t=%s', $url, $text),
             'twitter' => sprintf('https://twitter.com/intent/tweet?source=%s&amp;text=%s', $url, $text),
             'tumblr' => sprintf('http://www.tumblr.com/share?v=3&amp;u=%s&amp;t=%s&amp;s=', $url, $text),
@@ -40,6 +41,64 @@ trait shareLinks {
             default => null
         };
 
+    }
+
+    /**
+     * Get Share Link items
+     * @param int $oid
+     * @param string $description
+     * @param string $itemLink
+     * @return array
+     */
+    protected function getShareLinkItems(
+        string $description,
+        string $itemLink
+    ) : array
+    {
+        if (!$this->getConfig()->system_show_share) {
+            return [];
+        }
+
+        $link = rawurlencode($itemLink);
+
+        return [
+            'likeButton' => [
+                'link' => "#",
+                'icon' => "default/likebutton.png",
+            ],
+            'facebook' => [
+                'link' => $this->getLink('facebook', $description, $link),
+                'icon' => "default/facebook.png",
+            ],
+            'twitter' => [
+                'link' => $this->getLink('twitter', $description, $link),
+                'icon' => "default/twitter.png",
+            ],
+            'tumblr' => [
+                'link' => $this->getLink('tumblr', $description, $link),
+                'icon' => "default/tumblr.png",
+            ],
+            'pinterest' => [
+                'link' => $this->getLink('pinterest', $description, $link),
+                'icon' => "default/pinterest.png",
+            ],
+            'reddit' => [
+                'link' => $this->getLink('reddit', $description, $link),
+                'icon' => "default/reddit.png",
+            ],
+            'whatsapp' => [
+                'link' => $this->getLink('whatsapp', $description, $link),
+                'icon' => "default/whatsapp.png",
+            ],
+            'telegram' => [
+                'link' => $this->getLink('telegram', $description, $link),
+                'icon' => "default/telegram.png",
+            ],
+            'email' => [
+                'link' => $this->getLink('email', $description, $link),
+                'icon' => "default/email.png",
+            ]
+        ];
     }
 
 }

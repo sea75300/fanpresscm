@@ -262,7 +262,7 @@ if (!defined('FPCM_ARTICLES_OLDMESSAGE_INTERVALL')) {
      * Interval of old articles message in seconds
      * @since 5.2.0-a1
      */
-    define('FPCM_ARTICLES_OLDMESSAGE_INTERVALL', 31104000);
+    define('FPCM_ARTICLES_OLDMESSAGE_INTERVALL', 0); //31104000);
 }
 
 if (!defined('FPCM_SMTP_LEVEL')) {

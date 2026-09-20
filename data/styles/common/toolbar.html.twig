@@ -1,0 +1,13 @@
+{% if fpcm.is_logged_in %}
+<div class="fpcm-pub-articletoolbar-main">
+    {% if fpcm.permissions.can_add %}
+    <a target="_blank" href="{{ fpcm.basePath }}articles/add">{{ translate('HL_ARTICLE_ADD') }}</a> &bull;
+    {% endif %}
+
+    {% if fpcm.permissions.can_edit %}
+    <a target="_blank" href="{{ fpcm.basePath }}articles/listactive">{{ translate('HL_ARTICLE_EDIT_ACTIVE') }}</a> &bull;
+    {% endif %}
+
+    <a href="{{ fpcm.basePath }}system/logout&redirect=1">{{ translate('LOGOUT_BTN') }}</a>
+</div>
+{% endif %}

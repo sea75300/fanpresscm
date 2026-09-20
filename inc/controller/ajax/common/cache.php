@@ -74,6 +74,13 @@ class cache extends \fpcm\controller\abstracts\ajaxController
             }
         } else {
             $this->cache->cleanup();
+            
+            
+            if (\fpcm\model\system\config::getInstance()->system_twig) {
+                $twig = new \fpcm\model\templates\twig();
+                $twig->clearCache();
+            }
+            
         }
 
         $ev = $this->events->trigger('clearCache', [

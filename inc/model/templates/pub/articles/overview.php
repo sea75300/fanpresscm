@@ -18,6 +18,8 @@ namespace fpcm\model\templates\pub\articles;
 class overview extends \fpcm\model\templates\twig
 {
 
+    use \fpcm\model\traits\shareLinks;
+
     const VAR_ARTICLES = 'articles';
 
     const VAR_PAGER = 'pager_settings';
@@ -65,13 +67,8 @@ class overview extends \fpcm\model\templates\twig
         string $action
     )
     {
-        $this->pager[] = $count;
-        $this->pager[] = $perPage;
-        $this->pager[] = $current;
-        $this->pager[] = $archive;
-        $this->pager[] = $action;
+        $this->pager = [$count, $perPage, $current, $archive, $action];
     }
-
 
     /**
      * Assign article data
@@ -91,12 +88,12 @@ class overview extends \fpcm\model\templates\twig
     ): bool
     {
         $this->vars[self::VAR_ARTICLES][] = [
+            'id' => $article->getId(),
             'headline' => $article->getTitle(),
             'text' => $article->getContent(),
             'textShort' => $article->getContent(),
             'date' => date($this->getConfig()->system_dtmask, $article->getCreatetime()),
             'statusPinned' => $article->getPinned(),
-            'shareButtons' => '',
             'commentCount' => $commentCount,
             'author' => $author ? $author->getDisplayname() : '',
             'authorEmail' => ($author ? $author->getEmail() : ''),
@@ -110,7 +107,8 @@ class overview extends \fpcm\model\templates\twig
             'commentLink' => $article->getElementLink('#comments'),
             'articleImage' => $article->getArticleImage(),
             'sources' => $article->getSources(),
-            'oldarticle' => $article->isOldArticle()
+            'oldarticle' => $article->isOldArticle(),
+            'editLink' => $article->getEditLink()
         ];
 
         return true;
@@ -121,7 +119,7 @@ class overview extends \fpcm\model\templates\twig
      * @return bool
      */
     #[\Override]
-    public function beforeRender(): bool
+    public function onBeforeRender(): bool
     {
         $this->vars[self::VAR_PAGER] = $this->pager;
 
@@ -131,6 +129,31 @@ class overview extends \fpcm\model\templates\twig
         );
     }
 
+    /**
+     * Event directly before render processes
+     * @param \Twig\Environment $twig
+     * @return bool
+     */
+    #[\Override]
+    public function onRender(\Twig\Environment &$twig): bool
+    {
+        $twig->addFunction(new \Twig\TwigFunction('share_buttons',
+            function (string $description, string $item_link) {
+                return $this->getShareLinkItems($description, $item_link);
+            }
+        ));
+        
+        $twig->addFunction(new \Twig\TwigFunction('share_button_icon', function (string $icon) {
+            return \fpcm\classes\dirs::getDataUrl(\fpcm\classes\dirs::DATA_SHARE, $icon);
+        }));
+
+        return true;
+    }
+
+    /**
+     * Fetch permission getter
+     * @return array
+     */
     #[\Override]
     public function fetchPermissions(): array
     {

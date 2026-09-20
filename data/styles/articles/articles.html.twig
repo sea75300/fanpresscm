@@ -1,26 +1,27 @@
-{% if fpcm.is_logged_in %}
-<div class="fpcm-pub-articletoolbar-main">
-    {% if fpcm.permissions.can_add %}
-    <a target="_blank" href="{{ fpcm.basePath }}articles/add">{{ fpcm.lang.HL_ARTICLE_ADD }}</a> &bull;
-    {% endif %}
-    
-    {% if fpcm.permissions.can_edit %}
-    <a target="_blank" href="{{ fpcm.basePath }}articles/listactive">{{ fpcm.lang.HL_ARTICLE_EDIT_ACTIVE }}</a> &bull;
-    {% endif %}
-
-    <a href="{{ fpcm.basePath }}system/logout&redirect=1">{{ fpcm.lang.LOGOUT_BTN }}</a>    
-</div>
-{% endif %}
+{% include 'toolbar.html.twig' %}
 
 {% for article in articles %}
 <article>
+{% if fpcm.is_logged_in %}
+    <div class="fpcm-pub-articletoolbar-article">
+        {% if fpcm.permissions.can_edit %}
+        <a target="_blank" href="{{ article.editLink }}">{{ translate('GLOBAL_EDIT') }}</a>
+        {% endif %}
+    </div>
+    {% endif %}
     <hr>
     <div class="post">
         <h3>{{ article.headline }}</h3>
-        
+
         {% if article.statusPinned %}
         <div class="status-pinned">
-            <p>{{ fpcm.lang.PUBLIC_ARTICLE_PINNED }}</p>
+            <p class="alert alert-info">{{ translate('PUBLIC_ARTICLE_PINNED') }}</p>
+        </div>
+        {% endif %}
+
+        {% if article.oldarticle %}
+        <div class="status-old">
+            <p class="alert alert-warning">{{ translate('PUBLIC_ARTICLE_OLD') }}</p>
         </div>
         {% endif %}
         <div class="content">
@@ -30,20 +31,23 @@
             Kategorien: {{ article.categoryTexts|join(' ') }}
         </div>
         <div class="meta-info">
-            <span class="date">{{ article.date }}</span> 
-            <span class="author">Author: {{ article.author }}</span> 
-            <span class="email"><a href="mailto:{{ article.authorEmail }}">{{ article.authorEmail }}</a></span>
-            <span class="link"><a href="{{ article.permaLink }}">Artikel-Link</a></span>
-            <span class="comment"><a href="{{ article.commentLink }}">{{ article.commentCount }} Kommentare</a></span>
+            <span class="date">{{ article.date }}</span> &bull;
+            <span class="author">Author: {{ article.author }}</span> &bull;
+            <span class="email"><a href="mailto:{{ article.authorEmail }}">{{ article.authorEmail }}</a></span> &bull;
+            <span class="link"><a href="{{ article.permaLink }}">Artikel-Link</a></span> &bull;
+            <span class="comment"><a href="{{ article.commentLink }}">{{ article.commentCount }} {{ translate('COMMMENT_HEADLINE') }}</a></span>
         </div>
         {% if article.sources %}
         <div class="source-links">
             Quelle(n): {{ article.sources }}
         </div>
-        {% endif %}        
-        <div class="share-buttons">
-            {{ article.shareButtons }}
+        {% endif %}
+        {% if fpcm.shares.show %}
+        <div class="source-links">            
+            {% set buttons = share_buttons(article.headline, article.permaLink) %}
+            {% include 'sharebuttons.html.twig' with {'buttons': buttons, 'oid': article.id } %}
         </div>
+        {% endif %}
     </div>
 </article>
 {% endfor %}
@@ -53,14 +57,14 @@
 <ul>
 {% if pager.previous %}
     <li><a href="{{ pager.previous }}" class="fpcm-pub-pagination-prev">&larr;</a></li>
-{% endif %}    
+{% endif %}
 {% for page in pager.pages %}
     <li><a href="{{ page.link }}" {% if page.class %}class="{{ page.class }}"{% endif %}>{{ page.label }}</a></li>
 {% endfor %}
 {% if pager.next %}
     <li><a href="{{ pager.next }}" class="fpcm-pub-pagination-next">&rarr;</a></li>
-{% endif %}    
+{% endif %}
 {% if pager.archive %}
-    <li><a href="{{ pager.archive }}" class="fpcm-pub-pagination-archive">{{ fpcm.lang.ARTICLES_PUBLIC_ARCHIVE }}</a></li>
-{% endif %}    
+    <li><a href="{{ pager.archive }}" class="fpcm-pub-pagination-archive">{{ translate('ARTICLES_PUBLIC_ARCHIVE') }}</a></li>
+{% endif %}
 </ul>

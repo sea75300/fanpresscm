@@ -15,7 +15,6 @@ namespace fpcm\controller\action\pub;
  */
 class showall extends showcommon {
 
-
     /**
      *
      * @return string
@@ -48,6 +47,10 @@ class showall extends showcommon {
         return $res ?? '';
     }
 
+    /**
+     * Get content data
+     * @return array
+     */
     protected function getContentData(): array
     {
         $conditions = new \fpcm\model\articles\search();
@@ -59,41 +62,72 @@ class showall extends showcommon {
         $countConditions = new \fpcm\model\articles\search();
         $this->assignConditions($countConditions);
         
-        if ($this->config->system_twig) {
-
-            $twig = new \fpcm\model\templates\pub\articles\overview();
-
-            foreach ($articles as $article) {
-
-                /* @var $share sharebuttons */
-                $share = \fpcm\classes\loader::getObject('\fpcm\model\pubtemplates\sharebuttons');
-                $share->assignData($article->getElementLink(), $article->getTitle(), $article->getId());
-
-                $twig->assignArticle(
-                    $article,
-                    $this->users[$article->getCreateuser()] ?? null,
-                    $this->users[$article->getChangeuser()] ?? null,
-                    $this->categoryList->assignPublic($article),
-                    $this->commentCounts[$article->getId()] ?? 0
-                );
-            }
-
-            
-            
-            $twig->setPager(
-                $this->articleList->countArticlesByCondition($countConditions),
-                $this->limit,
-                $this->page,
-                $this->config->articles_archive_show,
-                'fpcm/list'
-            );
-
-            echo $twig->render();
-
+        if ($this->parseTwig($articles, $countConditions)) {
             return [];
         }
 
+        return $this->parseLegacy($articles, $countConditions);
 
+    }
+
+    /**
+     * Parse Twig template
+     * @param array $articles
+     * @param \fpcm\model\articles\search $countConditions
+     * @return bool
+     */
+    private function parseTwig(
+        array $articles,
+        \fpcm\model\articles\search $countConditions
+    ) : bool
+    {
+        if (!$this->config->system_twig) {
+            return false;
+        }
+
+        $twig = new \fpcm\model\templates\pub\articles\overview();
+
+        foreach ($articles as $article) {
+
+            /* @var $share \fpcm\model\pubtemplates\sharebuttons */
+            $share = \fpcm\classes\loader::getObject('\fpcm\model\pubtemplates\sharebuttons');
+            $share->assignData($article->getElementLink(), $article->getTitle(), $article->getId());
+
+            $twig->assignArticle(
+                $article,
+                $this->users[$article->getCreateuser()] ?? null,
+                $this->users[$article->getChangeuser()] ?? null,
+                $this->categoryList->assignPublic($article),
+                $this->commentCounts[$article->getId()] ?? 0
+            );
+        }
+
+        $twig->setPager(
+            $this->articleList->countArticlesByCondition($countConditions),
+            $this->limit,
+            $this->page,
+            $this->config->articles_archive_show,
+            'fpcm/list'
+        );
+
+        echo $twig->render();
+
+        return true;
+    }
+
+    /**
+     * Use legacy Template paraser
+     * @param array $articles
+     * @param \fpcm\model\articles\search $countConditions
+     * @return array
+     */
+    private function parseLegacy(
+        array $articles,
+        \fpcm\model\articles\search $countConditions
+    ) : array
+    {
+        $parsed = [];
+        
         foreach ($articles as $article) {
             $parsed[] = $this->assignData($article);
         }

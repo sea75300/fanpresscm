@@ -15,6 +15,7 @@
         <link rel="stylesheet prefetch" type="text/css" href="<?php print $api->getBootstrap(); ?>">
         <link rel="stylesheet prefetch" type="text/css" href="<?php print $api->getFontAwesome(); ?>">
         <script type="text/javascript" src="<?php print $api->getBootstrapJs(); ?>"></script>
+        <script type="text/javascript" src="<?php print $api->getPublicJsFile(); ?>"></script>
     </head>
     <body class="background-brown-dark">
 

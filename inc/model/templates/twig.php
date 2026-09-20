@@ -24,9 +24,9 @@ class twig
 
     const VAR_PERMISSIONS = 'permissions';
 
-    const VAR_LANG = 'lang';
-
     const VAR_BASE_PATH = 'basePath';
+
+    const VAR_SHARE = 'shares';
 
     /**
      * base template file name
@@ -107,62 +107,74 @@ class twig
      */
     public function render() : string
     {
-        $this->beforeRender();
+        $this->onBeforeRender();
 
         require_once \fpcm\classes\loader::libGetFilePath('twig/vendor');
 
         $loader = new \Twig\Loader\FilesystemLoader($this->paths, $this->base);
-
-        $this->variables['fpcm'] = [
-            self::VAR_BASE_PATH => \fpcm\classes\tools::getFullControllerLink(),
-            self::VAR_LANG => $this->getLanguage()->getAll(),
-            self::VAR_DEBUG => \fpcm\classes\baseconfig::debugModeActive(),
-            self::VAR_LOGGED_IN => \fpcm\model\system\session::getInstance()->exists(),
-            self::VAR_PERMISSIONS => $this->fetchPermissions()
-        ];
 
         $twig = new \Twig\Environment($loader, [
             'cache' => $this->cachePath,
             'autoescape' => false,
             'debug' => (bool) \fpcm\classes\baseconfig::debugModeActive()
         ]);
+        
+        $twig->addGlobal('fpcm', [
+            self::VAR_BASE_PATH => \fpcm\classes\tools::getFullControllerLink(),
+            self::VAR_DEBUG => \fpcm\classes\baseconfig::debugModeActive(),
+            self::VAR_LOGGED_IN => \fpcm\model\system\session::getInstance()->exists(),
+            self::VAR_PERMISSIONS => $this->fetchPermissions(),
+            self::VAR_SHARE => [
+                'show' => $this->getConfig()->system_show_share,
+                'count' => $this->getConfig()->system_share_count
+            ],
+            
+        ]);
 
         if (\fpcm\classes\baseconfig::debugModeActive()) {
             $twig->addExtension(new \Twig\Extension\DebugExtension());
         }
 
-        $twig->addFunction(new \Twig\TwigFunction('get_pager', function (array $pager) {
+        $twig->addFunction(new \Twig\TwigFunction('get_pager',
+            function (array $pager) {
 
-            fpcmLogSystem($pager);
-            
-            list($items, $perPage, $current, $archive, $action) = $pager;
+                list($items, $perPage, $current, $archive, $action) = $pager;
 
-            $count = ceil($items / $perPage);
-            if (!$count) {
-                return [];
-            }
+                $count = ceil($items / $perPage);
+                if (!$count) {
+                    return [];
+                }
 
-            $result = [
-                'pages' => [],
-                'next' => $current < $count ? sprintf('%s?module=%s&page=%d', $this->config->system_url, $action, $current + 1) : '',
-                'previous' => $current > 1 ? sprintf('%s?module=%s&page=%d', $this->config->system_url, $action, $current - 1) : '',
-                'archive' => $archive ? sprintf('%s?module=fpcm/archive', $this->config->system_url) : ''
-            ];
-            
-            foreach (array_fill(1, $count, []) as $key => &$value) {
-
-                $result['pages'][] = [
-                    'label' => $key,
-                    'class' => $key == $current || ($key == 1 && !$current) ? 'fpcm-pub-pagination-page-active' : '',
-                    'link'  => $key >= 2
-                            ? sprintf('%s?module=%s&page=%d', $this->config->system_url, $action, $key)
-                            : sprintf('%s?module=%s', $this->config->system_url, $action)
+                $result = [
+                    'pages' => [],
+                    'next' => $current < $count ? sprintf('%s?module=%s&page=%d', $this->config->system_url, $action, $current + 1) : '',
+                    'previous' => $current > 1 ? sprintf('%s?module=%s&page=%d', $this->config->system_url, $action, $current - 1) : '',
+                    'archive' => $archive ? sprintf('%s?module=fpcm/archive', $this->config->system_url) : ''
                 ];
+
+                foreach (array_fill(1, $count, []) as $key => &$value) {
+
+                    $result['pages'][] = [
+                        'label' => $key,
+                        'class' => $key == $current || ($key == 1 && !$current) ? 'fpcm-pub-pagination-page-active' : '',
+                        'link'  => $key >= 2
+                                ? sprintf('%s?module=%s&page=%d', $this->config->system_url, $action, $key)
+                                : sprintf('%s?module=%s', $this->config->system_url, $action)
+                    ];
+                }
+
+                return $result;
             }
+        ));
 
-            return $result;
-        }));
+        $twig->addFunction(new \Twig\TwigFunction('translate',
+            function (string $var, ...$replacements) {
+                return $this->getLanguage()->translate($var, $replacements, true);
+            }
+        ));
 
+        $this->onRender($twig);
+        
         return $twig->render($this->template, $this->variables);
     }
 
@@ -176,10 +188,20 @@ class twig
     }
 
     /**
-     * before render event
+     * Before render event
      * @return bool
      */
-    public function beforeRender() : bool
+    public function onBeforeRender() : bool
+    {
+        return true;
+    }
+
+    /**
+     * On render event
+     * @param \Twig\Environment $twig
+     * @return bool
+     */
+    public function onRender(\Twig\Environment &$twig) : bool
     {
         return true;
     }
@@ -232,4 +254,12 @@ class twig
         return $this->permissions;
     }
 
+    /**
+     * Remove cache folder
+     * @return bool
+     */
+    final public function clearCache() : bool
+    {
+        return \fpcm\model\files\ops::deleteRecursive($this->cachePath);
+    }
 }
