@@ -1,0 +1,78 @@
+<section>
+    <div id="commentform">
+        <div class="post">
+            <div class="content col-12">
+                <h4>{{ formHeadline }}</h4>
+
+                <form method="post" action="{{ submitUrl }}" name="cform">
+                    <div class="row row-cols-2">
+                        <div class="col-4">
+                            {{ nameDescription }}
+                        </div>
+                        <div class="col">
+                            {{ nameField }}
+                        </div>
+                    </div>
+                    <div class="row row-cols-2">
+                        <div class="col-4">
+                            {{ emailDescription }} (wird nicht veröffentlicht)
+                        </div>
+                        <div class="col">
+                            {{ emailField }}
+                        </div>
+                    </div>
+                    <div class="row row-cols-2">
+                        <div class="col-4">
+                            {{ websiteDescription }} (optional)
+                        </div>
+                        <div class="col">
+                            {{ websiteField }}
+                        </div>
+                    </div>
+                    <div class="row row-cols-2">
+                        <div class="col-4">
+                            Was möchtest du sagen?
+                        </div>
+                        <div class="col">
+                            <div>
+                                {{ textfield }}
+                            </div>
+                            <div class="px-2">
+                                Verfügbare HTML-Tags: {{ tags }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row row-cols-2">
+                        <div class="col">
+                            {{ spamPlugin.Question }}
+                        </div>
+                        <div class="col">
+                            {{ spamPlugin.field }}
+                        </div>
+                    </div>
+                    <div class="row row-cols-2">
+                        <div class="col-auto">
+                            {{ privateCheckbox }}
+                        </div>
+                        <div class="col">
+                            Dieser Kommentar ist privat.
+                        </div>
+                    </div>
+                    <div class="row row-cols-2">
+                        <div class="col-auto">
+                            {{ privacyComfirmation }}
+                        </div>
+                        <div class="col">
+                            Ich stimme der Datenschutzerklärung dieser Webseite zu.
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col align-center">
+                            {{ submitButton }} {{ resetButton }}
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

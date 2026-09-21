@@ -15,61 +15,19 @@ namespace fpcm\model\templates\pub\articles;
  * @copyright (c) 2026, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class overview extends \fpcm\model\templates\twig
+class single extends \fpcm\model\templates\twig
 {
 
     use \fpcm\model\traits\shareLinks,
         common;
 
-    const VAR_ARTICLES = 'articles';
-
-    const VAR_PAGER = 'pager_settings';
+    const VAR_ARTICLE = 'article';
 
     /**
      * vars within this template
      * @var array
      */
     private array $vars = [];
-
-    /**
-     * Pager settings
-     * @var array
-     */
-    private array $pager = [];
-
-    /**
-     * On init event
-     * @return bool
-     */
-    #[\Override]
-    public function onInit(): bool
-    {
-        $this->vars = [
-            self::VAR_ARTICLES => []
-        ];
-
-        return true;
-    }
-
-    /**
-     * Set pager data
-     * @param int $count
-     * @param int $perPage
-     * @param int $current
-     * @param int $next
-     * @param int $previews
-     * @param bool $archive
-     */
-    public function setPager(
-        int $count,
-        int $perPage,
-        int $current,
-        bool $archive,
-        string $action
-    )
-    {
-        $this->pager = [$count, $perPage, $current, $archive, $action];
-    }
 
     /**
      * Assign article data
@@ -88,7 +46,7 @@ class overview extends \fpcm\model\templates\twig
         int $commentCount,
     ): bool
     {
-        $this->vars[self::VAR_ARTICLES][] = $this->apply($article, $author, $changeUser, $categories, $commentCount);
+        $this->vars[self::VAR_ARTICLE] = $this->apply($article, $author, $changeUser, $categories, $commentCount);
 
         return true;
     }
@@ -100,10 +58,8 @@ class overview extends \fpcm\model\templates\twig
     #[\Override]
     public function onBeforeRender(): bool
     {
-        $this->vars[self::VAR_PAGER] = $this->pager;
-
         return $this->fromSystemTemplate(
-            'articles.html.twig', //$this->getConfig()->articles_template_active,
+            'article.html.twig', //$this->getConfig()->articles_template_active,
             $this->vars
         );
     }

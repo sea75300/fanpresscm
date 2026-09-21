@@ -49,6 +49,7 @@ trait shareLinks {
      * @param string $description
      * @param string $itemLink
      * @return array
+     * @since 5.4.0-a1
      */
     protected function getShareLinkItems(
         string $description,

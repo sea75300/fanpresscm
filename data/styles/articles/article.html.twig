@@ -3,7 +3,6 @@
 {% include 'toolbar.html.twig' %}
 
 <section>
-    {% for article in articles %}
     <article>
     {% if fpcm.is_logged_in %}
         <div class="fpcm-pub-articletoolbar-article">
@@ -52,24 +51,9 @@
             {% endif %}
         </div>
     </article>
-    {% endfor %}
 </section>
-
-{% set pager = get_pager(pager_settings) %}
-
 <section>
-    <ul>
-    {% if pager.previous %}
-        <li><a href="{{ pager.previous }}" class="fpcm-pub-pagination-prev">&larr;</a></li>
-    {% endif %}
-    {% for page in pager.pages %}
-        <li><a href="{{ page.link }}" {% if page.class %}class="{{ page.class }}"{% endif %}>{{ page.label }}</a></li>
-    {% endfor %}
-    {% if pager.next %}
-        <li><a href="{{ pager.next }}" class="fpcm-pub-pagination-next">&rarr;</a></li>
-    {% endif %}
-    {% if pager.archive %}
-        <li><a href="{{ pager.archive }}" class="fpcm-pub-pagination-archive">{{ translate('ARTICLES_PUBLIC_ARCHIVE') }}</a></li>
-    {% endif %}
-    </ul>
+    <div id="fpcm-pub-comments"></div>
 </section>
+        
+{% include 'form.html.twig' with {'buttons': buttons, 'oid': article.id } %}

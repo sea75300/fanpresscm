@@ -124,6 +124,10 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
      */
     protected function getViewPath(): string
     {
+        if ($this->config->system_twig) {
+            return 'public/twig';
+        }
+
         return 'public/showsingle';
     }
 
@@ -171,7 +175,55 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
             return;
         }
 
+        if ($this->parseTwig()) {
+            return;
+        }
+
+        $this->parseLegacy();
+
+        $this->view->addJsLangVars(['PUBLIC_SHARE_LIKE', 'AJAX_RESPONSE_ERROR', 'GLOBAL_PLEASEWAIT']);
+        $this->view->setViewVars(array_merge($this->viewVars, $this->view->getViewVars()));
+        $this->view->render();
+    }
+
+    /**
+     * Parse Twig based template
+     * @return bool
+     */
+    private function parseTwig() : bool
+    {
+        if (!$this->config->system_twig) {
+            return false;
+        }
+        
+        $users = $this->userList->getUsersByIds([
+            $this->article->getCreateuser(),
+            $this->article->getChangeuser()
+        ]);
+
+        $twig = new \fpcm\model\templates\pub\articles\single();
+
+        $twig->assignArticle(
+            $this->article,
+            $users[$this->article->getCreateuser()] ?? null,
+            $users[$this->article->getChangeuser()] ?? null,
+            $this->categoryList->assignPublic($this->article),
+            $this->commentCount
+        );
+
+        echo $twig->render();
+
+        return true;
+    }
+    
+    /**
+     * Parse article template legacy
+     * @return void
+     */
+    private function parseLegacy() : void
+    {
         $parsed = array('articles' => '', 'comments' => '');
+
         if ($this->cache->isExpired($this->cacheName) || $this->session->exists()) {
             
             $this->assignCommentsData();
@@ -182,7 +234,7 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
             $ev = $this->events->trigger('pub\showSingle', $parsed);
             if (!$ev->getSuccessed() || !$ev->getContinue()) {
                 trigger_error(sprintf("Event pub\showSingle failed. Returned success = %s, continue = %s", $ev->getSuccessed(), $ev->getContinue()));
-                return $parsed;
+                return;
             }
 
             $parsed = $ev->getData();
@@ -199,10 +251,6 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
             $this->viewVars['comments'] = $parsed['comments'];
             $this->viewVars['commentform'] = $this->assignCommentFormData();
         }
-
-        $this->view->addJsLangVars(['PUBLIC_SHARE_LIKE', 'AJAX_RESPONSE_ERROR', 'GLOBAL_PLEASEWAIT']);
-        $this->view->setViewVars(array_merge($this->viewVars, $this->view->getViewVars()));
-        $this->view->render();
     }
 
     /**

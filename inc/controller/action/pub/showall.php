@@ -88,11 +88,6 @@ class showall extends showcommon {
         $twig = new \fpcm\model\templates\pub\articles\overview();
 
         foreach ($articles as $article) {
-
-            /* @var $share \fpcm\model\pubtemplates\sharebuttons */
-            $share = \fpcm\classes\loader::getObject('\fpcm\model\pubtemplates\sharebuttons');
-            $share->assignData($article->getElementLink(), $article->getTitle(), $article->getId());
-
             $twig->assignArticle(
                 $article,
                 $this->users[$article->getCreateuser()] ?? null,

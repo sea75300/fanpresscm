@@ -14,6 +14,7 @@ namespace fpcm\model\templates;
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2026, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+ * @since 5.4.0-a1
  */
 class twig
 {
