@@ -24,6 +24,8 @@ class overview extends \fpcm\model\templates\twig
     const VAR_ARTICLES = 'articles';
 
     const VAR_PAGER = 'pager_settings';
+    
+    const VAR_COMMENTS_ACTIVE = 'commentsActive';
 
     /**
      * vars within this template
@@ -45,7 +47,7 @@ class overview extends \fpcm\model\templates\twig
     public function onInit(): bool
     {
         $this->vars = [
-            self::VAR_ARTICLES => []
+            self::VAR_ARTICLES => [],
         ];
 
         return true;
@@ -101,6 +103,8 @@ class overview extends \fpcm\model\templates\twig
     public function onBeforeRender(): bool
     {
         $this->vars[self::VAR_PAGER] = $this->pager;
+        
+        $this->applyCommentsEnabled();
 
         return $this->fromSystemTemplate(
             'articles.html.twig', //$this->getConfig()->articles_template_active,

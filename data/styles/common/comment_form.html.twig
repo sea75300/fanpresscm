@@ -2,73 +2,76 @@
     <div id="commentform">
         <div class="post">
             <div class="content col-12">
-                <h4>{{ formHeadline }}</h4>
+                <h4>{{ form.formHeadline }}</h4>
 
-                <form method="post" action="{{ submitUrl }}" name="cform">
+                <form method="post" action="{{ form.submitUrl }}" name="cform">
                     <div class="row row-cols-2">
                         <div class="col-4">
-                            {{ nameDescription }}
+                            {{ form.nameField.label }}
                         </div>
                         <div class="col">
-                            {{ nameField }}
+                            <input type="text" name="{{ form.nameField.name }}" value="{{ form.nameField.name }}">
                         </div>
                     </div>
                     <div class="row row-cols-2">
                         <div class="col-4">
-                            {{ emailDescription }} (wird nicht veröffentlicht)
+                            {{ form.emailField.label }} (wird nicht veröffentlicht)
                         </div>
                         <div class="col">
-                            {{ emailField }}
+                            <input type="email" name="{{ form.emailField.name }}" value="{{ form.emailField.name }}">
                         </div>
                     </div>
                     <div class="row row-cols-2">
                         <div class="col-4">
-                            {{ websiteDescription }} (optional)
+                            {{ form.websiteField.label }} (optional)
                         </div>
                         <div class="col">
-                            {{ websiteField }}
+                            <input type="url" name="{{ form.websiteField.name }}" value="{{ form.websiteField.name }}">
                         </div>
                     </div>
                     <div class="row row-cols-2">
                         <div class="col-4">
-                            Was möchtest du sagen?
+                            {{ form.textfield.label }}
                         </div>
                         <div class="col">
                             <div>
-                                {{ textfield }}
+                                <textarea name="{{ form.textfield.name }}" id="{{ form.textfield.id }}">
+                                    {{ form.textfield.value }}
+                                </textarea>
                             </div>
                             <div class="px-2">
-                                Verfügbare HTML-Tags: {{ tags }}
+                                {{ form.tags.label }}: {{ form.tags.value }}
                             </div>
                         </div>
                     </div>
                     <div class="row row-cols-2">
                         <div class="col">
-                            {{ spamPlugin.Question }}
+                            {{ form.spamPlugin.text }}
                         </div>
                         <div class="col">
-                            {{ spamPlugin.field }}
+                            {{ form.spamPlugin.field }}
                         </div>
                     </div>
                     <div class="row row-cols-2">
                         <div class="col-auto">
-                            {{ privateCheckbox }}
+                            <input type="checkbox" name="{{ form.privateCheckbox.name }}">
                         </div>
                         <div class="col">
-                            Dieser Kommentar ist privat.
+                            {{ form.privateCheckbox.label }}
                         </div>
                     </div>
                     <div class="row row-cols-2">
                         <div class="col-auto">
-                            {{ privacyComfirmation }}
+                            <input type="checkbox" name="{{ form.privacyComfirmation.name }}">
                         </div>
                         <div class="col">
-                            Ich stimme der Datenschutzerklärung dieser Webseite zu.
+                            {{ form.privacyComfirmation.label }}
                         </div>
                     </div>
                     <div class="row">
                         <div class="col align-center">
-                            {{ submitButton }} {{ resetButton }}
+                            <button type="submit" name="{{ form.submitButton.name }}">{{ form.submitButton.label }}</button>
+                            <button type="reset" name="{{ form.resetButton.name }}">{{ form.resetButton.label }}</button>
                         </div>
                     </div>
                 </form>

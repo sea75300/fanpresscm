@@ -42,6 +42,7 @@ trait common {
             'date' => date($this->getConfig()->system_dtmask, $article->getCreatetime()),
             'statusPinned' => $article->getPinned(),
             'commentCount' => $commentCount,
+            'commentsActive' => $article->getComments(),
             'author' => $author ? $author->getDisplayname() : '',
             'authorEmail' => ($author ? $author->getEmail() : ''),
             'authorAvatar' => $author ? \fpcm\model\users\author::getAuthorImageDataOrPath($author, false) : '',
@@ -91,6 +92,15 @@ trait common {
             'can_add' => $this->getPermissions()->article->add,
             'can_edit' => $this->getPermissions()->editArticles()
         ];
+    }
+
+    /**
+     * Apply comments enabled settings
+     * @return void
+     */
+    final protected function applyCommentsEnabled(): void
+    {
+        $this->vars = [self::VAR_COMMENTS_ACTIVE] = $this->getConfig()->system_comments_enabled;
     }
 
 }

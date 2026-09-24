@@ -22,6 +22,8 @@ class single extends \fpcm\model\templates\twig
         common;
 
     const VAR_ARTICLE = 'article';
+    
+    const VAR_COMMENTS_ACTIVE = 'commentsActive';
 
     /**
      * vars within this template
@@ -58,6 +60,8 @@ class single extends \fpcm\model\templates\twig
     #[\Override]
     public function onBeforeRender(): bool
     {
+        $this->applyCommentsEnabled();
+        
         return $this->fromSystemTemplate(
             'article.html.twig', //$this->getConfig()->articles_template_active,
             $this->vars

@@ -36,7 +36,9 @@
                 <span class="date">{{ article.date }}</span> &bull;
                 <span class="author">Author: <a href="mailto:{{ article.authorEmail }}">{{ article.author }}</a></span> &bull;
                 <span class="link"><a href="{{ article.permaLink }}">Artikel-Link</a></span> &bull;
+                {% if commentsActive and article.commentsActive %}
                 <span class="comment"><a href="{{ article.commentLink }}">{{ article.commentCount }} {{ translate('COMMMENT_HEADLINE') }}</a></span>
+                {% endif %}
             </div>
             {% if article.sources %}
             <div class="source-links">
@@ -56,4 +58,4 @@
     <div id="fpcm-pub-comments"></div>
 </section>
         
-{% include 'form.html.twig' with {'buttons': buttons, 'oid': article.id } %}
+{% include 'comment_form.html.twig' %}
