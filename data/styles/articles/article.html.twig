@@ -4,7 +4,7 @@
 
 <section>
     <article>
-    {% if fpcm.is_logged_in %}
+        {% if fpcm.is_logged_in %}
         <div class="fpcm-pub-articletoolbar-article">
             {% if fpcm.permissions.can_edit %}
                 <a class="btn" target="_blank" href="{{ article.editLink }}">{{ translate('GLOBAL_EDIT') }}</a>
@@ -36,7 +36,7 @@
                 <span class="date">{{ article.date }}</span> &bull;
                 <span class="author">Author: <a href="mailto:{{ article.authorEmail }}">{{ article.author }}</a></span> &bull;
                 <span class="link"><a href="{{ article.permaLink }}">Artikel-Link</a></span> &bull;
-                {% if commentsActive and article.commentsActive %}
+                {% if fpcm.commentsActive and article.commentsActive %}
                 <span class="comment"><a href="{{ article.commentLink }}">{{ article.commentCount }} {{ translate('COMMMENT_HEADLINE') }}</a></span>
                 {% endif %}
             </div>
@@ -57,5 +57,7 @@
 <section>
     <div id="fpcm-pub-comments"></div>
 </section>
-        
-{% include 'comment_form.html.twig' %}
+
+{% if fpcm.commentsActive and article.commentsActive %}
+    {% include 'comment_form.html.twig' with { 'form': form } %}
+{% endif %}

@@ -7,31 +7,31 @@
                 <form method="post" action="{{ form.submitUrl }}" name="cform">
                     <div class="row row-cols-2">
                         <div class="col-4">
-                            {{ form.nameField.label }}
+                            {{ translate('COMMMENT_AUTHOR') }}
                         </div>
                         <div class="col">
-                            <input type="text" name="{{ form.nameField.name }}" value="{{ form.nameField.name }}">
+                            <input type="text" name="{{ form.nameField.name }}" value="{{ form.nameField.value }}">
                         </div>
                     </div>
                     <div class="row row-cols-2">
                         <div class="col-4">
-                            {{ form.emailField.label }} (wird nicht veröffentlicht)
+                            {{ translate('GLOBAL_EMAIL') }}
                         </div>
                         <div class="col">
-                            <input type="email" name="{{ form.emailField.name }}" value="{{ form.emailField.name }}">
+                            <input type="email" name="{{ form.emailField.name }}" value="{{ form.emailField.value }}">
                         </div>
                     </div>
                     <div class="row row-cols-2">
                         <div class="col-4">
-                            {{ form.websiteField.label }} (optional)
+                            {{ translate('COMMMENT_WEBSITE') }} (optional)
                         </div>
                         <div class="col">
-                            <input type="url" name="{{ form.websiteField.name }}" value="{{ form.websiteField.name }}">
+                            <input type="url" name="{{ form.websiteField.name }}" value="{{ form.websiteField.value }}">
                         </div>
                     </div>
                     <div class="row row-cols-2">
                         <div class="col-4">
-                            {{ form.textfield.label }}
+                            {{ translate('COMMENTS_PUBLIC_FORMHEADLINE') }}
                         </div>
                         <div class="col">
                             <div>
@@ -40,7 +40,7 @@
                                 </textarea>
                             </div>
                             <div class="px-2">
-                                {{ form.tags.label }}: {{ form.tags.value }}
+                                {{ translate('GLOBAL_HTMLTAGS_ALLOWED') }}: {{ form.tags.value|join(', ')|e }}
                             </div>
                         </div>
                     </div>
@@ -54,24 +54,24 @@
                     </div>
                     <div class="row row-cols-2">
                         <div class="col-auto">
-                            <input type="checkbox" name="{{ form.privateCheckbox.name }}">
+                            <input type="checkbox" name="{{ form.privateCheckbox.name }}" value="1">
                         </div>
                         <div class="col">
-                            {{ form.privateCheckbox.label }}
+                            {{ translate('COMMMENT_PRIVATE') }}
                         </div>
                     </div>
                     <div class="row row-cols-2">
                         <div class="col-auto">
-                            <input type="checkbox" name="{{ form.privacyComfirmation.name }}">
+                            <input type="checkbox" name="{{ form.privacyComfirmation.name }}" value="1">
                         </div>
                         <div class="col">
-                            {{ form.privacyComfirmation.label }}
+                            {{ translate('PUBLIC_PRIVACY') }}
                         </div>
                     </div>
                     <div class="row">
                         <div class="col align-center">
-                            <button type="submit" name="{{ form.submitButton.name }}">{{ form.submitButton.label }}</button>
-                            <button type="reset" name="{{ form.resetButton.name }}">{{ form.resetButton.label }}</button>
+                            <button type="submit" name="{{ form.submitButton.name }}">{{ translate('GLOBAL_SUBMIT') }}</button>
+                            <button type="reset" name="{{ form.resetButton.name }}">{{ translate('GLOBAL_RESET') }}</button>
                         </div>
                     </div>
                 </form>

@@ -19,7 +19,7 @@ class overview extends \fpcm\model\templates\twig
 {
 
     use \fpcm\model\traits\shareLinks,
-        common;
+        \fpcm\model\templates\pub\traits\article;
 
     const VAR_ARTICLES = 'articles';
 
@@ -103,8 +103,6 @@ class overview extends \fpcm\model\templates\twig
     public function onBeforeRender(): bool
     {
         $this->vars[self::VAR_PAGER] = $this->pager;
-        
-        $this->applyCommentsEnabled();
 
         return $this->fromSystemTemplate(
             'articles.html.twig', //$this->getConfig()->articles_template_active,

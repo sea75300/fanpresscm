@@ -211,6 +211,17 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
             $this->commentCount
         );
 
+        $privacy = false;
+        if ($this->session->exists()) {
+            $this->newComment->setName($this->session->getCurrentUser()->getDisplayname());
+            $this->newComment->setEmail($this->session->getCurrentUser()->getEmail());
+            $this->newComment->setWebsite(\fpcm\classes\dirs::getRootUrl());
+            $privacy = true;
+            
+            $twig->assignCommentToForm($this->article, $this->newComment, $this->captcha, $privacy);
+        }        
+        
+
         echo $twig->render();
 
         return true;

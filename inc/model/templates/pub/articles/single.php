@@ -19,11 +19,10 @@ class single extends \fpcm\model\templates\twig
 {
 
     use \fpcm\model\traits\shareLinks,
-        common;
+        \fpcm\model\templates\pub\traits\article,
+        \fpcm\model\templates\pub\traits\comment;
 
     const VAR_ARTICLE = 'article';
-    
-    const VAR_COMMENTS_ACTIVE = 'commentsActive';
 
     /**
      * vars within this template
@@ -31,6 +30,17 @@ class single extends \fpcm\model\templates\twig
      */
     private array $vars = [];
 
+    /**
+     * on init events
+     * @return bool
+     */
+    #[\Override]
+    public function onInit(): bool
+    {
+        $this->initCommentVars();
+        return true;
+    }
+    
     /**
      * Assign article data
      * @param \fpcm\model\articles\article $article
@@ -60,8 +70,6 @@ class single extends \fpcm\model\templates\twig
     #[\Override]
     public function onBeforeRender(): bool
     {
-        $this->applyCommentsEnabled();
-        
         return $this->fromSystemTemplate(
             'article.html.twig', //$this->getConfig()->articles_template_active,
             $this->vars

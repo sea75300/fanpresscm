@@ -31,12 +31,6 @@ class twigField implements \ArrayAccess {
     private string $id = '';
 
     /**
-     * Field label
-     * @var string
-     */
-    private string $label = '';
-
-    /**
      * Field value
      * @var string|array
      */
@@ -48,7 +42,6 @@ class twigField implements \ArrayAccess {
      * @param string $value
      */
     public function __construct(
-        string $label,
         string $name = '',
         string|array $value = '',
         string $id = ''
@@ -56,7 +49,6 @@ class twigField implements \ArrayAccess {
     {
         $strippedName = preg_replace('/[^a-z0-9]/i', '', $name);
         
-        $this->label = $label;
         $this->name = $name;
         $this->value = $value;
         $this->id = $id ?? $strippedName;

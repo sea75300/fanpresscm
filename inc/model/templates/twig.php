@@ -29,6 +29,8 @@ class twig
 
     const VAR_SHARE = 'shares';
 
+    const VAR_COMMENTS_ACTIVE = 'commentsActive';
+
     /**
      * base template file name
      * @var string
@@ -129,6 +131,7 @@ class twig
                 'show' => $this->getConfig()->system_show_share,
                 'count' => $this->getConfig()->system_share_count
             ],
+            self::VAR_COMMENTS_ACTIVE => $this->getConfig()->system_comments_enabled
             
         ]);
 

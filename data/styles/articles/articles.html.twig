@@ -36,9 +36,9 @@
             <div class="meta-info">
                 <span class="date">{{ article.date }}</span> &bull;
                 <span class="author">Author: <a href="mailto:{{ article.authorEmail }}">{{ article.author }}</a></span> &bull;
-                <span class="link"><a href="{{ article.permaLink }}">Artikel-Link</a></span> &bull;
-                {% if commentsActive and article.commentsActive %}
-                    <span class="comment"><a href="{{ article.commentLink }}">{{ article.commentCount }} {{ translate('COMMMENT_HEADLINE') }}</a></span>
+                <span class="link"><a href="{{ article.permaLink }}">Artikel-Link</a></span>
+                {% if fpcm.commentsActive and article.commentsActive %}
+                     &bull; <span class="comment"><a href="{{ article.commentLink }}">{{ article.commentCount }} {{ translate('COMMMENT_HEADLINE') }}</a></span>
                 {% endif %}
             </div>
             {% if article.sources %}
