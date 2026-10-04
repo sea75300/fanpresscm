@@ -109,7 +109,10 @@ implements \fpcm\controller\interfaces\requestFunctions
 
         $save = true;
         if ($data['password'] && $data['password_confirm']) {
-            if (md5($data['password']) !== md5($data['password_confirm'])) {
+            
+            $pw = \fpcm\classes\tools::getHash($data['password']);
+            $pwc = \fpcm\classes\tools::getHash($data['password_confirm']);
+            if (!hash_equals($pw, $pwc)) {
                 $this->view->addErrorMessage('SAVE_FAILED_PASSWORD_MATCH');
                 return false;
             }

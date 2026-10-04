@@ -258,7 +258,7 @@ implements \fpcm\model\interfaces\dashcontainer, \Stringable {
      */
     private function getSystemButtons()
     {
-        $return = (string) (new \fpcm\view\helper\button('move'. md5($this->getName())))
+        $return = (string) (new \fpcm\view\helper\button('move'. \fpcm\classes\tools::getHash($this->getName())))
                 ->overrideButtonType('link')
                 ->setClass('btn-sm shadow-none link-secondary dashboard-container-move')
                 ->setIcon('arrows-alt')
@@ -269,7 +269,7 @@ implements \fpcm\model\interfaces\dashcontainer, \Stringable {
             return $return;
         }
 
-        $return = (string)  (new \fpcm\view\helper\button('disable'. md5($this->getName())))
+        $return = (string)  (new \fpcm\view\helper\button('disable'. \fpcm\classes\tools::getHash($this->getName())))
                 ->overrideButtonType('link')
                 ->setClass('btn-sm shadow-none link-secondary ui-dashboard-container-disable')
                 ->setIcon('toggle-off')

@@ -460,8 +460,11 @@ class main extends \fpcm\controller\abstracts\controller {
         $user->setChangeTime(time());
         $user->setChangeUser(1);
         
-        if ($data['password'] && $data['password_confirm'] && (md5($data['password']) == md5($data['password_confirm']))) {
-            $user->setPassword($data['password']);
+        $pw = $data['password'] ?? null;
+        $pwc = $data['password_confirm'] ?? null;
+
+        if ($pw && $pwc && hash_equals(hash('sha256', $pw), hash('sha256', $pwc))) {
+            $user->setPassword($pw);
         } else {
             $res = -4;
             $this->afterStepResult = false;
