@@ -8,7 +8,7 @@ class pubTemplateTest extends \PHPUnit\Framework\TestCase {
      * @var bool
      */
     protected $backupGlobals = false;
-    
+
     protected function setUp() : void {
         $GLOBALS['fpcm']['urls']['data'] = 'http://localhost/data/';
     }
@@ -17,7 +17,7 @@ class pubTemplateTest extends \PHPUnit\Framework\TestCase {
     {
         $co = $this->initConfigObject();
         $uo = $this->initUserObject();
-        
+
         $ts = time() - 3600;
 
         $template = new fpcm\model\pubtemplates\article($co->article_template_active);
@@ -44,14 +44,14 @@ class pubTemplateTest extends \PHPUnit\Framework\TestCase {
         $this->assertStringContainsString($co->system_url, $output);
         $this->assertStringContainsString($uo->getDisplayname(), $output);
         $this->assertStringContainsString((string) new fpcm\view\helper\dateText($ts), $output);
-        
+
     }
 
     public function testParseCommentTemplate()
     {
         $co = $this->initConfigObject();
         $uo = $this->initUserObject();
-        
+
         $ts = time() - 1800;
 
         $template = new fpcm\model\pubtemplates\comment($co->comments_template_active);
@@ -62,7 +62,7 @@ class pubTemplateTest extends \PHPUnit\Framework\TestCase {
         $comment->setWebsite($co->system_url);
         $comment->setText('Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis. ');
         $comment->setCreatetime($ts);
-        
+
         $template->assignByObject($comment, 1);
 
         $output = $template->parse();
@@ -71,11 +71,11 @@ class pubTemplateTest extends \PHPUnit\Framework\TestCase {
         $this->assertStringContainsString($co->system_url, $output);
         $this->assertStringContainsString($uo->getDisplayname(), $output);
         $this->assertStringContainsString((string) new fpcm\view\helper\dateText($ts), $output);
-        
+
     }
 
     /**
-     * 
+     *
      * @return \fpcm\model\users\author
      */
     private function initUserObject()
@@ -91,7 +91,7 @@ class pubTemplateTest extends \PHPUnit\Framework\TestCase {
     }
 
     /**
-     * 
+     *
      * @return \fpcm\model\users\author
      */
     private function initConfigObject()

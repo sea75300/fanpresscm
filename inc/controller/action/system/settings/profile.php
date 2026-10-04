@@ -146,8 +146,7 @@ implements \fpcm\controller\interfaces\requestFunctions
      */
     private function checkCurrentPass(string $currentPass) : bool
     {
-        if (password_verify("{$currentPass}", "{$this->user->getPasswd()}") ||
-            hash_equals($this->user->getPasswd(), md5($currentPass) ) ) {
+        if (password_verify("{$currentPass}", "{$this->user->getPasswd()}")) {
             return true;
         }
 

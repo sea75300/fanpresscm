@@ -8,8 +8,8 @@
 namespace fpcm\model\auth;
 
 /**
- * HTML authProvider class 
- * 
+ * HTML authProvider class
+ *
  * @package fpcm\model\auth
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2022, Stefan Seehafer
@@ -44,16 +44,16 @@ final class htmlLogin extends \fpcm\model\abstracts\authProvider {
             $this->triggerError('User ' . $param['username'] . '! is disabled.');
             return \fpcm\model\users\author::AUTHOR_ERROR_DISABLED;
         }
-        
+
         if (! ( new \fpcm\model\users\userRoll($user->getRoll()) )->exists() ) {
             $this->triggerError('User roll ' . $user->getRoll() . ' does not exists of user ' . $param['username'] . '!');
-            return \fpcm\model\users\author::AUTHOR_ERROR_DISABLED;            
+            return \fpcm\model\users\author::AUTHOR_ERROR_DISABLED;
         }
 
         $success = password_verify("{$param['password']}", "{$user->getPasswd()}");
-        if (!$success && !hash_equals($user->getPasswd(), md5($param['password'])) ) {
+        if (!$success) {
             $this->triggerError('Login failed for username ' . $param['username'] . ', wrong password given!');
-            return false;            
+            return false;
         }
 
         if (!$user->getAuthtoken() || !$this->config->system_2fa_auth || (isset($param['external']) && $param['external'])) {
@@ -64,7 +64,7 @@ final class htmlLogin extends \fpcm\model\abstracts\authProvider {
             $this->triggerError('Login failed for username ' . $param['username'] . ', invalid auth token given!');
             return false;
         }
-        
+
         include_once \fpcm\classes\loader::libGetFilePath('sonata-project'.DIRECTORY_SEPARATOR.'GoogleAuthenticator');
         if (!(new \Sonata\GoogleAuthenticator\GoogleAuthenticator())->checkCode($user->getAuthtoken(), $param['authcode'])) {
             $this->triggerError('Login failed for username ' . $param['username'] . ', invalid auth token given!');
