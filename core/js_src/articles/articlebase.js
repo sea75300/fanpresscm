@@ -141,19 +141,20 @@ fpcm.article = {
             },
             dlButtons  : [
                 {
-                    text: 'COMMMENT_LOCKIP',
-                    icon: "lock",
-                    disabled: fpcm.vars.jsvars.lkIp ? false : true,
-                    click: function(_ui) {
-                        fpcm.dom.findElementInDialogFrame(_ui, '#btnLockIp').click();
-                    }
-                },
-                {
                     text: 'Whois',
                     icon: "globe",
                     click: function(_ui) {
                         let _el = fpcm.dom.findElementInDialogFrame(_ui, '#whoisIp');
                         window.open(_el[0].href, '_blank', 'width=700,height=500,scrollbars=yes,resizable=yes,');
+                    }
+                },
+                {
+                    text: 'COMMMENT_LOCKIP',
+                    icon: "lock",
+                    disabled: fpcm.vars.jsvars.lkIp ? false : true,
+                    isLeft: true,
+                    click: function(_ui) {
+                        fpcm.dom.findElementInDialogFrame(_ui, '#btnLockIp').click();
                     }
                 },
                 {
