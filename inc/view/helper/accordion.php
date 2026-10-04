@@ -84,7 +84,7 @@ class accordion extends helper {
         foreach ($this->items as $key => $value) {
             
             if (! $value instanceof accordionItem) {
-                $value = (new accordionItem(md5(uniqid('acci').$key.$value) ))->setText($key)->setValue($value);
+                $value = (new accordionItem(\fpcm\classes\tools::getHash(uniqid('acci').$key.$value) ))->setText($key)->setValue($value);
             }         
 
             $str .= (string) $value;

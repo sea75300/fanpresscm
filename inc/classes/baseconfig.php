@@ -197,7 +197,7 @@ final class baseconfig {
     public static function canHttps()
     {
         if (!isset($GLOBALS['fpcm']['baseconfigdata'][__FUNCTION__])) {
-            $GLOBALS['fpcm']['baseconfigdata'][__FUNCTION__] = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? true : false);
+            $GLOBALS['fpcm']['baseconfigdata'][__FUNCTION__] = ($_SERVER['HTTPS'] ?? null) === 'on';
         }
 
         return $GLOBALS['fpcm']['baseconfigdata'][__FUNCTION__];

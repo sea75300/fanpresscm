@@ -174,7 +174,7 @@ implements \fpcm\controller\interfaces\requestFunctions
     protected function initDataViewRow($file)
     {
         $basename = basename($file);
-        $hash = md5($basename);
+        $hash = \fpcm\classes\tools::getHash($basename);
 
         $val = urlencode(base64_encode( $this->crypt->encrypt($basename)));
 

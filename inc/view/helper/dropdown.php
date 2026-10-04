@@ -179,7 +179,7 @@ class dropdown extends helper {
             }
             
             if (! $value instanceof dropdownItem) {
-                $value = (new dropdownItem(md5(uniqid('ddi').$key.$value) ))->setText($key)->setValue($value);
+                $value = (new dropdownItem(\fpcm\classes\tools::getHash(uniqid('ddi').$key.$value) ))->setText($key)->setValue($value);
             }         
 
             if ($value->getValue() == $this->selected) {

@@ -408,7 +408,10 @@ final class session extends \fpcm\model\abstracts\dataset implements \fpcm\model
         (new \fpcm\classes\pageTokens)->delete();
 
         $expire = $this->getLogin() - ((int) FPCM_USER_SESSION * 5);
-        return setcookie(\fpcm\classes\security::getSessionCookieName(), 0, $expire, '/', '', false, true);
+        
+        return (new \fpcm\model\http\cookie( \fpcm\classes\security::getSessionCookieName() ))
+                ->setExpires($expire)
+                ->set('');
     }
 
     /**
