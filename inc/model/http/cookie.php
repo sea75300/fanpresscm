@@ -37,21 +37,15 @@ final class cookie {
     ];
 
     /**
-     * Use legacy mode to set cookie
-     * @var bool
-     */
-    private $legacySet = false;
-
-    /**
      * Constructor
      * @param string $name
      */
     public function __construct(string $name)
     {
         $this->name = $name;
-        $this->legacySet = version_compare(PHP_VERSION, '7.3', '<') ? true : false;
         $this->flags['expires'] += time();
         $this->flags['domain'] = $_SERVER['HTTP_HOST'] ?? 'localhost';
+        $this->flags['secure'] = \fpcm\classes\baseconfig::canHttps();
     }
 
     /**
@@ -61,19 +55,15 @@ final class cookie {
      */
     public function set(string $value) : bool
     {
-        if ($this->legacySet) {
-            return setcookie(
-                $this->name,
-                $value,
-                $this->flags['expires'],
-                $this->flags['path'],
-                $this->flags['domain'],
-                $this->flags['secure'],
-                $this->flags['httponly']
-            );
-        }
-
-        return setcookie($this->name, $value, $this->flags);
+        return setcookie(
+            $this->name,
+            $value,
+            $this->flags['expires'],
+            $this->flags['path'],
+            $this->flags['domain'],
+            $this->flags['secure'],
+            $this->flags['httponly']
+        );
     }
 
     /**

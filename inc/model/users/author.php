@@ -548,7 +548,7 @@ class author extends \fpcm\model\abstracts\dataset {
     {
         $this->disablePasswordSecCheck();
 
-        $password = substr(str_shuffle(ucfirst(sha1($this->username) . uniqid())), 0, rand(10, 16));
+        $password = substr(str_shuffle(ucfirst(\fpcm\classes\tools::getHash($this->username) . uniqid())), 0, rand(10, 16));
         $this->passwd = \fpcm\classes\security::createUserPasswordHash($password);
 
         if ($resetOnly) {
