@@ -40,7 +40,7 @@ class single extends \fpcm\model\templates\twig
         $this->initCommentVars();
         return true;
     }
-    
+
     /**
      * Assign article data
      * @param \fpcm\model\articles\article $article
@@ -74,6 +74,47 @@ class single extends \fpcm\model\templates\twig
             'article.html.twig', //$this->getConfig()->articles_template_active,
             $this->vars
         );
+    }
+
+    /**
+     * Register functions
+     * @param \Twig\Environment $twig
+     * @return bool
+     */
+    #[\Override]
+    public function registerFunctions(\Twig\Environment &$twig) : bool
+    {
+
+        $twig->addFunction(new \Twig\TwigFunction(
+            'input_field',
+            function (string $name, mixed $value = '', string $type = 'text', string $label = '', string $id = '') {
+                return (new \fpcm\view\helper\textInput($name, $id))
+                    ->setType($type)
+                    ->setValue($value)
+                    ->setText($label);
+            }
+        ));
+
+        $twig->addFunction(new \Twig\TwigFunction(
+            'textarea',
+            function (string $name, mixed $value = '', string $label = '', string $id = '') {
+                return (new \fpcm\view\helper\textarea($name, $id))
+                    ->setValue($value)
+                    ->setText($label);
+            }
+        ));
+
+        $twig->addFunction(new \Twig\TwigFunction(
+            'checkbox',
+            function (string $name, mixed $selected = '', mixed $value = 1, string $label = '', string $id = '') {
+                return (new \fpcm\view\helper\checkbox($name, $id))
+                    ->setValue($value)
+                    ->setText($label)
+                    ->setSelected($selected);
+            }
+        ));
+
+        return true;
     }
 
 }

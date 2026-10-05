@@ -88,15 +88,52 @@ trait article {
     #[\Override]
     public function onRender(\Twig\Environment &$twig): bool
     {
-        $twig->addFunction(new \Twig\TwigFunction('share_buttons',
+        $twig->addFunction(new \Twig\TwigFunction(
+            'share_buttons',
             function (string $description, string $item_link) {
                 return $this->getShareLinkItems($description, $item_link);
             }
         ));
         
-        $twig->addFunction(new \Twig\TwigFunction('share_button_icon', function (string $icon) {
-            return \fpcm\classes\dirs::getDataUrl(\fpcm\classes\dirs::DATA_SHARE, $icon);
-        }));
+        $twig->addFunction(new \Twig\TwigFunction(
+            'share_button_icon',
+            function (string $icon) {
+                return \fpcm\classes\dirs::getDataUrl(\fpcm\classes\dirs::DATA_SHARE, $icon);
+            }
+        ));
+
+        $twig->addFunction(new \Twig\TwigFunction(
+            'get_pager',
+            function (array $pager) {
+
+                list($items, $perPage, $current, $archive, $action) = $pager;
+
+                $count = ceil($items / $perPage);
+                if (!$count) {
+                    return [];
+                }
+
+                $result = [
+                    'pages' => [],
+                    'next' => $current < $count ? sprintf('%s?module=%s&page=%d', $this->getConfig()->system_url, $action, $current + 1) : '',
+                    'previous' => $current > 1 ? sprintf('%s?module=%s&page=%d', $this->getConfig()->system_url, $action, $current - 1) : '',
+                    'archive' => $archive ? sprintf('%s?module=fpcm/archive', $this->getConfig()->system_url) : ''
+                ];
+
+                foreach (array_fill(1, $count, []) as $key => &$value) {
+
+                    $result['pages'][] = [
+                        'label' => $key,
+                        'class' => $key == $current || ($key == 1 && !$current) ? 'fpcm-pub-pagination-page-active' : '',
+                        'link'  => $key >= 2
+                                ? sprintf('%s?module=%s&page=%d', $this->getConfig()->system_url, $action, $key)
+                                : sprintf('%s?module=%s', $this->getConfig()->system_url, $action)
+                    ];
+                }
+
+                return $result;
+            }
+        ));
 
         return true;
     }
@@ -109,7 +146,7 @@ trait article {
     public function fetchPermissions(): array
     {
         return [
-            'can_add' => $this->getPermissions()->article->add,
+            'can_add' => $this->getPermissions()->article?->add,
             'can_edit' => $this->getPermissions()->editArticles()
         ];
     }

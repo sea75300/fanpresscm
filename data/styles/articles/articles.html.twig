@@ -1,3 +1,5 @@
+{% include 'vars.html.twig' %}
+
 {% include 'messages.html.twig' %}
 
 {% include 'toolbar.html.twig' %}
@@ -5,7 +7,7 @@
 <section>
     {% for article in articles %}
     <article>
-    {% if fpcm.is_logged_in %}
+        {% if fpcm.is_logged_in %}
         <div class="fpcm-pub-articletoolbar-article">
             {% if fpcm.permissions.can_edit %}
                 <a class="btn" target="_blank" href="{{ article.editLink }}">{{ translate('GLOBAL_EDIT') }}</a>

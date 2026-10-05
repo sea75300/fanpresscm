@@ -3,14 +3,14 @@
         <div class="post">
             <div class="content col-12">
                 <h4>{{ form.formHeadline }}</h4>
-
+                
                 <form method="post" action="{{ form.submitUrl }}" name="cform">
                     <div class="row row-cols-2">
                         <div class="col-4">
                             {{ translate('COMMMENT_AUTHOR') }}
                         </div>
                         <div class="col">
-                            <input type="text" name="{{ form.nameField.name }}" value="{{ form.nameField.value }}">
+                            {{ input_field(form.nameField.name, form.nameField.value) }}
                         </div>
                     </div>
                     <div class="row row-cols-2">
@@ -18,7 +18,7 @@
                             {{ translate('GLOBAL_EMAIL') }}
                         </div>
                         <div class="col">
-                            <input type="email" name="{{ form.emailField.name }}" value="{{ form.emailField.value }}">
+                            {{ input_field(form.emailField.name, form.emailField.value, 'email') }}
                         </div>
                     </div>
                     <div class="row row-cols-2">
@@ -26,7 +26,7 @@
                             {{ translate('COMMMENT_WEBSITE') }} (optional)
                         </div>
                         <div class="col">
-                            <input type="url" name="{{ form.websiteField.name }}" value="{{ form.websiteField.value }}">
+                            {{ input_field(form.websiteField.name, form.websiteField.value, 'url') }}
                         </div>
                     </div>
                     <div class="row row-cols-2">
@@ -35,9 +35,13 @@
                         </div>
                         <div class="col">
                             <div>
-                                <textarea name="{{ form.textfield.name }}" id="{{ form.textfield.id }}">
-                                    {{ form.textfield.value }}
-                                </textarea>
+                                {{ textarea
+                                    (
+                                        name: form.textfield.name,
+                                        value: form.textfield.value,
+                                        id: form.textfield.id
+                                    )
+                                }}
                             </div>
                             <div class="px-2">
                                 {{ translate('GLOBAL_HTMLTAGS_ALLOWED') }}: {{ form.tags.value|join(', ')|e }}
@@ -45,7 +49,7 @@
                         </div>
                     </div>
                     <div class="row row-cols-2">
-                        <div class="col">
+                        <div class="col-4">
                             {{ form.spamPlugin.text }}
                         </div>
                         <div class="col">
@@ -54,7 +58,7 @@
                     </div>
                     <div class="row row-cols-2">
                         <div class="col-auto">
-                            <input type="checkbox" name="{{ form.privateCheckbox.name }}" value="1">
+                            {{ checkbox(form.privateCheckbox.name) }}
                         </div>
                         <div class="col">
                             {{ translate('COMMMENT_PRIVATE') }}
@@ -62,7 +66,7 @@
                     </div>
                     <div class="row row-cols-2">
                         <div class="col-auto">
-                            <input type="checkbox" name="{{ form.privacyComfirmation.name }}" value="1">
+                            {{ checkbox(form.privacyComfirmation.name, form.privacyComfirmation.value) }}
                         </div>
                         <div class="col">
                             {{ translate('PUBLIC_PRIVACY') }}
@@ -70,7 +74,7 @@
                     </div>
                     <div class="row">
                         <div class="col align-center">
-                            <button type="submit" name="{{ form.submitButton.name }}">{{ translate('GLOBAL_SUBMIT') }}</button>
+                            <button id="fpcm-id-comment-send" type="submit" name="{{ form.submitButton.name }}">{{ translate('GLOBAL_SUBMIT') }}</button>
                             <button type="reset" name="{{ form.resetButton.name }}">{{ translate('GLOBAL_RESET') }}</button>
                         </div>
                     </div>

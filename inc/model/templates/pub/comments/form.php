@@ -59,7 +59,7 @@ class form extends \fpcm\model\templates\twig
      * @return bool
      */
     #[\Override]
-    public function onBeforeRender(): bool
+    public function onBeforeRender(\Twig\Environment &$twig): bool
     {
         return $this->fromSystemTemplate(
             'comment_form.html.twig', //$this->getConfig()->articles_template_active,

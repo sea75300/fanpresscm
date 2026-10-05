@@ -31,6 +31,8 @@ class twig
 
     const VAR_COMMENTS_ACTIVE = 'commentsActive';
 
+    const VAR_JS_VARS = 'scriptVars';
+
     /**
      * base template file name
      * @var string
@@ -54,6 +56,12 @@ class twig
      * @var array
      */
     private array $variables = [];
+
+    /**
+     * Script variables
+     * @var scriptVars|null
+     */
+    private ?scriptVars $scriptVars = null;
 
     /**
      * Cache path
@@ -104,82 +112,73 @@ class twig
     }
 
     /**
+     * Add script vars to template
+     * @param scriptVars $vars
+     * @return bool
+     */
+    final public function setScriptVars(scriptVars $vars) : bool
+    {
+        $this->scriptVars = $vars;
+        return true;
+    }
+
+    /**
      * Render Twig based template
      * @return string
      * @throws Exception
      */
     public function render() : string
     {
-        $this->onBeforeRender();
 
-        require_once \fpcm\classes\loader::libGetFilePath('twig/vendor');
+        try {
 
-        $loader = new \Twig\Loader\FilesystemLoader($this->paths, $this->base);
+            $this->onBeforeRender();
 
-        $twig = new \Twig\Environment($loader, [
-            'cache' => $this->cachePath,
-            'autoescape' => false,
-            'debug' => (bool) \fpcm\classes\baseconfig::debugModeActive()
-        ]);
-        
-        $twig->addGlobal('fpcm', [
-            self::VAR_BASE_PATH => \fpcm\classes\tools::getFullControllerLink(),
-            self::VAR_DEBUG => \fpcm\classes\baseconfig::debugModeActive(),
-            self::VAR_LOGGED_IN => \fpcm\model\system\session::getInstance()->exists(),
-            self::VAR_PERMISSIONS => $this->fetchPermissions(),
-            self::VAR_SHARE => [
-                'show' => $this->getConfig()->system_show_share,
-                'count' => $this->getConfig()->system_share_count
-            ],
-            self::VAR_COMMENTS_ACTIVE => $this->getConfig()->system_comments_enabled
-            
-        ]);
+            require_once \fpcm\classes\loader::libGetFilePath('twig/vendor');
 
-        if (\fpcm\classes\baseconfig::debugModeActive()) {
-            $twig->addExtension(new \Twig\Extension\DebugExtension());
+            $loader = new \Twig\Loader\FilesystemLoader($this->paths, $this->base);
+
+            $twig = new \Twig\Environment($loader, [
+                'cache' => $this->cachePath,
+                'autoescape' => false,
+                'debug' => (bool) \fpcm\classes\baseconfig::debugModeActive()
+            ]);
+
+            $twig->addGlobal('fpcm', [
+                self::VAR_BASE_PATH => \fpcm\classes\tools::getFullControllerLink(),
+                self::VAR_DEBUG => \fpcm\classes\baseconfig::debugModeActive(),
+                self::VAR_LOGGED_IN => \fpcm\model\system\session::getInstance()->exists(),
+                self::VAR_PERMISSIONS => $this->fetchPermissions(),
+                self::VAR_SHARE => [
+                    'show' => $this->getConfig()->system_show_share,
+                    'count' => $this->getConfig()->system_share_count
+                ],
+                self::VAR_COMMENTS_ACTIVE => $this->getConfig()->system_comments_enabled,
+                self::VAR_JS_VARS => $this->scriptVars
+
+            ]);
+
+            if (\fpcm\classes\baseconfig::debugModeActive()) {
+                $twig->addExtension(new \Twig\Extension\DebugExtension());
+            }
+
+            $twig->addFunction(new \Twig\TwigFunction(
+                'translate',
+                function (string $var, ...$replacements) {
+                    return $this->getLanguage()->translate($var, $replacements, true);
+                }
+            ));
+
+            $this->registerFunctions($twig);
+
+            $this->onRender($twig);
+
+            return $twig->render($this->template, $this->variables);
+        } catch (\Exception $exc) {
+            trigger_error($exc, E_USER_NOTICE);
+            return 'TWIG ERROR!';
         }
 
-        $twig->addFunction(new \Twig\TwigFunction('get_pager',
-            function (array $pager) {
-
-                list($items, $perPage, $current, $archive, $action) = $pager;
-
-                $count = ceil($items / $perPage);
-                if (!$count) {
-                    return [];
-                }
-
-                $result = [
-                    'pages' => [],
-                    'next' => $current < $count ? sprintf('%s?module=%s&page=%d', $this->config->system_url, $action, $current + 1) : '',
-                    'previous' => $current > 1 ? sprintf('%s?module=%s&page=%d', $this->config->system_url, $action, $current - 1) : '',
-                    'archive' => $archive ? sprintf('%s?module=fpcm/archive', $this->config->system_url) : ''
-                ];
-
-                foreach (array_fill(1, $count, []) as $key => &$value) {
-
-                    $result['pages'][] = [
-                        'label' => $key,
-                        'class' => $key == $current || ($key == 1 && !$current) ? 'fpcm-pub-pagination-page-active' : '',
-                        'link'  => $key >= 2
-                                ? sprintf('%s?module=%s&page=%d', $this->config->system_url, $action, $key)
-                                : sprintf('%s?module=%s', $this->config->system_url, $action)
-                    ];
-                }
-
-                return $result;
-            }
-        ));
-
-        $twig->addFunction(new \Twig\TwigFunction('translate',
-            function (string $var, ...$replacements) {
-                return $this->getLanguage()->translate($var, $replacements, true);
-            }
-        ));
-
-        $this->onRender($twig);
-        
-        return $twig->render($this->template, $this->variables);
     }
 
     /**
@@ -206,6 +205,16 @@ class twig
      * @return bool
      */
     public function onRender(\Twig\Environment &$twig) : bool
+    {
+        return true;
+    }
+
+    /**
+     * Register functions
+     * @param \Twig\Environment $twig
+     * @return bool
+     */
+    public function registerFunctions(\Twig\Environment &$twig) : bool
     {
         return true;
     }

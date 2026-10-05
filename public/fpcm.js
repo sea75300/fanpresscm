@@ -10,13 +10,14 @@ if (fpcm === undefined) {
         vars: {
             jsvars: {},
             ui: {
-                messages: []
+                messages: [],
+                lang: []
             }
         },
         modules: {},
         shares: {},
         system: {
-            getFieldValue: function(_id) {
+            getFieldValue: function (_id) {
 
                 let _field = document.getElementById(_id);
                 if (!_field) {
@@ -37,45 +38,42 @@ if (fpcm === undefined) {
 
                 fpcm.system._mergeRecursive(fpcm, _newvalue);
             },
-            _mergeRecursive: function(_out, ...arguments_) {
+            _mergeRecursive: function (_out, ...arguments_) {
 
                 if (!_out) {
                     return false;
                 }
 
                 for (const obj of arguments_) {
-
-                  if (!obj) {
-                    continue;
-                  }
-
-                  for (const [key, value] of Object.entries(obj)) {
-                    switch (Object.prototype.toString.call(value)) {
-                      case '[object Object]':
-                        _out[key] = _out[key] || {};
-                        _out[key] = fpcm.system._mergeRecursive(_out[key], value);
-                        break;
-                      case '[object Array]':
-                        _out[key] = fpcm.system._mergeRecursive(new Array(value.length), value);
-                        break;
-                      default:
-                        _out[key] = value;
+                    if (!obj) {
+                        continue;
                     }
-                  }
+
+                    for (const [key, value] of Object.entries(obj)) {
+                        switch (Object.prototype.toString.call(value)) {
+                            case '[object Object]':
+                                _out[key] = _out[key] || {};
+                                _out[key] = fpcm.system._mergeRecursive(_out[key], value);
+                                break;
+                            case '[object Array]':
+                                _out[key] = fpcm.system._mergeRecursive(new Array(value.length), value);
+                                break;
+                            default:
+                                _out[key] = value;
+                        }
+                    }
                 }
 
                 return _out;
             },
             bindClick: function (_el, _callback) {
 
-                let _first = _el.substring(0,1);
+                let _first = _el.substring(0, 1);
                 if (_first === '#') {
                     _el = document.getElementById(_el.substr(1));
-                }
-                else if (_first === '.') {
+                } else if (_first === '.') {
                     _el = document.getElementsByClassName(_el.substr(1));
-                }
-                else {
+                } else {
                     _el = document.querySelectorAll(_el);
                 }
 
@@ -117,93 +115,93 @@ if (fpcm === undefined) {
                 }
 
                 fpcm.system.bindClick(
-                    '.fpcm-pub-commentsmiley',
-                    (_ev) => {
-                        _ev.preventDefault();
-                        fpcm.pub.insert(' ' + _ev.currentTarget.dataset.code + ' ');
-                    }
+                        '.fpcm-pub-commentsmiley',
+                        (_ev) => {
+                    _ev.preventDefault();
+                    fpcm.pub.insert(' ' + _ev.currentTarget.dataset.code + ' ');
+                }
                 );
 
                 fpcm.system.bindClick(
-                    '#btnSendComment',
-                    (_ev) => {
-                        _ev.preventDefault();
+                        '#fpcm-id-comment-send',
+                        (_ev) => {
+                    _ev.preventDefault();
 
-                        fpcm.pub.doAjax({
-                            action: 'pub/comments',
-                            method: 'POST',
-                            data: {
-                                action: 'save',
-                                oid: fpcm.system.getArticleId(),
-                                commentCaptcha: fpcm.system.getFieldValue('commentCaptcha'),
-                                comment: {
-                                    name: fpcm.system.getFieldValue('newcommentname'),
-                                    email: fpcm.system.getFieldValue('newcommentemail'),
-                                    website: fpcm.system.getFieldValue('newcommentwebsite'),
-                                    text: fpcm.system.getFieldValue('newcommenttext'),
-                                    private: fpcm.system.getFieldValue('newcommentprivate'),
-                                    privacy: fpcm.system.getFieldValue('newcommentprivacy'),
-                                }
-                            },
-                            execDone: (_result) => {
-
-                                if (_result.txt && _result.type) {
-                                    fpcm.pub.addMessage(_result);
-
-                                    if (_result.type === 'error') {
-                                        return false;
-                                    }
-                                }
-
-                                fpcm.pub.loadComments();
+                    fpcm.pub.doAjax({
+                        action: 'pub/comments',
+                        method: 'POST',
+                        data: {
+                            action: 'save',
+                            oid: fpcm.system.getArticleId(),
+                            commentCaptcha: fpcm.system.getFieldValue('commentCaptcha'),
+                            comment: {
+                                name: fpcm.system.getFieldValue('newcommentname'),
+                                email: fpcm.system.getFieldValue('newcommentemail'),
+                                website: fpcm.system.getFieldValue('newcommentwebsite'),
+                                text: fpcm.system.getFieldValue('newcommenttext'),
+                                private: fpcm.system.getFieldValue('newcommentprivate'),
+                                privacy: fpcm.system.getFieldValue('newcommentprivacy'),
                             }
-                        });
-                    }
+                        },
+                        execDone: (_result) => {
+
+                            if (_result.txt && _result.type) {
+                                fpcm.pub.addMessage(_result);
+
+                                if (_result.type === 'error') {
+                                    return false;
+                                }
+                            }
+
+                            fpcm.pub.loadComments();
+                        }
+                    });
+                }
                 );
 
                 fpcm.system.bindClick(
-                    'a.fpcm-pub-sharebutton[data-count="true"]',
-                    (_ev) => {
-                        let _item = _ev.currentTarget.dataset.onclick;
+                        'a.fpcm-pub-sharebutton[data-count="true"]',
+                        (_ev) => {
+                    let _item = _ev.currentTarget.dataset.onclick;
 
-                        if (_item === 'likebutton') {
-                            _ev.preventDefault();
-                        }
+                    if (_item === 'likebutton') {
+                        _ev.preventDefault();
+                    }
 
-                        if (!fpcm.shares[_item]) {
-                            fpcm.shares[_item] = 0;
-                        }
+                    if (!fpcm.shares[_item]) {
+                        fpcm.shares[_item] = 0;
+                    }
 
-                        if (fpcm.shares[_item] && (new Date()).getTime() - fpcm.shares[_item] < 30000) {
+                    if (fpcm.shares[_item] && (new Date()).getTime() - fpcm.shares[_item] < 30000) {
+                        return false;
+                    }
+
+                    fpcm.shares[_item] = (new Date()).getTime();
+
+                    fpcm.pub.doAjax({
+                        action: 'pub/shareClick',
+                        data: {
+                            oid: _ev.currentTarget.dataset.oid,
+                            item: _item
+                        },
+                        execDone: function (_result) {
+
+                            if (_item !== 'likebutton') {
+                                return true;
+                            }
+
+                            fpcm.pub.addMessage({
+                                type: 'notice',
+                                id: (new Date()).getTime(),
+                                txt: fpcm.vars.ui.lang['PUBLIC_SHARE_LIKE']
+                            });
+
                             return false;
                         }
+                    });
 
-                        fpcm.shares[_item] = (new Date()).getTime();
-
-                        fpcm.pub.doAjax({
-                            action: 'pub/shareClick',
-                            data: {
-                                oid: _ev.currentTarget.dataset.oid,
-                                item: _item
-                            },
-                            execDone: function(_result) {
-
-                                if (_item !== 'likebutton') {
-                                    return true;
-                                }
-
-                                fpcm.pub.addMessage({
-                                    type: 'notice',
-                                    id: (new Date()).getTime(),
-                                    txt: fpcm.vars.ui.lang['PUBLIC_SHARE_LIKE']
-                                });
-
-                                return false;
-                            }
-                        });
-
-                        return _item === 'likebutton' ? false : true;
-                    }
+                    return _item === 'likebutton' ? false : true;
+                }
                 );
 
                 for (var _m in fpcm.modules) {
@@ -295,7 +293,7 @@ if (fpcm === undefined) {
                 _msgWrapper.appendChild(_msg);
             },
 
-            showMessages: function() {
+            showMessages: function () {
 
                 if (!fpcm.vars.ui || !fpcm.vars.ui.messages || !fpcm.vars.ui.messages.length) {
                     return false;
@@ -309,7 +307,7 @@ if (fpcm === undefined) {
                 return true;
             },
 
-            doRefresh: function() {
+            doRefresh: function () {
 
                 if (fpcm.vars.ajaxRefreshDisable || !fpcm.vars.ajaxActionPath) {
                     return false;
@@ -325,7 +323,7 @@ if (fpcm === undefined) {
                 return true;
             },
 
-            loadComments: function() {
+            loadComments: function () {
 
                 let _cbox = document.getElementById('fpcm-pub-comments');
                 if (!_cbox) {
@@ -333,7 +331,7 @@ if (fpcm === undefined) {
                 }
 
                 let _spinner = document.createElement('img');
-                _spinner.src = fpcm.vars.jsvars.spinnerUrl;
+                _spinner.src = fpcm.vars.spinnerUrl;
                 _spinner.classList.add('fpcm-pub-spinner');
 
                 _cbox.innerHTML = '';
@@ -357,11 +355,11 @@ if (fpcm === undefined) {
                         }
 
                         fpcm.system.bindClick(
-                            '.fpcm-pub-mentionlink',
-                            (_ev) => {
-                                _ev.preventDefault();
-                                fpcm.pub.insert('@#' + _ev.currentTarget.id + ': ');
-                            }
+                                '.fpcm-pub-mentionlink',
+                                (_ev) => {
+                            _ev.preventDefault();
+                            fpcm.pub.insert('@#' + _ev.currentTarget.id + ': ');
+                        }
                         );
 
                     }
@@ -409,14 +407,13 @@ if (fpcm === undefined) {
                     }
 
                     _url = _tmp.toString();
-                }
-                else if (_config.data && _config.data instanceof Object) {
+                } else if (_config.data && _config.data instanceof Object) {
 
                     let _body = new FormData();
 
                     for (var _i in _config.data) {
 
-                        let _val =_config.data[_i];
+                        let _val = _config.data[_i];
 
 
                         if (_config.dataType === 'application/json') {
@@ -436,8 +433,7 @@ if (fpcm === undefined) {
                     }
 
                     _init.body = _body;
-                }
-                else if(_config.data) {
+                } else if (_config.data) {
                     _init.body = _config.data;
                 }
 
@@ -456,7 +452,7 @@ if (fpcm === undefined) {
                             _config.execDone(_result);
                         }
 
-                        if (_response.headers.get('content-type').substr(0,9) === 'text/html') {
+                        if (_response.headers.get('content-type').substr(0, 9) === 'text/html') {
                             let _result = await _response.text();
                             _config.execDone(_result);
                         }
@@ -476,7 +472,7 @@ if (fpcm === undefined) {
                             return true;
                         }
 
-                        if (_response.headers.get('content-type').substr(0,9) === 'text/html') {
+                        if (_response.headers.get('content-type').substr(0, 9) === 'text/html') {
                             let _result = await _response.text();
                             return true;
                         }
@@ -484,8 +480,7 @@ if (fpcm === undefined) {
                         _config.execDone();
                     }
 
-                }
-                catch (_e) {
+                } catch (_e) {
                     console.warn(_e);
                 }
 

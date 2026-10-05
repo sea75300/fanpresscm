@@ -281,7 +281,7 @@ implements \fpcm\model\interfaces\isObjectInstancable {
      */
     public function editArticles() : bool
     {
-        return $this->article->edit || $this->article->editall;
+        return $this->article?->edit || $this->article?->editall;
     }
 
     /**
@@ -303,11 +303,11 @@ implements \fpcm\model\interfaces\isObjectInstancable {
      */
     public function editComments() : bool
     {
-        if ($this->article->edit && $this->comment->edit) {
+        if ($this->article?->edit && $this->comment?->edit) {
             return true;
         }
 
-        if ($this->article->editall && $this->comment->editall) {
+        if ($this->article?->editall && $this->comment?->editall) {
             return true;
         }
 
@@ -320,7 +320,7 @@ implements \fpcm\model\interfaces\isObjectInstancable {
      */
     public function editCommentsMass() : bool
     {
-        if (!$this->comment->massedit) {
+        if (!$this->comment?->massedit) {
             return false;
         }
 
@@ -333,11 +333,11 @@ implements \fpcm\model\interfaces\isObjectInstancable {
      */
     public function articleTrash() : bool
     {
-        if (!$this->article->edit && !$this->article->editall) {
+        if (!$this->article?->edit && !$this->article?->editall) {
             return false;
         }
 
-        return $this->article->delete;
+        return $this->article?->delete;
     }
     /**
      * Magic get

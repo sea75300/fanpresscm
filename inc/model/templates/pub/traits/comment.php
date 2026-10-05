@@ -76,11 +76,11 @@ trait comment
                 'field' => $captcha->createPluginInput()
             ],
             'privateCheckbox' => new \fpcm\model\templates\twigField(
-                'newcomment[private]'
+                'newcomment[private]',
             ),
             'privacyComfirmation' => new \fpcm\model\templates\twigField(
                 'newcomment[privacy]',
-                $privacy
+                (int) $privacy
             ),
             'submitButton' => new \fpcm\model\templates\twigField(
                 'sendComment'

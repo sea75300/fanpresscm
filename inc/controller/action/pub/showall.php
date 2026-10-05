@@ -104,6 +104,20 @@ class showall extends showcommon {
             $this->config->articles_archive_show,
             'fpcm/list'
         );
+        
+        $twig->setScriptVars(
+            new \fpcm\model\templates\scriptVars(
+                [
+                    \fpcm\model\templates\scriptVars::UI_VAR_LANG => [
+                        'PUBLIC_SHARE_LIKE',
+                        'AJAX_RESPONSE_ERROR',
+                        'GLOBAL_PLEASEWAIT',
+                        'PUBLIC_SHARE_LIKE',
+                        'AJAX_RESPONSE_ERROR'
+                    ]
+                ]
+            )
+        );
 
         echo $twig->render();
 

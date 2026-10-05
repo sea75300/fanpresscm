@@ -195,11 +195,13 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
         if (!$this->config->system_twig) {
             return false;
         }
-        
+
         $users = $this->userList->getUsersByIds([
             $this->article->getCreateuser(),
             $this->article->getChangeuser()
         ]);
+
+        $this->assignCommentsData();
 
         $twig = new \fpcm\model\templates\pub\articles\single();
 
@@ -211,22 +213,40 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
             $this->commentCount
         );
 
-        $privacy = false;
         if ($this->session->exists()) {
             $this->newComment->setName($this->session->getCurrentUser()->getDisplayname());
             $this->newComment->setEmail($this->session->getCurrentUser()->getEmail());
             $this->newComment->setWebsite(\fpcm\classes\dirs::getRootUrl());
             $privacy = true;
-            
-            $twig->assignCommentToForm($this->article, $this->newComment, $this->captcha, $privacy);
-        }        
-        
+        }
+        else {
+            $privacy = false;
+        }
+
+        $twig->assignCommentToForm($this->article, $this->newComment, $this->captcha, $privacy);
+
+        $twig->setScriptVars(
+            new \fpcm\model\templates\scriptVars(
+                [
+                    \fpcm\model\templates\scriptVars::UI_VAR_LANG => [
+                        'PUBLIC_SHARE_LIKE',
+                        'AJAX_RESPONSE_ERROR',
+                        'GLOBAL_PLEASEWAIT',
+                        'PUBLIC_SHARE_LIKE',
+                        'AJAX_RESPONSE_ERROR'
+                    ]
+                ],
+                [
+                    'commentsCount' => $this->commentCount
+                ]
+            )
+        );
 
         echo $twig->render();
 
         return true;
     }
-    
+
     /**
      * Parse article template legacy
      * @return void
@@ -236,9 +256,9 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
         $parsed = array('articles' => '', 'comments' => '');
 
         if ($this->cache->isExpired($this->cacheName) || $this->session->exists()) {
-            
+
             $this->assignCommentsData();
-            
+
             $parsed['comments'] = '';
             $parsed['articles'] = $this->assignArticleData();
 
@@ -315,7 +335,11 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
 
         $res = $this->commentList->countComments([ $this->articleId ], $private, $approved, $spam, false);
         $this->commentCount = $res[$this->articleId] ?? 0;
-        
+
+        if ($this->config->system_twig) {
+            return true;
+        }
+
         $this->view->addJsVars(['commentsCount' => $this->commentCount]);
     }
 
