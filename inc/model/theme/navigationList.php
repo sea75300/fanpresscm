@@ -23,14 +23,20 @@ final class navigationList {
      * @var array
      * @ignore
      */
-    private $data;
+    private array $data;
 
     /**
      * Active navigation item
      * @var string
      * @since 5.0.0-a4
      */
-    private $activeNavItem = '';
+    private string $activeNavItem = '';
+
+    /**
+     * Module key strung
+     * @var string
+     */
+    private string $extKey = '';
 
     /**
      * @ignore
@@ -57,6 +63,17 @@ final class navigationList {
     }
 
     /**
+     * Addons module extension key
+     * @param string $extKey
+     * @return static
+     */
+    final public function setExtModuleKey(string $extKey): static
+    {
+        $this->extKey = $extKey;
+        return $this;
+    }
+    
+    /**
      * Add item to navigation
      * @param string $area
      * @param \fpcm\model\theme\navigationItem $item
@@ -71,6 +88,10 @@ final class navigationList {
 
         if ($item->isAccessible() === false) {
             return true;
+        }
+
+        if ($this->extKey) {
+            $item->setExtModuleKey($this->extKey);
         }
 
         $this->checkSubmenu($item);

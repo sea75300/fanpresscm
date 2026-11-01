@@ -9,14 +9,17 @@ namespace fpcm\model\theme;
 
 /**
  * ACP navigation item object
- * 
+ *
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
  * @copyright (c) 2017-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\model\theme
  * @since 3.5
  */
-class navigationItem extends \fpcm\model\abstracts\staticModel implements \Stringable {
+class navigationItem
+extends \fpcm\model\abstracts\staticModel
+implements \Stringable
+{
 
     const AREA_DASHBOARD = 'dashboard';
     const AREA_ADDNEWS = 'addnews';
@@ -27,84 +30,90 @@ class navigationItem extends \fpcm\model\abstracts\staticModel implements \Strin
     const AREA_MODULES = 'modules';
     const AREA_TRASH = 'trashes';
     const AREA_AFTER = 'after';
-    
+
     /**
      * im Navigation angezeigte Beschreibung
      * @var string
      */
-    protected $description = '';
+    protected string $description = '';
 
     /**
      * Zielurl
      * @var string
      */
-    protected $url = '';
+    protected string $url = '';
 
     /**
      * CSS-Klassen für Icon
      * @var string
      */
-    protected $icon = '';
+    protected string $icon = '';
 
     /**
      * allgemeine CSS-Klassen
      * @var string
      */
-    protected $class = '';
+    protected string $class = '';
 
     /**
      * Wrapper-CSS-Klassen
      * @var string
      */
-    protected $wrapperClass = '';
+    protected string $wrapperClass = '';
 
     /**
      * Item-ID
      * @var string
      */
-    protected $id = '';
+    protected string $id = '';
 
     /**
      * Eltern-Bereich des Menü-Eintrages
      * @var string
      */
-    protected $parent = 'after';
+    protected string $parent = 'after';
 
     /**
      * Permissions flag for access
      * @var bool
      */
-    protected $accessible = null;
+    protected ?bool $accessible = null;
 
     /**
      * Untermenü, array mit Elementen vom Typ navigationItem
      * @var array
      */
-    protected $submenu = [];
+    protected array $submenu = [];
 
     /**
      * Status, ob auf Element Platzhalter folgt
      * @var bool
      */
-    protected $spacer = false;
+    protected bool $spacer = false;
 
     /**
      * aktuell ausgewähltes Modul
      * @var string
      */
-    private $currentModule = '';
+    private string $currentModule = '';
 
     /**
      * Module to check/merk as active
      * @var string
      */
-    private $activeSetModule = '';
+    private string $activeSetModule = '';
 
     /**
      * has parent, so it's a submenu item
      * @var bool
      */
-    private $submenuItem = false;
+    private bool $submenuItem = false;
+
+    /**
+     * Module key strung
+     * @var string
+     */
+    private string $extKey = '';
 
     /**
      * Konstruktor
@@ -141,7 +150,18 @@ class navigationItem extends \fpcm\model\abstracts\staticModel implements \Strin
      */
     public function getFullUrl()
     {
-        return \fpcm\classes\dirs::getRootUrl('index.php?module=' . $this->url);
+        $params = [];
+
+        if ($this->extKey) {
+            $params['ext'] =$this->extKey;
+        }
+
+        $params['module'] = $this->url;
+
+        return \fpcm\classes\dirs::getRootUrl('index.php?' . http_build_query(
+            data: $params,
+            arg_separator: '&'
+        ));
     }
 
     /**
@@ -311,7 +331,7 @@ class navigationItem extends \fpcm\model\abstracts\staticModel implements \Strin
         $this->submenuItem = $submenuItem;
         return $this;
     }
-    
+
     /**
      * Status, ob Spacer nach Element angezeigt werden soll
      * @return bool
@@ -364,6 +384,25 @@ class navigationItem extends \fpcm\model\abstracts\staticModel implements \Strin
     }
 
     /**
+     * Get module extension key
+     * @return string
+     */
+    public function getExtModuleKey(): string {
+        return $this->extKey;
+    }
+
+    /**
+     * Set module extension key
+     * @param string $extKey
+     * @return static
+     */
+    public function setExtModuleKey(string $extKey): static
+    {
+        $this->extKey = $extKey;
+        return $this;
+    }
+
+    /**
      * Get navigation item css string
      * @param type $active
      * @return string
@@ -395,7 +434,7 @@ class navigationItem extends \fpcm\model\abstracts\staticModel implements \Strin
     }
 
     /**
-     * 
+     *
      * @return string
      * @ignore
      */
@@ -410,11 +449,11 @@ class navigationItem extends \fpcm\model\abstracts\staticModel implements \Strin
         if ($this->hasSubmenu()) {
             $css[] = 'dropdown';
         }
-        
+
         if ($this->hasActiveSubmenuItem()) {
             $this->setClass('active text-white');
         }
-        
+
         $css = implode(' ', $css);
 
         $str =  "<li class= \"{$css}\" id=\"{$this->getId()}\">" . $this->getLinkString();
@@ -429,7 +468,7 @@ class navigationItem extends \fpcm\model\abstracts\staticModel implements \Strin
     private function getLinkString() : string
     {
         $css = ( $this->submenuItem ? 'dropdown-item  ' : 'fpcm ui-nav-link ' ) . $this->getDefaultCss($this->activeSetModule) . ' nav-link';
-   
+
         return "<a class=\"{$css} text-truncate\" href=\"{$this->getFullUrl()}\" " .
                 ($this->hasSubmenu() ? "role=\"button\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\" " : '' ) .
                 ($this->isActive($this->activeSetModule) ? "aria-current=\"page\" " : '' ) .
@@ -446,13 +485,13 @@ class navigationItem extends \fpcm\model\abstracts\staticModel implements \Strin
      */
     private function getSubmenuString(string $str) : string
     {
-        
+
         if (!$this->hasSubmenu()) {
             return $str;
         }
-        
+
         $str .= "<ul class=\"dropdown-menu shadow fpcm ui-blurring ui-background-dropdown-85 w-100\" aria-labelledby=\"{$this->getId()}\"> ";
-        
+
         /* @var $si navigationItem */
         foreach ($this->getSubmenu() as $si) {
 
@@ -460,16 +499,16 @@ class navigationItem extends \fpcm\model\abstracts\staticModel implements \Strin
             $si->initDefault($this->activeSetModule);
 
             $str .= (string) $si;
-            
+
             if ($si->hasSpacer()) {
                 $str .= '<li><hr class="dropdown-divider"></li>';
             }
 
         }
-        
+
         $str .= "</ul> ";
-        
-        
+
+
         return $str;
     }
 
@@ -483,12 +522,12 @@ class navigationItem extends \fpcm\model\abstracts\staticModel implements \Strin
         if (!$this->hasSubmenu()) {
             return false;
         }
-        
+
         $items = array_filter($this->getSubmenu(), function (navigationItem $item) {
-            return $item->isActive();            
+            return $item->isActive();
         });
 
         return count($items);
     }
-    
+
 }

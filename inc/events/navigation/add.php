@@ -21,4 +21,20 @@ namespace fpcm\events\navigation;
  */
 final class add extends \fpcm\events\abstracts\event {
 
+    /**
+     * Event-Daten
+     * @var \fpcm\model\theme\navigationList
+     */
+    protected $data;
+
+    /**
+     * Prepare event before running
+     * @return bool
+     * @since 5.3.0-dev
+     */
+    protected function beforeProcess(\fpcm\module\event $module) : void
+    {
+        $this->data->setExtModuleKey($module->getModuleKey());
+    }
+
 }

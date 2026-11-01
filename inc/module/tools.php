@@ -24,7 +24,7 @@ trait tools {
      * @param bool $initDb
      * @return \fpcm\module\module
      */
-    final protected function getObject(string $key = '', bool $initDb = true) : module
+    final public function getObject(string $key = '', bool $initDb = true) : module
     {
         if (!trim($key)) {
             $key = $this->getModuleKey();
@@ -37,7 +37,7 @@ trait tools {
      * Returns modul key based on current class
      * @return string
      */
-    final protected function getModuleKey() : string
+    final public function getModuleKey() : string
     {
         $class = static::class;
         $stack = \fpcm\classes\loader::stackPull('modulekeys');

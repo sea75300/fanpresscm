@@ -272,7 +272,6 @@ abstract class event {
         return (new \fpcm\module\eventResult())->setData($this->data);
     }
 
-
     /**
      * Prepare event before running
      * @return bool
@@ -345,7 +344,8 @@ abstract class event {
                         ? $this->doEventbyArea($module)
                         : $module->run();
 
-        } catch (\Throwable $e) {
+        }
+        catch (\Throwable $e) {
             trigger_error($e);
             return false;
         }

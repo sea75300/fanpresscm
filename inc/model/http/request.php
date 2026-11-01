@@ -239,6 +239,18 @@ final class request implements \fpcm\model\interfaces\isObjectInstancable {
     }
 
     /**
+     * Get extension module key
+     * @return string
+     * @since 5.4.0-a1
+     */
+    public function getExtKey() : string
+    {
+        $value = $this->fromGET('ext');
+
+        return $value && fpcm\module\module::validateKey($value) ? $value : '';
+    }
+
+    /**
      * Check if get parameter contains message indicator
      * @param string $msg
      * @return bool
