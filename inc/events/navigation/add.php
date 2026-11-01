@@ -37,4 +37,15 @@ final class add extends \fpcm\events\abstracts\event {
         $this->data->setExtModuleKey($module->getModuleKey());
     }
 
+    /**
+     * After event running
+     * @return bool
+     * @since 5.3.0-dev
+     */
+    protected function afterProcess() : void
+    {
+        parent::afterProcess();
+        $this->data->setExtModuleKey('');
+    }
+
 }
