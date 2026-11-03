@@ -117,7 +117,7 @@ class module {
     /**
      * Konstruktor
      * @param string $key
-     * @param boolean $initDb
+     * @param bool $initDb
      * @return bool
      */
     final public function __construct($key, $initDb = true)
@@ -303,7 +303,7 @@ class module {
      * @since 5.4.0-a1
      */
     public function getPreviewImages() : array
-    {        
+    {
         $images = $this->config->images ?? [];
         if (!count($images)) {
             return [];
@@ -683,10 +683,10 @@ class module {
 
     /**
      * Install module
-     * @param boolean $fromDir
+     * @param bool $fromDir
      * @return bool
      */
-    final public function install($fromDir = false) : bool
+    final public function install(bool $fromDir = false) : bool
     {
         fpcmLogSystem('Installation of module ' . $this->mkey);
 
@@ -740,10 +740,10 @@ class module {
 
     /**
      * Add module entry to database
-     * @param boolean $fromDir
+     * @param bool $fromDir
      * @return bool
      */
-    public function addModule($fromDir = false) : bool
+    public function addModule(bool $fromDir = false) : bool
     {
         fpcmLogSystem('Update modules table with ' . $this->mkey);
 
@@ -1140,6 +1140,31 @@ class module {
 
         trigger_error('Unable to delete data path folder: ' . $this->getDataPath());
         return false;
+    }
+
+    /**
+     * Check if module owns a certain event
+     * @param string $event
+     * @return bool
+     * @since 5.4.0.a1
+     */
+    final public function hasEvents(string $event) : bool
+    {
+        
+        fpcmLogSystem([
+                ':module_key' => $this->mkey,
+                ':event_name' => $event
+            ]);
+        
+        return $this->db->count(
+            \fpcm\classes\database::tableEvents,
+            'id',
+            'module_key = :module_key AND event_name = :event_name',
+            [
+                ':module_key' => $this->mkey,
+                ':event_name' => $event
+            ]
+        ) > 0;
     }
 
     /**

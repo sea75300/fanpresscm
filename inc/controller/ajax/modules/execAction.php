@@ -9,31 +9,43 @@ namespace fpcm\controller\ajax\modules;
 
 /**
  * Execute actions in module manager
- * 
+ *
  * @package fpcm\controller\ajax\modules\moduleactions
  * @author Stefan Seehafer <sea75300@yahoo.de>
  */
 class execAction extends \fpcm\controller\abstracts\ajaxController
 {
+    
+    const CMD_RELOAD = 'reload';
 
     /**
      * Module key
-     * @var array
-     */
-    protected $key;
-
-    /**
-     * From directory
      * @var string
      */
-    protected $fromDir;
+    protected string $key = '';
 
     /**
-     * 
+     * From directory action flag
      * @var bool
      */
-    protected $returnCode;
+    protected bool $fromDir = false;
 
+    /**
+     *
+     * @var bool
+     */
+    protected int $returnCode ;
+
+    /**
+     * Returned command
+     * @var bool
+     */
+    protected string $command = '';
+
+    /**
+     * Permission check
+     * @return bool
+     */
     public function isAccessible(): bool
     {
         return $this->permissions->modules->configure || $this->permissions->modules->install || $this->permissions->modules->uninstall;
@@ -46,7 +58,7 @@ class execAction extends \fpcm\controller\abstracts\ajaxController
     public function request()
     {
         $this->key = $this->request->fromPOST('key');
-        $this->fromDir = $this->request->fromPOST('fromDir', [
+        $this->fromDir = (bool) $this->request->fromPOST('fromDir', [
             \fpcm\model\http\request::FILTER_CASTINT
         ]);
 
@@ -64,19 +76,19 @@ class execAction extends \fpcm\controller\abstracts\ajaxController
             trigger_error('Invalid module key ' . $this->key . '!');
             $this->response->setCode(400)->addHeaders('Bad Request')->fetch();
         }
-        
-        
+
+
         if ($this->processByParam('process', 'action') === self::ERROR_PROCESS_BYPARAMS) {
             trigger_error('Invalid module action '.$this->request->fromPOST('action').'!');
             $this->response->setReturnData( new \fpcm\model\http\responseData(0) )->fetch();
         }
 
         $this->cache->cleanup();
-        $this->response->setReturnData( new \fpcm\model\http\responseData($this->returnCode) )->fetch();
+        $this->response->setReturnData( new \fpcm\model\http\responseData($this->returnCode, $this->command) )->fetch();
     }
 
     /**
-     * 
+     *
      * @return bool
      */
     protected function processInstall()
@@ -95,7 +107,7 @@ class execAction extends \fpcm\controller\abstracts\ajaxController
     }
 
     /**
-     * 
+     *
      * @return bool
      */
     protected function processUninstall()
@@ -114,7 +126,7 @@ class execAction extends \fpcm\controller\abstracts\ajaxController
     }
 
     /**
-     * 
+     *
      * @return bool
      */
     protected function processDelete()
@@ -133,7 +145,7 @@ class execAction extends \fpcm\controller\abstracts\ajaxController
     }
 
     /**
-     * 
+     *
      * @return bool
      */
     protected function processEnable()
@@ -144,14 +156,23 @@ class execAction extends \fpcm\controller\abstracts\ajaxController
             return false;
         }
 
-        $this->returnCode   = (new \fpcm\module\module($this->key))->enable()
-                                    ? \fpcm\module\module::STATUS_ENABLED
-                                    : \fpcm\module\module::STATUS_NOT_ENABLED;
+        $module = (new \fpcm\module\module($this->key));
+
+        $this->returnCode   = $module->enable()
+                            ? \fpcm\module\module::STATUS_ENABLED
+                            : \fpcm\module\module::STATUS_NOT_ENABLED;
+
+        $has_nav_event = $module->hasEvents('navigation\add');
+        if (!$has_nav_event || $this->returnCode === \fpcm\module\module::STATUS_NOT_ENABLED) {
+            return true;
+        }
+
+        $this->command = self::CMD_RELOAD;
         return true;
     }
 
     /**
-     * 
+     *
      * @return bool
      */
     protected function processDisable()
@@ -162,9 +183,18 @@ class execAction extends \fpcm\controller\abstracts\ajaxController
             return false;
         }
 
-        $this->returnCode   = (new \fpcm\module\module($this->key))->disable()
-                                    ? \fpcm\module\module::STATUS_DISABLED
-                                    : \fpcm\module\module::STATUS_NOT_DISABLED;
+        $module = (new \fpcm\module\module($this->key));
+
+        $this->returnCode   = $module->disable()
+                            ? \fpcm\module\module::STATUS_DISABLED
+                            : \fpcm\module\module::STATUS_NOT_DISABLED;
+
+        $has_nav_event = $module->hasEvents('navigation\add');
+        if (!$has_nav_event || $this->returnCode === \fpcm\module\module::STATUS_NOT_DISABLED) {
+            return true;
+        }
+
+        $this->command = self::CMD_RELOAD;
         return true;
     }
 

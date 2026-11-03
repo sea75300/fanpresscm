@@ -101,6 +101,11 @@ final class crypt implements \fpcm\model\interfaces\isObjectInstancable
     {
         if (is_array($data) || is_object($data)) {
             $data = json_encode($data);
+            
+            if (!json_validate($data)) {
+                trigger_error('Crypt error: JSON validation error');
+                return $this->simpleEncrypt($data);
+            }
         }
 
         if (!$this->hasCompleteConfig()) {
@@ -123,7 +128,7 @@ final class crypt implements \fpcm\model\interfaces\isObjectInstancable
      */
     public function decrypt($data) : string
     {
-        if (is_array($data) || is_object($data)) {
+        if (json_validate($data)) {
             $data = json_decode($data);
         }
 

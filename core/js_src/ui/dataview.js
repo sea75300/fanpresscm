@@ -297,9 +297,12 @@ fpcm.dataview = {
             let _style = [
                 'fpcm',
                 'ui-dataview-type' + _colData.type,
-                'align-self-center',
                 'my-1'
             ];
+            
+            if (_colData.class.search('align-self-') === -1) {
+                _style.push('align-self-center');
+            }
 
             if(_colMeta.class) {
                 let _cmcTmp = _colMeta.class.split(' ');

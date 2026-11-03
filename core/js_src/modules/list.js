@@ -30,7 +30,7 @@ fpcm.modulelist = {
                 if (_sp.has('text')) {
                     _sp.delete('text');
                 }
-                
+
                 if (fpcm.vars.jsvars.search.text) {
                     _sp.append('text', fpcm.vars.jsvars.search.text);
                 }
@@ -38,7 +38,7 @@ fpcm.modulelist = {
                 if (_sp.has('status')) {
                     _sp.delete('status');
                 }
-                
+
                 if (fpcm.vars.jsvars.search.status) {
                     _sp.append('status', fpcm.vars.jsvars.search.status);
                 }
@@ -173,6 +173,13 @@ fpcm.modulelist = {
                                     txt: msg,
                                     type: 'error'
                                 }, true);
+                            }
+
+                            if (result.data === 'reload') {
+                                setTimeout(function () {
+                                    fpcm.ui_loader.show();
+                                    fpcm.ui.relocate(fpcm.vars.actionPath + 'modules/list');
+                                }, 1500);
                             }
 
                             fpcm.ui_tabs.getNodes('#modulemgr', 0);

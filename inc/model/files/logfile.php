@@ -132,25 +132,51 @@ final class logfile extends \fpcm\model\abstracts\file {
      */
     public function fetchData() : array
     {
+
+        $content = [];
+
         if (!$this->exists() || !$this->isReadable()) {
-            return [];
+            return $content;
         }
 
+        $i = 0;
+        
         try {
 
-            $content = file($this->fullpath, FILE_SKIP_EMPTY_LINES);
-            if ($content === false) {
-                trigger_error('Unable to read data from ' . $this->filename);
-                return [];
+            $file = fopen($this->fullpath, 'r+');
+            
+            if (!is_resource($file)) {
+                return $content;
             }
 
-            return array_map('json_decode', $content);
+            while (!feof($file)) {
+                $line = fgets($file);
+                
+                if ($line === false) {
+                    break;
+                }
+
+                if (!$line) {
+                    continue;
+                }
+                
+                if (!json_validate($line)) {
+                    trigger_error(sprintf('Unable to read data from %s, value "%s" does not container a valid JSON string. Returning already gotten data chuck', $this->filename, $line));
+                    return $content;                    
+                }
+
+                $content[] = json_decode($line);
+            }
+
+
+            fclose($file);
 
         } catch (\OutOfMemoryException $e) {
             trigger_error(sprintf('Unable to read data from %s due to insufficient memory. Returning already gotten data chuck', $this->filename));
             fclose($file);
         }
 
+        return $content;
     }
 
     /**
