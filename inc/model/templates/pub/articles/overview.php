@@ -21,12 +21,6 @@ class overview extends \fpcm\model\templates\twig
     use \fpcm\model\traits\shareLinks,
         \fpcm\model\templates\pub\traits\article;
 
-    const VAR_ARTICLES = 'articles';
-
-    const VAR_PAGER = 'pager_settings';
-    
-    const VAR_COMMENTS_ACTIVE = 'commentsActive';
-
     /**
      * vars within this template
      * @var array
@@ -47,7 +41,7 @@ class overview extends \fpcm\model\templates\twig
     public function onInit(): bool
     {
         $this->vars = [
-            self::VAR_ARTICLES => [],
+            \fpcm\model\templates\variables::articles->value => [],
         ];
 
         return true;
@@ -90,8 +84,7 @@ class overview extends \fpcm\model\templates\twig
         int $commentCount,
     ): bool
     {
-        $this->vars[self::VAR_ARTICLES][] = $this->apply($article, $author, $changeUser, $categories, $commentCount);
-
+        $this->vars[\fpcm\model\templates\variables::articles->value][] = $this->apply($article, $author, $changeUser, $categories, $commentCount);
         return true;
     }
 
@@ -102,7 +95,7 @@ class overview extends \fpcm\model\templates\twig
     #[\Override]
     public function onBeforeRender(): bool
     {
-        $this->vars[self::VAR_PAGER] = $this->pager;
+        $this->vars[\fpcm\model\templates\variables::pager->value] = $this->pager;
 
         return $this->fromSystemTemplate(
             'articles.html.twig', //$this->getConfig()->articles_template_active,

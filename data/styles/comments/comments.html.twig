@@ -1,0 +1,30 @@
+<section>
+    {% for comment in comments %}
+    <article id="c-{{ comment.mentionID }}">
+        {% if fpcm.is_logged_in %}
+        <div class="fpcm-pub-articletoolbar-article">
+            {% if fpcm.permissions.canEdit %}
+                <a class="btn" target="_blank" href="{{ comment.editLink }}">{{ translate('GLOBAL_EDIT') }}</a>
+            {% endif %}
+        </div>
+        {% endif %}
+        <div class="post">
+            <h4>Kommentar #{{ comment.number }}</h4>
+            <div class="content">
+              {{ comment.text }}
+            </div>
+            <div class="meta-info">
+                <span class="date">{{ comment.date }}</span>
+                <span class="author">Author: {{ comment.author }}</span>
+                {% if fpcm.is_logged_in %}
+                    <a class="btn" target="_blank" href="mailto:{{ comment.email }}">{{ comment.email }}</a>
+                {% endif %}
+                {% if comment.website %}
+                <span class="website"><a href="{{ comment.website }}" class="fpcm-pub-websitelink" target="_blank" rel="external">{{ comment.website }}</a></span>
+                {% endif %}
+                <span class="mention"><a href="#" id="{{ comment.number }}" class="fpcm-pub-mentionlink">Antworten</a></span>
+            </div>
+        </div>
+    </article>
+    {% endfor %}
+</section>

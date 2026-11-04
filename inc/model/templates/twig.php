@@ -121,13 +121,13 @@ class twig
         $this->scriptVars = $vars;
         return true;
     }
-
+    
     /**
      * Render Twig based template
-     * @return string
-     * @throws Exception
+     * @param bool $boolOnError
+     * @return string|bool
      */
-    public function render() : string
+    public function render(bool $boolOnError = false) : string|bool
     {
 
         try {
@@ -176,6 +176,11 @@ class twig
             return $twig->render($this->template, $this->variables);
         } catch (\Exception $exc) {
             trigger_error($exc, E_USER_NOTICE);
+            
+            if ($boolOnError) {
+                return false;
+            }
+            
             return 'TWIG ERROR!';
         }
 

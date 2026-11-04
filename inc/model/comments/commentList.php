@@ -338,12 +338,12 @@ implements \fpcm\model\interfaces\gsearchIndex {
      */
     public function spamExistsbyCommentData(comment $comment)
     {
-        $count = $this->dbcon->count($this->table, 'id', implode(' OR ', [
+        $count = $this->dbcon->count($this->table, 'id', '(' . implode(' OR ', [
             'name ' . $this->dbcon->dbLike() . ' ?',
             'email ' . $this->dbcon->dbLike() . ' ?',
             'website ' . $this->dbcon->dbLike() . ' ?',
             'ipaddress ' . $this->dbcon->dbLike() . ' ?'
-        ]) . ' AND spammer = 1 AND deleted = 0',
+        ]) . ') AND spammer = 1 AND deleted = 0',
         [
             $comment->getName(), '%' .
             $comment->getEmail() . '%',

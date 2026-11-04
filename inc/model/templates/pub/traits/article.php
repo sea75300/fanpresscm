@@ -7,7 +7,6 @@
 
 namespace fpcm\model\templates\pub\traits;
 
-
 /**
  * Assign article data to template trait
  *
@@ -15,7 +14,9 @@ namespace fpcm\model\templates\pub\traits;
  * @copyright (c) 2026, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-trait article {    
+trait article {
+
+    use links;
 
     /* Page break tag, replaces <readmore< block */
     const PAGEBREAK_TAG = '<!-- pagebreak -->';
@@ -49,11 +50,23 @@ trait article {
         int $commentCount,
     ): array
     {
-        
-        $content = $article->getContent();        
-        $content = $this->parseLinks($content);
+
+        $content = $article->getContent();
         $content = $this->parseGallery($content);
-        
+
+        $sources  = $article->getSources();
+
+        if ($sources) {
+            $sources = $this->parseLinks(
+                $sources,
+                [
+                    'rel' => 'external',
+                    'target' => \fpcm\view\helper\linkButton::TARGET_NEW,
+                ]
+            );
+        }
+
+
         return [
             'id' => $article->getId(),
             'headline' => $article->getTitle(),
@@ -74,7 +87,7 @@ trait article {
             'permaLink' => $article->getElementLink(),
             'commentLink' => $article->getElementLink('#comments'),
             'articleImage' => $article->getArticleImage(),
-            'sources' => $article->getSources(),
+            'sources' => $sources,
             'oldarticle' => $article->isOldArticle(),
             'editLink' => $article->getEditLink()
         ];
@@ -94,7 +107,7 @@ trait article {
                 return $this->getShareLinkItems($description, $item_link);
             }
         ));
-        
+
         $twig->addFunction(new \Twig\TwigFunction(
             'share_button_icon',
             function (string $icon) {
@@ -146,8 +159,8 @@ trait article {
     public function fetchPermissions(): array
     {
         return [
-            'can_add' => $this->getPermissions()->article?->add,
-            'can_edit' => $this->getPermissions()->editArticles()
+            'canAdd' => $this->getPermissions()->article?->add,
+            'canEdit' => $this->getPermissions()->editArticles()
         ];
     }
 
@@ -157,7 +170,8 @@ trait article {
      */
     final protected function applyCommentsEnabled(): void
     {
-        $this->vars[self::VAR_COMMENTS_ACTIVE] = $this->getConfig()->system_comments_enabled;
+        $this->vars[\fpcm\model\templates\variables::commentsActive->value] = $this->getConfig()->system_comments_enabled;
+        $this->vars[\fpcm\model\templates\variables::commentsListId->name] = \fpcm\model\templates\variables::commentsListId->value;
     }
 
     /**
@@ -206,7 +220,7 @@ trait article {
                 $url,
                 $imgObj->getFilename()
             );
-            
+
             if (!$isLink) {
                 return $imgTag;
             }
@@ -240,26 +254,5 @@ trait article {
             $link,
             $this->getLanguage()->translate('ARTICLES_PUBLIC_READMORE')
         );
-    }
-
-    /**
-     * Parse links in article text
-     * @param string $content
-     * @param array $attributes
-     * @param bool $returnOnly
-     * @return string
-     */
-    protected function parseLinks(string $content, array $attributes = []) : string
-    {
-        $attrs = '';
-        foreach ($attributes as $attribute => $value) {
-            $attrs .= " {$attribute}=\"{$value}\"";
-        }
-
-        $regEx = '/((http|https?):\/\/\S+[^\s.,>)\]\"\'<\/])/i';
-
-        $content = preg_replace($regEx, "<a href=\"$0\"{$attrs}>$0</a>", $content);
-
-        return $content;
     }
 }

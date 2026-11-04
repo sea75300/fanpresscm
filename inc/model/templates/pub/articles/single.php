@@ -22,8 +22,6 @@ class single extends \fpcm\model\templates\twig
         \fpcm\model\templates\pub\traits\article,
         \fpcm\model\templates\pub\traits\comment;
 
-    const VAR_ARTICLE = 'article';
-
     /**
      * vars within this template
      * @var array
@@ -58,7 +56,7 @@ class single extends \fpcm\model\templates\twig
         int $commentCount,
     ): bool
     {
-        $this->vars[self::VAR_ARTICLE] = $this->apply($article, $author, $changeUser, $categories, $commentCount);
+        $this->vars[\fpcm\model\templates\variables::article->value] = $this->apply($article, $author, $changeUser, $categories, $commentCount);
 
         return true;
     }

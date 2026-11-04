@@ -7,9 +7,8 @@
 
 namespace fpcm\model\templates\pub\traits;
 
-
 /**
- * Twig based comment form frontend template
+ * Trait for common comment Twig based frontend template
  *
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2026, Stefan Seehafer
@@ -17,17 +16,44 @@ namespace fpcm\model\templates\pub\traits;
  */
 trait comment
 {
-
-    const VAR_FORM = 'form';
-
+    use links;
+    
     /**
      * On init event
      * @return bool
      */
     public function initCommentVars(): bool
     {
-        $this->vars[self::VAR_FORM] = [];
+        $this->vars[\fpcm\model\templates\variables::form->value] = [];
         return true;
+    }
+    
+    /**
+     * Assign comment data to comment template variables
+     * @param \fpcm\model\comments\comment $comment
+     * @param int $index
+     * @return array
+     */
+    private function applyComment(
+        \fpcm\model\comments\comment $comment,
+        int $index
+    ): array
+    {
+        
+        $text = $this->parseLinks($comment->getText(), ['rel' => 'external']);
+        $text = $this->parseMentions($comment->getText());
+
+        return [
+            'author' => $comment->getName(),
+            'email' => $comment->getEmail(),
+            'website' => $comment->getWebsite(),
+            'text' => $text,
+            'date' => date($this->getConfig()->system_dtmask, $comment->getCreatetime()),
+            'id' => $comment->getId(),
+            'number' => $index,
+            'mentionID' => 'c' . $index,
+            'editLink' => $comment->getElementLink()
+        ];
     }
 
     /**
@@ -49,7 +75,7 @@ trait comment
             throw new Exception('$captcha must be an instance of \fpcm\model\abstracts\spamCaptcha');
         }
         
-        $this->vars[self::VAR_FORM] = [
+        $this->vars[\fpcm\model\templates\variables::form->value] = [
             'formHeadline' => $this->getLanguage()->translate('COMMENTS_PUBLIC_FORMHEADLINE'),
             'submitUrl' => $article->getElementLink(),
             'nameField' => new \fpcm\model\templates\twigField(
@@ -91,6 +117,20 @@ trait comment
         ];
 
         return true;
+    }
+
+    /**
+     * Mentions parsen
+     * @param string $content
+     * @return void
+     */
+    protected function parseMentions(string $content) : string
+    {
+        if (!str_contains($content, '@#')) {
+            return $content;
+        }
+
+        return preg_replace("/@#([0-9])+/", '<a class="fpcm-pub-mentionedlink" href="#c$1">@$1</a>', $content);
     }
 
 }

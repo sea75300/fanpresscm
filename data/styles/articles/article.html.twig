@@ -8,7 +8,7 @@
     <article>
         {% if fpcm.is_logged_in %}
         <div class="fpcm-pub-articletoolbar-article">
-            {% if fpcm.permissions.can_edit %}
+            {% if fpcm.permissions.canEdit %}
                 <a class="btn" target="_blank" href="{{ article.editLink }}">{{ translate('GLOBAL_EDIT') }}</a>
             {% endif %}
         </div>

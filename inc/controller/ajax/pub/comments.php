@@ -99,8 +99,6 @@ class comments extends \fpcm\controller\abstracts\ajaxController {
      */
     protected function processGetList() : bool
     {
-        $tpl = new \fpcm\model\pubtemplates\comment($this->config->comments_template_active);
-
         $conditions = new \fpcm\model\comments\search();
         $conditions->articleid = $this->aid;
         $conditions->approved = $this->session->exists() ? null : 1;
@@ -110,6 +108,41 @@ class comments extends \fpcm\controller\abstracts\ajaxController {
 
         $comments = (new \fpcm\model\comments\commentList())->getCommentsBySearchCondition($conditions);
 
+        $fn = $this->config->system_twig ? 'parseTwig' : 'parseLegacy';
+        $this->{$fn}($comments);
+
+        sleep(2);
+        return true;
+    }
+
+    private function parseTwig(array $comments)
+    {
+        $twig = new \fpcm\model\templates\pub\comments\overview;
+
+        $i = 1;
+        foreach ($comments as $comment) {
+            $twig->assignComment($comment, $i);
+            $i++;
+        }
+
+        $return = $twig->render(true);
+        if ($return === false) {
+            $this->response->setCode(500)->fetch();
+            return;
+        }
+
+        $this->returnData[] = $return;
+    }
+
+    /**
+     * Legacy frontend parase call
+     * @param array $comments
+     * @since 5.4.0-a1
+     */
+    private function parseLegacy(array $comments)
+    {
+        $tpl = new \fpcm\model\pubtemplates\comment($this->config->comments_template_active);
+
         $i = 1;
         foreach ($comments as $comment) {
 
@@ -118,10 +151,6 @@ class comments extends \fpcm\controller\abstracts\ajaxController {
 
             $i++;
         }
-
-        sleep(2);
-
-        return true;
     }
 
     /**
@@ -217,12 +246,18 @@ class comments extends \fpcm\controller\abstracts\ajaxController {
         $commentObj->setEmail($data['email']);
         $commentObj->setWebsite($data['website']);
         $commentObj->setText($data['text']);
-        $commentObj->setPrivate(isset($data['private']));
+        $commentObj->setPrivate($data['private'] ?? 0);
         $commentObj->setIpaddress($this->request->getIp());
         $commentObj->setApproved($this->config->comments_confirm ? false : true);
         $commentObj->setArticleid($this->aid);
         $commentObj->setCreatetime($timer);
-        $commentObj->setSpammer(!$this->session->exists() && $captcha->checkExtras());
+
+        $isSpam = $captcha->checkExtras();
+        if ($this->session->exists()) {
+            $isSpam = false;
+        }
+
+        $commentObj->setSpammer($isSpam);
         $commentObj->prepareDataSave();
 
         if (!$commentObj->save()) {
