@@ -13,7 +13,6 @@ namespace fpcm\controller\action\templates;
  * @copyright (c) 2011-2022, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-
 class templates extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\requestFunctions
 {
     use \fpcm\controller\traits\templates\edit;

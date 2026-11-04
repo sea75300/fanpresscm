@@ -111,8 +111,15 @@ fpcm.ui_tabs = {
                                 params.onRenderHtmlBefore(_ev, _result);
                             }
 
-                            let _assignment = _result instanceof Object && _result.html ? _result.html : _result;
-                            fpcm.dom.assignHtml(_ev.target.dataset.bsTarget, _assignment);
+
+                            if (_result instanceof Object && _result.dom) {
+                                document.querySelector(_ev.target.dataset.bsTarget).appendChild(_result.dom);
+                            }
+                            else {
+                                let _assignment = _result instanceof Object && _result.html ? _result.html : _result;
+                                fpcm.dom.assignHtml(_ev.target.dataset.bsTarget, _assignment);
+                            }
+
 
                             if (typeof params.onRenderHtmlAfter === 'function') {
                                 params.onRenderHtmlAfter(_ev, _result);

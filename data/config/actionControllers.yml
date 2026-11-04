@@ -14,6 +14,7 @@ system/langedit: action/system/data/langedit
 system/import: action/system/data/import
 ##system/smtpOAuth: action/system/smtpOAuth
 templates/templates: action/templates/templates
+templates/templates2: action/templates/templates_new
 templates/preview: action/templates/preview
 templates/templateedit: action/templates/articleTemplateEditor
 users/add: action/users/user/add
