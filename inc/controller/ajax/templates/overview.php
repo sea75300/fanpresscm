@@ -50,7 +50,7 @@ class overview extends \fpcm\controller\abstracts\ajaxController
                 $this->list[$file->getParentFolder()] = [];
             }
 
-            $this->list[$file->getParentFolder()][$file->getFilename()] = $file->getHash();
+            $this->list[$file->getParentFolder()][] = $file;
         }
         
         $this->response->setReturnData($this->list)->fetch();

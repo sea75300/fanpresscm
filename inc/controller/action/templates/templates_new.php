@@ -73,7 +73,9 @@ implements \fpcm\controller\interfaces\requestFunctions
                 'GLOBAL_DELETE', 'EDITOR_CATEGORIES_SEARCH', 
                 'FILE_LIST_UPLOADFORM', 'TEMPLATE_HL_DRAFTS_EDIT',
                 'TEMPLATES_FOLDER_ARTICLES', 'TEMPLATES_FOLDER_COMMENTS',
-                'TEMPLATES_FOLDER_COMMON', 'GLOBAL_FOLDER'
+                'TEMPLATES_FOLDER_COMMON', 'GLOBAL_FOLDER',
+                'TEMPLATE_NOT_READABLE', 'TEMPLATE_NOT_WRITABLE',
+                'GLOBAL_LASTCHANGE'
             ],
             //$uploader->getJsLangVars(),
             $this->editor->getJsLangVars()

@@ -69,5 +69,3 @@ final class templatefilelist extends \fpcm\model\abstracts\filelist {
     }
 
 }
-
-?>

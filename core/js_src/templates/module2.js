@@ -21,13 +21,13 @@ fpcm.templates = {
             onRenderHtmlBefore: (_ui, _result) => {
 
                 let _cards = document.createElement('div');
-                _cards.classList.add('mx-2', 'py-2');
+                _cards.classList.add('mx-2', 'py-1');
 
                 for (var _folder in _result) {
-                    
+
                     let _card = document.createElement('div');
-                    _card.classList.add('card');   
-                    
+                    _card.classList.add('card', 'my-2');
+
                     let _headline = document.createElement('div');
                     _headline.classList.add('card-header');
                     _headline.innerHTML = fpcm.ui.translate('TEMPLATES_FOLDER_' + _folder.toUpperCase());
@@ -35,31 +35,67 @@ fpcm.templates = {
 
                     let _list = document.createElement('div');
                     _list.classList.add('list-group', 'list-group-flush');
-                    
+
                     let _files = _result[_folder];
                     for (var _file in _files) {
-                        
+
                         let _row = document.createElement('a');
-                        _row.classList.add('list-group-item', 'list-group-item-action');
-                        _row.href = _files[_file];
-                        _row.innerHTML = _file;
-                        _list.appendChild(_row);                        
-                        
+                        _row.classList.add('list-group-item', 'list-group-item-action', 'py-3', 'd-flex', 'flex-column', 'flex-lg-row', 'align-items-center');
+                        _row.href = fpcm.vars.ajaxActionPath + 'templates/editor&hash=' + _files[_file].hash;
+
+                        _row.appendChild((new fpcm.ui.forms.icon('file', 'lg')).getAsDom());
+
+                        let _descr = document.createElement('span');
+                        _descr.classList.add('fpcm', 'ui-label', 'ps-2', 'flex-grow-1', 'mt-3', 'mt-lg-0');
+                        _descr.innerHTML = _files[_file].filename;
+                        _row.appendChild(_descr);
+
+                        let _msgText = '';
+                        if (!_files[_file].readable) {
+                            _msgText = 'TEMPLATE_NOT_READABLE';
+                        }
+                        else if (!_files[_file].writable) {
+                            _msgText = 'TEMPLATE_NOT_WRITABLE';
+                        }
+
+                        if (!_files[_file].readable || !_files[_file].writable) {
+
+                            _row.classList.add('list-group-item-danger');
+                            let _msg = document.createElement('span');
+                            _msg.classList.add('badge', 'text-bg-danger', 'm-2', 'me-md-5', 'text-truncate');
+                            _msg.appendChild((new fpcm.ui.forms.icon('triangle-exclamation', 'lg')).getAsDom());
+
+                            let _msgLabel = document.createElement('span');
+                            _msgLabel.classList.add('fpcm', 'ui-label', 'ps-2');
+                            _msgLabel.innerHTML = fpcm.ui.translate(_msgText);
+                            _msg.appendChild(_msgLabel);
+                            _row.appendChild(_msg);
+
+                        }
+
+                        let _lastChange = document.createElement('span');
+                        _lastChange.classList.add('badge', 'text-bg-secondary', 'm-2', 'm-lg-0');
+                        _lastChange.innerHTML = _files[_file].changedTime;
+                        _lastChange.title = fpcm.ui.translate('GLOBAL_LASTCHANGE');
+                        _row.appendChild(_lastChange);
+
+                        _list.appendChild(_row);
+
                     }
-                    
+
                     _card.appendChild(_list);
-                    
+
                     _cards.appendChild(_card);
-                    
+
                 }
-                
+
                 _result.dom = _cards;
 
                 console.log(_result);
 
                 //let _html = `<div class="list-group">${rows}</div>`;
-                
-                
+
+
                 //<a href="#" class="list-group-item list-group-item-action">A simple default list group item</a>
 
                 _result.html = '';
@@ -156,7 +192,7 @@ fpcm.templates = {
     },
 
     _restoreCss: function (_id) {
-        
+
         if (!fpcm.templates._cssFilePath) {
             return;
         }

@@ -4,16 +4,16 @@
  * @copyright (c) 2023, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-export class element_icon {  
-    
+export class element_icon {
+
     icon = '';
-    
+
     spinner = '';
 
     size = '';
 
     stack = '';
-    
+
     prefix = 'fa';
 
     collection = 'fa';
@@ -25,7 +25,7 @@ export class element_icon {
     stackTop = false;
 
     iconClass = '';
-    
+
     stackClass = '';
 
     constructor(_icon, _size, _prefix) {
@@ -35,14 +35,14 @@ export class element_icon {
         if (_prefix) {
             this.prefix = _prefix;
         }
-        
+
         if (_size) {
             this.size = _size;
         }
     }
 
     getString() {
-        
+
         let _bottomStack = '';
         let _topStack = '';
         let _stackIconSize = '';
@@ -50,18 +50,18 @@ export class element_icon {
         let _spinner = '';
 
         if (this.size) {
-            _size = this.prefix + '-' + this.size;
-        }
-        
-        if (this.spinner) {
-            _spinner = this.prefix + '-' + this.spinner;
+            _size = this._getPrefixed(this.size);
         }
 
-        
+        if (this.spinner) {
+            _spinner = this._getPrefixed(this.spinner);
+        }
+
+
         if (this.stack) {
             let _stackStr = `<span class="${this.base} ${this.prefix}-${this.stack} ${this.prefix}-stack-2x ${this.stackClass}"></span>`;
             _stackIconSize = this.prefix + '-stack-1x';
-            
+
             if (this.stackTop) {
                 _topStack = `<span class="${this.base} ${this.prefix}-stack ${_size}">${_stackStr}`;
                 _bottomStack = '</span>';
@@ -69,15 +69,35 @@ export class element_icon {
             else {
                 _topStack = `<span class="${this.prefix}-stack">`;
                 _bottomStack = _stackStr + '</span>';
-            }            
-            
+            }
+
             _size = '';
         }
-        
+
         return `${_topStack}<span class="fpcm-ui-icon ${this.collection} ${this.prefix}-${this.icon} ${this.prefix}-${this.width} ${this.iconClass} ${_size} ${_spinner} ${_stackIconSize}"></span>${_bottomStack}`;
-        
+
     }
 
+    getAsDom() {
+
+        let _icon = document.createElement('span');
+        _icon.classList.add(this.collection, this._getPrefixed(this.icon), this._getPrefixed(this.width));
+
+
+        if (this.size) {
+            _icon.classList.add(this._getPrefixed(this.size));
+        }
+
+        if (this.spinner) {
+            _icon.classList.add(this._getPrefixed(this.spinner));
+        }
+        
+        return _icon;
+    }
+
+    _getPrefixed(_val) {
+        return this.prefix + '-' + _val;
+    }
 
     assignToDom(_destination) {
 
