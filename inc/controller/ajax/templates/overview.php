@@ -18,8 +18,11 @@ namespace fpcm\controller\ajax\templates;
 class overview extends \fpcm\controller\abstracts\ajaxController
 {
 
+    /**
+     * 
+     * @var array
+     */
     private array $list = [];
-
 
     /**
      * Accessible

@@ -75,7 +75,9 @@ implements \fpcm\controller\interfaces\requestFunctions
                 'TEMPLATES_FOLDER_ARTICLES', 'TEMPLATES_FOLDER_COMMENTS',
                 'TEMPLATES_FOLDER_COMMON', 'GLOBAL_FOLDER',
                 'TEMPLATE_NOT_READABLE', 'TEMPLATE_NOT_WRITABLE',
-                'GLOBAL_LASTCHANGE'
+                'GLOBAL_LASTCHANGE', 'GLOBAL_PREVIEW',
+                'SAVE_SUCCESS_TEMPLATE',
+                'GLOBAL_NOTFOUND_FILE', 'FILE_NOT_WRITABLE'
             ],
             //$uploader->getJsLangVars(),
             $this->editor->getJsLangVars()

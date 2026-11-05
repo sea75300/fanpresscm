@@ -79,22 +79,33 @@ fpcm.ajax = {
                     fpcm.system.showSessionCheckDialog();
                     fpcm.ui_loader.hide();
                 },
+                403: function() {
+                    fpcm.ajax.showAjaxErrorMessage();
+                    fpcm.ui_loader.hide();
+                },
                 404: function() {
                     fpcm.ajax.showAjaxErrorMessage();
                     fpcm.ui_loader.hide();
                 }
             }
         })
-        .done(function(result) {
+        .done(function(_result) {
 
-            if (result.search && result.search('FATAL ERROR:') === 3) {
+            if (_result.search && _result.search('FATAL ERROR:') === 3) {
                 console.error(fpcm.ui.translate('AJAX_RESPONSE_ERROR'));
                 console.error('ERROR MESSAGE: ' + errorThrown);
                 fpcm.ui_loader.hide();
             }
 
-            if (result.cmd !== undefined) {
-                eval(result.cmd);
+            if (_result instanceof Object && _result.message && _result._autoProcess) {
+                fpcm.ui.addMessage(_result.message);
+                if (_result.callback) {
+                    eval(_result.callback);
+                }
+            }
+
+            if (_result.cmd !== undefined) {
+                eval(_result.cmd);
                 return true;
             }
 
@@ -103,7 +114,7 @@ fpcm.ajax = {
             }
 
             if (typeof params.execDone == 'function') {
-                params.execDone(result);
+                params.execDone(_result);
             }
 
             if (!params.quiet) {
@@ -238,7 +249,7 @@ fpcm.ajax = {
                     fpcm.ui.addMessage(result.message);
                     return false;
                 }
-                
+
                 if (_params.filter) {
                     fpcm.ui.togglePager(true);
                 }

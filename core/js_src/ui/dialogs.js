@@ -242,6 +242,13 @@ fpcm.ui_dialogs = {
                 if (_obj.disabled !== undefined) {
                     _btn.disabled = _obj.disabled;
                 }
+                
+                if (_obj.data) {
+                    
+                    for (var _attr in _obj.data) {                        
+                        _btn.dataset[_attr] = _obj.data[_attr];
+                    }                    
+                }
 
                 if (_obj.click == undefined && _obj.clickClose == undefined) {
                     _footer.appendChild(_btn);

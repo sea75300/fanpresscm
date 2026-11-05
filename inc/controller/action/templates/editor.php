@@ -14,24 +14,17 @@ namespace fpcm\controller\action\templates;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
-class articleTemplateEditor
+class editor
 extends \fpcm\controller\abstracts\controller
 {
 
-    /**
-     *
-     * @var \fpcm\model\files\templatefile
-     */
-    protected $file;
+    use \fpcm\controller\traits\templates\editor;
 
     /**
-     *
-     * @return bool
+     * Parent folder
+     * @var string
      */
-    public function isAccessible(): bool
-    {
-        return $this->permissions->system->templates && $this->permissions->system->drafts;
-    }
+    private string $parent = '';
 
     /**
      *
@@ -48,18 +41,17 @@ extends \fpcm\controller\abstracts\controller
      */
     public function request()
     {
-        $hash = $this->request->fromGET('file');
-        if (!$hash) {
+        $this->hash = $this->request->fromGET('hash');
+        if (!$this->hash) {
             return false;
         }
 
-        $path = (new \fpcm\model\templates\pub\templates)->getByHash($hash);
-        
-        $this->file = new \fpcm\model\files\templatefile($path);
-
-        if (!$this->file->isWritable()) {
-            $this->view->addErrorMessage('FILE_NOT_WRITABLE');
-        }
+        try {
+            $this->initFile();            
+        } catch (\Exception $e) {
+            $this->view->addErrorMessage($e->getMessage());
+            return true;
+        }        
 
         return true;
     }
@@ -76,7 +68,7 @@ extends \fpcm\controller\abstracts\controller
 
         $viewVars = $editor->getViewVars();
         $viewVars->prepareDrafts();
-        
+
         $this->view->setViewVars($viewVars->toArray());
         $this->view->addCssFiles($editor->getCssFiles());
         $this->view->addJsVars(array_merge(
@@ -87,6 +79,7 @@ extends \fpcm\controller\abstracts\controller
             ],
             $editor->getJsVars()
         ));
+
         $this->view->addJsLangVars(array_merge(
             [
                 'HL_FILES_MNG', 'ARTICLES_SEARCH', 'FILE_LIST_NEWTHUMBS', 'GLOBAL_DELETE',
@@ -94,50 +87,23 @@ extends \fpcm\controller\abstracts\controller
             ],
             $editor->getJsLangVars()
         ));
+
         $this->view->addDialogs($editor->getDialogs());
 
-        $jsFiles = ['templates/articles.js'] + $editor->getJsFiles();
+        $jsFiles = ['templates/editor.js'] + $editor->getJsFiles();
 
         $this->view->addJsFiles($jsFiles);
-        $this->view->setFormAction($this->file->getEditLink(),[], true);
+        $this->view->setFormAction( 'templates/editor', ['hash' => $this->hash] );
         $this->view->assign('file', $this->file);
 
         $this->view->addTabs('atedit', [
             (new \fpcm\view\helper\tabItem('art-editor'))
-                ->setText($this->file->getFilename())
+                ->setText('TEMPLATE_EDITOR')
                 ->setFile($this->getViewPath())
         ]);
-        
+
         $this->view->setBodyClass('m-2');
-        
+
         $this->view->render();
     }
-
-    public function onSaveTemplate()
-    {
-        if (!$this->checkPageToken()) {
-            $this->view->addErrorMessage('CSRF_INVALID');
-            return true;
-        }
-
-        $newCode = $this->request->fromPOST('templatecode', [
-            \fpcm\model\http\request::FILTER_TRIM,
-            \fpcm\model\http\request::FILTER_STRIPSLASHES
-        ]);
-
-        if (!$newCode) {
-            $this->view->addErrorMessage('SAVE_FAILED_ARTICLETEMPLATE');
-            return false;
-        }
-
-        $this->file->setContent($newCode);
-        if ($this->file->save() === true) {
-            $this->view->addNoticeMessage('SAVE_SUCCESS_ARTICLETEMPLATE');
-            return true;
-        }
-
-        $this->view->addErrorMessage('SAVE_FAILED_ARTICLETEMPLATE');
-        return false;
-    }
-
 }

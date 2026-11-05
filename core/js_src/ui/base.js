@@ -208,7 +208,7 @@ fpcm.ui = {
     appendMessageToBody: function(_boxes, _size)
     {
         let _toasts = document.createElement('div');
-        _toasts.classList.add('toast-container', 'position-fixed', 'top-0', 'start-50', 'translate-middle-x', 'p-3');
+        _toasts.classList.add('toast-container', 'position-fixed', 'top-0', 'start-50', 'translate-middle-x', 'p-3', 'z-3');
         _toasts.innerHTML = _boxes;
         document.getElementById('fpcm-body').appendChild(_toasts);
 

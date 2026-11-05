@@ -41,9 +41,12 @@ fpcm.templates = {
 
                         let _row = document.createElement('a');
                         _row.classList.add('list-group-item', 'list-group-item-action', 'py-3', 'd-flex', 'flex-column', 'flex-lg-row', 'align-items-center');
-                        _row.href = fpcm.vars.ajaxActionPath + 'templates/editor&hash=' + _files[_file].hash;
-
+                        _row.href = fpcm.vars.actionPath + 'templates/editor&hash=' + _files[_file].hash + '&parent=' + _files[_file].parentFolder;
+                        _row.addEventListener('click', fpcm.templates._openEditor);
                         _row.appendChild((new fpcm.ui.forms.icon('file', 'lg')).getAsDom());
+                        _row.dataset.name = _files[_file].filename;
+                        _row.dataset.hash = _files[_file].hash;
+                        _row.dataset.parent = _files[_file].parentFolder;                        
 
                         let _descr = document.createElement('span');
                         _descr.classList.add('fpcm', 'ui-label', 'ps-2', 'flex-grow-1', 'mt-3', 'mt-lg-0');
@@ -61,6 +64,8 @@ fpcm.templates = {
                         if (!_files[_file].readable || !_files[_file].writable) {
 
                             _row.classList.add('list-group-item-danger');
+                            _row.dataset.editable = 0;
+
                             let _msg = document.createElement('span');
                             _msg.classList.add('badge', 'text-bg-danger', 'm-2', 'me-md-5', 'text-truncate');
                             _msg.appendChild((new fpcm.ui.forms.icon('triangle-exclamation', 'lg')).getAsDom());
@@ -70,7 +75,9 @@ fpcm.templates = {
                             _msgLabel.innerHTML = fpcm.ui.translate(_msgText);
                             _msg.appendChild(_msgLabel);
                             _row.appendChild(_msg);
-
+                        }
+                        else {
+                            _row.dataset.editable = 1;
                         }
 
                         let _lastChange = document.createElement('span');
@@ -84,42 +91,10 @@ fpcm.templates = {
                     }
 
                     _card.appendChild(_list);
-
                     _cards.appendChild(_card);
-
                 }
 
                 _result.dom = _cards;
-
-                console.log(_result);
-
-                //let _html = `<div class="list-group">${rows}</div>`;
-
-
-                //<a href="#" class="list-group-item list-group-item-action">A simple default list group item</a>
-
-                _result.html = '';
-//                if (!fpcm.templates.editorInstance ||
-//                    !_ui.relatedTarget.dataset.tplid ) {
-//
-//                    if (_ui.relatedTarget && _ui.relatedTarget.dataset.tplid) {
-//                        fpcm.templates._saveCss(_ui.relatedTarget.dataset.tplid);
-//                    }
-//
-//
-//                    return true;
-//                }
-//
-//                if (fpcm.editor_ace._instancePreview) {
-//                    fpcm.editor_ace._instance.destroy();
-//                }
-//
-//                fpcm.dom.fromTag(_ui.relatedTarget.dataset.bsTarget).empty();
-//                return true;
-            },
-
-            onRenderHtmlAfter: (_ui) => {
-//                fpcm.templates._restoreCss();
             }
         });
 
@@ -174,15 +149,98 @@ fpcm.templates = {
 
     },
 
-    _saveCss: function(_id) {
+    _openEditor: function(_ev) {
 
-        if (_id === undefined) {
-            _id = fpcm.templates._tplId;
-        }
+        _ev.preventDefault();
 
-        let _fid = 'css-file-' + _id;
+        fpcm.ui_dialogs.create({
+            id: 'template-editor',
+            title: fpcm.ui.translate('TEMPLATE_HL_DRAFTS_EDIT') + ' - ' + _ev.currentTarget.dataset.name,
+            url: _ev.currentTarget.href,
+            icon: {
+                icon: 'file-code'
+            },
+            closeButton: true,
+            dlButtons : [
+                {
+                    text: 'GLOBAL_SAVE',
+                    icon: "save",
+                    primary: true,
+                    disabled: _ev.currentTarget.dataset.editable == '0',
+                    click: function(_ui, _btn) {
+                        fpcm.templates._saveTemplate(
+                            _btn.dataset.hash,
+                            _btn.dataset.parent,
+                            _btn.parentElement.parentElement.querySelector('iframe').contentWindow.fpcm.editor_ace.getValue()
+                        );
+                    },
+                    data: {
+                        hash: _ev.currentTarget.dataset.hash,
+                        parent: _ev.currentTarget.dataset.parent
+                    }
+                },
+                {
+                    text: 'GLOBAL_PREVIEW',
+                    icon: "eye",
+                    click: fpcm.templates._showPreview
+                }
+            ]
+        });
 
-        let _cff = document.getElementById(_fid);
+    },
+
+    _saveTemplate: function(_hash, _parent, _value) {
+
+        fpcm.ajax.post('templates/save2', {
+            data: {
+                hash: _hash,
+                parent: _parent,
+                content: _value
+            },
+            execDone: function (_result) {
+                fpcm.ui_dialogs.close('template-editor');
+            }
+        });
+    },
+
+
+    _showPreview: function(_ev) {
+
+
+
+        /*fpcm.ajax.post('templates/savetemp', {
+            quiet: true,
+            data: {
+                content: fpcm.editor_ace.getValue(),
+                tplid  : fpcm.templates._tplId
+            },
+            execDone: function() {
+                fpcm.ui_dialogs.create({
+                    id: 'templatepreview-layer',
+                    closeButton: true,
+                    url: fpcm.vars.actionPath + 'templates/preview&tid=' + fpcm.templates._tplId,
+                    dlOnOpenAfter: (_ui) => {
+
+                        let _head = _ui.children.item(0).querySelector('iframe').contentDocument.head;
+
+                        let _link = document.createElement('link');
+                        _link.type = 'text/css';
+                        _link.rel = 'stylesheet';
+                        _link.href = document.getElementById('css-file-' + fpcm.templates._tplId).value;
+
+                        fpcm.templates._saveCss();
+
+                        _head.appendChild(_link);
+                    }
+                });
+            }
+        });*/
+
+    },
+
+    _saveCss: function() {
+
+        let _cff = document.getElementById('css-file-');
         if (!_cff) {
             return false;
         }
@@ -191,19 +249,13 @@ fpcm.templates = {
 
     },
 
-    _restoreCss: function (_id) {
+    _restoreCss: function () {
 
         if (!fpcm.templates._cssFilePath) {
             return;
         }
 
-        if (_id === undefined) {
-            _id = fpcm.templates._tplId;
-        }
-
-        let _fid = 'css-file-' + _id;
-
-        document.getElementById(_fid).value = fpcm.templates._cssFilePath;
+        document.getElementById('css-file').value = fpcm.templates._cssFilePath;
     }
 
 };

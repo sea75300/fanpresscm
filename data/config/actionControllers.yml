@@ -17,6 +17,7 @@ templates/templates: action/templates/templates
 templates/templates2: action/templates/templates_new
 templates/preview: action/templates/preview
 templates/templateedit: action/templates/articleTemplateEditor
+templates/editor: action/templates/editor
 users/add: action/users/user/add
 users/edit: action/users/user/edit
 users/list: action/users/userlist

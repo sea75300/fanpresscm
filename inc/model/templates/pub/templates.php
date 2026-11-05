@@ -55,13 +55,13 @@ class templates extends \fpcm\model\abstracts\staticModel {
 
         return $return;
     }
-
+    
     /**
      * Get filename by hash
      * @param string $hash
-     * @return string
+     * @return file|null
      */
-    public function getByHash(string $hash) : string
+    public function getByHash(string $hash) : ?file
     {
         $files = $this->query();
 
@@ -72,7 +72,11 @@ class templates extends \fpcm\model\abstracts\staticModel {
             );
         });
 
-        return $return ?? '';
+        if (!$return) {
+            return null;
+        }
+        
+        return new file($return);
     }
 
     /**

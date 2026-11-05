@@ -144,4 +144,23 @@ class file implements \JsonSerializable {
         );
     }
 
+    /**
+     * Get file content
+     * @return string
+     */
+    public function getContent() : string
+    {
+        return file_get_contents($this->fullPath);
+    }
+
+    /**
+     * Save template file content
+     * @param string $content
+     * @return bool
+     */
+    public function save(string $content) : bool
+    {
+        return file_put_contents($this->filename, $content);
+    }
+
 }
