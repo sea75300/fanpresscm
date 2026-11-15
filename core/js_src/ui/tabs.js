@@ -113,6 +113,7 @@ fpcm.ui_tabs = {
 
 
                             if (_result instanceof Object && _result.dom) {
+                                document.querySelector(_ev.target.dataset.bsTarget).firstChild.remove();
                                 document.querySelector(_ev.target.dataset.bsTarget).appendChild(_result.dom);
                             }
                             else {

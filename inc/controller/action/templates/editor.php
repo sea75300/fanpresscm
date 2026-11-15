@@ -21,12 +21,6 @@ extends \fpcm\controller\abstracts\controller
     use \fpcm\controller\traits\templates\editor;
 
     /**
-     * Parent folder
-     * @var string
-     */
-    private string $parent = '';
-
-    /**
      *
      * @return string
      */
@@ -42,7 +36,8 @@ extends \fpcm\controller\abstracts\controller
     public function request()
     {
         $this->hash = $this->request->fromGET('hash');
-        if (!$this->hash) {
+        $this->parent = $this->request->fromGET('parent');
+        if (!$this->hash || !$this->parent) {
             return false;
         }
 
@@ -93,7 +88,7 @@ extends \fpcm\controller\abstracts\controller
         $jsFiles = ['templates/editor.js'] + $editor->getJsFiles();
 
         $this->view->addJsFiles($jsFiles);
-        $this->view->setFormAction( 'templates/editor', ['hash' => $this->hash] );
+        $this->view->setFormAction('templates/editor', ['hash' => $this->hash]);
         $this->view->assign('file', $this->file);
 
         $this->view->addTabs('atedit', [

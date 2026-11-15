@@ -17,16 +17,22 @@ namespace fpcm\controller\traits\templates;
 trait editor {
 
     /**
-     *
-     * @var \fpcm\model\templates\pub\file|null
+     * File instance
+     * @var null|\fpcm\model\templates\pub\file|\fpcm\model\files\templatefile
      */
-    private ?\fpcm\model\templates\pub\file $file;
+    private null|\fpcm\model\templates\pub\file|\fpcm\model\files\templatefile $file;
 
     /**
      * File hash
      * @var string
      */
     private string $hash = '';
+
+    /**
+     * Parent folder
+     * @var string
+     */
+    private string $parent = '';
 
     /**
      * Access granted?
@@ -37,20 +43,27 @@ trait editor {
         return $this->permissions->system->templates || $this->permissions->system->drafts;
     }
 
-    /**
-     * 
-     * @return \fpcm\model\templates\pub\file|null
-     */
     private function initFile()
     {
-        $this->file = (new \fpcm\model\templates\pub\templates)->getByHash($this->hash);
+        $list = match ($this->parent) {
+            'drafts' => new \fpcm\model\files\templatefilelist(),
+            default => new \fpcm\model\templates\pub\templates(),
+        };
 
-        if (!$this->file instanceof \fpcm\model\templates\pub\file) {
+        $this->file = $list->getByHash($this->hash);
+
+        if (!$this->file instanceof \fpcm\model\templates\pub\file &&
+            !$this->file instanceof \fpcm\model\files\templatefile
+        ) {
             throw new \Exception('GLOBAL_NOTFOUND_FILE');
         }
 
         if (!$this->file->isWritable()) {
             throw new \Exception('FILE_NOT_WRITABLE');
-        }        
+        }
+        
+        if ($this->file instanceof \fpcm\model\files\templatefile) {
+            $this->file->loadContent();
+        }
     }
 }

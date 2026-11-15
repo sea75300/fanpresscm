@@ -67,5 +67,28 @@ final class templatefilelist extends \fpcm\model\abstracts\filelist {
 
         return $ret;
     }
+    
+    /**
+     * Get filename by hash
+     * @param string $hash
+     * @return templatefile|null
+     */
+    public function getByHash(string $hash) : ?templatefile
+    {
+        $files = $this->getFolderList();
+
+        $return = array_find($files, function ($path) use ($hash) {
+            return hash_equals(
+                \fpcm\classes\tools::getHash(basename($path)),
+                $hash
+            );
+        });
+
+        if (!$return) {
+            return null;
+        }
+        
+        return new templatefile(basename($return));
+    }
 
 }

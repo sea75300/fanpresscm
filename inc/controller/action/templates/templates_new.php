@@ -76,8 +76,9 @@ implements \fpcm\controller\interfaces\requestFunctions
                 'TEMPLATES_FOLDER_COMMON', 'GLOBAL_FOLDER',
                 'TEMPLATE_NOT_READABLE', 'TEMPLATE_NOT_WRITABLE',
                 'GLOBAL_LASTCHANGE', 'GLOBAL_PREVIEW',
-                'SAVE_SUCCESS_TEMPLATE',
-                'GLOBAL_NOTFOUND_FILE', 'FILE_NOT_WRITABLE'
+                'SAVE_SUCCESS_TEMPLATE', 'FILE_LIST_FILESIZE',
+                'GLOBAL_NOTFOUND_FILE', 'FILE_NOT_WRITABLE',
+                'TEMPLATES_FOLDER_DRAFTS', 'GLOBAL_NOTFOUND2'
             ],
             //$uploader->getJsLangVars(),
             $this->editor->getJsLangVars()
@@ -108,14 +109,14 @@ implements \fpcm\controller\interfaces\requestFunctions
         $templatesUrl = \fpcm\classes\tools::getFullControllerLink(
             'ajax/templates/list',
             [
-                'list' => 'frontend'
+                'src' => 'frontend'
             ]
         );
 
         $draftsUrl = \fpcm\classes\tools::getFullControllerLink(
             'ajax/templates/list',
             [
-                'list' => 'drafts'
+                'src' => 'drafts'
             ]
         );
 

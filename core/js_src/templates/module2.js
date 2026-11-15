@@ -12,16 +12,26 @@ fpcm.templates = {
 
     init: function() {
 
-//        if (fpcm.dataview.exists('draftfiles')) {
-//            fpcm.dataview.render('draftfiles');
-//        }
-
         fpcm.ui_tabs.render('#fpcm-tabs-templates', {
 
             onRenderHtmlBefore: (_ui, _result) => {
 
                 let _cards = document.createElement('div');
                 _cards.classList.add('mx-2', 'py-1');
+
+                if (_result instanceof Array && !_result.length) {
+                    let _card = document.createElement('div');
+                    _card.classList.add('card', 'my-2');
+                    
+                    let _alert = document.createElement('span');
+                    _alert.classList.add('alert', 'alert-info', 'm-3');
+                    _alert.innerHTML = fpcm.ui.translate('GLOBAL_NOTFOUND2');
+                    _card.appendChild(_alert);
+                    _cards.appendChild(_card);
+                    _result.dom = _cards;
+
+                    return true;
+                }
 
                 for (var _folder in _result) {
 
@@ -81,10 +91,16 @@ fpcm.templates = {
                         }
 
                         let _lastChange = document.createElement('span');
-                        _lastChange.classList.add('badge', 'text-bg-secondary', 'm-2', 'm-lg-0');
+                        _lastChange.classList.add('badge', 'text-bg-secondary', 'm-2');
                         _lastChange.innerHTML = _files[_file].changedTime;
                         _lastChange.title = fpcm.ui.translate('GLOBAL_LASTCHANGE');
                         _row.appendChild(_lastChange);
+
+                        let _filesize = document.createElement('span');
+                        _filesize.classList.add('badge', 'text-bg-secondary', 'm-2');
+                        _filesize.innerHTML = _files[_file].fileSize;
+                        _filesize.title = fpcm.ui.translate('FILE_LIST_FILESIZE');
+                        _row.appendChild(_filesize);
 
                         _list.appendChild(_row);
 
@@ -97,56 +113,6 @@ fpcm.templates = {
                 _result.dom = _cards;
             }
         });
-
-
-        /*fpcm.dom.bindClick('.fpcm-articletemplates-edit', function(_ev, _ui) {
-            fpcm.ui_loader.hide();
-            fpcm.ui_dialogs.create({
-                id: 'draft-editor',
-                title: 'TEMPLATE_HL_DRAFTS_EDIT',
-                url: _ui.attributes.href.value,
-                icon: {
-                    icon: 'file-code'
-                },
-                closeButton: true,
-                dlButtons : [
-                    {
-                        text: 'GLOBAL_SAVE',
-                        icon: "save",
-                        primary: true,
-                        click: function(_ui) {
-                            fpcm.dom.appendAndClickButtonInDialogFrame(_ui, 'btnSaveTemplate');
-                            fpcm.ui_loader.hide();
-                        }
-                    }
-                ]
-            });
-
-            return false;
-
-        });
-
-        fpcm.dom.bindClick('#btnSaveTemplates', function () {
-            fpcm.ui_dialogs.confirm({
-                clickYes: function () {
-                    fpcm.ajax.post('templates/save', {
-                        data: {
-                            content: fpcm.editor_ace.getValue(),
-                            tplid  : fpcm.templates._tplId
-                        },
-                        execDone: function (_result) {
-
-                            if (_result instanceof Object && _result.txt) {
-                                fpcm.ui.addMessage(_result);
-                                return true;
-                            }
-
-                        }
-                    });
-                }
-            });
-        });*/
-
     },
 
     _openEditor: function(_ev) {

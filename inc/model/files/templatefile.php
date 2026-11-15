@@ -16,7 +16,7 @@ namespace fpcm\model\files;
  * @since 3.3
  */
 final class templatefile extends \fpcm\model\abstracts\file
-implements \fpcm\model\interfaces\validateFileType {
+implements \fpcm\model\interfaces\validateFileType, \JsonSerializable {
 
     /**
      * Erlaubte Dateitypen
@@ -107,6 +107,21 @@ implements \fpcm\model\interfaces\validateFileType {
     public static function isValidType(string $ext, string $type, array $map = []) : bool
     {
         return in_array($ext, self::$allowedExts) && in_array($type, self::$allowedTypes);
+    }
+
+    #[\Override]
+    public function jsonSerialize(): mixed
+    {
+        return [
+            'fullPath' => $this->fullpath,
+            'filename' => $this->filename,
+            'parentFolder' => basename($this->filepath),
+            'hash' => $this->getFileNameHash(),
+            'changedTime' => (string) new \fpcm\view\helper\dateText($this->changetime),
+            'fileSize' => $this->filesize,
+            'readable' => $this->isReadable(),
+            'writable' => $this->isWritable(),
+        ];
     }
 
 }

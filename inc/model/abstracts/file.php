@@ -97,6 +97,12 @@ abstract class file implements \Stringable {
     protected $filesize;
 
     /**
+     * Change tile
+     * @var int
+     */
+    protected $changetime;
+
+    /**
      * Dateiinhalt
      * @var string
      */
@@ -149,6 +155,7 @@ abstract class file implements \Stringable {
         if ($this->exists()) {
             $this->extension = self::retrieveFileExtension($this->fullpath);
             $this->filesize = filesize($this->fullpath);
+            $this->changetime = filectime($this->fullpath);
         }
     }
 
@@ -423,7 +430,7 @@ abstract class file implements \Stringable {
      */
     public function isWritable()
     {
-        return is_writable($this->fullpath) ? true : false;
+        return is_writable($this->fullpath);
     }
 
     /**
@@ -433,7 +440,7 @@ abstract class file implements \Stringable {
      */
     public function isReadable()
     {
-        return is_readable($this->fullpath) ? true : false;
+        return is_readable($this->fullpath);
     }
 
     /**
@@ -523,6 +530,14 @@ abstract class file implements \Stringable {
         return base64_encode($this->getFilename());
     }
 
+    /**
+     * Change time
+     * @return int
+     */
+    public function getChangetime(): int {
+        return $this->changetime;
+    }    
+    
     /**
      * Retrieve real file path via finfo
      * @param string $path

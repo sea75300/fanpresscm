@@ -884,6 +884,7 @@ $lang = array (
   'TEMPLATES_FOLDER_ARTICLES' => 'Artikel',
   'TEMPLATES_FOLDER_COMMENTS' => 'Kommentare',
   'TEMPLATES_FOLDER_COMMON' => 'Common',
+  'TEMPLATES_FOLDER_DRAFTS' => 'Drafts',
   'TEMPLATE_ARTICLE_ARTICLEIMAGE' => 'Article image',
   'TEMPLATE_ARTICLE_AUTHOR' => 'Article author',
   'TEMPLATE_ARTICLE_AUTHORAVATAR' => 'Avatar of article author',

@@ -19,7 +19,7 @@ class overview extends \fpcm\controller\abstracts\ajaxController
 {
 
     /**
-     * 
+     *
      * @var array
      */
     private array $list = [];
@@ -40,23 +40,55 @@ class overview extends \fpcm\controller\abstracts\ajaxController
     public function process()
     {
 
+        $fn = match ($this->request->fromGET('src')) {
+            'frontend' => $this->fetchFrontend(),
+            'drafts' => $this->fetchDrafts(),
+            default => false
+        };
+
+        if (!$fn) {
+            $this->response->setReturnData([])->fetch();
+        }
+
+        $this->response->setReturnData($this->list)->fetch();
+    }
+
+    private function fetchFrontend() : bool
+    {
+
         $files = (new \fpcm\model\templates\pub\templates())->get();
 
         if (!count($files)) {
-            $this->response->setReturnData([])->fetch();
+            return false;
         }
-        
+
         /* @var $file \fpcm\model\templates\pub\file */
         foreach ($files as $file) {
-            
+
             if (!isset($this->list[$file->getParentFolder()])) {
                 $this->list[$file->getParentFolder()] = [];
             }
 
             $this->list[$file->getParentFolder()][] = $file;
         }
-        
-        $this->response->setReturnData($this->list)->fetch();
+
+        return true;
+    }
+
+    private function fetchDrafts() : bool
+    {
+        $files = (new \fpcm\model\files\templatefilelist)->getFolderObjectList();
+
+        if (!count($files)) {
+            return false;
+        }
+
+        /* @var $file \fpcm\model\files\templatefile */
+        foreach ($files as $file) {
+            $this->list['drafts'][] = $file;
+        }
+
+        return true;
     }
 
 }

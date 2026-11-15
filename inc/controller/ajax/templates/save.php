@@ -25,14 +25,13 @@ class save extends \fpcm\controller\abstracts\ajaxController
     public function request(): bool
     {
         $this->hash = $this->request->fromPOST('hash');
-        if (!$this->hash) {
-            trigger_error('Cannot save template, not hash value give!');
+        $this->parent = $this->request->fromPOST('parent');
+        if (!$this->hash || !$this->parent) {
+            trigger_error('Cannot save template, invalid data provided!!');
             $this->response->setCode(403)->fetch();
             return false;
         }
 
-        fpcmLogSystem(__METHOD__);
-        
         try {
             $this->initFile();
         } catch (\Exception $e) {
@@ -55,10 +54,18 @@ class save extends \fpcm\controller\abstracts\ajaxController
      */
     public function process()
     {
+        $content = $this->request->fromPOST(
+            'content',
+            [ \fpcm\model\http\request::FILTER_TRIM, \fpcm\model\http\request::FILTER_STRIPSLASHES ]
+        );
 
-        $content = $this->request->fromPOST('content');
-
-        $result = $this->file->save($content);
+        if ($this->file instanceof \fpcm\model\files\templatefile) {
+            $this->file->setContent($content);
+            $result = $this->file->save();
+        }
+        elseif ($this->file instanceof \fpcm\model\templates\pub\file) {
+            $result = $this->file->save($content);
+        }
 
         if ($result) {
 

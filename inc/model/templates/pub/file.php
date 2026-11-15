@@ -50,6 +50,12 @@ class file implements \JsonSerializable {
     private string $changedTime = '';
 
     /**
+     * Fiole size
+     * @var string
+     */
+    private string $fileSize = '';
+
+    /**
      * Readable flag
      * @var bool
      */
@@ -78,6 +84,7 @@ class file implements \JsonSerializable {
         $this->hash = \fpcm\classes\tools::getHash($fullPath);
         $this->readable = is_readable($this->fullPath);
         $this->writable = is_writable($this->fullPath);
+        $this->fileSize = \fpcm\classes\tools::calcSize(filesize($this->fullPath));
         $this->changedTime = (string) new \fpcm\view\helper\dateText(filectime($this->fullPath));
 
     }
