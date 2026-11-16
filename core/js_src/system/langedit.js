@@ -26,7 +26,7 @@ fpcm.langedit = {
             _row.classList.add('row', 'py-2', 'border-bottom', 'border-1', 'border-secondary');
             _row.setAttribute('data-var', _var);
 
-            let _btntyp = fpcm.ui.darkModeEnabled() ? 'btn-dark' : 'btn-light';
+            let _btntyp = fpcm.ui.getComponentClass('btn');
 
             let _btn1 = document.createElement('button');
             _btn1.dataset.varname = _var;

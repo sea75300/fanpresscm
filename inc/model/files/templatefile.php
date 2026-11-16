@@ -118,9 +118,10 @@ implements \fpcm\model\interfaces\validateFileType, \JsonSerializable {
             'parentFolder' => basename($this->filepath),
             'hash' => $this->getFileNameHash(),
             'changedTime' => (string) new \fpcm\view\helper\dateText($this->changetime),
-            'fileSize' => $this->filesize,
+            'fileSize' => \fpcm\classes\tools::calcSize($this->filesize),
             'readable' => $this->isReadable(),
             'writable' => $this->isWritable(),
+            'editRecent' => $this->changetime >= time() - FPCM_ARTICLE_LOCKED_INTERVAL
         ];
     }
 

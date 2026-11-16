@@ -403,7 +403,7 @@ class view {
      */
     public function addJsFiles(array $jsFiles)
     {
-        $this->jsFiles = array_merge($this->jsFiles, $jsFiles);
+        $this->jsFiles = array_merge_recursive($this->jsFiles, $jsFiles);
     }
 
     /**
@@ -412,7 +412,7 @@ class view {
      */
     public function addJsFilesLate(array $jsFilesLate)
     {
-        $this->jsFilesLate = array_merge($this->jsFilesLate, $jsFilesLate);
+        $this->jsFilesLate = array_merge_recursive($this->jsFilesLate, $jsFilesLate);
     }
 
     /**
@@ -421,7 +421,7 @@ class view {
      */
     public function addCssFiles(array $cssFiles)
     {
-        $this->cssFiles = array_merge($this->cssFiles, $cssFiles);
+        $this->cssFiles = array_merge_recursive($this->cssFiles, $cssFiles);
     }
 
     /**
@@ -430,7 +430,7 @@ class view {
      */
     public function addJsVars(array $jsVars)
     {
-        $this->jsVars = array_merge($this->jsVars, $jsVars);
+        $this->jsVars = array_merge_recursive($this->jsVars, $jsVars);
     }
 
     /**
@@ -440,7 +440,7 @@ class view {
      */
     protected function mergeJsVars($jsVar, array $jsVars)
     {
-        $this->jsVars[$jsVar] = array_merge($this->jsVars[$jsVar], $jsVars[$jsVar]);
+        $this->jsVars[$jsVar] = array_merge_recursive($this->jsVars[$jsVar], $jsVars[$jsVar]);
     }
 
     /**
@@ -498,7 +498,7 @@ class view {
         );
 
 
-        $this->jsModuleFiles = array_merge($this->jsModuleFiles, $jsModuleFiles);
+        $this->jsModuleFiles = array_merge_recursive($this->jsModuleFiles, $jsModuleFiles);
         return $this;
     }
 
@@ -822,7 +822,7 @@ class view {
         $this->defaultViewVars->bodyClass = $this->bodyClass;
         $this->defaultViewVars->lang = \fpcm\classes\loader::getObject('\fpcm\classes\language');
         $this->defaultViewVars->filesCss = array_unique( array_map([$this, 'addRootPath'], $this->cssFiles) );
-        $this->defaultViewVars->filesECMAFiles = $this->jsModuleFiles;
+        $this->defaultViewVars->filesECMAFiles = array_unique($this->jsModuleFiles);
         $this->defaultViewVars->filesJs = array_unique( array_map([$this, 'addRootPath'], $this->jsFiles) );
         $this->defaultViewVars->filesJsLate = array_unique( array_map([$this, 'addRootPath'], $this->jsFilesLate) );
 

@@ -68,6 +68,12 @@ class file implements \JsonSerializable {
     private bool $writable = false;
 
     /**
+     * recently edited
+     * @var bool
+     */
+    private bool $editRecent = false;
+
+    /**
      * Constructor
      * @param string $fullPath
      */
@@ -85,8 +91,11 @@ class file implements \JsonSerializable {
         $this->readable = is_readable($this->fullPath);
         $this->writable = is_writable($this->fullPath);
         $this->fileSize = \fpcm\classes\tools::calcSize(filesize($this->fullPath));
-        $this->changedTime = (string) new \fpcm\view\helper\dateText(filectime($this->fullPath));
-
+        
+        $ctime = filectime($this->fullPath);
+        
+        $this->changedTime = (string) new \fpcm\view\helper\dateText($ctime);
+        $this->editRecent = $ctime >= time() - FPCM_ARTICLE_LOCKED_INTERVAL;
     }
 
     /**
@@ -167,7 +176,7 @@ class file implements \JsonSerializable {
      */
     public function save(string $content) : bool
     {
-        return file_put_contents($this->filename, $content);
+        return file_put_contents($this->fullPath, $content);
     }
 
 }

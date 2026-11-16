@@ -10,17 +10,13 @@ namespace fpcm\controller\action\templates;
 /**
  * Template controller
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2022, Stefan Seehafer
+ * @copyright (c) 2026, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 class templates_new
 extends \fpcm\controller\abstracts\controller
 implements \fpcm\controller\interfaces\requestFunctions
 {
-    //use \fpcm\controller\traits\templates\edit;
-
-    private \fpcm\components\editor\aceEditor $editor;
-
     /**
      *
      * @return string
@@ -45,7 +41,6 @@ implements \fpcm\controller\interfaces\requestFunctions
      */
     public function request()
     {
-        $this->editor = new \fpcm\components\editor\aceEditor();
         return true;
     }
 
@@ -55,22 +50,17 @@ implements \fpcm\controller\interfaces\requestFunctions
      */
     public function process()
     {
-        /* @var $uploader \fpcm\components\fileupload\uploader */
-        $uploader = \fpcm\components\components::getFileUploader();
-
-        $this->view->addJsVars(array_merge([
+        $this->view->addJsVars([
             'templateId' => 1,
             'uploadDest' => 'drafts',
             'filemanagerUrl' => \fpcm\classes\tools::getFullControllerLink('files/list', ['mode' => '']),
             'filemanagerMode' => 2,
             'filemanagerPermissions' => $this->permissions->uploads,
-        ], /*$uploader->getJsVars(), */ $this->editor->getJsVars() ));
+        ]);
 
-        //$this->view->addCssFiles($uploader->getCssFiles());
-        $this->view->addJsLangVars(array_merge(
-            [
-                'HL_FILES_MNG', 'ARTICLES_SEARCH', 'FILE_LIST_NEWTHUMBS', 
-                'GLOBAL_DELETE', 'EDITOR_CATEGORIES_SEARCH', 
+        $this->view->addJsLangVars([
+                'HL_FILES_MNG', 'ARTICLES_SEARCH', 'FILE_LIST_NEWTHUMBS',
+                'GLOBAL_DELETE', 'EDITOR_CATEGORIES_SEARCH',
                 'FILE_LIST_UPLOADFORM', 'TEMPLATE_HL_DRAFTS_EDIT',
                 'TEMPLATES_FOLDER_ARTICLES', 'TEMPLATES_FOLDER_COMMENTS',
                 'TEMPLATES_FOLDER_COMMON', 'GLOBAL_FOLDER',
@@ -78,56 +68,39 @@ implements \fpcm\controller\interfaces\requestFunctions
                 'GLOBAL_LASTCHANGE', 'GLOBAL_PREVIEW',
                 'SAVE_SUCCESS_TEMPLATE', 'FILE_LIST_FILESIZE',
                 'GLOBAL_NOTFOUND_FILE', 'FILE_NOT_WRITABLE',
-                'TEMPLATES_FOLDER_DRAFTS', 'GLOBAL_NOTFOUND2'
-            ],
-            //$uploader->getJsLangVars(),
-            $this->editor->getJsLangVars()
-        ));
+                'TEMPLATES_FOLDER_DRAFTS', 'GLOBAL_NOTFOUND2',
+                'GLOBAL_EDIT'
+        ]);
 
-        $this->view->addJsFiles(array_merge(['templates/module2.js'], /*$uploader->getJsFiles(), $this->editor->getJsFiles()*/ ));
-        //$this->view->addJsFilesLate($uploader->getJsFilesLate());
-        //$this->view->setJsModuleFiles($uploader->getJsModuleFiles());
-        $this->view->addDialogs($this->editor->getDialogs());
-
-        //$this->view->setViewVars($uploader->getViewVars());
-
-        $this->view->setFormAction('templates/templates');
-
-        //$this->view->addButtons($buttons);
-
-        $this->initTabs();
-
-        $this->view->render();
-    }
-
-    /**
-     *
-     * @return boolean
-     */
-    private function initTabs()
-    {
-        $templatesUrl = \fpcm\classes\tools::getFullControllerLink(
-            'ajax/templates/list',
-            [
-                'src' => 'frontend'
-            ]
-        );
-
-        $draftsUrl = \fpcm\classes\tools::getFullControllerLink(
-            'ajax/templates/list',
-            [
-                'src' => 'drafts'
-            ]
-        );
+        $this->view->addJsFiles(['templates/module2.js']);
 
         $tabs[] = (new \fpcm\view\helper\tabItem('tpl-frontend'))
-                ->setText('Frontend-Templates')
-                ->setUrl($templatesUrl);
+                ->setText('HL_OPTIONS_TEMPLATES')
+                ->setUrl('ajax/templates/list', ['src' => 'frontend']);
 
         if ($this->permissions->system->drafts) {
+            
+            $this->view->addFromComponent(\fpcm\components\components::getFileUploader());
+            
+            $this->view->includeForms('templates');
+
+            $this->view->addButton(
+                (new \fpcm\view\helper\button('fileUpload'))
+                    ->setText('FILE_LIST_UPLOADFORM')
+                    ->setIcon('upload')
+                    ->setData([
+                        'bs-toggle' => 'offcanvas',
+                        'bs-target' => '#offcanvasUpload'
+                    ])
+                    ->setAria([
+                        'bs-controls' => 'offcanvasUpload',
+                    ])
+                    ->setPrimary()
+            );
+
             $tabs[] = (new \fpcm\view\helper\tabItem('tpl-drafts'))
                     ->setText('TEMPLATE_HL_DRAFTS')
-                    ->setUrl($draftsUrl);
+                    ->setUrl('ajax/templates/list', ['src' => 'drafts']);
         }
 
         $this->view->addTabs(
@@ -136,7 +109,7 @@ implements \fpcm\controller\interfaces\requestFunctions
             active: $this->getActiveTab()
         );
 
-        return true;
+        $this->view->render();
     }
 
 }

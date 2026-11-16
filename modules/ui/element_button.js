@@ -27,6 +27,8 @@ export class element_button {
     primary = false;
 
     onClick = null;
+    
+    _destination = null;
 
     assignToDom(_destination) {
 
@@ -34,6 +36,26 @@ export class element_button {
             console.warn('No element given to assign fpcm_ui_button to.');
             return false;
         }
+
+        _destination.appendChild(this._build());
+    }
+
+    assignFormObject(_field) {
+
+        for (var _idx in this) {
+            if (!_field[_idx]) {
+                continue;
+            }
+
+            this[_idx] = _field[_idx];
+        }
+    }
+
+    getAsDom() {
+        return this._build();
+    }
+    
+    _build() {
 
         if (!this.name && !this.id) {
             console.warn('An element of fpcm_ui_input requires at least a name or id');
@@ -64,8 +86,7 @@ export class element_button {
 
             if (this.iconOnly) {
                 _button.title = this.text;
-                _destination.appendChild(_button);
-                return;
+                return _button;
             }
         }
 
@@ -76,17 +97,6 @@ export class element_button {
             _button.appendChild(_labelSpan);
         }
 
-        _destination.appendChild(_button);
-    }
-
-    assignFormObject(_field) {
-
-        for (var _idx in this) {
-            if (!_field[_idx]) {
-                continue;
-            }
-
-            this[_idx] = _field[_idx];
-        }
+        return _button;
     }
 }

@@ -87,14 +87,20 @@ class tabItem extends helper {
     {
         return $this->dataViewId;
     }
-
+    
     /**
-     * Set tab URL
+     * Set tab url
      * @param string $url
+     * @param array $params
      * @return $this
      */
-    public function setUrl($url)
+    public function setUrl(string $url, array $params = [])
     {
+        
+        if (count($params)) {
+            $url = \fpcm\classes\tools::getFullControllerLink($url, $params);
+        }
+        
         $this->url = $url;
         return $this;
     }

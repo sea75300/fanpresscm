@@ -22,7 +22,7 @@ fpcm.templates = {
                 if (_result instanceof Array && !_result.length) {
                     let _card = document.createElement('div');
                     _card.classList.add('card', 'my-2');
-                    
+
                     let _alert = document.createElement('span');
                     _alert.classList.add('alert', 'alert-info', 'm-3');
                     _alert.innerHTML = fpcm.ui.translate('GLOBAL_NOTFOUND2');
@@ -49,14 +49,10 @@ fpcm.templates = {
                     let _files = _result[_folder];
                     for (var _file in _files) {
 
-                        let _row = document.createElement('a');
-                        _row.classList.add('list-group-item', 'list-group-item-action', 'py-3', 'd-flex', 'flex-column', 'flex-lg-row', 'align-items-center');
-                        _row.href = fpcm.vars.actionPath + 'templates/editor&hash=' + _files[_file].hash + '&parent=' + _files[_file].parentFolder;
-                        _row.addEventListener('click', fpcm.templates._openEditor);
-                        _row.appendChild((new fpcm.ui.forms.icon('file', 'lg')).getAsDom());
-                        _row.dataset.name = _files[_file].filename;
-                        _row.dataset.hash = _files[_file].hash;
-                        _row.dataset.parent = _files[_file].parentFolder;                        
+                        let _row = document.createElement('div');
+                        _row.classList.add('list-group-item', 'py-3', 'd-flex', 'flex-column', 'flex-lg-row', 'align-items-center');
+
+                        fpcm.templates._addButtons(_row, _files[_file], _folder === 'drafts');
 
                         let _descr = document.createElement('span');
                         _descr.classList.add('fpcm', 'ui-label', 'ps-2', 'flex-grow-1', 'mt-3', 'mt-lg-0');
@@ -77,7 +73,7 @@ fpcm.templates = {
                             _row.dataset.editable = 0;
 
                             let _msg = document.createElement('span');
-                            _msg.classList.add('badge', 'text-bg-danger', 'm-2', 'me-md-5', 'text-truncate');
+                            _msg.classList.add('badge', 'text-bg-danger', 'm-2', 'me-lg-5', 'text-truncate');
                             _msg.appendChild((new fpcm.ui.forms.icon('triangle-exclamation', 'lg')).getAsDom());
 
                             let _msgLabel = document.createElement('span');
@@ -91,16 +87,24 @@ fpcm.templates = {
                         }
 
                         let _lastChange = document.createElement('span');
-                        _lastChange.classList.add('badge', 'text-bg-secondary', 'm-2');
-                        _lastChange.innerHTML = _files[_file].changedTime;
-                        _lastChange.title = fpcm.ui.translate('GLOBAL_LASTCHANGE');
-                        _row.appendChild(_lastChange);
 
-                        let _filesize = document.createElement('span');
-                        _filesize.classList.add('badge', 'text-bg-secondary', 'm-2');
-                        _filesize.innerHTML = _files[_file].fileSize;
-                        _filesize.title = fpcm.ui.translate('FILE_LIST_FILESIZE');
-                        _row.appendChild(_filesize);
+                        let _bg = 'text-bg-secondary';;
+                        if (_files[_file].editRecent) {
+                            _bg = 'text-bg-warning';
+                        }
+
+                        if (_files[_file].readable) {
+                            _lastChange.classList.add('badge', _bg, 'm-2');
+                            _lastChange.innerHTML = _files[_file].changedTime;
+                            _lastChange.title = fpcm.ui.translate('GLOBAL_LASTCHANGE');
+                            _row.appendChild(_lastChange);
+
+                            let _filesize = document.createElement('span');
+                            _filesize.classList.add('badge', 'text-bg-secondary', 'm-2');
+                            _filesize.innerHTML = _files[_file].fileSize;
+                            _filesize.title = fpcm.ui.translate('FILE_LIST_FILESIZE');
+                            _row.appendChild(_filesize);
+                        }
 
                         _list.appendChild(_row);
 
@@ -122,7 +126,7 @@ fpcm.templates = {
         fpcm.ui_dialogs.create({
             id: 'template-editor',
             title: fpcm.ui.translate('TEMPLATE_HL_DRAFTS_EDIT') + ' - ' + _ev.currentTarget.dataset.name,
-            url: _ev.currentTarget.href,
+            url: _ev.currentTarget.dataset.url,
             icon: {
                 icon: 'file-code'
             },
@@ -164,7 +168,26 @@ fpcm.templates = {
                 content: _value
             },
             execDone: function (_result) {
+                fpcm.ui_tabs.show('#fpcm-tabs-templates', fpcm.ui_tabs.getActiveTab());
                 fpcm.ui_dialogs.close('template-editor');
+            }
+        });
+    },
+
+    _deleteDraft: function(_ev) {
+
+        let _hash = _ev.currentTarget.dataset.hash;
+
+        fpcm.ui_dialogs.confirm({
+            clickYes: function () {
+                fpcm.ajax.post('templates/delete', {
+                    data: {
+                        hash: _hash,
+                    },
+                    execDone: function () {
+                        fpcm.ui_tabs.show('#fpcm-tabs-templates', 1);
+                    }
+                });
             }
         });
     },
@@ -222,6 +245,40 @@ fpcm.templates = {
         }
 
         document.getElementById('css-file').value = fpcm.templates._cssFilePath;
+    },
+
+    _addButtons: function (_row, _file, _showDelete) {
+
+        if (!_file.writable) {
+            return false;
+        }
+
+        let _open = document.createElement('a');
+        _open.classList.add('btn', 'btn-secondary', 'mx-0', 'me-lg-2', 'shadow-sm');
+        _open.dataset.url = fpcm.vars.actionPath + 'templates/editor&hash=' + _file.hash + '&parent=' + _file.parentFolder;
+        _open.dataset.name = _file.filename;
+        _open.dataset.hash = _file.hash;
+        _open.dataset.parent = _file.parentFolder;
+        _open.addEventListener('click', fpcm.templates._openEditor);
+        _open.title = fpcm.ui.translate('GLOBAL_EDIT');
+
+        let _iconPen = new fpcm.ui.forms.icon('pen');
+        _open.appendChild(_iconPen.getAsDom());
+        _row.appendChild(_open);
+
+        if (!_showDelete) {
+            return;
+        }
+
+        let _delete = document.createElement('a');
+        _delete.classList.add('btn', 'btn-outline-secondary', 'my-2', 'mx-0', 'my-lg-0', 'mx-lg-2', 'shadow-sm');
+        _delete.dataset.hash = _file.hash;
+        _delete.addEventListener('click', fpcm.templates._deleteDraft);
+        _delete.title = fpcm.ui.translate('GLOBAL_EDIT');
+
+        let _iconnTrash = new fpcm.ui.forms.icon('trash');
+        _delete.appendChild(_iconnTrash.getAsDom());
+        _row.appendChild(_delete);
     }
 
 };
@@ -229,7 +286,7 @@ fpcm.templates = {
 fpcm.filemanager = {
 
     runFileIndexUpdate: function (_params) {
-        fpcm.ui.relocate('?module=templates/templates&rg=6');
+        fpcm.ui_tabs.show('#fpcm-tabs-templates', 1);
     },
 
     getAcceptTypes: function ()
