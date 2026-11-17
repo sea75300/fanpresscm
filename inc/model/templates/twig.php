@@ -121,7 +121,7 @@ class twig
         $this->scriptVars = $vars;
         return true;
     }
-    
+
     /**
      * Render Twig based template
      * @param bool $boolOnError
@@ -144,19 +144,7 @@ class twig
                 'debug' => (bool) \fpcm\classes\baseconfig::debugModeActive()
             ]);
 
-            $twig->addGlobal('fpcm', [
-                self::VAR_BASE_PATH => \fpcm\classes\tools::getFullControllerLink(),
-                self::VAR_DEBUG => \fpcm\classes\baseconfig::debugModeActive(),
-                self::VAR_LOGGED_IN => \fpcm\model\system\session::getInstance()->exists(),
-                self::VAR_PERMISSIONS => $this->fetchPermissions(),
-                self::VAR_SHARE => [
-                    'show' => $this->getConfig()->system_show_share,
-                    'count' => $this->getConfig()->system_share_count
-                ],
-                self::VAR_COMMENTS_ACTIVE => $this->getConfig()->system_comments_enabled,
-                self::VAR_JS_VARS => $this->scriptVars
-
-            ]);
+            $twig->addGlobal('fpcm', $this->getGlobals());
 
             if (\fpcm\classes\baseconfig::debugModeActive()) {
                 $twig->addExtension(new \Twig\Extension\DebugExtension());
@@ -176,11 +164,11 @@ class twig
             return $twig->render($this->template, $this->variables);
         } catch (\Exception $exc) {
             trigger_error($exc, E_USER_NOTICE);
-            
+
             if ($boolOnError) {
                 return false;
             }
-            
+
             return 'TWIG ERROR!';
         }
 
@@ -280,4 +268,40 @@ class twig
     {
         return \fpcm\model\files\ops::deleteRecursive($this->cachePath);
     }
+    
+    /**
+     * Assign example objects to template
+     * @return bool
+     */
+    public function asExample(): bool
+    {
+        return true;
+    }
+
+    /**
+     * Get template variables
+     * @return array
+     */
+    final public function getVariables(): array
+    {
+        return $this->variables;
+    }
+    
+    final public function getGlobals() : array
+    {
+        return [
+            self::VAR_BASE_PATH => \fpcm\classes\tools::getFullControllerLink(),
+            self::VAR_DEBUG => \fpcm\classes\baseconfig::debugModeActive(),
+            self::VAR_LOGGED_IN => \fpcm\model\system\session::getInstance()->exists(),
+            self::VAR_PERMISSIONS => $this->fetchPermissions(),
+            self::VAR_SHARE => [
+                'show' => $this->getConfig()->system_show_share,
+                'count' => $this->getConfig()->system_share_count
+            ],
+            self::VAR_COMMENTS_ACTIVE => $this->getConfig()->system_comments_enabled,
+            self::VAR_JS_VARS => $this->scriptVars
+
+        ];
+    }
+
 }

@@ -8,28 +8,56 @@
 namespace fpcm\components\editor\conf;
 
 /**
- * TinyMCE 5 based editor plugin config class
+ * ACE editor based plugin config class
  *
  * @package fpcm\components\editor\conf
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2025, Stefan Seehafer
+ * @copyright (c) 2025-2026, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @since 5.3.0-dev
  */
 class aceVars {
 
-    /*use \fpcm\model\traits\jsonSerializeReturnObject;*/
+    /**
+     * Toolbar teplate path
+     * @var string
+     */
+    private string $toolbarTpl = 'components/editor/ace_toolbar.php';
 
-    private $toolbarTpl = 'components/editor/ace_toolbar.php';
+    /**
+     * Editor styles
+     * @var array
+     */
+    private array $editorStyles = [];
 
-    private $editorStyles = [];
+    /**
+     * Editor font sizes
+     * @var array
+     */
+    private array $editorFontsizes = [];
 
-    private $editorFontsizes = [];
+    /**
+     * Editor paragraphs
+     * @var array
+     */
+    private array $editorParagraphs = [];
 
-    private $editorParagraphs = [];
+    /**
+     * Editor buttons
+     * @var array
+     */
+    private array $editorButtons = [];
 
-    private $editorButtons = [];
+    /**
+     * Editor HTML tags list
+     * @var array
+     */
+    private array $allowedTagsList = [];
 
+    /**
+     * Constructor
+     * @param array $editorStyles
+     */
     public function __construct(array $editorStyles)
     {
         $this->editorStyles = array_map(function ($val) {
@@ -218,6 +246,27 @@ class aceVars {
         unset($this->editorButtons['quote']);
         $this->editorButtons['pagebreak']->setReturned(true);
         unset($this->editorButtons['pagebreak']);
+    }
+
+    /**
+     * Set
+     * @param type $allowedTagsList
+     * @return static
+     */
+    public function setTagsList(array $allowedTagsList): static
+    {
+        $this->allowedTagsList = array_map(function ($tag) {
+
+            $t = substr($tag, 1, -1);
+
+            return (new \fpcm\view\helper\dropdownItem('tag-'.\fpcm\classes\tools::getHash($tag)))
+                    ->setText(htmlspecialchars($tag))
+                    ->setValue($t)
+                    ->setClass('fpcm-editor-ace-item')
+                    ->setData(['htmltag' => $t]);
+
+        }, $allowedTagsList);
+        return $this;
     }
 
 }

@@ -47,7 +47,17 @@ class aceEditor extends articleEditor {
         'EDITOR_HTML_BUTTONS_ARIGHT' => 'right'
     ];
 
+    /**
+     * CSS styles array
+     * @var array
+     */
     protected array $styles = [];
+
+    /**
+     * HTML tags array
+     * @var array
+     */
+    protected array $tagEditor = [];
 
     /**
      * Liefert zu ladender CSS-Dateien für Editor zurück

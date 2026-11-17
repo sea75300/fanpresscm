@@ -5,7 +5,7 @@
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
-namespace fpcm\model\templates\pub\articles;
+namespace fpcm\model\templates\pub\comments;
 
 
 /**
@@ -59,7 +59,7 @@ class form extends \fpcm\model\templates\twig
      * @return bool
      */
     #[\Override]
-    public function onBeforeRender(\Twig\Environment &$twig): bool
+    public function onBeforeRender(): bool
     {
         return $this->fromSystemTemplate(
             'comment_form.html.twig', //$this->getConfig()->articles_template_active,

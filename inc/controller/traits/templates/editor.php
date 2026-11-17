@@ -46,7 +46,7 @@ trait editor {
     private function initFile()
     {
         $list = match ($this->parent) {
-            'drafts' => new \fpcm\model\files\templatefilelist(),
+            \fpcm\model\templates\variables::drafts->value => new \fpcm\model\files\templatefilelist(),
             default => new \fpcm\model\templates\pub\templates(),
         };
 

@@ -3,8 +3,12 @@
 
     <div class="d-flex gap-1 me-1 mb-1" role="group" aria-label="<?php $theView->write('TEMPLATE_EDITOR'); ?>">
 
+    <?php if (isset($variables) && count($variables)) : ?>
+        <?php $theView->dropdown('editor-variables')->setOptions($variables)->setText('TEMPLATE_REPLACEMENTS')->setSelected('')->setIcon('gem'); ?>
+    <?php endif; ?>
+
     <?php if (isset($allowedTagsList) && count($allowedTagsList)) : ?>
-        <?php $theView->dropdown('editor-tags')->setOptions($allowedTagsList)->setText('GLOBAL_HTMLTAGS_ALLOWED')->setSelected('')->setIcon('code'); ?>
+        <?php $theView->dropdown('editor-tags')->setOptions($allowedTagsList)->setText('GLOBAL_HTMLTAGS')->setSelected('')->setIcon('code'); ?>
     <?php endif; ?>
 
     <?php if (isset($editorStyles) && count($editorStyles)) : ?>

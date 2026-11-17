@@ -42,11 +42,11 @@ extends \fpcm\controller\abstracts\controller
         }
 
         try {
-            $this->initFile();            
+            $this->initFile();
         } catch (\Exception $e) {
             $this->view->addErrorMessage($e->getMessage());
             return true;
-        }        
+        }
 
         return true;
     }
@@ -63,6 +63,13 @@ extends \fpcm\controller\abstracts\controller
 
         $viewVars = $editor->getViewVars();
         $viewVars->prepareDrafts();
+        $viewVars->setTagsList([
+            '<br>', '<hr>',
+            '<div>', '<span>', '<header>', '<article>', '<section>', '<footer>',
+            '<script>', '<iframe>', '<label>', '<path>',
+            '<input>', '<button>', '<select>', '<option>',
+            '<svg>', '<figure>'
+        ]);
 
         $this->view->setViewVars($viewVars->toArray());
         $this->view->addCssFiles($editor->getCssFiles());
@@ -98,7 +105,55 @@ extends \fpcm\controller\abstracts\controller
         ]);
 
         $this->view->setBodyClass('m-2');
+        
+        $this->getVariablesByTemplate();
 
         $this->view->render();
+    }
+
+    /**
+     * Get Variables by called template
+     * @return void
+     */
+    public function getVariablesByTemplate() : void
+    {
+        if ($this->parent === \fpcm\model\templates\variables::drafts->value) {
+            return;
+        }
+
+        $filename = $this->file->getFilename();
+        
+        $tpl = match ($this->parent) {
+            \fpcm\model\templates\variables::articles->value => new \fpcm\model\templates\pub\articles\single(),
+            \fpcm\model\templates\variables::comments->value => new \fpcm\model\templates\pub\comments\single(),
+            default => null
+        };        
+        
+        if ($this->parent === \fpcm\model\templates\variables::comments->value &&
+            (
+                str_starts_with($filename, \fpcm\model\templates\variables::form->value) ||
+                str_ends_with($filename, \fpcm\model\templates\variables::form->value)
+            )
+        ) {
+            $tpl = new \fpcm\model\templates\pub\comments\form();
+        }
+        elseif (substr($filename, -11) === \fpcm\model\templates\variables::extTplOverview->value) {
+
+            $tpl = match ($this->parent) {
+                \fpcm\model\templates\variables::articles->value => new \fpcm\model\templates\pub\articles\overview(),
+                \fpcm\model\templates\variables::comments->value => new \fpcm\model\templates\pub\comments\overview(),
+                default => null
+            };
+        }
+        
+        if (!$tpl instanceof \fpcm\model\templates\twig) {
+            return;
+        }
+        
+        $tpl->asExample();
+        
+        fpcmLogSystem($tpl->getGlobals());
+        fpcmLogSystem($tpl->getVariables());
+
     }
 }
